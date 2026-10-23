@@ -15,6 +15,7 @@ public sealed class RewardNotification : INotifyPropertyChanged
     public RewardKind Kind { get; init; }
     public string AggregationKey { get; init; } = "";
     public string ItemName { get; init; } = "";
+    public int ItemId { get; init; }
     public long Amount { get => _amount; set => Set(ref _amount, value); }
     public double Percentage { get => _percentage; set => Set(ref _percentage, value); }
     public bool HasPercentage { get => _hasPercentage; set => Set(ref _hasPercentage, value); }

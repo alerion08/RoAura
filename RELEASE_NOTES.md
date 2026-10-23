@@ -294,6 +294,26 @@
 - Database panels are owned by the Ragnarok window so the first in-game click no longer sends them behind fullscreen clients, while Alt, Ctrl, and Shift remain available.
 - Completed English localization for the new database controls and overlay messages.
 
+# RoAura 2.13.0
+
+## Русский
+
+- Добавлен новый раздел Gold Goblin: таблица всей добычи за сессию с количеством, ценой за единицу и общей стоимостью.
+- В комплект включена отдельная база NPC sell value, собранная со страниц предметов SpringRO.
+- Добавлены особые правила цены: минимальная цена продажи с Vending и ручная цена с автоматическим fallback.
+- Добавлена настройка Overcharge 0–10; бонус применяется только к предметам, оцениваемым по NPC.
+- Loot-уведомления могут показывать стоимость предмета в Zeny, а Zeny per hour — учитывать стоимость добычи Gold Goblin.
+- Добавлены отдельные пиксельные иконки Gold Goblin и базы данных.
+
+## English
+
+- Added the new Gold Goblin section: a session loot table with item count, unit cost, and total value.
+- Bundled a dedicated NPC sell-value database collected from the official SpringRO item pages.
+- Added special pricing rules using the lowest current Vending sell price and a manual fallback price.
+- Added Overcharge levels 0–10; the bonus applies only to NPC-valued items.
+- Loot notifications can show the calculated Zeny value, and Zeny per hour can include Gold Goblin loot value.
+- Added dedicated pixel-art icons for Gold Goblin and the database.
+
 # RoAura 2.12.2
 
 - Исправлен запуск RoAura через галочку «Запустить RoAura» на последней странице установщика: приложение теперь запускается системным ShellExecute с корректной обработкой UAC вместо ошибки CreateProcess 740.

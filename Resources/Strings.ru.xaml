@@ -153,6 +153,8 @@
     <sys:String x:Key="GeneralSettings">Общие настройки</sys:String>
     <sys:String x:Key="EnableRewardNotifications">Показывать полученный лут, Zeny и опыт</sys:String>
     <sys:String x:Key="ShowJobExperience">Показывать Job EXP</sys:String>
+    <sys:String x:Key="ShowLootZenyPrice">Zeny Price — показывать стоимость в уведомлении лута</sys:String>
+    <sys:String x:Key="IncludeGoldGoblinInZenyPerHour">Gold Goblin — учитывать стоимость лута в Zeny per hour</sys:String>
     <sys:String x:Key="RewardLimitHint">Повторяющиеся предметы и Zeny суммируются в течение окна сбора. Лимит строк защищает от большого полотна. Для процента EXP и первого начисления Zeny запускайте RoAura до входа персонажем или один раз перезайдите.</sys:String>
     <sys:String x:Key="OverlayMoveRewardGroup">Перетащите группу уведомлений. ESC — сохранить.</sys:String>
     <sys:String x:Key="LootTypeColors">Цвета лута по типу предмета</sys:String>
@@ -180,4 +182,17 @@
     <sys:String x:Key="DatabaseDescription">Поиск по монстрам, предметам и картам. Результаты связаны: из монстра можно открыть предмет или карту, из предмета — монстров-источников, из карты — всех монстров на ней.</sys:String>
     <sys:String x:Key="DatabaseInputHint">Пока база открыта, клавиатурный ввод направляется в поиск и не попадает в RO. Повторное нажатие горячей клавиши закрывает базу.</sys:String>
     <sys:String x:Key="MarketRefreshInterval">Обновлять маркет в фоне каждые, мин</sys:String>
+    <sys:String x:Key="GoldGoblin">Gold Goblin</sys:String>
+    <sys:String x:Key="Item">Предмет</sys:String>
+    <sys:String x:Key="Count">Количество</sys:String>
+    <sys:String x:Key="Cost">Цена</sys:String>
+    <sys:String x:Key="Total">Сумма</sys:String>
+    <sys:String x:Key="SessionTotal">Итого за сессию:</sys:String>
+    <sys:String x:Key="ResetSession">Сбросить сессию</sys:String>
+    <sys:String x:Key="OverchargeLevel">Overcharge, уровень</sys:String>
+    <sys:String x:Key="OverchargeHint">0 — без наценки; 10 — +24% к NPC цене</sys:String>
+    <sys:String x:Key="SpecialPriceRules">Особые правила цены</sys:String>
+    <sys:String x:Key="VendingPrice">Vending Price</sys:String>
+    <sys:String x:Key="ManualPrice">Manual Price</sys:String>
+    <sys:String x:Key="ItemNameOrPart">Название предмета или его часть</sys:String>
 </ResourceDictionary>

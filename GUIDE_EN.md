@@ -1,4 +1,10 @@
-# RoAura 2.12.2 — user guide
+# RoAura 2.13.0 — user guide
+
+## Gold Goblin
+
+This section is available for the SpringRO profile. Received loot is automatically added to the `Item / Count / Cost / Total` table. The default cost is the official NPC sell value. Select an Overcharge level to apply the NPC selling bonus. Special price rules can use the lowest current Vending sell price and/or a manual price; when Vending is enabled, the manual value is used if the item is not listed. “Reset session” clears accumulated loot.
+
+In “Loot / Zeny / EXP”, `Zeny Price` appends the calculated value to loot notifications, while `Gold Goblin` includes loot value in Zeny per hour.
 
 ## In-game database
 
@@ -152,6 +158,6 @@ Install .NET 8 SDK and run:
 powershell -ExecutionPolicy Bypass -File .\build-release.ps1
 ```
 
-Output: `artifacts\RoAura-2.12.2-portable.zip`. Install Inno Setup 6 and run `build-installer.ps1` for Setup.
+Output: `artifacts\RoAura-2.13.0-portable.zip`. Install Inno Setup 6 and run `build-installer.ps1` for Setup.
 
 Links: https://twitch.tv/im_alerion · http://discord.gg/aleriontv · https://www.donationalerts.com/r/im_alerion · https://rtm-refuge.online

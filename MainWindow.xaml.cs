@@ -20,6 +20,7 @@ public partial class MainWindow : Window
     private readonly SettingsStore _store;
     private readonly OverlayWindow _overlay;
     private readonly NpcapPacketCapture _packetCapture;
+    private readonly GoldGoblinService _goldGoblin;
     private bool _shutdownStarted;
     private bool _languageReady;
     private bool _serverProfileReady;
@@ -38,12 +39,14 @@ public partial class MainWindow : Window
     private int _appliedPacketServerPort;
 
     public ICollectionView MvpMonsterView { get; }
+    public ObservableCollection<GoldGoblinLootRow> GoldGoblinRows => _goldGoblin.Rows;
 
     public AppSettings Settings { get; }
 
     public MainWindow(AppSettings settings, SettingsStore store, OverlayWindow overlay,
-        NpcapPacketCapture packetCapture)
+        NpcapPacketCapture packetCapture, GoldGoblinService goldGoblin)
     {
+        _goldGoblin = goldGoblin;
         _monsters = new ObservableCollection<MonsterEntry>(MonsterCatalogService.Load(settings.MvpDatabaseVersion));
         _items = ItemCatalogService.Load(settings.LootDatabaseVersion);
         MvpMonsterView = CollectionViewSource.GetDefaultView(_monsters);
@@ -53,6 +56,7 @@ public partial class MainWindow : Window
         _store = store;
         _overlay = overlay;
         _packetCapture = packetCapture;
+        _goldGoblin.Changed += GoldGoblin_Changed;
         _packetCapture.StatusChanged += OnLearningStatusObserved;
         _packetCapture.SkillUsed += OnLearningSkillObserved;
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
@@ -73,6 +77,7 @@ public partial class MainWindow : Window
         if (settings.RewardChannels.Count > 0) RewardChannelsGrid.SelectedIndex = 0;
         if (settings.RewardGroups.Count > 0) RewardGroupBox.SelectedIndex = 0;
         if (settings.RateIndicators.Count > 0) RateIndicatorsGrid.SelectedIndex = 0;
+        if (settings.GoldGoblinPriceRules.Count > 0) GoldGoblinRulesGrid.SelectedIndex = 0;
         LanguageBox.SelectedIndex = settings.Language == "en" ? 1 : 0;
         UpdateServerProfileLabels();
         RefreshPresetList(_store.ActiveProfileName);
@@ -131,6 +136,9 @@ public partial class MainWindow : Window
         LootNavButton.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
         MvpTab.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
         LootTab.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
+        var supportsGoldGoblin = profile == GameServerProfile.SpringRo;
+        GoldGoblinNavButton.Visibility = supportsGoldGoblin ? Visibility.Visible : Visibility.Collapsed;
+        GoldGoblinTab.Visibility = supportsGoldGoblin ? Visibility.Visible : Visibility.Collapsed;
         DatabaseNavButton.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
         DatabaseTab.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
         DatabaseHotkeyControls.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
@@ -159,6 +167,43 @@ public partial class MainWindow : Window
     }
 
     private string T(string ru, string en) => Settings.Language == "en" ? en : ru;
+
+    private void GoldGoblin_Changed()
+    {
+        if (!Dispatcher.CheckAccess()) { Dispatcher.BeginInvoke(GoldGoblin_Changed); return; }
+        if (GoldGoblinTotalText is not null)
+            GoldGoblinTotalText.Text = $"{_goldGoblin.SessionTotal:N0} Z";
+    }
+
+    private void AddGoldGoblinRule_Click(object sender, RoutedEventArgs e)
+    {
+        var query = GoldGoblinRuleNameBox.Text.Trim();
+        if (query.Length == 0) return;
+        var item = _items.Values.FirstOrDefault(value => value.Name.Equals(query, StringComparison.CurrentCultureIgnoreCase))
+                   ?? _items.Values.FirstOrDefault(value => value.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase));
+        if (item is null)
+        {
+            SetStatus(T("Предмет не найден в базе SpringRO.", "Item was not found in the SpringRO database."));
+            return;
+        }
+        var existing = Settings.GoldGoblinPriceRules.FirstOrDefault(rule => rule.ItemId == item.Id);
+        if (existing is null)
+        {
+            existing = new GoldGoblinPriceRule { ItemId = item.Id, Name = item.Name };
+            Settings.GoldGoblinPriceRules.Add(existing);
+        }
+        GoldGoblinRulesGrid.SelectedItem = existing;
+        _goldGoblin.Reprice();
+    }
+
+    private void DeleteGoldGoblinRule_Click(object sender, RoutedEventArgs e)
+    {
+        if (GoldGoblinRulesGrid.SelectedItem is not GoldGoblinPriceRule rule) return;
+        Settings.GoldGoblinPriceRules.Remove(rule);
+        _goldGoblin.Reprice();
+    }
+
+    private void ResetGoldGoblin_Click(object sender, RoutedEventArgs e) => _goldGoblin.Reset();
 
     private void Header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
@@ -323,6 +368,7 @@ public partial class MainWindow : Window
         MvpTimersGrid.CommitEdit();
         RewardChannelsGrid.CommitEdit();
         RateIndicatorsGrid.CommitEdit();
+        GoldGoblinRulesGrid.CommitEdit();
         Settings.SyncBuffPanelGroups();
         Settings.SyncRewardGroups();
         Settings.SyncRateIndicators();

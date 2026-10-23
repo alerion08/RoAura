@@ -26,6 +26,7 @@ public partial class OverlayWindow : Window
 
     private readonly AppSettings _settings;
     private readonly SettingsStore _store;
+    private readonly GoldGoblinService _goldGoblin;
     private readonly DispatcherTimer _timer;
     private readonly Dictionary<Guid, DateTime> _cooldownEnds = [];
     private readonly List<MediaPlayer> _soundPlayers = [];
@@ -106,11 +107,13 @@ public partial class OverlayWindow : Window
         foreach (var group in _settings.RewardGroups) group.Notifications.Clear();
     }
 
-    public OverlayWindow(AppSettings settings, SettingsStore store)
+    public OverlayWindow(AppSettings settings, SettingsStore store, GoldGoblinService goldGoblin)
     {
         InitializeComponent();
         _settings = settings;
         _store = store;
+        _goldGoblin = goldGoblin;
+        _goldGoblin.Changed += () => Dispatcher.BeginInvoke(() => UpdateRateIndicators(true));
         DataContext = settings;
         _settings.SyncBuffPanelGroups();
         _settings.SyncRewardGroups();
@@ -383,7 +386,7 @@ public partial class OverlayWindow : Window
     }
 
     public void ShowLootReward(int itemId, string itemName, string itemType, int count) =>
-        ShowReward(RewardKind.Loot, $"item:{itemId}", itemName, count, 0, itemType);
+        ShowReward(RewardKind.Loot, $"item:{itemId}", itemName, count, 0, itemType, itemId);
 
     public void ShowZenyReward(long amount) =>
         ShowReward(RewardKind.Zeny, "zeny", "Zeny", amount, 0);
@@ -408,7 +411,7 @@ public partial class OverlayWindow : Window
     }
 
     private void ShowReward(RewardKind kind, string aggregationKey, string label,
-        long amount, double percentage, string? itemType = null)
+        long amount, double percentage, string? itemType = null, int itemId = 0)
     {
         if (!_settings.RewardsEnabled || amount <= 0 ||
             !GameServerProfile.SupportsServerDatabases(_settings.ServerProfile)) return;
@@ -430,6 +433,7 @@ public partial class OverlayWindow : Window
                 Kind = kind,
                 AggregationKey = aggregationKey,
                 ItemName = label,
+                ItemId = itemId,
                 Color = kind == RewardKind.Loot ? channel.ColorForItemType(itemType) : channel.TextColor,
                 Amount = amount,
                 Percentage = Math.Max(0, percentage),
@@ -536,6 +540,7 @@ public partial class OverlayWindow : Window
         _jobExperienceStartedUtc = null;
         _sessionZeny = 0;
         _zenyStartedUtc = null;
+        _goldGoblin.Reset();
     }
 
     private void UpdateRateIndicators(bool force = false)
@@ -548,8 +553,13 @@ public partial class OverlayWindow : Window
         var xpPerHour = _baseExperienceStartedUtc.HasValue
             ? _sessionBaseExperience / Math.Max((now - _baseExperienceStartedUtc.Value).TotalHours, 1d / 3600d)
             : 0;
-        var zenyPerHour = _zenyStartedUtc.HasValue
-            ? _sessionZeny / Math.Max((now - _zenyStartedUtc.Value).TotalHours, 1d / 3600d)
+        var includeLootValue = _settings.ServerProfile == GameServerProfile.SpringRo && _settings.IncludeGoldGoblinInZenyPerHour;
+        var effectiveZeny = _sessionZeny + (includeLootValue ? _goldGoblin.SessionTotal : 0);
+        var zenyStarted = new[] { _zenyStartedUtc, includeLootValue ? _goldGoblin.SessionStartedUtc : null }
+            .Where(value => value.HasValue).Select(value => value!.Value).DefaultIfEmpty().Min();
+        var hasZenySession = _zenyStartedUtc.HasValue || (includeLootValue && _goldGoblin.SessionStartedUtc.HasValue);
+        var zenyPerHour = hasZenySession
+            ? effectiveZeny / Math.Max((now - zenyStarted).TotalHours, 1d / 3600d)
             : 0;
         var jobXpPerHour = _jobExperienceStartedUtc.HasValue
             ? _sessionJobExperience / Math.Max((now - _jobExperienceStartedUtc.Value).TotalHours, 1d / 3600d)
@@ -595,9 +605,12 @@ public partial class OverlayWindow : Window
         }
     }
 
-    private static string FormatRewardText(RewardNotification notification) => notification.Kind switch
+    private string FormatRewardText(RewardNotification notification) => notification.Kind switch
     {
-        RewardKind.Loot => $"{notification.ItemName} x{notification.Amount:N0}",
+        RewardKind.Loot => $"{notification.ItemName} x{notification.Amount:N0}" +
+            (_settings.ServerProfile == GameServerProfile.SpringRo && _settings.ShowLootZenyPrice
+                ? $" ({_goldGoblin.LootValue(notification.ItemId, notification.ItemName, notification.Amount):N0} Z)"
+                : ""),
         RewardKind.Zeny => $"Zeny +{notification.Amount:N0}",
         _ => notification.HasPercentage
             ? $"{notification.ItemName} +{notification.Amount:N0} ({notification.Percentage:0.##}%)"

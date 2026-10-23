@@ -1,4 +1,10 @@
-# RoAura 2.12.2 — инструкция
+# RoAura 2.13.0 — инструкция
+
+## Gold Goblin
+
+Раздел доступен в профиле SpringRO. Полученный лут автоматически попадает в таблицу `Предмет / Количество / Цена / Сумма`. Базовая цена — официальная NPC sell value. Укажите уровень Overcharge, чтобы применить бонус продажи NPC. В особых правилах можно включить минимальную цену Vending и/или задать ручную цену; при включённом Vending ручная цена используется, если предмет отсутствует на маркете. Кнопка «Сбросить сессию» очищает накопленную добычу.
+
+В разделе «Лут / Zeny / Опыт» параметр `Zeny Price` добавляет рассчитанную цену в уведомления лута, а параметр `Gold Goblin` включает стоимость лута в Zeny per hour.
 
 ## Внутриигровая база данных
 
@@ -153,6 +159,6 @@ RoAura также обновляет кэш экипировки при полу
 powershell -ExecutionPolicy Bypass -File .\build-release.ps1
 ```
 
-Результат: `artifacts\RoAura-2.12.2-portable.zip`. Для Setup установите Inno Setup 6 и запустите `build-installer.ps1`.
+Результат: `artifacts\RoAura-2.13.0-portable.zip`. Для Setup установите Inno Setup 6 и запустите `build-installer.ps1`.
 
 Ссылки: https://twitch.tv/im_alerion · http://discord.gg/aleriontv · https://www.donationalerts.com/r/im_alerion · https://rtm-refuge.online

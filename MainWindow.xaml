@@ -178,8 +178,11 @@
                             <RadioButton x:Name="LootNavButton" Tag="5" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/06_loot_zeny_exp.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource LootRewards}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
-                            <RadioButton x:Name="DatabaseNavButton" Tag="6" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/05_mvp_timers.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Database}" VerticalAlignment="Center"/></StackPanel>
+                            <RadioButton x:Name="GoldGoblinNavButton" Tag="6" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/08_gold_goblin.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource GoldGoblin}" VerticalAlignment="Center"/></StackPanel>
+                            </RadioButton>
+                            <RadioButton x:Name="DatabaseNavButton" Tag="7" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/09_database.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Database}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                         </StackPanel>
                         <StackPanel Grid.Row="1" Margin="9,0,9,10">
@@ -734,6 +737,8 @@
                                     <StackPanel>
                                         <CheckBox Content="{DynamicResource EnableRewardNotifications}" IsChecked="{Binding RewardsEnabled}" Margin="4,6"/>
                                         <CheckBox Content="{DynamicResource ShowJobExperience}" IsChecked="{Binding ShowJobExperience}" Margin="4,6"/>
+                                        <CheckBox Content="{DynamicResource ShowLootZenyPrice}" IsChecked="{Binding ShowLootZenyPrice}" Margin="4,6"/>
+                                        <CheckBox Content="{DynamicResource IncludeGoldGoblinInZenyPerHour}" IsChecked="{Binding IncludeGoldGoblinInZenyPerHour}" Margin="4,6"/>
                                         <TextBlock Text="{DynamicResource RewardLimitHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="4,12,8,4"/>
                                     </StackPanel>
                                 </GroupBox>
@@ -787,6 +792,46 @@
                                 </GroupBox>
                             </Grid>
                         </ScrollViewer>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="GoldGoblinTab" Header="{DynamicResource GoldGoblin}">
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions><RowDefinition Height="2*" MinHeight="160"/><RowDefinition Height="6"/><RowDefinition Height="Auto"/><RowDefinition Height="*" MinHeight="150"/></Grid.RowDefinitions>
+                        <DataGrid ItemsSource="{Binding GoldGoblinRows, ElementName=RootWindow}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="{DynamicResource Item}" Binding="{Binding Item}" Width="*"/>
+                                <DataGridTextColumn Header="{DynamicResource Count}" Binding="{Binding Count, StringFormat=N0}" Width="150"/>
+                                <DataGridTextColumn Header="{DynamicResource Cost}" Binding="{Binding Cost, StringFormat=N0}" Width="170"/>
+                                <DataGridTextColumn Header="{DynamicResource Total}" Binding="{Binding Total, StringFormat=N0}" Width="190"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <GridSplitter Grid.Row="1" Height="6" HorizontalAlignment="Stretch" Background="#9DB7D8" Cursor="SizeNS"/>
+                        <WrapPanel Grid.Row="2" Margin="0,7,0,9">
+                            <TextBlock Text="{DynamicResource SessionTotal}" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock x:Name="GoldGoblinTotalText" Text="0 Z" VerticalAlignment="Center" FontWeight="Bold" Foreground="{StaticResource RoBlueBrush}" Margin="8,0,18,0"/>
+                            <Button Content="{DynamicResource ResetSession}" Click="ResetGoldGoblin_Click"/>
+                            <TextBlock Text="{DynamicResource OverchargeLevel}" VerticalAlignment="Center" Margin="18,0,6,0"/>
+                            <ComboBox Width="75" SelectedValue="{Binding GoldGoblinOverchargeLevel}" SelectedValuePath="Content">
+                                <ComboBoxItem Content="0"/><ComboBoxItem Content="1"/><ComboBoxItem Content="2"/><ComboBoxItem Content="3"/><ComboBoxItem Content="4"/><ComboBoxItem Content="5"/><ComboBoxItem Content="6"/><ComboBoxItem Content="7"/><ComboBoxItem Content="8"/><ComboBoxItem Content="9"/><ComboBoxItem Content="10"/>
+                            </ComboBox>
+                            <TextBlock Text="{DynamicResource OverchargeHint}" VerticalAlignment="Center" Foreground="{StaticResource RoMutedBrush}" Margin="10,0,0,0"/>
+                        </WrapPanel>
+                        <GroupBox Grid.Row="3" Header="{DynamicResource SpecialPriceRules}" Style="{StaticResource DetailGroupBoxStyle}">
+                            <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                                <WrapPanel Margin="0,0,0,7">
+                                    <TextBox x:Name="GoldGoblinRuleNameBox" Width="300" ToolTip="{DynamicResource ItemNameOrPart}"/>
+                                    <Button Content="{DynamicResource Add}" Click="AddGoldGoblinRule_Click"/>
+                                    <Button Content="{DynamicResource Delete}" Click="DeleteGoldGoblinRule_Click" Style="{StaticResource DangerButtonStyle}"/>
+                                </WrapPanel>
+                                <DataGrid x:Name="GoldGoblinRulesGrid" Grid.Row="1" ItemsSource="{Binding GoldGoblinPriceRules}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                                        <DataGridCheckBoxColumn Header="{DynamicResource VendingPrice}" Binding="{Binding UseVendingPrice}" Width="190"/>
+                                        <DataGridTextColumn Header="{DynamicResource ManualPrice}" Binding="{Binding ManualPrice}" Width="190"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </GroupBox>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="DatabaseTab" Header="{DynamicResource Database}">

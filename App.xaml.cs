@@ -26,6 +26,8 @@ public partial class App : Application
     private long? _lastZeny;
     private DateTime _lastDatabaseToggleUtc = DateTime.MinValue;
     private readonly GitHubUpdateService _updateService = new();
+    private SpringRoMarketService? _marketService;
+    private GoldGoblinService? _goldGoblin;
     private bool _updatePromptOpen;
 
     public App()
@@ -89,10 +91,12 @@ public partial class App : Application
         _packetCapture.StateChanged += state => Dispatcher.BeginInvoke(() =>
             settings.PacketCaptureStateText = state);
 
-        _overlay = new OverlayWindow(settings, _settingsStore);
-        _databaseOverlay = new DatabaseOverlayWindow(settings, new GameDatabaseService());
+        _marketService = new SpringRoMarketService();
+        _goldGoblin = new GoldGoblinService(settings, _marketService);
+        _overlay = new OverlayWindow(settings, _settingsStore, _goldGoblin);
+        _databaseOverlay = new DatabaseOverlayWindow(settings, new GameDatabaseService(), _marketService);
         _databaseOverlay.HideRequested += HideDatabase;
-        _settingsWindow = new MainWindow(settings, _settingsStore, _overlay, _packetCapture);
+        _settingsWindow = new MainWindow(settings, _settingsStore, _overlay, _packetCapture, _goldGoblin);
         _settingsWindow.Show();
         _overlay.Show();
         _databaseOverlay.PrepareForFirstUse();
@@ -117,7 +121,7 @@ public partial class App : Application
                 "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
-        DebugLog.Write("START RoAura 2.12.2 · GitHub Releases automatic update support");
+        DebugLog.Write("START RoAura 2.13.0 · Gold Goblin loot valuation");
 
         if (settings.PacketCaptureEnabled && !NpcapPacketCapture.IsNpcapInstalled())
         {
@@ -264,6 +268,8 @@ public partial class App : Application
             Type = "Loot"
         };
         _overlay.ShowLootReward(packet.ItemId, item.Name, item.Type, packet.Count);
+        if (_settingsWindow.Settings.ServerProfile == GameServerProfile.SpringRo)
+            _goldGoblin?.AddLoot(packet.ItemId, item.Name, packet.Count);
         DebugLog.Write($"PACKET LOOT item={packet.ItemId}; name={item.Name}; type={item.Type}; count={packet.Count}");
     });
 

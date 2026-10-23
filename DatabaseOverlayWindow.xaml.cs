@@ -16,7 +16,7 @@ public partial class DatabaseOverlayWindow : Window
     private readonly AppSettings _settings;
     private readonly GameDatabaseService _database;
     private readonly DatabaseDetailWindow _details;
-    private readonly SpringRoMarketService _market = new();
+    private readonly SpringRoMarketService _market;
     private readonly DispatcherTimer _visibilityTimer;
     private readonly DispatcherTimer _marketRefreshTimer;
     private DatabaseSearchKind _kind = DatabaseSearchKind.Monsters;
@@ -38,10 +38,11 @@ public partial class DatabaseOverlayWindow : Window
     private IntPtr _gameHandle;
     public bool IsDatabaseOpen { get; private set; }
 
-    public DatabaseOverlayWindow(AppSettings settings, GameDatabaseService database)
+    public DatabaseOverlayWindow(AppSettings settings, GameDatabaseService database, SpringRoMarketService market)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _database = database ?? throw new ArgumentNullException(nameof(database));
+        _market = market ?? throw new ArgumentNullException(nameof(market));
         InitializeComponent();
         RaceFilter.ItemsSource = new[] { T("Все расы", "All races") }.Concat(_database.MonsterRaces).ToList();
         ElementFilter.ItemsSource = new[] { T("Все элементы", "All elements") }.Concat(_database.MonsterElements).ToList();

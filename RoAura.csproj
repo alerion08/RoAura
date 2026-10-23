@@ -7,9 +7,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>RoAura</AssemblyName>
     <RootNamespace>RoAura</RootNamespace>
-    <Version>2.12.2</Version>
-    <AssemblyVersion>2.12.2.0</AssemblyVersion>
-    <FileVersion>2.12.2.0</FileVersion>
+    <Version>2.13.0</Version>
+    <AssemblyVersion>2.13.0.0</AssemblyVersion>
+    <FileVersion>2.13.0.0</FileVersion>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>true</PublishSingleFile>
@@ -46,6 +46,10 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="Data\database.springro.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Data\item-prices.springro.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

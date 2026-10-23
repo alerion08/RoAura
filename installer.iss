@@ -1,5 +1,5 @@
 #define MyAppName "RoAura"
-#define MyAppVersion "2.12.2"
+#define MyAppVersion "2.13.0"
 #define MyAppPublisher "Alerion"
 #define MyAppExeName "RoAura.exe"
 

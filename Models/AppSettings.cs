@@ -40,6 +40,9 @@ public sealed class AppSettings : INotifyPropertyChanged
     private string _lootDatabaseVersion = GameDatabaseVersion.Rtm;
     private string _mvpDatabaseVersion = GameDatabaseVersion.Rtm;
     private string _serverProfile = GameServerProfile.Rtm;
+    private int _goldGoblinOverchargeLevel;
+    private bool _showLootZenyPrice;
+    private bool _includeGoldGoblinInZenyPerHour;
 
     public int SettingsVersion { get; set; }
     public bool OverlayCoordinatesRelativeToGame { get; set; }
@@ -83,6 +86,9 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string TimersTextColor { get => _timersTextColor; set => Set(ref _timersTextColor, value); }
     public bool RewardsEnabled { get => _rewardsEnabled; set => Set(ref _rewardsEnabled, value); }
     public bool ShowJobExperience { get => _showJobExperience; set => Set(ref _showJobExperience, value); }
+    public int GoldGoblinOverchargeLevel { get => _goldGoblinOverchargeLevel; set => Set(ref _goldGoblinOverchargeLevel, Math.Clamp(value, 0, 10)); }
+    public bool ShowLootZenyPrice { get => _showLootZenyPrice; set => Set(ref _showLootZenyPrice, value); }
+    public bool IncludeGoldGoblinInZenyPerHour { get => _includeGoldGoblinInZenyPerHour; set => Set(ref _includeGoldGoblinInZenyPerHour, value); }
     public double RateStatisticsRefreshSeconds
     {
         get => _rateStatisticsRefreshSeconds;
@@ -131,6 +137,7 @@ public sealed class AppSettings : INotifyPropertyChanged
         new() { Kind = RateIndicatorKind.TimeToJobLevel, X = 1050, Y = 474, TextColor = "#FFC9A7FF" },
         new() { Kind = RateIndicatorKind.ZenyPerHour, X = 1050, Y = 506, TextColor = "#FFFFE16A" }
     ];
+    public ObservableCollection<GoldGoblinPriceRule> GoldGoblinPriceRules { get; set; } = [];
 
     [JsonIgnore]
     public IReadOnlyList<string> HotkeyChoices { get; } =

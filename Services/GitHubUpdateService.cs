@@ -21,7 +21,7 @@ public sealed class GitHubUpdateService
             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli
         };
         _client = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(30) };
-        _client.DefaultRequestHeaders.UserAgent.ParseAdd("RoAura-Updater/2.12.2");
+        _client.DefaultRequestHeaders.UserAgent.ParseAdd("RoAura-Updater/2.13.0");
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
     }
 
