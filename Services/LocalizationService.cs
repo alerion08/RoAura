@@ -6,10 +6,12 @@ namespace RoAura.Services;
 public static class LocalizationService
 {
     private const string Prefix = "Resources/Strings.";
+    public static string CurrentLanguage { get; private set; } = "ru";
 
     public static void ApplyLanguage(string? language)
     {
         var code = language == "en" ? "en" : "ru";
+        CurrentLanguage = code;
         var dictionaries = Application.Current.Resources.MergedDictionaries;
         var old = dictionaries.FirstOrDefault(item =>
             item.Source?.OriginalString.Contains(Prefix, StringComparison.OrdinalIgnoreCase) == true);

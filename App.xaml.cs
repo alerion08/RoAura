@@ -25,6 +25,8 @@ public partial class App : Application
     private DateTime _jobRequirementChangedUtc;
     private long? _lastZeny;
     private DateTime _lastDatabaseToggleUtc = DateTime.MinValue;
+    private readonly GitHubUpdateService _updateService = new();
+    private bool _updatePromptOpen;
 
     public App()
     {
@@ -115,7 +117,7 @@ public partial class App : Application
                 "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
-        DebugLog.Write("START RoAura 2.10.10 · clean public defaults and release privacy validation");
+        DebugLog.Write("START RoAura 2.11.0 · GitHub Releases automatic update support");
 
         if (settings.PacketCaptureEnabled && !NpcapPacketCapture.IsNpcapInstalled())
         {
@@ -125,6 +127,45 @@ public partial class App : Application
         }
 
         _packetCapture.ApplySettings(settings);
+        Dispatcher.BeginInvoke(async () =>
+        {
+            await Task.Delay(TimeSpan.FromSeconds(3));
+            await CheckForUpdatesAsync(false, _settingsWindow);
+        });
+    }
+
+    public async Task CheckForUpdatesAsync(bool showUpToDate, Window? owner = null)
+    {
+        if (_updatePromptOpen) return;
+        var english = _settingsWindow?.Settings.Language == "en";
+        try
+        {
+            var update = await _updateService.CheckAsync();
+            if (update is null)
+            {
+                if (showUpToDate)
+                    MessageBox.Show(owner ?? _settingsWindow,
+                        english ? "You are using the latest version of RoAura." : "У вас установлена актуальная версия RoAura.",
+                        "RoAura", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            _updatePromptOpen = true;
+            try
+            {
+                var window = new UpdateWindow(update, _updateService, english) { Owner = owner ?? _settingsWindow };
+                window.ShowDialog();
+            }
+            finally { _updatePromptOpen = false; }
+        }
+        catch (Exception ex)
+        {
+            DebugLog.Write($"UPDATE CHECK ERROR: {ex}");
+            if (showUpToDate)
+                MessageBox.Show(owner ?? _settingsWindow,
+                    (english ? "Could not check for updates.\n\n" : "Не удалось проверить обновления.\n\n") + ex.Message,
+                    "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
     public void ReloadItemCatalog(string gameVersion)

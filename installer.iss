@@ -1,5 +1,5 @@
 #define MyAppName "RoAura"
-#define MyAppVersion "2.10.10"
+#define MyAppVersion "2.11.0"
 #define MyAppPublisher "Alerion"
 #define MyAppExeName "RoAura.exe"
 
@@ -42,6 +42,7 @@ Source: "artifacts\publish\Data\monsters.rtm.json"; DestDir: "{app}\Data"; Flags
 Source: "artifacts\publish\Data\monsters.springro.json"; DestDir: "{app}\Data"; Flags: ignoreversion
 Source: "artifacts\publish\Data\items.rtm.json"; DestDir: "{app}\Data"; Flags: ignoreversion
 Source: "artifacts\publish\Data\items.springro.json"; DestDir: "{app}\Data"; Flags: ignoreversion
+Source: "artifacts\publish\Data\database.springro.json"; DestDir: "{app}\Data"; Flags: ignoreversion
 
 [Icons]
 Name: "{autoprograms}\RoAura"; Filename: "{app}\{#MyAppExeName}"

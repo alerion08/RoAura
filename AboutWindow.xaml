@@ -9,7 +9,7 @@
                 <StackPanel HorizontalAlignment="Center" Margin="20,16">
                     <Image Source="Assets/roaura-icon.png" Width="150" Height="150" Stretch="Uniform"/>
                     <TextBlock Text="RoAura" FontSize="25" FontWeight="Bold" Foreground="#FF7E4054" HorizontalAlignment="Center" Margin="0,8,0,3"/>
-                    <TextBlock HorizontalAlignment="Center"><Run Text="{DynamicResource VersionLabel}"/><Run Text=" 2.10.10"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Center"><Run Text="{DynamicResource VersionLabel}"/><Run Text=" 2.11.0"/></TextBlock>
                     <TextBlock Text="2026" HorizontalAlignment="Center" />
                     <Separator Margin="0,14" Width="360"/>
                     <Button Tag="https://twitch.tv/im_alerion" Click="Link_Click" Width="360">Twitch — twitch.tv/im_alerion</Button>
@@ -17,6 +17,8 @@
                     <Button Tag="https://www.donationalerts.com/r/im_alerion" Click="Link_Click" Width="360">Donate — donationalerts.com/r/im_alerion</Button>
                     <Button Tag="https://rtm-refuge.online" Click="Link_Click" Width="360"><TextBlock TextWrapping="Wrap" TextAlignment="Center"><Run Text="{DynamicResource ProjectSite}"/><Run Text=" — rtm-refuge.online"/></TextBlock></Button>
                     <TextBlock HorizontalAlignment="Center" Margin="0,12,0,8"><Run Text="{DynamicResource PersonalDiscord}"/><Run Text=" — alerionvm"/></TextBlock>
+                    <Separator Margin="0,8" Width="360"/>
+                    <Button x:Name="CheckUpdatesButton" Width="360" Click="CheckUpdates_Click">Проверить обновления</Button>
                 </StackPanel>
             </ScrollViewer>
             <Button Grid.Row="1" Content="{DynamicResource Close}" HorizontalAlignment="Right" Margin="10" Width="100" Click="Close_Click"/>

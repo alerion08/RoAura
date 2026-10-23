@@ -6,7 +6,18 @@ namespace RoAura;
 
 public partial class AboutWindow : Window
 {
-    public AboutWindow() => InitializeComponent();
+    public AboutWindow()
+    {
+        InitializeComponent();
+        if (LocalizationService.CurrentLanguage == "en") CheckUpdatesButton.Content = "Check for updates";
+    }
+
+    private async void CheckUpdates_Click(object sender, RoutedEventArgs e)
+    {
+        CheckUpdatesButton.IsEnabled = false;
+        try { await ((App)Application.Current).CheckForUpdatesAsync(true, this); }
+        finally { CheckUpdatesButton.IsEnabled = true; }
+    }
 
     private void Link_Click(object sender, RoutedEventArgs e)
     {
