@@ -40,6 +40,7 @@ public partial class MainWindow : Window
 
     public ICollectionView MvpMonsterView { get; }
     public ObservableCollection<GoldGoblinLootRow> GoldGoblinRows => _goldGoblin.Rows;
+    public ObservableCollection<ItemEntry> GoldGoblinItemSuggestions { get; } = [];
 
     public AppSettings Settings { get; }
 
@@ -49,6 +50,7 @@ public partial class MainWindow : Window
         _goldGoblin = goldGoblin;
         _monsters = new ObservableCollection<MonsterEntry>(MonsterCatalogService.Load(settings.MvpDatabaseVersion));
         _items = ItemCatalogService.Load(settings.LootDatabaseVersion);
+        RefreshGoldGoblinItemSuggestions();
         MvpMonsterView = CollectionViewSource.GetDefaultView(_monsters);
         InitializeComponent();
         SourceInitialized += MainWindow_SourceInitialized;
@@ -157,6 +159,7 @@ public partial class MainWindow : Window
             foreach (var monster in MonsterCatalogService.Load(version)) _monsters.Add(monster);
             MvpMonsterView.Refresh();
             _items = ItemCatalogService.Load(version);
+            RefreshGoldGoblinItemSuggestions();
             if (Application.Current is App app) app.ReloadItemCatalog(version);
         }
 
@@ -177,10 +180,7 @@ public partial class MainWindow : Window
 
     private void AddGoldGoblinRule_Click(object sender, RoutedEventArgs e)
     {
-        var query = GoldGoblinRuleNameBox.Text.Trim();
-        if (query.Length == 0) return;
-        var item = _items.Values.FirstOrDefault(value => value.Name.Equals(query, StringComparison.CurrentCultureIgnoreCase))
-                   ?? _items.Values.FirstOrDefault(value => value.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase));
+        var item = ResolveGoldGoblinItem(GoldGoblinRuleItemBox);
         if (item is null)
         {
             SetStatus(T("Предмет не найден в базе SpringRO.", "Item was not found in the SpringRO database."));
@@ -204,6 +204,66 @@ public partial class MainWindow : Window
     }
 
     private void ResetGoldGoblin_Click(object sender, RoutedEventArgs e) => _goldGoblin.Reset();
+
+    private void AddGoldGoblinLoot_Click(object sender, RoutedEventArgs e)
+    {
+        var item = ResolveGoldGoblinItem(GoldGoblinLootItemBox);
+        if (item is null)
+        {
+            SetStatus(T("Выберите предмет из предложенного списка.", "Select an item from the suggestion list."));
+            return;
+        }
+        _goldGoblin.AddManualItem(item.Id, item.Name);
+        GoldGoblinLootGrid.SelectedItem = GoldGoblinRows.First(row => row.ItemId == item.Id);
+    }
+
+    private void DeleteGoldGoblinLoot_Click(object sender, RoutedEventArgs e)
+    {
+        if (GoldGoblinLootGrid.SelectedItem is GoldGoblinLootRow row) _goldGoblin.Remove(row);
+    }
+
+    private void GoldGoblinItemBox_KeyUp(object sender, KeyEventArgs e)
+    {
+        if (sender is not ComboBox box || e.Key == Key.Escape) return;
+        var query = box.Text.Trim();
+        box.ItemsSource = GoldGoblinItemSuggestions
+            .Where(item => query.Length == 0 || item.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
+            .Take(100).ToList();
+        box.IsDropDownOpen = query.Length > 0;
+    }
+
+    private ItemEntry? ResolveGoldGoblinItem(ComboBox box)
+    {
+        if (box.SelectedItem is ItemEntry selected) return selected;
+        var query = box.Text.Trim();
+        return _items.Values.FirstOrDefault(item =>
+            item.Name.Equals(query, StringComparison.CurrentCultureIgnoreCase));
+    }
+
+    private void RefreshGoldGoblinItemSuggestions()
+    {
+        GoldGoblinItemSuggestions.Clear();
+        foreach (var item in _items.Values.OrderBy(item => item.Name, StringComparer.CurrentCultureIgnoreCase))
+            GoldGoblinItemSuggestions.Add(item);
+    }
+
+    private void MoveRateIndicatorUp_Click(object sender, RoutedEventArgs e) => MoveRateIndicator(-1);
+    private void MoveRateIndicatorDown_Click(object sender, RoutedEventArgs e) => MoveRateIndicator(1);
+
+    private void MoveRateIndicator(int offset)
+    {
+        RateIndicatorsGrid.CommitEdit();
+        if (RateIndicatorsGrid.SelectedItem is not RateIndicatorSettings selected) return;
+        var oldIndex = Settings.RateIndicators.IndexOf(selected);
+        var newIndex = oldIndex + offset;
+        if (oldIndex < 0 || newIndex < 0 || newIndex >= Settings.RateIndicators.Count) return;
+        var other = Settings.RateIndicators[newIndex];
+        (selected.X, other.X) = (other.X, selected.X);
+        (selected.Y, other.Y) = (other.Y, selected.Y);
+        Settings.RateIndicators.Move(oldIndex, newIndex);
+        RateIndicatorsGrid.SelectedItem = selected;
+        _store.Save(Settings);
+    }
 
     private void Header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {

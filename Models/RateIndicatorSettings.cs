@@ -9,7 +9,8 @@ public enum RateIndicatorKind
     XpPerHour,
     TimeToLevel,
     ZenyPerHour,
-    TimeToJobLevel
+    TimeToJobLevel,
+    ZenyTotal
 }
 
 public sealed class RateIndicatorSettings : INotifyPropertyChanged
@@ -54,7 +55,8 @@ public sealed class RateIndicatorSettings : INotifyPropertyChanged
         RateIndicatorKind.XpPerHour => "XP per hour",
         RateIndicatorKind.TimeToLevel => "Time to level",
         RateIndicatorKind.TimeToJobLevel => "Time to Job level",
-        _ => "Zeny per hour"
+        RateIndicatorKind.ZenyPerHour => "Zeny per hour",
+        _ => "Zeny Total"
     };
     [JsonIgnore] public string ValueText { get => _valueText; set => Set(ref _valueText, value); }
     [JsonIgnore] public double Opacity => OpacityPercent / 100d;

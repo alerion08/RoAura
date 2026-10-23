@@ -294,6 +294,26 @@
 - Database panels are owned by the Ragnarok window so the first in-game click no longer sends them behind fullscreen clients, while Alt, Ctrl, and Shift remain available.
 - Completed English localization for the new database controls and overlay messages.
 
+# RoAura 2.13.1
+
+## Русский
+
+- Исправлено непредсказуемое изменение высоты таблиц Gold Goblin: обе таблицы получили минимальную высоту и управляемый разделитель.
+- Таблица особых правил больше не схлопывается до одной строки.
+- Добавлены подсказки предметов из базы SpringRO при вводе названия; ошибочное произвольное название не добавляется.
+- Добавлен индикатор `Zeny Total`, а порядок статистических индикаторов теперь можно менять кнопками «Выше» и «Ниже».
+- Item ID 7539 распознаётся как `Poring Coin`.
+- В таблицу Gold Goblin можно вручную добавлять и удалять предметы, а также редактировать количество и цену.
+
+## English
+
+- Fixed unpredictable Gold Goblin table sizing: both tables now have usable minimum heights and a controlled splitter.
+- The special pricing rules table no longer collapses to a header-only row.
+- Added SpringRO item suggestions while typing; invalid arbitrary names are rejected.
+- Added the `Zeny Total` indicator and Up/Down controls for ordering farming statistics.
+- Item ID 7539 is now recognized as `Poring Coin`.
+- Gold Goblin rows can now be added or removed manually, with editable item count and unit cost.
+
 # RoAura 2.13.0
 
 ## Русский

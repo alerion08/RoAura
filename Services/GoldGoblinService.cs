@@ -41,7 +41,9 @@ public sealed class GoldGoblinService
         var row = Rows.FirstOrDefault(item => item.ItemId == itemId);
         if (row is null)
         {
-            row = new GoldGoblinLootRow { ItemId = itemId, Item = name, Cost = ResolveUnitPrice(itemId, name) };
+            row = new GoldGoblinLootRow { ItemId = itemId, Item = name };
+            row.SetCalculatedCost(ResolveUnitPrice(itemId, name));
+            Watch(row);
             Rows.Add(row);
         }
         row.Count += count;
@@ -74,9 +76,18 @@ public sealed class GoldGoblinService
         Changed?.Invoke();
     }
 
+    public void AddManualItem(int itemId, string name) => AddLoot(itemId, name, 1);
+
+    public void Remove(GoldGoblinLootRow row)
+    {
+        Rows.Remove(row);
+        Changed?.Invoke();
+    }
+
     public void Reprice()
     {
-        foreach (var row in Rows) row.Cost = ResolveUnitPrice(row.ItemId, row.Item);
+        foreach (var row in Rows.Where(item => !item.HasManualCost))
+            row.SetCalculatedCost(ResolveUnitPrice(row.ItemId, row.Item));
         Changed?.Invoke();
     }
 
@@ -89,6 +100,8 @@ public sealed class GoldGoblinService
 
     private void Watch(GoldGoblinPriceRule rule) =>
         rule.PropertyChanged += Rule_PropertyChanged;
+    private void Watch(GoldGoblinLootRow row) =>
+        row.PropertyChanged += (_, _) => Changed?.Invoke();
     private void Rule_PropertyChanged(object? sender, PropertyChangedEventArgs e) => Reprice();
 
     private static Dictionary<int, SpringRoItemPrice> LoadPrices()

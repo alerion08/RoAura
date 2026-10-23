@@ -600,7 +600,8 @@ public partial class OverlayWindow : Window
                 RateIndicatorKind.TimeToJobLevel => _settings.Language == "en"
                     ? $"Time to Job level: {timeToJobLevel}"
                     : $"До Job уровня: {timeToJobLevel}",
-                _ => $"Zeny/h: {zenyPerHour:N0}"
+                RateIndicatorKind.ZenyPerHour => $"Zeny/h: {zenyPerHour:N0}",
+                _ => $"Zeny Total: {effectiveZeny:N0}"
             };
         }
     }

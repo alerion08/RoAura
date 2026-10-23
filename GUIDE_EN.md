@@ -1,4 +1,4 @@
-# RoAura 2.13.0 — user guide
+# RoAura 2.13.1 — user guide
 
 ## Gold Goblin
 
@@ -158,6 +158,6 @@ Install .NET 8 SDK and run:
 powershell -ExecutionPolicy Bypass -File .\build-release.ps1
 ```
 
-Output: `artifacts\RoAura-2.13.0-portable.zip`. Install Inno Setup 6 and run `build-installer.ps1` for Setup.
+Output: `artifacts\RoAura-2.13.1-portable.zip`. Install Inno Setup 6 and run `build-installer.ps1` for Setup.
 
 Links: https://twitch.tv/im_alerion · http://discord.gg/aleriontv · https://www.donationalerts.com/r/im_alerion · https://rtm-refuge.online

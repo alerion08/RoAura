@@ -28,11 +28,23 @@ public sealed class GoldGoblinLootRow : INotifyPropertyChanged
 {
     private long _count;
     private long _cost;
+    private bool _hasManualCost;
     public int ItemId { get; init; }
     public string Item { get; init; } = "";
-    public long Count { get => _count; set { _count = value; Changed(); Changed(nameof(Total)); } }
-    public long Cost { get => _cost; set { _cost = value; Changed(); Changed(nameof(Total)); } }
+    public long Count { get => _count; set { _count = Math.Max(0, value); Changed(); Changed(nameof(Total)); } }
+    public long Cost
+    {
+        get => _cost;
+        set { _cost = Math.Max(0, value); _hasManualCost = true; Changed(); Changed(nameof(Total)); }
+    }
     public long Total => checked(Count * Cost);
+    public bool HasManualCost => _hasManualCost;
+    public void SetCalculatedCost(long value)
+    {
+        _cost = Math.Max(0, value);
+        Changed(nameof(Cost));
+        Changed(nameof(Total));
+    }
     public event PropertyChangedEventHandler? PropertyChanged;
     private void Changed([CallerMemberName] string? name = null) =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

@@ -121,7 +121,7 @@ public partial class App : Application
                 "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
-        DebugLog.Write("START RoAura 2.13.0 · Gold Goblin loot valuation");
+        DebugLog.Write("START RoAura 2.13.1 · Gold Goblin layout and editing update");
 
         if (settings.PacketCaptureEnabled && !NpcapPacketCapture.IsNpcapInstalled())
         {

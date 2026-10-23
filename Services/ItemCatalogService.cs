@@ -27,8 +27,11 @@ public static class ItemCatalogService
                 if (!File.Exists(path)) continue;
                 var items = JsonSerializer.Deserialize<List<ItemEntry>>(File.ReadAllText(path),
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? [];
-                return items.GroupBy(item => item.Id).ToDictionary(group => group.Key,
+                var result = items.GroupBy(item => item.Id).ToDictionary(group => group.Key,
                     group => group.First());
+                if (version == GameDatabaseVersion.SpringRo)
+                    result[7539] = new ItemEntry { Id = 7539, Name = "Poring Coin", Type = "Loot" };
+                return result;
             }
             catch (Exception ex)
             {

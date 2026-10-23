@@ -195,4 +195,8 @@
     <sys:String x:Key="VendingPrice">Vending Price</sys:String>
     <sys:String x:Key="ManualPrice">Manual Price</sys:String>
     <sys:String x:Key="ItemNameOrPart">Item name or part of it</sys:String>
+    <sys:String x:Key="AddItem">Add item</sys:String>
+    <sys:String x:Key="DeleteItem">Delete item</sys:String>
+    <sys:String x:Key="MoveUp">Move up</sys:String>
+    <sys:String x:Key="MoveDown">Move down</sys:String>
 </ResourceDictionary>
