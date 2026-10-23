@@ -1,0 +1,34 @@
+bin/
+obj/
+.vs/
+*.user
+
+# Release output
+artifacts/
+deliverables/
+*.zip
+*.exe
+*.msi
+*.pdb
+
+# Personal RoAura state (must never be committed)
+settings.json
+active-profile.txt
+springro-market-cache.json
+Profiles/
+Recovery/
+debug.log
+*.log
+
+# Local tooling/editor state
+.idea/
+.vscode/
+TestResults/
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
