@@ -1,0 +1,136 @@
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Interop;
+using RoAura.Models;
+using RoAura.Services;
+
+namespace RoAura;
+
+public partial class DatabaseDetailWindow : Window
+{
+    public event Action? HideRequested;
+    private readonly AppSettings _settings;
+    private readonly GameDatabaseService _database;
+    public IntPtr Handle => new WindowInteropHelper(this).Handle;
+
+    public DatabaseDetailWindow(AppSettings settings, GameDatabaseService database)
+    {
+        InitializeComponent();
+        _settings = settings;
+        _database = database;
+        if (_settings.Language == "en")
+        {
+            PanelTitle.Text = "Result";
+            KeyboardStatus.Text = $"Search input active · {_settings.DatabaseHotkey} — close";
+        }
+        else KeyboardStatus.Text = $"Ввод в поиск активен · {_settings.DatabaseHotkey} — закрыть";
+    }
+
+    public void PlaceForGame(ForegroundProcess.WindowBounds game, double width, double height, double margin)
+    {
+        Width = width;
+        Height = height;
+        Left = game.Right - width - margin;
+        Top = game.Top + ((game.Bottom - game.Top) - height) / 2;
+    }
+
+    public void Clear() => DetailsPanel.Children.Clear();
+
+    public void ShowDetails(object value)
+    {
+        Clear();
+        switch (value)
+        {
+            case DatabaseMonster monster: ShowMonster(monster); break;
+            case DatabaseItem item: ShowItem(item); break;
+            case DatabaseMap map: ShowMap(map); break;
+            case MarketListing listing: ShowMarketListing(listing); break;
+        }
+    }
+
+    private void ShowMonster(DatabaseMonster monster)
+    {
+        var header = new StackPanel { Orientation = Orientation.Horizontal };
+        if (Uri.TryCreate(monster.ImageUrl, UriKind.Absolute, out var uri))
+            header.Children.Add(new Image { Source = new BitmapImage(uri), Width = 58, Height = 58, Stretch = Stretch.Uniform, Margin = new Thickness(0,0,10,0) });
+        var title = new StackPanel(); title.Children.Add(Heading(monster.Name, 20));
+        title.Children.Add(Meta($"#{monster.Id} · Lv {monster.Level}\n{monster.Race} · {monster.Element} · {monster.Size}"));
+        header.Children.Add(title); DetailsPanel.Children.Add(header);
+        AddSection(T("Характеристики", "Stats"));
+        AddLine("HP", monster.Hp); AddLine("ATK", monster.Attack);
+        AddLine("DEF / MDEF", $"{monster.Defense} / {monster.MagicDefense}");
+        AddLine("Base / Job EXP", $"{monster.BaseExp} / {monster.JobExp}");
+        AddSection(T($"Дроп ({monster.Drops.Count})", $"Drops ({monster.Drops.Count})"));
+        foreach (var drop in monster.Drops.OrderByDescending(x => ParseRate(x.Rate)))
+            AddLink($"{drop.Name} — {drop.Rate}{(drop.IsMvp ? " MVP" : "")}", () => OpenItem(drop.ItemId));
+        AddSection(T($"Локации ({monster.Spawns.Count})", $"Maps ({monster.Spawns.Count})"));
+        foreach (var spawn in monster.Spawns.OrderByDescending(x => ParseCount(x.Count)))
+            AddLink($"{spawn.Name}\n{spawn.Count} · {spawn.Respawn}", () => OpenMap(spawn.Code));
+    }
+
+    private void ShowItem(DatabaseItem item)
+    {
+        DetailsPanel.Children.Add(Heading(item.Name, 20));
+        DetailsPanel.Children.Add(Meta($"Item ID #{item.Id} · {item.Type}"));
+        AddSection(T($"Источники ({item.DroppedBy.Count})", $"Sources ({item.DroppedBy.Count})"));
+        if (item.DroppedBy.Count == 0) DetailsPanel.Children.Add(Meta(T("Нет в дроп-листах монстров SpringRO.", "Not found in SpringRO monster drop lists.")));
+        foreach (var source in item.DroppedBy.OrderByDescending(x => ParseRate(x.Rate)))
+            AddLink($"{source.Name} — {source.Rate}{(source.IsMvp ? " MVP" : "")}", () => OpenMonster(source.MonsterId));
+    }
+
+    private void ShowMap(DatabaseMap map)
+    {
+        var density = _database.GetMapExperienceDensity(map);
+        DetailsPanel.Children.Add(Heading(map.Name, 20));
+        DetailsPanel.Children.Add(Meta(map.Code));
+        AddSection(T("Плотность опыта", "Experience density"));
+        AddLine(T("Монстров на карте", "Monsters on map"), $"{density.MonsterCount:N0}");
+        AddLine(T("Средний Base EXP за моба", "Average Base EXP per mob"), $"{density.BaseExperience:N0}");
+        AddLine(T("Средний Job EXP за моба", "Average Job EXP per mob"), $"{density.JobExperience:N0}");
+        AddSection(T($"Монстры ({map.Monsters.Count})", $"Monsters ({map.Monsters.Count})"));
+        foreach (var mob in map.Monsters.OrderByDescending(x => ParseCount(x.Count)))
+            AddLink($"{mob.Name} · {mob.Count} · {mob.Respawn}", () => OpenMonster(mob.MonsterId));
+    }
+
+    private void ShowMarketListing(MarketListing listing)
+    {
+        DetailsPanel.Children.Add(Heading(listing.ItemName, 20));
+        DetailsPanel.Children.Add(Meta($"Item ID #{listing.ItemId} · {(listing.ShopType == "BUY" ? T("Покупка", "Buying") : T("Продажа", "Selling"))}"));
+        AddSection(T("Предложение", "Listing"));
+        AddLine(T("Цена", "Price"), listing.Price);
+        AddLine(T("Количество", "Quantity"), listing.Quantity);
+        AddLine(T("Заточка", "Refine"), listing.Refine);
+        AddLine(T("Карты", "Cards"), listing.Cards);
+        AddLine(T("Магазин", "Stall"), listing.Stall);
+        AddLine(T("Владелец", "Owner"), listing.Owner);
+        AddSection(T("Координаты магазина", "Shop location"));
+        AddLine(T("Локация", "Location"), $"{listing.Map} ({listing.X},{listing.Y})");
+        var navi = new Button
+        {
+            Content = $"Navi · {listing.NavigationCommand}",
+            HorizontalContentAlignment = HorizontalAlignment.Center,
+            Margin = new Thickness(0, 7, 0, 2), Padding = new Thickness(8, 6, 8, 6)
+        };
+        navi.Click += (_, _) =>
+        {
+            Clipboard.SetText(listing.NavigationCommand);
+            navi.Content = T("Скопировано в буфер обмена", "Copied to clipboard");
+        };
+        DetailsPanel.Children.Add(navi);
+    }
+
+    private void OpenMonster(int id) { var value = _database.Monster(id); if (value is not null) ShowDetails(value); }
+    private void OpenItem(int id) { var value = _database.Item(id); if (value is not null) ShowDetails(value); }
+    private void OpenMap(string code) { var value = _database.Map(code); if (value is not null) ShowDetails(value); }
+    private void AddSection(string text) => DetailsPanel.Children.Add(new TextBlock { Text = text, FontFamily = new FontFamily("Georgia"), FontWeight = FontWeights.Bold, FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(23,78,145)), Margin = new Thickness(0,15,0,5) });
+    private void AddLine(string name, string value) => DetailsPanel.Children.Add(new TextBlock { Text = $"{name}: {value}", Margin = new Thickness(0,2,0,2), FontSize = 12 });
+    private void AddLink(string text, Action action) { var label = new TextBlock { Text = text, TextWrapping = TextWrapping.Wrap }; var button = new Button { Content = label, HorizontalContentAlignment = HorizontalAlignment.Left, Margin = new Thickness(0,2,0,2), Padding = new Thickness(7,4,7,4), FontSize = 11 }; button.Click += (_, _) => action(); DetailsPanel.Children.Add(button); }
+    private static TextBlock Heading(string text, double size) => new() { Text = text, FontFamily = new FontFamily("Georgia"), FontWeight = FontWeights.Bold, FontSize = size, Foreground = new SolidColorBrush(Color.FromRgb(23,78,145)), TextWrapping = TextWrapping.Wrap, MaxWidth = 260 };
+    private static TextBlock Meta(string text) => new() { Text = text, Foreground = new SolidColorBrush(Color.FromRgb(91,116,150)), Margin = new Thickness(0,4,0,4), TextWrapping = TextWrapping.Wrap };
+    private static double ParseRate(string value) => double.TryParse(value.TrimEnd('%'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var n) ? n : 0;
+    private static int ParseCount(string value) => int.TryParse(value, out var n) ? n : 0;
+    private string T(string ru, string en) => _settings.Language == "en" ? en : ru;
+    private void Close_Click(object sender, RoutedEventArgs e) => HideRequested?.Invoke();
+}

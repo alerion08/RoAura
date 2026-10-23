@@ -1,0 +1,510 @@
+<Window x:Class="RoAura.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:RoAura.Converters"
+        Title="RoAura Overlay" WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent" Topmost="False" ShowInTaskbar="False"
+        ResizeMode="NoResize" ShowActivated="False">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+        <converters:ProgressToHeightConverter x:Key="ProgressToHeight" />
+        <converters:ScaleValueConverter x:Key="ScaleValue" />
+        <converters:Base64ToImageSourceConverter x:Key="Base64Image" />
+        <converters:ColorStringToBrushConverter x:Key="ColorBrush" />
+        <converters:CenterCoordinateConverter x:Key="CenterCoordinate" />
+        <converters:EffectPanelOpacityConverter x:Key="PanelOpacity" />
+        <converters:BottomMarginConverter x:Key="BottomMargin" />
+        <converters:DoubleToThicknessConverter x:Key="IconPadding" />
+    </Window.Resources>
+    <Grid Background="Transparent">
+        <ItemsControl ItemsSource="{Binding Skills}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="{Binding IndividualIconSize}" Height="{Binding IndividualIconSize}"
+                            CornerRadius="8" BorderThickness="2" Padding="{Binding IconPadding, Converter={StaticResource IconPadding}}" Cursor="SizeAll"
+                            Opacity="{Binding CurrentOpacity}"
+                            MouseLeftButtonDown="Aura_MouseLeftButtonDown"
+                            MouseLeftButtonUp="Aura_MouseLeftButtonUp"
+                            MouseMove="Aura_MouseMove">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="#66090B10" />
+                                <Setter Property="BorderBrush" Value="#B8C5CBD4" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsReady}" Value="True">
+                                        <Setter Property="Background" Value="#44090B10" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Enabled}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Grid>
+                            <Image Source="{Binding IconImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill" />
+                            <Rectangle VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
+                                       Fill="#665EEAD4" IsHitTestVisible="False">
+                                <Rectangle.Height>
+                                    <MultiBinding Converter="{StaticResource ProgressToHeight}">
+                                        <Binding Path="ElapsedProgress" Mode="OneWay" />
+                                        <Binding Path="IndividualIconSize" />
+                                    </MultiBinding>
+                                </Rectangle.Height>
+                                <Rectangle.Style>
+                                    <Style TargetType="Rectangle">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsReady}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Rectangle.Style>
+                            </Rectangle>
+                            <TextBlock Text="{Binding ShortName}" FontWeight="Bold"
+                                       FontSize="{Binding IndividualIconSize, Converter={StaticResource ScaleValue}, ConverterParameter=0.22}"
+                                       Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top"
+                                       Margin="2,3,2,0"
+                                       Visibility="{Binding DataContext.ShowShortNames, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                            <TextBlock Text="{Binding CooldownNumberText}" FontWeight="Black"
+                                       FontSize="{Binding IndividualIconSize, Converter={StaticResource ScaleValue}, ConverterParameter=0.40}"
+                                       Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       IsHitTestVisible="False">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsReady}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="5" ShadowDepth="0" Color="Black" Opacity="1" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                            <TextBlock Text="READY" FontWeight="Bold"
+                                       FontSize="{Binding IndividualIconSize, Converter={StaticResource ScaleValue}, ConverterParameter=0.18}"
+                                       Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                                       Margin="2,0,2,5" IsHitTestVisible="False">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding IsReady}" Value="True" />
+                                                    <Condition Binding="{Binding DataContext.ShowReadyText, RelativeSource={RelativeSource AncestorType=Window}}" Value="True" />
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl ItemsSource="{Binding BuffPanelGroups}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="4" MinWidth="32" MinHeight="32" CornerRadius="5"
+                            Cursor="SizeAll" MouseLeftButtonDown="BuffPanel_MouseLeftButtonDown"
+                            MouseMove="BuffPanel_MouseMove" MouseLeftButtonUp="BuffPanel_MouseLeftButtonUp">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="2" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Effects.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsPlacementPreview}" Value="True">
+                                        <Setter Property="Background" Value="#70141414" />
+                                        <Setter Property="BorderBrush" Value="#FFFFD45C" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <ItemsControl ItemsSource="{Binding Effects}" Tag="{Binding}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate><StackPanel Orientation="Horizontal" /></ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Width="{Binding Tag.IconSize, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            Height="{Binding Tag.IconSize, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            Margin="0,0,4,0" Padding="{Binding Tag.IconPadding, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource IconPadding}}"
+                                            BorderThickness="1" BorderBrush="#B8C5CBD4"
+                                            CornerRadius="3" ClipToBounds="True">
+                                        <Border.Opacity>
+                                            <MultiBinding Converter="{StaticResource PanelOpacity}">
+                                                <Binding Path="IsActive" />
+                                                <Binding Path="Tag.ActiveOpacityPercent" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                <Binding Path="Tag.InactiveOpacityPercent" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                            </MultiBinding>
+                                        </Border.Opacity>
+                                        <Grid>
+                                            <Image Source="{Binding TemplateImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill" />
+                                            <Rectangle VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Fill="#805EEAD4"
+                                                       Visibility="{Binding ShowDurationFill, Converter={StaticResource BoolToVisibility}}">
+                                                <Rectangle.Height>
+                                                    <MultiBinding Converter="{StaticResource ProgressToHeight}">
+                                                        <Binding Path="DurationProgress" />
+                                                        <Binding Path="Tag.IconSize" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                    </MultiBinding>
+                                                </Rectangle.Height>
+                                            </Rectangle>
+                                            <Rectangle Fill="#A0707070">
+                                                <Rectangle.Style>
+                                                    <Style TargetType="Rectangle">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsActive}" Value="False">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Rectangle.Style>
+                                            </Rectangle>
+                                            <TextBlock Text="{Binding RemainingText}" FontWeight="Black" Foreground="White"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       FontSize="{Binding Tag.IconSize, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource ScaleValue}, ConverterParameter=0.34}">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                        <Style.Triggers>
+                                                            <MultiDataTrigger>
+                                                                <MultiDataTrigger.Conditions>
+                                                                    <Condition Binding="{Binding IsActive}" Value="True" />
+                                                                    <Condition Binding="{Binding ShowDurationText}" Value="True" />
+                                                                </MultiDataTrigger.Conditions>
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </MultiDataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                                <TextBlock.Effect><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1" /></TextBlock.Effect>
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl ItemsSource="{Binding Reminders}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left">
+                        <Setter.Value><MultiBinding Converter="{StaticResource CenterCoordinate}">
+                            <Binding Path="X"/><Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                        </MultiBinding></Setter.Value>
+                    </Setter>
+                    <Setter Property="Canvas.Top">
+                        <Setter.Value><MultiBinding Converter="{StaticResource CenterCoordinate}">
+                            <Binding Path="Y"/><Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                        </MultiBinding></Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="{Binding IconPadding, Converter={StaticResource IconPadding}}" CornerRadius="6" Cursor="SizeAll"
+                            Opacity="{Binding Opacity}"
+                            Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}"
+                            MouseLeftButtonDown="Reminder_MouseLeftButtonDown"
+                            MouseLeftButtonUp="Reminder_MouseLeftButtonUp"
+                            MouseMove="Reminder_MouseMove">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShowBackground}" Value="True">
+                                        <Setter Property="Background" Value="{Binding BackgroundColor, Converter={StaticResource ColorBrush}}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ShowBorder}" Value="True">
+                                        <Setter Property="BorderBrush" Value="{Binding BorderColor, Converter={StaticResource ColorBrush}}" />
+                                        <Setter Property="BorderThickness" Value="2" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <StackPanel HorizontalAlignment="Center">
+                            <Image Source="{Binding IconImageBase64, Converter={StaticResource Base64Image}}"
+                                   Width="{Binding IconSize}" Height="{Binding IconSize}" Stretch="UniformToFill"
+                                   HorizontalAlignment="Center"
+                                   Visibility="{Binding ShowIcon, Converter={StaticResource BoolToVisibility}}" />
+                            <TextBlock Text="{Binding Text}" FontSize="{Binding TextSize}" FontWeight="Bold"
+                                       Foreground="{Binding TextColor, Converter={StaticResource ColorBrush}}"
+                                       HorizontalAlignment="Center" TextAlignment="Center"
+                                       Margin="0,4,0,0">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl ItemsSource="{Binding Equipment}">
+            <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left"><Setter.Value><MultiBinding Converter="{StaticResource CenterCoordinate}"><Binding Path="X"/><Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/></MultiBinding></Setter.Value></Setter>
+                    <Setter Property="Canvas.Top"><Setter.Value><MultiBinding Converter="{StaticResource CenterCoordinate}"><Binding Path="Y"/><Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/></MultiBinding></Setter.Value></Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="{Binding IconPadding, Converter={StaticResource IconPadding}}" CornerRadius="6" Cursor="SizeAll" Opacity="{Binding Opacity}"
+                            Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}"
+                            MouseLeftButtonDown="Equipment_MouseLeftButtonDown" MouseMove="Equipment_MouseMove" MouseLeftButtonUp="Equipment_MouseLeftButtonUp">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Transparent"/><Setter Property="BorderBrush" Value="Transparent"/><Setter Property="BorderThickness" Value="0"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShowBackground}" Value="True"><Setter Property="Background" Value="{Binding BackgroundColor, Converter={StaticResource ColorBrush}}"/></DataTrigger>
+                                    <DataTrigger Binding="{Binding ShowBorder}" Value="True"><Setter Property="BorderBrush" Value="{Binding BorderColor, Converter={StaticResource ColorBrush}}"/><Setter Property="BorderThickness" Value="2"/></DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <StackPanel HorizontalAlignment="Center">
+                            <Image Source="{Binding IconImageBase64, Converter={StaticResource Base64Image}}" Width="{Binding IconSize}" Height="{Binding IconSize}" Stretch="UniformToFill"/>
+                            <TextBlock Text="{Binding Text}" FontSize="{Binding TextSize}" FontWeight="Bold" TextAlignment="Center"
+                                       Foreground="{Binding TextColor, Converter={StaticResource ColorBrush}}" Margin="0,4,0,0"
+                                       Visibility="{Binding ShowText, Converter={StaticResource BoolToVisibility}}">
+                                <TextBlock.Effect><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></TextBlock.Effect>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl ItemsSource="{Binding ActiveNotifications}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource CenterCoordinate}">
+                                <Binding Path="X" />
+                                <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Canvas.Top">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource CenterCoordinate}">
+                                <Binding Path="Y" />
+                                <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="{Binding IconPadding, Converter={StaticResource IconPadding}}" CornerRadius="8" Opacity="{Binding Opacity}"
+                            IsHitTestVisible="{Binding IsPlacementPreview}" Cursor="SizeAll"
+                            MouseLeftButtonDown="Notification_MouseLeftButtonDown"
+                            MouseLeftButtonUp="Notification_MouseLeftButtonUp"
+                            MouseMove="Notification_MouseMove">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShowBackground}" Value="True">
+                                        <Setter Property="Background" Value="{Binding BackgroundColor, Converter={StaticResource ColorBrush}}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ShowBorder}" Value="True">
+                                        <Setter Property="BorderBrush" Value="{Binding Color, Converter={StaticResource ColorBrush}}" />
+                                        <Setter Property="BorderThickness" Value="2" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding IconBase64, Converter={StaticResource Base64Image}}"
+                                   Width="{Binding IconSize}" Height="{Binding IconSize}" Stretch="Uniform"
+                                   Margin="0,0,12,0"
+                                   Visibility="{Binding ShowIcon, Converter={StaticResource BoolToVisibility}}" />
+                            <TextBlock Text="{Binding Text}" FontSize="{Binding TextSize}"
+                                       FontWeight="Black" VerticalAlignment="Center"
+                                       Foreground="{Binding Color, Converter={StaticResource ColorBrush}}">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="5" ShadowDepth="0" Color="Black" Opacity="1" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl x:Name="RewardGroupsPanel" ItemsSource="{Binding RewardGroups}">
+            <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="8" CornerRadius="6" Cursor="SizeAll"
+                            Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}"
+                            IsHitTestVisible="{Binding IsPlacementPreview}"
+                            MouseLeftButtonDown="RewardGroup_MouseLeftButtonDown"
+                            MouseMove="RewardGroup_MouseMove"
+                            MouseLeftButtonUp="RewardGroup_MouseLeftButtonUp">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsPlacementPreview}" Value="True">
+                                        <Setter Property="Background" Value="#C0181B22" />
+                                        <Setter Property="BorderBrush" Value="#FFFFD45C" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <StackPanel>
+                            <TextBlock Text="{Binding PreviewText}" Foreground="#FFFFD45C" FontWeight="Bold"
+                                       Margin="0,0,0,5" Visibility="{Binding IsPlacementPreview, Converter={StaticResource BoolToVisibility}}" />
+                            <ItemsControl ItemsSource="{Binding Notifications}" Tag="{Binding}">
+                                <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Text}" FontWeight="Bold"
+                                                   FontSize="{Binding Tag.TextSize, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                   Foreground="{Binding Color, Converter={StaticResource ColorBrush}}"
+                                                   Margin="{Binding Tag.Gap, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource BottomMargin}}">
+                                            <TextBlock.Effect><DropShadowEffect BlurRadius="5" ShadowDepth="0" Color="Black" Opacity="1" /></TextBlock.Effect>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl x:Name="RateIndicatorsPanel" ItemsSource="{Binding RateIndicators}">
+            <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="7,4" CornerRadius="5" Cursor="SizeAll" Opacity="{Binding Opacity}"
+                            Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}"
+                            IsHitTestVisible="{Binding IsPlacementPreview}"
+                            MouseLeftButtonDown="RateIndicator_MouseLeftButtonDown"
+                            MouseMove="RateIndicator_MouseMove"
+                            MouseLeftButtonUp="RateIndicator_MouseLeftButtonUp">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsPlacementPreview}" Value="True">
+                                        <Setter Property="Background" Value="#C0181B22" />
+                                        <Setter Property="BorderBrush" Value="#FFFFD45C" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <TextBlock Text="{Binding ValueText}" FontWeight="Bold" FontSize="{Binding TextSize}"
+                                   Foreground="{Binding TextColor, Converter={StaticResource ColorBrush}}">
+                            <TextBlock.Effect><DropShadowEffect BlurRadius="5" ShadowDepth="0" Color="Black" Opacity="1" /></TextBlock.Effect>
+                        </TextBlock>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Canvas IsHitTestVisible="True">
+            <Border x:Name="MvpTimerPanel" Canvas.Left="{Binding TimersX}" Canvas.Top="{Binding TimersY}"
+                    Padding="10" CornerRadius="6" Background="#B011141B" BorderBrush="#B8C5CBD4" BorderThickness="1"
+                    Cursor="SizeAll" Visibility="Collapsed"
+                    MouseLeftButtonDown="MvpTimerPanel_MouseLeftButtonDown" MouseMove="MvpTimerPanel_MouseMove" MouseLeftButtonUp="MvpTimerPanel_MouseLeftButtonUp">
+                <StackPanel>
+                <TextBlock x:Name="TimerPanelPreview" Text="MVP TIMERS" FontWeight="Bold" Foreground="#FFFFD45C" Visibility="Collapsed" Margin="0,0,0,5"/>
+                <ItemsControl ItemsSource="{Binding MvpTimers}">
+                    <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DisplayText}" FontWeight="Bold" FontSize="{Binding DataContext.TimersTextSize, RelativeSource={RelativeSource AncestorType=Window}}"
+                                       Foreground="{Binding DataContext.TimersTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}"
+                                       Margin="{Binding DataContext.TimersGap, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BottomMargin}}"
+                                       Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}">
+                                <TextBlock.Effect><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></TextBlock.Effect>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                </StackPanel>
+            </Border>
+        </Canvas>
+
+        <Border x:Name="EditBanner" HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="24,18,0,0" Padding="14,8" CornerRadius="8"
+                Background="#ED171B24" BorderBrush="#FFFFD45C" BorderThickness="1"
+                Visibility="Collapsed">
+            <TextBlock x:Name="EditBannerText" Foreground="White" FontWeight="SemiBold" />
+        </Border>
+    </Grid>
+</Window>

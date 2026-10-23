@@ -1,0 +1,86 @@
+using System.Text.Json;
+using RoAura.Models;
+
+namespace RoAura.Services;
+
+public sealed class GameDatabaseService
+{
+    private readonly GameDatabase _database;
+    private readonly IReadOnlyDictionary<int, DatabaseMonster> _monstersById;
+    public IReadOnlyList<DatabaseMonster> Monsters => _database.Monsters;
+    public IReadOnlyList<DatabaseItem> Items => _database.Items;
+    public IReadOnlyList<DatabaseMap> Maps => _database.Maps;
+
+    public GameDatabaseService()
+    {
+        var path = Path.Combine(AppContext.BaseDirectory, "Data", "database.springro.json");
+        try
+        {
+            _database = JsonSerializer.Deserialize<GameDatabase>(File.ReadAllText(path),
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new GameDatabase();
+        }
+        catch (Exception ex)
+        {
+            DebugLog.Write($"DATABASE LOAD ERROR: {ex}");
+            _database = new GameDatabase();
+        }
+        _monstersById = _database.Monsters.ToDictionary(x => x.Id);
+    }
+
+    public IEnumerable<DatabaseSearchResult> Search(DatabaseSearchKind kind, string query, int limit = 100)
+    {
+        query = query.Trim();
+        bool Matches(string name, string id) => query.Length == 0 ||
+            name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+            id.Contains(query, StringComparison.OrdinalIgnoreCase);
+
+        return kind switch
+        {
+            DatabaseSearchKind.Monsters => _database.Monsters.Where(x => Matches(x.Name, x.Id.ToString()))
+                .OrderByDescending(x => x.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)).ThenBy(x => x.Name)
+                .Take(limit).Select(x => new DatabaseSearchResult(kind, x, x.Name, $"Lv {x.Level} · {x.Element} · #{x.Id}")),
+            DatabaseSearchKind.Items => _database.Items.Where(x => Matches(x.Name, x.Id.ToString()))
+                .OrderByDescending(x => x.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)).ThenBy(x => x.Name)
+                .Take(limit).Select(x => new DatabaseSearchResult(kind, x, x.Name, $"{x.Type} · #{x.Id}")),
+            _ => _database.Maps.Where(x => Matches(x.Name, x.Code))
+                .OrderByDescending(x => x.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase)).ThenBy(x => x.Name)
+                .Take(limit).Select(x =>
+                {
+                    var density = GetMapExperienceDensity(x);
+                    return new DatabaseSearchResult(kind, x,
+                        $"{x.Name} · Base {density.BaseExperience:N0} / Job {density.JobExperience:N0}",
+                        $"{x.Code} · {density.MonsterCount:N0} mobs");
+                })
+        };
+    }
+
+    public MapExperienceDensity GetMapExperienceDensity(DatabaseMap map)
+    {
+        long totalBase = 0;
+        long totalJob = 0;
+        var totalMonsters = 0;
+        foreach (var spawn in map.Monsters)
+        {
+            var count = ParseNumber(spawn.Count);
+            if (count <= 0 || !_monstersById.TryGetValue(spawn.MonsterId, out var monster)) continue;
+            totalMonsters += count;
+            totalBase += ParseNumber(monster.BaseExp) * (long)count;
+            totalJob += ParseNumber(monster.JobExp) * (long)count;
+        }
+
+        if (totalMonsters == 0) return new MapExperienceDensity(0, 0, 0);
+        return new MapExperienceDensity(totalMonsters,
+            (long)Math.Round(totalBase / (double)totalMonsters),
+            (long)Math.Round(totalJob / (double)totalMonsters));
+    }
+
+    private static int ParseNumber(string value)
+    {
+        var digits = new string(value.Where(char.IsDigit).ToArray());
+        return int.TryParse(digits, out var number) ? number : 0;
+    }
+
+    public DatabaseMonster? Monster(int id) => _database.Monsters.FirstOrDefault(x => x.Id == id);
+    public DatabaseItem? Item(int id) => _database.Items.FirstOrDefault(x => x.Id == id);
+    public DatabaseMap? Map(string code) => _database.Maps.FirstOrDefault(x => x.Code.Equals(code, StringComparison.OrdinalIgnoreCase));
+}

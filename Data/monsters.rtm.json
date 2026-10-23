@@ -1,0 +1,572 @@
+[
+  {
+    "id": 3225,
+    "name": "Absolute Seyren",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2476,
+    "name": "Amdarais",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1511,
+    "name": "Amon Ra",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2249,
+    "name": "Angry Pyuriel",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1785,
+    "name": "Atroce",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1039,
+    "name": "Baphomet",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2661,
+    "name": "Baroness of Blood",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3483,
+    "name": "Baroness of Despair",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1927,
+    "name": "Baroness of Sorrow",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3449,
+    "name": "Bestia",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3450,
+    "name": "Bijou",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1991,
+    "name": "Black Tendrillion",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2895,
+    "name": "Bone Detardeurus",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3091,
+    "name": "Brinaranea",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2649,
+    "name": "Broken Thanatos",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2996,
+    "name": "Celine Kimi",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3124,
+    "name": "Charleston",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2186,
+    "name": "Coelacanth",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2475,
+    "name": "Corruption Root",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1272,
+    "name": "Dark Lord",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3740,
+    "name": "Dark Rose Dragon",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 21610,
+    "name": "Desperate Njord",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1719,
+    "name": "Detardeurus",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1389,
+    "name": "Dracula",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1112,
+    "name": "Drake",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2102,
+    "name": "Dream of Kings",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1115,
+    "name": "Eddga",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3097,
+    "name": "Emperor Morroc",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2677,
+    "name": "Enenra",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1957,
+    "name": "Entweihen Crothen",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2942,
+    "name": "Evil Fanatic",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2549,
+    "name": "Expert Novice",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2529,
+    "name": "Faceworm Queen",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3021,
+    "name": "Failed Abomination",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1871,
+    "name": "Fallen Bishop",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1087,
+    "name": "Fallen Orc Hero",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3001,
+    "name": "First Revenant",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1658,
+    "name": "Forgotten Egnigem",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2253,
+    "name": "General Daehyon",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1768,
+    "name": "Gloom Under Night",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1299,
+    "name": "Goblin King",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3626,
+    "name": "Goddess Freya",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1086,
+    "name": "Golden Thief Bug",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1252,
+    "name": "Hatii",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1626,
+    "name": "Himelmez",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1832,
+    "name": "Ifrit",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1492,
+    "name": "Incantation Samurai",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1665,
+    "name": "Jormungandr",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3503,
+    "name": "Kafra Manager Jenni",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1733,
+    "name": "Kiel D-01",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1734,
+    "name": "Kiel DX-03",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1937,
+    "name": "King Poring",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2802,
+    "name": "King Schmidt",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1245,
+    "name": "Knight Sakray",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1296,
+    "name": "Kobold Leader",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2202,
+    "name": "Kraken",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1779,
+    "name": "Ktullanux",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1688,
+    "name": "Lady Tanee",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1373,
+    "name": "Lord of the Dead",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2808,
+    "name": "Mark Bearer",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2937,
+    "name": "Master Loki",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2718,
+    "name": "Mega Peco",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1708,
+    "name": "Memory of Thanatos",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1395,
+    "name": "Miguel",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1059,
+    "name": "Mistress",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1150,
+    "name": "Moonlight Flower",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3092,
+    "name": "Muspelskoll",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2583,
+    "name": "Noble Devourer",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2022,
+    "name": "Nydhogg",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1190,
+    "name": "Orc Lord Zombie",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1930,
+    "name": "Orphan Piamette",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1038,
+    "name": "Osiris",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2958,
+    "name": "Paradox Amdarais",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1157,
+    "name": "Pharaoh",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1159,
+    "name": "Phreeoni",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1147,
+    "name": "Queen Maya",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1623,
+    "name": "RSX-0806",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2667,
+    "name": "Rockullanux",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3485,
+    "name": "Sarah Irine",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1916,
+    "name": "Satan Morocc",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2087,
+    "name": "Scaraba Queen",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3200,
+    "name": "Scylla",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2925,
+    "name": "Serpens",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1083,
+    "name": "Shining Plant",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2255,
+    "name": "Soul Cage Azrael",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2792,
+    "name": "Soul of Ymir",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2672,
+    "name": "Star Scourge",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1251,
+    "name": "Stormy Knight",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 21626,
+    "name": "Strange Love",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1583,
+    "name": "Tao Gunka",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 3074,
+    "name": "Time Holder",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1312,
+    "name": "Turtle General",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1751,
+    "name": "Valkyrie Randgris",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 2037,
+    "name": "Valkyrie Reginleif",
+    "nameRu": "",
+    "isMvp": true
+  },
+  {
+    "id": 1685,
+    "name": "Vesper",
+    "nameRu": "",
+    "isMvp": true
+  }
+]

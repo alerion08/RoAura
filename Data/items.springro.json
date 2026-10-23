@@ -1,0 +1,6852 @@
+﻿[
+    {
+        "Id":  501,
+        "Name":  "Red Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  502,
+        "Name":  "Orange Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  503,
+        "Name":  "Yellow Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  504,
+        "Name":  "White Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  505,
+        "Name":  "Blue Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  506,
+        "Name":  "Green Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  507,
+        "Name":  "Red Herb",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  508,
+        "Name":  "Yellow Herb",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  509,
+        "Name":  "White Herb",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  510,
+        "Name":  "Blue Herb",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  511,
+        "Name":  "Green Herb",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  512,
+        "Name":  "Apple",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  513,
+        "Name":  "Banana",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  514,
+        "Name":  "Grape",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  515,
+        "Name":  "Carrot",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  516,
+        "Name":  "Potato",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  517,
+        "Name":  "Meat",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  518,
+        "Name":  "Honey",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  519,
+        "Name":  "Milk",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  520,
+        "Name":  "Hinalle Leaflet",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  521,
+        "Name":  "Aloe Leaflet",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  522,
+        "Name":  "Mastela Fruit",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  523,
+        "Name":  "Holy Water",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  525,
+        "Name":  "Panacea",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  526,
+        "Name":  "Royal Jelly",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  528,
+        "Name":  "Monster\u0027s Feed",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  529,
+        "Name":  "Candy",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  530,
+        "Name":  "Candy Cane",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  531,
+        "Name":  "Apple Juice",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  532,
+        "Name":  "Banana Juice",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  533,
+        "Name":  "Grape Juice",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  534,
+        "Name":  "Carrot Juice",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  535,
+        "Name":  "Pumpkin",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  536,
+        "Name":  "Ice Cream",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  537,
+        "Name":  "Pet Food",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  538,
+        "Name":  "Well-baked Cookie",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  539,
+        "Name":  "Piece of Cake",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  545,
+        "Name":  "Condensed Red Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  546,
+        "Name":  "Condensed Yellow Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  547,
+        "Name":  "Condensed White Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  549,
+        "Name":  "Yam",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  554,
+        "Name":  "Mochi",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  569,
+        "Name":  "Novice Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  577,
+        "Name":  "Bag of Grain",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  579,
+        "Name":  "Fresh Fish",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  580,
+        "Name":  "Bread",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  601,
+        "Name":  "Fly Wing",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  602,
+        "Name":  "Butterfly Wing",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  603,
+        "Name":  "Old Blue Box",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  604,
+        "Name":  "Dead Branch",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  605,
+        "Name":  "Anodyne",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  606,
+        "Name":  "Aloevera",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  607,
+        "Name":  "Yggdrasil Berry",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  608,
+        "Name":  "Yggdrasil Seed",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  609,
+        "Name":  "Amulet",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  610,
+        "Name":  "Yggdrasil Leaf",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  611,
+        "Name":  "Magnifier",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  612,
+        "Name":  "Mini Furnace",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  613,
+        "Name":  "Iron Hammer",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  614,
+        "Name":  "Golden Hammer",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  615,
+        "Name":  "Oridecon Hammer",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  616,
+        "Name":  "Old Card Album",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  617,
+        "Name":  "Old Purple Box",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  618,
+        "Name":  "Worn Out Scroll",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  619,
+        "Name":  "Unripe Apple",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  620,
+        "Name":  "Orange Juice",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  621,
+        "Name":  "Bitter Herb",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  622,
+        "Name":  "Rainbow Carrot",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  623,
+        "Name":  "Earthworm the Dude",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  624,
+        "Name":  "Rotten Fish",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  625,
+        "Name":  "Rusty Iron",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  626,
+        "Name":  "Monster Juice",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  627,
+        "Name":  "Sweet Milk",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  628,
+        "Name":  "Well-Dried Bone",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  629,
+        "Name":  "Singing Flower",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  630,
+        "Name":  "Dew Laden Moss",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  631,
+        "Name":  "Deadly Noxious Herb",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  632,
+        "Name":  "Fatty Chubby Earthworm",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  633,
+        "Name":  "Sweet Potato",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  634,
+        "Name":  "Tropical Banana",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  635,
+        "Name":  "Orc Trophy",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  636,
+        "Name":  "No Recipient",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  637,
+        "Name":  "Old Broom",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  638,
+        "Name":  "Silver Knife of Chastity",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  639,
+        "Name":  "Armlet of Obedience",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  640,
+        "Name":  "Shining Stone",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  641,
+        "Name":  "Contract in Shadow",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  642,
+        "Name":  "Book of the Devil",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  643,
+        "Name":  "Pet Incubator",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  644,
+        "Name":  "Gift Box",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  645,
+        "Name":  "Concentration Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  656,
+        "Name":  "Awakening Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  657,
+        "Name":  "Berserk Potion",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  658,
+        "Name":  "Union of Tribe",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  659,
+        "Name":  "Her Heart",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  660,
+        "Name":  "Forbidden Red Candle",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  661,
+        "Name":  "Soft Apron",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  694,
+        "Name":  "Level 3 Soul Strike",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  701,
+        "Name":  "Ora Ora",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  702,
+        "Name":  "Animal Gore",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  703,
+        "Name":  "Hinalle",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  704,
+        "Name":  "Aloe",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  705,
+        "Name":  "Clover",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  706,
+        "Name":  "Four Leaf Clover",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  707,
+        "Name":  "Singing Plant",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  708,
+        "Name":  "Ment",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  710,
+        "Name":  "Illusion Flower",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  711,
+        "Name":  "Shoot",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  712,
+        "Name":  "Flower",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  713,
+        "Name":  "Empty Bottle",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  714,
+        "Name":  "Emperium",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  715,
+        "Name":  "Yellow Gemstone",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  716,
+        "Name":  "Red Gemstone",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  717,
+        "Name":  "Blue Gemstone",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  719,
+        "Name":  "Amethyst",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  720,
+        "Name":  "Aquamarine",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  721,
+        "Name":  "Emerald",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  722,
+        "Name":  "Pearl",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  723,
+        "Name":  "Ruby",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  724,
+        "Name":  "Cursed Ruby",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  725,
+        "Name":  "Sardonyx",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  726,
+        "Name":  "Sapphire",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  727,
+        "Name":  "Opal",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  728,
+        "Name":  "Topaz",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  729,
+        "Name":  "Zircon",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  730,
+        "Name":  "1carat Diamond",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  731,
+        "Name":  "2carat Diamond",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  732,
+        "Name":  "3carat Diamond",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  733,
+        "Name":  "Cracked Diamond",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  734,
+        "Name":  "Red Frame",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  735,
+        "Name":  "Chung Jah",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  736,
+        "Name":  "China",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  737,
+        "Name":  "Black Ladle",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  739,
+        "Name":  "Rouge",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  740,
+        "Name":  "Puppet",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  741,
+        "Name":  "Poring Doll",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  742,
+        "Name":  "Chonchon Doll",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  743,
+        "Name":  "Spore Doll",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  744,
+        "Name":  "Bouquet",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  745,
+        "Name":  "Wedding Bouquet",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  746,
+        "Name":  "Glass Bead",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  747,
+        "Name":  "Crystal Mirror",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  748,
+        "Name":  "Witherless Rose",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  750,
+        "Name":  "Baphomet Doll",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  751,
+        "Name":  "Osiris Doll",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  752,
+        "Name":  "Rocker Doll",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  753,
+        "Name":  "Yoyo Doll",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  754,
+        "Name":  "Raccoon Doll",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  756,
+        "Name":  "Rough Oridecon",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  757,
+        "Name":  "Rough Elunium",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  901,
+        "Name":  "Daenggie",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  902,
+        "Name":  "Tree Root",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  903,
+        "Name":  "Reptile Tongue",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  904,
+        "Name":  "Scorpion Tail",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  905,
+        "Name":  "Stem",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  906,
+        "Name":  "Pointed Scale",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  907,
+        "Name":  "Resin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  908,
+        "Name":  "Spawn",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  909,
+        "Name":  "Jellopy",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  910,
+        "Name":  "Garlet",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  911,
+        "Name":  "Scell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  912,
+        "Name":  "Zargon",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  913,
+        "Name":  "Tooth of Bat",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  914,
+        "Name":  "Fluff",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  915,
+        "Name":  "Chrysalis",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  916,
+        "Name":  "Feather of Birds",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  917,
+        "Name":  "Talon",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  918,
+        "Name":  "Sticky Webfoot",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  919,
+        "Name":  "Animal Skin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  920,
+        "Name":  "Wolf Claw",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  921,
+        "Name":  "Mushroom Spore",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  922,
+        "Name":  "Orc\u0027s Fang",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  923,
+        "Name":  "Evil Horn",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  924,
+        "Name":  "Powder of Butterfly",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  925,
+        "Name":  "Bill of Birds",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  926,
+        "Name":  "Snake Scale",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  928,
+        "Name":  "Insect Feeler",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  929,
+        "Name":  "Immortal Heart",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  930,
+        "Name":  "Rotten Bandage",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  931,
+        "Name":  "Orcish Voucher",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  932,
+        "Name":  "Skel-Bone",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  934,
+        "Name":  "Memento",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  935,
+        "Name":  "Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  936,
+        "Name":  "Scale Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  937,
+        "Name":  "Venom Canine",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  938,
+        "Name":  "Sticky Mucus",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  939,
+        "Name":  "Bee Sting",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  940,
+        "Name":  "Grasshopper\u0027s Leg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  941,
+        "Name":  "Nose Ring",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  942,
+        "Name":  "Yoyo Tail",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  943,
+        "Name":  "Solid Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  944,
+        "Name":  "Horseshoe",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  945,
+        "Name":  "Raccoon Leaf",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  946,
+        "Name":  "Snail\u0027s Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  947,
+        "Name":  "Horn",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  948,
+        "Name":  "Bear\u0027s Footskin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  949,
+        "Name":  "Feather",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  950,
+        "Name":  "Heart of Mermaid",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  951,
+        "Name":  "Fin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  952,
+        "Name":  "Cactus Needle",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  953,
+        "Name":  "Stone Heart",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  954,
+        "Name":  "Shining Scale",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  955,
+        "Name":  "Worm Peeling",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  956,
+        "Name":  "Gill",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  957,
+        "Name":  "Decayed Nail",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  958,
+        "Name":  "Horrendous Mouth",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  959,
+        "Name":  "Stinky Scale",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  960,
+        "Name":  "Nipper",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  961,
+        "Name":  "Conch",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  962,
+        "Name":  "Tentacle",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  963,
+        "Name":  "Sharp Scale",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  964,
+        "Name":  "Crab Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  965,
+        "Name":  "Clam Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  966,
+        "Name":  "Clam Flesh",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  967,
+        "Name":  "Turtle Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  968,
+        "Name":  "Heroic Emblem",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  969,
+        "Name":  "Gold",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  970,
+        "Name":  "Alcohol",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  971,
+        "Name":  "Detrimindexta",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  972,
+        "Name":  "Karvodailnirol",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  973,
+        "Name":  "Counteragent",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  974,
+        "Name":  "Mixture",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  975,
+        "Name":  "Scarlet Dyestuffs",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  976,
+        "Name":  "Lemon Dyestuffs",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  978,
+        "Name":  "Cobaltblue Dyestuffs",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  979,
+        "Name":  "Darkgreen Dyestuffs",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  980,
+        "Name":  "Orange Dyestuffs",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  981,
+        "Name":  "Violet Dyestuffs",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  982,
+        "Name":  "White Dyestuffs",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  983,
+        "Name":  "Black Dyestuffs",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  984,
+        "Name":  "Oridecon",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  985,
+        "Name":  "Elunium",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  986,
+        "Name":  "Anvil",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  987,
+        "Name":  "Oridecon Anvil",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  988,
+        "Name":  "Golden Anvil",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  990,
+        "Name":  "Red Blood",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  991,
+        "Name":  "Crystal Blue",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  992,
+        "Name":  "Wind of Verdure",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  993,
+        "Name":  "Green Live",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  994,
+        "Name":  "Flame Heart",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  995,
+        "Name":  "Mystic Frozen",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  996,
+        "Name":  "Rough Wind",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  997,
+        "Name":  "Great Nature",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  998,
+        "Name":  "Iron",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  999,
+        "Name":  "Steel",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1000,
+        "Name":  "Star Crumb",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1001,
+        "Name":  "Star Dust",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1002,
+        "Name":  "Iron Ore",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1003,
+        "Name":  "Coal",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1004,
+        "Name":  "Chivalry Emblem",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1005,
+        "Name":  "Hammer of Blacksmith",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1006,
+        "Name":  "Old Magicbook",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1007,
+        "Name":  "Necklace of Wisdom",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1008,
+        "Name":  "Necklace of Oblivion",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1009,
+        "Name":  "Hand of God",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1010,
+        "Name":  "Phracon",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1011,
+        "Name":  "Emveretarcon",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1012,
+        "Name":  "Frill",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1013,
+        "Name":  "Rainbow Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1014,
+        "Name":  "Ant Jaw",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1015,
+        "Name":  "Tongue",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1016,
+        "Name":  "Rat Tail",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1017,
+        "Name":  "Mole Whiskers",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1018,
+        "Name":  "Mole Claw",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1019,
+        "Name":  "Trunk",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1020,
+        "Name":  "Black Hair",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1021,
+        "Name":  "Dokebi Horn",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1022,
+        "Name":  "Nine Tails",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1023,
+        "Name":  "Fish Tail",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1024,
+        "Name":  "Squid Ink",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1025,
+        "Name":  "Cobweb",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1026,
+        "Name":  "Acorn",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1027,
+        "Name":  "Porcupine Quill",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1028,
+        "Name":  "Mane",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1029,
+        "Name":  "Tiger Skin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1030,
+        "Name":  "Tiger\u0027s Footskin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1031,
+        "Name":  "Mantis Scythe",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1032,
+        "Name":  "Maneater Blossom",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1033,
+        "Name":  "Maneater Root",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1034,
+        "Name":  "Blue Hair",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1035,
+        "Name":  "Dragon Canine",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1036,
+        "Name":  "Dragon Scale",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1037,
+        "Name":  "Dragon Tail",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1038,
+        "Name":  "Little Evil Horn",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1039,
+        "Name":  "Little Evil Wing",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1040,
+        "Name":  "Elder Pixie\u0027s Moustache",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1041,
+        "Name":  "Lantern",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1042,
+        "Name":  "Bug Leg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1043,
+        "Name":  "Orc Claw",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1044,
+        "Name":  "Zenorc\u0027s Fang",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1045,
+        "Name":  "Cultish Masque",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1048,
+        "Name":  "Horrendous Hair",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1049,
+        "Name":  "Skirt of Virgin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1050,
+        "Name":  "Tendon",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1051,
+        "Name":  "Detonator",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1052,
+        "Name":  "Single Cell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1053,
+        "Name":  "Ancient Tooth",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1054,
+        "Name":  "Ancient Lips",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1055,
+        "Name":  "Earthworm Peeling",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1056,
+        "Name":  "Grit",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1057,
+        "Name":  "Moth Dust",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1058,
+        "Name":  "Moth Wings",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1059,
+        "Name":  "Fabric",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1060,
+        "Name":  "Golden Hair",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1061,
+        "Name":  "Witched Starsand",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1062,
+        "Name":  "Jack o\u0027 Pumpkin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1063,
+        "Name":  "Fang",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1064,
+        "Name":  "Reins",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1065,
+        "Name":  "Trap",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1066,
+        "Name":  "Fine-grained Trunk",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1068,
+        "Name":  "Barren Trunk",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1069,
+        "Name":  "Orange Net Mushroom",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1070,
+        "Name":  "Orange Gooey Mushroom",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1071,
+        "Name":  "Unknown Test Tube",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1072,
+        "Name":  "Delivery Message",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1073,
+        "Name":  "Voucher",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1074,
+        "Name":  "Voucher",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1075,
+        "Name":  "Voucher",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1076,
+        "Name":  "Voucher",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1077,
+        "Name":  "Voucher",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1078,
+        "Name":  "Voucher",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1079,
+        "Name":  "Voucher",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1080,
+        "Name":  "Voucher",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1081,
+        "Name":  "Delivery Box",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1082,
+        "Name":  "Delivery Box",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1085,
+        "Name":  "Unknown Test Tube",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1086,
+        "Name":  "Unknown Test Tube",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1087,
+        "Name":  "Unknown Test Tube",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1088,
+        "Name":  "Morocc Solution",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1089,
+        "Name":  "Payon Solution",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1090,
+        "Name":  "Unknown Test Tube",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1091,
+        "Name":  "Delivery Box",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1092,
+        "Name":  "Empty Test Tube",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1093,
+        "Name":  "Empty Potion Bottle",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1094,
+        "Name":  "Short Daenggie",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1095,
+        "Name":  "Needle of Alarm",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1096,
+        "Name":  "Round Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1097,
+        "Name":  "Worn Out Page",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1098,
+        "Name":  "Manacles",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1099,
+        "Name":  "Worn-out Prison Uniform",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1101,
+        "Name":  "Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1102,
+        "Name":  "Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1104,
+        "Name":  "Falchion",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1105,
+        "Name":  "Falchion",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1107,
+        "Name":  "Blade",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1108,
+        "Name":  "Blade",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1110,
+        "Name":  "Rapier",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1111,
+        "Name":  "Rapier",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1113,
+        "Name":  "Scimitar",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1114,
+        "Name":  "Scimitar",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1116,
+        "Name":  "Katana",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1117,
+        "Name":  "Katana",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1119,
+        "Name":  "Tsurugi",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1120,
+        "Name":  "Tsurugi",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1122,
+        "Name":  "Ring Pommel Saber",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1123,
+        "Name":  "Haedonggum",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1124,
+        "Name":  "Orcish Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1125,
+        "Name":  "Ring Pommel Saber",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1126,
+        "Name":  "Saber",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1127,
+        "Name":  "Saber",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1128,
+        "Name":  "Haedonggum",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1129,
+        "Name":  "Flamberge",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1131,
+        "Name":  "Ice Falchion",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1133,
+        "Name":  "Fireblend",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1135,
+        "Name":  "Cutlus",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1136,
+        "Name":  "Solar Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1146,
+        "Name":  "Town Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1151,
+        "Name":  "Slayer",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1152,
+        "Name":  "Slayer",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1154,
+        "Name":  "Bastard Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1155,
+        "Name":  "Bastard Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1157,
+        "Name":  "Two-Handed Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1158,
+        "Name":  "Two-Handed Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1160,
+        "Name":  "Broad Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1162,
+        "Name":  "Broad Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1163,
+        "Name":  "Claymore",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1164,
+        "Name":  "Muramasa",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1168,
+        "Name":  "Zweihander",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1170,
+        "Name":  "Katzbalger",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1201,
+        "Name":  "Knife",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1202,
+        "Name":  "Knife",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1204,
+        "Name":  "Cutter",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1205,
+        "Name":  "Cutter",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1207,
+        "Name":  "Main Gauche",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1208,
+        "Name":  "Main Gauche",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1210,
+        "Name":  "Dirk",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1211,
+        "Name":  "Dirk",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1213,
+        "Name":  "Dagger",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1214,
+        "Name":  "Dagger",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1216,
+        "Name":  "Stiletto",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1217,
+        "Name":  "Stiletto",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1219,
+        "Name":  "Gladius",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1220,
+        "Name":  "Gladius",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1222,
+        "Name":  "Damascus",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1223,
+        "Name":  "Fortune Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1226,
+        "Name":  "Damascus",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1232,
+        "Name":  "Assassin Dagger",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1234,
+        "Name":  "Moonlight Dagger",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1236,
+        "Name":  "Sucsamad",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1237,
+        "Name":  "Grimtooth",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1239,
+        "Name":  "Poison Knife",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1243,
+        "Name":  "Novice Main-Gauche",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1245,
+        "Name":  "Cinquedea",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1250,
+        "Name":  "Jur",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1251,
+        "Name":  "Jur",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1252,
+        "Name":  "Katar",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1253,
+        "Name":  "Katar",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1254,
+        "Name":  "Jamadhar",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1255,
+        "Name":  "Jamadhar",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1256,
+        "Name":  "Katar of Frozen Icicle",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1257,
+        "Name":  "Katar of Quaking",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1258,
+        "Name":  "Katar of Raging Blaze",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1259,
+        "Name":  "Katar of Piercing Wind",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1260,
+        "Name":  "Sharpened Legbone of Ghoul",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1261,
+        "Name":  "Infiltrator",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1301,
+        "Name":  "Axe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1302,
+        "Name":  "Axe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1304,
+        "Name":  "Orcish Axe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1306,
+        "Name":  "War Axe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1351,
+        "Name":  "Battle Axe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1352,
+        "Name":  "Battle Axe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1354,
+        "Name":  "Hammer",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1357,
+        "Name":  "Buster",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1358,
+        "Name":  "Buster",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1360,
+        "Name":  "Two-Handed Axe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1361,
+        "Name":  "Two-Handed Axe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1363,
+        "Name":  "Bloody Axe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1364,
+        "Name":  "Great Axe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1366,
+        "Name":  "Light Epsilon",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1401,
+        "Name":  "Javelin",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1402,
+        "Name":  "Javelin",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1404,
+        "Name":  "Spear",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1405,
+        "Name":  "Spear",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1407,
+        "Name":  "Pike",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1408,
+        "Name":  "Pike",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1410,
+        "Name":  "Lance",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1411,
+        "Name":  "Lance",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1413,
+        "Name":  "Gungnir",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1417,
+        "Name":  "Pole Axe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1451,
+        "Name":  "Guisarme",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1452,
+        "Name":  "Guisarme",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1454,
+        "Name":  "Glaive",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1455,
+        "Name":  "Glaive",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1457,
+        "Name":  "Partizan",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1458,
+        "Name":  "Partizan",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1460,
+        "Name":  "Trident",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1463,
+        "Name":  "Halberd",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1464,
+        "Name":  "Halberd",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1466,
+        "Name":  "Crescent Scythe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1468,
+        "Name":  "Zephyrus",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1472,
+        "Name":  "Soul Staff",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1473,
+        "Name":  "Wizardry Staff",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1501,
+        "Name":  "Club",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1502,
+        "Name":  "Club",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1504,
+        "Name":  "Mace",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1505,
+        "Name":  "Mace",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1507,
+        "Name":  "Smasher",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1508,
+        "Name":  "Smasher",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1510,
+        "Name":  "Flail",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1511,
+        "Name":  "Flail",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1513,
+        "Name":  "Morning Star",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1514,
+        "Name":  "Morning Star",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1516,
+        "Name":  "Sword Mace",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1517,
+        "Name":  "Sword Mace",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1519,
+        "Name":  "Chain",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1520,
+        "Name":  "Chain",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1522,
+        "Name":  "Stunner",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1524,
+        "Name":  "Golden Mace",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1525,
+        "Name":  "Long Mace",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1529,
+        "Name":  "Iron Driver",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1550,
+        "Name":  "Book",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1551,
+        "Name":  "Bible",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1552,
+        "Name":  "Tablet",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1553,
+        "Name":  "Book of Billows",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1554,
+        "Name":  "Book of Mother Earth",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1555,
+        "Name":  "Book of the Blazing Sun",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1556,
+        "Name":  "Book of Gust of Wind",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1557,
+        "Name":  "Book of the Apocalypse",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1558,
+        "Name":  "Girl\u0027s Diary",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1601,
+        "Name":  "Rod",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1602,
+        "Name":  "Rod",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1604,
+        "Name":  "Wand",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1605,
+        "Name":  "Wand",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1607,
+        "Name":  "Staff",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1608,
+        "Name":  "Staff",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1610,
+        "Name":  "Arc Wand",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1611,
+        "Name":  "Arc Wand",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1613,
+        "Name":  "Mighty Staff",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1614,
+        "Name":  "Wand of Occult",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1615,
+        "Name":  "Evil Bone Wand",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1701,
+        "Name":  "Bow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1702,
+        "Name":  "Bow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1704,
+        "Name":  "Composite Bow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1705,
+        "Name":  "Composite Bow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1707,
+        "Name":  "Great Bow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1708,
+        "Name":  "Great Bow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1710,
+        "Name":  "Crossbow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1711,
+        "Name":  "Crossbow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1713,
+        "Name":  "Arbalest",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1714,
+        "Name":  "Gakkung Bow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1715,
+        "Name":  "Arbalest",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1716,
+        "Name":  "Gakkung Bow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1718,
+        "Name":  "Hunter Bow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1721,
+        "Name":  "Repeating Crossbow",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1722,
+        "Name":  "Ballista",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1750,
+        "Name":  "Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1751,
+        "Name":  "Silver Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1752,
+        "Name":  "Fire Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1753,
+        "Name":  "Steel Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1754,
+        "Name":  "Crystal Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1755,
+        "Name":  "Arrow of Wind",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1756,
+        "Name":  "Stone Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1757,
+        "Name":  "Immaterial Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1758,
+        "Name":  "Stun Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1759,
+        "Name":  "Frozen Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1760,
+        "Name":  "Flash Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1761,
+        "Name":  "Cursed Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1762,
+        "Name":  "Rusty Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1763,
+        "Name":  "Poison Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1764,
+        "Name":  "Sharp Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1765,
+        "Name":  "Oridecon Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1767,
+        "Name":  "Arrow of Shadow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1768,
+        "Name":  "Sleep Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1769,
+        "Name":  "Mute Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1770,
+        "Name":  "Iron Arrow",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1771,
+        "Name":  "Venom Knife",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  1801,
+        "Name":  "Waghnak",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1803,
+        "Name":  "Knuckle Dusters",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1804,
+        "Name":  "Knuckle Dusters",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1805,
+        "Name":  "Studded Knuckles",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1807,
+        "Name":  "Fist",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1809,
+        "Name":  "Claw",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1811,
+        "Name":  "Finger",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1901,
+        "Name":  "Violin",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1903,
+        "Name":  "Mandolin",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1905,
+        "Name":  "Lute",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1907,
+        "Name":  "Guitar",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1909,
+        "Name":  "Harp",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1911,
+        "Name":  "Gumoongoh",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1950,
+        "Name":  "Rope",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1952,
+        "Name":  "Whip",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1953,
+        "Name":  "Whip",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1954,
+        "Name":  "Wire Whip",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1956,
+        "Name":  "Rante Whip",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1958,
+        "Name":  "Tail Whip",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  1960,
+        "Name":  "Whip",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2101,
+        "Name":  "Guard",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2102,
+        "Name":  "Guard",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2103,
+        "Name":  "Buckler",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2104,
+        "Name":  "Buckler",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2105,
+        "Name":  "Shield",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2106,
+        "Name":  "Shield",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2107,
+        "Name":  "Mirror Shield",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2108,
+        "Name":  "Mirror Shield",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2109,
+        "Name":  "Memory Book",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2112,
+        "Name":  "Novice Guard",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2201,
+        "Name":  "Sunglasses",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2203,
+        "Name":  "Glasses",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2205,
+        "Name":  "Diver Goggles",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2206,
+        "Name":  "Wedding Veil",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2207,
+        "Name":  "Fancy Flower",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2208,
+        "Name":  "Ribbon",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2209,
+        "Name":  "Ribbon",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2211,
+        "Name":  "Bandana",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2212,
+        "Name":  "Eye Patch",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2213,
+        "Name":  "Kitty Band",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2214,
+        "Name":  "Bunny Band",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2215,
+        "Name":  "Flower Band",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2216,
+        "Name":  "Biretta",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2217,
+        "Name":  "Biretta",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2218,
+        "Name":  "Flu Mask",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2220,
+        "Name":  "Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2221,
+        "Name":  "Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2222,
+        "Name":  "Turban",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2224,
+        "Name":  "Goggles",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2225,
+        "Name":  "Goggles",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2226,
+        "Name":  "Cap",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2227,
+        "Name":  "Cap",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2228,
+        "Name":  "Helm",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2229,
+        "Name":  "Helm",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2230,
+        "Name":  "Gemmed Sallet",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2232,
+        "Name":  "Circlet",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2233,
+        "Name":  "Circlet",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2234,
+        "Name":  "Tiara",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2235,
+        "Name":  "Crown",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2239,
+        "Name":  "Monocle",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2241,
+        "Name":  "Grampa Beard",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2242,
+        "Name":  "Purple Glasses",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2243,
+        "Name":  "Geek Glasses",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2244,
+        "Name":  "Big Ribbon",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2245,
+        "Name":  "Sweet Gent",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2246,
+        "Name":  "Golden Gear",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2247,
+        "Name":  "Romantic Gent",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2248,
+        "Name":  "Western Grace",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2249,
+        "Name":  "Coronet",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2250,
+        "Name":  "Cute Ribbon",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2251,
+        "Name":  "Monk Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2252,
+        "Name":  "Wizard Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2253,
+        "Name":  "Sunflower",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2254,
+        "Name":  "Angel Wing",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2255,
+        "Name":  "Evil Wing",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2256,
+        "Name":  "Majestic Goat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2257,
+        "Name":  "Unicorn Horn",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2258,
+        "Name":  "Spiky Band",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2259,
+        "Name":  "Mini Propeller",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2262,
+        "Name":  "Clown Nose",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2263,
+        "Name":  "Zorro Masque",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2264,
+        "Name":  "Munak Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2265,
+        "Name":  "Gangster Mask",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2266,
+        "Name":  "Iron Cain",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2267,
+        "Name":  "Cigarette",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2268,
+        "Name":  "Pipe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2269,
+        "Name":  "Romantic Flower",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2270,
+        "Name":  "Romantic Leaf",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2272,
+        "Name":  "Stop Post",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2273,
+        "Name":  "Doctor Band",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2274,
+        "Name":  "Ghost Bandana",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2275,
+        "Name":  "Red Bandana",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2276,
+        "Name":  "Angled Glasses",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2277,
+        "Name":  "Nurse Cap",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2278,
+        "Name":  "Mr. Smile",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2279,
+        "Name":  "Bomb Wick",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2280,
+        "Name":  "Sakkat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2281,
+        "Name":  "Opera Masque",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2282,
+        "Name":  "Halo",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2283,
+        "Name":  "Ear Muffs",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2284,
+        "Name":  "Antlers",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2285,
+        "Name":  "Apple of Archer",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2286,
+        "Name":  "Elven Ears",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2287,
+        "Name":  "Pirate Bandana",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2288,
+        "Name":  "Mr. Scream",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2289,
+        "Name":  "Poo Poo Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2291,
+        "Name":  "Masquerade",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2292,
+        "Name":  "Welding Mask",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2293,
+        "Name":  "Pretend Murdered",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2294,
+        "Name":  "Stellar",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2296,
+        "Name":  "Binoculars",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2297,
+        "Name":  "Goblin Mask",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2298,
+        "Name":  "Green Feeler",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2299,
+        "Name":  "Orc Helm",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2301,
+        "Name":  "Cotton Shirt",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2302,
+        "Name":  "Cotton Shirt",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2303,
+        "Name":  "Jacket",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2304,
+        "Name":  "Jacket",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2305,
+        "Name":  "Adventurer\u0027s Suit",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2306,
+        "Name":  "Adventurer\u0027s Suit",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2307,
+        "Name":  "Mantle",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2308,
+        "Name":  "Mantle",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2309,
+        "Name":  "Coat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2310,
+        "Name":  "Coat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2311,
+        "Name":  "Mink Coat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2312,
+        "Name":  "Padded Armor",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2313,
+        "Name":  "Padded Armor",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2314,
+        "Name":  "Chain Mail",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2315,
+        "Name":  "Chain Mail",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2316,
+        "Name":  "Full Plate",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2317,
+        "Name":  "Full Plate",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2318,
+        "Name":  "Lord\u0027s Clothes",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2320,
+        "Name":  "Formal Suit",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2321,
+        "Name":  "Silk Robe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2322,
+        "Name":  "Silk Robe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2323,
+        "Name":  "Scapulare",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2324,
+        "Name":  "Scapulare",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2325,
+        "Name":  "Saint\u0027s Robe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2326,
+        "Name":  "Saint\u0027s Robe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2327,
+        "Name":  "Holy Robe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2328,
+        "Name":  "Wooden Mail",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2329,
+        "Name":  "Wooden Mail",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2330,
+        "Name":  "Tights",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2331,
+        "Name":  "Tights",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2332,
+        "Name":  "Silver Robe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2333,
+        "Name":  "Silver Robe",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2334,
+        "Name":  "Mage Coat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2335,
+        "Name":  "Thief Clothes",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2336,
+        "Name":  "Thief Clothes",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2337,
+        "Name":  "Ninja Suit",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2338,
+        "Name":  "Wedding Dress",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2339,
+        "Name":  "Pantie",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2340,
+        "Name":  "Novice Breastplate",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2341,
+        "Name":  "Legion Plate Armor",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2352,
+        "Name":  "Tattered Novice Ninja Suit",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2393,
+        "Name":  "Novice Adventurer\u0027s Suit",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2401,
+        "Name":  "Sandals",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2402,
+        "Name":  "Sandals",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2403,
+        "Name":  "Shoes",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2404,
+        "Name":  "Shoes",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2405,
+        "Name":  "Boots",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2406,
+        "Name":  "Boots",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2407,
+        "Name":  "Crystal Pumps",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2408,
+        "Name":  "Shackles",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2409,
+        "Name":  "High Heels",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2411,
+        "Name":  "Greaves",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2414,
+        "Name":  "Novice Slippers",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2501,
+        "Name":  "Hood",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2502,
+        "Name":  "Hood",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2503,
+        "Name":  "Muffler",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2504,
+        "Name":  "Muffler",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2505,
+        "Name":  "Manteau",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2506,
+        "Name":  "Manteau",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2507,
+        "Name":  "Ancient Cape",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2508,
+        "Name":  "Ragamuffin Manteau",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2510,
+        "Name":  "Somber Novice Hood",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2601,
+        "Name":  "Ring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2602,
+        "Name":  "Earring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2603,
+        "Name":  "Necklace",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2604,
+        "Name":  "Glove",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2605,
+        "Name":  "Brooch",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2607,
+        "Name":  "Clip",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2608,
+        "Name":  "Rosary",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2609,
+        "Name":  "Skull Ring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2610,
+        "Name":  "Gold Ring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2611,
+        "Name":  "Silver Ring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2612,
+        "Name":  "Flower Ring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2613,
+        "Name":  "Diamond Ring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2615,
+        "Name":  "Safety Ring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2617,
+        "Name":  "Celebrant\u0027s Mitten",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2618,
+        "Name":  "Matyr\u0027s Leash",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2619,
+        "Name":  "Bow Thimble",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2621,
+        "Name":  "Ring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2622,
+        "Name":  "Earring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2624,
+        "Name":  "Glove",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2625,
+        "Name":  "Brooch",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2626,
+        "Name":  "Rosary",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2627,
+        "Name":  "Belt",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2628,
+        "Name":  "Novice Armlet",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2819,
+        "Name":  "Swordsman Manual",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2820,
+        "Name":  "Thief Manual",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2821,
+        "Name":  "Acolyte Manual",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2822,
+        "Name":  "Archer Manual",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2823,
+        "Name":  "Merchant Manual",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  2824,
+        "Name":  "Mage Manual",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  4001,
+        "Name":  "Poring Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4002,
+        "Name":  "Fabre Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4003,
+        "Name":  "Pupa Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4004,
+        "Name":  "Drops Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4006,
+        "Name":  "Lunatic Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4007,
+        "Name":  "Peco Peco Egg Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4008,
+        "Name":  "Picky Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4009,
+        "Name":  "Chonchon Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4010,
+        "Name":  "Willow Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4011,
+        "Name":  "Picky Egg Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4012,
+        "Name":  "Thief Bug Egg Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4013,
+        "Name":  "Andre Egg Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4014,
+        "Name":  "Roda Frog Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4015,
+        "Name":  "Condor Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4016,
+        "Name":  "Thief Bug Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4017,
+        "Name":  "Savage Babe Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4019,
+        "Name":  "Hornet Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4020,
+        "Name":  "Familiar Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4021,
+        "Name":  "Rocker Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4022,
+        "Name":  "Spore Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4023,
+        "Name":  "Baby Desert Wolf Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4024,
+        "Name":  "Plankton Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4026,
+        "Name":  "Female Thief Bug Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4027,
+        "Name":  "Kukre Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4028,
+        "Name":  "Tarou Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4029,
+        "Name":  "Wolf Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4030,
+        "Name":  "Mandragora Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4031,
+        "Name":  "Peco Peco Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4032,
+        "Name":  "Ambernite Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4033,
+        "Name":  "Poporing Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4034,
+        "Name":  "Wormtail Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4035,
+        "Name":  "Hydra Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4036,
+        "Name":  "Muka Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4037,
+        "Name":  "Snake Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4038,
+        "Name":  "Zombie Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4039,
+        "Name":  "Stainer Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4040,
+        "Name":  "Creamy Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4041,
+        "Name":  "Coco Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4042,
+        "Name":  "Steel Chonchon Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4043,
+        "Name":  "Andre Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4044,
+        "Name":  "Smokie Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4045,
+        "Name":  "Horn Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4046,
+        "Name":  "Martin Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4047,
+        "Name":  "Ghostring Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4048,
+        "Name":  "Poison Spore Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4049,
+        "Name":  "Vadon Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4050,
+        "Name":  "Male Thief Bug Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4051,
+        "Name":  "Yoyo Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4052,
+        "Name":  "Elder Willow Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4053,
+        "Name":  "Vitata Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4054,
+        "Name":  "Angeling Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4055,
+        "Name":  "Marina Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4056,
+        "Name":  "Dustiness Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4057,
+        "Name":  "Metaller Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4058,
+        "Name":  "Thara Frog Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4060,
+        "Name":  "Goblin Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4061,
+        "Name":  "Cornutus Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4062,
+        "Name":  "Anacondaq Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4063,
+        "Name":  "Caramel Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4064,
+        "Name":  "Zerom Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4066,
+        "Name":  "Orc Warrior Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4067,
+        "Name":  "Megalodon Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4068,
+        "Name":  "Scorpion Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4069,
+        "Name":  "Drainliar Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4070,
+        "Name":  "Eggyra Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4071,
+        "Name":  "Orc Zombie Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4072,
+        "Name":  "Golem Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4073,
+        "Name":  "Pirate Skeleton Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4074,
+        "Name":  "Bigfoot Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4075,
+        "Name":  "Argos Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4076,
+        "Name":  "Magnolia Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4077,
+        "Name":  "Phen Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4078,
+        "Name":  "Savage Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4079,
+        "Name":  "Mantis Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4080,
+        "Name":  "Flora Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4081,
+        "Name":  "Hode Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4082,
+        "Name":  "Desert Wolf Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4084,
+        "Name":  "Marine Sphere Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4085,
+        "Name":  "Orc Skeleton Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4086,
+        "Name":  "Soldier Skeleton Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4087,
+        "Name":  "Giearth Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4088,
+        "Name":  "Frilldora Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4089,
+        "Name":  "Swordfish Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4090,
+        "Name":  "Munak Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4091,
+        "Name":  "Kobold Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4092,
+        "Name":  "Skeleton Worker Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4093,
+        "Name":  "Obeaune Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4094,
+        "Name":  "Archer Skeleton Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4095,
+        "Name":  "Marse Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4096,
+        "Name":  "Zenorc Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4097,
+        "Name":  "Matyr Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4098,
+        "Name":  "Dokebi Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4100,
+        "Name":  "Sohee Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4101,
+        "Name":  "Sandman Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4102,
+        "Name":  "Whisper Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4103,
+        "Name":  "Horong Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4104,
+        "Name":  "Requiem Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4105,
+        "Name":  "Marc Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4106,
+        "Name":  "Mummy Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4107,
+        "Name":  "Verit Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4108,
+        "Name":  "Myst Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4109,
+        "Name":  "Jakk Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4110,
+        "Name":  "Ghoul Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4112,
+        "Name":  "Marduk Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4113,
+        "Name":  "Marionette Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4114,
+        "Name":  "Argiope Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4115,
+        "Name":  "Hunter Fly Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4116,
+        "Name":  "Isis Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4117,
+        "Name":  "Sidewinder Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4118,
+        "Name":  "Earth Petite Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4119,
+        "Name":  "Bathory Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4120,
+        "Name":  "Sky Petite Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4121,
+        "Name":  "Phreeoni Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4122,
+        "Name":  "Deviruchi Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4123,
+        "Name":  "Eddga Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4125,
+        "Name":  "Deviace Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4126,
+        "Name":  "Minorous Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4127,
+        "Name":  "Nightmare Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4128,
+        "Name":  "Golden Thief Bug Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4129,
+        "Name":  "Bapho Jr. Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4131,
+        "Name":  "Moonlight Flower Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4132,
+        "Name":  "Mistress Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4133,
+        "Name":  "Raydric Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4134,
+        "Name":  "Dracula Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4135,
+        "Name":  "Orc Lord Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4136,
+        "Name":  "Khalitzburg Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4137,
+        "Name":  "Drake Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4139,
+        "Name":  "Joker Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4140,
+        "Name":  "Abysmal Knight Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4141,
+        "Name":  "Evil Druid Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4142,
+        "Name":  "Doppelganger Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4143,
+        "Name":  "Orc Hero Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4144,
+        "Name":  "Osiris Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4146,
+        "Name":  "Maya Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4147,
+        "Name":  "Baphomet Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4148,
+        "Name":  "Pharaoh Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4149,
+        "Name":  "Gargoyle Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4150,
+        "Name":  "Goat Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4151,
+        "Name":  "Gajomart Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4152,
+        "Name":  "Galapago Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4153,
+        "Name":  "Crab Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4155,
+        "Name":  "Goblin Leader Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4156,
+        "Name":  "Goblin Steamrider Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4157,
+        "Name":  "Goblin Archer Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4158,
+        "Name":  "Sky Deleter Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4161,
+        "Name":  "Grand Peco Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4162,
+        "Name":  "Grizzly Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4163,
+        "Name":  "Gryphon Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4164,
+        "Name":  "Gullinbursti Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4165,
+        "Name":  "Gig Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4166,
+        "Name":  "Nightmare Terror Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4167,
+        "Name":  "Nereid Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4168,
+        "Name":  "Dark Lord Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4169,
+        "Name":  "Dark Illusion Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4170,
+        "Name":  "Dark Frame Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4173,
+        "Name":  "Demon Pungus Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4174,
+        "Name":  "Deviling Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4178,
+        "Name":  "Dragon Tail Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4179,
+        "Name":  "Dragon Fly Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4180,
+        "Name":  "Driller Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4182,
+        "Name":  "Diabolic Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4183,
+        "Name":  "Vagabond Wolf Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4184,
+        "Name":  "Lava Golem Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4185,
+        "Name":  "Rideword Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4186,
+        "Name":  "Raggler Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4187,
+        "Name":  "Raydric Archer Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4188,
+        "Name":  "Leib Olmai Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4189,
+        "Name":  "Wraith Dead Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4190,
+        "Name":  "Wraith Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4196,
+        "Name":  "Marin Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4197,
+        "Name":  "Mastering Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4198,
+        "Name":  "Maya Purple Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4199,
+        "Name":  "Merman Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4200,
+        "Name":  "Megalith Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4201,
+        "Name":  "Majoruros Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4203,
+        "Name":  "Mutant Dragonoid Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4204,
+        "Name":  "Mini Demon Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4205,
+        "Name":  "Mimic Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4206,
+        "Name":  "Myst Case Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4207,
+        "Name":  "Mysteltainn Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4210,
+        "Name":  "Wanderer Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4211,
+        "Name":  "Vocal Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4212,
+        "Name":  "Bongun Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4213,
+        "Name":  "Brilight Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4215,
+        "Name":  "Blazer Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4216,
+        "Name":  "Sasquatch Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4219,
+        "Name":  "Sage Worm Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4221,
+        "Name":  "Skeleton General Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4222,
+        "Name":  "Skeleton Prisoner Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4223,
+        "Name":  "Stalactic Golem Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4224,
+        "Name":  "Stem Worm Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4226,
+        "Name":  "Sting Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4227,
+        "Name":  "Spring Rabbit Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4228,
+        "Name":  "Sleeper Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4229,
+        "Name":  "Tower Keeper Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4234,
+        "Name":  "Anolian Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4235,
+        "Name":  "Christmas Cookie Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4236,
+        "Name":  "Amon Ra Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4237,
+        "Name":  "Owl Duke Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4238,
+        "Name":  "Owl Baron Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4240,
+        "Name":  "Arclouze Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4241,
+        "Name":  "Arc Angeling Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4244,
+        "Name":  "Alarm Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4245,
+        "Name":  "Am Mut Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4247,
+        "Name":  "Aster Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4248,
+        "Name":  "Ancient Mummy Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4249,
+        "Name":  "Ancient Worm Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4250,
+        "Name":  "Executioner Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4252,
+        "Name":  "Alligator Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4253,
+        "Name":  "Alice Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4254,
+        "Name":  "Ogretooth Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4255,
+        "Name":  "Orc Lady Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4256,
+        "Name":  "Orc Archer Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4257,
+        "Name":  "Wild Rose Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4264,
+        "Name":  "Wind Ghost Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4266,
+        "Name":  "Eclipse Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4267,
+        "Name":  "Explosion Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4268,
+        "Name":  "Injustice Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4270,
+        "Name":  "Giant Spider Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4271,
+        "Name":  "Giant Hornet Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4273,
+        "Name":  "Shell Fish Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4274,
+        "Name":  "Zombie Master Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4275,
+        "Name":  "Zombie Prisoner Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4277,
+        "Name":  "Zealotus Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4279,
+        "Name":  "Earth Deleter Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4280,
+        "Name":  "Geographer Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4283,
+        "Name":  "Greatest General Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4284,
+        "Name":  "Chepet Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4285,
+        "Name":  "Choco Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4288,
+        "Name":  "Carat Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4289,
+        "Name":  "Caterpillar Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4290,
+        "Name":  "Cat O\u0027 Nine Tails Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4291,
+        "Name":  "Kobold Leader Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4292,
+        "Name":  "Kobold Archer Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4293,
+        "Name":  "Cookie Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4296,
+        "Name":  "Cramp Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4297,
+        "Name":  "Cruiser Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4298,
+        "Name":  "Creamy Fear Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4299,
+        "Name":  "Clock Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4300,
+        "Name":  "Chimera Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4301,
+        "Name":  "Killer Mantis Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4303,
+        "Name":  "Giant Whisper Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4305,
+        "Name":  "Turtle General Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4306,
+        "Name":  "Toad Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4308,
+        "Name":  "Tri Joint Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4310,
+        "Name":  "Panzer Goblin Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4311,
+        "Name":  "Permeter Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4312,
+        "Name":  "Seal Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4313,
+        "Name":  "Punk Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4314,
+        "Name":  "Penomena Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4315,
+        "Name":  "Pest Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4317,
+        "Name":  "Mobster Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4319,
+        "Name":  "Freezer Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4320,
+        "Name":  "Bloody Knight Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4322,
+        "Name":  "High Orc Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4324,
+        "Name":  "Hatii Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4325,
+        "Name":  "Harpy Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4326,
+        "Name":  "Sea-Otter Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  4331,
+        "Name":  "Heater Card",
+        "Type":  "Card"
+    },
+    {
+        "Id":  5001,
+        "Name":  "Headset",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5002,
+        "Name":  "Jewel Crown",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5003,
+        "Name":  "Joker Jester",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5004,
+        "Name":  "Oxygen Mask",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5005,
+        "Name":  "Gas Mask",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5007,
+        "Name":  "Grand Circlet",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5008,
+        "Name":  "Puppy Love",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5009,
+        "Name":  "Safety Helmet",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5010,
+        "Name":  "Indian Fillet",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5011,
+        "Name":  "Aerial",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5012,
+        "Name":  "Ph.D Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5014,
+        "Name":  "Fin Helm",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5015,
+        "Name":  "Egg Shell",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5016,
+        "Name":  "Boy\u0027s Cap",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5017,
+        "Name":  "Bone Helm",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5018,
+        "Name":  "Feather Bonnet",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5019,
+        "Name":  "Corsair",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5021,
+        "Name":  "Grief for Greed",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5023,
+        "Name":  "Parcel Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5024,
+        "Name":  "Cake Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5025,
+        "Name":  "Helm of Angel",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5026,
+        "Name":  "Chef Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5027,
+        "Name":  "Mage Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5028,
+        "Name":  "Candle",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5029,
+        "Name":  "Spore Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5030,
+        "Name":  "Panda Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5031,
+        "Name":  "Mine Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5032,
+        "Name":  "Sunday Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5033,
+        "Name":  "Raccoon Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5034,
+        "Name":  "Bulb Band",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5035,
+        "Name":  "Poring Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5036,
+        "Name":  "Cross Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5037,
+        "Name":  "Nut Shell",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5038,
+        "Name":  "Deviruchi Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5039,
+        "Name":  "Rainbow Eggshell",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5040,
+        "Name":  "Blush",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5041,
+        "Name":  "Heart Hairpin",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5042,
+        "Name":  "Bao Bao",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5043,
+        "Name":  "Opera Phantom Mask",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5045,
+        "Name":  "Magician Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5046,
+        "Name":  "Bongun Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5047,
+        "Name":  "Fashionable Glasses",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5048,
+        "Name":  "Cresent Hairpin",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5049,
+        "Name":  "Striped Hairband",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5050,
+        "Name":  "Wonder Nutshell",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5052,
+        "Name":  "Blue Hairband",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5053,
+        "Name":  "Sphinx Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5055,
+        "Name":  "Novice False Eggshell",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5057,
+        "Name":  "Black Cat Ears",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5058,
+        "Name":  "Drooping Cat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5059,
+        "Name":  "Teddybear Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5060,
+        "Name":  "Party Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5061,
+        "Name":  "Flower Hairpin",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5062,
+        "Name":  "Straw Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5063,
+        "Name":  "Giant Band Aid",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5064,
+        "Name":  "Smokie Leaf",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5065,
+        "Name":  "Blue Fish",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5067,
+        "Name":  "Sombrero",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5068,
+        "Name":  "Evil Wing Ears",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5069,
+        "Name":  "Kitsune Mask",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5070,
+        "Name":  "Hot-blooded Headband",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5071,
+        "Name":  "Indian Headband",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5073,
+        "Name":  "Model Training Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5074,
+        "Name":  "Angel Wing Ears",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5075,
+        "Name":  "Cowboy Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5076,
+        "Name":  "Beanie",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5077,
+        "Name":  "Tulip Hairpin",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5078,
+        "Name":  "Sea-Otter Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5079,
+        "Name":  "X Hairpin",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5080,
+        "Name":  "Crown of Ancient Queen",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5081,
+        "Name":  "Crown of Mistress",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5082,
+        "Name":  "Decorative Mushroom",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5083,
+        "Name":  "Red Ribbon",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5084,
+        "Name":  "Lazy Smokie",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5086,
+        "Name":  "Alarm Mask",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5091,
+        "Name":  "Decorative Golden Bell",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5092,
+        "Name":  "Coif",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5113,
+        "Name":  "Angry Snarl",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5137,
+        "Name":  "Alice Doll",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5151,
+        "Name":  "Note Headphones",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5181,
+        "Name":  "Helm of Darkness",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5182,
+        "Name":  "Puppy Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5208,
+        "Name":  "Rideword Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5211,
+        "Name":  "Dress Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5260,
+        "Name":  "Cookie Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5283,
+        "Name":  "Chick Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5292,
+        "Name":  "Dragon Skull",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5293,
+        "Name":  "Ramen Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5320,
+        "Name":  "Champion Wreath",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5358,
+        "Name":  "Peco Ears",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5378,
+        "Name":  "Bunny Top Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5379,
+        "Name":  "Tam",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5402,
+        "Name":  "Mischievous Fairy",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5403,
+        "Name":  "Fish In Mouth",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5431,
+        "Name":  "Chicken Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5456,
+        "Name":  "Summer Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5481,
+        "Name":  "Hermode Cap",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5490,
+        "Name":  "Anubis Helm",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5520,
+        "Name":  "Rabbit Earplugs",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5592,
+        "Name":  "Sigrun\u0027s Wings",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  5653,
+        "Name":  "Darkness Helm",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  6030,
+        "Name":  "Glittering Paper",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6031,
+        "Name":  "Glittering Paper",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6094,
+        "Name":  "Traditional Sweets",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6095,
+        "Name":  "Flavored Alcohol",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6096,
+        "Name":  "Fish With Blue Back",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6097,
+        "Name":  "Pumpkin Pie",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6098,
+        "Name":  "Small Snow Flower",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6099,
+        "Name":  "Grilled Rice Cake",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6100,
+        "Name":  "Damp Darkness",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6104,
+        "Name":  "Big Cell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6108,
+        "Name":  "Apple Pudding",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6110,
+        "Name":  "Vital Flower",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6111,
+        "Name":  "Mystic Stone",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6112,
+        "Name":  "Fresh Plant",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6113,
+        "Name":  "Vital Flower",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6114,
+        "Name":  "Flame Gemstone",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6115,
+        "Name":  "Bun",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  6377,
+        "Name":  "Buy Market Permit",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7001,
+        "Name":  "Mould Powder",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7002,
+        "Name":  "Ogre Tooth",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7003,
+        "Name":  "Anolian Skin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7004,
+        "Name":  "Mud Lump",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7005,
+        "Name":  "Skull",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7006,
+        "Name":  "Wing of Red Bat",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7007,
+        "Name":  "Claw of Rat",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7009,
+        "Name":  "Glitter Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7011,
+        "Name":  "Claw of Monkey",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7012,
+        "Name":  "Tough Scalelike Stem",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7013,
+        "Name":  "Coral Reef",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7014,
+        "Name":  "Old Portrait",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7015,
+        "Name":  "Bookclip in Memory",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7016,
+        "Name":  "Spoon Stub",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7017,
+        "Name":  "Executioner\u0027s Mitten",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7018,
+        "Name":  "Young Twig",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7019,
+        "Name":  "Loki\u0027s Whispers",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7020,
+        "Name":  "Mother\u0027s Nightmare",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7021,
+        "Name":  "Foolishness of the Blind",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7022,
+        "Name":  "Old Hilt",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7023,
+        "Name":  "Blade Lost in Darkness",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7024,
+        "Name":  "Bloody Edge",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7026,
+        "Name":  "Key of Clock Tower",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7027,
+        "Name":  "Key of Underground",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7030,
+        "Name":  "Claw of Desert Wolf",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7031,
+        "Name":  "Old Frying Pan",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7032,
+        "Name":  "Piece of Egg Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7033,
+        "Name":  "Poison Spore",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7035,
+        "Name":  "Matchstick",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7036,
+        "Name":  "Fang of Hatii",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7039,
+        "Name":  "Newbie Tag",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7041,
+        "Name":  "Fine Grit",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7042,
+        "Name":  "Leather Bag of Infinity",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7043,
+        "Name":  "Fine Sand",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7047,
+        "Name":  "Alice\u0027s Apron",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7048,
+        "Name":  "Talon of Griffon",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7049,
+        "Name":  "Stone",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7053,
+        "Name":  "Cyfar",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7054,
+        "Name":  "Brigan",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7059,
+        "Name":  "Free Ticket for Kafra Storage",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7060,
+        "Name":  "Free Ticket for Kafra Transportation",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7063,
+        "Name":  "Soft Feather",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7064,
+        "Name":  "Wing of Dragonfly",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7065,
+        "Name":  "Sea-Otter Fur",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7066,
+        "Name":  "Ice Cubic",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7067,
+        "Name":  "Stone Fragment",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7068,
+        "Name":  "Burnt Tree",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7069,
+        "Name":  "Destroyed Armor",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7070,
+        "Name":  "Broken Shell",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7071,
+        "Name":  "Tattered Clothes",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7072,
+        "Name":  "Old Shuriken",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7096,
+        "Name":  "Lava",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7097,
+        "Name":  "Burning Heart",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7098,
+        "Name":  "Live Coal",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7101,
+        "Name":  "Peco Peco Feather",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7106,
+        "Name":  "Antelope Horn",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7107,
+        "Name":  "Antelope Skin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7113,
+        "Name":  "Broken Pharaoh Emblem",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7114,
+        "Name":  "Masque of Tutankhamen",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7115,
+        "Name":  "Harpy Feather",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7116,
+        "Name":  "Harpy Talon",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7119,
+        "Name":  "Bacillus",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7120,
+        "Name":  "Burning Horseshoe",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7122,
+        "Name":  "Burning Hair",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7123,
+        "Name":  "Dragon Skin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7124,
+        "Name":  "Sand Clump",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7125,
+        "Name":  "Scorpion Claw",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7127,
+        "Name":  "Alcohol Creation Guide",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7128,
+        "Name":  "Bottle Grenade Creation Guide",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7129,
+        "Name":  "Acid Bottle Creation Guide",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7130,
+        "Name":  "Plant Bottle Creation Guide",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7131,
+        "Name":  "Marine Sphere Creation Guide",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7133,
+        "Name":  "Condensed Potion Creation Guide",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7134,
+        "Name":  "Medicine Bowl",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7135,
+        "Name":  "Bottle Grenade",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7136,
+        "Name":  "Acid Bottle",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7137,
+        "Name":  "Plant Bottle",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7138,
+        "Name":  "Marine Sphere Bottle",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7139,
+        "Name":  "Glistening Coat",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7140,
+        "Name":  "Seed of Life",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7141,
+        "Name":  "Morning Dew of Yggdrasil",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7142,
+        "Name":  "Embryo",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7143,
+        "Name":  "Glass Tube",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7144,
+        "Name":  "Potion Creation Guide",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7148,
+        "Name":  "Mother\u0027s Letter",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7170,
+        "Name":  "Tuxedo",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7181,
+        "Name":  "Receipt",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7183,
+        "Name":  "Letter from Sister",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7211,
+        "Name":  "Fragment of Rossata Stone",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7289,
+        "Name":  "Peridot",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7290,
+        "Name":  "Phlogopite",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7291,
+        "Name":  "Agate",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7292,
+        "Name":  "Muscovite",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7293,
+        "Name":  "Rose Quartz",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7294,
+        "Name":  "Turquoise",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7295,
+        "Name":  "Citrin",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7296,
+        "Name":  "Pyroxene",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7297,
+        "Name":  "Biotite",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7452,
+        "Name":  "Yellow Spice",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7453,
+        "Name":  "Sweet Sauce",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7454,
+        "Name":  "Savory Sauce",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7455,
+        "Name":  "Spicy Sauce",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7456,
+        "Name":  "Red Spice",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7457,
+        "Name":  "Cooking Oil",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7482,
+        "Name":  "Pot",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7776,
+        "Name":  "Gym Pass",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7821,
+        "Name":  "Green Apple",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7822,
+        "Name":  "Whole Barbecue",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7823,
+        "Name":  "Meat Veg Skewer",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  7824,
+        "Name":  "Spirit Liquor",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9001,
+        "Name":  "Poring Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9002,
+        "Name":  "Drops Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9003,
+        "Name":  "Poporing Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9004,
+        "Name":  "Lunatic Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9005,
+        "Name":  "Picky Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9006,
+        "Name":  "Chonchon Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9007,
+        "Name":  "Steel Chonchon Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9008,
+        "Name":  "Hunter Fly Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9009,
+        "Name":  "Savage Babe Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9010,
+        "Name":  "Baby Desert Wolf Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9011,
+        "Name":  "Rocker Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9012,
+        "Name":  "Spore Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9013,
+        "Name":  "Poison Spore Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9014,
+        "Name":  "Peco Peco Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9015,
+        "Name":  "Smokie Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9016,
+        "Name":  "Yoyo Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9017,
+        "Name":  "Orc Warrior Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9018,
+        "Name":  "Munak Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9019,
+        "Name":  "Dokebi Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9020,
+        "Name":  "Sohee Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9021,
+        "Name":  "Isis Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9022,
+        "Name":  "Green Petite Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9023,
+        "Name":  "Deviruchi Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9024,
+        "Name":  "Bapho Jr. Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9025,
+        "Name":  "Bongun Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9026,
+        "Name":  "Zealotus Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9027,
+        "Name":  "Alice Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9032,
+        "Name":  "Knife Goblin Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9033,
+        "Name":  "Flail Goblin Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9034,
+        "Name":  "Hammer Goblin Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9035,
+        "Name":  "Red Deleter Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9036,
+        "Name":  "Diabolic Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9037,
+        "Name":  "Wanderer Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9043,
+        "Name":  "Marionette Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9045,
+        "Name":  "Whisper Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9046,
+        "Name":  "Goblin Leader Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9053,
+        "Name":  "Golem Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  9054,
+        "Name":  "Nightmare Terror Egg",
+        "Type":  "Loot"
+    },
+    {
+        "Id":  10001,
+        "Name":  "Skull Helm",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10002,
+        "Name":  "Monster Oxygen Mask",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10003,
+        "Name":  "Transparent Head Protector",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10004,
+        "Name":  "Pacifier",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10005,
+        "Name":  "Wig",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10006,
+        "Name":  "Queen\u0027s Hair Ornament",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10007,
+        "Name":  "Silk Ribbon",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10008,
+        "Name":  "Punisher",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10009,
+        "Name":  "Wild Flower",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10010,
+        "Name":  "Battered Pot",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10011,
+        "Name":  "Stellar Hairpin",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10012,
+        "Name":  "Tiny Egg Shell",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10013,
+        "Name":  "Backpack",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10014,
+        "Name":  "Rocker Glasses",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10015,
+        "Name":  "Green Lace",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10016,
+        "Name":  "Golden Bell",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10017,
+        "Name":  "Bark Shorts",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10018,
+        "Name":  "Monkey Circlet",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10019,
+        "Name":  "Red Scarf",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10020,
+        "Name":  "Grave Keeper\u0027s Sword",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10025,
+        "Name":  "Hairband Of Stars",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10027,
+        "Name":  "Pet Soul Ring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10028,
+        "Name":  "Beautiful Badges",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10035,
+        "Name":  "Spring",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  10036,
+        "Name":  "Horn Of Hell",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  12018,
+        "Name":  "Firecracker",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12041,
+        "Name":  "Fried Grasshopper Legs",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12042,
+        "Name":  "Seasoned Sticky Webfoot",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12043,
+        "Name":  "Bomber Steak",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12044,
+        "Name":  "Herb Marinade Beef",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12045,
+        "Name":  "Lutie Lady\u0027s Pancake",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12046,
+        "Name":  "Grape Juice Herbal Tea",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12047,
+        "Name":  "Autumn Red Tea",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12048,
+        "Name":  "Honey Herbal Tea",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12049,
+        "Name":  "Morocc Fruit Wine",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12050,
+        "Name":  "Mastela Fruit Wine",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12051,
+        "Name":  "Steamed Crab Nippers",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12052,
+        "Name":  "Assorted Seafood",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12053,
+        "Name":  "Clam Soup",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12054,
+        "Name":  "Seasoned Jellyfish",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12055,
+        "Name":  "Spicy Fried Bao",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12056,
+        "Name":  "Frog Egg Squid Ink Soup",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12057,
+        "Name":  "Smooth Noodle",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12058,
+        "Name":  "Tentacle Cheese Gratin",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12059,
+        "Name":  "Lutie Cold Noodle",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12060,
+        "Name":  "Steamed Bat Wing in Pumpkin",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12061,
+        "Name":  "Honey Grape Juice",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12062,
+        "Name":  "Chocolate Mousse Cake",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12063,
+        "Name":  "Fruit Mix",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12064,
+        "Name":  "Cream Sandwich",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12065,
+        "Name":  "Green Salad",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12066,
+        "Name":  "Fried Monkey Tails",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12067,
+        "Name":  "Mixed Juice",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12068,
+        "Name":  "Fried Sweet Potato",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12069,
+        "Name":  "Steamed Ancient Lips",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12070,
+        "Name":  "Fried Scorpion Tails",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12071,
+        "Name":  "Shiny Marinade Beef",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12072,
+        "Name":  "Whole Roast",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12073,
+        "Name":  "Bearfoot Special",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12074,
+        "Name":  "Tendon Satay",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12075,
+        "Name":  "Steamed Tongue",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12076,
+        "Name":  "Red Mushroom Wine",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12077,
+        "Name":  "Special Royal Jelly Herbal Tea",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12078,
+        "Name":  "Royal Family Tea",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12079,
+        "Name":  "Tristan XII",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12080,
+        "Name":  "Dragon Breath Cocktail",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12081,
+        "Name":  "Awfully Bitter Bracer",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12082,
+        "Name":  "Sumptuous Feast",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12083,
+        "Name":  "Giant Burito",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12084,
+        "Name":  "Ascending Dragon Soup",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12085,
+        "Name":  "Immortal Stew",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12086,
+        "Name":  "Chile Shrimp Gratin",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12087,
+        "Name":  "Steamed Alligator with Vegetable",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12088,
+        "Name":  "Incredibly Spicy Curry",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12089,
+        "Name":  "Special Meat Stew",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12090,
+        "Name":  "Steamed Desert Scorpions",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12091,
+        "Name":  "Peach Cake",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12092,
+        "Name":  "Soul Haunted Bread",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12093,
+        "Name":  "Special Toast",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12094,
+        "Name":  "Heavenly Fruit Juice",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12095,
+        "Name":  "Hwergelmir\u0027s Tonic",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12096,
+        "Name":  "Lucky Soup",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12097,
+        "Name":  "Assorted Shish Kebob",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12098,
+        "Name":  "Strawberry Flavored Rice Ball",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12099,
+        "Name":  "Blood Flavored Soda",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12100,
+        "Name":  "Cooked Nine Tail\u0027s Tails",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12103,
+        "Name":  "Bloody Branch",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12112,
+        "Name":  "Tropical Sograt",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12113,
+        "Name":  "Vermilion on the Beach",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12323,
+        "Name":  "Novice Fly Wing",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12324,
+        "Name":  "Novice Butterfly Wing",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12361,
+        "Name":  "Delicious Shaved Ice",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12363,
+        "Name":  "Fit Pipe",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12364,
+        "Name":  "Staff Of Leader",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12371,
+        "Name":  "Magical Lithography",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  12372,
+        "Name":  "Hell Contract",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  13040,
+        "Name":  "Novice Cutter",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  14569,
+        "Name":  "Knife Goblin Ring",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  14570,
+        "Name":  "Flail Goblin Ring",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  14571,
+        "Name":  "Hammer Goblin Ring",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  14572,
+        "Name":  "Holy Marble",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  14573,
+        "Name":  "Red Burning Stone",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  14574,
+        "Name":  "Vagabond\u0027s Skull",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  14596,
+        "Name":  "Pierre\u0027s Treasure Box",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  18539,
+        "Name":  "Skull Cap",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  18600,
+        "Name":  "Cat Ear Beret",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  18613,
+        "Name":  "Black Musang Hat",
+        "Type":  "Equip"
+    },
+    {
+        "Id":  100001,
+        "Name":  "Infinite Butterflywing",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  100012,
+        "Name":  "Infinite Flywing",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  100101,
+        "Name":  "Body Tonic",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  100102,
+        "Name":  "Reflex Tonic",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  100103,
+        "Name":  "Mind Tonic",
+        "Type":  "Consumable"
+    },
+    {
+        "Id":  100110,
+        "Name":  "Tonic Brewing Guide",
+        "Type":  "Loot"
+    }
+]

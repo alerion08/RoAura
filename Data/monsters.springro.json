@@ -1,0 +1,1688 @@
+﻿[
+    {
+        "Id":  1001,
+        "Name":  "Scorpion",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1002,
+        "Name":  "Poring",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1004,
+        "Name":  "Hornet",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1005,
+        "Name":  "Familiar",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1007,
+        "Name":  "Fabre",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1008,
+        "Name":  "Pupa",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1009,
+        "Name":  "Condor",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1010,
+        "Name":  "Willow",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1011,
+        "Name":  "ChonChon",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1012,
+        "Name":  "Roda Frog",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1013,
+        "Name":  "Wolf",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1014,
+        "Name":  "Spore",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1015,
+        "Name":  "Zombie",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1016,
+        "Name":  "Skeleton Archer",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1018,
+        "Name":  "Creamy",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1019,
+        "Name":  "PecoPeco",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1020,
+        "Name":  "Mandragora",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1023,
+        "Name":  "Orc Warrior",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1024,
+        "Name":  "Worm Tail",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1025,
+        "Name":  "Snake",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1026,
+        "Name":  "Munak",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1028,
+        "Name":  "Skeleton Soldier",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1029,
+        "Name":  "Isis",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1030,
+        "Name":  "Anacondaq",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1031,
+        "Name":  "Poporing",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1032,
+        "Name":  "Verit",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1033,
+        "Name":  "Elder Willow",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1034,
+        "Name":  "Thara Frog",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1035,
+        "Name":  "Hunter Fly",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1036,
+        "Name":  "Ghoul",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1037,
+        "Name":  "Sidewinder",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1038,
+        "Name":  "Osiris",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1039,
+        "Name":  "Baphomet",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1040,
+        "Name":  "Golem",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1041,
+        "Name":  "Mummy",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1042,
+        "Name":  "Steel ChonChon",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1044,
+        "Name":  "Obeaune",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1045,
+        "Name":  "Marc",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1046,
+        "Name":  "Doppelganger",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1047,
+        "Name":  "PecoPeco Egg",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1048,
+        "Name":  "Thief Bug Egg",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1049,
+        "Name":  "Picky",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1050,
+        "Name":  "Super Picky",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1051,
+        "Name":  "Thief Bug Larva",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1052,
+        "Name":  "Rocker",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1053,
+        "Name":  "Thief Bug Female",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1054,
+        "Name":  "Thief Bug Male",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1055,
+        "Name":  "Muka",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1056,
+        "Name":  "Smokie",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1057,
+        "Name":  "Yoyo",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1058,
+        "Name":  "Metaller",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1059,
+        "Name":  "Mistress",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1060,
+        "Name":  "Bigfoot",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1061,
+        "Name":  "Nightmare",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1063,
+        "Name":  "Lunatic",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1064,
+        "Name":  "Megalodon",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1066,
+        "Name":  "Vadon",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1067,
+        "Name":  "Cornutus",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1068,
+        "Name":  "Hydra",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1069,
+        "Name":  "Swordfish",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1070,
+        "Name":  "Kukre",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1071,
+        "Name":  "Pirate Skeleton",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1073,
+        "Name":  "Crab",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1074,
+        "Name":  "Shellfish",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1077,
+        "Name":  "Poison Spore",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1078,
+        "Name":  "Red Plant",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1079,
+        "Name":  "Blue Plant",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1080,
+        "Name":  "Green Plant",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1081,
+        "Name":  "Yellow Plant",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1083,
+        "Name":  "Shining Plant",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1084,
+        "Name":  "Black Mushroom",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1085,
+        "Name":  "Red Mushroom",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1086,
+        "Name":  "Golden Thief Bug",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1087,
+        "Name":  "Orc Hero",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1088,
+        "Name":  "Vocal",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1089,
+        "Name":  "Toad",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1090,
+        "Name":  "Mastering",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1091,
+        "Name":  "Dragonfly",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1092,
+        "Name":  "Vagabond Wolf",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1093,
+        "Name":  "Eclipse",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1094,
+        "Name":  "Ambernite",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1095,
+        "Name":  "Andre",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1096,
+        "Name":  "Angeling",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1097,
+        "Name":  "Ant Egg",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1099,
+        "Name":  "Argiope",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1100,
+        "Name":  "Argos",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1101,
+        "Name":  "Baphomet Jr.",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1102,
+        "Name":  "Bathory",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1103,
+        "Name":  "Caramel",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1104,
+        "Name":  "Coco",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1105,
+        "Name":  "Deniro",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1106,
+        "Name":  "Desert Wolf",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1107,
+        "Name":  "Desert Wolf Puppy",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1108,
+        "Name":  "Deviace",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1109,
+        "Name":  "Deviruchi",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1110,
+        "Name":  "Dokebi",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1111,
+        "Name":  "Drainliar",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1112,
+        "Name":  "Drake",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1113,
+        "Name":  "Drops",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1114,
+        "Name":  "Dustiness",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1115,
+        "Name":  "Eddga",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1116,
+        "Name":  "Eggyra",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1117,
+        "Name":  "Evil Druid",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1118,
+        "Name":  "Flora",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1119,
+        "Name":  "Frilldora",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1120,
+        "Name":  "Ghostring",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1121,
+        "Name":  "Giearth",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1122,
+        "Name":  "Goblin",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1123,
+        "Name":  "Goblin",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1124,
+        "Name":  "Goblin",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1125,
+        "Name":  "Goblin",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1126,
+        "Name":  "Goblin",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1127,
+        "Name":  "Hode",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1128,
+        "Name":  "Horn",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1129,
+        "Name":  "Horong",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1130,
+        "Name":  "Jakk",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1131,
+        "Name":  "Joker",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1132,
+        "Name":  "Khalitzburg",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1133,
+        "Name":  "Kobold",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1134,
+        "Name":  "Kobold",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1135,
+        "Name":  "Kobold",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1138,
+        "Name":  "Magnolia",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1139,
+        "Name":  "Mantis",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1140,
+        "Name":  "Marduk",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1141,
+        "Name":  "Marina",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1142,
+        "Name":  "Marine Sphere",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1143,
+        "Name":  "Marionette",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1144,
+        "Name":  "Mars",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1145,
+        "Name":  "Martin",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1146,
+        "Name":  "Matyr",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1147,
+        "Name":  "Maya",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1149,
+        "Name":  "Minorous",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1150,
+        "Name":  "Moonlight",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1151,
+        "Name":  "Myst",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1152,
+        "Name":  "Orc Skeleton",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1153,
+        "Name":  "Orc Zombie",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1155,
+        "Name":  "Petit",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1156,
+        "Name":  "Sky Petit",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1157,
+        "Name":  "Pharaoh",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1158,
+        "Name":  "Phen",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1159,
+        "Name":  "Phreeoni",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1160,
+        "Name":  "Piere",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1161,
+        "Name":  "Plankton",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1163,
+        "Name":  "Raydric",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1164,
+        "Name":  "Requiem",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1165,
+        "Name":  "Sandman",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1166,
+        "Name":  "Savage",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1167,
+        "Name":  "Savage Babe",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1169,
+        "Name":  "Skeleton Worker",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1170,
+        "Name":  "Sohee",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1174,
+        "Name":  "Stainer",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1175,
+        "Name":  "Tarou",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1176,
+        "Name":  "Vitata",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1177,
+        "Name":  "Zenorc",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1178,
+        "Name":  "Zerom",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1179,
+        "Name":  "Whisper",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1182,
+        "Name":  "Thief Mushroom",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1183,
+        "Name":  "Angry ChonChon",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1184,
+        "Name":  "Angry Fabre",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1185,
+        "Name":  "Whisper",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1186,
+        "Name":  "Giant Whisper",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1188,
+        "Name":  "Bon Gun",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1189,
+        "Name":  "Orc Archer",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1190,
+        "Name":  "Orc Lord",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1191,
+        "Name":  "Mimic",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1192,
+        "Name":  "Wraith",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1193,
+        "Name":  "Alarm",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1194,
+        "Name":  "Arclouse",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1195,
+        "Name":  "Rideword",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1196,
+        "Name":  "Skeleton Prisoner",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1197,
+        "Name":  "Zombie Prisoner",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1199,
+        "Name":  "Punk",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1200,
+        "Name":  "Zherlthsh",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1203,
+        "Name":  "Mysteltainn",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1204,
+        "Name":  "Tyrfing",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1205,
+        "Name":  "Executioner",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1206,
+        "Name":  "Anolian",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1207,
+        "Name":  "Sting",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1208,
+        "Name":  "Wanderer",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1209,
+        "Name":  "Cramp",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1211,
+        "Name":  "Brilight",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1213,
+        "Name":  "High Orc",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1214,
+        "Name":  "Choco",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1215,
+        "Name":  "Stem Worm",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1216,
+        "Name":  "Penomena",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1219,
+        "Name":  "Knight of Abyss",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1242,
+        "Name":  "Marin",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1243,
+        "Name":  "Sasquatch",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1246,
+        "Name":  "Christmas Cookie",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1248,
+        "Name":  "Cruiser",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1249,
+        "Name":  "Myst Case",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1250,
+        "Name":  "Chepet",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1251,
+        "Name":  "Stormy Knight",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1252,
+        "Name":  "Garm",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1253,
+        "Name":  "Gargoyle",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1254,
+        "Name":  "Raggler",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1255,
+        "Name":  "Neraid",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1256,
+        "Name":  "Pest",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1257,
+        "Name":  "Injustice",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1258,
+        "Name":  "Goblin Archer",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1259,
+        "Name":  "Gryphon",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1260,
+        "Name":  "Dark Frame",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1261,
+        "Name":  "Wild Rose",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1262,
+        "Name":  "Mutant Dragon",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1263,
+        "Name":  "Wind Ghost",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1264,
+        "Name":  "Merman",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1265,
+        "Name":  "Cookie",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1266,
+        "Name":  "Aster",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1267,
+        "Name":  "Carat",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1268,
+        "Name":  "Blood Knight",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1269,
+        "Name":  "Clock",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1270,
+        "Name":  "Clock Tower Manager",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1271,
+        "Name":  "Alligator",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1272,
+        "Name":  "Dark Lord",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1273,
+        "Name":  "Orc Lady",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1274,
+        "Name":  "Megalith",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1275,
+        "Name":  "Alice",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1276,
+        "Name":  "Raydric Archer",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1277,
+        "Name":  "Greatest General",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1278,
+        "Name":  "Stalactite Golem",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1279,
+        "Name":  "Tri-Joint",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1280,
+        "Name":  "Steam Goblin",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1281,
+        "Name":  "Sageworm",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1282,
+        "Name":  "Kobold Archer",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1283,
+        "Name":  "Chimera",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1289,
+        "Name":  "Maya Purple",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1290,
+        "Name":  "Skeleton General",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1291,
+        "Name":  "Wraith Dead",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1292,
+        "Name":  "Mini Demon",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1293,
+        "Name":  "Creamy Fear",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1294,
+        "Name":  "Killer Mantis",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1295,
+        "Name":  "Owl Baron",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1296,
+        "Name":  "Kobold Leader",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1297,
+        "Name":  "Ancient Mummy",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1298,
+        "Name":  "Zombie Master",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1299,
+        "Name":  "Goblin Leader",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1300,
+        "Name":  "Caterpillar",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1301,
+        "Name":  "Am Mut",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1302,
+        "Name":  "Dark Illusion",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1303,
+        "Name":  "Giant Hornet",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1304,
+        "Name":  "Giant Spider",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1305,
+        "Name":  "Ancient Worm",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1306,
+        "Name":  "Leib Olmai",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1307,
+        "Name":  "Cat\u0027o\u0027Nine Tails",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1308,
+        "Name":  "Panzer Goblin",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1309,
+        "Name":  "Gajomart",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1310,
+        "Name":  "Majoruros",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1311,
+        "Name":  "Gullinbursti",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1312,
+        "Name":  "Turtle General",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1313,
+        "Name":  "Mobster",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1314,
+        "Name":  "Perimeter",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1315,
+        "Name":  "Assaulter",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1316,
+        "Name":  "Soldier",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1317,
+        "Name":  "Fur Seal",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1318,
+        "Name":  "Heater",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1319,
+        "Name":  "Freezer",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1320,
+        "Name":  "Owl Duke",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1321,
+        "Name":  "Dragon Tail",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1322,
+        "Name":  "Spring Rabbit",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1323,
+        "Name":  "Sea Otter",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1366,
+        "Name":  "Lava Golem",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1367,
+        "Name":  "Blazer",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1368,
+        "Name":  "Geographer",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1369,
+        "Name":  "Grand Peco",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1372,
+        "Name":  "Goat",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1376,
+        "Name":  "Harpy",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1378,
+        "Name":  "Demon Pungus",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1379,
+        "Name":  "Nightmare Terror",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1380,
+        "Name":  "Driller",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1381,
+        "Name":  "Grizzly",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1382,
+        "Name":  "Diabolic",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1383,
+        "Name":  "Explosion",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1384,
+        "Name":  "Sky Deleter",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1385,
+        "Name":  "Earth Deleter",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1386,
+        "Name":  "Sleeper",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1387,
+        "Name":  "Gig",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1388,
+        "Name":  "Archangeling",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1389,
+        "Name":  "Dracula",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1391,
+        "Name":  "Galapago",
+        "NameRu":  "",
+        "IsMvp":  false
+    },
+    {
+        "Id":  1511,
+        "Name":  "Amon Ra",
+        "NameRu":  "",
+        "IsMvp":  true
+    },
+    {
+        "Id":  1582,
+        "Name":  "Deviling",
+        "NameRu":  "",
+        "IsMvp":  false
+    }
+]

@@ -1,0 +1,861 @@
+<Window x:Class="RoAura.MainWindow" x:Name="RootWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:RoAura.Converters"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="{DynamicResource AppTitle}" Width="1420" Height="920" MinWidth="1120" MinHeight="760"
+        Icon="Assets/roaura.ico" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" ResizeMode="CanResize" Background="{StaticResource RoWindowBrush}" Foreground="{StaticResource RoTextBrush}">
+    <Window.Resources>
+        <converters:Base64ToImageSourceConverter x:Key="Base64Image" />
+        <Style x:Key="DetailGroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Padding" Value="12" />
+            <Setter Property="Margin" Value="0,0,12,12" />
+        </Style>
+        <Style x:Key="SidebarTabControlStyle" TargetType="TabControl">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabControl">
+                        <ContentPresenter ContentSource="SelectedContent" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="NavigationButtonStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="{StaticResource RoTextBrush}" />
+            <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="7,4" />
+            <Setter Property="Height" Value="48" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid>
+                            <Border x:Name="NavBorder" Background="Transparent" BorderBrush="Transparent"
+                                    BorderThickness="1" CornerRadius="7" Padding="12,0">
+                                <ContentPresenter VerticalAlignment="Center" />
+                            </Border>
+                            <Border x:Name="GoldMarker" Width="4" Height="28" HorizontalAlignment="Left"
+                                    VerticalAlignment="Center" CornerRadius="2" Background="{StaticResource RoGoldBrush}"
+                                    Visibility="Collapsed"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="NavBorder" Property="Background" Value="#FFE4EFFC" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="NavBorder" Property="Background" Value="#FFD1E2FA" />
+                                <Setter TargetName="NavBorder" Property="BorderBrush" Value="#FF6E96CE" />
+                                <Setter TargetName="GoldMarker" Property="Visibility" Value="Visible" />
+                                <Setter Property="Foreground" Value="#FF174E9A" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="NavGlyphStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Symbol" />
+            <Setter Property="FontSize" Value="23" />
+            <Setter Property="Width" Value="34" />
+            <Setter Property="Foreground" Value="{StaticResource RoBlueBrush}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="NavIconStyle" TargetType="Image">
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Margin" Value="0,0,10,0" />
+            <Setter Property="Stretch" Value="Uniform" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor" />
+        </Style>
+        <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,5,10,5" />
+        </Style>
+        <Style x:Key="FieldEditorStyle" TargetType="TextBox">
+            <Setter Property="Margin" Value="0,4,14,4" />
+            <Setter Property="MinWidth" Value="72" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+    </Window.Resources>
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="0" ResizeBorderThickness="7" GlassFrameThickness="0"
+                            CornerRadius="0" UseAeroCaptionButtons="False"/>
+    </shell:WindowChrome.WindowChrome>
+
+    <Border BorderBrush="#557DB7" BorderThickness="1" Margin="5" CornerRadius="8" Background="{StaticResource RoWindowBrush}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="86" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border Background="{StaticResource RoHeaderBrush}" BorderBrush="{StaticResource RoBorderBrush}" BorderThickness="0,0,0,2"
+                    CornerRadius="7,7,0,0" MouseLeftButtonDown="Header_MouseLeftButtonDown">
+                <Grid Margin="18,7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="68" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Assets/roaura-icon.png" Width="58" Height="58" Stretch="Uniform" />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Text="RoAura" Style="{StaticResource RoDisplayTextStyle}" FontSize="31" />
+                        <TextBlock Text="{DynamicResource Subtitle}" Style="{StaticResource RoCaptionTextStyle}" FontSize="13" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,18,0">
+                        <TextBlock Text="{DynamicResource Server}" VerticalAlignment="Center" Margin="0,0,6,0" />
+                        <ComboBox x:Name="ServerProfileBox" Width="112" Margin="0,0,14,0" SelectionChanged="ServerProfile_SelectionChanged">
+                            <ComboBoxItem Content="RTM" Tag="RTM"/>
+                            <ComboBoxItem Content="SpringRO" Tag="SpringRO"/>
+                            <ComboBoxItem Content="Другой" Tag="Other"/>
+                        </ComboBox>
+                        <TextBlock Text="{DynamicResource Language}" VerticalAlignment="Center" Margin="0,0,6,0" />
+                        <ComboBox x:Name="LanguageBox" Width="120" SelectionChanged="Language_SelectionChanged">
+                            <ComboBoxItem Content="Русский" Tag="ru" />
+                            <ComboBoxItem Content="English" Tag="en" />
+                        </ComboBox>
+                    </StackPanel>
+                    <Border Grid.Column="3" Padding="12,7" VerticalAlignment="Center" Background="#DFFFFFFF" CornerRadius="5"
+                            BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
+                        <TextBlock Foreground="{StaticResource RoBlueBrush}">
+                            <Run Text="{Binding SettingsHotkey}" /><Run Text=" — "/><Run Text="{DynamicResource SettingsShort}" />
+                            <Run Text=" · "/><Run Text="{Binding OverlaysHotkey}" /><Run Text=" — "/><Run Text="{DynamicResource OverlaysShort}" />
+                        </TextBlock>
+                    </Border>
+                    <StackPanel Grid.Column="4" Orientation="Horizontal" Margin="12,0,0,0" VerticalAlignment="Top">
+                        <Button Content="—" ToolTip="Свернуть" Style="{StaticResource TitleBarButtonStyle}" Click="MinimizeWindow_Click"/>
+                        <Button x:Name="MaximizeWindowButton" Content="□" ToolTip="Развернуть" Style="{StaticResource TitleBarButtonStyle}"
+                                Click="ToggleMaximizeWindow_Click"/>
+                        <Button Content="×" ToolTip="Закрыть" Style="{StaticResource DangerButtonStyle}" Width="36" Height="30"
+                                MinHeight="30" Padding="0" FontSize="18" Click="CloseWindow_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1" Margin="9,8,9,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="215" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="#EFFFFFFF" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="7">
+                    <Grid>
+                        <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                        <StackPanel Margin="2,8">
+                            <RadioButton x:Name="CooldownNavButton" Tag="0" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/01_cooldowns.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Cooldowns}" VerticalAlignment="Center"/></StackPanel>
+                            </RadioButton>
+                            <RadioButton Tag="1" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/02_buffs_debuffs.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Effects}" VerticalAlignment="Center"/></StackPanel>
+                            </RadioButton>
+                            <RadioButton Tag="2" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/03_reminder.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Reminders}" VerticalAlignment="Center"/></StackPanel>
+                            </RadioButton>
+                            <RadioButton Tag="3" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/04_equipment.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Equipment}" VerticalAlignment="Center"/></StackPanel>
+                            </RadioButton>
+                            <RadioButton x:Name="MvpNavButton" Tag="4" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/05_mvp_timers.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource MvpTimers}" VerticalAlignment="Center"/></StackPanel>
+                            </RadioButton>
+                            <RadioButton x:Name="LootNavButton" Tag="5" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/06_loot_zeny_exp.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource LootRewards}" VerticalAlignment="Center"/></StackPanel>
+                            </RadioButton>
+                            <RadioButton x:Name="DatabaseNavButton" Tag="6" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/05_mvp_timers.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Database}" VerticalAlignment="Center"/></StackPanel>
+                            </RadioButton>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Margin="9,0,9,10">
+                            <Separator Margin="2,4,2,8" Background="{StaticResource RoSoftBorderBrush}"/>
+                            <Button Click="About_Click" HorizontalContentAlignment="Left" Style="{StaticResource GhostButtonStyle}">
+                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/07_about.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource About}" VerticalAlignment="Center"/></StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                    <Border Margin="0,0,0,7" Padding="10" BorderBrush="{StaticResource RoSoftBorderBrush}"
+                    BorderThickness="1" CornerRadius="7" Background="#EFFFFFFF">
+                <StackPanel>
+                    <WrapPanel>
+                        <CheckBox x:Name="EnabledBox" Content="{DynamicResource TrackingEnabled}" Margin="0,0,18,0" />
+                    </WrapPanel>
+                    <WrapPanel Margin="0,10,0,0">
+                        <CheckBox Content="{DynamicResource ReadPackets}" IsChecked="{Binding PacketCaptureEnabled}" Margin="0,0,16,0" />
+                        <TextBlock Text="{DynamicResource Server}" VerticalAlignment="Center" />
+                        <TextBox Width="130" Margin="6,0,10,0" Text="{Binding PacketServerAddress}" />
+                        <TextBlock Text="{DynamicResource Port}" VerticalAlignment="Center" />
+                        <TextBox Width="66" Margin="6,0,10,0" Text="{Binding PacketServerPort}" />
+                        <TextBlock Text="{DynamicResource Process}" VerticalAlignment="Center" />
+                        <TextBox x:Name="ProcessesBox" Width="150" Margin="6,0,10,0" />
+                        <CheckBox Content="{DynamicResource AutoDetectConnection}" IsChecked="{Binding AutoDetectConnection}" Margin="0,0,10,0" VerticalAlignment="Center" />
+                        <Button Content="{DynamicResource DetectConnectionNow}" Click="AutoDetectConnection_Click" />
+                        <Button Content="{DynamicResource CheckNpcap}" Click="CheckNpcap_Click" />
+                        <Button Content="{DynamicResource ResetAid}" Click="ResetPacketAid_Click" />
+                    </WrapPanel>
+                    <Border Margin="0,8,0,0" Padding="8,5" Background="#FFEAF4FF" BorderBrush="#FFB9CEE3" BorderThickness="1">
+                        <TextBlock Text="{Binding PacketCaptureStateText}" Foreground="#FF32618A" FontWeight="SemiBold" TextWrapping="Wrap" />
+                    </Border>
+                    <WrapPanel Margin="0,10,0,0">
+                        <TextBlock Text="{DynamicResource Hotkeys}" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,14,0" />
+                        <TextBlock Text="{DynamicResource SettingsWindowHotkey}" VerticalAlignment="Center" />
+                        <ComboBox Width="78" Margin="6,0,14,0" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding SettingsHotkey, Mode=TwoWay}" />
+                        <TextBlock Text="{DynamicResource OverlaysHotkey}" VerticalAlignment="Center" />
+                        <ComboBox Width="78" Margin="6,0,14,0" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding OverlaysHotkey, Mode=TwoWay}" />
+                        <TextBlock Text="{DynamicResource FinishMoveHotkey}" VerticalAlignment="Center" />
+                        <ComboBox Width="88" Margin="6,0,14,0" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding FinishMoveHotkey, Mode=TwoWay}" />
+                        <TextBlock Text="{DynamicResource TimersHotkey}" VerticalAlignment="Center" />
+                        <ComboBox Width="78" Margin="6,0,14,0" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding TimersHotkey, Mode=TwoWay}" />
+                        <StackPanel x:Name="DatabaseHotkeyControls" Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource DatabaseHotkey}" VerticalAlignment="Center" />
+                            <ComboBox Width="78" Margin="6,0,14,0" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding DatabaseHotkey, Mode=TwoWay}" />
+                        </StackPanel>
+                        <TextBlock Text="{DynamicResource HotkeyExamples}" Foreground="{StaticResource RoMutedBrush}" VerticalAlignment="Center" />
+                    </WrapPanel>
+                </StackPanel>
+                    </Border>
+
+                    <TabControl x:Name="MainTabs" Grid.Row="1" Style="{StaticResource SidebarTabControlStyle}" Background="Transparent">
+                <TabItem Header="{DynamicResource Cooldowns}">
+                    <Grid Margin="8,4,8,8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="230" MinHeight="90" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Margin="0,0,0,8" Padding="14,9" CornerRadius="7"
+                                Background="#E5F0FC" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                <Border Width="28" Height="28" CornerRadius="14" Background="{StaticResource RoPrimaryButtonBrush}" Margin="0,0,10,0">
+                                    <TextBlock Text="◷" Foreground="White" FontSize="17" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{DynamicResource CooldownSettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
+                                    <TextBlock Text="{DynamicResource CooldownSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <DataGrid Grid.Row="1" x:Name="SkillsGrid" ItemsSource="{Binding Skills}" AutoGenerateColumns="False"
+                                  CanUserAddRows="False" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="{DynamicResource On}" Binding="{Binding Enabled}" Width="45" />
+                                <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" Width="2*" />
+                                <DataGridTextColumn Header="Skill ID" Binding="{Binding PacketSkillId}" Width="75" />
+                                <DataGridTextColumn Header="CD, sec" Binding="{Binding CooldownSeconds}" Width="70" />
+                                <DataGridTextColumn Header="{DynamicResource Group}" Binding="{Binding GroupNumber}" Width="65" />
+                                <DataGridTextColumn Header="{DynamicResource Size}" Binding="{Binding IndividualIconSize}" Width="65" />
+                                <DataGridTextColumn Header="{DynamicResource ReadyOpacity}" Binding="{Binding ReadyOpacityPercent}" Width="150" />
+                                <DataGridTextColumn Header="{DynamicResource CooldownOpacity}" Binding="{Binding CooldownOpacityPercent}" Width="150" />
+                                <DataGridTextColumn Header="X" Binding="{Binding X}" Width="65" />
+                                <DataGridTextColumn Header="Y" Binding="{Binding Y}" Width="65" />
+                                <DataGridTextColumn Header="{DynamicResource Icon}" Binding="{Binding IconStatusText}" IsReadOnly="True" Width="2*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <GridSplitter Grid.Row="2" Height="6" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#9DB7D8" Cursor="SizeNS"/>
+                        <Border Grid.Row="3" Margin="0,8,0,9" Padding="7" CornerRadius="7" Background="#F8FBFF"
+                                BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
+                            <WrapPanel>
+                                <Button Click="Add_Click" Style="{StaticResource PrimaryButtonStyle}"><StackPanel Orientation="Horizontal"><TextBlock Text="＋" Foreground="White" Margin="0,0,5,0"/><TextBlock Text="{DynamicResource Add}" Foreground="White"/></StackPanel></Button>
+                                <Button Click="Delete_Click" Style="{StaticResource DangerButtonStyle}"><StackPanel Orientation="Horizontal"><TextBlock Text="✕" Foreground="#9A3442" Margin="0,0,5,0"/><TextBlock Text="{DynamicResource Delete}" Foreground="#9A3442"/></StackPanel></Button>
+                                <Button Click="PickIcon_Click"><StackPanel Orientation="Horizontal"><TextBlock Text="▣" Margin="0,0,5,0"/><TextBlock Text="{DynamicResource PickIcon}"/></StackPanel></Button>
+                                <Button Click="LearnSkillPacket_Click" Style="{StaticResource GoldButtonStyle}"><StackPanel Orientation="Horizontal"><TextBlock Text="✦" Foreground="#684719" Margin="0,0,5,0"/><TextBlock Text="{DynamicResource LearnSkill}" Foreground="#684719"/></StackPanel></Button>
+                                <Button Click="Test_Click"><StackPanel Orientation="Horizontal"><TextBlock Text="▶" Margin="0,0,5,0"/><TextBlock Text="{DynamicResource TestCooldown}"/></StackPanel></Button>
+                                <ToggleButton x:Name="MoveModeButton" Checked="MoveMode_Changed" Unchecked="MoveMode_Changed"><StackPanel Orientation="Horizontal"><TextBlock Text="✥" Margin="0,0,5,0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=ToggleButton}}"/><TextBlock Text="{DynamicResource MoveOne}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=ToggleButton}}"/></StackPanel></ToggleButton>
+                                <ToggleButton x:Name="GroupMoveModeButton" Checked="GroupMoveMode_Changed" Unchecked="GroupMoveMode_Changed"><StackPanel Orientation="Horizontal"><TextBlock Text="✥" Margin="0,0,5,0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=ToggleButton}}"/><TextBlock Text="{DynamicResource MoveGroup}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=ToggleButton}}"/></StackPanel></ToggleButton>
+                                <CheckBox Content="{DynamicResource ShortNames}" IsChecked="{Binding ShowShortNames}" Margin="16,0,18,0" VerticalAlignment="Center" />
+                                <CheckBox Content="{DynamicResource ReadyText}" IsChecked="{Binding ShowReadyText}" VerticalAlignment="Center" />
+                            </WrapPanel>
+                        </Border>
+                        <ScrollViewer Grid.Row="4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <Grid DataContext="{Binding SelectedItem, ElementName=SkillsGrid}" MinWidth="920">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.05*" />
+                                    <ColumnDefinition Width="1.15*" />
+                                </Grid.ColumnDefinitions>
+                                <GroupBox Header="{DynamicResource MainParameters}" Style="{StaticResource DetailGroupBoxStyle}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="150" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                        <TextBlock Text="{DynamicResource Name}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Column="1" Text="{Binding Name}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="1" Text="Skill ID" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding PacketSkillId}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="2" Text="{DynamicResource CooldownSeconds}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CooldownSeconds}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="3" Text="{DynamicResource Group}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding GroupNumber}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="4" Text="{DynamicResource PositionXY}" Style="{StaticResource FieldLabelStyle}" />
+                                        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                                            <TextBox Width="88" Text="{Binding X}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBox Width="88" Text="{Binding Y}" Style="{StaticResource FieldEditorStyle}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Grid.Column="1" Header="{DynamicResource Appearance}" Style="{StaticResource DetailGroupBoxStyle}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="175" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                        <TextBlock Text="{DynamicResource IconSize}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Column="1" Text="{Binding IndividualIconSize}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="1" Text="{DynamicResource ReadyOpacity}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ReadyOpacityPercent}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="2" Text="{DynamicResource CooldownOpacity}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CooldownOpacityPercent}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="3" Text="{DynamicResource IconPadding}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding IconPadding}" Style="{StaticResource FieldEditorStyle}" />
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="{DynamicResource Effects}">
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="210" MinHeight="90" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="EffectsGrid" ItemsSource="{Binding Effects}" AutoGenerateColumns="False"
+                                  CanUserAddRows="False" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="{DynamicResource On}" Binding="{Binding Enabled}" Width="45" />
+                                <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" Width="2*" />
+                                <DataGridTextColumn Header="Status ID" Binding="{Binding StatusId}" Width="80" />
+                                <DataGridTextColumn Header="{DynamicResource Group}" Binding="{Binding GroupNumber}" Width="65" />
+                                <DataGridCheckBoxColumn Header="{DynamicResource BuffPanel}" Binding="{Binding ShowOnBuffPanel}" Width="85" />
+                                <DataGridTextColumn Header="X" Binding="{Binding NotificationX}" Width="65" />
+                                <DataGridTextColumn Header="Y" Binding="{Binding NotificationY}" Width="65" />
+                                <DataGridTextColumn Header="{DynamicResource Icon}" Binding="{Binding TemplateStatusText}" IsReadOnly="True" Width="2*" />
+                                <DataGridTextColumn Header="{DynamicResource State}" Binding="{Binding CurrentStateText}" IsReadOnly="True" Width="120" />
+                                <DataGridCheckBoxColumn Header="{DynamicResource Appeared}" Binding="{Binding NotifyOnAppeared}" Width="85" />
+                                <DataGridCheckBoxColumn Header="{DynamicResource Disappeared}" Binding="{Binding NotifyOnDisappeared}" Width="95" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <GridSplitter Grid.Row="1" Height="6" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#9DB7D8" Cursor="SizeNS"/>
+                        <WrapPanel Grid.Row="2" Margin="0,7,0,9">
+                            <Button Content="{DynamicResource Add}" Click="AddEffect_Click" />
+                            <Button Content="{DynamicResource Delete}" Click="DeleteEffect_Click" />
+                            <Button Content="{DynamicResource PickIcon}" Click="PickEffectIcon_Click" />
+                            <Button Content="{DynamicResource LearnStatus}" Click="LearnEffectPacket_Click" />
+                            <Button Content="{DynamicResource TestAppeared}" Click="TestEffectAppeared_Click" />
+                            <Button Content="{DynamicResource TestDisappeared}" Click="TestEffectDisappeared_Click" />
+                            <ToggleButton x:Name="NotificationMoveModeButton" Content="{DynamicResource MoveOne}" Checked="NotificationMoveMode_Changed" Unchecked="NotificationMoveMode_Changed" />
+                            <ToggleButton x:Name="NotificationGroupMoveModeButton" Content="{DynamicResource MoveGroup}" Checked="NotificationGroupMoveMode_Changed" Unchecked="NotificationGroupMoveMode_Changed" />
+                            <ToggleButton x:Name="BuffPanelMoveModeButton" Content="{DynamicResource MoveBuffPanel}" Checked="BuffPanelMoveMode_Changed" Unchecked="BuffPanelMoveMode_Changed" />
+                        </WrapPanel>
+                        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <StackPanel DataContext="{Binding SelectedItem, ElementName=EffectsGrid}" MinWidth="960">
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <GroupBox Header="{DynamicResource EventsAndSound}" Style="{StaticResource DetailGroupBoxStyle}" Margin="0,0,0,12">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="175"/><ColumnDefinition Width="*"/><ColumnDefinition Width="90"/></Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                            <CheckBox Content="{DynamicResource NotifyAppeared}" IsChecked="{Binding NotifyOnAppeared}" Margin="0,5,10,5" />
+                                            <TextBox Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding AppearedText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" Margin="0,4,0,4" />
+                                            <CheckBox Grid.Row="1" Content="{DynamicResource NotifyDisappeared}" IsChecked="{Binding NotifyOnDisappeared}" Margin="0,5,10,5" />
+                                            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding DisappearedText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" Margin="0,4,0,4" />
+                                            <TextBlock Grid.Row="2" Text="{DynamicResource RepeatProtection}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Grid.Row="2" Grid.Column="1" Width="90" HorizontalAlignment="Left" Text="{Binding RepeatProtectionSeconds}" Style="{StaticResource FieldEditorStyle}" />
+                                            <CheckBox Grid.Row="3" Content="{DynamicResource AppearedSound}" IsChecked="{Binding AppearedSoundEnabled}" Margin="0,5,10,5" />
+                                            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                                                <Button Content="{DynamicResource Choose}" Click="PickAppearedSound_Click" />
+                                                <TextBlock Text="{DynamicResource Volume}" VerticalAlignment="Center" Margin="10,0,5,0" />
+                                                <TextBox Width="55" Text="{Binding AppearedSoundVolumePercent}" />
+                                            </StackPanel>
+                                            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding AppearedSoundPath}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" ToolTip="{Binding AppearedSoundPath}" />
+                                            <CheckBox Grid.Row="4" Content="{DynamicResource DisappearedSound}" IsChecked="{Binding DisappearedSoundEnabled}" Margin="0,5,10,5" />
+                                            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                                                <Button Content="{DynamicResource Choose}" Click="PickDisappearedSound_Click" />
+                                                <TextBlock Text="{DynamicResource Volume}" VerticalAlignment="Center" Margin="10,0,5,0" />
+                                                <TextBox Width="55" Text="{Binding DisappearedSoundVolumePercent}" />
+                                            </StackPanel>
+                                            <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding DisappearedSoundPath}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" ToolTip="{Binding DisappearedSoundPath}" />
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox Grid.Column="2" Header="{DynamicResource Appearance}" Style="{StaticResource DetailGroupBoxStyle}" Margin="0,0,0,12">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="155"/><ColumnDefinition Width="*"/><ColumnDefinition Width="145"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                            <TextBlock Text="{DynamicResource Duration}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Grid.Column="1" Text="{Binding NotificationDurationSeconds}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBlock Grid.Column="2" Text="{DynamicResource Opacity}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Grid.Column="3" Text="{Binding NotificationOpacityPercent}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBlock Grid.Row="1" Text="{DynamicResource IconSize}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NotificationIconSize}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{DynamicResource TextSize}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding NotificationTextSize}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBlock Grid.Row="2" Text="{DynamicResource IconPadding}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding NotificationIconPadding}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBlock Grid.Row="3" Text="{DynamicResource TextColor}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding NotificationColor}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBlock Grid.Row="3" Grid.Column="2" Text="{DynamicResource BackgroundColor}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding NotificationBackgroundColor}" Style="{StaticResource FieldEditorStyle}" />
+                                            <StackPanel Grid.Row="4" Grid.ColumnSpan="4" Orientation="Horizontal" Margin="0,8,0,5">
+                                                <CheckBox Content="{DynamicResource ShowIcon}" IsChecked="{Binding ShowNotificationIcon}" Margin="0,0,18,0" />
+                                                <CheckBox Content="{DynamicResource ShowBackground}" IsChecked="{Binding ShowNotificationBackground}" Margin="0,0,18,0" />
+                                                <CheckBox Content="{DynamicResource ShowBorder}" IsChecked="{Binding ShowNotificationBorder}" Margin="0,0,18,0" />
+                                                <CheckBox Content="{DynamicResource ShowDurationText}" IsChecked="{Binding ShowDurationText}" Margin="0,0,18,0" />
+                                                <CheckBox Content="{DynamicResource ShowDurationFill}" IsChecked="{Binding ShowDurationFill}" />
+                                            </StackPanel>
+                                            <TextBlock Grid.Row="5" Text="{DynamicResource PositionXY}" Style="{StaticResource FieldLabelStyle}" />
+                                            <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Horizontal">
+                                                <TextBox Width="85" Text="{Binding NotificationX}" Style="{StaticResource FieldEditorStyle}" />
+                                                <TextBox Width="85" Text="{Binding NotificationY}" Style="{StaticResource FieldEditorStyle}" />
+                                                <Border BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" Background="#FFF4F4F4" Padding="4" Margin="4,0,0,0">
+                                                    <Image Width="42" Height="42" Source="{Binding TemplateImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill" />
+                                                </Border>
+                                            </StackPanel>
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                                <GroupBox Header="{DynamicResource BuffPanelSettings}" Style="{StaticResource DetailGroupBoxStyle}"
+                                          DataContext="{Binding SelectedItem, ElementName=BuffPanelGroupBox}">
+                                    <StackPanel>
+                                        <WrapPanel>
+                                            <TextBlock Text="{DynamicResource PanelGroup}" Style="{StaticResource FieldLabelStyle}" />
+                                            <ComboBox x:Name="BuffPanelGroupBox" Width="88" Margin="0,4,22,4"
+                                                      ItemsSource="{Binding DataContext.BuffPanelGroups, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                      DisplayMemberPath="GroupNumber" />
+                                            <TextBlock Text="X" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Width="90" Text="{Binding X}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBlock Text="Y" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Width="90" Text="{Binding Y}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBlock Text="{DynamicResource IconSize}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Width="90" Text="{Binding IconSize}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBlock Text="{DynamicResource IconPadding}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Width="90" Text="{Binding IconPadding}" Style="{StaticResource FieldEditorStyle}" />
+                                        </WrapPanel>
+                                        <WrapPanel Margin="0,4,0,0">
+                                            <TextBlock Text="{DynamicResource ActiveOpacity}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Width="90" Text="{Binding ActiveOpacityPercent}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBlock Text="{DynamicResource InactiveOpacity}" Style="{StaticResource FieldLabelStyle}" />
+                                            <TextBox Width="90" Text="{Binding InactiveOpacityPercent}" Style="{StaticResource FieldEditorStyle}" />
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="{DynamicResource Reminders}">
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="230" MinHeight="90" />
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="RemindersGrid" ItemsSource="{Binding Reminders}" AutoGenerateColumns="False"
+                                  CanUserAddRows="False" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="{DynamicResource On}" Binding="{Binding Enabled}" Width="45" />
+                                <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" Width="2*" />
+                                <DataGridTextColumn Header="Status ID" Binding="{Binding StatusId}" Width="85" />
+                                <DataGridTextColumn Header="{DynamicResource Group}" Binding="{Binding GroupNumber}" Width="65" />
+                                <DataGridTextColumn Header="{DynamicResource ReminderText}" Binding="{Binding Text}" Width="2*" />
+                                <DataGridTextColumn Header="{DynamicResource State}" Binding="{Binding CurrentStateText}" IsReadOnly="True" Width="120" />
+                                <DataGridTextColumn Header="{DynamicResource Icon}" Binding="{Binding IconStatusText}" IsReadOnly="True" Width="2*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <GridSplitter Grid.Row="1" Height="6" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#9DB7D8" Cursor="SizeNS"/>
+                        <WrapPanel Grid.Row="2" Margin="0,7,0,9">
+                            <Button Content="{DynamicResource Add}" Click="AddReminder_Click" />
+                            <Button Content="{DynamicResource Delete}" Click="DeleteReminder_Click" />
+                            <Button Content="{DynamicResource PickIcon}" Click="PickReminderIcon_Click" />
+                            <Button Content="{DynamicResource LearnStatus}" Click="LearnReminderPacket_Click" />
+                            <Button Content="{DynamicResource TestReminder}" Click="TestReminder_Click" />
+                            <ToggleButton x:Name="ReminderMoveModeButton" Content="{DynamicResource MoveOne}" Checked="ReminderMoveMode_Changed" Unchecked="ReminderMoveMode_Changed" />
+                            <ToggleButton x:Name="ReminderGroupMoveModeButton" Content="{DynamicResource MoveGroup}" Checked="ReminderGroupMoveMode_Changed" Unchecked="ReminderGroupMoveMode_Changed" />
+                        </WrapPanel>
+                        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <Grid DataContext="{Binding SelectedItem, ElementName=RemindersGrid}" MinWidth="940">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.05*" />
+                                    <ColumnDefinition Width="1.25*" />
+                                </Grid.ColumnDefinitions>
+                                <GroupBox Header="{DynamicResource MainParameters}" Style="{StaticResource DetailGroupBoxStyle}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="145"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                        <TextBlock Text="{DynamicResource Name}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Column="1" Text="{Binding Name}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="1" Text="Status ID" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding StatusId}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="2" Text="{DynamicResource Group}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding GroupNumber}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="3" Text="{DynamicResource ReminderText}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Text}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="4" Text="{DynamicResource PositionXY}" Style="{StaticResource FieldLabelStyle}" />
+                                        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                                            <TextBox Width="85" Text="{Binding X}" Style="{StaticResource FieldEditorStyle}" />
+                                            <TextBox Width="85" Text="{Binding Y}" Style="{StaticResource FieldEditorStyle}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Grid.Column="1" Header="{DynamicResource Appearance}" Style="{StaticResource DetailGroupBoxStyle}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="205"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{DynamicResource IconSize}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Column="1" Text="{Binding IconSize}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="1" Text="{DynamicResource TextSize}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextSize}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="2" Text="{DynamicResource IconPadding}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding IconPadding}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="3" Text="{DynamicResource Opacity}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding OpacityPercent}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="4" Text="{DynamicResource TextColor}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding TextColor}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="5" Text="{DynamicResource BackgroundColor}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding BackgroundColor}" Style="{StaticResource FieldEditorStyle}" />
+                                        <TextBlock Grid.Row="6" Text="{DynamicResource BorderColor}" Style="{StaticResource FieldLabelStyle}" />
+                                        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding BorderColor}" Style="{StaticResource FieldEditorStyle}" />
+                                        <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,4">
+                                            <CheckBox Content="{DynamicResource ShowIcon}" IsChecked="{Binding ShowIcon}" Margin="0,0,18,0" />
+                                            <CheckBox Content="{DynamicResource ShowBackground}" IsChecked="{Binding ShowBackground}" Margin="0,0,18,0" />
+                                            <CheckBox Content="{DynamicResource ShowBorder}" IsChecked="{Binding ShowBorder}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="{DynamicResource Equipment}">
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions><RowDefinition Height="230" MinHeight="90"/><RowDefinition Height="6"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                        <DataGrid x:Name="EquipmentGrid" ItemsSource="{Binding Equipment}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="{DynamicResource On}" Binding="{Binding Enabled}" Width="45"/>
+                                <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" Width="2*"/>
+                                <DataGridTextColumn Header="Item ID" Binding="{Binding ItemId}" Width="80"/>
+                                <DataGridTextColumn Header="Index" Binding="{Binding InventoryIndex}" Width="70"/>
+                                <DataGridTextColumn Header="Slot" Binding="{Binding WearLocation}" Width="75"/>
+                                <DataGridTextColumn Header="Packet" Binding="{Binding PacketIdHex}" IsReadOnly="True" Width="75"/>
+                                <DataGridTextColumn Header="{DynamicResource DetectedEquipment}" Binding="{Binding DetectedItemName}" IsReadOnly="True" Width="2*"/>
+                                <DataGridTextColumn Header="{DynamicResource Group}" Binding="{Binding GroupNumber}" Width="65"/>
+                                <DataGridTextColumn Header="{DynamicResource State}" Binding="{Binding CurrentStateText}" IsReadOnly="True" Width="120"/>
+                                <DataGridTextColumn Header="{DynamicResource Icon}" Binding="{Binding IconStatusText}" IsReadOnly="True" Width="2*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <GridSplitter Grid.Row="1" Height="6" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#9DB7D8" Cursor="SizeNS"/>
+                        <WrapPanel Grid.Row="2" Margin="0,7,0,9">
+                            <Button Content="{DynamicResource Add}" Click="AddEquipment_Click"/>
+                            <Button Content="{DynamicResource Delete}" Click="DeleteEquipment_Click"/>
+                            <Button Content="{DynamicResource PickIcon}" Click="PickEquipmentIcon_Click"/>
+                            <Button Content="{DynamicResource LearnEquipment}" Click="LearnEquipment_Click"/>
+                            <Button Content="{DynamicResource TestEquipment}" Click="TestEquipment_Click"/>
+                            <ToggleButton x:Name="EquipmentMoveModeButton" Content="{DynamicResource MoveOne}" Checked="EquipmentMoveMode_Changed" Unchecked="EquipmentMoveMode_Changed"/>
+                            <ToggleButton x:Name="EquipmentGroupMoveModeButton" Content="{DynamicResource MoveGroup}" Checked="EquipmentGroupMoveMode_Changed" Unchecked="EquipmentGroupMoveMode_Changed"/>
+                        </WrapPanel>
+                        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <Grid DataContext="{Binding SelectedItem, ElementName=EquipmentGrid}" MinWidth="980">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="1.05*"/><ColumnDefinition Width="1.2*"/></Grid.ColumnDefinitions>
+                                <GroupBox Header="{DynamicResource MainParameters}" Style="{StaticResource DetailGroupBoxStyle}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                        <TextBlock Text="{DynamicResource Name}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding Name}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="1" Text="Item ID" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ItemId}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="2" Text="Inventory index" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding InventoryIndex}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="3" Text="Packet ID" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding PacketId}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="4" Text="Wear slot" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="4" Grid.Column="1" Text="{Binding WearLocation}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="5" Text="{DynamicResource DetectedEquipment}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="5" Grid.Column="1" Text="{Binding DetectedItemName}" IsReadOnly="True" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="6" Text="{DynamicResource VariantFingerprint}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="6" Grid.Column="1" Text="{Binding VariantKey}" IsReadOnly="True" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="7" Text="{DynamicResource Group}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="7" Grid.Column="1" Text="{Binding GroupNumber}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="8" Text="{DynamicResource EquipmentText}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Text}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="9" Text="{DynamicResource PositionXY}" Style="{StaticResource FieldLabelStyle}"/>
+                                        <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal"><TextBox Width="85" Text="{Binding X}" Style="{StaticResource FieldEditorStyle}"/><TextBox Width="85" Text="{Binding Y}" Style="{StaticResource FieldEditorStyle}"/></StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Grid.Column="1" Header="{DynamicResource Appearance}" Style="{StaticResource DetailGroupBoxStyle}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="180"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                        <TextBlock Text="{DynamicResource IconSize}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding IconSize}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="1" Text="{DynamicResource IconPadding}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding IconPadding}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="2" Text="{DynamicResource TextSize}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TextSize}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="3" Text="{DynamicResource Opacity}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding OpacityPercent}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="4" Text="{DynamicResource TextColor}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="4" Grid.Column="1" Text="{Binding TextColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="5" Text="{DynamicResource BackgroundColor}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="5" Grid.Column="1" Text="{Binding BackgroundColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="6" Text="{DynamicResource BorderColor}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="6" Grid.Column="1" Text="{Binding BorderColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,8,0,0"><CheckBox Content="{DynamicResource ShowText}" IsChecked="{Binding ShowText}" Margin="0,0,16,0"/><CheckBox Content="{DynamicResource ShowBackground}" IsChecked="{Binding ShowBackground}" Margin="0,0,16,0"/><CheckBox Content="{DynamicResource ShowBorder}" IsChecked="{Binding ShowBorder}"/></StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+
+                <TabItem x:Name="MvpTab" Header="{DynamicResource MvpTimers}">
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions><RowDefinition Height="250" MinHeight="90"/><RowDefinition Height="6"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                        <DataGrid x:Name="MvpTimersGrid" ItemsSource="{Binding MvpTimers}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="{DynamicResource On}" Binding="{Binding Enabled}" Width="45"/>
+                                <DataGridTextColumn Header="MVP" Binding="{Binding Name}" Width="2*"/>
+                                <DataGridTextColumn Header="ID" Binding="{Binding MonsterId}" Width="80"/>
+                                <DataGridTextColumn Header="{DynamicResource Minutes}" Binding="{Binding DurationMinutes}" Width="100"/>
+                                <DataGridTextColumn Header="{DynamicResource Remaining}" Binding="{Binding RemainingText}" IsReadOnly="True" Width="110"/>
+                                <DataGridTemplateColumn Header="{DynamicResource Actions}" Width="210"><DataGridTemplateColumn.CellTemplate><DataTemplate><StackPanel Orientation="Horizontal"><Button Content="{DynamicResource Restart}" Click="RestartMvpTimer_Click"/><Button Content="{DynamicResource Reset}" Click="ResetMvpTimer_Click"/></StackPanel></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <GridSplitter Grid.Row="1" Height="6" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#9DB7D8" Cursor="SizeNS"/>
+                        <WrapPanel Grid.Row="2" Margin="0,7,0,9">
+                            <Button Content="{DynamicResource Add}" Click="AddMvpTimer_Click"/><Button Content="{DynamicResource Delete}" Click="DeleteMvpTimer_Click"/>
+                            <Button Content="{DynamicResource Restart}" Click="RestartMvpTimer_Click"/><Button Content="{DynamicResource Reset}" Click="ResetMvpTimer_Click"/>
+                            <ToggleButton x:Name="TimerMoveModeButton" Content="{DynamicResource MoveTimers}" Checked="TimerMoveMode_Changed" Unchecked="TimerMoveMode_Changed"/>
+                        </WrapPanel>
+                        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+                            <Grid MinWidth="960">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="1.25*"/><ColumnDefinition Width="1.1*"/></Grid.ColumnDefinitions>
+                                <GroupBox Header="{DynamicResource TimerSettings}" Style="{StaticResource DetailGroupBoxStyle}" DataContext="{Binding SelectedItem, ElementName=MvpTimersGrid}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="155"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                        <TextBlock Text="MVP" Style="{StaticResource FieldLabelStyle}"/>
+                                        <ComboBox x:Name="MvpMonsterBox" Grid.Column="1" Height="28" Margin="0,4,14,4"
+                                                  ItemsSource="{Binding MvpMonsterView, ElementName=RootWindow}"
+                                                  DisplayMemberPath="DisplayName" SelectedValuePath="Id"
+                                                  SelectedValue="{Binding MonsterId, Mode=TwoWay}"
+                                                  IsTextSearchEnabled="False" IsEditable="True" StaysOpenOnEdit="True"
+                                                  KeyUp="MvpMonster_KeyUp" DropDownClosed="MvpMonster_DropDownClosed"
+                                                  SelectionChanged="MvpMonster_SelectionChanged"/>
+                                        <TextBlock Grid.Row="1" Text="{DynamicResource Name}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="2" Text="{DynamicResource Minutes}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DurationMinutes}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="3" Text="{DynamicResource TimerEndSound}" Style="{StaticResource FieldLabelStyle}"/>
+                                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,4">
+                                            <CheckBox IsChecked="{Binding CompletionSoundEnabled}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                            <Button Content="{DynamicResource Choose}" Click="PickMvpTimerSound_Click"/>
+                                            <Button Content="{DynamicResource TestSound}" Click="TestMvpTimerSound_Click"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Row="4" Text="{DynamicResource Volume}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="4" Grid.Column="1" Width="80" HorizontalAlignment="Left" Text="{Binding CompletionSoundVolumePercent}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding CompletionSoundPath}" TextTrimming="CharacterEllipsis" ToolTip="{Binding CompletionSoundPath}" Foreground="{StaticResource RoMutedBrush}" Margin="4,5,14,0"/>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Grid.Column="1" Header="{DynamicResource TimerPanel}" Style="{StaticResource DetailGroupBoxStyle}" DataContext="{Binding DataContext, ElementName=RootWindow}">
+                                    <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="190"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                        <TextBlock Text="{DynamicResource PositionXY}" Style="{StaticResource FieldLabelStyle}"/><StackPanel Grid.Column="1" Orientation="Horizontal"><TextBox Width="85" Text="{Binding TimersX}" Style="{StaticResource FieldEditorStyle}"/><TextBox Width="85" Text="{Binding TimersY}" Style="{StaticResource FieldEditorStyle}"/></StackPanel>
+                                        <TextBlock Grid.Row="1" Text="{DynamicResource TextSize}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TimersTextSize}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="2" Text="{DynamicResource TextColor}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TimersTextColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="3" Text="{DynamicResource TimerGap}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TimersGap}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="4" Text="{DynamicResource TimersHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="4" Grid.Column="1" Width="90" HorizontalAlignment="Left" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding TimersHotkey}"/>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+
+                <TabItem x:Name="LootTab" Header="{DynamicResource LootRewards}">
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions><RowDefinition Height="210" MinHeight="90"/><RowDefinition Height="6"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                        <DataGrid x:Name="RewardChannelsGrid" ItemsSource="{Binding RewardChannels}" AutoGenerateColumns="False"
+                                  CanUserAddRows="False" SelectionMode="Single">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="{DynamicResource On}" Binding="{Binding Enabled}" Width="55"/>
+                                <DataGridTextColumn Header="{DynamicResource RewardType}" Binding="{Binding DisplayName, Mode=OneWay}" IsReadOnly="True" Width="2*"/>
+                                <DataGridTextColumn Header="{DynamicResource Group}" Binding="{Binding GroupNumber}" Width="100"/>
+                                <DataGridTextColumn Header="{DynamicResource DisplayOrder}" Binding="{Binding Order}" Width="140"/>
+                                <DataGridTextColumn Header="{DynamicResource TextColor}" Binding="{Binding TextColor}" Width="2*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <GridSplitter Grid.Row="1" Height="6" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#9DB7D8" Cursor="SizeNS"/>
+                        <WrapPanel Grid.Row="2" Margin="0,7,0,9">
+                            <Button Content="{DynamicResource TestNotifications}" Click="TestRewards_Click"/>
+                            <ToggleButton x:Name="RewardMoveModeButton" Content="{DynamicResource MoveRewardGroup}"
+                                          Checked="RewardMoveMode_Changed" Unchecked="RewardMoveMode_Changed"/>
+                        </WrapPanel>
+                        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="1.05*"/><ColumnDefinition Width="1.35*"/><ColumnDefinition Width="0.9*"/></Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                <GroupBox Header="{DynamicResource RewardChannel}" Style="{StaticResource DetailGroupBoxStyle}"
+                                          DataContext="{Binding SelectedItem, ElementName=RewardChannelsGrid}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="175"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                        <TextBlock Text="{DynamicResource RewardType}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding DisplayName, Mode=OneWay}" IsReadOnly="True" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="1" Text="{DynamicResource Enabled}" Style="{StaticResource FieldLabelStyle}"/><CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding Enabled}" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="2" Text="{DynamicResource Group}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding GroupNumber}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="3" Text="{DynamicResource DisplayOrder}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Order}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="4" Text="{DynamicResource TextColor}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="4" Grid.Column="1" Text="{Binding TextColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Grid.Column="1" Header="{DynamicResource RewardGroupSettings}" Style="{StaticResource DetailGroupBoxStyle}"
+                                          DataContext="{Binding SelectedItem, ElementName=RewardGroupBox}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="205"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                        <TextBlock Text="{DynamicResource RewardGroup}" Style="{StaticResource FieldLabelStyle}"/>
+                                        <ComboBox x:Name="RewardGroupBox" Grid.Column="1" ItemsSource="{Binding DataContext.RewardGroups, ElementName=RootWindow}" DisplayMemberPath="GroupNumber" Height="28" Margin="0,4,14,4"/>
+                                        <TextBlock Grid.Row="1" Text="{DynamicResource PositionXY}" Style="{StaticResource FieldLabelStyle}"/><StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal"><TextBox Width="85" Text="{Binding X}" Style="{StaticResource FieldEditorStyle}"/><TextBox Width="85" Text="{Binding Y}" Style="{StaticResource FieldEditorStyle}"/></StackPanel>
+                                        <TextBlock Grid.Row="2" Text="{DynamicResource TextSize}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TextSize}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="3" Text="{DynamicResource NotificationDuration}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding DurationSeconds}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="4" Text="{DynamicResource AggregationWindow}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="4" Grid.Column="1" Text="{Binding AggregationWindowMs}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="5" Text="{DynamicResource MaximumLines}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="5" Grid.Column="1" Text="{Binding MaxLines}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="6" Text="{DynamicResource LineGap}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Gap}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="7" Grid.ColumnSpan="2" Text="{DynamicResource RewardGroupingHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="4,8,14,0"/>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Grid.Column="2" Header="{DynamicResource GeneralSettings}" Style="{StaticResource DetailGroupBoxStyle}" DataContext="{Binding DataContext, ElementName=RootWindow}">
+                                    <StackPanel>
+                                        <CheckBox Content="{DynamicResource EnableRewardNotifications}" IsChecked="{Binding RewardsEnabled}" Margin="4,6"/>
+                                        <CheckBox Content="{DynamicResource ShowJobExperience}" IsChecked="{Binding ShowJobExperience}" Margin="4,6"/>
+                                        <TextBlock Text="{DynamicResource RewardLimitHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="4,12,8,4"/>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox x:Name="LootColorsGroup" Grid.Row="1" Header="{DynamicResource LootTypeColors}" Style="{StaticResource DetailGroupBoxStyle}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                        <TextBlock Text="Equip" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding EquipColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="1" Text="Card" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CardColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="2" Text="Loot" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding LootColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Grid.Row="3" Text="Consumables" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ConsumableColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Header="{DynamicResource RateIndicators}" Style="{StaticResource DetailGroupBoxStyle}">
+                                    <Grid>
+                                        <Grid.RowDefinitions><RowDefinition Height="115" MinHeight="70"/><RowDefinition Height="6"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                        <DataGrid x:Name="RateIndicatorsGrid" ItemsSource="{Binding DataContext.RateIndicators, ElementName=RootWindow}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single">
+                                            <DataGrid.Columns>
+                                                <DataGridCheckBoxColumn Header="{DynamicResource On}" Binding="{Binding Enabled}" Width="55"/>
+                                                <DataGridTextColumn Header="{DynamicResource Indicator}" Binding="{Binding DisplayName, Mode=OneWay}" IsReadOnly="True" Width="2*"/>
+                                                <DataGridTextColumn Header="{DynamicResource Group}" Binding="{Binding GroupNumber}" Width="75"/>
+                                                <DataGridTextColumn Header="X" Binding="{Binding X}" Width="75"/>
+                                                <DataGridTextColumn Header="Y" Binding="{Binding Y}" Width="75"/>
+                                                <DataGridTextColumn Header="{DynamicResource TextSize}" Binding="{Binding TextSize}" Width="120"/>
+                                                <DataGridTextColumn Header="{DynamicResource Opacity}" Binding="{Binding OpacityPercent}" Width="105"/>
+                                                <DataGridTextColumn Header="{DynamicResource TextColor}" Binding="{Binding TextColor}" Width="2*"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        <GridSplitter Grid.Row="1" Height="6" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#9DB7D8" Cursor="SizeNS"/>
+                                        <WrapPanel Grid.Row="2" Margin="0,7,0,5">
+                                            <ToggleButton x:Name="RateIndicatorMoveModeButton" Content="{DynamicResource MoveIndicator}"
+                                                          Checked="RateIndicatorMoveMode_Changed" Unchecked="RateIndicatorMoveMode_Changed"/>
+                                            <ToggleButton x:Name="RateIndicatorGroupMoveModeButton" Content="{DynamicResource MoveIndicatorGroup}"
+                                                          Checked="RateIndicatorGroupMoveMode_Changed" Unchecked="RateIndicatorGroupMoveMode_Changed"/>
+                                            <TextBlock Text="{DynamicResource StatisticsRefreshInterval}" VerticalAlignment="Center" Margin="18,0,6,0"/>
+                                            <TextBox Width="70" Text="{Binding DataContext.RateStatisticsRefreshSeconds, ElementName=RootWindow}" Style="{StaticResource FieldEditorStyle}"/>
+                                            <Button Content="{DynamicResource ResetStatisticsSession}" Click="ResetStatisticsSession_Click" Margin="12,4,4,4"/>
+                                        </WrapPanel>
+                                        <Grid Grid.Row="3" DataContext="{Binding SelectedItem, ElementName=RateIndicatorsGrid}">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="150"/><ColumnDefinition Width="*"/><ColumnDefinition Width="140"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                            <TextBlock Text="{DynamicResource Indicator}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding DisplayName, Mode=OneWay}" IsReadOnly="True" Style="{StaticResource FieldEditorStyle}"/>
+                                            <TextBlock Grid.Column="2" Text="{DynamicResource Enabled}" Style="{StaticResource FieldLabelStyle}"/><CheckBox Grid.Column="3" IsChecked="{Binding Enabled}" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Row="1" Text="{DynamicResource PositionXY}" Style="{StaticResource FieldLabelStyle}"/><StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal"><TextBox Width="80" Text="{Binding X}" Style="{StaticResource FieldEditorStyle}"/><TextBox Width="80" Text="{Binding Y}" Style="{StaticResource FieldEditorStyle}"/></StackPanel>
+                                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{DynamicResource TextSize}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="3" Text="{Binding TextSize}" Style="{StaticResource FieldEditorStyle}"/>
+                                            <TextBlock Grid.Row="2" Text="{DynamicResource TextColor}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TextColor}" Style="{StaticResource FieldEditorStyle}"/>
+                                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{DynamicResource Opacity}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="3" Text="{Binding OpacityPercent}" Style="{StaticResource FieldEditorStyle}"/>
+                                            <TextBlock Grid.Row="3" Text="{DynamicResource Group}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding GroupNumber}" Style="{StaticResource FieldEditorStyle}"/>
+                                        </Grid>
+                                    </Grid>
+                                </GroupBox>
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="DatabaseTab" Header="{DynamicResource Database}">
+                    <Grid Margin="8">
+                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                        <Border Padding="16" CornerRadius="8" Background="#E5F0FC" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource DatabaseTitle}" Style="{StaticResource RoSectionTitleStyle}" FontSize="20"/>
+                                <TextBlock Margin="0,7,0,0" TextWrapping="Wrap" Text="{DynamicResource DatabaseDescription}"/>
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Grid.Row="1" Margin="18" VerticalAlignment="Top">
+                            <TextBlock Text="Горячая клавиша" FontFamily="Georgia" FontWeight="Bold" FontSize="17" Foreground="{StaticResource RoBlueBrush}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <ComboBox Width="100" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding DatabaseHotkey, Mode=TwoWay}"/>
+                                <Button Content="{DynamicResource OpenDatabase}" Margin="10,0,0,0" Click="OpenDatabase_Click"/>
+                            </StackPanel>
+                            <TextBlock Margin="0,18,0,0" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Text="{DynamicResource DatabaseInputHint}"/>
+                            <TextBlock Margin="0,8,0,0" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Text="Для быстрого поиска поддерживаются названия и числовые ID. В одной выборке показывается до 100 результатов."/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                    </TabControl>
+                </Grid>
+            </Grid>
+
+            <Border Grid.Row="2" Margin="10,0,10,6" Padding="9,7" Background="#FFF4F8FC"
+                    BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" MinHeight="36">
+                <Grid>
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                    <TextBlock Text="{DynamicResource ActionLog}" FontWeight="SemiBold" Margin="0,0,10,0" VerticalAlignment="Center" />
+                    <TextBlock x:Name="StatusText" Grid.Column="1" Foreground="{StaticResource RoBlueBrush}"
+                               Text="RoAura" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="3" Margin="10,0,10,6" Padding="8,5" Background="#FFF4F8FC"
+                    BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="{DynamicResource Preset}" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <ComboBox x:Name="PresetBox" Width="180" IsEditable="False" Margin="0,0,6,0"/>
+                    <Button Content="{DynamicResource ApplyPreset}" Click="ApplyPreset_Click"/>
+                    <Button Content="{DynamicResource UpdatePreset}" Click="UpdatePreset_Click"/>
+                    <Button Content="{DynamicResource DeletePreset}" Click="DeletePreset_Click" Style="{StaticResource DangerButtonStyle}"/>
+                    <TextBlock Text="{DynamicResource NewPresetName}" VerticalAlignment="Center" Margin="18,0,6,0"/>
+                    <TextBox x:Name="NewPresetNameBox" Width="170" Margin="0,0,6,0"/>
+                    <Button Content="{DynamicResource CreatePreset}" Click="CreatePreset_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <Grid Grid.Row="4" Margin="10,0,10,7">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Tag="https://twitch.tv/im_alerion" Click="SocialLink_Click">
+                        <StackPanel Orientation="Horizontal"><Image Source="Assets/twitch.png" Width="18" Height="18"/><TextBlock Text=" twitch.tv/im_alerion"/></StackPanel>
+                    </Button>
+                    <Button Tag="http://discord.gg/aleriontv" Click="SocialLink_Click">
+                        <StackPanel Orientation="Horizontal"><Image Source="Assets/discord.png" Width="18" Height="18"/><TextBlock Text=" Discord"/></StackPanel>
+                    </Button>
+                    <Button Tag="https://www.donationalerts.com/r/im_alerion" Click="SocialLink_Click">
+                        <StackPanel Orientation="Horizontal"><Image Source="Assets/donate.png" Width="18" Height="18"/><TextBlock Text=" Donate"/></StackPanel>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="{DynamicResource Save}" Click="Save_Click" Style="{StaticResource PrimaryButtonStyle}" />
+                    <Button Click="Hide_Click"><TextBlock><Run Text="{DynamicResource Hide}"/><Run Text=" ("/><Run Text="{Binding SettingsHotkey}"/><Run Text=")"/></TextBlock></Button>
+                    <Button Content="{DynamicResource Exit}" Click="Exit_Click" Style="{StaticResource DangerButtonStyle}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

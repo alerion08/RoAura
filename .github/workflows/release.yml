@@ -1,0 +1,101 @@
+name: Build and publish RoAura
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Verify tag and project version
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: pwsh
+        run: |
+          [xml]$project = Get-Content -Raw .\RoAura.csproj
+          $version = [string]$project.Project.PropertyGroup.Version
+          $expectedTag = "v$version"
+          if ($env:GITHUB_REF_NAME -ne $expectedTag) {
+            throw "Tag '$env:GITHUB_REF_NAME' does not match RoAura.csproj version '$version'. Expected '$expectedTag'."
+          }
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup --no-progress --yes
+
+      - name: Build portable package and installer
+        shell: pwsh
+        run: .\build-installer.ps1
+
+      - name: Verify clean release contents
+        shell: pwsh
+        run: |
+          $forbidden = @(
+            'settings.json',
+            'active-profile.txt',
+            'springro-market-cache.json',
+            'debug.log'
+          )
+          $badFiles = Get-ChildItem .\artifacts -Recurse -Force -File | Where-Object {
+            $forbidden -contains $_.Name -or
+            $_.FullName -match '[\\/](Profiles|Recovery)[\\/]'
+          }
+          if ($badFiles) {
+            $badFiles.FullName | Write-Error
+            throw 'Private configuration files were found in release artifacts.'
+          }
+
+      - name: Create SHA-256 checksums
+        shell: pwsh
+        run: |
+          $releaseFiles = Get-ChildItem .\artifacts -File | Where-Object {
+            $_.Extension -in '.zip', '.exe'
+          } | Sort-Object Name
+          if (-not $releaseFiles) { throw 'No release files were produced.' }
+          $lines = foreach ($file in $releaseFiles) {
+            $hash = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            "$hash  $($file.Name)"
+          }
+          $lines | Set-Content .\artifacts\SHA256SUMS.txt -Encoding ascii
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RoAura-${{ github.ref_name }}
+          path: |
+            artifacts/*.zip
+            artifacts/*.exe
+            artifacts/SHA256SUMS.txt
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $assets = @(
+            (Get-ChildItem .\artifacts\*.zip).FullName
+            (Get-ChildItem .\artifacts\*.exe).FullName
+            (Resolve-Path .\artifacts\SHA256SUMS.txt).Path
+          )
+          gh release create $env:GITHUB_REF_NAME @assets `
+            --repo $env:GITHUB_REPOSITORY `
+            --title "RoAura $($env:GITHUB_REF_NAME.TrimStart('v'))" `
+            --generate-notes `
+            --verify-tag

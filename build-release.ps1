@@ -1,0 +1,107 @@
+$ErrorActionPreference = "Stop"
+Set-StrictMode -Version Latest
+
+$projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+Set-Location $projectRoot
+
+Stop-Process -Name RoAura -Force -ErrorAction SilentlyContinue
+
+$artifactRoot = Join-Path $projectRoot "artifacts"
+$publishDir = Join-Path $artifactRoot "publish"
+$portableZip = Join-Path $artifactRoot "RoAura-2.10.10-portable.zip"
+
+$dotnetCommand = Get-Command dotnet -ErrorAction SilentlyContinue
+if ($null -eq $dotnetCommand) {
+    throw "The .NET SDK was not found. Install the .NET 8 SDK (x64), reopen PowerShell, and run this script again."
+}
+
+$installedSdks = & dotnet --list-sdks
+if ($LASTEXITCODE -ne 0) {
+    throw "Could not query installed .NET SDKs (dotnet --list-sdks failed with exit code $LASTEXITCODE)."
+}
+
+if (-not ($installedSdks -match '^8\.')) {
+    $installedSdkText = ($installedSdks | Out-String).Trim()
+    if ([string]::IsNullOrWhiteSpace($installedSdkText)) {
+        $installedSdkText = "none"
+    }
+
+    throw "The .NET 8 SDK (x64) is required. Installed SDKs: $installedSdkText. Download: https://dotnet.microsoft.com/download/dotnet/8.0"
+}
+
+if (Test-Path $publishDir) {
+    Remove-Item $publishDir -Recurse -Force
+}
+New-Item -ItemType Directory -Path $publishDir -Force | Out-Null
+
+& dotnet publish .\RoAura.csproj `
+  -c Release `
+  -r win-x64 `
+  --self-contained true `
+  -p:PublishSingleFile=true `
+  -p:IncludeNativeLibrariesForSelfExtract=true `
+  -o $publishDir
+
+if ($LASTEXITCODE -ne 0) {
+    throw "dotnet publish failed with exit code $LASTEXITCODE. Release files were not created."
+}
+
+$publishedExecutable = Join-Path $publishDir "RoAura.exe"
+if (-not (Test-Path $publishedExecutable -PathType Leaf)) {
+    throw "Publish completed without the expected executable: $publishedExecutable"
+}
+
+Copy-Item .\README.md (Join-Path $publishDir "README.md") -Force
+Copy-Item .\GUIDE.md (Join-Path $publishDir "GUIDE.md") -Force
+Copy-Item .\GUIDE_RU.md (Join-Path $publishDir "GUIDE_RU.md") -Force
+Copy-Item .\GUIDE_EN.md (Join-Path $publishDir "GUIDE_EN.md") -Force
+Copy-Item .\RELEASE_NOTES.md (Join-Path $publishDir "RELEASE_NOTES.md") -Force
+
+# A public build must never contain the developer's working configuration,
+# presets, recovery copies, logs or cached market responses. These files are
+# normally stored in %APPDATA%, but the explicit purge also protects releases
+# if somebody accidentally places a copy in the project/publish directory.
+$privateNames = @(
+    "settings.json",
+    "active-profile.txt",
+    "springro-market-cache.json",
+    "debug.log"
+)
+foreach ($privateName in $privateNames) {
+    Get-ChildItem -Path $publishDir -Recurse -Force -File -Filter $privateName -ErrorAction SilentlyContinue |
+        Remove-Item -Force
+}
+foreach ($privateDirectory in @("Profiles", "Recovery")) {
+    Get-ChildItem -Path $publishDir -Recurse -Force -Directory -Filter $privateDirectory -ErrorAction SilentlyContinue |
+        Remove-Item -Recurse -Force
+}
+
+if (Test-Path $portableZip) {
+    Remove-Item $portableZip -Force
+}
+Compress-Archive -Path (Join-Path $publishDir "*") -DestinationPath $portableZip -CompressionLevel Optimal
+
+if (-not (Test-Path $portableZip -PathType Leaf)) {
+    throw "Could not create the portable archive: $portableZip"
+}
+
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$archive = [System.IO.Compression.ZipFile]::OpenRead($portableZip)
+try {
+    $privateEntry = $archive.Entries | Where-Object {
+        $leaf = [System.IO.Path]::GetFileName($_.FullName)
+        $segments = $_.FullName -split '[/\\]'
+        $privateNames -contains $leaf -or
+        $segments -contains "Profiles" -or
+        $segments -contains "Recovery"
+    } | Select-Object -First 1
+    if ($null -ne $privateEntry) {
+        throw "Release validation failed: private file found in archive: $($privateEntry.FullName)"
+    }
+}
+finally {
+    $archive.Dispose()
+}
+
+Write-Host "Portable build: $portableZip"
+Write-Host "Executable:     $publishedExecutable"

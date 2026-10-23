@@ -1,0 +1,235 @@
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
+
+namespace RoAura.Models;
+
+public sealed class AppSettings : INotifyPropertyChanged
+{
+    private bool _showShortNames = true;
+    private bool _showReadyText = true;
+    private double _iconSize = 72;
+    private double _iconOpacity = 1;
+    private bool _packetCaptureEnabled = true;
+    private bool _autoDetectConnection = true;
+    private string _packetServerAddress = "";
+    private int _packetServerPort = 1;
+    private uint _packetPlayerAid;
+    private string _packetCaptureStateText = "Пакеты: запуск…";
+    private double _notificationX = 900;
+    private double _notificationY = 250;
+    private double _notificationSize = 72;
+    private double _notificationGap = 10;
+    private string _language = "ru";
+    private string _settingsHotkey = "F8";
+    private string _overlaysHotkey = "F9";
+    private string _finishMoveHotkey = "Escape";
+    private string _timersHotkey = "F10";
+    private string _databaseHotkey = "F7";
+    private bool _timersOverlayVisible = true;
+    private double _timersX = 1180;
+    private double _timersY = 180;
+    private double _timersTextSize = 24;
+    private double _timersGap = 6;
+    private string _timersTextColor = "#FFFFFFFF";
+    private bool _rewardsEnabled = true;
+    private bool _showJobExperience;
+    private double _rateStatisticsRefreshSeconds = 5;
+    private string _lootDatabaseVersion = GameDatabaseVersion.Rtm;
+    private string _mvpDatabaseVersion = GameDatabaseVersion.Rtm;
+    private string _serverProfile = GameServerProfile.Rtm;
+
+    public int SettingsVersion { get; set; }
+    public bool OverlayCoordinatesRelativeToGame { get; set; }
+    public string ServerProfile
+    {
+        get => _serverProfile;
+        set => Set(ref _serverProfile, GameServerProfile.Normalize(value));
+    }
+
+    public bool Enabled { get; set; } = true;
+    public bool OnlyWhenGameIsActive { get; set; } = true;
+    public bool ShowShortNames { get => _showShortNames; set => Set(ref _showShortNames, value); }
+    public bool ShowReadyText { get => _showReadyText; set => Set(ref _showReadyText, value); }
+    public double IconSize { get => _iconSize; set => Set(ref _iconSize, Math.Clamp(value, 40, 128)); }
+    public double IconOpacity { get => _iconOpacity; set => Set(ref _iconOpacity, Math.Clamp(value, 0.2, 1)); }
+    public bool PacketCaptureEnabled { get => _packetCaptureEnabled; set => Set(ref _packetCaptureEnabled, value); }
+    public bool AutoDetectConnection { get => _autoDetectConnection; set => Set(ref _autoDetectConnection, value); }
+    public string PacketServerAddress { get => _packetServerAddress; set => Set(ref _packetServerAddress, value?.Trim() ?? ""); }
+    public int PacketServerPort { get => _packetServerPort; set => Set(ref _packetServerPort, Math.Clamp(value, 1, 65535)); }
+    public uint PacketPlayerAid { get => _packetPlayerAid; set => Set(ref _packetPlayerAid, value); }
+    public double NotificationX { get => _notificationX; set => Set(ref _notificationX, value); }
+    public double NotificationY { get => _notificationY; set => Set(ref _notificationY, value); }
+    public double NotificationSize { get => _notificationSize; set => Set(ref _notificationSize, Math.Clamp(value, 40, 180)); }
+    public double NotificationGap { get => _notificationGap; set => Set(ref _notificationGap, Math.Clamp(value, 0, 40)); }
+    public string Language { get => _language; set => Set(ref _language, value is "en" ? "en" : "ru"); }
+    public string SettingsHotkey { get => _settingsHotkey; set => Set(ref _settingsHotkey, NormalizeHotkey(value, "F8")); }
+    public string OverlaysHotkey { get => _overlaysHotkey; set => Set(ref _overlaysHotkey, NormalizeHotkey(value, "F9")); }
+    public string FinishMoveHotkey { get => _finishMoveHotkey; set => Set(ref _finishMoveHotkey, NormalizeHotkey(value, "Escape")); }
+    public string TimersHotkey { get => _timersHotkey; set => Set(ref _timersHotkey, NormalizeHotkey(value, "F10")); }
+    public string DatabaseHotkey { get => _databaseHotkey; set => Set(ref _databaseHotkey, NormalizeHotkey(value, "F7")); }
+    public bool TimersOverlayVisible { get => _timersOverlayVisible; set => Set(ref _timersOverlayVisible, value); }
+    public double TimersX { get => _timersX; set => Set(ref _timersX, value); }
+    public double TimersY { get => _timersY; set => Set(ref _timersY, value); }
+    public double TimersTextSize { get => _timersTextSize; set => Set(ref _timersTextSize, Math.Clamp(value, 10, 72)); }
+    public double TimersGap { get => _timersGap; set => Set(ref _timersGap, Math.Clamp(value, 0, 40)); }
+    public string TimersTextColor { get => _timersTextColor; set => Set(ref _timersTextColor, value); }
+    public bool RewardsEnabled { get => _rewardsEnabled; set => Set(ref _rewardsEnabled, value); }
+    public bool ShowJobExperience { get => _showJobExperience; set => Set(ref _showJobExperience, value); }
+    public double RateStatisticsRefreshSeconds
+    {
+        get => _rateStatisticsRefreshSeconds;
+        set => Set(ref _rateStatisticsRefreshSeconds, Math.Clamp(value, 1, 60));
+    }
+    public string LootDatabaseVersion
+    {
+        get => _lootDatabaseVersion;
+        set => Set(ref _lootDatabaseVersion, GameDatabaseVersion.Normalize(value));
+    }
+    public string MvpDatabaseVersion
+    {
+        get => _mvpDatabaseVersion;
+        set => Set(ref _mvpDatabaseVersion, GameDatabaseVersion.Normalize(value));
+    }
+
+    [JsonIgnore]
+    public IReadOnlyList<string> GameDatabaseVersions { get; } =
+        [GameDatabaseVersion.Rtm, GameDatabaseVersion.SpringRo];
+
+    [JsonIgnore]
+    public string PacketCaptureStateText { get => _packetCaptureStateText; set => Set(ref _packetCaptureStateText, value); }
+    public List<string> AllowedProcesses { get; set; } = ["PRM", "Refuge", "ragexe", "RagexeRE"];
+    public ObservableCollection<SkillAura> Skills { get; set; } = [];
+
+    public ObservableCollection<TrackedEffect> Effects { get; set; } = [];
+
+    public ObservableCollection<ReminderItem> Reminders { get; set; } = [];
+    public ObservableCollection<EquipmentTracker> Equipment { get; set; } = [];
+    public ObservableCollection<MvpTimer> MvpTimers { get; set; } = [];
+    public ObservableCollection<BuffPanelGroup> BuffPanelGroups { get; set; } = [];
+    public ObservableCollection<RewardChannelSettings> RewardChannels { get; set; } =
+    [
+        new() { Kind = RewardKind.Loot, GroupNumber = 1, Order = 1, TextColor = "#FFFFD45C" },
+        new() { Kind = RewardKind.Zeny, GroupNumber = 1, Order = 2, TextColor = "#FFFFE16A" },
+        new() { Kind = RewardKind.Experience, GroupNumber = 1, Order = 3, TextColor = "#FF6FD8FF" }
+    ];
+    public ObservableCollection<RewardGroupSettings> RewardGroups { get; set; } =
+    [
+        new() { GroupNumber = 1, X = 1050, Y = 280 }
+    ];
+    public ObservableCollection<RateIndicatorSettings> RateIndicators { get; set; } =
+    [
+        new() { Kind = RateIndicatorKind.XpPerHour, X = 1050, Y = 410, TextColor = "#FF6FD8FF" },
+        new() { Kind = RateIndicatorKind.TimeToLevel, X = 1050, Y = 442, TextColor = "#FFFFFFFF" },
+        new() { Kind = RateIndicatorKind.TimeToJobLevel, X = 1050, Y = 474, TextColor = "#FFC9A7FF" },
+        new() { Kind = RateIndicatorKind.ZenyPerHour, X = 1050, Y = 506, TextColor = "#FFFFE16A" }
+    ];
+
+    [JsonIgnore]
+    public IReadOnlyList<string> HotkeyChoices { get; } =
+    [
+        "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
+        "Insert", "Delete", "Home", "End", "PageUp", "PageDown", "Pause", "Escape"
+    ];
+
+    [JsonIgnore]
+    public ObservableCollection<EffectNotification> ActiveNotifications { get; } = [];
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void SyncBuffPanelGroups()
+    {
+        var groupNumbers = Effects
+            .Where(effect => effect.Enabled && effect.ShowOnBuffPanel && effect.GroupNumber > 0)
+            .Select(effect => effect.GroupNumber).Distinct().OrderBy(number => number).ToList();
+
+        foreach (var number in groupNumbers)
+        {
+            var group = BuffPanelGroups.FirstOrDefault(item => item.GroupNumber == number);
+            if (group is null)
+            {
+                group = new BuffPanelGroup
+                {
+                    GroupNumber = number,
+                    X = 900,
+                    Y = 360 + BuffPanelGroups.Count * 58
+                };
+                BuffPanelGroups.Add(group);
+            }
+
+            group.Effects.Clear();
+            foreach (var effect in Effects.Where(effect => effect.Enabled &&
+                         effect.ShowOnBuffPanel && effect.GroupNumber == number))
+                group.Effects.Add(effect);
+        }
+
+        foreach (var group in BuffPanelGroups.Where(group => !groupNumbers.Contains(group.GroupNumber)))
+            group.Effects.Clear();
+    }
+
+    public void SyncRewardGroups()
+    {
+        AddMissingRewardChannel(RewardKind.Loot, 1, "#FFFFD45C");
+        AddMissingRewardChannel(RewardKind.Zeny, 2, "#FFFFE16A");
+        AddMissingRewardChannel(RewardKind.Experience, 3, "#FF6FD8FF");
+
+        var groupNumbers = RewardChannels.Where(channel => channel.Enabled)
+            .Select(channel => channel.GroupNumber).Distinct().OrderBy(number => number).ToList();
+        foreach (var number in groupNumbers)
+        {
+            if (RewardGroups.Any(group => group.GroupNumber == number)) continue;
+            RewardGroups.Add(new RewardGroupSettings
+            {
+                GroupNumber = number,
+                X = 1050,
+                Y = 280 + RewardGroups.Count * 170
+            });
+        }
+    }
+
+    public void SyncRateIndicators()
+    {
+        AddMissingRateIndicator(RateIndicatorKind.XpPerHour, 410, "#FF6FD8FF");
+        AddMissingRateIndicator(RateIndicatorKind.TimeToLevel, 442, "#FFFFFFFF");
+        AddMissingRateIndicator(RateIndicatorKind.TimeToJobLevel, 474, "#FFC9A7FF");
+        AddMissingRateIndicator(RateIndicatorKind.ZenyPerHour, 506, "#FFFFE16A");
+    }
+
+    public RewardChannelSettings? RewardChannel(RewardKind kind) =>
+        RewardChannels.FirstOrDefault(channel => channel.Kind == kind && channel.Enabled);
+
+    private void AddMissingRewardChannel(RewardKind kind, int order, string color)
+    {
+        if (RewardChannels.Any(channel => channel.Kind == kind)) return;
+        RewardChannels.Add(new RewardChannelSettings
+        {
+            Kind = kind,
+            GroupNumber = 1,
+            Order = order,
+            TextColor = color
+        });
+    }
+
+    private void AddMissingRateIndicator(RateIndicatorKind kind, double y, string color)
+    {
+        if (RateIndicators.Any(indicator => indicator.Kind == kind)) return;
+        RateIndicators.Add(new RateIndicatorSettings
+        {
+            Kind = kind,
+            X = 1050,
+            Y = y,
+            TextColor = color
+        });
+    }
+
+    private static string NormalizeHotkey(string? value, string fallback) =>
+        string.IsNullOrWhiteSpace(value) ? fallback : value.Trim();
+
+    private void Set<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, value)) return;
+        field = value;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
