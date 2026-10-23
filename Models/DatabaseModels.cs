@@ -25,10 +25,21 @@ public sealed class DatabaseMonster
     public string MagicDefense { get; set; } = "";
     public string BaseExp { get; set; } = "";
     public string JobExp { get; set; } = "";
+    public Dictionary<string, string> Stats { get; set; } = [];
+    public Dictionary<string, string> Behavior { get; set; } = [];
+    public Dictionary<string, string> ElementDamage { get; set; } = [];
+    public List<DatabaseMonsterSkill> Skills { get; set; } = [];
     public string ImageUrl { get; set; } = "";
     public List<DatabaseDrop> Drops { get; set; } = [];
     public List<DatabaseSpawn> Spawns { get; set; } = [];
     public string Caption => $"{Name}  ·  Lv {Level}  ·  #{Id}";
+}
+
+public sealed class DatabaseMonsterSkill
+{
+    public string Name { get; set; } = "";
+    public string Level { get; set; } = "";
+    public string Type { get; set; } = "";
 }
 
 public sealed class DatabaseDrop

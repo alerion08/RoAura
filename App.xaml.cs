@@ -117,7 +117,7 @@ public partial class App : Application
                 "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
-        DebugLog.Write("START RoAura 2.12.0 · GitHub Releases automatic update support");
+        DebugLog.Write("START RoAura 2.12.1 · GitHub Releases automatic update support");
 
         if (settings.PacketCaptureEnabled && !NpcapPacketCapture.IsNpcapInstalled())
         {

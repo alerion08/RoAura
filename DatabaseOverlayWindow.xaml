@@ -11,7 +11,7 @@
                 <Grid Margin="12,7"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                     <StackPanel><TextBlock x:Name="OverlayTitle" Text="База SpringRO" FontFamily="Georgia" FontWeight="Bold" FontSize="19" Foreground="#174D92"/>
                         <TextBlock Text="Monsters · Items · Maps · Market" FontSize="10" Foreground="#55739A"/></StackPanel>
-                    <Button Grid.Column="1" Content="&#x2715;" Width="34" Height="30" MinHeight="0"
+                    <Button x:Name="CloseButton" Grid.Column="1" Content="&#x2715;" Width="34" Height="30" MinHeight="0"
                             Margin="0" Padding="0" FontSize="15" Click="Close_Click"
                             ToolTip="Закрыть базу данных"/>
                 </Grid>
@@ -24,7 +24,7 @@
                     <RadioButton x:Name="MarketMode" Content="Маркет" Tag="Market" Checked="Mode_Checked"/>
                 </WrapPanel>
                 <StackPanel x:Name="MarketTypePanel" Orientation="Horizontal" Margin="0,9,0,0" Visibility="Collapsed">
-                    <TextBlock Text="Тип магазина:" VerticalAlignment="Center" Margin="0,0,9,0"/>
+                    <TextBlock x:Name="MarketTypeLabel" Text="Тип магазина:" VerticalAlignment="Center" Margin="0,0,9,0"/>
                     <RadioButton x:Name="MarketSellMode" Content="Продажа" IsChecked="True" Checked="MarketType_Checked" Margin="0,0,14,0"/>
                     <RadioButton x:Name="MarketBuyMode" Content="Покупка" Checked="MarketType_Checked"/>
                 </StackPanel>
@@ -35,25 +35,32 @@
                 <Button x:Name="SearchButton" Grid.Column="1" Content="Найти" Width="66" Height="36"
                         MinHeight="0" Margin="6,0,0,0" Padding="5,2" Click="Search_Click"/>
             </Grid>
-            <StackPanel x:Name="MonsterAdvancedHost" Grid.Row="3" Margin="10,0,10,7">
-                <ToggleButton x:Name="AdvancedToggle" Content="Расширенный поиск" HorizontalAlignment="Stretch"
-                              Height="28" MinHeight="0" Checked="AdvancedToggle_Changed" Unchecked="AdvancedToggle_Changed"/>
-                <WrapPanel x:Name="MonsterAdvancedPanel" Visibility="Collapsed" Margin="0,6,0,0">
-                    <ComboBox x:Name="RaceFilter" Width="102" Margin="0,0,5,5" SelectionChanged="AdvancedFilter_Changed"/>
-                    <ComboBox x:Name="ElementFilter" Width="102" Margin="0,0,5,5" SelectionChanged="AdvancedFilter_Changed"/>
-                    <ComboBox x:Name="SizeFilter" Width="102" Margin="0,0,0,5" SelectionChanged="AdvancedFilter_Changed"/>
-                    <TextBox x:Name="LevelMinFilter" Width="75" Margin="0,0,5,5" ToolTip="Level min" TextChanged="AdvancedFilter_Changed"/>
-                    <TextBox x:Name="LevelMaxFilter" Width="75" Margin="0,0,5,5" ToolTip="Level max" TextChanged="AdvancedFilter_Changed"/>
-                    <TextBox x:Name="BaseExpMinFilter" Width="75" Margin="0,0,5,5" ToolTip="Base EXP min" TextChanged="AdvancedFilter_Changed"/>
-                    <TextBox x:Name="JobExpMinFilter" Width="75" Margin="0,0,0,5" ToolTip="Job EXP min" TextChanged="AdvancedFilter_Changed"/>
-                    <TextBox x:Name="HpMinFilter" Width="75" Margin="0,0,5,5" ToolTip="HP min" TextChanged="AdvancedFilter_Changed"/>
-                    <TextBox x:Name="HpMaxFilter" Width="75" Margin="0,0,5,5" ToolTip="HP max" TextChanged="AdvancedFilter_Changed"/>
-                    <TextBox x:Name="ElementLevelMinFilter" Width="75" Margin="0,0,8,5" ToolTip="Element level min" TextChanged="AdvancedFilter_Changed"/>
-                    <CheckBox x:Name="AggressiveFilter" Content="Aggressive" Margin="0,2,8,5" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
-                    <CheckBox x:Name="BossFilter" Content="Boss" Margin="0,2,8,5" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
-                    <CheckBox x:Name="MvpFilter" Content="MVP" Margin="0,2,0,5" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
-                </WrapPanel>
-            </StackPanel>
+            <Expander x:Name="MonsterAdvancedHost" Grid.Row="3" Margin="10,0,10,7">
+                <Expander.Header>
+                    <TextBlock x:Name="AdvancedHeaderText" Text="Расширенный поиск" FontWeight="Bold" Padding="3,5"/>
+                </Expander.Header>
+                <Grid Margin="0,7,0,2">
+                    <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="8"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0"><TextBlock x:Name="RaceLabel" Text="Раса"/><ComboBox x:Name="RaceFilter" Margin="0,3,0,7" SelectionChanged="AdvancedFilter_Changed"/></StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="2"><TextBlock x:Name="ElementLabel" Text="Элемент"/><ComboBox x:Name="ElementFilter" Margin="0,3,0,7" SelectionChanged="AdvancedFilter_Changed"/></StackPanel>
+                    <StackPanel Grid.Row="1"><TextBlock x:Name="SizeLabel" Text="Размер"/><ComboBox x:Name="SizeFilter" Margin="0,3,0,7" SelectionChanged="AdvancedFilter_Changed"/></StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="2"><TextBlock x:Name="ElementLevelLabel" Text="Уровень элемента, от"/><TextBox x:Name="ElementLevelMinFilter" Margin="0,3,0,7" TextChanged="AdvancedFilter_Changed"/></StackPanel>
+                    <StackPanel Grid.Row="2"><TextBlock x:Name="LevelMinLabel" Text="Уровень, от"/><TextBox x:Name="LevelMinFilter" Margin="0,3,0,7" TextChanged="AdvancedFilter_Changed"/></StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="2"><TextBlock x:Name="LevelMaxLabel" Text="Уровень, до"/><TextBox x:Name="LevelMaxFilter" Margin="0,3,0,7" TextChanged="AdvancedFilter_Changed"/></StackPanel>
+                    <StackPanel Grid.Row="3"><TextBlock x:Name="BaseExpMinLabel" Text="Base EXP, от"/><TextBox x:Name="BaseExpMinFilter" Margin="0,3,0,7" TextChanged="AdvancedFilter_Changed"/></StackPanel>
+                    <StackPanel Grid.Row="3" Grid.Column="2"><TextBlock x:Name="JobExpMinLabel" Text="Job EXP, от"/><TextBox x:Name="JobExpMinFilter" Margin="0,3,0,7" TextChanged="AdvancedFilter_Changed"/></StackPanel>
+                    <StackPanel Grid.Row="4"><TextBlock x:Name="HpMinLabel" Text="HP, от"/><TextBox x:Name="HpMinFilter" Margin="0,3,0,7" TextChanged="AdvancedFilter_Changed"/></StackPanel>
+                    <StackPanel Grid.Row="4" Grid.Column="2"><TextBlock x:Name="HpMaxLabel" Text="HP, до"/><TextBox x:Name="HpMaxFilter" Margin="0,3,0,7" TextChanged="AdvancedFilter_Changed"/></StackPanel>
+                    <CheckBox x:Name="AggressiveFilter" Grid.Row="5" Content="Агрессивный" Margin="0,4,0,5" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
+                    <CheckBox x:Name="BossFilter" Grid.Row="5" Grid.Column="2" Content="Boss" Margin="0,4,0,5" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
+                    <CheckBox x:Name="MvpFilter" Grid.Row="6" Content="MVP" Margin="0,2,0,2" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
+                </Grid>
+            </Expander>
             <Border Grid.Row="4" Margin="10,0,10,8" BorderBrush="#A9C0DD" BorderThickness="1" Background="#F8FBFF" CornerRadius="5">
                 <ListBox x:Name="ResultsList" BorderThickness="0" Background="Transparent" SelectionChanged="Results_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemTemplate><DataTemplate><Grid Margin="4,3"><Grid.RowDefinitions><RowDefinition/><RowDefinition/></Grid.RowDefinitions>

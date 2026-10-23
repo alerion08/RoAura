@@ -276,6 +276,24 @@
 - Ошибки сети и установки записываются в диагностический лог; доступен переход на страницу релиза для ручного обновления.
 - В Setup добавлен отсутствовавший файл `Data\database.springro.json`, необходимый игровому оверлею базы SpringRO.
 
+# RoAura 2.12.1
+
+- Исправлена блокировка временного файла при автоматическом обновлении: поток загрузки теперь гарантированно закрывается до проверки SHA-256, переименования и запуска установщика.
+- Расширенный поиск монстров получил читаемые подписи полей и корректное раскрытие без наложения текста.
+- Карточка монстра дополнена полными Stats, Element Damage, Skills и Behavior из базы SpringRO.
+- Маркет ищет мгновенно по локальному снимку и обновляет результаты автоматически после фоновой загрузки.
+- Окна базы привязаны к окну Ragnarok как owned overlays, чтобы первый клик по игре не прятал их за полноэкранным клиентом; Alt, Ctrl и Shift пропускаются системным хуком.
+- Дополнена английская локализация новых функций и оверлеев.
+
+## English
+
+- Fixed the temporary-file lock that prevented the automatic updater from verifying and launching the installer.
+- Rebuilt Advanced Monster Search with visible field labels and a clean expandable layout.
+- Monster details now include complete Stats, Element Damage, Skills, and Behavior from SpringRO.
+- Market searches now return immediately from a local snapshot and refresh automatically in the background.
+- Database panels are owned by the Ragnarok window so the first in-game click no longer sends them behind fullscreen clients, while Alt, Ctrl, and Shift remain available.
+- Completed English localization for the new database controls and overlay messages.
+
 # RoAura 2.12.0
 
 - Карточки предметов SpringRO показывают изображение, описание, NPC sell value и актуальное количество экземпляров на сервере.
@@ -285,6 +303,14 @@
 - Карточка торгового предложения показывает миникарту и точное положение торговца красной отметкой.
 - Оверлеи сразу скрываются, когда другое окно перекрывает клиент Ragnarok, но остаются на игровом мониторе при работе на втором экране.
 - Убрана операция Hide/Show, вызывавшая исчезновение базы после первого клика; Shift, Alt и Ctrl остаются доступными.
+
+## English
+
+- SpringRO item cards show the image, description, NPC sell value, and current server circulation.
+- Added advanced monster filters for race, element, size, level, HP, Base/Job EXP, element level, Aggressive, Boss, and MVP.
+- The market database refreshes in the background, persists locally, and supports a configurable refresh interval.
+- Market listings show a minimap with the merchant position marked in red.
+- Overlay visibility now follows the Ragnarok client instead of unrelated windows.
 
 # RoAura 2.10.10
 

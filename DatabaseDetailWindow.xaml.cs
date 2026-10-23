@@ -26,6 +26,7 @@ public partial class DatabaseDetailWindow : Window
         {
             PanelTitle.Text = "Result";
             KeyboardStatus.Text = $"Search input active · {_settings.DatabaseHotkey} — close";
+            CloseButton.ToolTip = "Close database";
         }
         else KeyboardStatus.Text = $"Ввод в поиск активен · {_settings.DatabaseHotkey} — закрыть";
     }
@@ -78,9 +79,30 @@ public partial class DatabaseDetailWindow : Window
         title.Children.Add(Meta($"#{monster.Id} · Lv {monster.Level}\n{monster.Race} · {monster.Element} · {monster.Size}"));
         header.Children.Add(title); DetailsPanel.Children.Add(header);
         AddSection(T("Характеристики", "Stats"));
-        AddLine("HP", monster.Hp); AddLine("ATK", monster.Attack);
-        AddLine("DEF / MDEF", $"{monster.Defense} / {monster.MagicDefense}");
-        AddLine("Base / Job EXP", $"{monster.BaseExp} / {monster.JobExp}");
+        if (monster.Stats.Count > 0)
+            foreach (var stat in monster.Stats) AddLine(MonsterField(stat.Key), stat.Value);
+        else
+        {
+            AddLine("HP", monster.Hp); AddLine("ATK", monster.Attack);
+            AddLine("DEF / MDEF", $"{monster.Defense} / {monster.MagicDefense}");
+            AddLine("Base / Job EXP", $"{monster.BaseExp} / {monster.JobExp}");
+        }
+        if (monster.ElementDamage.Count > 0)
+        {
+            AddSection(T("Урон стихий по монстру", "Element damage"));
+            foreach (var element in monster.ElementDamage) AddLine(MonsterField(element.Key), element.Value);
+        }
+        if (monster.Behavior.Count > 0)
+        {
+            AddSection(T("Поведение", "Behavior"));
+            foreach (var behavior in monster.Behavior) AddLine(MonsterField(behavior.Key), MonsterValue(behavior.Value));
+        }
+        if (monster.Skills.Count > 0)
+        {
+            AddSection(T($"Навыки ({monster.Skills.Count})", $"Skills ({monster.Skills.Count})"));
+            foreach (var skill in monster.Skills)
+                AddLine(skill.Name, $"{(skill.Level.Length > 0 ? "Lv " + skill.Level : "—")}{(skill.Type.Length > 0 ? " · " + skill.Type : "")}");
+        }
         AddSection(T($"Дроп ({monster.Drops.Count})", $"Drops ({monster.Drops.Count})"));
         foreach (var drop in monster.Drops.OrderByDescending(x => ParseRate(x.Rate)))
             AddLink($"{drop.Name} — {drop.Rate}{(drop.IsMvp ? " MVP" : "")}", () => OpenItem(drop.ItemId));
@@ -209,6 +231,31 @@ public partial class DatabaseDetailWindow : Window
     private static TextBlock Meta(string text) => new() { Text = text, Foreground = new SolidColorBrush(Color.FromRgb(91,116,150)), Margin = new Thickness(0,4,0,4), TextWrapping = TextWrapping.Wrap };
     private static double ParseRate(string value) => double.TryParse(value.TrimEnd('%'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var n) ? n : 0;
     private static int ParseCount(string value) => int.TryParse(value, out var n) ? n : 0;
+    private string MonsterField(string value)
+    {
+        if (_settings.Language == "en") return value;
+        return value switch
+        {
+            "Level" => "Уровень", "Race" => "Раса", "Property" => "Элемент", "Size" => "Размер",
+            "Attack" => "Атака", "Defense" => "Защита", "Magic Defense" => "Магическая защита",
+            "Monster Hit" => "HIT монстра", "Hit for 100% accuracy" => "HIT для 100% попадания",
+            "Flee for 95% dodge" => "FLEE для 95% уклонения", "Base EXP / HP" => "Base EXP / HP",
+            "Job EXP / HP" => "Job EXP / HP", "Attack Range" => "Дальность атаки",
+            "Skill Range" => "Дальность навыков", "Chase Range" => "Дальность преследования",
+            "Walk Interval" => "Скорость движения", "Attack Delay" => "Задержка атаки",
+            "Attack Motion" => "Анимация атаки", "Damage Motion" => "Анимация получения урона",
+            "Disposition" => "Тип поведения", "Assist" => "Помощь союзникам",
+            "Cast Sensor (Idle)" => "Реакция на каст в покое", "Cast Sensor (Chase)" => "Реакция на каст в погоне",
+            "Neutral" => "Нейтральный", "Water" => "Вода", "Earth" => "Земля", "Fire" => "Огонь",
+            "Wind" => "Ветер", "Poison" => "Яд", "Holy" => "Святость", "Shadow" => "Тьма",
+            "Ghost" => "Призрак", "Undead" => "Нежить", _ => value
+        };
+    }
+    private string MonsterValue(string value)
+    {
+        if (_settings.Language == "en") return value;
+        return value switch { "Yes" => "Да", "No" => "Нет", "Aggressive" => "Агрессивный", "Passive" => "Пассивный", _ => value };
+    }
     private string T(string ru, string en) => _settings.Language == "en" ? en : ru;
     private void Close_Click(object sender, RoutedEventArgs e) => HideRequested?.Invoke();
 }

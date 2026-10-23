@@ -20,6 +20,18 @@ def section(tree, title):
     return found[0].getparent().getparent() if found else None
 
 
+def definition_list(node):
+    result = {}
+    if node is None:
+        return result
+    for row in node.xpath('.//div[dt and dd]'):
+        key = " ".join(row.xpath('./dt//text()')).strip()
+        value = " ".join(row.xpath('./dd//text()')).strip()
+        if key:
+            result[key] = value
+    return result
+
+
 def fetch_monster(entry):
     url = f"https://springro.com/database/mobs/{entry['Id']}"
     try:
@@ -29,13 +41,26 @@ def fetch_monster(entry):
         raw_text = raw.decode("utf-8", errors="ignore")
         tree = html.fromstring(raw)
         stats_node = section(tree, "Stats")
-        stats = {}
-        if stats_node is not None:
-            for row in stats_node.xpath('.//div[dt and dd]'):
-                key = " ".join(row.xpath('./dt//text()')).strip()
-                value = " ".join(row.xpath('./dd//text()')).strip()
-                if key:
-                    stats[key] = value
+        stats = definition_list(stats_node)
+        behavior = definition_list(section(tree, "Behavior"))
+        element_damage = definition_list(section(tree, "Element Damage"))
+        skills = []
+        skills_node = section(tree, "Skills")
+        if skills_node is not None:
+            for row in skills_node.xpath('.//div[contains(@class,"justify-between")][.//span]'):
+                values = [" ".join(value.split()) for value in row.xpath('.//span//text()') if " ".join(value.split())]
+                if not values:
+                    continue
+                level = ""
+                for index, value in enumerate(values[1:], 1):
+                    if value.lower() == "lv" and index + 1 < len(values):
+                        level = values[index + 1]
+                        break
+                    if value.lower().startswith("lv"):
+                        level = value[2:].strip()
+                        break
+                skill_type = values[-1] if len(values) > 1 and values[-1] != level else ""
+                skills.append({"Name": values[0], "Level": level, "Type": skill_type})
 
         spawns = []
         spawn_node = section(tree, "Spawns")
@@ -67,6 +92,7 @@ def fetch_monster(entry):
             "Size": stats.get("Size", ""), "Attack": stats.get("Attack", ""),
             "Defense": stats.get("Defense", ""), "MagicDefense": stats.get("Magic Defense", ""),
             "BaseExp": stats.get("Base EXP", ""), "JobExp": stats.get("Job EXP", ""),
+            "Stats": stats, "Behavior": behavior, "ElementDamage": element_damage, "Skills": skills,
             "IsBoss": 'mobClass:"Boss"' in raw_text,
             # Behaviour is part of the dehydrated page payload.  Reading it
             # directly is more robust than relying on the localized label in

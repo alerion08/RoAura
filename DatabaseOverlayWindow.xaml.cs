@@ -35,6 +35,7 @@ public partial class DatabaseOverlayWindow : Window
     private bool _restoringSearchQuery;
     private bool _gameWasForeground;
     private bool _marketRefreshRunning;
+    private IntPtr _gameHandle;
     public bool IsDatabaseOpen { get; private set; }
 
     public DatabaseOverlayWindow(AppSettings settings, GameDatabaseService database)
@@ -48,6 +49,7 @@ public partial class DatabaseOverlayWindow : Window
         RaceFilter.SelectedIndex = ElementFilter.SelectedIndex = SizeFilter.SelectedIndex = 0;
         _details = new DatabaseDetailWindow(settings, database);
         _details.HideRequested += () => HideRequested?.Invoke();
+        _market.DataUpdated += Market_DataUpdated;
         if (_settings.Language == "en")
         {
             OverlayTitle.Text = "SpringRO Database";
@@ -58,6 +60,20 @@ public partial class DatabaseOverlayWindow : Window
             MarketSellMode.Content = "Selling";
             MarketBuyMode.Content = "Buying";
             SearchButton.Content = "Search";
+            MarketTypeLabel.Text = "Shop type:";
+            AdvancedHeaderText.Text = "Advanced search";
+            RaceLabel.Text = "Race";
+            ElementLabel.Text = "Element";
+            SizeLabel.Text = "Size";
+            ElementLevelLabel.Text = "Element level, min";
+            LevelMinLabel.Text = "Level, min";
+            LevelMaxLabel.Text = "Level, max";
+            BaseExpMinLabel.Text = "Base EXP, min";
+            JobExpMinLabel.Text = "Job EXP, min";
+            HpMinLabel.Text = "HP, min";
+            HpMaxLabel.Text = "HP, max";
+            AggressiveFilter.Content = "Aggressive";
+            CloseButton.ToolTip = "Close database";
         }
         Loaded += (_, _) =>
         {
@@ -85,9 +101,11 @@ public partial class DatabaseOverlayWindow : Window
 
     public void ShowForGame()
     {
-        var (game, _) = ResolveGameWindow();
+        var (game, handle) = ResolveGameWindow();
+        _gameHandle = handle;
         _gameBounds = game;
         PlacePanels(game);
+        AttachPanelsToGameWindow(handle);
 
         IsDatabaseOpen = true;
         _temporarilyHidden = false;
@@ -111,6 +129,7 @@ public partial class DatabaseOverlayWindow : Window
         _visibilityTimer.Stop();
         Hide();
         _details.Hide();
+        AttachPanelsToGameWindow(IntPtr.Zero);
     }
 
     private void RefreshOverlayVisibility()
@@ -222,6 +241,20 @@ public partial class DatabaseOverlayWindow : Window
         PromotePanelsAboveGame();
     }
 
+    private void AttachPanelsToGameWindow(IntPtr gameHandle)
+    {
+        if (gameHandle == IntPtr.Zero && _gameHandle != IntPtr.Zero) gameHandle = IntPtr.Zero;
+        SetOwner(new WindowInteropHelper(this).Handle, gameHandle);
+        SetOwner(_details.Handle, gameHandle);
+    }
+
+    private static void SetOwner(IntPtr window, IntPtr owner)
+    {
+        if (window == IntPtr.Zero) return;
+        if (IntPtr.Size == 8) SetWindowLongPtr64(window, GwlHwndParent, owner);
+        else SetWindowLong32(window, GwlHwndParent, owner.ToInt32());
+    }
+
     private void ReleaseTopmost()
     {
         SetWindowPos(new WindowInteropHelper(this).Handle, HwndNotTopmost, 0, 0, 0, 0,
@@ -277,11 +310,15 @@ public partial class DatabaseOverlayWindow : Window
             if (searchVersion != _marketSearchVersion || cancellation.IsCancellationRequested) return;
             ResultsList.ItemsSource = listings.Select(x => new DatabaseSearchResult(DatabaseSearchKind.Market, x,
                 $"{x.ItemName} · {x.Price}",
-                $"{x.Quantity} шт. · {x.Owner} · {x.Map} ({x.X},{x.Y})")).ToList();
+                T($"{x.Quantity} шт. · {x.Owner} · {x.Map} ({x.X},{x.Y})",
+                    $"{x.Quantity} pcs · {x.Owner} · {x.Map} ({x.X},{x.Y})"))).ToList();
             FooterText.Text = listings.Count == 0
-                ? T($"По названию «{query}» предложений не найдено.", $"No listings found for “{query}”.")
-                : T($"{listings.Count} предложений · повторный поиск доступен мгновенно в течение 2 минут",
-                    $"{listings.Count} listings · repeat searches are instant for 2 minutes");
+                ? (_market.HasSnapshot
+                    ? T($"По названию «{query}» предложений не найдено.", $"No listings found for “{query}”.")
+                    : T("Маркет обновляется в фоне. Результаты появятся автоматически.",
+                        "The market is refreshing in the background. Results will appear automatically."))
+                : T($"{listings.Count} предложений · результат из локальной базы",
+                    $"{listings.Count} listings · result from the local database");
             if (ResultsList.Items.Count > 0) ResultsList.SelectedIndex = 0;
             else _details.Clear();
         }
@@ -355,8 +392,6 @@ public partial class DatabaseOverlayWindow : Window
     }
     private void Results_SelectionChanged(object sender, SelectionChangedEventArgs e)
     { if (ResultsList.SelectedItem is DatabaseSearchResult result) _details.ShowDetails(result.Value); }
-    private void AdvancedToggle_Changed(object sender, RoutedEventArgs e) =>
-        MonsterAdvancedPanel.Visibility = AdvancedToggle.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
     private void AdvancedFilter_Changed(object sender, RoutedEventArgs e)
     { if (IsLoaded && _kind == DatabaseSearchKind.Monsters) RefreshResults(); }
     private void AdvancedFilter_Changed(object sender, TextChangedEventArgs e)
@@ -397,6 +432,12 @@ public partial class DatabaseOverlayWindow : Window
         }
         finally { _marketRefreshRunning = false; }
     }
+
+    private void Market_DataUpdated() => Dispatcher.BeginInvoke(async () =>
+    {
+        if (IsDatabaseOpen && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))
+            await RefreshMarketResultsAsync();
+    });
     private string T(string ru, string en) => _settings.Language == "en" ? en : ru;
     private void Close_Click(object sender, RoutedEventArgs e) => HideRequested?.Invoke();
 
@@ -406,8 +447,13 @@ public partial class DatabaseOverlayWindow : Window
     private const uint SwpNoMove = 0x0002;
     private const uint SwpNoActivate = 0x0010;
     private const uint SwpShowWindow = 0x0040;
+    private const int GwlHwndParent = -8;
     [DllImport("user32.dll")]
     private static extern IntPtr GetForegroundWindow();
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetWindowPos(IntPtr window, IntPtr insertAfter, int x, int y, int cx, int cy, uint flags);
+    [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr", SetLastError = true)]
+    private static extern IntPtr SetWindowLongPtr64(IntPtr window, int index, IntPtr value);
+    [DllImport("user32.dll", EntryPoint = "SetWindowLong", SetLastError = true)]
+    private static extern int SetWindowLong32(IntPtr window, int index, int value);
 }

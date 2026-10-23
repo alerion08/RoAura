@@ -20,7 +20,7 @@ public sealed partial class SpringRoItemDetailService
         };
         _client = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(30) };
         _client.DefaultRequestHeaders.UserAgent.ParseAdd(
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 RoAura/2.12.0");
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 RoAura/2.12.1");
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
     }
 

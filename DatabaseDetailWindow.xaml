@@ -9,7 +9,7 @@
             <Grid.RowDefinitions><RowDefinition Height="42"/><RowDefinition Height="*"/><RowDefinition Height="30"/></Grid.RowDefinitions>
             <Border Background="#DCEBFA" BorderBrush="#7DA2D1" BorderThickness="0,0,0,2" CornerRadius="7,7,0,0">
                 <Grid Margin="12,5"><TextBlock x:Name="PanelTitle" Text="Результат" FontFamily="Georgia" FontWeight="Bold" FontSize="17" Foreground="#174D92" VerticalAlignment="Center"/>
-                    <Button HorizontalAlignment="Right" Content="&#x2715;" Width="34" Height="30" MinHeight="0"
+                    <Button x:Name="CloseButton" HorizontalAlignment="Right" Content="&#x2715;" Width="34" Height="30" MinHeight="0"
                             Margin="0" Padding="0" FontSize="15" Click="Close_Click"
                             ToolTip="Закрыть базу данных"/>
                 </Grid>

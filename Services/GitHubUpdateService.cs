@@ -21,7 +21,7 @@ public sealed class GitHubUpdateService
             AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli
         };
         _client = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(30) };
-        _client.DefaultRequestHeaders.UserAgent.ParseAdd("RoAura-Updater/2.12.0");
+        _client.DefaultRequestHeaders.UserAgent.ParseAdd("RoAura-Updater/2.12.1");
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
     }
 
@@ -64,26 +64,31 @@ public sealed class GitHubUpdateService
                 HttpCompletionOption.ResponseHeadersRead, cancellationToken);
             response.EnsureSuccessStatusCode();
             var length = response.Content.Headers.ContentLength;
-            await using var input = await response.Content.ReadAsStreamAsync(cancellationToken);
-            await using var output = new FileStream(temporaryPath, FileMode.Create, FileAccess.Write, FileShare.None,
-                81920, useAsync: true);
-            var buffer = new byte[81920];
-            long received = 0;
-            while (true)
+            await using (var input = await response.Content.ReadAsStreamAsync(cancellationToken))
+            await using (var output = new FileStream(temporaryPath, FileMode.Create, FileAccess.Write, FileShare.None,
+                             81920, useAsync: true))
             {
-                var read = await input.ReadAsync(buffer, cancellationToken);
-                if (read == 0) break;
-                await output.WriteAsync(buffer.AsMemory(0, read), cancellationToken);
-                received += read;
-                if (length > 0) progress?.Report(received * 100d / length.Value);
+                var buffer = new byte[81920];
+                long received = 0;
+                while (true)
+                {
+                    var read = await input.ReadAsync(buffer, cancellationToken);
+                    if (read == 0) break;
+                    await output.WriteAsync(buffer.AsMemory(0, read), cancellationToken);
+                    received += read;
+                    if (length > 0) progress?.Report(received * 100d / length.Value);
+                }
+                await output.FlushAsync(cancellationToken);
             }
-            await output.FlushAsync(cancellationToken);
 
             var expected = NormalizeDigest(update.Digest);
             if (string.IsNullOrWhiteSpace(expected))
                 throw new InvalidDataException("GitHub did not provide a SHA-256 digest for the installer.");
-            var actual = Convert.ToHexString(await SHA256.HashDataAsync(
-                File.OpenRead(temporaryPath), cancellationToken)).ToLowerInvariant();
+            string actual;
+            await using (var downloaded = new FileStream(temporaryPath, FileMode.Open, FileAccess.Read,
+                             FileShare.Read, 81920, useAsync: true))
+                actual = Convert.ToHexString(await SHA256.HashDataAsync(downloaded, cancellationToken))
+                    .ToLowerInvariant();
             if (!actual.Equals(expected, StringComparison.OrdinalIgnoreCase))
                 throw new InvalidDataException("Downloaded update failed SHA-256 verification.");
 

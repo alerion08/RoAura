@@ -14,6 +14,7 @@ namespace RoAura.Services;
 
 public sealed partial class SpringRoMarketService
 {
+    public event Action? DataUpdated;
     private readonly HttpClient _client;
     private readonly object _cacheSync = new();
     private readonly Dictionary<string, CacheEntry> _cache = new(StringComparer.OrdinalIgnoreCase);
@@ -23,6 +24,8 @@ public sealed partial class SpringRoMarketService
     private readonly HashSet<string> _refreshing = new(StringComparer.OrdinalIgnoreCase);
     private readonly SemaphoreSlim _snapshotRefreshLock = new(1, 1);
     private List<MarketListing> _snapshot = [];
+    public bool HasSnapshot { get { lock (_cacheSync) return _snapshot.Count > 0; } }
+    public bool IsRefreshingSnapshot => _snapshotRefreshLock.CurrentCount == 0;
 
     public SpringRoMarketService()
     {
@@ -32,7 +35,7 @@ public sealed partial class SpringRoMarketService
         };
         _client = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(30) };
         _client.DefaultRequestHeaders.UserAgent.ParseAdd(
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 RoAura/2.12.0");
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 RoAura/2.12.1");
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
         _client.DefaultRequestHeaders.AcceptLanguage.ParseAdd("en-US,en;q=0.9");
         var directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RoAura");
@@ -42,12 +45,12 @@ public sealed partial class SpringRoMarketService
         LoadSnapshot();
     }
 
-    public async Task<IReadOnlyList<MarketListing>> SearchAsync(string query, string shopType,
+    public Task<IReadOnlyList<MarketListing>> SearchAsync(string query, string shopType,
         CancellationToken cancellationToken = default)
     {
         var itemQuery = query.Trim();
         var type = shopType.Equals("BUY", StringComparison.OrdinalIgnoreCase) ? "BUY" : "SELL";
-        if (itemQuery.Length == 0) return Array.Empty<MarketListing>();
+        if (itemQuery.Length == 0) return Task.FromResult<IReadOnlyList<MarketListing>>(Array.Empty<MarketListing>());
 
         List<MarketListing> snapshotMatches;
         bool hasSnapshot;
@@ -58,7 +61,7 @@ public sealed partial class SpringRoMarketService
                     x.ItemName.Contains(itemQuery, StringComparison.CurrentCultureIgnoreCase))
                 .OrderBy(x => ParsePrice(x.Price)).Take(100).ToList();
         }
-        if (hasSnapshot) return snapshotMatches;
+        if (hasSnapshot) return Task.FromResult<IReadOnlyList<MarketListing>>(snapshotMatches);
 
         var cacheKey = $"{type}|{itemQuery.ToUpperInvariant()}";
         CacheEntry? stale = null;
@@ -66,7 +69,7 @@ public sealed partial class SpringRoMarketService
         {
             if (_cache.TryGetValue(cacheKey, out var cached) &&
                 DateTime.UtcNow - cached.CreatedUtc < CacheLifetime)
-                return cached.Listings;
+                return Task.FromResult<IReadOnlyList<MarketListing>>(cached.Listings);
             if (cached is not null && cached.Listings.Count > 0) stale = cached;
         }
 
@@ -75,10 +78,13 @@ public sealed partial class SpringRoMarketService
         if (stale is not null)
         {
             _ = RefreshInBackgroundAsync(itemQuery, type, cacheKey);
-            return stale.Listings;
+            return Task.FromResult<IReadOnlyList<MarketListing>>(stale.Listings);
         }
 
-        return await RefreshAndCacheAsync(itemQuery, type, cacheKey, cancellationToken);
+        // First use must never freeze the overlay while SpringRO renders a page.
+        // Return immediately and publish the result through DataUpdated.
+        _ = RefreshInBackgroundAsync(itemQuery, type, cacheKey, cancellationToken);
+        return Task.FromResult<IReadOnlyList<MarketListing>>(Array.Empty<MarketListing>());
     }
 
     public async Task RefreshKnownQueriesAsync(CancellationToken cancellationToken = default)
@@ -120,7 +126,9 @@ public sealed partial class SpringRoMarketService
                 var pages = Math.Max(1, (int)Math.Ceiling(total / 50d));
                 if (pages <= 1) continue;
 
-                using var gate = new SemaphoreSlim(3, 3);
+                // Market pages are independent. A modest parallel fan-out keeps the
+                // initial snapshot practical without hammering SpringRO.
+                using var gate = new SemaphoreSlim(8, 8);
                 var pageTasks = Enumerable.Range(2, pages - 1).Select(async page =>
                 {
                     await gate.WaitAsync(cancellationToken);
@@ -138,6 +146,7 @@ public sealed partial class SpringRoMarketService
             lock (_cacheSync) _snapshot = all;
             SaveSnapshot();
             DebugLog.Write($"MARKET SNAPSHOT REFRESHED: {all.Count} listings");
+            DataUpdated?.Invoke();
         }
         catch (OperationCanceledException) { }
         catch (Exception ex) { DebugLog.Write($"MARKET SNAPSHOT REFRESH ERROR: {ex}"); }
@@ -179,6 +188,7 @@ public sealed partial class SpringRoMarketService
                          .Select(x => x.Key).ToList()) _cache.Remove(excess);
         }
         SavePersistentCache();
+        DataUpdated?.Invoke();
         return result;
     }
 
