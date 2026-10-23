@@ -2,6 +2,8 @@
 
 Windows x64 overlay for Ragnarok Online. It tracks cooldowns and statuses from incoming RO packets via Npcap and displays configurable overlays.
 
+Gold Goblin tracks SpringRO loot for the current session, values it using NPC sell prices, Overcharge, current Vending offers, or manual price rules, and can include the result in loot notifications and Zeny-per-hour statistics.
+
 Version 2.3 introduces a Ragnarok-inspired light blue interface with persistent left navigation, wider settings cards and no separate preview panel.
 
 ## Features
