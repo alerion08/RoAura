@@ -294,6 +294,16 @@
 - Database panels are owned by the Ragnarok window so the first in-game click no longer sends them behind fullscreen clients, while Alt, Ctrl, and Shift remain available.
 - Completed English localization for the new database controls and overlay messages.
 
+# RoAura 2.12.2
+
+- Исправлен запуск RoAura через галочку «Запустить RoAura» на последней странице установщика: приложение теперь запускается системным ShellExecute с корректной обработкой UAC вместо ошибки CreateProcess 740.
+- Для запуска из установщика явно задаётся рабочая папка приложения.
+
+## English
+
+- Fixed the “Launch RoAura” checkbox on the final installer page. The application now starts through Windows ShellExecute, allowing UAC to be handled correctly instead of producing CreateProcess error 740.
+- The installer now explicitly sets the RoAura installation directory as the application working directory.
+
 # RoAura 2.12.0
 
 - Карточки предметов SpringRO показывают изображение, описание, NPC sell value и актуальное количество экземпляров на сервере.

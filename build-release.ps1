@@ -8,7 +8,7 @@ Stop-Process -Name RoAura -Force -ErrorAction SilentlyContinue
 
 $artifactRoot = Join-Path $projectRoot "artifacts"
 $publishDir = Join-Path $artifactRoot "publish"
-$portableZip = Join-Path $artifactRoot "RoAura-2.12.1-portable.zip"
+$portableZip = Join-Path $artifactRoot "RoAura-2.12.2-portable.zip"
 
 $dotnetCommand = Get-Command dotnet -ErrorAction SilentlyContinue
 if ($null -eq $dotnetCommand) {

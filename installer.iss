@@ -1,5 +1,5 @@
 #define MyAppName "RoAura"
-#define MyAppVersion "2.12.1"
+#define MyAppVersion "2.12.2"
 #define MyAppPublisher "Alerion"
 #define MyAppExeName "RoAura.exe"
 
@@ -49,4 +49,4 @@ Name: "{autoprograms}\RoAura"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\RoAura"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,RoAura}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}"; WorkingDir: "{app}"; Description: "{cm:LaunchProgram,RoAura}"; Flags: nowait postinstall skipifsilent shellexec

@@ -9,7 +9,7 @@
                 <StackPanel HorizontalAlignment="Center" Margin="20,16">
                     <Image Source="Assets/roaura-icon.png" Width="150" Height="150" Stretch="Uniform"/>
                     <TextBlock Text="RoAura" FontSize="25" FontWeight="Bold" Foreground="#FF7E4054" HorizontalAlignment="Center" Margin="0,8,0,3"/>
-                    <TextBlock HorizontalAlignment="Center"><Run Text="{DynamicResource VersionLabel}"/><Run Text=" 2.12.1"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Center"><Run Text="{DynamicResource VersionLabel}"/><Run Text=" 2.12.2"/></TextBlock>
                     <TextBlock Text="2026" HorizontalAlignment="Center" />
                     <Separator Margin="0,14" Width="360"/>
                     <Button Tag="https://twitch.tv/im_alerion" Click="Link_Click" Width="360">Twitch — twitch.tv/im_alerion</Button>
