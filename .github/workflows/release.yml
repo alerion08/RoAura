@@ -94,8 +94,16 @@ jobs:
             (Get-ChildItem .\artifacts\*.exe).FullName
             (Resolve-Path .\artifacts\SHA256SUMS.txt).Path
           )
-          gh release create $env:GITHUB_REF_NAME @assets `
-            --repo $env:GITHUB_REPOSITORY `
-            --title "RoAura $($env:GITHUB_REF_NAME.TrimStart('v'))" `
-            --generate-notes `
-            --verify-tag
+          gh release view $env:GITHUB_REF_NAME --repo $env:GITHUB_REPOSITORY *> $null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $env:GITHUB_REF_NAME @assets `
+              --repo $env:GITHUB_REPOSITORY `
+              --clobber
+          }
+          else {
+            gh release create $env:GITHUB_REF_NAME @assets `
+              --repo $env:GITHUB_REPOSITORY `
+              --title "RoAura $($env:GITHUB_REF_NAME.TrimStart('v'))" `
+              --generate-notes `
+              --verify-tag
+          }
