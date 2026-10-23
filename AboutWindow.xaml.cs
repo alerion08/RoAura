@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using RoAura.Services;
 
 namespace RoAura;
 
