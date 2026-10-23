@@ -804,6 +804,10 @@
                                 <ComboBox Width="100" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding DatabaseHotkey, Mode=TwoWay}"/>
                                 <Button Content="{DynamicResource OpenDatabase}" Margin="10,0,0,0" Click="OpenDatabase_Click"/>
                             </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                                <TextBlock Text="{DynamicResource MarketRefreshInterval}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <TextBox Width="80" Text="{Binding MarketBackgroundRefreshMinutes, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
+                            </StackPanel>
                             <TextBlock Margin="0,18,0,0" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Text="{DynamicResource DatabaseInputHint}"/>
                             <TextBlock Margin="0,8,0,0" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Text="Для быстрого поиска поддерживаются названия и числовые ID. В одной выборке показывается до 100 результатов."/>
                         </StackPanel>

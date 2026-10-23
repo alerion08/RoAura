@@ -8,7 +8,7 @@ Stop-Process -Name RoAura -Force -ErrorAction SilentlyContinue
 
 $artifactRoot = Join-Path $projectRoot "artifacts"
 $publishDir = Join-Path $artifactRoot "publish"
-$portableZip = Join-Path $artifactRoot "RoAura-2.11.0-portable.zip"
+$portableZip = Join-Path $artifactRoot "RoAura-2.12.0-portable.zip"
 
 $dotnetCommand = Get-Command dotnet -ErrorAction SilentlyContinue
 if ($null -eq $dotnetCommand) {
@@ -65,6 +65,7 @@ $privateNames = @(
     "settings.json",
     "active-profile.txt",
     "springro-market-cache.json",
+    "springro-market-snapshot.json",
     "debug.log"
 )
 foreach ($privateName in $privateNames) {

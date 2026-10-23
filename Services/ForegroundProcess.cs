@@ -41,6 +41,14 @@ public static class ForegroundProcess
 
     [DllImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool IsWindowVisible(IntPtr hWnd);
+
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetWindowRect(IntPtr hWnd, out NativeRect rectangle);
+
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool ShowWindowAsync(IntPtr hWnd, int command);
 
     [DllImport("user32.dll")]
@@ -82,7 +90,7 @@ public static class ForegroundProcess
                 {
                     using (process)
                     {
-                        if (process.MainWindowHandle == IntPtr.Zero ||
+                        if (process.MainWindowHandle == IntPtr.Zero || IsIconic(process.MainWindowHandle) ||
                             !TryGetClientScreenBounds(process.MainWindowHandle, out bounds))
                             continue;
 
@@ -140,6 +148,28 @@ public static class ForegroundProcess
             if (!allowed || !TryGetClientScreenBounds(window, out bounds))
                 return false;
             return true;
+        }
+        catch { return false; }
+    }
+
+    public static bool DoesForegroundWindowCover(WindowBounds gameBounds)
+    {
+        try
+        {
+            var foreground = GetForegroundWindow();
+            if (foreground == IntPtr.Zero || !IsWindowVisible(foreground)) return false;
+            GetWindowThreadProcessId(foreground, out var processId);
+            if (processId == (uint)Environment.ProcessId) return false;
+            if (!GetWindowRect(foreground, out var window)) return false;
+
+            var left = Math.Max(gameBounds.Left, window.Left);
+            var top = Math.Max(gameBounds.Top, window.Top);
+            var right = Math.Min(gameBounds.Right, window.Right);
+            var bottom = Math.Min(gameBounds.Bottom, window.Bottom);
+            if (right <= left || bottom <= top) return false;
+            var gameArea = Math.Max(1L, (long)(gameBounds.Right - gameBounds.Left) * (gameBounds.Bottom - gameBounds.Top));
+            var coveredArea = (long)(right - left) * (bottom - top);
+            return coveredArea / (double)gameArea >= 0.15;
         }
         catch { return false; }
     }

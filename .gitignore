@@ -15,6 +15,7 @@ deliverables/
 settings.json
 active-profile.txt
 springro-market-cache.json
+springro-market-snapshot.json
 Profiles/
 Recovery/
 debug.log

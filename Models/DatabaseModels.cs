@@ -13,6 +13,8 @@ public sealed class DatabaseMonster
     public int Id { get; set; }
     public string Name { get; set; } = "";
     public bool IsMvp { get; set; }
+    public bool IsBoss { get; set; }
+    public bool IsAggressive { get; set; }
     public string Level { get; set; } = "";
     public string Hp { get; set; } = "";
     public string Race { get; set; } = "";
@@ -50,6 +52,7 @@ public sealed class DatabaseItem
     public int Id { get; set; }
     public string Name { get; set; } = "";
     public string Type { get; set; } = "";
+    public string ImageUrl { get; set; } = "";
     public List<DatabaseItemSource> DroppedBy { get; set; } = [];
     public string Caption => $"{Name}  ·  {Type}  ·  #{Id}";
 }
@@ -93,10 +96,37 @@ public sealed class MarketListing
     public string Map { get; set; } = "";
     public int X { get; set; }
     public int Y { get; set; }
+    public int MapWidth { get; set; }
+    public int MapHeight { get; set; }
     public string ShopType { get; set; } = "SELL";
     public string NavigationCommand => $"/navi {Map} {X}/{Y}";
 }
 
 public sealed record DatabaseSearchResult(DatabaseSearchKind Kind, object Value, string Caption, string Meta);
+
+public sealed class MonsterSearchFilter
+{
+    public string Race { get; set; } = "";
+    public string Element { get; set; } = "";
+    public string Size { get; set; } = "";
+    public int LevelMin { get; set; }
+    public int LevelMax { get; set; }
+    public int BaseExpMin { get; set; }
+    public int JobExpMin { get; set; }
+    public int HpMin { get; set; }
+    public int HpMax { get; set; }
+    public int ElementLevelMin { get; set; }
+    public bool AggressiveOnly { get; set; }
+    public bool BossOnly { get; set; }
+    public bool MvpOnly { get; set; }
+}
+
+public sealed class SpringRoItemDetails
+{
+    public string ImageUrl { get; set; } = "";
+    public string Description { get; set; } = "";
+    public string NpcSellValue { get; set; } = "";
+    public string ServerCopies { get; set; } = "";
+}
 
 public readonly record struct MapExperienceDensity(int MonsterCount, long BaseExperience, long JobExperience);

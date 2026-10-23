@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 using RoAura.Models;
 using RoAura.Services;
 
@@ -33,6 +34,7 @@ public partial class DatabaseOverlayWindow : Window
     };
     private bool _restoringSearchQuery;
     private bool _gameWasForeground;
+    private bool _marketRefreshRunning;
     public bool IsDatabaseOpen { get; private set; }
 
     public DatabaseOverlayWindow(AppSettings settings, GameDatabaseService database)
@@ -40,6 +42,10 @@ public partial class DatabaseOverlayWindow : Window
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _database = database ?? throw new ArgumentNullException(nameof(database));
         InitializeComponent();
+        RaceFilter.ItemsSource = new[] { T("Все расы", "All races") }.Concat(_database.MonsterRaces).ToList();
+        ElementFilter.ItemsSource = new[] { T("Все элементы", "All elements") }.Concat(_database.MonsterElements).ToList();
+        SizeFilter.ItemsSource = new[] { T("Все размеры", "All sizes") }.Concat(_database.MonsterSizes).ToList();
+        RaceFilter.SelectedIndex = ElementFilter.SelectedIndex = SizeFilter.SelectedIndex = 0;
         _details = new DatabaseDetailWindow(settings, database);
         _details.HideRequested += () => HideRequested?.Invoke();
         if (_settings.Language == "en")
@@ -53,12 +59,19 @@ public partial class DatabaseOverlayWindow : Window
             MarketBuyMode.Content = "Buying";
             SearchButton.Content = "Search";
         }
-        Loaded += (_, _) => { SearchBox.Focus(); Keyboard.Focus(SearchBox); RefreshResults(); };
+        Loaded += (_, _) =>
+        {
+            SearchBox.Focus();
+            Keyboard.Focus(SearchBox);
+            RefreshResults();
+        };
         _visibilityTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(120) };
         _visibilityTimer.Tick += (_, _) => RefreshOverlayVisibility();
-        _marketRefreshTimer = new DispatcherTimer { Interval = TimeSpan.FromMinutes(5) };
-        _marketRefreshTimer.Tick += async (_, _) => await _market.RefreshKnownQueriesAsync();
+        _marketRefreshTimer = new DispatcherTimer { Interval = MarketRefreshInterval() };
+        _marketRefreshTimer.Tick += async (_, _) => await RefreshMarketInBackgroundAsync();
         _marketRefreshTimer.Start();
+        Dispatcher.BeginInvoke(async () => await RefreshMarketInBackgroundAsync(), DispatcherPriority.Background);
+        _settings.PropertyChanged += Settings_PropertyChanged;
     }
 
     public void PrepareForFirstUse()
@@ -133,7 +146,10 @@ public partial class DatabaseOverlayWindow : Window
             ForceTopmost();
         }
         else if (DateTime.UtcNow - _lastRelevantForegroundUtc > TimeSpan.FromMilliseconds(450))
+        {
             ReleaseTopmost();
+            if (ForegroundProcess.DoesForegroundWindowCover(_gameBounds)) SetPanelsVisible(false);
+        }
     }
 
     private void PlacePanels(ForegroundProcess.WindowBounds game)
@@ -201,13 +217,8 @@ public partial class DatabaseOverlayWindow : Window
         var detailHandle = _details.Handle;
         if (searchHandle == IntPtr.Zero || detailHandle == IntPtr.Zero) return;
 
-        // Fullscreen RO promotes its swap-chain window when it receives the first
-        // mouse click. Native hide/show reproduces the reliable second-open path,
-        // while keeping IsDatabaseOpen and the keyboard-blocking state unchanged.
-        ShowWindow(searchHandle, SwHide);
-        ShowWindow(detailHandle, SwHide);
-        ShowWindow(searchHandle, SwShowNoActivate);
-        ShowWindow(detailHandle, SwShowNoActivate);
+        // Reinsert without Hide/Show. Hiding the HWND here caused the database to
+        // disappear on the first mouse click in fullscreen clients.
         PromotePanelsAboveGame();
     }
 
@@ -229,7 +240,9 @@ public partial class DatabaseOverlayWindow : Window
 
     private void RefreshResults()
     {
-        ResultsList.ItemsSource = _database.Search(_kind, SearchBox.Text).ToList();
+        ResultsList.ItemsSource = (_kind == DatabaseSearchKind.Monsters
+            ? _database.SearchMonsters(SearchBox.Text, ReadMonsterFilter())
+            : _database.Search(_kind, SearchBox.Text)).ToList();
         FooterText.Text = T($"{ResultsList.Items.Count} результатов · максимум 100", $"{ResultsList.Items.Count} results · maximum 100");
         if (ResultsList.Items.Count > 0) ResultsList.SelectedIndex = 0;
         else _details.Clear();
@@ -305,6 +318,7 @@ public partial class DatabaseOverlayWindow : Window
             SearchBox.CaretIndex = SearchBox.Text.Length;
             _restoringSearchQuery = false;
             if (MarketTypePanel is not null) MarketTypePanel.Visibility = kind == DatabaseSearchKind.Market ? Visibility.Visible : Visibility.Collapsed;
+            if (MonsterAdvancedHost is not null) MonsterAdvancedHost.Visibility = kind == DatabaseSearchKind.Monsters ? Visibility.Visible : Visibility.Collapsed;
             SearchBox.ToolTip = kind == DatabaseSearchKind.Market
                 ? T("Поиск только по названию предмета", "Search by item name only")
                 : T("Поиск по названию или ID", "Search by name or ID");
@@ -341,6 +355,48 @@ public partial class DatabaseOverlayWindow : Window
     }
     private void Results_SelectionChanged(object sender, SelectionChangedEventArgs e)
     { if (ResultsList.SelectedItem is DatabaseSearchResult result) _details.ShowDetails(result.Value); }
+    private void AdvancedToggle_Changed(object sender, RoutedEventArgs e) =>
+        MonsterAdvancedPanel.Visibility = AdvancedToggle.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
+    private void AdvancedFilter_Changed(object sender, RoutedEventArgs e)
+    { if (IsLoaded && _kind == DatabaseSearchKind.Monsters) RefreshResults(); }
+    private void AdvancedFilter_Changed(object sender, TextChangedEventArgs e)
+    { if (IsLoaded && _kind == DatabaseSearchKind.Monsters) RefreshResults(); }
+
+    private MonsterSearchFilter ReadMonsterFilter() => new()
+    {
+        Race = RaceFilter.SelectedIndex > 0 ? RaceFilter.SelectedItem?.ToString() ?? "" : "",
+        Element = ElementFilter.SelectedIndex > 0 ? ElementFilter.SelectedItem?.ToString() ?? "" : "",
+        Size = SizeFilter.SelectedIndex > 0 ? SizeFilter.SelectedItem?.ToString() ?? "" : "",
+        LevelMin = Number(LevelMinFilter.Text), LevelMax = Number(LevelMaxFilter.Text),
+        BaseExpMin = Number(BaseExpMinFilter.Text), JobExpMin = Number(JobExpMinFilter.Text),
+        HpMin = Number(HpMinFilter.Text), HpMax = Number(HpMaxFilter.Text),
+        ElementLevelMin = Number(ElementLevelMinFilter.Text),
+        AggressiveOnly = AggressiveFilter.IsChecked == true,
+        BossOnly = BossFilter.IsChecked == true, MvpOnly = MvpFilter.IsChecked == true
+    };
+
+    private static int Number(string? value) => int.TryParse(value, out var result) ? Math.Max(0, result) : 0;
+
+    private TimeSpan MarketRefreshInterval() =>
+        TimeSpan.FromMinutes(Math.Clamp(_settings.MarketBackgroundRefreshMinutes, 1, 1440));
+
+    private void Settings_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(AppSettings.MarketBackgroundRefreshMinutes))
+            _marketRefreshTimer.Interval = MarketRefreshInterval();
+    }
+
+    private async Task RefreshMarketInBackgroundAsync()
+    {
+        if (_marketRefreshRunning) return;
+        _marketRefreshRunning = true;
+        try
+        {
+            await _market.RefreshSnapshotAsync();
+            await _market.RefreshKnownQueriesAsync();
+        }
+        finally { _marketRefreshRunning = false; }
+    }
     private string T(string ru, string en) => _settings.Language == "en" ? en : ru;
     private void Close_Click(object sender, RoutedEventArgs e) => HideRequested?.Invoke();
 
@@ -354,9 +410,4 @@ public partial class DatabaseOverlayWindow : Window
     private static extern IntPtr GetForegroundWindow();
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetWindowPos(IntPtr window, IntPtr insertAfter, int x, int y, int cx, int cy, uint flags);
-    [DllImport("user32.dll")]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool ShowWindow(IntPtr window, int command);
-    private const int SwHide = 0;
-    private const int SwShowNoActivate = 4;
 }

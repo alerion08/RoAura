@@ -51,6 +51,7 @@ jobs:
             'settings.json',
             'active-profile.txt',
             'springro-market-cache.json',
+            'springro-market-snapshot.json',
             'debug.log'
           )
           $badFiles = Get-ChildItem .\artifacts -Recurse -Force -File | Where-Object {

@@ -26,6 +26,7 @@ def fetch_monster(entry):
         request = urllib.request.Request(url, headers=UA)
         with urllib.request.urlopen(request, timeout=30) as response:
             raw = response.read().replace(b"\0", b"")
+        raw_text = raw.decode("utf-8", errors="ignore")
         tree = html.fromstring(raw)
         stats_node = section(tree, "Stats")
         stats = {}
@@ -66,6 +67,11 @@ def fetch_monster(entry):
             "Size": stats.get("Size", ""), "Attack": stats.get("Attack", ""),
             "Defense": stats.get("Defense", ""), "MagicDefense": stats.get("Magic Defense", ""),
             "BaseExp": stats.get("Base EXP", ""), "JobExp": stats.get("Job EXP", ""),
+            "IsBoss": 'mobClass:"Boss"' in raw_text,
+            # Behaviour is part of the dehydrated page payload.  Reading it
+            # directly is more robust than relying on the localized label in
+            # the visible stats table.
+            "IsAggressive": 'behavior:' in raw_text and 'aggressive:!0' in raw_text,
             "Drops": drops, "Spawns": spawns,
             "ImageUrl": f"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/mobs/{entry['Id']}.png"
         })
@@ -84,6 +90,8 @@ def main():
         monsters = list(pool.map(fetch_monster, monsters))
 
     item_by_id = {item["Id"]: item for item in items}
+    for item in items:
+        item["ImageUrl"] = f"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/items/{item['Id']}.png"
     maps = {}
     for monster in monsters:
         for drop in monster.get("Drops", []):

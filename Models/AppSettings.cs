@@ -27,6 +27,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     private string _finishMoveHotkey = "Escape";
     private string _timersHotkey = "F10";
     private string _databaseHotkey = "F7";
+    private double _marketBackgroundRefreshMinutes = 10;
     private bool _timersOverlayVisible = true;
     private double _timersX = 1180;
     private double _timersY = 180;
@@ -69,6 +70,11 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string FinishMoveHotkey { get => _finishMoveHotkey; set => Set(ref _finishMoveHotkey, NormalizeHotkey(value, "Escape")); }
     public string TimersHotkey { get => _timersHotkey; set => Set(ref _timersHotkey, NormalizeHotkey(value, "F10")); }
     public string DatabaseHotkey { get => _databaseHotkey; set => Set(ref _databaseHotkey, NormalizeHotkey(value, "F7")); }
+    public double MarketBackgroundRefreshMinutes
+    {
+        get => _marketBackgroundRefreshMinutes;
+        set => Set(ref _marketBackgroundRefreshMinutes, Math.Clamp(value, 1, 1440));
+    }
     public bool TimersOverlayVisible { get => _timersOverlayVisible; set => Set(ref _timersOverlayVisible, value); }
     public double TimersX { get => _timersX; set => Set(ref _timersX, value); }
     public double TimersY { get => _timersY; set => Set(ref _timersY, value); }

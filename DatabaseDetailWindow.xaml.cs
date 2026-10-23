@@ -13,6 +13,8 @@ public partial class DatabaseDetailWindow : Window
     public event Action? HideRequested;
     private readonly AppSettings _settings;
     private readonly GameDatabaseService _database;
+    private readonly SpringRoItemDetailService _itemDetails = new();
+    private int _detailVersion;
     public IntPtr Handle => new WindowInteropHelper(this).Handle;
 
     public DatabaseDetailWindow(AppSettings settings, GameDatabaseService database)
@@ -38,13 +40,30 @@ public partial class DatabaseDetailWindow : Window
 
     public void Clear() => DetailsPanel.Children.Clear();
 
-    public void ShowDetails(object value)
+    public async void ShowDetails(object value)
     {
+        var version = ++_detailVersion;
         Clear();
         switch (value)
         {
             case DatabaseMonster monster: ShowMonster(monster); break;
-            case DatabaseItem item: ShowItem(item); break;
+            case DatabaseItem item:
+                ShowItem(item, null, true);
+                try
+                {
+                    var detail = await _itemDetails.GetAsync(item.Id);
+                    if (version != _detailVersion) return;
+                    Clear();
+                    ShowItem(item, detail, false);
+                }
+                catch (Exception ex)
+                {
+                    DebugLog.Write($"ITEM DETAILS LOAD ERROR #{item.Id}: {ex.Message}");
+                    if (version != _detailVersion) return;
+                    Clear();
+                    ShowItem(item, null, false);
+                }
+                break;
             case DatabaseMap map: ShowMap(map); break;
             case MarketListing listing: ShowMarketListing(listing); break;
         }
@@ -70,10 +89,37 @@ public partial class DatabaseDetailWindow : Window
             AddLink($"{spawn.Name}\n{spawn.Count} · {spawn.Respawn}", () => OpenMap(spawn.Code));
     }
 
-    private void ShowItem(DatabaseItem item)
+    private void ShowItem(DatabaseItem item, SpringRoItemDetails? detail, bool loading)
     {
-        DetailsPanel.Children.Add(Heading(item.Name, 20));
-        DetailsPanel.Children.Add(Meta($"Item ID #{item.Id} · {item.Type}"));
+        var header = new StackPanel { Orientation = Orientation.Horizontal };
+        var imageUrl = detail?.ImageUrl;
+        if (string.IsNullOrWhiteSpace(imageUrl)) imageUrl = item.ImageUrl;
+        if (string.IsNullOrWhiteSpace(imageUrl))
+            imageUrl = $"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/items/{item.Id}.png";
+        if (Uri.TryCreate(imageUrl, UriKind.Absolute, out var imageUri))
+            header.Children.Add(new Image { Source = new BitmapImage(imageUri), Width = 56, Height = 56,
+                Stretch = Stretch.Uniform, Margin = new Thickness(0, 0, 10, 0) });
+        var title = new StackPanel();
+        title.Children.Add(Heading(item.Name, 20));
+        title.Children.Add(Meta($"Item ID #{item.Id} · {item.Type}"));
+        header.Children.Add(title);
+        DetailsPanel.Children.Add(header);
+
+        AddSection(T("Информация", "Information"));
+        if (loading)
+            DetailsPanel.Children.Add(Meta(T("Загружаем актуальные данные SpringRO…", "Loading current SpringRO data…")));
+        else if (detail is not null)
+        {
+            AddLine(T("Цена продажи NPC", "NPC sell value"), detail.NpcSellValue.Length > 0 ? detail.NpcSellValue : "—");
+            AddLine(T("Количество на сервере", "Copies on server"), detail.ServerCopies.Length > 0 ? detail.ServerCopies : "—");
+            if (!string.IsNullOrWhiteSpace(detail.Description))
+            {
+                AddSection(T("Описание и эффекты", "Description & effects"));
+                DetailsPanel.Children.Add(new TextBlock { Text = detail.Description, TextWrapping = TextWrapping.Wrap,
+                    FontSize = 12, LineHeight = 18, Margin = new Thickness(0, 1, 0, 3) });
+            }
+        }
+        else DetailsPanel.Children.Add(Meta(T("Актуальные данные временно недоступны.", "Current data is temporarily unavailable.")));
         AddSection(T($"Источники ({item.DroppedBy.Count})", $"Sources ({item.DroppedBy.Count})"));
         if (item.DroppedBy.Count == 0) DetailsPanel.Children.Add(Meta(T("Нет в дроп-листах монстров SpringRO.", "Not found in SpringRO monster drop lists.")));
         foreach (var source in item.DroppedBy.OrderByDescending(x => ParseRate(x.Rate)))
@@ -107,6 +153,7 @@ public partial class DatabaseDetailWindow : Window
         AddLine(T("Владелец", "Owner"), listing.Owner);
         AddSection(T("Координаты магазина", "Shop location"));
         AddLine(T("Локация", "Location"), $"{listing.Map} ({listing.X},{listing.Y})");
+        AddMarketMap(listing);
         var navi = new Button
         {
             Content = $"Navi · {listing.NavigationCommand}",
@@ -119,6 +166,37 @@ public partial class DatabaseDetailWindow : Window
             navi.Content = T("Скопировано в буфер обмена", "Copied to clipboard");
         };
         DetailsPanel.Children.Add(navi);
+    }
+
+    private void AddMarketMap(MarketListing listing)
+    {
+        const double size = 238;
+        var canvas = new Canvas { Width = size, Height = size, Background = Brushes.Black };
+        var mapUrl = $"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/minimaps/{listing.Map}.png";
+        if (Uri.TryCreate(mapUrl, UriKind.Absolute, out var uri))
+            canvas.Children.Add(new Image { Source = new BitmapImage(uri), Width = size, Height = size, Stretch = Stretch.Uniform });
+
+        if (listing.MapWidth > 0 && listing.MapHeight > 0)
+        {
+            var maximum = Math.Max(listing.MapWidth, listing.MapHeight);
+            var left = (listing.X + (maximum - listing.MapWidth) / 2d) / maximum * size;
+            var top = ((maximum - listing.MapHeight) / 2d + listing.MapHeight - listing.Y) / maximum * size;
+            var ring = new System.Windows.Shapes.Ellipse
+            {
+                Width = 15, Height = 15, Fill = Brushes.Red, Stroke = Brushes.White, StrokeThickness = 3
+            };
+            Canvas.SetLeft(ring, left - ring.Width / 2);
+            Canvas.SetTop(ring, top - ring.Height / 2);
+            Panel.SetZIndex(ring, 2);
+            canvas.Children.Add(ring);
+        }
+
+        DetailsPanel.Children.Add(new Border
+        {
+            Child = canvas, BorderBrush = new SolidColorBrush(Color.FromRgb(169, 192, 221)),
+            BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(4),
+            Padding = new Thickness(3), Margin = new Thickness(0, 7, 0, 5), HorizontalAlignment = HorizontalAlignment.Center
+        });
     }
 
     private void OpenMonster(int id) { var value = _database.Monster(id); if (value is not null) ShowDetails(value); }

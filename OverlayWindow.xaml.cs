@@ -1188,11 +1188,21 @@ public partial class OverlayWindow : Window
         var shouldShow = _gameWindowFound;
         if (shouldShow)
         {
-            if (!IsVisible) Show();
             if (ForegroundProcess.IsForegroundAllowed(_settings.AllowedProcesses))
+            {
+                if (!IsVisible) Show();
                 BringOverlayAboveGame();
-            else
+            }
+            else if (_gameBounds.HasValue && ForegroundProcess.DoesForegroundWindowCover(_gameBounds.Value))
+            {
                 ReleaseOverlayTopmost();
+                if (IsVisible) Hide();
+            }
+            else
+            {
+                if (!IsVisible) Show();
+                ReleaseOverlayTopmost();
+            }
         }
         else if (IsVisible)
             Hide();

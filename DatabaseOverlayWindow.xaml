@@ -6,7 +6,7 @@
         Width="360" MinWidth="320" MinHeight="460">
     <Border BorderBrush="#5E86BD" BorderThickness="2" CornerRadius="9" Background="#F6F9FE">
         <Grid>
-            <Grid.RowDefinitions><RowDefinition Height="54"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="30"/></Grid.RowDefinitions>
+            <Grid.RowDefinitions><RowDefinition Height="54"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="30"/></Grid.RowDefinitions>
             <Border Background="#DCEBFA" BorderBrush="#7DA2D1" BorderThickness="0,0,0,2" CornerRadius="7,7,0,0">
                 <Grid Margin="12,7"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                     <StackPanel><TextBlock x:Name="OverlayTitle" Text="База SpringRO" FontFamily="Georgia" FontWeight="Bold" FontSize="19" Foreground="#174D92"/>
@@ -35,7 +35,26 @@
                 <Button x:Name="SearchButton" Grid.Column="1" Content="Найти" Width="66" Height="36"
                         MinHeight="0" Margin="6,0,0,0" Padding="5,2" Click="Search_Click"/>
             </Grid>
-            <Border Grid.Row="3" Margin="10,0,10,8" BorderBrush="#A9C0DD" BorderThickness="1" Background="#F8FBFF" CornerRadius="5">
+            <StackPanel x:Name="MonsterAdvancedHost" Grid.Row="3" Margin="10,0,10,7">
+                <ToggleButton x:Name="AdvancedToggle" Content="Расширенный поиск" HorizontalAlignment="Stretch"
+                              Height="28" MinHeight="0" Checked="AdvancedToggle_Changed" Unchecked="AdvancedToggle_Changed"/>
+                <WrapPanel x:Name="MonsterAdvancedPanel" Visibility="Collapsed" Margin="0,6,0,0">
+                    <ComboBox x:Name="RaceFilter" Width="102" Margin="0,0,5,5" SelectionChanged="AdvancedFilter_Changed"/>
+                    <ComboBox x:Name="ElementFilter" Width="102" Margin="0,0,5,5" SelectionChanged="AdvancedFilter_Changed"/>
+                    <ComboBox x:Name="SizeFilter" Width="102" Margin="0,0,0,5" SelectionChanged="AdvancedFilter_Changed"/>
+                    <TextBox x:Name="LevelMinFilter" Width="75" Margin="0,0,5,5" ToolTip="Level min" TextChanged="AdvancedFilter_Changed"/>
+                    <TextBox x:Name="LevelMaxFilter" Width="75" Margin="0,0,5,5" ToolTip="Level max" TextChanged="AdvancedFilter_Changed"/>
+                    <TextBox x:Name="BaseExpMinFilter" Width="75" Margin="0,0,5,5" ToolTip="Base EXP min" TextChanged="AdvancedFilter_Changed"/>
+                    <TextBox x:Name="JobExpMinFilter" Width="75" Margin="0,0,0,5" ToolTip="Job EXP min" TextChanged="AdvancedFilter_Changed"/>
+                    <TextBox x:Name="HpMinFilter" Width="75" Margin="0,0,5,5" ToolTip="HP min" TextChanged="AdvancedFilter_Changed"/>
+                    <TextBox x:Name="HpMaxFilter" Width="75" Margin="0,0,5,5" ToolTip="HP max" TextChanged="AdvancedFilter_Changed"/>
+                    <TextBox x:Name="ElementLevelMinFilter" Width="75" Margin="0,0,8,5" ToolTip="Element level min" TextChanged="AdvancedFilter_Changed"/>
+                    <CheckBox x:Name="AggressiveFilter" Content="Aggressive" Margin="0,2,8,5" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
+                    <CheckBox x:Name="BossFilter" Content="Boss" Margin="0,2,8,5" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
+                    <CheckBox x:Name="MvpFilter" Content="MVP" Margin="0,2,0,5" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
+                </WrapPanel>
+            </StackPanel>
+            <Border Grid.Row="4" Margin="10,0,10,8" BorderBrush="#A9C0DD" BorderThickness="1" Background="#F8FBFF" CornerRadius="5">
                 <ListBox x:Name="ResultsList" BorderThickness="0" Background="Transparent" SelectionChanged="Results_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemTemplate><DataTemplate><Grid Margin="4,3"><Grid.RowDefinitions><RowDefinition/><RowDefinition/></Grid.RowDefinitions>
                         <TextBlock Text="{Binding Caption}" FontWeight="Bold" FontSize="13" TextTrimming="CharacterEllipsis"/>
@@ -43,7 +62,7 @@
                     </Grid></DataTemplate></ListBox.ItemTemplate>
                 </ListBox>
             </Border>
-            <Border Grid.Row="4" Background="#E6F0FB" BorderBrush="#A9C0DD" BorderThickness="0,1,0,0" CornerRadius="0,0,7,7">
+            <Border Grid.Row="5" Background="#E6F0FB" BorderBrush="#A9C0DD" BorderThickness="0,1,0,0" CornerRadius="0,0,7,7">
                 <TextBlock x:Name="FooterText" Margin="9,5" Text="Введите название или ID" FontSize="10" Foreground="#55739A" TextTrimming="CharacterEllipsis"/>
             </Border>
         </Grid>

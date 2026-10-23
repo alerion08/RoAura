@@ -179,4 +179,5 @@
     <sys:String x:Key="OpenDatabase">Open database now</sys:String>
     <sys:String x:Key="DatabaseDescription">Search monsters, items, and maps. Results are linked: monsters open drops and maps, items open drop sources, and maps open every monster found there.</sys:String>
     <sys:String x:Key="DatabaseInputHint">While the database is open, keyboard input stays in search and does not reach RO. Press the hotkey again to close it.</sys:String>
+    <sys:String x:Key="MarketRefreshInterval">Refresh market in background every, min</sys:String>
 </ResourceDictionary>

@@ -179,4 +179,5 @@
     <sys:String x:Key="OpenDatabase">Открыть базу сейчас</sys:String>
     <sys:String x:Key="DatabaseDescription">Поиск по монстрам, предметам и картам. Результаты связаны: из монстра можно открыть предмет или карту, из предмета — монстров-источников, из карты — всех монстров на ней.</sys:String>
     <sys:String x:Key="DatabaseInputHint">Пока база открыта, клавиатурный ввод направляется в поиск и не попадает в RO. Повторное нажатие горячей клавиши закрывает базу.</sys:String>
+    <sys:String x:Key="MarketRefreshInterval">Обновлять маркет в фоне каждые, мин</sys:String>
 </ResourceDictionary>

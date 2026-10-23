@@ -54,6 +54,44 @@ public sealed class GameDatabaseService
         };
     }
 
+    public IEnumerable<DatabaseSearchResult> SearchMonsters(string query, MonsterSearchFilter filter, int limit = 100)
+    {
+        query = query.Trim();
+        bool Matches(string name, string id) => query.Length == 0 ||
+            name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+            id.Contains(query, StringComparison.OrdinalIgnoreCase);
+        bool TextMatches(string actual, string wanted) => string.IsNullOrWhiteSpace(wanted) ||
+            actual.StartsWith(wanted, StringComparison.OrdinalIgnoreCase);
+
+        return _database.Monsters
+            .Where(x => Matches(x.Name, x.Id.ToString()))
+            .Where(x => TextMatches(x.Race, filter.Race))
+            .Where(x => TextMatches(x.Element, filter.Element))
+            .Where(x => TextMatches(x.Size, filter.Size))
+            .Where(x => filter.LevelMin <= 0 || ParseNumber(x.Level) >= filter.LevelMin)
+            .Where(x => filter.LevelMax <= 0 || ParseNumber(x.Level) <= filter.LevelMax)
+            .Where(x => filter.BaseExpMin <= 0 || ParseNumber(x.BaseExp) >= filter.BaseExpMin)
+            .Where(x => filter.JobExpMin <= 0 || ParseNumber(x.JobExp) >= filter.JobExpMin)
+            .Where(x => filter.HpMin <= 0 || ParseNumber(x.Hp) >= filter.HpMin)
+            .Where(x => filter.HpMax <= 0 || ParseNumber(x.Hp) <= filter.HpMax)
+            .Where(x => filter.ElementLevelMin <= 0 || ParseElementLevel(x.Element) >= filter.ElementLevelMin)
+            .Where(x => !filter.AggressiveOnly || x.IsAggressive)
+            .Where(x => !filter.BossOnly || x.IsBoss)
+            .Where(x => !filter.MvpOnly || x.IsMvp)
+            .OrderByDescending(x => x.Name.StartsWith(query, StringComparison.CurrentCultureIgnoreCase))
+            .ThenBy(x => x.Name)
+            .Take(limit)
+            .Select(x => new DatabaseSearchResult(DatabaseSearchKind.Monsters, x, x.Name,
+                $"Lv {x.Level} · {x.Element} · #{x.Id}"));
+    }
+
+    public IReadOnlyList<string> MonsterRaces => _database.Monsters.Select(x => x.Race)
+        .Where(x => !string.IsNullOrWhiteSpace(x)).Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(x => x).ToList();
+    public IReadOnlyList<string> MonsterElements => _database.Monsters.Select(x => x.Element.Split(' ', 2)[0])
+        .Where(x => !string.IsNullOrWhiteSpace(x)).Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(x => x).ToList();
+    public IReadOnlyList<string> MonsterSizes => _database.Monsters.Select(x => x.Size)
+        .Where(x => !string.IsNullOrWhiteSpace(x)).Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(x => x).ToList();
+
     public MapExperienceDensity GetMapExperienceDensity(DatabaseMap map)
     {
         long totalBase = 0;
@@ -78,6 +116,12 @@ public sealed class GameDatabaseService
     {
         var digits = new string(value.Where(char.IsDigit).ToArray());
         return int.TryParse(digits, out var number) ? number : 0;
+    }
+
+    private static int ParseElementLevel(string value)
+    {
+        var last = value.Split(' ', StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+        return int.TryParse(last, out var level) ? level : 0;
     }
 
     public DatabaseMonster? Monster(int id) => _database.Monsters.FirstOrDefault(x => x.Id == id);
