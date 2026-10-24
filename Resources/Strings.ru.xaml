@@ -45,6 +45,9 @@
     <sys:String x:Key="NoEffectsTitle">Эффекты ещё не добавлены</sys:String>
     <sys:String x:Key="NoEffectsHint">Добавьте первый эффект — RoAura поможет найти его в игре и настроить уведомления.</sys:String>
     <sys:String x:Key="AddEffect">Добавить эффект</sys:String>
+    <sys:String x:Key="CheckNotification">Проверить уведомление</sys:String>
+    <sys:String x:Key="DuplicateEffect">Дублировать эффект</sys:String>
+    <sys:String x:Key="Copy">копия</sys:String>
     <sys:String x:Key="SelectEffectTitle">Выберите эффект</sys:String>
     <sys:String x:Key="SelectEffectHint">Его параметры появятся в этой области.</sys:String>
     <sys:String x:Key="EffectSearchHint">Поиск по названию или Status ID</sys:String>
