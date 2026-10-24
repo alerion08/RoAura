@@ -276,6 +276,10 @@
     <sys:String x:Key="DatabaseInputHint">Пока база открыта, клавиатурный ввод направляется в поиск и не попадает в RO. Повторное нажатие горячей клавиши закрывает базу.</sys:String>
     <sys:String x:Key="MarketRefreshInterval">Обновлять маркет в фоне каждые, мин</sys:String>
     <sys:String x:Key="GoldGoblin">Gold Goblin</sys:String>
+    <sys:String x:Key="GoldGoblinDescription">Оценивает весь лут текущей сессии по NPC, Vending или заданной вручную цене.</sys:String>
+    <sys:String x:Key="SessionItems">Предметов в сессии</sys:String>
+    <sys:String x:Key="ItemsWithoutPrice">Позиций без цены</sys:String>
+    <sys:String x:Key="PriceSource">Источник цены</sys:String>
     <sys:String x:Key="Item">Предмет</sys:String>
     <sys:String x:Key="Count">Количество</sys:String>
     <sys:String x:Key="Cost">Цена</sys:String>
