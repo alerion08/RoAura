@@ -40,8 +40,13 @@
     <sys:String x:Key="CooldownSettingsTitle">Настройки кулдаунов</sys:String>
     <sys:String x:Key="CooldownSettingsHint">Добавляйте навыки, назначайте Skill ID и настраивайте игровые иконки.</sys:String>
     <sys:String x:Key="Effects">Эффекты</sys:String>
-    <sys:String x:Key="EffectSettingsTitle">Эффекты и уведомления</sys:String>
-    <sys:String x:Key="EffectSettingsHint">Выберите эффект слева, затем настройте события, оформление и его группу справа.</sys:String>
+    <sys:String x:Key="EffectSettingsTitle">Эффекты</sys:String>
+    <sys:String x:Key="EffectSettingsHint">Все игровые эффекты в одном списке. Объединяйте их в независимые панели.</sys:String>
+    <sys:String x:Key="EffectIdHelp">Не знаете Status ID? При добавлении эффекта RoAura поможет определить его в игре.</sys:String>
+    <sys:String x:Key="HowItWorks">Как это работает?</sys:String>
+    <sys:String x:Key="AllEffectsTitle">Все эффекты</sys:String>
+    <sys:String x:Key="EffectsConfigured">настроено</sys:String>
+    <sys:String x:Key="ConfigurePanels">Настроить панели</sys:String>
     <sys:String x:Key="NoEffectsTitle">Эффекты ещё не добавлены</sys:String>
     <sys:String x:Key="NoEffectsHint">Добавьте первый эффект — RoAura поможет найти его в игре и настроить уведомления.</sys:String>
     <sys:String x:Key="AddEffect">Добавить эффект</sys:String>
