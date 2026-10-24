@@ -420,7 +420,10 @@
                                     <TextBlock Text="{DynamicResource EffectSettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
                                     <TextBlock Text="{DynamicResource EffectSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/>
                                 </StackPanel>
-                                <Button Grid.Column="1" Content="{DynamicResource AddEffect}" Click="AddEffect_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button Content="{DynamicResource CheckNotification}" Click="CheckEffectNotification_Click"/>
+                                    <Button Content="{DynamicResource AddEffect}" Click="AddEffect_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                                </StackPanel>
                             </Grid>
                         </Border>
 
@@ -520,7 +523,10 @@
                                                         <TextBlock Text="{Binding Name}" Style="{StaticResource RoSectionTitleStyle}"/>
                                                         <TextBlock Foreground="{StaticResource RoMutedBrush}"><Run Text="Status ID: "/><Run Text="{Binding StatusId}"/><Run Text=" · "/><Run Text="{DynamicResource Group}"/><Run Text=" "/><Run Text="{Binding GroupNumber}"/></TextBlock>
                                                     </StackPanel>
-                                                    <Border Grid.Column="1" Padding="10,5" CornerRadius="12" Background="#DDF4E8" VerticalAlignment="Center"><TextBlock Text="{Binding CurrentStateText}" Foreground="#24734A" FontWeight="SemiBold"/></Border>
+                                                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                        <Button Content="{DynamicResource DuplicateEffect}" Click="DuplicateEffect_Click" Margin="0,0,8,0"/>
+                                                        <Border Padding="10,5" CornerRadius="12" Background="#DDF4E8"><TextBlock Text="{Binding CurrentStateText}" Foreground="#24734A" FontWeight="SemiBold"/></Border>
+                                                    </StackPanel>
                                                 </Grid>
                                                 <TabControl Grid.Row="1" Style="{StaticResource EditorTabControlStyle}">
                                                     <TabItem Header="{DynamicResource BasicTab}">
