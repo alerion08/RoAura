@@ -411,7 +411,7 @@
 
                 <TabItem Header="{DynamicResource Effects}">
                     <Grid Margin="8,4,8,8">
-                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
                         <Border Grid.Row="0" Margin="0,0,0,8" Padding="14,9" CornerRadius="7"
                                 Background="#E5F0FC" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
                             <Grid>
@@ -427,7 +427,17 @@
                             </Grid>
                         </Border>
 
-                        <TabControl x:Name="EffectsSectionTabs" Grid.Row="1" Style="{StaticResource SectionTabControlStyle}">
+                        <Border Grid.Row="1" Margin="0,0,0,8" Padding="12,8" CornerRadius="7"
+                                Background="#EAF3FF" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBlock Text="ⓘ" Foreground="{StaticResource RoBlueBrush}" FontSize="15" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock Grid.Column="1" Text="{DynamicResource EffectIdHelp}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                                <Button Grid.Column="2" Content="{DynamicResource HowItWorks}" Click="AddEffect_Click" Style="{StaticResource GhostButtonStyle}" Margin="12,0,0,0"/>
+                            </Grid>
+                        </Border>
+
+                        <TabControl x:Name="EffectsSectionTabs" Grid.Row="2" Style="{StaticResource SectionTabControlStyle}">
                             <TabItem Header="{DynamicResource AllEffectsTab}">
                                 <Grid Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions><ColumnDefinition Width="340"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
@@ -435,6 +445,16 @@
                                         <Grid>
                                             <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                                             <StackPanel>
+                                                <Grid Margin="2,0,2,7">
+                                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{DynamicResource AllEffectsTitle}" FontWeight="Bold" FontSize="15"/>
+                                                        <TextBlock Foreground="{StaticResource RoMutedBrush}" FontSize="11">
+                                                            <Run Text="{Binding Effects.Count, Mode=OneWay}"/><Run Text=" "/><Run Text="{DynamicResource EffectsConfigured}"/>
+                                                        </TextBlock>
+                                                    </StackPanel>
+                                                    <Button Grid.Column="1" Content="{DynamicResource Add}" Click="AddEffect_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                                                </Grid>
                                                 <TextBlock Text="{DynamicResource EffectSearch}" FontWeight="SemiBold" Margin="2,0,0,5"/>
                                                 <TextBox x:Name="EffectSearchBox" Margin="0,0,0,8" TextChanged="EffectSearch_TextChanged"
                                                          ToolTip="{DynamicResource EffectSearchHint}"/>
@@ -537,7 +557,15 @@
                                                                     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                                                                     <TextBlock Text="{DynamicResource Name}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
                                                                     <Border Grid.Column="2" Grid.RowSpan="3" Width="76" Height="76" Padding="5" Background="#EDF3FB" CornerRadius="7"><Image Source="{Binding TemplateImageBase64, Converter={StaticResource Base64Image}}" Stretch="Uniform"/></Border>
-                                                                    <TextBlock Grid.Row="1" Text="{DynamicResource Group}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Width="100" HorizontalAlignment="Left" Text="{Binding GroupNumber}" Style="{StaticResource FieldEditorStyle}"/>
+                                                                    <TextBlock Grid.Row="1" Text="{DynamicResource EffectPanel}" Style="{StaticResource FieldLabelStyle}"/>
+                                                                    <StackPanel Grid.Row="1" Grid.Column="1">
+                                                                        <ComboBox ItemsSource="{Binding DataContext.BuffPanelGroups, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                                                  SelectedValuePath="GroupNumber" SelectedValue="{Binding GroupNumber, Mode=TwoWay}"
+                                                                                  Margin="0,4,14,2" MinWidth="210" HorizontalAlignment="Left">
+                                                                            <ComboBox.ItemTemplate><DataTemplate><TextBlock><Run Text="{DynamicResource EffectPanelGroupPrefix}"/><Run Text=" "/><Run Text="{Binding GroupNumber, Mode=OneWay}"/></TextBlock></DataTemplate></ComboBox.ItemTemplate>
+                                                                        </ComboBox>
+                                                                        <Button Content="{DynamicResource ConfigurePanels}" Click="OpenEffectPanels_Click" Style="{StaticResource GhostButtonStyle}" HorizontalAlignment="Left" Margin="0,2,0,4"/>
+                                                                    </StackPanel>
                                                                     <CheckBox Grid.Row="2" Grid.Column="1" Content="{DynamicResource TrackEffect}" IsChecked="{Binding Enabled}" Margin="0,8,0,8"/>
                                                                 </Grid>
                                                             </GroupBox>
