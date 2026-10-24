@@ -276,6 +276,10 @@
     <sys:String x:Key="DatabaseInputHint">While the database is open, keyboard input stays in search and does not reach RO. Press the hotkey again to close it.</sys:String>
     <sys:String x:Key="MarketRefreshInterval">Refresh market in background every, min</sys:String>
     <sys:String x:Key="GoldGoblin">Gold Goblin</sys:String>
+    <sys:String x:Key="GoldGoblinDescription">Values all loot in the current session using NPC, Vending, or manual prices.</sys:String>
+    <sys:String x:Key="SessionItems">Items this session</sys:String>
+    <sys:String x:Key="ItemsWithoutPrice">Entries without a price</sys:String>
+    <sys:String x:Key="PriceSource">Price source</sys:String>
     <sys:String x:Key="Item">Item</sys:String>
     <sys:String x:Key="Count">Count</sys:String>
     <sys:String x:Key="Cost">Cost</sys:String>
