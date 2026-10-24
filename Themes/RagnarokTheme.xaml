@@ -69,6 +69,76 @@
         <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}"/>
         <Setter Property="Foreground" Value="{StaticResource RoMutedBrush}"/>
     </Style>
+    <Style x:Key="DashboardCardStyle" TargetType="Border">
+        <Setter Property="Margin" Value="0,0,10,0"/>
+        <Setter Property="Padding" Value="18,15"/>
+        <Setter Property="CornerRadius" Value="9"/>
+        <Setter Property="Background" Value="{StaticResource RoCardBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RoSoftBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    <Style x:Key="DashboardValueStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource RoDisplayFont}"/>
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource RoDeepBlueBrush}"/>
+    </Style>
+    <Style x:Key="DashboardLabelStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource RoMutedBrush}"/>
+        <Setter Property="Margin" Value="0,3,0,0"/>
+    </Style>
+    <Style x:Key="WorkspacePanelStyle" TargetType="Border">
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Background" Value="{StaticResource RoPanelBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RoSoftBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    <Style x:Key="EditorTabItemStyle" TargetType="TabItem">
+        <Setter Property="Foreground" Value="{StaticResource RoMutedBrush}"/>
+        <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="14,9"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border x:Name="TabBorder" Padding="{TemplateBinding Padding}" Background="Transparent"
+                            BorderBrush="Transparent" BorderThickness="0,0,0,2">
+                        <ContentPresenter ContentSource="Header" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="TabBorder" Property="Background" Value="#EDF4FD"/></Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="TabBorder" Property="BorderBrush" Value="{StaticResource RoBlueBrush}"/>
+                            <Setter TargetName="TabBorder" Property="Background" Value="#F5F9FE"/>
+                            <Setter Property="Foreground" Value="{StaticResource RoDeepBlueBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="EditorTabControlStyle" TargetType="TabControl">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource EditorTabItemStyle}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabControl">
+                    <DockPanel>
+                        <Border DockPanel.Dock="Top" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="0,0,0,1">
+                            <TabPanel IsItemsHost="True" Background="Transparent"/>
+                        </Border>
+                        <ContentPresenter Content="{TemplateBinding SelectedContent}"
+                                          ContentTemplate="{TemplateBinding SelectedContentTemplate}"/>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SectionTabControlStyle" TargetType="TabControl" BasedOn="{StaticResource EditorTabControlStyle}"/>
 
     <Style x:Key="RoButtonBaseStyle" TargetType="Button">
         <Setter Property="Foreground" Value="{StaticResource RoDeepBlueBrush}"/>

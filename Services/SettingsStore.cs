@@ -5,6 +5,7 @@ namespace RoAura.Services;
 
 public sealed class SettingsStore
 {
+    private const string UiUpgradeBackupMarker = "ui-2.0-backup.completed";
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -24,6 +25,7 @@ public sealed class SettingsStore
     {
         try
         {
+            EnsureUiUpgradeBackup();
             ActiveProfileName = ReadActiveProfileName();
             // settings.json is the mutable working copy. Preset files are
             // explicit snapshots and must never be changed by autosave.
@@ -51,6 +53,55 @@ public sealed class SettingsStore
         {
             return new AppSettings();
         }
+    }
+
+    private void EnsureUiUpgradeBackup()
+    {
+        try
+        {
+            Directory.CreateDirectory(RecoveryDirectory);
+            var markerPath = Path.Combine(RecoveryDirectory, UiUpgradeBackupMarker);
+            if (File.Exists(markerPath)) return;
+
+            var hasExistingConfiguration = File.Exists(SettingsPath) ||
+                                           File.Exists(ActiveProfilePath) ||
+                                           Directory.Exists(ProfilesDirectory);
+            if (!hasExistingConfiguration)
+            {
+                AtomicWrite(markerPath, DateTime.UtcNow.ToString("O"));
+                return;
+            }
+
+            var backupDirectory = Path.Combine(RecoveryDirectory,
+                $"before-ui-2.0.{DateTime.UtcNow:yyyyMMdd-HHmmssfff}");
+            Directory.CreateDirectory(backupDirectory);
+
+            CopyIfExists(SettingsPath, Path.Combine(backupDirectory, "settings.json"));
+            CopyIfExists(ActiveProfilePath, Path.Combine(backupDirectory, "active-profile.txt"));
+            if (Directory.Exists(ProfilesDirectory))
+            {
+                foreach (var sourcePath in Directory.EnumerateFiles(ProfilesDirectory, "*", SearchOption.AllDirectories))
+                {
+                    var relativePath = Path.GetRelativePath(ProfilesDirectory, sourcePath);
+                    var destinationPath = Path.Combine(backupDirectory, "Profiles", relativePath);
+                    Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
+                    File.Copy(sourcePath, destinationPath, overwrite: false);
+                }
+            }
+
+            AtomicWrite(markerPath, backupDirectory);
+        }
+        catch (Exception ex)
+        {
+            DebugLog.Write($"UI 2.0 BACKUP ERROR: {ex}");
+        }
+    }
+
+    private static void CopyIfExists(string sourcePath, string destinationPath)
+    {
+        if (!File.Exists(sourcePath)) return;
+        Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
+        File.Copy(sourcePath, destinationPath, overwrite: false);
     }
 
     public void Save(AppSettings settings)

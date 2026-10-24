@@ -136,7 +136,8 @@ public sealed class AppSettings : INotifyPropertyChanged
         new() { Kind = RateIndicatorKind.TimeToLevel, X = 1050, Y = 442, TextColor = "#FFFFFFFF" },
         new() { Kind = RateIndicatorKind.TimeToJobLevel, X = 1050, Y = 474, TextColor = "#FFC9A7FF" },
         new() { Kind = RateIndicatorKind.ZenyPerHour, X = 1050, Y = 506, TextColor = "#FFFFE16A" },
-        new() { Kind = RateIndicatorKind.ZenyTotal, X = 1050, Y = 538, TextColor = "#FFFFD45C" }
+        new() { Kind = RateIndicatorKind.ZenyTotal, X = 1050, Y = 538, TextColor = "#FFFFD45C" },
+        new() { Kind = RateIndicatorKind.SessionTime, X = 1050, Y = 570, TextColor = "#FFFFFFFF" }
     ];
     public ObservableCollection<GoldGoblinPriceRule> GoldGoblinPriceRules { get; set; } = [];
 
@@ -209,6 +210,7 @@ public sealed class AppSettings : INotifyPropertyChanged
         AddMissingRateIndicator(RateIndicatorKind.TimeToJobLevel, 474, "#FFC9A7FF");
         AddMissingRateIndicator(RateIndicatorKind.ZenyPerHour, 506, "#FFFFE16A");
         AddMissingRateIndicator(RateIndicatorKind.ZenyTotal, 538, "#FFFFD45C");
+        AddMissingRateIndicator(RateIndicatorKind.SessionTime, 570, "#FFFFFFFF");
     }
 
     public RewardChannelSettings? RewardChannel(RewardKind kind) =>

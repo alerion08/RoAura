@@ -33,6 +33,7 @@ public partial class MainWindow : Window
     private int _learningGeneration;
     private readonly ObservableCollection<MonsterEntry> _monsters;
     private IReadOnlyDictionary<int, ItemEntry> _items;
+    private ICollectionView? _effectsView;
     private readonly DispatcherTimer _connectionDetectionTimer;
     private bool _appliedPacketCaptureEnabled;
     private string _appliedPacketServerAddress = "";
@@ -63,6 +64,7 @@ public partial class MainWindow : Window
         _packetCapture.SkillUsed += OnLearningSkillObserved;
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
         DataContext = settings;
+        _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
         Settings.SyncBuffPanelGroups();
         Settings.SyncRewardGroups();
         Settings.SyncRateIndicators();
@@ -83,7 +85,7 @@ public partial class MainWindow : Window
         LanguageBox.SelectedIndex = settings.Language == "en" ? 1 : 0;
         UpdateServerProfileLabels();
         RefreshPresetList(_store.ActiveProfileName);
-        CooldownNavButton.IsChecked = true;
+        HomeNavButton.IsChecked = true;
         _languageReady = true;
         ServerProfileBox.SelectedIndex = settings.ServerProfile switch
         {
@@ -113,6 +115,20 @@ public partial class MainWindow : Window
         if (MainTabs is null || sender is not RadioButton { Tag: string tag }) return;
         if (int.TryParse(tag, out var index) && index >= 0 && index < MainTabs.Items.Count)
             MainTabs.SelectedIndex = index;
+    }
+
+    private void QuickNavigate_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button { Tag: string tag }) return;
+        var target = tag switch
+        {
+            "1" => CooldownNavButton,
+            "2" => EffectsNavButton,
+            "3" => RemindersNavButton,
+            "4" => EquipmentNavButton,
+            _ => null
+        };
+        if (target is not null) target.IsChecked = true;
     }
 
     private void ServerProfile_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -145,7 +161,7 @@ public partial class MainWindow : Window
         DatabaseTab.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
         DatabaseHotkeyControls.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
 
-        if (!supportsDatabases && MainTabs.SelectedIndex >= 4)
+        if (!supportsDatabases && MainTabs.SelectedIndex >= 5)
             CooldownNavButton.IsChecked = true;
 
         if (supportsDatabases)
@@ -422,7 +438,6 @@ public partial class MainWindow : Window
     private void SaveSettings(bool persist = true, bool applyPacketCapture = true)
     {
         SkillsGrid.CommitEdit();
-        EffectsGrid.CommitEdit();
         RemindersGrid.CommitEdit();
         EquipmentGrid.CommitEdit();
         MvpTimersGrid.CommitEdit();
@@ -680,10 +695,42 @@ public partial class MainWindow : Window
 
     private void AddEffect_Click(object sender, RoutedEventArgs e)
     {
-        var effect = new TrackedEffect();
+        if (EffectSearchBox is not null) EffectSearchBox.Text = "";
+        Settings.SyncBuffPanelGroups();
+        var wizard = new EffectWizardWindow(Settings.BuffPanelGroups, StartEffectLearningFromWizard)
+        {
+            Owner = this
+        };
+        if (wizard.ShowDialog() != true || wizard.CreatedEffect is not { } effect) return;
         Settings.Effects.Add(effect);
+        Settings.SyncBuffPanelGroups();
         EffectsGrid.SelectedItem = effect;
         EffectsGrid.ScrollIntoView(effect);
+        SaveSettings();
+    }
+
+    private void StartEffectLearningFromWizard(TrackedEffect effect)
+    {
+        if (!EnsureNpcap()) return;
+        StartLearning();
+        _learningEffect = effect;
+        SetStatus(T("Активируйте нужный эффект в RO в течение 20 секунд.",
+            "Activate the required effect in RO within 20 seconds."));
+        _ = ExpireLearningAsync(effect.Id, "effect", _learningGeneration);
+    }
+
+    private void EffectSearch_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_effectsView is null) return;
+        var query = EffectSearchBox.Text.Trim();
+        _effectsView.Filter = item =>
+        {
+            if (string.IsNullOrWhiteSpace(query)) return true;
+            if (item is not TrackedEffect effect) return false;
+            return effect.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                   effect.StatusId.ToString().Contains(query, StringComparison.OrdinalIgnoreCase);
+        };
+        _effectsView.Refresh();
     }
 
     private void DeleteEffect_Click(object sender, RoutedEventArgs e)
@@ -725,7 +772,6 @@ public partial class MainWindow : Window
     private void TestEffect(bool appeared)
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
-        EffectsGrid.CommitEdit();
         _overlay.ShowEffectNotification(effect, appeared);
     }
 
@@ -733,7 +779,6 @@ public partial class MainWindow : Window
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
         if (!EnsureNpcap()) return;
-        EffectsGrid.CommitEdit();
         StartLearning();
         _learningEffect = effect;
         SetStatus(T($"Наложите эффект «{effect.Name}» в RO в течение 20 секунд.",
@@ -926,7 +971,6 @@ public partial class MainWindow : Window
             return;
         }
 
-        EffectsGrid.CommitEdit();
         Settings.SyncBuffPanelGroups();
         if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group)
         {
@@ -945,6 +989,72 @@ public partial class MainWindow : Window
         if (Application.Current is App app) app.SetEscapeHotkeyEnabled(true);
         SaveSettings();
         Hide();
+    }
+
+    private void AddBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        var nextNumber = Settings.BuffPanelGroups.Count == 0 ? 1 : Settings.BuffPanelGroups.Max(item => item.GroupNumber) + 1;
+        var group = new BuffPanelGroup { GroupNumber = nextNumber, X = 900, Y = 360 + Settings.BuffPanelGroups.Count * 58 };
+        Settings.BuffPanelGroups.Add(group);
+        BuffPanelGroupBox.SelectedItem = group;
+        SaveSettings();
+    }
+
+    private void DuplicateBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup source) return;
+        var nextNumber = Settings.BuffPanelGroups.Max(item => item.GroupNumber) + 1;
+        var copy = new BuffPanelGroup
+        {
+            GroupNumber = nextNumber, X = source.X + 35, Y = source.Y + 35,
+            IconSize = source.IconSize, IconPadding = source.IconPadding, Gap = source.Gap,
+            ActiveOpacityPercent = source.ActiveOpacityPercent, InactiveOpacityPercent = source.InactiveOpacityPercent
+        };
+        Settings.BuffPanelGroups.Add(copy);
+        BuffPanelGroupBox.SelectedItem = copy;
+        SaveSettings();
+    }
+
+    private void DeleteBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group) return;
+        var answer = MessageBox.Show(this,
+            T("Удалить выбранную панель? Эффекты останутся в общем списке без панели.",
+              "Delete the selected panel? Its effects will remain in the main list without a panel."),
+            T("Удаление панели", "Delete panel"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        if (answer != MessageBoxResult.Yes) return;
+        foreach (var effect in Settings.Effects.Where(item => item.ShowOnBuffPanel && item.GroupNumber == group.GroupNumber))
+            effect.ShowOnBuffPanel = false;
+        Settings.BuffPanelGroups.Remove(group);
+        Settings.SyncBuffPanelGroups();
+        if (Settings.BuffPanelGroups.Count > 0) BuffPanelGroupBox.SelectedIndex = 0;
+        SaveSettings();
+    }
+
+    private void AddEffectToPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group || PanelEffectChoiceBox.SelectedItem is not TrackedEffect effect) return;
+        effect.GroupNumber = group.GroupNumber;
+        effect.ShowOnBuffPanel = true;
+        Settings.SyncBuffPanelGroups();
+        BuffPanelGroupBox.Items.Refresh();
+        SaveSettings();
+    }
+
+    private void ConfigurePanelEffect_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button { Tag: TrackedEffect effect }) return;
+        EffectsSectionTabs.SelectedIndex = 0;
+        EffectsGrid.SelectedItem = effect;
+        EffectsGrid.ScrollIntoView(effect);
+    }
+
+    private async void TestBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group) return;
+        group.IsPlacementPreview = true;
+        await Task.Delay(TimeSpan.FromSeconds(3));
+        group.IsPlacementPreview = false;
     }
 
     private void HandleMoveToggle(ToggleButton button, string kind, bool group)
