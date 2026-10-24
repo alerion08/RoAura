@@ -1,3 +1,17 @@
+# RoAura 2.13.2
+
+## Русский
+
+- Исправлена нулевая стоимость добычи в Gold Goblin после установки через Setup.
+- База NPC-цен SpringRO теперь включается не только в portable-архив, но и в установщик.
+- В релизную сборку добавлена обязательная проверка наличия базы предметов и базы цен.
+
+## English
+
+- Fixed Gold Goblin loot values showing as zero after installing RoAura through Setup.
+- The SpringRO NPC price database is now included in both the portable archive and the installer.
+- Added a release validation check for the item and NPC price databases.
+
 # RoAura 2.9.0
 
 ## 2.9.0
