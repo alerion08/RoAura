@@ -23,7 +23,7 @@ public partial class App : Application
     private ulong _previousNextJobExperience;
     private DateTime _baseRequirementChangedUtc;
     private DateTime _jobRequirementChangedUtc;
-    private long? _lastZeny;
+    private readonly ZenyBalanceTracker _zenyBalance = new();
     private DateTime _lastDatabaseToggleUtc = DateTime.MinValue;
     private readonly GitHubUpdateService _updateService = new();
     private SpringRoMarketService? _marketService;
@@ -45,7 +45,7 @@ public partial class App : Application
 
     public void ResetPacketSession(bool resetTrackedState = false)
     {
-        _lastZeny = null;
+        _zenyBalance.Reset();
         _nextBaseExperience = 0;
         _nextJobExperience = 0;
         _previousNextBaseExperience = 0;
@@ -340,14 +340,14 @@ public partial class App : Application
     private void OnPacketZenyChanged(RoZenyPacket packet) => Dispatcher.BeginInvoke(() =>
     {
         if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled) return;
-        if (!_lastZeny.HasValue)
+        var sample = _zenyBalance.Observe(packet.Total);
+        if (!sample.Accepted)
         {
-            _lastZeny = packet.Total;
+            DebugLog.Write($"PACKET ZENY IGNORED total={packet.Total}; reason={sample.Reason}");
             return;
         }
 
-        var gained = packet.Total - _lastZeny.Value;
-        _lastZeny = packet.Total;
+        var gained = sample.Gained;
         if (gained <= 0) return;
         _overlay.ShowZenyReward(gained);
         _overlay.RecordZeny(gained);

@@ -137,6 +137,7 @@ public partial class OverlayWindow : Window
             SyncOverlayToGameWindow();
             UpdateHostVisibility();
             UpdateCooldowns();
+            UpdateRateIndicators();
         };
         _timer.Start();
         Loaded += (_, _) => SyncOverlayToGameWindow(true);
@@ -589,6 +590,25 @@ public partial class OverlayWindow : Window
             }
         }
 
+        var sessionStarted = new[]
+            {
+                _baseExperienceStartedUtc,
+                _jobExperienceStartedUtc,
+                _zenyStartedUtc,
+                _settings.ServerProfile == GameServerProfile.SpringRo
+                    ? _goldGoblin.SessionStartedUtc
+                    : null
+            }
+            .Where(value => value.HasValue)
+            .Select(value => value!.Value)
+            .DefaultIfEmpty()
+            .Min();
+        var hasSession = _baseExperienceStartedUtc.HasValue || _jobExperienceStartedUtc.HasValue ||
+                         _zenyStartedUtc.HasValue ||
+                         (_settings.ServerProfile == GameServerProfile.SpringRo &&
+                          _goldGoblin.SessionStartedUtc.HasValue);
+        var sessionTime = hasSession ? FormatElapsed(now - sessionStarted) : "00:00:00";
+
         foreach (var indicator in _settings.RateIndicators)
         {
             indicator.ValueText = indicator.Kind switch
@@ -601,10 +621,17 @@ public partial class OverlayWindow : Window
                     ? $"Time to Job level: {timeToJobLevel}"
                     : $"До Job уровня: {timeToJobLevel}",
                 RateIndicatorKind.ZenyPerHour => $"Zeny/h: {zenyPerHour:N0}",
-                _ => $"Zeny Total: {effectiveZeny:N0}"
+                RateIndicatorKind.ZenyTotal => $"Zeny Total: {effectiveZeny:N0}",
+                _ => _settings.Language == "en"
+                    ? $"Session time: {sessionTime}"
+                    : $"Время сессии: {sessionTime}"
             };
         }
     }
+
+    private static string FormatElapsed(TimeSpan value) => value.TotalDays >= 1
+        ? $"{(int)value.TotalDays}d {value:hh\\:mm\\:ss}"
+        : value.ToString("hh\\:mm\\:ss");
 
     private string FormatRewardText(RewardNotification notification) => notification.Kind switch
     {
