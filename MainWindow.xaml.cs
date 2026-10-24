@@ -735,12 +735,67 @@ public partial class MainWindow : Window
 
     private void DeleteEffect_Click(object sender, RoutedEventArgs e)
     {
-        if (EffectsGrid.SelectedItem is TrackedEffect effect)
-        {
-            Settings.Effects.Remove(effect);
-            Settings.SyncBuffPanelGroups();
-        }
+        if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
+        var answer = MessageBox.Show(this,
+            T($"Удалить эффект «{effect.Name}»? Настройки и уведомления этого эффекта будут удалены.",
+                $"Delete effect “{effect.Name}”? Its settings and notifications will be removed."),
+            T("Удаление эффекта", "Delete effect"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        if (answer != MessageBoxResult.Yes) return;
+        Settings.Effects.Remove(effect);
+        Settings.SyncBuffPanelGroups();
+        SaveSettings();
     }
+
+    private void DuplicateEffect_Click(object sender, RoutedEventArgs e)
+    {
+        if (EffectsGrid.SelectedItem is not TrackedEffect source) { SelectFirst("effect"); return; }
+        var copy = CloneEffect(source);
+        Settings.Effects.Add(copy);
+        Settings.SyncBuffPanelGroups();
+        EffectsGrid.SelectedItem = copy;
+        EffectsGrid.ScrollIntoView(copy);
+        SaveSettings();
+        SetStatus(T($"Создана копия эффекта «{source.Name}».", $"A copy of “{source.Name}” was created."));
+    }
+
+    private static TrackedEffect CloneEffect(TrackedEffect source) => new()
+    {
+        Name = $"{source.Name} ({LocalizationService.Get("Copy")})",
+        Enabled = source.Enabled,
+        StatusId = source.StatusId,
+        TemplateImageBase64 = source.TemplateImageBase64,
+        TemplateFileName = source.TemplateFileName,
+        NotifyOnAppeared = source.NotifyOnAppeared,
+        NotifyOnDisappeared = source.NotifyOnDisappeared,
+        AppearedText = source.AppearedText,
+        DisappearedText = source.DisappearedText,
+        NotificationDurationSeconds = source.NotificationDurationSeconds,
+        NotificationSize = source.NotificationSize,
+        NotificationColor = source.NotificationColor,
+        NotificationX = source.NotificationX,
+        NotificationY = source.NotificationY,
+        SoundEnabled = source.SoundEnabled,
+        SoundPath = source.SoundPath,
+        AppearedSoundEnabled = source.AppearedSoundEnabled,
+        AppearedSoundPath = source.AppearedSoundPath,
+        DisappearedSoundEnabled = source.DisappearedSoundEnabled,
+        DisappearedSoundPath = source.DisappearedSoundPath,
+        GroupNumber = source.GroupNumber,
+        NotificationIconSize = source.NotificationIconSize,
+        NotificationIconPadding = source.NotificationIconPadding,
+        NotificationTextSize = source.NotificationTextSize,
+        NotificationOpacityPercent = source.NotificationOpacityPercent,
+        ShowNotificationIcon = source.ShowNotificationIcon,
+        NotificationBackgroundColor = source.NotificationBackgroundColor,
+        ShowNotificationBackground = source.ShowNotificationBackground,
+        ShowNotificationBorder = source.ShowNotificationBorder,
+        AppearedSoundVolumePercent = source.AppearedSoundVolumePercent,
+        DisappearedSoundVolumePercent = source.DisappearedSoundVolumePercent,
+        ShowOnBuffPanel = source.ShowOnBuffPanel,
+        RepeatProtectionSeconds = source.RepeatProtectionSeconds,
+        ShowDurationText = source.ShowDurationText,
+        ShowDurationFill = source.ShowDurationFill
+    };
 
     private void PickEffectIcon_Click(object sender, RoutedEventArgs e)
     {
@@ -768,6 +823,7 @@ public partial class MainWindow : Window
 
     private void TestEffectAppeared_Click(object sender, RoutedEventArgs e) => TestEffect(true);
     private void TestEffectDisappeared_Click(object sender, RoutedEventArgs e) => TestEffect(false);
+    private void CheckEffectNotification_Click(object sender, RoutedEventArgs e) => TestEffect(true);
 
     private void TestEffect(bool appeared)
     {
