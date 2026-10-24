@@ -23,6 +23,14 @@
     <sys:String x:Key="DetectConnectionNow">Определить сейчас</sys:String>
     <sys:String x:Key="CheckNpcap">Проверить Npcap</sys:String>
     <sys:String x:Key="ResetAid">Сбросить AID</sys:String>
+    <sys:String x:Key="Home">Главная</sys:String>
+    <sys:String x:Key="HomeTitle">Центр управления RoAura</sys:String>
+    <sys:String x:Key="HomeSubtitle">Проверьте соединение с игрой и быстро перейдите к настройке нужного оверлея.</sys:String>
+    <sys:String x:Key="ReadyToWork">RoAura готова</sys:String>
+    <sys:String x:Key="QuickStart">Быстрый доступ</sys:String>
+    <sys:String x:Key="QuickStartHint">Основные функции собраны в отдельных разделах. Настройки и пакетная логика сохранены без изменений.</sys:String>
+    <sys:String x:Key="ConnectionStatus">Подключение к игре</sys:String>
+    <sys:String x:Key="ConnectionStatusHint">RoAura автоматически определяет процесс, IP и порт. При смене клиента выполните повторное определение.</sys:String>
     <sys:String x:Key="Cooldowns">Cooldowns</sys:String>
     <sys:String x:Key="CooldownSettingsTitle">Настройки кулдаунов</sys:String>
     <sys:String x:Key="CooldownSettingsHint">Добавляйте навыки, назначайте Skill ID и настраивайте игровые иконки.</sys:String>
