@@ -47,6 +47,17 @@ jobs:
       - name: Verify clean release contents
         shell: pwsh
         run: |
+          $requiredFiles = @(
+            '.\artifacts\publish\RoAura.exe',
+            '.\artifacts\publish\Data\items.springro.json',
+            '.\artifacts\publish\Data\item-prices.springro.json'
+          )
+          foreach ($requiredFile in $requiredFiles) {
+            if (-not (Test-Path $requiredFile -PathType Leaf)) {
+              throw "Required release file is missing: $requiredFile"
+            }
+          }
+
           $forbidden = @(
             'settings.json',
             'active-profile.txt',
