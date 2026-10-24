@@ -35,6 +35,13 @@
     <sys:String x:Key="CooldownSettingsTitle">Настройки кулдаунов</sys:String>
     <sys:String x:Key="CooldownSettingsHint">Добавляйте навыки, назначайте Skill ID и настраивайте игровые иконки.</sys:String>
     <sys:String x:Key="Effects">Buffs / Debuffs</sys:String>
+    <sys:String x:Key="EffectSettingsTitle">Эффекты и уведомления</sys:String>
+    <sys:String x:Key="EffectSettingsHint">Выберите эффект слева, затем настройте события, оформление и его группу справа.</sys:String>
+    <sys:String x:Key="NoEffectsTitle">Эффекты ещё не добавлены</sys:String>
+    <sys:String x:Key="NoEffectsHint">Добавьте первый бафф или дебафф, выберите иконку и обучите его Status ID.</sys:String>
+    <sys:String x:Key="AddEffect">Добавить эффект</sys:String>
+    <sys:String x:Key="SelectEffectTitle">Выберите эффект</sys:String>
+    <sys:String x:Key="SelectEffectHint">Его параметры появятся в этой области.</sys:String>
     <sys:String x:Key="Reminders">Reminder</sys:String>
     <sys:String x:Key="On">Вкл</sys:String>
     <sys:String x:Key="Name">Название</sys:String>
