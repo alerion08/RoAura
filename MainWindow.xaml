@@ -424,8 +424,8 @@
                             </Grid>
                         </Border>
 
-                        <TabControl Grid.Row="1" Style="{StaticResource SectionTabControlStyle}">
-                            <TabItem Header="{DynamicResource Effects}">
+                        <TabControl x:Name="EffectsSectionTabs" Grid.Row="1" Style="{StaticResource SectionTabControlStyle}">
+                            <TabItem Header="{DynamicResource AllEffectsTab}">
                                 <Grid Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions><ColumnDefinition Width="340"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                     <Border Style="{StaticResource WorkspacePanelStyle}">
@@ -604,29 +604,55 @@
                             </TabItem>
                             <TabItem Header="{DynamicResource EffectPanelsTab}">
                                 <Grid Margin="0,10,0,0" DataContext="{Binding SelectedItem, ElementName=BuffPanelGroupBox}">
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="250"/><ColumnDefinition Width="10"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                    <GroupBox Header="{DynamicResource SelectEffectPanel}">
-                                        <StackPanel>
-                                            <ComboBox x:Name="BuffPanelGroupBox" ItemsSource="{Binding DataContext.BuffPanelGroups, RelativeSource={RelativeSource AncestorType=Window}}">
-                                                <ComboBox.ItemTemplate>
-                                                    <DataTemplate><TextBlock><Run Text="{DynamicResource EffectPanelGroupPrefix}"/><Run Text=" "/><Run Text="{Binding GroupNumber}"/></TextBlock></DataTemplate>
-                                                </ComboBox.ItemTemplate>
-                                            </ComboBox>
-                                            <TextBlock Text="{DynamicResource EffectPanelsHint}" Foreground="{StaticResource RoMutedBrush}" TextWrapping="Wrap" Margin="0,10,0,0"/>
-                                        </StackPanel>
-                                    </GroupBox>
-                                    <GroupBox Grid.Column="2" Header="{DynamicResource BuffPanelSettings}">
-                                        <StackPanel>
-                                            <WrapPanel>
-                                                <TextBlock Text="X" Style="{StaticResource FieldLabelStyle}"/><TextBox Width="90" Text="{Binding X}" Style="{StaticResource FieldEditorStyle}"/>
-                                                <TextBlock Text="Y" Style="{StaticResource FieldLabelStyle}"/><TextBox Width="90" Text="{Binding Y}" Style="{StaticResource FieldEditorStyle}"/>
-                                                <TextBlock Text="{DynamicResource IconSize}" Style="{StaticResource FieldLabelStyle}"/><TextBox Width="90" Text="{Binding IconSize}" Style="{StaticResource FieldEditorStyle}"/>
-                                                <TextBlock Text="{DynamicResource IconPadding}" Style="{StaticResource FieldLabelStyle}"/><TextBox Width="90" Text="{Binding IconPadding}" Style="{StaticResource FieldEditorStyle}"/>
-                                            </WrapPanel>
-                                            <WrapPanel><TextBlock Text="{DynamicResource ActiveOpacity}" Style="{StaticResource FieldLabelStyle}"/><TextBox Width="90" Text="{Binding ActiveOpacityPercent}" Style="{StaticResource FieldEditorStyle}"/><TextBlock Text="{DynamicResource InactiveOpacity}" Style="{StaticResource FieldLabelStyle}"/><TextBox Width="90" Text="{Binding InactiveOpacityPercent}" Style="{StaticResource FieldEditorStyle}"/></WrapPanel>
-                                            <ToggleButton x:Name="BuffPanelMoveModeButton" Content="{DynamicResource MoveBuffPanel}" HorizontalAlignment="Left" Checked="BuffPanelMoveMode_Changed" Unchecked="BuffPanelMoveMode_Changed"/>
-                                        </StackPanel>
-                                    </GroupBox>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="325"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <Border Style="{StaticResource WorkspacePanelStyle}">
+                                        <Grid>
+                                            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                            <Grid Margin="2,0,2,10"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{DynamicResource YourEffectPanels}" FontWeight="Bold" FontSize="15"/><TextBlock Text="{DynamicResource EffectPanelsIndependent}" Foreground="{StaticResource RoMutedBrush}"/></StackPanel><Button Grid.Column="1" Content="{DynamicResource AddPanel}" Click="AddBuffPanel_Click" Style="{StaticResource PrimaryButtonStyle}"/></Grid>
+                                            <ListBox x:Name="BuffPanelGroupBox" Grid.Row="1" ItemsSource="{Binding DataContext.BuffPanelGroups, RelativeSource={RelativeSource AncestorType=Window}}" BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch">
+                                                <ListBox.ItemContainerStyle><Style TargetType="ListBoxItem"><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Padding" Value="0"/><Setter Property="Margin" Value="0,0,0,7"/></Style></ListBox.ItemContainerStyle>
+                                                <ListBox.ItemTemplate><DataTemplate><Border Padding="11" CornerRadius="8" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" Background="#F8FBFF"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="46"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Border Width="38" Height="38" CornerRadius="7" Background="#566FC8"><TextBlock Text="▦" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><StackPanel Grid.Column="1" VerticalAlignment="Center"><TextBlock FontWeight="Bold"><Run Text="{DynamicResource EffectPanelGroupPrefix}"/><Run Text=" "/><Run Text="{Binding GroupNumber}"/></TextBlock><TextBlock Foreground="{StaticResource RoMutedBrush}" FontSize="11"><Run Text="{Binding Effects.Count}"/><Run Text=" · "/><Run Text="{Binding IconSize}"/><Run Text=" px · "/><Run Text="{Binding X}"/><Run Text=", "/><Run Text="{Binding Y}"/></TextBlock></StackPanel></Grid></Border></DataTemplate></ListBox.ItemTemplate>
+                                            </ListBox>
+                                            <TextBlock Grid.Row="2" Text="{DynamicResource EffectPanelsHint}" Foreground="{StaticResource RoMutedBrush}" TextWrapping="Wrap" Margin="2,8,2,0"/>
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Column="2" Style="{StaticResource WorkspacePanelStyle}">
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <StackPanel Margin="10">
+                                                <TextBlock Style="{StaticResource RoSectionTitleStyle}"><Run Text="{DynamicResource EffectPanelGroupPrefix}"/><Run Text=" "/><Run Text="{Binding GroupNumber}"/></TextBlock>
+                                                <TextBlock Text="{DynamicResource EffectPanelSettingsHint}" Foreground="{StaticResource RoMutedBrush}" Margin="0,3,0,14"/>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions><ColumnDefinition Width="1.1*"/><ColumnDefinition Width="16"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{DynamicResource PanelPreview}" FontWeight="Bold" FontSize="15" Margin="0,0,0,7"/>
+                                                        <Border MinHeight="125" Padding="18" CornerRadius="8" Background="#1E3150">
+                                                            <ItemsControl ItemsSource="{Binding Effects}"><ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate></ItemsControl.ItemsPanel><ItemsControl.ItemTemplate><DataTemplate><Border Width="52" Height="52" Margin="3" Padding="3" CornerRadius="7" Background="#455E91"><Image Source="{Binding TemplateImageBase64, Converter={StaticResource Base64Image}}" Stretch="Uniform"/></Border></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+                                                        </Border>
+                                                        <WrapPanel Margin="0,8,0,14"><ToggleButton x:Name="BuffPanelMoveModeButton" Content="{DynamicResource MoveBuffPanel}" Checked="BuffPanelMoveMode_Changed" Unchecked="BuffPanelMoveMode_Changed"/><Button Content="{DynamicResource TestPanel}" Click="TestBuffPanel_Click"/></WrapPanel>
+                                                        <Separator/>
+                                                        <TextBlock Text="{DynamicResource PanelEffects}" FontWeight="Bold" FontSize="15" Margin="0,10,0,7"/>
+                                                        <ItemsControl ItemsSource="{Binding Effects}"><ItemsControl.ItemTemplate><DataTemplate><Grid Margin="0,4"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{Binding Name}" FontWeight="SemiBold"/><TextBlock Foreground="{StaticResource RoMutedBrush}" FontSize="11"><Run Text="Status ID "/><Run Text="{Binding StatusId}"/></TextBlock></StackPanel><Button Grid.Column="1" Content="{DynamicResource Configure}" Tag="{Binding}" Click="ConfigurePanelEffect_Click"/></Grid></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+                                                        <TextBlock Text="{DynamicResource AddExistingEffect}" FontWeight="SemiBold" Margin="0,10,0,5"/>
+                                                        <DockPanel><Button DockPanel.Dock="Right" Content="{DynamicResource Add}" Click="AddEffectToPanel_Click"/><ComboBox x:Name="PanelEffectChoiceBox" ItemsSource="{Binding DataContext.Effects, RelativeSource={RelativeSource AncestorType=Window}}" DisplayMemberPath="Name"/></DockPanel>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="2">
+                                                        <TextBlock Text="{DynamicResource PanelSettings}" FontWeight="Bold" FontSize="15" Margin="0,0,0,7"/>
+                                                        <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="185"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                                            <TextBlock Text="{DynamicResource IconSize}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding IconSize}" Style="{StaticResource FieldEditorStyle}"/>
+                                                            <TextBlock Grid.Row="1" Text="{DynamicResource IconPadding}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding IconPadding}" Style="{StaticResource FieldEditorStyle}"/>
+                                                            <TextBlock Grid.Row="2" Text="{DynamicResource PanelGap}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Gap}" Style="{StaticResource FieldEditorStyle}"/>
+                                                            <TextBlock Grid.Row="3" Text="{DynamicResource ActiveOpacity}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ActiveOpacityPercent}" Style="{StaticResource FieldEditorStyle}"/>
+                                                            <TextBlock Grid.Row="4" Text="{DynamicResource InactiveOpacity}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="4" Grid.Column="1" Text="{Binding InactiveOpacityPercent}" Style="{StaticResource FieldEditorStyle}"/>
+                                                            <TextBlock Grid.Row="5" Text="{DynamicResource PositionX}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="5" Grid.Column="1" Text="{Binding X}" Style="{StaticResource FieldEditorStyle}"/>
+                                                            <TextBlock Grid.Row="6" Text="{DynamicResource PositionY}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Y}" Style="{StaticResource FieldEditorStyle}"/>
+                                                        </Grid>
+                                                        <Separator Margin="0,12"/>
+                                                        <WrapPanel><Button Content="{DynamicResource DuplicatePanel}" Click="DuplicateBuffPanel_Click"/><Button Content="{DynamicResource DeletePanel}" Click="DeleteBuffPanel_Click" Style="{StaticResource DangerButtonStyle}"/></WrapPanel>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </StackPanel>
+                                        </ScrollViewer>
+                                    </Border>
                                 </Grid>
                             </TabItem>
                         </TabControl>
