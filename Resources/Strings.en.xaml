@@ -117,6 +117,7 @@
     <sys:String x:Key="WizardStep1">ADD EFFECT · STEP 1 OF 2</sys:String>
     <sys:String x:Key="WizardStep2">ADD EFFECT · STEP 2 OF 2</sys:String>
     <sys:String x:Key="WizardFindTitle">How should the effect be identified?</sys:String>
+    <sys:String x:Key="WizardFindIntro">Detect the effect in game or enter a known Status ID manually.</sys:String>
     <sys:String x:Key="WizardSetupTitle">Effect setup</sys:String>
     <sys:String x:Key="WizardFindInGame">Find in game</sys:String>
     <sys:String x:Key="WizardFindInGameHint">Activate the effect after starting the search</sys:String>
@@ -125,6 +126,9 @@
     <sys:String x:Key="WizardSearchInstruction">Click “Start search”, then activate the effect in Ragnarok Online within 20 seconds.</sys:String>
     <sys:String x:Key="WizardStartSearch">Start search</sys:String>
     <sys:String x:Key="WizardSearchRunning">Search started. Activate the effect in game.</sys:String>
+    <sys:String x:Key="WizardWaitingForEffect">waiting for effect</sys:String>
+    <sys:String x:Key="WizardDetectedStatus">Detected Status ID:</sys:String>
+    <sys:String x:Key="WizardNameRequired">Enter an effect name.</sys:String>
     <sys:String x:Key="WizardInvalidId">Enter a valid Status ID greater than zero.</sys:String>
     <sys:String x:Key="WizardEffectNotFound">No effect has been found yet. Search again or enter the Status ID manually.</sys:String>
     <sys:String x:Key="WizardSetupHint">Set a name, choose a panel and decide when RoAura should notify you.</sys:String>
