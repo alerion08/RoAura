@@ -33,6 +33,7 @@ public partial class MainWindow : Window
     private int _learningGeneration;
     private readonly ObservableCollection<MonsterEntry> _monsters;
     private IReadOnlyDictionary<int, ItemEntry> _items;
+    private ICollectionView? _effectsView;
     private readonly DispatcherTimer _connectionDetectionTimer;
     private bool _appliedPacketCaptureEnabled;
     private string _appliedPacketServerAddress = "";
@@ -63,6 +64,7 @@ public partial class MainWindow : Window
         _packetCapture.SkillUsed += OnLearningSkillObserved;
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
         DataContext = settings;
+        _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
         Settings.SyncBuffPanelGroups();
         Settings.SyncRewardGroups();
         Settings.SyncRateIndicators();
@@ -436,7 +438,6 @@ public partial class MainWindow : Window
     private void SaveSettings(bool persist = true, bool applyPacketCapture = true)
     {
         SkillsGrid.CommitEdit();
-        EffectsGrid.CommitEdit();
         RemindersGrid.CommitEdit();
         EquipmentGrid.CommitEdit();
         MvpTimersGrid.CommitEdit();
@@ -694,10 +695,25 @@ public partial class MainWindow : Window
 
     private void AddEffect_Click(object sender, RoutedEventArgs e)
     {
+        if (EffectSearchBox is not null) EffectSearchBox.Text = "";
         var effect = new TrackedEffect();
         Settings.Effects.Add(effect);
         EffectsGrid.SelectedItem = effect;
         EffectsGrid.ScrollIntoView(effect);
+    }
+
+    private void EffectSearch_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_effectsView is null) return;
+        var query = EffectSearchBox.Text.Trim();
+        _effectsView.Filter = item =>
+        {
+            if (string.IsNullOrWhiteSpace(query)) return true;
+            if (item is not TrackedEffect effect) return false;
+            return effect.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                   effect.StatusId.ToString().Contains(query, StringComparison.OrdinalIgnoreCase);
+        };
+        _effectsView.Refresh();
     }
 
     private void DeleteEffect_Click(object sender, RoutedEventArgs e)
@@ -739,7 +755,6 @@ public partial class MainWindow : Window
     private void TestEffect(bool appeared)
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
-        EffectsGrid.CommitEdit();
         _overlay.ShowEffectNotification(effect, appeared);
     }
 
@@ -747,7 +762,6 @@ public partial class MainWindow : Window
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
         if (!EnsureNpcap()) return;
-        EffectsGrid.CommitEdit();
         StartLearning();
         _learningEffect = effect;
         SetStatus(T($"Наложите эффект «{effect.Name}» в RO в течение 20 секунд.",
@@ -940,7 +954,6 @@ public partial class MainWindow : Window
             return;
         }
 
-        EffectsGrid.CommitEdit();
         Settings.SyncBuffPanelGroups();
         if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group)
         {
