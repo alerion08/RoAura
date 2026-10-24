@@ -161,7 +161,18 @@
                         <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                         <StackPanel Margin="2,8">
                             <RadioButton x:Name="HomeNavButton" Tag="0" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><TextBlock Text="⌂" Style="{StaticResource NavGlyphStyle}"/><TextBlock Text="{DynamicResource Home}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Viewbox Width="28" Height="28" Margin="0,0,13,0">
+                                        <Grid Width="32" Height="32">
+                                            <Border CornerRadius="6" Background="#17315E" BorderBrush="#D7AA45" BorderThickness="1.5"/>
+                                            <Path Fill="#F7FBFF" Stroke="#9DC5F2" StrokeThickness="1"
+                                                  Data="M5,15 L16,6 L27,15 L24,15 L24,26 L19,26 L19,19 L13,19 L13,26 L8,26 L8,15 Z"/>
+                                            <Path Fill="#D7AA45" Data="M4,15 L16,4 L28,15 L25.5,17 L16,8.5 L6.5,17 Z"/>
+                                            <Ellipse Width="5" Height="5" Fill="#70B5FF" Stroke="White" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,4,0,0"/>
+                                        </Grid>
+                                    </Viewbox>
+                                    <TextBlock Text="{DynamicResource Home}" VerticalAlignment="Center"/>
+                                </StackPanel>
                             </RadioButton>
                             <RadioButton x:Name="CooldownNavButton" Tag="1" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/01_cooldowns.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Cooldowns}" VerticalAlignment="Center"/></StackPanel>
@@ -199,10 +210,11 @@
 
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-                    <Border x:Name="ConnectionSettingsPanel" Margin="0,0,0,7" Padding="10" BorderBrush="{StaticResource RoSoftBorderBrush}"
-                    BorderThickness="1" CornerRadius="7" Background="#EFFFFFFF">
-                <Border.Style>
-                    <Style TargetType="Border">
+                    <Expander x:Name="ConnectionSettingsPanel" Header="{DynamicResource ConnectionAndControl}" IsExpanded="False"
+                              Margin="0,0,0,7" Padding="10,6" BorderBrush="{StaticResource RoSoftBorderBrush}"
+                              BorderThickness="1" Background="#EFFFFFFF">
+                <Expander.Style>
+                    <Style TargetType="Expander">
                         <Setter Property="Visibility" Value="Collapsed"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding SelectedIndex, ElementName=MainTabs}" Value="0">
@@ -210,7 +222,7 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </Border.Style>
+                </Expander.Style>
                 <StackPanel>
                     <WrapPanel>
                         <CheckBox x:Name="EnabledBox" Content="{DynamicResource TrackingEnabled}" Margin="0,0,18,0" />
@@ -248,7 +260,7 @@
                         <TextBlock Text="{DynamicResource HotkeyExamples}" Foreground="{StaticResource RoMutedBrush}" VerticalAlignment="Center" />
                     </WrapPanel>
                 </StackPanel>
-                    </Border>
+                    </Expander>
 
                     <TabControl x:Name="MainTabs" Grid.Row="1" Style="{StaticResource SidebarTabControlStyle}" Background="Transparent">
                 <TabItem Header="{DynamicResource Home}">
@@ -293,12 +305,10 @@
                                 <GroupBox Header="{DynamicResource QuickStart}" Style="{StaticResource DetailGroupBoxStyle}">
                                     <StackPanel>
                                         <TextBlock Text="{DynamicResource QuickStartHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,0,0,10"/>
-                                        <WrapPanel>
-                                            <Button Content="{DynamicResource Cooldowns}" Tag="1" Click="QuickNavigate_Click" Style="{StaticResource PrimaryButtonStyle}"/>
-                                            <Button Content="{DynamicResource Effects}" Tag="2" Click="QuickNavigate_Click"/>
-                                            <Button Content="{DynamicResource Reminders}" Tag="3" Click="QuickNavigate_Click"/>
-                                            <Button Content="{DynamicResource Equipment}" Tag="4" Click="QuickNavigate_Click"/>
-                                        </WrapPanel>
+                                        <Button Content="{DynamicResource ConfigureCooldowns}" Tag="1" Click="QuickNavigate_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Stretch"/>
+                                        <Button Content="{DynamicResource ConfigureEffects}" Tag="2" Click="QuickNavigate_Click" HorizontalAlignment="Stretch"/>
+                                        <Button Content="{DynamicResource ConfigureReminders}" Tag="3" Click="QuickNavigate_Click" HorizontalAlignment="Stretch"/>
+                                        <Button Content="{DynamicResource ConfigureEquipment}" Tag="4" Click="QuickNavigate_Click" HorizontalAlignment="Stretch"/>
                                     </StackPanel>
                                 </GroupBox>
                                 <GroupBox Grid.Column="1" Header="{DynamicResource ConnectionStatus}" Style="{StaticResource DetailGroupBoxStyle}" Margin="0,0,0,12">
@@ -428,7 +438,7 @@
                         <TabControl Grid.Row="1" Style="{StaticResource SectionTabControlStyle}">
                             <TabItem Header="{DynamicResource Effects}">
                                 <Grid Margin="0,10,0,0">
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="355" MinWidth="310"/><ColumnDefinition Width="7"/><ColumnDefinition Width="*" MinWidth="520"/></Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="340"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                     <Border Style="{StaticResource WorkspacePanelStyle}">
                                         <Grid>
                                             <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
@@ -502,7 +512,6 @@
                                             </WrapPanel>
                                         </Grid>
                                     </Border>
-                                    <GridSplitter Grid.Column="1" Width="7" Background="#9DB7D8" Cursor="SizeWE"/>
                                     <Border Grid.Column="2" Style="{StaticResource WorkspacePanelStyle}">
                                         <Grid>
                                             <Border Padding="28" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#F8FBFF" CornerRadius="8">
@@ -546,10 +555,10 @@
                                                         <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="12">
                                                             <GroupBox Header="{DynamicResource EventsAndSound}">
                                                                 <Grid>
-                                                                    <Grid.ColumnDefinitions><ColumnDefinition Width="175"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                                                    <Grid.ColumnDefinitions><ColumnDefinition Width="230"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                                                     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                                                                    <CheckBox Content="{DynamicResource NotifyAppeared}" IsChecked="{Binding NotifyOnAppeared}" Margin="0,5,10,5"/><TextBox Grid.Column="1" Text="{Binding AppearedText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
-                                                                    <CheckBox Grid.Row="1" Content="{DynamicResource NotifyDisappeared}" IsChecked="{Binding NotifyOnDisappeared}" Margin="0,5,10,5"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DisappearedText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
+                                                                    <CheckBox Content="{DynamicResource NotifyAppeared}" IsChecked="{Binding NotifyOnAppeared}" Margin="0,5,10,5" ToolTip="{DynamicResource NotifyAppeared}"/><TextBox Grid.Column="1" Text="{Binding AppearedText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
+                                                                    <CheckBox Grid.Row="1" Content="{DynamicResource NotifyDisappeared}" IsChecked="{Binding NotifyOnDisappeared}" Margin="0,5,10,5" ToolTip="{DynamicResource NotifyDisappeared}"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DisappearedText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
                                                                     <CheckBox Grid.Row="2" Content="{DynamicResource AppearedSound}" IsChecked="{Binding AppearedSoundEnabled}" Margin="0,5,10,5"/>
                                                                     <WrapPanel Grid.Row="2" Grid.Column="1"><Button Content="{DynamicResource Choose}" Click="PickAppearedSound_Click"/><TextBlock Text="{DynamicResource Volume}" Margin="8,0,5,0" VerticalAlignment="Center"/><TextBox Width="58" Text="{Binding AppearedSoundVolumePercent}"/></WrapPanel>
                                                                     <CheckBox Grid.Row="3" Content="{DynamicResource DisappearedSound}" IsChecked="{Binding DisappearedSoundEnabled}" Margin="0,5,10,5"/>
@@ -572,9 +581,13 @@
                                                                     <TextBlock Grid.Row="2" Text="{DynamicResource IconPadding}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding NotificationIconPadding}" Style="{StaticResource FieldEditorStyle}"/>
                                                                     <TextBlock Grid.Row="3" Text="{DynamicResource TextColor}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding NotificationColor}" Style="{StaticResource FieldEditorStyle}"/>
                                                                     <TextBlock Grid.Row="3" Grid.Column="2" Text="{DynamicResource BackgroundColor}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="3" Text="{Binding NotificationBackgroundColor}" Style="{StaticResource FieldEditorStyle}"/>
-                                                                    <WrapPanel Grid.Row="4" Grid.ColumnSpan="4" Margin="0,8,0,0">
-                                                                        <CheckBox Content="{DynamicResource ShowIcon}" IsChecked="{Binding ShowNotificationIcon}" Margin="0,0,15,0"/><CheckBox Content="{DynamicResource ShowBackground}" IsChecked="{Binding ShowNotificationBackground}" Margin="0,0,15,0"/><CheckBox Content="{DynamicResource ShowBorder}" IsChecked="{Binding ShowNotificationBorder}" Margin="0,0,15,0"/><CheckBox Content="{DynamicResource ShowDurationText}" IsChecked="{Binding ShowDurationText}" Margin="0,0,15,0"/><CheckBox Content="{DynamicResource ShowDurationFill}" IsChecked="{Binding ShowDurationFill}"/>
-                                                                    </WrapPanel>
+                                                                    <StackPanel Grid.Row="4" Grid.ColumnSpan="4" Margin="0,10,0,0">
+                                                                        <CheckBox Content="{DynamicResource ShowIcon}" IsChecked="{Binding ShowNotificationIcon}" Margin="0,0,0,7"/>
+                                                                        <CheckBox Content="{DynamicResource ShowBackground}" IsChecked="{Binding ShowNotificationBackground}" Margin="0,0,0,7"/>
+                                                                        <CheckBox Content="{DynamicResource ShowBorder}" IsChecked="{Binding ShowNotificationBorder}" Margin="0,0,0,7"/>
+                                                                        <CheckBox Content="{DynamicResource ShowDurationText}" IsChecked="{Binding ShowDurationText}" Margin="0,0,0,7"/>
+                                                                        <CheckBox Content="{DynamicResource ShowDurationFill}" IsChecked="{Binding ShowDurationFill}"/>
+                                                                    </StackPanel>
                                                                 </Grid>
                                                             </GroupBox>
                                                         </StackPanel></ScrollViewer>
@@ -583,7 +596,7 @@
                                                         <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="12">
                                                             <GroupBox Header="{DynamicResource TechnicalSettings}">
                                                                 <Grid>
-                                                                    <Grid.ColumnDefinitions><ColumnDefinition Width="180"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                                                    <Grid.ColumnDefinitions><ColumnDefinition Width="260"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                                                     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                                                                     <TextBlock Text="Status ID" Style="{StaticResource FieldLabelStyle}"/><StackPanel Grid.Column="1" Orientation="Horizontal"><TextBox Width="100" Text="{Binding StatusId}" Style="{StaticResource FieldEditorStyle}"/><Button Content="{DynamicResource FindEventInGame}" Click="LearnEffectPacket_Click" Style="{StaticResource GoldButtonStyle}"/></StackPanel>
                                                                     <TextBlock Grid.Row="1" Text="{DynamicResource RepeatProtection}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Width="100" HorizontalAlignment="Left" Text="{Binding RepeatProtectionSeconds}" Style="{StaticResource FieldEditorStyle}"/>
@@ -603,9 +616,13 @@
                             <TabItem Header="{DynamicResource EffectPanelsTab}">
                                 <Grid Margin="0,10,0,0" DataContext="{Binding SelectedItem, ElementName=BuffPanelGroupBox}">
                                     <Grid.ColumnDefinitions><ColumnDefinition Width="250"/><ColumnDefinition Width="10"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                    <GroupBox Header="{DynamicResource EffectPanelsTab}">
+                                    <GroupBox Header="{DynamicResource SelectEffectPanel}">
                                         <StackPanel>
-                                            <ComboBox x:Name="BuffPanelGroupBox" ItemsSource="{Binding DataContext.BuffPanelGroups, RelativeSource={RelativeSource AncestorType=Window}}" DisplayMemberPath="GroupNumber"/>
+                                            <ComboBox x:Name="BuffPanelGroupBox" ItemsSource="{Binding DataContext.BuffPanelGroups, RelativeSource={RelativeSource AncestorType=Window}}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate><TextBlock><Run Text="{DynamicResource EffectPanelGroupPrefix}"/><Run Text=" "/><Run Text="{Binding GroupNumber}"/></TextBlock></DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
                                             <TextBlock Text="{DynamicResource EffectPanelsHint}" Foreground="{StaticResource RoMutedBrush}" TextWrapping="Wrap" Margin="0,10,0,0"/>
                                         </StackPanel>
                                     </GroupBox>
