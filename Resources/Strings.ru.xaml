@@ -39,6 +39,14 @@
     <sys:String x:Key="Cooldowns">Кулдауны</sys:String>
     <sys:String x:Key="CooldownSettingsTitle">Настройки кулдаунов</sys:String>
     <sys:String x:Key="CooldownSettingsHint">Добавляйте навыки, назначайте Skill ID и настраивайте игровые иконки.</sys:String>
+    <sys:String x:Key="AddSkill">Добавить умение</sys:String>
+    <sys:String x:Key="MySkills">Мои умения</sys:String>
+    <sys:String x:Key="SkillsConfigured">настроено</sys:String>
+    <sys:String x:Key="SkillSearchHint">Поиск по названию или Skill ID</sys:String>
+    <sys:String x:Key="NoSkillsTitle">Умения ещё не добавлены</sys:String>
+    <sys:String x:Key="NoSkillsHint">Добавьте первое умение и определите его Skill ID в игре.</sys:String>
+    <sys:String x:Key="SkillListHint">Выберите умение, чтобы изменить его параметры.</sys:String>
+    <sys:String x:Key="DuplicateSkill">Дублировать умение</sys:String>
     <sys:String x:Key="Effects">Эффекты</sys:String>
     <sys:String x:Key="EffectSettingsTitle">Эффекты</sys:String>
     <sys:String x:Key="EffectSettingsHint">Все игровые эффекты в одном списке. Объединяйте их в независимые панели.</sys:String>
