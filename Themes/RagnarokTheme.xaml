@@ -89,6 +89,13 @@
         <Setter Property="Foreground" Value="{StaticResource RoMutedBrush}"/>
         <Setter Property="Margin" Value="0,3,0,0"/>
     </Style>
+    <Style x:Key="WorkspacePanelStyle" TargetType="Border">
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Background" Value="{StaticResource RoPanelBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RoSoftBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
 
     <Style x:Key="RoButtonBaseStyle" TargetType="Button">
         <Setter Property="Foreground" Value="{StaticResource RoDeepBlueBrush}"/>
