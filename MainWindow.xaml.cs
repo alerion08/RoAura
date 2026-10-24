@@ -835,6 +835,29 @@ public partial class MainWindow : Window
         }
     }
 
+    private void EffectPanelMembershipChanged(object sender, SelectionChangedEventArgs e) =>
+        RefreshEffectPanelMembership();
+
+    private void EffectPanelMembershipChanged(object sender, RoutedEventArgs e) =>
+        RefreshEffectPanelMembership();
+
+    private void EffectPanelMembershipChanged_Click(object sender, RoutedEventArgs e) =>
+        RefreshEffectPanelMembership();
+
+    private void RefreshEffectPanelMembership()
+    {
+        if (!_languageReady || EffectsGrid is null || BuffPanelGroupBox is null) return;
+        Dispatcher.BeginInvoke(() =>
+        {
+            var selectedGroupNumber = (BuffPanelGroupBox.SelectedItem as BuffPanelGroup)?.GroupNumber;
+            Settings.SyncBuffPanelGroups();
+            BuffPanelGroupBox.Items.Refresh();
+            if (selectedGroupNumber is { } number)
+                BuffPanelGroupBox.SelectedItem = Settings.BuffPanelGroups.FirstOrDefault(group => group.GroupNumber == number);
+            SaveSettings();
+        }, DispatcherPriority.Background);
+    }
+
     private void TestEffect(bool appeared)
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
