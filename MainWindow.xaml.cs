@@ -34,6 +34,7 @@ public partial class MainWindow : Window
     private readonly ObservableCollection<MonsterEntry> _monsters;
     private IReadOnlyDictionary<int, ItemEntry> _items;
     private ICollectionView? _effectsView;
+    private ICollectionView? _skillsView;
     private readonly DispatcherTimer _connectionDetectionTimer;
     private bool _appliedPacketCaptureEnabled;
     private string _appliedPacketServerAddress = "";
@@ -65,6 +66,7 @@ public partial class MainWindow : Window
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
         DataContext = settings;
         _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
+        _skillsView = CollectionViewSource.GetDefaultView(settings.Skills);
         Settings.SyncBuffPanelGroups();
         Settings.SyncRewardGroups();
         Settings.SyncRateIndicators();
@@ -437,7 +439,6 @@ public partial class MainWindow : Window
 
     private void SaveSettings(bool persist = true, bool applyPacketCapture = true)
     {
-        SkillsGrid.CommitEdit();
         RemindersGrid.CommitEdit();
         EquipmentGrid.CommitEdit();
         MvpTimersGrid.CommitEdit();
@@ -663,7 +664,49 @@ public partial class MainWindow : Window
 
     private void Delete_Click(object sender, RoutedEventArgs e)
     {
-        if (SkillsGrid.SelectedItem is SkillAura skill) Settings.Skills.Remove(skill);
+        if (SkillsGrid.SelectedItem is not SkillAura skill) { SelectFirst("skill"); return; }
+        var answer = MessageBox.Show(this,
+            T($"Удалить кулдаун «{skill.Name}»? Все его настройки будут удалены.",
+                $"Delete cooldown “{skill.Name}”? All of its settings will be removed."),
+            T("Удаление кулдауна", "Delete cooldown"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        if (answer != MessageBoxResult.Yes) return;
+        Settings.Skills.Remove(skill);
+        SaveSettings();
+    }
+
+    private void DuplicateSkill_Click(object sender, RoutedEventArgs e)
+    {
+        if (SkillsGrid.SelectedItem is not SkillAura source) { SelectFirst("skill"); return; }
+        var copy = new SkillAura
+        {
+            Name = $"{source.Name} ({LocalizationService.Get("Copy")})",
+            Enabled = source.Enabled,
+            PacketSkillId = source.PacketSkillId,
+            CooldownSeconds = source.CooldownSeconds,
+            GroupNumber = source.GroupNumber,
+            X = source.X + 28,
+            Y = source.Y + 28,
+            IndividualIconSize = source.IndividualIconSize,
+            IconPadding = source.IconPadding,
+            ReadyOpacityPercent = source.ReadyOpacityPercent,
+            CooldownOpacityPercent = source.CooldownOpacityPercent,
+            IconImageBase64 = source.IconImageBase64,
+            IconFileName = source.IconFileName
+        };
+        Settings.Skills.Add(copy);
+        SkillsGrid.SelectedItem = copy;
+        SkillsGrid.ScrollIntoView(copy);
+        SaveSettings();
+    }
+
+    private void SkillSearch_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_skillsView is null || SkillSearchBox is null) return;
+        var query = SkillSearchBox.Text.Trim();
+        _skillsView.Filter = item => string.IsNullOrWhiteSpace(query) || item is SkillAura skill &&
+            (skill.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+             skill.PacketSkillId.ToString().Contains(query, StringComparison.OrdinalIgnoreCase));
+        _skillsView.Refresh();
     }
 
     private void PickIcon_Click(object sender, RoutedEventArgs e)
@@ -676,7 +719,6 @@ public partial class MainWindow : Window
     private void Test_Click(object sender, RoutedEventArgs e)
     {
         if (SkillsGrid.SelectedItem is not SkillAura skill) { SelectFirst("skill"); return; }
-        SkillsGrid.CommitEdit();
         _overlay.TriggerSkill(skill, true);
         SetStatus(T($"Тест кулдауна «{skill.Name}» запущен.", $"Cooldown test for “{skill.Name}” started."));
     }
@@ -685,7 +727,6 @@ public partial class MainWindow : Window
     {
         if (SkillsGrid.SelectedItem is not SkillAura skill) { SelectFirst("skill"); return; }
         if (!EnsureNpcap()) return;
-        SkillsGrid.CommitEdit();
         StartLearning();
         _learningSkill = skill;
         SetStatus(T($"Примените «{skill.Name}» в RO в течение 20 секунд.",
