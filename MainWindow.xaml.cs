@@ -991,6 +991,72 @@ public partial class MainWindow : Window
         Hide();
     }
 
+    private void AddBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        var nextNumber = Settings.BuffPanelGroups.Count == 0 ? 1 : Settings.BuffPanelGroups.Max(item => item.GroupNumber) + 1;
+        var group = new BuffPanelGroup { GroupNumber = nextNumber, X = 900, Y = 360 + Settings.BuffPanelGroups.Count * 58 };
+        Settings.BuffPanelGroups.Add(group);
+        BuffPanelGroupBox.SelectedItem = group;
+        SaveSettings();
+    }
+
+    private void DuplicateBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup source) return;
+        var nextNumber = Settings.BuffPanelGroups.Max(item => item.GroupNumber) + 1;
+        var copy = new BuffPanelGroup
+        {
+            GroupNumber = nextNumber, X = source.X + 35, Y = source.Y + 35,
+            IconSize = source.IconSize, IconPadding = source.IconPadding, Gap = source.Gap,
+            ActiveOpacityPercent = source.ActiveOpacityPercent, InactiveOpacityPercent = source.InactiveOpacityPercent
+        };
+        Settings.BuffPanelGroups.Add(copy);
+        BuffPanelGroupBox.SelectedItem = copy;
+        SaveSettings();
+    }
+
+    private void DeleteBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group) return;
+        var answer = MessageBox.Show(this,
+            T("Удалить выбранную панель? Эффекты останутся в общем списке без панели.",
+              "Delete the selected panel? Its effects will remain in the main list without a panel."),
+            T("Удаление панели", "Delete panel"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        if (answer != MessageBoxResult.Yes) return;
+        foreach (var effect in Settings.Effects.Where(item => item.ShowOnBuffPanel && item.GroupNumber == group.GroupNumber))
+            effect.ShowOnBuffPanel = false;
+        Settings.BuffPanelGroups.Remove(group);
+        Settings.SyncBuffPanelGroups();
+        if (Settings.BuffPanelGroups.Count > 0) BuffPanelGroupBox.SelectedIndex = 0;
+        SaveSettings();
+    }
+
+    private void AddEffectToPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group || PanelEffectChoiceBox.SelectedItem is not TrackedEffect effect) return;
+        effect.GroupNumber = group.GroupNumber;
+        effect.ShowOnBuffPanel = true;
+        Settings.SyncBuffPanelGroups();
+        BuffPanelGroupBox.Items.Refresh();
+        SaveSettings();
+    }
+
+    private void ConfigurePanelEffect_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button { Tag: TrackedEffect effect }) return;
+        EffectsSectionTabs.SelectedIndex = 0;
+        EffectsGrid.SelectedItem = effect;
+        EffectsGrid.ScrollIntoView(effect);
+    }
+
+    private async void TestBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group) return;
+        group.IsPlacementPreview = true;
+        await Task.Delay(TimeSpan.FromSeconds(3));
+        group.IsPlacementPreview = false;
+    }
+
     private void HandleMoveToggle(ToggleButton button, string kind, bool group)
     {
         if (_changingMoveMode) return;
