@@ -194,6 +194,10 @@ public partial class MainWindow : Window
         if (!Dispatcher.CheckAccess()) { Dispatcher.BeginInvoke(GoldGoblin_Changed); return; }
         if (GoldGoblinTotalText is not null)
             GoldGoblinTotalText.Text = $"{_goldGoblin.SessionTotal:N0} Z";
+        if (GoldGoblinItemCountText is not null)
+            GoldGoblinItemCountText.Text = GoldGoblinRows.Sum(row => row.Count).ToString("N0");
+        if (GoldGoblinUnpricedCountText is not null)
+            GoldGoblinUnpricedCountText.Text = GoldGoblinRows.Count(row => !row.PriceKnown).ToString("N0");
     }
 
     private void AddGoldGoblinRule_Click(object sender, RoutedEventArgs e)
