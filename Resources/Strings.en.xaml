@@ -39,6 +39,14 @@
     <sys:String x:Key="Cooldowns">Cooldowns</sys:String>
     <sys:String x:Key="CooldownSettingsTitle">Cooldown settings</sys:String>
     <sys:String x:Key="CooldownSettingsHint">Add skills, assign Skill IDs and customize the in-game icons.</sys:String>
+    <sys:String x:Key="AddSkill">Add skill</sys:String>
+    <sys:String x:Key="MySkills">My skills</sys:String>
+    <sys:String x:Key="SkillsConfigured">configured</sys:String>
+    <sys:String x:Key="SkillSearchHint">Search by name or Skill ID</sys:String>
+    <sys:String x:Key="NoSkillsTitle">No skills yet</sys:String>
+    <sys:String x:Key="NoSkillsHint">Add your first skill and detect its Skill ID in game.</sys:String>
+    <sys:String x:Key="SkillListHint">Select a skill to edit its settings.</sys:String>
+    <sys:String x:Key="DuplicateSkill">Duplicate skill</sys:String>
     <sys:String x:Key="Effects">Effects</sys:String>
     <sys:String x:Key="EffectSettingsTitle">Effects</sys:String>
     <sys:String x:Key="EffectSettingsHint">All game effects in one list. Organize them into independent panels.</sys:String>
