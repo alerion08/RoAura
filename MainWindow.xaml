@@ -161,18 +161,7 @@
                         <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                         <StackPanel Margin="2,8">
                             <RadioButton x:Name="HomeNavButton" Tag="0" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal">
-                                    <Viewbox Width="28" Height="28" Margin="0,0,13,0">
-                                        <Grid Width="32" Height="32">
-                                            <Border CornerRadius="6" Background="#17315E" BorderBrush="#D7AA45" BorderThickness="1.5"/>
-                                            <Path Fill="#F7FBFF" Stroke="#9DC5F2" StrokeThickness="1"
-                                                  Data="M5,15 L16,6 L27,15 L24,15 L24,26 L19,26 L19,19 L13,19 L13,26 L8,26 L8,15 Z"/>
-                                            <Path Fill="#D7AA45" Data="M4,15 L16,4 L28,15 L25.5,17 L16,8.5 L6.5,17 Z"/>
-                                            <Ellipse Width="5" Height="5" Fill="#70B5FF" Stroke="White" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,4,0,0"/>
-                                        </Grid>
-                                    </Viewbox>
-                                    <TextBlock Text="{DynamicResource Home}" VerticalAlignment="Center"/>
-                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"><Image Source="Assets/roaura-icon.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Home}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                             <RadioButton x:Name="CooldownNavButton" Tag="1" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/01_cooldowns.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Cooldowns}" VerticalAlignment="Center"/></StackPanel>
