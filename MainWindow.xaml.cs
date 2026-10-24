@@ -83,7 +83,7 @@ public partial class MainWindow : Window
         LanguageBox.SelectedIndex = settings.Language == "en" ? 1 : 0;
         UpdateServerProfileLabels();
         RefreshPresetList(_store.ActiveProfileName);
-        CooldownNavButton.IsChecked = true;
+        HomeNavButton.IsChecked = true;
         _languageReady = true;
         ServerProfileBox.SelectedIndex = settings.ServerProfile switch
         {
@@ -113,6 +113,20 @@ public partial class MainWindow : Window
         if (MainTabs is null || sender is not RadioButton { Tag: string tag }) return;
         if (int.TryParse(tag, out var index) && index >= 0 && index < MainTabs.Items.Count)
             MainTabs.SelectedIndex = index;
+    }
+
+    private void QuickNavigate_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button { Tag: string tag }) return;
+        var target = tag switch
+        {
+            "1" => CooldownNavButton,
+            "2" => EffectsNavButton,
+            "3" => RemindersNavButton,
+            "4" => EquipmentNavButton,
+            _ => null
+        };
+        if (target is not null) target.IsChecked = true;
     }
 
     private void ServerProfile_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -145,7 +159,7 @@ public partial class MainWindow : Window
         DatabaseTab.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
         DatabaseHotkeyControls.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
 
-        if (!supportsDatabases && MainTabs.SelectedIndex >= 4)
+        if (!supportsDatabases && MainTabs.SelectedIndex >= 5)
             CooldownNavButton.IsChecked = true;
 
         if (supportsDatabases)
