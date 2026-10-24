@@ -40,8 +40,13 @@
     <sys:String x:Key="CooldownSettingsTitle">Cooldown settings</sys:String>
     <sys:String x:Key="CooldownSettingsHint">Add skills, assign Skill IDs and customize the in-game icons.</sys:String>
     <sys:String x:Key="Effects">Effects</sys:String>
-    <sys:String x:Key="EffectSettingsTitle">Effects and notifications</sys:String>
-    <sys:String x:Key="EffectSettingsHint">Select an effect on the left, then configure its events, appearance and group on the right.</sys:String>
+    <sys:String x:Key="EffectSettingsTitle">Effects</sys:String>
+    <sys:String x:Key="EffectSettingsHint">All game effects in one list. Organize them into independent panels.</sys:String>
+    <sys:String x:Key="EffectIdHelp">Don't know the Status ID? RoAura can detect it in game while adding an effect.</sys:String>
+    <sys:String x:Key="HowItWorks">How does it work?</sys:String>
+    <sys:String x:Key="AllEffectsTitle">All effects</sys:String>
+    <sys:String x:Key="EffectsConfigured">configured</sys:String>
+    <sys:String x:Key="ConfigurePanels">Configure panels</sys:String>
     <sys:String x:Key="NoEffectsTitle">No effects yet</sys:String>
     <sys:String x:Key="NoEffectsHint">Add your first effect — RoAura will help find it in game and configure its notifications.</sys:String>
     <sys:String x:Key="AddEffect">Add effect</sys:String>
