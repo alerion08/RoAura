@@ -23,6 +23,14 @@
     <sys:String x:Key="DetectConnectionNow">Detect now</sys:String>
     <sys:String x:Key="CheckNpcap">Check Npcap</sys:String>
     <sys:String x:Key="ResetAid">Reset AID</sys:String>
+    <sys:String x:Key="Home">Home</sys:String>
+    <sys:String x:Key="HomeTitle">RoAura control center</sys:String>
+    <sys:String x:Key="HomeSubtitle">Check the game connection and quickly open the overlay you want to configure.</sys:String>
+    <sys:String x:Key="ReadyToWork">RoAura is ready</sys:String>
+    <sys:String x:Key="QuickStart">Quick access</sys:String>
+    <sys:String x:Key="QuickStartHint">Core features are organized into dedicated sections. Existing settings and packet logic remain unchanged.</sys:String>
+    <sys:String x:Key="ConnectionStatus">Game connection</sys:String>
+    <sys:String x:Key="ConnectionStatusHint">RoAura detects the process, IP and port automatically. Run detection again after changing the client.</sys:String>
     <sys:String x:Key="Cooldowns">Cooldowns</sys:String>
     <sys:String x:Key="CooldownSettingsTitle">Cooldown settings</sys:String>
     <sys:String x:Key="CooldownSettingsHint">Add skills, assign Skill IDs and customize the in-game icons.</sys:String>
