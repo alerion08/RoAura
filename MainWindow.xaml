@@ -160,28 +160,31 @@
                     <Grid>
                         <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                         <StackPanel Margin="2,8">
-                            <RadioButton x:Name="CooldownNavButton" Tag="0" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                            <RadioButton x:Name="HomeNavButton" Tag="0" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                                <StackPanel Orientation="Horizontal"><TextBlock Text="⌂" Style="{StaticResource NavGlyphStyle}"/><TextBlock Text="{DynamicResource Home}" VerticalAlignment="Center"/></StackPanel>
+                            </RadioButton>
+                            <RadioButton x:Name="CooldownNavButton" Tag="1" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/01_cooldowns.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Cooldowns}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
-                            <RadioButton Tag="1" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                            <RadioButton x:Name="EffectsNavButton" Tag="2" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/02_buffs_debuffs.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Effects}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
-                            <RadioButton Tag="2" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                            <RadioButton x:Name="RemindersNavButton" Tag="3" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/03_reminder.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Reminders}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
-                            <RadioButton Tag="3" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                            <RadioButton x:Name="EquipmentNavButton" Tag="4" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/04_equipment.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Equipment}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
-                            <RadioButton x:Name="MvpNavButton" Tag="4" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                            <RadioButton x:Name="MvpNavButton" Tag="5" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/05_mvp_timers.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource MvpTimers}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
-                            <RadioButton x:Name="LootNavButton" Tag="5" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                            <RadioButton x:Name="LootNavButton" Tag="6" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/06_loot_zeny_exp.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource LootRewards}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
-                            <RadioButton x:Name="GoldGoblinNavButton" Tag="6" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                            <RadioButton x:Name="GoldGoblinNavButton" Tag="7" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/08_gold_goblin.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource GoldGoblin}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
-                            <RadioButton x:Name="DatabaseNavButton" Tag="7" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
+                            <RadioButton x:Name="DatabaseNavButton" Tag="8" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
                                 <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/09_database.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Database}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                         </StackPanel>
@@ -238,6 +241,68 @@
                     </Border>
 
                     <TabControl x:Name="MainTabs" Grid.Row="1" Style="{StaticResource SidebarTabControlStyle}" Background="Transparent">
+                <TabItem Header="{DynamicResource Home}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <StackPanel Margin="8,4,12,12">
+                            <Border Padding="22,18" CornerRadius="10" Background="{StaticResource RoHeaderBrush}"
+                                    BorderBrush="{StaticResource RoBorderBrush}" BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="{DynamicResource HomeTitle}" Style="{StaticResource RoDisplayTextStyle}" FontSize="27"/>
+                                        <TextBlock Text="{DynamicResource HomeSubtitle}" Style="{StaticResource RoCaptionTextStyle}"
+                                                   FontSize="14" Margin="0,5,0,0" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                    <Border Grid.Column="1" Padding="13,8" CornerRadius="16" Background="#E8FFFFFF"
+                                            BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Ellipse Width="10" Height="10" Fill="#FF45A66B" Margin="0,0,8,0"/>
+                                            <TextBlock Text="{DynamicResource ReadyToWork}" FontWeight="SemiBold"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <UniformGrid Columns="4" Margin="0,12,0,0">
+                                <Border Style="{StaticResource DashboardCardStyle}">
+                                    <StackPanel><TextBlock Text="{Binding Skills.Count}" Style="{StaticResource DashboardValueStyle}"/><TextBlock Text="{DynamicResource Cooldowns}" Style="{StaticResource DashboardLabelStyle}"/></StackPanel>
+                                </Border>
+                                <Border Style="{StaticResource DashboardCardStyle}">
+                                    <StackPanel><TextBlock Text="{Binding Effects.Count}" Style="{StaticResource DashboardValueStyle}"/><TextBlock Text="{DynamicResource Effects}" Style="{StaticResource DashboardLabelStyle}"/></StackPanel>
+                                </Border>
+                                <Border Style="{StaticResource DashboardCardStyle}">
+                                    <StackPanel><TextBlock Text="{Binding Reminders.Count}" Style="{StaticResource DashboardValueStyle}"/><TextBlock Text="{DynamicResource Reminders}" Style="{StaticResource DashboardLabelStyle}"/></StackPanel>
+                                </Border>
+                                <Border Style="{StaticResource DashboardCardStyle}">
+                                    <StackPanel><TextBlock Text="{Binding Equipment.Count}" Style="{StaticResource DashboardValueStyle}"/><TextBlock Text="{DynamicResource Equipment}" Style="{StaticResource DashboardLabelStyle}"/></StackPanel>
+                                </Border>
+                            </UniformGrid>
+
+                            <Grid Margin="0,12,0,0">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="3*"/><ColumnDefinition Width="2*"/></Grid.ColumnDefinitions>
+                                <GroupBox Header="{DynamicResource QuickStart}" Style="{StaticResource DetailGroupBoxStyle}">
+                                    <StackPanel>
+                                        <TextBlock Text="{DynamicResource QuickStartHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,0,0,10"/>
+                                        <WrapPanel>
+                                            <Button Content="{DynamicResource Cooldowns}" Tag="1" Click="QuickNavigate_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                                            <Button Content="{DynamicResource Effects}" Tag="2" Click="QuickNavigate_Click"/>
+                                            <Button Content="{DynamicResource Reminders}" Tag="3" Click="QuickNavigate_Click"/>
+                                            <Button Content="{DynamicResource Equipment}" Tag="4" Click="QuickNavigate_Click"/>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Grid.Column="1" Header="{DynamicResource ConnectionStatus}" Style="{StaticResource DetailGroupBoxStyle}" Margin="0,0,0,12">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding PacketCaptureStateText}" TextWrapping="Wrap" Foreground="{StaticResource RoBlueBrush}" FontWeight="SemiBold"/>
+                                        <Separator/>
+                                        <TextBlock Text="{DynamicResource ConnectionStatusHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}"/>
+                                        <Button Content="{DynamicResource DetectConnectionNow}" Click="AutoDetectConnection_Click" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                                    </StackPanel>
+                                </GroupBox>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
                 <TabItem Header="{DynamicResource Cooldowns}">
                     <Grid Margin="8,4,8,8">
                         <Grid.RowDefinitions>
