@@ -42,7 +42,8 @@ public sealed class GoldGoblinService
         if (row is null)
         {
             row = new GoldGoblinLootRow { ItemId = itemId, Item = name };
-            row.SetCalculatedCost(ResolveUnitPrice(itemId, name));
+            var price = ResolvePriceInfo(itemId, name);
+            row.SetCalculatedCost(price.Value, price.Source, price.Known);
             Watch(row);
             Rows.Add(row);
         }
@@ -51,6 +52,9 @@ public sealed class GoldGoblinService
     }
 
     public long ResolveUnitPrice(int itemId, string name)
+        => ResolvePriceInfo(itemId, name).Value;
+
+    public (long Value, string Source, bool Known) ResolvePriceInfo(int itemId, string name)
     {
         var rule = _settings.GoldGoblinPriceRules.FirstOrDefault(item =>
             (item.ItemId > 0 && item.ItemId == itemId) ||
@@ -58,12 +62,13 @@ public sealed class GoldGoblinService
         if (rule is not null)
         {
             if (rule.UseVendingPrice && _market.TryGetMinimumSellPrice(itemId, name, out var vending))
-                return vending;
-            if (rule.ManualPrice > 0) return rule.ManualPrice;
+                return (vending, "Vending", true);
+            if (rule.ManualPrice > 0) return (rule.ManualPrice, "Manual", true);
         }
 
-        var npc = _prices.GetValueOrDefault(itemId)?.NpcSellPrice ?? 0;
-        return ApplyOvercharge(npc, _settings.GoldGoblinOverchargeLevel);
+        if (_prices.TryGetValue(itemId, out var itemPrice))
+            return (ApplyOvercharge(itemPrice.NpcSellPrice, _settings.GoldGoblinOverchargeLevel), "NPC", true);
+        return (0, "—", false);
     }
 
     public long LootValue(int itemId, string name, long count) =>
@@ -87,7 +92,10 @@ public sealed class GoldGoblinService
     public void Reprice()
     {
         foreach (var row in Rows.Where(item => !item.HasManualCost))
-            row.SetCalculatedCost(ResolveUnitPrice(row.ItemId, row.Item));
+        {
+            var price = ResolvePriceInfo(row.ItemId, row.Item);
+            row.SetCalculatedCost(price.Value, price.Source, price.Known);
+        }
         Changed?.Invoke();
     }
 
