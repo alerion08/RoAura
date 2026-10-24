@@ -825,6 +825,16 @@ public partial class MainWindow : Window
     private void TestEffectDisappeared_Click(object sender, RoutedEventArgs e) => TestEffect(false);
     private void CheckEffectNotification_Click(object sender, RoutedEventArgs e) => TestEffect(true);
 
+    private void OpenEffectPanels_Click(object sender, RoutedEventArgs e)
+    {
+        EffectsSectionTabs.SelectedIndex = 1;
+        if (EffectsGrid.SelectedItem is TrackedEffect effect)
+        {
+            Settings.SyncBuffPanelGroups();
+            BuffPanelGroupBox.SelectedItem = Settings.BuffPanelGroups.FirstOrDefault(group => group.GroupNumber == effect.GroupNumber);
+        }
+    }
+
     private void TestEffect(bool appeared)
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
