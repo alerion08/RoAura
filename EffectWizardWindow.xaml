@@ -1,0 +1,68 @@
+<Window x:Class="RoAura.EffectWizardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource AddEffect}" Width="760" Height="520"
+        MinWidth="680" MinHeight="470" WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize" ShowInTaskbar="False" Background="{StaticResource RoWindowBrush}">
+    <Grid>
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+
+        <Border Padding="22,17" Background="White" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="0,0,0,1">
+            <StackPanel>
+                <TextBlock x:Name="StepLabel" Foreground="{StaticResource RoBlueBrush}" FontWeight="Bold"/>
+                <TextBlock x:Name="TitleLabel" Style="{StaticResource RoSectionTitleStyle}" FontSize="24" Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="22,18">
+            <Grid x:Name="FindStep">
+                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="10"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                    <Border x:Name="FindInGameCard" Grid.Column="0" Padding="18" CornerRadius="8" BorderThickness="2" BorderBrush="{StaticResource RoBlueBrush}" Background="#EAF3FF" MouseLeftButtonUp="FindInGameCard_Click">
+                        <StackPanel><TextBlock Text="⌕" FontSize="25"/><TextBlock Text="{DynamicResource WizardFindInGame}" FontWeight="Bold" FontSize="15" Margin="0,8,0,0"/><TextBlock Text="{DynamicResource WizardFindInGameHint}" Foreground="{StaticResource RoMutedBrush}" TextWrapping="Wrap" Margin="0,5,0,0"/></StackPanel>
+                    </Border>
+                    <Border x:Name="ManualIdCard" Grid.Column="2" Padding="18" CornerRadius="8" BorderThickness="1" BorderBrush="{StaticResource RoSoftBorderBrush}" Background="#F8FBFF" MouseLeftButtonUp="ManualIdCard_Click">
+                        <StackPanel><TextBlock Text="#" FontSize="25"/><TextBlock Text="{DynamicResource WizardManualId}" FontWeight="Bold" FontSize="15" Margin="0,8,0,0"/><TextBlock Text="{DynamicResource WizardManualIdHint}" Foreground="{StaticResource RoMutedBrush}" TextWrapping="Wrap" Margin="0,5,0,0"/></StackPanel>
+                    </Border>
+                </Grid>
+                <Border Grid.Row="1" Padding="14" CornerRadius="7" Background="#EDF4FD" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
+                    <Grid>
+                        <Grid x:Name="FindInGameArea">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <TextBlock Text="{DynamicResource WizardSearchInstruction}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                            <Button Grid.Column="1" Content="{DynamicResource WizardStartSearch}" Click="StartSearch_Click" Style="{StaticResource GoldButtonStyle}"/>
+                        </Grid>
+                        <Grid x:Name="ManualIdArea" Visibility="Collapsed">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="230"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                            <TextBlock Text="Status ID" Style="{StaticResource FieldLabelStyle}"/>
+                            <TextBox Grid.Column="1" Text="{Binding Draft.StatusId, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <TextBlock x:Name="ValidationText" Grid.Row="2" Foreground="#B64B55" TextWrapping="Wrap" Margin="4,12,4,0"/>
+            </Grid>
+
+            <Grid x:Name="SetupStep" Visibility="Collapsed">
+                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                <TextBlock Text="{DynamicResource WizardSetupHint}" Foreground="{StaticResource RoMutedBrush}" TextWrapping="Wrap" Margin="0,0,0,15"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                    <StackPanel><TextBlock Text="{DynamicResource EffectName}" FontWeight="SemiBold"/><TextBox Text="{Binding Draft.Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,6,0,0"/></StackPanel>
+                    <StackPanel Grid.Column="2"><TextBlock Text="{DynamicResource EffectPanel}" FontWeight="SemiBold"/><ComboBox x:Name="PanelChoiceBox" ItemsSource="{Binding PanelChoices}" DisplayMemberPath="Label" Margin="0,6,0,0"/></StackPanel>
+                </Grid>
+                <Border Grid.Row="2" Margin="0,17,0,0" Padding="0,10" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="0,1,0,1">
+                    <CheckBox Content="{DynamicResource NotifyAppeared}" IsChecked="{Binding Draft.NotifyOnAppeared}"/>
+                </Border>
+                <Border Grid.Row="3" Padding="0,10" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="0,0,0,1">
+                    <CheckBox Content="{DynamicResource NotifyDisappeared}" IsChecked="{Binding Draft.NotifyOnDisappeared}"/>
+                </Border>
+                <TextBlock Grid.Row="4" Text="{DynamicResource WizardIndependentHint}" Foreground="{StaticResource RoMutedBrush}" TextWrapping="Wrap" Margin="0,14,0,0"/>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="2" Padding="18,12" Background="White" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="0,1,0,0">
+            <Grid><Button x:Name="BackButton" Content="{DynamicResource Back}" Click="Back_Click" Visibility="Collapsed" HorizontalAlignment="Left"/><Button x:Name="CancelButton" Content="{DynamicResource Cancel}" Click="Cancel_Click" HorizontalAlignment="Left"/><Button x:Name="NextButton" Content="{DynamicResource Continue}" Click="Next_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right"/><Button x:Name="CreateButton" Content="{DynamicResource AddEffect}" Click="Create_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right" Visibility="Collapsed"/></Grid>
+        </Border>
+    </Grid>
+</Window>
