@@ -21,6 +21,11 @@
     <ApplicationIcon>Assets\roaura.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="RoAura.Tests\**\*.cs" />
+    <EmbeddedResource Remove="RoAura.Tests\**\*" />
+    <None Remove="RoAura.Tests\**\*" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\roaura.ico" />
     <Resource Include="Assets\roaura-icon.png" />
     <Resource Include="Assets\twitch.png" />
