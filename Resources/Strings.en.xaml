@@ -45,6 +45,9 @@
     <sys:String x:Key="NoEffectsTitle">No effects yet</sys:String>
     <sys:String x:Key="NoEffectsHint">Add your first effect — RoAura will help find it in game and configure its notifications.</sys:String>
     <sys:String x:Key="AddEffect">Add effect</sys:String>
+    <sys:String x:Key="CheckNotification">Preview notification</sys:String>
+    <sys:String x:Key="DuplicateEffect">Duplicate effect</sys:String>
+    <sys:String x:Key="Copy">copy</sys:String>
     <sys:String x:Key="SelectEffectTitle">Select an effect</sys:String>
     <sys:String x:Key="SelectEffectHint">Its settings will appear in this area.</sys:String>
     <sys:String x:Key="EffectSearchHint">Search by name or Status ID</sys:String>
