@@ -48,6 +48,8 @@ public partial class EffectWizardWindow : Window
 
     private void StartSearch_Click(object sender, RoutedEventArgs e)
     {
+        Draft.StatusId = 0;
+        Draft.CurrentStateText = LocalizationService.Get("WizardWaitingForEffect");
         ValidationText.Foreground = FindResource("RoBlueBrush") as System.Windows.Media.Brush;
         ValidationText.Text = LocalizationService.Get("WizardSearchRunning");
         _startLearning(Draft);
@@ -69,7 +71,12 @@ public partial class EffectWizardWindow : Window
 
     private void Create_Click(object sender, RoutedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(Draft.Name)) return;
+        if (string.IsNullOrWhiteSpace(Draft.Name))
+        {
+            SetupValidationText.Text = LocalizationService.Get("WizardNameRequired");
+            return;
+        }
+        SetupValidationText.Text = "";
         var choice = PanelChoiceBox.SelectedItem as PanelChoice;
         Draft.ShowOnBuffPanel = choice?.GroupNumber > 0;
         Draft.GroupNumber = choice?.GroupNumber > 0 ? choice.GroupNumber : 1;
@@ -88,6 +95,7 @@ public partial class EffectWizardWindow : Window
         CancelButton.Visibility = Visibility.Visible;
         NextButton.Visibility = Visibility.Visible;
         CreateButton.Visibility = Visibility.Collapsed;
+        ProgressStepTwo.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(216, 226, 240));
     }
 
     private void ShowSetupStep()
@@ -100,6 +108,7 @@ public partial class EffectWizardWindow : Window
         CancelButton.Visibility = Visibility.Collapsed;
         NextButton.Visibility = Visibility.Collapsed;
         CreateButton.Visibility = Visibility.Visible;
+        ProgressStepTwo.Background = FindResource("RoBlueBrush") as System.Windows.Media.Brush;
     }
 
     public sealed record PanelChoice(int GroupNumber, string Label);
