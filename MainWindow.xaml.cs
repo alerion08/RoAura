@@ -696,10 +696,27 @@ public partial class MainWindow : Window
     private void AddEffect_Click(object sender, RoutedEventArgs e)
     {
         if (EffectSearchBox is not null) EffectSearchBox.Text = "";
-        var effect = new TrackedEffect();
+        Settings.SyncBuffPanelGroups();
+        var wizard = new EffectWizardWindow(Settings.BuffPanelGroups, StartEffectLearningFromWizard)
+        {
+            Owner = this
+        };
+        if (wizard.ShowDialog() != true || wizard.CreatedEffect is not { } effect) return;
         Settings.Effects.Add(effect);
+        Settings.SyncBuffPanelGroups();
         EffectsGrid.SelectedItem = effect;
         EffectsGrid.ScrollIntoView(effect);
+        SaveSettings();
+    }
+
+    private void StartEffectLearningFromWizard(TrackedEffect effect)
+    {
+        if (!EnsureNpcap()) return;
+        StartLearning();
+        _learningEffect = effect;
+        SetStatus(T("Активируйте нужный эффект в RO в течение 20 секунд.",
+            "Activate the required effect in RO within 20 seconds."));
+        _ = ExpireLearningAsync(effect.Id, "effect", _learningGeneration);
     }
 
     private void EffectSearch_TextChanged(object sender, TextChangedEventArgs e)
