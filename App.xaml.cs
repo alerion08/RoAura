@@ -35,6 +35,13 @@ public partial class App : Application
         DispatcherUnhandledException += (_, args) =>
         {
             DebugLog.Write($"UNHANDLED UI ERROR: {args.Exception}");
+            if (Environment.GetCommandLineArgs().Any(argument =>
+                    string.Equals(argument, "--smoke-test", StringComparison.OrdinalIgnoreCase)))
+            {
+                args.Handled = true;
+                Shutdown(-1);
+                return;
+            }
             MessageBox.Show(
                 $"RoAura encountered an error and must close.\n\n{args.Exception.Message}\n\nLog: {DebugLog.PathName}",
                 "RoAura", MessageBoxButton.OK, MessageBoxImage.Error);

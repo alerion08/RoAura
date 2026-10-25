@@ -100,6 +100,12 @@ if (-not $smokeProcess.WaitForExit(15000)) {
     throw "RoAura startup smoke test timed out. Release files were not created."
 }
 if ($smokeProcess.ExitCode -ne 0) {
+    $smokeLog = Join-Path $env:APPDATA "RoAura\debug.log"
+    if (Test-Path $smokeLog -PathType Leaf) {
+        Write-Host "----- RoAura smoke-test debug.log -----"
+        Get-Content $smokeLog -Tail 120
+        Write-Host "----- end debug.log -----"
+    }
     throw "RoAura startup smoke test failed with exit code $($smokeProcess.ExitCode). Check %APPDATA%\RoAura\debug.log. Release files were not created."
 }
 Write-Host "Startup smoke test passed."
