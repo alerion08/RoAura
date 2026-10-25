@@ -318,4 +318,5 @@
     <sys:String x:Key="ApplyGroupLayout">Применить расположение</sys:String>
     <sys:String x:Key="DeleteGroup">Удалить группу</sys:String>
     <sys:String x:Key="SkillsCountLabel">умений</sys:String>
+    <sys:String x:Key="CooldownState">Кулдаун</sys:String>
 </ResourceDictionary>
