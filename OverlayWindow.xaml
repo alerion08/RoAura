@@ -72,8 +72,8 @@
                             <TextBlock Text="{Binding ShortName}" FontWeight="Bold"
                                        FontSize="{Binding IndividualIconSize, Converter={StaticResource ScaleValue}, ConverterParameter=0.22}"
                                        Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top"
-                                       Margin="2,3,2,0"
-                                       Visibility="{Binding DataContext.ShowShortNames, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}">
+                                       Margin="2,3,2,0">
+                                <TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Visibility" Value="Collapsed"/><Style.Triggers><MultiDataTrigger><MultiDataTrigger.Conditions><Condition Binding="{Binding ShowShortName}" Value="True"/><Condition Binding="{Binding DataContext.ShowShortNames, RelativeSource={RelativeSource AncestorType=Window}}" Value="True"/></MultiDataTrigger.Conditions><Setter Property="Visibility" Value="Visible"/></MultiDataTrigger></Style.Triggers></Style></TextBlock.Style>
                                 <TextBlock.Effect>
                                     <DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1" />
                                 </TextBlock.Effect>
@@ -85,6 +85,9 @@
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ShowCountdown}" Value="False">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
                                             <DataTrigger Binding="{Binding IsReady}" Value="True">
                                                 <Setter Property="Visibility" Value="Collapsed" />
                                             </DataTrigger>
@@ -106,6 +109,7 @@
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
                                                     <Condition Binding="{Binding IsReady}" Value="True" />
+                                                    <Condition Binding="{Binding ShowReady}" Value="True" />
                                                     <Condition Binding="{Binding DataContext.ShowReadyText, RelativeSource={RelativeSource AncestorType=Window}}" Value="True" />
                                                 </MultiDataTrigger.Conditions>
                                                 <Setter Property="Visibility" Value="Visible" />
