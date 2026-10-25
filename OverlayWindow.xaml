@@ -73,7 +73,7 @@
                                        FontSize="{Binding IndividualIconSize, Converter={StaticResource ScaleValue}, ConverterParameter=0.22}"
                                        Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top"
                                        Margin="2,3,2,0">
-                                <TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Visibility" Value="Collapsed"/><Style.Triggers><MultiDataTrigger><MultiDataTrigger.Conditions><Condition Binding="{Binding ShowShortName}" Value="True"/><Condition Binding="{Binding DataContext.ShowShortNames, RelativeSource={RelativeSource AncestorType=Window}}" Value="True"/></MultiDataTrigger.Conditions><Setter Property="Visibility" Value="Visible"/></MultiDataTrigger></Style.Triggers></Style></TextBlock.Style>
+                                <TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Visibility" Value="Collapsed"/><Style.Triggers><DataTrigger Binding="{Binding ShowShortName}" Value="True"><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers></Style></TextBlock.Style>
                                 <TextBlock.Effect>
                                     <DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1" />
                                 </TextBlock.Effect>
@@ -110,7 +110,6 @@
                                                 <MultiDataTrigger.Conditions>
                                                     <Condition Binding="{Binding IsReady}" Value="True" />
                                                     <Condition Binding="{Binding ShowReady}" Value="True" />
-                                                    <Condition Binding="{Binding DataContext.ShowReadyText, RelativeSource={RelativeSource AncestorType=Window}}" Value="True" />
                                                 </MultiDataTrigger.Conditions>
                                                 <Setter Property="Visibility" Value="Visible" />
                                             </MultiDataTrigger>
