@@ -303,6 +303,17 @@
     <sys:String x:Key="ItemNameOrPart">Название предмета или его часть</sys:String>
     <sys:String x:Key="AddItem">Добавить предмет</sys:String>
     <sys:String x:Key="DeleteItem">Удалить предмет</sys:String>
+    <sys:String x:Key="GoldGoblinSessionTab">Предметы сессии</sys:String>
+    <sys:String x:Key="GoldGoblinRulesTab">Правила цен</sys:String>
+    <sys:String x:Key="GoldGoblinCalculationTab">Настройки расчёта</sys:String>
+    <sys:String x:Key="UnitPrice">Цена за шт.</sys:String>
+    <sys:String x:Key="ItemTotal">Сумма по предмету</sys:String>
+    <sys:String x:Key="EditItem">Редактирование предмета</sys:String>
+    <sys:String x:Key="QuantityPerSession">Количество за сессию</sys:String>
+    <sys:String x:Key="CurrentPriceSource">Текущий источник цены</sys:String>
+    <sys:String x:Key="GoldGoblinPriceEditHint">Источник цены настраивается во вкладке «Правила цен». Изменение количества влияет только на текущую сессию.</sys:String>
+    <sys:String x:Key="OverchargeDescription">Надбавка применяется только к NPC Price. Vending Price и Manual Price не изменяются.</sys:String>
+    <sys:String x:Key="GoldGoblinResetHint">Сброс сессии очищает предметы и количества, но сохраняет правила цен и уровень Overcharge.</sys:String>
     <sys:String x:Key="MoveUp">Выше</sys:String>
     <sys:String x:Key="MoveDown">Ниже</sys:String>
     <sys:String x:Key="CooldownGroupFilterHint">Фильтр умений по группе</sys:String>
