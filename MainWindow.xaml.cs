@@ -35,6 +35,7 @@ public partial class MainWindow : Window
     private IReadOnlyDictionary<int, ItemEntry> _items;
     private ICollectionView? _effectsView;
     private ICollectionView? _skillsView;
+    private int? _cooldownGroupFilter;
     private readonly DispatcherTimer _connectionDetectionTimer;
     private bool _appliedPacketCaptureEnabled;
     private string _appliedPacketServerAddress = "";
@@ -43,6 +44,7 @@ public partial class MainWindow : Window
     public ICollectionView MvpMonsterView { get; }
     public ObservableCollection<GoldGoblinLootRow> GoldGoblinRows => _goldGoblin.Rows;
     public ObservableCollection<ItemEntry> GoldGoblinItemSuggestions { get; } = [];
+    public ObservableCollection<object> CooldownGroupFilterItems { get; } = [];
 
     public AppSettings Settings { get; }
 
@@ -67,6 +69,8 @@ public partial class MainWindow : Window
         DataContext = settings;
         _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
         _skillsView = CollectionViewSource.GetDefaultView(settings.Skills);
+        Settings.SyncCooldownGroups();
+        RebuildCooldownGroupFilterItems();
         Settings.SyncBuffPanelGroups();
         Settings.SyncRewardGroups();
         Settings.SyncRateIndicators();
@@ -75,6 +79,8 @@ public partial class MainWindow : Window
         EnabledBox.IsChecked = settings.Enabled;
         ProcessesBox.Text = string.Join(", ", settings.AllowedProcesses);
         if (settings.Skills.Count > 0) SkillsGrid.SelectedIndex = 0;
+        CooldownGroupFilter.SelectedIndex = 0;
+        if (settings.CooldownGroups.Count > 0) CooldownGroupsBox.SelectedIndex = 0;
         if (settings.Effects.Count > 0) EffectsGrid.SelectedIndex = 0;
         if (settings.Reminders.Count > 0) RemindersGrid.SelectedIndex = 0;
         if (settings.Equipment.Count > 0) EquipmentGrid.SelectedIndex = 0;
@@ -660,10 +666,23 @@ public partial class MainWindow : Window
 
     private void Add_Click(object sender, RoutedEventArgs e)
     {
-        var skill = new SkillAura { X = 100 + Settings.Skills.Count * 80, Y = 100 };
+        Settings.SyncCooldownGroups();
+        var wizard = new SkillWizardWindow(Settings.CooldownGroups, Settings.Language == "en") { Owner = this };
+        if (wizard.ShowDialog() != true || wizard.Result is not { } skill) return;
+        skill.X = 100 + Settings.Skills.Count * 80;
+        skill.Y = 100;
         Settings.Skills.Add(skill);
+        Settings.SyncCooldownGroups();
         SkillsGrid.SelectedItem = skill;
         SkillsGrid.ScrollIntoView(skill);
+        SaveSettings();
+        if (wizard.LearnAfterCreate)
+        {
+            if (!EnsureNpcap()) return;
+            StartLearning();
+            _learningSkill = skill;
+            SetStatus(T($"Примените «{skill.Name}» в RO в течение 20 секунд.", $"Use “{skill.Name}” in RO within 20 seconds."));
+        }
     }
 
     private void Delete_Click(object sender, RoutedEventArgs e)
@@ -675,6 +694,7 @@ public partial class MainWindow : Window
             T("Удаление кулдауна", "Delete cooldown"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
         if (answer != MessageBoxResult.Yes) return;
         Settings.Skills.Remove(skill);
+        Settings.SyncCooldownGroups();
         SaveSettings();
     }
 
@@ -694,10 +714,15 @@ public partial class MainWindow : Window
             IconPadding = source.IconPadding,
             ReadyOpacityPercent = source.ReadyOpacityPercent,
             CooldownOpacityPercent = source.CooldownOpacityPercent,
+            ShortNameOverride = source.ShortNameOverride,
+            ShowShortName = source.ShowShortName,
+            ShowReady = source.ShowReady,
+            ShowCountdown = source.ShowCountdown,
             IconImageBase64 = source.IconImageBase64,
             IconFileName = source.IconFileName
         };
         Settings.Skills.Add(copy);
+        Settings.SyncCooldownGroups();
         SkillsGrid.SelectedItem = copy;
         SkillsGrid.ScrollIntoView(copy);
         SaveSettings();
@@ -705,12 +730,83 @@ public partial class MainWindow : Window
 
     private void SkillSearch_TextChanged(object sender, TextChangedEventArgs e)
     {
+        RefreshSkillFilter();
+    }
+
+    private void CooldownGroupFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        _cooldownGroupFilter = sender is ComboBox { SelectedItem: CooldownGroupSettings group }
+            ? group.GroupNumber
+            : null;
+        RefreshSkillFilter();
+    }
+
+    private void RefreshSkillFilter()
+    {
         if (_skillsView is null || SkillSearchBox is null) return;
         var query = SkillSearchBox.Text.Trim();
-        _skillsView.Filter = item => string.IsNullOrWhiteSpace(query) || item is SkillAura skill &&
-            (skill.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+        _skillsView.Filter = item => item is SkillAura skill &&
+            (_cooldownGroupFilter is null || skill.GroupNumber == _cooldownGroupFilter) &&
+            (string.IsNullOrWhiteSpace(query) ||
+             skill.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
              skill.PacketSkillId.ToString().Contains(query, StringComparison.OrdinalIgnoreCase));
         _skillsView.Refresh();
+    }
+
+    private void AddCooldownGroup_Click(object sender, RoutedEventArgs e)
+    {
+        var next = Settings.CooldownGroups.Count == 0 ? 1 : Settings.CooldownGroups.Max(group => group.GroupNumber) + 1;
+        var group = new CooldownGroupSettings { GroupNumber = next, Name = T($"Группа {next}", $"Group {next}") };
+        Settings.CooldownGroups.Add(group);
+        RebuildCooldownGroupFilterItems(group);
+        CooldownGroupsBox.SelectedItem = group;
+        SaveSettings();
+    }
+
+    private void DeleteCooldownGroup_Click(object sender, RoutedEventArgs e)
+    {
+        if (CooldownGroupsBox.SelectedItem is not CooldownGroupSettings group) return;
+        if (Settings.CooldownGroups.Count <= 1)
+        {
+            SetStatus(T("Последнюю группу кулдаунов удалить нельзя.", "The last cooldown group cannot be deleted."));
+            return;
+        }
+        var target = Settings.CooldownGroups.First(item => item != group);
+        foreach (var skill in Settings.Skills.Where(skill => skill.GroupNumber == group.GroupNumber))
+            skill.GroupNumber = target.GroupNumber;
+        Settings.CooldownGroups.Remove(group);
+        Settings.SyncCooldownGroups();
+        RebuildCooldownGroupFilterItems();
+        CooldownGroupsBox.SelectedItem = target;
+        RefreshSkillFilter();
+        SaveSettings();
+    }
+
+    private void RebuildCooldownGroupFilterItems(CooldownGroupSettings? select = null)
+    {
+        CooldownGroupFilterItems.Clear();
+        CooldownGroupFilterItems.Add(Settings.Language == "en" ? "All groups" : "Все группы");
+        foreach (var group in Settings.CooldownGroups) CooldownGroupFilterItems.Add(group);
+        if (CooldownGroupFilter is null) return;
+        CooldownGroupFilter.SelectedItem = select ?? CooldownGroupFilterItems[0];
+    }
+
+    private void ApplyCooldownGroupLayout_Click(object sender, RoutedEventArgs e)
+    {
+        if (CooldownGroupsBox.SelectedItem is not CooldownGroupSettings group) return;
+        var skills = Settings.Skills.Where(skill => skill.GroupNumber == group.GroupNumber).ToList();
+        if (skills.Count == 0) return;
+        var x = skills[0].X;
+        var y = skills[0].Y;
+        foreach (var skill in skills)
+        {
+            skill.X = x;
+            skill.Y = y;
+            var step = (skill.IndividualIconSize > 0 ? skill.IndividualIconSize : Settings.IconSize) + group.Gap;
+            if (group.Direction == "Vertical") y += step; else x += step;
+        }
+        SaveSettings();
+        SetStatus(T("Расположение группы кулдаунов применено.", "Cooldown group layout applied."));
     }
 
     private void PickIcon_Click(object sender, RoutedEventArgs e)
@@ -1521,6 +1617,7 @@ public partial class MainWindow : Window
         Settings.Language = language;
         LocalizationService.ApplyLanguage(language);
         UpdateServerProfileLabels();
+        RebuildCooldownGroupFilterItems();
         SkillsGrid.Items.Refresh();
         EffectsGrid.Items.Refresh();
         RemindersGrid.Items.Refresh();
