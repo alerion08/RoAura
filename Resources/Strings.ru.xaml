@@ -312,7 +312,7 @@
     <sys:String x:Key="UnitPrice">Цена за шт.</sys:String>
     <sys:String x:Key="ItemTotal">Сумма по предмету</sys:String>
     <sys:String x:Key="EditItem">Редактирование предмета</sys:String>
-    <sys:String x:Key="QuantityPerSession">Количество за сессию</sys:String>
+    <sys:String x:Key="QuantityPerSession">Количество</sys:String>
     <sys:String x:Key="CurrentPriceSource">Текущий источник цены</sys:String>
     <sys:String x:Key="GoldGoblinPriceEditHint">Источник цены настраивается во вкладке «Правила цен». Изменение количества влияет только на текущую сессию.</sys:String>
     <sys:String x:Key="OverchargeDescription">Надбавка применяется только к NPC Price. Vending Price и Manual Price не изменяются.</sys:String>
@@ -331,7 +331,7 @@
     <sys:String x:Key="SortByName">По названию</sys:String>
     <sys:String x:Key="SortByTotal">По общей стоимости</sys:String>
     <sys:String x:Key="SortByCount">По количеству</sys:String>
-    <sys:String x:Key="ManualFallbackPrice">Ручная цена / запасная цена, Z</sys:String>
+    <sys:String x:Key="ManualFallbackPrice">Ручная цена</sys:String>
     <sys:String x:Key="DeleteFromSession">Удалить из сессии</sys:String>
     <sys:String x:Key="GoldGoblinTableHint">Количество редактируется прямо в строке. Неизвестная цена не равна нулю.</sys:String>
     <sys:String x:Key="PriceRulesTitle">Правила определения стоимости</sys:String>
