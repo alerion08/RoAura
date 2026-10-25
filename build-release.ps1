@@ -29,6 +29,45 @@ if (-not ($installedSdks -match '^8\.')) {
     throw "The .NET 8 SDK (x64) is required. Installed SDKs: $installedSdkText. Download: https://dotnet.microsoft.com/download/dotnet/8.0"
 }
 
+# Keep every public version identifier synchronized. A mismatched portable
+# filename or Setup version makes update detection and support diagnostics
+# unreliable even when compilation succeeds.
+[xml]$projectXml = Get-Content -Raw .\RoAura.csproj
+$projectVersion = [string]$projectXml.Project.PropertyGroup.Version
+$installerText = Get-Content -Raw .\installer.iss
+$installerVersionMatch = [regex]::Match($installerText, '#define\s+MyAppVersion\s+"([^"]+)"')
+if (-not $installerVersionMatch.Success -or $installerVersionMatch.Groups[1].Value -ne $projectVersion) {
+    throw "Version mismatch: RoAura.csproj=$projectVersion, installer.iss=$($installerVersionMatch.Groups[1].Value)."
+}
+$expectedPortableName = "RoAura-$projectVersion-portable.zip"
+if ([System.IO.Path]::GetFileName($portableZip) -ne $expectedPortableName) {
+    throw "Version mismatch: portable archive must be named '$expectedPortableName'."
+}
+
+# RU and EN dictionaries must expose exactly the same keys. Also verify every
+# DynamicResource used by a WPF view against both dictionaries so a missing
+# translation fails before a user sees an empty label at runtime.
+$resourceKeyPattern = 'x:Key="([^"]+)"'
+$dynamicKeyPattern = 'DynamicResource\s+([^\s\}]+)'
+$ruText = Get-Content -Raw .\Resources\Strings.ru.xaml
+$enText = Get-Content -Raw .\Resources\Strings.en.xaml
+$ruKeys = @([regex]::Matches($ruText, $resourceKeyPattern) | ForEach-Object { $_.Groups[1].Value })
+$enKeys = @([regex]::Matches($enText, $resourceKeyPattern) | ForEach-Object { $_.Groups[1].Value })
+$onlyRu = @($ruKeys | Where-Object { $_ -notin $enKeys })
+$onlyEn = @($enKeys | Where-Object { $_ -notin $ruKeys })
+if ($onlyRu.Count -gt 0 -or $onlyEn.Count -gt 0) {
+    throw "Localization dictionaries differ. RU-only: $($onlyRu -join ', '); EN-only: $($onlyEn -join ', ')."
+}
+$dynamicKeys = @(Get-ChildItem . -Filter *.xaml -File | ForEach-Object {
+    [regex]::Matches((Get-Content -Raw $_.FullName), $dynamicKeyPattern) | ForEach-Object { $_.Groups[1].Value }
+} | Sort-Object -Unique)
+$missingRu = @($dynamicKeys | Where-Object { $_ -notin $ruKeys })
+$missingEn = @($dynamicKeys | Where-Object { $_ -notin $enKeys })
+if ($missingRu.Count -gt 0 -or $missingEn.Count -gt 0) {
+    throw "Missing localized DynamicResource. RU: $($missingRu -join ', '); EN: $($missingEn -join ', ')."
+}
+Write-Host "Version and RU/EN resource validation passed."
+
 if (Test-Path $publishDir) {
     Remove-Item $publishDir -Recurse -Force
 }

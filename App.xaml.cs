@@ -116,8 +116,20 @@ public partial class App : Application
             if (!wizard.RunAutomaticFlowSmokeTest())
                 throw new InvalidOperationException("Cooldown skill wizard automatic flow smoke test failed.");
             wizard.Close();
+            var effectWizard = new EffectWizardWindow(settings.BuffPanelGroups, _ => { });
+            effectWizard.Close();
             var goldGoblinAddWindow = new GoldGoblinAddItemWindow(Array.Empty<ItemEntry>());
             goldGoblinAddWindow.Close();
+            var npcapRequiredWindow = new NpcapRequiredWindow();
+            npcapRequiredWindow.Close();
+            var aboutWindow = new AboutWindow();
+            aboutWindow.Close();
+            settings.Language = "en";
+            LocalizationService.ApplyLanguage("en");
+            _databaseOverlay.RefreshLanguage();
+            settings.Language = "ru";
+            LocalizationService.ApplyLanguage("ru");
+            _databaseOverlay.RefreshLanguage();
             DebugLog.Write("SMOKE TEST: startup completed successfully");
             Dispatcher.BeginInvoke(async () =>
             {
