@@ -1222,12 +1222,10 @@ public partial class OverlayWindow : Window
         if (_gameWindowHandle != gameHandle)
             _gameWindowHandle = gameHandle;
 
-        if (!_settings.OverlayCoordinatesRelativeToGame)
-        {
-            ConvertLegacyScreenCoordinates(
+        if (OverlayCoordinateMigration.Apply(_settings,
                 topLeft.X - SystemParameters.VirtualScreenLeft,
-                topLeft.Y - SystemParameters.VirtualScreenTop);
-            _settings.OverlayCoordinatesRelativeToGame = true;
+                topLeft.Y - SystemParameters.VirtualScreenTop))
+        {
             _store.Save(_settings);
         }
 
@@ -1270,23 +1268,6 @@ public partial class OverlayWindow : Window
         }
         else if (IsVisible)
             Hide();
-    }
-
-    private void ConvertLegacyScreenCoordinates(double offsetX, double offsetY)
-    {
-        foreach (var skill in _settings.Skills) { skill.X -= offsetX; skill.Y -= offsetY; }
-        foreach (var effect in _settings.Effects)
-        {
-            effect.NotificationX -= offsetX;
-            effect.NotificationY -= offsetY;
-        }
-        foreach (var reminder in _settings.Reminders) { reminder.X -= offsetX; reminder.Y -= offsetY; }
-        foreach (var group in _settings.BuffPanelGroups) { group.X -= offsetX; group.Y -= offsetY; }
-        foreach (var item in _settings.Equipment) { item.X -= offsetX; item.Y -= offsetY; }
-        _settings.TimersX -= offsetX;
-        _settings.TimersY -= offsetY;
-        foreach (var group in _settings.RewardGroups) { group.X -= offsetX; group.Y -= offsetY; }
-        foreach (var indicator in _settings.RateIndicators) { indicator.X -= offsetX; indicator.Y -= offsetY; }
     }
 
     protected override void OnClosed(EventArgs e)
