@@ -673,6 +673,9 @@ public partial class MainWindow : Window
         skill.Y = 100;
         Settings.Skills.Add(skill);
         Settings.SyncCooldownGroups();
+        RebuildCooldownGroupFilterItems();
+        CooldownGroupFilter.SelectedIndex = 0;
+        RefreshSkillFilter();
         SkillsGrid.SelectedItem = skill;
         SkillsGrid.ScrollIntoView(skill);
         SaveSettings();
