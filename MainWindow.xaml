@@ -1113,7 +1113,7 @@
                             <Border Style="{StaticResource DashboardCardStyle}" Padding="18,14"><StackPanel><TextBlock Text="{DynamicResource SessionItems}" Style="{StaticResource DashboardLabelStyle}"/><TextBlock x:Name="GoldGoblinItemCountText" Text="0" Style="{StaticResource DashboardValueStyle}" Margin="0,5,0,2"/><TextBlock Text="{DynamicResource SessionItemsHint}" Style="{StaticResource RoCaptionTextStyle}"/></StackPanel></Border>
                             <Border Style="{StaticResource DashboardCardStyle}" Padding="18,14"><StackPanel><TextBlock Text="{DynamicResource ItemsWithoutPrice}" Style="{StaticResource DashboardLabelStyle}"/><TextBlock x:Name="GoldGoblinUnpricedCountText" Text="0" Style="{StaticResource DashboardValueStyle}" Margin="0,5,0,2"/><TextBlock Text="{DynamicResource ItemsWithoutPriceHint}" Style="{StaticResource RoCaptionTextStyle}"/></StackPanel></Border>
                         </UniformGrid>
-                        <TabControl x:Name="GoldGoblinWorkspaceTabs" Grid.Row="2" Margin="0">
+                        <TabControl x:Name="GoldGoblinWorkspaceTabs" Grid.Row="2" Margin="0" Style="{StaticResource SectionTabControlStyle}">
                             <TabItem Header="{DynamicResource GoldGoblinSessionTab}">
                                 <Border Margin="0,8,0,0" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="8" Background="White">
                                 <Grid>
@@ -1138,7 +1138,32 @@
                                                 <DataGridTextColumn Header="{DynamicResource Item}" Binding="{Binding Item}" IsReadOnly="True" Width="2*"/>
                                                 <DataGridTextColumn Header="{DynamicResource Count}" Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="110"/>
                                                 <DataGridTextColumn Header="{DynamicResource UnitPrice}" Binding="{Binding Cost, StringFormat=N0}" IsReadOnly="True" Width="125"/>
-                                                <DataGridTextColumn Header="{DynamicResource PriceSource}" Binding="{Binding PriceSource}" IsReadOnly="True" Width="120"/>
+                                                <DataGridTemplateColumn Header="{DynamicResource PriceSource}" IsReadOnly="True" Width="135">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Border x:Name="PriceBadge" HorizontalAlignment="Left" CornerRadius="12" Padding="9,3" Background="#E5F6EE">
+                                                                <TextBlock x:Name="PriceBadgeText" Text="{DynamicResource PriceNpcBadge}" Foreground="#087A55" FontWeight="SemiBold"/>
+                                                            </Border>
+                                                            <DataTemplate.Triggers>
+                                                                <DataTrigger Binding="{Binding PriceSource}" Value="Vending">
+                                                                    <Setter TargetName="PriceBadge" Property="Background" Value="#F0E8FF"/>
+                                                                    <Setter TargetName="PriceBadgeText" Property="Text" Value="{DynamicResource PriceVendingBadge}"/>
+                                                                    <Setter TargetName="PriceBadgeText" Property="Foreground" Value="#6D35B4"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding PriceSource}" Value="Manual">
+                                                                    <Setter TargetName="PriceBadge" Property="Background" Value="#E5F0FF"/>
+                                                                    <Setter TargetName="PriceBadgeText" Property="Text" Value="{DynamicResource PriceManualBadge}"/>
+                                                                    <Setter TargetName="PriceBadgeText" Property="Foreground" Value="#2269B8"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding PriceKnown}" Value="False">
+                                                                    <Setter TargetName="PriceBadge" Property="Background" Value="#FFF0D5"/>
+                                                                    <Setter TargetName="PriceBadgeText" Property="Text" Value="{DynamicResource PriceUnknownBadge}"/>
+                                                                    <Setter TargetName="PriceBadgeText" Property="Foreground" Value="#9A6200"/>
+                                                                </DataTrigger>
+                                                            </DataTemplate.Triggers>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
                                                 <DataGridTextColumn Header="{DynamicResource Total}" Binding="{Binding Total, StringFormat=N0}" IsReadOnly="True" Width="140"/>
                                             </DataGrid.Columns>
                                         </DataGrid>
@@ -1166,10 +1191,7 @@
                                     <Grid Grid.Row="3" Background="#F8FAFD" Margin="12,9">
                                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                                         <TextBlock Text="{DynamicResource GoldGoblinTableHint}" Foreground="{StaticResource RoMutedBrush}" VerticalAlignment="Center"/>
-                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                            <ComboBox x:Name="GoldGoblinLootItemBox" Width="280" Margin="0,0,8,0" IsEditable="True" IsTextSearchEnabled="False" StaysOpenOnEdit="True" ItemsSource="{Binding GoldGoblinItemSuggestions, ElementName=RootWindow}" DisplayMemberPath="Name" KeyUp="GoldGoblinItemBox_KeyUp" ToolTip="{DynamicResource ItemNameOrPart}"/>
-                                            <Button Content="{DynamicResource AddItem}" Click="AddGoldGoblinLoot_Click" Style="{StaticResource PrimaryButtonStyle}"/>
-                                        </StackPanel>
+                                        <Button Grid.Column="1" Content="{DynamicResource AddItem}" Click="AddGoldGoblinLoot_Click" Style="{StaticResource PrimaryButtonStyle}"/>
                                     </Grid>
                                 </Grid></Border>
                             </TabItem>
