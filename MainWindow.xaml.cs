@@ -646,7 +646,6 @@ public partial class MainWindow : Window
 
     private void SaveSettings(bool persist = true, bool applyPacketCapture = true)
     {
-        RemindersGrid.CommitEdit();
         EquipmentGrid.CommitEdit();
         MvpTimersGrid.CommitEdit();
         RewardChannelsGrid.CommitEdit();
@@ -1218,7 +1217,22 @@ public partial class MainWindow : Window
 
     private void AddReminder_Click(object sender, RoutedEventArgs e)
     {
-        var reminder = new ReminderItem { X = 900 + Settings.Reminders.Count * 75, Y = 500 };
+        var wizard = new ReminderWizardWindow(draft =>
+        {
+            if (!EnsureNpcap()) return;
+            StartLearning();
+            _learningReminder = draft;
+            SetStatus(T("Активируйте нужный эффект в RO в течение 20 секунд.",
+                "Activate the required effect in RO within 20 seconds."));
+            _ = ExpireLearningAsync(draft.Id, "reminder", _learningGeneration);
+        }) { Owner = this };
+        if (wizard.ShowDialog() != true || wizard.CreatedReminder is not { } reminder)
+        {
+            if (_learningReminder == wizard.Draft) _learningReminder = null;
+            return;
+        }
+        reminder.X = 900 + Settings.Reminders.Count * 75;
+        reminder.Y = 500;
         Settings.Reminders.Add(reminder);
         RemindersGrid.SelectedItem = reminder;
         RemindersGrid.ScrollIntoView(reminder);
@@ -1240,7 +1254,6 @@ public partial class MainWindow : Window
     {
         if (RemindersGrid.SelectedItem is not ReminderItem reminder) { SelectFirst("reminder"); return; }
         if (!EnsureNpcap()) return;
-        RemindersGrid.CommitEdit();
         StartLearning();
         _learningReminder = reminder;
         SetStatus(T($"Активируйте статус для «{reminder.Name}» в RO в течение 20 секунд.",

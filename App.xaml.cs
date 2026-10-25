@@ -118,6 +118,8 @@ public partial class App : Application
             wizard.Close();
             var effectWizard = new EffectWizardWindow(settings.BuffPanelGroups, _ => { });
             effectWizard.Close();
+            var reminderWizard = new ReminderWizardWindow(_ => { });
+            reminderWizard.Close();
             var goldGoblinAddWindow = new GoldGoblinAddItemWindow(Array.Empty<ItemEntry>());
             goldGoblinAddWindow.Close();
             var npcapRequiredWindow = new NpcapRequiredWindow();
