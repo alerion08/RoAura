@@ -15,7 +15,7 @@ public partial class GoldGoblinAddItemWindow : Window
 
     public GoldGoblinAddItemWindow(IEnumerable<ItemEntry> items)
     {
-        _items = items.OrderBy(item => item.Name, StringComparer.CurrentCultureIgnoreCase).ToList();
+        _items = items.OrderBy(item => item.FullName, StringComparer.CurrentCultureIgnoreCase).ToList();
         InitializeComponent();
         ResultsList.ItemsSource = _results;
         Loaded += (_, _) =>
@@ -34,6 +34,7 @@ public partial class GoldGoblinAddItemWindow : Window
     {
         var normalized = query.Trim();
         var matches = _items.Where(item => normalized.Length == 0 ||
+                item.FullName.Contains(normalized, StringComparison.CurrentCultureIgnoreCase) ||
                 item.Name.Contains(normalized, StringComparison.CurrentCultureIgnoreCase) ||
                 item.Id.ToString().Contains(normalized, StringComparison.OrdinalIgnoreCase))
             .Take(150)

@@ -1135,13 +1135,19 @@
                                         <Grid.ColumnDefinitions><ColumnDefinition Width="3*" MinWidth="560"/><ColumnDefinition Width="12"/><ColumnDefinition Width="2*" MinWidth="300"/></Grid.ColumnDefinitions>
                                         <DataGrid x:Name="GoldGoblinLootGrid" ItemsSource="{Binding GoldGoblinRowsView, ElementName=RootWindow}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" BorderThickness="0" SelectionChanged="GoldGoblinLootGrid_SelectionChanged">
                                             <DataGrid.Columns>
-                                                <DataGridTextColumn Header="{DynamicResource Item}" Binding="{Binding Item}" IsReadOnly="True" Width="2*"/>
+                                                <DataGridTemplateColumn Header="{DynamicResource Item}" IsReadOnly="True" Width="2*">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Item}" Margin="9,0,4,0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
                                                 <DataGridTextColumn Header="{DynamicResource Count}" Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="110"/>
                                                 <DataGridTextColumn Header="{DynamicResource UnitPrice}" Binding="{Binding Cost, StringFormat=N0}" IsReadOnly="True" Width="125"/>
                                                 <DataGridTemplateColumn Header="{DynamicResource PriceSource}" IsReadOnly="True" Width="135">
                                                     <DataGridTemplateColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <Border x:Name="PriceBadge" HorizontalAlignment="Left" CornerRadius="12" Padding="9,3" Background="#E5F6EE">
+                                                            <Border x:Name="PriceBadge" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="7,2" CornerRadius="12" Padding="9,3" Background="#E5F6EE">
                                                                 <TextBlock x:Name="PriceBadgeText" Text="{DynamicResource PriceNpcBadge}" Foreground="#087A55" FontWeight="SemiBold"/>
                                                             </Border>
                                                             <DataTemplate.Triggers>
@@ -1164,7 +1170,13 @@
                                                         </DataTemplate>
                                                     </DataGridTemplateColumn.CellTemplate>
                                                 </DataGridTemplateColumn>
-                                                <DataGridTextColumn Header="{DynamicResource Total}" Binding="{Binding Total, StringFormat=N0}" IsReadOnly="True" Width="140"/>
+                                                <DataGridTemplateColumn Header="{DynamicResource Total}" IsReadOnly="True" Width="140">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Total, Mode=OneWay, StringFormat=N0}" Margin="9,0,4,0" VerticalAlignment="Center"/>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
                                             </DataGrid.Columns>
                                         </DataGrid>
                                         <Border Grid.Column="2" Background="#F4F8FD" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1,0,0,0" Padding="18" DataContext="{Binding SelectedItem, ElementName=GoldGoblinLootGrid}">
@@ -1201,10 +1213,9 @@
                                     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
                                     <StackPanel Margin="0,0,0,12"><TextBlock Text="{DynamicResource PriceRulesTitle}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource PriceRulesHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/></StackPanel>
                                     <Grid Grid.Row="1" Margin="0,0,0,10">
-                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="140"/><ColumnDefinition Width="140"/></Grid.ColumnDefinitions>
-                                        <ComboBox x:Name="GoldGoblinRuleItemBox" Margin="0,0,8,0" IsEditable="True" IsTextSearchEnabled="False" StaysOpenOnEdit="True"
-                                                  ItemsSource="{Binding GoldGoblinItemSuggestions, ElementName=RootWindow}" DisplayMemberPath="Name" KeyUp="GoldGoblinItemBox_KeyUp" ToolTip="{DynamicResource ItemNameOrPart}"/>
-                                        <Button Grid.Column="1" Margin="0,0,8,0" Content="{DynamicResource Add}" Click="AddGoldGoblinRule_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="170"/><ColumnDefinition Width="140"/></Grid.ColumnDefinitions>
+                                        <TextBlock Text="{DynamicResource SelectItemFromList}" Foreground="{StaticResource RoMutedBrush}" VerticalAlignment="Center" Margin="9,0,12,0"/>
+                                        <Button Grid.Column="1" Margin="0,0,8,0" Content="{DynamicResource AddItem}" Click="AddGoldGoblinRule_Click" Style="{StaticResource PrimaryButtonStyle}"/>
                                         <Button Grid.Column="2" Content="{DynamicResource Delete}" Click="DeleteGoldGoblinRule_Click" Style="{StaticResource DangerButtonStyle}"/>
                                     </Grid>
                                     <DataGrid x:Name="GoldGoblinRulesGrid" Grid.Row="2" ItemsSource="{Binding GoldGoblinPriceRules}" AutoGenerateColumns="False" CanUserAddRows="False">

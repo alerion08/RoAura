@@ -289,7 +289,7 @@ public partial class App : Application
         };
         _overlay.ShowLootReward(packet.ItemId, item.Name, item.Type, packet.Count);
         if (_settingsWindow.Settings.ServerProfile == GameServerProfile.SpringRo)
-            _goldGoblin?.AddLoot(packet.ItemId, item.Name, packet.Count);
+            _goldGoblin?.AddLoot(packet.ItemId, item.FullName, packet.Count);
         DebugLog.Write($"PACKET LOOT item={packet.ItemId}; name={item.Name}; type={item.Type}; count={packet.Count}");
     });
 

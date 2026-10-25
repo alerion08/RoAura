@@ -216,16 +216,12 @@ public partial class MainWindow : Window
 
     private void AddGoldGoblinRule_Click(object sender, RoutedEventArgs e)
     {
-        var item = ResolveGoldGoblinItem(GoldGoblinRuleItemBox);
-        if (item is null)
-        {
-            SetStatus(T("Предмет не найден в базе SpringRO.", "Item was not found in the SpringRO database."));
-            return;
-        }
+        var dialog = new GoldGoblinAddItemWindow(_items.Values) { Owner = this };
+        if (dialog.ShowDialog() != true || dialog.SelectedItem is not ItemEntry item) return;
         var existing = Settings.GoldGoblinPriceRules.FirstOrDefault(rule => rule.ItemId == item.Id);
         if (existing is null)
         {
-            existing = new GoldGoblinPriceRule { ItemId = item.Id, Name = item.Name };
+            existing = new GoldGoblinPriceRule { ItemId = item.Id, Name = item.FullName };
             Settings.GoldGoblinPriceRules.Add(existing);
         }
         GoldGoblinRulesGrid.SelectedItem = existing;
@@ -264,7 +260,7 @@ public partial class MainWindow : Window
     {
         var dialog = new GoldGoblinAddItemWindow(_items.Values) { Owner = this };
         if (dialog.ShowDialog() != true || dialog.SelectedItem is not ItemEntry item) return;
-        _goldGoblin.AddManualItem(item.Id, item.Name);
+        _goldGoblin.AddManualItem(item.Id, item.FullName);
         GoldGoblinLootGrid.SelectedItem = GoldGoblinRows.First(row => row.ItemId == item.Id);
         GoldGoblinLootGrid.ScrollIntoView(GoldGoblinLootGrid.SelectedItem);
     }
