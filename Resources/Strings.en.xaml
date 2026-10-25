@@ -333,6 +333,13 @@
     <sys:String x:Key="GoldGoblinTableHint">Quantity can be edited directly in the row. An unknown price is not zero.</sys:String>
     <sys:String x:Key="PriceRulesTitle">Price resolution rules</sys:String>
     <sys:String x:Key="PriceRulesHint">Vending is tried first, Manual is its fallback, and NPC is the default with Overcharge.</sys:String>
+    <sys:String x:Key="AddItemToSession">Add item to session</sys:String>
+    <sys:String x:Key="AddItemDialogHint">Start typing an item name or Item ID, then choose an item from the results.</sys:String>
+    <sys:String x:Key="SelectItemFromList">Select an item from the list</sys:String>
+    <sys:String x:Key="PriceNpcBadge">✓ NPC</sys:String>
+    <sys:String x:Key="PriceVendingBadge">▤ Vending</sys:String>
+    <sys:String x:Key="PriceManualBadge">✎ Manual</sys:String>
+    <sys:String x:Key="PriceUnknownBadge">⚠ No price</sys:String>
     <sys:String x:Key="MoveUp">Move up</sys:String>
     <sys:String x:Key="MoveDown">Move down</sys:String>
     <sys:String x:Key="CooldownGroupFilterHint">Filter skills by group</sys:String>
