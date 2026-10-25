@@ -35,6 +35,8 @@ public partial class MainWindow : Window
     private IReadOnlyDictionary<int, ItemEntry> _items;
     private ICollectionView? _effectsView;
     private ICollectionView? _skillsView;
+    private readonly ICollectionView _goldGoblinRowsView;
+    private bool _updatingGoldGoblinEditor;
     private int? _cooldownGroupFilter;
     private readonly DispatcherTimer _connectionDetectionTimer;
     private bool _appliedPacketCaptureEnabled;
@@ -43,6 +45,7 @@ public partial class MainWindow : Window
 
     public ICollectionView MvpMonsterView { get; }
     public ObservableCollection<GoldGoblinLootRow> GoldGoblinRows => _goldGoblin.Rows;
+    public ICollectionView GoldGoblinRowsView => _goldGoblinRowsView;
     public ObservableCollection<ItemEntry> GoldGoblinItemSuggestions { get; } = [];
     public ObservableCollection<object> CooldownGroupFilterItems { get; } = [];
 
@@ -56,6 +59,8 @@ public partial class MainWindow : Window
         _items = ItemCatalogService.Load(settings.LootDatabaseVersion);
         RefreshGoldGoblinItemSuggestions();
         MvpMonsterView = CollectionViewSource.GetDefaultView(_monsters);
+        _goldGoblinRowsView = CollectionViewSource.GetDefaultView(_goldGoblin.Rows);
+        _goldGoblinRowsView.Filter = FilterGoldGoblinRow;
         InitializeComponent();
         SourceInitialized += MainWindow_SourceInitialized;
         Settings = settings;
@@ -90,6 +95,8 @@ public partial class MainWindow : Window
         if (settings.RewardGroups.Count > 0) RewardGroupBox.SelectedIndex = 0;
         if (settings.RateIndicators.Count > 0) RateIndicatorsGrid.SelectedIndex = 0;
         if (settings.GoldGoblinPriceRules.Count > 0) GoldGoblinRulesGrid.SelectedIndex = 0;
+        GoldGoblinSourceFilter.SelectedIndex = 0;
+        GoldGoblinSortBox.SelectedIndex = 0;
         LanguageBox.SelectedIndex = settings.Language == "en" ? 1 : 0;
         UpdateServerProfileLabels();
         RefreshPresetList(_store.ActiveProfileName);
@@ -198,6 +205,7 @@ public partial class MainWindow : Window
     private void GoldGoblin_Changed()
     {
         if (!Dispatcher.CheckAccess()) { Dispatcher.BeginInvoke(GoldGoblin_Changed); return; }
+        _goldGoblinRowsView.Refresh();
         if (GoldGoblinTotalText is not null)
             GoldGoblinTotalText.Text = $"{_goldGoblin.SessionTotal:N0} Z";
         if (GoldGoblinItemCountText is not null)
@@ -231,7 +239,22 @@ public partial class MainWindow : Window
         _goldGoblin.Reprice();
     }
 
-    private void ResetGoldGoblin_Click(object sender, RoutedEventArgs e) => _goldGoblin.Reset();
+    private void ResetGoldGoblin_Click(object sender, RoutedEventArgs e)
+    {
+        var result = MessageBox.Show(this,
+            T("Очистить все предметы и количества текущей сессии? Правила цен сохранятся.",
+              "Clear all items and quantities from the current session? Price rules will be kept."),
+            T("Сброс сессии Gold Goblin", "Reset Gold Goblin session"),
+            MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result == MessageBoxResult.Yes) _goldGoblin.Reset();
+    }
+
+    private void OpenGoldGoblinAdd_Click(object sender, RoutedEventArgs e)
+    {
+        GoldGoblinWorkspaceTabs.SelectedIndex = 0;
+        GoldGoblinLootItemBox.Focus();
+        GoldGoblinLootItemBox.IsDropDownOpen = true;
+    }
 
     private void AddGoldGoblinLoot_Click(object sender, RoutedEventArgs e)
     {
@@ -248,6 +271,117 @@ public partial class MainWindow : Window
     private void DeleteGoldGoblinLoot_Click(object sender, RoutedEventArgs e)
     {
         if (GoldGoblinLootGrid.SelectedItem is GoldGoblinLootRow row) _goldGoblin.Remove(row);
+    }
+
+    private bool FilterGoldGoblinRow(object value)
+    {
+        if (value is not GoldGoblinLootRow row) return false;
+        var query = GoldGoblinSearchBox?.Text.Trim() ?? "";
+        if (query.Length > 0 &&
+            !row.Item.Contains(query, StringComparison.CurrentCultureIgnoreCase) &&
+            !row.ItemId.ToString().Contains(query, StringComparison.OrdinalIgnoreCase)) return false;
+
+        var source = (GoldGoblinSourceFilter?.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "all";
+        return source switch
+        {
+            "npc" => row.PriceKnown && row.PriceSource.Equals("NPC", StringComparison.OrdinalIgnoreCase),
+            "vending" => row.PriceKnown && row.PriceSource.Equals("Vending", StringComparison.OrdinalIgnoreCase),
+            "manual" => row.PriceKnown && row.PriceSource.Equals("Manual", StringComparison.OrdinalIgnoreCase),
+            "unknown" => !row.PriceKnown,
+            _ => true
+        };
+    }
+
+    private void GoldGoblinFilter_Changed(object sender, EventArgs e) => _goldGoblinRowsView.Refresh();
+
+    private void GoldGoblinSort_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if (_goldGoblinRowsView is null || GoldGoblinSortBox?.SelectedItem is not ComboBoxItem item) return;
+        _goldGoblinRowsView.SortDescriptions.Clear();
+        var property = item.Tag?.ToString() switch
+        {
+            "total" => nameof(GoldGoblinLootRow.Total),
+            "count" => nameof(GoldGoblinLootRow.Count),
+            _ => nameof(GoldGoblinLootRow.Item)
+        };
+        var direction = property == nameof(GoldGoblinLootRow.Item)
+            ? ListSortDirection.Ascending
+            : ListSortDirection.Descending;
+        _goldGoblinRowsView.SortDescriptions.Add(new SortDescription(property, direction));
+    }
+
+    private void GoldGoblinLootGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row) return;
+        _updatingGoldGoblinEditor = true;
+        GoldGoblinPriceSourceBox.SelectedValue = row.PriceSource.ToLowerInvariant() switch
+        {
+            "vending" => "vending",
+            "manual" => "manual",
+            _ => "npc"
+        };
+        var rule = Settings.GoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
+        GoldGoblinManualPriceBox.Text = rule?.ManualPrice.ToString() ?? "0";
+        _updatingGoldGoblinEditor = false;
+    }
+
+    private GoldGoblinPriceRule GetOrCreateGoldGoblinRule(GoldGoblinLootRow row)
+    {
+        var rule = Settings.GoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
+        if (rule is not null) return rule;
+        rule = new GoldGoblinPriceRule { ItemId = row.ItemId, Name = row.Item };
+        Settings.GoldGoblinPriceRules.Add(rule);
+        return rule;
+    }
+
+    private void GoldGoblinPriceSource_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if (_updatingGoldGoblinEditor || GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row ||
+            GoldGoblinPriceSourceBox.SelectedValue is not string source) return;
+        var existing = Settings.GoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
+        if (source == "npc")
+        {
+            if (existing is not null) Settings.GoldGoblinPriceRules.Remove(existing);
+        }
+        else
+        {
+            var rule = GetOrCreateGoldGoblinRule(row);
+            rule.UseVendingPrice = source == "vending";
+        }
+        _goldGoblin.Reprice();
+        GoldGoblinLootGrid_SelectionChanged(GoldGoblinLootGrid,
+            new SelectionChangedEventArgs(Selector.SelectionChangedEvent, Array.Empty<object>(), Array.Empty<object>()));
+    }
+
+    private void GoldGoblinManualPrice_LostFocus(object sender, RoutedEventArgs e)
+    {
+        if (_updatingGoldGoblinEditor || GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row) return;
+        if (!long.TryParse(GoldGoblinManualPriceBox.Text, out var price) || price < 0)
+        {
+            SetStatus(T("Цена должна быть целым неотрицательным числом.", "Price must be a non-negative whole number."));
+            GoldGoblinLootGrid_SelectionChanged(GoldGoblinLootGrid,
+                new SelectionChangedEventArgs(Selector.SelectionChangedEvent, Array.Empty<object>(), Array.Empty<object>()));
+            return;
+        }
+        var rule = GetOrCreateGoldGoblinRule(row);
+        rule.ManualPrice = price;
+        if (GoldGoblinPriceSourceBox.SelectedValue?.ToString() == "manual") rule.UseVendingPrice = false;
+        _goldGoblin.Reprice();
+    }
+
+    private void ExportGoldGoblinCsv_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new SaveFileDialog
+        {
+            FileName = $"RoAura-Gold-Goblin-{DateTime.Now:yyyy-MM-dd-HHmm}.csv",
+            Filter = "CSV (*.csv)|*.csv"
+        };
+        if (dialog.ShowDialog(this) != true) return;
+        var lines = new List<string> { "Item ID;Name;Quantity;Unit price;Source;Total" };
+        lines.AddRange(GoldGoblinRows.Select(row =>
+            $"{row.ItemId};\"{row.Item.Replace("\"", "\"\"")}\";{row.Count};{row.Cost};{row.PriceSource};{row.Total}"));
+        File.WriteAllLines(dialog.FileName, lines, new System.Text.UTF8Encoding(true));
+        SetStatus(T("Отчёт Gold Goblin сохранён.", "Gold Goblin report saved."));
     }
 
     private void GoldGoblinItemBox_KeyUp(object sender, KeyEventArgs e)
