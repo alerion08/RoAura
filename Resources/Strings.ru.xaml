@@ -295,6 +295,9 @@
     <sys:String x:Key="Total">Сумма</sys:String>
     <sys:String x:Key="SessionTotal">Итого за сессию:</sys:String>
     <sys:String x:Key="ResetSession">Сбросить сессию</sys:String>
+    <sys:String x:Key="StartSession">Начать сессию</sys:String>
+    <sys:String x:Key="SessionTime">Время сессии</sys:String>
+    <sys:String x:Key="SessionTimeHint">Время фарма с момента запуска сессии</sys:String>
     <sys:String x:Key="OverchargeLevel">Overcharge, уровень</sys:String>
     <sys:String x:Key="OverchargeHint">0 — без наценки; 10 — +24% к NPC цене</sys:String>
     <sys:String x:Key="SpecialPriceRules">Особые правила цены</sys:String>

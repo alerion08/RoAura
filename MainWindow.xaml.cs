@@ -40,6 +40,7 @@ public partial class MainWindow : Window
     private bool _goldGoblinRefreshPending;
     private int? _cooldownGroupFilter;
     private readonly DispatcherTimer _connectionDetectionTimer;
+    private readonly DispatcherTimer _goldGoblinSessionTimer;
     private bool _appliedPacketCaptureEnabled;
     private string _appliedPacketServerAddress = "";
     private int _appliedPacketServerPort;
@@ -124,6 +125,9 @@ public partial class MainWindow : Window
                 DetectConnection(userInitiated: false, restartCapture: true);
         };
         _connectionDetectionTimer.Start();
+        _goldGoblinSessionTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+        _goldGoblinSessionTimer.Tick += (_, _) => UpdateGoldGoblinSessionTime();
+        _goldGoblinSessionTimer.Start();
     }
 
     private void Navigation_Checked(object sender, RoutedEventArgs e)
@@ -211,14 +215,25 @@ public partial class MainWindow : Window
         Dispatcher.BeginInvoke(DispatcherPriority.DataBind, () =>
         {
             _goldGoblinRefreshPending = false;
-            _goldGoblinRowsView.Refresh();
             if (GoldGoblinTotalText is not null)
                 GoldGoblinTotalText.Text = $"{_goldGoblin.SessionTotal:N0} Z";
             if (GoldGoblinItemCountText is not null)
                 GoldGoblinItemCountText.Text = GoldGoblinRows.Sum(row => row.Count).ToString("N0");
             if (GoldGoblinUnpricedCountText is not null)
                 GoldGoblinUnpricedCountText.Text = GoldGoblinRows.Count(row => !row.PriceKnown).ToString("N0");
+            UpdateGoldGoblinSessionTime();
         });
+    }
+
+    private void UpdateGoldGoblinSessionTime()
+    {
+        if (GoldGoblinSessionTimeText is null) return;
+        var elapsed = _goldGoblin.SessionStartedUtc.HasValue
+            ? DateTime.UtcNow - _goldGoblin.SessionStartedUtc.Value
+            : TimeSpan.Zero;
+        GoldGoblinSessionTimeText.Text = elapsed.TotalDays >= 1
+            ? $"{(int)elapsed.TotalDays}d {elapsed:hh\\:mm\\:ss}"
+            : elapsed.ToString("hh\\:mm\\:ss");
     }
 
     private void AddGoldGoblinRule_Click(object sender, RoutedEventArgs e)
@@ -250,6 +265,20 @@ public partial class MainWindow : Window
             T("Сброс сессии Gold Goblin", "Reset Gold Goblin session"),
             MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result == MessageBoxResult.Yes) _goldGoblin.Reset();
+    }
+
+    private void StartGoldGoblinSession_Click(object sender, RoutedEventArgs e)
+    {
+        if (GoldGoblinRows.Count > 0)
+        {
+            var result = MessageBox.Show(this,
+                T("Начать новую сессию? Текущий список предметов и количества будет очищен. Правила цен сохранятся.",
+                  "Start a new session? The current item list and quantities will be cleared. Price rules will be kept."),
+                T("Новая сессия Gold Goblin", "New Gold Goblin session"),
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes) return;
+        }
+        _goldGoblin.StartSession();
     }
 
     private void OpenGoldGoblinAdd_Click(object sender, RoutedEventArgs e)
@@ -297,6 +326,8 @@ public partial class MainWindow : Window
     }
 
     private void GoldGoblinFilter_Changed(object sender, EventArgs e) => _goldGoblinRowsView.Refresh();
+
+    private void GoldGoblinCount_LostFocus(object sender, RoutedEventArgs e) => _goldGoblinRowsView.Refresh();
 
     private void GoldGoblinSort_Changed(object sender, SelectionChangedEventArgs e)
     {
@@ -1805,6 +1836,7 @@ public partial class MainWindow : Window
     protected override void OnClosing(CancelEventArgs e)
     {
         _connectionDetectionTimer.Stop();
+        _goldGoblinSessionTimer.Stop();
         if (!_shutdownStarted)
         {
             _shutdownStarted = true;

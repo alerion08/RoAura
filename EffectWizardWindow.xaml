@@ -1,9 +1,9 @@
 <Window x:Class="RoAura.EffectWizardWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="{DynamicResource AddEffect}" Width="760" Height="520"
-        MinWidth="680" MinHeight="470" WindowStartupLocation="CenterOwner"
-        ResizeMode="NoResize" ShowInTaskbar="False" Background="{StaticResource RoWindowBrush}">
+        Title="{DynamicResource AddEffect}" Width="780" Height="600"
+        MinWidth="700" MinHeight="560" WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize" ShowInTaskbar="False" Background="{StaticResource RoWindowBrush}">
     <Grid>
         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
 
@@ -43,7 +43,7 @@
                         <Grid x:Name="ManualIdArea" Visibility="Collapsed">
                             <Grid.ColumnDefinitions><ColumnDefinition Width="230"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                             <TextBlock Text="Status ID" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,5,10,5"/>
-                            <TextBox Grid.Column="1" Height="28" VerticalContentAlignment="Center" Text="{Binding Draft.StatusId, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Column="1" MinHeight="36" Padding="10,5" VerticalContentAlignment="Center" Text="{Binding Draft.StatusId, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -62,7 +62,7 @@
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                     <StackPanel><TextBlock Text="{DynamicResource EffectName}" FontWeight="SemiBold"/><TextBox Text="{Binding Draft.Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,6,0,0"/></StackPanel>
-                    <StackPanel Grid.Column="2"><TextBlock Text="{DynamicResource EffectPanel}" FontWeight="SemiBold"/><ComboBox x:Name="PanelChoiceBox" ItemsSource="{Binding PanelChoices}" DisplayMemberPath="Label" Margin="0,6,0,0"/></StackPanel>
+                    <StackPanel Grid.Column="2"><TextBlock Text="{DynamicResource EffectPanel}" FontWeight="SemiBold"/><ComboBox x:Name="PanelChoiceBox" ItemsSource="{Binding PanelChoices}" Margin="0,6,0,0"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Label}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox></StackPanel>
                 </Grid>
                 <Border Grid.Row="2" Margin="0,17,0,0" Padding="0,10" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="0,1,0,1">
                     <CheckBox Content="{DynamicResource NotifyAppeared}" IsChecked="{Binding Draft.NotifyOnAppeared}"/>

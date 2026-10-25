@@ -295,6 +295,9 @@
     <sys:String x:Key="Total">Total</sys:String>
     <sys:String x:Key="SessionTotal">Session total:</sys:String>
     <sys:String x:Key="ResetSession">Reset session</sys:String>
+    <sys:String x:Key="StartSession">Start session</sys:String>
+    <sys:String x:Key="SessionTime">Session time</sys:String>
+    <sys:String x:Key="SessionTimeHint">Farming time since the session started</sys:String>
     <sys:String x:Key="OverchargeLevel">Overcharge level</sys:String>
     <sys:String x:Key="OverchargeHint">0 — no bonus; 10 — +24% to the NPC price</sys:String>
     <sys:String x:Key="SpecialPriceRules">Special price rules</sys:String>

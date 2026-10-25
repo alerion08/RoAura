@@ -81,6 +81,13 @@ public sealed class GoldGoblinService
         Changed?.Invoke();
     }
 
+    public void StartSession()
+    {
+        Rows.Clear();
+        SessionStartedUtc = DateTime.UtcNow;
+        Changed?.Invoke();
+    }
+
     public void AddManualItem(int itemId, string name) => AddLoot(itemId, name, 1);
 
     public void Remove(GoldGoblinLootRow row)
