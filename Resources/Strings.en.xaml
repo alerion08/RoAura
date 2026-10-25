@@ -32,6 +32,13 @@
     <sys:String x:Key="ConnectionStatus">Game connection</sys:String>
     <sys:String x:Key="ConnectionStatusHint">RoAura detects the process, IP and port automatically. Run detection again after changing the client.</sys:String>
     <sys:String x:Key="ConnectionAndControl">Connection and controls</sys:String>
+    <sys:String x:Key="FirstRunTitle">Welcome to RoAura</sys:String>
+    <sys:String x:Key="FirstRunHint">Three short steps will connect the game and configure your first overlay. You can dismiss this guide and continue later.</sys:String>
+    <sys:String x:Key="SkipFirstRun">Set up later</sys:String>
+    <sys:String x:Key="FirstRunServer">Choose your server</sys:String>
+    <sys:String x:Key="FirstRunServerHint">Choose the server in the top bar. It controls which databases and features are available.</sys:String>
+    <sys:String x:Key="FirstRunConnection">Connect the game</sys:String>
+    <sys:String x:Key="FirstRunOverlay">Configure your first overlay</sys:String>
     <sys:String x:Key="ConfigureCooldowns">Configure cooldowns</sys:String>
     <sys:String x:Key="ConfigureEffects">Configure effects</sys:String>
     <sys:String x:Key="ConfigureReminders">Configure reminders</sys:String>

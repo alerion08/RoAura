@@ -32,6 +32,13 @@
     <sys:String x:Key="ConnectionStatus">Подключение к игре</sys:String>
     <sys:String x:Key="ConnectionStatusHint">RoAura автоматически определяет процесс, IP и порт. При смене клиента выполните повторное определение.</sys:String>
     <sys:String x:Key="ConnectionAndControl">Подключение и управление</sys:String>
+    <sys:String x:Key="FirstRunTitle">Первый запуск RoAura</sys:String>
+    <sys:String x:Key="FirstRunHint">Три коротких шага помогут подключить игру и настроить первый оверлей. Эту подсказку можно закрыть и продолжить настройку позже.</sys:String>
+    <sys:String x:Key="SkipFirstRun">Настроить позже</sys:String>
+    <sys:String x:Key="FirstRunServer">Выберите сервер</sys:String>
+    <sys:String x:Key="FirstRunServerHint">Сервер выбирается в верхней панели. От него зависят доступные базы и функции.</sys:String>
+    <sys:String x:Key="FirstRunConnection">Подключите игру</sys:String>
+    <sys:String x:Key="FirstRunOverlay">Настройте первый оверлей</sys:String>
     <sys:String x:Key="ConfigureCooldowns">Настроить кулдауны</sys:String>
     <sys:String x:Key="ConfigureEffects">Настроить эффекты</sys:String>
     <sys:String x:Key="ConfigureReminders">Настроить напоминания</sys:String>

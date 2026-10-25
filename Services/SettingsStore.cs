@@ -6,6 +6,8 @@ namespace RoAura.Services;
 public sealed class SettingsStore
 {
     private const string UiUpgradeBackupMarker = "ui-2.0-backup.completed";
+    private const string FirstRunPendingMarker = "first-run.pending";
+    private const string FirstRunCompletedMarker = "first-run.completed";
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -20,11 +22,13 @@ public sealed class SettingsStore
     public string RecoveryDirectory => Path.Combine(_rootDirectory, "Recovery");
     public string ActiveProfilePath => Path.Combine(_rootDirectory, "active-profile.txt");
     public string ActiveProfileName { get; private set; } = "Default";
+    public bool IsFirstRun { get; private set; }
 
     public AppSettings Load()
     {
         try
         {
+            PrepareFirstRunState();
             EnsureUiUpgradeBackup();
             ActiveProfileName = ReadActiveProfileName();
             // settings.json is the mutable working copy. Preset files are
@@ -53,6 +57,39 @@ public sealed class SettingsStore
         {
             return new AppSettings();
         }
+    }
+
+    private void PrepareFirstRunState()
+    {
+        Directory.CreateDirectory(RecoveryDirectory);
+        var pendingPath = Path.Combine(RecoveryDirectory, FirstRunPendingMarker);
+        var completedPath = Path.Combine(RecoveryDirectory, FirstRunCompletedMarker);
+        if (File.Exists(completedPath))
+        {
+            IsFirstRun = false;
+            return;
+        }
+        if (File.Exists(pendingPath))
+        {
+            IsFirstRun = true;
+            return;
+        }
+
+        var hasExistingConfiguration = File.Exists(SettingsPath) ||
+                                       File.Exists(ActiveProfilePath) ||
+                                       Directory.Exists(ProfilesDirectory);
+        IsFirstRun = !hasExistingConfiguration;
+        AtomicWrite(IsFirstRun ? pendingPath : completedPath, DateTime.UtcNow.ToString("O"));
+    }
+
+    public void CompleteFirstRun()
+    {
+        Directory.CreateDirectory(RecoveryDirectory);
+        var pendingPath = Path.Combine(RecoveryDirectory, FirstRunPendingMarker);
+        var completedPath = Path.Combine(RecoveryDirectory, FirstRunCompletedMarker);
+        AtomicWrite(completedPath, DateTime.UtcNow.ToString("O"));
+        if (File.Exists(pendingPath)) File.Delete(pendingPath);
+        IsFirstRun = false;
     }
 
     private void EnsureUiUpgradeBackup()

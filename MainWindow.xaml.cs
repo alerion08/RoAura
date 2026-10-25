@@ -103,6 +103,7 @@ public partial class MainWindow : Window
         UpdateServerProfileLabels();
         RefreshPresetList(_store.ActiveProfileName);
         HomeNavButton.IsChecked = true;
+        FirstRunPanel.Visibility = _store.IsFirstRun ? Visibility.Visible : Visibility.Collapsed;
         _languageReady = true;
         ServerProfileBox.SelectedIndex = settings.ServerProfile switch
         {
@@ -149,6 +150,25 @@ public partial class MainWindow : Window
             _ => null
         };
         if (target is not null) target.IsChecked = true;
+    }
+
+    private void FirstRunFindGame_Click(object sender, RoutedEventArgs e)
+    {
+        ConnectionSettingsPanel.IsExpanded = true;
+        DetectConnection(userInitiated: true, restartCapture: true);
+    }
+
+    private void FirstRunChooseOverlay_Click(object sender, RoutedEventArgs e)
+    {
+        _store.CompleteFirstRun();
+        FirstRunPanel.Visibility = Visibility.Collapsed;
+        EffectsNavButton.IsChecked = true;
+    }
+
+    private void CompleteFirstRun_Click(object sender, RoutedEventArgs e)
+    {
+        _store.CompleteFirstRun();
+        FirstRunPanel.Visibility = Visibility.Collapsed;
     }
 
     private void ServerProfile_SelectionChanged(object sender, SelectionChangedEventArgs e)
