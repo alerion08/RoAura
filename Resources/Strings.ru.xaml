@@ -47,6 +47,15 @@
     <sys:String x:Key="NoSkillsHint">Добавьте первое умение и определите его Skill ID в игре.</sys:String>
     <sys:String x:Key="SkillListHint">Выберите умение, чтобы изменить его параметры.</sys:String>
     <sys:String x:Key="DuplicateSkill">Дублировать умение</sys:String>
+    <sys:String x:Key="SkillName">Название умения</sys:String>
+    <sys:String x:Key="ShortName">Короткое название</sys:String>
+    <sys:String x:Key="ShortNameHint">Если оставить пустым, сокращение будет создано автоматически.</sys:String>
+    <sys:String x:Key="TrackSkill">Отслеживать это умение</sys:String>
+    <sys:String x:Key="SkillDetectHint">Skill ID можно определить в игре во вкладке «Дополнительно». Используйте умение после запуска двадцатисекундного поиска.</sys:String>
+    <sys:String x:Key="CooldownPreviewHint">Предпросмотр текста внутри игровой иконки</sys:String>
+    <sys:String x:Key="ShowSkillShortName">Показывать короткое название</sys:String>
+    <sys:String x:Key="ShowSkillReady">Показывать надпись READY</sys:String>
+    <sys:String x:Key="ShowSkillCountdown">Показывать секунды до восстановления</sys:String>
     <sys:String x:Key="Effects">Эффекты</sys:String>
     <sys:String x:Key="EffectSettingsTitle">Эффекты</sys:String>
     <sys:String x:Key="EffectSettingsHint">Все игровые эффекты в одном списке. Объединяйте их в независимые панели.</sys:String>
@@ -296,4 +305,17 @@
     <sys:String x:Key="DeleteItem">Удалить предмет</sys:String>
     <sys:String x:Key="MoveUp">Выше</sys:String>
     <sys:String x:Key="MoveDown">Ниже</sys:String>
+    <sys:String x:Key="CooldownGroupFilterHint">Фильтр умений по группе</sys:String>
+    <sys:String x:Key="AllGroups">Все группы</sys:String>
+    <sys:String x:Key="CooldownGroupsTitle">Группы кулдаунов</sys:String>
+    <sys:String x:Key="CooldownGroupsHint">Настройте порядок, направление и расстояние между иконками каждой панели.</sys:String>
+    <sys:String x:Key="AddCooldownGroup">＋ Новая группа</sys:String>
+    <sys:String x:Key="GroupName">Название группы</sys:String>
+    <sys:String x:Key="LayoutDirection">Направление</sys:String>
+    <sys:String x:Key="Horizontal">Горизонтально</sys:String>
+    <sys:String x:Key="Vertical">Вертикально</sys:String>
+    <sys:String x:Key="IconGap">Отступ, px</sys:String>
+    <sys:String x:Key="ApplyGroupLayout">Применить расположение</sys:String>
+    <sys:String x:Key="DeleteGroup">Удалить группу</sys:String>
+    <sys:String x:Key="SkillsCountLabel">умений</sys:String>
 </ResourceDictionary>
