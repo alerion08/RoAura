@@ -1823,6 +1823,8 @@ public partial class MainWindow : Window
         RemindersGrid.Items.Refresh();
         EquipmentGrid.Items.Refresh();
         MvpTimersGrid.Items.Refresh();
+        DetectConnection(userInitiated: false, restartCapture: false);
+        (Application.Current as App)?.RefreshLanguage();
         SaveSettings();
     }
 

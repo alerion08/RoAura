@@ -22,13 +22,15 @@ public partial class DatabaseDetailWindow : Window
         InitializeComponent();
         _settings = settings;
         _database = database;
-        if (_settings.Language == "en")
-        {
-            PanelTitle.Text = "Result";
-            KeyboardStatus.Text = $"Search input active · {_settings.DatabaseHotkey} — close";
-            CloseButton.ToolTip = "Close database";
-        }
-        else KeyboardStatus.Text = $"Ввод в поиск активен · {_settings.DatabaseHotkey} — закрыть";
+        RefreshLanguage();
+    }
+
+    public void RefreshLanguage()
+    {
+        PanelTitle.Text = T("Результат", "Result");
+        KeyboardStatus.Text = T($"Ввод в поиск активен · {_settings.DatabaseHotkey} — закрыть",
+            $"Search input active · {_settings.DatabaseHotkey} — close");
+        CloseButton.ToolTip = T("Закрыть базу данных", "Close database");
     }
 
     public void PlaceForGame(ForegroundProcess.WindowBounds game, double width, double height, double margin)

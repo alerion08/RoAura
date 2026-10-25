@@ -44,38 +44,10 @@ public partial class DatabaseOverlayWindow : Window
         _database = database ?? throw new ArgumentNullException(nameof(database));
         _market = market ?? throw new ArgumentNullException(nameof(market));
         InitializeComponent();
-        RaceFilter.ItemsSource = new[] { T("Все расы", "All races") }.Concat(_database.MonsterRaces).ToList();
-        ElementFilter.ItemsSource = new[] { T("Все элементы", "All elements") }.Concat(_database.MonsterElements).ToList();
-        SizeFilter.ItemsSource = new[] { T("Все размеры", "All sizes") }.Concat(_database.MonsterSizes).ToList();
-        RaceFilter.SelectedIndex = ElementFilter.SelectedIndex = SizeFilter.SelectedIndex = 0;
         _details = new DatabaseDetailWindow(settings, database);
         _details.HideRequested += () => HideRequested?.Invoke();
         _market.DataUpdated += Market_DataUpdated;
-        if (_settings.Language == "en")
-        {
-            OverlayTitle.Text = "SpringRO Database";
-            MonstersMode.Content = "Monsters";
-            ItemsMode.Content = "Items";
-            MapsMode.Content = "Maps";
-            MarketMode.Content = "Market";
-            MarketSellMode.Content = "Selling";
-            MarketBuyMode.Content = "Buying";
-            SearchButton.Content = "Search";
-            MarketTypeLabel.Text = "Shop type:";
-            AdvancedHeaderText.Text = "Advanced search";
-            RaceLabel.Text = "Race";
-            ElementLabel.Text = "Element";
-            SizeLabel.Text = "Size";
-            ElementLevelLabel.Text = "Element level, min";
-            LevelMinLabel.Text = "Level, min";
-            LevelMaxLabel.Text = "Level, max";
-            BaseExpMinLabel.Text = "Base EXP, min";
-            JobExpMinLabel.Text = "Job EXP, min";
-            HpMinLabel.Text = "HP, min";
-            HpMaxLabel.Text = "HP, max";
-            AggressiveFilter.Content = "Aggressive";
-            CloseButton.ToolTip = "Close database";
-        }
+        RefreshLanguage();
         Loaded += (_, _) =>
         {
             SearchBox.Focus();
@@ -89,6 +61,42 @@ public partial class DatabaseOverlayWindow : Window
         _marketRefreshTimer.Start();
         Dispatcher.BeginInvoke(async () => await RefreshMarketInBackgroundAsync(), DispatcherPriority.Background);
         _settings.PropertyChanged += Settings_PropertyChanged;
+    }
+
+    public void RefreshLanguage()
+    {
+        var raceIndex = Math.Max(0, RaceFilter.SelectedIndex);
+        var elementIndex = Math.Max(0, ElementFilter.SelectedIndex);
+        var sizeIndex = Math.Max(0, SizeFilter.SelectedIndex);
+        OverlayTitle.Text = T("База SpringRO", "SpringRO Database");
+        MonstersMode.Content = T("Монстры", "Monsters");
+        ItemsMode.Content = T("Предметы", "Items");
+        MapsMode.Content = T("Карты", "Maps");
+        MarketMode.Content = T("Маркет", "Market");
+        MarketSellMode.Content = T("Продажа", "Selling");
+        MarketBuyMode.Content = T("Покупка", "Buying");
+        SearchButton.Content = T("Найти", "Search");
+        MarketTypeLabel.Text = T("Тип магазина:", "Shop type:");
+        AdvancedHeaderText.Text = T("Расширенный поиск", "Advanced search");
+        RaceLabel.Text = T("Раса", "Race");
+        ElementLabel.Text = T("Элемент", "Element");
+        SizeLabel.Text = T("Размер", "Size");
+        ElementLevelLabel.Text = T("Уровень элемента, от", "Element level, min");
+        LevelMinLabel.Text = T("Уровень, от", "Level, min");
+        LevelMaxLabel.Text = T("Уровень, до", "Level, max");
+        BaseExpMinLabel.Text = T("Base EXP, от", "Base EXP, min");
+        JobExpMinLabel.Text = T("Job EXP, от", "Job EXP, min");
+        HpMinLabel.Text = T("HP, от", "HP, min");
+        HpMaxLabel.Text = T("HP, до", "HP, max");
+        AggressiveFilter.Content = T("Агрессивный", "Aggressive");
+        CloseButton.ToolTip = T("Закрыть базу данных", "Close database");
+        RaceFilter.ItemsSource = new[] { T("Все расы", "All races") }.Concat(_database.MonsterRaces).ToList();
+        ElementFilter.ItemsSource = new[] { T("Все элементы", "All elements") }.Concat(_database.MonsterElements).ToList();
+        SizeFilter.ItemsSource = new[] { T("Все размеры", "All sizes") }.Concat(_database.MonsterSizes).ToList();
+        RaceFilter.SelectedIndex = Math.Min(raceIndex, RaceFilter.Items.Count - 1);
+        ElementFilter.SelectedIndex = Math.Min(elementIndex, ElementFilter.Items.Count - 1);
+        SizeFilter.SelectedIndex = Math.Min(sizeIndex, SizeFilter.Items.Count - 1);
+        _details.RefreshLanguage();
     }
 
     public void PrepareForFirstUse()

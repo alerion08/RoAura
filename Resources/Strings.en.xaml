@@ -12,6 +12,8 @@
     <sys:String x:Key="FinishMoveHotkey">Finish moving</sys:String>
     <sys:String x:Key="HotkeyExamples">Accepted: F1–F12, Insert, Home, Escape, etc.</sys:String>
     <sys:String x:Key="Language">Language</sys:String>
+    <sys:String x:Key="Minimize">Minimize</sys:String>
+    <sys:String x:Key="Maximize">Maximize</sys:String>
     <sys:String x:Key="TrackingEnabled">Tracking enabled</sys:String>
     <sys:String x:Key="ShortNames">Short names</sys:String>
     <sys:String x:Key="ReadyText">READY label</sys:String>
@@ -44,6 +46,7 @@
     <sys:String x:Key="ConfigureReminders">Configure reminders</sys:String>
     <sys:String x:Key="ConfigureEquipment">Configure equipment</sys:String>
     <sys:String x:Key="Cooldowns">Cooldowns</sys:String>
+    <sys:String x:Key="SecondsShort">sec</sys:String>
     <sys:String x:Key="CooldownSettingsTitle">Cooldown settings</sys:String>
     <sys:String x:Key="CooldownSettingsHint">Add skills, assign Skill IDs and customize the in-game icons.</sys:String>
     <sys:String x:Key="AddSkill">Add skill</sys:String>
@@ -219,6 +222,9 @@
     <sys:String x:Key="StatusPresent">status present</sys:String>
     <sys:String x:Key="StatusMissing">status missing</sys:String>
     <sys:String x:Key="Equipment">Equipment</sys:String>
+    <sys:String x:Key="InventoryIndex">Inventory index</sys:String>
+    <sys:String x:Key="PacketId">Packet ID</sys:String>
+    <sys:String x:Key="WearSlot">Wear slot</sys:String>
     <sys:String x:Key="MvpTimers">MVP Timers</sys:String>
     <sys:String x:Key="TimersHotkey">MVP timers</sys:String>
     <sys:String x:Key="LearnEquipment">Learn equipment (20 sec)</sys:String>
@@ -267,6 +273,10 @@
     <sys:String x:Key="RewardLimitHint">Repeated items and Zeny are summed during the aggregation window. The line limit prevents oversized lists. For EXP percentage and the first Zeny gain, start RoAura before character login or relog once.</sys:String>
     <sys:String x:Key="OverlayMoveRewardGroup">Drag the notification group. ESC — save.</sys:String>
     <sys:String x:Key="LootTypeColors">Loot colors by item type</sys:String>
+    <sys:String x:Key="ItemTypeEquip">Equipment</sys:String>
+    <sys:String x:Key="ItemTypeCard">Cards</sys:String>
+    <sys:String x:Key="ItemTypeLoot">Loot</sys:String>
+    <sys:String x:Key="ItemTypeConsumables">Consumables</sys:String>
     <sys:String x:Key="GameVersion">Game version</sys:String>
     <sys:String x:Key="ItemDatabase">Item database</sys:String>
     <sys:String x:Key="Preset">Preset</sys:String>
@@ -287,6 +297,8 @@
     <sys:String x:Key="Database">Database</sys:String>
     <sys:String x:Key="DatabaseTitle">SpringRO in-game database</sys:String>
     <sys:String x:Key="DatabaseHotkey">Database</sys:String>
+    <sys:String x:Key="DatabaseHotkeyTitle">Hotkey</sys:String>
+    <sys:String x:Key="DatabaseSearchLimitHint">Quick search supports names and numeric IDs. Up to 100 results are shown at a time.</sys:String>
     <sys:String x:Key="OpenDatabase">Open database now</sys:String>
     <sys:String x:Key="DatabaseDescription">Search monsters, items, and maps. Results are linked: monsters open drops and maps, items open drop sources, and maps open every monster found there.</sys:String>
     <sys:String x:Key="DatabaseInputHint">While the database is open, keyboard input stays in search and does not reach RO. Press the hotkey again to close it.</sys:String>
@@ -349,6 +361,12 @@
     <sys:String x:Key="PriceNpcBadge">✓ NPC</sys:String>
     <sys:String x:Key="PriceVendingBadge">▤ Vending</sys:String>
     <sys:String x:Key="PriceManualBadge">✎ Manual</sys:String>
+    <sys:String x:Key="PriceNpcName">NPC Price</sys:String>
+    <sys:String x:Key="PriceVendingName">Vending Price</sys:String>
+    <sys:String x:Key="PriceManualName">Manual Price</sys:String>
+    <sys:String x:Key="PriceNpcDescription">NPC Price — sell to an NPC</sys:String>
+    <sys:String x:Key="PriceVendingDescription">Vending Price — market database</sys:String>
+    <sys:String x:Key="PriceManualDescription">Manual Price — custom value</sys:String>
     <sys:String x:Key="PriceUnknownBadge">⚠ No price</sys:String>
     <sys:String x:Key="MoveUp">Move up</sys:String>
     <sys:String x:Key="MoveDown">Move down</sys:String>

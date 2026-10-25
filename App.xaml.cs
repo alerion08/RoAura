@@ -198,6 +198,11 @@ public partial class App : Application
         DebugLog.Write($"ITEM CATALOG switched to {GameDatabaseVersion.Normalize(gameVersion)}; entries={_itemCatalog.Count}");
     }
 
+    public void RefreshLanguage()
+    {
+        _databaseOverlay?.RefreshLanguage();
+    }
+
     private void OnPacketStatusChanged(RoStatusPacket packet) =>
         Dispatcher.BeginInvoke(() => HandlePacketStatusChanged(packet));
 
