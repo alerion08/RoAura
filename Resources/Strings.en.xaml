@@ -303,6 +303,17 @@
     <sys:String x:Key="ItemNameOrPart">Item name or part of it</sys:String>
     <sys:String x:Key="AddItem">Add item</sys:String>
     <sys:String x:Key="DeleteItem">Delete item</sys:String>
+    <sys:String x:Key="GoldGoblinSessionTab">Session items</sys:String>
+    <sys:String x:Key="GoldGoblinRulesTab">Price rules</sys:String>
+    <sys:String x:Key="GoldGoblinCalculationTab">Calculation settings</sys:String>
+    <sys:String x:Key="UnitPrice">Unit price</sys:String>
+    <sys:String x:Key="ItemTotal">Item total</sys:String>
+    <sys:String x:Key="EditItem">Edit item</sys:String>
+    <sys:String x:Key="QuantityPerSession">Session quantity</sys:String>
+    <sys:String x:Key="CurrentPriceSource">Current price source</sys:String>
+    <sys:String x:Key="GoldGoblinPriceEditHint">Configure the price source on the Price rules tab. Quantity changes affect only the current session.</sys:String>
+    <sys:String x:Key="OverchargeDescription">The bonus applies only to NPC Price. Vending Price and Manual Price are unchanged.</sys:String>
+    <sys:String x:Key="GoldGoblinResetHint">Resetting the session clears items and quantities but keeps price rules and the Overcharge level.</sys:String>
     <sys:String x:Key="MoveUp">Move up</sys:String>
     <sys:String x:Key="MoveDown">Move down</sys:String>
     <sys:String x:Key="CooldownGroupFilterHint">Filter skills by group</sys:String>
