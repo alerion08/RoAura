@@ -101,6 +101,20 @@ public partial class App : Application
         _overlay.Show();
         _databaseOverlay.PrepareForFirstUse();
 
+        // Used by build-release.ps1 to verify that every WPF window and its
+        // bindings can actually be constructed. This catches invalid styles,
+        // circular MarkupExtension references and startup null references.
+        if (e.Args.Any(argument => string.Equals(argument, "--smoke-test", StringComparison.OrdinalIgnoreCase)))
+        {
+            DebugLog.Write("SMOKE TEST: startup completed successfully");
+            Dispatcher.BeginInvoke(async () =>
+            {
+                await Task.Delay(1200);
+                Shutdown(0);
+            });
+            return;
+        }
+
         try
         {
             _inputHook = new GlobalInputHook(settings);
