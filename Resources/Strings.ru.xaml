@@ -333,6 +333,13 @@
     <sys:String x:Key="GoldGoblinTableHint">Количество редактируется прямо в строке. Неизвестная цена не равна нулю.</sys:String>
     <sys:String x:Key="PriceRulesTitle">Правила определения стоимости</sys:String>
     <sys:String x:Key="PriceRulesHint">Vending используется первым, Manual — как запасная цена, NPC — по умолчанию с Overcharge.</sys:String>
+    <sys:String x:Key="AddItemToSession">Добавить предмет в сессию</sys:String>
+    <sys:String x:Key="AddItemDialogHint">Начните вводить название или Item ID, затем выберите предмет из результатов.</sys:String>
+    <sys:String x:Key="SelectItemFromList">Выберите предмет из списка</sys:String>
+    <sys:String x:Key="PriceNpcBadge">✓ NPC</sys:String>
+    <sys:String x:Key="PriceVendingBadge">▤ Vending</sys:String>
+    <sys:String x:Key="PriceManualBadge">✎ Ручная</sys:String>
+    <sys:String x:Key="PriceUnknownBadge">⚠ Нет цены</sys:String>
     <sys:String x:Key="MoveUp">Выше</sys:String>
     <sys:String x:Key="MoveDown">Ниже</sys:String>
     <sys:String x:Key="CooldownGroupFilterHint">Фильтр умений по группе</sys:String>
