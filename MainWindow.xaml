@@ -8,6 +8,9 @@
         WindowStyle="None" ResizeMode="CanResize" Background="{StaticResource RoWindowBrush}" Foreground="{StaticResource RoTextBrush}">
     <Window.Resources>
         <converters:Base64ToImageSourceConverter x:Key="Base64Image" />
+        <converters:DoubleToThicknessConverter x:Key="PreviewPadding" />
+        <converters:PercentToOpacityConverter x:Key="PercentOpacity" />
+        <converters:ScaleValueConverter x:Key="PreviewSize" />
         <Style x:Key="DetailGroupBoxStyle" TargetType="GroupBox">
             <Setter Property="Padding" Value="12" />
             <Setter Property="Margin" Value="0,0,12,12" />
@@ -357,13 +360,6 @@
                                 <TextBlock Grid.Row="2" Text="{DynamicResource SkillListHint}" Foreground="{StaticResource RoMutedBrush}" TextWrapping="Wrap" Margin="2,8,2,0"/>
                             </Grid>
                         </Border>
-                        <Border Grid.Row="3" Grid.Column="0" Margin="0,8,0,0" Padding="7" CornerRadius="7" Background="#F8FBFF"
-                                BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
-                            <WrapPanel>
-                                <CheckBox Content="{DynamicResource ShortNames}" IsChecked="{Binding ShowShortNames}" Margin="16,0,18,0" VerticalAlignment="Center" />
-                                <CheckBox Content="{DynamicResource ReadyText}" IsChecked="{Binding ShowReadyText}" VerticalAlignment="Center" />
-                            </WrapPanel>
-                        </Border>
                         <ScrollViewer Grid.Row="1" Grid.RowSpan="3" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                             <Grid DataContext="{Binding SelectedItem, ElementName=SkillsGrid}" MinWidth="680">
                                 <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
@@ -386,13 +382,40 @@
                                         </StackPanel>
                                     </TabItem>
                                     <TabItem Header="{DynamicResource AppearanceTab}">
-                                        <Grid Margin="12"><Grid.ColumnDefinitions><ColumnDefinition Width="230"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                            <Border Padding="16" CornerRadius="8" Background="#1E3150" MinHeight="180"><StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"><Border Width="96" Height="96" CornerRadius="8" BorderThickness="2" BorderBrush="#B8C5CBD4" Background="#44090B10" Padding="3"><Grid><Image Source="{Binding IconImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill"/><TextBlock Text="{Binding ShortName}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="2,3"/><TextBlock Text="3.5" Foreground="White" FontWeight="Bold" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center"/><TextBlock Text="READY" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="2,0,2,5"/></Grid></Border><TextBlock Text="{DynamicResource CooldownPreviewHint}" Foreground="#C5D4EA" TextWrapping="Wrap" TextAlignment="Center" Margin="0,10,0,0"/></StackPanel></Border>
+                                        <Grid Margin="12"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                            <Border Padding="14" CornerRadius="8" Background="#1E3150" MinHeight="205">
+                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <StackPanel Margin="0,0,12,0">
+                                                            <Border Width="{Binding IndividualIconSize, Converter={StaticResource PreviewSize}, ConverterParameter=0.75}" Height="{Binding IndividualIconSize, Converter={StaticResource PreviewSize}, ConverterParameter=0.75}" Opacity="{Binding ReadyOpacityPercent, Converter={StaticResource PercentOpacity}}" CornerRadius="8" BorderThickness="2" BorderBrush="#B8C5CBD4" Background="#44090B10" Padding="{Binding IconPadding, Converter={StaticResource PreviewPadding}}">
+                                                                <Grid>
+                                                                    <Image Source="{Binding IconImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill"/>
+                                                                    <TextBlock Text="{Binding ShortName}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="2,3"><TextBlock.Style><Style TargetType="TextBlock"><Style.Triggers><DataTrigger Binding="{Binding ShowShortName}" Value="False"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
+                                                                    <TextBlock Text="READY" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="2,0,2,5"><TextBlock.Style><Style TargetType="TextBlock"><Style.Triggers><DataTrigger Binding="{Binding ShowReady}" Value="False"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
+                                                                </Grid>
+                                                            </Border>
+                                                            <TextBlock Text="READY" Foreground="#C5D4EA" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                                        </StackPanel>
+                                                        <StackPanel>
+                                                            <Border Width="{Binding IndividualIconSize, Converter={StaticResource PreviewSize}, ConverterParameter=0.75}" Height="{Binding IndividualIconSize, Converter={StaticResource PreviewSize}, ConverterParameter=0.75}" Opacity="{Binding CooldownOpacityPercent, Converter={StaticResource PercentOpacity}}" CornerRadius="8" BorderThickness="2" BorderBrush="#B8C5CBD4" Background="#44090B10" Padding="{Binding IconPadding, Converter={StaticResource PreviewPadding}}">
+                                                                <Grid>
+                                                                    <Image Source="{Binding IconImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill"/>
+                                                                    <Border Background="#66101A2B"/>
+                                                                    <TextBlock Text="{Binding ShortName}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="2,3"><TextBlock.Style><Style TargetType="TextBlock"><Style.Triggers><DataTrigger Binding="{Binding ShowShortName}" Value="False"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
+                                                                    <TextBlock Text="3.5" Foreground="White" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"><TextBlock.Style><Style TargetType="TextBlock"><Style.Triggers><DataTrigger Binding="{Binding ShowCountdown}" Value="False"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></TextBlock.Style></TextBlock>
+                                                                </Grid>
+                                                            </Border>
+                                                            <TextBlock Text="{DynamicResource CooldownState}" Foreground="#C5D4EA" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <TextBlock Text="{DynamicResource CooldownPreviewHint}" Foreground="#C5D4EA" TextWrapping="Wrap" TextAlignment="Center" Margin="0,8,0,0"/>
+                                                </StackPanel>
+                                            </Border>
                                             <Grid Grid.Column="2"><Grid.ColumnDefinitions><ColumnDefinition Width="205"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                                                <TextBlock Text="{DynamicResource IconSize}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding IndividualIconSize}" Style="{StaticResource FieldEditorStyle}"/>
-                                                <TextBlock Grid.Row="1" Text="{DynamicResource IconPadding}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding IconPadding}" Style="{StaticResource FieldEditorStyle}"/>
-                                                <TextBlock Grid.Row="2" Text="{DynamicResource ReadyOpacity}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ReadyOpacityPercent}" Style="{StaticResource FieldEditorStyle}"/>
-                                                <TextBlock Grid.Row="3" Text="{DynamicResource CooldownOpacity}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CooldownOpacityPercent}" Style="{StaticResource FieldEditorStyle}"/>
+                                                <TextBlock Text="{DynamicResource IconSize}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding IndividualIconSize, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
+                                                <TextBlock Grid.Row="1" Text="{DynamicResource IconPadding}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding IconPadding, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
+                                                <TextBlock Grid.Row="2" Text="{DynamicResource ReadyOpacity}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ReadyOpacityPercent, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
+                                                <TextBlock Grid.Row="3" Text="{DynamicResource CooldownOpacity}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CooldownOpacityPercent, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
                                                 <CheckBox Grid.Row="4" Grid.ColumnSpan="2" Content="{DynamicResource ShowSkillShortName}" IsChecked="{Binding ShowShortName}" Margin="0,8,0,4"/>
                                                 <CheckBox Grid.Row="5" Grid.ColumnSpan="2" Content="{DynamicResource ShowSkillReady}" IsChecked="{Binding ShowReady}" Margin="0,4"/>
                                                 <CheckBox Grid.Row="6" Grid.ColumnSpan="2" Content="{DynamicResource ShowSkillCountdown}" IsChecked="{Binding ShowCountdown}" Margin="0,4"/>
@@ -409,7 +432,7 @@
                                         </StackPanel>
                                     </TabItem>
                                 </TabControl>
-                                <Border Grid.Row="2" Grid.ColumnSpan="2" Padding="8" CornerRadius="7" Background="#F5F9FE"><WrapPanel><Button Content="{DynamicResource DuplicateSkill}" Click="DuplicateSkill_Click"/><Button Content="{DynamicResource PickIcon}" Click="PickIcon_Click"/><Button Content="{DynamicResource LearnSkill}" Click="LearnSkillPacket_Click" Style="{StaticResource GoldButtonStyle}"/><ToggleButton x:Name="MoveModeButton" Content="{DynamicResource MoveOne}" Checked="MoveMode_Changed" Unchecked="MoveMode_Changed"/><ToggleButton x:Name="GroupMoveModeButton" Content="{DynamicResource MoveGroup}" Checked="GroupMoveMode_Changed" Unchecked="GroupMoveMode_Changed"/><Button Content="{DynamicResource Delete}" Click="Delete_Click" Style="{StaticResource DangerButtonStyle}"/></WrapPanel></Border>
+                                <Border Grid.Row="2" Grid.ColumnSpan="2" Padding="8" CornerRadius="7" Background="#F5F9FE"><UniformGrid Columns="3"><Button Content="{DynamicResource DuplicateSkill}" Click="DuplicateSkill_Click"/><Button Content="{DynamicResource PickIcon}" Click="PickIcon_Click"/><Button Content="{DynamicResource LearnSkill}" Click="LearnSkillPacket_Click" Style="{StaticResource GoldButtonStyle}"/><ToggleButton x:Name="MoveModeButton" Content="{DynamicResource MoveOne}" Checked="MoveMode_Changed" Unchecked="MoveMode_Changed"/><ToggleButton x:Name="GroupMoveModeButton" Content="{DynamicResource MoveGroup}" Checked="GroupMoveMode_Changed" Unchecked="GroupMoveMode_Changed"/><Button Content="{DynamicResource Delete}" Click="Delete_Click" Style="{StaticResource DangerButtonStyle}"/></UniformGrid></Border>
                             </Grid>
                         </ScrollViewer>
                         <Border Grid.Row="4" Grid.ColumnSpan="3" Margin="0,10,0,0" Style="{StaticResource WorkspacePanelStyle}">
@@ -424,13 +447,12 @@
                                     <Button Grid.Column="1" Content="{DynamicResource AddCooldownGroup}" Click="AddCooldownGroup_Click"/>
                                 </Grid>
                                 <Grid Grid.Row="1" Margin="0,10,0,0" DataContext="{Binding SelectedItem, ElementName=CooldownGroupsBox}">
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="1.2*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="1*"/></Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="390"/><ColumnDefinition Width="18"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                     <ListBox x:Name="CooldownGroupsBox" ItemsSource="{Binding DataContext.CooldownGroups, RelativeSource={RelativeSource AncestorType=Window}}"
-                                             BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch" MaxHeight="130">
-                                        <ListBox.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ListBox.ItemsPanel>
+                                             BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch" MaxHeight="185" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <Border Width="205" Padding="10" Margin="0,0,8,6" CornerRadius="8" BorderThickness="1"><Border.Style><Style TargetType="Border"><Setter Property="BorderBrush" Value="{StaticResource RoSoftBorderBrush}"/><Setter Property="Background" Value="#F8FBFF"/><Style.Triggers><DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True"><Setter Property="BorderBrush" Value="{StaticResource RoBlueBrush}"/><Setter Property="Background" Value="{StaticResource RoSelectionBrush}"/></DataTrigger></Style.Triggers></Style></Border.Style>
+                                                <Border Padding="10" Margin="0,0,0,6" CornerRadius="8" BorderThickness="1"><Border.Style><Style TargetType="Border"><Setter Property="BorderBrush" Value="{StaticResource RoSoftBorderBrush}"/><Setter Property="Background" Value="#F8FBFF"/><Style.Triggers><DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True"><Setter Property="BorderBrush" Value="{StaticResource RoBlueBrush}"/><Setter Property="Background" Value="{StaticResource RoSelectionBrush}"/></DataTrigger></Style.Triggers></Style></Border.Style>
                                                     <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="34"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                                         <Border Width="28" Height="28" CornerRadius="6" Background="#566FC8"><TextBlock Text="▦" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
                                                         <StackPanel Grid.Column="1"><TextBlock Text="{Binding Name}" FontWeight="Bold" TextTrimming="CharacterEllipsis"/><TextBlock Foreground="{StaticResource RoMutedBrush}" FontSize="11"><Run Text="{Binding Skills.Count, Mode=OneWay}"/><Run Text=" "/><Run Text="{DynamicResource SkillsCountLabel}"/><Run Text=" · "/><Run Text="{Binding Direction}"/><Run Text=" · "/><Run Text="{Binding Gap}"/><Run Text=" px"/></TextBlock></StackPanel>
@@ -440,13 +462,13 @@
                                         </ListBox.ItemTemplate>
                                     </ListBox>
                                     <Grid Grid.Column="2">
-                                        <Grid.ColumnDefinitions><ColumnDefinition Width="135"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="160"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                                        <TextBlock Text="{DynamicResource GroupName}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
+                                        <TextBlock Text="{DynamicResource GroupName}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" Margin="0,4,0,4"/>
                                         <TextBlock Grid.Row="1" Text="{DynamicResource LayoutDirection}" Style="{StaticResource FieldLabelStyle}"/>
-                                        <ComboBox Grid.Row="1" Grid.Column="1" SelectedValue="{Binding Direction}" SelectedValuePath="Tag" Margin="3" MinHeight="28"><ComboBoxItem Tag="Horizontal" Content="{DynamicResource Horizontal}"/><ComboBoxItem Tag="Vertical" Content="{DynamicResource Vertical}"/></ComboBox>
-                                        <TextBlock Grid.Row="2" Text="{DynamicResource IconGap}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Gap}" Style="{StaticResource FieldEditorStyle}"/>
-                                        <WrapPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="0,6,0,0"><Button Content="{DynamicResource ApplyGroupLayout}" Click="ApplyCooldownGroupLayout_Click" Style="{StaticResource PrimaryButtonStyle}"/><Button Content="{DynamicResource DeleteGroup}" Click="DeleteCooldownGroup_Click" Style="{StaticResource DangerButtonStyle}"/></WrapPanel>
+                                        <ComboBox Grid.Row="1" Grid.Column="1" SelectedValue="{Binding Direction}" SelectedValuePath="Tag" Margin="0,4,0,4" MinHeight="28"><ComboBoxItem Tag="Horizontal" Content="{DynamicResource Horizontal}"/><ComboBoxItem Tag="Vertical" Content="{DynamicResource Vertical}"/></ComboBox>
+                                        <TextBlock Grid.Row="2" Text="{DynamicResource IconGap}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Gap}" Style="{StaticResource FieldEditorStyle}" Margin="0,4,0,4"/>
+                                        <UniformGrid Grid.Row="3" Grid.ColumnSpan="2" Columns="2" Margin="0,8,0,0"><Button Content="{DynamicResource ApplyGroupLayout}" Click="ApplyCooldownGroupLayout_Click" Style="{StaticResource PrimaryButtonStyle}"/><Button Content="{DynamicResource DeleteGroup}" Click="DeleteCooldownGroup_Click" Style="{StaticResource DangerButtonStyle}"/></UniformGrid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -562,11 +584,13 @@
                                                     </StackPanel>
                                                 </Border>
                                             </Grid>
-                                            <WrapPanel Grid.Row="2" Margin="0,8,0,0">
-                                                <Button Content="{DynamicResource Add}" Click="AddEffect_Click" Style="{StaticResource PrimaryButtonStyle}"/>
-                                                <Button Content="{DynamicResource Delete}" Click="DeleteEffect_Click" Style="{StaticResource DangerButtonStyle}"/>
-                                                <Button Content="{DynamicResource PickIcon}" Click="PickEffectIcon_Click"/>
-                                            </WrapPanel>
+                                            <Grid Grid.Row="2" Margin="0,8,0,0">
+                                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="8"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="6"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                                <Button Content="{DynamicResource Add}" Click="AddEffect_Click" Style="{StaticResource PrimaryButtonStyle}" Margin="0"/>
+                                                <Button Grid.Column="2" Content="{DynamicResource Delete}" Click="DeleteEffect_Click" Style="{StaticResource DangerButtonStyle}" Margin="0"/>
+                                                <Button Grid.Row="2" Grid.ColumnSpan="3" Content="{DynamicResource PickIcon}" Click="PickEffectIcon_Click" Margin="0"/>
+                                            </Grid>
                                         </Grid>
                                     </Border>
                                     <Border Grid.Column="2" Style="{StaticResource WorkspacePanelStyle}">
