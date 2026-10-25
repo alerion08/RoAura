@@ -1093,39 +1093,56 @@
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="GoldGoblinTab" Header="{DynamicResource GoldGoblin}">
-                    <Grid Margin="8">
+                    <Grid Margin="14,10">
                         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-                        <Border Grid.Row="0" Margin="0,0,0,8" Padding="14,10" CornerRadius="7" Background="#E5F0FC" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
-                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{DynamicResource GoldGoblin}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource GoldGoblinDescription}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/></StackPanel><Button Grid.Column="1" Content="{DynamicResource ResetSession}" Click="ResetGoldGoblin_Click" Style="{StaticResource DangerButtonStyle}" MinWidth="150"/></Grid>
-                        </Border>
-                        <UniformGrid Grid.Row="1" Columns="3" Margin="0,0,0,8">
-                            <Border Style="{StaticResource DashboardCardStyle}"><StackPanel><TextBlock x:Name="GoldGoblinTotalText" Text="0 Z" Style="{StaticResource DashboardValueStyle}"/><TextBlock Text="{DynamicResource SessionTotal}" Style="{StaticResource DashboardLabelStyle}"/></StackPanel></Border>
-                            <Border Style="{StaticResource DashboardCardStyle}"><StackPanel><TextBlock x:Name="GoldGoblinItemCountText" Text="0" Style="{StaticResource DashboardValueStyle}"/><TextBlock Text="{DynamicResource SessionItems}" Style="{StaticResource DashboardLabelStyle}"/></StackPanel></Border>
-                            <Border Style="{StaticResource DashboardCardStyle}"><StackPanel><TextBlock x:Name="GoldGoblinUnpricedCountText" Text="0" Style="{StaticResource DashboardValueStyle}"/><TextBlock Text="{DynamicResource ItemsWithoutPrice}" Style="{StaticResource DashboardLabelStyle}"/></StackPanel></Border>
+                        <Grid Grid.Row="0" Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource GoldGoblinEyebrow}" Foreground="{StaticResource RoBlueBrush}" FontWeight="Bold" FontSize="11"/>
+                                <TextBlock Text="{DynamicResource GoldGoblin}" Style="{StaticResource RoSectionTitleStyle}" FontSize="25" Margin="0,3,0,0"/>
+                                <TextBlock Text="{DynamicResource GoldGoblinDescription}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,3,0,0"/>
+                            </StackPanel>
+                            <UniformGrid Grid.Column="1" Rows="1" Columns="3" VerticalAlignment="Center">
+                                <Button Content="{DynamicResource ExportCsv}" Click="ExportGoldGoblinCsv_Click" MinWidth="130"/>
+                                <Button Content="{DynamicResource ResetSession}" Click="ResetGoldGoblin_Click" Style="{StaticResource DangerButtonStyle}" MinWidth="145"/>
+                                <Button Content="{DynamicResource AddItem}" Click="OpenGoldGoblinAdd_Click" Style="{StaticResource PrimaryButtonStyle}" MinWidth="145"/>
+                            </UniformGrid>
+                        </Grid>
+                        <UniformGrid Grid.Row="1" Columns="3" Margin="0,0,0,12">
+                            <Border Style="{StaticResource DashboardCardStyle}" Padding="18,14"><StackPanel><TextBlock Text="{DynamicResource AccountedLootValue}" Style="{StaticResource DashboardLabelStyle}"/><TextBlock x:Name="GoldGoblinTotalText" Text="0 Z" Style="{StaticResource DashboardValueStyle}" Margin="0,5,0,2"/><TextBlock Text="{DynamicResource UnpricedExcludedHint}" Style="{StaticResource RoCaptionTextStyle}"/></StackPanel></Border>
+                            <Border Style="{StaticResource DashboardCardStyle}" Padding="18,14"><StackPanel><TextBlock Text="{DynamicResource SessionItems}" Style="{StaticResource DashboardLabelStyle}"/><TextBlock x:Name="GoldGoblinItemCountText" Text="0" Style="{StaticResource DashboardValueStyle}" Margin="0,5,0,2"/><TextBlock Text="{DynamicResource SessionItemsHint}" Style="{StaticResource RoCaptionTextStyle}"/></StackPanel></Border>
+                            <Border Style="{StaticResource DashboardCardStyle}" Padding="18,14"><StackPanel><TextBlock Text="{DynamicResource ItemsWithoutPrice}" Style="{StaticResource DashboardLabelStyle}"/><TextBlock x:Name="GoldGoblinUnpricedCountText" Text="0" Style="{StaticResource DashboardValueStyle}" Margin="0,5,0,2"/><TextBlock Text="{DynamicResource ItemsWithoutPriceHint}" Style="{StaticResource RoCaptionTextStyle}"/></StackPanel></Border>
                         </UniformGrid>
-                        <TabControl Grid.Row="2" Margin="0">
+                        <TabControl x:Name="GoldGoblinWorkspaceTabs" Grid.Row="2" Margin="0">
                             <TabItem Header="{DynamicResource GoldGoblinSessionTab}">
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-                                    <Grid Margin="0,0,0,8">
-                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="150"/><ColumnDefinition Width="150"/></Grid.ColumnDefinitions>
-                                        <ComboBox x:Name="GoldGoblinLootItemBox" Margin="0,0,8,0" IsEditable="True" IsTextSearchEnabled="False" StaysOpenOnEdit="True"
-                                                  ItemsSource="{Binding GoldGoblinItemSuggestions, ElementName=RootWindow}" DisplayMemberPath="Name" KeyUp="GoldGoblinItemBox_KeyUp" ToolTip="{DynamicResource ItemNameOrPart}"/>
-                                        <Button Grid.Column="1" Margin="0,0,8,0" Content="{DynamicResource AddItem}" Click="AddGoldGoblinLoot_Click" Style="{StaticResource PrimaryButtonStyle}"/>
-                                        <Button Grid.Column="2" Content="{DynamicResource DeleteItem}" Click="DeleteGoldGoblinLoot_Click" Style="{StaticResource DangerButtonStyle}"/>
+                                <Border Margin="0,8,0,0" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="8" Background="White">
+                                <Grid>
+                                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                                    <Grid Margin="16,12">
+                                        <StackPanel><TextBlock Text="{DynamicResource CurrentSessionLoot}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource CurrentSessionLootHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/></StackPanel>
                                     </Grid>
-                                    <Grid Grid.Row="1">
+                                    <Grid Grid.Row="1" Background="#F4F8FD" Margin="12,10">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="210"/><ColumnDefinition Width="210"/></Grid.ColumnDefinitions>
+                                        <TextBox x:Name="GoldGoblinSearchBox" Margin="0,0,10,0" TextChanged="GoldGoblinFilter_Changed" ToolTip="{DynamicResource ItemNameOrId}"/>
+                                        <ComboBox x:Name="GoldGoblinSourceFilter" Grid.Column="1" Margin="0,0,10,0" SelectionChanged="GoldGoblinFilter_Changed">
+                                            <ComboBoxItem Content="{DynamicResource AllItems}" Tag="all"/><ComboBoxItem Content="NPC Price" Tag="npc"/><ComboBoxItem Content="Vending Price" Tag="vending"/><ComboBoxItem Content="Manual Price" Tag="manual"/><ComboBoxItem Content="{DynamicResource WithoutPrice}" Tag="unknown"/>
+                                        </ComboBox>
+                                        <ComboBox x:Name="GoldGoblinSortBox" Grid.Column="2" SelectionChanged="GoldGoblinSort_Changed">
+                                            <ComboBoxItem Content="{DynamicResource SortByName}" Tag="name"/><ComboBoxItem Content="{DynamicResource SortByTotal}" Tag="total"/><ComboBoxItem Content="{DynamicResource SortByCount}" Tag="count"/>
+                                        </ComboBox>
+                                    </Grid>
+                                    <Grid Grid.Row="2">
                                         <Grid.ColumnDefinitions><ColumnDefinition Width="3*" MinWidth="560"/><ColumnDefinition Width="12"/><ColumnDefinition Width="2*" MinWidth="300"/></Grid.ColumnDefinitions>
-                                        <DataGrid x:Name="GoldGoblinLootGrid" ItemsSource="{Binding GoldGoblinRows, ElementName=RootWindow}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single">
+                                        <DataGrid x:Name="GoldGoblinLootGrid" ItemsSource="{Binding GoldGoblinRowsView, ElementName=RootWindow}" AutoGenerateColumns="False" CanUserAddRows="False" SelectionMode="Single" BorderThickness="0" SelectionChanged="GoldGoblinLootGrid_SelectionChanged">
                                             <DataGrid.Columns>
-                                                <DataGridTextColumn Header="{DynamicResource Item}" Binding="{Binding Item}" IsReadOnly="True" Width="*"/>
+                                                <DataGridTextColumn Header="{DynamicResource Item}" Binding="{Binding Item}" IsReadOnly="True" Width="2*"/>
                                                 <DataGridTextColumn Header="{DynamicResource Count}" Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="110"/>
                                                 <DataGridTextColumn Header="{DynamicResource UnitPrice}" Binding="{Binding Cost, StringFormat=N0}" IsReadOnly="True" Width="125"/>
                                                 <DataGridTextColumn Header="{DynamicResource PriceSource}" Binding="{Binding PriceSource}" IsReadOnly="True" Width="120"/>
                                                 <DataGridTextColumn Header="{DynamicResource Total}" Binding="{Binding Total, StringFormat=N0}" IsReadOnly="True" Width="140"/>
                                             </DataGrid.Columns>
                                         </DataGrid>
-                                        <Border Grid.Column="2" Style="{StaticResource DashboardCardStyle}" Padding="16" DataContext="{Binding SelectedItem, ElementName=GoldGoblinLootGrid}">
+                                        <Border Grid.Column="2" Background="#F4F8FD" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1,0,0,0" Padding="18" DataContext="{Binding SelectedItem, ElementName=GoldGoblinLootGrid}">
                                             <StackPanel>
                                                 <TextBlock Text="{DynamicResource EditItem}" Style="{StaticResource RoCaptionTextStyle}"/>
                                                 <TextBlock Text="{Binding Item, TargetNullValue=—}" Style="{StaticResource RoSectionTitleStyle}" Margin="0,4,0,2"/>
@@ -1133,29 +1150,42 @@
                                                 <Separator Margin="0,12"/>
                                                 <TextBlock Text="{DynamicResource QuantityPerSession}" Style="{StaticResource FieldLabelStyle}"/>
                                                 <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" Margin="0,0,0,10"/>
-                                                <TextBlock Text="{DynamicResource CurrentPriceSource}" Style="{StaticResource FieldLabelStyle}"/>
-                                                <TextBox Text="{Binding PriceSource, Mode=OneWay}" IsReadOnly="True" Style="{StaticResource FieldEditorStyle}" Margin="0,0,0,10"/>
-                                                <TextBlock Text="{DynamicResource UnitPrice}" Style="{StaticResource FieldLabelStyle}"/>
-                                                <TextBox Text="{Binding Cost, StringFormat=N0, Mode=OneWay}" IsReadOnly="True" Style="{StaticResource FieldEditorStyle}" Margin="0,0,0,10"/>
+                                                <TextBlock Text="{DynamicResource PriceSource}" Style="{StaticResource FieldLabelStyle}"/>
+                                                <ComboBox x:Name="GoldGoblinPriceSourceBox" SelectedValuePath="Tag" SelectionChanged="GoldGoblinPriceSource_Changed" Margin="0,0,0,10">
+                                                    <ComboBoxItem Content="NPC Price — продажа NPC" Tag="npc"/><ComboBoxItem Content="Vending Price — база торговцев" Tag="vending"/><ComboBoxItem Content="Manual Price — своя цена" Tag="manual"/>
+                                                </ComboBox>
+                                                <TextBlock Text="{DynamicResource ManualFallbackPrice}" Style="{StaticResource FieldLabelStyle}"/>
+                                                <TextBox x:Name="GoldGoblinManualPriceBox" LostFocus="GoldGoblinManualPrice_LostFocus" Style="{StaticResource FieldEditorStyle}" Margin="0,0,0,10"/>
                                                 <TextBlock Text="{DynamicResource ItemTotal}" Style="{StaticResource FieldLabelStyle}"/>
                                                 <TextBox Text="{Binding Total, StringFormat=N0, Mode=OneWay}" IsReadOnly="True" Style="{StaticResource FieldEditorStyle}"/>
-                                                <TextBlock Text="{DynamicResource GoldGoblinPriceEditHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,14,0,0"/>
+                                                <Button Content="{DynamicResource DeleteFromSession}" Click="DeleteGoldGoblinLoot_Click" Style="{StaticResource DangerButtonStyle}" Margin="0,16,0,0" HorizontalAlignment="Left"/>
+                                                <TextBlock Text="{DynamicResource GoldGoblinPriceEditHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,12,0,0"/>
                                             </StackPanel>
                                         </Border>
                                     </Grid>
-                                </Grid>
+                                    <Grid Grid.Row="3" Background="#F8FAFD" Margin="12,9">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                        <TextBlock Text="{DynamicResource GoldGoblinTableHint}" Foreground="{StaticResource RoMutedBrush}" VerticalAlignment="Center"/>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                            <ComboBox x:Name="GoldGoblinLootItemBox" Width="280" Margin="0,0,8,0" IsEditable="True" IsTextSearchEnabled="False" StaysOpenOnEdit="True" ItemsSource="{Binding GoldGoblinItemSuggestions, ElementName=RootWindow}" DisplayMemberPath="Name" KeyUp="GoldGoblinItemBox_KeyUp" ToolTip="{DynamicResource ItemNameOrPart}"/>
+                                            <Button Content="{DynamicResource AddItem}" Click="AddGoldGoblinLoot_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid></Border>
                             </TabItem>
                             <TabItem Header="{DynamicResource GoldGoblinRulesTab}">
-                                <Grid Margin="8">
-                                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-                                    <Grid Margin="0,0,0,8">
+                                <Border Margin="0,8,0,0" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="8" Background="White">
+                                <Grid Margin="14">
+                                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                                    <StackPanel Margin="0,0,0,12"><TextBlock Text="{DynamicResource PriceRulesTitle}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource PriceRulesHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/></StackPanel>
+                                    <Grid Grid.Row="1" Margin="0,0,0,10">
                                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="140"/><ColumnDefinition Width="140"/></Grid.ColumnDefinitions>
                                         <ComboBox x:Name="GoldGoblinRuleItemBox" Margin="0,0,8,0" IsEditable="True" IsTextSearchEnabled="False" StaysOpenOnEdit="True"
                                                   ItemsSource="{Binding GoldGoblinItemSuggestions, ElementName=RootWindow}" DisplayMemberPath="Name" KeyUp="GoldGoblinItemBox_KeyUp" ToolTip="{DynamicResource ItemNameOrPart}"/>
                                         <Button Grid.Column="1" Margin="0,0,8,0" Content="{DynamicResource Add}" Click="AddGoldGoblinRule_Click" Style="{StaticResource PrimaryButtonStyle}"/>
                                         <Button Grid.Column="2" Content="{DynamicResource Delete}" Click="DeleteGoldGoblinRule_Click" Style="{StaticResource DangerButtonStyle}"/>
                                     </Grid>
-                                    <DataGrid x:Name="GoldGoblinRulesGrid" Grid.Row="1" ItemsSource="{Binding GoldGoblinPriceRules}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                    <DataGrid x:Name="GoldGoblinRulesGrid" Grid.Row="2" ItemsSource="{Binding GoldGoblinPriceRules}" AutoGenerateColumns="False" CanUserAddRows="False">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="Item ID" Binding="{Binding ItemId}" IsReadOnly="True" Width="100"/>
                                             <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
@@ -1163,10 +1193,11 @@
                                             <DataGridTextColumn Header="{DynamicResource ManualPrice}" Binding="{Binding ManualPrice, UpdateSourceTrigger=PropertyChanged}" Width="180"/>
                                         </DataGrid.Columns>
                                     </DataGrid>
-                                </Grid>
+                                </Grid></Border>
                             </TabItem>
                             <TabItem Header="{DynamicResource GoldGoblinCalculationTab}">
-                                <Grid Margin="18" MaxWidth="850" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <Border Margin="0,8,0,0" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="8" Background="White" Padding="20">
+                                <Grid MaxWidth="850" HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="250"/></Grid.ColumnDefinitions>
                                     <StackPanel Margin="0,0,24,18">
@@ -1182,7 +1213,7 @@
                                         <CheckBox Content="{DynamicResource IncludeGoldGoblinInZenyPerHour}" IsChecked="{Binding IncludeGoldGoblinInZenyPerHour}"/>
                                         <TextBlock Text="{DynamicResource GoldGoblinResetHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,18,0,0"/>
                                     </StackPanel>
-                                </Grid>
+                                </Grid></Border>
                             </TabItem>
                         </TabControl>
                     </Grid>
