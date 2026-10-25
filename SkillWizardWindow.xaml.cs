@@ -38,13 +38,25 @@ public partial class SkillWizardWindow : Window
 
     private void Next_Click(object sender, RoutedEventArgs e)
     {
+        if (_step == 1 && DetectRadio.IsChecked == true)
+        {
+            _step = 3;
+            RenderStep();
+            return;
+        }
         if (_step == 2 && ManualRadio.IsChecked == true && (!int.TryParse(SkillIdBox.Text, out var id) || id <= 0))
         { MessageBox.Show(this, _english ? "Enter a valid Skill ID." : "Укажите корректный Skill ID."); return; }
         if (_step == 3 && (string.IsNullOrWhiteSpace(NameBox.Text) || !double.TryParse(CooldownBox.Text, out var cooldown) || cooldown < 0))
         { MessageBox.Show(this, _english ? "Enter a name and valid cooldown." : "Укажите название и корректное время восстановления."); return; }
         if (_step < 4) { _step++; RenderStep(); return; }
+        Result = BuildSkill();
+        DialogResult = true;
+    }
+
+    private SkillAura BuildSkill()
+    {
         var selectedGroup = GroupBox.SelectedItem as CooldownGroupSettings;
-        Result = new SkillAura
+        return new SkillAura
         {
             Name = NameBox.Text.Trim(), Enabled = EnabledBox.IsChecked == true,
             PacketSkillId = int.TryParse(SkillIdBox.Text, out var skillId) ? skillId : 0,
@@ -52,10 +64,28 @@ public partial class SkillWizardWindow : Window
             GroupNumber = selectedGroup?.GroupNumber ?? 1, ShortNameOverride = ShortBox.Text.Trim(),
             IconImageBase64 = _iconBase64, IconFileName = _iconFileName
         };
-        DialogResult = true;
     }
 
-    private void Back_Click(object sender, RoutedEventArgs e) { if (_step > 1) { _step--; RenderStep(); } }
+    internal bool RunAutomaticFlowSmokeTest()
+    {
+        DetectRadio.IsChecked = true;
+        _step = 1;
+        Next_Click(this, new RoutedEventArgs());
+        if (_step != 3) return false;
+        NameBox.Text = "Smoke test skill";
+        CooldownBox.Text = "5";
+        Next_Click(this, new RoutedEventArgs());
+        if (_step != 4) return false;
+        var skill = BuildSkill();
+        return skill.Name == "Smoke test skill" && skill.PacketSkillId == 0 && skill.GroupNumber > 0;
+    }
+
+    private void Back_Click(object sender, RoutedEventArgs e)
+    {
+        if (_step <= 1) return;
+        _step = _step == 3 && DetectRadio.IsChecked == true ? 1 : _step - 1;
+        RenderStep();
+    }
     private void Cancel_Click(object sender, RoutedEventArgs e) => DialogResult = false;
 
     private void RenderStep()
