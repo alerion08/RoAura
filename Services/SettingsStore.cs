@@ -14,8 +14,7 @@ public sealed class SettingsStore
         PropertyNameCaseInsensitive = true
     };
 
-    private readonly string _rootDirectory = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RoAura");
+    private readonly string _rootDirectory;
     public string SettingsPath => Path.Combine(_rootDirectory, "settings.json");
     public string ProfilesDirectory => Path.Combine(_rootDirectory, "Profiles");
     public string ProfileBackupsDirectory => Path.Combine(ProfilesDirectory, "Backups");
@@ -23,6 +22,18 @@ public sealed class SettingsStore
     public string ActiveProfilePath => Path.Combine(_rootDirectory, "active-profile.txt");
     public string ActiveProfileName { get; private set; } = "Default";
     public bool IsFirstRun { get; private set; }
+
+    public SettingsStore() : this(Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RoAura"))
+    {
+    }
+
+    public SettingsStore(string rootDirectory)
+    {
+        if (string.IsNullOrWhiteSpace(rootDirectory))
+            throw new ArgumentException("Settings directory must not be empty.", nameof(rootDirectory));
+        _rootDirectory = Path.GetFullPath(rootDirectory);
+    }
 
     public AppSettings Load()
     {
