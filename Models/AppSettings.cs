@@ -113,6 +113,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string PacketCaptureStateText { get => _packetCaptureStateText; set => Set(ref _packetCaptureStateText, value); }
     public List<string> AllowedProcesses { get; set; } = ["PRM", "Refuge", "ragexe", "RagexeRE"];
     public ObservableCollection<SkillAura> Skills { get; set; } = [];
+    public ObservableCollection<CooldownGroupSettings> CooldownGroups { get; set; } = [];
 
     public ObservableCollection<TrackedEffect> Effects { get; set; } = [];
 
@@ -152,6 +153,27 @@ public sealed class AppSettings : INotifyPropertyChanged
     public ObservableCollection<EffectNotification> ActiveNotifications { get; } = [];
 
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void SyncCooldownGroups()
+    {
+        var numbers = Skills.Select(skill => Math.Max(1, skill.GroupNumber)).Distinct().OrderBy(number => number).ToList();
+        if (numbers.Count == 0) numbers.Add(1);
+        foreach (var number in numbers)
+        {
+            if (CooldownGroups.Any(group => group.GroupNumber == number)) continue;
+            CooldownGroups.Add(new CooldownGroupSettings
+            {
+                GroupNumber = number,
+                Name = number == 1 ? "Основная панель" : $"Группа {number}"
+            });
+        }
+        foreach (var group in CooldownGroups)
+        {
+            group.Skills.Clear();
+            foreach (var skill in Skills.Where(skill => Math.Max(1, skill.GroupNumber) == group.GroupNumber))
+                group.Skills.Add(skill);
+        }
+    }
 
     public void SyncBuffPanelGroups()
     {
