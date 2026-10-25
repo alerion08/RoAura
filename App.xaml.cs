@@ -106,6 +106,10 @@ public partial class App : Application
         // circular MarkupExtension references and startup null references.
         if (e.Args.Any(argument => string.Equals(argument, "--smoke-test", StringComparison.OrdinalIgnoreCase)))
         {
+            var wizard = new SkillWizardWindow(settings.CooldownGroups, settings.Language == "en");
+            if (!wizard.RunAutomaticFlowSmokeTest())
+                throw new InvalidOperationException("Cooldown skill wizard automatic flow smoke test failed.");
+            wizard.Close();
             DebugLog.Write("SMOKE TEST: startup completed successfully");
             Dispatcher.BeginInvoke(async () =>
             {
