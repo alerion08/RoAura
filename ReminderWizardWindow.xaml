@@ -44,7 +44,7 @@
                     <TextBlock x:Name="SetupValidationText" Foreground="#B64B55" TextWrapping="Wrap" Margin="0,12,0,0"/>
                 </StackPanel>
                 <Border Grid.Column="2" Padding="14" CornerRadius="8" Background="#1E3150">
-                    <StackPanel VerticalAlignment="Center"><TextBlock Text="{DynamicResource ReminderPreview}" Foreground="#C5D4EA" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,12"/><Border Width="96" Height="96" Padding="{Binding Draft.IconPadding, Converter={StaticResource PreviewPadding}}" CornerRadius="8" BorderThickness="1" BorderBrush="{Binding Draft.BorderColor}" Background="{Binding Draft.BackgroundColor}" HorizontalAlignment="Center"><Image Source="{Binding Draft.IconImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill"/></Border><TextBlock Text="{Binding Draft.Text}" Foreground="{Binding Draft.TextColor}" FontWeight="Bold" TextAlignment="Center" TextWrapping="Wrap" Margin="4,10,4,0"/></StackPanel>
+                    <StackPanel VerticalAlignment="Center"><TextBlock Text="{DynamicResource ReminderPreview}" Foreground="#C5D4EA" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,12"/><Border Width="96" Height="96" Padding="0" CornerRadius="8" BorderThickness="1" BorderBrush="{Binding Draft.BorderColor}" Background="{Binding Draft.BackgroundColor}" HorizontalAlignment="Center"><Image Source="{Binding Draft.IconImageBase64, Converter={StaticResource Base64Image}}" Stretch="UniformToFill"/></Border><TextBlock Text="{Binding Draft.Text}" Foreground="{Binding Draft.TextColor}" FontWeight="Bold" TextAlignment="Center" TextWrapping="Wrap" Margin="4,10,4,0"/></StackPanel>
                 </Border>
             </Grid>
         </Grid>
