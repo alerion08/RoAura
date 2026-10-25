@@ -47,6 +47,15 @@
     <sys:String x:Key="NoSkillsHint">Add your first skill and detect its Skill ID in game.</sys:String>
     <sys:String x:Key="SkillListHint">Select a skill to edit its settings.</sys:String>
     <sys:String x:Key="DuplicateSkill">Duplicate skill</sys:String>
+    <sys:String x:Key="SkillName">Skill name</sys:String>
+    <sys:String x:Key="ShortName">Short name</sys:String>
+    <sys:String x:Key="ShortNameHint">Leave blank to generate an abbreviation automatically.</sys:String>
+    <sys:String x:Key="TrackSkill">Track this skill</sys:String>
+    <sys:String x:Key="SkillDetectHint">Skill ID can be detected in game on the Advanced tab. Use the skill after starting the twenty-second search.</sys:String>
+    <sys:String x:Key="CooldownPreviewHint">Preview of text inside the in-game icon</sys:String>
+    <sys:String x:Key="ShowSkillShortName">Show short name</sys:String>
+    <sys:String x:Key="ShowSkillReady">Show READY text</sys:String>
+    <sys:String x:Key="ShowSkillCountdown">Show seconds until ready</sys:String>
     <sys:String x:Key="Effects">Effects</sys:String>
     <sys:String x:Key="EffectSettingsTitle">Effects</sys:String>
     <sys:String x:Key="EffectSettingsHint">All game effects in one list. Organize them into independent panels.</sys:String>
@@ -296,4 +305,17 @@
     <sys:String x:Key="DeleteItem">Delete item</sys:String>
     <sys:String x:Key="MoveUp">Move up</sys:String>
     <sys:String x:Key="MoveDown">Move down</sys:String>
+    <sys:String x:Key="CooldownGroupFilterHint">Filter skills by group</sys:String>
+    <sys:String x:Key="AllGroups">All groups</sys:String>
+    <sys:String x:Key="CooldownGroupsTitle">Cooldown groups</sys:String>
+    <sys:String x:Key="CooldownGroupsHint">Configure the order, direction and spacing of each icon panel.</sys:String>
+    <sys:String x:Key="AddCooldownGroup">＋ New group</sys:String>
+    <sys:String x:Key="GroupName">Group name</sys:String>
+    <sys:String x:Key="LayoutDirection">Direction</sys:String>
+    <sys:String x:Key="Horizontal">Horizontal</sys:String>
+    <sys:String x:Key="Vertical">Vertical</sys:String>
+    <sys:String x:Key="IconGap">Spacing, px</sys:String>
+    <sys:String x:Key="ApplyGroupLayout">Apply layout</sys:String>
+    <sys:String x:Key="DeleteGroup">Delete group</sys:String>
+    <sys:String x:Key="SkillsCountLabel">skills</sys:String>
 </ResourceDictionary>
