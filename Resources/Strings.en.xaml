@@ -318,4 +318,5 @@
     <sys:String x:Key="ApplyGroupLayout">Apply layout</sys:String>
     <sys:String x:Key="DeleteGroup">Delete group</sys:String>
     <sys:String x:Key="SkillsCountLabel">skills</sys:String>
+    <sys:String x:Key="CooldownState">Cooldown</sys:String>
 </ResourceDictionary>
