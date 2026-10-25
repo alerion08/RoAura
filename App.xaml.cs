@@ -106,6 +106,12 @@ public partial class App : Application
         // circular MarkupExtension references and startup null references.
         if (e.Args.Any(argument => string.Equals(argument, "--smoke-test", StringComparison.OrdinalIgnoreCase)))
         {
+            settings.UpdatePacketCaptureState("Packets: startup error — smoke test");
+            if (settings.PacketCaptureStateKind != "Error")
+                throw new InvalidOperationException("Packet capture startup errors must use the Error presentation state.");
+            settings.UpdatePacketCaptureState("Packets: listening on 1 adapter");
+            if (settings.PacketCaptureStateKind != "Ready")
+                throw new InvalidOperationException("Active packet capture must use the Ready presentation state.");
             var wizard = new SkillWizardWindow(settings.CooldownGroups, settings.Language == "en");
             if (!wizard.RunAutomaticFlowSmokeTest())
                 throw new InvalidOperationException("Cooldown skill wizard automatic flow smoke test failed.");

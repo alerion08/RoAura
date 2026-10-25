@@ -352,8 +352,22 @@
                                     <StackPanel>
                                         <TextBlock Text="{Binding PacketCaptureStateText}" TextWrapping="Wrap" Foreground="{StaticResource RoBlueBrush}" FontWeight="SemiBold"/>
                                         <Separator/>
-                                        <TextBlock Text="{DynamicResource ConnectionStatusHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}"/>
-                                        <Button Content="{DynamicResource DetectConnectionNow}" Click="AutoDetectConnection_Click" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                                        <TextBlock TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="{DynamicResource ConnectionSearchingHint}"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding PacketCaptureStateKind}" Value="Ready"><Setter Property="Text" Value="{DynamicResource ConnectionReadyHint}"/></DataTrigger>
+                                                        <DataTrigger Binding="{Binding PacketCaptureStateKind}" Value="Warning"><Setter Property="Text" Value="{DynamicResource ConnectionDisabledHint}"/></DataTrigger>
+                                                        <DataTrigger Binding="{Binding PacketCaptureStateKind}" Value="Error"><Setter Property="Text" Value="{DynamicResource ConnectionErrorHint}"/></DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <UniformGrid Columns="2" Margin="0,10,0,0">
+                                            <Button Content="{DynamicResource DetectConnectionNow}" Click="AutoDetectConnection_Click"/>
+                                            <Button Content="{DynamicResource CheckNpcap}" Click="CheckNpcap_Click"/>
+                                        </UniformGrid>
                                     </StackPanel>
                                 </GroupBox>
                             </Grid>

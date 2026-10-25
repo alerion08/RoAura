@@ -119,7 +119,15 @@ public sealed class AppSettings : INotifyPropertyChanged
     {
         PacketCaptureStateText = state;
         var normalized = state.ToLowerInvariant();
-        PacketCaptureStateKind = normalized.Contains("слушаю") || normalized.Contains("listening")
+        var error = normalized.Contains("ошибка") || normalized.Contains("error") ||
+                    normalized.Contains("не установлен") || normalized.Contains("not installed") ||
+                    normalized.Contains("не нашёл") || normalized.Contains("found no") ||
+                    normalized.Contains("не удалось") || normalized.Contains("could not") ||
+                    normalized.Contains("разрядност") || normalized.Contains("architecture") ||
+                    normalized.Contains("только в windows") || normalized.Contains("windows only") || normalized.Contains("only on windows");
+        PacketCaptureStateKind = error
+            ? "Error"
+            : normalized.Contains("слушаю") || normalized.Contains("listening")
             ? "Ready"
             : normalized.Contains("подключ") || normalized.Contains("connecting") || normalized.Contains("запуск") || normalized.Contains("restarting")
                 ? "Searching"

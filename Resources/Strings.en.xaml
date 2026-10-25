@@ -33,6 +33,10 @@
     <sys:String x:Key="QuickStartHint">Core features are organized into dedicated sections. Existing settings and packet logic remain unchanged.</sys:String>
     <sys:String x:Key="ConnectionStatus">Game connection</sys:String>
     <sys:String x:Key="ConnectionStatusHint">RoAura detects the process, IP and port automatically. Run detection again after changing the client.</sys:String>
+    <sys:String x:Key="ConnectionReadyHint">Packet capture is active. You can continue configuring your in-game overlays.</sys:String>
+    <sys:String x:Key="ConnectionSearchingHint">RoAura is connecting to Npcap. If this state does not change, check Npcap and the running game client.</sys:String>
+    <sys:String x:Key="ConnectionDisabledHint">Packet capture is disabled. Enable game events in the connection settings.</sys:String>
+    <sys:String x:Key="ConnectionErrorHint">Check the Npcap installation, start Ragnarok Online, and detect the game connection again.</sys:String>
     <sys:String x:Key="ConnectionAndControl">Connection and controls</sys:String>
     <sys:String x:Key="FirstRunTitle">Welcome to RoAura</sys:String>
     <sys:String x:Key="FirstRunHint">Three short steps will connect the game and configure your first overlay. You can dismiss this guide and continue later.</sys:String>

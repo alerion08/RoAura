@@ -33,6 +33,10 @@
     <sys:String x:Key="QuickStartHint">Основные функции собраны в отдельных разделах. Настройки и пакетная логика сохранены без изменений.</sys:String>
     <sys:String x:Key="ConnectionStatus">Подключение к игре</sys:String>
     <sys:String x:Key="ConnectionStatusHint">RoAura автоматически определяет процесс, IP и порт. При смене клиента выполните повторное определение.</sys:String>
+    <sys:String x:Key="ConnectionReadyHint">Захват пакетов работает. Можно переходить к настройке игровых оверлеев.</sys:String>
+    <sys:String x:Key="ConnectionSearchingHint">RoAura подключается к Npcap. Если состояние долго не меняется, проверьте Npcap и запущенный клиент игры.</sys:String>
+    <sys:String x:Key="ConnectionDisabledHint">Захват пакетов отключён. Включите получение игровых событий в настройках подключения.</sys:String>
+    <sys:String x:Key="ConnectionErrorHint">Проверьте установку Npcap, затем запустите Ragnarok Online и выполните повторное определение подключения.</sys:String>
     <sys:String x:Key="ConnectionAndControl">Подключение и управление</sys:String>
     <sys:String x:Key="FirstRunTitle">Первый запуск RoAura</sys:String>
     <sys:String x:Key="FirstRunHint">Три коротких шага помогут подключить игру и настроить первый оверлей. Эту подсказку можно закрыть и продолжить настройку позже.</sys:String>
