@@ -252,20 +252,21 @@ public partial class MainWindow : Window
     private void OpenGoldGoblinAdd_Click(object sender, RoutedEventArgs e)
     {
         GoldGoblinWorkspaceTabs.SelectedIndex = 0;
-        GoldGoblinLootItemBox.Focus();
-        GoldGoblinLootItemBox.IsDropDownOpen = true;
+        ShowGoldGoblinAddDialog();
     }
 
     private void AddGoldGoblinLoot_Click(object sender, RoutedEventArgs e)
     {
-        var item = ResolveGoldGoblinItem(GoldGoblinLootItemBox);
-        if (item is null)
-        {
-            SetStatus(T("Выберите предмет из предложенного списка.", "Select an item from the suggestion list."));
-            return;
-        }
+        ShowGoldGoblinAddDialog();
+    }
+
+    private void ShowGoldGoblinAddDialog()
+    {
+        var dialog = new GoldGoblinAddItemWindow(_items.Values) { Owner = this };
+        if (dialog.ShowDialog() != true || dialog.SelectedItem is not ItemEntry item) return;
         _goldGoblin.AddManualItem(item.Id, item.Name);
         GoldGoblinLootGrid.SelectedItem = GoldGoblinRows.First(row => row.ItemId == item.Id);
+        GoldGoblinLootGrid.ScrollIntoView(GoldGoblinLootGrid.SelectedItem);
     }
 
     private void DeleteGoldGoblinLoot_Click(object sender, RoutedEventArgs e)
@@ -314,13 +315,10 @@ public partial class MainWindow : Window
     {
         if (GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row) return;
         _updatingGoldGoblinEditor = true;
-        GoldGoblinPriceSourceBox.SelectedValue = row.PriceSource.ToLowerInvariant() switch
-        {
-            "vending" => "vending",
-            "manual" => "manual",
-            _ => "npc"
-        };
         var rule = Settings.GoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
+        GoldGoblinPriceSourceBox.SelectedValue = rule is null
+            ? "npc"
+            : rule.UseVendingPrice ? "vending" : "manual";
         GoldGoblinManualPriceBox.Text = rule?.ManualPrice.ToString() ?? "0";
         _updatingGoldGoblinEditor = false;
     }
@@ -349,8 +347,6 @@ public partial class MainWindow : Window
             rule.UseVendingPrice = source == "vending";
         }
         _goldGoblin.Reprice();
-        GoldGoblinLootGrid_SelectionChanged(GoldGoblinLootGrid,
-            new SelectionChangedEventArgs(Selector.SelectionChangedEvent, Array.Empty<object>(), Array.Empty<object>()));
     }
 
     private void GoldGoblinManualPrice_LostFocus(object sender, RoutedEventArgs e)
@@ -388,10 +384,23 @@ public partial class MainWindow : Window
     {
         if (sender is not ComboBox box || e.Key == Key.Escape) return;
         var query = box.Text.Trim();
+        var editor = box.Template.FindName("PART_EditableTextBox", box) as TextBox;
+        var caret = editor?.CaretIndex ?? query.Length;
         box.ItemsSource = GoldGoblinItemSuggestions
-            .Where(item => query.Length == 0 || item.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
+            .Where(item => query.Length == 0 ||
+                item.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                item.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase))
             .Take(100).ToList();
         box.IsDropDownOpen = query.Length > 0;
+        Dispatcher.BeginInvoke(() =>
+        {
+            box.Text = query;
+            if (box.Template.FindName("PART_EditableTextBox", box) is TextBox textBox)
+            {
+                textBox.SelectionLength = 0;
+                textBox.CaretIndex = Math.Min(caret, textBox.Text.Length);
+            }
+        }, DispatcherPriority.Input);
     }
 
     private ItemEntry? ResolveGoldGoblinItem(ComboBox box)
