@@ -51,6 +51,20 @@ if (-not (Test-Path $publishedExecutable -PathType Leaf)) {
     throw "Publish completed without the expected executable: $publishedExecutable"
 }
 
+# Launch the published executable in a deterministic startup-only mode. The
+# process constructs the real WPF windows and exits by itself, so XAML/runtime
+# initialization errors fail the release before an archive is created.
+Write-Host "Running RoAura startup smoke test..."
+$smokeProcess = Start-Process -FilePath $publishedExecutable -ArgumentList "--smoke-test" -PassThru
+if (-not $smokeProcess.WaitForExit(15000)) {
+    Stop-Process -Id $smokeProcess.Id -Force -ErrorAction SilentlyContinue
+    throw "RoAura startup smoke test timed out. Release files were not created."
+}
+if ($smokeProcess.ExitCode -ne 0) {
+    throw "RoAura startup smoke test failed with exit code $($smokeProcess.ExitCode). Check %APPDATA%\RoAura\debug.log. Release files were not created."
+}
+Write-Host "Startup smoke test passed."
+
 Copy-Item .\README.md (Join-Path $publishDir "README.md") -Force
 Copy-Item .\GUIDE.md (Join-Path $publishDir "GUIDE.md") -Force
 Copy-Item .\GUIDE_RU.md (Join-Path $publishDir "GUIDE_RU.md") -Force
