@@ -37,6 +37,7 @@ public partial class MainWindow : Window
     private ICollectionView? _skillsView;
     private readonly ICollectionView _goldGoblinRowsView;
     private bool _updatingGoldGoblinEditor;
+    private bool _goldGoblinRefreshPending;
     private int? _cooldownGroupFilter;
     private readonly DispatcherTimer _connectionDetectionTimer;
     private bool _appliedPacketCaptureEnabled;
@@ -205,13 +206,19 @@ public partial class MainWindow : Window
     private void GoldGoblin_Changed()
     {
         if (!Dispatcher.CheckAccess()) { Dispatcher.BeginInvoke(GoldGoblin_Changed); return; }
-        _goldGoblinRowsView.Refresh();
-        if (GoldGoblinTotalText is not null)
-            GoldGoblinTotalText.Text = $"{_goldGoblin.SessionTotal:N0} Z";
-        if (GoldGoblinItemCountText is not null)
-            GoldGoblinItemCountText.Text = GoldGoblinRows.Sum(row => row.Count).ToString("N0");
-        if (GoldGoblinUnpricedCountText is not null)
-            GoldGoblinUnpricedCountText.Text = GoldGoblinRows.Count(row => !row.PriceKnown).ToString("N0");
+        if (_goldGoblinRefreshPending) return;
+        _goldGoblinRefreshPending = true;
+        Dispatcher.BeginInvoke(DispatcherPriority.DataBind, () =>
+        {
+            _goldGoblinRefreshPending = false;
+            _goldGoblinRowsView.Refresh();
+            if (GoldGoblinTotalText is not null)
+                GoldGoblinTotalText.Text = $"{_goldGoblin.SessionTotal:N0} Z";
+            if (GoldGoblinItemCountText is not null)
+                GoldGoblinItemCountText.Text = GoldGoblinRows.Sum(row => row.Count).ToString("N0");
+            if (GoldGoblinUnpricedCountText is not null)
+                GoldGoblinUnpricedCountText.Text = GoldGoblinRows.Count(row => !row.PriceKnown).ToString("N0");
+        });
     }
 
     private void AddGoldGoblinRule_Click(object sender, RoutedEventArgs e)

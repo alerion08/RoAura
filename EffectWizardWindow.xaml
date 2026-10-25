@@ -42,8 +42,8 @@
                         </Grid>
                         <Grid x:Name="ManualIdArea" Visibility="Collapsed">
                             <Grid.ColumnDefinitions><ColumnDefinition Width="230"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                            <TextBlock Text="Status ID" Style="{StaticResource FieldLabelStyle}"/>
-                            <TextBox Grid.Column="1" Text="{Binding Draft.StatusId, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/>
+                            <TextBlock Text="Status ID" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,5,10,5"/>
+                            <TextBox Grid.Column="1" Height="28" VerticalContentAlignment="Center" Text="{Binding Draft.StatusId, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </Grid>
                 </Border>

@@ -547,6 +547,7 @@ public partial class OverlayWindow : Window
     private void UpdateRateIndicators(bool force = false)
     {
         var now = DateTime.UtcNow;
+        UpdateSessionTimeIndicator(now);
         if (!force && now - _lastRateIndicatorUpdateUtc <
             TimeSpan.FromSeconds(_settings.RateStatisticsRefreshSeconds))
             return;
@@ -627,6 +628,28 @@ public partial class OverlayWindow : Window
                     : $"Время сессии: {sessionTime}"
             };
         }
+    }
+
+    private void UpdateSessionTimeIndicator(DateTime now)
+    {
+        var starts = new[]
+            {
+                _baseExperienceStartedUtc,
+                _jobExperienceStartedUtc,
+                _zenyStartedUtc,
+                _settings.ServerProfile == GameServerProfile.SpringRo
+                    ? _goldGoblin.SessionStartedUtc
+                    : null
+            }
+            .Where(value => value.HasValue)
+            .Select(value => value!.Value)
+            .ToList();
+        var sessionTime = starts.Count > 0 ? FormatElapsed(now - starts.Min()) : "00:00:00";
+        var indicator = _settings.RateIndicators.FirstOrDefault(item => item.Kind == RateIndicatorKind.SessionTime);
+        if (indicator is null) return;
+        indicator.ValueText = _settings.Language == "en"
+            ? $"Session time: {sessionTime}"
+            : $"Время сессии: {sessionTime}";
     }
 
     private static string FormatElapsed(TimeSpan value) => value.TotalDays >= 1
