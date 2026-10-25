@@ -1751,7 +1751,7 @@ public partial class MainWindow : Window
     {
         if (NpcapPacketCapture.IsNpcapInstalled())
         {
-            Settings.PacketCaptureStateText = T("Npcap установлен · перезапускаю захват…", "Npcap installed · restarting capture…");
+            Settings.UpdatePacketCaptureState(T("Npcap установлен · перезапускаю захват…", "Npcap installed · restarting capture…"));
             ApplyPacketCaptureIfChanged(force: true);
             return;
         }
@@ -1816,6 +1816,7 @@ public partial class MainWindow : Window
         if (!_languageReady || LanguageBox.SelectedItem is not ComboBoxItem { Tag: string language }) return;
         Settings.Language = language;
         LocalizationService.ApplyLanguage(language);
+        Settings.RefreshPacketCaptureStateLanguage();
         UpdateServerProfileLabels();
         RebuildCooldownGroupFilterItems();
         SkillsGrid.Items.Refresh();

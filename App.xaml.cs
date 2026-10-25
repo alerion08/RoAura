@@ -89,7 +89,7 @@ public partial class App : Application
         _packetCapture.ProgressChanged += OnPacketProgressChanged;
         _packetCapture.ZenyChanged += OnPacketZenyChanged;
         _packetCapture.StateChanged += state => Dispatcher.BeginInvoke(() =>
-            settings.PacketCaptureStateText = state);
+            settings.UpdatePacketCaptureState(state));
 
         _marketService = new SpringRoMarketService();
         _goldGoblin = new GoldGoblinService(settings, _marketService);
@@ -145,7 +145,7 @@ public partial class App : Application
 
         if (settings.PacketCaptureEnabled && !NpcapPacketCapture.IsNpcapInstalled())
         {
-            settings.PacketCaptureStateText = settings.Language == "en" ? "Npcap is not installed" : "Npcap не установлен";
+            settings.UpdatePacketCaptureState(settings.Language == "en" ? "Npcap is not installed" : "Npcap не установлен");
             var dialog = new NpcapRequiredWindow { Owner = _settingsWindow };
             dialog.ShowDialog();
         }

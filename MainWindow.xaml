@@ -267,10 +267,31 @@
                                         <TextBlock Text="{DynamicResource HomeSubtitle}" Style="{StaticResource RoCaptionTextStyle}"
                                                    FontSize="14" Margin="0,5,0,0" TextWrapping="Wrap"/>
                                     </StackPanel>
-                                    <Border Grid.Column="1" Padding="13,8" CornerRadius="16" Background="#E8FFFFFF"
+                                    <Border Grid.Column="1" Padding="13,8" CornerRadius="16"
                                             BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" VerticalAlignment="Center">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="#FFEAF2FC"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding PacketCaptureStateKind}" Value="Ready"><Setter Property="Background" Value="#FFE7F6ED"/><Setter Property="BorderBrush" Value="#FF8CC9A3"/></DataTrigger>
+                                                    <DataTrigger Binding="{Binding PacketCaptureStateKind}" Value="Warning"><Setter Property="Background" Value="#FFFFF3D9"/><Setter Property="BorderBrush" Value="#FFE1BB61"/></DataTrigger>
+                                                    <DataTrigger Binding="{Binding PacketCaptureStateKind}" Value="Error"><Setter Property="Background" Value="#FFFFE9EA"/><Setter Property="BorderBrush" Value="#FFE19A9F"/></DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
                                         <StackPanel Orientation="Horizontal">
-                                            <Ellipse Width="10" Height="10" Fill="{StaticResource RoBlueBrush}" Margin="0,0,8,0"/>
+                                            <Ellipse Width="10" Height="10" Margin="0,0,8,0">
+                                                <Ellipse.Style>
+                                                    <Style TargetType="Ellipse">
+                                                        <Setter Property="Fill" Value="{StaticResource RoBlueBrush}"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding PacketCaptureStateKind}" Value="Ready"><Setter Property="Fill" Value="#FF3C9A62"/></DataTrigger>
+                                                            <DataTrigger Binding="{Binding PacketCaptureStateKind}" Value="Warning"><Setter Property="Fill" Value="#FFD59A18"/></DataTrigger>
+                                                            <DataTrigger Binding="{Binding PacketCaptureStateKind}" Value="Error"><Setter Property="Fill" Value="#FFC9535B"/></DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Ellipse.Style>
+                                            </Ellipse>
                                             <TextBlock Text="{Binding PacketCaptureStateText}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" MaxWidth="330"/>
                                         </StackPanel>
                                     </Border>

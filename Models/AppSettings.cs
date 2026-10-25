@@ -17,6 +17,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     private int _packetServerPort = 1;
     private uint _packetPlayerAid;
     private string _packetCaptureStateText = "Пакеты: запуск…";
+    private string _packetCaptureStateKind = "Searching";
     private double _notificationX = 900;
     private double _notificationY = 250;
     private double _notificationSize = 72;
@@ -111,6 +112,32 @@ public sealed class AppSettings : INotifyPropertyChanged
 
     [JsonIgnore]
     public string PacketCaptureStateText { get => _packetCaptureStateText; set => Set(ref _packetCaptureStateText, value); }
+    [JsonIgnore]
+    public string PacketCaptureStateKind { get => _packetCaptureStateKind; private set => Set(ref _packetCaptureStateKind, value); }
+
+    public void UpdatePacketCaptureState(string state)
+    {
+        PacketCaptureStateText = state;
+        var normalized = state.ToLowerInvariant();
+        PacketCaptureStateKind = normalized.Contains("слушаю") || normalized.Contains("listening")
+            ? "Ready"
+            : normalized.Contains("подключ") || normalized.Contains("connecting") || normalized.Contains("запуск") || normalized.Contains("restarting")
+                ? "Searching"
+                : normalized.Contains("отключ") || normalized.Contains("disabled")
+                    ? "Warning"
+                    : "Error";
+    }
+
+    public void RefreshPacketCaptureStateLanguage()
+    {
+        PacketCaptureStateText = PacketCaptureStateKind switch
+        {
+            "Ready" => Language == "en" ? "Packets: capture is active" : "Пакеты: захват работает",
+            "Searching" => Language == "en" ? "Packets: connecting to Npcap…" : "Пакеты: подключение к Npcap…",
+            "Warning" => Language == "en" ? "Packets: disabled" : "Пакеты: отключены",
+            _ => Language == "en" ? "Packets: connection error" : "Пакеты: ошибка подключения"
+        };
+    }
     public List<string> AllowedProcesses { get; set; } = ["PRM", "Refuge", "ragexe", "RagexeRE"];
     public ObservableCollection<SkillAura> Skills { get; set; } = [];
     public ObservableCollection<CooldownGroupSettings> CooldownGroups { get; set; } = [];
