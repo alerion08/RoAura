@@ -91,6 +91,7 @@ public partial class OverlayWindow : Window
     private Matrix _lastDeviceTransform = Matrix.Identity;
     private bool _gameWindowFound;
     private IntPtr _gameWindowHandle;
+    private IntPtr _settingsWindowHandle;
 
     public bool IsBusyEditing => _skillEditMode || _notificationEditMode || _reminderEditMode ||
                                  _buffPanelEditMode || _equipmentEditMode || _timerPanelEditMode ||
@@ -1255,6 +1256,11 @@ public partial class OverlayWindow : Window
                 if (!IsVisible) Show();
                 BringOverlayAboveGame();
             }
+            else if (IsSettingsWindowForeground())
+            {
+                ReleaseOverlayTopmost();
+                if (IsVisible) Hide();
+            }
             else if (_gameBounds.HasValue && ForegroundProcess.DoesForegroundWindowCover(_gameBounds.Value))
             {
                 ReleaseOverlayTopmost();
@@ -1268,6 +1274,17 @@ public partial class OverlayWindow : Window
         }
         else if (IsVisible)
             Hide();
+    }
+
+    private bool IsSettingsWindowForeground()
+    {
+        if (_settingsWindowHandle == IntPtr.Zero)
+        {
+            var settingsWindow = Application.Current?.Windows.OfType<MainWindow>().FirstOrDefault();
+            if (settingsWindow is not null)
+                _settingsWindowHandle = new WindowInteropHelper(settingsWindow).Handle;
+        }
+        return ForegroundProcess.IsForegroundWindow(_settingsWindowHandle);
     }
 
     protected override void OnClosed(EventArgs e)

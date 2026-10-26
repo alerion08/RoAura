@@ -28,7 +28,7 @@
         <Grid Grid.Row="1" Margin="24,20">
             <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
             <TextBlock Text="{DynamicResource MvpSearch}" FontWeight="SemiBold"/>
-            <ComboBox x:Name="MonsterBox" Grid.Row="0" Margin="0,26,0,16" Height="38"
+            <ComboBox x:Name="MonsterBox" Grid.Row="0" Margin="0,26,0,16" Height="38" Padding="10,0,36,0" VerticalContentAlignment="Center"
                       ItemsSource="{Binding MonsterView}" TextSearch.TextPath="DisplayName"
                       IsEditable="True" IsTextSearchEnabled="False" StaysOpenOnEdit="True"
                       SelectionChanged="MonsterBox_SelectionChanged" Loaded="MonsterBox_Loaded"
@@ -41,9 +41,8 @@
                         <TextBlock Grid.Row="2" Text="{DynamicResource Minutes}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Draft.DurationMinutes, UpdateSourceTrigger=LostFocus}" Style="{StaticResource FieldEditorStyle}"/>
                     </Grid>
                     <CheckBox Content="{DynamicResource UseExactKillTime}" IsChecked="{Binding UseExactKillTime}" Margin="2,14,0,5"/>
-                    <Grid IsEnabled="{Binding UseExactKillTime}"><Grid.ColumnDefinitions><ColumnDefinition Width="155"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                        <TextBlock Text="{DynamicResource KillDate}" Style="{StaticResource FieldLabelStyle}"/><DatePicker Grid.Column="1" SelectedDate="{Binding KillDate}" Height="28" Margin="0,4,14,4"/>
-                        <TextBlock Grid.Row="1" Text="{DynamicResource KillTime}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding KillTimeText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" ToolTip="HH:mm:ss"/>
+                    <Grid IsEnabled="{Binding UseExactKillTime}"><Grid.ColumnDefinitions><ColumnDefinition Width="155"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                        <TextBlock Text="{DynamicResource KillTime}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding KillTimeText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" ToolTip="HH:mm:ss"/>
                     </Grid>
                     <CheckBox Content="{DynamicResource StartTimerAfterCreate}" IsChecked="{Binding StartAfterCreate}" IsEnabled="{Binding CanStartAfterCreate}" Margin="2,14,0,0"/>
                     <TextBlock x:Name="ValidationText" Foreground="#B64B55" TextWrapping="Wrap" Margin="2,12,0,0"/>

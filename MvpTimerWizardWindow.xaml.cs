@@ -14,7 +14,6 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
     private readonly ObservableCollection<MonsterEntry> _monsters;
     private bool _startAfterCreate;
     private bool _useExactKillTime;
-    private DateTime? _killDate = DateTime.Today;
     private string _killTimeText = DateTime.Now.ToString("HH:mm:ss");
     private MonsterEntry? _selectedMonster;
     private TextBox? _monsterEditor;
@@ -46,16 +45,6 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
         }
     }
     public bool CanStartAfterCreate => !UseExactKillTime;
-    public DateTime? KillDate
-    {
-        get => _killDate;
-        set
-        {
-            if (_killDate == value) return;
-            _killDate = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(KillDate)));
-        }
-    }
     public string KillTimeText
     {
         get => _killTimeText;
@@ -153,12 +142,12 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
 
         if (UseExactKillTime)
         {
-            if (!KillDate.HasValue || !TimeSpan.TryParse(KillTimeText, out var time) || time < TimeSpan.Zero || time >= TimeSpan.FromDays(1))
+            if (!TimeSpan.TryParse(KillTimeText, out var time) || time < TimeSpan.Zero || time >= TimeSpan.FromDays(1))
             {
                 ValidationText.Text = LocalizationService.Get("InvalidKillTime");
                 return;
             }
-            Draft.StartFromKillTime(KillDate.Value.Date.Add(time));
+            Draft.StartFromKillClock(time);
         }
         else if (StartAfterCreate)
         {

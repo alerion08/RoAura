@@ -41,6 +41,7 @@ public sealed class MvpTimerTests
 
         Assert.Null(timer.EndsAtUtc);
         Assert.Null(timer.KilledAtUtc);
+        Assert.Empty(timer.KillTimeInput);
         Assert.Equal(0, timer.RemainingSeconds);
         Assert.Equal(45, timer.DurationMinutes);
         Assert.Equal("TimerNotStarted", timer.StateText);
@@ -72,5 +73,18 @@ public sealed class MvpTimerTests
         Assert.InRange(timer.RemainingSeconds, 3299, 3300);
         Assert.True(timer.HasKillTime);
         Assert.NotEmpty(timer.KilledAtText);
+    }
+
+    [Fact]
+    public void Kill_clock_after_midnight_uses_previous_day()
+    {
+        var now = new DateTime(2026, 10, 27, 0, 10, 0, DateTimeKind.Local);
+        var timer = new MvpTimer { DurationMinutes = 60 };
+
+        timer.StartFromKillClock(new TimeSpan(23, 50, 0), now);
+
+        Assert.Equal(now.Date.AddDays(-1).AddHours(23).AddMinutes(50).ToUniversalTime(), timer.KilledAtUtc);
+        Assert.Equal("23:50:00", timer.KilledAtText);
+        Assert.Equal("23:50:00", timer.KillTimeInput);
     }
 }

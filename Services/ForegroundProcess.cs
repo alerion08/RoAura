@@ -133,6 +133,9 @@ public static class ForegroundProcess
         catch { return false; }
     }
 
+    public static bool IsForegroundWindow(IntPtr window) =>
+        window != IntPtr.Zero && GetForegroundWindow() == window;
+
     public static bool TryGetForegroundAllowedBounds(IEnumerable<string> processNames, out WindowBounds bounds)
     {
         bounds = default;

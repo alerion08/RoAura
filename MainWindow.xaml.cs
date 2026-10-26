@@ -46,6 +46,7 @@ public partial class MainWindow : Window
     private int _appliedPacketServerPort;
     private TextBox? _mvpMonsterEditor;
     private bool _suppressMvpMonsterTextChanged;
+    private bool _updatingMvpMonsterSelection;
 
     public ICollectionView MvpMonsterView { get; }
     public ObservableCollection<GoldGoblinLootRow> GoldGoblinRows => _goldGoblin.Rows;
@@ -1618,8 +1619,20 @@ public partial class MainWindow : Window
 
     private void RestartMvpTimer_Click(object sender, RoutedEventArgs e)
     {
-        if ((sender as FrameworkElement)?.DataContext is MvpTimer rowTimer) rowTimer.Restart();
-        else if (MvpTimersGrid.SelectedItem is MvpTimer timer) timer.Restart();
+        var timer = (sender as FrameworkElement)?.DataContext as MvpTimer ?? MvpTimersGrid.SelectedItem as MvpTimer;
+        if (timer is null) return;
+        if (string.IsNullOrWhiteSpace(timer.KillTimeInput))
+        {
+            timer.Restart();
+            SaveSettings();
+            return;
+        }
+        if (!TimeSpan.TryParse(timer.KillTimeInput, out var killTime) || killTime < TimeSpan.Zero || killTime >= TimeSpan.FromDays(1))
+        {
+            SetStatus(LocalizationService.Get("InvalidKillTime"));
+            return;
+        }
+        timer.StartFromKillClock(killTime);
         SaveSettings();
     }
 
@@ -1652,9 +1665,25 @@ public partial class MainWindow : Window
 
     private void MvpMonster_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (MvpTimersGrid.SelectedItem is not MvpTimer timer || (sender as ComboBox)?.SelectedItem is not MonsterEntry monster) return;
+        if (_updatingMvpMonsterSelection || MvpTimersGrid.SelectedItem is not MvpTimer timer || (sender as ComboBox)?.SelectedItem is not MonsterEntry monster) return;
         timer.MonsterId = monster.Id;
         timer.Name = monster.Name;
+    }
+
+    private void MvpMonsterBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (sender is not ComboBox box || e.NewValue is not MvpTimer timer) return;
+        _updatingMvpMonsterSelection = true;
+        MvpMonsterView.Filter = null;
+        MvpMonsterView.Refresh();
+        box.SelectedItem = _monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId);
+        _updatingMvpMonsterSelection = false;
+        Dispatcher.BeginInvoke(DispatcherPriority.Input, () =>
+        {
+            if (_mvpMonsterEditor is null) return;
+            _mvpMonsterEditor.SelectionStart = _mvpMonsterEditor.Text.Length;
+            _mvpMonsterEditor.SelectionLength = 0;
+        });
     }
 
     private void MvpMonsterBox_Loaded(object sender, RoutedEventArgs e)

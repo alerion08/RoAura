@@ -10,6 +10,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
     private int _monsterId;
     private double _durationMinutes = 60;
     private DateTime? _killedAtUtc;
+    private string _killTimeInput = "";
     private DateTime? _endsAtUtc;
     private double _remainingSeconds;
     private bool _enabled = true;
@@ -35,9 +36,17 @@ public sealed class MvpTimer : INotifyPropertyChanged
         set
         {
             if (!Set(ref _killedAtUtc, value)) return;
+            _killTimeInput = value?.ToLocalTime().ToString("HH:mm:ss") ?? "";
             OnPropertyChanged(nameof(KilledAtText));
+            OnPropertyChanged(nameof(KillTimeInput));
             OnPropertyChanged(nameof(HasKillTime));
         }
+    }
+    [JsonIgnore]
+    public string KillTimeInput
+    {
+        get => _killTimeInput;
+        set => Set(ref _killTimeInput, value ?? "");
     }
     public DateTime? EndsAtUtc
     {
@@ -72,7 +81,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
     [JsonIgnore] public bool IsRunning => EndsAtUtc.HasValue && RemainingSeconds > 0;
     [JsonIgnore] public bool IsVisible => Enabled && IsRunning;
     [JsonIgnore] public bool HasKillTime => KilledAtUtc.HasValue;
-    [JsonIgnore] public string KilledAtText => KilledAtUtc?.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss") ?? "";
+    [JsonIgnore] public string KilledAtText => KilledAtUtc?.ToLocalTime().ToString("HH:mm:ss") ?? "";
     [JsonIgnore]
     public string MonsterImagePath
     {
@@ -118,6 +127,14 @@ public sealed class MvpTimer : INotifyPropertyChanged
             RemainingSeconds = (EndsAtUtc.Value - DateTime.UtcNow).TotalSeconds;
         OnPropertyChanged(nameof(IsRunning));
         OnPropertyChanged(nameof(StateText));
+    }
+
+    public void StartFromKillClock(TimeSpan killTime, DateTime? nowLocal = null)
+    {
+        var now = (nowLocal ?? DateTime.Now).ToLocalTime();
+        var killedAt = now.Date.Add(killTime);
+        if (killedAt > now) killedAt = killedAt.AddDays(-1);
+        StartFromKillTime(killedAt);
     }
 
     public void Reset()
