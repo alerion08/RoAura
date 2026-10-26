@@ -4,6 +4,22 @@
         Title="{DynamicResource AddMvpTimer}" Width="700" Height="500"
         MinWidth="620" MinHeight="450" WindowStartupLocation="CenterOwner"
         ResizeMode="CanResize" ShowInTaskbar="False" Background="{StaticResource RoWindowBrush}">
+    <Window.Resources>
+        <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,5,10,5"/>
+        </Style>
+        <Style x:Key="FieldEditorStyle" TargetType="TextBox">
+            <Setter Property="Margin" Value="0,4,14,4"/>
+            <Setter Property="MinWidth" Value="72"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
         <Border Padding="22,17" Background="White" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="0,0,0,1">
