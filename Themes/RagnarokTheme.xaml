@@ -222,21 +222,22 @@
         </ControlTemplate></Setter.Value></Setter>
     </Style>
 
-    <Style TargetType="ComboBoxItem"><Setter Property="Padding" Value="9,6"/><Setter Property="Foreground" Value="{StaticResource RoTextBrush}"/><Setter Property="Background" Value="Transparent"/><Style.Triggers><Trigger Property="IsHighlighted" Value="True"><Setter Property="Background" Value="{StaticResource RoSelectionBrush}"/></Trigger><Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="#C7DDF8"/><Setter Property="FontWeight" Value="SemiBold"/></Trigger></Style.Triggers></Style>
+    <Style TargetType="ComboBoxItem"><Setter Property="Padding" Value="9,6"/><Setter Property="Foreground" Value="{StaticResource RoTextBrush}"/><Setter Property="Background" Value="Transparent"/><Setter Property="VerticalContentAlignment" Value="Center"/><Style.Triggers><Trigger Property="IsHighlighted" Value="True"><Setter Property="Background" Value="{StaticResource RoSelectionBrush}"/></Trigger><Trigger Property="IsSelected" Value="True"><Setter Property="Background" Value="#C7DDF8"/><Setter Property="FontWeight" Value="SemiBold"/></Trigger></Style.Triggers></Style>
     <Style x:Key="ComboEditableTextBoxStyle" TargetType="TextBox">
         <Setter Property="Foreground" Value="{StaticResource RoTextBrush}"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TextBox"><ScrollViewer x:Name="PART_ContentHost"/></ControlTemplate></Setter.Value></Setter>
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TextBox"><ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center"/></ControlTemplate></Setter.Value></Setter>
     </Style>
     <Style TargetType="ComboBox">
         <Setter Property="Foreground" Value="{StaticResource RoTextBrush}"/><Setter Property="Background" Value="#FCFEFF"/><Setter Property="BorderBrush" Value="{StaticResource RoSoftBorderBrush}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="8,4"/><Setter Property="MinHeight" Value="30"/>
         <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ComboBox">
             <Grid><Border x:Name="ComboBorder" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
                 <ContentPresenter x:Name="SelectedContent" Margin="9,3,32,3" VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"/>
-                <TextBox x:Name="PART_EditableTextBox" Style="{StaticResource ComboEditableTextBoxStyle}" Margin="5,2,32,2" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                <TextBox x:Name="PART_EditableTextBox" Style="{StaticResource ComboEditableTextBoxStyle}" Margin="9,0,32,0" VerticalContentAlignment="Center" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
                 <ToggleButton x:Name="DropButton" Width="30" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Padding="0" Margin="0" Focusable="False" IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"><Path Data="M 0 0 L 5 5 L 10 0" Stroke="{StaticResource RoBlueBrush}" StrokeThickness="1.8"/></ToggleButton>
                 <Popup x:Name="PART_Popup" Placement="Bottom" AllowsTransparency="True" Focusable="False" IsOpen="{TemplateBinding IsDropDownOpen}" PopupAnimation="Fade"><Border MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}" MaxHeight="320" Margin="0,4,0,0" Padding="3" CornerRadius="6" Background="White" BorderBrush="#789DCF" BorderThickness="1"><ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><ItemsPresenter/></ScrollViewer></Border></Popup>
             </Grid>
