@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using RoAura.Services;
 
 namespace RoAura.Models;
 
@@ -44,6 +45,14 @@ public sealed class RewardChannelSettings : INotifyPropertyChanged
         RewardKind.Zeny => "Zeny",
         _ => "Experience"
     };
+    public string LocalizedDisplayName => LocalizationService.Get(Kind switch
+    {
+        RewardKind.Loot => "LootChannelLabel",
+        RewardKind.Zeny => "ZenyChannelLabel",
+        _ => "ExperienceChannelLabel"
+    });
+
+    public void RefreshLocalization() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LocalizedDisplayName)));
 
     public event PropertyChangedEventHandler? PropertyChanged;
     private void Set<T>(ref T field, T value, [CallerMemberName] string? name = null)

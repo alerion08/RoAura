@@ -482,7 +482,6 @@ public partial class MainWindow : Window
 
     private void MoveRateIndicator(int offset)
     {
-        RateIndicatorsGrid.CommitEdit();
         if (RateIndicatorsGrid.SelectedItem is not RateIndicatorSettings selected) return;
         var oldIndex = Settings.RateIndicators.IndexOf(selected);
         var newIndex = oldIndex + offset;
@@ -493,6 +492,48 @@ public partial class MainWindow : Window
         Settings.RateIndicators.Move(oldIndex, newIndex);
         RateIndicatorsGrid.SelectedItem = selected;
         _store.Save(Settings);
+    }
+
+    private void MoveRewardChannelUp_Click(object sender, RoutedEventArgs e) => MoveRewardChannel(-1);
+    private void MoveRewardChannelDown_Click(object sender, RoutedEventArgs e) => MoveRewardChannel(1);
+
+    private void MoveRewardChannel(int offset)
+    {
+        if (RewardChannelsGrid.SelectedItem is not RewardChannelSettings selected) return;
+        var groupChannels = Settings.RewardChannels
+            .Where(channel => channel.GroupNumber == selected.GroupNumber)
+            .OrderBy(channel => channel.Order)
+            .ToList();
+        var oldGroupIndex = groupChannels.IndexOf(selected);
+        var newGroupIndex = oldGroupIndex + offset;
+        if (oldGroupIndex < 0 || newGroupIndex < 0 || newGroupIndex >= groupChannels.Count) return;
+
+        var other = groupChannels[newGroupIndex];
+        groupChannels.RemoveAt(oldGroupIndex);
+        groupChannels.Insert(newGroupIndex, selected);
+        for (var index = 0; index < groupChannels.Count; index++)
+            groupChannels[index].Order = index + 1;
+
+        var oldCollectionIndex = Settings.RewardChannels.IndexOf(selected);
+        var newCollectionIndex = Settings.RewardChannels.IndexOf(other);
+        Settings.RewardChannels.Move(oldCollectionIndex, newCollectionIndex);
+        RewardChannelsGrid.SelectedItem = selected;
+        _store.Save(Settings);
+    }
+
+    private void RewardChannel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        SelectRewardGroupForSelectedChannel();
+    }
+
+    private RewardGroupSettings? SelectRewardGroupForSelectedChannel()
+    {
+        if (RewardChannelsGrid.SelectedItem is not RewardChannelSettings channel) return null;
+        Settings.SyncRewardGroups();
+        var group = Settings.RewardGroups.FirstOrDefault(candidate => candidate.GroupNumber == channel.GroupNumber)
+                    ?? Settings.RewardGroups.FirstOrDefault();
+        RewardGroupBox.SelectedItem = group;
+        return group;
     }
 
     private void Header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -651,8 +692,6 @@ public partial class MainWindow : Window
 
     private void SaveSettings(bool persist = true, bool applyPacketCapture = true)
     {
-        RewardChannelsGrid.CommitEdit();
-        RateIndicatorsGrid.CommitEdit();
         GoldGoblinRulesGrid.CommitEdit();
         Settings.SyncBuffPanelGroups();
         Settings.SyncRewardGroups();
@@ -1763,9 +1802,7 @@ public partial class MainWindow : Window
         var button = (ToggleButton)sender;
         if (_changingMoveMode) return;
         if (button.IsChecked != true) { EndOverlayEditModes(); return; }
-        RewardChannelsGrid.CommitEdit();
-        Settings.SyncRewardGroups();
-        if (RewardGroupBox.SelectedItem is not RewardGroupSettings group)
+        if (SelectRewardGroupForSelectedChannel() is not RewardGroupSettings group)
         {
             _changingMoveMode = true;
             button.IsChecked = false;
@@ -1786,9 +1823,7 @@ public partial class MainWindow : Window
 
     private void TestRewards_Click(object sender, RoutedEventArgs e)
     {
-        RewardChannelsGrid.CommitEdit();
-        Settings.SyncRewardGroups();
-        if (RewardGroupBox.SelectedItem is not RewardGroupSettings group)
+        if (SelectRewardGroupForSelectedChannel() is not RewardGroupSettings group)
         {
             SetStatus(T("Выберите группу уведомлений о наградах.", "Select a reward notification group."));
             return;
@@ -1815,7 +1850,6 @@ public partial class MainWindow : Window
     {
         if (_changingMoveMode) return;
         if (button.IsChecked != true) { EndOverlayEditModes(); return; }
-        RateIndicatorsGrid.CommitEdit();
         if (RateIndicatorsGrid.SelectedItem is not RateIndicatorSettings indicator)
         {
             _changingMoveMode = true;
@@ -1912,6 +1946,10 @@ public partial class MainWindow : Window
         RemindersGrid.Items.Refresh();
         EquipmentGrid.Items.Refresh();
         MvpTimersGrid.Items.Refresh();
+        foreach (var channel in Settings.RewardChannels) channel.RefreshLocalization();
+        foreach (var indicator in Settings.RateIndicators) indicator.RefreshLocalization();
+        RewardChannelsGrid.Items.Refresh();
+        RateIndicatorsGrid.Items.Refresh();
         DetectConnection(userInitiated: false, restartCapture: false);
         (Application.Current as App)?.RefreshLanguage();
         SaveSettings();
