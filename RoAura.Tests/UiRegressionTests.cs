@@ -45,6 +45,17 @@ public sealed class UiRegressionTests
         Assert.DoesNotContain("<DataGrid x:Name=\"MvpTimersGrid\"", xaml);
     }
 
+    [Fact]
+    public void MainWindow_KeepsEffectActionsDockedAtTheBottom()
+    {
+        var xaml = File.ReadAllText(FindRepositoryFile("MainWindow.xaml"));
+
+        Assert.Contains("<Grid.RowDefinitions><RowDefinition Height=\"Auto\"/><RowDefinition Height=\"*\"/><RowDefinition Height=\"Auto\"/></Grid.RowDefinitions>", xaml);
+        Assert.Contains("<Border Grid.Row=\"2\" Padding=\"8\" Background=\"#F5F9FE\" CornerRadius=\"7\">\n                                                    <UniformGrid Columns=\"3\">\n                                                        <Button Content=\"{DynamicResource DuplicateEffect}\"", xaml);
+        Assert.Contains("<Grid Grid.Column=\"2\">\n                                        <Grid.RowDefinitions><RowDefinition Height=\"*\"/><RowDefinition Height=\"Auto\"/></Grid.RowDefinitions>", xaml);
+        Assert.Contains("<Border Grid.Row=\"1\" Padding=\"8\" Background=\"#F5F9FE\" CornerRadius=\"7\">\n                                            <UniformGrid Columns=\"4\">\n                                                <ToggleButton x:Name=\"BuffPanelMoveModeButton\"", xaml);
+    }
+
     private static string FindRepositoryFile(string fileName)
     {
         for (var directory = new DirectoryInfo(AppContext.BaseDirectory); directory is not null; directory = directory.Parent)
