@@ -34,7 +34,6 @@ public partial class DatabaseOverlayWindow : Window
         [DatabaseSearchKind.Market] = ""
     };
     private bool _restoringSearchQuery;
-    private bool _gameWasForeground;
     private bool _marketRefreshRunning;
     private bool _isTopmost;
     public bool IsDatabaseOpen { get; private set; }
@@ -118,7 +117,6 @@ public partial class DatabaseOverlayWindow : Window
 
         IsDatabaseOpen = true;
         _temporarilyHidden = false;
-        _gameWasForeground = false;
         _lastRelevantForegroundUtc = DateTime.UtcNow;
         ShowPanel(this);
         ShowPanel(_details);
@@ -172,22 +170,17 @@ public partial class DatabaseOverlayWindow : Window
                 PlacePanels(game);
             }
             SetPanelsVisible(true);
-            // A fullscreen/borderless RO client can put its own topmost window back at
-            // the head of the topmost band on the first click.  Calling HWND_TOPMOST
-            // again on a window that is already topmost is not sufficient on every
-            // Windows build.  Reinsert both panels into the band without activation
-            // when the game becomes foreground; afterwards only fix the z-order if
-            // it was released.
-            if (!_gameWasForeground) RestorePanelsAfterGameActivation();
-            else if (!_isTopmost) ForceTopmost();
-            _gameWasForeground = true;
+            // Gepard/fullscreen clients may silently move the game ahead of both
+            // panels on any input event. The cached flag only describes our window
+            // style, not the real order inside the topmost band, so restore the
+            // order on every visibility tick without activating either panel.
+            PromotePanelsAboveGame();
         }
         else if (databaseHasFocus)
         {
-            _gameWasForeground = false;
             _lastRelevantForegroundUtc = DateTime.UtcNow;
             SetPanelsVisible(true);
-            if (!_isTopmost) ForceTopmost();
+            ForceTopmost();
         }
         else if (DateTime.UtcNow - _lastRelevantForegroundUtc > TimeSpan.FromMilliseconds(450))
         {
@@ -268,17 +261,6 @@ public partial class DatabaseOverlayWindow : Window
         SetWindowPos(detailHandle, HwndNotTopmost, 0, 0, 0, 0,
             SwpNoMove | SwpNoSize | SwpNoActivate);
         ForceTopmost();
-    }
-
-    private void RestorePanelsAfterGameActivation()
-    {
-        var searchHandle = new WindowInteropHelper(this).Handle;
-        var detailHandle = _details.Handle;
-        if (searchHandle == IntPtr.Zero || detailHandle == IntPtr.Zero) return;
-
-        // Reinsert without Hide/Show. Hiding the HWND here caused the database to
-        // disappear on the first mouse click in fullscreen clients.
-        PromotePanelsAboveGame();
     }
 
     private void ReleaseTopmost()
