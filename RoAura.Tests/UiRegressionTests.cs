@@ -7,7 +7,7 @@ public sealed class UiRegressionTests
     [Fact]
     public void MainWindow_KeepsRedesignedRewardWorkspace()
     {
-        var xaml = File.ReadAllText(FindRepositoryFile("MainWindow.xaml"));
+        var xaml = ReadRepositoryText("MainWindow.xaml");
 
         Assert.Contains("RewardsSettingsTitle", xaml);
         Assert.Contains("StatisticsTab", xaml);
@@ -21,7 +21,7 @@ public sealed class UiRegressionTests
     [Fact]
     public void MainWindow_KeepsCooldownActionsInStretchingEditor()
     {
-        var xaml = File.ReadAllText(FindRepositoryFile("MainWindow.xaml"));
+        var xaml = ReadRepositoryText("MainWindow.xaml");
 
         Assert.Contains("<Grid Grid.Column=\"2\" DataContext=\"{Binding SelectedItem, ElementName=SkillsGrid}\"", xaml);
         Assert.Contains("<Grid.RowDefinitions><RowDefinition Height=\"Auto\"/><RowDefinition Height=\"*\"/><RowDefinition Height=\"Auto\"/></Grid.RowDefinitions>", xaml);
@@ -31,7 +31,7 @@ public sealed class UiRegressionTests
     [Fact]
     public void MainWindow_KeepsRedesignedFeatureEditors()
     {
-        var xaml = File.ReadAllText(FindRepositoryFile("MainWindow.xaml"));
+        var xaml = ReadRepositoryText("MainWindow.xaml");
 
         Assert.Contains("x:Name=\"EffectsSectionTabs\"", xaml);
         Assert.Contains("<ListBox x:Name=\"EffectsGrid\"", xaml);
@@ -48,7 +48,7 @@ public sealed class UiRegressionTests
     [Fact]
     public void MainWindow_KeepsEffectActionsDockedAtTheBottom()
     {
-        var xaml = File.ReadAllText(FindRepositoryFile("MainWindow.xaml"));
+        var xaml = ReadRepositoryText("MainWindow.xaml");
 
         Assert.Contains("<Grid.RowDefinitions><RowDefinition Height=\"Auto\"/><RowDefinition Height=\"*\"/><RowDefinition Height=\"Auto\"/></Grid.RowDefinitions>", xaml);
         Assert.Contains("<Border Grid.Row=\"2\" Padding=\"8\" Background=\"#F5F9FE\" CornerRadius=\"7\">\n                                                    <UniformGrid Columns=\"3\">\n                                                        <Button Content=\"{DynamicResource DuplicateEffect}\"", xaml);
@@ -67,4 +67,7 @@ public sealed class UiRegressionTests
 
         throw new FileNotFoundException($"Could not locate repository file '{fileName}'.");
     }
+
+    private static string ReadRepositoryText(string fileName) =>
+        File.ReadAllText(FindRepositoryFile(fileName)).Replace("\r\n", "\n");
 }
