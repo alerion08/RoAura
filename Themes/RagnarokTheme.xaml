@@ -245,9 +245,34 @@
     </Style>
 
     <Style TargetType="GroupBox">
-        <Setter Property="Foreground" Value="{StaticResource RoDeepBlueBrush}"/><Setter Property="Background" Value="{StaticResource RoCardBrush}"/><Setter Property="BorderBrush" Value="{StaticResource RoSoftBorderBrush}"/><Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}"/><Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="GroupBox"><Grid><Border Margin="0,12,0,0" CornerRadius="7" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/><Border Margin="14,4,0,0" Padding="8,1" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{StaticResource RoCardBrush}"><ContentPresenter ContentSource="Header" TextElement.FontWeight="Bold" TextElement.FontFamily="{StaticResource RoHeadingFont}"/></Border><ContentPresenter Margin="12,28,12,12"/></Grid></ControlTemplate></Setter.Value></Setter>
+        <Setter Property="Foreground" Value="{StaticResource RoDeepBlueBrush}"/>
+        <Setter Property="Background" Value="{StaticResource RoCardBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RoSoftBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupBox">
+                    <Border CornerRadius="8" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Border Padding="12,8" Background="#EAF3FF" CornerRadius="7,7,0,0"
+                                    BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,1">
+                                <ContentPresenter ContentSource="Header" TextElement.FontWeight="Bold"
+                                                  TextElement.FontFamily="{StaticResource RoHeadingFont}"
+                                                  VerticalAlignment="Center"/>
+                            </Border>
+                            <ContentPresenter Grid.Row="1" Margin="12"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style TargetType="DataGrid"><Setter Property="Background" Value="White"/><Setter Property="Foreground" Value="{StaticResource RoTextBrush}"/><Setter Property="RowBackground" Value="#FCFEFF"/><Setter Property="AlternatingRowBackground" Value="#F2F7FC"/><Setter Property="BorderBrush" Value="{StaticResource RoBorderBrush}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="GridLinesVisibility" Value="Horizontal"/><Setter Property="HorizontalGridLinesBrush" Value="#E1EAF5"/><Setter Property="VerticalGridLinesBrush" Value="Transparent"/><Setter Property="RowHeaderWidth" Value="0"/><Setter Property="HeadersVisibility" Value="Column"/><Setter Property="SelectionUnit" Value="FullRow"/></Style>

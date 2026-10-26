@@ -77,6 +77,7 @@ public partial class MainWindow : Window
         _packetCapture.SkillUsed += OnLearningSkillObserved;
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
         DataContext = settings;
+        RefreshMvpTimerDetails();
         _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
         _skillsView = CollectionViewSource.GetDefaultView(settings.Skills);
         Settings.SyncCooldownGroups();
@@ -217,6 +218,7 @@ public partial class MainWindow : Window
             _monsters.Clear();
             foreach (var monster in MonsterCatalogService.Load(version)) _monsters.Add(monster);
             MvpMonsterView.Refresh();
+            RefreshMvpTimerDetails();
             _items = ItemCatalogService.Load(version);
             RefreshGoldGoblinItemSuggestions();
             if (Application.Current is App app) app.ReloadItemCatalog(version);
@@ -1606,6 +1608,7 @@ public partial class MainWindow : Window
     {
         var wizard = new MvpTimerWizardWindow(_monsters) { Owner = this };
         if (wizard.ShowDialog() != true || wizard.CreatedTimer is not { } timer) return;
+        timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
         Settings.MvpTimers.Add(timer);
         MvpTimersGrid.SelectedItem = timer;
         MvpTimersGrid.ScrollIntoView(timer);
@@ -1668,6 +1671,13 @@ public partial class MainWindow : Window
         if (_updatingMvpMonsterSelection || MvpTimersGrid.SelectedItem is not MvpTimer timer || (sender as ComboBox)?.SelectedItem is not MonsterEntry monster) return;
         timer.MonsterId = monster.Id;
         timer.Name = monster.Name;
+        timer.SetMonsterDetails(monster);
+    }
+
+    private void RefreshMvpTimerDetails()
+    {
+        foreach (var timer in Settings.MvpTimers)
+            timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
     }
 
     private void MvpMonsterBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

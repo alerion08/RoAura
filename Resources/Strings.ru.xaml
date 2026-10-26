@@ -452,6 +452,8 @@
     <sys:String x:Key="AllGroups">Все группы</sys:String>
     <sys:String x:Key="CooldownGroupsTitle">Группы кулдаунов</sys:String>
     <sys:String x:Key="CooldownGroupsHint">Настройте порядок, направление и расстояние между иконками каждой панели.</sys:String>
+    <sys:String x:Key="CooldownSkillsTab">Умения</sys:String>
+    <sys:String x:Key="CooldownGroupsTab">Группы иконок</sys:String>
     <sys:String x:Key="AddCooldownGroup">＋ Новая группа</sys:String>
     <sys:String x:Key="GroupName">Название группы</sys:String>
     <sys:String x:Key="LayoutDirection">Направление</sys:String>

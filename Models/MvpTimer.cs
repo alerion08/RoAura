@@ -82,6 +82,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
     [JsonIgnore] public bool IsVisible => Enabled && IsRunning;
     [JsonIgnore] public bool HasKillTime => KilledAtUtc.HasValue;
     [JsonIgnore] public string KilledAtText => KilledAtUtc?.ToLocalTime().ToString("HH:mm:ss") ?? "";
+    [JsonIgnore] public IReadOnlyList<MonsterSpawnEntry> RespawnHints { get; private set; } = [];
     [JsonIgnore]
     public string MonsterImagePath
     {
@@ -106,6 +107,13 @@ public sealed class MvpTimer : INotifyPropertyChanged
         }
     }
     [JsonIgnore] public string DisplayText => $"{Name} — {RemainingText}";
+
+    public void SetMonsterDetails(MonsterEntry? monster)
+    {
+        RespawnHints = monster is null ? Array.Empty<MonsterSpawnEntry>() : monster.Spawns;
+        OnPropertyChanged(nameof(RespawnHints));
+        OnPropertyChanged(nameof(MonsterImagePath));
+    }
 
     public void Restart()
     {

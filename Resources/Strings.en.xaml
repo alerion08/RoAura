@@ -452,6 +452,8 @@
     <sys:String x:Key="AllGroups">All groups</sys:String>
     <sys:String x:Key="CooldownGroupsTitle">Cooldown groups</sys:String>
     <sys:String x:Key="CooldownGroupsHint">Configure the order, direction and spacing of each icon panel.</sys:String>
+    <sys:String x:Key="CooldownSkillsTab">Skills</sys:String>
+    <sys:String x:Key="CooldownGroupsTab">Icon groups</sys:String>
     <sys:String x:Key="AddCooldownGroup">＋ New group</sys:String>
     <sys:String x:Key="GroupName">Group name</sys:String>
     <sys:String x:Key="LayoutDirection">Direction</sys:String>

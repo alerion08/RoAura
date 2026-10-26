@@ -87,4 +87,24 @@ public sealed class MvpTimerTests
         Assert.Equal("23:50:00", timer.KilledAtText);
         Assert.Equal("23:50:00", timer.KillTimeInput);
     }
+
+    [Fact]
+    public void Monster_details_supply_respawn_hints_to_existing_timer()
+    {
+        var timer = new MvpTimer { MonsterId = 1039 };
+        var monster = new MonsterEntry
+        {
+            Id = 1039,
+            Spawns =
+            [
+                new MonsterSpawnEntry { Code = "prt_maze03", Name = "Labyrinth Forest", Respawn = "120–130 min" }
+            ]
+        };
+
+        timer.SetMonsterDetails(monster);
+
+        var hint = Assert.Single(timer.RespawnHints);
+        Assert.Equal("prt_maze03", hint.Code);
+        Assert.Equal("120–130 min", hint.Respawn);
+    }
 }
