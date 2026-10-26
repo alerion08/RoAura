@@ -37,7 +37,15 @@ public sealed class EquipmentTracker : INotifyPropertyChanged
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get => _name; set => Set(ref _name, value); }
     public bool Enabled { get => _enabled; set { if (Set(ref _enabled, value)) OnPropertyChanged(nameof(IsVisible)); } }
-    public int ItemId { get => _itemId; set => Set(ref _itemId, Math.Clamp(value, 0, int.MaxValue)); }
+    public int ItemId
+    {
+        get => _itemId;
+        set
+        {
+            if (Set(ref _itemId, Math.Clamp(value, 0, int.MaxValue)))
+                OnPropertyChanged(nameof(CurrentStateText));
+        }
+    }
     public int InventoryIndex { get => _inventoryIndex; set => Set(ref _inventoryIndex, Math.Clamp(value, 0, ushort.MaxValue)); }
     public int WearLocation { get => _wearLocation; set => Set(ref _wearLocation, Math.Clamp(value, 0, int.MaxValue)); }
     public int PacketId
@@ -45,7 +53,15 @@ public sealed class EquipmentTracker : INotifyPropertyChanged
         get => _packetId;
         set { if (Set(ref _packetId, Math.Clamp(value, 0, ushort.MaxValue))) OnPropertyChanged(nameof(PacketIdHex)); }
     }
-    public string VariantKey { get => _variantKey; set => Set(ref _variantKey, value ?? ""); }
+    public string VariantKey
+    {
+        get => _variantKey;
+        set
+        {
+            if (Set(ref _variantKey, value ?? ""))
+                OnPropertyChanged(nameof(CurrentStateText));
+        }
+    }
     public string DetectedItemName { get => _detectedItemName; set => Set(ref _detectedItemName, value ?? ""); }
     public string IconImageBase64 { get => _iconImageBase64; set { if (Set(ref _iconImageBase64, value)) OnPropertyChanged(nameof(IconStatusText)); } }
     public string IconFileName { get => _iconFileName; set { if (Set(ref _iconFileName, value)) OnPropertyChanged(nameof(IconStatusText)); } }
@@ -73,7 +89,10 @@ public sealed class EquipmentTracker : INotifyPropertyChanged
     [JsonIgnore] public bool IsVisible => Enabled && (IsEquipped || IsPlacementPreview);
     [JsonIgnore] public double Opacity => OpacityPercent / 100d;
     [JsonIgnore] public string PacketIdHex => $"0x{PacketId:X4}";
-    [JsonIgnore] public string CurrentStateText => LocalizationService.Get(IsEquipped ? "Equipped" : "NotEquipped");
+    [JsonIgnore] public string CurrentStateText => LocalizationService.Get(
+        ItemId <= 0 && string.IsNullOrWhiteSpace(VariantKey)
+            ? "NoEquipmentData"
+            : IsEquipped ? "Equipped" : "NotEquipped");
     [JsonIgnore] public string IconStatusText => string.IsNullOrWhiteSpace(IconImageBase64)
         ? LocalizationService.Get("NotSelected")
         : string.IsNullOrWhiteSpace(IconFileName) ? LocalizationService.Get("Loaded") : IconFileName;

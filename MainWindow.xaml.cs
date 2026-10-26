@@ -646,7 +646,6 @@ public partial class MainWindow : Window
 
     private void SaveSettings(bool persist = true, bool applyPacketCapture = true)
     {
-        EquipmentGrid.CommitEdit();
         MvpTimersGrid.CommitEdit();
         RewardChannelsGrid.CommitEdit();
         RateIndicatorsGrid.CommitEdit();
@@ -1551,10 +1550,18 @@ public partial class MainWindow : Window
 
     private void AddEquipment_Click(object sender, RoutedEventArgs e)
     {
-        var item = new EquipmentTracker { X = 1050 + Settings.Equipment.Count * 70, Y = 420 };
+        var wizard = new EquipmentWizardWindow { Owner = this };
+        if (wizard.ShowDialog() != true || wizard.CreatedEquipment is not { } item) return;
+
+        item.X = 1050 + Settings.Equipment.Count * 70;
+        item.Y = 420;
         Settings.Equipment.Add(item);
         EquipmentGrid.SelectedItem = item;
         EquipmentGrid.ScrollIntoView(item);
+        SaveSettings();
+
+        if (wizard.LearnAfterCreate)
+            BeginEquipmentLearning(item);
     }
 
     private void DeleteEquipment_Click(object sender, RoutedEventArgs e)
@@ -1572,8 +1579,12 @@ public partial class MainWindow : Window
     private void LearnEquipment_Click(object sender, RoutedEventArgs e)
     {
         if (EquipmentGrid.SelectedItem is not EquipmentTracker item) { SelectFirst("equipment"); return; }
+        BeginEquipmentLearning(item);
+    }
+
+    private void BeginEquipmentLearning(EquipmentTracker item)
+    {
         if (!EnsureNpcap()) return;
-        EquipmentGrid.CommitEdit();
         StartLearning();
         _learningEquipment = item;
         SetStatus(T($"Наденьте «{item.Name}» в RO в течение 20 секунд.",

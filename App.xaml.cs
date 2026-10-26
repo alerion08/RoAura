@@ -127,6 +127,8 @@ public partial class App : Application
             effectWizard.Close();
             var reminderWizard = new ReminderWizardWindow(_ => { });
             reminderWizard.Close();
+            var equipmentWizard = new EquipmentWizardWindow();
+            equipmentWizard.Close();
             var goldGoblinAddWindow = new GoldGoblinAddItemWindow(Array.Empty<ItemEntry>());
             goldGoblinAddWindow.Close();
             var npcapRequiredWindow = new NpcapRequiredWindow();
