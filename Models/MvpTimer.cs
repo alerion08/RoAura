@@ -20,7 +20,16 @@ public sealed class MvpTimer : INotifyPropertyChanged
     public string Name { get => _name; set => Set(ref _name, value); }
     public int MonsterId { get => _monsterId; set => Set(ref _monsterId, Math.Max(0, value)); }
     public double DurationMinutes { get => _durationMinutes; set => Set(ref _durationMinutes, Math.Clamp(value, 0.1, 10080)); }
-    public DateTime? EndsAtUtc { get => _endsAtUtc; set { if (Set(ref _endsAtUtc, value)) OnPropertyChanged(nameof(IsRunning)); } }
+    public DateTime? EndsAtUtc
+    {
+        get => _endsAtUtc;
+        set
+        {
+            if (!Set(ref _endsAtUtc, value)) return;
+            OnPropertyChanged(nameof(IsRunning));
+            OnPropertyChanged(nameof(StateText));
+        }
+    }
     public bool Enabled { get => _enabled; set { if (Set(ref _enabled, value)) OnPropertyChanged(nameof(IsVisible)); } }
     public bool CompletionSoundEnabled { get => _completionSoundEnabled; set => Set(ref _completionSoundEnabled, value); }
     public string CompletionSoundPath { get => _completionSoundPath; set => Set(ref _completionSoundPath, value ?? ""); }
@@ -37,11 +46,14 @@ public sealed class MvpTimer : INotifyPropertyChanged
             OnPropertyChanged(nameof(DisplayText));
             OnPropertyChanged(nameof(IsRunning));
             OnPropertyChanged(nameof(IsVisible));
+            OnPropertyChanged(nameof(StateText));
         }
     }
 
     [JsonIgnore] public bool IsRunning => EndsAtUtc.HasValue && RemainingSeconds > 0;
     [JsonIgnore] public bool IsVisible => Enabled && IsRunning;
+    [JsonIgnore] public string StateText => Services.LocalizationService.Get(
+        IsRunning ? "TimerRunning" : EndsAtUtc.HasValue ? "TimerCompleted" : "TimerNotStarted");
     [JsonIgnore] public bool CompletionSoundPlayed { get; set; }
     [JsonIgnore]
     public string RemainingText
@@ -62,6 +74,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
         EndsAtUtc = DateTime.UtcNow.AddMinutes(DurationMinutes);
         RemainingSeconds = DurationMinutes * 60;
         OnPropertyChanged(nameof(IsRunning));
+        OnPropertyChanged(nameof(StateText));
     }
 
     public void Reset()
@@ -70,6 +83,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
         EndsAtUtc = null;
         RemainingSeconds = 0;
         OnPropertyChanged(nameof(IsRunning));
+        OnPropertyChanged(nameof(StateText));
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

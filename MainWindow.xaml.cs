@@ -646,7 +646,6 @@ public partial class MainWindow : Window
 
     private void SaveSettings(bool persist = true, bool applyPacketCapture = true)
     {
-        MvpTimersGrid.CommitEdit();
         RewardChannelsGrid.CommitEdit();
         RateIndicatorsGrid.CommitEdit();
         GoldGoblinRulesGrid.CommitEdit();
@@ -1602,10 +1601,12 @@ public partial class MainWindow : Window
 
     private void AddMvpTimer_Click(object sender, RoutedEventArgs e)
     {
-        var timer = new MvpTimer();
+        var wizard = new MvpTimerWizardWindow(_monsters) { Owner = this };
+        if (wizard.ShowDialog() != true || wizard.CreatedTimer is not { } timer) return;
         Settings.MvpTimers.Add(timer);
         MvpTimersGrid.SelectedItem = timer;
         MvpTimersGrid.ScrollIntoView(timer);
+        SaveSettings();
     }
 
     private void DeleteMvpTimer_Click(object sender, RoutedEventArgs e)
@@ -1644,7 +1645,6 @@ public partial class MainWindow : Window
     private void TestMvpTimerSound_Click(object sender, RoutedEventArgs e)
     {
         if (MvpTimersGrid.SelectedItem is not MvpTimer timer) { SelectFirst("timer"); return; }
-        MvpTimersGrid.CommitEdit();
         _overlay.PlayMvpTimerSound(timer);
     }
 
