@@ -122,6 +122,23 @@ public static class ForegroundProcess
             }
 
             var now = Environment.TickCount64;
+
+            // The active allowed window is authoritative. Several Ragnarok
+            // distributions run a launcher and the game (or multiple clients)
+            // under the same executable name. Keeping the first enumerated HWND
+            // in that case anchors every regular overlay to the wrong client.
+            // DatabaseOverlayWindow later follows the foreground HWND, which is
+            // why it used to appear elsewhere first and then jump into the game.
+            if (TryGetAllowedForegroundWindow(names, out var foreground,
+                    out var foregroundPid, out bounds))
+            {
+                _cachedGameWindow = foreground;
+                _cachedGamePid = foregroundPid;
+                _lastDiscoveryTicks = now;
+                handle = foreground;
+                return true;
+            }
+
             var cachedValid = _cachedGameWindow != IntPtr.Zero && IsWindow(_cachedGameWindow);
             if (!cachedValid && _cachedGameWindow != IntPtr.Zero)
             {
@@ -167,6 +184,7 @@ public static class ForegroundProcess
         handle = IntPtr.Zero;
         processId = 0;
         bounds = default;
+        long largestClientArea = 0;
         foreach (var normalized in names)
         {
             try
@@ -176,13 +194,17 @@ public static class ForegroundProcess
                     using (process)
                     {
                         var window = process.MainWindowHandle;
-                        if (window == IntPtr.Zero || IsIconic(window) ||
+                        if (window == IntPtr.Zero || IsIconic(window) || !IsWindowVisible(window) ||
                             !TryGetClientScreenBounds(window, out bounds))
                             continue;
 
+                        var area = Math.Max(1L,
+                            (long)(bounds.Right - bounds.Left) * (bounds.Bottom - bounds.Top));
+                        if (area <= largestClientArea) continue;
+
+                        largestClientArea = area;
                         handle = window;
                         processId = process.Id;
-                        return true;
                     }
                 }
             }
@@ -192,7 +214,33 @@ public static class ForegroundProcess
             }
         }
 
+        if (handle != IntPtr.Zero && TryGetClientScreenBounds(handle, out bounds))
+            return true;
+
+        bounds = default;
         return false;
+    }
+
+    private static bool TryGetAllowedForegroundWindow(List<string> names, out IntPtr handle,
+        out int processId, out WindowBounds bounds)
+    {
+        handle = GetForegroundWindow();
+        processId = 0;
+        bounds = default;
+        if (handle == IntPtr.Zero || !IsWindow(handle) || IsIconic(handle) || !IsWindowVisible(handle))
+            return false;
+
+        GetWindowThreadProcessId(handle, out var pid);
+        if (pid == 0 || !NameMatches(GetProcessName((int)pid), names) ||
+            !TryGetClientScreenBounds(handle, out bounds))
+        {
+            handle = IntPtr.Zero;
+            bounds = default;
+            return false;
+        }
+
+        processId = (int)pid;
+        return true;
     }
 
     public static bool IsForegroundAllowed(IEnumerable<string> processNames)
