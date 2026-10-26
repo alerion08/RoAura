@@ -44,6 +44,8 @@ public partial class MainWindow : Window
     private bool _appliedPacketCaptureEnabled;
     private string _appliedPacketServerAddress = "";
     private int _appliedPacketServerPort;
+    private TextBox? _mvpMonsterEditor;
+    private bool _suppressMvpMonsterTextChanged;
 
     public ICollectionView MvpMonsterView { get; }
     public ObservableCollection<GoldGoblinLootRow> GoldGoblinRows => _goldGoblin.Rows;
@@ -1655,13 +1657,20 @@ public partial class MainWindow : Window
         timer.Name = monster.Name;
     }
 
-    private void MvpMonster_KeyUp(object sender, KeyEventArgs e)
+    private void MvpMonsterBox_Loaded(object sender, RoutedEventArgs e)
     {
-        if (sender is not ComboBox box || e.Key is Key.Up or Key.Down or Key.Enter or Key.Escape or Key.Tab)
-            return;
+        if (sender is not ComboBox box) return;
+        box.ApplyTemplate();
+        _mvpMonsterEditor = box.Template.FindName("PART_EditableTextBox", box) as TextBox;
+        if (_mvpMonsterEditor is not null)
+            _mvpMonsterEditor.TextChanged += MvpMonsterEditor_TextChanged;
+    }
 
-        if (!box.IsDropDownOpen) box.IsDropDownOpen = true;
-        var query = box.Text.Trim();
+    private void MvpMonsterEditor_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_suppressMvpMonsterTextChanged || _mvpMonsterEditor is null) return;
+        var queryText = _mvpMonsterEditor.Text;
+        var query = queryText.Trim();
         MvpMonsterView.Filter = value =>
         {
             if (string.IsNullOrWhiteSpace(query)) return true;
@@ -1671,12 +1680,28 @@ public partial class MainWindow : Window
                    monster.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase);
         };
         MvpMonsterView.Refresh();
+        if (!MvpMonsterBox.IsDropDownOpen) MvpMonsterBox.IsDropDownOpen = true;
+        Dispatcher.BeginInvoke(DispatcherPriority.Input, () =>
+        {
+            if (_mvpMonsterEditor is null) return;
+            _suppressMvpMonsterTextChanged = true;
+            if (_mvpMonsterEditor.Text != queryText) _mvpMonsterEditor.Text = queryText;
+            _mvpMonsterEditor.SelectionStart = _mvpMonsterEditor.Text.Length;
+            _mvpMonsterEditor.SelectionLength = 0;
+            _suppressMvpMonsterTextChanged = false;
+        });
     }
 
     private void MvpMonster_DropDownClosed(object sender, EventArgs e)
     {
         MvpMonsterView.Filter = null;
         MvpMonsterView.Refresh();
+        Dispatcher.BeginInvoke(DispatcherPriority.Input, () =>
+        {
+            if (_mvpMonsterEditor is null) return;
+            _mvpMonsterEditor.SelectionStart = _mvpMonsterEditor.Text.Length;
+            _mvpMonsterEditor.SelectionLength = 0;
+        });
     }
 
     private void TimerMoveMode_Changed(object sender, RoutedEventArgs e)

@@ -297,6 +297,13 @@
     <sys:String x:Key="StartTimerAfterCreate">Запустить таймер сразу после создания</sys:String>
     <sys:String x:Key="CreateMvpTimer">Создать таймер</sys:String>
     <sys:String x:Key="ChooseMvpRequired">Выберите MVP из списка.</sys:String>
+    <sys:String x:Key="UseExactKillTime">Указать точное время убийства</sys:String>
+    <sys:String x:Key="KillDate">Дата убийства</sys:String>
+    <sys:String x:Key="KillTime">Время убийства</sys:String>
+    <sys:String x:Key="KilledAt">Убит</sys:String>
+    <sys:String x:Key="InvalidKillTime">Укажите корректные дату и время убийства в формате ЧЧ:ММ:СС.</sys:String>
+    <sys:String x:Key="RespawnHint">Подсказка по респавну</sys:String>
+    <sys:String x:Key="RespawnHintHelp">Интервалы взяты из локальной базы SpringRO и не задают таймер автоматически.</sys:String>
     <sys:String x:Key="TimersHotkey">MVP-таймеры</sys:String>
     <sys:String x:Key="LearnEquipment">Обучить экипировку (20 сек)</sys:String>
     <sys:String x:Key="TestEquipment">Тест экипировки</sys:String>

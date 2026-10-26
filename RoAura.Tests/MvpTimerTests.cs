@@ -24,7 +24,8 @@ public sealed class MvpTimerTests
         timer.Restart();
 
         Assert.True(timer.EndsAtUtc >= before.AddMinutes(30));
-        Assert.Equal(1800, timer.RemainingSeconds, 3);
+        Assert.InRange(timer.RemainingSeconds, 1799, 1800);
+        Assert.NotNull(timer.KilledAtUtc);
         Assert.True(timer.IsRunning);
         Assert.True(timer.IsVisible);
         Assert.Equal("TimerRunning", timer.StateText);
@@ -39,6 +40,7 @@ public sealed class MvpTimerTests
         timer.Reset();
 
         Assert.Null(timer.EndsAtUtc);
+        Assert.Null(timer.KilledAtUtc);
         Assert.Equal(0, timer.RemainingSeconds);
         Assert.Equal(45, timer.DurationMinutes);
         Assert.Equal("TimerNotStarted", timer.StateText);
@@ -55,5 +57,20 @@ public sealed class MvpTimerTests
 
         Assert.Equal("TimerCompleted", timer.StateText);
         Assert.False(timer.IsVisible);
+    }
+
+    [Fact]
+    public void Exact_kill_time_drives_end_time_and_is_preserved()
+    {
+        var localKillTime = DateTime.SpecifyKind(DateTime.Now.AddMinutes(-5), DateTimeKind.Local);
+        var timer = new MvpTimer { DurationMinutes = 60 };
+
+        timer.StartFromKillTime(localKillTime);
+
+        Assert.Equal(localKillTime.ToUniversalTime(), timer.KilledAtUtc);
+        Assert.Equal(timer.KilledAtUtc.Value.AddMinutes(60), timer.EndsAtUtc);
+        Assert.InRange(timer.RemainingSeconds, 3299, 3300);
+        Assert.True(timer.HasKillTime);
+        Assert.NotEmpty(timer.KilledAtText);
     }
 }

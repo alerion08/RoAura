@@ -297,6 +297,13 @@
     <sys:String x:Key="StartTimerAfterCreate">Start the timer immediately after creation</sys:String>
     <sys:String x:Key="CreateMvpTimer">Create timer</sys:String>
     <sys:String x:Key="ChooseMvpRequired">Select an MVP from the list.</sys:String>
+    <sys:String x:Key="UseExactKillTime">Specify exact kill time</sys:String>
+    <sys:String x:Key="KillDate">Kill date</sys:String>
+    <sys:String x:Key="KillTime">Kill time</sys:String>
+    <sys:String x:Key="KilledAt">Killed</sys:String>
+    <sys:String x:Key="InvalidKillTime">Enter a valid kill date and time in HH:mm:ss format.</sys:String>
+    <sys:String x:Key="RespawnHint">Respawn hint</sys:String>
+    <sys:String x:Key="RespawnHintHelp">Intervals come from the bundled SpringRO database and do not set the timer automatically.</sys:String>
     <sys:String x:Key="TimersHotkey">MVP timers</sys:String>
     <sys:String x:Key="LearnEquipment">Learn equipment (20 sec)</sys:String>
     <sys:String x:Key="TestEquipment">Test equipment</sys:String>

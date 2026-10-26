@@ -166,6 +166,7 @@ public sealed class SettingsStoreTests : IDisposable
         settings.MvpTimers.Add(new MvpTimer
         {
             Name = "Valkyrie Randgris", MonsterId = 1751, DurationMinutes = 75,
+            KilledAtUtc = new DateTime(2026, 10, 26, 7, 15, 0, DateTimeKind.Utc),
             CompletionSoundEnabled = true, CompletionSoundPath = "mvp.wav",
             CompletionSoundVolumePercent = 64
         });
@@ -250,6 +251,7 @@ public sealed class SettingsStoreTests : IDisposable
         Assert.Equal((1751, 75d, "mvp.wav", 64d),
             (timer.MonsterId, timer.DurationMinutes, timer.CompletionSoundPath,
                 timer.CompletionSoundVolumePercent));
+        Assert.Equal(new DateTime(2026, 10, 26, 7, 15, 0, DateTimeKind.Utc), timer.KilledAtUtc);
 
         var reward = Assert.Single(restored.RewardChannels.Where(x => x.Kind == RewardKind.Loot));
         Assert.Equal((7, 2, "#FF102030", "#FF203040", "#FF304050", "#FF405060", "#FF506070"),
