@@ -20,7 +20,14 @@ public static class LocalizationService
         {
             Source = new Uri($"{Prefix}{code}.xaml", UriKind.Relative)
         });
-        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(code == "en" ? "en-US" : "ru-RU");
+        var uiCulture = CultureInfo.GetCultureInfo(code == "en" ? "en-US" : "ru-RU");
+        CultureInfo.CurrentUICulture = uiCulture;
+        // Background threads (packet capture, market refresh, timers) must
+        // format and localize exactly like the UI thread: the UI culture
+        // follows the selected language, number/date formatting keeps the
+        // UI thread's culture so all threads agree.
+        CultureInfo.DefaultThreadCurrentUICulture = uiCulture;
+        CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CurrentCulture;
     }
 
     public static string Get(string key) =>

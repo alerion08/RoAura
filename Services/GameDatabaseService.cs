@@ -5,6 +5,7 @@ namespace RoAura.Services;
 
 public sealed class GameDatabaseService
 {
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
     private readonly GameDatabase _database;
     private readonly IReadOnlyDictionary<int, DatabaseMonster> _monstersById;
     public IReadOnlyList<DatabaseMonster> Monsters => _database.Monsters;
@@ -16,15 +17,20 @@ public sealed class GameDatabaseService
         var path = Path.Combine(AppContext.BaseDirectory, "Data", "database.springro.json");
         try
         {
-            _database = JsonSerializer.Deserialize<GameDatabase>(File.ReadAllText(path),
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new GameDatabase();
+            _database = JsonSerializer.Deserialize<GameDatabase>(File.ReadAllText(path), JsonOptions) ?? new GameDatabase();
         }
         catch (Exception ex)
         {
             DebugLog.Write($"DATABASE LOAD ERROR: {ex}");
             _database = new GameDatabase();
         }
-        _monstersById = _database.Monsters.ToDictionary(x => x.Id);
+        // Generated JSON may repeat an ID; a plain ToDictionary would throw here and
+        // take the whole application down at startup. First occurrence wins.
+        var groups = _database.Monsters.GroupBy(x => x.Id).ToList();
+        var duplicates = groups.Where(group => group.Count() > 1).Select(group => group.Key).ToList();
+        if (duplicates.Count > 0)
+            DebugLog.Write($"DATABASE: {duplicates.Count} duplicate monster IDs ignored (first wins): {string.Join(", ", duplicates.Take(20))}");
+        _monstersById = groups.ToDictionary(group => group.Key, group => group.First());
     }
 
     public IEnumerable<DatabaseSearchResult> Search(DatabaseSearchKind kind, string query, int limit = 100)
@@ -124,7 +130,7 @@ public sealed class GameDatabaseService
         return int.TryParse(last, out var level) ? level : 0;
     }
 
-    public DatabaseMonster? Monster(int id) => _database.Monsters.FirstOrDefault(x => x.Id == id);
+    public DatabaseMonster? Monster(int id) => _monstersById.GetValueOrDefault(id);
     public DatabaseItem? Item(int id) => _database.Items.FirstOrDefault(x => x.Id == id);
     public DatabaseMap? Map(string code) => _database.Maps.FirstOrDefault(x => x.Code.Equals(code, StringComparison.OrdinalIgnoreCase));
 }

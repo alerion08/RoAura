@@ -28,6 +28,7 @@ public partial class OverlayWindow : Window
     private readonly SettingsStore _store;
     private readonly GoldGoblinService _goldGoblin;
     private readonly DispatcherTimer _timer;
+    private readonly DispatcherTimer _saveTimer;
     private readonly Dictionary<Guid, DateTime> _cooldownEnds = [];
     private readonly List<MediaPlayer> _soundPlayers = [];
 
@@ -92,6 +93,8 @@ public partial class OverlayWindow : Window
     private bool _gameWindowFound;
     private IntPtr _gameWindowHandle;
     private IntPtr _settingsWindowHandle;
+    private bool _isTopmost;
+    private bool _gameWasForeground;
 
     public bool IsBusyEditing => _skillEditMode || _notificationEditMode || _reminderEditMode ||
                                  _buffPanelEditMode || _equipmentEditMode || _timerPanelEditMode ||
@@ -127,7 +130,9 @@ public partial class OverlayWindow : Window
         Height = 1;
 
         SourceInitialized += (_, _) => ApplyWindowStyles();
-        _timer = new DispatcherTimer(DispatcherPriority.Render)
+        _saveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
+        _saveTimer.Tick += (_, _) => SaveNow();
+        _timer = new DispatcherTimer(DispatcherPriority.Normal)
         {
             // Ten updates per second are smooth enough for cooldown numbers and
             // avoid needlessly redrawing a full-screen transparent surface.
@@ -765,22 +770,31 @@ public partial class OverlayWindow : Window
             return;
         }
 
+        MediaPlayer? player = null;
         try
         {
-            var player = new MediaPlayer { Volume = Math.Clamp(volume / 100d, 0, 1) };
-            _soundPlayers.Add(player);
+            player = new MediaPlayer { Volume = Math.Clamp(volume / 100d, 0, 1) };
+            var current = player;
             void ReleasePlayer(object? sender, EventArgs args)
             {
-                player.Close();
-                _soundPlayers.Remove(player);
+                current.Close();
+                _soundPlayers.Remove(current);
             }
             player.MediaEnded += ReleasePlayer;
             player.MediaFailed += (_, _) => ReleasePlayer(null, EventArgs.Empty);
             player.Open(new Uri(soundPath, UriKind.Absolute));
+            // Keep the player alive only once Open() succeeded; a failed Open()
+            // must not leave an orphaned entry that is never released.
+            _soundPlayers.Add(player);
             player.Play();
         }
         catch
         {
+            if (player is not null)
+            {
+                _soundPlayers.Remove(player);
+                try { player.Close(); } catch { }
+            }
             MessageBeep(0x00000040);
         }
     }
@@ -887,7 +901,7 @@ public partial class OverlayWindow : Window
         if (sender is Border border) border.ReleaseMouseCapture();
         _draggedSkill = null;
         _skillDragStarts.Clear();
-        _store.Save(_settings);
+        RequestSave();
         e.Handled = true;
     }
 
@@ -897,10 +911,11 @@ public partial class OverlayWindow : Window
             border.DataContext is not EffectNotification notification || !notification.IsPlacementPreview)
             return;
 
+        var selected = _settings.Effects.FirstOrDefault(effect => effect.Id == notification.EffectId);
+        if (selected is null) return;
         _draggedNotification = notification;
         _notificationDragStart = e.GetPosition(this);
         _notificationDragStarts.Clear();
-        var selected = _settings.Effects.First(effect => effect.Id == notification.EffectId);
         var effects = _notificationGroupMode && selected.GroupNumber > 0
             ? _settings.Effects.Where(effect => effect.Enabled && effect.GroupNumber == selected.GroupNumber)
             : [selected];
@@ -935,7 +950,7 @@ public partial class OverlayWindow : Window
         if (sender is Border border) border.ReleaseMouseCapture();
         _draggedNotification = null;
         _notificationDragStarts.Clear();
-        _store.Save(_settings);
+        RequestSave();
         e.Handled = true;
     }
 
@@ -976,7 +991,7 @@ public partial class OverlayWindow : Window
         if (sender is Border border) border.ReleaseMouseCapture();
         _draggedReminder = null;
         _reminderDragStarts.Clear();
-        _store.Save(_settings);
+        RequestSave();
         e.Handled = true;
     }
 
@@ -1005,7 +1020,7 @@ public partial class OverlayWindow : Window
         if (_draggedBuffPanelGroup is null) return;
         if (sender is Border border) border.ReleaseMouseCapture();
         _draggedBuffPanelGroup = null;
-        _store.Save(_settings);
+        RequestSave();
         e.Handled = true;
     }
 
@@ -1043,7 +1058,7 @@ public partial class OverlayWindow : Window
         if (sender is Border border) border.ReleaseMouseCapture();
         _draggedEquipment = null;
         _equipmentDragStarts.Clear();
-        _store.Save(_settings);
+        RequestSave();
         e.Handled = true;
     }
 
@@ -1068,7 +1083,7 @@ public partial class OverlayWindow : Window
     {
         if (!_timerPanelEditMode) return;
         if (sender is Border border) border.ReleaseMouseCapture();
-        _store.Save(_settings);
+        RequestSave();
         e.Handled = true;
     }
 
@@ -1097,7 +1112,7 @@ public partial class OverlayWindow : Window
         if (_draggedRewardGroup is null) return;
         if (sender is Border border) border.ReleaseMouseCapture();
         _draggedRewardGroup = null;
-        _store.Save(_settings);
+        RequestSave();
         e.Handled = true;
     }
 
@@ -1138,7 +1153,7 @@ public partial class OverlayWindow : Window
         if (sender is Border border) border.ReleaseMouseCapture();
         _draggedRateIndicator = null;
         _rateIndicatorDragStarts.Clear();
-        _store.Save(_settings);
+        RequestSave();
         e.Handled = true;
     }
 
@@ -1179,25 +1194,113 @@ public partial class OverlayWindow : Window
         if (!IsVisible && _gameWindowFound) Show();
         var hwnd = new WindowInteropHelper(this).Handle;
         if (hwnd == IntPtr.Zero || _gameWindowHandle == IntPtr.Zero) return;
+        // Only touch the z-order on a transition; WS_EX_TOPMOST survives
+        // Hide()/Show(), and re-issuing SetWindowPos ten times a second is
+        // wasted work. UpdateHostVisibility resets the flag when RO becomes
+        // foreground so the overlay is reinserted at the head of the band.
+        if (_isTopmost) return;
         // Protected/fullscreen RO clients can occupy the topmost band. Raise
         // the click-through overlay into that band only while RO is foreground.
         SetWindowPos(hwnd, HwndTopmost, 0, 0, 0, 0,
             SwpNoMove | SwpNoSize | SwpNoActivate);
+        _isTopmost = true;
     }
 
     private void ReleaseOverlayTopmost()
     {
+        if (!_isTopmost) return;
         var hwnd = new WindowInteropHelper(this).Handle;
         if (hwnd == IntPtr.Zero) return;
         SetWindowPos(hwnd, HwndNotTopmost, 0, 0, 0, 0,
             SwpNoMove | SwpNoSize | SwpNoActivate);
+        _isTopmost = false;
     }
 
     private void PositionEditBanner()
     {
-        EditBanner.Margin = new Thickness(
-            Math.Clamp(24, 8, Math.Max(8, ActualWidth - 620)),
-            Math.Clamp(20, 8, Math.Max(8, ActualHeight - 70)), 0, 0);
+        EditBanner.Margin = new Thickness(24, 20, 0, 0);
+    }
+
+    /// <summary>
+    /// Persists the settings at most once per 500 ms. Drag releases and other
+    /// high-frequency overlay events go through here; explicit user actions keep
+    /// calling the store directly.
+    /// </summary>
+    private void RequestSave()
+    {
+        _saveTimer.Stop();
+        _saveTimer.Start();
+    }
+
+    private void SaveNow()
+    {
+        _saveTimer.Stop();
+        _store.Save(_settings);
+    }
+
+    /// <summary>
+    /// Keeps stored element positions inside the game client area after the game
+    /// window has been resized (coordinates are relative to the client area, see
+    /// <see cref="OverlayCoordinateMigration"/>). Uses the same bounds as the drag
+    /// handlers. Returns true when any coordinate was changed.
+    /// </summary>
+    private bool ClampPositionsToGameArea(double width, double height)
+    {
+        var changed = false;
+
+        double ClampX(double value, double extent = 0)
+        {
+            var clamped = Math.Clamp(value, 0, Math.Max(0, width - extent));
+            if (clamped != value) changed = true;
+            return clamped;
+        }
+
+        double ClampY(double value, double extent = 0)
+        {
+            var clamped = Math.Clamp(value, 0, Math.Max(0, height - extent));
+            if (clamped != value) changed = true;
+            return clamped;
+        }
+
+        foreach (var skill in _settings.Skills)
+        {
+            skill.X = ClampX(skill.X, skill.IndividualIconSize);
+            skill.Y = ClampY(skill.Y, skill.IndividualIconSize);
+        }
+        foreach (var effect in _settings.Effects)
+        {
+            effect.NotificationX = ClampX(effect.NotificationX);
+            effect.NotificationY = ClampY(effect.NotificationY);
+        }
+        foreach (var reminder in _settings.Reminders)
+        {
+            reminder.X = ClampX(reminder.X);
+            reminder.Y = ClampY(reminder.Y);
+        }
+        foreach (var group in _settings.BuffPanelGroups)
+        {
+            group.X = ClampX(group.X);
+            group.Y = ClampY(group.Y);
+        }
+        foreach (var item in _settings.Equipment)
+        {
+            item.X = ClampX(item.X);
+            item.Y = ClampY(item.Y);
+        }
+        _settings.TimersX = ClampX(_settings.TimersX);
+        _settings.TimersY = ClampY(_settings.TimersY);
+        foreach (var group in _settings.RewardGroups)
+        {
+            group.X = ClampX(group.X);
+            group.Y = ClampY(group.Y);
+        }
+        foreach (var indicator in _settings.RateIndicators)
+        {
+            indicator.X = ClampX(indicator.X);
+            indicator.Y = ClampY(indicator.Y);
+        }
+
+        return changed;
     }
 
     private void SyncOverlayToGameWindow(bool force = false)
@@ -1230,6 +1333,18 @@ public partial class OverlayWindow : Window
             _store.Save(_settings);
         }
 
+        // Stored coordinates are relative to the client area. When the client
+        // area shrinks, pull elements that would now be outside back inside.
+        var previousSize = _gameBounds.HasValue
+            ? (Width: _gameBounds.Value.Right - _gameBounds.Value.Left,
+               Height: _gameBounds.Value.Bottom - _gameBounds.Value.Top)
+            : (Width: 0, Height: 0);
+        var currentSize = (Width: bounds.Value.Right - bounds.Value.Left,
+                           Height: bounds.Value.Bottom - bounds.Value.Top);
+        if (_gameBounds.HasValue && previousSize != currentSize && !IsBusyEditing &&
+            ClampPositionsToGameArea(width, height))
+            RequestSave();
+
         Left = topLeft.X;
         Top = topLeft.Y;
         Width = width;
@@ -1251,9 +1366,14 @@ public partial class OverlayWindow : Window
         var shouldShow = _gameWindowFound;
         if (shouldShow)
         {
-            if (ForegroundProcess.IsForegroundAllowed(_settings.AllowedProcesses))
+            var gameIsForeground = ForegroundProcess.IsForegroundAllowed(_settings.AllowedProcesses);
+            if (gameIsForeground)
             {
                 if (!IsVisible) Show();
+                // When RO just became foreground, reinsert into the topmost band
+                // even if we believe we are already there: a fullscreen client
+                // can push its own window ahead of us on activation.
+                if (!_gameWasForeground) _isTopmost = false;
                 BringOverlayAboveGame();
             }
             else if (IsSettingsWindowForeground())
@@ -1271,9 +1391,13 @@ public partial class OverlayWindow : Window
                 if (!IsVisible) Show();
                 ReleaseOverlayTopmost();
             }
+            _gameWasForeground = gameIsForeground;
         }
-        else if (IsVisible)
-            Hide();
+        else
+        {
+            _gameWasForeground = false;
+            if (IsVisible) Hide();
+        }
     }
 
     private bool IsSettingsWindowForeground()
@@ -1290,6 +1414,7 @@ public partial class OverlayWindow : Window
     protected override void OnClosed(EventArgs e)
     {
         _timer.Stop();
+        if (_saveTimer.IsEnabled) SaveNow();
         base.OnClosed(e);
     }
 

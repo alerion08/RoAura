@@ -41,6 +41,7 @@ public partial class MainWindow : Window
     private int? _cooldownGroupFilter;
     private readonly DispatcherTimer _connectionDetectionTimer;
     private readonly DispatcherTimer _goldGoblinSessionTimer;
+    private readonly DispatcherTimer _saveDebounceTimer = new() { Interval = TimeSpan.FromMilliseconds(500) };
     private bool _appliedPacketCaptureEnabled;
     private string _appliedPacketServerAddress = "";
     private int _appliedPacketServerPort;
@@ -53,6 +54,7 @@ public partial class MainWindow : Window
     public ICollectionView GoldGoblinRowsView => _goldGoblinRowsView;
     public ObservableCollection<ItemEntry> GoldGoblinItemSuggestions { get; } = [];
     public ObservableCollection<object> CooldownGroupFilterItems { get; } = [];
+    public static int[] OverchargeLevels { get; } = Enumerable.Range(0, 11).ToArray();
 
     public AppSettings Settings { get; }
 
@@ -85,7 +87,7 @@ public partial class MainWindow : Window
         Settings.SyncBuffPanelGroups();
         Settings.SyncRewardGroups();
         Settings.SyncRateIndicators();
-        LootColorsGroup.DataContext = Settings.RewardChannels.First(channel => channel.Kind == RewardKind.Loot);
+        LootColorsGroup.DataContext = Settings.RewardChannels.FirstOrDefault(channel => channel.Kind == RewardKind.Loot);
 
         EnabledBox.IsChecked = settings.Enabled;
         ProcessesBox.Text = string.Join(", ", settings.AllowedProcesses);
@@ -133,6 +135,7 @@ public partial class MainWindow : Window
         _goldGoblinSessionTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
         _goldGoblinSessionTimer.Tick += (_, _) => UpdateGoldGoblinSessionTime();
         _goldGoblinSessionTimer.Start();
+        _saveDebounceTimer.Tick += (_, _) => FlushPendingSave();
     }
 
     private void Navigation_Checked(object sender, RoutedEventArgs e)
@@ -322,8 +325,10 @@ public partial class MainWindow : Window
         var dialog = new GoldGoblinAddItemWindow(_items.Values) { Owner = this };
         if (dialog.ShowDialog() != true || dialog.SelectedItem is not ItemEntry item) return;
         _goldGoblin.AddManualItem(item.Id, item.FullName);
-        GoldGoblinLootGrid.SelectedItem = GoldGoblinRows.First(row => row.ItemId == item.Id);
-        GoldGoblinLootGrid.ScrollIntoView(GoldGoblinLootGrid.SelectedItem);
+        var addedRow = GoldGoblinRows.FirstOrDefault(row => row.ItemId == item.Id);
+        if (addedRow is null) return;
+        GoldGoblinLootGrid.SelectedItem = addedRow;
+        GoldGoblinLootGrid.ScrollIntoView(addedRow);
     }
 
     private void DeleteGoldGoblinLoot_Click(object sender, RoutedEventArgs e)
@@ -704,10 +709,32 @@ public partial class MainWindow : Window
         Settings.AllowedProcesses = ProcessesBox.Text
             .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
             .Distinct(StringComparer.OrdinalIgnoreCase).ToList();
-        if (Settings.AutoDetectConnection)
-            DetectConnection(userInitiated: false, restartCapture: false);
-        if (persist) _store.Save(Settings);
+        // Connection detection is not part of saving: it runs on its own 5 s
+        // timer and from the explicit "detect" actions.
+        if (persist)
+        {
+            _saveDebounceTimer.Stop();
+            _store.Save(Settings);
+        }
         if (applyPacketCapture) ApplyPacketCaptureIfChanged();
+    }
+
+    /// <summary>
+    /// Debounced SaveSettings for high-frequency callers (packet-driven learning
+    /// results, panel membership refreshes). Coalesces bursts into one write
+    /// 500 ms after the last request; explicit user actions still save at once.
+    /// </summary>
+    private void RequestSave()
+    {
+        _saveDebounceTimer.Stop();
+        _saveDebounceTimer.Start();
+    }
+
+    private void FlushPendingSave()
+    {
+        if (!_saveDebounceTimer.IsEnabled) return;
+        _saveDebounceTimer.Stop();
+        SaveSettings();
     }
 
     private void LootDatabase_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1012,7 +1039,8 @@ public partial class MainWindow : Window
             SetStatus(T("Последнюю группу кулдаунов удалить нельзя.", "The last cooldown group cannot be deleted."));
             return;
         }
-        var target = Settings.CooldownGroups.First(item => item != group);
+        var target = Settings.CooldownGroups.FirstOrDefault(item => item != group);
+        if (target is null) return;
         foreach (var skill in Settings.Skills.Where(skill => skill.GroupNumber == group.GroupNumber))
             skill.GroupNumber = target.GroupNumber;
         Settings.CooldownGroups.Remove(group);
@@ -1236,7 +1264,7 @@ public partial class MainWindow : Window
             BuffPanelGroupBox.Items.Refresh();
             if (selectedGroupNumber is { } number)
                 BuffPanelGroupBox.SelectedItem = Settings.BuffPanelGroups.FirstOrDefault(group => group.GroupNumber == number);
-            SaveSettings();
+            RequestSave();
         }, DispatcherPriority.Background);
     }
 
@@ -1356,7 +1384,7 @@ public partial class MainWindow : Window
     private void FinishStatusLearning(string name, RoStatusPacket packet)
     {
         Settings.PacketPlayerAid = packet.Aid;
-        SaveSettings();
+        RequestSave();
         SetStatus(T($"«{name}»: найден Status ID {packet.StatusId}, AID {packet.Aid}.",
             $"“{name}”: learned Status ID {packet.StatusId}, AID {packet.Aid}."));
     }
@@ -1370,7 +1398,7 @@ public partial class MainWindow : Window
             skill.PacketSkillId = packet.SkillId;
             Settings.PacketPlayerAid = packet.SourceAid;
             _learningSkill = null;
-            SaveSettings();
+            RequestSave();
             SetStatus(T($"«{skill.Name}»: найден Skill ID {packet.SkillId}, AID {packet.SourceAid}.",
                 $"“{skill.Name}”: learned Skill ID {packet.SkillId}, AID {packet.SourceAid}."));
         });
@@ -1413,7 +1441,7 @@ public partial class MainWindow : Window
             item.VariantKey = packet.VariantKey;
             item.DetectedItemName = EquipmentIdentityFormatter.Describe(packet, _items);
             _learningEquipment = null;
-            SaveSettings();
+            RequestSave();
             SetStatus(T(
                 $"«{item.Name}»: распознано {item.DetectedItemName}; индекс {packet.InventoryIndex}, слот 0x{packet.WearLocation:X}.",
                 $"“{item.Name}”: detected {item.DetectedItemName}; index {packet.InventoryIndex}, slot 0x{packet.WearLocation:X}."));
@@ -1707,9 +1735,16 @@ public partial class MainWindow : Window
 
     private void MvpMonster_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (_updatingMvpMonsterSelection || MvpTimersGrid.SelectedItem is not MvpTimer timer || (sender as ComboBox)?.SelectedItem is not MonsterEntry monster) return;
+        if (_updatingMvpMonsterSelection || MvpTimersGrid.SelectedItem is not MvpTimer timer ||
+            sender is not ComboBox box || box.SelectedItem is not MonsterEntry monster) return;
+        // Only overwrite a custom timer name when the user actually picked a
+        // monster from the dropdown, or when the name still equals the catalog
+        // name of the previously selected monster.
+        var previous = _monsters.FirstOrDefault(entry => entry.Id == timer.MonsterId);
+        var nameIsCatalogName = string.IsNullOrWhiteSpace(timer.Name) ||
+                                (previous is not null && string.Equals(timer.Name, previous.Name, StringComparison.Ordinal));
         timer.MonsterId = monster.Id;
-        timer.Name = monster.Name;
+        if (box.IsDropDownOpen || nameIsCatalogName) timer.Name = monster.Name;
         timer.SetMonsterDetails(monster);
     }
 
@@ -1993,6 +2028,7 @@ public partial class MainWindow : Window
             SaveSettings();
             Dispatcher.BeginInvoke(() => Application.Current.Shutdown());
         }
+        else FlushPendingSave();
         base.OnClosing(e);
     }
 }

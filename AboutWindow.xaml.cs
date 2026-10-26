@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using RoAura.Services;
@@ -10,6 +11,9 @@ public partial class AboutWindow : Window
     public AboutWindow()
     {
         InitializeComponent();
+        // Version comes from RoAura.csproj <AssemblyVersion>; nothing else hardcodes it.
+        var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "?";
+        VersionRun.Text = " " + version;
         if (LocalizationService.CurrentLanguage == "en") CheckUpdatesButton.Content = "Check for updates";
     }
 

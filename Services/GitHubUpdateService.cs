@@ -12,16 +12,24 @@ namespace RoAura.Services;
 public sealed class GitHubUpdateService
 {
     private const string LatestReleaseUrl = "https://api.github.com/repos/alerion08/RoAura/releases/latest";
+    private static readonly TimeSpan CheckTimeout = TimeSpan.FromSeconds(30);
+    private static readonly TimeSpan ReadIdleTimeout = TimeSpan.FromSeconds(60);
+    private static readonly TimeSpan StaleDownloadAge = TimeSpan.FromDays(7);
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
     private readonly HttpClient _client;
 
     public GitHubUpdateService()
     {
-        var handler = new HttpClientHandler
+        var handler = new SocketsHttpHandler
         {
-            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli
+            ConnectTimeout = TimeSpan.FromSeconds(10),
+            PooledConnectionLifetime = TimeSpan.FromMinutes(5),
+            AutomaticDecompression = DecompressionMethods.All
         };
-        _client = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(30) };
-        _client.DefaultRequestHeaders.UserAgent.ParseAdd("RoAura-Updater/2.13.2");
+        // HttpClient.Timeout also bounds reading a streamed body, which would cut off
+        // a slow installer download. Each call applies its own timeout instead.
+        _client = new HttpClient(handler) { Timeout = Timeout.InfiniteTimeSpan };
+        _client.DefaultRequestHeaders.UserAgent.ParseAdd($"RoAura-Updater/{CurrentVersion.ToString(3)}");
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
     }
 
@@ -30,11 +38,12 @@ public sealed class GitHubUpdateService
 
     public async Task<UpdateInfo?> CheckAsync(CancellationToken cancellationToken = default)
     {
-        using var response = await _client.GetAsync(LatestReleaseUrl, cancellationToken);
+        using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        timeout.CancelAfter(CheckTimeout);
+        using var response = await _client.GetAsync(LatestReleaseUrl, timeout.Token);
         response.EnsureSuccessStatusCode();
-        await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
-        var release = await JsonSerializer.DeserializeAsync<GitHubRelease>(stream,
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }, cancellationToken);
+        await using var stream = await response.Content.ReadAsStreamAsync(timeout.Token);
+        var release = await JsonSerializer.DeserializeAsync<GitHubRelease>(stream, JsonOptions, timeout.Token);
         if (release is null || release.Draft || release.Prerelease) return null;
 
         var tag = release.TagName.Trim().TrimStart('v', 'V');
@@ -57,14 +66,20 @@ public sealed class GitHubUpdateService
         Directory.CreateDirectory(updateDirectory);
         var finalPath = Path.Combine(updateDirectory, update.InstallerName);
         var temporaryPath = finalPath + ".download";
+        CleanUpdateDirectory(updateDirectory, finalPath, temporaryPath);
 
+        // The whole download is bounded per chunk, not by HttpClient.Timeout: a large
+        // installer on a slow link may legitimately take minutes, but a stalled stream
+        // must not hang the update window forever.
+        using var idle = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         try
         {
+            idle.CancelAfter(ReadIdleTimeout);
             using var response = await _client.GetAsync(update.InstallerUrl,
-                HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+                HttpCompletionOption.ResponseHeadersRead, idle.Token);
             response.EnsureSuccessStatusCode();
             var length = response.Content.Headers.ContentLength;
-            await using (var input = await response.Content.ReadAsStreamAsync(cancellationToken))
+            await using (var input = await response.Content.ReadAsStreamAsync(idle.Token))
             await using (var output = new FileStream(temporaryPath, FileMode.Create, FileAccess.Write, FileShare.None,
                              81920, useAsync: true))
             {
@@ -72,12 +87,14 @@ public sealed class GitHubUpdateService
                 long received = 0;
                 while (true)
                 {
-                    var read = await input.ReadAsync(buffer, cancellationToken);
+                    idle.CancelAfter(ReadIdleTimeout);
+                    var read = await input.ReadAsync(buffer, idle.Token);
                     if (read == 0) break;
                     await output.WriteAsync(buffer.AsMemory(0, read), cancellationToken);
                     received += read;
                     if (length > 0) progress?.Report(received * 100d / length.Value);
                 }
+                idle.CancelAfter(Timeout.InfiniteTimeSpan);
                 await output.FlushAsync(cancellationToken);
             }
 
@@ -96,11 +113,43 @@ public sealed class GitHubUpdateService
             progress?.Report(100);
             return finalPath;
         }
+        catch (OperationCanceledException ex) when (!cancellationToken.IsCancellationRequested)
+        {
+            TryDelete(temporaryPath);
+            throw new TimeoutException(
+                $"The update download stalled for more than {ReadIdleTimeout.TotalSeconds:F0} seconds.", ex);
+        }
         catch
         {
-            if (File.Exists(temporaryPath)) File.Delete(temporaryPath);
+            TryDelete(temporaryPath);
             throw;
         }
+    }
+
+    /// <summary>Removes leftovers of earlier updates so the directory does not grow with every release.</summary>
+    private static void CleanUpdateDirectory(string directory, string finalPath, string temporaryPath)
+    {
+        try
+        {
+            var cutoff = DateTime.UtcNow - StaleDownloadAge;
+            foreach (var file in Directory.EnumerateFiles(directory))
+            {
+                if (file.Equals(finalPath, StringComparison.OrdinalIgnoreCase) ||
+                    file.Equals(temporaryPath, StringComparison.OrdinalIgnoreCase)) continue;
+                try
+                {
+                    if (File.GetLastWriteTimeUtc(file) < cutoff) File.Delete(file);
+                }
+                catch (Exception ex) { DebugLog.Write($"UPDATE CLEANUP SKIPPED {file}: {ex}"); }
+            }
+        }
+        catch (Exception ex) { DebugLog.Write($"UPDATE CLEANUP ERROR: {ex}"); }
+    }
+
+    private static void TryDelete(string path)
+    {
+        try { if (File.Exists(path)) File.Delete(path); }
+        catch (Exception ex) { DebugLog.Write($"UPDATE TEMP DELETE ERROR {path}: {ex}"); }
     }
 
     public static void StartInstaller(string path)

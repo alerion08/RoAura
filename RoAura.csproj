@@ -7,16 +7,36 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>RoAura</AssemblyName>
     <RootNamespace>RoAura</RootNamespace>
-    <Version>2.13.2</Version>
-    <AssemblyVersion>2.13.2.0</AssemblyVersion>
-    <FileVersion>2.13.2.0</FileVersion>
+    <!--
+      Single source of truth for the product version. build-release.ps1,
+      build-installer.ps1 (-> installer.iss), release.yml and AboutWindow all
+      read it from here. The only other copy is app.manifest/assemblyIdentity,
+      which MSBuild cannot substitute; keep it in sync manually.
+    -->
+    <Version>2.14.0</Version>
+    <AssemblyVersion>2.14.0.0</AssemblyVersion>
+    <FileVersion>2.14.0.0</FileVersion>
+    <InformationalVersion>$(Version)</InformationalVersion>
+    <Company>Alerion</Company>
+    <Authors>Alerion</Authors>
+    <Product>RoAura</Product>
+    <Copyright>© 2026 Alerion</Copyright>
+    <Description>Windows overlay for Ragnarok Online: cooldowns, buffs, MVP timers, loot and market tracking via Npcap.</Description>
+    <RepositoryUrl>https://github.com/alerion08/RoAura</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>true</PublishSingleFile>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <PublishTrimmed>false</PublishTrimmed>
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
+    <!-- Embedded PDB: crash stack traces keep line numbers without shipping a separate .pdb. -->
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <SatelliteResourceLanguages>en;ru</SatelliteResourceLanguages>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <!-- Analyzer style rules are informational only; warnings never fail the build. -->
+    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\roaura.ico</ApplicationIcon>
   </PropertyGroup>
@@ -34,27 +54,7 @@
     <Resource Include="Assets\Menu\*.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\monsters.rtm.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Data\monsters.springro.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Data\items.rtm.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Data\items.springro.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Data\database.springro.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Data\item-prices.springro.json">
+    <Content Include="Data\*.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

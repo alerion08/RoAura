@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Threading;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
@@ -35,7 +36,7 @@ public partial class DatabaseOverlayWindow : Window
     private bool _restoringSearchQuery;
     private bool _gameWasForeground;
     private bool _marketRefreshRunning;
-    private IntPtr _gameHandle;
+    private bool _isTopmost;
     public bool IsDatabaseOpen { get; private set; }
 
     public DatabaseOverlayWindow(AppSettings settings, GameDatabaseService database, SpringRoMarketService market)
@@ -105,23 +106,22 @@ public partial class DatabaseOverlayWindow : Window
         // HWND/DWM initialization race that otherwise occurs on the first database open.
         _ = new WindowInteropHelper(this).EnsureHandle();
         _ = new WindowInteropHelper(_details).EnsureHandle();
+        _isTopmost = true;
         ReleaseTopmost();
     }
 
     public void ShowForGame()
     {
-        var (game, handle) = ResolveGameWindow();
-        _gameHandle = handle;
+        var game = ResolveGameWindow();
         _gameBounds = game;
         PlacePanels(game);
-        AttachPanelsToGameWindow(handle);
 
         IsDatabaseOpen = true;
         _temporarilyHidden = false;
         _gameWasForeground = false;
         _lastRelevantForegroundUtc = DateTime.UtcNow;
-        Show();
-        _details.Show();
+        ShowPanel(this);
+        ShowPanel(_details);
         SetPanelsVisible(true);
         ForceTopmost();
         _visibilityTimer.Start();
@@ -138,7 +138,21 @@ public partial class DatabaseOverlayWindow : Window
         _visibilityTimer.Stop();
         Hide();
         _details.Hide();
-        AttachPanelsToGameWindow(IntPtr.Zero);
+    }
+
+    /// <summary>
+    /// Show() on a window whose native handle was destroyed throws. The handle is
+    /// created once at startup; if it is gone, log and skip instead of crashing.
+    /// </summary>
+    private static void ShowPanel(Window window)
+    {
+        var handle = new WindowInteropHelper(window).Handle;
+        if (handle != IntPtr.Zero && !IsWindow(handle))
+        {
+            DebugLog.Write($"DATABASE OVERLAY: native window {window.GetType().Name} was destroyed; Show() skipped.");
+            return;
+        }
+        window.Show();
     }
 
     private void RefreshOverlayVisibility()
@@ -161,9 +175,11 @@ public partial class DatabaseOverlayWindow : Window
             // A fullscreen/borderless RO client can put its own topmost window back at
             // the head of the topmost band on the first click.  Calling HWND_TOPMOST
             // again on a window that is already topmost is not sufficient on every
-            // Windows build.  Reinsert both panels into the band without activation.
+            // Windows build.  Reinsert both panels into the band without activation
+            // when the game becomes foreground; afterwards only fix the z-order if
+            // it was released.
             if (!_gameWasForeground) RestorePanelsAfterGameActivation();
-            else PromotePanelsAboveGame();
+            else if (!_isTopmost) ForceTopmost();
             _gameWasForeground = true;
         }
         else if (databaseHasFocus)
@@ -171,7 +187,7 @@ public partial class DatabaseOverlayWindow : Window
             _gameWasForeground = false;
             _lastRelevantForegroundUtc = DateTime.UtcNow;
             SetPanelsVisible(true);
-            ForceTopmost();
+            if (!_isTopmost) ForceTopmost();
         }
         else if (DateTime.UtcNow - _lastRelevantForegroundUtc > TimeSpan.FromMilliseconds(450))
         {
@@ -182,17 +198,29 @@ public partial class DatabaseOverlayWindow : Window
 
     private void PlacePanels(ForegroundProcess.WindowBounds game)
     {
-        var gameWidth = game.Right - game.Left;
-        var gameHeight = game.Bottom - game.Top;
+        // WindowBounds are physical screen pixels; WPF Left/Top/Width/Height are
+        // device-independent units. Convert once here so that both panels (the
+        // detail window positions itself from the bounds we pass in) stay inside
+        // the client area on high-DPI displays.
+        var source = PresentationSource.FromVisual(this);
+        var fromDevice = source?.CompositionTarget?.TransformFromDevice ?? Matrix.Identity;
+        var topLeft = fromDevice.Transform(new Point(game.Left, game.Top));
+        var bottomRight = fromDevice.Transform(new Point(game.Right, game.Bottom));
+        var gameWidth = Math.Max(1, bottomRight.X - topLeft.X);
+        var gameHeight = Math.Max(1, bottomRight.Y - topLeft.Y);
+        var dipBounds = new ForegroundProcess.WindowBounds(
+            (int)Math.Round(topLeft.X), (int)Math.Round(topLeft.Y),
+            (int)Math.Round(bottomRight.X), (int)Math.Round(bottomRight.Y));
+
         var margin = Math.Clamp(gameWidth * .008, 6, 14);
         var panelWidth = Math.Clamp(gameWidth * .205, 320, 390);
         var panelHeightMaximum = Math.Max(460, gameHeight - margin * 2);
         var panelHeight = Math.Clamp(gameHeight * .82, 460, panelHeightMaximum);
         Width = panelWidth;
         Height = Math.Min(panelHeight, gameHeight);
-        Left = game.Left + margin;
-        Top = game.Top + (gameHeight - Height) / 2;
-        _details.PlaceForGame(game, panelWidth, Height, margin);
+        Left = topLeft.X + margin;
+        Top = topLeft.Y + (gameHeight - Height) / 2;
+        _details.PlaceForGame(dipBounds, panelWidth, Height, margin);
     }
 
     private void SetPanelsVisible(bool visible)
@@ -209,8 +237,8 @@ public partial class DatabaseOverlayWindow : Window
         _temporarilyHidden = false;
         ShowActivated = false;
         _details.ShowActivated = false;
-        Show();
-        _details.Show();
+        ShowPanel(this);
+        ShowPanel(_details);
         ShowActivated = true;
         _details.ShowActivated = true;
     }
@@ -221,6 +249,7 @@ public partial class DatabaseOverlayWindow : Window
             SwpNoMove | SwpNoSize | SwpNoActivate | SwpShowWindow);
         SetWindowPos(_details.Handle, HwndTopmost, 0, 0, 0, 0,
             SwpNoMove | SwpNoSize | SwpNoActivate | SwpShowWindow);
+        _isTopmost = true;
     }
 
     private void PromotePanelsAboveGame()
@@ -230,8 +259,10 @@ public partial class DatabaseOverlayWindow : Window
         if (searchHandle == IntPtr.Zero || detailHandle == IntPtr.Zero) return;
 
         // Deliberately do not assign the Ragnarok HWND as Owner/GWL_HWNDPARENT:
-        // doing that made modifier keys stick in protected clients.  A non-activating
-        // remove/reinsert is enough to restore the overlay after the game is clicked.
+        // doing that made modifier keys stick in protected clients, and windows
+        // owned by the game HWND are destroyed together with it when the game
+        // exits.  A non-activating remove/reinsert is enough to restore the
+        // overlay after the game is clicked.
         SetWindowPos(searchHandle, HwndNotTopmost, 0, 0, 0, 0,
             SwpNoMove | SwpNoSize | SwpNoActivate);
         SetWindowPos(detailHandle, HwndNotTopmost, 0, 0, 0, 0,
@@ -250,34 +281,26 @@ public partial class DatabaseOverlayWindow : Window
         PromotePanelsAboveGame();
     }
 
-    private void AttachPanelsToGameWindow(IntPtr gameHandle)
-    {
-        if (gameHandle == IntPtr.Zero && _gameHandle != IntPtr.Zero) gameHandle = IntPtr.Zero;
-        SetOwner(new WindowInteropHelper(this).Handle, gameHandle);
-        SetOwner(_details.Handle, gameHandle);
-    }
-
-    private static void SetOwner(IntPtr window, IntPtr owner)
-    {
-        if (window == IntPtr.Zero) return;
-        if (IntPtr.Size == 8) SetWindowLongPtr64(window, GwlHwndParent, owner);
-        else SetWindowLong32(window, GwlHwndParent, owner.ToInt32());
-    }
-
     private void ReleaseTopmost()
     {
+        if (!_isTopmost) return;
         SetWindowPos(new WindowInteropHelper(this).Handle, HwndNotTopmost, 0, 0, 0, 0,
             SwpNoMove | SwpNoSize | SwpNoActivate);
         SetWindowPos(_details.Handle, HwndNotTopmost, 0, 0, 0, 0,
             SwpNoMove | SwpNoSize | SwpNoActivate);
+        _isTopmost = false;
     }
 
-    private (ForegroundProcess.WindowBounds Bounds, IntPtr Handle) ResolveGameWindow()
+    private ForegroundProcess.WindowBounds ResolveGameWindow()
     {
-        if (ForegroundProcess.TryFindWindow(_settings.AllowedProcesses, out var handle, out var game))
-            return (game, handle);
-        return (new ForegroundProcess.WindowBounds(0, 0,
-            (int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight), IntPtr.Zero);
+        if (ForegroundProcess.TryFindWindow(_settings.AllowedProcesses, out _, out var game))
+            return game;
+        // No game window: fall back to the primary monitor in physical pixels
+        // (PlacePanels converts to DIPs), matching the unit of WindowBounds.
+        var source = PresentationSource.FromVisual(this);
+        var toDevice = source?.CompositionTarget?.TransformToDevice ?? Matrix.Identity;
+        var corner = toDevice.Transform(new Point(SystemParameters.PrimaryScreenWidth, SystemParameters.PrimaryScreenHeight));
+        return new ForegroundProcess.WindowBounds(0, 0, (int)Math.Round(corner.X), (int)Math.Round(corner.Y));
     }
 
     private void RefreshResults()
@@ -456,13 +479,11 @@ public partial class DatabaseOverlayWindow : Window
     private const uint SwpNoMove = 0x0002;
     private const uint SwpNoActivate = 0x0010;
     private const uint SwpShowWindow = 0x0040;
-    private const int GwlHwndParent = -8;
     [DllImport("user32.dll")]
     private static extern IntPtr GetForegroundWindow();
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool IsWindow(IntPtr window);
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool SetWindowPos(IntPtr window, IntPtr insertAfter, int x, int y, int cx, int cy, uint flags);
-    [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr", SetLastError = true)]
-    private static extern IntPtr SetWindowLongPtr64(IntPtr window, int index, IntPtr value);
-    [DllImport("user32.dll", EntryPoint = "SetWindowLong", SetLastError = true)]
-    private static extern int SetWindowLong32(IntPtr window, int index, int value);
 }

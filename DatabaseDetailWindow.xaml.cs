@@ -186,8 +186,9 @@ public partial class DatabaseDetailWindow : Window
         };
         navi.Click += (_, _) =>
         {
-            Clipboard.SetText(listing.NavigationCommand);
-            navi.Content = T("Скопировано в буфер обмена", "Copied to clipboard");
+            navi.Content = TryCopyToClipboard(listing.NavigationCommand)
+                ? T("Скопировано в буфер обмена", "Copied to clipboard")
+                : T("Не удалось скопировать", "Could not copy");
         };
         DetailsPanel.Children.Add(navi);
     }
@@ -259,5 +260,29 @@ public partial class DatabaseDetailWindow : Window
         return value switch { "Yes" => "Да", "No" => "Нет", "Aggressive" => "Агрессивный", "Passive" => "Пассивный", _ => value };
     }
     private string T(string ru, string en) => _settings.Language == "en" ? en : ru;
+
+    // The clipboard is a shared COM resource; another application (or the
+    // game client) may hold it for a moment and SetText throws COMException.
+    private static bool TryCopyToClipboard(string text)
+    {
+        for (var attempt = 1; attempt <= 3; attempt++)
+        {
+            try
+            {
+                Clipboard.SetText(text);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                if (attempt == 3)
+                {
+                    DebugLog.Write($"CLIPBOARD ERROR: {ex}");
+                    return false;
+                }
+                System.Threading.Thread.Sleep(50);
+            }
+        }
+        return false;
+    }
     private void Close_Click(object sender, RoutedEventArgs e) => HideRequested?.Invoke();
 }

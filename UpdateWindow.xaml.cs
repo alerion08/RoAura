@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using RoAura.Services;
@@ -9,6 +10,8 @@ public partial class UpdateWindow : Window
     private readonly UpdateInfo _update;
     private readonly GitHubUpdateService _service;
     private readonly bool _english;
+    private readonly CancellationTokenSource _cancellation = new();
+    private bool _closed;
 
     public UpdateWindow(UpdateInfo update, GitHubUpdateService service, bool english)
     {
@@ -29,6 +32,7 @@ public partial class UpdateWindow : Window
         NotesText.Text = string.IsNullOrWhiteSpace(_update.Notes)
             ? (english ? "No release notes were provided." : "Описание изменений пока не добавлено.")
             : _update.Notes;
+        Closing += UpdateWindow_Closing;
     }
 
     private string GitHubUpdateServiceVersion() => _service.CurrentVersion.ToString(3);
@@ -36,28 +40,44 @@ public partial class UpdateWindow : Window
     private async void Install_Click(object sender, RoutedEventArgs e)
     {
         InstallButton.IsEnabled = false;
-        LaterButton.IsEnabled = false;
+        // "Later" stays enabled while downloading: it cancels the download and closes.
         DownloadProgress.Visibility = Visibility.Visible;
         StatusText.Text = _english ? "Downloading update…" : "Загрузка обновления…";
         var progress = new Progress<double>(value => DownloadProgress.Value = value);
         try
         {
-            var installer = await _service.DownloadInstallerAsync(_update, progress);
+            var installer = await _service.DownloadInstallerAsync(_update, progress, _cancellation.Token);
+            if (_closed || _cancellation.IsCancellationRequested) return;
             StatusText.Text = _english ? "Starting installer…" : "Запуск установщика…";
             GitHubUpdateService.StartInstaller(installer);
             Application.Current.Shutdown();
         }
+        catch (OperationCanceledException) when (_cancellation.IsCancellationRequested)
+        {
+            // The window was closed while downloading; nothing to report.
+        }
         catch (Exception ex)
         {
             DebugLog.Write($"UPDATE INSTALL ERROR: {ex}");
+            if (_closed) return;
             StatusText.Text = _english ? "Automatic update failed." : "Не удалось установить обновление автоматически.";
             InstallButton.IsEnabled = true;
             LaterButton.IsEnabled = true;
             if (MessageBox.Show(this,
                     (_english ? "Open the release page in your browser?\n\n" : "Открыть страницу релиза в браузере?\n\n") + ex.Message,
                     "RoAura", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-                Process.Start(new ProcessStartInfo(_update.ReleaseUrl) { UseShellExecute = true });
+            {
+                try { Process.Start(new ProcessStartInfo(_update.ReleaseUrl) { UseShellExecute = true }); }
+                catch (Exception openError) { DebugLog.Write($"UPDATE RELEASE PAGE OPEN ERROR: {openError}"); }
+            }
         }
+    }
+
+    private void UpdateWindow_Closing(object? sender, CancelEventArgs e)
+    {
+        _closed = true;
+        try { _cancellation.Cancel(); }
+        catch (ObjectDisposedException) { }
     }
 
     private void Later_Click(object sender, RoutedEventArgs e) => Close();

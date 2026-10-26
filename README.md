@@ -1,4 +1,4 @@
-# RoAura 2.13.2
+# RoAura 2.14.0
 
 Windows x64 overlay for Ragnarok Online. It tracks cooldowns and statuses from incoming RO packets via Npcap and displays configurable overlays.
 
@@ -36,10 +36,12 @@ Npcap is the only external runtime requirement: https://npcap.com/#download
 Install the .NET 8 SDK and run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\build-release.ps1
+pwsh -ExecutionPolicy Bypass -File .\build-release.ps1
 ```
 
-For an installer, install Inno Setup 6 and run `build-installer.ps1`.
+PowerShell 7+ (`pwsh`) is recommended; Windows PowerShell 5.1 also works because the archive is written with `System.IO.Compression.ZipFile`, not `Compress-Archive`. The script does not stop a running `RoAura.exe` unless you pass `-KillRunning`. The version is defined once in `RoAura.csproj` (`<Version>`); the portable archive name, the installer and the About window all derive from it (only `app.manifest` must be updated by hand, and the script checks it).
+
+For an installer, install Inno Setup 6 and run `build-installer.ps1`; it forwards the csproj version to `installer.iss` via `/DMyAppVersion` and prints SHA-256 hashes of the outputs.
 
 Read `GUIDE_RU.md` or `GUIDE_EN.md` for setup instructions.
 

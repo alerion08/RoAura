@@ -67,6 +67,18 @@ public sealed class RoPacketStreamScanner
     private const int RtmEquipmentEntrySizeLegacy = 67;
     private const int RtmEquipmentEntrySizeCurrent = 68;
     private const int RtmItemAddedPacketSize = 70;
+    private const int ExperiencePacketSize = 18;
+    private const int ProgressPacketSize = 12;
+    private const int ZenyPacketSize = 8;
+    private const int EquipChangePacketSize = 7;
+    private const int RtmEquipPacketSize = 11;
+    private const int RtmUnequipPacketSize = 9;
+    private const int TimedStatusPacketSize = 29;
+    private const int LegacyTimedStatusPacketSize = 25;
+    private const int SimpleStatusPacketSize = 9;
+    private const int SkillUsePacketSize = 25;
+    private const int SkillCooldownPacketSize = 8;
+    private const int MaximumEquipmentListLength = 8192;
     private byte[] _carry = [];
     private readonly ConcurrentDictionary<ushort, RoEquipmentPacket> _inventoryEquipment;
 
@@ -104,8 +116,8 @@ public sealed class RoPacketStreamScanner
             var packetId = BinaryPrimitives.ReadUInt16LittleEndian(combined.AsSpan(offset, 2));
             switch (packetId)
             {
-                case 0x0B41 when TryReadRtmItemAdded(combined, offset, out var itemAdded):
-                    var isNewItemPacket = offset + RtmItemAddedPacketSize > previousLength;
+                case 0x0B41 when TryReadRtmItemAdded(combined, offset, out var length, out var itemAdded):
+                    var isNewItemPacket = offset + length > previousLength;
                     if (isNewItemPacket &&
                         TryReadRtmAddedEquipment(combined, offset, out var addedEquipment))
                     {
@@ -115,47 +127,51 @@ public sealed class RoPacketStreamScanner
                     }
                     if (isNewItemPacket)
                         ItemAdded?.Invoke(itemAdded);
-                    offset += RtmItemAddedPacketSize - 1;
+                    offset += length - 1;
                     break;
 
-                case 0x0ACC when TryReadExperience(combined, offset, out var experience):
-                    if (offset + 18 > previousLength)
+                case 0x0ACC when TryReadExperience(combined, offset, out var length, out var experience):
+                    if (offset + length > previousLength)
                         ExperienceChanged?.Invoke(experience);
-                    offset += 17;
+                    offset += length - 1;
                     break;
 
-                case 0x0ACB when TryReadProgress(combined, offset, out var progress):
-                    if (offset + 12 > previousLength)
+                case 0x0ACB when TryReadProgress(combined, offset, out var length, out var progress):
+                    if (offset + length > previousLength)
                         ProgressChanged?.Invoke(progress);
-                    offset += 11;
+                    offset += length - 1;
                     break;
 
-                case 0x00B1 when TryReadZeny(combined, offset, out var zeny):
-                    if (offset + 8 > previousLength)
+                case 0x00B1 when TryReadZeny(combined, offset, out var length, out var zeny):
+                    if (offset + length > previousLength)
                         ZenyChanged?.Invoke(zeny);
-                    offset += 7;
+                    offset += length - 1;
                     break;
 
-                case 0x00A4 when TryReadEquipmentList(combined, offset, out var listLength,
-                             out var equipmentEntries):
-                    if (offset + listLength > previousLength)
+                // List packets: only the cheap header is validated before the
+                // freshness check, so a stale (already processed) list in the
+                // carry is skipped without re-parsing every entry.
+                case 0x00A4 when TryReadEquipmentListHeader(combined, offset, out var length):
+                    if (offset + length > previousLength)
                     {
-                        foreach (var entry in equipmentEntries)
+                        foreach (var entry in ReadEquipmentListEntries(combined, offset, length))
                         {
                             _inventoryEquipment[entry.InventoryIndex] = entry;
                             if (entry.WearLocation != 0)
                                 EquipmentChanged?.Invoke(entry);
                         }
                     }
-                    offset += listLength - 1;
+                    offset += length - 1;
                     break;
 
-                case 0x0B39 when TryReadRtmEquipmentList(combined, offset, out var rtmListLength,
-                             out var rtmEquipmentEntries):
-                    if (offset + rtmListLength > previousLength)
+                case 0x0B39 when TryReadRtmEquipmentListHeader(combined, offset, out var length,
+                             out var rtmEntrySize):
+                    if (offset + length > previousLength)
                     {
+                        var rtmEquipmentEntries = ReadRtmEquipmentListEntries(combined, offset,
+                            length, rtmEntrySize);
                         DebugLog.Write($"PACKET INVENTORY EQUIPMENT: 0x0B39; " +
-                                       $"entries={rtmEquipmentEntries.Count}; packetLength={rtmListLength}");
+                                       $"entries={rtmEquipmentEntries.Count}; packetLength={length}");
                         foreach (var entry in rtmEquipmentEntries)
                         {
                             _inventoryEquipment[entry.InventoryIndex] = entry;
@@ -163,71 +179,71 @@ public sealed class RoPacketStreamScanner
                                 EquipmentChanged?.Invoke(entry);
                         }
                     }
-                    offset += rtmListLength - 1;
+                    offset += length - 1;
                     break;
 
-                case 0x00AA when TryReadEquipChange(combined, offset, true, out var equipped):
+                case 0x00AA when TryReadEquipChange(combined, offset, true, out var length, out var equipped):
                     if (_inventoryEquipment.TryGetValue(equipped.InventoryIndex, out var equippedIdentity))
                         equipped = CopyIdentity(equipped, equippedIdentity);
-                    if (offset + 7 > previousLength && IsPlausibleEquipmentEvent(equipped))
+                    if (offset + length > previousLength && IsPlausibleEquipmentEvent(equipped))
                         EquipmentChanged?.Invoke(equipped);
-                    offset += 6;
+                    offset += length - 1;
                     break;
 
-                case 0x00AC when TryReadEquipChange(combined, offset, false, out var unequipped):
+                case 0x00AC when TryReadEquipChange(combined, offset, false, out var length, out var unequipped):
                     if (_inventoryEquipment.TryGetValue(unequipped.InventoryIndex, out var unequippedIdentity))
                         unequipped = CopyIdentity(unequipped, unequippedIdentity);
-                    if (offset + 7 > previousLength && IsPlausibleEquipmentEvent(unequipped))
+                    if (offset + length > previousLength && IsPlausibleEquipmentEvent(unequipped))
                         EquipmentChanged?.Invoke(unequipped);
-                    offset += 6;
+                    offset += length - 1;
                     break;
 
-                case 0x0999 when TryReadRtmEquipChange(combined, offset, true, out var rtmEquipped):
+                case 0x0999 when TryReadRtmEquipChange(combined, offset, true, out var length, out var rtmEquipped):
                     if (_inventoryEquipment.TryGetValue(rtmEquipped.InventoryIndex, out var rtmEquippedIdentity))
                         rtmEquipped = CopyIdentity(rtmEquipped, rtmEquippedIdentity);
-                    if (offset + 11 > previousLength && IsPlausibleEquipmentEvent(rtmEquipped))
+                    if (offset + length > previousLength && IsPlausibleEquipmentEvent(rtmEquipped))
                         EquipmentChanged?.Invoke(rtmEquipped);
-                    offset += 10;
+                    offset += length - 1;
                     break;
 
-                case 0x099A when TryReadRtmEquipChange(combined, offset, false, out var rtmUnequipped):
+                case 0x099A when TryReadRtmEquipChange(combined, offset, false, out var length, out var rtmUnequipped):
                     if (_inventoryEquipment.TryGetValue(rtmUnequipped.InventoryIndex, out var rtmUnequippedIdentity))
                         rtmUnequipped = CopyIdentity(rtmUnequipped, rtmUnequippedIdentity);
-                    if (offset + 9 > previousLength && IsPlausibleEquipmentEvent(rtmUnequipped))
+                    if (offset + length > previousLength && IsPlausibleEquipmentEvent(rtmUnequipped))
                         EquipmentChanged?.Invoke(rtmUnequipped);
-                    offset += 8;
+                    offset += length - 1;
                     break;
 
-                case 0x0983 when TryReadTimedStatus(combined, offset, 29, packetId,
-                             out var timedStatus):
-                    if (offset + 29 > previousLength)
+                case 0x0983 when TryReadTimedStatus(combined, offset, TimedStatusPacketSize, packetId,
+                             out var length, out var timedStatus):
+                    if (offset + length > previousLength)
                         StatusChanged?.Invoke(timedStatus);
-                    offset += 28;
+                    offset += length - 1;
                     break;
 
-                case 0x043F when TryReadTimedStatus(combined, offset, 25, packetId,
-                             out var legacyTimedStatus):
-                    if (offset + 25 > previousLength)
+                case 0x043F when TryReadTimedStatus(combined, offset, LegacyTimedStatusPacketSize, packetId,
+                             out var length, out var legacyTimedStatus):
+                    if (offset + length > previousLength)
                         StatusChanged?.Invoke(legacyTimedStatus);
-                    offset += 24;
+                    offset += length - 1;
                     break;
 
-                case 0x0196 when TryReadSimpleStatus(combined, offset, out var simpleStatus):
-                    if (offset + 9 > previousLength)
+                case 0x0196 when TryReadSimpleStatus(combined, offset, out var length, out var simpleStatus):
+                    if (offset + length > previousLength)
                         StatusChanged?.Invoke(simpleStatus);
-                    offset += 8;
+                    offset += length - 1;
                     break;
 
-                case 0x07FB when TryReadSkillUse(combined, offset, out var skillUse):
-                    if (offset + 25 > previousLength)
+                case 0x07FB when TryReadSkillUse(combined, offset, out var length, out var skillUse):
+                    if (offset + length > previousLength)
                         SkillUsed?.Invoke(skillUse);
-                    offset += 24;
+                    offset += length - 1;
                     break;
 
-                case 0x043D when TryReadSkillCooldown(combined, offset, out var cooldown):
-                    if (offset + 8 > previousLength)
+                case 0x043D when TryReadSkillCooldown(combined, offset, out var length, out var cooldown):
+                    if (offset + length > previousLength)
                         SkillCooldown?.Invoke(cooldown);
-                    offset += 7;
+                    offset += length - 1;
                     break;
             }
         }
@@ -236,17 +252,18 @@ public sealed class RoPacketStreamScanner
         _carry = combined.AsSpan(combined.Length - keep, keep).ToArray();
     }
 
-    private static bool TryReadTimedStatus(byte[] data, int offset, int length,
-        ushort packetId, out RoStatusPacket packet)
+    private static bool TryReadTimedStatus(byte[] data, int offset, int packetLength,
+        ushort packetId, out int length, out RoStatusPacket packet)
     {
         packet = default;
+        length = packetLength;
         if (offset + length > data.Length) return false;
 
         var statusId = ReadUInt16(data, offset + 2);
         var aid = ReadUInt32(data, offset + 4);
         var state = data[offset + 8];
         var remainingMs = ReadUInt32(data, offset + 9);
-        var totalMs = length >= 29 ? ReadUInt32(data, offset + 13) : remainingMs;
+        var totalMs = length >= TimedStatusPacketSize ? ReadUInt32(data, offset + 13) : remainingMs;
         if (statusId is 0 or > 20000 || aid == 0 || state > 1 ||
             !LooksLikeDuration(remainingMs))
             return false;
@@ -256,11 +273,12 @@ public sealed class RoPacketStreamScanner
         return true;
     }
 
-    private static bool TryReadSimpleStatus(byte[] data, int offset,
+    private static bool TryReadSimpleStatus(byte[] data, int offset, out int length,
         out RoStatusPacket packet)
     {
         packet = default;
-        if (offset + 9 > data.Length) return false;
+        length = SimpleStatusPacketSize;
+        if (offset + length > data.Length) return false;
 
         var statusId = ReadUInt16(data, offset + 2);
         var aid = ReadUInt32(data, offset + 4);
@@ -271,10 +289,12 @@ public sealed class RoPacketStreamScanner
         return true;
     }
 
-    private static bool TryReadSkillUse(byte[] data, int offset, out RoSkillPacket packet)
+    private static bool TryReadSkillUse(byte[] data, int offset, out int length,
+        out RoSkillPacket packet)
     {
         packet = default;
-        if (offset + 25 > data.Length) return false;
+        length = SkillUsePacketSize;
+        if (offset + length > data.Length) return false;
 
         var sourceAid = ReadUInt32(data, offset + 2);
         var targetAid = ReadUInt32(data, offset + 6);
@@ -291,11 +311,12 @@ public sealed class RoPacketStreamScanner
         return true;
     }
 
-    private static bool TryReadSkillCooldown(byte[] data, int offset,
+    private static bool TryReadSkillCooldown(byte[] data, int offset, out int length,
         out RoSkillCooldownPacket packet)
     {
         packet = default;
-        if (offset + 8 > data.Length) return false;
+        length = SkillCooldownPacketSize;
+        if (offset + length > data.Length) return false;
 
         var skillId = ReadUInt16(data, offset + 2);
         var delayMs = ReadUInt32(data, offset + 4);
@@ -305,11 +326,12 @@ public sealed class RoPacketStreamScanner
         return true;
     }
 
-    private static bool TryReadRtmItemAdded(byte[] data, int offset,
+    private static bool TryReadRtmItemAdded(byte[] data, int offset, out int length,
         out RoItemAddedPacket packet)
     {
         packet = default;
-        if (offset + RtmItemAddedPacketSize > data.Length) return false;
+        length = RtmItemAddedPacketSize;
+        if (offset + length > data.Length) return false;
 
         var inventoryIndex = ReadUInt16(data, offset + 2);
         var count = ReadUInt16(data, offset + 4);
@@ -325,11 +347,12 @@ public sealed class RoPacketStreamScanner
         return true;
     }
 
-    private static bool TryReadExperience(byte[] data, int offset,
+    private static bool TryReadExperience(byte[] data, int offset, out int length,
         out RoExperiencePacket packet)
     {
         packet = default;
-        if (offset + 18 > data.Length) return false;
+        length = ExperiencePacketSize;
+        if (offset + length > data.Length) return false;
 
         var aid = ReadUInt32(data, offset + 2);
         var amount = BinaryPrimitives.ReadInt64LittleEndian(data.AsSpan(offset + 6, 8));
@@ -342,11 +365,12 @@ public sealed class RoPacketStreamScanner
         return true;
     }
 
-    private static bool TryReadProgress(byte[] data, int offset,
+    private static bool TryReadProgress(byte[] data, int offset, out int length,
         out RoProgressPacket packet)
     {
         packet = default;
-        if (offset + 12 > data.Length) return false;
+        length = ProgressPacketSize;
+        if (offset + length > data.Length) return false;
 
         var parameter = ReadUInt16(data, offset + 2);
         if (parameter is not (1 or 2 or 22 or 23)) return false;
@@ -355,26 +379,31 @@ public sealed class RoPacketStreamScanner
         return true;
     }
 
-    private static bool TryReadZeny(byte[] data, int offset, out RoZenyPacket packet)
+    private static bool TryReadZeny(byte[] data, int offset, out int length,
+        out RoZenyPacket packet)
     {
         packet = default;
-        if (offset + 8 > data.Length || ReadUInt16(data, offset + 2) != 20) return false;
+        length = ZenyPacketSize;
+        if (offset + length > data.Length || ReadUInt16(data, offset + 2) != 20) return false;
         var total = ReadUInt32(data, offset + 4);
         if (total > 2_000_000_000) return false;
         packet = new RoZenyPacket(total);
         return true;
     }
 
-    private static bool TryReadEquipmentList(byte[] data, int offset, out int length,
-        out List<RoEquipmentPacket> entries)
+    private static bool TryReadEquipmentListHeader(byte[] data, int offset, out int length)
     {
-        entries = [];
         length = 0;
         if (offset + 4 > data.Length) return false;
         length = ReadUInt16(data, offset + 2);
-        if (length < 4 || length > 8192 || offset + length > data.Length || (length - 4) % 20 != 0)
-            return false;
+        return length >= 4 && length <= MaximumEquipmentListLength &&
+               offset + length <= data.Length && (length - 4) % 20 == 0;
+    }
 
+    private static List<RoEquipmentPacket> ReadEquipmentListEntries(byte[] data, int offset,
+        int length)
+    {
+        var entries = new List<RoEquipmentPacket>();
         for (var position = offset + 4; position + 20 <= offset + length; position += 20)
         {
             var inventoryIndex = ReadUInt16(data, position);
@@ -385,19 +414,18 @@ public sealed class RoPacketStreamScanner
             entries.Add(new RoEquipmentPacket(0x00A4, inventoryIndex, itemId,
                 wearState != 0 ? wearState : allowedLocation, wearState != 0, true));
         }
-        return true;
+        return entries;
     }
 
-    private static bool TryReadRtmEquipmentList(byte[] data, int offset, out int length,
-        out List<RoEquipmentPacket> entries)
+    private static bool TryReadRtmEquipmentListHeader(byte[] data, int offset, out int length,
+        out int entrySize)
     {
-        entries = [];
         length = 0;
+        entrySize = 0;
         if (offset + RtmEquipmentListHeaderSize > data.Length) return false;
 
         length = ReadUInt16(data, offset + 2);
-        if (length < RtmEquipmentListHeaderSize || length > 65535 ||
-            offset + length > data.Length)
+        if (length < RtmEquipmentListHeaderSize || offset + length > data.Length)
             return false;
 
         // 0x0B39 is shared by inventory, cart and storage. rAthena uses
@@ -407,13 +435,18 @@ public sealed class RoPacketStreamScanner
         if (data[offset + 4] != 0) return false;
 
         var payloadLength = length - RtmEquipmentListHeaderSize;
-        var entrySize = payloadLength % RtmEquipmentEntrySizeCurrent == 0
+        entrySize = payloadLength % RtmEquipmentEntrySizeCurrent == 0
             ? RtmEquipmentEntrySizeCurrent
             : payloadLength % RtmEquipmentEntrySizeLegacy == 0
                 ? RtmEquipmentEntrySizeLegacy
                 : 0;
-        if (entrySize == 0) return false;
+        return entrySize != 0;
+    }
 
+    private static List<RoEquipmentPacket> ReadRtmEquipmentListEntries(byte[] data, int offset,
+        int length, int entrySize)
+    {
+        var entries = new List<RoEquipmentPacket>();
         for (var position = offset + RtmEquipmentListHeaderSize;
              position + entrySize <= offset + length;
              position += entrySize)
@@ -443,7 +476,7 @@ public sealed class RoPacketStreamScanner
                 optionsSignature));
         }
 
-        return true;
+        return entries;
     }
 
     private static bool TryReadRtmAddedEquipment(byte[] data, int offset,
@@ -520,10 +553,11 @@ public sealed class RoPacketStreamScanner
     }
 
     private static bool TryReadEquipChange(byte[] data, int offset, bool equipped,
-        out RoEquipmentPacket packet)
+        out int length, out RoEquipmentPacket packet)
     {
         packet = default;
-        if (offset + 7 > data.Length) return false;
+        length = EquipChangePacketSize;
+        if (offset + length > data.Length) return false;
         var inventoryIndex = ReadUInt16(data, offset + 2);
         var wearLocation = ReadUInt16(data, offset + 4);
         var resultOffset = offset + 6;
@@ -538,10 +572,10 @@ public sealed class RoPacketStreamScanner
     }
 
     private static bool TryReadRtmEquipChange(byte[] data, int offset, bool equipped,
-        out RoEquipmentPacket packet)
+        out int length, out RoEquipmentPacket packet)
     {
         packet = default;
-        var length = equipped ? 11 : 9;
+        length = equipped ? RtmEquipPacketSize : RtmUnequipPacketSize;
         if (offset + length > data.Length) return false;
 
         var inventoryIndex = ReadUInt16(data, offset + 2);

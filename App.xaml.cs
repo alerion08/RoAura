@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -9,7 +11,19 @@ namespace RoAura;
 
 public partial class App : Application
 {
+    private const string SingleInstanceMutexName = @"Local\RoAura.SingleInstance";
+    private const string ActivateEventName = @"Local\RoAura.Activate";
+    public static string VersionString { get; } =
+        Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "0.0.0";
+
     private SettingsStore? _settingsStore;
+    private bool _settingsLoaded;
+    private Mutex? _singleInstanceMutex;
+    private bool _ownsSingleInstance;
+    private EventWaitHandle? _activateEvent;
+    private RegisteredWaitHandle? _activateRegistration;
+    private DateTime _lastRecoverableExceptionUtc = DateTime.MinValue;
+    private bool _startupCompleted;
     private GlobalInputHook? _inputHook;
     private OverlayWindow? _overlay;
     private MainWindow? _settingsWindow;
@@ -32,22 +46,138 @@ public partial class App : Application
 
     public App()
     {
+        AppDomain.CurrentDomain.UnhandledException += (_, args) =>
+            DebugLog.Write($"UNHANDLED DOMAIN ERROR (terminating={args.IsTerminating}): {args.ExceptionObject}");
+        TaskScheduler.UnobservedTaskException += (_, args) =>
+        {
+            DebugLog.Write($"UNOBSERVED TASK ERROR: {args.Exception}");
+            args.SetObserved();
+        };
         DispatcherUnhandledException += (_, args) =>
         {
             DebugLog.Write($"UNHANDLED UI ERROR: {args.Exception}");
-            if (Environment.GetCommandLineArgs().Any(argument =>
-                    string.Equals(argument, "--smoke-test", StringComparison.OrdinalIgnoreCase)))
+            if (IsSmokeTest())
             {
                 args.Handled = true;
                 Shutdown(-1);
                 return;
             }
+
+            // Clipboard/COM glitches, WPF layout and argument errors inside a
+            // single handler are not worth killing the overlay for. Allow one
+            // such error per 10 seconds once startup has finished; a repeating
+            // error or an error during startup is still fatal.
+            if (_startupCompleted &&
+                args.Exception is COMException or InvalidOperationException or ArgumentException)
+            {
+                var now = DateTime.UtcNow;
+                if (now - _lastRecoverableExceptionUtc >= TimeSpan.FromSeconds(10))
+                {
+                    _lastRecoverableExceptionUtc = now;
+                    args.Handled = true;
+                    DebugLog.Write("UNHANDLED UI ERROR treated as non-fatal; continuing.");
+                    var english = _settingsWindow?.Settings.Language == "en";
+                    try
+                    {
+                        MessageBox.Show(
+                            (english
+                                ? "RoAura encountered an error but will keep running.\n\n"
+                                : "В RoAura произошла ошибка, но программа продолжит работу.\n\n") +
+                            $"{args.Exception.Message}\n\n{(english ? "Log" : "Журнал")}: {DebugLog.PathName}",
+                            "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugLog.Write($"NON-FATAL ERROR DIALOG FAILED: {ex}");
+                    }
+                    return;
+                }
+            }
+
             MessageBox.Show(
                 $"RoAura encountered an error and must close.\n\n{args.Exception.Message}\n\nLog: {DebugLog.PathName}",
                 "RoAura", MessageBoxButton.OK, MessageBoxImage.Error);
             args.Handled = true;
             Shutdown(-1);
         };
+    }
+
+    private static bool IsSmokeTest() =>
+        Environment.GetCommandLineArgs().Any(argument =>
+            string.Equals(argument, "--smoke-test", StringComparison.OrdinalIgnoreCase));
+
+    private bool TryClaimSingleInstance()
+    {
+        try
+        {
+            _singleInstanceMutex = new Mutex(true, SingleInstanceMutexName, out var createdNew);
+            if (!createdNew)
+            {
+                // Another RoAura is running: ask it to show its settings window.
+                try
+                {
+                    using var activate = EventWaitHandle.OpenExisting(ActivateEventName);
+                    activate.Set();
+                }
+                catch (Exception ex)
+                {
+                    DebugLog.Write($"SINGLE INSTANCE ACTIVATE ERROR: {ex}");
+                }
+                _singleInstanceMutex.Dispose();
+                _singleInstanceMutex = null;
+                return false;
+            }
+
+            _ownsSingleInstance = true;
+            _activateEvent = new EventWaitHandle(false, EventResetMode.AutoReset, ActivateEventName);
+            _activateRegistration = ThreadPool.RegisterWaitForSingleObject(_activateEvent,
+                (_, _) => Dispatcher.BeginInvoke(() => ShowSettingsFromSecondInstance()), null, -1, false);
+        }
+        catch (Exception ex)
+        {
+            // A broken mutex must never block startup; just run without the guard.
+            DebugLog.Write($"SINGLE INSTANCE SETUP ERROR: {ex}");
+        }
+        return true;
+    }
+
+    private void ShowSettingsFromSecondInstance()
+    {
+        if (_settingsWindow is null) return;
+        if (_overlay?.IsBusyEditing == true)
+        {
+            ExitOverlayEditMode();
+            return;
+        }
+        _settingsWindow.Show();
+        if (_settingsWindow.WindowState == WindowState.Minimized)
+            _settingsWindow.WindowState = WindowState.Normal;
+        _settingsWindow.Activate();
+    }
+
+    private void ReleaseSingleInstance()
+    {
+        try
+        {
+            _activateRegistration?.Unregister(null);
+            _activateRegistration = null;
+            _activateEvent?.Dispose();
+            _activateEvent = null;
+            if (_singleInstanceMutex is not null)
+            {
+                if (_ownsSingleInstance)
+                {
+                    try { _singleInstanceMutex.ReleaseMutex(); }
+                    catch (ApplicationException) { }
+                }
+                _singleInstanceMutex.Dispose();
+                _singleInstanceMutex = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugLog.Write($"SINGLE INSTANCE RELEASE ERROR: {ex}");
+        }
     }
 
     public void ResetPacketSession(bool resetTrackedState = false)
@@ -81,10 +211,35 @@ public partial class App : Application
         RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
         base.OnStartup(e);
 
+        // The CI smoke test may run next to a developer's live instance.
+        if (!IsSmokeTest() && !TryClaimSingleInstance())
+        {
+            DebugLog.Write("START skipped: another RoAura instance is already running.");
+            Shutdown();
+            return;
+        }
+
         _settingsStore = new SettingsStore();
         var settings = _settingsStore.Load();
+        _settingsLoaded = true;
         _itemCatalog = ItemCatalogService.Load(settings.LootDatabaseVersion);
         LocalizationService.ApplyLanguage(settings.Language);
+        if (_settingsStore.LoadFailed)
+        {
+            var recoveryLocation = _settingsStore.LoadRecoveryPath ?? _settingsStore.RecoveryDirectory;
+            MessageBox.Show(
+                settings.Language == "en"
+                    ? "The RoAura settings file is damaged and could not be read.\n\n" +
+                      $"A copy of the damaged file was saved to:\n{recoveryLocation}\n\n" +
+                      "Default settings are in use. Presets and backups are kept in the Profiles and Recovery folders.\n\n" +
+                      $"Error: {_settingsStore.LoadError}"
+                    : "Файл настроек RoAura повреждён и не может быть прочитан.\n\n" +
+                      $"Копия повреждённого файла сохранена:\n{recoveryLocation}\n\n" +
+                      "Используются настройки по умолчанию. Пресеты и резервные копии остались в папках Profiles и Recovery.\n\n" +
+                      $"Ошибка: {_settingsStore.LoadError}",
+                "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _settingsStore.AcceptDefaults();
+        }
 
         _packetCapture = new NpcapPacketCapture();
         _packetCapture.StatusChanged += OnPacketStatusChanged;
@@ -172,7 +327,7 @@ public partial class App : Application
                 "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
-        DebugLog.Write("START RoAura 2.13.2 · Gold Goblin layout and editing update");
+        DebugLog.Write($"START RoAura {VersionString} · Gold Goblin layout and editing update");
 
         if (settings.PacketCaptureEnabled && !NpcapPacketCapture.IsNpcapInstalled())
         {
@@ -182,6 +337,7 @@ public partial class App : Application
         }
 
         _packetCapture.ApplySettings(settings);
+        _startupCompleted = true;
         Dispatcher.BeginInvoke(async () =>
         {
             await Task.Delay(TimeSpan.FromSeconds(3));
@@ -635,10 +791,32 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
-        _packetCapture?.Dispose();
-        _inputHook?.SetKeyboardBlocked(false);
-        _inputHook?.Dispose();
-        _settingsStore?.Save(_settingsWindow?.Settings ?? new AppSettings());
+        try { _packetCapture?.Dispose(); }
+        catch (Exception ex) { DebugLog.Write($"EXIT PACKET CAPTURE DISPOSE ERROR: {ex}"); }
+        try
+        {
+            _inputHook?.SetKeyboardBlocked(false);
+            _inputHook?.Dispose();
+        }
+        catch (Exception ex) { DebugLog.Write($"EXIT HOOK DISPOSE ERROR: {ex}"); }
+
+        try
+        {
+            // Save only the settings that were actually loaded and shown; a
+            // failed startup or a preset switch must not overwrite settings.json.
+            if (_settingsStore is null || !_settingsLoaded || _settingsWindow is null)
+                DebugLog.Write("EXIT: settings were not loaded; nothing saved.");
+            else if (_settingsStore.ExitSaveSuppressed)
+                DebugLog.Write("EXIT: a preset was applied; settings.json left untouched.");
+            else
+                _settingsStore.Save(_settingsWindow.Settings);
+        }
+        catch (Exception ex)
+        {
+            DebugLog.Write($"EXIT SAVE ERROR: {ex}");
+        }
+
+        ReleaseSingleInstance();
         base.OnExit(e);
     }
 

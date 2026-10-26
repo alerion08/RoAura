@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using RoAura.Models;
@@ -6,6 +7,14 @@ namespace RoAura.Services;
 
 public static class ItemCatalogService
 {
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
+    private static readonly Regex SlotSuffixRegex = new(@"\[([0-9]+)\]\s*$", RegexOptions.Compiled);
+    // App and MainWindow each load the catalog at startup; parsing the same file
+    // again is wasted work, so the parsed result is reused until the file changes.
+    private static readonly object CacheSync = new();
+    private static readonly Dictionary<string, (DateTime LastWriteUtc, DateTime EnrichmentWriteUtc, IReadOnlyDictionary<int, ItemEntry> Items)> Cache =
+        new(StringComparer.OrdinalIgnoreCase);
+
     public static IReadOnlyDictionary<int, ItemEntry> Load(string? gameVersion = null)
     {
         var version = GameDatabaseVersion.Normalize(gameVersion);
@@ -21,36 +30,51 @@ public static class ItemCatalogService
             candidates.Add(Path.Combine(AppContext.BaseDirectory, "items.json"));
         }
 
+        var enrichmentPath = EnrichmentPath();
         foreach (var path in candidates)
         {
             try
             {
                 if (!File.Exists(path)) continue;
-                var items = JsonSerializer.Deserialize<List<ItemEntry>>(File.ReadAllText(path),
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? [];
+                var lastWriteUtc = File.GetLastWriteTimeUtc(path);
+                var enrichmentWriteUtc = version == GameDatabaseVersion.SpringRo && File.Exists(enrichmentPath)
+                    ? File.GetLastWriteTimeUtc(enrichmentPath)
+                    : DateTime.MinValue;
+                var cacheKey = $"{version}|{path}";
+                lock (CacheSync)
+                {
+                    if (Cache.TryGetValue(cacheKey, out var cached) &&
+                        cached.LastWriteUtc == lastWriteUtc && cached.EnrichmentWriteUtc == enrichmentWriteUtc)
+                        return cached.Items;
+                }
+
+                var items = JsonSerializer.Deserialize<List<ItemEntry>>(File.ReadAllText(path), JsonOptions) ?? [];
                 var result = items.GroupBy(item => item.Id).ToDictionary(group => group.Key,
                     group => group.First());
                 if (version == GameDatabaseVersion.SpringRo)
                 {
-                    ApplySpringRoExactNames(result);
+                    ApplySpringRoExactNames(result, enrichmentPath);
                     result[7539] = new ItemEntry { Id = 7539, Name = "Poring Coin", Type = "Loot" };
                 }
+                lock (CacheSync) Cache[cacheKey] = (lastWriteUtc, enrichmentWriteUtc, result);
                 return result;
             }
             catch (Exception ex)
             {
-                DebugLog.Write($"ITEM CATALOG ERROR {path}: {ex.Message}");
+                DebugLog.Write($"ITEM CATALOG ERROR {path}: {ex}");
             }
         }
 
         return new Dictionary<int, ItemEntry>();
     }
 
-    private static void ApplySpringRoExactNames(Dictionary<int, ItemEntry> items)
+    private static string EnrichmentPath() =>
+        Path.Combine(AppContext.BaseDirectory, "Data", "database.springro.json");
+
+    private static void ApplySpringRoExactNames(Dictionary<int, ItemEntry> items, string path)
     {
         try
         {
-            var path = Path.Combine(AppContext.BaseDirectory, "Data", "database.springro.json");
             if (!File.Exists(path)) return;
             using var document = JsonDocument.Parse(File.ReadAllText(path));
             if (!document.RootElement.TryGetProperty("Monsters", out var monsters)) return;
@@ -94,13 +118,13 @@ public static class ItemCatalogService
         }
         catch (Exception ex)
         {
-            DebugLog.Write($"SPRING ITEM NAME ENRICHMENT ERROR: {ex.Message}");
+            DebugLog.Write($"SPRING ITEM NAME ENRICHMENT ERROR: {ex}");
         }
     }
 
     private static int SlotSuffix(string value)
     {
-        var match = Regex.Match(value ?? "", @"\[(\d+)\]\s*$");
-        return match.Success && int.TryParse(match.Groups[1].Value, out var slots) ? slots : -1;
+        var match = SlotSuffixRegex.Match(value ?? "");
+        return match.Success && int.TryParse(match.Groups[1].Value, NumberStyles.None, CultureInfo.InvariantCulture, out var slots) ? slots : -1;
     }
 }

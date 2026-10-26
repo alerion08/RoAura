@@ -1,14 +1,29 @@
+param(
+    # Terminate a running RoAura.exe before publishing. Off by default so a
+    # build never kills the developer's live session by accident.
+    [switch]$KillRunning
+)
+
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $projectRoot
 
-Stop-Process -Name RoAura -Force -ErrorAction SilentlyContinue
+if ($KillRunning) {
+    Stop-Process -Name RoAura -Force -ErrorAction SilentlyContinue
+}
+
+# The version is defined once in RoAura.csproj; every artifact name derives from it.
+[xml]$projectXml = Get-Content -Raw .\RoAura.csproj
+$projectVersion = [string]$projectXml.Project.PropertyGroup.Version
+if ([string]::IsNullOrWhiteSpace($projectVersion)) {
+    throw "RoAura.csproj does not define <Version>."
+}
 
 $artifactRoot = Join-Path $projectRoot "artifacts"
 $publishDir = Join-Path $artifactRoot "publish"
-$portableZip = Join-Path $artifactRoot "RoAura-2.13.2-portable.zip"
+$portableZip = Join-Path $artifactRoot "RoAura-$projectVersion-portable.zip"
 
 $dotnetCommand = Get-Command dotnet -ErrorAction SilentlyContinue
 if ($null -eq $dotnetCommand) {
@@ -29,19 +44,12 @@ if (-not ($installedSdks -match '^8\.')) {
     throw "The .NET 8 SDK (x64) is required. Installed SDKs: $installedSdkText. Download: https://dotnet.microsoft.com/download/dotnet/8.0"
 }
 
-# Keep every public version identifier synchronized. A mismatched portable
-# filename or Setup version makes update detection and support diagnostics
-# unreliable even when compilation succeeds.
-[xml]$projectXml = Get-Content -Raw .\RoAura.csproj
-$projectVersion = [string]$projectXml.Project.PropertyGroup.Version
-$installerText = Get-Content -Raw .\installer.iss
-$installerVersionMatch = [regex]::Match($installerText, '#define\s+MyAppVersion\s+"([^"]+)"')
-if (-not $installerVersionMatch.Success -or $installerVersionMatch.Groups[1].Value -ne $projectVersion) {
-    throw "Version mismatch: RoAura.csproj=$projectVersion, installer.iss=$($installerVersionMatch.Groups[1].Value)."
-}
-$expectedPortableName = "RoAura-$projectVersion-portable.zip"
-if ([System.IO.Path]::GetFileName($portableZip) -ne $expectedPortableName) {
-    throw "Version mismatch: portable archive must be named '$expectedPortableName'."
+# app.manifest cannot read the csproj version; fail early if it drifted so the
+# executable's embedded manifest and file version never disagree.
+$manifestText = Get-Content -Raw .\app.manifest
+$manifestVersionMatch = [regex]::Match($manifestText, '<assemblyIdentity\s+version="([^"]+)"')
+if (-not $manifestVersionMatch.Success -or $manifestVersionMatch.Groups[1].Value -ne "$projectVersion.0") {
+    throw "Version mismatch: RoAura.csproj=$projectVersion, app.manifest=$($manifestVersionMatch.Groups[1].Value). Expected '$projectVersion.0'."
 }
 
 # RU and EN dictionaries must expose exactly the same keys. Also verify every
@@ -139,13 +147,16 @@ foreach ($privateDirectory in @("Profiles", "Recovery")) {
 if (Test-Path $portableZip) {
     Remove-Item $portableZip -Force
 }
-Compress-Archive -Path (Join-Path $publishDir "*") -DestinationPath $portableZip -CompressionLevel Optimal
+# ZipFile.CreateFromDirectory writes forward-slash entry names on every
+# PowerShell version; Windows PowerShell 5.1 Compress-Archive emits backslash
+# paths that some extractors turn into flat files named "Data\x.json".
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+[System.IO.Compression.ZipFile]::CreateFromDirectory($publishDir, $portableZip, [System.IO.Compression.CompressionLevel]::Optimal, $false)
 
 if (-not (Test-Path $portableZip -PathType Leaf)) {
     throw "Could not create the portable archive: $portableZip"
 }
 
-Add-Type -AssemblyName System.IO.Compression.FileSystem
 $archive = [System.IO.Compression.ZipFile]::OpenRead($portableZip)
 try {
     $privateEntry = $archive.Entries | Where-Object {
@@ -163,5 +174,7 @@ finally {
     $archive.Dispose()
 }
 
+$portableHash = (Get-FileHash $portableZip -Algorithm SHA256).Hash.ToLowerInvariant()
 Write-Host "Portable build: $portableZip"
+Write-Host "SHA256:         $portableHash"
 Write-Host "Executable:     $publishedExecutable"

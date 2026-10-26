@@ -78,6 +78,108 @@ public sealed class SettingsStoreTests : IDisposable
     }
 
     [Fact]
+    public void CorruptWorkingJsonIsPreservedUntilDefaultsAreAccepted()
+    {
+        Directory.CreateDirectory(_root);
+        var settingsPath = Path.Combine(_root, "settings.json");
+        const string invalidJson = "{ definitely not valid json";
+        File.WriteAllText(settingsPath, invalidJson);
+        var store = new SettingsStore(_root);
+
+        var settings = store.Load();
+
+        Assert.True(store.LoadFailed);
+        Assert.False(string.IsNullOrWhiteSpace(store.LoadError));
+        Assert.NotNull(store.LoadRecoveryPath);
+        Assert.True(File.Exists(store.LoadRecoveryPath));
+        Assert.Equal(invalidJson, File.ReadAllText(store.LoadRecoveryPath!));
+        Assert.NotEmpty(Directory.EnumerateFiles(store.RecoveryDirectory, "settings.corrupt.*.json"));
+
+        store.Save(settings);
+        Assert.Equal(invalidJson, File.ReadAllText(settingsPath));
+
+        store.AcceptDefaults();
+        Assert.False(store.LoadFailed);
+        store.Save(settings);
+        Assert.NotEqual(invalidJson, File.ReadAllText(settingsPath));
+        Assert.Equal(11, new SettingsStore(_root).Load().SettingsVersion);
+    }
+
+    [Fact]
+    public void NullCollectionsInWorkingJsonAreReplacedWithEmptyOnes()
+    {
+        Directory.CreateDirectory(_root);
+        File.WriteAllText(Path.Combine(_root, "settings.json"), """
+        {
+          "SettingsVersion": 11,
+          "Skills": null,
+          "Effects": null,
+          "RewardChannels": null,
+          "RateIndicators": null,
+          "AllowedProcesses": null
+        }
+        """);
+        var store = new SettingsStore(_root);
+
+        var settings = store.Load();
+
+        Assert.False(store.LoadFailed);
+        Assert.NotNull(settings.Skills);
+        Assert.Empty(settings.Skills);
+        Assert.NotNull(settings.Effects);
+        Assert.NotNull(settings.AllowedProcesses);
+        Assert.Equal(3, settings.RewardChannels.Count);
+        Assert.Equal(6, settings.RateIndicators.Count);
+    }
+
+    [Fact]
+    public void NewerSettingsVersionIsCopiedBeforeMigration()
+    {
+        Directory.CreateDirectory(_root);
+        File.WriteAllText(Path.Combine(_root, "settings.json"), """{ "SettingsVersion": 99, "PacketServerPort": 4242 }""");
+        var store = new SettingsStore(_root);
+
+        var settings = store.Load();
+
+        Assert.False(store.LoadFailed);
+        Assert.Equal(11, settings.SettingsVersion);
+        Assert.Equal(4242, settings.PacketServerPort);
+        var copy = Assert.Single(Directory.EnumerateFiles(store.RecoveryDirectory, "settings.newer.*.json"));
+        Assert.Contains("\"SettingsVersion\": 99", File.ReadAllText(copy));
+    }
+
+    [Fact]
+    public void EnumsAreStoredAsNamesAndLegacyIntegersStillLoad()
+    {
+        var store = new SettingsStore(_root);
+        store.Save(store.Load());
+        Assert.Contains("\"Kind\": \"Loot\"", File.ReadAllText(store.SettingsPath));
+
+        File.WriteAllText(store.SettingsPath, """
+        {
+          "SettingsVersion": 11,
+          "RewardChannels": [{ "Kind": 2, "GroupNumber": 3 }],
+        }
+        """);
+        var restored = new SettingsStore(_root).Load();
+        var experience = Assert.Single(restored.RewardChannels.Where(x => x.Kind == RewardKind.Experience));
+        Assert.Equal(3, experience.GroupNumber);
+    }
+
+    [Fact]
+    public void ApplyingProfileSuppressesExitSave()
+    {
+        var store = new SettingsStore(_root);
+        var settings = store.Load();
+        store.CreateProfile("Preset", settings);
+        Assert.False(store.ExitSaveSuppressed);
+
+        store.ApplyProfile("Preset");
+
+        Assert.True(store.ExitSaveSuppressed);
+    }
+
+    [Fact]
     public void FirstRunGuideIsOnlyPendingForNewInstallation()
     {
         var store = new SettingsStore(_root);
