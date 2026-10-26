@@ -97,13 +97,21 @@ jobs:
           }
           $lines | Set-Content .\artifacts\SHA256SUMS.txt -Encoding ascii
 
-      - name: Upload workflow artifact
+      - name: Upload portable workflow artifact
         uses: actions/upload-artifact@v6
         with:
-          name: RoAura-build-${{ github.run_number }}-${{ github.sha }}
+          name: RoAura-portable-${{ github.run_number }}-${{ github.sha }}
           path: |
-            artifacts/*.zip
-            artifacts/*.exe
+            artifacts/*-portable.zip
+            artifacts/SHA256SUMS.txt
+          if-no-files-found: error
+
+      - name: Upload installer workflow artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: RoAura-installer-${{ github.run_number }}-${{ github.sha }}
+          path: |
+            artifacts/*-Setup.exe
             artifacts/SHA256SUMS.txt
           if-no-files-found: error
 
