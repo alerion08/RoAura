@@ -1194,13 +1194,10 @@ public partial class OverlayWindow : Window
         if (!IsVisible && _gameWindowFound) Show();
         var hwnd = new WindowInteropHelper(this).Handle;
         if (hwnd == IntPtr.Zero || _gameWindowHandle == IntPtr.Zero) return;
-        // Only touch the z-order on a transition; WS_EX_TOPMOST survives
-        // Hide()/Show(), and re-issuing SetWindowPos ten times a second is
-        // wasted work. UpdateHostVisibility resets the flag when RO becomes
-        // foreground so the overlay is reinserted at the head of the band.
-        if (_isTopmost) return;
-        // Protected/fullscreen RO clients can occupy the topmost band. Raise
-        // the click-through overlay into that band only while RO is foreground.
+        // Do not trust the cached topmost state here. Protected/fullscreen RO
+        // clients can silently move their own HWND ahead of us in the topmost
+        // band without changing our WS_EX_TOPMOST flag. Reissuing this
+        // non-activating call is what keeps the click-through overlay visible.
         SetWindowPos(hwnd, HwndTopmost, 0, 0, 0, 0,
             SwpNoMove | SwpNoSize | SwpNoActivate);
         _isTopmost = true;
