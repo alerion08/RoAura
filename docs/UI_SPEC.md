@@ -110,17 +110,22 @@ This document records current product-level UI behavior. It is intentionally com
 
 ### Market watchlist
 
+- The watch table has exactly three columns with a filling name column and a centered Enabled checkbox. Below it, the selected item's history shows local detection time, stall name, map/coordinates and price, newest first. Without a selection it shows all stored entries.
+- General exposes history retention in whole days (1–3650, default 30). Cleanup runs at startup, when changing retention, during successful evaluation, and hourly even if the network is unavailable. Expired entries are deleted and may notify again on a later scan.
+- Every newly discovered qualifying SELL offer is recorded, while notifications remain grouped to the cheapest new match per item per refresh. Disk writes are atomic and happen before alerts are presented. A failed read preserves the file; read/write errors show a warning because cross-restart deduplication then cannot be guaranteed.
+- Sound volume is an integer percentage; slider steps are whole percentages and the choose/listen buttons have equal height.
+
 - A star on item results/details toggles tracking. Inactive stars are semi-transparent; active stars are dark blue.
 - Adding opens a borderless confirmation dialog centered in the gap between the search and detail panels, regardless of which star was clicked. Positions use the panels’ DIP coordinates and follow client repositioning. Maximum whole-Zeny price or Any price is required; Cancel changes nothing.
 - The Watchlist tab uses a left-hand table and a Gold Goblin-style editor card on the right. Add/edit/delete actions stay at the bottom of that card; selecting a row loads its rule into the editor.
 - Both the inline editor and the star dialog share a compact 32-DIP field editor. The refresh interval field is 30 DIP high; the star dialog is 400 DIP wide (20% narrower than the original).
 - Search suggestions appear in a popup with wrapping full names, slot suffixes and IDs. Opening/updating the popup must not select the first result, overwrite input, steal typing focus or select text. Only a click or keyboard confirmation writes a chosen name. The popup closes on outside click, focus loss or leaving the tab.
-- The third Watchlist column toggles each rule’s Enabled state without removing the item or price. Paused rules do not match snapshots; resuming rearms the next successful live check. Paused stars fade and can resume the saved rule. Editing a paused rule preserves its state. Old settings default to Enabled.
+- The third Watchlist column toggles each rule’s Enabled state without removing the item or price. Paused rules do not match snapshots; resuming checks the next live snapshot against retained history. Paused stars fade and can resume the saved rule. Editing a paused rule preserves its state. Old settings default to Enabled.
 - Notifications starts with a permanent live preview using the same `MarketWatchNotificationView` as the game overlay. Compact rows use narrow numeric fields; X/Y share one line. Show icon hides the icon and its margin. Sound has a listen action and a 0–100% volume slider/editor; both alerts and audition use that volume.
 - Move in game starts the existing overlay edit lifecycle with a persistent sample, client-relative drag and the configured finish hotkey (Escape by default). Finishing removes only placement samples, saves coordinates and restores click-through behavior. F9/settings shortcuts use the existing end-edit flow.
 - The Notifications tab retains `%name`/`%price`, custom/default icon, sizes, colors/alpha, padding, spacing, duration, sound and settings/preset compatibility.
-- Successful fresh SpringRO SELL snapshots trigger new qualifying offers only; existing cached data and failed refreshes do not trigger/rearm notifications. The first successful live snapshot may notify about already-present offers. Unchanged offers/quantity-only changes remain silent; a later absence and return may notify again.
-- Notifications stack in the existing overlay host and follow its visibility and F9 controls. Rules and appearance are stored in settings/presets; session notification history is not.
+- Successful fresh SpringRO SELL snapshots trigger new qualifying offers only; existing cached data and failed refreshes do not trigger/rearm notifications. The first successful live snapshot may notify about already-present offers. Unchanged offers/quantity-only changes remain silent, including after absence/return or restart while their history is retained. New seller/price/equipment variants are distinct offers.
+- Notifications stack in the existing overlay host and follow its visibility and F9 controls. Rules, appearance and retention duration are stored in settings/presets. Offer history is stored separately under `%LOCALAPPDATA%/RoAura/market-watch-history.json`, never inside a preset or portable package.
 
 ## Gold Goblin and Market
 

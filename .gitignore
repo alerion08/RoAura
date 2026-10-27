@@ -33,3 +33,7 @@ TestResults/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# Local Market watch history contains shop and discovery data.
+market-watch-history.json
+market-watch-history.json.*.tmp

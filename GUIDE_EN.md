@@ -168,7 +168,7 @@ Click ★ on an item result or its details, enter a maximum whole-Zeny price or 
 
 Database → Watchlist lets you add items by name/ID, edit rules and remove watches. Suggestions never replace your typing automatically; select the intended item. Notifications configures text (%name for item name, %price for price), icon, sizes, background/text colors, padding, spacing, X/Y, duration and sound. Use Test notification to preview it on the overlay; F9 controls visibility.
 
-Only successful fresh selling-shop snapshots are evaluated. The first refresh may notify about offers already present. Unchanged offers remain silent; a new seller/price or an absence followed by return can notify again. Multiple new matches for one item use the lowest qualifying price. Download failures do not count as an absence. Notification history lasts for the current session.
+Only successful fresh selling-shop snapshots are evaluated. The first refresh may notify about offers already present. Known offers remain silent after restart or absence/return while their history is retained; a new seller or price can notify again. Multiple new matches for one item use the lowest qualifying price. Download failures do not count as an absence. Offer history is stored locally and shown below the watchlist: time, shop, coordinates and price. General configures retention in whole days, default 30. Once an entry expires, its offer can notify again.
 
 Refresh interval: 1–1440 minutes, default 10. **Refreshing too frequently may result in a server-side block.** There is no hidden ten-minute floor; crawls do not overlap and server-directed back-off remains active.
 

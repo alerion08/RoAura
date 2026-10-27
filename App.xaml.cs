@@ -41,7 +41,11 @@ public partial class App : Application
     private DateTime _lastDatabaseToggleUtc = DateTime.MinValue;
     private readonly GitHubUpdateService _updateService = new();
     private SpringRoMarketService? _marketService;
-    private readonly MarketWatchService _marketWatch = new();
+    private MarketWatchService _marketWatch = new();
+    private System.Windows.Threading.DispatcherTimer? _watchHistoryTimer;
+    public IReadOnlyList<MarketWatchHistoryEntry> MarketWatchHistory => _marketWatch.History;
+    public bool MarketWatchHistoryPersistenceFailed => _marketWatch.HistoryPersistenceFailed;
+    public event Action? MarketWatchHistoryChanged;
     private readonly HashSet<MarketWatchRule> _observedWatchRules = [];
     private AppSettings? _marketWatchSettings;
     private GameDatabaseService? _watchDatabase;
@@ -67,7 +71,7 @@ public partial class App : Application
         if (existing is not null)
         {
             _marketWatchSettings.MarketWatchRules.Remove(existing);
-            _marketWatch.Forget(item.Id);
+
             PersistMarketWatchSettings();
         }
         else ShowMarketWatchDialog(owner, item, null);
@@ -97,7 +101,7 @@ public partial class App : Application
         var old = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == added.ItemId);
         if (old is not null) _marketWatchSettings.MarketWatchRules.Remove(old);
         _marketWatchSettings.MarketWatchRules.Add(added);
-        _marketWatch.Forget(added.ItemId);
+
         PersistMarketWatchSettings();
     }
 
@@ -111,8 +115,7 @@ public partial class App : Application
     }
     private void WatchRuleChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        if (sender is not MarketWatchRule rule || e.PropertyName != nameof(MarketWatchRule.Enabled)) return;
-        _marketWatch.Forget(rule.ItemId);
+        if (sender is not MarketWatchRule || e.PropertyName != nameof(MarketWatchRule.Enabled)) return;
         PersistMarketWatchSettings();
     }
     public void AuditionMarketWatchSound() => _overlay?.PlayMarketWatchSound();
@@ -344,18 +347,23 @@ public partial class App : Application
         _watchDatabase = new GameDatabaseService();
         foreach (var rule in settings.MarketWatchRules)
             if (_watchDatabase.Item(rule.ItemId) is { } knownItem) rule.ItemName = knownItem.Name;
-        settings.MarketWatchRules.CollectionChanged += (_, args) =>
+        _marketWatch = new MarketWatchService(new MarketWatchHistoryStore());
+        _marketWatch.HistoryChanged += () => MarketWatchHistoryChanged?.Invoke();
+        _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+        settings.PropertyChanged += (_, args) =>
         {
-            SyncWatchRuleSubscriptions();
-            if (args.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset) _marketWatch.Reset();
-            if (args.OldItems is not null)
-                foreach (MarketWatchRule rule in args.OldItems) _marketWatch.Forget(rule.ItemId);
+            if (args.PropertyName == nameof(AppSettings.MarketWatchHistoryRetentionDays))
+                _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
         };
+        _watchHistoryTimer = new System.Windows.Threading.DispatcherTimer { Interval = TimeSpan.FromHours(1) };
+        _watchHistoryTimer.Tick += (_, _) => _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+        _watchHistoryTimer.Start();
+        settings.MarketWatchRules.CollectionChanged += (_, _) => SyncWatchRuleSubscriptions();
         SyncWatchRuleSubscriptions();
         _marketService = new SpringRoMarketService();
         _marketService.SnapshotUpdated += snapshot => Dispatcher.BeginInvoke(() =>
         {
-            var matches = _marketWatch.Evaluate(settings.MarketWatchRules, snapshot);
+            var matches = _marketWatch.Evaluate(settings.MarketWatchRules, snapshot, settings.MarketWatchHistoryRetentionDays);
             if (settings.ServerProfile != GameServerProfile.SpringRo) return;
             foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
         });
@@ -898,6 +906,7 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
+        _watchHistoryTimer?.Stop();
         try { _packetCapture?.Dispose(); }
         catch (Exception ex) { DebugLog.Write($"EXIT PACKET CAPTURE DISPOSE ERROR: {ex}"); }
         try

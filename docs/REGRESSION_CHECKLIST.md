@@ -90,6 +90,12 @@ Use the smallest relevant section for normal changes. Complete all **Release blo
 
 ### Market tracking
 
+- [ ] Under the three-column watch table, select an item and inspect detection time, shop, map/coordinates and price in its history; check centered Enabled controls and no unused fourth column.
+- [ ] Detect several qualifying shops, restart, scan again: known offers remain silent and history stays visible. Removing/readding or pausing/resuming a watch does not forget its history. New prices/sellers still notify.
+- [ ] Retention in General accepts whole days and persists in presets. Expired entries are removed on startup, retention changes and periodic cleanup; they can notify again. History stays separate from presets and portable packages.
+- [ ] A history file read/write failure is nonfatal and shows a warning; unreadable data is not overwritten. Network errors do not erase history.
+- [ ] Volume shows integer percentages and slider steps; Choose sound and Listen have equal height.
+
 - [ ] Star dialog has no OS title bar and centers between both database panels from either star; move the game and test mixed/negative monitor coordinates while it is open.
 - [ ] Third-column checkbox pauses/resumes without losing item/price; disabled watches stay silent, editing preserves their state, restart/presets retain it, and the star reflects/resumes the rule.
 - [ ] Permanent preview updates live; Show icon removes the icon and its gap both there and in game. X/Y share a compact row; numeric drafts still commit only on Enter/blur.
@@ -99,7 +105,7 @@ Use the smallest relevant section for normal changes. Complete all **Release blo
 - [ ] In RU and EN, inactive stars on search rows and item details are semi-transparent; confirmed watches turn both dark blue; Cancel changes nothing; a second click removes the watch.
 - [ ] Watchlist uses a left table and a right editor card with bottom actions; refresh field is readable, item fields are compact, star dialog is 20% narrower. Add/edit/remove via Watchlist. Search by name/ID in the popup, type/paste/replace several characters without auto-selection or caret jumps; confirm by click or Down/Enter, dismiss by Escape/outside click/tab change. Jur [2]/[3] and other slot variants show their full names. Reject absent/ambiguous items, empty/negative/overflowing prices; Any price disables price input.
 - [ ] Max price includes equality; above-threshold/BUY/other IDs do not notify. Any price accepts any valid sale price.
-- [ ] First successful fresh snapshot can notify once. Unchanged offers and quantity changes do not repeat; a new seller/price or disappearance/return does.
+- [ ] First successful fresh snapshot can notify once. Unchanged offers and quantity changes do not repeat; a new seller/price notifies, while disappearance/return stays silent until the stored entry expires.
 - [ ] Network errors/partial/invalid pages preserve cache and do not reset match history. A genuine empty snapshot removes stale offers.
 - [ ] Set refresh to 1 minute; the service no longer skips for ten minutes. Warning is visible; crawls do not overlap and 429/5xx back-off still applies.
 - [ ] Configure template tags, custom/default icon, icon/text size, colors/alpha, padding, spacing, X/Y, duration and sound; use Test notification. Numeric input keeps the full typing draft.

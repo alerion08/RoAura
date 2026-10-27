@@ -29,7 +29,7 @@ public sealed class MarketWatchNotificationSettings : INotifyPropertyChanged
     private double _iconSize = 40, _textSize = 22, _padding = 10, _gap = 6, _duration = 6, _x = 400, _y = 120, _soundVolume = 100;
     public bool Enabled { get => _enabled; set => Set(ref _enabled, value); }
     public bool ShowIcon { get => _showIcon; set => Set(ref _showIcon, value); }
-    public double SoundVolumePercent { get => _soundVolume; set => Set(ref _soundVolume, Limit(value, 0, 100, 100)); }
+    public double SoundVolumePercent { get => _soundVolume; set => Set(ref _soundVolume, Math.Round(Limit(value, 0, 100, 100), MidpointRounding.AwayFromZero)); }
     public string TextTemplate { get => _text; set => Set(ref _text, value ?? ""); }
     public string IconImageBase64 { get => _icon; set => Set(ref _icon, value ?? ""); }
     public double IconSize { get => _iconSize; set => Set(ref _iconSize, Limit(value, 0, 180, 40)); }

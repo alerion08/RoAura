@@ -40,6 +40,7 @@ public sealed class LayoutInputTests
 
     // Use the actual editor and model binding from the view.
     [Theory]
+    [InlineData("MarketWatchNotificationSettings", "SoundVolumePercent", "41.798", 42d)]
     [InlineData("MarketWatchNotificationSettings", "SoundVolumePercent", "50", 50d)]
     [InlineData("MarketWatchNotificationSettings", "IconSize", "64", 64d)]
     [InlineData("MarketWatchNotificationSettings", "TextSize", "24", 24d)]

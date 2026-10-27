@@ -15,7 +15,7 @@ public sealed class MarketWatchTests
         new() { ItemId = 730, ItemName = "Diamond", Price = price, Owner = owner, ShopType = type };
 
     [Fact]
-    public void PausingKeepsTheRuleAndResumingRearmsTheNextFreshSnapshot()
+    public void PausingKeepsTheRuleAndResumingOnlyFindsPreviouslyUnknownOffers()
     {
         var rule = Rule(maximum: 150);
         var service = new MarketWatchService();
@@ -25,8 +25,8 @@ public sealed class MarketWatchTests
         Assert.Equal(150, rule.MaximumPrice);
         Assert.Equal("Diamond", rule.ItemName);
         rule.Enabled = true;
-        Assert.Single(service.Evaluate([rule], [Listing()]));
         Assert.Empty(service.Evaluate([rule], [Listing()]));
+        Assert.Single(service.Evaluate([rule], [Listing("50 z", "Bob")]));
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public sealed class MarketWatchTests
     }
 
     [Fact]
-    public void SameOfferIsSilentNewSellerOrLowerPriceNotifiesAndEmptySnapshotRearms()
+    public void SameOfferIsSilentAndAbsenceDoesNotForgetItButNewSellerOrPriceNotifies()
     {
         var service = new MarketWatchService();
         Assert.Single(service.Evaluate([Rule()], [Listing()]));
@@ -88,19 +88,18 @@ public sealed class MarketWatchTests
         Assert.Single(service.Evaluate([Rule()], [Listing(), Listing(owner: "Bob")]));
         Assert.Single(service.Evaluate([Rule()], [Listing("99 z")]));
         Assert.Empty(service.Evaluate([Rule()], []));
-        Assert.Single(service.Evaluate([Rule()], [Listing("99 z")]));
+        Assert.Empty(service.Evaluate([Rule()], [Listing("99 z")]));
     }
 
     [Fact]
-    public void RuleChangesRemovalAndReadditionAreIndependent()
+    public void RemovingAndReaddingARuleDoesNotForgetKnownOffers()
     {
         var service = new MarketWatchService();
         Assert.Empty(service.Evaluate([Rule(maximum: 90)], [Listing()]));
         Assert.Single(service.Evaluate([Rule()], [Listing()]));
         Assert.Empty(service.Evaluate([], [Listing()]));
-        Assert.Single(service.Evaluate([Rule()], [Listing()]));
-        service.Forget(730);
-        Assert.Single(service.Evaluate([Rule()], [Listing()]));
+        Assert.Empty(service.Evaluate([Rule()], [Listing()]));
+        Assert.Single(service.Evaluate([Rule()], [Listing(owner: "Bob")]));
     }
 
     [Fact]
@@ -124,6 +123,7 @@ public sealed class MarketWatchTests
             var savedRule = Rule(); savedRule.Enabled = false;
             settings.MarketWatchRules.Add(savedRule);
             settings.MarketBackgroundRefreshMinutes = 1;
+            settings.MarketWatchHistoryRetentionDays = 14;
             settings.MarketWatchNotifications.TextTemplate = "%name: %price";
             settings.MarketWatchNotifications.ShowIcon = false;
             settings.MarketWatchNotifications.SoundVolumePercent = 35;
@@ -140,6 +140,7 @@ public sealed class MarketWatchTests
             Assert.False(restored.MarketWatchNotifications.ShowIcon);
             Assert.Equal(35, restored.MarketWatchNotifications.SoundVolumePercent);
             Assert.Equal(1, restored.MarketBackgroundRefreshMinutes);
+            Assert.Equal(14, restored.MarketWatchHistoryRetentionDays);
             Assert.Equal(0, restored.MarketWatchNotifications.Padding);
             Assert.Equal(-45.5, restored.MarketWatchNotifications.X);
             Assert.Equal("%name: %price", restored.MarketWatchNotifications.TextTemplate);

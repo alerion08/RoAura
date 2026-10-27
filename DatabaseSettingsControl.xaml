@@ -2,6 +2,10 @@
  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
  xmlns:controls="clr-namespace:RoAura.Controls" xmlns:local="clr-namespace:RoAura" xmlns:converters="clr-namespace:RoAura.Converters" LostKeyboardFocus="Settings_LostFocus">
  <UserControl.Resources>
+  <Style x:Key="WatchTableRow" TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}"><Setter Property="MinHeight" Value="26"/><Setter Property="Height" Value="26"/></Style>
+  <Style x:Key="WatchTableHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"><Setter Property="Height" Value="28"/><Setter Property="Padding" Value="6,2"/></Style>
+  <Style x:Key="WatchTableCell" TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}"><Setter Property="Padding" Value="5,2"/></Style>
+
   <converters:ColorStringToBrushConverter x:Key="WatchColorBrush"/>
   <converters:DoubleToThicknessConverter x:Key="WatchPadding"/>
   <Style x:Key="WatchNumber" TargetType="controls:NumericTextBox" BasedOn="{StaticResource {x:Type TextBox}}">
@@ -28,6 +32,11 @@
                                 <TextBlock Text="{DynamicResource MarketRefreshInterval}" VerticalAlignment="Center" Margin="0,0,10,0"/>
                                 <controls:NumericTextBox Width="90" Height="30" MinHeight="30" Padding="7,0" VerticalContentAlignment="Center" Value="{Binding MarketBackgroundRefreshMinutes, Mode=TwoWay}"/>
                             </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <TextBlock Text="{DynamicResource WatchHistoryRetentionDays}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                <controls:NumericTextBox Width="90" Height="30" Padding="7,0" VerticalContentAlignment="Center" Value="{Binding MarketWatchHistoryRetentionDays, Mode=TwoWay}"/>
+                            </StackPanel>
+                            <TextBlock Text="{DynamicResource WatchHistoryRetentionHint}" TextWrapping="Wrap" Margin="0,6,0,0" Foreground="{StaticResource RoMutedBrush}"/>
                             <TextBlock Margin="0,12,0,0" Foreground="#A34C13" TextWrapping="Wrap" Text="{DynamicResource MarketRefreshWarning}"/>
                             <TextBlock Margin="0,18,0,0" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Text="{DynamicResource DatabaseInputHint}"/>
                             <TextBlock Margin="0,8,0,0" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Text="{DynamicResource DatabaseSearchLimitHint}"/>
@@ -37,13 +46,46 @@
    <Grid Margin="14">
     <Grid.ColumnDefinitions><ColumnDefinition Width="*" MinWidth="330"/><ColumnDefinition Width="14"/><ColumnDefinition Width="0.85*" MinWidth="340"/></Grid.ColumnDefinitions>
     <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-    <ListView x:Name="WatchList" Grid.Row="0" ItemsSource="{Binding MarketWatchRules}" SelectionChanged="WatchList_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-     <ListView.View><GridView><GridViewColumn Header="{DynamicResource Name}" Width="245" DisplayMemberBinding="{Binding Caption}"/>
-      <GridViewColumn Header="{DynamicResource WatchPriceRule}" Width="170" DisplayMemberBinding="{Binding PriceCaption}"/>
-      <GridViewColumn Header="{DynamicResource Enabled}" Width="90"><GridViewColumn.CellTemplate><DataTemplate>
-       <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="{DynamicResource WatchPauseHint}" HorizontalAlignment="Center"/>
-      </DataTemplate></GridViewColumn.CellTemplate></GridViewColumn></GridView></ListView.View>
-    </ListView>
+    <Grid Grid.Row="0"><Grid.RowDefinitions><RowDefinition Height="0.85*" MinHeight="125"/><RowDefinition Height="Auto"/><RowDefinition Height="1.15*" MinHeight="130"/></Grid.RowDefinitions>
+     <DataGrid RowStyle="{StaticResource WatchTableRow}" ColumnHeaderStyle="{StaticResource WatchTableHeader}" CellStyle="{StaticResource WatchTableCell}" x:Name="WatchList" Grid.Row="0" ItemsSource="{Binding MarketWatchRules}" SelectionChanged="WatchList_SelectionChanged"
+        AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" SelectionMode="Single" HeadersVisibility="Column" RowHeaderWidth="0">
+      <DataGrid.Columns>
+       <DataGridTextColumn Header="{DynamicResource Name}" Width="*" MinWidth="100" Binding="{Binding Caption}"/>
+       <DataGridTextColumn Header="{DynamicResource WatchPriceRule}" Width="155" Binding="{Binding PriceCaption}"/>
+       <DataGridTemplateColumn Header="{DynamicResource Enabled}" Width="90">
+        <DataGridTemplateColumn.HeaderStyle><Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource WatchTableHeader}"><Setter Property="HorizontalContentAlignment" Value="Center"/></Style></DataGridTemplateColumn.HeaderStyle>
+        <DataGridTemplateColumn.CellStyle><Style TargetType="DataGridCell" BasedOn="{StaticResource WatchTableCell}"><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style></DataGridTemplateColumn.CellStyle>
+        <DataGridTemplateColumn.CellTemplate><DataTemplate><Grid HorizontalAlignment="Stretch">
+         <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="{DynamicResource WatchPauseHint}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="18" Height="18" Margin="0">
+          <CheckBox.Template><ControlTemplate TargetType="CheckBox"><Grid Width="18" Height="18">
+           <Border x:Name="Box" CornerRadius="4" Background="White" BorderBrush="#789DCF" BorderThickness="1"/>
+           <Path x:Name="Tick" Data="M 3 8 L 7 12 L 15 4" Stroke="White" StrokeThickness="2.2" Visibility="Collapsed"/>
+          </Grid><ControlTemplate.Triggers>
+           <Trigger Property="IsChecked" Value="True"><Setter TargetName="Box" Property="Background" Value="#477FC9"/><Setter TargetName="Tick" Property="Visibility" Value="Visible"/></Trigger>
+           <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.45"/></Trigger>
+          </ControlTemplate.Triggers></ControlTemplate></CheckBox.Template>
+         </CheckBox>
+        </Grid></DataTemplate></DataGridTemplateColumn.CellTemplate>
+       </DataGridTemplateColumn>
+      </DataGrid.Columns>
+     </DataGrid>
+     <StackPanel Grid.Row="1" Margin="0,10,0,6">
+      <TextBlock Text="{DynamicResource WatchHistoryTitle}" FontWeight="SemiBold"/>
+      <TextBlock x:Name="HistoryItemText" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}"/>
+      <TextBlock x:Name="HistoryPersistenceWarning" Text="{DynamicResource WatchHistorySaveWarning}" TextWrapping="Wrap" Foreground="#B42318" Visibility="Collapsed"/>
+     </StackPanel>
+     <Grid Grid.Row="2">
+      <DataGrid RowStyle="{StaticResource WatchTableRow}" ColumnHeaderStyle="{StaticResource WatchTableHeader}" CellStyle="{StaticResource WatchTableCell}" x:Name="HistoryGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="Column" RowHeaderWidth="0" SelectionMode="Single">
+       <DataGrid.Columns>
+        <DataGridTextColumn Header="{DynamicResource WatchHistoryTime}" Width="125" Binding="{Binding TimeCaption}"/>
+        <DataGridTextColumn Header="{DynamicResource WatchHistoryShop}" Width="*" MinWidth="80" Binding="{Binding ShopCaption}"/>
+        <DataGridTextColumn Header="{DynamicResource WatchHistoryCoordinates}" Width="130" Binding="{Binding Coordinates}"/>
+        <DataGridTextColumn Header="{DynamicResource WatchHistoryPrice}" Width="105" Binding="{Binding PriceCaption}"/>
+       </DataGrid.Columns>
+      </DataGrid>
+      <TextBlock x:Name="HistoryEmptyText" Text="{DynamicResource WatchHistoryEmpty}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,35,12,8" Foreground="{StaticResource RoMutedBrush}" IsHitTestVisible="False"/>
+     </Grid>
+    </Grid>
     <Border Grid.Column="2" Background="#F4F8FD" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" Padding="16,12">
      <Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
       <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><local:MarketWatchEditor x:Name="WatchEditor" Margin="0,0,5,12"/></ScrollViewer>
@@ -98,12 +140,12 @@
     <Border BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1,1,1,1" Background="#F4F8FD" CornerRadius="6" Padding="10">
      <StackPanel>
       <WrapPanel Margin="0,0,0,7"><CheckBox Content="{DynamicResource WatchSound}" IsChecked="{Binding SoundEnabled}" Margin="0,5,18,5"/>
-       <Button Content="{DynamicResource WatchChooseSound}" Click="ChooseSound_Click" Margin="0,0,8,0"/>
-       <Button Content="{DynamicResource WatchListen}" Click="ListenSound_Click"/>
+       <Button Content="{DynamicResource WatchChooseSound}" Click="ChooseSound_Click" Height="32" MinHeight="32" VerticalAlignment="Center" Margin="0,0,8,0"/>
+       <Button Content="{DynamicResource WatchListen}" Click="ListenSound_Click" Height="32" MinHeight="32" VerticalAlignment="Center" Margin="0"/>
       </WrapPanel>
       <TextBox Height="28" Padding="6,0" VerticalContentAlignment="Center" Text="{Binding SoundPath}" IsReadOnly="True"/>
       <WrapPanel Margin="0,7,0,0"><TextBlock Text="{DynamicResource WatchVolume}" VerticalAlignment="Center" Margin="0,0,12,0"/>
-       <Slider Minimum="0" Maximum="100" Width="200" Value="{Binding SoundVolumePercent, Mode=TwoWay}" VerticalAlignment="Center" Margin="0,0,12,0"/>
+       <Slider Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" Width="200" Value="{Binding SoundVolumePercent, Mode=TwoWay}" VerticalAlignment="Center" Margin="0,0,12,0"/>
        <controls:NumericTextBox Width="65" Value="{Binding SoundVolumePercent, Mode=TwoWay}" Style="{StaticResource WatchNumber}"/><TextBlock Text="%" VerticalAlignment="Center" Margin="6,0"/>
       </WrapPanel>
      </StackPanel>

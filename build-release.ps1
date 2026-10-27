@@ -133,6 +133,7 @@ $privateNames = @(
     "active-profile.txt",
     "springro-market-cache.json",
     "springro-market-snapshot.json",
+    "market-watch-history.json",
     "debug.log"
 )
 foreach ($privateName in $privateNames) {

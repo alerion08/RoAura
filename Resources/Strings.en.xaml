@@ -517,4 +517,13 @@
     <sys:String x:Key="WatchMoveHint">Drag the notification · ESC — finish</sys:String>
     <sys:String x:Key="WatchListen">Listen</sys:String>
     <sys:String x:Key="WatchVolume">Volume</sys:String>
+    <sys:String x:Key="WatchHistoryRetentionDays">Keep offer history, days</sys:String>
+    <sys:String x:Key="WatchHistoryRetentionHint">Older offers are removed automatically. While an entry is retained, the same offer will not trigger another alert, including after a restart.</sys:String>
+    <sys:String x:Key="WatchHistoryTitle">Item appearance history</sys:String>
+    <sys:String x:Key="WatchHistoryTime">Time</sys:String>
+    <sys:String x:Key="WatchHistoryShop">Shop</sys:String>
+    <sys:String x:Key="WatchHistoryCoordinates">Coordinates</sys:String>
+    <sys:String x:Key="WatchHistoryPrice">Price</sys:String>
+    <sys:String x:Key="WatchHistoryEmpty">No history yet. New qualifying offers will appear after a market refresh.</sys:String>
+    <sys:String x:Key="WatchHistorySaveWarning">Local history could not be read or saved. Duplicate protection after a restart is not guaranteed. See the log for details.</sys:String>
 </ResourceDictionary>

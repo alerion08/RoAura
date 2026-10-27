@@ -20,9 +20,14 @@ public partial class DatabaseSettingsControl : UserControl
     {
         InitializeComponent();
         WatchEditor.Initialize(_database);
-        Loaded += (_, _) => AttachPreview();
+        Loaded += (_, _) =>
+        {
+            AttachPreview();
+            if (CurrentApp is { } app) { app.MarketWatchHistoryChanged -= RefreshHistory; app.MarketWatchHistoryChanged += RefreshHistory; }
+            RefreshHistory();
+        };
         DataContextChanged += (_, _) => AttachPreview();
-        Unloaded += (_, _) => { if (_previewSettings is not null) _previewSettings.PropertyChanged -= PreviewSettingsChanged; _previewSettings = null; };
+        Unloaded += (_, _) => { if (CurrentApp is { } app) app.MarketWatchHistoryChanged -= RefreshHistory; if (_previewSettings is not null) _previewSettings.PropertyChanged -= PreviewSettingsChanged; _previewSettings = null; };
     }
     private App? CurrentApp => Application.Current as App;
     private void OpenDatabase_Click(object sender, RoutedEventArgs e) => CurrentApp?.ToggleDatabase();
@@ -33,6 +38,19 @@ public partial class DatabaseSettingsControl : UserControl
         EditWatchButton.IsEnabled = DeleteWatchButton.IsEnabled = rule is not null;
         var item = rule is null ? null : _database.Item(rule.ItemId) ?? new DatabaseItem { Id = rule.ItemId, Name = rule.ItemName };
         WatchEditor.Initialize(_database, item, rule, allowItemChange: true);
+        RefreshHistory();
+    }
+    private void RefreshHistory()
+    {
+        if (HistoryGrid is null) return;
+        var selected = WatchList.SelectedItem as MarketWatchRule;
+        HistoryItemText.Text = selected?.ItemName ?? "";
+        var rows = (CurrentApp?.MarketWatchHistory ?? Array.Empty<MarketWatchHistoryEntry>())
+            .Where(entry => selected is null || entry.ItemId == selected.ItemId)
+            .OrderByDescending(entry => entry.DetectedAtUtc).ToList();
+        HistoryGrid.ItemsSource = rows;
+        HistoryEmptyText.Visibility = rows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+        HistoryPersistenceWarning.Visibility = CurrentApp?.MarketWatchHistoryPersistenceFailed == true ? Visibility.Visible : Visibility.Collapsed;
     }
     private void AddWatch_Click(object sender, RoutedEventArgs e)
     {

@@ -517,4 +517,13 @@
     <sys:String x:Key="WatchMoveHint">Перетащите уведомление мышью · ESC — завершить</sys:String>
     <sys:String x:Key="WatchListen">Прослушать</sys:String>
     <sys:String x:Key="WatchVolume">Громкость</sys:String>
+    <sys:String x:Key="WatchHistoryRetentionDays">Хранить историю предложений, дней</sys:String>
+    <sys:String x:Key="WatchHistoryRetentionHint">Предложения старше указанного срока удаляются автоматически. Пока запись хранится, повторного уведомления о том же предложении не будет, в том числе после перезапуска.</sys:String>
+    <sys:String x:Key="WatchHistoryTitle">История появления предметов</sys:String>
+    <sys:String x:Key="WatchHistoryTime">Время</sys:String>
+    <sys:String x:Key="WatchHistoryShop">Магазин</sys:String>
+    <sys:String x:Key="WatchHistoryCoordinates">Координаты</sys:String>
+    <sys:String x:Key="WatchHistoryPrice">Цена</sys:String>
+    <sys:String x:Key="WatchHistoryEmpty">История пока пуста. Новые подходящие предложения появятся после обновления маркета.</sys:String>
+    <sys:String x:Key="WatchHistorySaveWarning">Не удалось прочитать или сохранить локальную историю. Защита от повторов после перезапуска не гарантируется. Подробности — в журнале.</sys:String>
 </ResourceDictionary>
