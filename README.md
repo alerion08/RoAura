@@ -1,10 +1,10 @@
-# RoAura 2.14.0
+# RoAura 3.0.0
 
 Windows x64 overlay for Ragnarok Online. It tracks cooldowns and statuses from incoming RO packets via Npcap and displays configurable overlays.
 
-Gold Goblin tracks SpringRO loot for the current session, values it using NPC sell prices, Overcharge, current Vending offers, or manual price rules, and can include the result in loot notifications and Zeny-per-hour statistics.
+Gold Goblin calculates the value of the current SpringRO loot session using NPC sell prices, Overcharge, current Vending offers or manual price rules. The calculated value can be included in loot notifications and Zeny-per-hour statistics.
 
-Version 2.3 introduces a Ragnarok-inspired light blue interface with persistent left navigation, wider settings cards and no separate preview panel.
+Version 3.0 introduces the redesigned Ragnarok-inspired interface, shared rounded controls, color palettes, categorized navigation and full-settings preset switching without restarting. Ordinary overlays remain visible while editing settings, with only the area beneath RoAura excluded.
 
 ## Features
 
@@ -19,7 +19,8 @@ Version 2.3 introduces a Ragnarok-inspired light blue interface with persistent 
 - packet-based loot, Zeny and Base/Job EXP notifications with aggregation, independent colors, numbered groups, movable positions and per-group line limits;
 - separate RTM and SpringRO item databases with Equip/Card/Loot/Consumable classification;
 - separate RTM and SpringRO MVP catalogs;
-- named full-settings presets for different servers and clients;
+- named full-settings presets with instant switching for different characters, classes and clients;
+- SpringRO item watchlists with price conditions, customizable notifications and persistent local shop history;
 - independently configurable XP/hour, time-to-level and Zeny/hour overlay indicators;
 - individual and group dragging, with a configurable completion key;
 - configurable global settings, overlay and placement hotkeys without Windows key reservation;

@@ -2,6 +2,10 @@
 
 Use the smallest relevant section for normal changes. Complete all **Release blockers** before merging a release candidate. Record failures with the build/commit, Windows version, display mode, DPI, RO executable and whether ExitLag/VPN was active.
 
+## RoAura 3.0 acceptance record
+
+On 2026-10-27 the user confirmed that tested build `28fa0d5` works well and accepted the next release as 3.0. Version-only candidate 3.0.0 is validated through the release PR for tests, startup, portable ZIP, installer, private-data exclusion and SHA-256 files. Detailed environment-matrix rows below remain a reusable checklist; do not infer individually recorded OS/DPI combinations from the general user acceptance.
+
 ## Automated baseline
 
 - [ ] `dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release`

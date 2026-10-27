@@ -42,7 +42,7 @@ Model choice is controlled outside the repository. Use an economical model/reaso
 - `dev/roaura-2-ui` is the active RoAura 2 redesign branch.
 - `integration/2.14.0-audit-fixes` contains the 2.14.0 infrastructure/audit work and is reviewed through PR #5.
 - Development or integration work must not be pushed directly to `main`.
-- PR #5 remains draft until the manual game-client checklist is completed.
+- PR #5 is the RoAura 3.0 release review. The user accepted tested build `28fa0d5` on 2026-10-27; full release CI is required before merging to `main`. Future releases still require explicit user approval.
 - A version change merged into `main` can create a tag and public release through GitHub Actions. Treat any merge to `main` as release-sensitive.
 
 ## Implementation constraints

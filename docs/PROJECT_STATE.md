@@ -6,11 +6,12 @@ Last updated: 2026-10-27
 
 RoAura is a Windows x64 WPF overlay for Ragnarok Online. It reads incoming game packets through Npcap and provides configurable overlays and supporting tools.
 
-Current prepared version: **2.14.0**  
+Current release candidate: **3.0.0**
+
 Stable branch: `main`  
 Active redesign branch: `dev/roaura-2-ui`  
 Audit integration branch: `integration/2.14.0-audit-fixes`  
-Active review: [PR #5](https://github.com/alerion08/RoAura/pull/5)
+Release review: [PR #5](https://github.com/alerion08/RoAura/pull/5)
 
 ## Branch status
 
@@ -24,7 +25,7 @@ Baseline for the redesigned interface and existing RoAura 2 functionality.
 
 ### integration/2.14.0-audit-fixes
 
-Contains the 2.14.0 audit/infrastructure patch applied over the redesign. PR #5 targets `dev/roaura-2-ui` and must remain draft until manual Ragnarok testing is complete.
+Contains the RoAura 3.0 redesign, audit/infrastructure work and user-tested follow-ups. PR #5 is being promoted from the development review to the 3.0.0 release review targeting `main`, following user acceptance on 2026-10-27.
 
 The integration work includes:
 
@@ -69,9 +70,15 @@ Automated Windows validation has passed for the integration branch:
 
 Automated success does **not** prove correct behavior inside the game client.
 
-## Known risks and required manual work
+## RoAura 3.0 release acceptance (2026-10-27)
 
-The following remain release blockers until verified in Ragnarok:
+The user tested build `28fa0d5`, reported that everything works well, and accepted the project for the next release, named 3.0. This supersedes the earlier pending manual-acceptance state of the development follow-ups below. The user did not enumerate a Windows/client/DPI test matrix; retain that context when diagnosing future reports rather than claiming specific combinations were individually tested.
+
+The 3.0.0 candidate changes version metadata, release documentation and packaging checks; gameplay behavior matches the accepted build. PR #5 targets main for full Windows tests, portable startup, installer and clean-package/SHA-256 validation before merge/publication. Both the project and embedded manifest use 3.0.0. Existing settings schema remains unchanged.
+
+## Historical regression areas
+
+The following areas guided development testing and remain the reusable regression focus for future changes (current release acceptance is recorded above):
 
 - all ordinary overlays are visible above the active client;
 - Database panels open over the correct client without jumping between windows;
@@ -165,6 +172,6 @@ While MainWindow or another visible RoAura settings/dialog window is foreground,
 
 Focused geometry tests cover separate monitors, partial/full coverage, owned dialogs, negative monitor origins and 100/125/150% DPI conversion. Windows tests and portable startup/packaging are recorded in the commit's Actions run. Manual same/two-monitor overlap, mixed DPI, game focus, modifiers, F9 and all supplied artwork/layout in RU/EN remain required before release.
 
-## Next recommended step
+## Next step
 
-Test the current PR #5 artifact against `docs/REGRESSION_CHECKLIST.md`, record each result, and fix only confirmed regressions. Do not merge PR #5 or publish 2.14.0 until the release-blocking manual checks pass.
+Complete the 3.0.0 release pipeline through PR #5. After successful publication, continue confirmed bug fixes as 3.0.x patches using the regression checklist. Preserve the accepted 3.0 functionality and user settings.

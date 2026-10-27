@@ -63,6 +63,7 @@ jobs:
           [xml]$project = Get-Content -Raw .\RoAura.csproj
           $version = [string]$project.Project.PropertyGroup.Version
           $requiredFiles = @(
+            ".\docs\releases\$version.md",
             '.\artifacts\publish\RoAura.exe',
             '.\artifacts\publish\Data\items.springro.json',
             '.\artifacts\publish\Data\item-prices.springro.json',
@@ -80,6 +81,7 @@ jobs:
             'active-profile.txt',
             'springro-market-cache.json',
             'springro-market-snapshot.json',
+            'market-watch-history.json',
             'debug.log'
           )
           $badFiles = Get-ChildItem .\artifacts -Recurse -Force -File | Where-Object {
@@ -161,6 +163,13 @@ jobs:
             $releaseTag = "v$([string]$project.Project.PropertyGroup.Version)"
           }
 
+          [xml]$releaseProject = Get-Content -Raw .\RoAura.csproj
+          $releaseVersion = [string]$releaseProject.Project.PropertyGroup.Version
+          $releaseNotes = ".\docs\releases\$releaseVersion.md"
+          if (-not (Test-Path $releaseNotes -PathType Leaf)) {
+            throw "Release notes are missing: $releaseNotes"
+          }
+
           $assets = @(
             (Get-ChildItem .\artifacts\*.zip).FullName
             (Get-ChildItem .\artifacts\*.exe).FullName
@@ -176,6 +185,6 @@ jobs:
             gh release create $releaseTag @assets `
               --repo $env:GITHUB_REPOSITORY `
               --title "RoAura $($releaseTag.TrimStart('v'))" `
-              --generate-notes `
+              --notes-file $releaseNotes `
               --verify-tag
           }
