@@ -80,7 +80,7 @@ public sealed class LayoutInputTests
                     Assert.Equal(initial, property.GetValue(model));
                 }
 
-                editor.RaiseEvent(new RoutedEventArgs(UIElement.LostFocusEvent, editor));
+                editor.CommitInput();
                 DrainDispatcher();
                 Assert.Equal(expected, Convert.ToDouble(property.GetValue(model), CultureInfo.InvariantCulture));
                 Assert.Equal(expected.ToString("G", CultureInfo.CurrentCulture), editor.Text);
@@ -103,13 +103,13 @@ public sealed class LayoutInputTests
             var declaration = ReadEditors().First(e => BindingPath(e) == "IconSize");
             var editor = CreateEditor(declaration, model);
             SetText(editor, input);
-            editor.RaiseEvent(new RoutedEventArgs(UIElement.LostFocusEvent, editor));
+            editor.CommitInput();
             DrainDispatcher();
             Assert.Equal(initial, model.IconSize);
             Assert.True(Validation.GetHasError(editor));
 
             SetText(editor, "64"); // Includes paste/replacement of the whole value.
-            editor.RaiseEvent(new RoutedEventArgs(UIElement.LostFocusEvent, editor));
+            editor.CommitInput();
             DrainDispatcher();
             Assert.Equal(64d, model.IconSize);
             Assert.False(Validation.GetHasError(editor));
