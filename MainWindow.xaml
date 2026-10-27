@@ -1373,7 +1373,7 @@
                                                     </DataGridTemplateColumn.CellTemplate>
                                                 </DataGridTemplateColumn>
                                                 <DataGridTemplateColumn Header="{DynamicResource Count}" Width="110">
-                                                    <DataGridTemplateColumn.CellTemplate><DataTemplate><TextBox Style="{StaticResource ComboEditableTextBoxStyle}" Text="{Binding Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="GoldGoblinCount_LostFocus" Margin="5,2" Padding="4,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate>
+                                                    <DataGridTemplateColumn.CellTemplate><DataTemplate><TextBox Style="{StaticResource RoTextBoxStyle}" Text="{Binding Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LostFocus="GoldGoblinCount_LostFocus" Margin="5,2" Padding="4,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate>
                                                 </DataGridTemplateColumn>
                                                 <DataGridTemplateColumn Header="{DynamicResource UnitPrice}" IsReadOnly="True" Width="125">
                                                     <DataGridTemplateColumn.CellTemplate><DataTemplate><TextBlock Text="{Binding Cost, StringFormat=N0}" Margin="9,0,4,0" VerticalAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate>

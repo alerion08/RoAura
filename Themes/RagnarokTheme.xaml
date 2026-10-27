@@ -182,7 +182,7 @@
 
     <Style TargetType="ToggleButton">
         <Setter Property="Foreground" Value="{StaticResource RoDeepBlueBrush}"/><Setter Property="Background" Value="{StaticResource RoButtonBrush}"/>
-        <Setter Property="BorderBrush" Value="#789DCF"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="13,6"/>
+        <Setter Property="BorderBrush" Value="#789DCF"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="12,3"/>
         <Setter Property="Margin" Value="3"/><Setter Property="MinHeight" Value="32"/><Setter Property="FontWeight" Value="SemiBold"/><Setter Property="Cursor" Value="Hand"/>
         <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}"/>
         <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ToggleButton">
