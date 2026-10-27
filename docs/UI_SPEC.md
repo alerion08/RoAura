@@ -37,7 +37,7 @@ This document records current product-level UI behavior. It is intentionally com
 - Switching between multiple allowed clients must update the target window.
 - Hidden launcher/helper windows must not be chosen as the game client.
 - Coordinates are relative to the selected game client and are converted correctly for per-monitor DPI.
-- Temporary window resizing may clamp the displayed position, but must not silently destroy the user's saved layout.
+- Resizing, DPI changes and switching clients must never rewrite or autosave model coordinates. Positions outside a temporarily smaller client return when its original size is restored; dragging or editing coordinates remains an explicit user action.
 - Moving an overlay saves coordinates with a short debounce rather than writing on every mouse event.
 - F9 toggles all overlays unless the user changes that binding.
 - Individual drag and group drag must both remain available where currently supported.

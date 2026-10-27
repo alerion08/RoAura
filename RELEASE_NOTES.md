@@ -2,6 +2,8 @@
 
 ## Русский
 
+- Изменение размеров окна игры и переключение клиентов больше не обрезают и не перезаписывают сохранённые позиции всех оверлеев.
+
 - Исправлены скачки значений при вводе размеров иконок и текста. Поля размеров, отступов, координат и прозрачности сохраняют ввод отдельно от настроек; Enter или выход из поля применяет число целиком, Escape отменяет ввод. В «О программе» виден идентификатор сборки.
 
 - Повреждённый `settings.json` больше не затирается: файл переносится в карантин, приложение стартует с настройками по умолчанию и сообщает об этом.
@@ -15,6 +17,8 @@
 - Сборка: версия задаётся только в `RoAura.csproj`, встроенные PDB, установщик проверяет Npcap и единственный экземпляр, CI публикует релиз только при создании нового тега.
 
 ## English
+
+- Game-window resizing and client switching no longer clamp and overwrite saved positions across all overlays.
 
 - Fixed icon/text size values jumping while typing. Size, padding, spacing, coordinate and opacity fields keep a separate text draft; Enter or focus loss applies the complete number, Escape cancels. About shows the build revision.
 

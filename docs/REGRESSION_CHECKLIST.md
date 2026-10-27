@@ -36,6 +36,8 @@ Use the smallest relevant section for normal changes. Complete all **Release blo
 - [ ] Database panel remains visible after the first in-game click.
 - [ ] Fullscreen, borderless and windowed modes behave correctly where supported.
 - [ ] Resize/minimize/restore the game; saved layout is not permanently damaged.
+- [ ] Test temporary tiny client bounds, a smaller second client and DPI changes; all feature X/Y values stay unchanged during resize and after save/restart.
+- [ ] Numeric X/Y editors load existing coordinates and switch selected rows without writing (0,0).
 - [ ] Move the game between monitors with different DPI/scaling.
 - [ ] Launcher/helper window is not mistaken for the client.
 - [ ] If multiple clients are open, activating another eligible client retargets the overlays.

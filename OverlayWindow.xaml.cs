@@ -1235,71 +1235,6 @@ public partial class OverlayWindow : Window
         _store.Save(_settings);
     }
 
-    /// <summary>
-    /// Keeps stored element positions inside the game client area after the game
-    /// window has been resized (coordinates are relative to the client area, see
-    /// <see cref="OverlayCoordinateMigration"/>). Uses the same bounds as the drag
-    /// handlers. Returns true when any coordinate was changed.
-    /// </summary>
-    private bool ClampPositionsToGameArea(double width, double height)
-    {
-        var changed = false;
-
-        double ClampX(double value, double extent = 0)
-        {
-            var clamped = Math.Clamp(value, 0, Math.Max(0, width - extent));
-            if (clamped != value) changed = true;
-            return clamped;
-        }
-
-        double ClampY(double value, double extent = 0)
-        {
-            var clamped = Math.Clamp(value, 0, Math.Max(0, height - extent));
-            if (clamped != value) changed = true;
-            return clamped;
-        }
-
-        foreach (var skill in _settings.Skills)
-        {
-            skill.X = ClampX(skill.X, skill.IndividualIconSize);
-            skill.Y = ClampY(skill.Y, skill.IndividualIconSize);
-        }
-        foreach (var effect in _settings.Effects)
-        {
-            effect.NotificationX = ClampX(effect.NotificationX);
-            effect.NotificationY = ClampY(effect.NotificationY);
-        }
-        foreach (var reminder in _settings.Reminders)
-        {
-            reminder.X = ClampX(reminder.X);
-            reminder.Y = ClampY(reminder.Y);
-        }
-        foreach (var group in _settings.BuffPanelGroups)
-        {
-            group.X = ClampX(group.X);
-            group.Y = ClampY(group.Y);
-        }
-        foreach (var item in _settings.Equipment)
-        {
-            item.X = ClampX(item.X);
-            item.Y = ClampY(item.Y);
-        }
-        _settings.TimersX = ClampX(_settings.TimersX);
-        _settings.TimersY = ClampY(_settings.TimersY);
-        foreach (var group in _settings.RewardGroups)
-        {
-            group.X = ClampX(group.X);
-            group.Y = ClampY(group.Y);
-        }
-        foreach (var indicator in _settings.RateIndicators)
-        {
-            indicator.X = ClampX(indicator.X);
-            indicator.Y = ClampY(indicator.Y);
-        }
-
-        return changed;
-    }
-
     private void SyncOverlayToGameWindow(bool force = false)
     {
         _gameWindowFound = ForegroundProcess.TryFindWindow(_settings.AllowedProcesses,
@@ -1310,13 +1245,18 @@ public partial class OverlayWindow : Window
             _gameWindowHandle = IntPtr.Zero;
             return;
         }
-        ForegroundProcess.WindowBounds? bounds = gameBounds;
-
         var source = PresentationSource.FromVisual(this);
         var fromDevice = source?.CompositionTarget?.TransformFromDevice ?? Matrix.Identity;
+        ApplyGameWindowBounds(gameHandle, gameBounds, fromDevice, force);
+    }
+
+    private void ApplyGameWindowBounds(IntPtr gameHandle, ForegroundProcess.WindowBounds bounds,
+        Matrix fromDevice, bool force = false)
+    {
+        if (bounds.Right <= bounds.Left || bounds.Bottom <= bounds.Top) return;
         if (!force && _gameBounds == bounds && _lastDeviceTransform == fromDevice) return;
-        var topLeft = fromDevice.Transform(new Point(bounds.Value.Left, bounds.Value.Top));
-        var bottomRight = fromDevice.Transform(new Point(bounds.Value.Right, bounds.Value.Bottom));
+        var topLeft = fromDevice.Transform(new Point(bounds.Left, bounds.Top));
+        var bottomRight = fromDevice.Transform(new Point(bounds.Right, bounds.Bottom));
         var width = Math.Max(1, bottomRight.X - topLeft.X);
         var height = Math.Max(1, bottomRight.Y - topLeft.Y);
 
@@ -1330,18 +1270,10 @@ public partial class OverlayWindow : Window
             _store.Save(_settings);
         }
 
-        // Stored coordinates are relative to the client area. When the client
-        // area shrinks, pull elements that would now be outside back inside.
-        var previousSize = _gameBounds.HasValue
-            ? (Width: _gameBounds.Value.Right - _gameBounds.Value.Left,
-               Height: _gameBounds.Value.Bottom - _gameBounds.Value.Top)
-            : (Width: 0, Height: 0);
-        var currentSize = (Width: bounds.Value.Right - bounds.Value.Left,
-                           Height: bounds.Value.Bottom - bounds.Value.Top);
-        if (_gameBounds.HasValue && previousSize != currentSize && !IsBusyEditing &&
-            ClampPositionsToGameArea(width, height))
-            RequestSave();
-
+        // Resizing, DPI changes and client switching change only the host.
+        // Never clamp model coordinates here: transient small bounds used to
+        // overwrite every overlay position and autosave the damaged layout.
+        // Positions outside a smaller client return when its size is restored.
         Left = topLeft.X;
         Top = topLeft.Y;
         Width = width;
