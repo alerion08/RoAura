@@ -95,7 +95,8 @@ public partial class OverlayWindow : Window
     private Matrix _lastDeviceTransform = Matrix.Identity;
     private bool _gameWindowFound;
     private IntPtr _gameWindowHandle;
-    private IntPtr _settingsWindowHandle;
+    private Rect[] _settingsOcclusion = [];
+    private Size _settingsClipSize;
     private bool _isTopmost;
     private bool _gameWasForeground;
 
@@ -1385,7 +1386,8 @@ public partial class OverlayWindow : Window
         Height = height;
         _gameBounds = bounds;
         _lastDeviceTransform = fromDevice;
-        BringOverlayAboveGame();
+        // Visibility, occlusion and Z-order are applied together by the next
+        // UpdateHostVisibility call, avoiding a frame above the settings window.
         if (EditBanner.Visibility == Visibility.Visible) PositionEditBanner();
     }
 
@@ -1401,6 +1403,12 @@ public partial class OverlayWindow : Window
         if (shouldShow)
         {
             var gameIsForeground = ForegroundProcess.IsForegroundAllowed(_settings.AllowedProcesses);
+            var controlWindows = Application.Current?.Windows.OfType<Window>()
+                .Where(window => window != this && window is not DatabaseOverlayWindow && window is not DatabaseDetailWindow &&
+                    window.IsVisible && window.WindowState != WindowState.Minimized).ToArray() ?? [];
+            var settingsIsForeground = controlWindows.Any(window =>
+                ForegroundProcess.IsForegroundWindow(new WindowInteropHelper(window).Handle));
+            UpdateSettingsOcclusion(settingsIsForeground ? controlWindows : []);
             if (gameIsForeground)
             {
                 if (!IsVisible) Show();
@@ -1410,10 +1418,12 @@ public partial class OverlayWindow : Window
                 if (!_gameWasForeground) _isTopmost = false;
                 BringOverlayAboveGame();
             }
-            else if (IsSettingsWindowForeground())
+            else if (settingsIsForeground)
             {
-                ReleaseOverlayTopmost();
-                if (IsVisible) Hide();
+                // Keep RO visible on the other display; only pixels beneath
+                // RoAura and its dialogs are excluded from this overlay surface.
+                if (!IsVisible) Show();
+                BringOverlayAboveGame();
             }
             else if (_gameBounds.HasValue && ForegroundProcess.DoesForegroundWindowCover(_gameBounds.Value))
             {
@@ -1434,16 +1444,36 @@ public partial class OverlayWindow : Window
         }
     }
 
-    private bool IsSettingsWindowForeground()
+    private void UpdateSettingsOcclusion(IEnumerable<Window> windows)
     {
-        if (_settingsWindowHandle == IntPtr.Zero)
+        var rectangles = new List<Rect>();
+        var handle = new WindowInteropHelper(this).Handle;
+        if (handle != IntPtr.Zero)
         {
-            var settingsWindow = Application.Current?.Windows.OfType<MainWindow>().FirstOrDefault();
-            if (settingsWindow is not null)
-                _settingsWindowHandle = new WindowInteropHelper(settingsWindow).Handle;
+            var origin = PointToScreen(new Point());
+            var fromDevice = PresentationSource.FromVisual(this)?.CompositionTarget?.TransformFromDevice ?? Matrix.Identity;
+            foreach (var window in windows)
+            {
+                var hwnd = new WindowInteropHelper(window).Handle;
+                if (hwnd != IntPtr.Zero && GetWindowRect(hwnd, out var bounds) &&
+                    bounds.Right > bounds.Left && bounds.Bottom > bounds.Top)
+                    rectangles.Add(OverlayOcclusion.ToLocalRect(new Rect(bounds.Left, bounds.Top,
+                        bounds.Right - bounds.Left, bounds.Bottom - bounds.Top), origin, fromDevice));
+            }
         }
-        return ForegroundProcess.IsForegroundWindow(_settingsWindowHandle);
+        var size = new Size(Math.Max(0, Width), Math.Max(0, Height));
+        if (size == _settingsClipSize && _settingsOcclusion.SequenceEqual(rectangles)) return;
+        _settingsClipSize = size;
+        _settingsOcclusion = rectangles.ToArray();
+        OverlaySurface.Clip = OverlayOcclusion.CreateClip(size, rectangles);
     }
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct NativeWindowRect { public int Left, Top, Right, Bottom; }
+
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetWindowRect(IntPtr window, out NativeWindowRect bounds);
 
     protected override void OnClosed(EventArgs e)
     {

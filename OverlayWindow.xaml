@@ -16,7 +16,7 @@
         <converters:BottomMarginConverter x:Key="BottomMargin" />
         <converters:DoubleToThicknessConverter x:Key="IconPadding" />
     </Window.Resources>
-    <Grid Background="Transparent">
+    <Grid x:Name="OverlaySurface" Background="Transparent">
         <ItemsControl ItemsSource="{Binding Skills}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>

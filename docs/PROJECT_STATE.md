@@ -157,6 +157,14 @@ User screenshots after a78cc4b show vertically clipped text in compact text/nume
 
 New Windows layout tests measure actual field viewport/line bounds with Russian/English names, numeric values and HEX at 100/125/150% layout scale, plus the compact table text's vertical position. The earlier style tests checked corners/arrows but did not detect text clipping. Manual verification on the user's Windows DPI remains pending; the commit's Actions run records tests and portable packaging.
 
+## Section layout, branding and settings-window occlusion (2026-10-27)
+
+Gold Goblin and Database now use the same header card/title/caption sizing as other workspaces; Database's header stays above its tabs. Market notification Appearance and Sound tabs follow the template help card. Equipment learning hints share the blue information-card style. Sidebar categories are Home, Overlays and Services, with scrolling at minimum height. The provided wordmark replaces header icon/title at 80% opacity; supplied crystal artwork updates the Windows ICO and About image, and the house artwork identifies Home.
+
+While MainWindow or another visible RoAura settings/dialog window is foreground, ordinary game overlays stay visible/topmost but their shared rendering surface excludes the physical rectangles of those windows. Bounds are converted to the overlay monitor's DIPs. A separate-monitor settings window produces no exclusion; moving, resizing, maximizing, opening/closing a dialog and returning to the game refresh the clip. This changes render geometry only, never saved coordinates, ownership, focus, capture or input hooks. F9/no-client hiding and existing unrelated-application behavior remain unchanged. Database search/detail windows retain their existing visibility lifecycle.
+
+Focused geometry tests cover separate monitors, partial/full coverage, owned dialogs, negative monitor origins and 100/125/150% DPI conversion. Windows tests and portable startup/packaging are recorded in the commit's Actions run. Manual same/two-monitor overlap, mixed DPI, game focus, modifiers, F9 and all supplied artwork/layout in RU/EN remain required before release.
+
 ## Next recommended step
 
 Test the current PR #5 artifact against `docs/REGRESSION_CHECKLIST.md`, record each result, and fix only confirmed regressions. Do not merge PR #5 or publish 2.14.0 until the release-blocking manual checks pass.

@@ -199,6 +199,7 @@ public partial class MainWindow : Window
         var profile = GameServerProfile.Normalize(Settings.ServerProfile);
         var supportsDatabases = GameServerProfile.SupportsServerDatabases(profile);
         var supportsOverlayDatabase = GameServerProfile.SupportsDatabaseOverlay(profile);
+        ServicesNavHeading.Visibility = supportsDatabases || supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
         MvpNavButton.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
         LootNavButton.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
         MvpTab.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;

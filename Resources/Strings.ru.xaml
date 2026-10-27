@@ -529,4 +529,6 @@
     <sys:String x:Key="ColorPickerTitle">Выбор цвета</sys:String>
     <sys:String x:Key="ColorPickerApply">Применить</sys:String>
     <sys:String x:Key="ColorPickerInvalid">Введите HEX: #RRGGBB или #AARRGGBB.</sys:String>
+    <sys:String x:Key="NavigationOverlays">Оверлеи</sys:String>
+    <sys:String x:Key="NavigationServices">Сервисы</sys:String>
 </ResourceDictionary>

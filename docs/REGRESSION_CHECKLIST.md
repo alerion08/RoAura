@@ -138,6 +138,14 @@ Use the smallest relevant section for normal changes. Complete all **Release blo
 - [ ] At 100/125/150% Windows DPI in RU/EN, inspect full glyph height in skill names, numeric coordinates/sizes, HEX, effect advanced fields and timer/statistics settings. Focus, select text, type and leave the field: no upper/lower clipping.
 - [ ] Watchlist and offer-history names, prices, timestamps and coordinates are vertically centered in the 26-DIP rows, matching the centered Enabled checkbox.
 
+## Section layout and active settings window
+
+- [ ] Gold Goblin/Database header typography and cards match MVP/Statistics; Database header is above all tabs. RU/EN text and Gold Goblin actions fit at minimum window size.
+- [ ] Market Notifications: template help has a blue info card and more top spacing; Appearance/Sound tabs preserve every editor, live preview and all bindings, including volume, sound choice/listen and placement. Equipment learning hints match Effects.
+- [ ] Sidebar category order matches Home, Overlays and Services; every destination remains reachable at minimum height, and unsupported services leave no empty category. Wordmark is at 80% opacity; crystal icon works in Windows/About; Home shows the house.
+- [ ] RoAura on a second monitor: focusing/typing/changing settings keeps ordinary game overlays visible. On the same monitor: only pixels beneath RoAura/its dialogs disappear, with no overlay drawing over the controls. Move/resize/maximize and close dialogs; masks follow without altering stored positions.
+- [ ] Repeat with negative monitor origin and mixed DPI; activate game and verify all masks clear. F9, edit/finish, modifier keys, unrelated applications, minimized/missing client and Database search/detail windows keep working.
+
 ## UI and localization
 
 - [ ] Changed screen checked in Russian.

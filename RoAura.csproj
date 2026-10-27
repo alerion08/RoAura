@@ -48,6 +48,7 @@
   <ItemGroup>
     <Resource Include="Assets\roaura.ico" />
     <Resource Include="Assets\roaura-icon.png" />
+    <Resource Include="Assets\roaura-logo.png" />
     <Resource Include="Assets\twitch.png" />
     <Resource Include="Assets\discord.png" />
     <Resource Include="Assets\donate.png" />

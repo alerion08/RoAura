@@ -6,7 +6,8 @@ This document records current product-level UI behavior. It is intentionally com
 
 - Desktop application: Windows x64, WPF, .NET 8.
 - Visual direction: Ragnarok-inspired light-blue interface, not a literal copy of the game client.
-- Main navigation stays on the left.
+- Main navigation stays on the left: Home; Overlays (Cooldowns, Effects, Reminder, Equipment); Services (MVP Timers, Statistics, Gold Goblin, Database). The sidebar scrolls at minimum height.
+- Header wordmark has 80% opacity. Windows/About use the supplied crystal icon; Home uses the supplied house. Gold Goblin and Database share other sections’ header-card style, with tabs below the header.
 - Settings are organized as readable cards with consistent spacing.
 - There is no separate permanent preview panel.
 - Russian and English layouts must expose the same functionality and localization keys.
@@ -43,7 +44,8 @@ This document records current product-level UI behavior. It is intentionally com
 - Do not make the Ragnarok process the owner of an overlay window through cross-process `GWL_HWNDPARENT`.
 - While the active Ragnarok client is eligible, overlays remain visually above it, including protected/fullscreen clients that may reclaim Z-order.
 - When Ragnarok is not found, applicable game overlays are hidden.
-- With `OnlyWhenGameIsActive`, overlays hide when the user works in another application and return when the game becomes active.
+- While RoAura settings or their dialogs are foreground, ordinary overlays remain visible above the game except beneath those windows. Only the shared overlay rendering clip changes; coordinates and focus remain intact. A settings window on another monitor leaves the full game overlay visible. Returning to the game clears this exclusion.
+- Unrelated foreground applications retain the existing overlap-based hide/demotion behavior.
 - Switching between multiple allowed clients must update the target window.
 - Hidden launcher/helper windows must not be chosen as the game client.
 - Coordinates are relative to the selected game client and are converted correctly for per-monitor DPI.
@@ -136,6 +138,8 @@ This document records current product-level UI behavior. It is intentionally com
 - The Notifications tab retains `%name`/`%price`, custom/default icon, sizes, colors/alpha, padding, spacing, duration, sound and settings/preset compatibility.
 - Successful fresh SpringRO SELL snapshots trigger new qualifying offers only; existing cached data and failed refreshes do not trigger/rearm notifications. The first successful live snapshot may notify about already-present offers. Unchanged offers/quantity-only changes remain silent, including after absence/return or restart while their history is retained. New seller/price/equipment variants are distinct offers.
 - Notifications stack in the existing overlay host and follow its visibility and F9 controls. Rules, appearance and retention duration are stored in settings/presets. Offer history is stored separately under `%LOCALAPPDATA%/RoAura/market-watch-history.json`, never inside a preset or portable package.
+
+- Market notification settings keep preview, enable/icon actions and template above the informational help card; Appearance and Sound tabs follow that card. Equipment learning help uses the same information-card styling as Effects.
 
 ## Gold Goblin and Market
 
