@@ -2,6 +2,8 @@
 
 ## Русский
 
+- Исправлены скачки значений при вводе размеров иконок и текста. Поля размеров, отступов, координат и прозрачности применяют число после выхода из поля, позволяя набрать его целиком.
+
 - Повреждённый `settings.json` больше не затирается: файл переносится в карантин, приложение стартует с настройками по умолчанию и сообщает об этом.
 - Применённый пресет больше не перезаписывается прежними настройками при выходе из программы.
 - Запускается только один экземпляр RoAura; повторный запуск активирует уже открытое окно.
@@ -13,6 +15,8 @@
 - Сборка: версия задаётся только в `RoAura.csproj`, встроенные PDB, установщик проверяет Npcap и единственный экземпляр, CI публикует релиз только при создании нового тега.
 
 ## English
+
+- Fixed icon/text size values jumping while typing. Size, padding, spacing, coordinate and opacity fields apply the complete number when focus leaves the field.
 
 - A corrupted `settings.json` is no longer overwritten: it is quarantined, the app starts with defaults and reports it.
 - An applied preset is no longer overwritten by the previous settings on exit.

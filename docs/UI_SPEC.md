@@ -24,6 +24,7 @@ This document records current product-level UI behavior. It is intentionally com
 - Errors should be understandable to the user and detailed in the diagnostic log.
 - User-entered names take precedence over database fallback names unless the user explicitly replaces them.
 - Positions, scale, opacity, colors and enabled states persist through settings/presets where supported.
+- Pixel sizes, padding, spacing, coordinates and opacity editors commit when focus leaves the field (Tab or clicking another control). Allow clearing and typing the complete number before model range limits apply; do not clamp each keystroke. Invalid/empty input keeps the last valid model value and uses the WPF validation indication.
 
 ## Overlay window behavior
 

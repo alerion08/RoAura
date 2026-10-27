@@ -86,6 +86,16 @@ Use the smallest relevant section for normal changes. Complete all **Release blo
 - [ ] Custom MVP names are not replaced by catalog names.
 - [ ] Clipboard actions work or report a nonfatal error.
 
+## Numeric layout input
+
+- [ ] In Cooldowns, Effects, Buff Panel, Reminder, Equipment, MVP Timers, reward groups and rate indicators: select the whole size value, clear it, type `64`/`24` digit by digit; no intermediate snap to a minimum or maximum.
+- [ ] Tab/click another field commits the number and updates the preview/overlay.
+- [ ] Padding/gap accept `0`; X/Y accept supported negative/fractional coordinates.
+- [ ] Paste/replacement works; out-of-range values clamp only after leaving the field.
+- [ ] Empty/non-numeric input leaves the last valid value intact, displays validation, and can be corrected.
+- [ ] Edit a value, Save/apply a preset, switch selection/tab and restart: the committed value persists.
+- [ ] Sliders still update their matching numeric fields.
+
 ## UI and localization
 
 - [ ] Changed screen checked in Russian.

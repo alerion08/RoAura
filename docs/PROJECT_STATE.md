@@ -97,6 +97,12 @@ Two follow-up Z-order/window-selection fixes were made after real testing showed
 - The effective full Market refresh interval is currently limited to ten minutes; the UI should not imply a shorter effective interval.
 - A single RoAura instance is the default. Developer/test multi-instance behavior is not currently implemented.
 
+## Numeric layout input fix (2026-10-27)
+
+The pixel/opacity TextBox bindings in all main-window feature editors now explicitly use `LostFocus`. Cooldown, Reminder and Equipment appearance editors previously pushed every keystroke into clamping model setters: typing `6` for `64` could immediately produce `20` and subsequent digits could hit `180`. Size, padding, spacing, X/Y and opacity inputs now allow the complete value before applying the existing limits. Effects, Buff Panel, MVP Timers, reward notifications and rate statistics were audited and use the same commit policy. Text/color editors and model/settings formats are unchanged.
+
+WPF regression tests exercise the actual XAML bindings with incremental typing, replacement/paste, invalid/empty input, bounds, negative coordinates and fractional values. Local Windows tests/package creation are unavailable in the Linux editing environment (no .NET SDK); use the branch Windows validation workflow. Manual input checks, persistence and the existing game-client blockers remain required.
+
 ## Next recommended step
 
 Test the current PR #5 artifact against `docs/REGRESSION_CHECKLIST.md`, record each result, and fix only confirmed regressions. Do not merge PR #5 or publish 2.14.0 until the release-blocking manual checks pass.
