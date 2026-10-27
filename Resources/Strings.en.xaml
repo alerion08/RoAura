@@ -484,4 +484,5 @@
     <sys:String x:Key="DeleteGroup">Delete group</sys:String>
     <sys:String x:Key="SkillsCountLabel">skills</sys:String>
     <sys:String x:Key="CooldownState">Cooldown</sys:String>
+    <sys:String x:Key="NumericInputInvalid">Enter a finite number (for example, 64 or 24.5).</sys:String>
 </ResourceDictionary>

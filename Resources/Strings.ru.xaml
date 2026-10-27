@@ -484,4 +484,5 @@
     <sys:String x:Key="DeleteGroup">Удалить группу</sys:String>
     <sys:String x:Key="SkillsCountLabel">умений</sys:String>
     <sys:String x:Key="CooldownState">Кулдаун</sys:String>
+    <sys:String x:Key="NumericInputInvalid">Введите конечное число (например, 64 или 24,5).</sys:String>
 </ResourceDictionary>

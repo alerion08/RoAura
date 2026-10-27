@@ -2019,6 +2019,8 @@ public partial class MainWindow : Window
 
     protected override void OnClosing(CancelEventArgs e)
     {
+        if (Keyboard.FocusedElement is Controls.NumericTextBox numericEditor)
+            numericEditor.CommitInput();
         _connectionDetectionTimer.Stop();
         _goldGoblinSessionTimer.Stop();
         if (!_shutdownStarted)

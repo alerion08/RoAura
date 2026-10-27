@@ -99,9 +99,13 @@ Two follow-up Z-order/window-selection fixes were made after real testing showed
 
 ## Numeric layout input fix (2026-10-27)
 
-The pixel/opacity TextBox bindings in all main-window feature editors now explicitly use `LostFocus`. Cooldown, Reminder and Equipment appearance editors previously pushed every keystroke into clamping model setters: typing `6` for `64` could immediately produce `20` and subsequent digits could hit `180`. Size, padding, spacing, X/Y and opacity inputs now allow the complete value before applying the existing limits. Effects, Buff Panel, MVP Timers, reward notifications and rate statistics were audited and use the same commit policy. Text/color editors and model/settings formats are unchanged.
+The first attempt changed 44 layout/opacity bindings to `LostFocus` and passed 54 Windows tests, but the user reported the same min/max jumps in their running app. Those tests exercised isolated bindings and did not establish the cause of the remaining runtime report. Do not count the issue as manually verified.
 
-WPF regression tests exercise the actual XAML bindings with incremental typing, replacement/paste, invalid/empty input, bounds, negative coordinates and fractional values. Local Windows tests/package creation are unavailable in the Linux editing environment (no .NET SDK); use the branch Windows validation workflow. Manual input checks, persistence and the existing game-client blockers remain required.
+All 44 editors now use `Controls/NumericTextBox`: Text is an unbound draft; only Enter or focus loss writes Value to the model. Source notifications cannot replace a draft. Escape restores the current model value. Existing bounds/settings formats stay unchanged. Empty, invalid and non-finite input retains the valid model value with validation; dot and comma decimals work. Closing the main window commits its focused numeric editor before saving.
+
+Regression coverage includes the actual numeric controls/bindings, source updates during typing, readback at unchanged bounds, and a visible WPF window with Enter, Escape and focus transfer. Local .NET tests remain unavailable (no SDK); use Windows CI for tests and portable packaging. About now displays the short source revision from assembly metadata to distinguish integration builds sharing version 2.14.0. Because only one instance runs, fully close the previous RoAura before launching a new test package; a second launch otherwise activates the old process.
+
+Manual input/persistence checks and the existing game-client blockers remain pending.
 
 ## Next recommended step
 

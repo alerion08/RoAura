@@ -12,8 +12,12 @@ public partial class AboutWindow : Window
     {
         InitializeComponent();
         // Version comes from RoAura.csproj <AssemblyVersion>; nothing else hardcodes it.
-        var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "?";
-        VersionRun.Text = " " + version;
+        var assembly = Assembly.GetExecutingAssembly();
+        var version = assembly.GetName().Version?.ToString(3) ?? "?";
+        var information = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
+        var revision = information?.Split('+').ElementAtOrDefault(1);
+        VersionRun.Text = " " + version + (string.IsNullOrWhiteSpace(revision)
+            ? "" : $" ({revision[..Math.Min(8, revision.Length)]})");
         if (LocalizationService.CurrentLanguage == "en") CheckUpdatesButton.Content = "Check for updates";
     }
 

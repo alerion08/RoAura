@@ -2,7 +2,7 @@
 
 ## Русский
 
-- Исправлены скачки значений при вводе размеров иконок и текста. Поля размеров, отступов, координат и прозрачности применяют число после выхода из поля, позволяя набрать его целиком.
+- Исправлены скачки значений при вводе размеров иконок и текста. Поля размеров, отступов, координат и прозрачности сохраняют ввод отдельно от настроек; Enter или выход из поля применяет число целиком, Escape отменяет ввод. В «О программе» виден идентификатор сборки.
 
 - Повреждённый `settings.json` больше не затирается: файл переносится в карантин, приложение стартует с настройками по умолчанию и сообщает об этом.
 - Применённый пресет больше не перезаписывается прежними настройками при выходе из программы.
@@ -16,7 +16,7 @@
 
 ## English
 
-- Fixed icon/text size values jumping while typing. Size, padding, spacing, coordinate and opacity fields apply the complete number when focus leaves the field.
+- Fixed icon/text size values jumping while typing. Size, padding, spacing, coordinate and opacity fields keep a separate text draft; Enter or focus loss applies the complete number, Escape cancels. About shows the build revision.
 
 - A corrupted `settings.json` is no longer overwritten: it is quarantined, the app starts with defaults and reports it.
 - An applied preset is no longer overwritten by the previous settings on exit.

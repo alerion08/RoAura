@@ -7,6 +7,9 @@ using System.Windows.Markup;
 using System.Windows.Threading;
 using System.Xml.Linq;
 using RoAura.Models;
+using RoAura.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
 using Xunit;
 
 namespace RoAura.Tests;
@@ -28,11 +31,14 @@ public sealed class LayoutInputTests
         var editors = ReadEditors().Where(e => LayoutProperties.Contains(BindingPath(e))).ToArray();
         Assert.NotEmpty(editors);
         foreach (var editor in editors)
-            Assert.Contains("UpdateSourceTrigger=LostFocus", editor.Attribute("Text")!.Value);
+        {
+            Assert.Equal("NumericTextBox", editor.Name.LocalName);
+            Assert.Null(editor.Attribute("Text"));
+            Assert.NotNull(editor.Attribute("Value"));
+        }
     }
 
-    // Use the actual XAML binding, not a hand-written copy: changing an editor
-    // back to PropertyChanged must reproduce the user's 6 -> 20 -> 180 bug.
+    // Use the actual editor and model binding from the view.
     [Theory]
     [InlineData("SkillAura", "IndividualIconSize", "64", 64d)]
     [InlineData("ReminderItem", "IconSize", "64", 64d)]
@@ -48,6 +54,7 @@ public sealed class LayoutInputTests
     [InlineData("ReminderItem", "IconPadding", "0", 0d)]
     [InlineData("EquipmentTracker", "X", "-120", -120d)]
     [InlineData("EquipmentTracker", "Y", "120.5", 120.5d)]
+    [InlineData("EquipmentTracker", "Y", "120,5", 120.5d)]
     [InlineData("ReminderItem", "OpacityPercent", "50", 50d)]
     [InlineData("ReminderItem", "IconSize", "999", 180d)]
     [InlineData("ReminderItem", "TextSize", "1", 10d)]
@@ -76,6 +83,7 @@ public sealed class LayoutInputTests
                 editor.RaiseEvent(new RoutedEventArgs(UIElement.LostFocusEvent, editor));
                 DrainDispatcher();
                 Assert.Equal(expected, Convert.ToDouble(property.GetValue(model), CultureInfo.InvariantCulture));
+                Assert.Equal(expected.ToString("G", CultureInfo.CurrentCulture), editor.Text);
                 Assert.False(Validation.GetHasError(editor));
             }
         });
@@ -84,6 +92,8 @@ public sealed class LayoutInputTests
     [Theory]
     [InlineData("")]
     [InlineData("abc")]
+    [InlineData("NaN")]
+    [InlineData("Infinity")]
     public void InvalidInput_KeepsPreviousValue_AndCanBeCorrected(string input)
     {
         RunSta(() =>
@@ -106,14 +116,105 @@ public sealed class LayoutInputTests
         });
     }
 
-    private static TextBox CreateEditor(XElement declaration, object model)
+    [Fact]
+    public void SourceNotification_DoesNotReplaceDraftOrCaret()
     {
-        var element = new XElement(declaration.Name, new XAttribute("Text", declaration.Attribute("Text")!.Value));
-        var editor = (TextBox)XamlReader.Parse(element.ToString());
+        RunSta(() =>
+        {
+            var model = new ReminderItem();
+            var editor = CreateEditor(ReadEditors().First(e => BindingPath(e) == "IconSize"), model);
+            editor.SelectAll();
+            editor.SelectedText = "6";
+            editor.CaretIndex = 1;
+            model.IconSize = 180;
+            DrainDispatcher();
+            Assert.Equal("6", editor.Text);
+            Assert.Equal(1, editor.CaretIndex);
+            editor.SelectedText = "4";
+            Assert.Equal("64", editor.Text);
+            Assert.True(editor.CommitInput());
+            Assert.Equal(64d, model.IconSize);
+            Assert.Equal("64", editor.Text);
+
+            model.IconSize = 80;
+            DrainDispatcher();
+            Assert.Equal("80", editor.Text); // Slider/source updates still work when idle.
+
+            model.IconSize = 180;
+            DrainDispatcher();
+            SetText(editor, "999");
+            Assert.True(editor.CommitInput());
+            Assert.Equal(180d, model.IconSize);
+            Assert.Equal("180", editor.Text); // Setter raised no change event at the same bound.
+        });
+    }
+
+    [Fact]
+    public void VisibleEditor_CommitsOnEnterAndFocusChange_AndCancelsOnEscape()
+    {
+        RunSta(() =>
+        {
+            var model = new ReminderItem { IconSize = 80 };
+            var editor = CreateEditor(ReadEditors().First(e => BindingPath(e) == "IconSize"), model);
+            var next = new TextBox();
+            var panel = new StackPanel();
+            panel.Children.Add(editor);
+            panel.Children.Add(next);
+            var window = new Window { Content = panel, Width = 300, Height = 140 };
+            try
+            {
+                window.Show();
+                editor.Focus();
+                editor.SelectAll();
+                editor.SelectedText = "6";
+                editor.CaretIndex = editor.Text.Length;
+                editor.SelectedText = "4";
+                Assert.Equal("64", editor.Text);
+                Assert.Equal(80d, model.IconSize); // Still uncommitted.
+                SendKey(editor, Key.Enter);
+                Assert.Equal(64d, model.IconSize);
+
+                editor.SelectAll();
+                editor.SelectedText = "9";
+                editor.CaretIndex = editor.Text.Length;
+                editor.SelectedText = "6";
+                Assert.Equal(64d, model.IconSize);
+                next.Focus();
+                DrainDispatcher();
+                Assert.Equal(96d, model.IconSize);
+
+                editor.Focus();
+                editor.SelectAll();
+                editor.SelectedText = "12";
+                SendKey(editor, Key.Escape);
+                Assert.Equal("96", editor.Text);
+                Assert.Equal(96d, model.IconSize);
+            }
+            finally { window.Close(); }
+        });
+    }
+
+    private static void SendKey(NumericTextBox editor, Key key)
+    {
+        var e = new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(editor), 0, key)
+        {
+            RoutedEvent = Keyboard.PreviewKeyDownEvent
+        };
+        editor.RaiseEvent(e);
+        DrainDispatcher();
+        Assert.True(e.Handled);
+    }
+
+    private static NumericTextBox CreateEditor(XElement declaration, object model)
+    {
+        XNamespace controls = "clr-namespace:RoAura.Controls;assembly=RoAura";
+        var element = new XElement(controls + "NumericTextBox",
+            new XAttribute("Value", declaration.Attribute("Value")!.Value));
+        var editor = (NumericTextBox)XamlReader.Parse(element.ToString());
         editor.Language = System.Windows.Markup.XmlLanguage.GetLanguage("en-US");
         editor.DataContext = model;
         DrainDispatcher();
-        Assert.NotNull(editor.GetBindingExpression(TextBox.TextProperty));
+        Assert.NotNull(editor.GetBindingExpression(NumericTextBox.ValueProperty));
         return editor;
     }
 
@@ -127,7 +228,7 @@ public sealed class LayoutInputTests
         Dispatcher.CurrentDispatcher.Invoke(() => { }, DispatcherPriority.ContextIdle);
 
     private static string BindingPath(XElement editor) =>
-        editor.Attribute("Text")?.Value.Split(new[] { ' ', ',', '}' }, StringSplitOptions.RemoveEmptyEntries)
+        (editor.Attribute("Value") ?? editor.Attribute("Text"))?.Value.Split(new[] { ' ', ',', '}' }, StringSplitOptions.RemoveEmptyEntries)
             .Skip(1).FirstOrDefault() ?? "";
 
     private static XElement[] ReadEditors()
@@ -137,7 +238,7 @@ public sealed class LayoutInputTests
             var path = Path.Combine(directory.FullName, "MainWindow.xaml");
             if (File.Exists(path))
                 return XDocument.Load(path).Descendants()
-                    .Where(e => e.Name.LocalName == "TextBox" && e.Attribute("Text") is not null).ToArray();
+                    .Where(e => e.Name.LocalName is "TextBox" or "NumericTextBox").ToArray();
         }
         throw new FileNotFoundException("Could not locate MainWindow.xaml.");
     }

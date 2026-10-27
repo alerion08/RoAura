@@ -89,7 +89,9 @@ Use the smallest relevant section for normal changes. Complete all **Release blo
 ## Numeric layout input
 
 - [ ] In Cooldowns, Effects, Buff Panel, Reminder, Equipment, MVP Timers, reward groups and rate indicators: select the whole size value, clear it, type `64`/`24` digit by digit; no intermediate snap to a minimum or maximum.
-- [ ] Tab/click another field commits the number and updates the preview/overlay.
+- [ ] Enter or Tab/click another field commits the number and updates the preview/overlay; Escape restores the last valid value.
+- [ ] A model/packet update while typing does not replace the draft or move its caret.
+- [ ] Fully close the previous instance before testing; About shows the candidate commit revision.
 - [ ] Padding/gap accept `0`; X/Y accept supported negative/fractional coordinates.
 - [ ] Paste/replacement works; out-of-range values clamp only after leaving the field.
 - [ ] Empty/non-numeric input leaves the last valid value intact, displays validation, and can be corrected.
