@@ -1,9 +1,13 @@
-<UserControl x:Class="RoAura.DatabaseSettingsControl"
+<UserControl x:Class="RoAura.DatabaseSettingsControl" x:Name="DatabaseRoot"
  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
  xmlns:controls="clr-namespace:RoAura.Controls" xmlns:local="clr-namespace:RoAura" xmlns:converters="clr-namespace:RoAura.Converters" LostKeyboardFocus="Settings_LostFocus">
  <UserControl.Resources>
   <converters:ColorStringToBrushConverter x:Key="WatchColorBrush"/>
   <converters:DoubleToThicknessConverter x:Key="WatchPadding"/>
+  <Style x:Key="WatchNumber" TargetType="controls:NumericTextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+   <Setter Property="Width" Value="88"/><Setter Property="Height" Value="28"/><Setter Property="Padding" Value="6,0"/>
+   <Setter Property="VerticalContentAlignment" Value="Center"/><Setter Property="HorizontalAlignment" Value="Left"/><Setter Property="Margin" Value="0,3,0,3"/>
+  </Style>
  </UserControl.Resources>
  <TabControl Margin="8" Style="{StaticResource SectionTabControlStyle}">
   <TabItem Header="{DynamicResource BasicTab}"><Grid Margin="8">
@@ -35,7 +39,10 @@
     <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
     <ListView x:Name="WatchList" Grid.Row="0" ItemsSource="{Binding MarketWatchRules}" SelectionChanged="WatchList_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Auto">
      <ListView.View><GridView><GridViewColumn Header="{DynamicResource Name}" Width="245" DisplayMemberBinding="{Binding Caption}"/>
-      <GridViewColumn Header="{DynamicResource WatchPriceRule}" Width="190" DisplayMemberBinding="{Binding PriceCaption}"/></GridView></ListView.View>
+      <GridViewColumn Header="{DynamicResource WatchPriceRule}" Width="170" DisplayMemberBinding="{Binding PriceCaption}"/>
+      <GridViewColumn Header="{DynamicResource Enabled}" Width="90"><GridViewColumn.CellTemplate><DataTemplate>
+       <CheckBox IsChecked="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="{DynamicResource WatchPauseHint}" HorizontalAlignment="Center"/>
+      </DataTemplate></GridViewColumn.CellTemplate></GridViewColumn></GridView></ListView.View>
     </ListView>
     <Border Grid.Column="2" Background="#F4F8FD" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" Padding="16,12">
      <Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
@@ -51,36 +58,56 @@
    </Grid>
   </TabItem>
   <TabItem Header="{DynamicResource NotificationsTab}">
-   <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="18" DataContext="{Binding MarketWatchNotifications}">
-    <CheckBox Content="{DynamicResource Enabled}" IsChecked="{Binding Enabled}" Margin="0,0,0,12"/>
-    <TextBlock Text="{DynamicResource WatchTemplate}"/>
-    <TextBox Text="{Binding TextTemplate, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,5"/>
-    <TextBlock Text="{DynamicResource WatchTemplateHint}" TextWrapping="Wrap" Margin="0,0,0,12"/>
-    <WrapPanel Margin="0,0,0,12"><Button Content="{DynamicResource WatchChooseIcon}" Click="ChooseIcon_Click"/>
-     <Button Content="{DynamicResource WatchItemIcon}" Click="ResetIcon_Click" Margin="10,0,0,0"/>
-     <Button Content="{DynamicResource WatchPreview}" Click="Preview_Click" Margin="10,0,0,0"/></WrapPanel>
-    <Border x:Name="PreviewBorder" Visibility="Collapsed" CornerRadius="6" Margin="0,0,0,12"
-      Background="{Binding Background, Converter={StaticResource WatchColorBrush}}" Padding="{Binding Padding, Converter={StaticResource WatchPadding}}">
-      <StackPanel Orientation="Horizontal"><Image x:Name="PreviewIcon" Width="{Binding IconSize}" Height="{Binding IconSize}" Margin="0,0,8,0" Stretch="Uniform"/>
-       <TextBlock x:Name="PreviewText" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold" MaxWidth="600"
-          FontSize="{Binding TextSize}" Foreground="{Binding TextColor, Converter={StaticResource WatchColorBrush}}"/>
-      </StackPanel>
+   <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="16" DataContext="{Binding MarketWatchNotifications}">
+    <Border Background="#F8FBFF" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="7" Padding="12" Margin="0,0,0,10">
+     <StackPanel><TextBlock Text="{DynamicResource WatchPreviewTitle}" FontWeight="SemiBold" Foreground="{StaticResource RoMutedBrush}" Margin="0,0,0,8"/>
+      <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" MaxHeight="160">
+       <local:MarketWatchNotificationView HorizontalAlignment="Left" Settings="{Binding}" Notification="{Binding PreviewNotification, ElementName=DatabaseRoot}"/>
+      </ScrollViewer>
+     </StackPanel>
     </Border>
-    <UniformGrid Columns="2">
-     <TextBlock Text="{DynamicResource IconSize}" VerticalAlignment="Center" Margin="0,5"/><controls:NumericTextBox Value="{Binding IconSize, Mode=TwoWay}" Margin="0,5"/>
-     <TextBlock Text="{DynamicResource TextSize}" VerticalAlignment="Center" Margin="0,5"/><controls:NumericTextBox Value="{Binding TextSize, Mode=TwoWay}" Margin="0,5"/>
-     <TextBlock Text="{DynamicResource IconPadding}" VerticalAlignment="Center" Margin="0,5"/><controls:NumericTextBox Value="{Binding Padding, Mode=TwoWay}" Margin="0,5"/>
-     <TextBlock Text="{DynamicResource WatchGap}" VerticalAlignment="Center" Margin="0,5"/><controls:NumericTextBox Value="{Binding Gap, Mode=TwoWay}" Margin="0,5"/>
-     <TextBlock Text="{DynamicResource WatchDuration}" VerticalAlignment="Center" Margin="0,5"/><controls:NumericTextBox Value="{Binding DurationSeconds, Mode=TwoWay}" Margin="0,5"/>
-     <TextBlock Text="X" VerticalAlignment="Center" Margin="0,5"/><controls:NumericTextBox Value="{Binding X, Mode=TwoWay}" Margin="0,5"/>
-     <TextBlock Text="Y" VerticalAlignment="Center" Margin="0,5"/><controls:NumericTextBox Value="{Binding Y, Mode=TwoWay}" Margin="0,5"/>
-     <TextBlock Text="{DynamicResource WatchBackground}" VerticalAlignment="Center" Margin="0,5"/><TextBox x:Name="BackgroundEditor" Text="{Binding Background, UpdateSourceTrigger=LostFocus}" LostFocus="Color_LostFocus" Margin="0,5"/>
-     <TextBlock Text="{DynamicResource WatchTextColor}" VerticalAlignment="Center" Margin="0,5"/><TextBox x:Name="TextColorEditor" Text="{Binding TextColor, UpdateSourceTrigger=LostFocus}" LostFocus="Color_LostFocus" Margin="0,5"/>
-    </UniformGrid>
-    <TextBlock Text="{DynamicResource WatchColorHint}" TextWrapping="Wrap" Margin="0,6,0,12"/>
-    <CheckBox Content="{DynamicResource WatchSound}" IsChecked="{Binding SoundEnabled}" Margin="0,4"/>
-    <DockPanel Margin="0,8,0,0"><Button DockPanel.Dock="Right" Content="{DynamicResource WatchChooseSound}" Click="ChooseSound_Click" Margin="10,0,0,0"/>
-     <TextBox Text="{Binding SoundPath, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/></DockPanel>
+    <WrapPanel Margin="0,0,0,9" VerticalAlignment="Center">
+     <CheckBox Content="{DynamicResource Enabled}" IsChecked="{Binding Enabled}" Margin="0,5,18,5"/>
+     <CheckBox Content="{DynamicResource WatchShowIcon}" IsChecked="{Binding ShowIcon}" Margin="0,5,18,5"/>
+     <Button Content="{DynamicResource WatchChooseIcon}" Click="ChooseIcon_Click" Margin="0,0,8,0"/>
+     <Button Content="{DynamicResource WatchItemIcon}" Click="ResetIcon_Click" Margin="0,0,8,0"/>
+     <Button Content="{DynamicResource WatchPreview}" Click="Preview_Click"/>
+    </WrapPanel>
+    <TextBlock Text="{DynamicResource WatchTemplate}"/>
+    <TextBox Height="30" Padding="7,0" VerticalContentAlignment="Center" Text="{Binding TextTemplate, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,3"/>
+    <TextBlock Text="{DynamicResource WatchTemplateHint}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,9"/>
+    <Grid HorizontalAlignment="Left">
+     <Grid.ColumnDefinitions><ColumnDefinition Width="190"/><ColumnDefinition Width="95"/><ColumnDefinition Width="18"/><ColumnDefinition Width="190"/><ColumnDefinition Width="150"/></Grid.ColumnDefinitions>
+     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <TextBlock Text="{DynamicResource IconSize}" VerticalAlignment="Center" TextWrapping="Wrap"/><controls:NumericTextBox Grid.Column="1" Value="{Binding IconSize, Mode=TwoWay}" Style="{StaticResource WatchNumber}"/>
+     <TextBlock Grid.Column="3" Text="{DynamicResource TextSize}" VerticalAlignment="Center" TextWrapping="Wrap"/><controls:NumericTextBox Grid.Column="4" Value="{Binding TextSize, Mode=TwoWay}" Style="{StaticResource WatchNumber}"/>
+     <TextBlock Grid.Row="1" Text="{DynamicResource IconPadding}" VerticalAlignment="Center" TextWrapping="Wrap"/><controls:NumericTextBox Grid.Row="1" Grid.Column="1" Value="{Binding Padding, Mode=TwoWay}" Style="{StaticResource WatchNumber}"/>
+     <TextBlock Grid.Row="1" Grid.Column="3" Text="{DynamicResource WatchGap}" VerticalAlignment="Center" TextWrapping="Wrap"/><controls:NumericTextBox Grid.Row="1" Grid.Column="4" Value="{Binding Gap, Mode=TwoWay}" Style="{StaticResource WatchNumber}"/>
+     <TextBlock Grid.Row="2" Text="{DynamicResource WatchDuration}" VerticalAlignment="Center" TextWrapping="Wrap"/><controls:NumericTextBox Grid.Row="2" Grid.Column="1" Value="{Binding DurationSeconds, Mode=TwoWay}" Style="{StaticResource WatchNumber}"/>
+     <TextBlock Grid.Row="3" Text="{DynamicResource WatchBackground}" VerticalAlignment="Center"/>
+     <TextBox x:Name="BackgroundEditor" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Width="110" Height="28" Padding="6,0" VerticalContentAlignment="Center" HorizontalAlignment="Left" Text="{Binding Background, UpdateSourceTrigger=LostFocus}" LostFocus="Color_LostFocus" Margin="0,3"/>
+     <TextBlock Grid.Row="3" Grid.Column="3" Text="{DynamicResource WatchTextColor}" VerticalAlignment="Center"/>
+     <TextBox x:Name="TextColorEditor" Grid.Row="3" Grid.Column="4" Width="145" Height="28" Padding="6,0" VerticalContentAlignment="Center" Text="{Binding TextColor, UpdateSourceTrigger=LostFocus}" LostFocus="Color_LostFocus" Margin="0,3"/>
+    </Grid>
+    <WrapPanel Margin="0,9,0,0">
+     <TextBlock Text="X" VerticalAlignment="Center" Margin="0,0,7,0"/><controls:NumericTextBox Value="{Binding X, Mode=TwoWay}" Style="{StaticResource WatchNumber}" Margin="0,0,16,0"/>
+     <TextBlock Text="Y" VerticalAlignment="Center" Margin="0,0,7,0"/><controls:NumericTextBox Value="{Binding Y, Mode=TwoWay}" Style="{StaticResource WatchNumber}" Margin="0,0,16,0"/>
+     <Button Content="{DynamicResource WatchMoveOverlay}" Click="MoveOverlay_Click"/>
+    </WrapPanel>
+    <TextBlock Text="{DynamicResource WatchColorHint}" TextWrapping="Wrap" MaxWidth="760" HorizontalAlignment="Left" FontSize="11" Margin="0,7,0,10"/>
+    <Border BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1,1,1,1" Background="#F4F8FD" CornerRadius="6" Padding="10">
+     <StackPanel>
+      <WrapPanel Margin="0,0,0,7"><CheckBox Content="{DynamicResource WatchSound}" IsChecked="{Binding SoundEnabled}" Margin="0,5,18,5"/>
+       <Button Content="{DynamicResource WatchChooseSound}" Click="ChooseSound_Click" Margin="0,0,8,0"/>
+       <Button Content="{DynamicResource WatchListen}" Click="ListenSound_Click"/>
+      </WrapPanel>
+      <TextBox Height="28" Padding="6,0" VerticalContentAlignment="Center" Text="{Binding SoundPath}" IsReadOnly="True"/>
+      <WrapPanel Margin="0,7,0,0"><TextBlock Text="{DynamicResource WatchVolume}" VerticalAlignment="Center" Margin="0,0,12,0"/>
+       <Slider Minimum="0" Maximum="100" Width="200" Value="{Binding SoundVolumePercent, Mode=TwoWay}" VerticalAlignment="Center" Margin="0,0,12,0"/>
+       <controls:NumericTextBox Width="65" Value="{Binding SoundVolumePercent, Mode=TwoWay}" Style="{StaticResource WatchNumber}"/><TextBlock Text="%" VerticalAlignment="Center" Margin="6,0"/>
+      </WrapPanel>
+     </StackPanel>
+    </Border>
    </StackPanel></ScrollViewer>
   </TabItem>
  </TabControl>

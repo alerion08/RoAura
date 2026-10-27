@@ -95,9 +95,38 @@ public sealed class OverlayLayoutPreservationTests
         });
     }
 
+    [Fact]
+    public void MarketMovePreviewUsesTheSharedEditLifecycleAndNeverErasesCoordinates()
+    {
+        RunSta(() =>
+        {
+            var root = Path.Combine(Path.GetTempPath(), "RoAura.Tests", Guid.NewGuid().ToString("N"));
+            var store = new SettingsStore(root);
+            var settings = store.Load();
+            settings.ServerProfile = GameServerProfile.SpringRo;
+            settings.MarketWatchNotifications.X = 450;
+            settings.MarketWatchNotifications.Y = 160;
+            var overlay = new OverlayWindow(settings, store, new GoldGoblinService(settings, new SpringRoMarketService()));
+            try
+            {
+                overlay.SetMarketWatchEditMode();
+                Assert.True(overlay.IsBusyEditing);
+                Assert.True(Assert.Single(settings.ActiveMarketNotifications).IsPlacementPreview);
+                overlay.EndAllEditModes();
+                Assert.False(overlay.IsBusyEditing);
+                Assert.Empty(settings.ActiveMarketNotifications);
+                Assert.Equal(450, settings.MarketWatchNotifications.X);
+                Assert.Equal(160, settings.MarketWatchNotifications.Y);
+                Assert.Equal(450, store.Load().MarketWatchNotifications.X);
+            }
+            finally { overlay.Close(); if (Directory.Exists(root)) Directory.Delete(root, true); }
+        });
+    }
+
     private static string Coordinates(AppSettings s) => JsonSerializer.Serialize(new
     {
         s.NotificationX, s.NotificationY, s.TimersX, s.TimersY,
+        Market = new { s.MarketWatchNotifications.X, s.MarketWatchNotifications.Y },
         Skills = s.Skills.Select(v => new { v.X, v.Y }),
         Effects = s.Effects.Select(v => new { v.NotificationX, v.NotificationY }),
         Reminders = s.Reminders.Select(v => new { v.X, v.Y }),

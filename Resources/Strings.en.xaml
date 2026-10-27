@@ -509,4 +509,12 @@
     <sys:String x:Key="WatchSound">Sound notification</sys:String>
     <sys:String x:Key="WatchChooseSound">Choose sound</sys:String>
     <sys:String x:Key="WatchEdit">Edit</sys:String>
+    <sys:String x:Key="WatchResume">Resume tracking</sys:String>
+    <sys:String x:Key="WatchPauseHint">Enable or pause tracking while keeping the item and price rule</sys:String>
+    <sys:String x:Key="WatchPreviewTitle">Notification preview</sys:String>
+    <sys:String x:Key="WatchShowIcon">Show icon</sys:String>
+    <sys:String x:Key="WatchMoveOverlay">Move in game</sys:String>
+    <sys:String x:Key="WatchMoveHint">Drag the notification · ESC — finish</sys:String>
+    <sys:String x:Key="WatchListen">Listen</sys:String>
+    <sys:String x:Key="WatchVolume">Volume</sys:String>
 </ResourceDictionary>

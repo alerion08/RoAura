@@ -1,0 +1,17 @@
+<UserControl x:Class="RoAura.MarketWatchNotificationView" x:Name="View"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:converters="clr-namespace:RoAura.Converters">
+ <UserControl.Resources><BooleanToVisibilityConverter x:Key="WatchVisible"/>
+  <converters:ColorStringToBrushConverter x:Key="WatchBrush"/><converters:DoubleToThicknessConverter x:Key="WatchInset"/>
+ </UserControl.Resources>
+ <Border CornerRadius="6" Background="{Binding Settings.Background, ElementName=View, Converter={StaticResource WatchBrush}}"
+    Padding="{Binding Settings.Padding, ElementName=View, Converter={StaticResource WatchInset}}">
+  <StackPanel Orientation="Horizontal">
+   <Image Source="{Binding Notification.Icon, ElementName=View}" Stretch="Uniform" Margin="0,0,8,0"
+      Width="{Binding Settings.IconSize, ElementName=View}" Height="{Binding Settings.IconSize, ElementName=View}"
+      Visibility="{Binding Settings.ShowIcon, ElementName=View, Converter={StaticResource WatchVisible}}"/>
+   <TextBlock Text="{Binding Notification.Text, ElementName=View}" TextWrapping="Wrap" MaxWidth="600" VerticalAlignment="Center" FontWeight="Bold"
+      FontSize="{Binding Settings.TextSize, ElementName=View}" Foreground="{Binding Settings.TextColor, ElementName=View, Converter={StaticResource WatchBrush}}"/>
+  </StackPanel>
+ </Border>
+</UserControl>

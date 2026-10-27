@@ -15,6 +15,41 @@ public sealed class MarketWatchTests
         new() { ItemId = 730, ItemName = "Diamond", Price = price, Owner = owner, ShopType = type };
 
     [Fact]
+    public void PausingKeepsTheRuleAndResumingRearmsTheNextFreshSnapshot()
+    {
+        var rule = Rule(maximum: 150);
+        var service = new MarketWatchService();
+        Assert.Single(service.Evaluate([rule], [Listing()]));
+        rule.Enabled = false;
+        Assert.Empty(service.Evaluate([rule], [Listing("50 z", "Bob")]));
+        Assert.Equal(150, rule.MaximumPrice);
+        Assert.Equal("Diamond", rule.ItemName);
+        rule.Enabled = true;
+        Assert.Single(service.Evaluate([rule], [Listing()]));
+        Assert.Empty(service.Evaluate([rule], [Listing()]));
+    }
+
+    [Fact]
+    public void OlderSettingsDefaultToEnabledRulesAndVisibleIconsAtFullVolume()
+    {
+        Assert.True(JsonSerializer.Deserialize<MarketWatchRule>("{\"ItemId\":730}")!.Enabled);
+        var config = JsonSerializer.Deserialize<MarketWatchNotificationSettings>("{}")!;
+        Assert.True(config.ShowIcon);
+        Assert.Equal(100, config.SoundVolumePercent);
+    }
+
+    [Theory]
+    [InlineData(400, 100, 1000, 800, 400, 300, 700, 350)]
+    [InlineData(-1500, 50, 800, 600, 400, 300, -1300, 200)]
+    public void DialogCentersInTheGapIncludingNegativeMonitorCoordinates(double x, double y, double width, double height,
+        double dialogWidth, double dialogHeight, double expectedX, double expectedY)
+    {
+        var result = MarketWatchDialog.CenterPosition(new System.Windows.Rect(x, y, width, height), new System.Windows.Size(dialogWidth, dialogHeight));
+        Assert.Equal(expectedX, result.X);
+        Assert.Equal(expectedY, result.Y);
+    }
+
+    [Fact]
     public void DatabaseSearchKeepsEquipmentSlotVariantsDistinct()
     {
         var database = new GameDatabaseService();
@@ -86,9 +121,12 @@ public sealed class MarketWatchTests
             var store = new SettingsStore(root);
             var settings = store.Load();
             Assert.Empty(settings.MarketWatchRules);
-            settings.MarketWatchRules.Add(Rule());
+            var savedRule = Rule(); savedRule.Enabled = false;
+            settings.MarketWatchRules.Add(savedRule);
             settings.MarketBackgroundRefreshMinutes = 1;
             settings.MarketWatchNotifications.TextTemplate = "%name: %price";
+            settings.MarketWatchNotifications.ShowIcon = false;
+            settings.MarketWatchNotifications.SoundVolumePercent = 35;
             settings.MarketWatchNotifications.Padding = 0;
             settings.MarketWatchNotifications.X = -45.5;
             store.CreateProfile("Watch", settings);
@@ -97,6 +135,10 @@ public sealed class MarketWatchTests
             store.ApplyProfile("Watch");
             var restored = store.Load();
             Assert.Equal(730, Assert.Single(restored.MarketWatchRules).ItemId);
+            Assert.False(restored.MarketWatchRules[0].Enabled);
+            Assert.Equal(100, restored.MarketWatchRules[0].MaximumPrice);
+            Assert.False(restored.MarketWatchNotifications.ShowIcon);
+            Assert.Equal(35, restored.MarketWatchNotifications.SoundVolumePercent);
             Assert.Equal(1, restored.MarketBackgroundRefreshMinutes);
             Assert.Equal(0, restored.MarketWatchNotifications.Padding);
             Assert.Equal(-45.5, restored.MarketWatchNotifications.X);

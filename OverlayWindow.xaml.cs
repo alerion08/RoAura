@@ -70,6 +70,9 @@ public partial class OverlayWindow : Window
     private Point _rewardGroupDragStart;
     private Point _rewardGroupPositionStart;
 
+    private bool _marketWatchEditMode;
+    private bool _marketWatchDragging;
+    private Point _marketWatchDragStart, _marketWatchOrigin;
     private bool _rateIndicatorEditMode;
     private bool _rateIndicatorGroupMode;
     private RateIndicatorSettings? _draggedRateIndicator;
@@ -98,7 +101,7 @@ public partial class OverlayWindow : Window
 
     public bool IsBusyEditing => _skillEditMode || _notificationEditMode || _reminderEditMode ||
                                  _buffPanelEditMode || _equipmentEditMode || _timerPanelEditMode ||
-                                 _rewardGroupEditMode || _rateIndicatorEditMode;
+                                 _rewardGroupEditMode || _rateIndicatorEditMode || _marketWatchEditMode;
     public bool AreOverlaysVisible => _overlaysVisible;
 
     public void RefreshServerProfile()
@@ -321,8 +324,53 @@ public partial class OverlayWindow : Window
             : "OverlayMoveRateIndicator"));
     }
 
+    public void SetMarketWatchEditMode()
+    {
+        _marketWatchEditMode = true;
+        MarketWatchPanel.IsHitTestVisible = true;
+        ShowMarketWatchNotification(new(730, "1carat Diamond", 5000), preview: true, placement: true);
+        ShowEditBanner(LocalizationService.Get("WatchMoveHint"));
+    }
+
+    private void MarketWatch_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (!_marketWatchEditMode || sender is not Border border || border.DataContext is not MarketWatchNotification { IsPlacementPreview: true }) return;
+        _marketWatchDragging = true;
+        _marketWatchDragStart = e.GetPosition(this);
+        _marketWatchOrigin = new Point(_settings.MarketWatchNotifications.X, _settings.MarketWatchNotifications.Y);
+        border.CaptureMouse();
+        e.Handled = true;
+    }
+    private void MarketWatch_MouseMove(object sender, MouseEventArgs e)
+    {
+        if (!_marketWatchDragging || e.LeftButton != MouseButtonState.Pressed) return;
+        var mouse = e.GetPosition(this);
+        _settings.MarketWatchNotifications.X = Math.Clamp(_marketWatchOrigin.X + mouse.X - _marketWatchDragStart.X, 0, Math.Max(0, ActualWidth));
+        _settings.MarketWatchNotifications.Y = Math.Clamp(_marketWatchOrigin.Y + mouse.Y - _marketWatchDragStart.Y, 0, Math.Max(0, ActualHeight));
+    }
+    private void MarketWatch_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    {
+        if (!_marketWatchDragging) return;
+        _marketWatchDragging = false;
+        if (sender is Border border) border.ReleaseMouseCapture();
+        RequestSave();
+        e.Handled = true;
+    }
+    private void MarketWatch_LostMouseCapture(object sender, MouseEventArgs e)
+    {
+        if (!_marketWatchDragging) return;
+        _marketWatchDragging = false;
+        RequestSave();
+    }
+
     public void EndAllEditModes()
     {
+        _marketWatchEditMode = false;
+        if (_marketWatchDragging && Mouse.Captured is UIElement capture) capture.ReleaseMouseCapture();
+        _marketWatchDragging = false;
+        MarketWatchPanel.IsHitTestVisible = false;
+        foreach (var notification in _settings.ActiveMarketNotifications.Where(n => n.IsPlacementPreview).ToList())
+            _settings.ActiveMarketNotifications.Remove(notification);
         _skillEditMode = false;
         _notificationEditMode = false;
         _reminderEditMode = false;
@@ -759,7 +807,7 @@ public partial class OverlayWindow : Window
         PlayConfiguredSound(enabled, soundPath, volume);
     }
 
-    public void ShowMarketWatchNotification(MarketWatchMatch match, bool preview = false)
+    public void ShowMarketWatchNotification(MarketWatchMatch match, bool preview = false, bool placement = false)
     {
         var config = _settings.MarketWatchNotifications;
         if (!config.Enabled && !preview) return;
@@ -784,9 +832,16 @@ public partial class OverlayWindow : Window
         catch (Exception ex) { DebugLog.Write($"MARKET WATCH ICON ERROR: {ex.Message}"); }
         _settings.ActiveMarketNotifications.Add(new MarketWatchNotification(
             MarketWatchService.FormatText(config.TextTemplate, match), icon,
-            DateTime.UtcNow.AddSeconds(config.DurationSeconds)));
+            placement ? DateTime.MaxValue : DateTime.UtcNow.AddSeconds(config.DurationSeconds), placement));
         while (_settings.ActiveMarketNotifications.Count > 100) _settings.ActiveMarketNotifications.RemoveAt(0);
-        PlayConfiguredSound(config.SoundEnabled, config.SoundPath, 100);
+        if (!placement && config.SoundVolumePercent > 0)
+            PlayConfiguredSound(config.SoundEnabled, config.SoundPath, config.SoundVolumePercent);
+    }
+
+    public void PlayMarketWatchSound()
+    {
+        var config = _settings.MarketWatchNotifications;
+        if (config.SoundVolumePercent > 0) PlayConfiguredSound(true, config.SoundPath, config.SoundVolumePercent);
     }
 
     public void PlayMvpTimerSound(MvpTimer timer) =>

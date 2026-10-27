@@ -11,13 +11,18 @@ namespace RoAura;
 public partial class DatabaseSettingsControl : UserControl
 {
     private readonly GameDatabaseService _database = (Application.Current as App)?.MarketWatchDatabase ?? new();
-    private readonly System.Windows.Threading.DispatcherTimer _previewTimer = new();
+    private MarketWatchNotificationSettings? _previewSettings;
+    private ImageSource? _previewIcon;
+    private string? _previewIconKey;
+    public static readonly DependencyProperty PreviewNotificationProperty = DependencyProperty.Register(nameof(PreviewNotification), typeof(MarketWatchNotification), typeof(DatabaseSettingsControl));
+    public MarketWatchNotification? PreviewNotification { get => (MarketWatchNotification?)GetValue(PreviewNotificationProperty); private set => SetValue(PreviewNotificationProperty, value); }
     public DatabaseSettingsControl()
     {
         InitializeComponent();
         WatchEditor.Initialize(_database);
-        _previewTimer.Tick += (_, _) => { PreviewBorder.Visibility = Visibility.Collapsed; _previewTimer.Stop(); };
-        Unloaded += (_, _) => _previewTimer.Stop();
+        Loaded += (_, _) => AttachPreview();
+        DataContextChanged += (_, _) => AttachPreview();
+        Unloaded += (_, _) => { if (_previewSettings is not null) _previewSettings.PropertyChanged -= PreviewSettingsChanged; _previewSettings = null; };
     }
     private App? CurrentApp => Application.Current as App;
     private void OpenDatabase_Click(object sender, RoutedEventArgs e) => CurrentApp?.ToggleDatabase();
@@ -38,6 +43,7 @@ public partial class DatabaseSettingsControl : UserControl
     private void EditWatch_Click(object sender, RoutedEventArgs e)
     {
         if (WatchList.SelectedItem is not MarketWatchRule existing || WatchEditor.CreateRule() is not { } updated) return;
+        updated.Enabled = existing.Enabled;
         CurrentApp?.SaveMarketWatchRule(updated, existing.ItemId);
         WatchList.SelectedItem = updated;
     }
@@ -77,20 +83,29 @@ public partial class DatabaseSettingsControl : UserControl
         settings.MarketWatchNotifications.SoundEnabled = true;
         CurrentApp?.PersistMarketWatchSettings();
     }
-    private void Preview_Click(object sender, RoutedEventArgs e)
+    private void AttachPreview()
     {
-        if (DataContext is not AppSettings settings) return;
-        var config = settings.MarketWatchNotifications;
-        PreviewText.Text = Services.MarketWatchService.FormatText(config.TextTemplate, new(730, "1carat Diamond", 5000));
-        PreviewIcon.Source = string.IsNullOrWhiteSpace(config.IconImageBase64)
-            ? new System.Windows.Media.Imaging.BitmapImage(new Uri("https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/items/730.png"))
-            : new Converters.Base64ToImageSourceConverter().Convert(config.IconImageBase64, typeof(ImageSource), null!, System.Globalization.CultureInfo.CurrentCulture) as ImageSource;
-        PreviewBorder.Visibility = Visibility.Visible;
-        _previewTimer.Stop();
-        _previewTimer.Interval = TimeSpan.FromSeconds(config.DurationSeconds);
-        _previewTimer.Start();
-        CurrentApp?.PreviewMarketWatch();
+        if (_previewSettings is not null) _previewSettings.PropertyChanged -= PreviewSettingsChanged;
+        _previewSettings = (DataContext as AppSettings)?.MarketWatchNotifications;
+        if (_previewSettings is not null) _previewSettings.PropertyChanged += PreviewSettingsChanged;
+        RefreshPreview();
     }
+    private void PreviewSettingsChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e) => RefreshPreview();
+    private void RefreshPreview()
+    {
+        if (_previewSettings is not { } config) return;
+        if (_previewIconKey != config.IconImageBase64)
+        {
+            _previewIconKey = config.IconImageBase64;
+            _previewIcon = string.IsNullOrWhiteSpace(config.IconImageBase64)
+                ? new System.Windows.Media.Imaging.BitmapImage(new Uri("https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/items/730.png"))
+                : new Converters.Base64ToImageSourceConverter().Convert(config.IconImageBase64, typeof(ImageSource), null!, System.Globalization.CultureInfo.CurrentCulture) as ImageSource;
+        }
+        PreviewNotification = new(MarketWatchService.FormatText(config.TextTemplate, new(730, "1carat Diamond", 5000)), _previewIcon, DateTime.MaxValue);
+    }
+    private void Preview_Click(object sender, RoutedEventArgs e) { RefreshPreview(); CurrentApp?.PreviewMarketWatch(); }
+    private void ListenSound_Click(object sender, RoutedEventArgs e) => CurrentApp?.AuditionMarketWatchSound();
+    private void MoveOverlay_Click(object sender, RoutedEventArgs e) => CurrentApp?.BeginMarketWatchMove();
     private void Settings_LostFocus(object sender, KeyboardFocusChangedEventArgs e) => CurrentApp?.PersistMarketWatchSettings();
     private void Color_LostFocus(object sender, RoutedEventArgs e)
     {

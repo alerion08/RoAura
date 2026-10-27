@@ -131,6 +131,12 @@ User screenshot feedback: increase the short refresh field; replace the full-wid
 
 Implemented shared `MarketWatchEditor` for inline and star-dialog entry, with 32-DIP fields and a separate popup that never binds back into the typing text. The right card keeps actions at its bottom. The star dialog is 400 DIP wide, and the refresh interval field is 30 DIP high. Database item search/detail names now reuse `ItemCatalogService.FullName`, including equipment slot variants; existing watch names are refreshed by ID at startup without changing price rules. The existing popup draft test now exercises a visible window and typing focus; a catalog regression distinguishes Jur [2]/[3]. Local .NET remains unavailable; automated results are recorded by this commit's Windows Actions run. Manual layout checks in RU/EN at 100–150% DPI and in-game modal checks remain pending.
 
+## Notification controls and paused watches (2026-10-27)
+
+Active Database follow-up: borderless star dialog centered between both database panels; permanent live notification preview; compact numeric rows and shared X/Y row; Show icon; sound audition and volume; game drag through the existing edit/finish lifecycle; per-rule pause checkbox in the third table column. Pausing preserves the item and price; resuming rearms the next successful snapshot. Old rules default to enabled, and old appearance settings keep icons on and volume at 100%.
+
+Preview and runtime now share a single notification view. Movement uses the ordinary overlay host and client-relative/DPI-aware mouse coordinates, with no resize-driven coordinate writes. Sound uses the existing MediaPlayer lifecycle. Regression coverage includes paused matching, older JSON defaults, settings/presets, centered gap geometry including a negative monitor origin, icon space removal and edit-mode cleanup/coordinate persistence. Local SDK remains unavailable; Windows Actions records automated validation for the commit. Manual RU/EN, mixed-DPI, dialog placement from both stars, drag/finish/focus and audio-volume checks are still pending.
+
 ## Next recommended step
 
 Test the current PR #5 artifact against `docs/REGRESSION_CHECKLIST.md`, record each result, and fix only confirmed regressions. Do not merge PR #5 or publish 2.14.0 until the release-blocking manual checks pass.

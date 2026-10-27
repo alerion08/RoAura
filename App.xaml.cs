@@ -42,6 +42,7 @@ public partial class App : Application
     private readonly GitHubUpdateService _updateService = new();
     private SpringRoMarketService? _marketService;
     private readonly MarketWatchService _marketWatch = new();
+    private readonly HashSet<MarketWatchRule> _observedWatchRules = [];
     private AppSettings? _marketWatchSettings;
     private GameDatabaseService? _watchDatabase;
     public AppSettings? MarketWatchSettings => _marketWatchSettings;
@@ -62,6 +63,7 @@ public partial class App : Application
         };
         if (item is null || _marketWatchSettings is null) return;
         var existing = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == item.Id);
+        if (existing is not null && !existing.Enabled) { existing.Enabled = true; return; }
         if (existing is not null)
         {
             _marketWatchSettings.MarketWatchRules.Remove(existing);
@@ -79,6 +81,7 @@ public partial class App : Application
     {
         if (_watchDatabase is null || _marketWatchSettings is null) return;
         var dialog = new MarketWatchDialog(_watchDatabase, item, rule) { Owner = owner, Topmost = owner?.Topmost == true };
+        if (_databaseOverlay?.IsDatabaseOpen == true) _databaseOverlay.PositionWatchDialog(dialog);
         if (dialog.ShowDialog() != true || dialog.Rule is not { } added) return;
         SaveMarketWatchRule(added);
     }
@@ -96,6 +99,30 @@ public partial class App : Application
         _marketWatchSettings.MarketWatchRules.Add(added);
         _marketWatch.Forget(added.ItemId);
         PersistMarketWatchSettings();
+    }
+
+    private void SyncWatchRuleSubscriptions()
+    {
+        foreach (var rule in _observedWatchRules) rule.PropertyChanged -= WatchRuleChanged;
+        _observedWatchRules.Clear();
+        if (_marketWatchSettings is null) return;
+        foreach (var rule in _marketWatchSettings.MarketWatchRules)
+            if (_observedWatchRules.Add(rule)) rule.PropertyChanged += WatchRuleChanged;
+    }
+    private void WatchRuleChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (sender is not MarketWatchRule rule || e.PropertyName != nameof(MarketWatchRule.Enabled)) return;
+        _marketWatch.Forget(rule.ItemId);
+        PersistMarketWatchSettings();
+    }
+    public void AuditionMarketWatchSound() => _overlay?.PlayMarketWatchSound();
+    public void BeginMarketWatchMove()
+    {
+        if (_overlay is null || _settingsWindow is null) return;
+        _settingsWindow.EndOverlayEditModes();
+        _overlay.SetMarketWatchEditMode();
+        SetEscapeHotkeyEnabled(true);
+        _settingsWindow.Hide();
     }
 
     public void PreviewMarketWatch() => _overlay?.ShowMarketWatchNotification(
@@ -319,10 +346,12 @@ public partial class App : Application
             if (_watchDatabase.Item(rule.ItemId) is { } knownItem) rule.ItemName = knownItem.Name;
         settings.MarketWatchRules.CollectionChanged += (_, args) =>
         {
+            SyncWatchRuleSubscriptions();
             if (args.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset) _marketWatch.Reset();
             if (args.OldItems is not null)
                 foreach (MarketWatchRule rule in args.OldItems) _marketWatch.Forget(rule.ItemId);
         };
+        SyncWatchRuleSubscriptions();
         _marketService = new SpringRoMarketService();
         _marketService.SnapshotUpdated += snapshot => Dispatcher.BeginInvoke(() =>
         {

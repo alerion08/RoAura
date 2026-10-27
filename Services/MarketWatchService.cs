@@ -13,7 +13,7 @@ public sealed class MarketWatchService
 
     public IReadOnlyList<MarketWatchMatch> Evaluate(IEnumerable<MarketWatchRule> rules, IReadOnlyList<MarketListing> snapshot)
     {
-        var currentRules = rules.Where(r => r.ItemId > 0 && (r.WithoutPrice || r.MaximumPrice >= 0))
+        var currentRules = rules.Where(r => r.Enabled && r.ItemId > 0 && (r.WithoutPrice || r.MaximumPrice >= 0))
             .GroupBy(r => r.ItemId).Select(g => g.Last()).ToList();
         var ids = currentRules.Select(r => r.ItemId).ToHashSet();
         foreach (var id in _previous.Keys.Where(id => !ids.Contains(id)).ToList()) _previous.Remove(id);

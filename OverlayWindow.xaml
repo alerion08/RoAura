@@ -1,7 +1,7 @@
 <Window x:Class="RoAura.OverlayWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:converters="clr-namespace:RoAura.Converters"
+        xmlns:converters="clr-namespace:RoAura.Converters" xmlns:local="clr-namespace:RoAura"
         Title="RoAura Overlay" WindowStyle="None" AllowsTransparency="True"
         Background="Transparent" Topmost="False" ShowInTaskbar="False"
         ResizeMode="NoResize" ShowActivated="False">
@@ -513,18 +513,10 @@
             <ItemsControl Canvas.Left="{Binding MarketWatchNotifications.X}" Canvas.Top="{Binding MarketWatchNotifications.Y}"
                           ItemsSource="{Binding ActiveMarketNotifications}" MaxWidth="800">
                 <ItemsControl.ItemTemplate><DataTemplate>
-                    <Border CornerRadius="6"
-                        Background="{Binding DataContext.MarketWatchNotifications.Background, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}"
-                        Padding="{Binding DataContext.MarketWatchNotifications.Padding, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource IconPadding}}"
+                    <Border MouseLeftButtonDown="MarketWatch_MouseLeftButtonDown" MouseLeftButtonUp="MarketWatch_MouseLeftButtonUp"
+                        MouseMove="MarketWatch_MouseMove" LostMouseCapture="MarketWatch_LostMouseCapture" Cursor="SizeAll"
                         Margin="{Binding DataContext.MarketWatchNotifications.Gap, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BottomMargin}}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Icon}" Stretch="Uniform" Margin="0,0,8,0"
-                                Width="{Binding DataContext.MarketWatchNotifications.IconSize, RelativeSource={RelativeSource AncestorType=Window}}"
-                                Height="{Binding DataContext.MarketWatchNotifications.IconSize, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap" MaxWidth="600" VerticalAlignment="Center" FontWeight="Bold"
-                                FontSize="{Binding DataContext.MarketWatchNotifications.TextSize, RelativeSource={RelativeSource AncestorType=Window}}"
-                                Foreground="{Binding DataContext.MarketWatchNotifications.TextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}"/>
-                        </StackPanel>
+                        <local:MarketWatchNotificationView Settings="{Binding DataContext.MarketWatchNotifications, RelativeSource={RelativeSource AncestorType=Window}}" Notification="{Binding}"/>
                     </Border>
                 </DataTemplate></ItemsControl.ItemTemplate>
             </ItemsControl>

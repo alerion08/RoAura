@@ -171,3 +171,5 @@ Database → Watchlist lets you add items by name/ID, edit rules and remove watc
 Only successful fresh selling-shop snapshots are evaluated. The first refresh may notify about offers already present. Unchanged offers remain silent; a new seller/price or an absence followed by return can notify again. Multiple new matches for one item use the lowest qualifying price. Download failures do not count as an absence. Notification history lasts for the current session.
 
 Refresh interval: 1–1440 minutes, default 10. **Refreshing too frequently may result in a server-side block.** There is no hidden ten-minute floor; crawls do not overlap and server-directed back-off remains active.
+
+Pause a watch with Enabled in the third column: its item and price rule are retained. Re-enable it to check the next fresh Market update. The live preview is always at the top; Show icon affects both it and the game overlay. Move in game hides settings and lets you drag a persistent sample; finish with the configured hotkey (Esc by default). Listen auditions the chosen sound at the selected volume; 0% is silent.

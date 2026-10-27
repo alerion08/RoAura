@@ -215,6 +215,18 @@ public partial class DatabaseOverlayWindow : Window
         Left = topLeft.X + margin;
         Top = topLeft.Y + (gameHeight - Height) / 2;
         _details.PlaceForGame(dipBounds, panelWidth, Height, margin);
+        foreach (var dialog in OwnedWindows.Cast<Window>().Concat(_details.OwnedWindows.Cast<Window>()).OfType<MarketWatchDialog>())
+            PositionWatchDialog(dialog);
+    }
+
+    internal void PositionWatchDialog(MarketWatchDialog dialog)
+    {
+        var left = Left + Width;
+        var right = _details.Left;
+        if (right < left) { left = Math.Min(Left, _details.Left); right = Math.Max(Left + Width, _details.Left + _details.Width); }
+        var top = Math.Max(Top, _details.Top);
+        var bottom = Math.Min(Top + Height, _details.Top + _details.Height);
+        dialog.CenterInArea(new Rect(left, top, Math.Max(1, right - left), Math.Max(1, bottom - top)));
     }
 
     private void SetPanelsVisible(bool visible)

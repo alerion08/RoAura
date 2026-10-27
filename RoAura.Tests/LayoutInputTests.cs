@@ -40,6 +40,7 @@ public sealed class LayoutInputTests
 
     // Use the actual editor and model binding from the view.
     [Theory]
+    [InlineData("MarketWatchNotificationSettings", "SoundVolumePercent", "50", 50d)]
     [InlineData("MarketWatchNotificationSettings", "IconSize", "64", 64d)]
     [InlineData("MarketWatchNotificationSettings", "TextSize", "24", 24d)]
     [InlineData("SkillAura", "IndividualIconSize", "64", 64d)]
@@ -304,6 +305,23 @@ public sealed class LayoutInputTests
             Assert.NotNull(dialog.Rule);
             Assert.Equal(900001, dialog.Rule.ItemId);
             Assert.True(dialog.Rule.WithoutPrice);
+        });
+    }
+
+    [Fact]
+    public void SharedNotificationViewHidesIconWithoutReservingItsWidth()
+    {
+        RunSta(() =>
+        {
+            var config = new MarketWatchNotificationSettings { ShowIcon = true, IconSize = 40, Padding = 0 };
+            var view = new MarketWatchNotificationView { Settings = config, Notification = new("Diamond", null, DateTime.MaxValue) };
+            DrainDispatcher();
+            view.Measure(new Size(1000, 1000));
+            var withIcon = view.DesiredSize.Width;
+            config.ShowIcon = false;
+            DrainDispatcher();
+            view.Measure(new Size(1000, 1000));
+            Assert.True(view.DesiredSize.Width < withIcon);
         });
     }
 

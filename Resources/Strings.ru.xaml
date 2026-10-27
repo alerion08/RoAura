@@ -509,4 +509,12 @@
     <sys:String x:Key="WatchSound">Звуковое уведомление</sys:String>
     <sys:String x:Key="WatchChooseSound">Выбрать звук</sys:String>
     <sys:String x:Key="WatchEdit">Изменить</sys:String>
+    <sys:String x:Key="WatchResume">Возобновить отслеживание</sys:String>
+    <sys:String x:Key="WatchPauseHint">Временно включить или выключить отслеживание, сохранив предмет и цену</sys:String>
+    <sys:String x:Key="WatchPreviewTitle">Предпросмотр уведомления</sys:String>
+    <sys:String x:Key="WatchShowIcon">Показывать иконку</sys:String>
+    <sys:String x:Key="WatchMoveOverlay">Переместить в игре</sys:String>
+    <sys:String x:Key="WatchMoveHint">Перетащите уведомление мышью · ESC — завершить</sys:String>
+    <sys:String x:Key="WatchListen">Прослушать</sys:String>
+    <sys:String x:Key="WatchVolume">Громкость</sys:String>
 </ResourceDictionary>
