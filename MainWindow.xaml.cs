@@ -22,6 +22,8 @@ public partial class MainWindow : Window
     private readonly NpcapPacketCapture _packetCapture;
     private readonly GoldGoblinService _goldGoblin;
     private bool _shutdownStarted;
+    private bool _applyingPreset;
+    private bool _refreshingPresets;
     private bool _languageReady;
     private bool _serverProfileReady;
     private bool _changingMoveMode;
@@ -697,6 +699,7 @@ public partial class MainWindow : Window
 
     private void SaveSettings(bool persist = true, bool applyPacketCapture = true)
     {
+        if (_applyingPreset) return;
         GoldGoblinRulesGrid.CommitEdit();
         Settings.SyncBuffPanelGroups();
         Settings.SyncRewardGroups();
@@ -794,8 +797,68 @@ public partial class MainWindow : Window
         }
 
         SaveSettings();
-        _store.ApplyProfile(name);
-        RestartApplication();
+        EndOverlayEditModes();
+        _saveDebounceTimer.Stop();
+        _learningGeneration++;
+        _learningEffect = null; _learningSkill = null; _learningReminder = null; _learningEquipment = null;
+        _applyingPreset = true;
+        _languageReady = false;
+        _serverProfileReady = false;
+        _updatingMvpMonsterSelection = true;
+        try
+        {
+            MvpMonsterBox.IsDropDownOpen = false;
+            // Detach editors while the snapshot is copied, so old selections cannot
+            // write values back into newly restored rows.
+            DataContext = null;
+            _store.ApplyProfileTo(name, Settings);
+            EnabledBox.IsChecked = Settings.Enabled;
+            ProcessesBox.Text = string.Join(", ", Settings.AllowedProcesses);
+            _cooldownGroupFilter = null;
+            _effectsView = CollectionViewSource.GetDefaultView(Settings.Effects);
+            _skillsView = CollectionViewSource.GetDefaultView(Settings.Skills);
+            RebuildCooldownGroupFilterItems();
+            LootColorsGroup.DataContext = Settings.RewardChannels.FirstOrDefault(c => c.Kind == RewardKind.Loot);
+            LocalizationService.ApplyLanguage(Settings.Language);
+            LanguageBox.SelectedIndex = Settings.Language == "en" ? 1 : 0;
+            ServerProfileBox.SelectedIndex = Settings.ServerProfile switch
+            { GameServerProfile.SpringRo => 1, GameServerProfile.Other => 2, _ => 0 };
+            UpdateServerProfileLabels();
+            Settings.SyncCooldownGroups();
+            Settings.SyncBuffPanelGroups();
+            Settings.SyncRewardGroups();
+            Settings.SyncRateIndicators();
+            DataContext = Settings;
+            ApplyServerProfile(save: false);
+            foreach (var list in new System.Windows.Controls.Primitives.Selector[]
+            { SkillsGrid, EffectsGrid, RemindersGrid, EquipmentGrid, MvpTimersGrid,
+              CooldownGroupsBox, BuffPanelGroupBox, RewardChannelsGrid, RewardGroupBox, RateIndicatorsGrid, GoldGoblinRulesGrid })
+                list.SelectedIndex = list.Items.Count > 0 ? 0 : -1;
+            CooldownGroupFilter.SelectedIndex = 0;
+            _overlay.ResetForPreset();
+            (Application.Current as App)?.ResetForPreset();
+            (Application.Current as App)?.RefreshLanguage();
+            RefreshPresetList(name);
+            _applyingPreset = false;
+            SaveSettings();
+            SetStatus(T($"Пресет «{name}» применён.", $"Preset '{name}' applied."));
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(this, T("Не удалось применить пресет: ", "Could not apply preset: ") + ex.Message,
+                "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
+            RefreshPresetList(_store.ActiveProfileName);
+        }
+        finally
+        {
+            _applyingPreset = false;
+            DataContext = Settings;
+            _languageReady = true;
+            _serverProfileReady = true;
+            _updatingMvpMonsterSelection = false;
+            MvpMonsterBox_DataContextChanged(MvpMonsterBox,
+                new DependencyPropertyChangedEventArgs(DataContextProperty, null, MvpTimersGrid.SelectedItem));
+        }
     }
 
     private void UpdatePreset_Click(object sender, RoutedEventArgs e)
@@ -829,21 +892,24 @@ public partial class MainWindow : Window
             $"Preset '{name}' deleted. Working settings were not changed."));
     }
 
-    private void RefreshPresetList(string? selectedName = null)
+    private void Preset_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var profiles = _store.ListProfiles();
-        PresetBox.ItemsSource = profiles;
-        PresetBox.SelectedItem = profiles.FirstOrDefault(name =>
-            string.Equals(name, selectedName, StringComparison.OrdinalIgnoreCase)) ?? profiles.FirstOrDefault();
+        if (_refreshingPresets || _applyingPreset || !_languageReady || PresetBox.SelectedItem is not string name ||
+            string.Equals(name, _store.ActiveProfileName, StringComparison.OrdinalIgnoreCase)) return;
+        ApplyPreset_Click(sender, e);
     }
 
-    private void RestartApplication()
+    private void RefreshPresetList(string? selectedName = null)
     {
-        var executable = Environment.ProcessPath;
-        if (!string.IsNullOrWhiteSpace(executable))
-            Process.Start(new ProcessStartInfo(executable) { UseShellExecute = true });
-        _shutdownStarted = true;
-        Application.Current.Shutdown();
+        _refreshingPresets = true;
+        try
+        {
+            var profiles = _store.ListProfiles();
+            PresetBox.ItemsSource = profiles;
+            PresetBox.SelectedItem = profiles.FirstOrDefault(name =>
+                string.Equals(name, selectedName, StringComparison.OrdinalIgnoreCase)) ?? profiles.FirstOrDefault();
+        }
+        finally { _refreshingPresets = false; }
     }
 
     private void RememberPacketCaptureConfiguration()
@@ -1735,7 +1801,7 @@ public partial class MainWindow : Window
 
     private void MvpMonster_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (_updatingMvpMonsterSelection || MvpTimersGrid.SelectedItem is not MvpTimer timer ||
+        if (_updatingMvpMonsterSelection || _suppressMvpMonsterTextChanged || MvpTimersGrid.SelectedItem is not MvpTimer timer ||
             sender is not ComboBox box || box.SelectedItem is not MonsterEntry monster) return;
         // Only overwrite a custom timer name when the user actually picked a
         // monster from the dropdown, or when the name still equals the catalog
@@ -1756,65 +1822,65 @@ public partial class MainWindow : Window
 
     private void MvpMonsterBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        if (sender is not ComboBox box || e.NewValue is not MvpTimer timer) return;
+        if (sender is not ComboBox box) return;
+        var wasUpdating = _updatingMvpMonsterSelection;
         _updatingMvpMonsterSelection = true;
-        MvpMonsterView.Filter = null;
-        MvpMonsterView.Refresh();
-        box.SelectedItem = _monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId);
-        _updatingMvpMonsterSelection = false;
-        Dispatcher.BeginInvoke(DispatcherPriority.Input, () =>
+        try
         {
-            if (_mvpMonsterEditor is null) return;
-            _mvpMonsterEditor.SelectionStart = _mvpMonsterEditor.Text.Length;
-            _mvpMonsterEditor.SelectionLength = 0;
-        });
+            box.IsDropDownOpen = false;
+            MvpMonsterView.Filter = null;
+            box.SelectedItem = e.NewValue is MvpTimer timer
+                ? _monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId) : null;
+        }
+        finally { _updatingMvpMonsterSelection = wasUpdating; }
     }
 
     private void MvpMonsterBox_Loaded(object sender, RoutedEventArgs e)
     {
         if (sender is not ComboBox box) return;
+        if (_mvpMonsterEditor is not null) _mvpMonsterEditor.TextChanged -= MvpMonsterEditor_TextChanged;
         box.ApplyTemplate();
         _mvpMonsterEditor = box.Template.FindName("PART_EditableTextBox", box) as TextBox;
-        if (_mvpMonsterEditor is not null)
-            _mvpMonsterEditor.TextChanged += MvpMonsterEditor_TextChanged;
+        if (_mvpMonsterEditor is not null) _mvpMonsterEditor.TextChanged += MvpMonsterEditor_TextChanged;
+        MvpMonsterBox_DataContextChanged(box, new DependencyPropertyChangedEventArgs(DataContextProperty, null, box.DataContext));
     }
 
     private void MvpMonsterEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (_suppressMvpMonsterTextChanged || _mvpMonsterEditor is null) return;
-        var queryText = _mvpMonsterEditor.Text;
-        var query = queryText.Trim();
-        MvpMonsterView.Filter = value =>
+        if (_suppressMvpMonsterTextChanged || _updatingMvpMonsterSelection ||
+            _mvpMonsterEditor is not { IsKeyboardFocused: true } editor) return;
+        if (MvpMonsterBox.SelectedItem is MonsterEntry selected && editor.Text == selected.DisplayName) return;
+        var text = editor.Text;
+        var caret = editor.CaretIndex;
+        var query = text.Trim();
+        _suppressMvpMonsterTextChanged = true;
+        try
         {
-            if (string.IsNullOrWhiteSpace(query)) return true;
-            if (value is not MonsterEntry monster) return false;
-            return monster.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                   monster.NameRu.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                   monster.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase);
-        };
-        MvpMonsterView.Refresh();
-        if (!MvpMonsterBox.IsDropDownOpen) MvpMonsterBox.IsDropDownOpen = true;
-        Dispatcher.BeginInvoke(DispatcherPriority.Input, () =>
-        {
-            if (_mvpMonsterEditor is null) return;
-            _suppressMvpMonsterTextChanged = true;
-            if (_mvpMonsterEditor.Text != queryText) _mvpMonsterEditor.Text = queryText;
-            _mvpMonsterEditor.SelectionStart = _mvpMonsterEditor.Text.Length;
-            _mvpMonsterEditor.SelectionLength = 0;
-            _suppressMvpMonsterTextChanged = false;
-        });
+            MvpMonsterView.Filter = value => value is MonsterEntry monster &&
+                (string.IsNullOrWhiteSpace(query) ||
+                 monster.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                 monster.NameRu.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                 monster.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase));
+            // Refresh can clear the selection/text. Restore only this synchronous
+            // typing draft; never queue stale text across a timer selection change.
+            editor.Text = text;
+            editor.CaretIndex = Math.Min(caret, text.Length);
+            MvpMonsterBox.IsDropDownOpen = !MvpMonsterView.IsEmpty;
+        }
+        finally { _suppressMvpMonsterTextChanged = false; }
     }
 
     private void MvpMonster_DropDownClosed(object sender, EventArgs e)
     {
-        MvpMonsterView.Filter = null;
-        MvpMonsterView.Refresh();
-        Dispatcher.BeginInvoke(DispatcherPriority.Input, () =>
+        var wasUpdating = _updatingMvpMonsterSelection;
+        _updatingMvpMonsterSelection = true;
+        try
         {
-            if (_mvpMonsterEditor is null) return;
-            _mvpMonsterEditor.SelectionStart = _mvpMonsterEditor.Text.Length;
-            _mvpMonsterEditor.SelectionLength = 0;
-        });
+            var id = (MvpTimersGrid.SelectedItem as MvpTimer)?.MonsterId;
+            MvpMonsterView.Filter = null;
+            MvpMonsterBox.SelectedItem = _monsters.FirstOrDefault(m => m.Id == id);
+        }
+        finally { _updatingMvpMonsterSelection = wasUpdating; }
     }
 
     private void TimerMoveMode_Changed(object sender, RoutedEventArgs e)

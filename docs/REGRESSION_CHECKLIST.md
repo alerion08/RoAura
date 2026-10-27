@@ -124,6 +124,15 @@ Use the smallest relevant section for normal changes. Complete all **Release blo
 - [ ] Edit a value, Save/apply a preset, switch selection/tab and restart: the committed value persists.
 - [ ] Sliders still update their matching numeric fields.
 
+## Shared controls and live presets
+
+- [ ] Every dropdown keeps a plain blue arrow when hovered/open/selected; its list appears below the field with no empty popup after changing rows.
+- [ ] Switch repeatedly among MVP timer rows while the dropdown/editor has focus; selected monster/name/duration/kill time remain associated with the correct timer. Search by name and ID; select by mouse/keyboard; custom names survive row selection.
+- [ ] Text, numeric and color fields share the same rounded corners; all sliders match the timer sound slider. Sound button captions fit at 100/125/150% DPI in RU and EN.
+- [ ] Click each color field: palette, HEX, RGB and alpha work; Cancel preserves the previous value; Apply persists through preset save/reload and restart.
+- [ ] Create Knight/Wizard presets with different entries, enabled states, exact equipment variants, all panel positions, statistics, Gold Goblin rules and Database settings. Switch using the list: process stays running, every section/overlay changes, hotkeys follow the preset, no old alerts remain.
+- [ ] Modify settings after switching, save and close/reopen: current working state persists. Named snapshots change only through Update selected; their local filenames match the displayed names. Corrupt/missing preset shows a warning without changing the working settings.
+
 ## UI and localization
 
 - [ ] Changed screen checked in Russian.

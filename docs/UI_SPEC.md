@@ -26,6 +26,15 @@ This document records current product-level UI behavior. It is intentionally com
 - Positions, scale, opacity, colors and enabled states persist through settings/presets where supported.
 - Pixel sizes, padding, spacing, coordinates and opacity editors use `NumericTextBox`: the editable text is a local draft, separate from the numeric model binding. Enter or leaving the field (Tab/click) commits the complete number; Escape discards the draft. Source notifications must not replace a draft or move its caret. Existing model limits apply only at commit; the displayed result is read back even when clamping raises no change event. Empty/invalid/non-finite input keeps the last valid model value and shows WPF validation. Both decimal separators are accepted.
 
+## Shared controls and presets
+
+- Dropdown arrows remain blue with no separate border, fill or checked/hover highlight. Popups open below their owning field.
+- Text, numeric and color editors share a 5-DIP rounded template. Field styles inherit the common template. Slider tracks use blue progress, a pale remainder and a round outlined thumb throughout the app.
+- Color fields open an in-app palette with RGBA sliders, preview and a HEX draft accepting #RRGGBB or #AARRGGBB. Apply commits; Cancel preserves the original value and alpha.
+- Selecting a named preset applies all serialized settings without restarting the process. Existing model/collection references remain valid for running services and hotkeys. Editors detach during the copy; learning, transient notifications and session statistics reset. Settings, layout and exact equipment variants are retained by each snapshot.
+- Named files are `%APPDATA%/RoAura/Profiles/<preset name>.json`. Create/update are explicit snapshots; autosave only changes settings.json. Switching backs up the working copy. Market history remains separate from presets.
+- MVP selection synchronization never opens search or queues an old text draft when switching timer rows. Search runs only while typing in the focused editor; no empty popup is opened.
+
 ## Overlay window behavior
 
 - Overlays are non-activating and must not steal keyboard focus from Ragnarok.

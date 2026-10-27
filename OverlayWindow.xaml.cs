@@ -156,6 +156,21 @@ public partial class OverlayWindow : Window
         RefreshServerProfile();
     }
 
+    public void ResetForPreset()
+    {
+        EndAllEditModes();
+        _cooldownEnds.Clear();
+        _settings.ActiveNotifications.Clear();
+        _settings.ActiveMarketNotifications.Clear();
+        foreach (var group in _settings.RewardGroups) group.Notifications.Clear();
+        foreach (var player in _soundPlayers) player.Close();
+        _soundPlayers.Clear();
+        ResetRateStatistics();
+        DataContext = null;
+        DataContext = _settings;
+        RefreshServerProfile();
+    }
+
     public bool TriggerSkill(SkillAura skill, bool force = false)
     {
         var now = DateTime.UtcNow;

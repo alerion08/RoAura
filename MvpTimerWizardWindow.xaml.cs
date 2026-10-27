@@ -76,7 +76,7 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
 
     private void MonsterBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (MonsterBox.SelectedItem is not MonsterEntry monster) return;
+        if (_suppressMonsterTextChanged || MonsterBox.SelectedItem is not MonsterEntry monster) return;
         SelectedMonster = monster;
         Draft.MonsterId = monster.Id;
         Draft.Name = monster.Name;
@@ -94,31 +94,35 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
 
     private void MonsterEditor_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (_suppressMonsterTextChanged || _monsterEditor is null) return;
-        var queryText = _monsterEditor.Text;
-        var query = queryText.Trim();
-        MonsterView.Filter = value => value is MonsterEntry monster &&
-            (string.IsNullOrWhiteSpace(query) ||
-             monster.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-             monster.NameRu.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-             monster.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase));
-        MonsterView.Refresh();
-        if (!MonsterBox.IsDropDownOpen) MonsterBox.IsDropDownOpen = true;
-        Dispatcher.BeginInvoke(DispatcherPriority.Input, () =>
+        if (_suppressMonsterTextChanged || _monsterEditor is not { IsKeyboardFocused: true } editor) return;
+        if (MonsterBox.SelectedItem is MonsterEntry selected && editor.Text == selected.DisplayName) return;
+        var text = editor.Text;
+        var caret = editor.CaretIndex;
+        var query = text.Trim();
+        _suppressMonsterTextChanged = true;
+        try
         {
-            if (_monsterEditor is null) return;
-            _suppressMonsterTextChanged = true;
-            if (_monsterEditor.Text != queryText) _monsterEditor.Text = queryText;
-            _monsterEditor.SelectionStart = _monsterEditor.Text.Length;
-            _monsterEditor.SelectionLength = 0;
-            _suppressMonsterTextChanged = false;
-        });
+            MonsterView.Filter = value => value is MonsterEntry monster &&
+                (string.IsNullOrWhiteSpace(query) ||
+                 monster.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                 monster.NameRu.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                 monster.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase));
+            editor.Text = text;
+            editor.CaretIndex = Math.Min(caret, text.Length);
+            MonsterBox.IsDropDownOpen = !MonsterView.IsEmpty;
+        }
+        finally { _suppressMonsterTextChanged = false; }
     }
 
     private void MonsterBox_DropDownClosed(object sender, EventArgs e)
     {
-        MonsterView.Filter = null;
-        MonsterView.Refresh();
+        _suppressMonsterTextChanged = true;
+        try
+        {
+            MonsterView.Filter = null;
+            MonsterBox.SelectedItem = SelectedMonster;
+        }
+        finally { _suppressMonsterTextChanged = false; }
         MoveCaretToEnd();
     }
 

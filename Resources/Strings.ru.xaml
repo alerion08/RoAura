@@ -526,4 +526,7 @@
     <sys:String x:Key="WatchHistoryPrice">Цена</sys:String>
     <sys:String x:Key="WatchHistoryEmpty">История пока пуста. Новые подходящие предложения появятся после обновления маркета.</sys:String>
     <sys:String x:Key="WatchHistorySaveWarning">Не удалось прочитать или сохранить локальную историю. Защита от повторов после перезапуска не гарантируется. Подробности — в журнале.</sys:String>
+    <sys:String x:Key="ColorPickerTitle">Выбор цвета</sys:String>
+    <sys:String x:Key="ColorPickerApply">Применить</sys:String>
+    <sys:String x:Key="ColorPickerInvalid">Введите HEX: #RRGGBB или #AARRGGBB.</sys:String>
 </ResourceDictionary>

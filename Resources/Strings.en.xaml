@@ -526,4 +526,7 @@
     <sys:String x:Key="WatchHistoryPrice">Price</sys:String>
     <sys:String x:Key="WatchHistoryEmpty">No history yet. New qualifying offers will appear after a market refresh.</sys:String>
     <sys:String x:Key="WatchHistorySaveWarning">Local history could not be read or saved. Duplicate protection after a restart is not guaranteed. See the log for details.</sys:String>
+    <sys:String x:Key="ColorPickerTitle">Choose color</sys:String>
+    <sys:String x:Key="ColorPickerApply">Apply</sys:String>
+    <sys:String x:Key="ColorPickerInvalid">Enter HEX: #RRGGBB or #AARRGGBB.</sys:String>
 </ResourceDictionary>

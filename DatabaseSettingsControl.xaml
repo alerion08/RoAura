@@ -127,9 +127,9 @@
      <TextBlock Grid.Row="1" Grid.Column="3" Text="{DynamicResource WatchGap}" VerticalAlignment="Center" TextWrapping="Wrap"/><controls:NumericTextBox Grid.Row="1" Grid.Column="4" Value="{Binding Gap, Mode=TwoWay}" Style="{StaticResource WatchNumber}"/>
      <TextBlock Grid.Row="2" Text="{DynamicResource WatchDuration}" VerticalAlignment="Center" TextWrapping="Wrap"/><controls:NumericTextBox Grid.Row="2" Grid.Column="1" Value="{Binding DurationSeconds, Mode=TwoWay}" Style="{StaticResource WatchNumber}"/>
      <TextBlock Grid.Row="3" Text="{DynamicResource WatchBackground}" VerticalAlignment="Center"/>
-     <TextBox x:Name="BackgroundEditor" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Width="110" Height="28" Padding="6,0" VerticalContentAlignment="Center" HorizontalAlignment="Left" Text="{Binding Background, UpdateSourceTrigger=LostFocus}" LostFocus="Color_LostFocus" Margin="0,3"/>
+     <controls:ColorTextBox x:Name="BackgroundEditor" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Width="110" Height="28" Padding="6,0" VerticalContentAlignment="Center" HorizontalAlignment="Left" Text="{Binding Background, UpdateSourceTrigger=LostFocus}" LostFocus="Color_LostFocus" Margin="0,3"/>
      <TextBlock Grid.Row="3" Grid.Column="3" Text="{DynamicResource WatchTextColor}" VerticalAlignment="Center"/>
-     <TextBox x:Name="TextColorEditor" Grid.Row="3" Grid.Column="4" Width="145" Height="28" Padding="6,0" VerticalContentAlignment="Center" Text="{Binding TextColor, UpdateSourceTrigger=LostFocus}" LostFocus="Color_LostFocus" Margin="0,3"/>
+     <controls:ColorTextBox x:Name="TextColorEditor" Grid.Row="3" Grid.Column="4" Width="145" Height="28" Padding="6,0" VerticalContentAlignment="Center" Text="{Binding TextColor, UpdateSourceTrigger=LostFocus}" LostFocus="Color_LostFocus" Margin="0,3"/>
     </Grid>
     <WrapPanel Margin="0,9,0,0">
      <TextBlock Text="X" VerticalAlignment="Center" Margin="0,0,7,0"/><controls:NumericTextBox Value="{Binding X, Mode=TwoWay}" Style="{StaticResource WatchNumber}" Margin="0,0,16,0"/>

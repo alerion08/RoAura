@@ -277,6 +277,16 @@ public sealed class SettingsStore
         ExitSaveSuppressed = true;
     }
 
+    public void ApplyProfileTo(string name, AppSettings target)
+    {
+        // Deserialize/migrate before touching the live settings. All subsystems keep
+        // the same settings and collection references, including global hotkeys.
+        var snapshot = LoadFromPath(ProfilePath(name));
+        ApplyProfile(name);
+        SettingsSnapshot.Apply(snapshot, target);
+        ExitSaveSuppressed = false;
+    }
+
     public bool DeleteProfile(string name)
     {
         name = NormalizeProfileName(name);

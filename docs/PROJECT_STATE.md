@@ -143,6 +143,14 @@ Latest Database task adds a history table beneath watched items: detection time,
 
 History saves atomically before alerts. A damaged/newer/unreadable file is preserved and cannot be overwritten by empty history; a visible warning reports persistence errors, and write failures keep in-memory deduplication with retry. New tests cover actual file restart, all shop metadata, retention/expiry, file preservation and write recovery. The watch table uses exactly three filling columns with centered checkboxes. Volume is rounded to integer percent and choose/listen buttons share a fixed height. Local SDK remains absent; Windows CI validates the final commit. Manual history display, restart suppression, day-setting behavior, checkbox layout and audio UI checks remain pending.
 
+## Shared controls and live presets (2026-10-27)
+
+Current UI block: shared rounded text/numeric/color fields, borderless blue dropdown arrows, application-wide slider style, reduced button caption padding and a common RGBA/HEX color palette. MVP main editor and wizard no longer queue stale search text; timer row changes close/filter-reset the popup under selection suppression.
+
+Selecting a preset now copies the complete migrated snapshot into the live settings and existing observable collections. No process restart or second-instance race occurs. UI selection/bindings, server catalogs, hotkeys, watch subscriptions, language and capture configuration refresh. Transient notifications, learning and session counters reset; persisted positions and exact equipment variants come from the snapshot. Named JSON files and explicit create/update semantics remain compatible. Corrupt presets are validated before touching live settings. Offer history remains independent.
+
+Local .NET 8 cross-build of the application and tests succeeds on Linux. WPF execution and portable smoke tests require Windows validation. Added coverage checks repeated full-profile transitions, every serialized field, collection identity, post-switch saving, immutable named snapshots, corrupt input, HEX/alpha, rounded templates and arrow/slider visuals. Manual RU/EN at 100/125/150% DPI, the reported MVP selection sequence, palette apply/cancel and A/B preset switches inside Ragnarok remain required. No merge/release approval is implied.
+
 ## Next recommended step
 
 Test the current PR #5 artifact against `docs/REGRESSION_CHECKLIST.md`, record each result, and fix only confirmed regressions. Do not merge PR #5 or publish 2.14.0 until the release-blocking manual checks pass.

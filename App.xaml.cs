@@ -494,6 +494,18 @@ public partial class App : Application
         }
     }
 
+    public void ResetForPreset()
+    {
+        _effectStates.Clear();
+        _zenyBalance.Reset();
+        _nextBaseExperience = _nextJobExperience = 0;
+        _previousNextBaseExperience = _previousNextJobExperience = 0;
+        CloseDatabaseOverlay();
+        if (_settingsWindow is not null)
+            _marketWatch.PruneHistory(_settingsWindow.Settings.MarketWatchHistoryRetentionDays);
+        SyncWatchRuleSubscriptions();
+    }
+
     public void ReloadItemCatalog(string gameVersion)
     {
         _itemCatalog = ItemCatalogService.Load(gameVersion);

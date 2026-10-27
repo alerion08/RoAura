@@ -198,6 +198,12 @@ public sealed class AppSettings : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    public void NotifySettingsApplied()
+    {
+        // Some persisted fields are auto-properties; refresh their bindings too.
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
+    }
+
     public void SyncCooldownGroups()
     {
         var numbers = Skills.Select(skill => Math.Max(1, skill.GroupNumber)).Distinct().OrderBy(number => number).ToList();
