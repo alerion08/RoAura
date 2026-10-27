@@ -4,23 +4,43 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32;
 using RoAura.Models;
+using RoAura.Services;
 
 namespace RoAura;
 
 public partial class DatabaseSettingsControl : UserControl
 {
+    private readonly GameDatabaseService _database = (Application.Current as App)?.MarketWatchDatabase ?? new();
     private readonly System.Windows.Threading.DispatcherTimer _previewTimer = new();
     public DatabaseSettingsControl()
     {
         InitializeComponent();
+        WatchEditor.Initialize(_database);
         _previewTimer.Tick += (_, _) => { PreviewBorder.Visibility = Visibility.Collapsed; _previewTimer.Stop(); };
         Unloaded += (_, _) => _previewTimer.Stop();
     }
     private App? CurrentApp => Application.Current as App;
     private void OpenDatabase_Click(object sender, RoutedEventArgs e) => CurrentApp?.ToggleDatabase();
-    private void AddWatch_Click(object sender, RoutedEventArgs e) => CurrentApp?.EditMarketWatch(Window.GetWindow(this));
+    private void WatchList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (WatchEditor is null) return;
+        var rule = WatchList.SelectedItem as MarketWatchRule;
+        EditWatchButton.IsEnabled = DeleteWatchButton.IsEnabled = rule is not null;
+        var item = rule is null ? null : _database.Item(rule.ItemId) ?? new DatabaseItem { Id = rule.ItemId, Name = rule.ItemName };
+        WatchEditor.Initialize(_database, item, rule, allowItemChange: true);
+    }
+    private void AddWatch_Click(object sender, RoutedEventArgs e)
+    {
+        if (WatchEditor.CreateRule() is not { } added) return;
+        CurrentApp?.SaveMarketWatchRule(added);
+        WatchList.SelectedItem = added;
+    }
     private void EditWatch_Click(object sender, RoutedEventArgs e)
-    { if (WatchList.SelectedItem is MarketWatchRule rule) CurrentApp?.EditMarketWatch(Window.GetWindow(this), rule); }
+    {
+        if (WatchList.SelectedItem is not MarketWatchRule existing || WatchEditor.CreateRule() is not { } updated) return;
+        CurrentApp?.SaveMarketWatchRule(updated, existing.ItemId);
+        WatchList.SelectedItem = updated;
+    }
     private void DeleteWatch_Click(object sender, RoutedEventArgs e)
     {
         if (WatchList.SelectedItem is not MarketWatchRule rule || DataContext is not AppSettings settings) return;

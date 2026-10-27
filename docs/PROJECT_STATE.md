@@ -125,6 +125,12 @@ Only complete successful live SELL snapshots are evaluated by item ID. The first
 
 Added tests cover price boundaries, Any price, large amounts, deduplication, disappearance/reappearance, rule changes, settings/presets, consecutive refreshes, error preservation and autocomplete draft behavior. Local execution is blocked by the missing .NET SDK. The first Windows run compiled the app and passed 70 tests; a malformed HTML fixture in the new crawl test was corrected. Final automated results are attached to the integration commit’s Windows Actions run; manual game checks remain required. No release approval is implied.
 
+## Watchlist layout follow-up (2026-10-27)
+
+User screenshot feedback: increase the short refresh field; replace the full-width watch table/modal-only workflow with a left table/right inline editor resembling Gold Goblin; reduce oversized fields; use a real dropdown; show slot suffixes; narrow the star dialog by 20%.
+
+Implemented shared `MarketWatchEditor` for inline and star-dialog entry, with 32-DIP fields and a separate popup that never binds back into the typing text. The right card keeps actions at its bottom. The star dialog is 400 DIP wide, and the refresh interval field is 30 DIP high. Database item search/detail names now reuse `ItemCatalogService.FullName`, including equipment slot variants; existing watch names are refreshed by ID at startup without changing price rules. The existing popup draft test now exercises a visible window and typing focus; a catalog regression distinguishes Jur [2]/[3]. Local .NET remains unavailable; automated results are recorded by this commit's Windows Actions run. Manual layout checks in RU/EN at 100–150% DPI and in-game modal checks remain pending.
+
 ## Next recommended step
 
 Test the current PR #5 artifact against `docs/REGRESSION_CHECKLIST.md`, record each result, and fix only confirmed regressions. Do not merge PR #5 or publish 2.14.0 until the release-blocking manual checks pass.

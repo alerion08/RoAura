@@ -1,0 +1,30 @@
+<UserControl x:Class="RoAura.MarketWatchEditor"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+ <StackPanel>
+  <TextBlock x:Name="EditorTitle" Text="{DynamicResource WatchAddTitle}" FontWeight="SemiBold" Foreground="#637D9F"/>
+  <TextBlock x:Name="SelectedItemName" Text="—" FontFamily="Georgia" FontSize="19" FontWeight="Bold" Foreground="#174D92" TextWrapping="Wrap" Margin="0,7,0,3"/>
+  <TextBlock x:Name="SelectedItemLabel" Foreground="#637D9F" TextWrapping="Wrap"/>
+  <Separator Margin="0,10"/>
+  <StackPanel x:Name="SearchHost">
+   <TextBlock Text="{DynamicResource ItemNameOrId}" Margin="0,0,0,5"/>
+   <TextBox x:Name="ItemSearch" Height="32" MinHeight="32" Padding="7,0" VerticalContentAlignment="Center"
+      TextChanged="Search_Changed" PreviewKeyDown="Search_KeyDown" GotKeyboardFocus="Search_GotFocus" LostKeyboardFocus="Search_LostFocus" ToolTip="{DynamicResource WatchSearchHint}"/>
+   <Popup x:Name="SuggestionsPopup" PlacementTarget="{Binding ElementName=ItemSearch}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" Focusable="False">
+    <Border Width="{Binding ActualWidth, ElementName=ItemSearch}" Margin="0,3,0,0" Background="#FCFEFF" BorderBrush="#789DCF" BorderThickness="1" CornerRadius="5" Padding="3">
+     <ListBox x:Name="Suggestions" IsSynchronizedWithCurrentItem="False" MaxHeight="220" BorderThickness="0"
+         HorizontalContentAlignment="Stretch" Background="Transparent" PreviewMouseLeftButtonUp="Suggestion_Click" PreviewKeyDown="Suggestion_KeyDown"
+         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+      <ListBox.ItemTemplate><DataTemplate><StackPanel Margin="3,4">
+       <TextBlock Text="{Binding Name}" TextWrapping="Wrap" FontWeight="SemiBold"/>
+       <TextBlock Text="{Binding Id, StringFormat='Item ID: {0}'}" FontSize="11" Foreground="#637D9F"/>
+      </StackPanel></DataTemplate></ListBox.ItemTemplate>
+     </ListBox>
+    </Border>
+   </Popup>
+  </StackPanel>
+  <TextBlock Text="{DynamicResource WatchMaximumPrice}" TextWrapping="Wrap" Margin="0,12,0,5"/>
+  <TextBox x:Name="PriceBox" Height="32" MinHeight="32" Padding="7,0" VerticalContentAlignment="Center" Margin="0,0,0,10"/>
+  <CheckBox x:Name="WithoutPrice" Content="{DynamicResource WatchWithoutPrice}" Checked="PriceMode_Changed" Unchecked="PriceMode_Changed"/>
+  <TextBlock x:Name="ErrorText" Foreground="#B42318" TextWrapping="Wrap" Margin="0,10,0,0"/>
+ </StackPanel>
+</UserControl>

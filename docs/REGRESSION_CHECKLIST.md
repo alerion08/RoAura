@@ -91,7 +91,7 @@ Use the smallest relevant section for normal changes. Complete all **Release blo
 ### Market tracking
 
 - [ ] In RU and EN, inactive stars on search rows and item details are semi-transparent; confirmed watches turn both dark blue; Cancel changes nothing; a second click removes the watch.
-- [ ] Add/edit/remove via Watchlist. Search by name/ID, type/paste/replace several characters without auto-selection or caret jumps. Reject absent/ambiguous items, empty/negative/overflowing prices; Any price disables price input.
+- [ ] Watchlist uses a left table and a right editor card with bottom actions; refresh field is readable, item fields are compact, star dialog is 20% narrower. Add/edit/remove via Watchlist. Search by name/ID in the popup, type/paste/replace several characters without auto-selection or caret jumps; confirm by click or Down/Enter, dismiss by Escape/outside click/tab change. Jur [2]/[3] and other slot variants show their full names. Reject absent/ambiguous items, empty/negative/overflowing prices; Any price disables price input.
 - [ ] Max price includes equality; above-threshold/BUY/other IDs do not notify. Any price accepts any valid sale price.
 - [ ] First successful fresh snapshot can notify once. Unchanged offers and quantity changes do not repeat; a new seller/price or disappearance/return does.
 - [ ] Network errors/partial/invalid pages preserve cache and do not reset match history. A genuine empty snapshot removes stale offers.

@@ -24,6 +24,12 @@ public sealed class GameDatabaseService
             DebugLog.Write($"DATABASE LOAD ERROR: {ex}");
             _database = new GameDatabase();
         }
+        // The item catalog carries the server's full equipment names, including slot suffixes.
+        var catalog = ItemCatalogService.Load(GameDatabaseVersion.SpringRo);
+        foreach (var item in _database.Items)
+            if (catalog.TryGetValue(item.Id, out var entry) && !string.IsNullOrWhiteSpace(entry.FullName))
+                item.Name = entry.FullName;
+
         // Generated JSON may repeat an ID; a plain ToDictionary would throw here and
         // take the whole application down at startup. First occurrence wins.
         var groups = _database.Monsters.GroupBy(x => x.Id).ToList();

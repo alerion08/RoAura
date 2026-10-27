@@ -258,8 +258,13 @@ public sealed class LayoutInputTests
             var dialog = new MarketWatchDialog(database);
             try
             {
-                var search = (TextBox)dialog.FindName("ItemSearch");
-                var suggestions = (ListBox)dialog.FindName("Suggestions");
+                var editor = (MarketWatchEditor)dialog.FindName("Editor");
+                var search = (TextBox)editor.FindName("ItemSearch");
+                var suggestions = (ListBox)editor.FindName("Suggestions");
+                var popup = (System.Windows.Controls.Primitives.Popup)editor.FindName("SuggestionsPopup");
+                dialog.Show();
+                search.Focus();
+                DrainDispatcher();
                 var name = database.Items.First(i => i.Name.Length > 2).Name;
                 var draft = "";
                 foreach (var character in name.Take(3))
@@ -273,6 +278,8 @@ public sealed class LayoutInputTests
                     Assert.Equal(-1, suggestions.SelectedIndex);
                 }
                 Assert.NotEmpty(suggestions.Items.Cast<object>());
+                Assert.True(popup.IsOpen);
+                Assert.True(search.IsKeyboardFocusWithin);
                 suggestions.SelectedIndex = 0;
                 Assert.Equal(draft, search.Text);
             }
@@ -290,7 +297,7 @@ public sealed class LayoutInputTests
                 new DatabaseItem { Id = 900001, Name = "Custom offer name" });
             Dispatcher.CurrentDispatcher.BeginInvoke(() =>
             {
-                ((CheckBox)dialog.FindName("WithoutPrice")).IsChecked = true;
+                ((CheckBox)((MarketWatchEditor)dialog.FindName("Editor")).FindName("WithoutPrice")).IsChecked = true;
                 ((Button)dialog.FindName("AddButton")).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }, DispatcherPriority.ApplicationIdle);
             Assert.True(dialog.ShowDialog());

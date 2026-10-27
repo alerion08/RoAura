@@ -15,6 +15,17 @@ public sealed class MarketWatchTests
         new() { ItemId = 730, ItemName = "Diamond", Price = price, Owner = owner, ShopType = type };
 
     [Fact]
+    public void DatabaseSearchKeepsEquipmentSlotVariantsDistinct()
+    {
+        var database = new GameDatabaseService();
+        Assert.Equal("Jur [2]", database.Item(1250)?.Name);
+        Assert.Equal("Jur [3]", database.Item(1251)?.Name);
+        var variants = database.Search(DatabaseSearchKind.Items, "Jur").ToList();
+        Assert.Contains(variants, item => item.Caption == "Jur [2]");
+        Assert.Contains(variants, item => item.Caption == "Jur [3]");
+    }
+
+    [Fact]
     public void PriceThresholdIncludesEqualityAndIgnoresBuyingOtherIdsAndInvalidPrices()
     {
         var service = new MarketWatchService();

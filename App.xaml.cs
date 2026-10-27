@@ -45,6 +45,7 @@ public partial class App : Application
     private AppSettings? _marketWatchSettings;
     private GameDatabaseService? _watchDatabase;
     public AppSettings? MarketWatchSettings => _marketWatchSettings;
+    internal GameDatabaseService? MarketWatchDatabase => _watchDatabase;
 
     public void PersistMarketWatchSettings()
     {
@@ -79,6 +80,17 @@ public partial class App : Application
         if (_watchDatabase is null || _marketWatchSettings is null) return;
         var dialog = new MarketWatchDialog(_watchDatabase, item, rule) { Owner = owner, Topmost = owner?.Topmost == true };
         if (dialog.ShowDialog() != true || dialog.Rule is not { } added) return;
+        SaveMarketWatchRule(added);
+    }
+
+    public void SaveMarketWatchRule(MarketWatchRule added, int? replacedItemId = null)
+    {
+        if (_marketWatchSettings is null) return;
+        if (replacedItemId.HasValue && replacedItemId != added.ItemId)
+        {
+            var replaced = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == replacedItemId);
+            if (replaced is not null) _marketWatchSettings.MarketWatchRules.Remove(replaced);
+        }
         var old = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == added.ItemId);
         if (old is not null) _marketWatchSettings.MarketWatchRules.Remove(old);
         _marketWatchSettings.MarketWatchRules.Add(added);
@@ -303,6 +315,8 @@ public partial class App : Application
 
         _marketWatchSettings = settings;
         _watchDatabase = new GameDatabaseService();
+        foreach (var rule in settings.MarketWatchRules)
+            if (_watchDatabase.Item(rule.ItemId) is { } knownItem) rule.ItemName = knownItem.Name;
         settings.MarketWatchRules.CollectionChanged += (_, args) =>
         {
             if (args.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset) _marketWatch.Reset();

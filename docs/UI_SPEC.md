@@ -112,7 +112,9 @@ This document records current product-level UI behavior. It is intentionally com
 
 - A star on item results/details toggles tracking. Inactive stars are semi-transparent; active stars are dark blue.
 - Adding opens a confirmation dialog with a whole-Zeny maximum price or Any price; Cancel changes nothing.
-- The Watchlist tab supports add/edit/remove by item ID or name. Suggestions must not select the first result, overwrite input, or select its text while typing.
+- The Watchlist tab uses a left-hand table and a Gold Goblin-style editor card on the right. Add/edit/delete actions stay at the bottom of that card; selecting a row loads its rule into the editor.
+- Both the inline editor and the star dialog share a compact 32-DIP field editor. The refresh interval field is 30 DIP high; the star dialog is 400 DIP wide (20% narrower than the original).
+- Search suggestions appear in a popup with wrapping full names, slot suffixes and IDs. Opening/updating the popup must not select the first result, overwrite input, steal typing focus or select text. Only a click or keyboard confirmation writes a chosen name. The popup closes on outside click, focus loss or leaving the tab.
 - The Notifications tab configures `%name` and `%price` text, icon, icon/text size, text/background color and alpha, padding, spacing, client-relative X/Y, sound and duration. A test action previews the notification.
 - Successful fresh SpringRO SELL snapshots trigger new qualifying offers only; existing cached data and failed refreshes do not trigger/rearm notifications. The first successful live snapshot may notify about already-present offers. Unchanged offers/quantity-only changes remain silent; a later absence and return may notify again.
 - Notifications stack in the existing overlay host and follow its visibility and F9 controls. Rules and appearance are stored in settings/presets; session notification history is not.
