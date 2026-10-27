@@ -75,11 +75,19 @@ public static class TcpConnectionDetector
             TcpTableClass.OwnerPidAll, 0);
         if (result != ErrorInsufficientBuffer || size <= 0) return [];
 
-        var buffer = Marshal.AllocHGlobal(size);
+        var buffer = IntPtr.Zero;
         try
         {
-            result = GetExtendedTcpTable(buffer, ref size, true, AfInet,
-                TcpTableClass.OwnerPidAll, 0);
+            // The table can grow between the size query and the read; retry a
+            // few times with the size the API reports back.
+            for (var attempt = 0; attempt < 3; attempt++)
+            {
+                if (buffer != IntPtr.Zero) Marshal.FreeHGlobal(buffer);
+                buffer = Marshal.AllocHGlobal(size);
+                result = GetExtendedTcpTable(buffer, ref size, true, AfInet,
+                    TcpTableClass.OwnerPidAll, 0);
+                if (result != ErrorInsufficientBuffer || size <= 0) break;
+            }
             if (result != 0) return [];
 
             var count = Marshal.ReadInt32(buffer);
@@ -102,7 +110,7 @@ public static class TcpConnectionDetector
         }
         finally
         {
-            Marshal.FreeHGlobal(buffer);
+            if (buffer != IntPtr.Zero) Marshal.FreeHGlobal(buffer);
         }
     }
 
@@ -130,7 +138,7 @@ public static class TcpConnectionDetector
         public uint OwningPid;
     }
 
-    [DllImport("iphlpapi.dll", SetLastError = true)]
+    [DllImport("iphlpapi.dll")]
     private static extern uint GetExtendedTcpTable(
         IntPtr tcpTable,
         ref int size,

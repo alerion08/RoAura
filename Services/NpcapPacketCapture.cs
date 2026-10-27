@@ -18,6 +18,7 @@ public sealed class NpcapPacketCapture : IDisposable
     private CancellationTokenSource? _cancellation;
     private int _generation;
     private int _activeDevices;
+    private int _activeGeneration;
     private string _lastState = "";
     private string _language = "ru";
     private ConcurrentDictionary<ushort, RoEquipmentPacket> _equipmentIdentityCache = new();
@@ -51,6 +52,8 @@ public sealed class NpcapPacketCapture : IDisposable
             oldCancellation?.Cancel();
             _cancellation = null;
             generation = ++_generation;
+            _activeGeneration = generation;
+            _activeDevices = 0;
             // Replace rather than clear: workers from the cancelled generation
             // may finish parsing one last frame and must not repopulate the new
             // connection's identity table.
@@ -62,7 +65,7 @@ public sealed class NpcapPacketCapture : IDisposable
 
             if (!settings.PacketCaptureEnabled)
             {
-                SetState(L("Пакеты: отключены", "Packets: disabled"));
+                SetState(generation, L("Пакеты: отключены", "Packets: disabled"));
                 return;
             }
 
@@ -72,23 +75,40 @@ public sealed class NpcapPacketCapture : IDisposable
 
         var address = settings.PacketServerAddress;
         var port = settings.PacketServerPort;
-        var token = newCancellation!.Token;
-        SetState(L("Пакеты: подключение к Npcap…", "Packets: connecting to Npcap…"));
+        var cancellation = newCancellation!;
+        SetState(generation, L("Пакеты: подключение к Npcap…", "Packets: connecting to Npcap…"));
         _ = Task.Run(() => StartCaptureAsync(address, port, generation, equipmentCache,
-            pendingEquipmentEvents, tcpFlows, token), token);
+            pendingEquipmentEvents, tcpFlows, cancellation), CancellationToken.None);
+    }
+
+    private enum SessionResult
+    {
+        OpenFailed,
+        ReadEnded
+    }
+
+    /// <summary>
+    /// Per-generation adapter bookkeeping so StartCaptureAsync can report an
+    /// aggregated result instead of the last worker's state.
+    /// </summary>
+    private sealed class GenerationStats
+    {
+        public int Opened;
+        public int FailedFirstOpen;
     }
 
     private async Task StartCaptureAsync(string address, int port, int generation,
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
-        CancellationToken cancellationToken)
+        CancellationTokenSource cancellation)
     {
+        var cancellationToken = cancellation.Token;
         try
         {
             if (!OperatingSystem.IsWindows())
             {
-                SetState(L("Пакеты: доступны только в Windows", "Packets: available on Windows only"));
+                SetState(generation, L("Пакеты: доступны только в Windows", "Packets: available on Windows only"));
                 return;
             }
 
@@ -96,94 +116,188 @@ public sealed class NpcapPacketCapture : IDisposable
             var devices = NpcapNative.GetDevices();
             if (devices.Count == 0)
             {
-                SetState(L("Пакеты: Npcap не нашёл сетевые интерфейсы", "Packets: Npcap found no network adapters"));
+                SetState(generation, L("Пакеты: Npcap не нашёл сетевые интерфейсы", "Packets: Npcap found no network adapters"));
                 return;
             }
 
             var filter = BuildFilter(address, port);
+            var stats = new GenerationStats();
             var workers = devices.Select(device => Task.Run(
-                () => CaptureDevice(device, filter, generation, equipmentCache,
+                () => CaptureDevice(device, filter, generation, stats, equipmentCache,
                     pendingEquipmentEvents, tcpFlows, cancellationToken),
-                cancellationToken)).ToArray();
-            await Task.WhenAll(workers);
+                CancellationToken.None)).ToArray();
 
-            if (!cancellationToken.IsCancellationRequested && generation == _generation)
-                SetState(L("Пакеты: интерфейс не удалось открыть — попробуйте запуск от администратора",
-                    "Packets: could not open an adapter — try running as administrator"));
+            // Report the aggregated first-open result once every adapter has
+            // either opened or failed its first attempt; workers keep retrying
+            // failed adapters with backoff in the background.
+            var firstOpenReport = Task.Run(async () =>
+            {
+                while (!cancellationToken.IsCancellationRequested &&
+                       generation == Volatile.Read(ref _generation))
+                {
+                    var opened = Volatile.Read(ref stats.Opened);
+                    var failed = Volatile.Read(ref stats.FailedFirstOpen);
+                    if (opened + failed >= devices.Count)
+                    {
+                        if (opened == 0)
+                            SetState(generation, L(
+                                "Пакеты: интерфейс не удалось открыть — попробуйте запуск от администратора",
+                                "Packets: could not open an adapter — try running as administrator"));
+                        return;
+                    }
+                    try { await Task.Delay(250, cancellationToken); }
+                    catch (OperationCanceledException) { return; }
+                }
+            }, CancellationToken.None);
+
+            await Task.WhenAll(workers);
+            await firstOpenReport;
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
         }
         catch (DllNotFoundException)
         {
-            SetState(L("Пакеты: Npcap не установлен", "Packets: Npcap is not installed"));
+            SetState(generation, L("Пакеты: Npcap не установлен", "Packets: Npcap is not installed"));
         }
         catch (BadImageFormatException)
         {
-            SetState(L("Пакеты: разрядность Npcap не совпадает с RoAura", "Packets: Npcap architecture does not match RoAura"));
+            SetState(generation, L("Пакеты: разрядность Npcap не совпадает с RoAura", "Packets: Npcap architecture does not match RoAura"));
         }
         catch (Exception ex)
         {
-            SetState(L($"Пакеты: ошибка запуска — {ex.Message}", $"Packets: startup error — {ex.Message}"));
+            SetState(generation, L($"Пакеты: ошибка запуска — {ex.Message}", $"Packets: startup error — {ex.Message}"));
             DebugLog.Write($"PACKET CAPTURE START ERROR: {ex}");
+        }
+        finally
+        {
+            lock (_lifecycleLock)
+            {
+                if (ReferenceEquals(_cancellation, cancellation)) _cancellation = null;
+            }
+            cancellation.Dispose();
         }
     }
 
-    private void CaptureDevice(PcapDeviceInfo device, string filter, int generation,
+    private async Task CaptureDevice(PcapDeviceInfo device, string filter, int generation,
+        GenerationStats stats,
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
         CancellationToken cancellationToken)
     {
-        while (!cancellationToken.IsCancellationRequested && generation == _generation)
+        const int MinimumBackoffMs = 2000;
+        const int MaximumBackoffMs = 60_000;
+        const long FailureLogIntervalMs = 60_000;
+        var attempts = 0;
+        var backoffMs = MinimumBackoffMs;
+        long lastFailureLogTick = 0;
+
+        while (!cancellationToken.IsCancellationRequested &&
+               generation == Volatile.Read(ref _generation))
         {
-            CaptureDeviceSession(device, filter, generation, equipmentCache,
-                pendingEquipmentEvents, tcpFlows, cancellationToken);
-            if (cancellationToken.IsCancellationRequested || generation != _generation)
+            attempts++;
+            var logFailure = attempts == 1 ||
+                             Environment.TickCount64 - lastFailureLogTick >= FailureLogIntervalMs;
+            var result = CaptureDeviceSession(device, filter, generation, stats, equipmentCache,
+                pendingEquipmentEvents, tcpFlows, cancellationToken, logFailure, attempts == 1);
+            if (cancellationToken.IsCancellationRequested ||
+                generation != Volatile.Read(ref _generation))
                 break;
 
-            // Npcap handles can be invalidated when a VPN/accelerator changes
-            // routes or an adapter is briefly reset. A dead worker used to stay
-            // dead until the user reset AID and relogged. Reopen it in place so
-            // packet tracking recovers without touching the current settings.
-            DebugLog.Write($"PCAP REOPEN {device.Description}: retry in 2 seconds");
-            if (cancellationToken.WaitHandle.WaitOne(TimeSpan.FromSeconds(2)))
+            int delayMs;
+            if (result == SessionResult.OpenFailed)
+            {
+                if (attempts == 1) Interlocked.Increment(ref stats.FailedFirstOpen);
+                if (logFailure) lastFailureLogTick = Environment.TickCount64;
+                // An adapter that cannot be opened (no privileges, disabled
+                // interface, VPN tunnel without Npcap binding) must not spam the
+                // log every two seconds: back off exponentially up to a minute.
+                delayMs = backoffMs;
+                backoffMs = Math.Min(backoffMs * 2, MaximumBackoffMs);
+            }
+            else
+            {
+                // Npcap handles can be invalidated when a VPN/accelerator changes
+                // routes or an adapter is briefly reset. A dead worker used to stay
+                // dead until the user reset AID and relogged. Reopen it in place so
+                // packet tracking recovers without touching the current settings.
+                backoffMs = MinimumBackoffMs;
+                delayMs = MinimumBackoffMs;
+                DebugLog.Write($"PCAP REOPEN {device.Description}: retry in 2 seconds");
+            }
+
+            try
+            {
+                await Task.Delay(delayMs, cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
                 break;
+            }
         }
     }
 
-    private void CaptureDeviceSession(PcapDeviceInfo device, string filter, int generation,
+    private SessionResult CaptureDeviceSession(PcapDeviceInfo device, string filter, int generation,
+        GenerationStats stats,
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken, bool logFailure, bool firstAttempt)
     {
         IntPtr handle = IntPtr.Zero;
         var countedAsActive = false;
+        var opened = false;
+        // pcap_breakloop wakes a blocked pcap_next_ex on cancellation. The
+        // registration is disposed before pcap_close so it can never touch a
+        // freed handle; the lock covers a cancellation racing with the close.
+        var handleLock = new object();
+        CancellationTokenRegistration breakRegistration = default;
         try
         {
             var error = new StringBuilder(NpcapNative.ErrorBufferSize);
-            handle = NpcapNative.pcap_open_live(device.Name, 65535, 0, 500, error);
+            handle = NpcapNative.pcap_create(device.Name, error);
             if (handle == IntPtr.Zero)
             {
-                DebugLog.Write($"PCAP OPEN FAILED {device.Description}: {error}");
-                return;
+                if (logFailure) DebugLog.Write($"PCAP CREATE FAILED {device.Description}: {error}");
+                return SessionResult.OpenFailed;
             }
+
+            // Immediate mode delivers each frame as soon as the driver sees it
+            // instead of holding it until the kernel buffer fills or the read
+            // timeout elapses; pcap_open_live cannot request this.
+            NpcapNative.pcap_set_snaplen(handle, 65535);
+            NpcapNative.pcap_set_promisc(handle, 0);
+            NpcapNative.pcap_set_timeout(handle, 500);
+            NpcapNative.pcap_set_immediate_mode(handle, 1);
+            var activation = NpcapNative.pcap_activate(handle);
+            if (activation < 0)
+            {
+                if (logFailure)
+                    DebugLog.Write($"PCAP OPEN FAILED {device.Description}: " +
+                                   $"status={activation}; {NpcapNative.GetError(handle)}");
+                return SessionResult.OpenFailed;
+            }
+            if (activation > 0)
+                DebugLog.Write($"PCAP OPEN WARNING {device.Description}: " +
+                               $"status={activation}; {NpcapNative.GetError(handle)}");
 
             if (NpcapNative.pcap_compile(handle, out var program, filter, 1, uint.MaxValue) != 0)
             {
-                DebugLog.Write($"PCAP FILTER COMPILE FAILED {device.Description}: " +
-                               NpcapNative.GetError(handle));
-                return;
+                if (logFailure)
+                    DebugLog.Write($"PCAP FILTER COMPILE FAILED {device.Description}: " +
+                                   NpcapNative.GetError(handle));
+                return SessionResult.OpenFailed;
             }
 
             try
             {
                 if (NpcapNative.pcap_setfilter(handle, ref program) != 0)
                 {
-                    DebugLog.Write($"PCAP FILTER SET FAILED {device.Description}: " +
-                                   NpcapNative.GetError(handle));
-                    return;
+                    if (logFailure)
+                        DebugLog.Write($"PCAP FILTER SET FAILED {device.Description}: " +
+                                       NpcapNative.GetError(handle));
+                    return SessionResult.OpenFailed;
                 }
             }
             finally
@@ -191,21 +305,34 @@ public sealed class NpcapPacketCapture : IDisposable
                 NpcapNative.pcap_freecode(ref program);
             }
 
+            opened = true;
+            if (firstAttempt) Interlocked.Increment(ref stats.Opened);
+
             var linkType = NpcapNative.pcap_datalink(handle);
-            var active = Interlocked.Increment(ref _activeDevices);
+            var active = IncrementActive(generation);
             countedAsActive = true;
-            SetState(L($"Пакеты: слушаю {active} интерфейс(а), фильтр {filter}",
+            SetState(generation, L($"Пакеты: слушаю {active} интерфейс(а), фильтр {filter}",
                 $"Packets: listening on {active} adapter(s), filter {filter}"));
             DebugLog.Write($"PCAP LISTEN {device.Description}: dlt={linkType}; filter={filter}");
 
-            while (!cancellationToken.IsCancellationRequested && generation == _generation)
+            breakRegistration = cancellationToken.Register(() =>
+            {
+                lock (handleLock)
+                {
+                    if (handle != IntPtr.Zero) NpcapNative.pcap_breakloop(handle);
+                }
+            });
+
+            while (!cancellationToken.IsCancellationRequested &&
+                   generation == Volatile.Read(ref _generation))
             {
                 var result = NpcapNative.pcap_next_ex(handle, out var headerPointer,
                     out var dataPointer);
                 if (result == 0) continue;
                 if (result < 0)
                 {
-                    if (!cancellationToken.IsCancellationRequested)
+                    // -2 means pcap_breakloop was called (cancellation).
+                    if (result != -2 && !cancellationToken.IsCancellationRequested)
                         DebugLog.Write($"PCAP READ STOP {device.Description}: " +
                                        NpcapNative.GetError(handle));
                     break;
@@ -218,11 +345,20 @@ public sealed class NpcapPacketCapture : IDisposable
                 var frame = new byte[(int)header.CapturedLength];
                 Marshal.Copy(dataPointer, frame, 0, frame.Length);
                 if (NetworkFrameParser.TryGetIpv4TcpPayload(frame, linkType,
-                        out var payload, out var flowKey, out var sequence))
+                        out var payload, out var flowKey, out var sequence, out var tcpFlags))
                 {
-                    var flow = tcpFlows.GetOrAdd(flowKey, _ => new TcpFlowState(
-                        CreateScanner(generation, equipmentCache, pendingEquipmentEvents)));
+                    var closing = (tcpFlags & 0x05) != 0; // FIN or RST
+                    if (!tcpFlows.TryGetValue(flowKey, out var flow))
+                    {
+                        if (payload.IsEmpty) continue; // Bare FIN/RST for an unknown flow.
+                        PruneIdleFlows(tcpFlows);
+                        flow = tcpFlows.GetOrAdd(flowKey, _ => new TcpFlowState(
+                            CreateScanner(generation, equipmentCache, pendingEquipmentEvents)));
+                    }
                     flow.Process(sequence, payload);
+                    // The server side is done with this stream: drop it so the
+                    // flow table cannot grow with every reconnect.
+                    if (closing) tcpFlows.TryRemove(flowKey, out _);
                 }
             }
         }
@@ -232,8 +368,51 @@ public sealed class NpcapPacketCapture : IDisposable
         }
         finally
         {
-            if (handle != IntPtr.Zero) NpcapNative.pcap_close(handle);
-            if (countedAsActive) Interlocked.Decrement(ref _activeDevices);
+            breakRegistration.Dispose();
+            lock (handleLock)
+            {
+                if (handle != IntPtr.Zero) NpcapNative.pcap_close(handle);
+                handle = IntPtr.Zero;
+            }
+            if (countedAsActive) DecrementActive(generation);
+        }
+        return opened ? SessionResult.ReadEnded : SessionResult.OpenFailed;
+    }
+
+    private const long FlowIdleLimitMs = 10 * 60 * 1000;
+
+    private static void PruneIdleFlows(ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows)
+    {
+        if (tcpFlows.IsEmpty) return;
+        var now = Environment.TickCount64;
+        foreach (var pair in tcpFlows)
+        {
+            if (now - pair.Value.LastSeenTick > FlowIdleLimitMs)
+                tcpFlows.TryRemove(pair.Key, out _);
+        }
+    }
+
+    private int IncrementActive(int generation)
+    {
+        lock (_lifecycleLock)
+        {
+            if (_activeGeneration != generation)
+            {
+                // A newer generation already started or an older one is still
+                // winding down: counts belong to the newest generation only.
+                if (generation < _activeGeneration) return 0;
+                _activeGeneration = generation;
+                _activeDevices = 0;
+            }
+            return ++_activeDevices;
+        }
+    }
+
+    private void DecrementActive(int generation)
+    {
+        lock (_lifecycleLock)
+        {
+            if (_activeGeneration == generation && _activeDevices > 0) _activeDevices--;
         }
     }
 
@@ -320,10 +499,17 @@ public sealed class NpcapPacketCapture : IDisposable
         return $"tcp src port {port}";
     }
 
-    private void SetState(string state)
+    private void SetState(int generation, string state)
     {
-        if (string.Equals(_lastState, state, StringComparison.Ordinal)) return;
-        _lastState = state;
+        // A worker from a cancelled generation must never overwrite the
+        // status of the generation that replaced it.
+        if (generation != Volatile.Read(ref _generation)) return;
+        lock (_lifecycleLock)
+        {
+            if (generation != _generation) return;
+            if (string.Equals(_lastState, state, StringComparison.Ordinal)) return;
+            _lastState = state;
+        }
         DebugLog.Write(state.ToUpperInvariant());
         StateChanged?.Invoke(state);
     }
@@ -335,8 +521,8 @@ public sealed class NpcapPacketCapture : IDisposable
         lock (_lifecycleLock)
         {
             _generation++;
+            // The capture task owning this source disposes it when it finishes.
             _cancellation?.Cancel();
-            _cancellation?.Dispose();
             _cancellation = null;
         }
     }
@@ -468,8 +654,25 @@ internal static class NpcapNative
 
     [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl,
         CharSet = CharSet.Ansi)]
-    internal static extern IntPtr pcap_open_live(string device, int snapshotLength,
-        int promiscuous, int readTimeoutMs, StringBuilder errorBuffer);
+    internal static extern IntPtr pcap_create(string device, StringBuilder errorBuffer);
+
+    [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern int pcap_set_snaplen(IntPtr handle, int snapshotLength);
+
+    [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern int pcap_set_promisc(IntPtr handle, int promiscuous);
+
+    [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern int pcap_set_timeout(IntPtr handle, int readTimeoutMs);
+
+    [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern int pcap_set_immediate_mode(IntPtr handle, int immediate);
+
+    [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern int pcap_activate(IntPtr handle);
+
+    [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern void pcap_breakloop(IntPtr handle);
 
     [DllImport(LibraryName, CallingConvention = CallingConvention.Cdecl,
         CharSet = CharSet.Ansi)]
@@ -515,11 +718,15 @@ internal sealed class TcpFlowState
     private readonly RoPacketStreamScanner _scanner;
     private bool _initialized;
     private uint _nextSequence;
+    private long _lastSeenTick = Environment.TickCount64;
 
     internal TcpFlowState(RoPacketStreamScanner scanner) => _scanner = scanner;
 
+    internal long LastSeenTick => Volatile.Read(ref _lastSeenTick);
+
     internal void Process(uint sequence, ReadOnlySpan<byte> payload)
     {
+        Volatile.Write(ref _lastSeenTick, Environment.TickCount64);
         if (payload.IsEmpty) return;
         lock (_sync)
         {
@@ -580,11 +787,13 @@ internal sealed class TcpFlowState
 internal static class NetworkFrameParser
 {
     internal static bool TryGetIpv4TcpPayload(byte[] frame, int linkType,
-        out ReadOnlySpan<byte> payload, out TcpFlowKey flowKey, out uint sequence)
+        out ReadOnlySpan<byte> payload, out TcpFlowKey flowKey, out uint sequence,
+        out byte tcpFlags)
     {
         payload = default;
         flowKey = default;
         sequence = 0;
+        tcpFlags = 0;
         var ipOffset = GetIpv4Offset(frame, linkType);
         if (ipOffset < 0 || frame.Length < ipOffset + 20 ||
             (frame[ipOffset] >> 4) != 4)
@@ -598,14 +807,33 @@ internal static class NetworkFrameParser
         var fragment = (ushort)((frame[ipOffset + 6] << 8) | frame[ipOffset + 7]);
         if ((fragment & 0x1FFF) != 0) return false;
 
+        // Offloaded (TSO/LRO) frames report a zero or oversized IP length;
+        // fall back to the captured frame length in both cases.
         var totalLength = (frame[ipOffset + 2] << 8) | frame[ipOffset + 3];
-        var ipEnd = Math.Min(frame.Length, ipOffset + totalLength);
+        var ipEnd = totalLength == 0 || ipOffset + totalLength > frame.Length
+            ? frame.Length
+            : ipOffset + totalLength;
         var tcpOffset = ipOffset + ipHeaderLength;
         if (ipEnd < tcpOffset + 20) return false;
 
         var tcpHeaderLength = (frame[tcpOffset + 12] >> 4) * 4;
+        tcpFlags = frame[tcpOffset + 13];
         var payloadOffset = tcpOffset + tcpHeaderLength;
-        if (tcpHeaderLength < 20 || payloadOffset >= ipEnd) return false;
+        if (tcpHeaderLength < 20) return false;
+        // A pure FIN/RST segment carries no payload but must still close the
+        // flow, so report it with an empty payload.
+        if (payloadOffset >= ipEnd)
+        {
+            if ((tcpFlags & 0x05) == 0) return false;
+            flowKey = new TcpFlowKey(
+                BinaryPrimitives.ReadUInt32BigEndian(frame.AsSpan(ipOffset + 12, 4)),
+                BinaryPrimitives.ReadUInt16BigEndian(frame.AsSpan(tcpOffset, 2)),
+                BinaryPrimitives.ReadUInt32BigEndian(frame.AsSpan(ipOffset + 16, 4)),
+                BinaryPrimitives.ReadUInt16BigEndian(frame.AsSpan(tcpOffset + 2, 2)));
+            sequence = BinaryPrimitives.ReadUInt32BigEndian(frame.AsSpan(tcpOffset + 4, 4));
+            payload = ReadOnlySpan<byte>.Empty;
+            return true;
+        }
 
         flowKey = new TcpFlowKey(
             BinaryPrimitives.ReadUInt32BigEndian(frame.AsSpan(ipOffset + 12, 4)),

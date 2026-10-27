@@ -22,13 +22,15 @@ public partial class DatabaseDetailWindow : Window
         InitializeComponent();
         _settings = settings;
         _database = database;
-        if (_settings.Language == "en")
-        {
-            PanelTitle.Text = "Result";
-            KeyboardStatus.Text = $"Search input active · {_settings.DatabaseHotkey} — close";
-            CloseButton.ToolTip = "Close database";
-        }
-        else KeyboardStatus.Text = $"Ввод в поиск активен · {_settings.DatabaseHotkey} — закрыть";
+        RefreshLanguage();
+    }
+
+    public void RefreshLanguage()
+    {
+        PanelTitle.Text = T("Результат", "Result");
+        KeyboardStatus.Text = T($"Ввод в поиск активен · {_settings.DatabaseHotkey} — закрыть",
+            $"Search input active · {_settings.DatabaseHotkey} — close");
+        CloseButton.ToolTip = T("Закрыть базу данных", "Close database");
     }
 
     public void PlaceForGame(ForegroundProcess.WindowBounds game, double width, double height, double margin)
@@ -122,10 +124,16 @@ public partial class DatabaseDetailWindow : Window
             header.Children.Add(new Image { Source = new BitmapImage(imageUri), Width = 56, Height = 56,
                 Stretch = Stretch.Uniform, Margin = new Thickness(0, 0, 10, 0) });
         var title = new StackPanel();
-        title.Children.Add(Heading(item.Name, 20));
+        var itemHeading = Heading(item.Name, 20); itemHeading.MaxWidth = 180;
+        title.Children.Add(itemHeading);
         title.Children.Add(Meta($"Item ID #{item.Id} · {item.Type}"));
         header.Children.Add(title);
-        DetailsPanel.Children.Add(header);
+        var itemHeader = new DockPanel();
+        var star = new Controls.MarketWatchStar { Item = item };
+        DockPanel.SetDock(star, Dock.Right);
+        itemHeader.Children.Add(star);
+        itemHeader.Children.Add(header);
+        DetailsPanel.Children.Add(itemHeader);
 
         AddSection(T("Информация", "Information"));
         if (loading)
@@ -184,8 +192,9 @@ public partial class DatabaseDetailWindow : Window
         };
         navi.Click += (_, _) =>
         {
-            Clipboard.SetText(listing.NavigationCommand);
-            navi.Content = T("Скопировано в буфер обмена", "Copied to clipboard");
+            navi.Content = TryCopyToClipboard(listing.NavigationCommand)
+                ? T("Скопировано в буфер обмена", "Copied to clipboard")
+                : T("Не удалось скопировать", "Could not copy");
         };
         DetailsPanel.Children.Add(navi);
     }
@@ -257,5 +266,29 @@ public partial class DatabaseDetailWindow : Window
         return value switch { "Yes" => "Да", "No" => "Нет", "Aggressive" => "Агрессивный", "Passive" => "Пассивный", _ => value };
     }
     private string T(string ru, string en) => _settings.Language == "en" ? en : ru;
+
+    // The clipboard is a shared COM resource; another application (or the
+    // game client) may hold it for a moment and SetText throws COMException.
+    private static bool TryCopyToClipboard(string text)
+    {
+        for (var attempt = 1; attempt <= 3; attempt++)
+        {
+            try
+            {
+                Clipboard.SetText(text);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                if (attempt == 3)
+                {
+                    DebugLog.Write($"CLIPBOARD ERROR: {ex}");
+                    return false;
+                }
+                System.Threading.Thread.Sleep(50);
+            }
+        }
+        return false;
+    }
     private void Close_Click(object sender, RoutedEventArgs e) => HideRequested?.Invoke();
 }

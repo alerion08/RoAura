@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
+using RoAura.Services;
 
 namespace RoAura.Models;
 
@@ -10,7 +11,8 @@ public enum RateIndicatorKind
     TimeToLevel,
     ZenyPerHour,
     TimeToJobLevel,
-    ZenyTotal
+    ZenyTotal,
+    SessionTime
 }
 
 public sealed class RateIndicatorSettings : INotifyPropertyChanged
@@ -56,8 +58,19 @@ public sealed class RateIndicatorSettings : INotifyPropertyChanged
         RateIndicatorKind.TimeToLevel => "Time to level",
         RateIndicatorKind.TimeToJobLevel => "Time to Job level",
         RateIndicatorKind.ZenyPerHour => "Zeny per hour",
-        _ => "Zeny Total"
+        RateIndicatorKind.ZenyTotal => "Zeny Total",
+        _ => "Session time"
     };
+    [JsonIgnore] public string LocalizedDisplayName => LocalizationService.Get(Kind switch
+    {
+        RateIndicatorKind.XpPerHour => "XpPerHourLabel",
+        RateIndicatorKind.TimeToLevel => "TimeToLevelLabel",
+        RateIndicatorKind.TimeToJobLevel => "TimeToJobLevelLabel",
+        RateIndicatorKind.ZenyPerHour => "ZenyPerHourLabel",
+        RateIndicatorKind.ZenyTotal => "ZenyTotalLabel",
+        _ => "SessionTime"
+    });
+    public void RefreshLocalization() => OnPropertyChanged(nameof(LocalizedDisplayName));
     [JsonIgnore] public string ValueText { get => _valueText; set => Set(ref _valueText, value); }
     [JsonIgnore] public double Opacity => OpacityPercent / 100d;
     [JsonIgnore]

@@ -17,6 +17,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     private int _packetServerPort = 1;
     private uint _packetPlayerAid;
     private string _packetCaptureStateText = "Пакеты: запуск…";
+    private string _packetCaptureStateKind = "Searching";
     private double _notificationX = 900;
     private double _notificationY = 250;
     private double _notificationSize = 72;
@@ -28,6 +29,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     private string _timersHotkey = "F10";
     private string _databaseHotkey = "F7";
     private double _marketBackgroundRefreshMinutes = 10;
+    private int _marketWatchHistoryRetentionDays = 30;
     private bool _timersOverlayVisible = true;
     private double _timersX = 1180;
     private double _timersY = 180;
@@ -73,10 +75,15 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string FinishMoveHotkey { get => _finishMoveHotkey; set => Set(ref _finishMoveHotkey, NormalizeHotkey(value, "Escape")); }
     public string TimersHotkey { get => _timersHotkey; set => Set(ref _timersHotkey, NormalizeHotkey(value, "F10")); }
     public string DatabaseHotkey { get => _databaseHotkey; set => Set(ref _databaseHotkey, NormalizeHotkey(value, "F7")); }
+    public int MarketWatchHistoryRetentionDays
+    {
+        get => _marketWatchHistoryRetentionDays;
+        set => Set(ref _marketWatchHistoryRetentionDays, Math.Clamp(value, 1, 3650));
+    }
     public double MarketBackgroundRefreshMinutes
     {
         get => _marketBackgroundRefreshMinutes;
-        set => Set(ref _marketBackgroundRefreshMinutes, Math.Clamp(value, 1, 1440));
+        set => Set(ref _marketBackgroundRefreshMinutes, double.IsFinite(value) ? Math.Clamp(value, 1, 1440) : 10);
     }
     public bool TimersOverlayVisible { get => _timersOverlayVisible; set => Set(ref _timersOverlayVisible, value); }
     public double TimersX { get => _timersX; set => Set(ref _timersX, value); }
@@ -111,8 +118,43 @@ public sealed class AppSettings : INotifyPropertyChanged
 
     [JsonIgnore]
     public string PacketCaptureStateText { get => _packetCaptureStateText; set => Set(ref _packetCaptureStateText, value); }
+    [JsonIgnore]
+    public string PacketCaptureStateKind { get => _packetCaptureStateKind; private set => Set(ref _packetCaptureStateKind, value); }
+
+    public void UpdatePacketCaptureState(string state)
+    {
+        PacketCaptureStateText = state;
+        var normalized = state.ToLowerInvariant();
+        var error = normalized.Contains("ошибка") || normalized.Contains("error") ||
+                    normalized.Contains("не установлен") || normalized.Contains("not installed") ||
+                    normalized.Contains("не нашёл") || normalized.Contains("found no") ||
+                    normalized.Contains("не удалось") || normalized.Contains("could not") ||
+                    normalized.Contains("разрядност") || normalized.Contains("architecture") ||
+                    normalized.Contains("только в windows") || normalized.Contains("windows only") || normalized.Contains("only on windows");
+        PacketCaptureStateKind = error
+            ? "Error"
+            : normalized.Contains("слушаю") || normalized.Contains("listening")
+            ? "Ready"
+            : normalized.Contains("подключ") || normalized.Contains("connecting") || normalized.Contains("запуск") || normalized.Contains("restarting")
+                ? "Searching"
+                : normalized.Contains("отключ") || normalized.Contains("disabled")
+                    ? "Warning"
+                    : "Error";
+    }
+
+    public void RefreshPacketCaptureStateLanguage()
+    {
+        PacketCaptureStateText = PacketCaptureStateKind switch
+        {
+            "Ready" => Language == "en" ? "Packets: capture is active" : "Пакеты: захват работает",
+            "Searching" => Language == "en" ? "Packets: connecting to Npcap…" : "Пакеты: подключение к Npcap…",
+            "Warning" => Language == "en" ? "Packets: disabled" : "Пакеты: отключены",
+            _ => Language == "en" ? "Packets: connection error" : "Пакеты: ошибка подключения"
+        };
+    }
     public List<string> AllowedProcesses { get; set; } = ["PRM", "Refuge", "ragexe", "RagexeRE"];
     public ObservableCollection<SkillAura> Skills { get; set; } = [];
+    public ObservableCollection<CooldownGroupSettings> CooldownGroups { get; set; } = [];
 
     public ObservableCollection<TrackedEffect> Effects { get; set; } = [];
 
@@ -136,8 +178,12 @@ public sealed class AppSettings : INotifyPropertyChanged
         new() { Kind = RateIndicatorKind.TimeToLevel, X = 1050, Y = 442, TextColor = "#FFFFFFFF" },
         new() { Kind = RateIndicatorKind.TimeToJobLevel, X = 1050, Y = 474, TextColor = "#FFC9A7FF" },
         new() { Kind = RateIndicatorKind.ZenyPerHour, X = 1050, Y = 506, TextColor = "#FFFFE16A" },
-        new() { Kind = RateIndicatorKind.ZenyTotal, X = 1050, Y = 538, TextColor = "#FFFFD45C" }
+        new() { Kind = RateIndicatorKind.ZenyTotal, X = 1050, Y = 538, TextColor = "#FFFFD45C" },
+        new() { Kind = RateIndicatorKind.SessionTime, X = 1050, Y = 570, TextColor = "#FFFFFFFF" }
     ];
+    public ObservableCollection<MarketWatchRule> MarketWatchRules { get; set; } = [];
+    public MarketWatchNotificationSettings MarketWatchNotifications { get; set; } = new();
+    [JsonIgnore] public ObservableCollection<MarketWatchNotification> ActiveMarketNotifications { get; } = [];
     public ObservableCollection<GoldGoblinPriceRule> GoldGoblinPriceRules { get; set; } = [];
 
     [JsonIgnore]
@@ -151,6 +197,33 @@ public sealed class AppSettings : INotifyPropertyChanged
     public ObservableCollection<EffectNotification> ActiveNotifications { get; } = [];
 
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void NotifySettingsApplied()
+    {
+        // Some persisted fields are auto-properties; refresh their bindings too.
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
+    }
+
+    public void SyncCooldownGroups()
+    {
+        var numbers = Skills.Select(skill => Math.Max(1, skill.GroupNumber)).Distinct().OrderBy(number => number).ToList();
+        if (numbers.Count == 0) numbers.Add(1);
+        foreach (var number in numbers)
+        {
+            if (CooldownGroups.Any(group => group.GroupNumber == number)) continue;
+            CooldownGroups.Add(new CooldownGroupSettings
+            {
+                GroupNumber = number,
+                Name = number == 1 ? "Основная панель" : $"Группа {number}"
+            });
+        }
+        foreach (var group in CooldownGroups)
+        {
+            group.Skills.Clear();
+            foreach (var skill in Skills.Where(skill => Math.Max(1, skill.GroupNumber) == group.GroupNumber))
+                group.Skills.Add(skill);
+        }
+    }
 
     public void SyncBuffPanelGroups()
     {
@@ -209,6 +282,7 @@ public sealed class AppSettings : INotifyPropertyChanged
         AddMissingRateIndicator(RateIndicatorKind.TimeToJobLevel, 474, "#FFC9A7FF");
         AddMissingRateIndicator(RateIndicatorKind.ZenyPerHour, 506, "#FFFFE16A");
         AddMissingRateIndicator(RateIndicatorKind.ZenyTotal, 538, "#FFFFD45C");
+        AddMissingRateIndicator(RateIndicatorKind.SessionTime, 570, "#FFFFFFFF");
     }
 
     public RewardChannelSettings? RewardChannel(RewardKind kind) =>

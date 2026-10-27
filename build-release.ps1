@@ -1,14 +1,29 @@
+param(
+    # Terminate a running RoAura.exe before publishing. Off by default so a
+    # build never kills the developer's live session by accident.
+    [switch]$KillRunning
+)
+
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $projectRoot
 
-Stop-Process -Name RoAura -Force -ErrorAction SilentlyContinue
+if ($KillRunning) {
+    Stop-Process -Name RoAura -Force -ErrorAction SilentlyContinue
+}
+
+# The version is defined once in RoAura.csproj; every artifact name derives from it.
+[xml]$projectXml = Get-Content -Raw .\RoAura.csproj
+$projectVersion = [string]$projectXml.Project.PropertyGroup.Version
+if ([string]::IsNullOrWhiteSpace($projectVersion)) {
+    throw "RoAura.csproj does not define <Version>."
+}
 
 $artifactRoot = Join-Path $projectRoot "artifacts"
 $publishDir = Join-Path $artifactRoot "publish"
-$portableZip = Join-Path $artifactRoot "RoAura-2.13.2-portable.zip"
+$portableZip = Join-Path $artifactRoot "RoAura-$projectVersion-portable.zip"
 
 $dotnetCommand = Get-Command dotnet -ErrorAction SilentlyContinue
 if ($null -eq $dotnetCommand) {
@@ -28,6 +43,38 @@ if (-not ($installedSdks -match '^8\.')) {
 
     throw "The .NET 8 SDK (x64) is required. Installed SDKs: $installedSdkText. Download: https://dotnet.microsoft.com/download/dotnet/8.0"
 }
+
+# app.manifest cannot read the csproj version; fail early if it drifted so the
+# executable's embedded manifest and file version never disagree.
+$manifestText = Get-Content -Raw .\app.manifest
+$manifestVersionMatch = [regex]::Match($manifestText, '<assemblyIdentity\s+version="([^"]+)"')
+if (-not $manifestVersionMatch.Success -or $manifestVersionMatch.Groups[1].Value -ne "$projectVersion.0") {
+    throw "Version mismatch: RoAura.csproj=$projectVersion, app.manifest=$($manifestVersionMatch.Groups[1].Value). Expected '$projectVersion.0'."
+}
+
+# RU and EN dictionaries must expose exactly the same keys. Also verify every
+# DynamicResource used by a WPF view against both dictionaries so a missing
+# translation fails before a user sees an empty label at runtime.
+$resourceKeyPattern = 'x:Key="([^"]+)"'
+$dynamicKeyPattern = 'DynamicResource\s+([^\s\}]+)'
+$ruText = Get-Content -Raw .\Resources\Strings.ru.xaml
+$enText = Get-Content -Raw .\Resources\Strings.en.xaml
+$ruKeys = @([regex]::Matches($ruText, $resourceKeyPattern) | ForEach-Object { $_.Groups[1].Value })
+$enKeys = @([regex]::Matches($enText, $resourceKeyPattern) | ForEach-Object { $_.Groups[1].Value })
+$onlyRu = @($ruKeys | Where-Object { $_ -notin $enKeys })
+$onlyEn = @($enKeys | Where-Object { $_ -notin $ruKeys })
+if ($onlyRu.Count -gt 0 -or $onlyEn.Count -gt 0) {
+    throw "Localization dictionaries differ. RU-only: $($onlyRu -join ', '); EN-only: $($onlyEn -join ', ')."
+}
+$dynamicKeys = @(Get-ChildItem . -Filter *.xaml -File | ForEach-Object {
+    [regex]::Matches((Get-Content -Raw $_.FullName), $dynamicKeyPattern) | ForEach-Object { $_.Groups[1].Value }
+} | Sort-Object -Unique)
+$missingRu = @($dynamicKeys | Where-Object { $_ -notin $ruKeys })
+$missingEn = @($dynamicKeys | Where-Object { $_ -notin $enKeys })
+if ($missingRu.Count -gt 0 -or $missingEn.Count -gt 0) {
+    throw "Missing localized DynamicResource. RU: $($missingRu -join ', '); EN: $($missingEn -join ', ')."
+}
+Write-Host "Version and RU/EN resource validation passed."
 
 if (Test-Path $publishDir) {
     Remove-Item $publishDir -Recurse -Force
@@ -51,6 +98,26 @@ if (-not (Test-Path $publishedExecutable -PathType Leaf)) {
     throw "Publish completed without the expected executable: $publishedExecutable"
 }
 
+# Launch the published executable in a deterministic startup-only mode. The
+# process constructs the real WPF windows and exits by itself, so XAML/runtime
+# initialization errors fail the release before an archive is created.
+Write-Host "Running RoAura startup smoke test..."
+$smokeProcess = Start-Process -FilePath $publishedExecutable -ArgumentList "--smoke-test" -PassThru
+if (-not $smokeProcess.WaitForExit(15000)) {
+    Stop-Process -Id $smokeProcess.Id -Force -ErrorAction SilentlyContinue
+    throw "RoAura startup smoke test timed out. Release files were not created."
+}
+if ($smokeProcess.ExitCode -ne 0) {
+    $smokeLog = Join-Path $env:APPDATA "RoAura\debug.log"
+    if (Test-Path $smokeLog -PathType Leaf) {
+        Write-Host "----- RoAura smoke-test debug.log -----"
+        Get-Content $smokeLog -Tail 120
+        Write-Host "----- end debug.log -----"
+    }
+    throw "RoAura startup smoke test failed with exit code $($smokeProcess.ExitCode). Check %APPDATA%\RoAura\debug.log. Release files were not created."
+}
+Write-Host "Startup smoke test passed."
+
 Copy-Item .\README.md (Join-Path $publishDir "README.md") -Force
 Copy-Item .\GUIDE.md (Join-Path $publishDir "GUIDE.md") -Force
 Copy-Item .\GUIDE_RU.md (Join-Path $publishDir "GUIDE_RU.md") -Force
@@ -66,6 +133,7 @@ $privateNames = @(
     "active-profile.txt",
     "springro-market-cache.json",
     "springro-market-snapshot.json",
+    "market-watch-history.json",
     "debug.log"
 )
 foreach ($privateName in $privateNames) {
@@ -80,13 +148,16 @@ foreach ($privateDirectory in @("Profiles", "Recovery")) {
 if (Test-Path $portableZip) {
     Remove-Item $portableZip -Force
 }
-Compress-Archive -Path (Join-Path $publishDir "*") -DestinationPath $portableZip -CompressionLevel Optimal
+# ZipFile.CreateFromDirectory writes forward-slash entry names on every
+# PowerShell version; Windows PowerShell 5.1 Compress-Archive emits backslash
+# paths that some extractors turn into flat files named "Data\x.json".
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+[System.IO.Compression.ZipFile]::CreateFromDirectory($publishDir, $portableZip, [System.IO.Compression.CompressionLevel]::Optimal, $false)
 
 if (-not (Test-Path $portableZip -PathType Leaf)) {
     throw "Could not create the portable archive: $portableZip"
 }
 
-Add-Type -AssemblyName System.IO.Compression.FileSystem
 $archive = [System.IO.Compression.ZipFile]::OpenRead($portableZip)
 try {
     $privateEntry = $archive.Entries | Where-Object {
@@ -104,5 +175,7 @@ finally {
     $archive.Dispose()
 }
 
+$portableHash = (Get-FileHash $portableZip -Algorithm SHA256).Hash.ToLowerInvariant()
 Write-Host "Portable build: $portableZip"
+Write-Host "SHA256:         $portableHash"
 Write-Host "Executable:     $publishedExecutable"

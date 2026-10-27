@@ -1,3 +1,78 @@
+# RoAura 3.0
+
+## Русский
+
+Крупное обновление интерфейса и настроек RoAura для Ragnarok Online.
+
+- **Новый интерфейс:** общие стили разделов, категории «Оверлеи» и «Сервисы», скруглённые поля, единые списки и ползунки, палитра с HEX и прозрачностью, новые логотип и иконки.
+- **Пресеты персонажей:** полный набор настроек всех разделов и расположение панелей переключаются без перезапуска. Снимки хранятся локально под своими названиями; создание и обновление выполняются явно.
+- **Маркет SpringRO:** добавление предметов по звёздочке, максимальная или любая цена, пауза отдельных правил и настраиваемые уведомления. Локальная история магазинов предотвращает повторные уведомления после перезапуска; срок хранения задаётся в днях.
+- **Удобное редактирование:** исправлены скачки числового ввода, обрезание текста, выбор MVP и случайная перезапись расположения оверлеев при изменении размеров окна игры.
+- **Работа с оверлеями:** при активной RoAura оверлеи остаются видимыми над игрой, скрываясь только под окном настроек и его диалогами. Это позволяет видеть изменения на втором мониторе.
+- Сохранены кулдауны, эффекты и панели баффов, напоминания, точные варианты экипировки, MVP-таймеры, уведомления о добыче/Zeny/EXP, статистика, оценка стоимости добычи в Gold Goblin и внутриигровая база данных.
+- Улучшены сохранение и восстановление настроек, захват пакетов и переподключение, работа горячих клавиш, обработка ошибок и обновление приложения.
+
+### Установка и обновление
+
+- **Portable:** распакуйте `RoAura-3.0.0-portable.zip` в отдельную папку и запустите `RoAura.exe`.
+- **Установщик:** запустите `RoAura-3.0.0-Setup.exe`. Для работы нужен Npcap: https://npcap.com/#download
+- Перед обновлением полностью закройте старую RoAura. Настройки и пресеты остаются в `%APPDATA%\RoAura`; личные данные не входят в дистрибутив.
+- Для проверки файлов опубликован `SHA256SUMS.txt`. Инструкции на русском и английском включены в оба пакета.
+
+## English
+
+A major interface and settings update for the Ragnarok Online overlay.
+
+- **Redesigned interface:** consistent section headers, Overlays/Services navigation, rounded editors, shared dropdowns/sliders, a HEX/alpha color palette, and new branding.
+- **Character presets:** switch all feature settings and panel layouts without restarting. Named local snapshots use explicit Create/Update actions.
+- **SpringRO Market:** item watchlists, maximum/any-price conditions, per-rule pause and customizable alerts. Persistent local shop history prevents repeated alerts after restarting; retention is configurable in days.
+- Fixed numeric-input jumps, clipped field text, stale MVP selection and layout coordinates being overwritten after game-window resizing.
+- Game overlays remain visible while RoAura settings are active, except beneath the settings window and its dialogs, including multi-monitor editing.
+- Existing cooldowns, effect/buff panels, reminders, exact equipment variants, MVP timers, loot/Zeny/EXP notifications, statistics, Gold Goblin loot valuation and in-game databases remain available.
+- Improved settings persistence/recovery, packet capture/reconnection, hotkeys, error handling and updating.
+
+### Install or update
+
+Extract `RoAura-3.0.0-portable.zip` or run `RoAura-3.0.0-Setup.exe`. Close the previous instance first. Npcap is required: https://npcap.com/#download
+
+Settings and presets remain under `%APPDATA%\RoAura`. Packages exclude personal data and include RU/EN guides. `SHA256SUMS.txt` contains file verification hashes.
+
+---
+
+# RoAura 2.14.0 — development history included in 3.0
+
+## Русский
+
+- Изменение размеров окна игры и переключение клиентов больше не обрезают и не перезаписывают сохранённые позиции всех оверлеев.
+
+- Исправлены скачки значений при вводе размеров иконок и текста. Поля размеров, отступов, координат и прозрачности сохраняют ввод отдельно от настроек; Enter или выход из поля применяет число целиком, Escape отменяет ввод. В «О программе» виден идентификатор сборки.
+
+- Повреждённый `settings.json` больше не затирается: файл переносится в карантин, приложение стартует с настройками по умолчанию и сообщает об этом.
+- Применённый пресет больше не перезаписывается прежними настройками при выходе из программы.
+- Запускается только один экземпляр RoAura; повторный запуск активирует уже открытое окно.
+- Ошибка первого открытия Npcap показывается сразу вместо бесконечного ожидания захвата.
+- Снижена задержка захвата пакетов (immediate mode) и стоимость низкоуровневого хука клавиатуры.
+- `debug.log` ротируется по размеру вместо неограниченного роста.
+- Снижена нагрузка оверлеев на CPU; окна базы данных корректно масштабируются на мониторах с разным DPI.
+- HTTP-запросы к GitHub и SpringRO получили таймауты; индекс цен маркета ускорен.
+- Сборка: версия задаётся только в `RoAura.csproj`, встроенные PDB, установщик проверяет Npcap и единственный экземпляр, CI публикует релиз только при создании нового тега.
+
+## English
+
+- Game-window resizing and client switching no longer clamp and overwrite saved positions across all overlays.
+
+- Fixed icon/text size values jumping while typing. Size, padding, spacing, coordinate and opacity fields keep a separate text draft; Enter or focus loss applies the complete number, Escape cancels. About shows the build revision.
+
+- A corrupted `settings.json` is no longer overwritten: it is quarantined, the app starts with defaults and reports it.
+- An applied preset is no longer overwritten by the previous settings on exit.
+- Only one RoAura instance runs at a time; a second launch activates the existing window.
+- A failure to open Npcap on first start is surfaced immediately instead of spinning forever.
+- Lower capture latency (immediate mode) and a cheaper low-level keyboard hook.
+- `debug.log` is rotated by size instead of growing without limit.
+- Lower overlay CPU usage; database panels scale correctly across monitors with different DPI.
+- HTTP requests to GitHub and SpringRO now have timeouts; the market price index is faster.
+- Build: the version is set only in `RoAura.csproj`, PDBs are embedded, the installer checks for Npcap and a running instance, and CI publishes a release only when a new tag is created.
+
 # RoAura 2.13.2
 
 ## Русский
@@ -11,6 +86,182 @@
 - Fixed Gold Goblin loot values showing as zero after installing RoAura through Setup.
 - The SpringRO NPC price database is now included in both the portable archive and the installer.
 - Added a release validation check for the item and NPC price databases.
+
+# RoAura 2.13.1
+
+## Русский
+
+- Исправлено непредсказуемое изменение высоты таблиц Gold Goblin: обе таблицы получили минимальную высоту и управляемый разделитель.
+- Таблица особых правил больше не схлопывается до одной строки.
+- Добавлены подсказки предметов из базы SpringRO при вводе названия; ошибочное произвольное название не добавляется.
+- Добавлен индикатор `Zeny Total`, а порядок статистических индикаторов теперь можно менять кнопками «Выше» и «Ниже».
+- Item ID 7539 распознаётся как `Poring Coin`.
+- В таблицу Gold Goblin можно вручную добавлять и удалять предметы, а также редактировать количество и цену.
+
+## English
+
+- Fixed unpredictable Gold Goblin table sizing: both tables now have usable minimum heights and a controlled splitter.
+- The special pricing rules table no longer collapses to a header-only row.
+- Added SpringRO item suggestions while typing; invalid arbitrary names are rejected.
+- Added the `Zeny Total` indicator and Up/Down controls for ordering farming statistics.
+- Item ID 7539 is now recognized as `Poring Coin`.
+- Gold Goblin rows can now be added or removed manually, with editable item count and unit cost.
+
+# RoAura 2.13.0
+
+## Русский
+
+- Добавлен новый раздел Gold Goblin: таблица всей добычи за сессию с количеством, ценой за единицу и общей стоимостью.
+- В комплект включена отдельная база NPC sell value, собранная со страниц предметов SpringRO.
+- Добавлены особые правила цены: минимальная цена продажи с Vending и ручная цена с автоматическим fallback.
+- Добавлена настройка Overcharge 0–10; бонус применяется только к предметам, оцениваемым по NPC.
+- Loot-уведомления могут показывать стоимость предмета в Zeny, а Zeny per hour — учитывать стоимость добычи Gold Goblin.
+- Добавлены отдельные пиксельные иконки Gold Goblin и базы данных.
+
+## English
+
+- Added the new Gold Goblin section: a session loot table with item count, unit cost, and total value.
+- Bundled a dedicated NPC sell-value database collected from the official SpringRO item pages.
+- Added special pricing rules using the lowest current Vending sell price and a manual fallback price.
+- Added Overcharge levels 0–10; the bonus applies only to NPC-valued items.
+- Loot notifications can show the calculated Zeny value, and Zeny per hour can include Gold Goblin loot value.
+- Added dedicated pixel-art icons for Gold Goblin and the database.
+
+# RoAura 2.12.2
+
+- Исправлен запуск RoAura через галочку «Запустить RoAura» на последней странице установщика: приложение теперь запускается системным ShellExecute с корректной обработкой UAC вместо ошибки CreateProcess 740.
+- Для запуска из установщика явно задаётся рабочая папка приложения.
+
+## English
+
+- Fixed the “Launch RoAura” checkbox on the final installer page. The application now starts through Windows ShellExecute, allowing UAC to be handled correctly instead of producing CreateProcess error 740.
+- The installer now explicitly sets the RoAura installation directory as the application working directory.
+
+# RoAura 2.12.1
+
+- Исправлена блокировка временного файла при автоматическом обновлении: поток загрузки теперь гарантированно закрывается до проверки SHA-256, переименования и запуска установщика.
+- Расширенный поиск монстров получил читаемые подписи полей и корректное раскрытие без наложения текста.
+- Карточка монстра дополнена полными Stats, Element Damage, Skills и Behavior из базы SpringRO.
+- Маркет ищет мгновенно по локальному снимку и обновляет результаты автоматически после фоновой загрузки.
+- Окна базы привязаны к окну Ragnarok как owned overlays, чтобы первый клик по игре не прятал их за полноэкранным клиентом; Alt, Ctrl и Shift пропускаются системным хуком.
+- Дополнена английская локализация новых функций и оверлеев.
+
+## English
+
+- Fixed the temporary-file lock that prevented the automatic updater from verifying and launching the installer.
+- Rebuilt Advanced Monster Search with visible field labels and a clean expandable layout.
+- Monster details now include complete Stats, Element Damage, Skills, and Behavior from SpringRO.
+- Market searches now return immediately from a local snapshot and refresh automatically in the background.
+- Database panels are owned by the Ragnarok window so the first in-game click no longer sends them behind fullscreen clients, while Alt, Ctrl, and Shift remain available.
+- Completed English localization for the new database controls and overlay messages.
+
+# RoAura 2.12.0
+
+- Карточки предметов SpringRO показывают изображение, описание, NPC sell value и актуальное количество экземпляров на сервере.
+- Для монстров добавлен расширенный поиск по расе, элементу, размеру, уровню, HP, Base/Job EXP, уровню элемента, Aggressive, Boss и MVP.
+- Маркет полностью обновляется в фоне и сохраняется локально, поэтому поиск использует готовый снимок вместо ожидания SpringRO.
+- В настройках базы добавлен интервал фонового обновления маркета.
+- Карточка торгового предложения показывает миникарту и точное положение торговца красной отметкой.
+- Оверлеи сразу скрываются, когда другое окно перекрывает клиент Ragnarok, но остаются на игровом мониторе при работе на втором экране.
+- Убрана операция Hide/Show, вызывавшая исчезновение базы после первого клика; Shift, Alt и Ctrl остаются доступными.
+
+## English
+
+- SpringRO item cards show the image, description, NPC sell value, and current server circulation.
+- Added advanced monster filters for race, element, size, level, HP, Base/Job EXP, element level, Aggressive, Boss, and MVP.
+- The market database refreshes in the background, persists locally, and supports a configurable refresh interval.
+- Market listings show a minimap with the merchant position marked in red.
+- Overlay visibility now follows the Ragnarok client instead of unrelated windows.
+
+# RoAura 2.11.0
+
+- Добавлена автоматическая проверка последнего стабильного релиза через публичный GitHub Releases API.
+- При наличии новой версии RoAura показывает отдельное окно с версией и описанием изменений.
+- Добавлена кнопка «Проверить обновления» / `Check for updates` в окне «О программе».
+- Установщик новой версии скачивается автоматически с отображением прогресса.
+- Перед запуском обновления выполняется обязательная проверка SHA-256 по digest, опубликованному GitHub.
+- Обновление устанавливается без удаления настроек и пресетов из `%APPDATA%\RoAura`.
+- Ошибки сети и установки записываются в диагностический лог; доступен переход на страницу релиза для ручного обновления.
+- В Setup добавлен отсутствовавший файл `Data\database.springro.json`, необходимый игровому оверлею базы SpringRO.
+
+# RoAura 2.10.10
+
+- Удалены персональные стартовые настройки разработчика: адрес RTM, Night Menace, Devil Raid, Harvest и тестовые Skill/Status ID больше не создаются у нового пользователя.
+- Чистая установка запускается с пустыми списками Cooldowns и Buffs / Debuffs; пользователь добавляет нужные записи самостоятельно.
+- Сборщик релиза перед упаковкой удаляет `settings.json`, пресеты, резервные копии, кеш маркета и логи из каталога публикации.
+- После создания portable ZIP выполняется обязательная проверка, что приватные конфигурационные файлы не попали в архив.
+- Существующие настройки владельца в `%APPDATA%\RoAura` не удаляются и не изменяются при сборке.
+
+# RoAura 2.10.9
+
+- Окна игровой базы заранее инициализируются при запуске RoAura, чтобы первое открытие вело себя так же стабильно, как повторное.
+- При первом клике по полноэкранному клиенту панели базы нативно восстанавливаются поверх игры без изменения логического состояния и без повторной блокировки клавиш-модификаторов.
+- Добавлен постоянный кеш маркета SpringRO в `%APPDATA%\RoAura\springro-market-cache.json`.
+- Сохранённые результаты отображаются сразу, а устаревшие данные обновляются в фоне каждые пять минут.
+- Ошибка или медленный ответ SpringRO больше не удаляет ранее полученные результаты маркета.
+
+# RoAura 2.10.8
+
+- Исправлено исчезновение панелей игровой базы после первого клика по полноэкранному клиенту Ragnarok: панели теперь безопасно возвращаются поверх окна игры без смены фокуса.
+- Состояние открытия базы больше не расходится с её видимым состоянием при передаче фокуса игре.
+- Привязка через `GWL_HWNDPARENT` не возвращалась, поэтому исправление не должно снова блокировать Alt, Ctrl и Shift.
+
+# RoAura 2.10.7
+
+- По видеозаписи подтверждено, что SpringRO поднимает игровую поверхность в topmost-слой и перекрывает обычный `HWND_TOP`.
+- Основной оверлей и окна базы получают `TOPMOST` только пока активно окно Ragnarok; при переходе в другое приложение флаг немедленно снимается.
+- Ownership-привязка к окну игры не возвращена, поэтому исправление Alt, Ctrl и Shift сохраняется.
+
+# RoAura 2.10.6
+
+- Исправлено исчезновение всех оверлеев при переключении фокуса на Ragnarok.
+- При активном окне RO оверлей поднимается через безопасный `HWND_TOP` без `Topmost`, активации и ownership-привязки к процессу игры.
+- Сохраняется исправление Alt, Ctrl и Shift из 2.10.5.
+
+# RoAura 2.10.5
+
+- Восстановлен проверенный механизм горячих клавиш из рабочей версии 2.8.1.
+- Оверлей больше не назначается owned-окном процесса Ragnarok через `GWL_HWNDPARENT`; эта новая связь была главным отличием, активировавшимся сразу при запуске и способным конфликтовать с Gepard.
+- Оверлей по-прежнему следует координатам окна RO и размещается непосредственно над ним через безопасный Z-order.
+- Alt, Ctrl и Shift пропускаются даже при открытой базе данных.
+
+# RoAura 2.10.4
+
+- Исправлено многократное журналирование одного старого пакета `INVENTORY EQUIPMENT 0x0B39` при каждом новом TCP-сегменте.
+- Кэш экипировки теперь обновляется только при получении нового снимка инвентаря, а не при повторном просмотре сохранённого хвоста потока.
+- Устранён лишний рост `debug.log` и снижена нагрузка пакетного анализатора.
+
+# RoAura 2.10.3
+
+- Служба горячих клавиш полностью переведена с постоянного опроса клавиатуры на стандартный Windows API `RegisterHotKey`.
+- RoAura больше не считывает и не перехватывает Alt, Ctrl и Shift ни при запуске, ни при работе оверлеев.
+- Подпись базы данных исправлена: активен ввод в поиск, а не глобальная блокировка клавиатуры игры.
+
+# RoAura 2.10.2
+
+- Полностью удалён системный низкоуровневый перехватчик клавиатуры. RoAura больше не может блокировать или оставлять в некорректном состоянии Alt, Ctrl и Shift.
+- Настраиваемые горячие клавиши продолжают работать через безопасный опрос состояния клавиш без их захвата.
+
+# RoAura 2.10.1
+
+- Исправлена блокировка клавиш Shift, Ctrl, Alt и Windows при открытом внутриигровом оверлее базы данных.
+- Для вкладок «Монстры», «Предметы», «Карты» и «Маркет» сохраняются независимые поисковые запросы.
+
+# RoAura 2.10.0
+
+- Добавлен верхний выбор сервера: RTM, SpringRO и «Другой»; разделы и базы автоматически подстраиваются под выбранный профиль.
+- Для SpringRO доступна внутриигровая база; для RTM используются RTM-базы MVP и предметов; профиль «Другой» скрывает серверозависимые разделы.
+- Исправлено двойное срабатывание горячей клавиши, из-за которого база могла закрываться сразу после первого открытия.
+- Все игровые оверлеи стали дочерними для окна Ragnarok: они остаются над игрой при работе на втором мониторе, но не перекрывают посторонние приложения.
+- Убрано повреждение сохранённых координат при временном уменьшении или перезапуске окна клиента.
+- Все основные таблицы и таблица статистики получили перетаскиваемую нижнюю границу.
+- Добавлен отдельный индикатор расчётного времени до следующего Job Level.
+
+# RoAura 2.9.1
+
+- Исправлен `NullReferenceException` при запуске: XAML-событие выбора режима базы данных больше не обращается к ещё не созданным элементам окна.
+- Настройки и база данных присваиваются до построения визуального дерева, что исключает повторение ошибки при ранних событиях WPF.
+- Сохранена привязка всех игровых оверлеев к клиентской области окна Ragnarok Online.
 
 # RoAura 2.9.0
 
@@ -273,179 +524,3 @@
 - Fixed clipped links in the About window and updated the displayed version.
 - Preserved separate appeared/disappeared sounds and volume controls.
 - Discord: http://discord.gg/aleriontv
-# RoAura 2.9.1
-
-- Исправлен `NullReferenceException` при запуске: XAML-событие выбора режима базы данных больше не обращается к ещё не созданным элементам окна.
-- Настройки и база данных присваиваются до построения визуального дерева, что исключает повторение ошибки при ранних событиях WPF.
-- Сохранена привязка всех игровых оверлеев к клиентской области окна Ragnarok Online.
-
-# RoAura 2.11.0
-
-- Добавлена автоматическая проверка последнего стабильного релиза через публичный GitHub Releases API.
-- При наличии новой версии RoAura показывает отдельное окно с версией и описанием изменений.
-- Добавлена кнопка «Проверить обновления» / `Check for updates` в окне «О программе».
-- Установщик новой версии скачивается автоматически с отображением прогресса.
-- Перед запуском обновления выполняется обязательная проверка SHA-256 по digest, опубликованному GitHub.
-- Обновление устанавливается без удаления настроек и пресетов из `%APPDATA%\RoAura`.
-- Ошибки сети и установки записываются в диагностический лог; доступен переход на страницу релиза для ручного обновления.
-- В Setup добавлен отсутствовавший файл `Data\database.springro.json`, необходимый игровому оверлею базы SpringRO.
-
-# RoAura 2.12.1
-
-- Исправлена блокировка временного файла при автоматическом обновлении: поток загрузки теперь гарантированно закрывается до проверки SHA-256, переименования и запуска установщика.
-- Расширенный поиск монстров получил читаемые подписи полей и корректное раскрытие без наложения текста.
-- Карточка монстра дополнена полными Stats, Element Damage, Skills и Behavior из базы SpringRO.
-- Маркет ищет мгновенно по локальному снимку и обновляет результаты автоматически после фоновой загрузки.
-- Окна базы привязаны к окну Ragnarok как owned overlays, чтобы первый клик по игре не прятал их за полноэкранным клиентом; Alt, Ctrl и Shift пропускаются системным хуком.
-- Дополнена английская локализация новых функций и оверлеев.
-
-## English
-
-- Fixed the temporary-file lock that prevented the automatic updater from verifying and launching the installer.
-- Rebuilt Advanced Monster Search with visible field labels and a clean expandable layout.
-- Monster details now include complete Stats, Element Damage, Skills, and Behavior from SpringRO.
-- Market searches now return immediately from a local snapshot and refresh automatically in the background.
-- Database panels are owned by the Ragnarok window so the first in-game click no longer sends them behind fullscreen clients, while Alt, Ctrl, and Shift remain available.
-- Completed English localization for the new database controls and overlay messages.
-
-# RoAura 2.13.1
-
-## Русский
-
-- Исправлено непредсказуемое изменение высоты таблиц Gold Goblin: обе таблицы получили минимальную высоту и управляемый разделитель.
-- Таблица особых правил больше не схлопывается до одной строки.
-- Добавлены подсказки предметов из базы SpringRO при вводе названия; ошибочное произвольное название не добавляется.
-- Добавлен индикатор `Zeny Total`, а порядок статистических индикаторов теперь можно менять кнопками «Выше» и «Ниже».
-- Item ID 7539 распознаётся как `Poring Coin`.
-- В таблицу Gold Goblin можно вручную добавлять и удалять предметы, а также редактировать количество и цену.
-
-## English
-
-- Fixed unpredictable Gold Goblin table sizing: both tables now have usable minimum heights and a controlled splitter.
-- The special pricing rules table no longer collapses to a header-only row.
-- Added SpringRO item suggestions while typing; invalid arbitrary names are rejected.
-- Added the `Zeny Total` indicator and Up/Down controls for ordering farming statistics.
-- Item ID 7539 is now recognized as `Poring Coin`.
-- Gold Goblin rows can now be added or removed manually, with editable item count and unit cost.
-
-# RoAura 2.13.0
-
-## Русский
-
-- Добавлен новый раздел Gold Goblin: таблица всей добычи за сессию с количеством, ценой за единицу и общей стоимостью.
-- В комплект включена отдельная база NPC sell value, собранная со страниц предметов SpringRO.
-- Добавлены особые правила цены: минимальная цена продажи с Vending и ручная цена с автоматическим fallback.
-- Добавлена настройка Overcharge 0–10; бонус применяется только к предметам, оцениваемым по NPC.
-- Loot-уведомления могут показывать стоимость предмета в Zeny, а Zeny per hour — учитывать стоимость добычи Gold Goblin.
-- Добавлены отдельные пиксельные иконки Gold Goblin и базы данных.
-
-## English
-
-- Added the new Gold Goblin section: a session loot table with item count, unit cost, and total value.
-- Bundled a dedicated NPC sell-value database collected from the official SpringRO item pages.
-- Added special pricing rules using the lowest current Vending sell price and a manual fallback price.
-- Added Overcharge levels 0–10; the bonus applies only to NPC-valued items.
-- Loot notifications can show the calculated Zeny value, and Zeny per hour can include Gold Goblin loot value.
-- Added dedicated pixel-art icons for Gold Goblin and the database.
-
-# RoAura 2.12.2
-
-- Исправлен запуск RoAura через галочку «Запустить RoAura» на последней странице установщика: приложение теперь запускается системным ShellExecute с корректной обработкой UAC вместо ошибки CreateProcess 740.
-- Для запуска из установщика явно задаётся рабочая папка приложения.
-
-## English
-
-- Fixed the “Launch RoAura” checkbox on the final installer page. The application now starts through Windows ShellExecute, allowing UAC to be handled correctly instead of producing CreateProcess error 740.
-- The installer now explicitly sets the RoAura installation directory as the application working directory.
-
-# RoAura 2.12.0
-
-- Карточки предметов SpringRO показывают изображение, описание, NPC sell value и актуальное количество экземпляров на сервере.
-- Для монстров добавлен расширенный поиск по расе, элементу, размеру, уровню, HP, Base/Job EXP, уровню элемента, Aggressive, Boss и MVP.
-- Маркет полностью обновляется в фоне и сохраняется локально, поэтому поиск использует готовый снимок вместо ожидания SpringRO.
-- В настройках базы добавлен интервал фонового обновления маркета.
-- Карточка торгового предложения показывает миникарту и точное положение торговца красной отметкой.
-- Оверлеи сразу скрываются, когда другое окно перекрывает клиент Ragnarok, но остаются на игровом мониторе при работе на втором экране.
-- Убрана операция Hide/Show, вызывавшая исчезновение базы после первого клика; Shift, Alt и Ctrl остаются доступными.
-
-## English
-
-- SpringRO item cards show the image, description, NPC sell value, and current server circulation.
-- Added advanced monster filters for race, element, size, level, HP, Base/Job EXP, element level, Aggressive, Boss, and MVP.
-- The market database refreshes in the background, persists locally, and supports a configurable refresh interval.
-- Market listings show a minimap with the merchant position marked in red.
-- Overlay visibility now follows the Ragnarok client instead of unrelated windows.
-
-# RoAura 2.10.10
-
-- Удалены персональные стартовые настройки разработчика: адрес RTM, Night Menace, Devil Raid, Harvest и тестовые Skill/Status ID больше не создаются у нового пользователя.
-- Чистая установка запускается с пустыми списками Cooldowns и Buffs / Debuffs; пользователь добавляет нужные записи самостоятельно.
-- Сборщик релиза перед упаковкой удаляет `settings.json`, пресеты, резервные копии, кеш маркета и логи из каталога публикации.
-- После создания portable ZIP выполняется обязательная проверка, что приватные конфигурационные файлы не попали в архив.
-- Существующие настройки владельца в `%APPDATA%\RoAura` не удаляются и не изменяются при сборке.
-
-# RoAura 2.10.9
-
-- Окна игровой базы заранее инициализируются при запуске RoAura, чтобы первое открытие вело себя так же стабильно, как повторное.
-- При первом клике по полноэкранному клиенту панели базы нативно восстанавливаются поверх игры без изменения логического состояния и без повторной блокировки клавиш-модификаторов.
-- Добавлен постоянный кеш маркета SpringRO в `%APPDATA%\RoAura\springro-market-cache.json`.
-- Сохранённые результаты отображаются сразу, а устаревшие данные обновляются в фоне каждые пять минут.
-- Ошибка или медленный ответ SpringRO больше не удаляет ранее полученные результаты маркета.
-
-# RoAura 2.10.8
-
-- Исправлено исчезновение панелей игровой базы после первого клика по полноэкранному клиенту Ragnarok: панели теперь безопасно возвращаются поверх окна игры без смены фокуса.
-- Состояние открытия базы больше не расходится с её видимым состоянием при передаче фокуса игре.
-- Привязка через `GWL_HWNDPARENT` не возвращалась, поэтому исправление не должно снова блокировать Alt, Ctrl и Shift.
-
-# RoAura 2.10.7
-
-- По видеозаписи подтверждено, что SpringRO поднимает игровую поверхность в topmost-слой и перекрывает обычный `HWND_TOP`.
-- Основной оверлей и окна базы получают `TOPMOST` только пока активно окно Ragnarok; при переходе в другое приложение флаг немедленно снимается.
-- Ownership-привязка к окну игры не возвращена, поэтому исправление Alt, Ctrl и Shift сохраняется.
-
-# RoAura 2.10.6
-
-- Исправлено исчезновение всех оверлеев при переключении фокуса на Ragnarok.
-- При активном окне RO оверлей поднимается через безопасный `HWND_TOP` без `Topmost`, активации и ownership-привязки к процессу игры.
-- Сохраняется исправление Alt, Ctrl и Shift из 2.10.5.
-
-# RoAura 2.10.5
-
-- Восстановлен проверенный механизм горячих клавиш из рабочей версии 2.8.1.
-- Оверлей больше не назначается owned-окном процесса Ragnarok через `GWL_HWNDPARENT`; эта новая связь была главным отличием, активировавшимся сразу при запуске и способным конфликтовать с Gepard.
-- Оверлей по-прежнему следует координатам окна RO и размещается непосредственно над ним через безопасный Z-order.
-- Alt, Ctrl и Shift пропускаются даже при открытой базе данных.
-
-# RoAura 2.10.4
-
-- Исправлено многократное журналирование одного старого пакета `INVENTORY EQUIPMENT 0x0B39` при каждом новом TCP-сегменте.
-- Кэш экипировки теперь обновляется только при получении нового снимка инвентаря, а не при повторном просмотре сохранённого хвоста потока.
-- Устранён лишний рост `debug.log` и снижена нагрузка пакетного анализатора.
-
-# RoAura 2.10.3
-
-- Служба горячих клавиш полностью переведена с постоянного опроса клавиатуры на стандартный Windows API `RegisterHotKey`.
-- RoAura больше не считывает и не перехватывает Alt, Ctrl и Shift ни при запуске, ни при работе оверлеев.
-- Подпись базы данных исправлена: активен ввод в поиск, а не глобальная блокировка клавиатуры игры.
-
-# RoAura 2.10.2
-
-- Полностью удалён системный низкоуровневый перехватчик клавиатуры. RoAura больше не может блокировать или оставлять в некорректном состоянии Alt, Ctrl и Shift.
-- Настраиваемые горячие клавиши продолжают работать через безопасный опрос состояния клавиш без их захвата.
-
-# RoAura 2.10.1
-
-- Исправлена блокировка клавиш Shift, Ctrl, Alt и Windows при открытом внутриигровом оверлее базы данных.
-- Для вкладок «Монстры», «Предметы», «Карты» и «Маркет» сохраняются независимые поисковые запросы.
-
-# RoAura 2.10.0
-
-- Добавлен верхний выбор сервера: RTM, SpringRO и «Другой»; разделы и базы автоматически подстраиваются под выбранный профиль.
-- Для SpringRO доступна внутриигровая база; для RTM используются RTM-базы MVP и предметов; профиль «Другой» скрывает серверозависимые разделы.
-- Исправлено двойное срабатывание горячей клавиши, из-за которого база могла закрываться сразу после первого открытия.
-- Все игровые оверлеи стали дочерними для окна Ragnarok: они остаются над игрой при работе на втором мониторе, но не перекрывают посторонние приложения.
-- Убрано повреждение сохранённых координат при временном уменьшении или перезапуске окна клиента.
-- Все основные таблицы и таблица статистики получили перетаскиваемую нижнюю границу.
-- Добавлен отдельный индикатор расчётного времени до следующего Job Level.
-

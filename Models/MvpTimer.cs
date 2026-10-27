@@ -9,6 +9,8 @@ public sealed class MvpTimer : INotifyPropertyChanged
     private string _name = "MVP";
     private int _monsterId;
     private double _durationMinutes = 60;
+    private DateTime? _killedAtUtc;
+    private string _killTimeInput = "";
     private DateTime? _endsAtUtc;
     private double _remainingSeconds;
     private bool _enabled = true;
@@ -18,9 +20,44 @@ public sealed class MvpTimer : INotifyPropertyChanged
 
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get => _name; set => Set(ref _name, value); }
-    public int MonsterId { get => _monsterId; set => Set(ref _monsterId, Math.Max(0, value)); }
+    public int MonsterId
+    {
+        get => _monsterId;
+        set
+        {
+            if (!Set(ref _monsterId, Math.Max(0, value))) return;
+            OnPropertyChanged(nameof(MonsterImagePath));
+        }
+    }
     public double DurationMinutes { get => _durationMinutes; set => Set(ref _durationMinutes, Math.Clamp(value, 0.1, 10080)); }
-    public DateTime? EndsAtUtc { get => _endsAtUtc; set { if (Set(ref _endsAtUtc, value)) OnPropertyChanged(nameof(IsRunning)); } }
+    public DateTime? KilledAtUtc
+    {
+        get => _killedAtUtc;
+        set
+        {
+            if (!Set(ref _killedAtUtc, value)) return;
+            _killTimeInput = value?.ToLocalTime().ToString("HH:mm:ss") ?? "";
+            OnPropertyChanged(nameof(KilledAtText));
+            OnPropertyChanged(nameof(KillTimeInput));
+            OnPropertyChanged(nameof(HasKillTime));
+        }
+    }
+    [JsonIgnore]
+    public string KillTimeInput
+    {
+        get => _killTimeInput;
+        set => Set(ref _killTimeInput, value ?? "");
+    }
+    public DateTime? EndsAtUtc
+    {
+        get => _endsAtUtc;
+        set
+        {
+            if (!Set(ref _endsAtUtc, value)) return;
+            OnPropertyChanged(nameof(IsRunning));
+            OnPropertyChanged(nameof(StateText));
+        }
+    }
     public bool Enabled { get => _enabled; set { if (Set(ref _enabled, value)) OnPropertyChanged(nameof(IsVisible)); } }
     public bool CompletionSoundEnabled { get => _completionSoundEnabled; set => Set(ref _completionSoundEnabled, value); }
     public string CompletionSoundPath { get => _completionSoundPath; set => Set(ref _completionSoundPath, value ?? ""); }
@@ -37,11 +74,26 @@ public sealed class MvpTimer : INotifyPropertyChanged
             OnPropertyChanged(nameof(DisplayText));
             OnPropertyChanged(nameof(IsRunning));
             OnPropertyChanged(nameof(IsVisible));
+            OnPropertyChanged(nameof(StateText));
         }
     }
 
     [JsonIgnore] public bool IsRunning => EndsAtUtc.HasValue && RemainingSeconds > 0;
     [JsonIgnore] public bool IsVisible => Enabled && IsRunning;
+    [JsonIgnore] public bool HasKillTime => KilledAtUtc.HasValue;
+    [JsonIgnore] public string KilledAtText => KilledAtUtc?.ToLocalTime().ToString("HH:mm:ss") ?? "";
+    [JsonIgnore] public IReadOnlyList<MonsterSpawnEntry> RespawnHints { get; private set; } = [];
+    [JsonIgnore]
+    public string MonsterImagePath
+    {
+        get
+        {
+            var path = Path.Combine(AppContext.BaseDirectory, "Data", "MvpImages", $"{MonsterId}.png");
+            return File.Exists(path) ? path : "";
+        }
+    }
+    [JsonIgnore] public string StateText => Services.LocalizationService.Get(
+        IsRunning ? "TimerRunning" : EndsAtUtc.HasValue ? "TimerCompleted" : "TimerNotStarted");
     [JsonIgnore] public bool CompletionSoundPlayed { get; set; }
     [JsonIgnore]
     public string RemainingText
@@ -56,20 +108,51 @@ public sealed class MvpTimer : INotifyPropertyChanged
     }
     [JsonIgnore] public string DisplayText => $"{Name} — {RemainingText}";
 
+    public void SetMonsterDetails(MonsterEntry? monster)
+    {
+        RespawnHints = monster is null ? Array.Empty<MonsterSpawnEntry>() : monster.Spawns;
+        OnPropertyChanged(nameof(RespawnHints));
+        OnPropertyChanged(nameof(MonsterImagePath));
+    }
+
     public void Restart()
     {
+        StartFromKillTime(DateTime.Now);
+    }
+
+    public void StartFromKillTime(DateTime killedAtLocal)
+    {
         CompletionSoundPlayed = false;
-        EndsAtUtc = DateTime.UtcNow.AddMinutes(DurationMinutes);
+        var local = killedAtLocal.Kind == DateTimeKind.Unspecified
+            ? DateTime.SpecifyKind(killedAtLocal, DateTimeKind.Local)
+            : killedAtLocal.ToLocalTime();
+        KilledAtUtc = local.ToUniversalTime();
+        EndsAtUtc = KilledAtUtc.Value.AddMinutes(DurationMinutes);
         RemainingSeconds = DurationMinutes * 60;
+        if (EndsAtUtc <= DateTime.UtcNow)
+            RemainingSeconds = 0;
+        else
+            RemainingSeconds = (EndsAtUtc.Value - DateTime.UtcNow).TotalSeconds;
         OnPropertyChanged(nameof(IsRunning));
+        OnPropertyChanged(nameof(StateText));
+    }
+
+    public void StartFromKillClock(TimeSpan killTime, DateTime? nowLocal = null)
+    {
+        var now = (nowLocal ?? DateTime.Now).ToLocalTime();
+        var killedAt = now.Date.Add(killTime);
+        if (killedAt > now) killedAt = killedAt.AddDays(-1);
+        StartFromKillTime(killedAt);
     }
 
     public void Reset()
     {
         CompletionSoundPlayed = true;
+        KilledAtUtc = null;
         EndsAtUtc = null;
         RemainingSeconds = 0;
         OnPropertyChanged(nameof(IsRunning));
+        OnPropertyChanged(nameof(StateText));
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

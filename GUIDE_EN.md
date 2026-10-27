@@ -1,4 +1,4 @@
-# RoAura 2.13.2 — user guide
+# RoAura 3.0.0 — user guide
 
 ## Gold Goblin
 
@@ -125,7 +125,7 @@ Choose the `RTM` or `SpringRO` item database on the Loot / Zeny / EXP tab. Names
 
 ## Presets
 
-Enter a separate name and click `Create new`. The list contains only saved snapshots. `Load` applies the selected snapshot and restarts RoAura, preserving the previous working configuration in `Recovery`. `Update selected` is the only operation that can replace an existing preset; it requires confirmation and creates a backup first. `Delete` backs up and removes the snapshot without changing the current working settings. Autosave writes only to `settings.json` and never to `Profiles`.
+Enter a separate name and click `Create new`. The list contains only saved snapshots. Selecting a preset immediately applies the complete snapshot without restarting: cooldowns, effects, reminders, equipment, timers, panel layouts, statistics, Gold Goblin and database settings. `Load` reapplies the selected snapshot. The previous working configuration is preserved in `Recovery`. Transient notifications and session counters are cleared. Files are stored locally at `%APPDATA%\RoAura\Profiles\<preset name>.json`. `Update selected` is the only operation that can replace an existing preset; it requires confirmation and creates a backup first. `Delete` backs up and removes the snapshot without changing the current working settings. Autosave writes only to `settings.json` and never to `Profiles`.
 
 The statistics panel provides three independent indicators: `XP per hour`, `Time to level`, and `Zeny per hour`. Each has its own enable flag, group, X/Y, text size/color, opacity and mouse placement mode. Move an indicator individually or move every indicator with the same group number. `Refresh every, sec` controls the update period from 1 to 60 seconds; the default is 5 seconds to avoid constantly changing text. Rates start with the first matching event in the current session; time to level becomes available after the server supplies current EXP and the level requirement.
 
@@ -158,6 +158,18 @@ Install .NET 8 SDK and run:
 powershell -ExecutionPolicy Bypass -File .\build-release.ps1
 ```
 
-Output: `artifacts\RoAura-2.13.2-portable.zip`. Install Inno Setup 6 and run `build-installer.ps1` for Setup.
+Output: `artifacts\RoAura-2.14.0-portable.zip`. Install Inno Setup 6 and run `build-installer.ps1` for Setup.
 
 Links: https://twitch.tv/im_alerion · http://discord.gg/aleriontv · https://www.donationalerts.com/r/im_alerion · https://rtm-refuge.online
+
+### SpringRO Market tracking
+
+Click ★ on an item result or its details, enter a maximum whole-Zeny price or select Any price, then click Add. A semi-transparent star means tracking is off; a dark-blue star means it is on. Click again to stop tracking.
+
+Database → Watchlist lets you add items by name/ID, edit rules and remove watches. Suggestions never replace your typing automatically; select the intended item. Notifications configures text (%name for item name, %price for price), icon, sizes, background/text colors, padding, spacing, X/Y, duration and sound. Use Test notification to preview it on the overlay; F9 controls visibility.
+
+Only successful fresh selling-shop snapshots are evaluated. The first refresh may notify about offers already present. Known offers remain silent after restart or absence/return while their history is retained; a new seller or price can notify again. Multiple new matches for one item use the lowest qualifying price. Download failures do not count as an absence. Offer history is stored locally and shown below the watchlist: time, shop, coordinates and price. General configures retention in whole days, default 30. Once an entry expires, its offer can notify again.
+
+Refresh interval: 1–1440 minutes, default 10. **Refreshing too frequently may result in a server-side block.** There is no hidden ten-minute floor; crawls do not overlap and server-directed back-off remains active.
+
+Pause a watch with Enabled in the third column: its item and price rule are retained. Re-enable it to check the next fresh Market update. The live preview is always at the top; Show icon affects both it and the game overlay. Move in game hides settings and lets you drag a persistent sample; finish with the configured hotkey (Esc by default). Listen auditions the chosen sound at the selected volume; 0% is silent.

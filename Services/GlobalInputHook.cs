@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Input;
 using RoAura.Models;
 
@@ -24,6 +26,7 @@ public sealed class GlobalInputHook : IDisposable
     private const int VkRControl = 0xA3;
     private const int VkLMenu = 0xA4;
     private const int VkRMenu = 0xA5;
+    private const uint ProcessQueryLimitedInformation = 0x1000;
     private readonly AppSettings _settings;
     private Timer? _timer;
     private bool _settingsHeld;
@@ -37,6 +40,18 @@ public sealed class GlobalInputHook : IDisposable
     private volatile bool _keyboardBlocked;
     private IntPtr _keyboardHook;
     private readonly LowLevelKeyboardProc _keyboardProc;
+    private int _polling;
+    private volatile int _settingsKey;
+    private volatile int _overlaysKey;
+    private volatile int _finishMoveKey;
+    private volatile int _timersKey;
+    private volatile int _databaseKey;
+    // Tiny one-entry cache for the hook callback: the foreground window
+    // rarely changes between keystrokes, so resolving its process name once
+    // keeps the low-level hook well inside the system's callback budget.
+    private IntPtr _cachedWindow;
+    private uint _cachedProcessId;
+    private bool _cachedAllowed;
 
     public event Action? ToggleSettingsPressed;
     public event Action? ToggleOverlaysPressed;
@@ -48,6 +63,8 @@ public sealed class GlobalInputHook : IDisposable
     {
         _settings = settings;
         _keyboardProc = KeyboardHookCallback;
+        RefreshVirtualKeys();
+        _settings.PropertyChanged += OnSettingsPropertyChanged;
     }
 
     public void Install()
@@ -55,6 +72,9 @@ public sealed class GlobalInputHook : IDisposable
         if (_timer is not null) return;
         _timer = new Timer(_ => PollKeys(), null, TimeSpan.Zero, TimeSpan.FromMilliseconds(35));
         _keyboardHook = SetWindowsHookEx(WhKeyboardLl, _keyboardProc, IntPtr.Zero, 0);
+        // Polling keeps working without the hook; the caller reports the failure.
+        if (_keyboardHook == IntPtr.Zero)
+            throw new Win32Exception(Marshal.GetLastWin32Error());
     }
 
     public bool SetEscapeEnabled(bool enabled)
@@ -66,31 +86,116 @@ public sealed class GlobalInputHook : IDisposable
 
     public void SetKeyboardBlocked(bool blocked) => _keyboardBlocked = blocked;
 
+    private void OnSettingsPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        switch (e.PropertyName)
+        {
+            case null:
+            case "":
+            case nameof(AppSettings.SettingsHotkey):
+            case nameof(AppSettings.OverlaysHotkey):
+            case nameof(AppSettings.FinishMoveHotkey):
+            case nameof(AppSettings.TimersHotkey):
+            case nameof(AppSettings.DatabaseHotkey):
+                RefreshVirtualKeys();
+                break;
+        }
+    }
+
+    private void RefreshVirtualKeys()
+    {
+        _settingsKey = ParseVirtualKey(_settings.SettingsHotkey);
+        _overlaysKey = ParseVirtualKey(_settings.OverlaysHotkey);
+        _finishMoveKey = ParseVirtualKey(_settings.FinishMoveHotkey);
+        _timersKey = ParseVirtualKey(_settings.TimersHotkey);
+        _databaseKey = ParseVirtualKey(_settings.DatabaseHotkey);
+    }
+
     private IntPtr KeyboardHookCallback(int code, IntPtr message, IntPtr data)
     {
-        var foreground = GetForegroundWindow();
-        var belongsToGame = ForegroundProcess.IsWindowAllowed(foreground, _settings.AllowedProcesses);
-        if (code >= 0 && _keyboardBlocked && belongsToGame &&
-            (message == new IntPtr(WmKeyDown) || message == new IntPtr(WmKeyUp) ||
-             message == new IntPtr(WmSysKeyDown) || message == new IntPtr(WmSysKeyUp)))
+        try
         {
-            var virtualKey = Marshal.ReadInt32(data);
+            if (code < 0 || !_keyboardBlocked)
+                return CallNextHookEx(_keyboardHook, code, message, data);
+
             var isDown = message == new IntPtr(WmKeyDown) || message == new IntPtr(WmSysKeyDown);
+            var isUp = message == new IntPtr(WmKeyUp) || message == new IntPtr(WmSysKeyUp);
+            if (!isDown && !isUp)
+                return CallNextHookEx(_keyboardHook, code, message, data);
+
+            if (!IsForegroundWindowAllowed())
+                return CallNextHookEx(_keyboardHook, code, message, data);
+
+            var virtualKey = Marshal.ReadInt32(data);
             if (IsModifier(virtualKey))
                 return CallNextHookEx(_keyboardHook, code, message, data);
-            if (virtualKey == ParseVirtualKey(_settings.DatabaseHotkey))
+            if (virtualKey == _databaseKey)
             {
                 if (isDown && !_databaseHookHeld) ToggleDatabasePressed?.Invoke();
                 _databaseHookHeld = isDown;
             }
-            else if (virtualKey == ParseVirtualKey(_settings.SettingsHotkey))
+            else if (virtualKey == _settingsKey)
             {
                 if (isDown && !_settingsHookHeld) ToggleSettingsPressed?.Invoke();
                 _settingsHookHeld = isDown;
             }
             return new IntPtr(1);
         }
-        return CallNextHookEx(_keyboardHook, code, message, data);
+        catch (Exception ex)
+        {
+            DebugLog.Write($"KEYBOARD HOOK ERROR: {ex}");
+            return CallNextHookEx(_keyboardHook, code, message, data);
+        }
+    }
+
+    private bool IsForegroundWindowAllowed()
+    {
+        var window = GetForegroundWindow();
+        if (window == IntPtr.Zero) return false;
+        GetWindowThreadProcessId(window, out var processId);
+        if (processId == 0) return false;
+        if (window == _cachedWindow && processId == _cachedProcessId)
+            return _cachedAllowed;
+
+        var allowed = false;
+        var processName = GetProcessName(processId);
+        if (processName is not null)
+        {
+            var allowedProcesses = _settings.AllowedProcesses;
+            foreach (var name in allowedProcesses)
+            {
+                if (string.IsNullOrWhiteSpace(name)) continue;
+                if (string.Equals(Path.GetFileNameWithoutExtension(name.Trim()), processName,
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    allowed = true;
+                    break;
+                }
+            }
+        }
+
+        _cachedWindow = window;
+        _cachedProcessId = processId;
+        _cachedAllowed = allowed;
+        return allowed;
+    }
+
+    private static string? GetProcessName(uint processId)
+    {
+        var process = OpenProcess(ProcessQueryLimitedInformation, false, processId);
+        if (process == IntPtr.Zero) return null;
+        try
+        {
+            var buffer = new StringBuilder(1024);
+            var size = (uint)buffer.Capacity;
+            if (!QueryFullProcessImageName(process, 0, buffer, ref size) || size == 0)
+                return null;
+            return Path.GetFileNameWithoutExtension(buffer.ToString());
+        }
+        finally
+        {
+            CloseHandle(process);
+        }
     }
 
     private static bool IsModifier(int virtualKey) => virtualKey is
@@ -99,28 +204,35 @@ public sealed class GlobalInputHook : IDisposable
 
     private void PollKeys()
     {
-        var foreground = GetForegroundWindow();
-        GetWindowThreadProcessId(foreground, out var foregroundProcessId);
-        if (!_keyboardBlocked || foregroundProcessId == (uint)Environment.ProcessId)
-            PollKey(ParseVirtualKey(_settings.SettingsHotkey), ref _settingsHeld,
-                ToggleSettingsPressed);
-        else
-            _settingsHeld = false;
-        PollKey(ParseVirtualKey(_settings.OverlaysHotkey), ref _overlaysHeld,
-            ToggleOverlaysPressed);
-        PollKey(ParseVirtualKey(_settings.TimersHotkey), ref _timersHeld,
-            ToggleTimersPressed);
-        if (!_keyboardBlocked || foregroundProcessId == (uint)Environment.ProcessId)
-            PollKey(ParseVirtualKey(_settings.DatabaseHotkey), ref _databaseHeld,
-                ToggleDatabasePressed);
-        else
-            _databaseHeld = false;
+        if (Interlocked.Exchange(ref _polling, 1) != 0) return;
+        try
+        {
+            var foreground = GetForegroundWindow();
+            GetWindowThreadProcessId(foreground, out var foregroundProcessId);
+            if (!_keyboardBlocked || foregroundProcessId == (uint)Environment.ProcessId)
+                PollKey(_settingsKey, ref _settingsHeld, ToggleSettingsPressed);
+            else
+                _settingsHeld = false;
+            PollKey(_overlaysKey, ref _overlaysHeld, ToggleOverlaysPressed);
+            PollKey(_timersKey, ref _timersHeld, ToggleTimersPressed);
+            if (!_keyboardBlocked || foregroundProcessId == (uint)Environment.ProcessId)
+                PollKey(_databaseKey, ref _databaseHeld, ToggleDatabasePressed);
+            else
+                _databaseHeld = false;
 
-        if (_finishMoveEnabled)
-            PollKey(ParseVirtualKey(_settings.FinishMoveHotkey), ref _finishMoveHeld,
-                EscapePressed);
-        else
-            _finishMoveHeld = false;
+            if (_finishMoveEnabled)
+                PollKey(_finishMoveKey, ref _finishMoveHeld, EscapePressed);
+            else
+                _finishMoveHeld = false;
+        }
+        catch (Exception ex)
+        {
+            DebugLog.Write($"HOTKEY POLL ERROR: {ex}");
+        }
+        finally
+        {
+            Interlocked.Exchange(ref _polling, 0);
+        }
     }
 
     private static void PollKey(int virtualKey, ref bool held, Action? action)
@@ -149,6 +261,7 @@ public sealed class GlobalInputHook : IDisposable
     public void Dispose()
     {
         _keyboardBlocked = false;
+        _settings.PropertyChanged -= OnSettingsPropertyChanged;
         if (_keyboardHook != IntPtr.Zero) UnhookWindowsHookEx(_keyboardHook);
         _keyboardHook = IntPtr.Zero;
         _timer?.Dispose();
@@ -175,4 +288,18 @@ public sealed class GlobalInputHook : IDisposable
 
     [DllImport("user32.dll")]
     private static extern uint GetWindowThreadProcessId(IntPtr window, out uint processId);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern IntPtr OpenProcess(uint desiredAccess,
+        [MarshalAs(UnmanagedType.Bool)] bool inheritHandle, uint processId);
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true,
+        EntryPoint = "QueryFullProcessImageNameW")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool QueryFullProcessImageName(IntPtr process, uint flags,
+        StringBuilder exeName, ref uint size);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool CloseHandle(IntPtr handle);
 }

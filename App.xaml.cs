@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -9,7 +11,19 @@ namespace RoAura;
 
 public partial class App : Application
 {
+    private const string SingleInstanceMutexName = @"Local\RoAura.SingleInstance";
+    private const string ActivateEventName = @"Local\RoAura.Activate";
+    public static string VersionString { get; } =
+        Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "0.0.0";
+
     private SettingsStore? _settingsStore;
+    private bool _settingsLoaded;
+    private Mutex? _singleInstanceMutex;
+    private bool _ownsSingleInstance;
+    private EventWaitHandle? _activateEvent;
+    private RegisteredWaitHandle? _activateRegistration;
+    private DateTime _lastRecoverableExceptionUtc = DateTime.MinValue;
+    private bool _startupCompleted;
     private GlobalInputHook? _inputHook;
     private OverlayWindow? _overlay;
     private MainWindow? _settingsWindow;
@@ -23,18 +37,153 @@ public partial class App : Application
     private ulong _previousNextJobExperience;
     private DateTime _baseRequirementChangedUtc;
     private DateTime _jobRequirementChangedUtc;
-    private long? _lastZeny;
+    private readonly ZenyBalanceTracker _zenyBalance = new();
     private DateTime _lastDatabaseToggleUtc = DateTime.MinValue;
     private readonly GitHubUpdateService _updateService = new();
     private SpringRoMarketService? _marketService;
+    private MarketWatchService _marketWatch = new();
+    private System.Windows.Threading.DispatcherTimer? _watchHistoryTimer;
+    public IReadOnlyList<MarketWatchHistoryEntry> MarketWatchHistory => _marketWatch.History;
+    public bool MarketWatchHistoryPersistenceFailed => _marketWatch.HistoryPersistenceFailed;
+    public event Action? MarketWatchHistoryChanged;
+    private readonly HashSet<MarketWatchRule> _observedWatchRules = [];
+    private AppSettings? _marketWatchSettings;
+    private GameDatabaseService? _watchDatabase;
+    public AppSettings? MarketWatchSettings => _marketWatchSettings;
+    internal GameDatabaseService? MarketWatchDatabase => _watchDatabase;
+
+    public void PersistMarketWatchSettings()
+    {
+        if (_marketWatchSettings is not null) _settingsStore?.Save(_marketWatchSettings);
+    }
+
+    public void ToggleMarketWatch(Window? owner, object? value)
+    {
+        var item = value switch
+        {
+            DatabaseItem i => i,
+            MarketListing l => _watchDatabase?.Item(l.ItemId) ?? new DatabaseItem { Id = l.ItemId, Name = l.ItemName },
+            _ => null
+        };
+        if (item is null || _marketWatchSettings is null) return;
+        var existing = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == item.Id);
+        if (existing is not null && !existing.Enabled) { existing.Enabled = true; return; }
+        if (existing is not null)
+        {
+            _marketWatchSettings.MarketWatchRules.Remove(existing);
+
+            PersistMarketWatchSettings();
+        }
+        else ShowMarketWatchDialog(owner, item, null);
+    }
+
+    public void EditMarketWatch(Window? owner, MarketWatchRule? rule = null) =>
+        ShowMarketWatchDialog(owner, rule is null ? null :
+            _watchDatabase?.Item(rule.ItemId) ?? new DatabaseItem { Id = rule.ItemId, Name = rule.ItemName }, rule);
+
+    private void ShowMarketWatchDialog(Window? owner, DatabaseItem? item, MarketWatchRule? rule)
+    {
+        if (_watchDatabase is null || _marketWatchSettings is null) return;
+        var dialog = new MarketWatchDialog(_watchDatabase, item, rule) { Owner = owner, Topmost = owner?.Topmost == true };
+        if (_databaseOverlay?.IsDatabaseOpen == true) _databaseOverlay.PositionWatchDialog(dialog);
+        if (dialog.ShowDialog() != true || dialog.Rule is not { } added) return;
+        SaveMarketWatchRule(added);
+    }
+
+    public void SaveMarketWatchRule(MarketWatchRule added, int? replacedItemId = null)
+    {
+        if (_marketWatchSettings is null) return;
+        if (replacedItemId.HasValue && replacedItemId != added.ItemId)
+        {
+            var replaced = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == replacedItemId);
+            if (replaced is not null) _marketWatchSettings.MarketWatchRules.Remove(replaced);
+        }
+        var old = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == added.ItemId);
+        if (old is not null) _marketWatchSettings.MarketWatchRules.Remove(old);
+        _marketWatchSettings.MarketWatchRules.Add(added);
+
+        PersistMarketWatchSettings();
+    }
+
+    private void SyncWatchRuleSubscriptions()
+    {
+        foreach (var rule in _observedWatchRules) rule.PropertyChanged -= WatchRuleChanged;
+        _observedWatchRules.Clear();
+        if (_marketWatchSettings is null) return;
+        foreach (var rule in _marketWatchSettings.MarketWatchRules)
+            if (_observedWatchRules.Add(rule)) rule.PropertyChanged += WatchRuleChanged;
+    }
+    private void WatchRuleChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (sender is not MarketWatchRule || e.PropertyName != nameof(MarketWatchRule.Enabled)) return;
+        PersistMarketWatchSettings();
+    }
+    public void AuditionMarketWatchSound() => _overlay?.PlayMarketWatchSound();
+    public void BeginMarketWatchMove()
+    {
+        if (_overlay is null || _settingsWindow is null) return;
+        _settingsWindow.EndOverlayEditModes();
+        _overlay.SetMarketWatchEditMode();
+        SetEscapeHotkeyEnabled(true);
+        _settingsWindow.Hide();
+    }
+
+    public void PreviewMarketWatch() => _overlay?.ShowMarketWatchNotification(
+        new MarketWatchMatch(730, "1carat Diamond", 5000), preview: true);
+
     private GoldGoblinService? _goldGoblin;
     private bool _updatePromptOpen;
 
     public App()
     {
+        AppDomain.CurrentDomain.UnhandledException += (_, args) =>
+            DebugLog.Write($"UNHANDLED DOMAIN ERROR (terminating={args.IsTerminating}): {args.ExceptionObject}");
+        TaskScheduler.UnobservedTaskException += (_, args) =>
+        {
+            DebugLog.Write($"UNOBSERVED TASK ERROR: {args.Exception}");
+            args.SetObserved();
+        };
         DispatcherUnhandledException += (_, args) =>
         {
             DebugLog.Write($"UNHANDLED UI ERROR: {args.Exception}");
+            if (IsSmokeTest())
+            {
+                args.Handled = true;
+                Shutdown(-1);
+                return;
+            }
+
+            // Clipboard/COM glitches, WPF layout and argument errors inside a
+            // single handler are not worth killing the overlay for. Allow one
+            // such error per 10 seconds once startup has finished; a repeating
+            // error or an error during startup is still fatal.
+            if (_startupCompleted &&
+                args.Exception is COMException or InvalidOperationException or ArgumentException)
+            {
+                var now = DateTime.UtcNow;
+                if (now - _lastRecoverableExceptionUtc >= TimeSpan.FromSeconds(10))
+                {
+                    _lastRecoverableExceptionUtc = now;
+                    args.Handled = true;
+                    DebugLog.Write("UNHANDLED UI ERROR treated as non-fatal; continuing.");
+                    var english = _settingsWindow?.Settings.Language == "en";
+                    try
+                    {
+                        MessageBox.Show(
+                            (english
+                                ? "RoAura encountered an error but will keep running.\n\n"
+                                : "В RoAura произошла ошибка, но программа продолжит работу.\n\n") +
+                            $"{args.Exception.Message}\n\n{(english ? "Log" : "Журнал")}: {DebugLog.PathName}",
+                            "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugLog.Write($"NON-FATAL ERROR DIALOG FAILED: {ex}");
+                    }
+                    return;
+                }
+            }
+
             MessageBox.Show(
                 $"RoAura encountered an error and must close.\n\n{args.Exception.Message}\n\nLog: {DebugLog.PathName}",
                 "RoAura", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -43,9 +192,87 @@ public partial class App : Application
         };
     }
 
+    private static bool IsSmokeTest() =>
+        Environment.GetCommandLineArgs().Any(argument =>
+            string.Equals(argument, "--smoke-test", StringComparison.OrdinalIgnoreCase));
+
+    private bool TryClaimSingleInstance()
+    {
+        try
+        {
+            _singleInstanceMutex = new Mutex(true, SingleInstanceMutexName, out var createdNew);
+            if (!createdNew)
+            {
+                // Another RoAura is running: ask it to show its settings window.
+                try
+                {
+                    using var activate = EventWaitHandle.OpenExisting(ActivateEventName);
+                    activate.Set();
+                }
+                catch (Exception ex)
+                {
+                    DebugLog.Write($"SINGLE INSTANCE ACTIVATE ERROR: {ex}");
+                }
+                _singleInstanceMutex.Dispose();
+                _singleInstanceMutex = null;
+                return false;
+            }
+
+            _ownsSingleInstance = true;
+            _activateEvent = new EventWaitHandle(false, EventResetMode.AutoReset, ActivateEventName);
+            _activateRegistration = ThreadPool.RegisterWaitForSingleObject(_activateEvent,
+                (_, _) => Dispatcher.BeginInvoke(() => ShowSettingsFromSecondInstance()), null, -1, false);
+        }
+        catch (Exception ex)
+        {
+            // A broken mutex must never block startup; just run without the guard.
+            DebugLog.Write($"SINGLE INSTANCE SETUP ERROR: {ex}");
+        }
+        return true;
+    }
+
+    private void ShowSettingsFromSecondInstance()
+    {
+        if (_settingsWindow is null) return;
+        if (_overlay?.IsBusyEditing == true)
+        {
+            ExitOverlayEditMode();
+            return;
+        }
+        _settingsWindow.Show();
+        if (_settingsWindow.WindowState == WindowState.Minimized)
+            _settingsWindow.WindowState = WindowState.Normal;
+        _settingsWindow.Activate();
+    }
+
+    private void ReleaseSingleInstance()
+    {
+        try
+        {
+            _activateRegistration?.Unregister(null);
+            _activateRegistration = null;
+            _activateEvent?.Dispose();
+            _activateEvent = null;
+            if (_singleInstanceMutex is not null)
+            {
+                if (_ownsSingleInstance)
+                {
+                    try { _singleInstanceMutex.ReleaseMutex(); }
+                    catch (ApplicationException) { }
+                }
+                _singleInstanceMutex.Dispose();
+                _singleInstanceMutex = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugLog.Write($"SINGLE INSTANCE RELEASE ERROR: {ex}");
+        }
+    }
+
     public void ResetPacketSession(bool resetTrackedState = false)
     {
-        _lastZeny = null;
+        _zenyBalance.Reset();
         _nextBaseExperience = 0;
         _nextJobExperience = 0;
         _previousNextBaseExperience = 0;
@@ -74,10 +301,35 @@ public partial class App : Application
         RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
         base.OnStartup(e);
 
+        // The CI smoke test may run next to a developer's live instance.
+        if (!IsSmokeTest() && !TryClaimSingleInstance())
+        {
+            DebugLog.Write("START skipped: another RoAura instance is already running.");
+            Shutdown();
+            return;
+        }
+
         _settingsStore = new SettingsStore();
         var settings = _settingsStore.Load();
+        _settingsLoaded = true;
         _itemCatalog = ItemCatalogService.Load(settings.LootDatabaseVersion);
         LocalizationService.ApplyLanguage(settings.Language);
+        if (_settingsStore.LoadFailed)
+        {
+            var recoveryLocation = _settingsStore.LoadRecoveryPath ?? _settingsStore.RecoveryDirectory;
+            MessageBox.Show(
+                settings.Language == "en"
+                    ? "The RoAura settings file is damaged and could not be read.\n\n" +
+                      $"A copy of the damaged file was saved to:\n{recoveryLocation}\n\n" +
+                      "Default settings are in use. Presets and backups are kept in the Profiles and Recovery folders.\n\n" +
+                      $"Error: {_settingsStore.LoadError}"
+                    : "Файл настроек RoAura повреждён и не может быть прочитан.\n\n" +
+                      $"Копия повреждённого файла сохранена:\n{recoveryLocation}\n\n" +
+                      "Используются настройки по умолчанию. Пресеты и резервные копии остались в папках Profiles и Recovery.\n\n" +
+                      $"Ошибка: {_settingsStore.LoadError}",
+                "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
+            _settingsStore.AcceptDefaults();
+        }
 
         _packetCapture = new NpcapPacketCapture();
         _packetCapture.StatusChanged += OnPacketStatusChanged;
@@ -89,17 +341,86 @@ public partial class App : Application
         _packetCapture.ProgressChanged += OnPacketProgressChanged;
         _packetCapture.ZenyChanged += OnPacketZenyChanged;
         _packetCapture.StateChanged += state => Dispatcher.BeginInvoke(() =>
-            settings.PacketCaptureStateText = state);
+            settings.UpdatePacketCaptureState(state));
 
+        _marketWatchSettings = settings;
+        _watchDatabase = new GameDatabaseService();
+        foreach (var rule in settings.MarketWatchRules)
+            if (_watchDatabase.Item(rule.ItemId) is { } knownItem) rule.ItemName = knownItem.Name;
+        _marketWatch = new MarketWatchService(new MarketWatchHistoryStore());
+        _marketWatch.HistoryChanged += () => MarketWatchHistoryChanged?.Invoke();
+        _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+        settings.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName == nameof(AppSettings.MarketWatchHistoryRetentionDays))
+                _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+        };
+        _watchHistoryTimer = new System.Windows.Threading.DispatcherTimer { Interval = TimeSpan.FromHours(1) };
+        _watchHistoryTimer.Tick += (_, _) => _marketWatch.PruneHistory(settings.MarketWatchHistoryRetentionDays);
+        _watchHistoryTimer.Start();
+        settings.MarketWatchRules.CollectionChanged += (_, _) => SyncWatchRuleSubscriptions();
+        SyncWatchRuleSubscriptions();
         _marketService = new SpringRoMarketService();
+        _marketService.SnapshotUpdated += snapshot => Dispatcher.BeginInvoke(() =>
+        {
+            var matches = _marketWatch.Evaluate(settings.MarketWatchRules, snapshot, settings.MarketWatchHistoryRetentionDays);
+            if (settings.ServerProfile != GameServerProfile.SpringRo) return;
+            foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
+        });
         _goldGoblin = new GoldGoblinService(settings, _marketService);
         _overlay = new OverlayWindow(settings, _settingsStore, _goldGoblin);
-        _databaseOverlay = new DatabaseOverlayWindow(settings, new GameDatabaseService(), _marketService);
+        _databaseOverlay = new DatabaseOverlayWindow(settings, _watchDatabase, _marketService);
         _databaseOverlay.HideRequested += HideDatabase;
         _settingsWindow = new MainWindow(settings, _settingsStore, _overlay, _packetCapture, _goldGoblin);
         _settingsWindow.Show();
         _overlay.Show();
         _databaseOverlay.PrepareForFirstUse();
+
+        // Used by build-release.ps1 to verify that every WPF window and its
+        // bindings can actually be constructed. This catches invalid styles,
+        // circular MarkupExtension references and startup null references.
+        if (e.Args.Any(argument => string.Equals(argument, "--smoke-test", StringComparison.OrdinalIgnoreCase)))
+        {
+            settings.UpdatePacketCaptureState("Packets: startup error — smoke test");
+            if (settings.PacketCaptureStateKind != "Error")
+                throw new InvalidOperationException("Packet capture startup errors must use the Error presentation state.");
+            settings.UpdatePacketCaptureState("Packets: listening on 1 adapter");
+            if (settings.PacketCaptureStateKind != "Ready")
+                throw new InvalidOperationException("Active packet capture must use the Ready presentation state.");
+            var wizard = new SkillWizardWindow(settings.CooldownGroups, settings.Language == "en");
+            if (!wizard.RunAutomaticFlowSmokeTest())
+                throw new InvalidOperationException("Cooldown skill wizard automatic flow smoke test failed.");
+            wizard.Close();
+            var watchDialog = new MarketWatchDialog(_watchDatabase);
+            watchDialog.Close();
+            var effectWizard = new EffectWizardWindow(settings.BuffPanelGroups, _ => { });
+            effectWizard.Close();
+            var reminderWizard = new ReminderWizardWindow(_ => { });
+            reminderWizard.Close();
+            var equipmentWizard = new EquipmentWizardWindow();
+            equipmentWizard.Close();
+            var mvpTimerWizard = new MvpTimerWizardWindow(Array.Empty<MonsterEntry>());
+            mvpTimerWizard.Close();
+            var goldGoblinAddWindow = new GoldGoblinAddItemWindow(Array.Empty<ItemEntry>());
+            goldGoblinAddWindow.Close();
+            var npcapRequiredWindow = new NpcapRequiredWindow();
+            npcapRequiredWindow.Close();
+            var aboutWindow = new AboutWindow();
+            aboutWindow.Close();
+            settings.Language = "en";
+            LocalizationService.ApplyLanguage("en");
+            _databaseOverlay.RefreshLanguage();
+            settings.Language = "ru";
+            LocalizationService.ApplyLanguage("ru");
+            _databaseOverlay.RefreshLanguage();
+            DebugLog.Write("SMOKE TEST: startup completed successfully");
+            Dispatcher.BeginInvoke(async () =>
+            {
+                await Task.Delay(1200);
+                Shutdown(0);
+            });
+            return;
+        }
 
         try
         {
@@ -121,16 +442,17 @@ public partial class App : Application
                 "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
-        DebugLog.Write("START RoAura 2.13.2 · Gold Goblin layout and editing update");
+        DebugLog.Write($"START RoAura {VersionString} · Gold Goblin layout and editing update");
 
         if (settings.PacketCaptureEnabled && !NpcapPacketCapture.IsNpcapInstalled())
         {
-            settings.PacketCaptureStateText = settings.Language == "en" ? "Npcap is not installed" : "Npcap не установлен";
+            settings.UpdatePacketCaptureState(settings.Language == "en" ? "Npcap is not installed" : "Npcap не установлен");
             var dialog = new NpcapRequiredWindow { Owner = _settingsWindow };
             dialog.ShowDialog();
         }
 
         _packetCapture.ApplySettings(settings);
+        _startupCompleted = true;
         Dispatcher.BeginInvoke(async () =>
         {
             await Task.Delay(TimeSpan.FromSeconds(3));
@@ -172,10 +494,28 @@ public partial class App : Application
         }
     }
 
+    public void ResetForPreset()
+    {
+        _effectStates.Clear();
+        _zenyBalance.Reset();
+        _nextBaseExperience = _nextJobExperience = 0;
+        _previousNextBaseExperience = _previousNextJobExperience = 0;
+        _databaseOverlay?.HideDatabase();
+        _inputHook?.SetKeyboardBlocked(false);
+        if (_settingsWindow is not null)
+            _marketWatch.PruneHistory(_settingsWindow.Settings.MarketWatchHistoryRetentionDays);
+        SyncWatchRuleSubscriptions();
+    }
+
     public void ReloadItemCatalog(string gameVersion)
     {
         _itemCatalog = ItemCatalogService.Load(gameVersion);
         DebugLog.Write($"ITEM CATALOG switched to {GameDatabaseVersion.Normalize(gameVersion)}; entries={_itemCatalog.Count}");
+    }
+
+    public void RefreshLanguage()
+    {
+        _databaseOverlay?.RefreshLanguage();
     }
 
     private void OnPacketStatusChanged(RoStatusPacket packet) =>
@@ -269,7 +609,7 @@ public partial class App : Application
         };
         _overlay.ShowLootReward(packet.ItemId, item.Name, item.Type, packet.Count);
         if (_settingsWindow.Settings.ServerProfile == GameServerProfile.SpringRo)
-            _goldGoblin?.AddLoot(packet.ItemId, item.Name, packet.Count);
+            _goldGoblin?.AddLoot(packet.ItemId, item.FullName, packet.Count);
         DebugLog.Write($"PACKET LOOT item={packet.ItemId}; name={item.Name}; type={item.Type}; count={packet.Count}");
     });
 
@@ -340,14 +680,14 @@ public partial class App : Application
     private void OnPacketZenyChanged(RoZenyPacket packet) => Dispatcher.BeginInvoke(() =>
     {
         if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled) return;
-        if (!_lastZeny.HasValue)
+        var sample = _zenyBalance.Observe(packet.Total);
+        if (!sample.Accepted)
         {
-            _lastZeny = packet.Total;
+            DebugLog.Write($"PACKET ZENY IGNORED total={packet.Total}; reason={sample.Reason}");
             return;
         }
 
-        var gained = packet.Total - _lastZeny.Value;
-        _lastZeny = packet.Total;
+        var gained = sample.Gained;
         if (gained <= 0) return;
         _overlay.ShowZenyReward(gained);
         _overlay.RecordZeny(gained);
@@ -579,10 +919,33 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
-        _packetCapture?.Dispose();
-        _inputHook?.SetKeyboardBlocked(false);
-        _inputHook?.Dispose();
-        _settingsStore?.Save(_settingsWindow?.Settings ?? new AppSettings());
+        _watchHistoryTimer?.Stop();
+        try { _packetCapture?.Dispose(); }
+        catch (Exception ex) { DebugLog.Write($"EXIT PACKET CAPTURE DISPOSE ERROR: {ex}"); }
+        try
+        {
+            _inputHook?.SetKeyboardBlocked(false);
+            _inputHook?.Dispose();
+        }
+        catch (Exception ex) { DebugLog.Write($"EXIT HOOK DISPOSE ERROR: {ex}"); }
+
+        try
+        {
+            // Save only the settings that were actually loaded and shown; a
+            // failed startup or a preset switch must not overwrite settings.json.
+            if (_settingsStore is null || !_settingsLoaded || _settingsWindow is null)
+                DebugLog.Write("EXIT: settings were not loaded; nothing saved.");
+            else if (_settingsStore.ExitSaveSuppressed)
+                DebugLog.Write("EXIT: a preset was applied; settings.json left untouched.");
+            else
+                _settingsStore.Save(_settingsWindow.Settings);
+        }
+        catch (Exception ex)
+        {
+            DebugLog.Write($"EXIT SAVE ERROR: {ex}");
+        }
+
+        ReleaseSingleInstance();
         base.OnExit(e);
     }
 

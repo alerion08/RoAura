@@ -22,6 +22,8 @@ public partial class MainWindow : Window
     private readonly NpcapPacketCapture _packetCapture;
     private readonly GoldGoblinService _goldGoblin;
     private bool _shutdownStarted;
+    private bool _applyingPreset;
+    private bool _refreshingPresets;
     private bool _languageReady;
     private bool _serverProfileReady;
     private bool _changingMoveMode;
@@ -33,14 +35,28 @@ public partial class MainWindow : Window
     private int _learningGeneration;
     private readonly ObservableCollection<MonsterEntry> _monsters;
     private IReadOnlyDictionary<int, ItemEntry> _items;
+    private ICollectionView? _effectsView;
+    private ICollectionView? _skillsView;
+    private readonly ICollectionView _goldGoblinRowsView;
+    private bool _updatingGoldGoblinEditor;
+    private bool _goldGoblinRefreshPending;
+    private int? _cooldownGroupFilter;
     private readonly DispatcherTimer _connectionDetectionTimer;
+    private readonly DispatcherTimer _goldGoblinSessionTimer;
+    private readonly DispatcherTimer _saveDebounceTimer = new() { Interval = TimeSpan.FromMilliseconds(500) };
     private bool _appliedPacketCaptureEnabled;
     private string _appliedPacketServerAddress = "";
     private int _appliedPacketServerPort;
+    private TextBox? _mvpMonsterEditor;
+    private bool _suppressMvpMonsterTextChanged;
+    private bool _updatingMvpMonsterSelection;
 
     public ICollectionView MvpMonsterView { get; }
     public ObservableCollection<GoldGoblinLootRow> GoldGoblinRows => _goldGoblin.Rows;
+    public ICollectionView GoldGoblinRowsView => _goldGoblinRowsView;
     public ObservableCollection<ItemEntry> GoldGoblinItemSuggestions { get; } = [];
+    public ObservableCollection<object> CooldownGroupFilterItems { get; } = [];
+    public static int[] OverchargeLevels { get; } = Enumerable.Range(0, 11).ToArray();
 
     public AppSettings Settings { get; }
 
@@ -52,6 +68,8 @@ public partial class MainWindow : Window
         _items = ItemCatalogService.Load(settings.LootDatabaseVersion);
         RefreshGoldGoblinItemSuggestions();
         MvpMonsterView = CollectionViewSource.GetDefaultView(_monsters);
+        _goldGoblinRowsView = CollectionViewSource.GetDefaultView(_goldGoblin.Rows);
+        _goldGoblinRowsView.Filter = FilterGoldGoblinRow;
         InitializeComponent();
         SourceInitialized += MainWindow_SourceInitialized;
         Settings = settings;
@@ -63,14 +81,21 @@ public partial class MainWindow : Window
         _packetCapture.SkillUsed += OnLearningSkillObserved;
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
         DataContext = settings;
+        RefreshMvpTimerDetails();
+        _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
+        _skillsView = CollectionViewSource.GetDefaultView(settings.Skills);
+        Settings.SyncCooldownGroups();
+        RebuildCooldownGroupFilterItems();
         Settings.SyncBuffPanelGroups();
         Settings.SyncRewardGroups();
         Settings.SyncRateIndicators();
-        LootColorsGroup.DataContext = Settings.RewardChannels.First(channel => channel.Kind == RewardKind.Loot);
+        LootColorsGroup.DataContext = Settings.RewardChannels.FirstOrDefault(channel => channel.Kind == RewardKind.Loot);
 
         EnabledBox.IsChecked = settings.Enabled;
         ProcessesBox.Text = string.Join(", ", settings.AllowedProcesses);
         if (settings.Skills.Count > 0) SkillsGrid.SelectedIndex = 0;
+        CooldownGroupFilter.SelectedIndex = 0;
+        if (settings.CooldownGroups.Count > 0) CooldownGroupsBox.SelectedIndex = 0;
         if (settings.Effects.Count > 0) EffectsGrid.SelectedIndex = 0;
         if (settings.Reminders.Count > 0) RemindersGrid.SelectedIndex = 0;
         if (settings.Equipment.Count > 0) EquipmentGrid.SelectedIndex = 0;
@@ -80,10 +105,13 @@ public partial class MainWindow : Window
         if (settings.RewardGroups.Count > 0) RewardGroupBox.SelectedIndex = 0;
         if (settings.RateIndicators.Count > 0) RateIndicatorsGrid.SelectedIndex = 0;
         if (settings.GoldGoblinPriceRules.Count > 0) GoldGoblinRulesGrid.SelectedIndex = 0;
+        GoldGoblinSourceFilter.SelectedIndex = 0;
+        GoldGoblinSortBox.SelectedIndex = 0;
         LanguageBox.SelectedIndex = settings.Language == "en" ? 1 : 0;
         UpdateServerProfileLabels();
         RefreshPresetList(_store.ActiveProfileName);
-        CooldownNavButton.IsChecked = true;
+        HomeNavButton.IsChecked = true;
+        FirstRunPanel.Visibility = _store.IsFirstRun ? Visibility.Visible : Visibility.Collapsed;
         _languageReady = true;
         ServerProfileBox.SelectedIndex = settings.ServerProfile switch
         {
@@ -106,6 +134,10 @@ public partial class MainWindow : Window
                 DetectConnection(userInitiated: false, restartCapture: true);
         };
         _connectionDetectionTimer.Start();
+        _goldGoblinSessionTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+        _goldGoblinSessionTimer.Tick += (_, _) => UpdateGoldGoblinSessionTime();
+        _goldGoblinSessionTimer.Start();
+        _saveDebounceTimer.Tick += (_, _) => FlushPendingSave();
     }
 
     private void Navigation_Checked(object sender, RoutedEventArgs e)
@@ -113,6 +145,39 @@ public partial class MainWindow : Window
         if (MainTabs is null || sender is not RadioButton { Tag: string tag }) return;
         if (int.TryParse(tag, out var index) && index >= 0 && index < MainTabs.Items.Count)
             MainTabs.SelectedIndex = index;
+    }
+
+    private void QuickNavigate_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button { Tag: string tag }) return;
+        var target = tag switch
+        {
+            "1" => CooldownNavButton,
+            "2" => EffectsNavButton,
+            "3" => RemindersNavButton,
+            "4" => EquipmentNavButton,
+            _ => null
+        };
+        if (target is not null) target.IsChecked = true;
+    }
+
+    private void FirstRunFindGame_Click(object sender, RoutedEventArgs e)
+    {
+        ConnectionSettingsPanel.IsExpanded = true;
+        DetectConnection(userInitiated: true, restartCapture: true);
+    }
+
+    private void FirstRunChooseOverlay_Click(object sender, RoutedEventArgs e)
+    {
+        _store.CompleteFirstRun();
+        FirstRunPanel.Visibility = Visibility.Collapsed;
+        EffectsNavButton.IsChecked = true;
+    }
+
+    private void CompleteFirstRun_Click(object sender, RoutedEventArgs e)
+    {
+        _store.CompleteFirstRun();
+        FirstRunPanel.Visibility = Visibility.Collapsed;
     }
 
     private void ServerProfile_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -134,6 +199,7 @@ public partial class MainWindow : Window
         var profile = GameServerProfile.Normalize(Settings.ServerProfile);
         var supportsDatabases = GameServerProfile.SupportsServerDatabases(profile);
         var supportsOverlayDatabase = GameServerProfile.SupportsDatabaseOverlay(profile);
+        ServicesNavHeading.Visibility = supportsDatabases || supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
         MvpNavButton.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
         LootNavButton.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
         MvpTab.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
@@ -145,7 +211,7 @@ public partial class MainWindow : Window
         DatabaseTab.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
         DatabaseHotkeyControls.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
 
-        if (!supportsDatabases && MainTabs.SelectedIndex >= 4)
+        if (!supportsDatabases && MainTabs.SelectedIndex >= 5)
             CooldownNavButton.IsChecked = true;
 
         if (supportsDatabases)
@@ -158,6 +224,7 @@ public partial class MainWindow : Window
             _monsters.Clear();
             foreach (var monster in MonsterCatalogService.Load(version)) _monsters.Add(monster);
             MvpMonsterView.Refresh();
+            RefreshMvpTimerDetails();
             _items = ItemCatalogService.Load(version);
             RefreshGoldGoblinItemSuggestions();
             if (Application.Current is App app) app.ReloadItemCatalog(version);
@@ -174,22 +241,40 @@ public partial class MainWindow : Window
     private void GoldGoblin_Changed()
     {
         if (!Dispatcher.CheckAccess()) { Dispatcher.BeginInvoke(GoldGoblin_Changed); return; }
-        if (GoldGoblinTotalText is not null)
-            GoldGoblinTotalText.Text = $"{_goldGoblin.SessionTotal:N0} Z";
+        if (_goldGoblinRefreshPending) return;
+        _goldGoblinRefreshPending = true;
+        Dispatcher.BeginInvoke(DispatcherPriority.DataBind, () =>
+        {
+            _goldGoblinRefreshPending = false;
+            if (GoldGoblinTotalText is not null)
+                GoldGoblinTotalText.Text = $"{_goldGoblin.SessionTotal:N0} Z";
+            if (GoldGoblinItemCountText is not null)
+                GoldGoblinItemCountText.Text = GoldGoblinRows.Sum(row => row.Count).ToString("N0");
+            if (GoldGoblinUnpricedCountText is not null)
+                GoldGoblinUnpricedCountText.Text = GoldGoblinRows.Count(row => !row.PriceKnown).ToString("N0");
+            UpdateGoldGoblinSessionTime();
+        });
+    }
+
+    private void UpdateGoldGoblinSessionTime()
+    {
+        if (GoldGoblinSessionTimeText is null) return;
+        var elapsed = _goldGoblin.SessionStartedUtc.HasValue
+            ? DateTime.UtcNow - _goldGoblin.SessionStartedUtc.Value
+            : TimeSpan.Zero;
+        GoldGoblinSessionTimeText.Text = elapsed.TotalDays >= 1
+            ? $"{(int)elapsed.TotalDays}d {elapsed:hh\\:mm\\:ss}"
+            : elapsed.ToString("hh\\:mm\\:ss");
     }
 
     private void AddGoldGoblinRule_Click(object sender, RoutedEventArgs e)
     {
-        var item = ResolveGoldGoblinItem(GoldGoblinRuleItemBox);
-        if (item is null)
-        {
-            SetStatus(T("Предмет не найден в базе SpringRO.", "Item was not found in the SpringRO database."));
-            return;
-        }
+        var dialog = new GoldGoblinAddItemWindow(_items.Values) { Owner = this };
+        if (dialog.ShowDialog() != true || dialog.SelectedItem is not ItemEntry item) return;
         var existing = Settings.GoldGoblinPriceRules.FirstOrDefault(rule => rule.ItemId == item.Id);
         if (existing is null)
         {
-            existing = new GoldGoblinPriceRule { ItemId = item.Id, Name = item.Name };
+            existing = new GoldGoblinPriceRule { ItemId = item.Id, Name = item.FullName };
             Settings.GoldGoblinPriceRules.Add(existing);
         }
         GoldGoblinRulesGrid.SelectedItem = existing;
@@ -203,18 +288,50 @@ public partial class MainWindow : Window
         _goldGoblin.Reprice();
     }
 
-    private void ResetGoldGoblin_Click(object sender, RoutedEventArgs e) => _goldGoblin.Reset();
+    private void ResetGoldGoblin_Click(object sender, RoutedEventArgs e)
+    {
+        var result = MessageBox.Show(this,
+            T("Очистить все предметы и количества текущей сессии? Правила цен сохранятся.",
+              "Clear all items and quantities from the current session? Price rules will be kept."),
+            T("Сброс сессии Gold Goblin", "Reset Gold Goblin session"),
+            MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result == MessageBoxResult.Yes) _goldGoblin.Reset();
+    }
+
+    private void StartGoldGoblinSession_Click(object sender, RoutedEventArgs e)
+    {
+        if (GoldGoblinRows.Count > 0)
+        {
+            var result = MessageBox.Show(this,
+                T("Начать новую сессию? Текущий список предметов и количества будет очищен. Правила цен сохранятся.",
+                  "Start a new session? The current item list and quantities will be cleared. Price rules will be kept."),
+                T("Новая сессия Gold Goblin", "New Gold Goblin session"),
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes) return;
+        }
+        _goldGoblin.StartSession();
+    }
+
+    private void OpenGoldGoblinAdd_Click(object sender, RoutedEventArgs e)
+    {
+        GoldGoblinWorkspaceTabs.SelectedIndex = 0;
+        ShowGoldGoblinAddDialog();
+    }
 
     private void AddGoldGoblinLoot_Click(object sender, RoutedEventArgs e)
     {
-        var item = ResolveGoldGoblinItem(GoldGoblinLootItemBox);
-        if (item is null)
-        {
-            SetStatus(T("Выберите предмет из предложенного списка.", "Select an item from the suggestion list."));
-            return;
-        }
-        _goldGoblin.AddManualItem(item.Id, item.Name);
-        GoldGoblinLootGrid.SelectedItem = GoldGoblinRows.First(row => row.ItemId == item.Id);
+        ShowGoldGoblinAddDialog();
+    }
+
+    private void ShowGoldGoblinAddDialog()
+    {
+        var dialog = new GoldGoblinAddItemWindow(_items.Values) { Owner = this };
+        if (dialog.ShowDialog() != true || dialog.SelectedItem is not ItemEntry item) return;
+        _goldGoblin.AddManualItem(item.Id, item.FullName);
+        var addedRow = GoldGoblinRows.FirstOrDefault(row => row.ItemId == item.Id);
+        if (addedRow is null) return;
+        GoldGoblinLootGrid.SelectedItem = addedRow;
+        GoldGoblinLootGrid.ScrollIntoView(addedRow);
     }
 
     private void DeleteGoldGoblinLoot_Click(object sender, RoutedEventArgs e)
@@ -222,14 +339,135 @@ public partial class MainWindow : Window
         if (GoldGoblinLootGrid.SelectedItem is GoldGoblinLootRow row) _goldGoblin.Remove(row);
     }
 
+    private bool FilterGoldGoblinRow(object value)
+    {
+        if (value is not GoldGoblinLootRow row) return false;
+        var query = GoldGoblinSearchBox?.Text.Trim() ?? "";
+        if (query.Length > 0 &&
+            !row.Item.Contains(query, StringComparison.CurrentCultureIgnoreCase) &&
+            !row.ItemId.ToString().Contains(query, StringComparison.OrdinalIgnoreCase)) return false;
+
+        var source = (GoldGoblinSourceFilter?.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "all";
+        return source switch
+        {
+            "npc" => row.PriceKnown && row.PriceSource.Equals("NPC", StringComparison.OrdinalIgnoreCase),
+            "vending" => row.PriceKnown && row.PriceSource.Equals("Vending", StringComparison.OrdinalIgnoreCase),
+            "manual" => row.PriceKnown && row.PriceSource.Equals("Manual", StringComparison.OrdinalIgnoreCase),
+            "unknown" => !row.PriceKnown,
+            _ => true
+        };
+    }
+
+    private void GoldGoblinFilter_Changed(object sender, EventArgs e) => _goldGoblinRowsView.Refresh();
+
+    private void GoldGoblinCount_LostFocus(object sender, RoutedEventArgs e) => _goldGoblinRowsView.Refresh();
+
+    private void GoldGoblinSort_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if (_goldGoblinRowsView is null || GoldGoblinSortBox?.SelectedItem is not ComboBoxItem item) return;
+        _goldGoblinRowsView.SortDescriptions.Clear();
+        var property = item.Tag?.ToString() switch
+        {
+            "total" => nameof(GoldGoblinLootRow.Total),
+            "count" => nameof(GoldGoblinLootRow.Count),
+            _ => nameof(GoldGoblinLootRow.Item)
+        };
+        var direction = property == nameof(GoldGoblinLootRow.Item)
+            ? ListSortDirection.Ascending
+            : ListSortDirection.Descending;
+        _goldGoblinRowsView.SortDescriptions.Add(new SortDescription(property, direction));
+    }
+
+    private void GoldGoblinLootGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row) return;
+        _updatingGoldGoblinEditor = true;
+        var rule = Settings.GoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
+        GoldGoblinPriceSourceBox.SelectedValue = rule is null
+            ? "npc"
+            : rule.UseVendingPrice ? "vending" : "manual";
+        GoldGoblinManualPriceBox.Text = rule?.ManualPrice.ToString() ?? "0";
+        _updatingGoldGoblinEditor = false;
+    }
+
+    private GoldGoblinPriceRule GetOrCreateGoldGoblinRule(GoldGoblinLootRow row)
+    {
+        var rule = Settings.GoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
+        if (rule is not null) return rule;
+        rule = new GoldGoblinPriceRule { ItemId = row.ItemId, Name = row.Item };
+        Settings.GoldGoblinPriceRules.Add(rule);
+        return rule;
+    }
+
+    private void GoldGoblinPriceSource_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if (_updatingGoldGoblinEditor || GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row ||
+            GoldGoblinPriceSourceBox.SelectedValue is not string source) return;
+        var existing = Settings.GoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
+        if (source == "npc")
+        {
+            if (existing is not null) Settings.GoldGoblinPriceRules.Remove(existing);
+        }
+        else
+        {
+            var rule = GetOrCreateGoldGoblinRule(row);
+            rule.UseVendingPrice = source == "vending";
+        }
+        _goldGoblin.Reprice();
+    }
+
+    private void GoldGoblinManualPrice_LostFocus(object sender, RoutedEventArgs e)
+    {
+        if (_updatingGoldGoblinEditor || GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row) return;
+        if (!long.TryParse(GoldGoblinManualPriceBox.Text, out var price) || price < 0)
+        {
+            SetStatus(T("Цена должна быть целым неотрицательным числом.", "Price must be a non-negative whole number."));
+            GoldGoblinLootGrid_SelectionChanged(GoldGoblinLootGrid,
+                new SelectionChangedEventArgs(Selector.SelectionChangedEvent, Array.Empty<object>(), Array.Empty<object>()));
+            return;
+        }
+        var rule = GetOrCreateGoldGoblinRule(row);
+        rule.ManualPrice = price;
+        if (GoldGoblinPriceSourceBox.SelectedValue?.ToString() == "manual") rule.UseVendingPrice = false;
+        _goldGoblin.Reprice();
+    }
+
+    private void ExportGoldGoblinCsv_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new SaveFileDialog
+        {
+            FileName = $"RoAura-Gold-Goblin-{DateTime.Now:yyyy-MM-dd-HHmm}.csv",
+            Filter = "CSV (*.csv)|*.csv"
+        };
+        if (dialog.ShowDialog(this) != true) return;
+        var lines = new List<string> { "Item ID;Name;Quantity;Unit price;Source;Total" };
+        lines.AddRange(GoldGoblinRows.Select(row =>
+            $"{row.ItemId};\"{row.Item.Replace("\"", "\"\"")}\";{row.Count};{row.Cost};{row.PriceSource};{row.Total}"));
+        File.WriteAllLines(dialog.FileName, lines, new System.Text.UTF8Encoding(true));
+        SetStatus(T("Отчёт Gold Goblin сохранён.", "Gold Goblin report saved."));
+    }
+
     private void GoldGoblinItemBox_KeyUp(object sender, KeyEventArgs e)
     {
         if (sender is not ComboBox box || e.Key == Key.Escape) return;
         var query = box.Text.Trim();
+        var editor = box.Template.FindName("PART_EditableTextBox", box) as TextBox;
+        var caret = editor?.CaretIndex ?? query.Length;
         box.ItemsSource = GoldGoblinItemSuggestions
-            .Where(item => query.Length == 0 || item.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
+            .Where(item => query.Length == 0 ||
+                item.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                item.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase))
             .Take(100).ToList();
         box.IsDropDownOpen = query.Length > 0;
+        Dispatcher.BeginInvoke(() =>
+        {
+            box.Text = query;
+            if (box.Template.FindName("PART_EditableTextBox", box) is TextBox textBox)
+            {
+                textBox.SelectionLength = 0;
+                textBox.CaretIndex = Math.Min(caret, textBox.Text.Length);
+            }
+        }, DispatcherPriority.Input);
     }
 
     private ItemEntry? ResolveGoldGoblinItem(ComboBox box)
@@ -252,7 +490,6 @@ public partial class MainWindow : Window
 
     private void MoveRateIndicator(int offset)
     {
-        RateIndicatorsGrid.CommitEdit();
         if (RateIndicatorsGrid.SelectedItem is not RateIndicatorSettings selected) return;
         var oldIndex = Settings.RateIndicators.IndexOf(selected);
         var newIndex = oldIndex + offset;
@@ -263,6 +500,48 @@ public partial class MainWindow : Window
         Settings.RateIndicators.Move(oldIndex, newIndex);
         RateIndicatorsGrid.SelectedItem = selected;
         _store.Save(Settings);
+    }
+
+    private void MoveRewardChannelUp_Click(object sender, RoutedEventArgs e) => MoveRewardChannel(-1);
+    private void MoveRewardChannelDown_Click(object sender, RoutedEventArgs e) => MoveRewardChannel(1);
+
+    private void MoveRewardChannel(int offset)
+    {
+        if (RewardChannelsGrid.SelectedItem is not RewardChannelSettings selected) return;
+        var groupChannels = Settings.RewardChannels
+            .Where(channel => channel.GroupNumber == selected.GroupNumber)
+            .OrderBy(channel => channel.Order)
+            .ToList();
+        var oldGroupIndex = groupChannels.IndexOf(selected);
+        var newGroupIndex = oldGroupIndex + offset;
+        if (oldGroupIndex < 0 || newGroupIndex < 0 || newGroupIndex >= groupChannels.Count) return;
+
+        var other = groupChannels[newGroupIndex];
+        groupChannels.RemoveAt(oldGroupIndex);
+        groupChannels.Insert(newGroupIndex, selected);
+        for (var index = 0; index < groupChannels.Count; index++)
+            groupChannels[index].Order = index + 1;
+
+        var oldCollectionIndex = Settings.RewardChannels.IndexOf(selected);
+        var newCollectionIndex = Settings.RewardChannels.IndexOf(other);
+        Settings.RewardChannels.Move(oldCollectionIndex, newCollectionIndex);
+        RewardChannelsGrid.SelectedItem = selected;
+        _store.Save(Settings);
+    }
+
+    private void RewardChannel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        SelectRewardGroupForSelectedChannel();
+    }
+
+    private RewardGroupSettings? SelectRewardGroupForSelectedChannel()
+    {
+        if (RewardChannelsGrid.SelectedItem is not RewardChannelSettings channel) return null;
+        Settings.SyncRewardGroups();
+        var group = Settings.RewardGroups.FirstOrDefault(candidate => candidate.GroupNumber == channel.GroupNumber)
+                    ?? Settings.RewardGroups.FirstOrDefault();
+        RewardGroupBox.SelectedItem = group;
+        return group;
     }
 
     private void Header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -421,13 +700,7 @@ public partial class MainWindow : Window
 
     private void SaveSettings(bool persist = true, bool applyPacketCapture = true)
     {
-        SkillsGrid.CommitEdit();
-        EffectsGrid.CommitEdit();
-        RemindersGrid.CommitEdit();
-        EquipmentGrid.CommitEdit();
-        MvpTimersGrid.CommitEdit();
-        RewardChannelsGrid.CommitEdit();
-        RateIndicatorsGrid.CommitEdit();
+        if (_applyingPreset) return;
         GoldGoblinRulesGrid.CommitEdit();
         Settings.SyncBuffPanelGroups();
         Settings.SyncRewardGroups();
@@ -440,10 +713,32 @@ public partial class MainWindow : Window
         Settings.AllowedProcesses = ProcessesBox.Text
             .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
             .Distinct(StringComparer.OrdinalIgnoreCase).ToList();
-        if (Settings.AutoDetectConnection)
-            DetectConnection(userInitiated: false, restartCapture: false);
-        if (persist) _store.Save(Settings);
+        // Connection detection is not part of saving: it runs on its own 5 s
+        // timer and from the explicit "detect" actions.
+        if (persist)
+        {
+            _saveDebounceTimer.Stop();
+            _store.Save(Settings);
+        }
         if (applyPacketCapture) ApplyPacketCaptureIfChanged();
+    }
+
+    /// <summary>
+    /// Debounced SaveSettings for high-frequency callers (packet-driven learning
+    /// results, panel membership refreshes). Coalesces bursts into one write
+    /// 500 ms after the last request; explicit user actions still save at once.
+    /// </summary>
+    private void RequestSave()
+    {
+        _saveDebounceTimer.Stop();
+        _saveDebounceTimer.Start();
+    }
+
+    private void FlushPendingSave()
+    {
+        if (!_saveDebounceTimer.IsEnabled) return;
+        _saveDebounceTimer.Stop();
+        SaveSettings();
     }
 
     private void LootDatabase_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -503,8 +798,68 @@ public partial class MainWindow : Window
         }
 
         SaveSettings();
-        _store.ApplyProfile(name);
-        RestartApplication();
+        EndOverlayEditModes();
+        _saveDebounceTimer.Stop();
+        _learningGeneration++;
+        _learningEffect = null; _learningSkill = null; _learningReminder = null; _learningEquipment = null;
+        _applyingPreset = true;
+        _languageReady = false;
+        _serverProfileReady = false;
+        _updatingMvpMonsterSelection = true;
+        try
+        {
+            MvpMonsterBox.IsDropDownOpen = false;
+            // Detach editors while the snapshot is copied, so old selections cannot
+            // write values back into newly restored rows.
+            DataContext = null;
+            _store.ApplyProfileTo(name, Settings);
+            EnabledBox.IsChecked = Settings.Enabled;
+            ProcessesBox.Text = string.Join(", ", Settings.AllowedProcesses);
+            _cooldownGroupFilter = null;
+            _effectsView = CollectionViewSource.GetDefaultView(Settings.Effects);
+            _skillsView = CollectionViewSource.GetDefaultView(Settings.Skills);
+            RebuildCooldownGroupFilterItems();
+            LootColorsGroup.DataContext = Settings.RewardChannels.FirstOrDefault(c => c.Kind == RewardKind.Loot);
+            LocalizationService.ApplyLanguage(Settings.Language);
+            LanguageBox.SelectedIndex = Settings.Language == "en" ? 1 : 0;
+            ServerProfileBox.SelectedIndex = Settings.ServerProfile switch
+            { GameServerProfile.SpringRo => 1, GameServerProfile.Other => 2, _ => 0 };
+            UpdateServerProfileLabels();
+            Settings.SyncCooldownGroups();
+            Settings.SyncBuffPanelGroups();
+            Settings.SyncRewardGroups();
+            Settings.SyncRateIndicators();
+            DataContext = Settings;
+            ApplyServerProfile(save: false);
+            foreach (var list in new System.Windows.Controls.Primitives.Selector[]
+            { SkillsGrid, EffectsGrid, RemindersGrid, EquipmentGrid, MvpTimersGrid,
+              CooldownGroupsBox, BuffPanelGroupBox, RewardChannelsGrid, RewardGroupBox, RateIndicatorsGrid, GoldGoblinRulesGrid })
+                list.SelectedIndex = list.Items.Count > 0 ? 0 : -1;
+            CooldownGroupFilter.SelectedIndex = 0;
+            _overlay.ResetForPreset();
+            (Application.Current as App)?.ResetForPreset();
+            (Application.Current as App)?.RefreshLanguage();
+            RefreshPresetList(name);
+            _applyingPreset = false;
+            SaveSettings();
+            SetStatus(T($"Пресет «{name}» применён.", $"Preset '{name}' applied."));
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(this, T("Не удалось применить пресет: ", "Could not apply preset: ") + ex.Message,
+                "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
+            RefreshPresetList(_store.ActiveProfileName);
+        }
+        finally
+        {
+            _applyingPreset = false;
+            DataContext = Settings;
+            _languageReady = true;
+            _serverProfileReady = true;
+            _updatingMvpMonsterSelection = false;
+            MvpMonsterBox_DataContextChanged(MvpMonsterBox,
+                new DependencyPropertyChangedEventArgs(DataContextProperty, null, MvpTimersGrid.SelectedItem));
+        }
     }
 
     private void UpdatePreset_Click(object sender, RoutedEventArgs e)
@@ -538,21 +893,24 @@ public partial class MainWindow : Window
             $"Preset '{name}' deleted. Working settings were not changed."));
     }
 
-    private void RefreshPresetList(string? selectedName = null)
+    private void Preset_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var profiles = _store.ListProfiles();
-        PresetBox.ItemsSource = profiles;
-        PresetBox.SelectedItem = profiles.FirstOrDefault(name =>
-            string.Equals(name, selectedName, StringComparison.OrdinalIgnoreCase)) ?? profiles.FirstOrDefault();
+        if (_refreshingPresets || _applyingPreset || !_languageReady || PresetBox.SelectedItem is not string name ||
+            string.Equals(name, _store.ActiveProfileName, StringComparison.OrdinalIgnoreCase)) return;
+        ApplyPreset_Click(sender, e);
     }
 
-    private void RestartApplication()
+    private void RefreshPresetList(string? selectedName = null)
     {
-        var executable = Environment.ProcessPath;
-        if (!string.IsNullOrWhiteSpace(executable))
-            Process.Start(new ProcessStartInfo(executable) { UseShellExecute = true });
-        _shutdownStarted = true;
-        Application.Current.Shutdown();
+        _refreshingPresets = true;
+        try
+        {
+            var profiles = _store.ListProfiles();
+            PresetBox.ItemsSource = profiles;
+            PresetBox.SelectedItem = profiles.FirstOrDefault(name =>
+                string.Equals(name, selectedName, StringComparison.OrdinalIgnoreCase)) ?? profiles.FirstOrDefault();
+        }
+        finally { _refreshingPresets = false; }
     }
 
     private void RememberPacketCaptureConfiguration()
@@ -640,15 +998,151 @@ public partial class MainWindow : Window
 
     private void Add_Click(object sender, RoutedEventArgs e)
     {
-        var skill = new SkillAura { X = 100 + Settings.Skills.Count * 80, Y = 100 };
+        Settings.SyncCooldownGroups();
+        var wizard = new SkillWizardWindow(Settings.CooldownGroups, Settings.Language == "en") { Owner = this };
+        if (wizard.ShowDialog() != true || wizard.Result is not { } skill) return;
+        skill.X = 100 + Settings.Skills.Count * 80;
+        skill.Y = 100;
         Settings.Skills.Add(skill);
+        Settings.SyncCooldownGroups();
+        RebuildCooldownGroupFilterItems();
+        CooldownGroupFilter.SelectedIndex = 0;
+        RefreshSkillFilter();
         SkillsGrid.SelectedItem = skill;
         SkillsGrid.ScrollIntoView(skill);
+        SaveSettings();
+        if (wizard.LearnAfterCreate)
+        {
+            if (!EnsureNpcap()) return;
+            StartLearning();
+            _learningSkill = skill;
+            SetStatus(T($"Примените «{skill.Name}» в RO в течение 20 секунд.", $"Use “{skill.Name}” in RO within 20 seconds."));
+        }
     }
 
     private void Delete_Click(object sender, RoutedEventArgs e)
     {
-        if (SkillsGrid.SelectedItem is SkillAura skill) Settings.Skills.Remove(skill);
+        if (SkillsGrid.SelectedItem is not SkillAura skill) { SelectFirst("skill"); return; }
+        var answer = MessageBox.Show(this,
+            T($"Удалить кулдаун «{skill.Name}»? Все его настройки будут удалены.",
+                $"Delete cooldown “{skill.Name}”? All of its settings will be removed."),
+            T("Удаление кулдауна", "Delete cooldown"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        if (answer != MessageBoxResult.Yes) return;
+        Settings.Skills.Remove(skill);
+        Settings.SyncCooldownGroups();
+        SaveSettings();
+    }
+
+    private void DuplicateSkill_Click(object sender, RoutedEventArgs e)
+    {
+        if (SkillsGrid.SelectedItem is not SkillAura source) { SelectFirst("skill"); return; }
+        var copy = new SkillAura
+        {
+            Name = $"{source.Name} ({LocalizationService.Get("Copy")})",
+            Enabled = source.Enabled,
+            PacketSkillId = source.PacketSkillId,
+            CooldownSeconds = source.CooldownSeconds,
+            GroupNumber = source.GroupNumber,
+            X = source.X + 28,
+            Y = source.Y + 28,
+            IndividualIconSize = source.IndividualIconSize,
+            IconPadding = source.IconPadding,
+            ReadyOpacityPercent = source.ReadyOpacityPercent,
+            CooldownOpacityPercent = source.CooldownOpacityPercent,
+            ShortNameOverride = source.ShortNameOverride,
+            ShowShortName = source.ShowShortName,
+            ShowReady = source.ShowReady,
+            ShowCountdown = source.ShowCountdown,
+            IconImageBase64 = source.IconImageBase64,
+            IconFileName = source.IconFileName
+        };
+        Settings.Skills.Add(copy);
+        Settings.SyncCooldownGroups();
+        SkillsGrid.SelectedItem = copy;
+        SkillsGrid.ScrollIntoView(copy);
+        SaveSettings();
+    }
+
+    private void SkillSearch_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        RefreshSkillFilter();
+    }
+
+    private void CooldownGroupFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        _cooldownGroupFilter = sender is ComboBox { SelectedItem: CooldownGroupSettings group }
+            ? group.GroupNumber
+            : null;
+        RefreshSkillFilter();
+    }
+
+    private void RefreshSkillFilter()
+    {
+        if (_skillsView is null || SkillSearchBox is null) return;
+        var query = SkillSearchBox.Text.Trim();
+        _skillsView.Filter = item => item is SkillAura skill &&
+            (_cooldownGroupFilter is null || skill.GroupNumber == _cooldownGroupFilter) &&
+            (string.IsNullOrWhiteSpace(query) ||
+             skill.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+             skill.PacketSkillId.ToString().Contains(query, StringComparison.OrdinalIgnoreCase));
+        _skillsView.Refresh();
+    }
+
+    private void AddCooldownGroup_Click(object sender, RoutedEventArgs e)
+    {
+        var next = Settings.CooldownGroups.Count == 0 ? 1 : Settings.CooldownGroups.Max(group => group.GroupNumber) + 1;
+        var group = new CooldownGroupSettings { GroupNumber = next, Name = T($"Группа {next}", $"Group {next}") };
+        Settings.CooldownGroups.Add(group);
+        RebuildCooldownGroupFilterItems(group);
+        CooldownGroupsBox.SelectedItem = group;
+        SaveSettings();
+    }
+
+    private void DeleteCooldownGroup_Click(object sender, RoutedEventArgs e)
+    {
+        if (CooldownGroupsBox.SelectedItem is not CooldownGroupSettings group) return;
+        if (Settings.CooldownGroups.Count <= 1)
+        {
+            SetStatus(T("Последнюю группу кулдаунов удалить нельзя.", "The last cooldown group cannot be deleted."));
+            return;
+        }
+        var target = Settings.CooldownGroups.FirstOrDefault(item => item != group);
+        if (target is null) return;
+        foreach (var skill in Settings.Skills.Where(skill => skill.GroupNumber == group.GroupNumber))
+            skill.GroupNumber = target.GroupNumber;
+        Settings.CooldownGroups.Remove(group);
+        Settings.SyncCooldownGroups();
+        RebuildCooldownGroupFilterItems();
+        CooldownGroupsBox.SelectedItem = target;
+        RefreshSkillFilter();
+        SaveSettings();
+    }
+
+    private void RebuildCooldownGroupFilterItems(CooldownGroupSettings? select = null)
+    {
+        CooldownGroupFilterItems.Clear();
+        CooldownGroupFilterItems.Add(Settings.Language == "en" ? "All groups" : "Все группы");
+        foreach (var group in Settings.CooldownGroups) CooldownGroupFilterItems.Add(group);
+        if (CooldownGroupFilter is null) return;
+        CooldownGroupFilter.SelectedItem = select ?? CooldownGroupFilterItems[0];
+    }
+
+    private void ApplyCooldownGroupLayout_Click(object sender, RoutedEventArgs e)
+    {
+        if (CooldownGroupsBox.SelectedItem is not CooldownGroupSettings group) return;
+        var skills = Settings.Skills.Where(skill => skill.GroupNumber == group.GroupNumber).ToList();
+        if (skills.Count == 0) return;
+        var x = skills[0].X;
+        var y = skills[0].Y;
+        foreach (var skill in skills)
+        {
+            skill.X = x;
+            skill.Y = y;
+            var step = (skill.IndividualIconSize > 0 ? skill.IndividualIconSize : Settings.IconSize) + group.Gap;
+            if (group.Direction == "Vertical") y += step; else x += step;
+        }
+        SaveSettings();
+        SetStatus(T("Расположение группы кулдаунов применено.", "Cooldown group layout applied."));
     }
 
     private void PickIcon_Click(object sender, RoutedEventArgs e)
@@ -661,7 +1155,6 @@ public partial class MainWindow : Window
     private void Test_Click(object sender, RoutedEventArgs e)
     {
         if (SkillsGrid.SelectedItem is not SkillAura skill) { SelectFirst("skill"); return; }
-        SkillsGrid.CommitEdit();
         _overlay.TriggerSkill(skill, true);
         SetStatus(T($"Тест кулдауна «{skill.Name}» запущен.", $"Cooldown test for “{skill.Name}” started."));
     }
@@ -670,7 +1163,6 @@ public partial class MainWindow : Window
     {
         if (SkillsGrid.SelectedItem is not SkillAura skill) { SelectFirst("skill"); return; }
         if (!EnsureNpcap()) return;
-        SkillsGrid.CommitEdit();
         StartLearning();
         _learningSkill = skill;
         SetStatus(T($"Примените «{skill.Name}» в RO в течение 20 секунд.",
@@ -680,20 +1172,107 @@ public partial class MainWindow : Window
 
     private void AddEffect_Click(object sender, RoutedEventArgs e)
     {
-        var effect = new TrackedEffect();
+        if (EffectSearchBox is not null) EffectSearchBox.Text = "";
+        Settings.SyncBuffPanelGroups();
+        var wizard = new EffectWizardWindow(Settings.BuffPanelGroups, StartEffectLearningFromWizard)
+        {
+            Owner = this
+        };
+        if (wizard.ShowDialog() != true || wizard.CreatedEffect is not { } effect) return;
         Settings.Effects.Add(effect);
+        Settings.SyncBuffPanelGroups();
         EffectsGrid.SelectedItem = effect;
         EffectsGrid.ScrollIntoView(effect);
+        SaveSettings();
+    }
+
+    private void StartEffectLearningFromWizard(TrackedEffect effect)
+    {
+        if (!EnsureNpcap()) return;
+        StartLearning();
+        _learningEffect = effect;
+        SetStatus(T("Активируйте нужный эффект в RO в течение 20 секунд.",
+            "Activate the required effect in RO within 20 seconds."));
+        _ = ExpireLearningAsync(effect.Id, "effect", _learningGeneration);
+    }
+
+    private void EffectSearch_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_effectsView is null) return;
+        var query = EffectSearchBox.Text.Trim();
+        _effectsView.Filter = item =>
+        {
+            if (string.IsNullOrWhiteSpace(query)) return true;
+            if (item is not TrackedEffect effect) return false;
+            return effect.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                   effect.StatusId.ToString().Contains(query, StringComparison.OrdinalIgnoreCase);
+        };
+        _effectsView.Refresh();
     }
 
     private void DeleteEffect_Click(object sender, RoutedEventArgs e)
     {
-        if (EffectsGrid.SelectedItem is TrackedEffect effect)
-        {
-            Settings.Effects.Remove(effect);
-            Settings.SyncBuffPanelGroups();
-        }
+        if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
+        var answer = MessageBox.Show(this,
+            T($"Удалить эффект «{effect.Name}»? Настройки и уведомления этого эффекта будут удалены.",
+                $"Delete effect “{effect.Name}”? Its settings and notifications will be removed."),
+            T("Удаление эффекта", "Delete effect"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        if (answer != MessageBoxResult.Yes) return;
+        Settings.Effects.Remove(effect);
+        Settings.SyncBuffPanelGroups();
+        SaveSettings();
     }
+
+    private void DuplicateEffect_Click(object sender, RoutedEventArgs e)
+    {
+        if (EffectsGrid.SelectedItem is not TrackedEffect source) { SelectFirst("effect"); return; }
+        var copy = CloneEffect(source);
+        Settings.Effects.Add(copy);
+        Settings.SyncBuffPanelGroups();
+        EffectsGrid.SelectedItem = copy;
+        EffectsGrid.ScrollIntoView(copy);
+        SaveSettings();
+        SetStatus(T($"Создана копия эффекта «{source.Name}».", $"A copy of “{source.Name}” was created."));
+    }
+
+    private static TrackedEffect CloneEffect(TrackedEffect source) => new()
+    {
+        Name = $"{source.Name} ({LocalizationService.Get("Copy")})",
+        Enabled = source.Enabled,
+        StatusId = source.StatusId,
+        TemplateImageBase64 = source.TemplateImageBase64,
+        TemplateFileName = source.TemplateFileName,
+        NotifyOnAppeared = source.NotifyOnAppeared,
+        NotifyOnDisappeared = source.NotifyOnDisappeared,
+        AppearedText = source.AppearedText,
+        DisappearedText = source.DisappearedText,
+        NotificationDurationSeconds = source.NotificationDurationSeconds,
+        NotificationSize = source.NotificationSize,
+        NotificationColor = source.NotificationColor,
+        NotificationX = source.NotificationX,
+        NotificationY = source.NotificationY,
+        SoundEnabled = source.SoundEnabled,
+        SoundPath = source.SoundPath,
+        AppearedSoundEnabled = source.AppearedSoundEnabled,
+        AppearedSoundPath = source.AppearedSoundPath,
+        DisappearedSoundEnabled = source.DisappearedSoundEnabled,
+        DisappearedSoundPath = source.DisappearedSoundPath,
+        GroupNumber = source.GroupNumber,
+        NotificationIconSize = source.NotificationIconSize,
+        NotificationIconPadding = source.NotificationIconPadding,
+        NotificationTextSize = source.NotificationTextSize,
+        NotificationOpacityPercent = source.NotificationOpacityPercent,
+        ShowNotificationIcon = source.ShowNotificationIcon,
+        NotificationBackgroundColor = source.NotificationBackgroundColor,
+        ShowNotificationBackground = source.ShowNotificationBackground,
+        ShowNotificationBorder = source.ShowNotificationBorder,
+        AppearedSoundVolumePercent = source.AppearedSoundVolumePercent,
+        DisappearedSoundVolumePercent = source.DisappearedSoundVolumePercent,
+        ShowOnBuffPanel = source.ShowOnBuffPanel,
+        RepeatProtectionSeconds = source.RepeatProtectionSeconds,
+        ShowDurationText = source.ShowDurationText,
+        ShowDurationFill = source.ShowDurationFill
+    };
 
     private void PickEffectIcon_Click(object sender, RoutedEventArgs e)
     {
@@ -721,11 +1300,44 @@ public partial class MainWindow : Window
 
     private void TestEffectAppeared_Click(object sender, RoutedEventArgs e) => TestEffect(true);
     private void TestEffectDisappeared_Click(object sender, RoutedEventArgs e) => TestEffect(false);
+    private void CheckEffectNotification_Click(object sender, RoutedEventArgs e) => TestEffect(true);
+
+    private void OpenEffectPanels_Click(object sender, RoutedEventArgs e)
+    {
+        EffectsSectionTabs.SelectedIndex = 1;
+        if (EffectsGrid.SelectedItem is TrackedEffect effect)
+        {
+            Settings.SyncBuffPanelGroups();
+            BuffPanelGroupBox.SelectedItem = Settings.BuffPanelGroups.FirstOrDefault(group => group.GroupNumber == effect.GroupNumber);
+        }
+    }
+
+    private void EffectPanelMembershipChanged(object sender, SelectionChangedEventArgs e) =>
+        RefreshEffectPanelMembership();
+
+    private void EffectPanelMembershipChanged(object sender, RoutedEventArgs e) =>
+        RefreshEffectPanelMembership();
+
+    private void EffectPanelMembershipChanged_Click(object sender, RoutedEventArgs e) =>
+        RefreshEffectPanelMembership();
+
+    private void RefreshEffectPanelMembership()
+    {
+        if (!_languageReady || EffectsGrid is null || BuffPanelGroupBox is null) return;
+        Dispatcher.BeginInvoke(() =>
+        {
+            var selectedGroupNumber = (BuffPanelGroupBox.SelectedItem as BuffPanelGroup)?.GroupNumber;
+            Settings.SyncBuffPanelGroups();
+            BuffPanelGroupBox.Items.Refresh();
+            if (selectedGroupNumber is { } number)
+                BuffPanelGroupBox.SelectedItem = Settings.BuffPanelGroups.FirstOrDefault(group => group.GroupNumber == number);
+            RequestSave();
+        }, DispatcherPriority.Background);
+    }
 
     private void TestEffect(bool appeared)
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
-        EffectsGrid.CommitEdit();
         _overlay.ShowEffectNotification(effect, appeared);
     }
 
@@ -733,7 +1345,6 @@ public partial class MainWindow : Window
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
         if (!EnsureNpcap()) return;
-        EffectsGrid.CommitEdit();
         StartLearning();
         _learningEffect = effect;
         SetStatus(T($"Наложите эффект «{effect.Name}» в RO в течение 20 секунд.",
@@ -743,7 +1354,22 @@ public partial class MainWindow : Window
 
     private void AddReminder_Click(object sender, RoutedEventArgs e)
     {
-        var reminder = new ReminderItem { X = 900 + Settings.Reminders.Count * 75, Y = 500 };
+        var wizard = new ReminderWizardWindow(draft =>
+        {
+            if (!EnsureNpcap()) return;
+            StartLearning();
+            _learningReminder = draft;
+            SetStatus(T("Активируйте нужный эффект в RO в течение 20 секунд.",
+                "Activate the required effect in RO within 20 seconds."));
+            _ = ExpireLearningAsync(draft.Id, "reminder", _learningGeneration);
+        }) { Owner = this };
+        if (wizard.ShowDialog() != true || wizard.CreatedReminder is not { } reminder)
+        {
+            if (_learningReminder == wizard.Draft) _learningReminder = null;
+            return;
+        }
+        reminder.X = 900 + Settings.Reminders.Count * 75;
+        reminder.Y = 500;
         Settings.Reminders.Add(reminder);
         RemindersGrid.SelectedItem = reminder;
         RemindersGrid.ScrollIntoView(reminder);
@@ -765,7 +1391,6 @@ public partial class MainWindow : Window
     {
         if (RemindersGrid.SelectedItem is not ReminderItem reminder) { SelectFirst("reminder"); return; }
         if (!EnsureNpcap()) return;
-        RemindersGrid.CommitEdit();
         StartLearning();
         _learningReminder = reminder;
         SetStatus(T($"Активируйте статус для «{reminder.Name}» в RO в течение 20 секунд.",
@@ -826,7 +1451,7 @@ public partial class MainWindow : Window
     private void FinishStatusLearning(string name, RoStatusPacket packet)
     {
         Settings.PacketPlayerAid = packet.Aid;
-        SaveSettings();
+        RequestSave();
         SetStatus(T($"«{name}»: найден Status ID {packet.StatusId}, AID {packet.Aid}.",
             $"“{name}”: learned Status ID {packet.StatusId}, AID {packet.Aid}."));
     }
@@ -840,7 +1465,7 @@ public partial class MainWindow : Window
             skill.PacketSkillId = packet.SkillId;
             Settings.PacketPlayerAid = packet.SourceAid;
             _learningSkill = null;
-            SaveSettings();
+            RequestSave();
             SetStatus(T($"«{skill.Name}»: найден Skill ID {packet.SkillId}, AID {packet.SourceAid}.",
                 $"“{skill.Name}”: learned Skill ID {packet.SkillId}, AID {packet.SourceAid}."));
         });
@@ -883,7 +1508,7 @@ public partial class MainWindow : Window
             item.VariantKey = packet.VariantKey;
             item.DetectedItemName = EquipmentIdentityFormatter.Describe(packet, _items);
             _learningEquipment = null;
-            SaveSettings();
+            RequestSave();
             SetStatus(T(
                 $"«{item.Name}»: распознано {item.DetectedItemName}; индекс {packet.InventoryIndex}, слот 0x{packet.WearLocation:X}.",
                 $"“{item.Name}”: detected {item.DetectedItemName}; index {packet.InventoryIndex}, slot 0x{packet.WearLocation:X}."));
@@ -926,7 +1551,6 @@ public partial class MainWindow : Window
             return;
         }
 
-        EffectsGrid.CommitEdit();
         Settings.SyncBuffPanelGroups();
         if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group)
         {
@@ -945,6 +1569,72 @@ public partial class MainWindow : Window
         if (Application.Current is App app) app.SetEscapeHotkeyEnabled(true);
         SaveSettings();
         Hide();
+    }
+
+    private void AddBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        var nextNumber = Settings.BuffPanelGroups.Count == 0 ? 1 : Settings.BuffPanelGroups.Max(item => item.GroupNumber) + 1;
+        var group = new BuffPanelGroup { GroupNumber = nextNumber, X = 900, Y = 360 + Settings.BuffPanelGroups.Count * 58 };
+        Settings.BuffPanelGroups.Add(group);
+        BuffPanelGroupBox.SelectedItem = group;
+        SaveSettings();
+    }
+
+    private void DuplicateBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup source) return;
+        var nextNumber = Settings.BuffPanelGroups.Max(item => item.GroupNumber) + 1;
+        var copy = new BuffPanelGroup
+        {
+            GroupNumber = nextNumber, X = source.X + 35, Y = source.Y + 35,
+            IconSize = source.IconSize, IconPadding = source.IconPadding, Gap = source.Gap,
+            ActiveOpacityPercent = source.ActiveOpacityPercent, InactiveOpacityPercent = source.InactiveOpacityPercent
+        };
+        Settings.BuffPanelGroups.Add(copy);
+        BuffPanelGroupBox.SelectedItem = copy;
+        SaveSettings();
+    }
+
+    private void DeleteBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group) return;
+        var answer = MessageBox.Show(this,
+            T("Удалить выбранную панель? Эффекты останутся в общем списке без панели.",
+              "Delete the selected panel? Its effects will remain in the main list without a panel."),
+            T("Удаление панели", "Delete panel"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        if (answer != MessageBoxResult.Yes) return;
+        foreach (var effect in Settings.Effects.Where(item => item.ShowOnBuffPanel && item.GroupNumber == group.GroupNumber))
+            effect.ShowOnBuffPanel = false;
+        Settings.BuffPanelGroups.Remove(group);
+        Settings.SyncBuffPanelGroups();
+        if (Settings.BuffPanelGroups.Count > 0) BuffPanelGroupBox.SelectedIndex = 0;
+        SaveSettings();
+    }
+
+    private void AddEffectToPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group || PanelEffectChoiceBox.SelectedItem is not TrackedEffect effect) return;
+        effect.GroupNumber = group.GroupNumber;
+        effect.ShowOnBuffPanel = true;
+        Settings.SyncBuffPanelGroups();
+        BuffPanelGroupBox.Items.Refresh();
+        SaveSettings();
+    }
+
+    private void ConfigurePanelEffect_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button { Tag: TrackedEffect effect }) return;
+        EffectsSectionTabs.SelectedIndex = 0;
+        EffectsGrid.SelectedItem = effect;
+        EffectsGrid.ScrollIntoView(effect);
+    }
+
+    private async void TestBuffPanel_Click(object sender, RoutedEventArgs e)
+    {
+        if (BuffPanelGroupBox.SelectedItem is not BuffPanelGroup group) return;
+        group.IsPlacementPreview = true;
+        await Task.Delay(TimeSpan.FromSeconds(3));
+        group.IsPlacementPreview = false;
     }
 
     private void HandleMoveToggle(ToggleButton button, string kind, bool group)
@@ -998,10 +1688,18 @@ public partial class MainWindow : Window
 
     private void AddEquipment_Click(object sender, RoutedEventArgs e)
     {
-        var item = new EquipmentTracker { X = 1050 + Settings.Equipment.Count * 70, Y = 420 };
+        var wizard = new EquipmentWizardWindow { Owner = this };
+        if (wizard.ShowDialog() != true || wizard.CreatedEquipment is not { } item) return;
+
+        item.X = 1050 + Settings.Equipment.Count * 70;
+        item.Y = 420;
         Settings.Equipment.Add(item);
         EquipmentGrid.SelectedItem = item;
         EquipmentGrid.ScrollIntoView(item);
+        SaveSettings();
+
+        if (wizard.LearnAfterCreate)
+            BeginEquipmentLearning(item);
     }
 
     private void DeleteEquipment_Click(object sender, RoutedEventArgs e)
@@ -1019,8 +1717,12 @@ public partial class MainWindow : Window
     private void LearnEquipment_Click(object sender, RoutedEventArgs e)
     {
         if (EquipmentGrid.SelectedItem is not EquipmentTracker item) { SelectFirst("equipment"); return; }
+        BeginEquipmentLearning(item);
+    }
+
+    private void BeginEquipmentLearning(EquipmentTracker item)
+    {
         if (!EnsureNpcap()) return;
-        EquipmentGrid.CommitEdit();
         StartLearning();
         _learningEquipment = item;
         SetStatus(T($"Наденьте «{item.Name}» в RO в течение 20 секунд.",
@@ -1038,10 +1740,13 @@ public partial class MainWindow : Window
 
     private void AddMvpTimer_Click(object sender, RoutedEventArgs e)
     {
-        var timer = new MvpTimer();
+        var wizard = new MvpTimerWizardWindow(_monsters) { Owner = this };
+        if (wizard.ShowDialog() != true || wizard.CreatedTimer is not { } timer) return;
+        timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
         Settings.MvpTimers.Add(timer);
         MvpTimersGrid.SelectedItem = timer;
         MvpTimersGrid.ScrollIntoView(timer);
+        SaveSettings();
     }
 
     private void DeleteMvpTimer_Click(object sender, RoutedEventArgs e)
@@ -1051,8 +1756,20 @@ public partial class MainWindow : Window
 
     private void RestartMvpTimer_Click(object sender, RoutedEventArgs e)
     {
-        if ((sender as FrameworkElement)?.DataContext is MvpTimer rowTimer) rowTimer.Restart();
-        else if (MvpTimersGrid.SelectedItem is MvpTimer timer) timer.Restart();
+        var timer = (sender as FrameworkElement)?.DataContext as MvpTimer ?? MvpTimersGrid.SelectedItem as MvpTimer;
+        if (timer is null) return;
+        if (string.IsNullOrWhiteSpace(timer.KillTimeInput))
+        {
+            timer.Restart();
+            SaveSettings();
+            return;
+        }
+        if (!TimeSpan.TryParse(timer.KillTimeInput, out var killTime) || killTime < TimeSpan.Zero || killTime >= TimeSpan.FromDays(1))
+        {
+            SetStatus(LocalizationService.Get("InvalidKillTime"));
+            return;
+        }
+        timer.StartFromKillClock(killTime);
         SaveSettings();
     }
 
@@ -1080,39 +1797,91 @@ public partial class MainWindow : Window
     private void TestMvpTimerSound_Click(object sender, RoutedEventArgs e)
     {
         if (MvpTimersGrid.SelectedItem is not MvpTimer timer) { SelectFirst("timer"); return; }
-        MvpTimersGrid.CommitEdit();
         _overlay.PlayMvpTimerSound(timer);
     }
 
     private void MvpMonster_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (MvpTimersGrid.SelectedItem is not MvpTimer timer || (sender as ComboBox)?.SelectedItem is not MonsterEntry monster) return;
+        if (_updatingMvpMonsterSelection || _suppressMvpMonsterTextChanged || MvpTimersGrid.SelectedItem is not MvpTimer timer ||
+            sender is not ComboBox box || box.SelectedItem is not MonsterEntry monster) return;
+        // Only overwrite a custom timer name when the user actually picked a
+        // monster from the dropdown, or when the name still equals the catalog
+        // name of the previously selected monster.
+        var previous = _monsters.FirstOrDefault(entry => entry.Id == timer.MonsterId);
+        var nameIsCatalogName = string.IsNullOrWhiteSpace(timer.Name) ||
+                                (previous is not null && string.Equals(timer.Name, previous.Name, StringComparison.Ordinal));
         timer.MonsterId = monster.Id;
-        timer.Name = monster.Name;
+        if (box.IsDropDownOpen || nameIsCatalogName) timer.Name = monster.Name;
+        timer.SetMonsterDetails(monster);
     }
 
-    private void MvpMonster_KeyUp(object sender, KeyEventArgs e)
+    private void RefreshMvpTimerDetails()
     {
-        if (sender is not ComboBox box || e.Key is Key.Up or Key.Down or Key.Enter or Key.Escape or Key.Tab)
-            return;
+        foreach (var timer in Settings.MvpTimers)
+            timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
+    }
 
-        if (!box.IsDropDownOpen) box.IsDropDownOpen = true;
-        var query = box.Text.Trim();
-        MvpMonsterView.Filter = value =>
+    private void MvpMonsterBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (sender is not ComboBox box) return;
+        var wasUpdating = _updatingMvpMonsterSelection;
+        _updatingMvpMonsterSelection = true;
+        try
         {
-            if (string.IsNullOrWhiteSpace(query)) return true;
-            if (value is not MonsterEntry monster) return false;
-            return monster.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                   monster.NameRu.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                   monster.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase);
-        };
-        MvpMonsterView.Refresh();
+            box.IsDropDownOpen = false;
+            MvpMonsterView.Filter = null;
+            box.SelectedItem = e.NewValue is MvpTimer timer
+                ? _monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId) : null;
+        }
+        finally { _updatingMvpMonsterSelection = wasUpdating; }
+    }
+
+    private void MvpMonsterBox_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ComboBox box) return;
+        if (_mvpMonsterEditor is not null) _mvpMonsterEditor.TextChanged -= MvpMonsterEditor_TextChanged;
+        box.ApplyTemplate();
+        _mvpMonsterEditor = box.Template.FindName("PART_EditableTextBox", box) as TextBox;
+        if (_mvpMonsterEditor is not null) _mvpMonsterEditor.TextChanged += MvpMonsterEditor_TextChanged;
+        MvpMonsterBox_DataContextChanged(box, new DependencyPropertyChangedEventArgs(DataContextProperty, null, box.DataContext));
+    }
+
+    private void MvpMonsterEditor_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_suppressMvpMonsterTextChanged || _updatingMvpMonsterSelection ||
+            _mvpMonsterEditor is not { IsKeyboardFocused: true } editor) return;
+        if (MvpMonsterBox.SelectedItem is MonsterEntry selected && editor.Text == selected.DisplayName) return;
+        var text = editor.Text;
+        var caret = editor.CaretIndex;
+        var query = text.Trim();
+        _suppressMvpMonsterTextChanged = true;
+        try
+        {
+            MvpMonsterView.Filter = value => value is MonsterEntry monster &&
+                (string.IsNullOrWhiteSpace(query) ||
+                 monster.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                 monster.NameRu.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
+                 monster.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase));
+            // Refresh can clear the selection/text. Restore only this synchronous
+            // typing draft; never queue stale text across a timer selection change.
+            editor.Text = text;
+            editor.CaretIndex = Math.Min(caret, text.Length);
+            MvpMonsterBox.IsDropDownOpen = !MvpMonsterView.IsEmpty;
+        }
+        finally { _suppressMvpMonsterTextChanged = false; }
     }
 
     private void MvpMonster_DropDownClosed(object sender, EventArgs e)
     {
-        MvpMonsterView.Filter = null;
-        MvpMonsterView.Refresh();
+        var wasUpdating = _updatingMvpMonsterSelection;
+        _updatingMvpMonsterSelection = true;
+        try
+        {
+            var id = (MvpTimersGrid.SelectedItem as MvpTimer)?.MonsterId;
+            MvpMonsterView.Filter = null;
+            MvpMonsterBox.SelectedItem = _monsters.FirstOrDefault(m => m.Id == id);
+        }
+        finally { _updatingMvpMonsterSelection = wasUpdating; }
     }
 
     private void TimerMoveMode_Changed(object sender, RoutedEventArgs e)
@@ -1135,9 +1904,7 @@ public partial class MainWindow : Window
         var button = (ToggleButton)sender;
         if (_changingMoveMode) return;
         if (button.IsChecked != true) { EndOverlayEditModes(); return; }
-        RewardChannelsGrid.CommitEdit();
-        Settings.SyncRewardGroups();
-        if (RewardGroupBox.SelectedItem is not RewardGroupSettings group)
+        if (SelectRewardGroupForSelectedChannel() is not RewardGroupSettings group)
         {
             _changingMoveMode = true;
             button.IsChecked = false;
@@ -1158,9 +1925,7 @@ public partial class MainWindow : Window
 
     private void TestRewards_Click(object sender, RoutedEventArgs e)
     {
-        RewardChannelsGrid.CommitEdit();
-        Settings.SyncRewardGroups();
-        if (RewardGroupBox.SelectedItem is not RewardGroupSettings group)
+        if (SelectRewardGroupForSelectedChannel() is not RewardGroupSettings group)
         {
             SetStatus(T("Выберите группу уведомлений о наградах.", "Select a reward notification group."));
             return;
@@ -1187,7 +1952,6 @@ public partial class MainWindow : Window
     {
         if (_changingMoveMode) return;
         if (button.IsChecked != true) { EndOverlayEditModes(); return; }
-        RateIndicatorsGrid.CommitEdit();
         if (RateIndicatorsGrid.SelectedItem is not RateIndicatorSettings indicator)
         {
             _changingMoveMode = true;
@@ -1211,7 +1975,7 @@ public partial class MainWindow : Window
     {
         if (NpcapPacketCapture.IsNpcapInstalled())
         {
-            Settings.PacketCaptureStateText = T("Npcap установлен · перезапускаю захват…", "Npcap installed · restarting capture…");
+            Settings.UpdatePacketCaptureState(T("Npcap установлен · перезапускаю захват…", "Npcap installed · restarting capture…"));
             ApplyPacketCaptureIfChanged(force: true);
             return;
         }
@@ -1276,12 +2040,20 @@ public partial class MainWindow : Window
         if (!_languageReady || LanguageBox.SelectedItem is not ComboBoxItem { Tag: string language }) return;
         Settings.Language = language;
         LocalizationService.ApplyLanguage(language);
+        Settings.RefreshPacketCaptureStateLanguage();
         UpdateServerProfileLabels();
+        RebuildCooldownGroupFilterItems();
         SkillsGrid.Items.Refresh();
         EffectsGrid.Items.Refresh();
         RemindersGrid.Items.Refresh();
         EquipmentGrid.Items.Refresh();
         MvpTimersGrid.Items.Refresh();
+        foreach (var channel in Settings.RewardChannels) channel.RefreshLocalization();
+        foreach (var indicator in Settings.RateIndicators) indicator.RefreshLocalization();
+        RewardChannelsGrid.Items.Refresh();
+        RateIndicatorsGrid.Items.Refresh();
+        DetectConnection(userInitiated: false, restartCapture: false);
+        (Application.Current as App)?.RefreshLanguage();
         SaveSettings();
     }
 
@@ -1314,7 +2086,10 @@ public partial class MainWindow : Window
 
     protected override void OnClosing(CancelEventArgs e)
     {
+        if (Keyboard.FocusedElement is Controls.NumericTextBox numericEditor)
+            numericEditor.CommitInput();
         _connectionDetectionTimer.Stop();
+        _goldGoblinSessionTimer.Stop();
         if (!_shutdownStarted)
         {
             _shutdownStarted = true;
@@ -1322,6 +2097,7 @@ public partial class MainWindow : Window
             SaveSettings();
             Dispatcher.BeginInvoke(() => Application.Current.Shutdown());
         }
+        else FlushPendingSave();
         base.OnClosing(e);
     }
 }

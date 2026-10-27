@@ -1,0 +1,83 @@
+name: Validate RoAura development
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "integration/**"
+  pull_request:
+    branches:
+      - "dev/roaura-2-ui"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - name: Install .NET 8 SDK
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: "8.0.415"
+
+      - name: Run logic and UI regression tests
+        shell: pwsh
+        run: dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release --logger "trx;LogFileName=regression.trx"
+
+      - name: Report failed regression tests
+        if: failure()
+        shell: pwsh
+        run: |
+          $result = '.\RoAura.Tests\TestResults\regression.trx'
+          if (Test-Path $result) {
+            [xml]$trx = Get-Content -Raw $result
+            foreach ($test in $trx.TestRun.Results.UnitTestResult) {
+              if ($test.outcome -eq 'Failed') {
+                $message = ([string]$test.Output.ErrorInfo.Message).Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+                Write-Output "::error title=$($test.testName)::$message"
+              }
+            }
+          }
+
+      - name: Build development portable package
+        shell: pwsh
+        run: .\build-release.ps1
+
+      - name: Verify development package
+        shell: pwsh
+        run: |
+          [xml]$project = Get-Content -Raw .\RoAura.csproj
+          $version = [string]$project.Project.PropertyGroup.Version
+          $archive = ".\artifacts\RoAura-$version-portable.zip"
+          if (-not (Test-Path $archive -PathType Leaf)) {
+            throw "Portable archive was not created: $archive"
+          }
+          $forbidden = @(
+            'settings.json',
+            'active-profile.txt',
+            'springro-market-cache.json',
+            'springro-market-snapshot.json',
+            'market-watch-history.json',
+            'debug.log'
+          )
+          $badFiles = Get-ChildItem .\artifacts -Recurse -Force -File | Where-Object {
+            $forbidden -contains $_.Name -or
+            $_.FullName -match '[\\/](Profiles|Recovery)[\\/]'
+          }
+          if ($badFiles) {
+            $badFiles.FullName | Write-Error
+            throw 'Private configuration files were found in development artifacts.'
+          }
+
+      - name: Upload tested portable package
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: RoAura-development-${{ github.run_number }}-${{ github.sha }}
+          path: artifacts/*-portable.zip
+          if-no-files-found: error

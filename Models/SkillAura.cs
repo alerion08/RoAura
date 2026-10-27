@@ -23,6 +23,10 @@ public sealed class SkillAura : INotifyPropertyChanged
     private double _iconPadding;
     private double _readyOpacityPercent = 100;
     private double _cooldownOpacityPercent = 68;
+    private string _shortNameOverride = "";
+    private bool _showShortName = true;
+    private bool _showReady = true;
+    private bool _showCountdown = true;
 
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get => _name; set => Set(ref _name, value); }
@@ -36,6 +40,10 @@ public sealed class SkillAura : INotifyPropertyChanged
     public double IconPadding { get => _iconPadding; set => Set(ref _iconPadding, Math.Clamp(value, 0, 40)); }
     public double ReadyOpacityPercent { get => _readyOpacityPercent; set => SetWithOpacity(ref _readyOpacityPercent, Math.Clamp(value, 0, 100)); }
     public double CooldownOpacityPercent { get => _cooldownOpacityPercent; set => SetWithOpacity(ref _cooldownOpacityPercent, Math.Clamp(value, 0, 100)); }
+    public string ShortNameOverride { get => _shortNameOverride; set { if (Set(ref _shortNameOverride, value?.Trim() ?? "")) OnPropertyChanged(nameof(ShortName)); } }
+    public bool ShowShortName { get => _showShortName; set => Set(ref _showShortName, value); }
+    public bool ShowReady { get => _showReady; set => Set(ref _showReady, value); }
+    public bool ShowCountdown { get => _showCountdown; set => Set(ref _showCountdown, value); }
     public string IconImageBase64 { get => _iconImageBase64; set { if (Set(ref _iconImageBase64, value)) OnPropertyChanged(nameof(IconStatusText)); } }
     public string IconFileName { get => _iconFileName; set { if (Set(ref _iconFileName, value)) OnPropertyChanged(nameof(IconStatusText)); } }
 
@@ -91,8 +99,10 @@ public sealed class SkillAura : INotifyPropertyChanged
     public double CurrentOpacity => (IsReady ? ReadyOpacityPercent : CooldownOpacityPercent) / 100d;
 
     [JsonIgnore]
-    public string ShortName => string.Concat(Name.Split(' ', StringSplitOptions.RemoveEmptyEntries)
-        .Take(2).Select(part => char.ToUpperInvariant(part[0])));
+    public string ShortName => !string.IsNullOrWhiteSpace(ShortNameOverride)
+        ? ShortNameOverride
+        : string.Concat(Name.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Take(2).Select(part => char.ToUpperInvariant(part[0])));
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

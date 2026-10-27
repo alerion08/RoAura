@@ -1,7 +1,7 @@
 <Window x:Class="RoAura.OverlayWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:converters="clr-namespace:RoAura.Converters"
+        xmlns:converters="clr-namespace:RoAura.Converters" xmlns:local="clr-namespace:RoAura"
         Title="RoAura Overlay" WindowStyle="None" AllowsTransparency="True"
         Background="Transparent" Topmost="False" ShowInTaskbar="False"
         ResizeMode="NoResize" ShowActivated="False">
@@ -16,7 +16,7 @@
         <converters:BottomMarginConverter x:Key="BottomMargin" />
         <converters:DoubleToThicknessConverter x:Key="IconPadding" />
     </Window.Resources>
-    <Grid Background="Transparent">
+    <Grid x:Name="OverlaySurface" Background="Transparent">
         <ItemsControl ItemsSource="{Binding Skills}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
@@ -72,8 +72,8 @@
                             <TextBlock Text="{Binding ShortName}" FontWeight="Bold"
                                        FontSize="{Binding IndividualIconSize, Converter={StaticResource ScaleValue}, ConverterParameter=0.22}"
                                        Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top"
-                                       Margin="2,3,2,0"
-                                       Visibility="{Binding DataContext.ShowShortNames, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}">
+                                       Margin="2,3,2,0">
+                                <TextBlock.Style><Style TargetType="TextBlock"><Setter Property="Visibility" Value="Collapsed"/><Style.Triggers><DataTrigger Binding="{Binding ShowShortName}" Value="True"><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers></Style></TextBlock.Style>
                                 <TextBlock.Effect>
                                     <DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1" />
                                 </TextBlock.Effect>
@@ -85,6 +85,9 @@
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ShowCountdown}" Value="False">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
                                             <DataTrigger Binding="{Binding IsReady}" Value="True">
                                                 <Setter Property="Visibility" Value="Collapsed" />
                                             </DataTrigger>
@@ -106,7 +109,7 @@
                                             <MultiDataTrigger>
                                                 <MultiDataTrigger.Conditions>
                                                     <Condition Binding="{Binding IsReady}" Value="True" />
-                                                    <Condition Binding="{Binding DataContext.ShowReadyText, RelativeSource={RelativeSource AncestorType=Window}}" Value="True" />
+                                                    <Condition Binding="{Binding ShowReady}" Value="True" />
                                                 </MultiDataTrigger.Conditions>
                                                 <Setter Property="Visibility" Value="Visible" />
                                             </MultiDataTrigger>
@@ -506,5 +509,17 @@
                 Visibility="Collapsed">
             <TextBlock x:Name="EditBannerText" Foreground="White" FontWeight="SemiBold" />
         </Border>
+        <Canvas x:Name="MarketWatchPanel" IsHitTestVisible="False">
+            <ItemsControl Canvas.Left="{Binding MarketWatchNotifications.X}" Canvas.Top="{Binding MarketWatchNotifications.Y}"
+                          ItemsSource="{Binding ActiveMarketNotifications}" MaxWidth="800">
+                <ItemsControl.ItemTemplate><DataTemplate>
+                    <Border MouseLeftButtonDown="MarketWatch_MouseLeftButtonDown" MouseLeftButtonUp="MarketWatch_MouseLeftButtonUp"
+                        MouseMove="MarketWatch_MouseMove" LostMouseCapture="MarketWatch_LostMouseCapture" Cursor="SizeAll"
+                        Margin="{Binding DataContext.MarketWatchNotifications.Gap, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BottomMargin}}">
+                        <local:MarketWatchNotificationView Settings="{Binding DataContext.MarketWatchNotifications, RelativeSource={RelativeSource AncestorType=Window}}" Notification="{Binding}"/>
+                    </Border>
+                </DataTemplate></ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Canvas>
     </Grid>
 </Window>

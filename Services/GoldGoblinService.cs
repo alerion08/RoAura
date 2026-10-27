@@ -1,15 +1,20 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text.Json;
+using System.Windows.Threading;
 using RoAura.Models;
 
 namespace RoAura.Services;
 
 public sealed class GoldGoblinService
 {
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
     private readonly AppSettings _settings;
     private readonly SpringRoMarketService _market;
     private readonly Dictionary<int, SpringRoItemPrice> _prices;
+    // Rows is bound to the UI; market updates arrive on thread-pool threads and must
+    // be marshalled before touching it.
+    private readonly Dispatcher? _dispatcher;
     public ObservableCollection<GoldGoblinLootRow> Rows { get; } = [];
     public event Action? Changed;
     public long SessionTotal => Rows.Sum(row => row.Total);
@@ -19,10 +24,13 @@ public sealed class GoldGoblinService
     {
         _settings = settings;
         _market = market;
+        _dispatcher = System.Windows.Application.Current?.Dispatcher ?? Dispatcher.FromThread(Thread.CurrentThread);
         _prices = LoadPrices();
         foreach (var rule in settings.GoldGoblinPriceRules) Watch(rule);
         settings.GoldGoblinPriceRules.CollectionChanged += (_, args) =>
         {
+            if (args.OldItems is not null)
+                foreach (GoldGoblinPriceRule rule in args.OldItems) rule.PropertyChanged -= Rule_PropertyChanged;
             if (args.NewItems is not null)
                 foreach (GoldGoblinPriceRule rule in args.NewItems) Watch(rule);
             Reprice();
@@ -31,7 +39,7 @@ public sealed class GoldGoblinService
         {
             if (args.PropertyName == nameof(AppSettings.GoldGoblinOverchargeLevel)) Reprice();
         };
-        market.DataUpdated += Reprice;
+        market.DataUpdated += Market_DataUpdated;
     }
 
     public void AddLoot(int itemId, string name, long count)
@@ -42,7 +50,8 @@ public sealed class GoldGoblinService
         if (row is null)
         {
             row = new GoldGoblinLootRow { ItemId = itemId, Item = name };
-            row.SetCalculatedCost(ResolveUnitPrice(itemId, name));
+            var price = ResolvePriceInfo(itemId, name);
+            row.SetCalculatedCost(price.Value, price.Source, price.Known);
             Watch(row);
             Rows.Add(row);
         }
@@ -51,19 +60,25 @@ public sealed class GoldGoblinService
     }
 
     public long ResolveUnitPrice(int itemId, string name)
+        => ResolvePriceInfo(itemId, name).Value;
+
+    public (long Value, string Source, bool Known) ResolvePriceInfo(int itemId, string name)
     {
+        // A rule bound to an item ID matches that ID only; a rule without an ID matches by name.
         var rule = _settings.GoldGoblinPriceRules.FirstOrDefault(item =>
-            (item.ItemId > 0 && item.ItemId == itemId) ||
-            string.Equals(item.Name, name, StringComparison.CurrentCultureIgnoreCase));
+            item.ItemId > 0
+                ? item.ItemId == itemId
+                : string.Equals(item.Name, name, StringComparison.CurrentCultureIgnoreCase));
         if (rule is not null)
         {
             if (rule.UseVendingPrice && _market.TryGetMinimumSellPrice(itemId, name, out var vending))
-                return vending;
-            if (rule.ManualPrice > 0) return rule.ManualPrice;
+                return (vending, "Vending", true);
+            if (rule.ManualPrice > 0) return (rule.ManualPrice, "Manual", true);
         }
 
-        var npc = _prices.GetValueOrDefault(itemId)?.NpcSellPrice ?? 0;
-        return ApplyOvercharge(npc, _settings.GoldGoblinOverchargeLevel);
+        if (_prices.TryGetValue(itemId, out var itemPrice))
+            return (ApplyOvercharge(itemPrice.NpcSellPrice, _settings.GoldGoblinOverchargeLevel), "NPC", true);
+        return (0, "—", false);
     }
 
     public long LootValue(int itemId, string name, long count) =>
@@ -73,6 +88,13 @@ public sealed class GoldGoblinService
     {
         Rows.Clear();
         SessionStartedUtc = null;
+        Changed?.Invoke();
+    }
+
+    public void StartSession()
+    {
+        Rows.Clear();
+        SessionStartedUtc = DateTime.UtcNow;
         Changed?.Invoke();
     }
 
@@ -87,7 +109,10 @@ public sealed class GoldGoblinService
     public void Reprice()
     {
         foreach (var row in Rows.Where(item => !item.HasManualCost))
-            row.SetCalculatedCost(ResolveUnitPrice(row.ItemId, row.Item));
+        {
+            var price = ResolvePriceInfo(row.ItemId, row.Item);
+            row.SetCalculatedCost(price.Value, price.Source, price.Known);
+        }
         Changed?.Invoke();
     }
 
@@ -96,6 +121,12 @@ public sealed class GoldGoblinService
         if (value <= 0 || level <= 0) return Math.Max(0, value);
         var percent = level >= 10 ? 24 : 5 + level * 2;
         return (long)Math.Floor(value * (100 + percent) / 100d);
+    }
+
+    private void Market_DataUpdated()
+    {
+        if (_dispatcher is null || _dispatcher.CheckAccess()) Reprice();
+        else _dispatcher.InvokeAsync(Reprice);
     }
 
     private void Watch(GoldGoblinPriceRule rule) =>
@@ -109,13 +140,17 @@ public sealed class GoldGoblinService
         try
         {
             var path = Path.Combine(AppContext.BaseDirectory, "Data", "item-prices.springro.json");
-            var data = JsonSerializer.Deserialize<SpringRoItemPriceDatabase>(File.ReadAllText(path),
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            return data?.Items.ToDictionary(item => item.Id) ?? [];
+            var data = JsonSerializer.Deserialize<SpringRoItemPriceDatabase>(File.ReadAllText(path), JsonOptions);
+            if (data is null) return [];
+            var groups = data.Items.GroupBy(item => item.Id).ToList();
+            var duplicates = groups.Where(group => group.Count() > 1).Select(group => group.Key).ToList();
+            if (duplicates.Count > 0)
+                DebugLog.Write($"GOLD GOBLIN PRICE DATABASE: {duplicates.Count} duplicate item IDs ignored (first wins): {string.Join(", ", duplicates.Take(20))}");
+            return groups.ToDictionary(group => group.Key, group => group.First());
         }
         catch (Exception ex)
         {
-            DebugLog.Write($"GOLD GOBLIN PRICE DATABASE ERROR: {ex.Message}");
+            DebugLog.Write($"GOLD GOBLIN PRICE DATABASE ERROR: {ex}");
             return [];
         }
     }

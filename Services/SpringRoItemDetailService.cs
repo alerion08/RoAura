@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using RoAura.Models;
 
@@ -11,16 +12,22 @@ public sealed partial class SpringRoItemDetailService
 {
     private readonly HttpClient _client;
     private readonly ConcurrentDictionary<int, CacheEntry> _cache = new();
+    private static readonly Regex NpcSellValueRegex = new(
+        Regex.Escape("NPC sell value") + "</dt><dd[^>]*>(.*?)</dd>",
+        RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
 
     public SpringRoItemDetailService()
     {
-        var handler = new HttpClientHandler
+        var handler = new SocketsHttpHandler
         {
-            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate | DecompressionMethods.Brotli
+            ConnectTimeout = TimeSpan.FromSeconds(10),
+            PooledConnectionLifetime = TimeSpan.FromMinutes(5),
+            AutomaticDecompression = DecompressionMethods.All
         };
         _client = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(30) };
+        var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "0.0.0";
         _client.DefaultRequestHeaders.UserAgent.ParseAdd(
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 RoAura/2.13.2");
+            $"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 RoAura/{version}");
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
     }
 
@@ -35,7 +42,7 @@ public sealed partial class SpringRoItemDetailService
         var detail = new SpringRoItemDetails
         {
             ImageUrl = ImageRegex().Match(html).Groups[1].Value,
-            NpcSellValue = Plain(ValueRegex("NPC sell value").Match(html).Groups[1].Value),
+            NpcSellValue = Plain(NpcSellValueRegex.Match(html).Groups[1].Value),
             ServerCopies = Plain(CirculationRegex().Match(html).Groups[1].Value),
             Description = ParseDescription(html)
         };
@@ -58,10 +65,6 @@ public sealed partial class SpringRoItemDetailService
 
     private static string Plain(string html) =>
         WebUtility.HtmlDecode(TagRegex().Replace(html, " ")).Replace("  ", " ").Trim();
-
-    private static Regex ValueRegex(string label) => new(
-        Regex.Escape(label) + "</dt><dd[^>]*>(.*?)</dd>",
-        RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
     [GeneratedRegex("<meta property=\"og:image\" content=\"([^\"]+)\"", RegexOptions.IgnoreCase)]
     private static partial Regex ImageRegex();
