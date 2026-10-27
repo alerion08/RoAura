@@ -45,6 +45,18 @@ For an installer, install Inno Setup 6 and run `build-installer.ps1`; it forward
 
 Read `GUIDE_RU.md` or `GUIDE_EN.md` for setup instructions.
 
+## Development
+
+Before changing code, read [AGENTS.md](AGENTS.md). It defines scope, branch, testing and release rules for AI-assisted work.
+
+Use the compact project documents instead of reconstructing decisions from chat history:
+
+- [Current project state](docs/PROJECT_STATE.md)
+- [UI and overlay specification](docs/UI_SPEC.md)
+- [Regression and release checklist](docs/REGRESSION_CHECKLIST.md)
+
+Keep these documents current when implementation, branch status or release blockers change.
+
 ## Links
 
 - Twitch: https://twitch.tv/im_alerion
