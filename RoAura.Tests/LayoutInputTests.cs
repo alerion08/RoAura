@@ -209,6 +209,8 @@ public sealed class LayoutInputTests
     {
         XNamespace controls = "clr-namespace:RoAura.Controls;assembly=RoAura";
         var element = new XElement(controls + "NumericTextBox",
+            new XAttribute(XNamespace.Xmlns + "controls", controls.NamespaceName),
+            new XAttribute("xmlns", "http://schemas.microsoft.com/winfx/2006/xaml/presentation"),
             new XAttribute("Value", declaration.Attribute("Value")!.Value));
         var editor = (NumericTextBox)XamlReader.Parse(element.ToString());
         editor.Language = System.Windows.Markup.XmlLanguage.GetLanguage("en-US");
