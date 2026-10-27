@@ -77,7 +77,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     public double MarketBackgroundRefreshMinutes
     {
         get => _marketBackgroundRefreshMinutes;
-        set => Set(ref _marketBackgroundRefreshMinutes, Math.Clamp(value, 1, 1440));
+        set => Set(ref _marketBackgroundRefreshMinutes, double.IsFinite(value) ? Math.Clamp(value, 1, 1440) : 10);
     }
     public bool TimersOverlayVisible { get => _timersOverlayVisible; set => Set(ref _timersOverlayVisible, value); }
     public double TimersX { get => _timersX; set => Set(ref _timersX, value); }
@@ -175,6 +175,9 @@ public sealed class AppSettings : INotifyPropertyChanged
         new() { Kind = RateIndicatorKind.ZenyTotal, X = 1050, Y = 538, TextColor = "#FFFFD45C" },
         new() { Kind = RateIndicatorKind.SessionTime, X = 1050, Y = 570, TextColor = "#FFFFFFFF" }
     ];
+    public ObservableCollection<MarketWatchRule> MarketWatchRules { get; set; } = [];
+    public MarketWatchNotificationSettings MarketWatchNotifications { get; set; } = new();
+    [JsonIgnore] public ObservableCollection<MarketWatchNotification> ActiveMarketNotifications { get; } = [];
     public ObservableCollection<GoldGoblinPriceRule> GoldGoblinPriceRules { get; set; } = [];
 
     [JsonIgnore]

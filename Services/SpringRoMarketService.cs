@@ -17,13 +17,12 @@ namespace RoAura.Services;
 public sealed partial class SpringRoMarketService
 {
     public event Action? DataUpdated;
+    // Unlike DataUpdated this excludes cached/per-query results and failed or partial crawls.
+    public event Action<IReadOnlyList<MarketListing>>? SnapshotUpdated;
     private readonly HttpClient _client;
     private readonly object _cacheSync = new();
     private readonly Dictionary<string, CacheEntry> _cache = new(StringComparer.OrdinalIgnoreCase);
     private static readonly TimeSpan CacheLifetime = TimeSpan.FromMinutes(5);
-    // SpringRO renders the market server-side; a full crawl is dozens of pages.
-    // Never crawl more often than this regardless of the configured interval.
-    private static readonly TimeSpan MinimumSnapshotInterval = TimeSpan.FromMinutes(10);
     private static readonly TimeSpan PageTimeout = TimeSpan.FromSeconds(30);
     private static readonly TimeSpan DefaultThrottleBackoff = TimeSpan.FromSeconds(30);
     private static readonly TimeSpan MaximumThrottleBackoff = TimeSpan.FromMinutes(30);
@@ -34,14 +33,14 @@ public sealed partial class SpringRoMarketService
     private readonly string _legacySnapshotPath;
     private readonly HashSet<string> _refreshing = new(StringComparer.OrdinalIgnoreCase);
     private readonly SemaphoreSlim _snapshotRefreshLock = new(1, 1);
+    private bool _hasSnapshot;
     private List<MarketListing> _snapshot = [];
     // Parallel to _snapshot: numeric price per row (long.MaxValue when unparsable).
     private long[] _snapshotPrices = [];
     private Dictionary<int, long> _minSellByItemId = new();
     private Dictionary<string, long> _minSellByItemName = new(StringComparer.CurrentCultureIgnoreCase);
-    private DateTime _lastSnapshotAttemptUtc = DateTime.MinValue;
     private DateTime _throttledUntilUtc = DateTime.MinValue;
-    public bool HasSnapshot { get { lock (_cacheSync) return _snapshot.Count > 0; } }
+    public bool HasSnapshot { get { lock (_cacheSync) return _hasSnapshot; } }
     public bool IsRefreshingSnapshot => _snapshotRefreshLock.CurrentCount == 0;
 
     public bool TryGetMinimumSellPrice(int itemId, string itemName, out long price)
@@ -59,9 +58,9 @@ public sealed partial class SpringRoMarketService
         return false;
     }
 
-    public SpringRoMarketService()
+    public SpringRoMarketService(HttpMessageHandler? messageHandler = null, string? cacheDirectory = null)
     {
-        var handler = new SocketsHttpHandler
+        var handler = messageHandler ?? new SocketsHttpHandler
         {
             ConnectTimeout = TimeSpan.FromSeconds(10),
             PooledConnectionLifetime = TimeSpan.FromMinutes(5),
@@ -73,12 +72,12 @@ public sealed partial class SpringRoMarketService
             $"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 RoAura/{version}");
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
         _client.DefaultRequestHeaders.AcceptLanguage.ParseAdd("en-US,en;q=0.9");
-        var directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RoAura");
+        var directory = cacheDirectory ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RoAura");
         _cachePath = Path.Combine(directory, "springro-market-cache.json");
         _snapshotPath = Path.Combine(directory, "springro-market-snapshot.json");
         // Older builds kept the files under Roaming; read them once as a fallback so
         // the cache is not lost. New writes always go to LocalApplicationData.
-        var legacyDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RoAura");
+        var legacyDirectory = cacheDirectory ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RoAura");
         _legacyCachePath = Path.Combine(legacyDirectory, "springro-market-cache.json");
         _legacySnapshotPath = Path.Combine(legacyDirectory, "springro-market-snapshot.json");
         LoadPersistentCache();
@@ -96,7 +95,7 @@ public sealed partial class SpringRoMarketService
         bool hasSnapshot;
         lock (_cacheSync)
         {
-            hasSnapshot = _snapshot.Count > 0;
+            hasSnapshot = _hasSnapshot;
             var prices = _snapshotPrices;
             snapshotMatches = _snapshot
                 .Select((listing, index) => (Listing: listing, Price: index < prices.Length ? prices[index] : long.MaxValue))
@@ -174,14 +173,6 @@ public sealed partial class SpringRoMarketService
                 DebugLog.Write($"MARKET SNAPSHOT REFRESH SKIPPED: SpringRO back-off for another {(throttledUntil - now).TotalSeconds:F0} s");
                 return;
             }
-            var sinceLast = now - _lastSnapshotAttemptUtc;
-            if (sinceLast < MinimumSnapshotInterval)
-            {
-                DebugLog.Write($"MARKET SNAPSHOT REFRESH SKIPPED: last attempt {sinceLast.TotalMinutes:F1} min ago (minimum {MinimumSnapshotInterval.TotalMinutes:F0} min)");
-                return;
-            }
-            _lastSnapshotAttemptUtc = now;
-
             var all = new List<MarketListing>();
             foreach (var type in new[] { "SELL", "BUY" })
             {
@@ -189,7 +180,11 @@ public sealed partial class SpringRoMarketService
                 var firstHtml = await DownloadPageAsync(firstUrl, cycle.Token).ConfigureAwait(false);
                 var first = Parse(firstHtml, type);
                 all.AddRange(first);
+                if (!TotalRegex().IsMatch(firstHtml))
+                    throw new InvalidDataException("SpringRO market page has no total; preserving the last snapshot.");
                 var total = ParseTotal(firstHtml);
+                if (first.Count != Math.Min(50, total))
+                    throw new InvalidDataException("SpringRO market rows could not be parsed; preserving the last snapshot.");
                 var pages = Math.Max(1, (int)Math.Ceiling(total / 50d));
                 if (pages <= 1) continue;
 
@@ -203,7 +198,10 @@ public sealed partial class SpringRoMarketService
                     try
                     {
                         var url = $"https://springro.com/market?search=&page={page}&sort=priceAsc&minRefine=0&shopType={type}";
-                        return Parse(await DownloadPageAsync(url, cycle.Token).ConfigureAwait(false), type);
+                        var rows = Parse(await DownloadPageAsync(url, cycle.Token).ConfigureAwait(false), type);
+                        if (rows.Count != Math.Min(50, total - (page - 1) * 50))
+                            throw new InvalidDataException("Incomplete market page; preserving the last snapshot.");
+                        return rows;
                     }
                     catch (HttpRequestException ex) when (IsThrottled(ex.StatusCode))
                     {
@@ -216,10 +214,10 @@ public sealed partial class SpringRoMarketService
                 foreach (var page in await Task.WhenAll(pageTasks).ConfigureAwait(false)) all.AddRange(page);
             }
 
-            if (all.Count == 0) return;
             lock (_cacheSync) SetSnapshot(all);
             await SaveSnapshotAsync().ConfigureAwait(false);
             DebugLog.Write($"MARKET SNAPSHOT REFRESHED: {all.Count} listings");
+            SnapshotUpdated?.Invoke(all.AsReadOnly());
             DataUpdated?.Invoke();
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { }
@@ -316,6 +314,7 @@ public sealed partial class SpringRoMarketService
                 (!byName.TryGetValue(listing.ItemName, out var currentByName) || price < currentByName))
                 byName[listing.ItemName] = price;
         }
+        _hasSnapshot = true;
         _snapshot = listings;
         _snapshotPrices = prices;
         _minSellByItemId = byId;
@@ -358,8 +357,6 @@ public sealed partial class SpringRoMarketService
             var saved = JsonSerializer.Deserialize<List<MarketListing>>(File.ReadAllText(path));
             if (saved is null) return;
             lock (_cacheSync) SetSnapshot(saved);
-            // A snapshot written moments ago (e.g. app restart) counts as a recent crawl.
-            _lastSnapshotAttemptUtc = File.GetLastWriteTimeUtc(path);
         }
         catch (Exception ex) { DebugLog.Write($"MARKET SNAPSHOT LOAD ERROR: {ex}"); }
     }
@@ -504,7 +501,7 @@ public sealed partial class SpringRoMarketService
         int.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out result);
 
     /// <summary>Digits-only price ("1,250,000 z" → 1250000) without allocating; long.MaxValue when absent or overflowing.</summary>
-    private static long ParsePrice(string value)
+    public static long ParsePrice(string value)
     {
         long price = 0;
         var digits = 0;

@@ -314,6 +314,11 @@ public sealed class SettingsStore
         settings.RewardGroups ??= new();
         settings.RateIndicators ??= new();
         settings.GoldGoblinPriceRules ??= new();
+        settings.MarketWatchRules ??= new();
+        settings.MarketWatchNotifications ??= new();
+        // Keep one rule per SpringRO item and discard malformed IDs without touching other settings.
+        settings.MarketWatchRules = new(settings.MarketWatchRules.Where(r => r is not null && r.ItemId > 0 &&
+            (r.WithoutPrice || r.MaximumPrice >= 0)).GroupBy(r => r.ItemId).Select(g => g.Last()));
     }
 
     // Migrate rewrites SettingsVersion to the current constant. Keep a copy of

@@ -161,3 +161,13 @@ powershell -ExecutionPolicy Bypass -File .\build-release.ps1
 Output: `artifacts\RoAura-2.14.0-portable.zip`. Install Inno Setup 6 and run `build-installer.ps1` for Setup.
 
 Links: https://twitch.tv/im_alerion · http://discord.gg/aleriontv · https://www.donationalerts.com/r/im_alerion · https://rtm-refuge.online
+
+### SpringRO Market tracking
+
+Click ★ on an item result or its details, enter a maximum whole-Zeny price or select Any price, then click Add. A semi-transparent star means tracking is off; a dark-blue star means it is on. Click again to stop tracking.
+
+Database → Watchlist lets you add items by name/ID, edit rules and remove watches. Suggestions never replace your typing automatically; select the intended item. Notifications configures text (%name for item name, %price for price), icon, sizes, background/text colors, padding, spacing, X/Y, duration and sound. Use Test notification to preview it on the overlay; F9 controls visibility.
+
+Only successful fresh selling-shop snapshots are evaluated. The first refresh may notify about offers already present. Unchanged offers remain silent; a new seller/price or an absence followed by return can notify again. Multiple new matches for one item use the lowest qualifying price. Download failures do not count as an absence. Notification history lasts for the current session.
+
+Refresh interval: 1–1440 minutes, default 10. **Refreshing too frequently may result in a server-side block.** There is no hidden ten-minute floor; crawls do not overlap and server-directed back-off remains active.

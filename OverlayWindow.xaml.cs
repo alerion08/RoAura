@@ -106,6 +106,8 @@ public partial class OverlayWindow : Window
         var supported = GameServerProfile.SupportsServerDatabases(_settings.ServerProfile);
         RewardGroupsPanel.Visibility = supported ? Visibility.Visible : Visibility.Collapsed;
         RateIndicatorsPanel.Visibility = supported ? Visibility.Visible : Visibility.Collapsed;
+        MarketWatchPanel.Visibility = _settings.ServerProfile == GameServerProfile.SpringRo ? Visibility.Visible : Visibility.Collapsed;
+        if (_settings.ServerProfile != GameServerProfile.SpringRo) _settings.ActiveMarketNotifications.Clear();
         UpdateTimerPanelVisibility();
         if (supported) return;
         foreach (var group in _settings.RewardGroups) group.Notifications.Clear();
@@ -757,6 +759,36 @@ public partial class OverlayWindow : Window
         PlayConfiguredSound(enabled, soundPath, volume);
     }
 
+    public void ShowMarketWatchNotification(MarketWatchMatch match, bool preview = false)
+    {
+        var config = _settings.MarketWatchNotifications;
+        if (!config.Enabled && !preview) return;
+        System.Windows.Media.ImageSource? icon = null;
+        try
+        {
+            var bitmap = new System.Windows.Media.Imaging.BitmapImage();
+            bitmap.BeginInit();
+            if (string.IsNullOrWhiteSpace(config.IconImageBase64))
+                bitmap.UriSource = new Uri($"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/items/{match.ItemId}.png");
+            else
+            {
+                using var stream = new MemoryStream(Convert.FromBase64String(config.IconImageBase64));
+                bitmap.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = stream;
+                bitmap.EndInit();
+                bitmap.Freeze();
+                icon = bitmap;
+            }
+            if (icon is null) { bitmap.EndInit(); icon = bitmap; }
+        }
+        catch (Exception ex) { DebugLog.Write($"MARKET WATCH ICON ERROR: {ex.Message}"); }
+        _settings.ActiveMarketNotifications.Add(new MarketWatchNotification(
+            MarketWatchService.FormatText(config.TextTemplate, match), icon,
+            DateTime.UtcNow.AddSeconds(config.DurationSeconds)));
+        while (_settings.ActiveMarketNotifications.Count > 100) _settings.ActiveMarketNotifications.RemoveAt(0);
+        PlayConfiguredSound(config.SoundEnabled, config.SoundPath, 100);
+    }
+
     public void PlayMvpTimerSound(MvpTimer timer) =>
         PlayConfiguredSound(timer.CompletionSoundEnabled, timer.CompletionSoundPath,
             timer.CompletionSoundVolumePercent);
@@ -837,6 +869,9 @@ public partial class OverlayWindow : Window
                          .Where(notification => notification.ExpiresAtUtc <= now).ToList())
                 group.Notifications.Remove(notification);
         }
+
+        foreach (var notification in _settings.ActiveMarketNotifications.Where(n => n.ExpiresAtUtc <= now).ToList())
+            _settings.ActiveMarketNotifications.Remove(notification);
 
         UpdateRateIndicators();
 

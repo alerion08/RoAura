@@ -108,13 +108,22 @@ This document records current product-level UI behavior. It is intentionally com
 - Database windows must not steal focus or reintroduce modifier-key blocking.
 - Loading, empty and error states must be visible and must not erase previously cached usable Market data.
 
+### Market watchlist
+
+- A star on item results/details toggles tracking. Inactive stars are semi-transparent; active stars are dark blue.
+- Adding opens a confirmation dialog with a whole-Zeny maximum price or Any price; Cancel changes nothing.
+- The Watchlist tab supports add/edit/remove by item ID or name. Suggestions must not select the first result, overwrite input, or select its text while typing.
+- The Notifications tab configures `%name` and `%price` text, icon, icon/text size, text/background color and alpha, padding, spacing, client-relative X/Y, sound and duration. A test action previews the notification.
+- Successful fresh SpringRO SELL snapshots trigger new qualifying offers only; existing cached data and failed refreshes do not trigger/rearm notifications. The first successful live snapshot may notify about already-present offers. Unchanged offers/quantity-only changes remain silent; a later absence and return may notify again.
+- Notifications stack in the existing overlay host and follow its visibility and F9 controls. Rules and appearance are stored in settings/presets; session notification history is not.
+
 ## Gold Goblin and Market
 
 - Gold Goblin shows session quantity, unit price and total value.
 - NPC price, Overcharge, Vending price and manual rule behavior remain distinct.
 - Overcharge levels are 0–10.
 - Market search should return cached/local results immediately and refresh in the background.
-- The UI must display the effective refresh interval; it must not promise a shorter interval than the implementation allows.
+- The configured refresh interval is 1–1440 minutes (default 10), without a hidden ten-minute minimum. Warn that frequent refreshes can result in a server-side block. Keep non-overlap and server-directed back-off.
 - Network failures preserve the last usable cache and report the failure without freezing the interface.
 
 ## Accessibility and layout checks

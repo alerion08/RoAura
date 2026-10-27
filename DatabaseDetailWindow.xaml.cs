@@ -124,10 +124,16 @@ public partial class DatabaseDetailWindow : Window
             header.Children.Add(new Image { Source = new BitmapImage(imageUri), Width = 56, Height = 56,
                 Stretch = Stretch.Uniform, Margin = new Thickness(0, 0, 10, 0) });
         var title = new StackPanel();
-        title.Children.Add(Heading(item.Name, 20));
+        var itemHeading = Heading(item.Name, 20); itemHeading.MaxWidth = 180;
+        title.Children.Add(itemHeading);
         title.Children.Add(Meta($"Item ID #{item.Id} · {item.Type}"));
         header.Children.Add(title);
-        DetailsPanel.Children.Add(header);
+        var itemHeader = new DockPanel();
+        var star = new Controls.MarketWatchStar { Item = item };
+        DockPanel.SetDock(star, Dock.Right);
+        itemHeader.Children.Add(star);
+        itemHeader.Children.Add(header);
+        DetailsPanel.Children.Add(itemHeader);
 
         AddSection(T("Информация", "Information"));
         if (loading)

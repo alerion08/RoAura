@@ -94,7 +94,7 @@ Two follow-up Z-order/window-selection fixes were made after real testing showed
 - Do not permanently overwrite saved layout coordinates merely because the game window is temporarily smaller.
 - Settings from a newer schema and corrupted settings require preservation and recovery; avoid destructive automatic rewrites.
 - Immediate-mode Npcap and multi-adapter capture must be checked for CPU usage during long sessions.
-- The effective full Market refresh interval is currently limited to ten minutes; the UI should not imply a shorter effective interval.
+- Market refresh follows the configured 1–1440 minute interval (default 10); the former ten-minute service floor is removed. The UI warns about server blocking. In-flight crawls do not overlap, and server-directed back-off remains in effect.
 - A single RoAura instance is the default. Developer/test multi-instance behavior is not currently implemented.
 
 ## Numeric layout input fix (2026-10-27)
@@ -114,6 +114,16 @@ After build `8238353f`, the user reported all overlays at (0,0). Inspection foun
 Removed resize-driven model clamping and autosave. Window size/DPI/client changes now update only the host geometry; saved positions may lie outside a temporarily smaller client and return when the original bounds return. Explicit dragging/coordinate edits and one-time legacy coordinate migration remain unchanged. Regression tests cover every overlay category through small/invalid bounds, client switches, DPI changes, restore and save/reload, plus numeric-coordinate binding initialization/selection changes.
 
 Already overwritten positions cannot be reconstructed from zeros. Recovery candidates are an explicitly saved preset in `%APPDATA%\RoAura\Profiles`, `settings.json.bak` (rolling backup, may already contain the reset), `Recovery/before-ui-2.0.*`, `Recovery/working.*.json`, and `Profiles/Backups`. Preserve a copy of the current RoAura data folder before recovery; do not auto-apply guessed positions or replace unrelated settings. Manual resize/client-switch checks and investigation of the user's actual stored values remain pending.
+
+## Database watchlist (2026-10-27)
+
+Active block: SpringRO Market item watchlist and notification settings. Item search rows and detail headers have synchronized stars (off by default). Adding requires confirming a maximum whole-Zeny price or Any price; removing turns tracking off. Manual name/ID search uses a separate suggestion list that never selects or rewrites the typing draft automatically.
+
+Database settings now contain General, Watchlist and Notifications tabs. Rules and notification appearance/sound persist in settings and named presets. Notifications support `%name`/`%price`, an embedded custom icon or item icon, sizes, text/background colors with alpha, padding, spacing, X/Y and display duration. They share the ordinary overlay host, F9 and client-relative geometry.
+
+Only complete successful live SELL snapshots are evaluated by item ID. The first fresh snapshot can notify about existing qualifying offers. New sellers/variants/prices can notify once per item per refresh (cheapest new match); quantity-only changes and unchanged offers are silent. A successful absence rearms notification for a later return. Failed/partial responses preserve the previous cache and matching state. Notification history is session-only and is not stored as personal market data in settings. Watches are SpringRO-specific.
+
+Added tests cover price boundaries, Any price, large amounts, deduplication, disappearance/reappearance, rule changes, settings/presets, consecutive refreshes, error preservation and autocomplete draft behavior. Local execution is blocked by the missing .NET SDK; Windows CI and manual game checks are required for this block. No release approval is implied.
 
 ## Next recommended step
 

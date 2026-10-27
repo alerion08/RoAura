@@ -159,7 +159,8 @@ public partial class DatabaseOverlayWindow : Window
         var foreground = GetForegroundWindow();
         var searchHandle = new WindowInteropHelper(this).Handle;
         var detailHandle = _details.Handle;
-        var databaseHasFocus = foreground == searchHandle || foreground == detailHandle;
+        var databaseHasFocus = foreground == searchHandle || foreground == detailHandle ||
+            OwnedWindows.Cast<Window>().Any(w => w.IsActive) || _details.OwnedWindows.Cast<Window>().Any(w => w.IsActive);
 
         if (ForegroundProcess.TryGetForegroundAllowedBounds(_settings.AllowedProcesses, out var game))
         {

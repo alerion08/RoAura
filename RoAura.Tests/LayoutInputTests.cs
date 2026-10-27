@@ -40,6 +40,8 @@ public sealed class LayoutInputTests
 
     // Use the actual editor and model binding from the view.
     [Theory]
+    [InlineData("MarketWatchNotificationSettings", "IconSize", "64", 64d)]
+    [InlineData("MarketWatchNotificationSettings", "TextSize", "24", 24d)]
     [InlineData("SkillAura", "IndividualIconSize", "64", 64d)]
     [InlineData("ReminderItem", "IconSize", "64", 64d)]
     [InlineData("ReminderItem", "TextSize", "24", 24d)]
@@ -239,10 +241,43 @@ public sealed class LayoutInputTests
         {
             var path = Path.Combine(directory.FullName, "MainWindow.xaml");
             if (File.Exists(path))
-                return XDocument.Load(path).Descendants()
+                return new[] { path, Path.Combine(directory.FullName, "DatabaseSettingsControl.xaml") }
+                    .SelectMany(file => XDocument.Load(file).Descendants())
                     .Where(e => e.Name.LocalName is "TextBox" or "NumericTextBox").ToArray();
         }
         throw new FileNotFoundException("Could not locate MainWindow.xaml.");
+    }
+
+    [Fact]
+    public void WatchSearch_DoesNotSelectOrReplaceTheTypingDraft()
+    {
+        RunSta(() =>
+        {
+            var database = new RoAura.Services.GameDatabaseService();
+            Assert.NotEmpty(database.Items);
+            var dialog = new MarketWatchDialog(database);
+            try
+            {
+                var search = (TextBox)dialog.FindName("ItemSearch");
+                var suggestions = (ListBox)dialog.FindName("Suggestions");
+                var name = database.Items.First(i => i.Name.Length > 2).Name;
+                var draft = "";
+                foreach (var character in name.Take(3))
+                {
+                    draft += character;
+                    search.Text = draft;
+                    search.CaretIndex = search.Text.Length;
+                    DrainDispatcher();
+                    Assert.Equal(draft, search.Text);
+                    Assert.Equal(0, search.SelectionLength);
+                    Assert.Equal(-1, suggestions.SelectedIndex);
+                }
+                Assert.NotEmpty(suggestions.Items.Cast<object>());
+                suggestions.SelectedIndex = 0;
+                Assert.Equal(draft, search.Text);
+            }
+            finally { dialog.Close(); }
+        });
     }
 
     private static void RunSta(Action action)

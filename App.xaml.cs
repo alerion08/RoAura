@@ -41,6 +41,54 @@ public partial class App : Application
     private DateTime _lastDatabaseToggleUtc = DateTime.MinValue;
     private readonly GitHubUpdateService _updateService = new();
     private SpringRoMarketService? _marketService;
+    private readonly MarketWatchService _marketWatch = new();
+    private AppSettings? _marketWatchSettings;
+    private GameDatabaseService? _watchDatabase;
+    public AppSettings? MarketWatchSettings => _marketWatchSettings;
+
+    public void PersistMarketWatchSettings()
+    {
+        if (_marketWatchSettings is not null) _settingsStore?.Save(_marketWatchSettings);
+    }
+
+    public void ToggleMarketWatch(Window? owner, object? value)
+    {
+        var item = value switch
+        {
+            DatabaseItem i => i,
+            MarketListing l => _watchDatabase?.Item(l.ItemId) ?? new DatabaseItem { Id = l.ItemId, Name = l.ItemName },
+            _ => null
+        };
+        if (item is null || _marketWatchSettings is null) return;
+        var existing = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == item.Id);
+        if (existing is not null)
+        {
+            _marketWatchSettings.MarketWatchRules.Remove(existing);
+            _marketWatch.Forget(item.Id);
+            PersistMarketWatchSettings();
+        }
+        else ShowMarketWatchDialog(owner, item, null);
+    }
+
+    public void EditMarketWatch(Window? owner, MarketWatchRule? rule = null) =>
+        ShowMarketWatchDialog(owner, rule is null ? null :
+            _watchDatabase?.Item(rule.ItemId) ?? new DatabaseItem { Id = rule.ItemId, Name = rule.ItemName }, rule);
+
+    private void ShowMarketWatchDialog(Window? owner, DatabaseItem? item, MarketWatchRule? rule)
+    {
+        if (_watchDatabase is null || _marketWatchSettings is null) return;
+        var dialog = new MarketWatchDialog(_watchDatabase, item, rule) { Owner = owner, Topmost = owner?.Topmost == true };
+        if (dialog.ShowDialog() != true || dialog.Rule is not { } added) return;
+        var old = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == added.ItemId);
+        if (old is not null) _marketWatchSettings.MarketWatchRules.Remove(old);
+        _marketWatchSettings.MarketWatchRules.Add(added);
+        _marketWatch.Forget(added.ItemId);
+        PersistMarketWatchSettings();
+    }
+
+    public void PreviewMarketWatch() => _overlay?.ShowMarketWatchNotification(
+        new MarketWatchMatch(730, "1carat Diamond", 5000), preview: true);
+
     private GoldGoblinService? _goldGoblin;
     private bool _updatePromptOpen;
 
@@ -253,10 +301,24 @@ public partial class App : Application
         _packetCapture.StateChanged += state => Dispatcher.BeginInvoke(() =>
             settings.UpdatePacketCaptureState(state));
 
+        _marketWatchSettings = settings;
+        _watchDatabase = new GameDatabaseService();
+        settings.MarketWatchRules.CollectionChanged += (_, args) =>
+        {
+            if (args.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset) _marketWatch.Reset();
+            if (args.OldItems is not null)
+                foreach (MarketWatchRule rule in args.OldItems) _marketWatch.Forget(rule.ItemId);
+        };
         _marketService = new SpringRoMarketService();
+        _marketService.SnapshotUpdated += snapshot => Dispatcher.BeginInvoke(() =>
+        {
+            var matches = _marketWatch.Evaluate(settings.MarketWatchRules, snapshot);
+            if (settings.ServerProfile != GameServerProfile.SpringRo) return;
+            foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
+        });
         _goldGoblin = new GoldGoblinService(settings, _marketService);
         _overlay = new OverlayWindow(settings, _settingsStore, _goldGoblin);
-        _databaseOverlay = new DatabaseOverlayWindow(settings, new GameDatabaseService(), _marketService);
+        _databaseOverlay = new DatabaseOverlayWindow(settings, _watchDatabase, _marketService);
         _databaseOverlay.HideRequested += HideDatabase;
         _settingsWindow = new MainWindow(settings, _settingsStore, _overlay, _packetCapture, _goldGoblin);
         _settingsWindow.Show();
@@ -278,6 +340,8 @@ public partial class App : Application
             if (!wizard.RunAutomaticFlowSmokeTest())
                 throw new InvalidOperationException("Cooldown skill wizard automatic flow smoke test failed.");
             wizard.Close();
+            var watchDialog = new MarketWatchDialog(_watchDatabase);
+            watchDialog.Close();
             var effectWizard = new EffectWizardWindow(settings.BuffPanelGroups, _ => { });
             effectWizard.Close();
             var reminderWizard = new ReminderWizardWindow(_ => { });

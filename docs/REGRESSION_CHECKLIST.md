@@ -88,6 +88,18 @@ Use the smallest relevant section for normal changes. Complete all **Release blo
 - [ ] Custom MVP names are not replaced by catalog names.
 - [ ] Clipboard actions work or report a nonfatal error.
 
+### Market tracking
+
+- [ ] In RU and EN, inactive stars on search rows and item details are semi-transparent; confirmed watches turn both dark blue; Cancel changes nothing; a second click removes the watch.
+- [ ] Add/edit/remove via Watchlist. Search by name/ID, type/paste/replace several characters without auto-selection or caret jumps. Reject absent/ambiguous items, empty/negative/overflowing prices; Any price disables price input.
+- [ ] Max price includes equality; above-threshold/BUY/other IDs do not notify. Any price accepts any valid sale price.
+- [ ] First successful fresh snapshot can notify once. Unchanged offers and quantity changes do not repeat; a new seller/price or disappearance/return does.
+- [ ] Network errors/partial/invalid pages preserve cache and do not reset match history. A genuine empty snapshot removes stale offers.
+- [ ] Set refresh to 1 minute; the service no longer skips for ten minutes. Warning is visible; crawls do not overlap and 429/5xx back-off still applies.
+- [ ] Configure template tags, custom/default icon, icon/text size, colors/alpha, padding, spacing, X/Y, duration and sound; use Test notification. Numeric input keeps the full typing draft.
+- [ ] Simultaneous matches stack. F9, game focus, resize and mixed DPI work without changing saved positions. Add dialog stays visible over Database without blocking modifiers.
+- [ ] Save/restart and named presets retain rules/appearance. Switching away from SpringRO hides pending Market notifications.
+
 ## Numeric layout input
 
 - [ ] In Cooldowns, Effects, Buff Panel, Reminder, Equipment, MVP Timers, reward groups and rate indicators: select the whole size value, clear it, type `64`/`24` digit by digit; no intermediate snap to a minimum or maximum.
