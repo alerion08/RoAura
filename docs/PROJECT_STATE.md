@@ -76,6 +76,8 @@ The user tested build `28fa0d5`, reported that everything works well, and accept
 
 The 3.0.0 candidate changes version metadata, release documentation and packaging checks; gameplay behavior matches the accepted build. PR #5 targets main for full Windows tests, portable startup, installer and clean-package/SHA-256 validation before merge/publication. Both the project and embedded manifest use 3.0.0. Existing settings schema remains unchanged.
 
+The first 3.0.0 release PR run passed all 104 tests and built both packages. A simultaneous development run failed the existing visible watch-search test when another WPF test class could steal keyboard focus. Window/focus test classes now share a non-parallel xUnit collection, and search focus is established after the dialog's initial dispatcher work. Assertions remain intact; application behavior is unchanged. The final head must pass both release and development validation before merge.
+
 ## Historical regression areas
 
 The following areas guided development testing and remain the reusable regression focus for future changes (current release acceptance is recorded above):

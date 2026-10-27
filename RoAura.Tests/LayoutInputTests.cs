@@ -14,6 +14,7 @@ using Xunit;
 
 namespace RoAura.Tests;
 
+[Collection("WPF UI")]
 public sealed class LayoutInputTests
 {
     private static readonly HashSet<string> LayoutProperties = new(StringComparer.Ordinal)
@@ -265,8 +266,11 @@ public sealed class LayoutInputTests
                 var suggestions = (ListBox)editor.FindName("Suggestions");
                 var popup = (System.Windows.Controls.Primitives.Popup)editor.FindName("SuggestionsPopup");
                 dialog.Show();
-                search.Focus();
+                dialog.Activate();
                 DrainDispatcher();
+                Assert.True(search.Focus(), "Search editor must accept focus before typing.");
+                DrainDispatcher();
+                Assert.True(search.IsKeyboardFocusWithin, "Search editor must own keyboard focus before typing.");
                 var name = database.Items.First(i => i.Name.Length > 2).Name;
                 var draft = "";
                 foreach (var character in name.Take(3))

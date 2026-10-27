@@ -9,6 +9,7 @@ using Xunit;
 
 namespace RoAura.Tests;
 
+[Collection("WPF UI")]
 public sealed class CommonControlStyleTests
 {
     [Fact]
