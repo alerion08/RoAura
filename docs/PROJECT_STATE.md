@@ -123,7 +123,7 @@ Database settings now contain General, Watchlist and Notifications tabs. Rules a
 
 Only complete successful live SELL snapshots are evaluated by item ID. The first fresh snapshot can notify about existing qualifying offers. New sellers/variants/prices can notify once per item per refresh (cheapest new match); quantity-only changes and unchanged offers are silent. A successful absence rearms notification for a later return. Failed/partial responses preserve the previous cache and matching state. Notification history is session-only and is not stored as personal market data in settings. Watches are SpringRO-specific.
 
-Added tests cover price boundaries, Any price, large amounts, deduplication, disappearance/reappearance, rule changes, settings/presets, consecutive refreshes, error preservation and autocomplete draft behavior. Local execution is blocked by the missing .NET SDK; Windows CI and manual game checks are required for this block. No release approval is implied.
+Added tests cover price boundaries, Any price, large amounts, deduplication, disappearance/reappearance, rule changes, settings/presets, consecutive refreshes, error preservation and autocomplete draft behavior. Local execution is blocked by the missing .NET SDK. The first Windows run compiled the app and passed 70 tests; a malformed HTML fixture in the new crawl test was corrected. Final automated results are attached to the integration commit’s Windows Actions run; manual game checks remain required. No release approval is implied.
 
 ## Next recommended step
 

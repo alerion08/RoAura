@@ -15,6 +15,7 @@ public sealed class MarketWatchStar : Button
     private AppSettings? _settings;
     public MarketWatchStar()
     {
+        SetResourceReference(StyleProperty, "GhostButtonStyle");
         Content = "★"; FontSize = 22; Width = 32; Height = 32; MinHeight = 0;
         Padding = new Thickness(0); Margin = new Thickness(5, 0, 0, 0);
         VerticalAlignment = VerticalAlignment.Top;

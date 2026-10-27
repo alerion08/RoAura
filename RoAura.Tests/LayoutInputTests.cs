@@ -280,6 +280,26 @@ public sealed class LayoutInputTests
         });
     }
 
+    [Fact]
+    public void WatchStarDialog_ConfirmsTheExactPassedItemWithoutLookingUpItsName()
+    {
+        RunSta(() =>
+        {
+            // Unknown/custom item names can still be watched from a live market row.
+            var dialog = new MarketWatchDialog(new RoAura.Services.GameDatabaseService(),
+                new DatabaseItem { Id = 900001, Name = "Custom offer name" });
+            Dispatcher.CurrentDispatcher.BeginInvoke(() =>
+            {
+                ((CheckBox)dialog.FindName("WithoutPrice")).IsChecked = true;
+                ((Button)dialog.FindName("AddButton")).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }, DispatcherPriority.ApplicationIdle);
+            Assert.True(dialog.ShowDialog());
+            Assert.NotNull(dialog.Rule);
+            Assert.Equal(900001, dialog.Rule.ItemId);
+            Assert.True(dialog.Rule.WithoutPrice);
+        });
+    }
+
     private static void RunSta(Action action)
     {
         Exception? failure = null;

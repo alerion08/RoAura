@@ -130,7 +130,7 @@ public sealed class MarketWatchTests
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var content = Fail ? "unexpected error page" : Empty || request.RequestUri!.Query.Contains("BUY")
-                ? "total:0,stallCount:0" : "total:1,stallCount:1<tr><td data-item-id=\"730\"></td><td>Diamond</td><td>0</td><td></td><td>100 z</td><td>1</td><td>Shop</td><td>Alice</td><td>location: prontera (1,2)</td></tr>";
+                ? "total:0,stallCount:0" : "total:1,stallCount:1<tr><td><span data-item-id=\"730\"></span></td><td>Diamond</td><td>0</td><td></td><td>100 z</td><td>1</td><td>Shop</td><td>Alice</td><td>location: prontera (1,2)</td></tr>";
             return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(content) });
         }
     }

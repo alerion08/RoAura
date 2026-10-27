@@ -19,8 +19,8 @@ public partial class MarketWatchDialog : Window
         if (item is not null)
         {
             _selected = item;
-            ItemSearch.Text = item.Name;
             ItemSearch.IsReadOnly = true;
+            ItemSearch.Text = item.Name;
             Suggestions.Visibility = Visibility.Collapsed;
             SelectedItemLabel.Text = item.Caption;
         }
