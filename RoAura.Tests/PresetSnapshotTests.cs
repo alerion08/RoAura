@@ -33,6 +33,7 @@ public sealed class PresetSnapshotTests : IDisposable
         live.RateIndicators[0].X = 654;
         live.SyncBuffPanelGroups();
         live.BuffPanelGroups[0].X = 543;
+        live.SyncCooldownGroups();
         store.CreateProfile("Knight", live);
         var first = File.ReadAllText(Path.Combine(store.ProfilesDirectory, "Knight.json"));
 

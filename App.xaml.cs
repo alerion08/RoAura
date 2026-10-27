@@ -500,7 +500,8 @@ public partial class App : Application
         _zenyBalance.Reset();
         _nextBaseExperience = _nextJobExperience = 0;
         _previousNextBaseExperience = _previousNextJobExperience = 0;
-        CloseDatabaseOverlay();
+        _databaseOverlay?.HideDatabase();
+        _inputHook?.SetKeyboardBlocked(false);
         if (_settingsWindow is not null)
             _marketWatch.PruneHistory(_settingsWindow.Settings.MarketWatchHistoryRetentionDays);
         SyncWatchRuleSubscriptions();

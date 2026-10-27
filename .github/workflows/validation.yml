@@ -28,7 +28,22 @@ jobs:
 
       - name: Run logic and UI regression tests
         shell: pwsh
-        run: dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release
+        run: dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release --logger "trx;LogFileName=regression.trx"
+
+      - name: Report failed regression tests
+        if: failure()
+        shell: pwsh
+        run: |
+          $result = '.\RoAura.Tests\TestResults\regression.trx'
+          if (Test-Path $result) {
+            [xml]$trx = Get-Content -Raw $result
+            foreach ($test in $trx.TestRun.Results.UnitTestResult) {
+              if ($test.outcome -eq 'Failed') {
+                $message = ([string]$test.Output.ErrorInfo.Message).Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+                Write-Output "::error title=$($test.testName)::$message"
+              }
+            }
+          }
 
       - name: Build development portable package
         shell: pwsh
