@@ -202,7 +202,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource RoSoftBorderBrush}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="8,4"/>
         <Setter Property="CaretBrush" Value="{StaticResource RoDeepBlueBrush}"/><Setter Property="SelectionBrush" Value="{StaticResource RoSelectionBrush}"/>
         <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TextBox">
-            <Border x:Name="TextBorder" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"><ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/></Border>
+            <Border x:Name="TextBorder" CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"><!-- TextBoxBase forwards Padding to this ScrollViewer; adding it as Margin clips the text. --><ScrollViewer x:Name="PART_ContentHost"/></Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="TextBorder" Property="BorderBrush" Value="#477FC9"/><Setter TargetName="TextBorder" Property="BorderThickness" Value="1"/></Trigger>
                 <Trigger Property="IsReadOnly" Value="True"><Setter TargetName="TextBorder" Property="Background" Value="#EDF3F9"/></Trigger>

@@ -151,6 +151,12 @@ Selecting a preset now copies the complete migrated snapshot into the live setti
 
 Local .NET 8 cross-build of the application and tests succeeds on Linux. WPF execution and portable smoke tests require Windows validation. Added coverage checks repeated full-profile transitions, every serialized field, collection identity, post-switch saving, immutable named snapshots, corrupt input, HEX/alpha, rounded templates and arrow/slider visuals. Manual RU/EN at 100/125/150% DPI, the reported MVP selection sequence, palette apply/cancel and A/B preset switches inside Ragnarok remain required. No merge/release approval is implied.
 
+## Field clipping follow-up (2026-10-27)
+
+User screenshots after a78cc4b show vertically clipped text in compact text/numeric/color fields. The shared rounded template added Padding as PART_ContentHost.Margin, while WPF TextBoxBase already forwards Padding to its ScrollViewer; this consumed the text viewport twice. Removed that duplicate margin, retaining 5-DIP corners, field sizes and input behavior. Database watch/history text columns now use an explicit vertically centered TextBlock style; checkbox centering remains intact. Header vertical alignment is explicit.
+
+New Windows layout tests measure actual field viewport/line bounds with Russian/English names, numeric values and HEX at 100/125/150% layout scale, plus the compact table text's vertical position. The earlier style tests checked corners/arrows but did not detect text clipping. Manual verification on the user's Windows DPI remains pending; the commit's Actions run records tests and portable packaging.
+
 ## Next recommended step
 
 Test the current PR #5 artifact against `docs/REGRESSION_CHECKLIST.md`, record each result, and fix only confirmed regressions. Do not merge PR #5 or publish 2.14.0 until the release-blocking manual checks pass.

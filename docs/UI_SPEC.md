@@ -29,6 +29,7 @@ This document records current product-level UI behavior. It is intentionally com
 ## Shared controls and presets
 
 - Dropdown arrows remain blue with no separate border, fill or checked/hover highlight. Popups open below their owning field.
+- TextBoxBase forwards Padding to the content host; the rounded template must not duplicate it as a host margin. Compact editor viewports must fit the complete text line. Database watch/history text columns use explicit vertical centering.
 - Text, numeric and color editors share a 5-DIP rounded template. Field styles inherit the common template. Slider tracks use blue progress, a pale remainder and a round outlined thumb throughout the app.
 - Color fields open an in-app palette with RGBA sliders, preview and a HEX draft accepting #RRGGBB or #AARRGGBB. Apply commits; Cancel preserves the original value and alpha.
 - Selecting a named preset applies all serialized settings without restarting the process. Existing model/collection references remain valid for running services and hotkeys. Editors detach during the copy; learning, transient notifications and session statistics reset. Settings, layout and exact equipment variants are retained by each snapshot.

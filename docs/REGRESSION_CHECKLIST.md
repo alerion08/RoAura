@@ -133,6 +133,11 @@ Use the smallest relevant section for normal changes. Complete all **Release blo
 - [ ] Create Knight/Wizard presets with different entries, enabled states, exact equipment variants, all panel positions, statistics, Gold Goblin rules and Database settings. Switch using the list: process stays running, every section/overlay changes, hotkeys follow the preset, no old alerts remain.
 - [ ] Modify settings after switching, save and close/reopen: current working state persists. Named snapshots change only through Update selected; their local filenames match the displayed names. Corrupt/missing preset shows a warning without changing the working settings.
 
+## Compact field text regression
+
+- [ ] At 100/125/150% Windows DPI in RU/EN, inspect full glyph height in skill names, numeric coordinates/sizes, HEX, effect advanced fields and timer/statistics settings. Focus, select text, type and leave the field: no upper/lower clipping.
+- [ ] Watchlist and offer-history names, prices, timestamps and coordinates are vertically centered in the 26-DIP rows, matching the centered Enabled checkbox.
+
 ## UI and localization
 
 - [ ] Changed screen checked in Russian.

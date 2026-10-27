@@ -3,8 +3,12 @@
  xmlns:controls="clr-namespace:RoAura.Controls" xmlns:local="clr-namespace:RoAura" xmlns:converters="clr-namespace:RoAura.Converters" LostKeyboardFocus="Settings_LostFocus">
  <UserControl.Resources>
   <Style x:Key="WatchTableRow" TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}"><Setter Property="MinHeight" Value="26"/><Setter Property="Height" Value="26"/></Style>
-  <Style x:Key="WatchTableHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"><Setter Property="Height" Value="28"/><Setter Property="Padding" Value="6,2"/></Style>
+  <Style x:Key="WatchTableHeader" TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"><Setter Property="Height" Value="28"/><Setter Property="Padding" Value="6,2"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style>
   <Style x:Key="WatchTableCell" TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}"><Setter Property="Padding" Value="5,2"/></Style>
+
+  <Style x:Key="WatchTableText" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+   <Setter Property="VerticalAlignment" Value="Center"/><Setter Property="Margin" Value="2,0"/>
+  </Style>
 
   <converters:ColorStringToBrushConverter x:Key="WatchColorBrush"/>
   <converters:DoubleToThicknessConverter x:Key="WatchPadding"/>
@@ -50,8 +54,8 @@
      <DataGrid RowStyle="{StaticResource WatchTableRow}" ColumnHeaderStyle="{StaticResource WatchTableHeader}" CellStyle="{StaticResource WatchTableCell}" x:Name="WatchList" Grid.Row="0" ItemsSource="{Binding MarketWatchRules}" SelectionChanged="WatchList_SelectionChanged"
         AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" SelectionMode="Single" HeadersVisibility="Column" RowHeaderWidth="0">
       <DataGrid.Columns>
-       <DataGridTextColumn Header="{DynamicResource Name}" Width="*" MinWidth="100" Binding="{Binding Caption}"/>
-       <DataGridTextColumn Header="{DynamicResource WatchPriceRule}" Width="155" Binding="{Binding PriceCaption}"/>
+       <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource Name}" Width="*" MinWidth="100" Binding="{Binding Caption}"/>
+       <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchPriceRule}" Width="155" Binding="{Binding PriceCaption}"/>
        <DataGridTemplateColumn Header="{DynamicResource Enabled}" Width="90">
         <DataGridTemplateColumn.HeaderStyle><Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource WatchTableHeader}"><Setter Property="HorizontalContentAlignment" Value="Center"/></Style></DataGridTemplateColumn.HeaderStyle>
         <DataGridTemplateColumn.CellStyle><Style TargetType="DataGridCell" BasedOn="{StaticResource WatchTableCell}"><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="VerticalContentAlignment" Value="Center"/></Style></DataGridTemplateColumn.CellStyle>
@@ -77,10 +81,10 @@
      <Grid Grid.Row="2">
       <DataGrid RowStyle="{StaticResource WatchTableRow}" ColumnHeaderStyle="{StaticResource WatchTableHeader}" CellStyle="{StaticResource WatchTableCell}" x:Name="HistoryGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="Column" RowHeaderWidth="0" SelectionMode="Single">
        <DataGrid.Columns>
-        <DataGridTextColumn Header="{DynamicResource WatchHistoryTime}" Width="125" Binding="{Binding TimeCaption}"/>
-        <DataGridTextColumn Header="{DynamicResource WatchHistoryShop}" Width="*" MinWidth="80" Binding="{Binding ShopCaption}"/>
-        <DataGridTextColumn Header="{DynamicResource WatchHistoryCoordinates}" Width="130" Binding="{Binding Coordinates}"/>
-        <DataGridTextColumn Header="{DynamicResource WatchHistoryPrice}" Width="105" Binding="{Binding PriceCaption}"/>
+        <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchHistoryTime}" Width="125" Binding="{Binding TimeCaption}"/>
+        <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchHistoryShop}" Width="*" MinWidth="80" Binding="{Binding ShopCaption}"/>
+        <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchHistoryCoordinates}" Width="130" Binding="{Binding Coordinates}"/>
+        <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchHistoryPrice}" Width="105" Binding="{Binding PriceCaption}"/>
        </DataGrid.Columns>
       </DataGrid>
       <TextBlock x:Name="HistoryEmptyText" Text="{DynamicResource WatchHistoryEmpty}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,35,12,8" Foreground="{StaticResource RoMutedBrush}" IsHitTestVisible="False"/>
