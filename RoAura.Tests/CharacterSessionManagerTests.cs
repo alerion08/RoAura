@@ -30,7 +30,7 @@ public sealed class CharacterSessionManagerTests
         sessions.OnServerPayload(Flow(49240));
         Assert.Equal((uint)154386, sessions.Current.CharacterId);
         Assert.Equal(CharacterSessionPhase.ActiveObserved, sessions.Current.Phase);
-        Assert.Equal(7, phases.Count);
+        Assert.Equal(8, phases.Count);
         Assert.Equal((154386u, CharacterSessionPhase.Suspended), phases[2]);
         Assert.Equal((155665u, CharacterSessionPhase.Suspended), phases[5]);
     }
