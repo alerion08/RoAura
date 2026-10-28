@@ -339,6 +339,8 @@ public partial class App : Application
 
         _packetCapture = new NpcapPacketCapture();
         _packetCapture.StatusChanged += OnPacketStatusChanged;
+        if (AppEnvironment.IsDevelopment)
+            _packetCapture.OptionChanged += OnPacketOptionChanged;
         _packetCapture.SkillUsed += OnPacketSkillUsed;
         _packetCapture.SkillCooldown += OnPacketSkillCooldown;
         _packetCapture.EquipmentChanged += OnPacketEquipmentChanged;
@@ -777,8 +779,33 @@ public partial class App : Application
                        $"name={effect.Name}");
     }
 
-    private void OnPacketStatusChanged(RoStatusPacket packet) =>
+    // Bounded DEV diagnostics: metadata only. Do not log raw traffic or
+    // account/player AIDs. The counters are reset on each capture restart.
+    private int _statusDiagnosticCount;
+    private int _optionDiagnosticCount;
+
+    private void OnPacketOptionChanged(RoOptionPacket packet)
+    {
+        if (!AppEnvironment.IsDevelopment ||
+            Interlocked.Increment(ref _optionDiagnosticCount) > 80) return;
+        var ownAid = _packetCapture?.CharacterSession.PlayerAid ?? 0;
+        DebugLog.Write($"PACKET OPTION OBSERVED opcode=0x{packet.PacketId:X4}; " +
+                       $"hidden={packet.IsHidden}; matchesPlayer={ownAid != 0 && ownAid == packet.Aid}");
+    }
+
+    private void OnPacketStatusChanged(RoStatusPacket packet)
+    {
+        if (AppEnvironment.IsDevelopment &&
+            Interlocked.Increment(ref _statusDiagnosticCount) <= 120)
+        {
+            var ownAid = _packetCapture?.CharacterSession.PlayerAid ?? 0;
+            DebugLog.Write($"PACKET STATUS OBSERVED opcode=0x{packet.PacketId:X4}; " +
+                           $"status={packet.StatusId}; active={packet.Active}; " +
+                           $"remainingMs={packet.RemainingMs}; totalMs={packet.TotalMs}; " +
+                           $"matchesPlayer={ownAid != 0 && ownAid == packet.Aid}");
+        }
         Dispatcher.BeginInvoke(() => HandlePacketStatusChanged(packet));
+    }
 
     private void HandlePacketStatusChanged(RoStatusPacket packet)
     {
