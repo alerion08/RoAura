@@ -126,7 +126,7 @@ public sealed class NpcapPacketCapture : IDisposable
             var filter = BuildFilter(address, port);
             var stats = new GenerationStats();
             var workers = devices.Select(device => Task.Run(
-                () => CaptureDevice(device, filter, generation, stats, equipmentCache,
+                () => CaptureDevice(device, filter, port, generation, stats, equipmentCache,
                     pendingEquipmentEvents, tcpFlows, loginObserver, cancellationToken),
                 CancellationToken.None)).ToArray();
 
@@ -182,7 +182,7 @@ public sealed class NpcapPacketCapture : IDisposable
         }
     }
 
-    private async Task CaptureDevice(PcapDeviceInfo device, string filter, int generation,
+    private async Task CaptureDevice(PcapDeviceInfo device, string filter, int port, int generation,
         GenerationStats stats,
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
@@ -203,7 +203,7 @@ public sealed class NpcapPacketCapture : IDisposable
             attempts++;
             var logFailure = attempts == 1 ||
                              Environment.TickCount64 - lastFailureLogTick >= FailureLogIntervalMs;
-            var result = CaptureDeviceSession(device, filter, generation, stats, equipmentCache,
+            var result = CaptureDeviceSession(device, filter, port, generation, stats, equipmentCache,
                 pendingEquipmentEvents, tcpFlows, loginObserver, cancellationToken, logFailure, attempts == 1);
             if (cancellationToken.IsCancellationRequested ||
                 generation != Volatile.Read(ref _generation))
@@ -242,7 +242,7 @@ public sealed class NpcapPacketCapture : IDisposable
         }
     }
 
-    private SessionResult CaptureDeviceSession(PcapDeviceInfo device, string filter, int generation,
+    private SessionResult CaptureDeviceSession(PcapDeviceInfo device, string filter, int port, int generation,
         GenerationStats stats,
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
