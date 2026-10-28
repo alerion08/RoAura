@@ -58,6 +58,11 @@ public sealed class CharacterSessionManager
     }
 
 
+    public CharacterSessionFlow? CurrentFlow
+    {
+        get { lock (_sync) return _currentFlow; }
+    }
+
     public CharacterSessionSnapshot Current
     {
         get { lock (_sync) return _current; }
