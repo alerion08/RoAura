@@ -28,6 +28,30 @@ public sealed class CharacterStatisticsStore
             $"character-{normalized.CharacterId}.json");
     }
 
+    /// <summary>List only validated filenames; selecting a record never changes packet routing.</summary>
+    public IReadOnlyList<CharacterStatisticsKey> ListKnownCharacters()
+    {
+        if (!Directory.Exists(RootDirectory)) return [];
+        var found = new List<CharacterStatisticsKey>();
+        foreach (var serverDirectory in Directory.EnumerateDirectories(RootDirectory))
+        {
+            var server = Path.GetFileName(serverDirectory);
+            foreach (var path in Directory.EnumerateFiles(serverDirectory, "character-*.json"))
+            {
+                var name = Path.GetFileNameWithoutExtension(path);
+                if (name is null || !name.StartsWith("character-", StringComparison.Ordinal) ||
+                    !uint.TryParse(name["character-".Length..], out var cid)) continue;
+                try
+                {
+                    var key = CharacterStatisticsKey.Create(server, cid);
+                    if (key.ServerKey == server) found.Add(key);
+                }
+                catch (ArgumentException) { }
+            }
+        }
+        return found.OrderBy(x => x.ServerKey).ThenBy(x => x.CharacterId).ToList();
+    }
+
     public CharacterStatisticsDocument? Load(CharacterStatisticsKey key)
     {
         var path = PathFor(key);
