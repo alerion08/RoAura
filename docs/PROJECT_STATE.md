@@ -355,3 +355,7 @@ Local targeted harness: 75 scenarios passed using actual source and xUnit
 assertions. Standard MSBuild cannot initialize Process metadata in this host;
 Windows CI is the full application/test/package validation authority. No main,
 version, installer or release changes.
+
+## SpringRO field evidence from rotated DEV log (2026-10-28 21:07)
+
+The user's `debug.1.log` (not the current `debug.log`) contains working `PACKET LAYOUT` probes. Previous script output saying `Diagnostic build: NO` was a false negative caused by ignoring log rotation. Two Hiding-related sequences contain contiguous `0x0229 → 0x0983 → 0x09CB Skill 51` and `0x0196 → 0x0229 → 0x09CB Skill 51` frames, all on one flow; own Skill 51 succeeds and the `0x0229` actor matches self. At the second apparent activation, `0x0229` says `hideBit=False`, so the option bit is not a reliable live SpringRO state indicator. Observed `0x0983` status candidates have **neither** the existing actor interpretation nor Claude's proposed actor-first alternate equal to the verified self actor. A simple field swap is **not supported** by this real sample. The sequences suggest a relationship with Hiding but need the user's ON/OFF timestamps for confirmation. No parser, release, or identity behavior was changed; details and packet offsets are recorded in `docs/PACKET_TRACKING_AUDIT.md`.
