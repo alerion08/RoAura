@@ -1030,7 +1030,7 @@
 
                 <TabItem x:Name="LootTab" Header="{DynamicResource LootRewards}">
                     <Grid Margin="8,4,8,8">
-                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
                         <Border Margin="0,0,0,8" Padding="14,9" CornerRadius="7"
                                 Background="#E5F0FC" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
                             <Grid>
@@ -1043,7 +1043,35 @@
                             </Grid>
                         </Border>
 
-                        <TabControl Grid.Row="1" Style="{StaticResource SectionTabControlStyle}">
+                        <!-- DEV-only: character identity / read-only history browser.
+                             Never changes packet-to-character attribution. -->
+                        <Border x:Name="CharacterStatsPanel" Grid.Row="1" Visibility="Collapsed"
+                                Margin="0,0,0,9" Padding="12,9" CornerRadius="8"
+                                Background="#EDF4FD" BorderBrush="{StaticResource RoSoftBorderBrush}"
+                                BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/><ColumnDefinition Width="16"/>
+                                    <ColumnDefinition Width="280"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock x:Name="CharacterPanelTitle" FontWeight="Bold" FontSize="13" Text="Активный персонаж"/>
+                                    <TextBlock x:Name="CharacterStateText" Foreground="{StaticResource RoBlueBrush}"
+                                               FontWeight="SemiBold" Margin="0,4,0,0" Text="Ожидание подключения"/>
+                                    <TextBlock x:Name="CharacterBrowseHintText" FontSize="11" TextWrapping="Wrap"
+                                               Foreground="{StaticResource RoMutedBrush}" Margin="0,3,0,0"
+                                               Text="Ручной выбор — просмотр истории; запись пакетов только по подтверждённой сетевой сессии."/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2">
+                                    <ComboBox x:Name="CharacterBrowseCombo" MinHeight="30"
+                                              SelectionChanged="CharacterBrowseCombo_SelectionChanged"/>
+                                    <TextBlock x:Name="CharacterBrowseDetailsText" FontSize="11"
+                                               Foreground="{StaticResource RoMutedBrush}" TextWrapping="Wrap"
+                                               Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <TabControl Grid.Row="2" Style="{StaticResource SectionTabControlStyle}">
                             <TabItem Header="{DynamicResource StatisticsTab}">
                                 <Grid Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions><ColumnDefinition Width="350"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
