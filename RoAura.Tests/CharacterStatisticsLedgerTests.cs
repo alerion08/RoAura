@@ -202,6 +202,75 @@ public sealed class CharacterStatisticsLedgerTests
         });
     }
 
+
+    [Fact]
+    public void Shared_clock_starts_on_first_EXP_not_login_loot_or_Zeny()
+    {
+        WithStore(store =>
+        {
+            var ledger = new CharacterStatisticsLedger(store);
+            ledger.SwitchTo(A, Start);
+            ledger.AddLoot(501, "Potion", 2, Start.AddMinutes(5));
+            ledger.ObserveZeny(1000, Start.AddMinutes(8));
+            var before = ledger.Snapshot(A, Start.AddMinutes(10))!;
+            Assert.False(before.SessionTimerStarted);
+            Assert.Equal(0, before.SessionActiveTicks);
+
+            ledger.AddExperience(100, true, Start.AddMinutes(12));
+            var active = ledger.Snapshot(A, Start.AddMinutes(13))!;
+            Assert.True(active.SessionTimerStarted);
+            Assert.Equal(Start.AddMinutes(12), active.SessionStartedUtc);
+            Assert.Equal(TimeSpan.FromMinutes(1).Ticks, active.SessionActiveTicks);
+            ledger.SwitchTo(B, Start.AddMinutes(13));
+            ledger.AddLoot(502, "Orange Potion", 1, Start.AddMinutes(14));
+            Assert.False(ledger.Snapshot(B, Start.AddMinutes(15))!.SessionTimerStarted);
+            ledger.SwitchTo(A, Start.AddMinutes(30));
+            Assert.Equal(TimeSpan.FromMinutes(2).Ticks,
+                ledger.Snapshot(A, Start.AddMinutes(31))!.SessionActiveTicks);
+            Assert.False(ledger.Snapshot(B, Start.AddMinutes(31))!.SessionTimerStarted);
+        });
+    }
+
+    [Fact]
+    public void Manual_start_uses_same_timer_and_resets_only_active_character()
+    {
+        WithStore(store =>
+        {
+            var ledger = new CharacterStatisticsLedger(store);
+            ledger.SwitchTo(A, Start);
+            ledger.AddLoot(501, "Potion", 1, Start);
+            ledger.StartNewSession(Start.AddMinutes(10));
+            Assert.True(ledger.Snapshot(A, Start.AddMinutes(10))!.SessionTimerStarted);
+            Assert.Equal(0, ledger.Snapshot(A, Start.AddMinutes(10))!.SessionActiveTicks);
+            Assert.Empty(ledger.Snapshot(A, Start.AddMinutes(10))!.SessionLoot);
+            Assert.Equal(TimeSpan.FromMinutes(3).Ticks,
+                ledger.Snapshot(A, Start.AddMinutes(13))!.SessionActiveTicks);
+            ledger.ResetCurrentSession(Start.AddMinutes(13));
+            Assert.False(ledger.Snapshot(A, Start.AddMinutes(15))!.SessionTimerStarted);
+            Assert.Equal(0, ledger.Snapshot(A, Start.AddMinutes(15))!.SessionActiveTicks);
+            ledger.AddExperience(25, false, Start.AddMinutes(16));
+            Assert.Equal(TimeSpan.FromMinutes(1).Ticks,
+                ledger.Snapshot(A, Start.AddMinutes(17))!.SessionActiveTicks);
+        });
+    }
+
+    [Fact]
+    public void Started_clock_survives_restart_without_counting_offline_time()
+    {
+        WithStore(store =>
+        {
+            var ledger = new CharacterStatisticsLedger(store);
+            ledger.SwitchTo(A, Start);
+            ledger.AddExperience(100, false, Start.AddMinutes(3));
+            ledger.Suspend(Start.AddMinutes(9));
+            var restarted = new CharacterStatisticsLedger(store);
+            restarted.SwitchTo(A, Start.AddHours(2));
+            var snapshot = restarted.Snapshot(A, Start.AddHours(2).AddMinutes(4))!;
+            Assert.True(snapshot.SessionTimerStarted);
+            Assert.Equal(TimeSpan.FromMinutes(10).Ticks, snapshot.SessionActiveTicks);
+        });
+    }
+
     private static void WithStore(Action<CharacterStatisticsStore> check)
     {
         var directory = Path.Combine(Path.GetTempPath(), "RoAura-stats-test-" + Guid.NewGuid().ToString("N"));
