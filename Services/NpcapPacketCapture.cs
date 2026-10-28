@@ -18,6 +18,7 @@ public sealed class NpcapPacketCapture : IDisposable
     // DEV only: diagnostics are completely separate from XP, loot and status routing.
     private readonly CharacterSessionManager _characterSessions = new();
     public CharacterSessionSnapshot CharacterSession => _characterSessions.Current;
+    public event Action<CharacterSessionSnapshot>? CharacterSessionChanged;
     public bool IsCurrentCharacterSession(CharacterSessionSnapshot snapshot) =>
         AppEnvironment.IsDevelopment && _characterSessions.IsCurrent(snapshot);
 
@@ -25,9 +26,12 @@ public sealed class NpcapPacketCapture : IDisposable
     {
         if (AppEnvironment.IsDevelopment)
             _characterSessions.StateChanged += snapshot =>
+            {
                 DebugLog.Write($"CHARACTER SESSION SHADOW: phase={snapshot.Phase}; " +
                                $"server={snapshot.ServerKey}; cid={snapshot.CharacterId}; " +
                                $"clientPort={snapshot.ClientPort}; mapPort={snapshot.MapPort}");
+                CharacterSessionChanged?.Invoke(snapshot);
+            };
     }
     private CancellationTokenSource? _cancellation;
     private int _generation;
