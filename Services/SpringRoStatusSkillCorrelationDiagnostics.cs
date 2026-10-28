@@ -13,6 +13,11 @@ public sealed class SpringRoStatusSkillCorrelationDiagnostics
         public int Count;
         public readonly Dictionary<int, ushort> FirstWords = [];
         public readonly HashSet<int> StableWordOffsets = [];
+        public ushort FirstXorDerivedStatus;
+        public ushort FirstAddDerivedStatus;
+        public bool XorDerivedStable = true;
+        public bool AddDerivedStable = true;
+        public bool ActorHighHalfMatchesAll = true;
     }
 
     private readonly Dictionary<(ushort SkillId, ushort StatusOpcode), Series> _series = [];
@@ -73,6 +78,27 @@ public sealed class SpringRoStatusSkillCorrelationDiagnostics
         // Bounded per-flow output; comparisons continue silently after 16 samples.
         if (series.Count > 16) return null;
 
+        // Diagnostic hypothesis only: if SpringRO uses one per-packet XOR mask
+        // on status(+2) and actor-low(+4), undoing it with the confirmed own AID
+        // yields a stable EFST across repeated casts. Addition is an independent
+        // control hypothesis. Neither value is used to drive any live status.
+        ushort selfLow = (ushort)verifiedSelfAid;
+        ushort actorLow = words[4];
+        ushort xorCandidate = (ushort)(words[2] ^ actorLow ^ selfLow);
+        ushort addCandidate = unchecked((ushort)(words[2] - actorLow + selfLow));
+        bool actorHighHalfMatches = words[6] == (ushort)(verifiedSelfAid >> 16);
+        if (series.Count == 1)
+        {
+            series.FirstXorDerivedStatus = xorCandidate;
+            series.FirstAddDerivedStatus = addCandidate;
+        }
+        else
+        {
+            series.XorDerivedStable &= xorCandidate == series.FirstXorDerivedStatus;
+            series.AddDerivedStable &= addCandidate == series.FirstAddDerivedStatus;
+        }
+        series.ActorHighHalfMatchesAll &= actorHighHalfMatches;
+
         for (var offset = 2; offset < words.Length; offset++)
         {
             // Exclude known state/timer region (+8..+16) and opcode.
@@ -96,10 +122,16 @@ public sealed class SpringRoStatusSkillCorrelationDiagnostics
                 ? "none" : string.Join(",", series.StableWordOffsets.OrderBy(x => x)));
         var own = ownOffsets.Count == 0 ? "none" : string.Join(",", ownOffsets);
         var kind = status.Opcode == 0x0983 ? "start-candidate" : "end-candidate";
+        var xorResult = series.Count < 3 ? "pending-3-samples"
+            : series.XorDerivedStable ? $"stable-candidate-{series.FirstXorDerivedStatus}" : "unstable";
+        var addResult = series.Count < 3 ? "pending-3-samples"
+            : series.AddDerivedStable ? $"stable-candidate-{series.FirstAddDerivedStatus}" : "unstable";
         return $"SPRINGRO STATUS-SKILL PAIR: skill={probe.SkillId}; kind={kind}; " +
                $"statusOpcode=0x{status.Opcode:X4}; statusOffset={status.Offset}; " +
                $"skillOffset={probe.Offset}; sample={series.Count}; " +
                $"selfAidU32Offsets={own}; stableU16Offsets={stable}; " +
+               $"actorHigh16MatchesSelf={actorHighHalfMatches}; actorHigh16AllMatch={series.ActorHighHalfMatchesAll}; " +
+               $"xorDerivedStatus={xorResult}; addDerivedStatus={addResult}; " +
                $"statusFields={status.Fields}";
     }
 }
