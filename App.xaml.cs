@@ -601,6 +601,14 @@ public partial class App : Application
             if (_characterLedger.Active == key) _characterLedger.Suspend(now);
             _characterLedger.SwitchTo(key, now);
             _appliedCharacterRevision = session.Revision;
+            // The existing status/cooldown AID cache and equipment flags belong
+            // to the previous character; clear those without resetting the
+            // persisted, character-specific rate or Gold Goblin data.
+            if (_settingsWindow is not null)
+            {
+                _settingsWindow.Settings.PacketPlayerAid = 0;
+                ResetPacketSession(resetTrackedState: true);
+            }
             var record = _characterLedger.Snapshot(key, DateTime.UtcNow)!;
             _nextBaseExperience = record.NextBaseExperience;
             _nextJobExperience = record.NextJobExperience;
@@ -857,6 +865,12 @@ public partial class App : Application
         {
             settings.PacketPlayerAid = packet.Aid;
             _settingsStore?.Save(settings);
+        }
+        else if (session.HasValue && settings.PacketPlayerAid == 0)
+        {
+            // The EXP packet is tied to the active character TCP flow and
+            // can safely re-seed AID for existing skill/status filtering.
+            settings.PacketPlayerAid = packet.Aid;
         }
 
         var isJob = packet.ExperienceType == 2;
