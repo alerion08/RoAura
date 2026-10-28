@@ -175,6 +175,26 @@ public sealed class PacketSkillEffectRegressionTests
         Assert.False(observed[3].IsHidden);
     }
 
+    [Theory]
+    [InlineData((ushort)0x0119)]
+    [InlineData((ushort)0x0229)]
+    public void Full_16_bit_actor_flags_are_valid_not_capped_at_4096(ushort opcode)
+    {
+        var bytes = new byte[opcode == 0x0119 ? 13 : 15];
+        Write16(bytes, 0, opcode);
+        Write32(bytes, 2, 2004474);
+        Write16(bytes, 6, 0x8000); // Highest bodyState bit is legal
+        Write16(bytes, 8, 0x4000); // High healthState bit is legal
+        if (opcode == 0x0119) Write16(bytes, 10, 2);
+        else Write32(bytes, 10, 2);
+        bytes[^1] = 0;
+        var scanner = new RoPacketStreamScanner();
+        var received = new List<RoOptionPacket>();
+        scanner.OptionChanged += received.Add;
+        scanner.Process(bytes);
+        Assert.True(Assert.Single(received).IsHidden);
+    }
+
     [Fact]
     public void Malformed_actor_option_must_not_trigger_statuses()
     {
