@@ -6,6 +6,9 @@ namespace RoAura.Services;
 public sealed record RoPacketLayoutProbe(ushort Opcode, long Offset, bool Boundary,
     uint Actor, uint AlternateActor, string Fields)
 {
+    // Populated only by the explicit DEV wire-sample launch mode.
+    public ReadOnlyMemory<byte> WireBytes { get; init; }
+
     // DEV-only transient scalar candidates, never printed as raw values.
     // Offsets 0..N refer to the start of this candidate frame.
     public ushort[]? CandidateWords { get; init; }
@@ -17,7 +20,7 @@ public sealed record RoPacketLayoutProbe(ushort Opcode, long Offset, bool Bounda
     public byte? StatusState { get; init; }
     public uint StatusTotalMs { get; init; }
     public uint StatusLeftMs { get; init; }
-    public static RoPacketLayoutProbe? Create(ReadOnlySpan<byte> frame, long offset, bool boundary)
+    public static RoPacketLayoutProbe? Create(ReadOnlySpan<byte> frame, long offset, bool boundary, bool includeWireBytes = false)
     {
         if (frame.Length < 2) return null;
         var opcode = BinaryPrimitives.ReadUInt16LittleEndian(frame);
@@ -57,7 +60,8 @@ public sealed record RoPacketLayoutProbe(ushort Opcode, long Offset, bool Bounda
                 break;
             default: return null;
         }
-        var probe = new RoPacketLayoutProbe(opcode, offset, boundary, actor, alternate, fields);
+        var probe = new RoPacketLayoutProbe(opcode, offset, boundary, actor, alternate, fields)
+        { WireBytes = includeWireBytes ? frame.ToArray() : ReadOnlyMemory<byte>.Empty };
         if (opcode == 0x09CB)
             return probe with { SkillId = U16(frame, 2), SkillSucceeded = frame[^1] == 1 };
         if (opcode is 0x0983 or 0x0196)

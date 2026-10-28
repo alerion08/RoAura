@@ -83,11 +83,20 @@ public sealed class NpcapPacketCapture : IDisposable
 
     private readonly PacketLayoutDiagnostics _layoutDiagnostics = new();
     private volatile bool _springRoStatusCorrelationEnabled;
+    private readonly SpringRoStatusWireCapture _statusWireCapture = new();
+    private static bool WireSamplesRequested => AppEnvironment.IsDevelopment &&
+        Environment.GetCommandLineArgs().Contains(SpringRoStatusWireCapture.Argument, StringComparer.Ordinal);
 
     public void BeginLearningDiagnostics()
     {
         if (!AppEnvironment.IsDevelopment) return;
         _layoutDiagnostics.Begin(DateTime.UtcNow);
+        if (_springRoStatusCorrelationEnabled && WireSamplesRequested)
+        {
+            _statusWireCapture.Begin(DateTime.UtcNow);
+            DebugLog.Write("SPRINGRO WIRE WINDOW started; maxSamples=16; durationSeconds=120; " +
+                "contains=exact-status-option-skill-bytes-and-self-AID; optIn=true");
+        }
         DebugLog.Write("PACKET LAYOUT WINDOW started; durationSeconds=120; maxCandidates=256; actorLabels=window-local");
     }
 
@@ -131,6 +140,7 @@ public sealed class NpcapPacketCapture : IDisposable
             _activeGeneration = generation;
             _activeDevices = 0;
             _rejectedOptionDiagnosticCount = 0;
+            _statusWireCapture.Reset();
             _springRoStatusCorrelationEnabled = AppEnvironment.IsDevelopment &&
                 GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
             if (AppEnvironment.IsDevelopment) _layoutDiagnostics.Begin(DateTime.UtcNow);
@@ -565,6 +575,7 @@ public sealed class NpcapPacketCapture : IDisposable
         CharacterSessionFlow packetFlow)
     {
         var scanner = new RoPacketStreamScanner(equipmentCache);
+        scanner.CaptureStatusWireBytes = _springRoStatusCorrelationEnabled && WireSamplesRequested;
         var source = RegisterTrackingSource(generation, packetFlow);
         var statusSkillCorrelation = _springRoStatusCorrelationEnabled
             ? new SpringRoStatusSkillCorrelationDiagnostics() : null;
@@ -580,6 +591,9 @@ public sealed class NpcapPacketCapture : IDisposable
                 if (_layoutDiagnostics.Format(probe, source, observation.SelfAid,
                         observation.IdentitySource, observation.ObservedAtUtc) is { } line)
                     DebugLog.Write(line);
+                if (scanner.CaptureStatusWireBytes && _statusWireCapture.Observe(probe, source,
+                        observation.SelfAid, observation.ObservedAtUtc) is { } sample)
+                    DebugLog.Write(sample);
                 if (statusSkillCorrelation?.Observe(probe, observation.SelfAid) is { } pair)
                     DebugLog.Write(pair);
                 if (correlatedHiding?.Observe(probe, observation.SelfAid) is { } hidden)

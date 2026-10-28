@@ -1,6 +1,6 @@
 # Project state
 
-Last updated: 2026-10-28
+Last updated: 2026-10-29
 
 ## Current product
 
@@ -387,3 +387,37 @@ After the v4 DEV test (commit `9724305e`), the user explicitly confirmed that **
 **Active priority:** address general SpringRO Status ID identification, starting with Enchant Poison (Skill ID 138; repeated 0x0983 180000ms + own successful skill acknowledgment). Observed 16-bit Status ID candidates vary and the full AID does not match. XOR/add-derived hypotheses are unstable. Do not assign a fake EFST ID or silently equate Skill ID with Status ID. If an alternative skill-triggered tracking mode is implemented, identify it explicitly as a distinct mode with documented limitations for early cancellation and non-skill-origin statuses.
 
 No release/merge requested. `main` and tested stable RoAura 3.0 remain untouched.
+
+
+## Status ID investigation: reproducible evidence instead of mask guesses (2026-10-29)
+
+Reviewed all documentation changes through `fb42b04`, current correlation code,
+and the actual 184-line Library report `RoAura-SpringRO-diagnostic-v4.txt`.
+Hiding visual acceptance remains valid; its implementation is unchanged.
+General EFST decoding is **still blocked**. Existing sanitized reports retain
+candidate status numbers but replace actor words with aliases and transformation
+results with `unstable`; they cannot reconstruct even one original status frame.
+Neither a field swap nor the rejected XOR/addition masks should be retried as
+an alleged fix. A successful own Skill 138 does not establish EFST identity.
+
+DEV adds an explicitly opted-in lossless sample path:
+`RoAura.exe --springro-status-samples`, then Learn in the SpringRO profile.
+For 120 seconds, at most 16 contiguous status/[option]/successful self-targeted
+Skill 51 or 138 chains are written as `SPRINGRO WIRE SAMPLE` JSON log lines.
+Only these selected frames plus verified self AID and offsets are included;
+no full TCP dump, login/chat content, endpoint addresses or names. Default
+launches retain metadata-only diagnostics; stable/RTM modes cannot enable this.
+This intentionally differs from the old metadata-only policy: exact original
+fields are needed for an offline reproducible test, and export requires the
+explicit command-line switch. Samples remain local until the user supplies them
+and must never be committed to Git. Reconnect/reset cancels pending capture.
+
+`tools/inspect_springro_status_samples.py` validates and inspects these samples
+without modifying application state or inventing a Status ID. It accepts rotated
+logs too, and reports the standard-layout interpretation and a content digest
+without displaying raw actors. Synthetic tests verify lossless round trip,
+foreign/failed/unrelated events, identity changes, missing/expired boundaries,
+closed source, count/time bounds and default-off behavior. 92 focused C# harness
+scenarios and 3 Python inspector tests pass locally. Windows CI remains the
+full application/portable check. No new game-facing decoder or skill-triggered
+fallback, no main merge, version change or release.

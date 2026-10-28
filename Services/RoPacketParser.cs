@@ -112,6 +112,7 @@ public sealed class RoPacketStreamScanner
     public event Action<RoStatusPacket>? StatusChanged;
     public event Action? StreamReset;
     public event Action<RoPacketLayoutProbe>? LayoutProbed;
+    public bool CaptureStatusWireBytes { get; set; }
     public event Action<RoSelfAidPacket>? SelfAidObserved;
     public event Action<RoOptionPacket>? OptionChanged;
     // DEV diagnostics can report an option opcode whose candidate body was
@@ -157,7 +158,7 @@ public sealed class RoPacketStreamScanner
             // They never change framing, identity or the decoded event stream.
             if (LayoutProbed is not null && frameLength > 0 &&
                 RoPacketLayoutProbe.Create(combined.AsSpan(offset, frameLength),
-                    _streamOffset + offset, _knownBoundary) is { } probe)
+                    _streamOffset + offset, _knownBoundary, CaptureStatusWireBytes) is { } probe)
                 LayoutProbed.Invoke(probe);
             switch (packetId)
             {

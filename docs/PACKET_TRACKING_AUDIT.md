@@ -297,3 +297,52 @@ The same v4 trace contains **7 Enchant Poison** `0x0983 (180000ms) → own Skill
 The user confirmed after the seven Hiding ON/OFF cycles in the v4 DEV log that **the on-screen Hiding overlay displayed correctly**. This complements the 14 matching `PACKET EFFECT TRANSITION status=4` events and resolves the outstanding visual-acceptance question for this exact test. Do not request another identical Hiding ON/OFF test without a new regression. This is not proof of relog, expired/early-cleared effects outside the tested sequence, or all reminder permutations.
 
 Enchantment/other buff learning remains a **separate open problem**; there is still no verified EFST decoding of the observed SpringRO `0x0983` payload for Enchant Poison.
+
+
+## Lossless evidence gate for general Status ID decoding (2026-10-29)
+
+The v4 report itself was read, not just the project summary. Its 7 Enchant
+Poison pairs and confirmed Hiding transitions agree with the recorded findings.
+The missing information is precise: bytes +2..+5 of each candidate status frame
+and their relationship to the verified own actor are not preserved together.
+The repeated `unstable` output is a verdict on two formulas, not data from which
+a new formula can be tested. Standard rAthena/OpenKore layouts alone cannot
+explain these observed values. Do not spend another live test on one more
+hypothetical mask. A client replay might provide a second view, but no SpringRO
+replay was supplied and it is not established whether its data would be decoded.
+
+### One-time opted-in capture and offline replay
+
+1. Close the running DEV instance, start the new portable from PowerShell:
+   `.\RoAura.exe --springro-status-samples`. The flag is deliberately not a
+   saved setting and does nothing for stable builds or another server profile.
+2. With SpringRO selected and the character logged in, start **Learn Status ID**
+   for Enchant Poison, then apply it 3–5 times. No repeat Hiding test is required.
+   Learning may still fail: this is evidence collection, not an EFST fix.
+3. The normal `%APPDATA%\RoAura-Dev\debug.log` (and rotated `debug.1.log`, etc.)
+   contains `SPRINGRO WIRE SAMPLE { ... }`. These lines contain the exact selected
+   status/option/skill bytes and own actor number. They contain no login, names,
+   chat, IP address or full network stream. Do not use the old sanitized v4
+   exporter: its whitelist may omit the new records. Supply the sample lines
+   or logs privately, never in a public issue/commit.
+4. Developer replay command:
+   `python tools/inspect_springro_status_samples.py debug.log debug.1.log`.
+   The inspector rejects incomplete, foreign, failed or inconsistent chains;
+   a zero-sample input fails rather than claiming diagnostic success. It does
+   not discover a decoder. Exact bytes permit the same future decoder to be
+   tested repeatedly offline without another build per arithmetic hypothesis.
+
+Collection is limited to the active observation source, contiguous expected
+lengths and known boundary estimates, nonzero frozen self identity, matching
+status actor high half, correct state byte, successful own self-targeted
+Skill 51/138 and an ACK within two seconds. The high-half check is a sample
+selection filter, not proof of true status ownership. Window cap: 16 pairs /
+120 seconds, pending sources: 8. Capture resets with connection settings;
+closed/replaced source tokens cannot finish an old pair. Raw data is retained
+only in explicit capture mode and is written through the existing nonblocking
+log queue. It never feeds learning, Hiding, effects, reminders or statistics.
+
+Acceptance for any future decoder: one hypothesis must recover consistent
+EFST and full actor identity on the original bytes across multiple known
+statuses and both start/end packets, with a negative control; only then add
+an anonymized structural regression fixture. Do not check in a private sample.
