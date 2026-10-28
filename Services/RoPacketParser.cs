@@ -231,7 +231,13 @@ public sealed class RoPacketStreamScanner
                     offset += length - 1;
                     break;
 
-                case 0x0283 when TryReadSelfAid(combined, offset, out var length, out var selfAid):
+                // The scanner searches all byte offsets in arbitrary packet payload.
+                // A short 0x0283 signature inside item/text data is not self
+                // identity. Accept only at the start of a TCP chunk (or the
+                // first short fragmented chunk of a new flow).
+                case 0x0283 when (offset == previousLength ||
+                        (offset == 0 && previousLength <= 5)) &&
+                        TryReadSelfAid(combined, offset, out var length, out var selfAid):
                     if (offset + length > previousLength) SelfAidObserved?.Invoke(selfAid);
                     offset += length - 1;
                     break;
