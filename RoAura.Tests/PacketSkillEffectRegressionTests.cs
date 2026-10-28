@@ -145,6 +145,51 @@ public sealed class PacketSkillEffectRegressionTests
         Assert.Equal((ushort)69, Assert.Single(observed).SkillId);
     }
 
+    [Theory]
+    [InlineData((ushort)0x0119)]
+    [InlineData((ushort)0x0229)]
+    public void Option_packets_report_Hiding_activation_and_removal(ushort opcode)
+    {
+        byte[] Create(uint mask)
+        {
+            var bytes = new byte[opcode == 0x0229 ? 15 : 13];
+            Write16(bytes, 0, opcode);
+            Write32(bytes, 2, 4200);
+            if (opcode == 0x0229) Write32(bytes, 10, mask);
+            else Write16(bytes, 10, (ushort)mask);
+            bytes[^1] = 0;
+            return bytes;
+        }
+        var scanner = new RoPacketStreamScanner();
+        var observed = new List<RoOptionPacket>();
+        scanner.OptionChanged += observed.Add;
+        scanner.Process(Create(0));
+        scanner.Process(Create(2));
+        scanner.Process(Create(2));
+        scanner.Process(Create(0));
+        Assert.Equal(4, observed.Count);
+        Assert.Equal((uint)4200, observed[0].Aid);
+        Assert.False(observed[0].IsHidden);
+        Assert.True(observed[1].IsHidden);
+        Assert.True(observed[2].IsHidden);
+        Assert.False(observed[3].IsHidden);
+    }
+
+    [Fact]
+    public void Malformed_actor_option_must_not_trigger_statuses()
+    {
+        var bytes = new byte[15];
+        Write16(bytes, 0, 0x0229);
+        Write32(bytes, 2, 4200);
+        Write32(bytes, 10, 2);
+        bytes[14] = 4; // Invalid PK-mode boolean
+        var scanner = new RoPacketStreamScanner();
+        var count = 0;
+        scanner.OptionChanged += _ => count++;
+        scanner.Process(bytes);
+        Assert.Equal(0, count);
+    }
+
     [Fact]
     public void Invalid_skill_packets_are_rejected()
     {
