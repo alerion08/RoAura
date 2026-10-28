@@ -112,6 +112,7 @@ public sealed class RoPacketStreamScanner
     // DEV diagnostics can report an option opcode whose candidate body was
     // rejected, without recording any packet bytes or actor identifiers.
     public event Action<ushort>? OptionCandidateRejected;
+    public event Action<ushort, string>? OptionCandidateRejectedDetailed;
     public event Action<RoSkillPacket>? SkillUsed;
     public event Action<RoSkillCooldownPacket>? SkillCooldown;
     public event Action<RoEquipmentPacket>? EquipmentChanged;
@@ -260,11 +261,15 @@ public sealed class RoPacketStreamScanner
                 case 0x0119 when offset + OldOptionPacketSize <= combined.Length &&
                     offset + OldOptionPacketSize > previousLength:
                     OptionCandidateRejected?.Invoke(packetId);
+                    OptionCandidateRejectedDetailed?.Invoke(packetId,
+                        OptionRejectReason(combined, offset, OldOptionPacketSize));
                     break;
 
                 case 0x0229 when offset + NewOptionPacketSize <= combined.Length &&
                     offset + NewOptionPacketSize > previousLength:
                     OptionCandidateRejected?.Invoke(packetId);
+                    OptionCandidateRejectedDetailed?.Invoke(packetId,
+                        OptionRejectReason(combined, offset, NewOptionPacketSize));
                     break;
 
                 case 0x0983 when TryReadTimedStatus(combined, offset, TimedStatusPacketSize, packetId,
@@ -340,6 +345,13 @@ public sealed class RoPacketStreamScanner
         if (aid == 0) return false;
         packet = new RoSelfAidPacket(aid);
         return true;
+    }
+
+    private static string OptionRejectReason(byte[] data, int offset, int length)
+    {
+        if (ReadUInt32(data, offset + 2) == 0) return "actor-zero-or-embedded-signature";
+        if (data[offset + length - 1] > 1) return "pk-mode-not-boolean-or-embedded-signature";
+        return "unclassified";
     }
 
     private static bool TryReadOptionState(byte[] data, int offset, int packetLength,
