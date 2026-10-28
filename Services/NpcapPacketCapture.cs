@@ -568,6 +568,8 @@ public sealed class NpcapPacketCapture : IDisposable
         var source = RegisterTrackingSource(generation, packetFlow);
         var statusSkillCorrelation = _springRoStatusCorrelationEnabled
             ? new SpringRoStatusSkillCorrelationDiagnostics() : null;
+        var correlatedHiding = statusSkillCorrelation is null
+            ? null : new SpringRoCorrelatedHidingTracker();
         var hiding = new HidingStateTracker();
         var pendingStatuses = new PendingStatusObservations();
         if (AppEnvironment.IsDevelopment)
@@ -580,6 +582,18 @@ public sealed class NpcapPacketCapture : IDisposable
                     DebugLog.Write(line);
                 if (statusSkillCorrelation?.Observe(probe, observation.SelfAid) is { } pair)
                     DebugLog.Write(pair);
+                if (correlatedHiding?.Observe(probe, observation.SelfAid) is { } hidden)
+                {
+                    DebugLog.Write($"SPRINGRO HIDING VERIFIED: active={hidden}; skill=51; " +
+                                   $"statusOpcode=0x{(hidden ? 0x0983 : 0x0196):X4}; " +
+                                   $"source=correlated-own-skill");
+                    // Standard EFST_HIDING = 4. This is a proven state
+                    // transition, NOT a decoded EFST from the scrambled frame.
+                    // No server timer is invented for this indefinite state.
+                    PublishStatus(new RoStatusPacket(
+                        hidden ? (ushort)0x0983 : (ushort)0x0196,
+                        4, observation.SelfAid, hidden, 0, 0));
+                }
             });
         void PublishStatus(RoStatusPacket packet)
         {
@@ -600,6 +614,7 @@ public sealed class NpcapPacketCapture : IDisposable
             CloseTrackingSource(packetFlow, source);
             hiding.Reset();
             statusSkillCorrelation?.Reset();
+            correlatedHiding?.Reset();
             pendingStatuses.Reset();
             source = RegisterTrackingSource(generation, packetFlow);
         };
@@ -622,6 +637,11 @@ public sealed class NpcapPacketCapture : IDisposable
         scanner.OptionChanged += packet => Forward(generation, () =>
         {
             OptionChanged?.Invoke(Observe(packet, source));
+            // SpringRO DEV's OPTION_HIDE bit fluctuates even within
+            // confirmed own Hiding transitions. Only the corroborated
+            // 0x0983/0x0196 -> own Skill 51 path may drive status=4.
+            // RTM, Other, and all non-DEV behavior remain untouched.
+            if (correlatedHiding is not null) return;
             // EFST_HIDING = 4, TF_HIDING = 51 in standard RO.
             // Synthetic status carries no guessed duration.
             PublishStatus(new RoStatusPacket(packet.PacketId, 4, packet.Aid, packet.IsHidden, 0, 0));
