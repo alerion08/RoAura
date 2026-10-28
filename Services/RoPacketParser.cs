@@ -77,6 +77,8 @@ public sealed class RoPacketStreamScanner
     private const int LegacyTimedStatusPacketSize = 25;
     private const int SimpleStatusPacketSize = 9;
     private const int SkillUsePacketSize = 25;
+    private const int LegacySkillUsePacketSize = 15;
+    private const int DamageSkillPacketSize = 33;
     private const int SkillCooldownPacketSize = 8;
     private const int MaximumEquipmentListLength = 8192;
     private byte[] _carry = [];
@@ -240,6 +242,16 @@ public sealed class RoPacketStreamScanner
                     offset += length - 1;
                     break;
 
+                case 0x011A when TryReadLegacySkillUse(combined, offset, out var length, out var legacySkill):
+                    if (offset + length > previousLength) SkillUsed?.Invoke(legacySkill);
+                    offset += length - 1;
+                    break;
+
+                case 0x01DE when TryReadDamageSkill(combined, offset, out var length, out var damageSkill):
+                    if (offset + length > previousLength) SkillUsed?.Invoke(damageSkill);
+                    offset += length - 1;
+                    break;
+
                 case 0x043D when TryReadSkillCooldown(combined, offset, out var length, out var cooldown):
                     if (offset + length > previousLength)
                         SkillCooldown?.Invoke(cooldown);
@@ -262,10 +274,12 @@ public sealed class RoPacketStreamScanner
         var statusId = ReadUInt16(data, offset + 2);
         var aid = ReadUInt32(data, offset + 4);
         var state = data[offset + 8];
-        var remainingMs = ReadUInt32(data, offset + 9);
-        var totalMs = length >= TimedStatusPacketSize ? ReadUInt32(data, offset + 13) : remainingMs;
+        // 0x0983 layout: Total at +9, Left at +13. 0x043F has only Left at +9.
+        var totalMs = length >= TimedStatusPacketSize ? ReadUInt32(data, offset + 9) : 0;
+        var remainingMs = ReadUInt32(data, offset + (length >= TimedStatusPacketSize ? 13 : 9));
+        if (length < TimedStatusPacketSize) totalMs = remainingMs;
         if (statusId is 0 or > 20000 || aid == 0 || state > 1 ||
-            !LooksLikeDuration(remainingMs))
+            !LooksLikeDuration(remainingMs) || !LooksLikeDuration(totalMs))
             return false;
 
         packet = new RoStatusPacket(packetId, statusId, aid, state == 1,
@@ -308,6 +322,40 @@ public sealed class RoPacketStreamScanner
             return false;
 
         packet = new RoSkillPacket(skillId, sourceAid, targetAid, delayMs);
+        return true;
+    }
+
+    private static bool TryReadLegacySkillUse(byte[] data, int offset, out int length,
+        out RoSkillPacket packet)
+    {
+        packet = default;
+        length = LegacySkillUsePacketSize;
+        if (offset + length > data.Length) return false;
+        var skillId = ReadUInt16(data, offset + 2);
+        var level = ReadUInt16(data, offset + 4);
+        var target = ReadUInt32(data, offset + 6);
+        var source = ReadUInt32(data, offset + 10);
+        var result = data[offset + 14];
+        if (skillId is 0 or > 20000 || level is 0 or > 100 ||
+            target == 0 || source == 0 || result > 1) return false;
+        packet = new RoSkillPacket(skillId, source, target, 0);
+        return true;
+    }
+
+    private static bool TryReadDamageSkill(byte[] data, int offset, out int length,
+        out RoSkillPacket packet)
+    {
+        packet = default;
+        length = DamageSkillPacketSize;
+        if (offset + length > data.Length) return false;
+        var skillId = ReadUInt16(data, offset + 2);
+        var source = ReadUInt32(data, offset + 4);
+        var target = ReadUInt32(data, offset + 8);
+        var level = ReadUInt16(data, offset + 28);
+        var hitCount = ReadUInt16(data, offset + 30);
+        if (skillId is 0 or > 20000 || source == 0 || target == 0 ||
+            level > 100 || hitCount > 1000) return false;
+        packet = new RoSkillPacket(skillId, source, target, 0);
         return true;
     }
 
