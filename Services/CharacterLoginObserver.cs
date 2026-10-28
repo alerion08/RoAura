@@ -130,6 +130,9 @@ public sealed class CharacterLoginObserver
         RecentDiagnostics = new();
     private readonly ConcurrentDictionary<TcpFlowKey, CharacterLoginStreamProbe> _flows = new();
     internal event Action<TcpFlowKey, CharacterLoginCandidate>? CandidateDetected;
+    private readonly object _seenLock = new();
+    private readonly HashSet<(ushort Opcode, uint Cid, ushort ClientPort, ushort MapPort)>
+        _seenThisGeneration = [];
     private int _unrecognizedLogged;
 
     internal void Observe(TcpFlowKey key, uint sequence, ReadOnlySpan<byte> payload, bool closing)
@@ -155,8 +158,17 @@ public sealed class CharacterLoginObserver
                                $"mapPort={key.DestinationPort}; check packetver / late capture");
             return;
         }
-        if (!ShouldLogCandidate(candidate, key)) return;
+        var identity = (candidate.PacketId, candidate.CharacterId,
+            key.SourcePort, key.DestinationPort);
+        lock (_seenLock)
+        {
+            if (!_seenThisGeneration.Add(identity)) return;
+            if (_seenThisGeneration.Count > MaximumFlows) _seenThisGeneration.Clear();
+        }
+        // Log suppression is process-global, identity delivery is per-generation.
+        // A filter restart must never lose a CID due to a recent diagnostic log.
         CandidateDetected?.Invoke(key, candidate);
+        if (!ShouldLogCandidate(candidate, key)) return;
         DebugLog.Write($"CHARACTER LOGIN CANDIDATE (unconfirmed): opcode=0x{candidate.PacketId:X4}; " +
                        $"cid={candidate.CharacterId}; length={candidate.PacketLength}; " +
                        $"mapPort={key.DestinationPort}; clientPort={key.SourcePort}");
