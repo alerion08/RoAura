@@ -1428,9 +1428,11 @@ public partial class MainWindow : Window
         Settings.PacketCaptureEnabled = true;
         // Preserve the player AID from map-login identity. Erasing it allowed
         // the very first status of another player/mob to be learned as ours.
-        if (!AppEnvironment.IsDevelopment ||
-            _packetCapture.CharacterSession.Phase != CharacterSessionPhase.ActiveObserved)
-            Settings.PacketPlayerAid = 0;
+        // Client AID can be known from ZC_AID or own EXP even when the
+        // map-login CID is unavailable behind a local proxy (127.0.0.1).
+        Settings.PacketPlayerAid = AppEnvironment.IsDevelopment
+            ? _packetCapture.VerifiedPlayerAid
+            : 0;
         _learningSkill = null;
         _learningEffect = null;
         _learningReminder = null;
@@ -1448,10 +1450,10 @@ public partial class MainWindow : Window
         if (!packet.Active) return;
         if (AppEnvironment.IsDevelopment)
         {
-            var active = _packetCapture.CharacterSession;
-            // Prevent learning a nearby actor or an unknown late-attach flow.
-            if (active.Phase != CharacterSessionPhase.ActiveObserved ||
-                active.PlayerAid == 0 || packet.Aid != active.PlayerAid) return;
+            var ownAid = _packetCapture.VerifiedPlayerAid;
+            // Do not accept nearby actors, but don't require a CID when
+            // the map proxy hides the map-login handshake.
+            if (ownAid == 0 || packet.Aid != ownAid) return;
         }
         Dispatcher.BeginInvoke(() =>
         {
@@ -1487,9 +1489,8 @@ public partial class MainWindow : Window
     {
         if (AppEnvironment.IsDevelopment)
         {
-            var active = _packetCapture.CharacterSession;
-            if (active.Phase != CharacterSessionPhase.ActiveObserved ||
-                active.PlayerAid == 0 || packet.SourceAid != active.PlayerAid) return;
+            var ownAid = _packetCapture.VerifiedPlayerAid;
+            if (ownAid == 0 || packet.SourceAid != ownAid) return;
         }
         Dispatcher.BeginInvoke(() =>
         {
@@ -1513,7 +1514,7 @@ public partial class MainWindow : Window
             var skill = _learningSkill;
             if (skill is null || DateTime.UtcNow > _learningUntil) return;
             if (AppEnvironment.IsDevelopment &&
-                _packetCapture.CharacterSession.Phase != CharacterSessionPhase.ActiveObserved)
+                _packetCapture.VerifiedPlayerAid == 0)
                 return;
             skill.PacketSkillId = packet.SkillId;
             _learningSkill = null;
