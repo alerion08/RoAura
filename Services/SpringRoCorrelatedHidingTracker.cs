@@ -62,19 +62,19 @@ public sealed class SpringRoCorrelatedHidingTracker
 
     private static bool ValidStatus(RoPacketLayoutProbe probe, uint ownAid)
     {
-        if (probe.CandidateWords is not { Length: >= 9 } words ||
+        if (probe.CandidateWords is not { Length: >= 8 } words ||
             words[6] != (ushort)(ownAid >> 16))
             return false;
 
-        // Both packet families have state at byte +8. This check also filters
-        // spurious signature hits during scanner re-synchronization.
-        if ((byte)words[8] != (probe.Opcode == 0x0983 ? 1 : 0))
+        // Both packet families have state at byte +8. 0x0196 is only
+        // nine bytes long, so byte +8 has no corresponding U16 sample.
+        if (probe.StatusState != (probe.Opcode == 0x0983 ? 1 : 0))
             return false;
 
-        // In three independent SpringRO samples, Hiding's start candidate
-        // carries 240000 ms for both total and remaining. Duration alone
-        // must never activate Hiding; the confirmed own Skill 51 is required.
-        return probe.Opcode == 0x0196 || probe.CandidateDwords is { Length: >= 17 } dwords &&
-            dwords[9] == 240000 && dwords[13] == 240000;
+        // Repeated SpringRO Hiding starts carry 240000ms for both total
+        // and remaining. A duration alone must never activate Hiding:
+        // the following confirmed own Skill 51 is also mandatory.
+        return probe.Opcode == 0x0196 ||
+            (probe.StatusTotalMs == 240000 && probe.StatusLeftMs == 240000);
     }
 }
