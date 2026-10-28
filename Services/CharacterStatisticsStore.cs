@@ -82,8 +82,16 @@ public sealed class CharacterStatisticsStore
 
     private static CharacterStatisticsDocument ReadValid(string path, CharacterStatisticsKey expected)
     {
-        var document = JsonSerializer.Deserialize<CharacterStatisticsDocument>(File.ReadAllText(path));
+        var content = File.ReadAllText(path);
+        var document = JsonSerializer.Deserialize<CharacterStatisticsDocument>(content);
         if (document is null) throw new InvalidDataException("Empty statistics document.");
+        using (var json = JsonDocument.Parse(content))
+        {
+            // Backward compatibility with pre-shared-clock DEV documents.
+            if (!json.RootElement.TryGetProperty(nameof(CharacterStatisticsDocument.SessionTimerStarted), out _) &&
+                (document.SessionBaseExperience > 0 || document.SessionJobExperience > 0))
+                document.SessionTimerStarted = true;
+        }
         Validate(document, expected);
         return document;
     }
