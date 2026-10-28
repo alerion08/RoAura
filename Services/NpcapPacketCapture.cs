@@ -18,6 +18,8 @@ public sealed class NpcapPacketCapture : IDisposable
     // DEV only: diagnostics are completely separate from XP, loot and status routing.
     private readonly CharacterSessionManager _characterSessions = new();
     public CharacterSessionSnapshot CharacterSession => _characterSessions.Current;
+    public bool IsCurrentCharacterSession(CharacterSessionSnapshot snapshot) =>
+        AppEnvironment.IsDevelopment && _characterSessions.IsCurrent(snapshot);
 
     public NpcapPacketCapture()
     {
@@ -44,6 +46,11 @@ public sealed class NpcapPacketCapture : IDisposable
     public event Action<RoExperiencePacket>? ExperienceChanged;
     public event Action<RoProgressPacket>? ProgressChanged;
     public event Action<RoZenyPacket>? ZenyChanged;
+    // DEV-only: immutable source character session accompanies each reward packet.
+    public event Action<CharacterSessionPacket<RoItemAddedPacket>>? CharacterItemAdded;
+    public event Action<CharacterSessionPacket<RoExperiencePacket>>? CharacterExperienceChanged;
+    public event Action<CharacterSessionPacket<RoProgressPacket>>? CharacterProgressChanged;
+    public event Action<CharacterSessionPacket<RoZenyPacket>>? CharacterZenyChanged;
     public event Action<string>? StateChanged;
 
     public static bool IsNpcapInstalled() => NpcapNative.FindLibraryFolder() is not null;
@@ -395,15 +402,15 @@ public sealed class NpcapPacketCapture : IDisposable
                         if (payload.IsEmpty) continue; // Bare FIN/RST for an unknown flow.
                         PruneIdleFlows(tcpFlows);
                         flow = tcpFlows.GetOrAdd(flowKey, _ => new TcpFlowState(
-                            CreateScanner(generation, equipmentCache, pendingEquipmentEvents)));
+                            CreateScanner(generation, equipmentCache, pendingEquipmentEvents,
+                                CharacterSessionFlow.FromInbound(flowKey))));
                     }
+                    if (AppEnvironment.IsDevelopment && generation == Volatile.Read(ref _generation) &&
+                        !payload.IsEmpty)
+                        _characterSessions.OnServerPayload(CharacterSessionFlow.FromInbound(flowKey));
                     flow.Process(sequence, payload);
-                    if (AppEnvironment.IsDevelopment && generation == Volatile.Read(ref _generation))
-                    {
-                        var characterFlow = CharacterSessionFlow.FromInbound(flowKey);
-                        if (!payload.IsEmpty) _characterSessions.OnServerPayload(characterFlow);
-                        if (closing) _characterSessions.OnConnectionClosed(characterFlow);
-                    }
+                    if (AppEnvironment.IsDevelopment && generation == Volatile.Read(ref _generation) && closing)
+                        _characterSessions.OnConnectionClosed(CharacterSessionFlow.FromInbound(flowKey));
                     // The server side is done with this stream: drop it so the
                     // flow table cannot grow with every reconnect.
                     if (closing) tcpFlows.TryRemove(flowKey, out _);
@@ -466,7 +473,8 @@ public sealed class NpcapPacketCapture : IDisposable
 
     private RoPacketStreamScanner CreateScanner(int generation,
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents)
+        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
+        CharacterSessionFlow packetFlow)
     {
         var scanner = new RoPacketStreamScanner(equipmentCache);
         scanner.StatusChanged += packet => Forward(generation, () => StatusChanged?.Invoke(packet));
@@ -474,11 +482,35 @@ public sealed class NpcapPacketCapture : IDisposable
         scanner.SkillCooldown += packet => Forward(generation, () => SkillCooldown?.Invoke(packet));
         scanner.EquipmentChanged += packet => HandleEquipmentPacket(generation, packet,
             equipmentCache, pendingEquipmentEvents);
-        scanner.ItemAdded += packet => Forward(generation, () => ItemAdded?.Invoke(packet));
-        scanner.ExperienceChanged += packet => Forward(generation, () => ExperienceChanged?.Invoke(packet));
-        scanner.ProgressChanged += packet => Forward(generation, () => ProgressChanged?.Invoke(packet));
-        scanner.ZenyChanged += packet => Forward(generation, () => ZenyChanged?.Invoke(packet));
+        scanner.ItemAdded += packet => Forward(generation, () =>
+        {
+            ItemAdded?.Invoke(packet);
+            ForwardCharacterPacket(packetFlow, packet, CharacterItemAdded);
+        });
+        scanner.ExperienceChanged += packet => Forward(generation, () =>
+        {
+            ExperienceChanged?.Invoke(packet);
+            ForwardCharacterPacket(packetFlow, packet, CharacterExperienceChanged);
+        });
+        scanner.ProgressChanged += packet => Forward(generation, () =>
+        {
+            ProgressChanged?.Invoke(packet);
+            ForwardCharacterPacket(packetFlow, packet, CharacterProgressChanged);
+        });
+        scanner.ZenyChanged += packet => Forward(generation, () =>
+        {
+            ZenyChanged?.Invoke(packet);
+            ForwardCharacterPacket(packetFlow, packet, CharacterZenyChanged);
+        });
         return scanner;
+    }
+
+    private void ForwardCharacterPacket<T>(CharacterSessionFlow flow, T packet,
+        Action<CharacterSessionPacket<T>>? callback)
+    {
+        if (!AppEnvironment.IsDevelopment || callback is null ||
+            !_characterSessions.TryResolve(flow, out var session)) return;
+        callback(new CharacterSessionPacket<T>(session, packet));
     }
 
     private void Forward(int generation, Action action)

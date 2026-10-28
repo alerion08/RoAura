@@ -21,15 +21,41 @@ public readonly record struct CharacterSessionFlow(
 
 public readonly record struct CharacterSessionSnapshot(
     string ServerKey, uint? CharacterId, CharacterSessionPhase Phase,
-    ushort ClientPort, ushort MapPort);
+    ushort ClientPort, ushort MapPort, long Revision = 0);
+
+public readonly record struct CharacterSessionPacket<T>(
+    CharacterSessionSnapshot Session, T Packet);
 
 public sealed class CharacterSessionManager
 {
     private readonly object _sync = new();
     private CharacterSessionFlow? _currentFlow;
+    private long _revision;
     private CharacterSessionSnapshot _current = new("", null, CharacterSessionPhase.Unknown, 0, 0);
 
     public event Action<CharacterSessionSnapshot>? StateChanged;
+
+    public bool TryResolve(CharacterSessionFlow flow, out CharacterSessionSnapshot snapshot)
+    {
+        lock (_sync)
+        {
+            snapshot = _current;
+            return _currentFlow == flow && snapshot.CharacterId is > 0 &&
+                snapshot.Phase == CharacterSessionPhase.ActiveObserved;
+        }
+    }
+
+    public bool IsCurrent(CharacterSessionSnapshot snapshot)
+    {
+        lock (_sync)
+            return _current.Revision == snapshot.Revision &&
+                _current.Phase == CharacterSessionPhase.ActiveObserved &&
+                _current.CharacterId == snapshot.CharacterId &&
+                _current.ServerKey == snapshot.ServerKey &&
+                _current.ClientPort == snapshot.ClientPort &&
+                _current.MapPort == snapshot.MapPort;
+    }
+
 
     public CharacterSessionSnapshot Current
     {
@@ -50,11 +76,11 @@ public sealed class CharacterSessionManager
                 return;
 
             if (_current.Phase is CharacterSessionPhase.Connecting or CharacterSessionPhase.ActiveObserved)
-                suspended = _current with { Phase = CharacterSessionPhase.Suspended };
+                suspended = _current with { Phase = CharacterSessionPhase.Suspended, Revision = ++_revision };
 
             _currentFlow = flow;
             _current = new CharacterSessionSnapshot(serverKey, candidateCid,
-                CharacterSessionPhase.Connecting, flow.ClientPort, flow.ServerPort);
+                CharacterSessionPhase.Connecting, flow.ClientPort, flow.ServerPort, ++_revision);
             next = _current;
         }
         if (suspended is { } previous) StateChanged?.Invoke(previous);
@@ -86,7 +112,7 @@ public sealed class CharacterSessionManager
         {
             if (_currentFlow != flow || _current.Phase is CharacterSessionPhase.Unknown or CharacterSessionPhase.Suspended)
                 return;
-            _current = _current with { Phase = CharacterSessionPhase.Suspended };
+            _current = _current with { Phase = CharacterSessionPhase.Suspended, Revision = ++_revision };
             _currentFlow = null;
             updated = _current;
         }
@@ -101,7 +127,7 @@ public sealed class CharacterSessionManager
         {
             if (_current.Phase is CharacterSessionPhase.Connecting or CharacterSessionPhase.ActiveObserved)
             {
-                _current = _current with { Phase = CharacterSessionPhase.Suspended };
+                _current = _current with { Phase = CharacterSessionPhase.Suspended, Revision = ++_revision };
                 updated = _current;
             }
             _currentFlow = null;
