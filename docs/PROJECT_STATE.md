@@ -271,3 +271,6 @@ ZC_AID 0x0283 or own EXP 0x0ACC on the server flow, permitting secure
 effects/skills attribution without CID; the EXP/Zeny/loot ledger
 still requires a proper CID. Windows CI and real SpringRO verification
 remain required. RTM overlay placement issue explicitly deferred.
+
+## SpringRO effect-tracking follow-up (2026-10-28)
+Second debug capture confirms SpringRO map login CID 154386, but 0x0983 status candidates 17519 and 17578 did not match the logged-in actor, and no valid Hiding option packet was observed. Skill 52 and EXP with player AID 2004474 did work. DEV fixes self-AID precedence to use same-TCP-flow ZC_AID/EXP evidence when present, adds a consistency flag in diagnostics, and reports bounded rejected Hiding option candidates. Real game retesting is still needed; not released or merged.
