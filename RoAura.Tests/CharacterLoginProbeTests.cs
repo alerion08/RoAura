@@ -36,6 +36,7 @@ public sealed class CharacterLoginProbeTests
         Assert.Equal(opcode, found.PacketId);
         Assert.Equal((uint)12002, found.CharacterId);
         Assert.Equal(19, found.PacketLength);
+        Assert.True(probe.Identified);
         Assert.Null(probe.Process(800, packet)); // duplicate adapter / retransmission
         Assert.Null(probe.Process(819, packet));
     }
@@ -81,7 +82,10 @@ public sealed class CharacterLoginProbeTests
     public void Unknown_opcode_or_invalid_values_never_report_identity()
     {
         var unknown = MapLogin(0x1234);
-        Assert.Null(new CharacterLoginStreamProbe().Process(1, unknown));
+        var unknownProbe = new CharacterLoginStreamProbe();
+        Assert.Null(unknownProbe.Process(1, unknown));
+        Assert.True(unknownProbe.Finished);
+        Assert.False(unknownProbe.Identified);
         var noCid = MapLogin(cid: 0);
         Assert.Null(new CharacterLoginStreamProbe().Process(1, noCid));
         var invalidSex = MapLogin(sex: 4);
