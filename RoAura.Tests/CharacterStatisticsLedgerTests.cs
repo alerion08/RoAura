@@ -198,7 +198,12 @@ public sealed class CharacterStatisticsLedgerTests
             Assert.Equal(500, ledger.ObserveZeny(9_000_500, Start.AddMinutes(6)));
             var stats = ledger.Snapshot(A, Start.AddMinutes(7))!;
             Assert.Equal(1200, stats.SessionZenyGained);
-            Assert.Equal(TimeSpan.FromMinutes(6).Ticks, stats.SessionActiveTicks);
+            // Zeny alone must not start the unified session clock.
+            Assert.False(stats.SessionTimerStarted);
+            Assert.Equal(0, stats.SessionActiveTicks);
+            ledger.AddExperience(100, false, Start.AddMinutes(8));
+            Assert.Equal(TimeSpan.FromMinutes(1).Ticks,
+                ledger.Snapshot(A, Start.AddMinutes(9))!.SessionActiveTicks);
         });
     }
 
