@@ -12,6 +12,11 @@ public sealed record RoPacketLayoutProbe(ushort Opcode, long Offset, bool Bounda
     public uint[]? CandidateDwords { get; init; }
     public ushort SkillId { get; init; }
     public bool SkillSucceeded { get; init; }
+    // The last byte of a 9-byte 0x0196 has no U16 window; record it
+    // explicitly instead of trying to read CandidateWords[8].
+    public byte? StatusState { get; init; }
+    public uint StatusTotalMs { get; init; }
+    public uint StatusLeftMs { get; init; }
     public static RoPacketLayoutProbe? Create(ReadOnlySpan<byte> frame, long offset, bool boundary)
     {
         if (frame.Length < 2) return null;
@@ -63,7 +68,13 @@ public sealed record RoPacketLayoutProbe(ushort Opcode, long Offset, bool Bounda
             var dwords = new uint[frame.Length - 3];
             for (var i = 0; i < words.Length; i++) words[i] = U16(frame, i);
             for (var i = 0; i < dwords.Length; i++) dwords[i] = U32(frame, i);
-            return probe with { CandidateWords = words, CandidateDwords = dwords };
+            return probe with
+            {
+                CandidateWords = words, CandidateDwords = dwords,
+                StatusState = frame[8],
+                StatusTotalMs = opcode == 0x0983 ? U32(frame, 9) : 0,
+                StatusLeftMs = opcode == 0x0983 ? U32(frame, 13) : 0
+            };
         }
         return probe;
     }
