@@ -18,6 +18,10 @@ public readonly record struct RoSkillPacket(
     uint DelayMs);
 
 public readonly record struct RoSkillCooldownPacket(ushort SkillId, uint DelayMs);
+public readonly record struct RoOptionPacket(ushort PacketId, uint Aid, uint OptionMask)
+{
+    public bool IsHidden => (OptionMask & 0x00000002U) != 0;
+}
 
 public readonly record struct RoEquipmentPacket(
     ushort PacketId,
@@ -76,6 +80,8 @@ public sealed class RoPacketStreamScanner
     private const int TimedStatusPacketSize = 29;
     private const int LegacyTimedStatusPacketSize = 25;
     private const int SimpleStatusPacketSize = 9;
+    private const int OldOptionPacketSize = 13;
+    private const int NewOptionPacketSize = 15;
     private const int SkillUsePacketSize = 25;
     private const int LegacySkillUsePacketSize = 15;
     private const int ModernSkillUsePacketSize = 17;
@@ -97,6 +103,7 @@ public sealed class RoPacketStreamScanner
     }
 
     public event Action<RoStatusPacket>? StatusChanged;
+    public event Action<RoOptionPacket>? OptionChanged;
     public event Action<RoSkillPacket>? SkillUsed;
     public event Action<RoSkillCooldownPacket>? SkillCooldown;
     public event Action<RoEquipmentPacket>? EquipmentChanged;
@@ -219,6 +226,18 @@ public sealed class RoPacketStreamScanner
                     offset += length - 1;
                     break;
 
+                case 0x0119 when TryReadOptionState(combined, offset, OldOptionPacketSize,
+                        out var length, out var oldOption):
+                    if (offset + length > previousLength) OptionChanged?.Invoke(oldOption);
+                    offset += length - 1;
+                    break;
+
+                case 0x0229 when TryReadOptionState(combined, offset, NewOptionPacketSize,
+                        out var length, out var newOption):
+                    if (offset + length > previousLength) OptionChanged?.Invoke(newOption);
+                    offset += length - 1;
+                    break;
+
                 case 0x0983 when TryReadTimedStatus(combined, offset, TimedStatusPacketSize, packetId,
                              out var length, out var timedStatus):
                     if (offset + length > previousLength)
@@ -280,6 +299,25 @@ public sealed class RoPacketStreamScanner
 
         var keep = Math.Min(CarrySize, combined.Length);
         _carry = combined.AsSpan(combined.Length - keep, keep).ToArray();
+    }
+
+    private static bool TryReadOptionState(byte[] data, int offset, int packetLength,
+        out int length, out RoOptionPacket packet)
+    {
+        length = packetLength;
+        packet = default;
+        if (offset + length > data.Length) return false;
+        var aid = ReadUInt32(data, offset + 2);
+        var bodyState = ReadUInt16(data, offset + 6);
+        var healthState = ReadUInt16(data, offset + 8);
+        var option = packetLength == NewOptionPacketSize
+            ? ReadUInt32(data, offset + 10) : ReadUInt16(data, offset + 10);
+        var pkFlag = data[offset + length - 1];
+        if (aid == 0 || pkFlag > 1 || bodyState > 4096 || healthState > 4096)
+            return false;
+        packet = new RoOptionPacket(packetLength == NewOptionPacketSize
+            ? (ushort)0x0229 : (ushort)0x0119, aid, option);
+        return true;
     }
 
     private static bool TryReadTimedStatus(byte[] data, int offset, int packetLength,
