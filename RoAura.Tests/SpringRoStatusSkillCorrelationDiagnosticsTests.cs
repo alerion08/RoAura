@@ -107,6 +107,55 @@ public sealed class SpringRoStatusSkillCorrelationDiagnosticsTests
         Assert.Null(diagnostics.Observe(Probe(Skill(51), 29, boundary: false), Self));
     }
 
+    private static byte[] MaskedStatus(ushort trueStatus, ushort mask, uint duration, bool end = false)
+    {
+        var b = end ? StatusEnd(0, 0) : TimedStatus(0, 0, duration);
+        var obfuscatedStatus = (ushort)(trueStatus ^ mask);
+        var obfuscatedLowAid = (ushort)((ushort)Self ^ mask);
+        BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(2), obfuscatedStatus);
+        BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(4), obfuscatedLowAid);
+        BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(6), (ushort)(Self >> 16));
+        return b;
+    }
+
+    [Fact]
+    public void Bounded_metadata_detects_shared_XOR_mask_without_logging_actor_id()
+    {
+        var diagnostics = new SpringRoStatusSkillCorrelationDiagnostics();
+        string last = "";
+        ushort[] masks = [0x2345, 0xAA55, 0x0471, 0x3F2D];
+        for (var i = 0; i < masks.Length; i++)
+        {
+            long offset = i * 100;
+            Assert.Null(diagnostics.Observe(Probe(MaskedStatus(15, masks[i], 180000), offset), Self));
+            last = Assert.IsType<string>(diagnostics.Observe(Probe(Skill(138), offset + 29), Self));
+        }
+
+        Assert.Contains("actorHigh16MatchesSelf=True", last);
+        Assert.Contains("actorHigh16AllMatch=True", last);
+        Assert.Contains("xorDerivedStatus=stable-candidate-15", last);
+        Assert.Contains("addDerivedStatus=unstable", last);
+        Assert.DoesNotContain(Self.ToString(), last);
+    }
+
+    [Fact]
+    public void Unrelated_unmasked_random_fields_do_not_forge_a_stable_status_id()
+    {
+        var diagnostics = new SpringRoStatusSkillCorrelationDiagnostics();
+        string last = "";
+        for (var i = 0; i < 4; i++)
+        {
+            long offset = i * 100;
+            Assert.Null(diagnostics.Observe(Probe(TimedStatus((ushort)(1000 + i * 13),
+                (uint)(3000000 + i * 177), 240000), offset), Self));
+            last = Assert.IsType<string>(diagnostics.Observe(Probe(Skill(51), offset + 29), Self));
+        }
+
+        Assert.Contains("actorHigh16AllMatch=False", last);
+        Assert.Contains("xorDerivedStatus=unstable", last);
+        Assert.Contains("addDerivedStatus=unstable", last);
+    }
+
     [Fact]
     public void Stream_reset_forgets_prior_correlations()
     {
