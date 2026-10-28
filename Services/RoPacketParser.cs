@@ -78,6 +78,9 @@ public sealed class RoPacketStreamScanner
     private const int SimpleStatusPacketSize = 9;
     private const int SkillUsePacketSize = 25;
     private const int LegacySkillUsePacketSize = 15;
+    private const int ModernSkillUsePacketSize = 17;
+    private const int LegacyDamageSkillPacketSize = 31;
+    private const int LegacySkillAckPacketSize = 24;
     private const int DamageSkillPacketSize = 33;
     private const int SkillCooldownPacketSize = 8;
     private const int MaximumEquipmentListLength = 8192;
@@ -247,6 +250,21 @@ public sealed class RoPacketStreamScanner
                     offset += length - 1;
                     break;
 
+                case 0x09CB when TryReadModernSkillUse(combined, offset, out var length, out var modernSkill):
+                    if (offset + length > previousLength) SkillUsed?.Invoke(modernSkill);
+                    offset += length - 1;
+                    break;
+
+                case 0x013E when TryReadLegacySkillAck(combined, offset, out var length, out var castAck):
+                    if (offset + length > previousLength) SkillUsed?.Invoke(castAck);
+                    offset += length - 1;
+                    break;
+
+                case 0x0114 when TryReadLegacyDamageSkill(combined, offset, out var length, out var oldDamageSkill):
+                    if (offset + length > previousLength) SkillUsed?.Invoke(oldDamageSkill);
+                    offset += length - 1;
+                    break;
+
                 case 0x01DE when TryReadDamageSkill(combined, offset, out var length, out var damageSkill):
                     if (offset + length > previousLength) SkillUsed?.Invoke(damageSkill);
                     offset += length - 1;
@@ -338,6 +356,57 @@ public sealed class RoPacketStreamScanner
         var result = data[offset + 14];
         if (skillId is 0 or > 20000 || level is 0 or > 100 ||
             target == 0 || source == 0 || result > 1) return false;
+        packet = new RoSkillPacket(skillId, source, target, 0);
+        return true;
+    }
+
+    private static bool TryReadModernSkillUse(byte[] data, int offset, out int length,
+        out RoSkillPacket packet)
+    {
+        packet = default;
+        length = ModernSkillUsePacketSize;
+        if (offset + length > data.Length) return false;
+        var skillId = ReadUInt16(data, offset + 2);
+        var level = ReadUInt32(data, offset + 4);
+        var target = ReadUInt32(data, offset + 8);
+        var source = ReadUInt32(data, offset + 12);
+        var result = data[offset + 16];
+        if (skillId is 0 or > 20000 || level is 0 or > 100 ||
+            target == 0 || source == 0 || result > 1) return false;
+        packet = new RoSkillPacket(skillId, source, target, 0);
+        return true;
+    }
+
+    private static bool TryReadLegacySkillAck(byte[] data, int offset, out int length,
+        out RoSkillPacket packet)
+    {
+        packet = default;
+        length = LegacySkillAckPacketSize;
+        if (offset + length > data.Length) return false;
+        var source = ReadUInt32(data, offset + 2);
+        var target = ReadUInt32(data, offset + 6);
+        var x = ReadUInt16(data, offset + 10);
+        var y = ReadUInt16(data, offset + 12);
+        var skillId = ReadUInt16(data, offset + 14);
+        var delay = ReadUInt32(data, offset + 20);
+        if (source == 0 || target == 0 || skillId is 0 or > 20000 ||
+            x > 1000 || y > 1000) return false;
+        packet = new RoSkillPacket(skillId, source, target, delay);
+        return true;
+    }
+
+    private static bool TryReadLegacyDamageSkill(byte[] data, int offset, out int length,
+        out RoSkillPacket packet)
+    {
+        packet = default;
+        length = LegacyDamageSkillPacketSize;
+        if (offset + length > data.Length) return false;
+        var skillId = ReadUInt16(data, offset + 2);
+        var source = ReadUInt32(data, offset + 4);
+        var target = ReadUInt32(data, offset + 8);
+        var level = ReadUInt16(data, offset + 26);
+        if (skillId is 0 or > 20000 || source == 0 || target == 0 ||
+            level > 100) return false;
         packet = new RoSkillPacket(skillId, source, target, 0);
         return true;
     }
