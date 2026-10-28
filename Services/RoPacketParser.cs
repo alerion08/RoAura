@@ -18,6 +18,9 @@ public readonly record struct RoSkillPacket(
     uint DelayMs);
 
 public readonly record struct RoSkillCooldownPacket(ushort SkillId, uint DelayMs);
+
+/// <summary>ZC_AID (0x0283) explicitly announces the client's own actor ID.</summary>
+public readonly record struct RoSelfAidPacket(uint Aid);
 public readonly record struct RoOptionPacket(ushort PacketId, uint Aid, uint OptionMask)
 {
     public bool IsHidden => (OptionMask & 0x00000002U) != 0;
@@ -80,6 +83,7 @@ public sealed class RoPacketStreamScanner
     private const int TimedStatusPacketSize = 29;
     private const int LegacyTimedStatusPacketSize = 25;
     private const int SimpleStatusPacketSize = 9;
+    private const int SelfAidPacketSize = 6;
     private const int OldOptionPacketSize = 13;
     private const int NewOptionPacketSize = 15;
     private const int SkillUsePacketSize = 25;
@@ -103,6 +107,7 @@ public sealed class RoPacketStreamScanner
     }
 
     public event Action<RoStatusPacket>? StatusChanged;
+    public event Action<RoSelfAidPacket>? SelfAidObserved;
     public event Action<RoOptionPacket>? OptionChanged;
     public event Action<RoSkillPacket>? SkillUsed;
     public event Action<RoSkillCooldownPacket>? SkillCooldown;
@@ -226,6 +231,11 @@ public sealed class RoPacketStreamScanner
                     offset += length - 1;
                     break;
 
+                case 0x0283 when TryReadSelfAid(combined, offset, out var length, out var selfAid):
+                    if (offset + length > previousLength) SelfAidObserved?.Invoke(selfAid);
+                    offset += length - 1;
+                    break;
+
                 case 0x0119 when TryReadOptionState(combined, offset, OldOptionPacketSize,
                         out var length, out var oldOption):
                     if (offset + length > previousLength) OptionChanged?.Invoke(oldOption);
@@ -299,6 +309,18 @@ public sealed class RoPacketStreamScanner
 
         var keep = Math.Min(CarrySize, combined.Length);
         _carry = combined.AsSpan(combined.Length - keep, keep).ToArray();
+    }
+
+    private static bool TryReadSelfAid(byte[] data, int offset, out int length,
+        out RoSelfAidPacket packet)
+    {
+        packet = default;
+        length = SelfAidPacketSize;
+        if (offset + length > data.Length) return false;
+        var aid = ReadUInt32(data, offset + 2);
+        if (aid == 0) return false;
+        packet = new RoSelfAidPacket(aid);
+        return true;
     }
 
     private static bool TryReadOptionState(byte[] data, int offset, int packetLength,
