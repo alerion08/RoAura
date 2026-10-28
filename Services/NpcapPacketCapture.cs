@@ -25,9 +25,17 @@ public sealed class NpcapPacketCapture : IDisposable
         get
         {
             var session = _characterSessions.Current;
-            return session.Phase == CharacterSessionPhase.ActiveObserved && session.PlayerAid != 0
-                ? session.PlayerAid
-                : _playerAidObserver.Aid;
+            if (session.Phase == CharacterSessionPhase.ActiveObserved &&
+                _characterSessions.CurrentFlow is { } flow)
+            {
+                var evidence = _playerAidObserver.SourceForFlow(flow);
+                // A conflicting actor identity cannot safely be attributed.
+                if (evidence == "conflict") return 0;
+                var observed = _playerAidObserver.AidForFlow(flow);
+                if (observed != 0) return observed;
+                return session.PlayerAid;
+            }
+            return _playerAidObserver.Aid;
         }
     }
 
@@ -36,8 +44,14 @@ public sealed class NpcapPacketCapture : IDisposable
         get
         {
             var session = _characterSessions.Current;
-            return session.Phase == CharacterSessionPhase.ActiveObserved && session.PlayerAid != 0
-                ? "map-login" : _playerAidObserver.Source;
+            if (session.Phase == CharacterSessionPhase.ActiveObserved &&
+                _characterSessions.CurrentFlow is { } flow)
+            {
+                var source = _playerAidObserver.SourceForFlow(flow);
+                if (source.Length > 0) return source;
+                if (session.PlayerAid != 0) return "map-login";
+            }
+            return _playerAidObserver.Source;
         }
     }
     public CharacterSessionSnapshot CharacterSession => _characterSessions.Current;
@@ -563,8 +577,16 @@ public sealed class NpcapPacketCapture : IDisposable
     private void ObservePlayerAid(CharacterSessionFlow flow, uint aid, string source)
     {
         if (_playerAidObserver.Observe(flow, aid, source))
+        {
+            var current = _characterSessions.Current;
+            var sameFlow = _characterSessions.CurrentFlow == flow;
+            var comparison = sameFlow && current.PlayerAid != 0
+                ? (current.PlayerAid == aid ? "agree" : "disagree")
+                : "unavailable";
             DebugLog.Write($"PLAYER SELF AID VERIFIED source={source}; " +
+                           $"mapLoginComparison={comparison}; " +
                            $"clientPort={flow.ClientPort}; mapPort={flow.ServerPort}");
+        }
     }
 
     private void ForwardCharacterPacket<T>(CharacterSessionFlow flow, T packet,
