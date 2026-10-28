@@ -15,6 +15,18 @@ namespace RoAura.Services;
 public sealed class NpcapPacketCapture : IDisposable
 {
     private readonly object _lifecycleLock = new();
+    // DEV only: diagnostics are completely separate from XP, loot and status routing.
+    private readonly CharacterSessionManager _characterSessions = new();
+    public CharacterSessionSnapshot CharacterSession => _characterSessions.Current;
+
+    public NpcapPacketCapture()
+    {
+        if (AppEnvironment.IsDevelopment)
+            _characterSessions.StateChanged += snapshot =>
+                DebugLog.Write($"CHARACTER SESSION SHADOW: phase={snapshot.Phase}; " +
+                               $"server={snapshot.ServerKey}; cid={snapshot.CharacterId}; " +
+                               $"clientPort={snapshot.ClientPort}; mapPort={snapshot.MapPort}");
+    }
     private CancellationTokenSource? _cancellation;
     private int _generation;
     private int _activeDevices;
@@ -63,7 +75,18 @@ public sealed class NpcapPacketCapture : IDisposable
             equipmentCache = _equipmentIdentityCache;
             pendingEquipmentEvents = _pendingEquipmentEvents;
             tcpFlows = new();
+            if (AppEnvironment.IsDevelopment) _characterSessions.OnCaptureInterrupted();
             loginObserver = AppEnvironment.IsDevelopment ? new CharacterLoginObserver() : null;
+            if (loginObserver is not null)
+            {
+                var serverKey = settings.ServerProfile;
+                loginObserver.CandidateDetected += (flow, candidate) =>
+                {
+                    if (generation != Volatile.Read(ref _generation)) return;
+                    _characterSessions.OnCandidate(serverKey,
+                        CharacterSessionFlow.FromOutbound(flow), candidate.CharacterId);
+                };
+            }
 
             if (!settings.PacketCaptureEnabled)
             {
@@ -360,6 +383,8 @@ public sealed class NpcapPacketCapture : IDisposable
                         flowKey.DestinationPort == port && flowKey.SourcePort != port)
                     {
                         loginObserver.Observe(flowKey, sequence, payload, closing);
+                        if (closing && generation == Volatile.Read(ref _generation))
+                            _characterSessions.OnConnectionClosed(CharacterSessionFlow.FromOutbound(flowKey));
                         continue;
                     }
                     if (flowKey.SourcePort != port || flowKey.DestinationPort == port)
@@ -373,6 +398,12 @@ public sealed class NpcapPacketCapture : IDisposable
                             CreateScanner(generation, equipmentCache, pendingEquipmentEvents)));
                     }
                     flow.Process(sequence, payload);
+                    if (AppEnvironment.IsDevelopment && generation == Volatile.Read(ref _generation))
+                    {
+                        var characterFlow = CharacterSessionFlow.FromInbound(flowKey);
+                        if (!payload.IsEmpty) _characterSessions.OnServerPayload(characterFlow);
+                        if (closing) _characterSessions.OnConnectionClosed(characterFlow);
+                    }
                     // The server side is done with this stream: drop it so the
                     // flow table cannot grow with every reconnect.
                     if (closing) tcpFlows.TryRemove(flowKey, out _);

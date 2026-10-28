@@ -129,6 +129,7 @@ public sealed class CharacterLoginObserver
     private static readonly Dictionary<(ushort Opcode, uint Cid, ushort ClientPort, ushort MapPort), long>
         RecentDiagnostics = new();
     private readonly ConcurrentDictionary<TcpFlowKey, CharacterLoginStreamProbe> _flows = new();
+    internal event Action<TcpFlowKey, CharacterLoginCandidate>? CandidateDetected;
     private int _unrecognizedLogged;
 
     internal void Observe(TcpFlowKey key, uint sequence, ReadOnlySpan<byte> payload, bool closing)
@@ -155,6 +156,7 @@ public sealed class CharacterLoginObserver
             return;
         }
         if (!ShouldLogCandidate(candidate, key)) return;
+        CandidateDetected?.Invoke(key, candidate);
         DebugLog.Write($"CHARACTER LOGIN CANDIDATE (unconfirmed): opcode=0x{candidate.PacketId:X4}; " +
                        $"cid={candidate.CharacterId}; length={candidate.PacketLength}; " +
                        $"mapPort={key.DestinationPort}; clientPort={key.SourcePort}");

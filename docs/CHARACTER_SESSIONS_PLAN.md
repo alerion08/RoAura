@@ -59,3 +59,23 @@ Multi-client support is deferred until flow-to-process association can be verifi
    observed packets are shuffled or missing due to endpoint changes.
 6. Do not advance to active per-character statistic routing until successful
    in-game identification is demonstrated.
+
+## Stage 2 field evidence / Stage 3 shadow-mode implementation (2026-10-28)
+
+- Confirmed in one real Ragnarok client: Character Select without closing the game
+  produced CID 154386 → CID 155665 → CID 154386. Each map login had opcode
+  `0x0436`, length 23, map port 57143 and a distinct client TCP port.
+- Observed duplicate candidate logs earlier: the DEV observer now suppresses
+  near-identical diagnostics. No assertion about causes without packet evidence.
+- Stage 3 introduces `CharacterSessionManager` and a read-only shadow state
+  machine. `Connecting` means map-login CID candidate was seen;
+  `ActiveObserved` means server payload on the matching reverse TCP flow.
+  This is NOT authenticated character identity and is NEVER used to route XP,
+  loot, Gold Goblin or Zeny yet.
+- On a new candidate, the previous flow becomes suspended. FIN/RST from an old
+  flow cannot suspend the newer flow. Capture retarget/disconnect suspends the
+  current flow; late startup leaves identity Unknown. No persistent statistics.
+- DEV log prefix: `CHARACTER SESSION SHADOW:`. No auth data or IP addresses.
+- Still awaiting RTM, VPN/ExitLag and late-start field tests. Only one
+  connection may be considered current in the initial design; multi-client
+  requires process-level attribution before statistics integration.

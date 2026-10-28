@@ -200,3 +200,10 @@ characters or write per-character statistics yet. Identification is candidate
 only and is awaiting SpringRO/RTM real-client verification, including Character
 Select, late launch and endpoint changes. The initial development isolation
 Windows CI run passed; later stage-2 CI must be evaluated per commit.
+
+## Character Session shadow state (2026-10-28)
+User verified a standard 23-byte 0x0436 map login and three Character Select
+sessions with IDs A=154386, B=155665, A=154386 (same server port, distinct client
+ports). Stage 3 adds passive per-flow shadow state and synthetic transition
+tests on the development branch only. No statistics routing, persistence, or
+confirmed server authentication yet; RTM/late-start testing remains necessary.
