@@ -45,6 +45,7 @@ public sealed class NpcapPacketCapture : IDisposable
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache;
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents;
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows;
+        CharacterLoginObserver? loginObserver;
         int generation;
         lock (_lifecycleLock)
         {
@@ -62,6 +63,7 @@ public sealed class NpcapPacketCapture : IDisposable
             equipmentCache = _equipmentIdentityCache;
             pendingEquipmentEvents = _pendingEquipmentEvents;
             tcpFlows = new();
+            loginObserver = AppEnvironment.IsDevelopment ? new CharacterLoginObserver() : null;
 
             if (!settings.PacketCaptureEnabled)
             {
@@ -78,7 +80,7 @@ public sealed class NpcapPacketCapture : IDisposable
         var cancellation = newCancellation!;
         SetState(generation, L("Пакеты: подключение к Npcap…", "Packets: connecting to Npcap…"));
         _ = Task.Run(() => StartCaptureAsync(address, port, generation, equipmentCache,
-            pendingEquipmentEvents, tcpFlows, cancellation), CancellationToken.None);
+            pendingEquipmentEvents, tcpFlows, loginObserver, cancellation), CancellationToken.None);
     }
 
     private enum SessionResult
@@ -101,6 +103,7 @@ public sealed class NpcapPacketCapture : IDisposable
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
+        CharacterLoginObserver? loginObserver,
         CancellationTokenSource cancellation)
     {
         var cancellationToken = cancellation.Token;
@@ -124,7 +127,7 @@ public sealed class NpcapPacketCapture : IDisposable
             var stats = new GenerationStats();
             var workers = devices.Select(device => Task.Run(
                 () => CaptureDevice(device, filter, generation, stats, equipmentCache,
-                    pendingEquipmentEvents, tcpFlows, cancellationToken),
+                    pendingEquipmentEvents, tcpFlows, loginObserver, cancellationToken),
                 CancellationToken.None)).ToArray();
 
             // Report the aggregated first-open result once every adapter has
@@ -184,6 +187,7 @@ public sealed class NpcapPacketCapture : IDisposable
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
+        CharacterLoginObserver? loginObserver,
         CancellationToken cancellationToken)
     {
         const int MinimumBackoffMs = 2000;
@@ -200,7 +204,7 @@ public sealed class NpcapPacketCapture : IDisposable
             var logFailure = attempts == 1 ||
                              Environment.TickCount64 - lastFailureLogTick >= FailureLogIntervalMs;
             var result = CaptureDeviceSession(device, filter, generation, stats, equipmentCache,
-                pendingEquipmentEvents, tcpFlows, cancellationToken, logFailure, attempts == 1);
+                pendingEquipmentEvents, tcpFlows, loginObserver, cancellationToken, logFailure, attempts == 1);
             if (cancellationToken.IsCancellationRequested ||
                 generation != Volatile.Read(ref _generation))
                 break;
@@ -243,6 +247,7 @@ public sealed class NpcapPacketCapture : IDisposable
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
+        CharacterLoginObserver? loginObserver,
         CancellationToken cancellationToken, bool logFailure, bool firstAttempt)
     {
         IntPtr handle = IntPtr.Zero;
@@ -348,6 +353,18 @@ public sealed class NpcapPacketCapture : IDisposable
                         out var payload, out var flowKey, out var sequence, out var tcpFlags))
                 {
                     var closing = (tcpFlags & 0x05) != 0; // FIN or RST
+                    // DEV only: client-to-server first-packet inspection runs in
+                    // a separate bounded observer. NEVER feed outbound bytes
+                    // into the existing server-to-client packet parser.
+                    if (loginObserver is not null &&
+                        flowKey.DestinationPort == port && flowKey.SourcePort != port)
+                    {
+                        loginObserver.Observe(flowKey, sequence, payload, closing);
+                        continue;
+                    }
+                    if (flowKey.SourcePort != port || flowKey.DestinationPort == port)
+                        continue;
+
                     if (!tcpFlows.TryGetValue(flowKey, out var flow))
                     {
                         if (payload.IsEmpty) continue; // Bare FIN/RST for an unknown flow.
@@ -495,8 +512,10 @@ public sealed class NpcapPacketCapture : IDisposable
     {
         if (IPAddress.TryParse(address, out var parsed) &&
             parsed.AddressFamily == AddressFamily.InterNetwork)
-            return $"src host {parsed} and tcp src port {port}";
-        return $"tcp src port {port}";
+            return AppEnvironment.IsDevelopment
+                ? $"host {parsed} and tcp port {port}"
+                : $"src host {parsed} and tcp src port {port}";
+        return AppEnvironment.IsDevelopment ? $"tcp port {port}" : $"tcp src port {port}";
     }
 
     private void SetState(int generation, string state)
