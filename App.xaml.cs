@@ -38,6 +38,10 @@ public partial class App : Application
     private DateTime _baseRequirementChangedUtc;
     private DateTime _jobRequirementChangedUtc;
     private readonly ZenyBalanceTracker _zenyBalance = new();
+    private CharacterStatisticsLedger? _characterLedger;
+    private System.Windows.Threading.DispatcherTimer? _characterFlushTimer;
+    private bool _changingCharacterRows;
+    private bool _characterStatisticsFaulted;
     private DateTime _lastDatabaseToggleUtc = DateTime.MinValue;
     private readonly GitHubUpdateService _updateService = new();
     private SpringRoMarketService? _marketService;
@@ -336,10 +340,25 @@ public partial class App : Application
         _packetCapture.SkillUsed += OnPacketSkillUsed;
         _packetCapture.SkillCooldown += OnPacketSkillCooldown;
         _packetCapture.EquipmentChanged += OnPacketEquipmentChanged;
-        _packetCapture.ItemAdded += OnPacketItemAdded;
-        _packetCapture.ExperienceChanged += OnPacketExperienceChanged;
-        _packetCapture.ProgressChanged += OnPacketProgressChanged;
-        _packetCapture.ZenyChanged += OnPacketZenyChanged;
+        if (AppEnvironment.IsDevelopment)
+        {
+            _packetCapture.CharacterSessionChanged += OnCharacterSessionChanged;
+            _packetCapture.CharacterItemAdded += evt =>
+                Dispatcher.BeginInvoke(() => HandleItemAdded(evt.Packet, evt.Session));
+            _packetCapture.CharacterExperienceChanged += evt =>
+                Dispatcher.BeginInvoke(() => HandleExperienceChanged(evt.Packet, evt.Session));
+            _packetCapture.CharacterProgressChanged += evt =>
+                Dispatcher.BeginInvoke(() => HandleProgressChanged(evt.Packet, evt.Session));
+            _packetCapture.CharacterZenyChanged += evt =>
+                Dispatcher.BeginInvoke(() => HandleZenyChanged(evt.Packet, evt.Session));
+        }
+        else
+        {
+            _packetCapture.ItemAdded += OnPacketItemAdded;
+            _packetCapture.ExperienceChanged += OnPacketExperienceChanged;
+            _packetCapture.ProgressChanged += OnPacketProgressChanged;
+            _packetCapture.ZenyChanged += OnPacketZenyChanged;
+        }
         _packetCapture.StateChanged += state => Dispatcher.BeginInvoke(() =>
             settings.UpdatePacketCaptureState(state));
 
@@ -368,7 +387,23 @@ public partial class App : Application
             foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
         });
         _goldGoblin = new GoldGoblinService(settings, _marketService);
+        if (AppEnvironment.IsDevelopment)
+        {
+            _characterLedger = new CharacterStatisticsLedger(new CharacterStatisticsStore());
+            _goldGoblin.Changed += OnCharacterGoldGoblinChanged;
+        }
         _overlay = new OverlayWindow(settings, _settingsStore, _goldGoblin);
+        if (AppEnvironment.IsDevelopment)
+        {
+            _overlay.SetCharacterStatisticsSource(CurrentCharacterStatistics);
+            _characterFlushTimer = new System.Windows.Threading.DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(30)
+            };
+            _characterFlushTimer.Tick += (_, _) => SafeCharacterStatisticsAction(() =>
+                _characterLedger?.Flush(DateTime.UtcNow));
+            _characterFlushTimer.Start();
+        }
         _databaseOverlay = new DatabaseOverlayWindow(settings, _watchDatabase, _marketService);
         _databaseOverlay.HideRequested += HideDatabase;
         _settingsWindow = new MainWindow(settings, _settingsStore, _overlay, _packetCapture, _goldGoblin);
@@ -528,6 +563,111 @@ public partial class App : Application
         _databaseOverlay?.RefreshLanguage();
     }
 
+    // This bridge runs only in experimental DEV builds. The immutable capture
+    // revision prevents late queued packets from being charged to a new character.
+    private void OnCharacterSessionChanged(CharacterSessionSnapshot state) =>
+        Dispatcher.BeginInvoke(() =>
+        {
+            if (!AppEnvironment.IsDevelopment || _characterStatisticsFaulted ||
+                _packetCapture is null || _characterLedger is null) return;
+            var current = _packetCapture.CharacterSession;
+            if (current.Revision != state.Revision || current.Phase != state.Phase)
+                return; // Transition already superseded by a newer login.
+            if (state.Phase == CharacterSessionPhase.ActiveObserved)
+                _ = TryUseCharacterSession(state);
+            else
+                SafeCharacterStatisticsAction(() =>
+                {
+                    _characterLedger.Suspend(DateTime.UtcNow);
+                    _overlay?.RefreshCharacterStatistics();
+                });
+        });
+
+    private bool TryUseCharacterSession(CharacterSessionSnapshot session)
+    {
+        if (!AppEnvironment.IsDevelopment || _characterStatisticsFaulted ||
+            _packetCapture is null || _characterLedger is null ||
+            !_packetCapture.IsCurrentCharacterSession(session) || session.CharacterId is not > 0)
+            return false;
+        var key = CharacterStatisticsKey.Create(session.ServerKey, session.CharacterId.Value);
+        if (_characterLedger.Active == key) return true;
+        return SafeCharacterStatisticsValue(() =>
+        {
+            // SwitchTo writes the old character before loading the new one.
+            _characterLedger.SwitchTo(key, DateTime.UtcNow);
+            var record = _characterLedger.Snapshot(key, DateTime.UtcNow)!;
+            _nextBaseExperience = record.NextBaseExperience;
+            _nextJobExperience = record.NextJobExperience;
+            _previousNextBaseExperience = _previousNextJobExperience = 0;
+            _changingCharacterRows = true;
+            try
+            {
+                _goldGoblin?.RestoreCharacterRows(record.GoldGoblinRows.Values.ToList(),
+                    TimeSpan.FromTicks(record.SessionActiveTicks));
+            }
+            finally { _changingCharacterRows = false; }
+            _overlay?.RefreshCharacterStatistics();
+            DebugLog.Write($"CHARACTER STATS ACTIVE: server={key.ServerKey}; cid={key.CharacterId}; " +
+                           $"base={record.SessionBaseExperience}; job={record.SessionJobExperience}; " +
+                           $"zeny={record.SessionZenyGained}");
+            return true;
+        });
+    }
+
+    private CharacterStatisticsDocument? CurrentCharacterStatistics()
+    {
+        if (_characterStatisticsFaulted || _characterLedger?.Active is not { } key ||
+            _packetCapture?.CharacterSession.Phase != CharacterSessionPhase.ActiveObserved)
+            return null;
+        return SafeCharacterStatisticsValue(() =>
+            _characterLedger.Snapshot(key, DateTime.UtcNow));
+    }
+
+    private void OnCharacterGoldGoblinChanged()
+    {
+        if (!AppEnvironment.IsDevelopment || _changingCharacterRows || _characterStatisticsFaulted ||
+            _characterLedger?.Active is null || _goldGoblin is null) return;
+        if (!Dispatcher.CheckAccess())
+        {
+            Dispatcher.BeginInvoke(OnCharacterGoldGoblinChanged);
+            return;
+        }
+        SafeCharacterStatisticsAction(() =>
+            _characterLedger.ReplaceGoldGoblinRows(_goldGoblin.SnapshotCharacterRows(),
+                DateTime.UtcNow));
+    }
+
+    public bool ResetCharacterStatisticsSession()
+    {
+        if (!AppEnvironment.IsDevelopment || _characterLedger?.Active is null ||
+            _characterStatisticsFaulted) return false;
+        return SafeCharacterStatisticsValue(() =>
+        {
+            _characterLedger.ResetCurrentSession(DateTime.UtcNow);
+            _changingCharacterRows = true;
+            try { _goldGoblin?.Reset(); }
+            finally { _changingCharacterRows = false; }
+            _overlay?.RefreshCharacterStatistics();
+            return true;
+        });
+    }
+
+    private void SafeCharacterStatisticsAction(Action action) =>
+        _ = SafeCharacterStatisticsValue(() => { action(); return true; });
+
+    private T SafeCharacterStatisticsValue<T>(Func<T> action)
+    {
+        if (_characterStatisticsFaulted) return default!;
+        try { return action(); }
+        catch (Exception error)
+        {
+            // Fail closed: never fall back to an unidentified legacy counter.
+            _characterStatisticsFaulted = true;
+            DebugLog.Write($"CHARACTER STATISTICS DISABLED after storage or routing error: {error}");
+            return default!;
+        }
+    }
+
     private void OnPacketStatusChanged(RoStatusPacket packet) =>
         Dispatcher.BeginInvoke(() => HandlePacketStatusChanged(packet));
 
@@ -608,8 +748,12 @@ public partial class App : Application
     private void OnPacketEquipmentChanged(RoEquipmentPacket packet) =>
         Dispatcher.BeginInvoke(() => HandlePacketEquipment(packet));
 
-    private void OnPacketItemAdded(RoItemAddedPacket packet) => Dispatcher.BeginInvoke(() =>
+    private void OnPacketItemAdded(RoItemAddedPacket packet) =>
+        Dispatcher.BeginInvoke(() => HandleItemAdded(packet, null));
+
+    private void HandleItemAdded(RoItemAddedPacket packet, CharacterSessionSnapshot? session)
     {
+        if (session is { } captured && !TryUseCharacterSession(captured)) return;
         if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled) return;
         var item = _itemCatalog.GetValueOrDefault(packet.ItemId) ?? new ItemEntry
         {
@@ -617,14 +761,22 @@ public partial class App : Application
             Name = $"Item #{packet.ItemId}",
             Type = "Loot"
         };
+        if (session.HasValue)
+            SafeCharacterStatisticsAction(() => _characterLedger?.AddLoot(packet.ItemId, item.FullName,
+                packet.Count, DateTime.UtcNow));
         _overlay.ShowLootReward(packet.ItemId, item.Name, item.Type, packet.Count);
         if (_settingsWindow.Settings.ServerProfile == GameServerProfile.SpringRo)
             _goldGoblin?.AddLoot(packet.ItemId, item.FullName, packet.Count);
         DebugLog.Write($"PACKET LOOT item={packet.ItemId}; name={item.Name}; type={item.Type}; count={packet.Count}");
-    });
+        if (session.HasValue) _overlay.RefreshCharacterStatistics();
+    }
 
-    private void OnPacketProgressChanged(RoProgressPacket packet) => Dispatcher.BeginInvoke(() =>
+    private void OnPacketProgressChanged(RoProgressPacket packet) =>
+        Dispatcher.BeginInvoke(() => HandleProgressChanged(packet, null));
+
+    private void HandleProgressChanged(RoProgressPacket packet, CharacterSessionSnapshot? session)
     {
+        if (session is { } captured && !TryUseCharacterSession(captured)) return;
         if (packet.Parameter == 22)
         {
             if (_nextBaseExperience > 0 && _nextBaseExperience != packet.Value)
@@ -653,22 +805,48 @@ public partial class App : Application
         {
             _overlay?.SetCurrentJobExperience(packet.Value);
         }
-    });
+        if (session.HasValue && _characterLedger?.Active is { } key)
+        {
+            SafeCharacterStatisticsAction(() =>
+            {
+                var current = _characterLedger.Snapshot(key, DateTime.UtcNow);
+                if (current is null) return;
+                if (packet.Parameter is 1 or 22)
+                    _characterLedger.SetProgress(false,
+                        packet.Parameter == 1 ? packet.Value : current.CurrentBaseExperience,
+                        packet.Parameter == 22 ? packet.Value : current.NextBaseExperience,
+                        DateTime.UtcNow);
+                else if (packet.Parameter is 2 or 23)
+                    _characterLedger.SetProgress(true,
+                        packet.Parameter == 2 ? packet.Value : current.CurrentJobExperience,
+                        packet.Parameter == 23 ? packet.Value : current.NextJobExperience,
+                        DateTime.UtcNow);
+            });
+        }
+    }
 
-    private void OnPacketExperienceChanged(RoExperiencePacket packet) => Dispatcher.BeginInvoke(() =>
+    private void OnPacketExperienceChanged(RoExperiencePacket packet) =>
+        Dispatcher.BeginInvoke(() => HandleExperienceChanged(packet, null));
+
+    private void HandleExperienceChanged(RoExperiencePacket packet, CharacterSessionSnapshot? session)
     {
+        if (session is { } captured && !TryUseCharacterSession(captured)) return;
         if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled || packet.Amount <= 0)
             return;
         var settings = _settingsWindow.Settings;
-        if (settings.PacketPlayerAid != 0 && settings.PacketPlayerAid != packet.Aid) return;
-        if (settings.PacketPlayerAid == 0)
+        if (!session.HasValue && settings.PacketPlayerAid != 0 &&
+            settings.PacketPlayerAid != packet.Aid) return;
+        if (!session.HasValue && settings.PacketPlayerAid == 0)
         {
             settings.PacketPlayerAid = packet.Aid;
             _settingsStore?.Save(settings);
         }
 
         var isJob = packet.ExperienceType == 2;
-        if (isJob) _overlay.RecordJobExperience(packet.Amount);
+        if (session.HasValue)
+            SafeCharacterStatisticsAction(() => _characterLedger?.AddExperience(packet.Amount, isJob,
+                DateTime.UtcNow));
+        else if (isJob) _overlay.RecordJobExperience(packet.Amount);
         else _overlay.RecordBaseExperience(packet.Amount);
         if (isJob && !settings.ShowJobExperience) return;
         var now = DateTime.UtcNow;
@@ -685,24 +863,36 @@ public partial class App : Application
         _overlay.ShowExperienceReward(packet.Amount, percentage, isJob);
         DebugLog.Write($"PACKET EXP aid={packet.Aid}; type={packet.ExperienceType}; " +
                        $"amount={packet.Amount}; required={required}; percent={(percentage >= 0 ? percentage.ToString("0.####") : "unknown")}");
-    });
+        if (session.HasValue) _overlay.RefreshCharacterStatistics();
+    }
 
-    private void OnPacketZenyChanged(RoZenyPacket packet) => Dispatcher.BeginInvoke(() =>
+    private void OnPacketZenyChanged(RoZenyPacket packet) =>
+        Dispatcher.BeginInvoke(() => HandleZenyChanged(packet, null));
+
+    private void HandleZenyChanged(RoZenyPacket packet, CharacterSessionSnapshot? session)
     {
+        if (session is { } captured && !TryUseCharacterSession(captured)) return;
         if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled) return;
-        var sample = _zenyBalance.Observe(packet.Total);
-        if (!sample.Accepted)
+        long gained;
+        if (session.HasValue)
+            gained = SafeCharacterStatisticsValue(() =>
+                _characterLedger?.ObserveZeny(packet.Total, DateTime.UtcNow) ?? 0L);
+        else
         {
-            DebugLog.Write($"PACKET ZENY IGNORED total={packet.Total}; reason={sample.Reason}");
-            return;
+            var sample = _zenyBalance.Observe(packet.Total);
+            if (!sample.Accepted)
+            {
+                DebugLog.Write($"PACKET ZENY IGNORED total={packet.Total}; reason={sample.Reason}");
+                return;
+            }
+            gained = sample.Gained;
         }
-
-        var gained = sample.Gained;
         if (gained <= 0) return;
         _overlay.ShowZenyReward(gained);
-        _overlay.RecordZeny(gained);
+        if (!session.HasValue) _overlay.RecordZeny(gained);
+        else _overlay.RefreshCharacterStatistics();
         DebugLog.Write($"PACKET ZENY gained={gained}; total={packet.Total}");
-    });
+    }
 
     private void HandlePacketEquipment(RoEquipmentPacket packet)
     {
@@ -929,6 +1119,9 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
+        _characterFlushTimer?.Stop();
+        if (_characterLedger is not null && !_characterStatisticsFaulted)
+            SafeCharacterStatisticsAction(() => _characterLedger.Suspend(DateTime.UtcNow));
         _watchHistoryTimer?.Stop();
         try { _packetCapture?.Dispose(); }
         catch (Exception ex) { DebugLog.Write($"EXIT PACKET CAPTURE DISPOSE ERROR: {ex}"); }
