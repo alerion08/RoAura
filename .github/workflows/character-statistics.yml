@@ -9,6 +9,12 @@ on:
 permissions:
   contents: read
 
+# Each GitHub contents edit is a push; test only the newest candidate rather
+# than running parallel Windows builds for stale intermediate commits.
+concurrency:
+  group: character-statistics-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: windows-latest
