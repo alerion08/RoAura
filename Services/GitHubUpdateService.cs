@@ -38,6 +38,7 @@ public sealed class GitHubUpdateService
 
     public async Task<UpdateInfo?> CheckAsync(CancellationToken cancellationToken = default)
     {
+        if (AppEnvironment.IsDevelopment) return null;
         using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         timeout.CancelAfter(CheckTimeout);
         using var response = await _client.GetAsync(LatestReleaseUrl, timeout.Token);
@@ -61,8 +62,9 @@ public sealed class GitHubUpdateService
     public async Task<string> DownloadInstallerAsync(UpdateInfo update, IProgress<double>? progress = null,
         CancellationToken cancellationToken = default)
     {
+        if (AppEnvironment.IsDevelopment) throw new InvalidOperationException("Updates disabled in DEV.");
         var updateDirectory = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RoAura", "Updates");
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AppEnvironment.DataFolderName, "Updates");
         Directory.CreateDirectory(updateDirectory);
         var finalPath = Path.Combine(updateDirectory, update.InstallerName);
         var temporaryPath = finalPath + ".download";
@@ -154,6 +156,7 @@ public sealed class GitHubUpdateService
 
     public static void StartInstaller(string path)
     {
+        if (AppEnvironment.IsDevelopment) throw new InvalidOperationException("Installers disabled in DEV.");
         Process.Start(new ProcessStartInfo(path)
         {
             UseShellExecute = true,
