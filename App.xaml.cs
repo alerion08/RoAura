@@ -664,9 +664,13 @@ public partial class App : Application
 
     public TimeSpan GetCharacterSessionElapsed()
     {
-        var snapshot = CurrentCharacterStatistics();
-        return snapshot?.SessionTimerStarted == true
-            ? TimeSpan.FromTicks(snapshot.SessionActiveTicks) : TimeSpan.Zero;
+        if (_characterStatisticsFaulted || _characterLedger?.Active is not { } key ||
+            _packetCapture is null) return TimeSpan.Zero;
+        var current = _packetCapture.CharacterSession;
+        if (current.Phase != CharacterSessionPhase.ActiveObserved || current.CharacterId != key.CharacterId ||
+            !string.Equals(current.ServerKey, key.ServerKey, StringComparison.OrdinalIgnoreCase))
+            return TimeSpan.Zero;
+        return _characterLedger.ActiveSessionElapsed(DateTime.UtcNow);
     }
 
     public bool StartCharacterStatisticsSession()
