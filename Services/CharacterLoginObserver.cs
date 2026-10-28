@@ -23,6 +23,15 @@ public sealed class CharacterLoginStreamProbe
     private long _lastSeen = Environment.TickCount64;
 
     public long LastSeenTick => Volatile.Read(ref _lastSeen);
+    public ushort? FirstOpcode
+    {
+        get
+        {
+            lock (_sync)
+                return _prefixLength < 2 ? null :
+                    BinaryPrimitives.ReadUInt16LittleEndian(_prefix);
+        }
+    }
     public bool Finished { get { lock (_sync) return _finished; } }
 
     /// <summary>Returns one candidate at most. Duplicates and gaps cannot produce another.</summary>
@@ -103,6 +112,7 @@ public sealed class CharacterLoginObserver
     private const int MaximumFlows = 512;
     private const long IdleMs = 2 * 60 * 1000;
     private readonly ConcurrentDictionary<TcpFlowKey, CharacterLoginStreamProbe> _flows = new();
+    private int _unrecognizedLogged;
 
     internal void Observe(TcpFlowKey key, uint sequence, ReadOnlySpan<byte> payload, bool closing)
     {
@@ -117,7 +127,16 @@ public sealed class CharacterLoginObserver
         if (_flows.Count >= MaximumFlows) return;
         var probe = _flows.GetOrAdd(key, _ => new CharacterLoginStreamProbe());
         var candidate = probe.Process(sequence, payload);
-        if (candidate is null) return;
+        if (candidate is null)
+        {
+            // Limited, metadata-only hint that this client's packetver may
+            // shuffle map-login IDs, or that capture began mid-connection.
+            if (probe.Finished && probe.FirstOpcode is ushort opcode &&
+                Interlocked.Increment(ref _unrecognizedLogged) <= 10)
+                DebugLog.Write($"CHARACTER MAP LOGIN NOT IDENTIFIED: firstOpcode=0x{opcode:X4}; " +
+                               $"mapPort={key.DestinationPort}; check packetver / late capture");
+            return;
+        }
         DebugLog.Write($"CHARACTER LOGIN CANDIDATE (unconfirmed): opcode=0x{candidate.PacketId:X4}; " +
                        $"cid={candidate.CharacterId}; length={candidate.PacketLength}; " +
                        $"mapPort={key.DestinationPort}; clientPort={key.SourcePort}");
