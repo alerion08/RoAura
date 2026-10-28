@@ -18,6 +18,16 @@ public sealed class PlayerAidObserver
     public uint Aid { get { lock (_sync) return _conflicted ? 0 : _aid; } }
     public string Source { get { lock (_sync) return _conflicted ? "conflict" : _source; } }
 
+    public uint AidForFlow(CharacterSessionFlow flow)
+    {
+        lock (_sync) return _flow == flow && !_conflicted ? _aid : 0;
+    }
+
+    public string SourceForFlow(CharacterSessionFlow flow)
+    {
+        lock (_sync) return _flow == flow ? (_conflicted ? "conflict" : _source) : "";
+    }
+
     public void Reset()
     {
         lock (_sync)
