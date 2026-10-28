@@ -61,3 +61,14 @@ NOT caused by Character Sessions. Keep stable `main` unchanged.
 Relevant rAthena sources:
 - https://github.com/rathena/rathena/blob/master/src/map/packets_struct.hpp
 - https://github.com/rathena/rathena/wiki/packets
+
+## Follow-up: SpringRO Hiding and missing status events
+
+In-game DEV #59: Envenom, Back Slide and successful Steal trigger cooldowns; Hiding never triggers. Equipment still works. All ordinary effects/reminders remain unresponsive.
+
+- Hiding is a toggle skill (TF_HIDING = 51), not necessarily accompanied by a successful-skill packet or any server cooldown. rAthena's `ZC_STATE_CHANGE` actor-option packets `0x0119` (13 bytes) and `0x0229` (15 bytes) expose `OPTION_HIDE = 0x2`. DEV converts a transition to hidden into a confirmed successful Hiding action, optionally starting the *user-configured* cooldown. It does not invent a server cooldown duration.
+- The same packets convey the actor's hidden flag. DEV maps it to the client status icon `EFST_HIDING = 4` on appearance and disappearance, with unknown duration (0), so Effects and Reminders can react when configured for this Status ID. This is **not** the same number as `SC_HIDING = 24`.
+- All decoded status and option packets generate bounded metadata-only diagnostic lines `PACKET STATUS OBSERVED` / `PACKET OPTION OBSERVED` with opcode, state, optional duration and `matchesPlayer` boolean, never authentication codes, raw frame bytes or account IDs. This lets us distinguish no packet vs. rejected actor vs. UI transition. If neither appears, SpringRO likely uses a different packet/layout and further source-specific verification is needed.
+- Legacy equipment, skill effects, EXP, Gold Goblin and per-character statistics must continue functioning without changes.
+
+Sources: https://github.com/rathena/rathena/wiki/packets ; https://github.com/brAthena/Client-Side/blob/master/Lua%20Files/2014/luafiles514/lua%20files/stateicon/efstids.lub
