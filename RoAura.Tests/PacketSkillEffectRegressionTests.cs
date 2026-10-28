@@ -191,6 +191,24 @@ public sealed class PacketSkillEffectRegressionTests
     }
 
     [Fact]
+    public void Invalid_option_candidate_produces_metadata_diagnostic_but_no_Hiding()
+    {
+        var bytes = new byte[15];
+        Write16(bytes, 0, 0x0229);
+        Write32(bytes, 2, 4200);
+        Write32(bytes, 10, 2);
+        bytes[14] = 7; // invalid PK flag
+        var scanner = new RoPacketStreamScanner();
+        var rejected = new List<ushort>();
+        var accepted = 0;
+        scanner.OptionCandidateRejected += rejected.Add;
+        scanner.OptionChanged += _ => accepted++;
+        scanner.Process(bytes);
+        Assert.Equal(0, accepted);
+        Assert.Contains((ushort)0x0229, rejected);
+    }
+
+    [Fact]
     public void Invalid_skill_packets_are_rejected()
     {
         var bytes = new byte[15];
