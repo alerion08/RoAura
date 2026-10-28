@@ -187,3 +187,16 @@ folders, separate instance IPC, disabled official updater, a portable-only
 build script and Windows CI. No character identification or per-character
 statistics routing is yet implemented or field-verified. See
 `docs/CHARACTER_SESSIONS_PLAN.md` for the subsequent experimental gates.
+
+
+## Stage 2 passive character detection (2026-10-28)
+
+Experimental branch `feature/character-statistics` now contains a separate
+outbound map-login packet probe (known unshuffled `0x0072`/`0x0436`), bounded
+sequence-aware per-flow inspection and metadata-only DEV diagnostic logging.
+The development capture filter observes both TCP directions while the normal
+server-to-client parser remains isolated. The change DOES NOT switch
+characters or write per-character statistics yet. Identification is candidate
+only and is awaiting SpringRO/RTM real-client verification, including Character
+Select, late launch and endpoint changes. The initial development isolation
+Windows CI run passed; later stage-2 CI must be evaluated per commit.
