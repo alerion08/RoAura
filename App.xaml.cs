@@ -617,7 +617,7 @@ public partial class App : Application
             try
             {
                 _goldGoblin?.RestoreCharacterRows(record.GoldGoblinRows.Values.ToList(),
-                    TimeSpan.FromTicks(record.SessionActiveTicks));
+                    TimeSpan.FromTicks(record.SessionActiveTicks), record.SessionTimerStarted);
             }
             finally { _changingCharacterRows = false; }
             _overlay?.RefreshCharacterStatistics();
@@ -660,6 +660,29 @@ public partial class App : Application
         SafeCharacterStatisticsAction(() =>
             _characterLedger.ReplaceGoldGoblinRows(_goldGoblin.SnapshotCharacterRows(),
                 DateTime.UtcNow));
+    }
+
+    public TimeSpan GetCharacterSessionElapsed()
+    {
+        var snapshot = CurrentCharacterStatistics();
+        return snapshot?.SessionTimerStarted == true
+            ? TimeSpan.FromTicks(snapshot.SessionActiveTicks) : TimeSpan.Zero;
+    }
+
+    public bool StartCharacterStatisticsSession()
+    {
+        if (!AppEnvironment.IsDevelopment || _characterLedger?.Active is null ||
+            _packetCapture?.CharacterSession.Phase != CharacterSessionPhase.ActiveObserved ||
+            _characterStatisticsFaulted) return false;
+        return SafeCharacterStatisticsValue(() =>
+        {
+            _characterLedger.StartNewSession(DateTime.UtcNow);
+            _changingCharacterRows = true;
+            try { _goldGoblin?.StartSession(); }
+            finally { _changingCharacterRows = false; }
+            _overlay?.RefreshCharacterStatistics();
+            return true;
+        });
     }
 
     public bool ResetCharacterStatisticsSession()
@@ -875,8 +898,13 @@ public partial class App : Application
 
         var isJob = packet.ExperienceType == 2;
         if (session.HasValue)
+        {
             SafeCharacterStatisticsAction(() => _characterLedger?.AddExperience(packet.Amount, isJob,
                 DateTime.UtcNow));
+            var current = CurrentCharacterStatistics();
+            if (current is not null && current.SessionTimerStarted)
+                _goldGoblin?.SyncSessionClock(TimeSpan.FromTicks(current.SessionActiveTicks), true);
+        }
         else if (isJob) _overlay.RecordJobExperience(packet.Amount);
         else _overlay.RecordBaseExperience(packet.Amount);
         if (isJob && !settings.ShowJobExperience) return;
