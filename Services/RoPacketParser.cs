@@ -109,6 +109,9 @@ public sealed class RoPacketStreamScanner
     public event Action<RoStatusPacket>? StatusChanged;
     public event Action<RoSelfAidPacket>? SelfAidObserved;
     public event Action<RoOptionPacket>? OptionChanged;
+    // DEV diagnostics can report an option opcode whose candidate body was
+    // rejected, without recording any packet bytes or actor identifiers.
+    public event Action<ushort>? OptionCandidateRejected;
     public event Action<RoSkillPacket>? SkillUsed;
     public event Action<RoSkillCooldownPacket>? SkillCooldown;
     public event Action<RoEquipmentPacket>? EquipmentChanged;
@@ -252,6 +255,16 @@ public sealed class RoPacketStreamScanner
                         out var length, out var newOption):
                     if (offset + length > previousLength) OptionChanged?.Invoke(newOption);
                     offset += length - 1;
+                    break;
+
+                case 0x0119 when offset + OldOptionPacketSize <= combined.Length &&
+                    offset + OldOptionPacketSize > previousLength:
+                    OptionCandidateRejected?.Invoke(packetId);
+                    break;
+
+                case 0x0229 when offset + NewOptionPacketSize <= combined.Length &&
+                    offset + NewOptionPacketSize > previousLength:
+                    OptionCandidateRejected?.Invoke(packetId);
                     break;
 
                 case 0x0983 when TryReadTimedStatus(combined, offset, TimedStatusPacketSize, packetId,
