@@ -252,3 +252,7 @@ backup-only character when the primary file is missing. Two focused Windows
 regression tests cover these data-loss scenarios. Further manual checks
 (SpringRO/RTM, VPN, overlays, named presets, multiple clients) remain open.
 Do not merge, tag, build an installer or create a public release.
+
+## Stage 7 packet-effect regression: Hiding and diagnostic instrument (2026-10-28)
+
+After user verified some self/target Thief skills but no Hiding or Effect/Reminder transitions, DEV parser gained standard actor option packet decoding (0x0119 and 0x0229) and a Hiding-only bridge: OPTION_HIDE flag → Skill 51 upon activation and EFST Status 4 during on/off changes. New synthetic tests cover both layouts. Bounded diagnostic logs report decoded status/option event metadata and whether AID matches the current character (without logging the AID itself). Field test remains mandatory; unknown client-specific packet versions must not be guessed. No main merge/release.
