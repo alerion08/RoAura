@@ -80,6 +80,7 @@ public partial class OverlayWindow : Window
     private readonly Dictionary<RateIndicatorKind, Point> _rateIndicatorDragStarts = [];
     private DateTime _lastRateIndicatorUpdateUtc = DateTime.MinValue;
     private Func<CharacterStatisticsDocument?>? _characterStatisticsSource;
+    private Func<TimeSpan>? _characterElapsedSource;
     private long _sessionBaseExperience;
     private DateTime? _baseExperienceStartedUtc;
     private ulong _currentBaseExperience;
