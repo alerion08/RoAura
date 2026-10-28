@@ -177,3 +177,13 @@ Focused geometry tests cover separate monitors, partial/full coverage, owned dia
 ## Next step
 
 Complete the 3.0.0 release pipeline through PR #5. After successful publication, continue confirmed bug fixes as 3.0.x patches using the regression checklist. Preserve the accepted 3.0 functionality and user settings.
+
+## Experimental Character Sessions (2026-10-28)
+
+RoAura 3.0.0 is published and PR #5 is merged. Feature work is isolated on
+`feature/character-statistics`, based on released main commit `e2bdab6`.
+Stage 1 adds a compile-time DEV runtime identity, separate settings/market/log
+folders, separate instance IPC, disabled official updater, a portable-only
+build script and Windows CI. No character identification or per-character
+statistics routing is yet implemented or field-verified. See
+`docs/CHARACTER_SESSIONS_PLAN.md` for the subsequent experimental gates.
