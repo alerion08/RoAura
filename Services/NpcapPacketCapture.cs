@@ -17,6 +17,29 @@ public sealed class NpcapPacketCapture : IDisposable
     private readonly object _lifecycleLock = new();
     // DEV only: diagnostics are completely separate from XP, loot and status routing.
     private readonly CharacterSessionManager _characterSessions = new();
+    private readonly PlayerAidObserver _playerAidObserver = new();
+
+    /// <summary>Self actor ID for effect/cooldown tracking only; not CID attribution.</summary>
+    public uint VerifiedPlayerAid
+    {
+        get
+        {
+            var session = _characterSessions.Current;
+            return session.Phase == CharacterSessionPhase.ActiveObserved && session.PlayerAid != 0
+                ? session.PlayerAid
+                : _playerAidObserver.Aid;
+        }
+    }
+
+    public string PlayerAidIdentitySource
+    {
+        get
+        {
+            var session = _characterSessions.Current;
+            return session.Phase == CharacterSessionPhase.ActiveObserved && session.PlayerAid != 0
+                ? "map-login" : _playerAidObserver.Source;
+        }
+    }
     public CharacterSessionSnapshot CharacterSession => _characterSessions.Current;
     public event Action<CharacterSessionSnapshot>? CharacterSessionChanged;
     public bool IsCurrentCharacterSession(CharacterSessionSnapshot snapshot) =>
@@ -87,6 +110,7 @@ public sealed class NpcapPacketCapture : IDisposable
             equipmentCache = _equipmentIdentityCache;
             pendingEquipmentEvents = _pendingEquipmentEvents;
             tcpFlows = new();
+            _playerAidObserver.Reset();
             if (AppEnvironment.IsDevelopment) _characterSessions.OnCaptureInterrupted();
             loginObserver = AppEnvironment.IsDevelopment ? new CharacterLoginObserver() : null;
             if (loginObserver is not null)
@@ -397,7 +421,10 @@ public sealed class NpcapPacketCapture : IDisposable
                     {
                         loginObserver.Observe(flowKey, sequence, payload, closing);
                         if (closing && generation == Volatile.Read(ref _generation))
+                        {
                             _characterSessions.OnConnectionClosed(CharacterSessionFlow.FromOutbound(flowKey));
+                            _playerAidObserver.OnClosed(CharacterSessionFlow.FromOutbound(flowKey));
+                        }
                         continue;
                     }
                     if (flowKey.SourcePort != port || flowKey.DestinationPort == port)
@@ -416,7 +443,10 @@ public sealed class NpcapPacketCapture : IDisposable
                         _characterSessions.OnServerPayload(CharacterSessionFlow.FromInbound(flowKey));
                     flow.Process(sequence, payload);
                     if (AppEnvironment.IsDevelopment && generation == Volatile.Read(ref _generation) && closing)
+                    {
                         _characterSessions.OnConnectionClosed(CharacterSessionFlow.FromInbound(flowKey));
+                        _playerAidObserver.OnClosed(CharacterSessionFlow.FromInbound(flowKey));
+                    }
                     // The server side is done with this stream: drop it so the
                     // flow table cannot grow with every reconnect.
                     if (closing) tcpFlows.TryRemove(flowKey, out _);
@@ -484,6 +514,9 @@ public sealed class NpcapPacketCapture : IDisposable
     {
         var scanner = new RoPacketStreamScanner(equipmentCache);
         scanner.StatusChanged += packet => Forward(generation, () => StatusChanged?.Invoke(packet));
+        if (AppEnvironment.IsDevelopment)
+            scanner.SelfAidObserved += packet => Forward(generation, () =>
+                ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID"));
         // Actor visibility (not always a skill ack): TF_HIDING is confirmed
         // by OPTION_HIDE, while EFST_HIDING is a separate status icon.
         bool? lastHidden = null;
@@ -509,6 +542,8 @@ public sealed class NpcapPacketCapture : IDisposable
         });
         scanner.ExperienceChanged += packet => Forward(generation, () =>
         {
+            if (AppEnvironment.IsDevelopment)
+                ObservePlayerAid(packetFlow, packet.Aid, "EXP");
             ExperienceChanged?.Invoke(packet);
             ForwardCharacterPacket(packetFlow, packet, CharacterExperienceChanged);
         });
@@ -523,6 +558,13 @@ public sealed class NpcapPacketCapture : IDisposable
             ForwardCharacterPacket(packetFlow, packet, CharacterZenyChanged);
         });
         return scanner;
+    }
+
+    private void ObservePlayerAid(CharacterSessionFlow flow, uint aid, string source)
+    {
+        if (_playerAidObserver.Observe(flow, aid, source))
+            DebugLog.Write($"PLAYER SELF AID VERIFIED source={source}; " +
+                           $"clientPort={flow.ClientPort}; mapPort={flow.ServerPort}");
     }
 
     private void ForwardCharacterPacket<T>(CharacterSessionFlow flow, T packet,
