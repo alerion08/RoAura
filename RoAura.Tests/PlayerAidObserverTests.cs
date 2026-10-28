@@ -65,6 +65,34 @@ public sealed class PlayerAidObserverTests
     }
 
     [Fact]
+    public void Self_actor_evidence_is_restricted_to_the_observed_TCP_flow()
+    {
+        var observer = new PlayerAidObserver();
+        var oldFlow = Flow(50200);
+        var newFlow = Flow(50201);
+        Assert.True(observer.Observe(oldFlow, 4001, "EXP"));
+        Assert.Equal(4001u, observer.AidForFlow(oldFlow));
+        Assert.Equal(0u, observer.AidForFlow(newFlow));
+        Assert.Equal("", observer.SourceForFlow(newFlow));
+        Assert.True(observer.Observe(newFlow, 5002, "EXP"));
+        Assert.Equal(0u, observer.AidForFlow(oldFlow));
+        Assert.Equal(5002u, observer.AidForFlow(newFlow));
+        Assert.Equal("EXP", observer.SourceForFlow(newFlow));
+    }
+
+    [Fact]
+    public void Conflicting_evidence_disables_only_the_current_flow_identity()
+    {
+        var observer = new PlayerAidObserver();
+        Assert.True(observer.Observe(Flow(50200), 4001, "ZC_AID"));
+        Assert.False(observer.Observe(Flow(50200), 5002, "EXP"));
+        Assert.Equal("conflict", observer.SourceForFlow(Flow(50200)));
+        Assert.Equal(0u, observer.AidForFlow(Flow(50200)));
+        Assert.True(observer.Observe(Flow(50201), 5002, "EXP"));
+        Assert.Equal(5002u, observer.AidForFlow(Flow(50201)));
+    }
+
+    [Fact]
     public void Explicit_server_identity_packet_is_decoded()
     {
         var payload = new byte[] {0x83, 0x02, 0x39, 0x30, 0x00, 0x00};
