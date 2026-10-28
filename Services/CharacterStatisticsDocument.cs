@@ -35,6 +35,7 @@ public sealed class CharacterStatisticsDocument
     public DateTime CreatedUtc { get; set; }
     public DateTime LastUpdatedUtc { get; set; }
     public DateTime SessionStartedUtc { get; set; }
+    public bool SessionTimerStarted { get; set; }
 
     public long LifetimeBaseExperience { get; set; }
     public long LifetimeJobExperience { get; set; }
@@ -60,6 +61,7 @@ public sealed class CharacterStatisticsDocument
         CreatedUtc = CreatedUtc,
         LastUpdatedUtc = LastUpdatedUtc,
         SessionStartedUtc = SessionStartedUtc,
+        SessionTimerStarted = SessionTimerStarted,
         LifetimeBaseExperience = LifetimeBaseExperience,
         LifetimeJobExperience = LifetimeJobExperience,
         LifetimeZenyGained = LifetimeZenyGained,
