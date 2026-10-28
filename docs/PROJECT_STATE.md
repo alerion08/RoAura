@@ -227,3 +227,15 @@ persistence use the per-character ledger. The normal `main` branch is unchanged.
 Automated Windows CI and real game regression remain required before calling
 the feature ready; active session is inferred from map login plus inbound
 network activity, not an explicit server-auth acceptance packet.
+
+## Stage 6 character UI and shared timer (2026-10-28)
+
+The user field-tested stage 5 on SpringRO and reported that everything worked,
+apart from the independent overlay/Gold Goblin session clocks and the session
+timer obeying the rate-refresh interval. DEV now uses one clock starting at
+first EXP (Base or Job), or manually through Gold Goblin Start Session; loot
+alone does not start time. Session-time overlay refreshes independently of
+rate-statistics cadence. A compact RU/EN identity and historical record browser
+is added to the Statistics section. Selecting a saved character is read-only:
+it must not silently attribute network rewards to an unverified identity.
+Manual field verification and regression are still required; no release/merge.
