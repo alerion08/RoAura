@@ -531,11 +531,11 @@ public sealed class NpcapPacketCapture : IDisposable
         var scanner = new RoPacketStreamScanner(equipmentCache);
         scanner.StatusChanged += packet => Forward(generation, () => StatusChanged?.Invoke(packet));
         if (AppEnvironment.IsDevelopment)
-            scanner.OptionCandidateRejected += opcode => Forward(generation, () =>
+            scanner.OptionCandidateRejectedDetailed += (opcode, reason) => Forward(generation, () =>
             {
                 if (Interlocked.Increment(ref _rejectedOptionDiagnosticCount) <= 20)
                     DebugLog.Write($"PACKET OPTION CANDIDATE REJECTED opcode=0x{opcode:X4}; " +
-                                   "possible packetver/layout mismatch or embedded signature");
+                                   $"reason={reason}");
             });
         if (AppEnvironment.IsDevelopment)
             scanner.SelfAidObserved += packet => Forward(generation, () =>
