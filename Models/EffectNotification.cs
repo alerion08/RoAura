@@ -27,6 +27,12 @@ public sealed class EffectNotification : INotifyPropertyChanged
     public double BaseX { get; init; }
     public double BaseY { get; init; }
     public bool IsPlacementPreview { get; init; }
+    public bool Appeared { get; init; }
+    public bool FollowsStatus { get; init; } = true;
+
+    // A suppressed sound/repeat must not leave an opposite-state message visible.
+    public bool MatchesCurrentState(TrackedEffect? effect) => IsPlacementPreview || !FollowsStatus ||
+        (effect is { Enabled: true } && effect.Id == EffectId && effect.IsActive == Appeared);
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

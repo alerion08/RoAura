@@ -1358,7 +1358,7 @@ public partial class MainWindow : Window
     private void TestEffect(bool appeared)
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
-        _overlay.ShowEffectNotification(effect, appeared);
+        _overlay.ShowEffectNotification(effect, appeared, followStatus: false);
     }
 
     private void LearnEffectPacket_Click(object sender, RoutedEventArgs e)
@@ -1456,6 +1456,7 @@ public partial class MainWindow : Window
         // the user returned to the game to equip an item.
         if (!captureWasEnabled || !_packetCapture.IsActive)
             ApplyPacketCaptureIfChanged(force: true);
+        _packetCapture.BeginLearningDiagnostics();
     }
 
     private bool IsLearningObservation<T>(RoPacketObservation<T> observation, int generation) =>
@@ -1471,8 +1472,8 @@ public partial class MainWindow : Window
         _learningObservedSummary = observation.SelfAid == 0
             ? T($"Обнаружен {kind} {id}, но свой персонаж пока не подтверждён. Повторите после входа в игру или получения опыта.",
                 $"Observed {kind} {id}, but your actor is not confirmed yet. Retry after login or gaining EXP.")
-            : T($"Обнаружен {kind} {id}, но AID не совпадает со своим персонажем. Ожидание своего события…",
-                $"Observed {kind} {id}, but its actor does not match yours. Waiting for your event…");
+            : T($"Обнаружен {kind} {id}, но AID не совпадает. Возможен другой персонаж или неподдерживаемый формат пакета.",
+                $"Observed {kind} {id}, but its AID differs. This may be another actor or an unsupported packet layout.");
         if (_learningEffect is { } effect) effect.LearningObservation = _learningObservedSummary;
         if (_learningReminder is { } reminder) reminder.LearningObservation = _learningObservedSummary;
         if (_learningSkill is { } skill) skill.LearningObservation = _learningObservedSummary;

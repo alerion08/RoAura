@@ -326,3 +326,32 @@ DEV portable; its exact commit/run result is the authority for that build.
 No installer, version change or release preparation. Live SpringRO/RTM,
 Npcap adapters, relog, F9 and modifier-key acceptance remain pending.
 See `docs/PACKET_TRACKING_AUDIT.md` for the focused acceptance matrix.
+
+## SpringRO field rejection of DEV 92 (2026-10-28)
+
+User's new debug(3).log confirms that ID learning still fails and Hiding
+state is unreliable. Do not describe the preceding iteration as working on
+SpringRO. In the 20:30–20:34 session, map-login and later EXP agree on self,
+but 0x0983 yields changing status candidates with actor mismatch and plausible
+180/240-second timers. Own 0x0229 alternates its decoded Hiding bit. The log
+does not contain the option mask or original status fields, so neither a
+custom layout nor encoding nor correct live state can be established from it.
+
+A reproducible independent overlay defect is fixed: a suppressed repeat or
+disabled opposite notification no longer leaves an old opposite-state message
+visible. Manual notification tests and placement previews retain their normal
+lifetime. This does not correct a wrong wire-level Hiding bit.
+
+DEV now records bounded scalar layout diagnostics for 120 seconds / 256
+candidates after capture start and each Learn operation. This includes rejected
+status candidates, full option masks, body/health/karma, standard field values,
+stream offsets and boundary evidence. Actors and source lifetimes have only
+window-local labels, not raw IDs/IPs/payloads. No new decoder or own-actor
+fallback is guessed. Startup identifies the binary by assembly MVID. Next
+step: field-test this diagnostic portable and inspect the new PACKET LAYOUT
+lines alongside a short timed Hiding on/off and buff learning sequence.
+
+Local targeted harness: 75 scenarios passed using actual source and xUnit
+assertions. Standard MSBuild cannot initialize Process metadata in this host;
+Windows CI is the full application/test/package validation authority. No main,
+version, installer or release changes.

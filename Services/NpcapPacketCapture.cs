@@ -81,6 +81,15 @@ public sealed class NpcapPacketCapture : IDisposable
     private ConcurrentDictionary<ushort, RoEquipmentPacket> _equipmentIdentityCache = new();
     private ConcurrentDictionary<ushort, RoEquipmentPacket> _pendingEquipmentEvents = new();
 
+    private readonly PacketLayoutDiagnostics _layoutDiagnostics = new();
+
+    public void BeginLearningDiagnostics()
+    {
+        if (!AppEnvironment.IsDevelopment) return;
+        _layoutDiagnostics.Begin(DateTime.UtcNow);
+        DebugLog.Write("PACKET LAYOUT WINDOW started; durationSeconds=120; maxCandidates=256; actorLabels=window-local");
+    }
+
     public event Action<RoPacketObservation<RoStatusPacket>>? StatusChanged;
     public event Action<RoPacketObservation<RoOptionPacket>>? OptionChanged;
     public event Action<RoPacketObservation<RoSkillPacket>>? SkillUsed;
@@ -121,6 +130,7 @@ public sealed class NpcapPacketCapture : IDisposable
             _activeGeneration = generation;
             _activeDevices = 0;
             _rejectedOptionDiagnosticCount = 0;
+            if (AppEnvironment.IsDevelopment) _layoutDiagnostics.Begin(DateTime.UtcNow);
             // Replace rather than clear: workers from the cancelled generation
             // may finish parsing one last frame and must not repopulate the new
             // connection's identity table.
@@ -555,6 +565,15 @@ public sealed class NpcapPacketCapture : IDisposable
         var source = RegisterTrackingSource(generation, packetFlow);
         var hiding = new HidingStateTracker();
         var pendingStatuses = new PendingStatusObservations();
+        if (AppEnvironment.IsDevelopment)
+            scanner.LayoutProbed += probe => Forward(generation, () =>
+            {
+                var observation = Observe(probe, source);
+                if (!IsCurrentObservation(observation)) return;
+                if (_layoutDiagnostics.Format(probe, source, observation.SelfAid,
+                        observation.IdentitySource, observation.ObservedAtUtc) is { } line)
+                    DebugLog.Write(line);
+            });
         void PublishStatus(RoStatusPacket packet)
         {
             var observation = Observe(packet, source);

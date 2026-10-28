@@ -97,6 +97,7 @@ public sealed class RoPacketStreamScanner
     private const int MaximumEquipmentListLength = 8192;
     private byte[] _carry = [];
     private bool _knownBoundary = true;
+    private long _streamOffset;
     private readonly ConcurrentDictionary<ushort, RoEquipmentPacket> _inventoryEquipment;
 
     public RoPacketStreamScanner(
@@ -110,6 +111,7 @@ public sealed class RoPacketStreamScanner
 
     public event Action<RoStatusPacket>? StatusChanged;
     public event Action? StreamReset;
+    public event Action<RoPacketLayoutProbe>? LayoutProbed;
     public event Action<RoSelfAidPacket>? SelfAidObserved;
     public event Action<RoOptionPacket>? OptionChanged;
     // DEV diagnostics can report an option opcode whose candidate body was
@@ -128,6 +130,7 @@ public sealed class RoPacketStreamScanner
     {
         _carry = [];
         _knownBoundary = true;
+        _streamOffset = 0;
         StreamReset?.Invoke();
     }
 
@@ -150,6 +153,12 @@ public sealed class RoPacketStreamScanner
             var frameLength = KnownFrameLength(combined, offset, packetId);
             if (frameLength == -1 || (frameLength > 0 && offset + frameLength > combined.Length))
                 break;
+            // Diagnostics observe complete candidates before semantic rejection.
+            // They never change framing, identity or the decoded event stream.
+            if (LayoutProbed is not null && frameLength > 0 &&
+                RoPacketLayoutProbe.Create(combined.AsSpan(offset, frameLength),
+                    _streamOffset + offset, _knownBoundary) is { } probe)
+                LayoutProbed.Invoke(probe);
             switch (packetId)
             {
                 case 0x0B41 when TryReadRtmItemAdded(combined, offset, out var length, out var itemAdded):
@@ -347,6 +356,7 @@ public sealed class RoPacketStreamScanner
         }
 
         var keep = Math.Min(CarrySize, combined.Length - offset);
+        _streamOffset += combined.Length - keep;
         _carry = combined.AsSpan(combined.Length - keep, keep).ToArray();
     }
 

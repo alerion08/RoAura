@@ -209,3 +209,32 @@ Source snapshot inspected: rAthena `d4b8e7b8f16061cc2496d377ac8f777ce72a4f39`:
 - [Hiding implementation](https://github.com/rathena/rathena/blob/d4b8e7b8f16061cc2496d377ac8f777ce72a4f39/src/map/skills/thief/hiding.cpp)
 - [clif_skill_nodamage, clif_changeoption_target and status delivery](https://github.com/rathena/rathena/blob/d4b8e7b8f16061cc2496d377ac8f777ce72a4f39/src/map/clif.cpp)
 - [Wire structures](https://github.com/rathena/rathena/blob/d4b8e7b8f16061cc2496d377ac8f777ce72a4f39/src/map/packets_struct.hpp)
+
+## Failed field acceptance after DEV 92 — diagnostic follow-up
+
+`debug(3).log`, latest session 20:30–20:34 (user local clock):
+- 0x0983 reports differing status numbers, including 17594, 9034, 13222,
+  13097, 2687 and 8121 for 240000 ms, all mismatching self. This is evidence
+  against claiming successful status learning, not proof of any encryption.
+- 0x0229 matches self but its Boolean Hiding interpretation alternates.
+  The log omitted the mask, body/health fields and karma; the true state
+  cannot be reconstructed. EXP eventually agrees with map-login self AID.
+- Effect notification logs are not a state trace: repeat protection can
+  suppress a notification even though the model changes. A stale opposite
+  notification is now removed independently of whether a new alert is emitted.
+
+DEV scalar probes run before semantic filtering, including status IDs above
+20000 that previous logs silently omitted. Routing and validation remain
+unchanged. `boundary=True` means the scanner expected a boundary; it is not
+proof of a complete SpringRO protocol profile. `alternate` is a diagnostic
+actor-shaped field at the other standard layout offset (or a skill target),
+never identity evidence. Window-local aN/fN labels allow equality checks
+without persisting actual actor IDs, IP addresses or payload dumps. Each
+window is capped at 120 seconds / 256 candidates, and Learn rearms it even
+if initial startup diagnostics were exhausted. No private sample is committed.
+
+Required next sample: start Learn, toggle Hiding on for 5–10 seconds then off,
+repeat twice, then start Learn again and apply the same finite buff twice.
+Record the real on/off order/time. Supply the new log; the new binary has
+`packetLayoutDiagnostics=1` in its START line. Do not infer state from odd/even
+cast count or accept a mismatching actor to make learning appear successful.

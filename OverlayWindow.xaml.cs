@@ -451,7 +451,7 @@ public partial class OverlayWindow : Window
         }
     }
 
-    public void ShowEffectNotification(TrackedEffect effect, bool appeared)
+    public void ShowEffectNotification(TrackedEffect effect, bool appeared, bool followStatus = true)
     {
         var text = appeared ? effect.AppearedText : effect.DisappearedText;
         if (string.IsNullOrWhiteSpace(text))
@@ -462,7 +462,7 @@ public partial class OverlayWindow : Window
                      .ToList())
             _settings.ActiveNotifications.Remove(old);
 
-        var notification = CreateNotification(effect, appeared, false);
+        var notification = CreateNotification(effect, appeared, false, followStatus);
         _settings.ActiveNotifications.Add(notification);
         ReflowNotifications();
         if (_overlaysVisible)
@@ -844,13 +844,15 @@ public partial class OverlayWindow : Window
         foreach (var item in sorted) group.Notifications.Add(item);
     }
 
-    private EffectNotification CreateNotification(TrackedEffect effect, bool appeared, bool preview)
+    private EffectNotification CreateNotification(TrackedEffect effect, bool appeared, bool preview, bool followStatus = true)
     {
         var text = appeared ? effect.AppearedText : effect.DisappearedText;
         if (string.IsNullOrWhiteSpace(text)) text = effect.Name;
         return new EffectNotification
         {
             EffectId = effect.Id,
+            Appeared = appeared,
+            FollowsStatus = followStatus,
             GroupNumber = effect.GroupNumber,
             Text = text,
             IconBase64 = effect.TemplateImageBase64,
@@ -1007,6 +1009,10 @@ public partial class OverlayWindow : Window
         }
 
         TrackingTick?.Invoke(now);
+        var staleNotifications = _settings.ActiveNotifications.Where(n =>
+            !n.MatchesCurrentState(_settings.Effects.FirstOrDefault(e => e.Id == n.EffectId))).ToList();
+        foreach (var notification in staleNotifications) _settings.ActiveNotifications.Remove(notification);
+        if (staleNotifications.Count > 0) ReflowNotifications();
 
         foreach (var timer in _settings.MvpTimers.Where(timer => timer.EndsAtUtc.HasValue))
         {

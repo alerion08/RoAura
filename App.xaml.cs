@@ -498,7 +498,8 @@ public partial class App : Application
                 "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
-        DebugLog.Write($"START RoAura {VersionString} · Gold Goblin layout and editing update");
+        DebugLog.Write($"START RoAura {VersionString}; development={AppEnvironment.IsDevelopment}; " +
+                       $"assembly={typeof(App).Assembly.ManifestModule.ModuleVersionId}; packetLayoutDiagnostics=1");
 
         if (settings.PacketCaptureEnabled && !NpcapPacketCapture.IsNpcapInstalled())
         {
