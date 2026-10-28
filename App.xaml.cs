@@ -11,8 +11,8 @@ namespace RoAura;
 
 public partial class App : Application
 {
-    private const string SingleInstanceMutexName = @"Local\RoAura.SingleInstance";
-    private const string ActivateEventName = @"Local\RoAura.Activate";
+    private static readonly string SingleInstanceMutexName = AppEnvironment.SingleInstanceMutexName;
+    private static readonly string ActivateEventName = AppEnvironment.ActivateEventName;
     public static string VersionString { get; } =
         Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "0.0.0";
 
@@ -372,6 +372,7 @@ public partial class App : Application
         _databaseOverlay = new DatabaseOverlayWindow(settings, _watchDatabase, _marketService);
         _databaseOverlay.HideRequested += HideDatabase;
         _settingsWindow = new MainWindow(settings, _settingsStore, _overlay, _packetCapture, _goldGoblin);
+        if (AppEnvironment.IsDevelopment) _settingsWindow.Title = "RoAura DEV — Character Statistics";
         _settingsWindow.Show();
         _overlay.Show();
         _databaseOverlay.PrepareForFirstUse();
@@ -453,15 +454,24 @@ public partial class App : Application
 
         _packetCapture.ApplySettings(settings);
         _startupCompleted = true;
-        Dispatcher.BeginInvoke(async () =>
-        {
-            await Task.Delay(TimeSpan.FromSeconds(3));
-            await CheckForUpdatesAsync(false, _settingsWindow);
-        });
+        if (!AppEnvironment.IsDevelopment)
+            Dispatcher.BeginInvoke(async () =>
+            {
+                await Task.Delay(TimeSpan.FromSeconds(3));
+                await CheckForUpdatesAsync(false, _settingsWindow);
+            });
     }
 
     public async Task CheckForUpdatesAsync(bool showUpToDate, Window? owner = null)
     {
+        if (AppEnvironment.IsDevelopment)
+        {
+            if (showUpToDate)
+                MessageBox.Show(owner ?? _settingsWindow,
+                    _settingsWindow?.Settings.Language == "en" ? "Updates are disabled in DEV." : "Обновления отключены в DEV.",
+                    "RoAura DEV", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
+        }
         if (_updatePromptOpen) return;
         var english = _settingsWindow?.Settings.Language == "en";
         try
