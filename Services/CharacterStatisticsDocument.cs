@@ -18,6 +18,8 @@ public sealed class CharacterLootCount
     public int ItemId { get; set; }
     public string Name { get; set; } = "";
     public long Count { get; set; }
+    public long ManualUnitCost { get; set; }
+    public bool HasManualCost { get; set; }
 }
 
 /// <summary>
@@ -48,6 +50,7 @@ public sealed class CharacterStatisticsDocument
     public ulong NextJobExperience { get; set; }
     public Dictionary<int, CharacterLootCount> LifetimeLoot { get; set; } = [];
     public Dictionary<int, CharacterLootCount> SessionLoot { get; set; } = [];
+    public Dictionary<int, CharacterLootCount> GoldGoblinRows { get; set; } = [];
 
     public CharacterStatisticsDocument Copy() => new()
     {
@@ -72,7 +75,10 @@ public sealed class CharacterStatisticsDocument
         LifetimeLoot = LifetimeLoot.ToDictionary(p => p.Key, p => new CharacterLootCount
             { ItemId = p.Value.ItemId, Name = p.Value.Name, Count = p.Value.Count }),
         SessionLoot = SessionLoot.ToDictionary(p => p.Key, p => new CharacterLootCount
-            { ItemId = p.Value.ItemId, Name = p.Value.Name, Count = p.Value.Count })
+            { ItemId = p.Value.ItemId, Name = p.Value.Name, Count = p.Value.Count }),
+        GoldGoblinRows = GoldGoblinRows.ToDictionary(p => p.Key, p => new CharacterLootCount
+            { ItemId = p.Value.ItemId, Name = p.Value.Name, Count = p.Value.Count,
+                HasManualCost = p.Value.HasManualCost, ManualUnitCost = p.Value.ManualUnitCost })
     };
 
     public double SessionActiveHours => TimeSpan.FromTicks(SessionActiveTicks).TotalHours;

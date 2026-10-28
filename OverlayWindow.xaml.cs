@@ -79,6 +79,7 @@ public partial class OverlayWindow : Window
     private Point _rateIndicatorDragStart;
     private readonly Dictionary<RateIndicatorKind, Point> _rateIndicatorDragStarts = [];
     private DateTime _lastRateIndicatorUpdateUtc = DateTime.MinValue;
+    private Func<CharacterStatisticsDocument?>? _characterStatisticsSource;
     private long _sessionBaseExperience;
     private DateTime? _baseExperienceStartedUtc;
     private ulong _currentBaseExperience;
@@ -541,6 +542,14 @@ public partial class OverlayWindow : Window
         }
     }
 
+    public void SetCharacterStatisticsSource(Func<CharacterStatisticsDocument?>? source)
+    {
+        _characterStatisticsSource = source;
+        UpdateRateIndicators(true);
+    }
+
+    public void RefreshCharacterStatistics() => UpdateRateIndicators(true);
+
     public void RecordBaseExperience(long amount)
     {
         if (amount <= 0) return;
@@ -591,6 +600,7 @@ public partial class OverlayWindow : Window
 
     public void ResetRateStatistics()
     {
+        if (_characterStatisticsSource is not null) { UpdateRateIndicators(true); return; }
         ResetRateSessionCounters();
         _currentBaseExperience = 0;
         _nextBaseExperience = 0;
@@ -601,6 +611,7 @@ public partial class OverlayWindow : Window
 
     public void ResetRateSession()
     {
+        if (_characterStatisticsSource is not null) { UpdateRateIndicators(true); return; }
         ResetRateSessionCounters();
         UpdateRateIndicators(true);
     }
@@ -619,6 +630,11 @@ public partial class OverlayWindow : Window
     private void UpdateRateIndicators(bool force = false)
     {
         var now = DateTime.UtcNow;
+        if (_characterStatisticsSource is not null)
+        {
+            UpdateCharacterRateIndicators(now, force);
+            return;
+        }
         UpdateSessionTimeIndicator(now);
         if (!force && now - _lastRateIndicatorUpdateUtc <
             TimeSpan.FromSeconds(_settings.RateStatisticsRefreshSeconds))
@@ -700,6 +716,55 @@ public partial class OverlayWindow : Window
                     : $"Время сессии: {sessionTime}"
             };
         }
+    }
+
+    private void UpdateCharacterRateIndicators(DateTime nowUtc, bool force)
+    {
+        if (!force && nowUtc - _lastRateIndicatorUpdateUtc <
+            TimeSpan.FromSeconds(_settings.RateStatisticsRefreshSeconds))
+            return;
+        _lastRateIndicatorUpdateUtc = nowUtc;
+        var record = _characterStatisticsSource?.Invoke();
+        var baseRate = record?.BaseExperiencePerHour ?? 0;
+        var jobRate = record?.JobExperiencePerHour ?? 0;
+        var activeHours = record?.SessionActiveHours ?? 0;
+        var zenyTotal = (record?.SessionZenyGained ?? 0) +
+            (_settings.ServerProfile == GameServerProfile.SpringRo &&
+             _settings.IncludeGoldGoblinInZenyPerHour ? _goldGoblin.SessionTotal : 0);
+        var zenyRate = activeHours > 0 ? zenyTotal / activeHours : 0;
+        var timeToLevel = CharacterEta(record?.CurrentBaseExperience ?? 0,
+            record?.NextBaseExperience ?? 0, baseRate);
+        var timeToJob = CharacterEta(record?.CurrentJobExperience ?? 0,
+            record?.NextJobExperience ?? 0, jobRate);
+        var elapsed = TimeSpan.FromTicks(record?.SessionActiveTicks ?? 0);
+        var sessionTime = FormatElapsed(elapsed);
+        foreach (var indicator in _settings.RateIndicators)
+        {
+            indicator.ValueText = indicator.Kind switch
+            {
+                RateIndicatorKind.XpPerHour => $"XP/h: {baseRate:N0}",
+                RateIndicatorKind.TimeToLevel => _settings.Language == "en"
+                    ? $"Time to level: {timeToLevel}" : $"До уровня: {timeToLevel}",
+                RateIndicatorKind.TimeToJobLevel => _settings.Language == "en"
+                    ? $"Time to Job level: {timeToJob}" : $"До Job уровня: {timeToJob}",
+                RateIndicatorKind.ZenyPerHour => $"Zeny/h: {zenyRate:N0}",
+                RateIndicatorKind.ZenyTotal => $"Zeny Total: {zenyTotal:N0}",
+                _ => _settings.Language == "en"
+                    ? $"Session time: {sessionTime}" : $"Время сессии: {sessionTime}"
+            };
+        }
+    }
+
+    private static string CharacterEta(ulong current, ulong required, double perHour)
+    {
+        if (perHour <= 0 || required <= current) return "--:--:--";
+        var seconds = (required - current) / perHour * 3600d;
+        if (!double.IsFinite(seconds) || seconds >= TimeSpan.FromDays(1000).TotalSeconds)
+            return "--:--:--";
+        var duration = TimeSpan.FromSeconds(Math.Max(0, seconds));
+        return duration.TotalDays >= 1
+            ? $"{(int)duration.TotalDays}d {duration:hh\\:mm\\:ss}"
+            : duration.ToString("hh\\:mm\\:ss");
     }
 
     private void UpdateSessionTimeIndicator(DateTime now)

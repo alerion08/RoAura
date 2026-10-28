@@ -150,6 +150,29 @@ public sealed class CharacterStatisticsLedger
         }
     }
 
+    /// <summary>Persist Gold Goblin manual row counts/prices independently of drop history.</summary>
+    public void ReplaceGoldGoblinRows(IReadOnlyCollection<CharacterLootCount> rows, DateTime nowUtc)
+    {
+        CheckUtc(nowUtc);
+        lock (_sync)
+        {
+            if (!TryGetActive(out var state)) return;
+            var next = new Dictionary<int, CharacterLootCount>();
+            foreach (var row in rows)
+            {
+                if (row.ItemId <= 0 || row.Count < 0 || row.ManualUnitCost < 0 ||
+                    row.Name.Length > 500 || !next.TryAdd(row.ItemId, new CharacterLootCount
+                    {
+                        ItemId = row.ItemId, Name = row.Name, Count = row.Count,
+                        HasManualCost = row.HasManualCost, ManualUnitCost = row.ManualUnitCost
+                    }))
+                    throw new InvalidDataException("Invalid Gold Goblin row.");
+            }
+            state.GoldGoblinRows = next;
+            state.LastUpdatedUtc = nowUtc;
+        }
+    }
+
     public void ResetCurrentSession(DateTime nowUtc)
     {
         CheckUtc(nowUtc);
@@ -162,6 +185,7 @@ public sealed class CharacterStatisticsLedger
             document.SessionZenyGained = 0;
             document.SessionActiveTicks = 0;
             document.SessionLoot.Clear();
+            document.GoldGoblinRows.Clear();
             document.SessionStartedUtc = nowUtc;
             document.LastUpdatedUtc = nowUtc;
             _zeny.Reset();

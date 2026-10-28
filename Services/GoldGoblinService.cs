@@ -15,6 +15,7 @@ public sealed class GoldGoblinService
     // Rows is bound to the UI; market updates arrive on thread-pool threads and must
     // be marshalled before touching it.
     private readonly Dispatcher? _dispatcher;
+    private bool _restoringCharacterRows;
     public ObservableCollection<GoldGoblinLootRow> Rows { get; } = [];
     public event Action? Changed;
     public long SessionTotal => Rows.Sum(row => row.Total);
@@ -98,6 +99,38 @@ public sealed class GoldGoblinService
         Changed?.Invoke();
     }
 
+    public IReadOnlyList<CharacterLootCount> SnapshotCharacterRows() =>
+        Rows.Select(row => new CharacterLootCount
+        {
+            ItemId = row.ItemId, Name = row.Item, Count = row.Count,
+            HasManualCost = row.HasManualCost,
+            ManualUnitCost = row.HasManualCost ? row.Cost : 0
+        }).ToList();
+
+    public void RestoreCharacterRows(IReadOnlyCollection<CharacterLootCount> savedRows,
+        TimeSpan activeTime)
+    {
+        _restoringCharacterRows = true;
+        try
+        {
+            Rows.Clear();
+            foreach (var item in savedRows.OrderBy(row => row.ItemId))
+            {
+                if (item.ItemId <= 0 || item.Count < 0) continue;
+                var row = new GoldGoblinLootRow { ItemId = item.ItemId, Item = item.Name };
+                var price = ResolvePriceInfo(item.ItemId, item.Name);
+                row.SetCalculatedCost(price.Value, price.Source, price.Known);
+                if (item.HasManualCost) row.Cost = item.ManualUnitCost;
+                row.Count = item.Count;
+                Watch(row);
+                Rows.Add(row);
+            }
+            SessionStartedUtc = Rows.Count > 0 ? DateTime.UtcNow - activeTime : null;
+        }
+        finally { _restoringCharacterRows = false; }
+        Changed?.Invoke();
+    }
+
     public void AddManualItem(int itemId, string name) => AddLoot(itemId, name, 1);
 
     public void Remove(GoldGoblinLootRow row)
@@ -132,7 +165,7 @@ public sealed class GoldGoblinService
     private void Watch(GoldGoblinPriceRule rule) =>
         rule.PropertyChanged += Rule_PropertyChanged;
     private void Watch(GoldGoblinLootRow row) =>
-        row.PropertyChanged += (_, _) => Changed?.Invoke();
+        row.PropertyChanged += (_, _) => { if (!_restoringCharacterRows) Changed?.Invoke(); };
     private void Rule_PropertyChanged(object? sender, PropertyChangedEventArgs e) => Reprice();
 
     private static Dictionary<int, SpringRoItemPrice> LoadPrices()

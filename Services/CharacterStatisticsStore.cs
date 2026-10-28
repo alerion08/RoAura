@@ -105,11 +105,12 @@ public sealed class CharacterStatisticsStore
             data.SessionActiveTicks > data.LifetimeActiveTicks)
             throw new InvalidDataException("Negative or contradictory statistics values.");
         if (data.LifetimeLoot is null || data.SessionLoot is null ||
-            data.LifetimeLoot.Count > 50000 || data.SessionLoot.Count > 50000)
+            data.LifetimeLoot.Count > 50000 || data.SessionLoot.Count > 50000 ||
+            data.GoldGoblinRows is null || data.GoldGoblinRows.Count > 50000)
             throw new InvalidDataException("Invalid or oversized loot collection.");
-        foreach (var (itemId, entry) in data.LifetimeLoot.Concat(data.SessionLoot))
+        foreach (var (itemId, entry) in data.LifetimeLoot.Concat(data.SessionLoot).Concat(data.GoldGoblinRows))
             if (itemId <= 0 || entry is null || entry.ItemId != itemId ||
-                entry.Count < 0 || entry.Name is null || entry.Name.Length > 500)
+                entry.Count < 0 || entry.ManualUnitCost < 0 || entry.Name is null || entry.Name.Length > 500)
                 throw new InvalidDataException("Invalid loot entry.");
     }
 }
