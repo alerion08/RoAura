@@ -782,6 +782,7 @@ public partial class App : Application
     // Bounded DEV diagnostics: metadata only. Do not log raw traffic or
     // account/player AIDs. The counters are reset on each capture restart.
     private int _statusDiagnosticCount;
+    private int _statusRejectedDiagnosticCount;
     private int _optionDiagnosticCount;
 
     private void OnPacketOptionChanged(RoOptionPacket packet)
@@ -828,7 +829,14 @@ public partial class App : Application
             // Never learn "self" from the first matching Status: it may
             // belong to another player, monster or a bytewise false match.
             var verified = _packetCapture?.VerifiedPlayerAid ?? 0;
-            if (verified == 0 || verified != packet.Aid) return;
+            if (verified == 0 || verified != packet.Aid)
+            {
+                if (Interlocked.Increment(ref _statusRejectedDiagnosticCount) <= 40)
+                    DebugLog.Write($"PACKET STATUS NOT APPLIED status={packet.StatusId}; " +
+                                   $"reason={(verified == 0 ? "identity-not-known" : "not-own-actor")}; " +
+                                   $"effects={matchingEffects.Count}; reminders={matchingReminders.Count}");
+                return;
+            }
             settings.PacketPlayerAid = verified;
         }
         else
