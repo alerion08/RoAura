@@ -34,7 +34,7 @@ public sealed class CharacterStatisticsLedger
             PauseCurrent(nowUtc);
             _active = key;
             _sinceUtc = nowUtc;
-            if (next.SessionStartedUtc == default) next.SessionStartedUtc = nowUtc;
+            // Login does not begin the shared timer.
             _zeny.Reset(); // First balance of EVERY login is a baseline.
         }
     }
@@ -68,7 +68,7 @@ public sealed class CharacterStatisticsLedger
                 _documents[key] = document = loaded;
             }
             var result = document.Copy();
-            if (_active == key && _sinceUtc.HasValue)
+            if (_active == key && _sinceUtc.HasValue && result.SessionTimerStarted)
             {
                 var ticks = ElapsedTicks(_sinceUtc.Value, nowUtc);
                 result.SessionActiveTicks = checked(result.SessionActiveTicks + ticks);
@@ -85,6 +85,12 @@ public sealed class CharacterStatisticsLedger
         lock (_sync)
         {
             if (!TryGetActive(out var state)) return false;
+            if (!state.SessionTimerStarted)
+            {
+                state.SessionTimerStarted = true;
+                state.SessionStartedUtc = nowUtc;
+                _sinceUtc = nowUtc;
+            }
             if (isJob)
             {
                 state.SessionJobExperience = checked(state.SessionJobExperience + amount);
@@ -173,7 +179,9 @@ public sealed class CharacterStatisticsLedger
         }
     }
 
-    public void ResetCurrentSession(DateTime nowUtc)
+    public void StartNewSession(DateTime nowUtc) => ResetCurrentSession(nowUtc, true);
+
+    public void ResetCurrentSession(DateTime nowUtc, bool startClock = false)
     {
         CheckUtc(nowUtc);
         lock (_sync)
@@ -186,7 +194,9 @@ public sealed class CharacterStatisticsLedger
             document.SessionActiveTicks = 0;
             document.SessionLoot.Clear();
             document.GoldGoblinRows.Clear();
-            document.SessionStartedUtc = nowUtc;
+            document.SessionStartedUtc = startClock ? nowUtc : default;
+            document.SessionTimerStarted = startClock;
+            _sinceUtc = nowUtc;
             document.LastUpdatedUtc = nowUtc;
             _zeny.Reset();
             _store.Save(document.Copy());
@@ -202,7 +212,8 @@ public sealed class CharacterStatisticsLedger
             CharacterId = key.CharacterId,
             CreatedUtc = nowUtc,
             LastUpdatedUtc = nowUtc,
-            SessionStartedUtc = nowUtc
+            SessionStartedUtc = default,
+            SessionTimerStarted = false
         };
         _documents.Add(key, document);
         return document;
@@ -220,10 +231,13 @@ public sealed class CharacterStatisticsLedger
     private void Checkpoint(DateTime nowUtc)
     {
         if (_active is not { } key || !_sinceUtc.HasValue) return;
-        var elapsed = ElapsedTicks(_sinceUtc.Value, nowUtc);
         var state = _documents[key];
-        state.SessionActiveTicks = checked(state.SessionActiveTicks + elapsed);
-        state.LifetimeActiveTicks = checked(state.LifetimeActiveTicks + elapsed);
+        if (state.SessionTimerStarted)
+        {
+            var elapsed = ElapsedTicks(_sinceUtc.Value, nowUtc);
+            state.SessionActiveTicks = checked(state.SessionActiveTicks + elapsed);
+            state.LifetimeActiveTicks = checked(state.LifetimeActiveTicks + elapsed);
+        }
         state.LastUpdatedUtc = nowUtc;
         _sinceUtc = nowUtc;
     }
