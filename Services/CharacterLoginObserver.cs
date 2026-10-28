@@ -19,6 +19,7 @@ public sealed class CharacterLoginStreamProbe
     private int _prefixLength;
     private bool _initialized;
     private bool _finished;
+    private ushort? _observedOpcode;
     private uint _nextSequence;
     private long _lastSeen = Environment.TickCount64;
 
@@ -27,9 +28,7 @@ public sealed class CharacterLoginStreamProbe
     {
         get
         {
-            lock (_sync)
-                return _prefixLength < 2 ? null :
-                    BinaryPrimitives.ReadUInt16LittleEndian(_prefix);
+            lock (_sync) return _observedOpcode;
         }
     }
     public bool Finished { get { lock (_sync) return _finished; } }
@@ -57,7 +56,7 @@ public sealed class CharacterLoginStreamProbe
                 {
                     // This observer cannot reconstruct a trustworthy login from
                     // a missing segment or a reused TCP sequence. Fail closed.
-                    _finished = true;
+                    Finish();
                     return null;
                 }
             }
@@ -73,9 +72,10 @@ public sealed class CharacterLoginStreamProbe
 
             if (_prefixLength < 2) return null;
             var opcode = BinaryPrimitives.ReadUInt16LittleEndian(_prefix);
+            _observedOpcode = opcode;
             if (opcode is not (0x0072 or 0x0436))
             {
-                _finished = true; // Mid-stream attachment or unknown shuffled opcode.
+                Finish(); // Mid-stream attachment or unknown shuffled opcode.
                 return null;
             }
             if (_prefixLength < 19) return null;
@@ -83,7 +83,7 @@ public sealed class CharacterLoginStreamProbe
             var cid = BinaryPrimitives.ReadUInt32LittleEndian(_prefix.AsSpan(6));
             if (aid == 0 || cid == 0)
             {
-                _finished = true;
+                Finish();
                 return null;
             }
 
@@ -96,9 +96,16 @@ public sealed class CharacterLoginStreamProbe
             if (length == 0 && _prefixLength >= 23 && _prefix[22] <= 1)
                 length = 23;
             if (length == 0 && _prefixLength < 23) return null;
-            _finished = true;
+            Finish();
             return length == 0 ? null : new CharacterLoginCandidate(opcode, cid, length);
         }
+    }
+
+    private void Finish()
+    {
+        _finished = true;
+        // Do not retain the short-lived map-login auth token in a flow cache.
+        _prefix.AsSpan().Clear();
     }
 }
 
