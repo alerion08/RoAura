@@ -39,6 +39,7 @@ public partial class App : Application
     private DateTime _jobRequirementChangedUtc;
     private readonly ZenyBalanceTracker _zenyBalance = new();
     private CharacterStatisticsLedger? _characterLedger;
+    private CharacterStatisticsStore? _characterStore;
     private System.Windows.Threading.DispatcherTimer? _characterFlushTimer;
     private bool _changingCharacterRows;
     private bool _characterStatisticsFaulted;
@@ -390,7 +391,8 @@ public partial class App : Application
         _goldGoblin = new GoldGoblinService(settings, _marketService);
         if (AppEnvironment.IsDevelopment)
         {
-            _characterLedger = new CharacterStatisticsLedger(new CharacterStatisticsStore());
+            _characterStore = new CharacterStatisticsStore();
+            _characterLedger = new CharacterStatisticsLedger(_characterStore);
             _goldGoblin.Changed += OnCharacterGoldGoblinChanged;
         }
         _overlay = new OverlayWindow(settings, _settingsStore, _goldGoblin);
@@ -660,6 +662,25 @@ public partial class App : Application
         SafeCharacterStatisticsAction(() =>
             _characterLedger.ReplaceGoldGoblinRows(_goldGoblin.SnapshotCharacterRows(),
                 DateTime.UtcNow));
+    }
+
+    public CharacterSessionSnapshot CurrentCharacterSession =>
+        _packetCapture?.CharacterSession ??
+            new CharacterSessionSnapshot("", null, CharacterSessionPhase.Unknown, 0, 0);
+
+    public IReadOnlyList<CharacterStatisticsKey> ListSavedCharacters()
+    {
+        if (!AppEnvironment.IsDevelopment || _characterStore is null || _characterStatisticsFaulted)
+            return [];
+        return SafeCharacterStatisticsValue(() => _characterStore.ListKnownCharacters());
+    }
+
+    public CharacterStatisticsDocument? ReadSavedCharacter(CharacterStatisticsKey key)
+    {
+        if (!AppEnvironment.IsDevelopment || _characterLedger is null || _characterStatisticsFaulted)
+            return null;
+        return SafeCharacterStatisticsValue(() =>
+            _characterLedger.Snapshot(key, DateTime.UtcNow));
     }
 
     public TimeSpan GetCharacterSessionElapsed()
