@@ -788,9 +788,11 @@ public partial class App : Application
     {
         if (!AppEnvironment.IsDevelopment ||
             Interlocked.Increment(ref _optionDiagnosticCount) > 80) return;
-        var ownAid = _packetCapture?.CharacterSession.PlayerAid ?? 0;
+        var ownAid = _packetCapture?.VerifiedPlayerAid ?? 0;
+        var source = _packetCapture?.PlayerAidIdentitySource ?? "";
         DebugLog.Write($"PACKET OPTION OBSERVED opcode=0x{packet.PacketId:X4}; " +
-                       $"hidden={packet.IsHidden}; matchesPlayer={ownAid != 0 && ownAid == packet.Aid}");
+                       $"hidden={packet.IsHidden}; identityKnown={ownAid != 0}; " +
+                       $"identitySource={source}; matchesPlayer={ownAid != 0 && ownAid == packet.Aid}");
     }
 
     private void OnPacketStatusChanged(RoStatusPacket packet)
@@ -798,10 +800,12 @@ public partial class App : Application
         if (AppEnvironment.IsDevelopment &&
             Interlocked.Increment(ref _statusDiagnosticCount) <= 120)
         {
-            var ownAid = _packetCapture?.CharacterSession.PlayerAid ?? 0;
+            var ownAid = _packetCapture?.VerifiedPlayerAid ?? 0;
+            var source = _packetCapture?.PlayerAidIdentitySource ?? "";
             DebugLog.Write($"PACKET STATUS OBSERVED opcode=0x{packet.PacketId:X4}; " +
                            $"status={packet.StatusId}; active={packet.Active}; " +
                            $"remainingMs={packet.RemainingMs}; totalMs={packet.TotalMs}; " +
+                           $"identityKnown={ownAid != 0}; identitySource={source}; " +
                            $"matchesPlayer={ownAid != 0 && ownAid == packet.Aid}");
         }
         Dispatcher.BeginInvoke(() => HandlePacketStatusChanged(packet));
@@ -819,13 +823,24 @@ public partial class App : Application
             reminder.Enabled && reminder.StatusId > 0 && reminder.StatusId == packet.StatusId).ToList();
         if (matchingEffects.Count == 0 && matchingReminders.Count == 0) return;
 
-        if (settings.PacketPlayerAid == 0)
+        if (AppEnvironment.IsDevelopment)
         {
-            settings.PacketPlayerAid = packet.Aid;
-            _settingsStore?.Save(settings);
-            DebugLog.Write($"PACKET PLAYER AID LEARNED: {packet.Aid}");
+            // Never learn "self" from the first matching Status: it may
+            // belong to another player, monster or a bytewise false match.
+            var verified = _packetCapture?.VerifiedPlayerAid ?? 0;
+            if (verified == 0 || verified != packet.Aid) return;
+            settings.PacketPlayerAid = verified;
         }
-        if (settings.PacketPlayerAid != packet.Aid) return;
+        else
+        {
+            if (settings.PacketPlayerAid == 0)
+            {
+                settings.PacketPlayerAid = packet.Aid;
+                _settingsStore?.Save(settings);
+                DebugLog.Write($"PACKET PLAYER AID LEARNED: {packet.Aid}");
+            }
+            if (settings.PacketPlayerAid != packet.Aid) return;
+        }
 
         foreach (var reminder in matchingReminders)
             reminder.IsStatusPresent = packet.Active;
