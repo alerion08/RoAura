@@ -396,7 +396,7 @@ public partial class App : Application
         _overlay = new OverlayWindow(settings, _settingsStore, _goldGoblin);
         if (AppEnvironment.IsDevelopment)
         {
-            _overlay.SetCharacterStatisticsSource(CurrentCharacterStatistics);
+            _overlay.SetCharacterStatisticsSource(CurrentCharacterStatistics, GetCharacterSessionElapsed);
             _characterFlushTimer = new System.Windows.Threading.DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(30)
