@@ -43,6 +43,7 @@ public sealed class NpcapPacketCapture : IDisposable
     private ConcurrentDictionary<ushort, RoEquipmentPacket> _pendingEquipmentEvents = new();
 
     public event Action<RoStatusPacket>? StatusChanged;
+    public event Action<RoOptionPacket>? OptionChanged;
     public event Action<RoSkillPacket>? SkillUsed;
     public event Action<RoSkillCooldownPacket>? SkillCooldown;
     public event Action<RoEquipmentPacket>? EquipmentChanged;
@@ -483,6 +484,20 @@ public sealed class NpcapPacketCapture : IDisposable
     {
         var scanner = new RoPacketStreamScanner(equipmentCache);
         scanner.StatusChanged += packet => Forward(generation, () => StatusChanged?.Invoke(packet));
+        // Actor visibility (not always a skill ack): TF_HIDING is confirmed
+        // by OPTION_HIDE, while EFST_HIDING is a separate status icon.
+        bool? lastHidden = null;
+        scanner.OptionChanged += packet => Forward(generation, () =>
+        {
+            OptionChanged?.Invoke(packet);
+            // EFST_HIDING = 4, TF_HIDING = 51 in standard RO.
+            // Synthetic status carries no guessed duration.
+            StatusChanged?.Invoke(new RoStatusPacket(packet.PacketId, 4, packet.Aid,
+                packet.IsHidden, 0, 0));
+            if (packet.IsHidden && lastHidden != true)
+                SkillUsed?.Invoke(new RoSkillPacket(51, packet.Aid, packet.Aid, 0));
+            lastHidden = packet.IsHidden;
+        });
         scanner.SkillUsed += packet => Forward(generation, () => SkillUsed?.Invoke(packet));
         scanner.SkillCooldown += packet => Forward(generation, () => SkillCooldown?.Invoke(packet));
         scanner.EquipmentChanged += packet => HandleEquipmentPacket(generation, packet,
