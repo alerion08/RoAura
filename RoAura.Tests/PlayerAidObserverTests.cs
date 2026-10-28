@@ -54,6 +54,17 @@ public sealed class PlayerAidObserverTests
     }
 
     [Fact]
+    public void Embedded_0283_signature_in_unrelated_payload_cannot_identify_self()
+    {
+        var scanner = new RoPacketStreamScanner();
+        var observed = new List<RoSelfAidPacket>();
+        scanner.SelfAidObserved += observed.Add;
+        var arbitrary = new byte[] {0xF0, 0x0D, 0x83, 0x02, 0x39, 0x30, 0x00, 0x00, 0xAA};
+        scanner.Process(arbitrary);
+        Assert.Empty(observed);
+    }
+
+    [Fact]
     public void Explicit_server_identity_packet_is_decoded()
     {
         var payload = new byte[] {0x83, 0x02, 0x39, 0x30, 0x00, 0x00};
