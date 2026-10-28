@@ -135,8 +135,13 @@ public partial class MainWindow : Window
         };
         _connectionDetectionTimer.Start();
         _goldGoblinSessionTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
-        _goldGoblinSessionTimer.Tick += (_, _) => UpdateGoldGoblinSessionTime();
+        _goldGoblinSessionTimer.Tick += (_, _) =>
+        {
+            UpdateGoldGoblinSessionTime();
+            if (AppEnvironment.IsDevelopment) UpdateCharacterBrowser();
+        };
         _goldGoblinSessionTimer.Start();
+        InitializeCharacterBrowser();
         _saveDebounceTimer.Tick += (_, _) => FlushPendingSave();
     }
 
