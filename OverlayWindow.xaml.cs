@@ -729,7 +729,7 @@ public partial class OverlayWindow : Window
         var jobRate = record?.JobExperiencePerHour ?? 0;
         var activeHours = record?.SessionActiveHours ?? 0;
         var zenyTotal = (record?.SessionZenyGained ?? 0) +
-            (_settings.ServerProfile == GameServerProfile.SpringRo &&
+            (record is not null && _settings.ServerProfile == GameServerProfile.SpringRo &&
              _settings.IncludeGoldGoblinInZenyPerHour ? _goldGoblin.SessionTotal : 0);
         var zenyRate = activeHours > 0 ? zenyTotal / activeHours : 0;
         var timeToLevel = CharacterEta(record?.CurrentBaseExperience ?? 0,
