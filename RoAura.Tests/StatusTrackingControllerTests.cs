@@ -86,6 +86,23 @@ public sealed class StatusTrackingControllerTests
     }
 
     [Fact]
+    public void Server_confirmed_Hiding_after_local_expiry_is_present_with_unknown_duration()
+    {
+        var tracker = new StatusTrackingController();
+        var effect = new TrackedEffect { StatusId = 4 };
+        var reminder = new ReminderItem { StatusId = 4 };
+        tracker.Observe(Buff(1000, id: 4), Start);
+        tracker.Synchronize([effect], [reminder], Start.AddSeconds(1), "en");
+        Assert.True(reminder.IsVisible);
+        tracker.Observe(new(0x0229, 4, 4200, true, 0, 0), Start.AddSeconds(2));
+        tracker.Synchronize([effect], [reminder], Start.AddSeconds(2), "en");
+        Assert.False(reminder.IsVisible);
+        Assert.True(effect.IsActive);
+        Assert.Null(effect.DurationEndsAtUtc);
+        Assert.Equal(0, effect.TotalDurationSeconds);
+    }
+
+    [Fact]
     public void Expiry_does_not_depend_on_disabled_effect_or_hidden_notifications()
     {
         var tracker = new StatusTrackingController();

@@ -29,7 +29,8 @@ public sealed class StatusTrackingController
         DateTime? end = packet.Active && packet.RemainingMs is > 0 and < uint.MaxValue
             ? observedAtUtc.AddMilliseconds(packet.RemainingMs) : null;
         // A repeated option flag confirms Hiding but supplies no new timer.
-        if (packet.Active && packet.PacketId is 0x0119 or 0x0229 && old?.Packet.Active == true)
+        if (packet.Active && packet.PacketId is 0x0119 or 0x0229 && old?.Packet.Active == true &&
+            (old.EndsAt is null || old.EndsAt > observedAtUtc))
         {
             end = old.EndsAt;
             packet = packet with { TotalMs = old.Packet.TotalMs };

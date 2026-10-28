@@ -318,7 +318,7 @@ claim of completed SpringRO live-client acceptance.
   verified self actor or a character-statistics identity.
 
 Validation: the .NET 8 Windows-targeted application and tests cross-compile;
-67 focused existing/new scenarios run successfully in a local headless
+68 focused existing/new scenarios run successfully in a local headless
 harness using the actual parser, capture routing and model sources (only OS
 logging/localization/settings-shell dependencies substituted). The branch's
 Windows workflow runs the full unmodified test project and builds one isolated

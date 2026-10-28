@@ -200,7 +200,7 @@ verification remains necessary.
 
 ### Verification and primary sources
 
-67 focused scenarios pass in the local headless test harness; application
+68 focused scenarios pass in the local headless test harness; application
 and test sources cross-compile for Windows with .NET 8. Full WPF tests and
 isolated DEV packaging run in the branch workflow. No main/version/release
 changes are included.

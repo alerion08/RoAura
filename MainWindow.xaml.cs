@@ -1495,6 +1495,7 @@ public partial class MainWindow : Window
             {
                 effect.StatusId = packet.StatusId;
                 effect.LearningObservation = "";
+                effect.CurrentStateText = T("ID определён", "ID learned");
                 name = effect.Name;
                 _learningEffect = null;
             }
