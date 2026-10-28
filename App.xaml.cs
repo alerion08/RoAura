@@ -42,6 +42,7 @@ public partial class App : Application
     private System.Windows.Threading.DispatcherTimer? _characterFlushTimer;
     private bool _changingCharacterRows;
     private bool _characterStatisticsFaulted;
+    private long _appliedCharacterRevision = -1;
     private DateTime _lastDatabaseToggleUtc = DateTime.MinValue;
     private readonly GitHubUpdateService _updateService = new();
     private SpringRoMarketService? _marketService;
@@ -579,6 +580,7 @@ public partial class App : Application
                 SafeCharacterStatisticsAction(() =>
                 {
                     _characterLedger.Suspend(DateTime.UtcNow);
+                    _appliedCharacterRevision = -1;
                     _overlay?.RefreshCharacterStatistics();
                 });
         });
@@ -590,11 +592,15 @@ public partial class App : Application
             !_packetCapture.IsCurrentCharacterSession(session) || session.CharacterId is not > 0)
             return false;
         var key = CharacterStatisticsKey.Create(session.ServerKey, session.CharacterId.Value);
-        if (_characterLedger.Active == key) return true;
+        if (_characterLedger.Active == key && _appliedCharacterRevision == session.Revision)
+            return true;
         return SafeCharacterStatisticsValue(() =>
         {
-            // SwitchTo writes the old character before loading the new one.
-            _characterLedger.SwitchTo(key, DateTime.UtcNow);
+            // A relog to the SAME CID still requires a fresh Zeny baseline.
+            var now = DateTime.UtcNow;
+            if (_characterLedger.Active == key) _characterLedger.Suspend(now);
+            _characterLedger.SwitchTo(key, now);
+            _appliedCharacterRevision = session.Revision;
             var record = _characterLedger.Snapshot(key, DateTime.UtcNow)!;
             _nextBaseExperience = record.NextBaseExperience;
             _nextJobExperience = record.NextJobExperience;
@@ -631,7 +637,13 @@ public partial class App : Application
     private void OnCharacterGoldGoblinChanged()
     {
         if (!AppEnvironment.IsDevelopment || _changingCharacterRows || _characterStatisticsFaulted ||
-            _characterLedger?.Active is null || _goldGoblin is null) return;
+            _characterLedger?.Active is not { } key || _goldGoblin is null ||
+            _packetCapture is null) return;
+        var session = _packetCapture.CharacterSession;
+        if (session.Phase != CharacterSessionPhase.ActiveObserved ||
+            session.CharacterId != key.CharacterId ||
+            !string.Equals(session.ServerKey, key.ServerKey, StringComparison.OrdinalIgnoreCase))
+            return;
         if (!Dispatcher.CheckAccess())
         {
             Dispatcher.BeginInvoke(new Action(OnCharacterGoldGoblinChanged));
