@@ -6,6 +6,12 @@ namespace RoAura.Services;
 public sealed record RoPacketLayoutProbe(ushort Opcode, long Offset, bool Boundary,
     uint Actor, uint AlternateActor, string Fields)
 {
+    // DEV-only transient scalar candidates, never printed as raw values.
+    // Offsets 0..N refer to the start of this candidate frame.
+    public ushort[]? CandidateWords { get; init; }
+    public uint[]? CandidateDwords { get; init; }
+    public ushort SkillId { get; init; }
+    public bool SkillSucceeded { get; init; }
     public static RoPacketLayoutProbe? Create(ReadOnlySpan<byte> frame, long offset, bool boundary)
     {
         if (frame.Length < 2) return null;
@@ -46,7 +52,20 @@ public sealed record RoPacketLayoutProbe(ushort Opcode, long Offset, bool Bounda
                 break;
             default: return null;
         }
-        return new(opcode, offset, boundary, actor, alternate, fields);
+        var probe = new RoPacketLayoutProbe(opcode, offset, boundary, actor, alternate, fields);
+        if (opcode == 0x09CB)
+            return probe with { SkillId = U16(frame, 2), SkillSucceeded = frame[^1] == 1 };
+        if (opcode is 0x0983 or 0x0196)
+        {
+            // Preserve only scalar candidates transiently for equality tests.
+            // In particular, never log these unverified values as actor IDs.
+            var words = new ushort[frame.Length - 1];
+            var dwords = new uint[frame.Length - 3];
+            for (var i = 0; i < words.Length; i++) words[i] = U16(frame, i);
+            for (var i = 0; i < dwords.Length; i++) dwords[i] = U32(frame, i);
+            return probe with { CandidateWords = words, CandidateDwords = dwords };
+        }
+        return probe;
     }
 }
 
