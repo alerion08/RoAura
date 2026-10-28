@@ -32,14 +32,21 @@ public sealed class CharacterStatisticsStore
     public IReadOnlyList<CharacterStatisticsKey> ListKnownCharacters()
     {
         if (!Directory.Exists(RootDirectory)) return [];
-        var found = new List<CharacterStatisticsKey>();
+        var found = new HashSet<CharacterStatisticsKey>();
         foreach (var serverDirectory in Directory.EnumerateDirectories(RootDirectory))
         {
             var server = Path.GetFileName(serverDirectory);
-            foreach (var path in Directory.EnumerateFiles(serverDirectory, "character-*.json"))
+            // A crash may leave only the backup. Keep it visible in history,
+            // but Save() must still refuse to overwrite it automatically.
+            var files = Directory.EnumerateFiles(serverDirectory, "character-*.json")
+                .Concat(Directory.EnumerateFiles(serverDirectory, "character-*.json.bak"));
+            foreach (var path in files)
             {
-                var name = Path.GetFileNameWithoutExtension(path);
-                if (name is null || !name.StartsWith("character-", StringComparison.Ordinal) ||
+                var name = Path.GetFileName(path);
+                if (name.EndsWith(".bak", StringComparison.OrdinalIgnoreCase))
+                    name = name[..^4];
+                name = Path.GetFileNameWithoutExtension(name);
+                if (!name.StartsWith("character-", StringComparison.Ordinal) ||
                     !uint.TryParse(name["character-".Length..], out var cid)) continue;
                 try
                 {
@@ -61,14 +68,14 @@ public sealed class CharacterStatisticsStore
         {
             return ReadValid(path, key);
         }
-        catch (Exception primaryError) when (primaryError is IOException or JsonException or ArgumentException)
+        catch (Exception primaryError) when (primaryError is IOException or JsonException or ArgumentException or InvalidDataException)
         {
             // A recovery copy may be inspected, but Save() will refuse to touch
             // its damaged primary file until the problem is explicitly resolved.
             if (File.Exists(backup))
             {
                 try { return ReadValid(backup, key); }
-                catch (Exception recoveryError) when (recoveryError is IOException or JsonException or ArgumentException)
+                catch (Exception recoveryError) when (recoveryError is IOException or JsonException or ArgumentException or InvalidDataException)
                 {
                     throw new InvalidDataException($"Character statistics and backup are invalid: {path}", recoveryError);
                 }

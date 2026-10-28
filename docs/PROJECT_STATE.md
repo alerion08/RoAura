@@ -239,3 +239,16 @@ rate-statistics cadence. A compact RU/EN identity and historical record browser
 is added to the Statistics section. Selecting a saved character is read-only:
 it must not silently attribute network rewards to an unverified identity.
 Manual field verification and regression are still required; no release/merge.
+
+## Stage 7 audit started — character statistics recovery (2026-10-28)
+
+The user authorized the regression audit but specifically postponed any release
+or merge while they collect bugs. Read-only source review found a recovery gap:
+`CharacterStatisticsStore.Load` did not fall back to the .bak file when
+semantically invalid statistics caused `InvalidDataException`. The DEV branch
+now supports read-only backup fallback in this case, while refusing to
+overwrite the corrupt primary. The saved-character browser also lists a
+backup-only character when the primary file is missing. Two focused Windows
+regression tests cover these data-loss scenarios. Further manual checks
+(SpringRO/RTM, VPN, overlays, named presets, multiple clients) remain open.
+Do not merge, tag, build an installer or create a public release.

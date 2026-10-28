@@ -112,6 +112,59 @@ public sealed class CharacterStatisticsLedgerTests
     }
 
     [Fact]
+    public void Invalid_statistics_values_fall_back_to_backup_without_overwriting_primary()
+    {
+        WithStore(store =>
+        {
+            var doc = new CharacterStatisticsDocument
+            {
+                ServerKey = A.ServerKey, CharacterId = A.CharacterId,
+                CreatedUtc = Start, SessionStartedUtc = Start
+            };
+            store.Save(doc);
+            doc.LifetimeBaseExperience = 20;
+            doc.SessionBaseExperience = 20;
+            store.Save(doc);
+            var primary = store.PathFor(A);
+            var backup = primary + ".bak";
+            // This is valid JSON but invalid statistics; previously it
+            // bypassed the backup fallback entirely.
+            File.WriteAllText(primary, File.ReadAllText(primary)
+                .Replace("\"SessionBaseExperience\": 20", "\"SessionBaseExperience\": -2",
+                    StringComparison.Ordinal));
+            var recovered = store.Load(A)!;
+            Assert.Equal(0, recovered.SessionBaseExperience);
+            Assert.True(File.Exists(backup));
+            Assert.Throws<InvalidDataException>(() => store.Save(recovered));
+            Assert.Contains("\"SessionBaseExperience\": -2", File.ReadAllText(primary));
+        });
+    }
+
+    [Fact]
+    public void Backup_only_character_is_visible_in_history_but_never_auto_restored_over_it()
+    {
+        WithStore(store =>
+        {
+            var doc = new CharacterStatisticsDocument
+            {
+                ServerKey = A.ServerKey, CharacterId = A.CharacterId,
+                CreatedUtc = Start, SessionStartedUtc = Start
+            };
+            store.Save(doc);
+            doc.LifetimeJobExperience = 18;
+            doc.SessionJobExperience = 18;
+            store.Save(doc);
+            File.Delete(store.PathFor(A));
+            Assert.Contains(A, store.ListKnownCharacters());
+            var recovered = store.Load(A)!;
+            Assert.Equal(0, recovered.LifetimeJobExperience);
+            Assert.Throws<InvalidDataException>(() => store.Save(recovered));
+            Assert.False(File.Exists(store.PathFor(A)));
+            Assert.True(File.Exists(store.PathFor(A) + ".bak"));
+        });
+    }
+
+    [Fact]
     public void Newer_schema_and_invalid_identity_cannot_be_overwritten()
     {
         WithStore(store =>
