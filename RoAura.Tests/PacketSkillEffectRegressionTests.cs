@@ -91,6 +91,61 @@ public sealed class PacketSkillEffectRegressionTests
     }
 
     [Fact]
+    public void Modern_non_damage_skill_09cb_is_recognized()
+    {
+        var bytes = new byte[17];
+        Write16(bytes, 0, 0x09cb);
+        Write16(bytes, 2, 54);
+        Write32(bytes, 4, 10);
+        Write32(bytes, 8, 4200);
+        Write32(bytes, 12, 4200);
+        bytes[16] = 1;
+        var scanner = new RoPacketStreamScanner();
+        var observed = new List<RoSkillPacket>();
+        scanner.SkillUsed += observed.Add;
+        scanner.Process(bytes);
+        var found = Assert.Single(observed);
+        Assert.Equal((ushort)54, found.SkillId);
+        Assert.Equal((uint)4200, found.SourceAid);
+    }
+
+    [Fact]
+    public void Legacy_cast_ack_013e_is_recognized()
+    {
+        var bytes = new byte[24];
+        Write16(bytes, 0, 0x013e);
+        Write32(bytes, 2, 4200);
+        Write32(bytes, 6, 5550);
+        Write16(bytes, 10, 80);
+        Write16(bytes, 12, 110);
+        Write16(bytes, 14, 23);
+        Write32(bytes, 20, 500);
+        var scanner = new RoPacketStreamScanner();
+        var observed = new List<RoSkillPacket>();
+        scanner.SkillUsed += observed.Add;
+        scanner.Process(bytes);
+        var found = Assert.Single(observed);
+        Assert.Equal((ushort)23, found.SkillId);
+        Assert.Equal((uint)4200, found.SourceAid);
+    }
+
+    [Fact]
+    public void Legacy_damage_cast_0114_is_recognized()
+    {
+        var bytes = new byte[31];
+        Write16(bytes, 0, 0x0114);
+        Write16(bytes, 2, 69);
+        Write32(bytes, 4, 4200);
+        Write32(bytes, 8, 5000);
+        Write16(bytes, 26, 3);
+        var scanner = new RoPacketStreamScanner();
+        var observed = new List<RoSkillPacket>();
+        scanner.SkillUsed += observed.Add;
+        scanner.Process(bytes);
+        Assert.Equal((ushort)69, Assert.Single(observed).SkillId);
+    }
+
+    [Fact]
     public void Invalid_skill_packets_are_rejected()
     {
         var bytes = new byte[15];
