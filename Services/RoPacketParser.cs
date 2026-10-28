@@ -349,12 +349,12 @@ public sealed class RoPacketStreamScanner
         packet = default;
         if (offset + length > data.Length) return false;
         var aid = ReadUInt32(data, offset + 2);
-        var bodyState = ReadUInt16(data, offset + 6);
-        var healthState = ReadUInt16(data, offset + 8);
+        // bodyState and healthState are full 16-bit flag masks, not
+        // magnitude-limited values. Values above 4096 are valid.
         var option = packetLength == NewOptionPacketSize
             ? ReadUInt32(data, offset + 10) : ReadUInt16(data, offset + 10);
         var pkFlag = data[offset + length - 1];
-        if (aid == 0 || pkFlag > 1 || bodyState > 4096 || healthState > 4096)
+        if (aid == 0 || pkFlag > 1)
             return false;
         packet = new RoOptionPacket(packetLength == NewOptionPacketSize
             ? (ushort)0x0229 : (ushort)0x0119, aid, option);
