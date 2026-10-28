@@ -220,12 +220,15 @@ public sealed class PacketSkillEffectRegressionTests
         bytes[14] = 7; // invalid PK flag
         var scanner = new RoPacketStreamScanner();
         var rejected = new List<ushort>();
+        var reasons = new List<string>();
         var accepted = 0;
         scanner.OptionCandidateRejected += rejected.Add;
+        scanner.OptionCandidateRejectedDetailed += (opcode, reason) => reasons.Add(reason);
         scanner.OptionChanged += _ => accepted++;
         scanner.Process(bytes);
         Assert.Equal(0, accepted);
         Assert.Contains((ushort)0x0229, rejected);
+        Assert.Contains("pk-mode-not-boolean-or-embedded-signature", reasons);
     }
 
     [Fact]
