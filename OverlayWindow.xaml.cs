@@ -632,6 +632,7 @@ public partial class OverlayWindow : Window
         var now = DateTime.UtcNow;
         if (_characterStatisticsSource is not null)
         {
+            UpdateCharacterSessionTimeIndicator(); // independent of RateStatisticsRefreshSeconds
             UpdateCharacterRateIndicators(now, force);
             return;
         }
@@ -718,6 +719,19 @@ public partial class OverlayWindow : Window
         }
     }
 
+    private void UpdateCharacterSessionTimeIndicator()
+    {
+        var snapshot = _characterStatisticsSource?.Invoke();
+        var time = snapshot?.SessionTimerStarted == true
+            ? TimeSpan.FromTicks(snapshot.SessionActiveTicks) : TimeSpan.Zero;
+        var indicator = _settings.RateIndicators.FirstOrDefault(row =>
+            row.Kind == RateIndicatorKind.SessionTime);
+        if (indicator is null) return;
+        var formatted = FormatElapsed(time);
+        var text = _settings.Language == "en" ? $"Session time: {formatted}" : $"Время сессии: {formatted}";
+        if (indicator.ValueText != text) indicator.ValueText = text;
+    }
+
     private void UpdateCharacterRateIndicators(DateTime nowUtc, bool force)
     {
         if (!force && nowUtc - _lastRateIndicatorUpdateUtc <
@@ -749,8 +763,7 @@ public partial class OverlayWindow : Window
                     ? $"Time to Job level: {timeToJob}" : $"До Job уровня: {timeToJob}",
                 RateIndicatorKind.ZenyPerHour => $"Zeny/h: {zenyRate:N0}",
                 RateIndicatorKind.ZenyTotal => $"Zeny Total: {zenyTotal:N0}",
-                _ => _settings.Language == "en"
-                    ? $"Session time: {sessionTime}" : $"Время сессии: {sessionTime}"
+                _ => indicator.ValueText // The timer updates each tick, not on the rate interval.
             };
         }
     }
