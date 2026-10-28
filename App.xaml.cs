@@ -764,7 +764,7 @@ public partial class App : Application
 
         if (!_effectStates.TryGetValue(effect.Id, out var state))
             return;
-        if (!state.Present) return;
+        if (state.Present != true) return;
         state.Present = false;
         var now = DateTime.UtcNow;
         if (effect.NotifyOnDisappeared &&
