@@ -22,3 +22,40 @@ Keep release settings/presets unmodified; use RoAura-Dev for experimental data.
 Zeny balance is baselined afresh at each new login; do not record the baseline as earnings.
 Store session and lifetime figures separately; inactive-character time is excluded from rate denominators.
 Multi-client support is deferred until flow-to-process association can be verified.
+
+
+## Stage 2 implementation snapshot (2026-10-28)
+
+- Dev-only BPF captures both directions on the selected game endpoint. Incoming
+  server-to-client packets still use the original `RoPacketStreamScanner` and
+  `TcpFlowState`. Outgoing bytes are routed ONLY to
+  `CharacterLoginObserver`; no existing state or rewards are changed.
+- A bounded flow-first-payload probe recognizes standard map-login `0x0072`
+  and `0x0436`, including a 23-byte variant. It parses CID at byte offset 6.
+  Retransmissions, overlapping frames, short TCP fragments, capture gaps,
+  invalid fields and unsupported packet IDs are handled fail-closed.
+- Debug log markers:
+  `CHARACTER LOGIN CANDIDATE (unconfirmed): opcode=...; cid=...; ...`
+  and capped `CHARACTER MAP LOGIN NOT IDENTIFIED: firstOpcode=...`.
+  No raw frames, credentials, auth tokens or account ID are written.
+- **Crucial:** map login candidate is NOT authenticated/confirmed. Character
+  Select transitions, multiple client binding, late startup and variant
+  packetver handling still need real in-game verification.
+- The probe sees outbound traffic only for the currently configured game
+  server address and port. It cannot promise to detect a new map endpoint
+  before auto-discovery retargets the Npcap filter; this is an explicit field
+  test risk. It does not monitor the separate character-server connection.
+
+## Required hands-on packet checks before stage 3
+
+1. Launch DEV RoAura before logging in; check `%APPDATA%\RoAura-Dev\debug.log`.
+2. On SpringRO, login Knight → Character Select → Novice → Character Select →
+   Knight (without closing the client). Record only the diagnostic lines and
+   whether CID changes as expected. Do not share full packet captures.
+3. Repeat with the RTM profile and the user's normal ExitLag/VPN configuration.
+4. Launch RoAura after already logging in. This case is permitted to remain
+   unidentified; record that instead of assuming a previous character.
+5. Compare exact CID/packet IDs across reconnects. Confirm whether any
+   observed packets are shuffled or missing due to endpoint changes.
+6. Do not advance to active per-character statistic routing until successful
+   in-game identification is demonstrated.
