@@ -259,9 +259,11 @@ public partial class MainWindow : Window
     private void UpdateGoldGoblinSessionTime()
     {
         if (GoldGoblinSessionTimeText is null) return;
-        var elapsed = _goldGoblin.SessionStartedUtc.HasValue
-            ? DateTime.UtcNow - _goldGoblin.SessionStartedUtc.Value
-            : TimeSpan.Zero;
+        var elapsed = AppEnvironment.IsDevelopment && Application.Current is App app
+            ? app.GetCharacterSessionElapsed()
+            : _goldGoblin.SessionStartedUtc.HasValue
+                ? DateTime.UtcNow - _goldGoblin.SessionStartedUtc.Value
+                : TimeSpan.Zero;
         GoldGoblinSessionTimeText.Text = elapsed.TotalDays >= 1
             ? $"{(int)elapsed.TotalDays}d {elapsed:hh\\:mm\\:ss}"
             : elapsed.ToString("hh\\:mm\\:ss");
@@ -308,6 +310,13 @@ public partial class MainWindow : Window
                 T("Новая сессия Gold Goblin", "New Gold Goblin session"),
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
+        }
+        if (AppEnvironment.IsDevelopment)
+        {
+            if (Application.Current is not App app || !app.StartCharacterStatisticsSession())
+                SetStatus(T("Сначала войдите на персонажа: общая сессия не запущена.",
+                    "Log in to a character first: shared session could not start."));
+            return;
         }
         _goldGoblin.StartSession();
     }
