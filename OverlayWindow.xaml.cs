@@ -724,9 +724,7 @@ public partial class OverlayWindow : Window
 
     private void UpdateCharacterSessionTimeIndicator()
     {
-        var snapshot = _characterStatisticsSource?.Invoke();
-        var time = snapshot?.SessionTimerStarted == true
-            ? TimeSpan.FromTicks(snapshot.SessionActiveTicks) : TimeSpan.Zero;
+        var time = _characterElapsedSource?.Invoke() ?? TimeSpan.Zero;
         var indicator = _settings.RateIndicators.FirstOrDefault(row =>
             row.Kind == RateIndicatorKind.SessionTime);
         if (indicator is null) return;
