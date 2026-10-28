@@ -543,9 +543,11 @@ public partial class OverlayWindow : Window
         }
     }
 
-    public void SetCharacterStatisticsSource(Func<CharacterStatisticsDocument?>? source)
+    public void SetCharacterStatisticsSource(Func<CharacterStatisticsDocument?>? source,
+        Func<TimeSpan>? elapsedSource = null)
     {
         _characterStatisticsSource = source;
+        _characterElapsedSource = elapsedSource;
         UpdateRateIndicators(true);
     }
 
