@@ -218,3 +218,12 @@ loot separation and recovery scenarios have unit tests. None of these
 components is connected to the live overlay/event route yet; existing
 user-visible statistics are unchanged. Stage 5 requires flow-affine event
 routing and character confirmation before it can safely update UI data.
+
+## Stage 5 EXP/Zeny/Gold Goblin DEV wiring (2026-10-28)
+The experimental branch now routes reward/statistics packets with immutable
+per-connection character tokens and rejects stale queued events. DEV UI rates,
+Gold Goblin inventory/manual overrides, user session reset and periodic local
+persistence use the per-character ledger. The normal `main` branch is unchanged.
+Automated Windows CI and real game regression remain required before calling
+the feature ready; active session is inferred from map login plus inbound
+network activity, not an explicit server-auth acceptance packet.

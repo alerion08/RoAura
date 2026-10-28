@@ -617,7 +617,12 @@ public partial class App : Application
     private CharacterStatisticsDocument? CurrentCharacterStatistics()
     {
         if (_characterStatisticsFaulted || _characterLedger?.Active is not { } key ||
-            _packetCapture?.CharacterSession.Phase != CharacterSessionPhase.ActiveObserved)
+            _packetCapture is null)
+            return null;
+        var current = _packetCapture.CharacterSession;
+        if (current.Phase != CharacterSessionPhase.ActiveObserved ||
+            current.CharacterId != key.CharacterId ||
+            !string.Equals(current.ServerKey, key.ServerKey, StringComparison.OrdinalIgnoreCase))
             return null;
         return SafeCharacterStatisticsValue(() =>
             _characterLedger.Snapshot(key, DateTime.UtcNow));
@@ -629,7 +634,7 @@ public partial class App : Application
             _characterLedger?.Active is null || _goldGoblin is null) return;
         if (!Dispatcher.CheckAccess())
         {
-            Dispatcher.BeginInvoke(OnCharacterGoldGoblinChanged);
+            Dispatcher.BeginInvoke(new Action(OnCharacterGoldGoblinChanged));
             return;
         }
         SafeCharacterStatisticsAction(() =>

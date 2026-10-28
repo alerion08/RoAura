@@ -1943,9 +1943,23 @@ public partial class MainWindow : Window
     private void ResetStatisticsSession_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        _overlay.ResetRateSession();
-        SetStatus(T("Сессия статистики сброшена. Новый расчёт начнётся со следующего получения опыта или Zeny.",
-            "Statistics session reset. A new calculation starts with the next EXP or Zeny gain."));
+        if (AppEnvironment.IsDevelopment)
+        {
+            if (Application.Current is not App app || !app.ResetCharacterStatisticsSession())
+            {
+                SetStatus(T("Не удалось сбросить статистику: персонаж ещё не определён.",
+                    "Cannot reset statistics: active character is not identified."));
+                return;
+            }
+            SetStatus(T("Сессия выбранного персонажа сброшена; общая история сохранена.",
+                "Active character session reset; lifetime history preserved."));
+        }
+        else
+        {
+            _overlay.ResetRateSession();
+            SetStatus(T("Сессия статистики сброшена. Новый расчёт начнётся со следующего получения опыта или Zeny.",
+                "Statistics session reset. A new calculation starts with the next EXP or Zeny gain."));
+        }
     }
 
     private void HandleRateIndicatorMoveToggle(ToggleButton button, bool groupMode)

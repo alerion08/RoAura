@@ -110,3 +110,27 @@ by Npcap packets and does not change existing Gold Goblin, reward notifications
 or on-screen rate indicators. Before enabling this in stage 5, validate reliable
 packet-to-flow association (current packet events do not include their TCP flow),
 confirm character acceptance, and test reconnection/late-start separately.
+
+## Stage 5 experimental integration (2026-10-28)
+
+- Packet events from the inbound RO scanner now additionally carry the
+  corresponding TCP flow and immutable character session revision in DEV.
+  Old queued messages are dropped if the character changes or capture restarts.
+  Standard 3.0.0 packet handlers still run in normal builds.
+- DEV App subscribes only to identity-bound EXP / job EXP, Zeny, progress
+  and item events; status/skill/equipment/market handling is left unchanged.
+  Only a matching currently ActiveObserved flow can update the ledger.
+- Overlay rates and session time are sourced from the active character ledger,
+  with inactive-character time excluded; the existing overlay layouts and
+  settings are not changed. Rates are zeroed while identity is unknown.
+- Gold Goblin rows (including manual quantity/price edits) are separately
+  snapshotted per character; common price rules remain shared. Drop history
+  records only packet-observed loot, independent of manually edited rows.
+- The existing "reset statistics session" action resets only the current
+  character and retains lifetime data.
+- Stats checkpoints are saved upon character switch, capture suspension,
+  periodic flush (30 s) and application exit. A persistence error fails
+  closed and is logged, never silently assigning gains to another character.
+- This still needs manual field regression for switching, repeated incoming
+  packets, market prices, normal buffs/equipment, late start and RTM.
+  ActiveObserved is network evidence, not cryptographic proof of login.

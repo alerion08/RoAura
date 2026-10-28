@@ -145,6 +145,44 @@ public sealed class CharacterStatisticsLedgerTests
         });
     }
 
+
+    [Fact]
+    public void GoldGoblin_manual_rows_and_costs_restore_per_character_and_do_not_change_drop_history()
+    {
+        WithStore(store =>
+        {
+            var ledger = new CharacterStatisticsLedger(store);
+            ledger.SwitchTo(A, Start);
+            ledger.AddLoot(501, "Red Potion", 3, Start);
+            ledger.ReplaceGoldGoblinRows(
+                [new CharacterLootCount { ItemId = 501, Name = "Red Potion",
+                    Count = 9, HasManualCost = true, ManualUnitCost = 77 }], Start);
+            ledger.SwitchTo(B, Start.AddSeconds(20));
+            ledger.ReplaceGoldGoblinRows(
+                [new CharacterLootCount { ItemId = 502, Name = "Orange Potion",
+                    Count = 4 }], Start.AddSeconds(20));
+            ledger.SwitchTo(A, Start.AddMinutes(1));
+            var result = ledger.Snapshot(A, Start.AddMinutes(1))!;
+            Assert.Equal(3, result.SessionLoot[501].Count); // actual packet drops
+            Assert.Equal(9, result.GoldGoblinRows[501].Count); // manual user edits
+            Assert.Equal(77, result.GoldGoblinRows[501].ManualUnitCost);
+            Assert.True(result.GoldGoblinRows[501].HasManualCost);
+            Assert.False(result.GoldGoblinRows.ContainsKey(502));
+            ledger.Suspend(Start.AddMinutes(2));
+
+            var restarted = new CharacterStatisticsLedger(store);
+            restarted.SwitchTo(A, Start.AddMinutes(3));
+            var restored = restarted.Snapshot(A, Start.AddMinutes(3))!;
+            Assert.Equal(9, restored.GoldGoblinRows[501].Count);
+            Assert.Equal(77, restored.GoldGoblinRows[501].ManualUnitCost);
+            Assert.Equal(3, restored.LifetimeLoot[501].Count);
+            restarted.ResetCurrentSession(Start.AddMinutes(3));
+            var reset = restarted.Snapshot(A, Start.AddMinutes(3))!;
+            Assert.Empty(reset.GoldGoblinRows);
+            Assert.Equal(3, reset.LifetimeLoot[501].Count);
+        });
+    }
+
     private static void WithStore(Action<CharacterStatisticsStore> check)
     {
         var directory = Path.Combine(Path.GetTempPath(), "RoAura-stats-test-" + Guid.NewGuid().ToString("N"));
