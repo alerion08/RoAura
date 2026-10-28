@@ -82,6 +82,7 @@ public sealed class NpcapPacketCapture : IDisposable
     private ConcurrentDictionary<ushort, RoEquipmentPacket> _pendingEquipmentEvents = new();
 
     private readonly PacketLayoutDiagnostics _layoutDiagnostics = new();
+    private volatile bool _springRoStatusCorrelationEnabled;
 
     public void BeginLearningDiagnostics()
     {
@@ -130,6 +131,8 @@ public sealed class NpcapPacketCapture : IDisposable
             _activeGeneration = generation;
             _activeDevices = 0;
             _rejectedOptionDiagnosticCount = 0;
+            _springRoStatusCorrelationEnabled = AppEnvironment.IsDevelopment &&
+                GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
             if (AppEnvironment.IsDevelopment) _layoutDiagnostics.Begin(DateTime.UtcNow);
             // Replace rather than clear: workers from the cancelled generation
             // may finish parsing one last frame and must not repopulate the new
@@ -563,6 +566,8 @@ public sealed class NpcapPacketCapture : IDisposable
     {
         var scanner = new RoPacketStreamScanner(equipmentCache);
         var source = RegisterTrackingSource(generation, packetFlow);
+        var statusSkillCorrelation = _springRoStatusCorrelationEnabled
+            ? new SpringRoStatusSkillCorrelationDiagnostics() : null;
         var hiding = new HidingStateTracker();
         var pendingStatuses = new PendingStatusObservations();
         if (AppEnvironment.IsDevelopment)
@@ -573,6 +578,8 @@ public sealed class NpcapPacketCapture : IDisposable
                 if (_layoutDiagnostics.Format(probe, source, observation.SelfAid,
                         observation.IdentitySource, observation.ObservedAtUtc) is { } line)
                     DebugLog.Write(line);
+                if (statusSkillCorrelation?.Observe(probe, observation.SelfAid) is { } pair)
+                    DebugLog.Write(pair);
             });
         void PublishStatus(RoStatusPacket packet)
         {
@@ -592,6 +599,7 @@ public sealed class NpcapPacketCapture : IDisposable
             if (!source.IsActive || generation != Volatile.Read(ref _generation)) return;
             CloseTrackingSource(packetFlow, source);
             hiding.Reset();
+            statusSkillCorrelation?.Reset();
             pendingStatuses.Reset();
             source = RegisterTrackingSource(generation, packetFlow);
         };
