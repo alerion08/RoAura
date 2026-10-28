@@ -73,6 +73,7 @@ public sealed class NpcapPacketCapture : IDisposable
     private CancellationTokenSource? _cancellation;
     private int _generation;
     private int _activeDevices;
+    private int _rejectedOptionDiagnosticCount;
     private int _activeGeneration;
     private string _lastState = "";
     private string _language = "ru";
@@ -116,6 +117,7 @@ public sealed class NpcapPacketCapture : IDisposable
             generation = ++_generation;
             _activeGeneration = generation;
             _activeDevices = 0;
+            _rejectedOptionDiagnosticCount = 0;
             // Replace rather than clear: workers from the cancelled generation
             // may finish parsing one last frame and must not repopulate the new
             // connection's identity table.
@@ -528,6 +530,13 @@ public sealed class NpcapPacketCapture : IDisposable
     {
         var scanner = new RoPacketStreamScanner(equipmentCache);
         scanner.StatusChanged += packet => Forward(generation, () => StatusChanged?.Invoke(packet));
+        if (AppEnvironment.IsDevelopment)
+            scanner.OptionCandidateRejected += opcode => Forward(generation, () =>
+            {
+                if (Interlocked.Increment(ref _rejectedOptionDiagnosticCount) <= 20)
+                    DebugLog.Write($"PACKET OPTION CANDIDATE REJECTED opcode=0x{opcode:X4}; " +
+                                   "possible packetver/layout mismatch or embedded signature");
+            });
         if (AppEnvironment.IsDevelopment)
             scanner.SelfAidObserved += packet => Forward(generation, () =>
                 ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID"));
