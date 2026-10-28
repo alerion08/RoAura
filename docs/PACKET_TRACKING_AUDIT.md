@@ -291,3 +291,9 @@ Example: at 01:35:44.752, `0x0196 → own 0x0229 → own successful Skill 51` re
 The same v4 trace contains **7 Enchant Poison** `0x0983 (180000ms) → own Skill 138` pairs. Existing decoder still logs `PACKET STATUS NOT APPLIED ... reason=not-own-actor`; actual EFST remains unknown. `xorDerivedStatus=unstable` and `addDerivedStatus=unstable` in all 3+-sample series; do not claim either transformation valid or assign a fabricated Status ID. `actorHigh16MatchesSelf=True` for paired packet family suggests a partially recognized actor, but the true low 16 bits and Status ID cannot yet be recovered. Offsets +6 and +7 in the stability report overlap: +7 includes the state byte +8 and is **not an independent 16-bit actor field**. False-boundary initial scans continue and must not contribute to learning.
 
 **Release gate:** ask the user only whether the actual Hiding effect/reminder was visually correct. Do not mark the overall SpringRO Status ID learning work complete; an additional generalized fallback should be represented honestly as *Skill ID activation tracking*, distinct from true EFST decoding, with explicit UX/semantics and early-expiry limitations. No gameplay parser changes are justified by the current v4 sanitized evidence.
+
+### User confirmation — Hiding overlay
+
+The user confirmed after the seven Hiding ON/OFF cycles in the v4 DEV log that **the on-screen Hiding overlay displayed correctly**. This complements the 14 matching `PACKET EFFECT TRANSITION status=4` events and resolves the outstanding visual-acceptance question for this exact test. Do not request another identical Hiding ON/OFF test without a new regression. This is not proof of relog, expired/early-cleared effects outside the tested sequence, or all reminder permutations.
+
+Enchantment/other buff learning remains a **separate open problem**; there is still no verified EFST decoding of the observed SpringRO `0x0983` payload for Enchant Poison.
