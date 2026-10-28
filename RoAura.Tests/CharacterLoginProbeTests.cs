@@ -35,6 +35,7 @@ public sealed class CharacterLoginProbeTests
         Assert.NotNull(found);
         Assert.Equal(opcode, found.PacketId);
         Assert.Equal((uint)12002, found.CharacterId);
+        Assert.Equal((uint)5002, found.PlayerAid);
         Assert.Equal(19, found.PacketLength);
         Assert.True(probe.Identified);
         Assert.Null(probe.Process(800, packet)); // duplicate adapter / retransmission

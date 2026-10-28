@@ -9,7 +9,8 @@ namespace RoAura.Services;
 /// reward counters or existing server-to-client packet scanner.
 /// This is NOT proof that a candidate was accepted by the map server.
 /// </summary>
-public sealed record CharacterLoginCandidate(ushort PacketId, uint CharacterId, int PacketLength);
+public sealed record CharacterLoginCandidate(ushort PacketId, uint CharacterId,
+    int PacketLength, uint PlayerAid = 0); // transient in-memory AID, never logged
 
 public sealed class CharacterLoginStreamProbe
 {
@@ -100,7 +101,7 @@ public sealed class CharacterLoginStreamProbe
             if (length == 0 && _prefixLength < 23) return null;
             _identified = length != 0;
             Finish();
-            return length == 0 ? null : new CharacterLoginCandidate(opcode, cid, length);
+            return length == 0 ? null : new CharacterLoginCandidate(opcode, cid, length, aid);
         }
     }
 

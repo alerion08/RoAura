@@ -608,8 +608,11 @@ public partial class App : Application
             // persisted, character-specific rate or Gold Goblin data.
             if (_settingsWindow is not null)
             {
-                _settingsWindow.Settings.PacketPlayerAid = 0;
                 ResetPacketSession(resetTrackedState: true);
+                // The map-login handshake contains the account/player AID.
+                // Unlike the first random nearby status, this is bound to the
+                // selected character's TCP flow. Never print the value in logs.
+                _settingsWindow.Settings.PacketPlayerAid = session.PlayerAid;
             }
             var record = _characterLedger.Snapshot(key, DateTime.UtcNow)!;
             _nextBaseExperience = record.NextBaseExperience;

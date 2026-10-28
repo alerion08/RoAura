@@ -36,6 +36,22 @@ public sealed class CharacterSessionManagerTests
     }
 
     [Fact]
+    public void Session_binds_player_AID_and_never_learns_nearby_actor_as_self()
+    {
+        var manager = new CharacterSessionManager();
+        manager.OnCandidate("SpringRO", Flow(60000), 154386, 5002);
+        manager.OnServerPayload(Flow(60000));
+        Assert.Equal((uint)5002, manager.Current.PlayerAid);
+        Assert.True(manager.TryResolve(Flow(60000), out var identity));
+        Assert.Equal((uint)5002, identity.PlayerAid);
+        Assert.True(manager.IsCurrent(identity));
+        manager.OnCandidate("SpringRO", Flow(60001), 155665, 7004);
+        Assert.False(manager.IsCurrent(identity));
+        manager.OnServerPayload(Flow(60001));
+        Assert.Equal((uint)7004, manager.Current.PlayerAid);
+    }
+
+    [Fact]
     public void Duplicate_probe_or_wrong_flow_response_does_not_change_state()
     {
         var sessions = new CharacterSessionManager();

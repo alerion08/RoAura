@@ -21,7 +21,7 @@ public readonly record struct CharacterSessionFlow(
 
 public readonly record struct CharacterSessionSnapshot(
     string ServerKey, uint? CharacterId, CharacterSessionPhase Phase,
-    ushort ClientPort, ushort MapPort, long Revision = 0);
+    ushort ClientPort, ushort MapPort, long Revision = 0, uint PlayerAid = 0);
 
 public readonly record struct CharacterSessionPacket<T>(
     CharacterSessionSnapshot Session, T Packet);
@@ -53,7 +53,8 @@ public sealed class CharacterSessionManager
                 _current.CharacterId == snapshot.CharacterId &&
                 _current.ServerKey == snapshot.ServerKey &&
                 _current.ClientPort == snapshot.ClientPort &&
-                _current.MapPort == snapshot.MapPort;
+                _current.MapPort == snapshot.MapPort &&
+                _current.PlayerAid == snapshot.PlayerAid;
     }
 
 
@@ -63,7 +64,8 @@ public sealed class CharacterSessionManager
     }
 
     /// <summary>Start observing a new candidate, suspending any earlier flow first.</summary>
-    public void OnCandidate(string serverKey, CharacterSessionFlow flow, uint candidateCid)
+    public void OnCandidate(string serverKey, CharacterSessionFlow flow, uint candidateCid,
+        uint playerAid = 0)
     {
         if (candidateCid == 0 || string.IsNullOrWhiteSpace(serverKey)) return;
         CharacterSessionSnapshot? suspended = null;
@@ -80,7 +82,7 @@ public sealed class CharacterSessionManager
 
             _currentFlow = flow;
             _current = new CharacterSessionSnapshot(serverKey, candidateCid,
-                CharacterSessionPhase.Connecting, flow.ClientPort, flow.ServerPort, ++_revision);
+                CharacterSessionPhase.Connecting, flow.ClientPort, flow.ServerPort, ++_revision, playerAid);
             next = _current;
         }
         if (suspended is { } previous) StateChanged?.Invoke(previous);

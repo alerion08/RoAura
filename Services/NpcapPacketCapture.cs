@@ -95,7 +95,8 @@ public sealed class NpcapPacketCapture : IDisposable
                 {
                     if (generation != Volatile.Read(ref _generation)) return;
                     _characterSessions.OnCandidate(serverKey,
-                        CharacterSessionFlow.FromOutbound(flow), candidate.CharacterId);
+                        CharacterSessionFlow.FromOutbound(flow), candidate.CharacterId,
+                        candidate.PlayerAid);
                 };
             }
 

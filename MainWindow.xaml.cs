@@ -79,6 +79,7 @@ public partial class MainWindow : Window
         _goldGoblin.Changed += GoldGoblin_Changed;
         _packetCapture.StatusChanged += OnLearningStatusObserved;
         _packetCapture.SkillUsed += OnLearningSkillObserved;
+        _packetCapture.SkillCooldown += OnLearningCooldownObserved;
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
         DataContext = settings;
         RefreshMvpTimerDetails();
@@ -1425,7 +1426,11 @@ public partial class MainWindow : Window
         _learningGeneration++;
         var captureWasEnabled = Settings.PacketCaptureEnabled;
         Settings.PacketCaptureEnabled = true;
-        Settings.PacketPlayerAid = 0;
+        // Preserve the player AID from map-login identity. Erasing it allowed
+        // the very first status of another player/mob to be learned as ours.
+        if (!AppEnvironment.IsDevelopment ||
+            _packetCapture.CharacterSession.Phase != CharacterSessionPhase.ActiveObserved)
+            Settings.PacketPlayerAid = 0;
         _learningSkill = null;
         _learningEffect = null;
         _learningReminder = null;
@@ -1441,6 +1446,8 @@ public partial class MainWindow : Window
     private void OnLearningStatusObserved(RoStatusPacket packet)
     {
         if (!packet.Active) return;
+        if (AppEnvironment.IsDevelopment && Settings.PacketPlayerAid != 0 &&
+            packet.Aid != Settings.PacketPlayerAid) return;
         Dispatcher.BeginInvoke(() =>
         {
             if (DateTime.UtcNow > _learningUntil) return;
@@ -1472,6 +1479,8 @@ public partial class MainWindow : Window
 
     private void OnLearningSkillObserved(RoSkillPacket packet)
     {
+        if (AppEnvironment.IsDevelopment && Settings.PacketPlayerAid != 0 &&
+            packet.SourceAid != Settings.PacketPlayerAid) return;
         Dispatcher.BeginInvoke(() =>
         {
             var skill = _learningSkill;
@@ -1482,6 +1491,25 @@ public partial class MainWindow : Window
             RequestSave();
             SetStatus(T($"«{skill.Name}»: найден Skill ID {packet.SkillId}, AID {packet.SourceAid}.",
                 $"“{skill.Name}”: learned Skill ID {packet.SkillId}, AID {packet.SourceAid}."));
+        });
+    }
+
+    private void OnLearningCooldownObserved(RoSkillCooldownPacket packet)
+    {
+        // Post-delay is sent to this client for its own cast. When this is
+        // the only emitted skill packet it still provides the precise SKID.
+        Dispatcher.BeginInvoke(() =>
+        {
+            var skill = _learningSkill;
+            if (skill is null || DateTime.UtcNow > _learningUntil) return;
+            if (AppEnvironment.IsDevelopment &&
+                _packetCapture.CharacterSession.Phase != CharacterSessionPhase.ActiveObserved)
+                return;
+            skill.PacketSkillId = packet.SkillId;
+            _learningSkill = null;
+            RequestSave();
+            SetStatus(T($"«{skill.Name}»: определён Skill ID {packet.SkillId} по пакету задержки.",
+                $"“{skill.Name}”: Skill ID {packet.SkillId} learned from post-delay packet."));
         });
     }
 
