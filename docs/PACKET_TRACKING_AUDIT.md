@@ -72,3 +72,45 @@ In-game DEV #59: Envenom, Back Slide and successful Steal trigger cooldowns; Hid
 - Legacy equipment, skill effects, EXP, Gold Goblin and per-character statistics must continue functioning without changes.
 
 Sources: https://github.com/rathena/rathena/wiki/packets ; https://github.com/brAthena/Client-Side/blob/master/Lua%20Files/2014/luafiles514/lua%20files/stateicon/efstids.lub
+
+## Evidence from uploaded SpringRO debug.log — 2026-10-28 18:34–18:35
+
+- Npcap observed 12 adapters with `host 127.0.0.1 and tcp port 57143`.
+- The first outbound map-server opcode was repeatedly `0x0317`, not
+  one of the observer's recognized `0x0436` / `0x0072` login packets.
+  There is no `CHARACTER LOGIN CANDIDATE` or `ActiveObserved` session.
+  This is an **unidentified connection**, not proof that the game uses
+  a particular new handshake or that all traffic is unreadable.
+- A packet was actually decoded: `0x0983`, status `11287`,
+  active, total and remaining `180000` ms, `matchesPlayer=False`.
+  The old diagnostic computed that boolean against the **map-login AID
+  only**, so it is also false when that identity is unavailable. It
+  did not establish that the status belonged to another actor.
+- DEV's effect-learning handler required a known CID-backed
+  `ActiveObserved` session. On this trace, it would discard every
+  status event, regardless of whether the packet was really for the
+  player's actor.
+
+### Scoped correction
+
+- Add explicit self-actor identity signal `ZC_AID` (`0x0283`, 6 bytes)
+  and reuse the actor ID of own-character `0x0ACC` EXP packets. These
+  are keyed to the TCP map flow in a separate `PlayerAidObserver`, reset
+  on retarget and disconnect, fail closed on conflicting AIDs.
+- DEV Effects/Reminders/skill learning can accept **verified self AID**
+  independent of identifying the CID. An unknown AID never falls back
+  to the first random matching status.
+- The existing per-character ledger still requires CID/flow evidence.
+  Missing CID must never assign EXP/Zeny/Gold Goblin to a guessed
+  character.
+- Diagnostic output now distinguishes `identityKnown`,
+  `identitySource` and `matchesPlayer`. A newly recognized self-AID
+  logs `PLAYER SELF AID VERIFIED` without writing the AID value.
+- The test should run with RoAura DEV started before entering a
+  character. If late-attached, the user can trigger an EXP event to
+  give a second server-derived self-AID signal. If neither source
+  appears, the actor remains deliberately unknown and a further
+  protocol-specific investigation is required.
+
+RTM Refuge reports no equivalent packet issue during this trial;
+its overlay placement discrepancy is deferred by user request.
