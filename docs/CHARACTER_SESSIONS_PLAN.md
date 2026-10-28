@@ -134,3 +134,24 @@ confirm character acceptance, and test reconnection/late-start separately.
 - This still needs manual field regression for switching, repeated incoming
   packets, market prices, normal buffs/equipment, late start and RTM.
   ActiveObserved is network evidence, not cryptographic proof of login.
+
+## Stage 6 — character browser and one shared session clock (2026-10-28)
+
+User accepted Stage 5 on SpringRO, with two corrections:
+- Gold Goblin and the overlay read the same per-character timer. A session
+  starts on the FIRST positive Base/Job EXP packet, or when the user presses
+  Gold Goblin "Start Session". Neither loot nor Zeny starts the timer.
+- The session-time overlay updates on its own WPF tick, irrespective of
+  "Refresh every N seconds" for rates; Gold Goblin time reads the same
+  ledger. Time for a character is paused during other characters and relogs.
+- Manual "Start Session" resets current character's session metrics and Gold
+  Goblin rows together, but retains lifetime history. "Reset statistics"
+  clears the active session and leaves the timer at zero until next EXP.
+- Existing DEV files without SessionTimerStarted are loaded compatibly.
+  Earlier recorded active time is preserved rather than silently deleted.
+- Stage 6 UI adds active server/CID and a manual, READ-ONLY selector of saved
+  character histories, in Russian/English. This selector NEVER changes
+  packet ownership, presets or overlays; unsupported login or late-start
+  packet attribution still needs a separately verified safe manual binding.
+- Last stage remains full regression: SpringRO/RTM, rapid Character Select,
+  restart, missing Npcap, VPN/ExitLag and all existing overlay features.
