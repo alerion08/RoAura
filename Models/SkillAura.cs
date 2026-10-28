@@ -28,6 +28,10 @@ public sealed class SkillAura : INotifyPropertyChanged
     private bool _showReady = true;
     private bool _showCountdown = true;
 
+    private string _learningObservation = "";
+    [JsonIgnore]
+    public string LearningObservation { get => _learningObservation; set => Set(ref _learningObservation, value); }
+
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get => _name; set => Set(ref _name, value); }
     public double CooldownSeconds { get => _cooldownSeconds; set => Set(ref _cooldownSeconds, Math.Max(0.1, value)); }

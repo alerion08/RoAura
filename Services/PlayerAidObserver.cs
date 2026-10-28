@@ -14,18 +14,19 @@ public sealed class PlayerAidObserver
     private uint _aid;
     private string _source = "";
     private bool _conflicted;
+    private readonly Dictionary<CharacterSessionFlow, (uint Aid, string Source, bool Conflicted)> _evidence = [];
 
     public uint Aid { get { lock (_sync) return _conflicted ? 0 : _aid; } }
     public string Source { get { lock (_sync) return _conflicted ? "conflict" : _source; } }
 
     public uint AidForFlow(CharacterSessionFlow flow)
     {
-        lock (_sync) return _flow == flow && !_conflicted ? _aid : 0;
+        lock (_sync) return _evidence.TryGetValue(flow, out var value) && !value.Conflicted ? value.Aid : 0;
     }
 
     public string SourceForFlow(CharacterSessionFlow flow)
     {
-        lock (_sync) return _flow == flow ? (_conflicted ? "conflict" : _source) : "";
+        lock (_sync) return _evidence.TryGetValue(flow, out var value) ? (value.Conflicted ? "conflict" : value.Source) : "";
     }
 
     public void Reset()
@@ -36,6 +37,7 @@ public sealed class PlayerAidObserver
             _aid = 0;
             _source = "";
             _conflicted = false;
+            _evidence.Clear();
         }
     }
 
@@ -48,9 +50,10 @@ public sealed class PlayerAidObserver
             if (_flow != flow)
             {
                 _flow = flow;
-                _aid = 0;
-                _source = "";
-                _conflicted = false;
+                var old = _evidence.GetValueOrDefault(flow);
+                _aid = old.Aid;
+                _source = old.Source ?? "";
+                _conflicted = old.Conflicted;
             }
             if (_conflicted) return false;
             if (_aid != 0 && _aid != aid)
@@ -59,11 +62,15 @@ public sealed class PlayerAidObserver
                 _aid = 0;
                 _source = "";
                 _conflicted = true;
+                _evidence[flow] = (0, "", true);
                 return false;
             }
             if (_aid == aid) return false;
             _aid = aid;
             _source = source;
+            if (_evidence.Count >= 64 && !_evidence.ContainsKey(flow))
+                _evidence.Remove(_evidence.Keys.First());
+            _evidence[flow] = (aid, source, false);
             return true;
         }
     }
@@ -72,6 +79,7 @@ public sealed class PlayerAidObserver
     {
         lock (_sync)
         {
+            _evidence.Remove(flow);
             if (_flow != flow) return;
             _flow = null;
             _aid = 0;

@@ -48,6 +48,10 @@ public sealed class TrackedEffect : INotifyPropertyChanged
     private double _totalDurationSeconds;
     private DateTime? _durationEndsAtUtc;
 
+    private string _learningObservation = "";
+    [JsonIgnore]
+    public string LearningObservation { get => _learningObservation; set => Set(ref _learningObservation, value); }
+
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get => _name; set => Set(ref _name, value); }
     public bool Enabled { get => _enabled; set => Set(ref _enabled, value); }

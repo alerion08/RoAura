@@ -1,14 +1,17 @@
 # Project state
 
-Last updated: 2026-10-27
+Last updated: 2026-10-28
 
 ## Current product
 
 RoAura is a Windows x64 WPF overlay for Ragnarok Online. It reads incoming game packets through Npcap and provides configurable overlays and supporting tools.
 
-Current release candidate: **3.0.0**
+Current published release: **3.0.0**
 
-Stable branch: `main`  
+Stable branch: `main` (unchanged by this work)
+
+Active bug-fix branch: `feature/character-statistics`
+
 Active redesign branch: `dev/roaura-2-ui`  
 Audit integration branch: `integration/2.14.0-audit-fixes`  
 Release review: [PR #5](https://github.com/alerion08/RoAura/pull/5)
@@ -176,7 +179,7 @@ Focused geometry tests cover separate monitors, partial/full coverage, owned dia
 
 ## Next step
 
-Complete the 3.0.0 release pipeline through PR #5. After successful publication, continue confirmed bug fixes as 3.0.x patches using the regression checklist. Preserve the accepted 3.0 functionality and user settings.
+Continue the SpringRO Skill ID / Status ID / Hiding and Effects/Reminders audit on `feature/character-statistics`. Version 3.0.0 is already published; the older release-candidate notes above are historical. Preserve existing settings and functionality. Do not merge to main, change versions, create a tag, installer or release. RTM overlay placement remains deferred.
 
 ## Experimental Character Sessions (2026-10-28)
 
@@ -278,3 +281,48 @@ Second debug capture confirms SpringRO map login CID 154386, but 0x0983 status c
 ## 2026-10-28 SpringRO third debug and AID distinction
 
 User's 19:17–19:18 DEV log: capture on local port 57143 across 12 adapters, outgoing first opcodes 0x0316/0x0317, no CID/ActiveObserved and no ZC_AID/EXP identity. Skill-use 0x07FB Skill 52 works. One candidate status 0x0983 index 15832, 240s, identityKnown=false. Several 0x0229 candidates are rejected. There is also a separate market HTTP connection timeout unrelated to effect packet detection. The user asks why AID is needed: it is for filtering other actors' events, NOT for detecting SKID/EFST identifiers or decoding durations. Source evidence identifies 0x0229 fields bodyState and healthState as full 16-bit bitmasks, which were incorrectly rejected above 4096. DEV now accepts all 16-bit masks, retains PK flag and nonzero actor checks, adds regression tests and reason-specific diagnostic logs. Status routing explicitly logs whether a configured effect was blocked for unknown own AID or an AID mismatch; it still refuses to ascribe foreign/unverified status to self. No fabricated fixed status/Hiding fix claim until real client verification. Branch only, no merge/release.
+
+## SpringRO packet pipeline and shared status timeline (2026-10-28)
+
+This iteration supersedes the earlier Boolean PK-field assumption and the
+per-effect timeout implementation. It is an implementation under test, not a
+claim of completed SpringRO live-client acceptance.
+
+- Confirmed against upstream rAthena: non-damaging skill packets carry a
+  heal/amount field, not a level limited to 1–100. Hiding sends -1. Both
+  0x011A/0x09CB now accept that field and require a successful result. Option
+  packets carry a karma byte which is not restricted to 0/1. Added standard
+  status-on-enter 0x08FF/0x0984 and ground/modern cast layouts; diagnostics
+  retain the real skill opcode.
+- The stream scanner retains only incomplete data, consumes known frames
+  once and skips supported opaque chat/list bodies. This prevents nested
+  signatures and permits coalesced ZC_AID after another known packet.
+  Unknown packet families still require validated scanning: no complete
+  SpringRO packet-version table or custom decoder is being asserted.
+- Effect/skill observations retain their TCP source lifetime, receive time
+  and same-flow identity across dispatcher queues. Reconnect/retarget/reset
+  invalidates old observations. Hiding transitions are per actor, and
+  self-AID evidence is kept per flow instead of being overwritten by another
+  connection. Unknown status observations can wait at most two minutes in a
+  bounded memory-only buffer and replay only for a subsequently verified
+  self actor, retaining the original duration deadline.
+- Effects and Reminders share one status timeline. Standalone reminders,
+  disabled effect rows, wizard creation after learning, refreshes, duplicate
+  packets, explicit removal and timer expiry now use the same state. No
+  settings/preset schema or saved positions change; hiding overlays still
+  leaves tracking running.
+- Learning distinguishes observed ID from confirmed self ownership and
+  displays the reason when automatic assignment is withheld. Client-only
+  0x043D can be learned without AID/CID. Existing configured cooldown fallback
+  remains available when no self identity is known; it never establishes a
+  verified self actor or a character-statistics identity.
+
+Validation: the .NET 8 Windows-targeted application and tests cross-compile;
+67 focused existing/new scenarios run successfully in a local headless
+harness using the actual parser, capture routing and model sources (only OS
+logging/localization/settings-shell dependencies substituted). The branch's
+Windows workflow runs the full unmodified test project and builds one isolated
+DEV portable; its exact commit/run result is the authority for that build.
+No installer, version change or release preparation. Live SpringRO/RTM,
+Npcap adapters, relog, F9 and modifier-key acceptance remain pending.
+See `docs/PACKET_TRACKING_AUDIT.md` for the focused acceptance matrix.

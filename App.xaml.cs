@@ -29,7 +29,8 @@ public partial class App : Application
     private MainWindow? _settingsWindow;
     private NpcapPacketCapture? _packetCapture;
     private DatabaseOverlayWindow? _databaseOverlay;
-    private readonly Dictionary<Guid, EffectPacketState> _effectStates = [];
+    private readonly StatusTrackingController _statusTracking = new();
+    private RoPacketSource? _trackingSource;
     private IReadOnlyDictionary<int, ItemEntry> _itemCatalog = new Dictionary<int, ItemEntry>();
     private ulong _nextBaseExperience;
     private ulong _nextJobExperience;
@@ -286,7 +287,11 @@ public partial class App : Application
         _overlay?.ResetRateStatistics();
 
         if (!resetTrackedState || _settingsWindow is null) return;
-        _effectStates.Clear();
+        _statusTracking.Reset();
+        _trackingSource = null;
+        Interlocked.Exchange(ref _statusDiagnosticCount, 0);
+        Interlocked.Exchange(ref _statusRejectedDiagnosticCount, 0);
+        Interlocked.Exchange(ref _optionDiagnosticCount, 0);
         foreach (var effect in _settingsWindow.Settings.Effects)
         {
             effect.IsActive = false;
@@ -339,6 +344,15 @@ public partial class App : Application
 
         _packetCapture = new NpcapPacketCapture();
         _packetCapture.StatusChanged += OnPacketStatusChanged;
+        _packetCapture.TrackingSourceClosed += source => Dispatcher.BeginInvoke(() =>
+        {
+            if (!ReferenceEquals(source, _trackingSource)) return;
+            _statusTracking.Reset();
+            _trackingSource = null;
+            if (_settingsWindow is not null) _settingsWindow.Settings.PacketPlayerAid = 0;
+            _overlay?.ResetPacketCooldowns();
+            SynchronizeStatusTracking(DateTime.UtcNow);
+        });
         if (AppEnvironment.IsDevelopment)
             _packetCapture.OptionChanged += OnPacketOptionChanged;
         _packetCapture.SkillUsed += OnPacketSkillUsed;
@@ -398,7 +412,7 @@ public partial class App : Application
             _goldGoblin.Changed += OnCharacterGoldGoblinChanged;
         }
         _overlay = new OverlayWindow(settings, _settingsStore, _goldGoblin);
-        _overlay.EffectDurationExpired += OnEffectDurationExpired;
+        _overlay.TrackingTick += SynchronizeStatusTracking;
         if (AppEnvironment.IsDevelopment)
         {
             _overlay.SetCharacterStatisticsSource(CurrentCharacterStatistics, GetCharacterSessionElapsed);
@@ -547,7 +561,8 @@ public partial class App : Application
 
     public void ResetForPreset()
     {
-        _effectStates.Clear();
+        _statusTracking.Reset();
+        _trackingSource = null;
         _zenyBalance.Reset();
         _nextBaseExperience = _nextJobExperience = 0;
         _previousNextBaseExperience = _previousNextJobExperience = 0;
@@ -747,162 +762,129 @@ public partial class App : Application
         }
     }
 
-    // Learning assigns a new Status ID after the first activation was decoded.
-    // Replay just that typed event through the normal handler so its duration,
-    // notification and reminder state are not lost.
-    public void ApplyLearnedStatus(RoStatusPacket packet) =>
-        Dispatcher.BeginInvoke(() => HandlePacketStatusChanged(packet));
+    // Replay retains the original source/time and remains idempotent. Wizard
+    // rows added later also read the cached status on the next tracking tick.
+    public void ApplyLearnedStatus(RoPacketObservation<RoStatusPacket> observation) =>
+        Dispatcher.BeginInvoke(() => HandlePacketStatusChanged(observation));
 
-    private void OnEffectDurationExpired(TrackedEffect effect)
+    public void ApplyLearnedSkill(RoPacketObservation<RoSkillPacket> observation) =>
+        OnPacketSkillUsed(observation);
+
+    public void ApplyLearnedCooldown(RoPacketObservation<RoSkillCooldownPacket> observation) =>
+        OnPacketSkillCooldown(observation);
+
+    private bool UseTrackingSource<T>(RoPacketObservation<T> observation)
     {
-        if (!effect.IsActive || _settingsWindow is null || _overlay is null) return;
-        effect.IsActive = false;
-        effect.ApplyDuration(0, 0);
-        effect.CurrentStateText = _settingsWindow.Settings.Language == "en"
-            ? "missing" : "отсутствует";
-        foreach (var reminder in _settingsWindow.Settings.Reminders.Where(reminder =>
-            reminder.StatusId == effect.StatusId && reminder.Enabled))
-            reminder.IsStatusPresent = false;
-
-        if (!_effectStates.TryGetValue(effect.Id, out var state))
-            return;
-        if (state.Present != true) return;
-        state.Present = false;
-        var now = DateTime.UtcNow;
-        if (effect.NotifyOnDisappeared &&
-            now - state.LastDisappeared >= TimeSpan.FromSeconds(effect.RepeatProtectionSeconds))
+        if (_packetCapture?.IsCurrentObservation(observation) != true) return false;
+        if (!ReferenceEquals(_trackingSource, observation.Source))
         {
-            state.LastDisappeared = now;
-            _overlay.ShowEffectNotification(effect, false);
+            _statusTracking.Reset();
+            _overlay?.ResetPacketCooldowns();
+            _trackingSource = observation.Source;
         }
-        DebugLog.Write($"PACKET EFFECT TIMEOUT: status={effect.StatusId}; " +
-                       $"name={effect.Name}");
+        return true;
     }
 
-    // Bounded DEV diagnostics: metadata only. Do not log raw traffic or
-    // account/player AIDs. The counters are reset on each capture restart.
+    private void SynchronizeStatusTracking(DateTime now)
+    {
+        if (_settingsWindow is null || _overlay is null) return;
+        var settings = _settingsWindow.Settings;
+        foreach (var transition in _statusTracking.Synchronize(settings.Effects,
+                     settings.Reminders, now, settings.Language, settings.Enabled))
+        {
+            _overlay.ShowEffectNotification(transition.Effect, transition.Active);
+            DebugLog.Write($"PACKET EFFECT TRANSITION status={transition.Effect.StatusId}; active={transition.Active}");
+        }
+    }
+
+    // Bounded metadata diagnostics never print actor IDs or raw payloads.
     private int _statusDiagnosticCount;
     private int _statusRejectedDiagnosticCount;
     private int _optionDiagnosticCount;
 
-    private void OnPacketOptionChanged(RoOptionPacket packet)
+    private void OnPacketOptionChanged(RoPacketObservation<RoOptionPacket> observation)
     {
         if (!AppEnvironment.IsDevelopment ||
             Interlocked.Increment(ref _optionDiagnosticCount) > 80) return;
-        var ownAid = _packetCapture?.VerifiedPlayerAid ?? 0;
-        var source = _packetCapture?.PlayerAidIdentitySource ?? "";
+        var packet = observation.Packet;
         DebugLog.Write($"PACKET OPTION OBSERVED opcode=0x{packet.PacketId:X4}; " +
-                       $"hidden={packet.IsHidden}; identityKnown={ownAid != 0}; " +
-                       $"identitySource={source}; matchesPlayer={ownAid != 0 && ownAid == packet.Aid}");
+                       $"hidden={packet.IsHidden}; identityKnown={observation.SelfAid != 0}; " +
+                       $"identitySource={observation.IdentitySource}; matchesPlayer={observation.IsOwnActor(packet.Aid)}");
     }
 
-    private void OnPacketStatusChanged(RoStatusPacket packet)
+    private void OnPacketStatusChanged(RoPacketObservation<RoStatusPacket> observation)
     {
-        if (AppEnvironment.IsDevelopment &&
-            Interlocked.Increment(ref _statusDiagnosticCount) <= 120)
-        {
-            var ownAid = _packetCapture?.VerifiedPlayerAid ?? 0;
-            var source = _packetCapture?.PlayerAidIdentitySource ?? "";
+        var packet = observation.Packet;
+        if (AppEnvironment.IsDevelopment && Interlocked.Increment(ref _statusDiagnosticCount) <= 120)
             DebugLog.Write($"PACKET STATUS OBSERVED opcode=0x{packet.PacketId:X4}; " +
                            $"status={packet.StatusId}; active={packet.Active}; " +
                            $"remainingMs={packet.RemainingMs}; totalMs={packet.TotalMs}; " +
-                           $"identityKnown={ownAid != 0}; identitySource={source}; " +
-                           $"matchesPlayer={ownAid != 0 && ownAid == packet.Aid}");
-        }
-        Dispatcher.BeginInvoke(() => HandlePacketStatusChanged(packet));
+                           $"identityKnown={observation.SelfAid != 0}; identitySource={observation.IdentitySource}; " +
+                           $"matchesPlayer={observation.IsOwnActor(packet.Aid)}");
+        Dispatcher.BeginInvoke(() => HandlePacketStatusChanged(observation));
     }
 
-    private void HandlePacketStatusChanged(RoStatusPacket packet)
+    private void HandlePacketStatusChanged(RoPacketObservation<RoStatusPacket> observation)
     {
-        if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled)
-            return;
-
+        if (_settingsWindow is null || _overlay is null ||
+            _packetCapture?.IsCurrentObservation(observation) != true) return;
+        var packet = observation.Packet;
         var settings = _settingsWindow.Settings;
-        var matchingEffects = settings.Effects.Where(effect =>
-            effect.Enabled && effect.StatusId > 0 && effect.StatusId == packet.StatusId).ToList();
-        var matchingReminders = settings.Reminders.Where(reminder =>
-            reminder.Enabled && reminder.StatusId > 0 && reminder.StatusId == packet.StatusId).ToList();
-        if (matchingEffects.Count == 0 && matchingReminders.Count == 0) return;
-
         if (AppEnvironment.IsDevelopment)
         {
-            // Never learn "self" from the first matching Status: it may
-            // belong to another player, monster or a bytewise false match.
-            var verified = _packetCapture?.VerifiedPlayerAid ?? 0;
-            if (verified == 0 || verified != packet.Aid)
+            if (!observation.IsOwnActor(packet.Aid))
             {
                 if (Interlocked.Increment(ref _statusRejectedDiagnosticCount) <= 40)
                     DebugLog.Write($"PACKET STATUS NOT APPLIED status={packet.StatusId}; " +
-                                   $"reason={(verified == 0 ? "identity-not-known" : "not-own-actor")}; " +
-                                   $"effects={matchingEffects.Count}; reminders={matchingReminders.Count}");
+                                   $"reason={(observation.SelfAid == 0 ? "identity-not-known" : "not-own-actor")}");
                 return;
             }
-            settings.PacketPlayerAid = verified;
         }
         else
         {
+            // Preserve the existing non-DEV manual/learned actor setting.
             if (settings.PacketPlayerAid == 0)
             {
+                if (!settings.Effects.Any(e => e.Enabled && e.StatusId == packet.StatusId) &&
+                    !settings.Reminders.Any(r => r.Enabled && r.StatusId == packet.StatusId)) return;
                 settings.PacketPlayerAid = packet.Aid;
                 _settingsStore?.Save(settings);
-                DebugLog.Write($"PACKET PLAYER AID LEARNED: {packet.Aid}");
             }
             if (settings.PacketPlayerAid != packet.Aid) return;
         }
-
-        foreach (var reminder in matchingReminders)
-            reminder.IsStatusPresent = packet.Active;
-
-        foreach (var effect in matchingEffects)
-        {
-            if (!_effectStates.TryGetValue(effect.Id, out var state))
-            {
-                state = new EffectPacketState();
-                _effectStates[effect.Id] = state;
-            }
-
-            var previous = state.Present;
-            effect.IsActive = packet.Active;
-            if (packet.Active) effect.ApplyDuration(packet.RemainingMs, packet.TotalMs);
-            else effect.ApplyDuration(0, 0);
-            if (previous == packet.Active) continue;
-            state.Present = packet.Active;
-
-            var durationText = packet.Active && packet.RemainingMs is > 0 and < uint.MaxValue
-                ? $" · {packet.RemainingMs / 1000d:0.#} {(settings.Language == "en" ? "sec" : "с")}"
-                : "";
-            effect.CurrentStateText = packet.Active
-                ? (settings.Language == "en" ? $"active{durationText}" : $"активен{durationText}")
-                : (settings.Language == "en" ? "missing" : "отсутствует");
-
-            var now = DateTime.UtcNow;
-            if (packet.Active && effect.NotifyOnAppeared &&
-                now - state.LastAppeared >= TimeSpan.FromSeconds(effect.RepeatProtectionSeconds))
-            {
-                state.LastAppeared = now;
-                _overlay.ShowEffectNotification(effect, true);
-            }
-            else if (!packet.Active && previous == true && effect.NotifyOnDisappeared &&
-                     now - state.LastDisappeared >= TimeSpan.FromSeconds(effect.RepeatProtectionSeconds))
-            {
-                state.LastDisappeared = now;
-                _overlay.ShowEffectNotification(effect, false);
-            }
-
+        if (!UseTrackingSource(observation)) return;
+        _statusTracking.Observe(packet, observation.ObservedAtUtc);
+        SynchronizeStatusTracking(DateTime.UtcNow);
+        foreach (var effect in settings.Effects.Where(e => e.Enabled && e.StatusId == packet.StatusId))
             _settingsWindow.ReportPacketEffectTransition(effect, packet);
-            DebugLog.Write($"PACKET EFFECT {effect.Name}: packet=0x{packet.PacketId:X4}; " +
-                           $"status={packet.StatusId}; aid={packet.Aid}; active={packet.Active}; " +
-                           $"remaining={packet.RemainingMs}");
-        }
     }
 
-    private void OnPacketSkillUsed(RoSkillPacket packet) =>
-        Dispatcher.BeginInvoke(() => HandlePacketSkill(packet.SkillId, packet.SourceAid,
-            packet.DelayMs, "0x07FB"));
+    private void OnPacketSkillUsed(RoPacketObservation<RoSkillPacket> observation) =>
+        Dispatcher.BeginInvoke(() =>
+        {
+            if (_settingsWindow is null || _packetCapture?.IsCurrentObservation(observation) != true) return;
+            var packet = observation.Packet;
+            if (!_settingsWindow.Settings.Skills.Any(s => s.Enabled && s.PacketSkillId == packet.SkillId)) return;
+            var ownAid = observation.SelfAid != 0 ? observation.SelfAid : _settingsWindow.Settings.PacketPlayerAid;
+            if (ownAid != 0 && ownAid != packet.SourceAid) return;
+            if (!AppEnvironment.IsDevelopment && ownAid == 0)
+            {
+                _settingsWindow.Settings.PacketPlayerAid = packet.SourceAid;
+                _settingsStore?.Save(_settingsWindow.Settings);
+            }
+            if (!UseTrackingSource(observation)) return;
+            HandlePacketSkill(packet.SkillId, packet.DelayMs, $"0x{packet.PacketId:X4}");
+        });
 
-    private void OnPacketSkillCooldown(RoSkillCooldownPacket packet) =>
-        Dispatcher.BeginInvoke(() => HandlePacketSkill(packet.SkillId, null,
-            packet.DelayMs, "0x043D"));
+    private void OnPacketSkillCooldown(RoPacketObservation<RoSkillCooldownPacket> observation) =>
+        Dispatcher.BeginInvoke(() =>
+        {
+            // 0x043D is addressed to this client and carries no actor ID.
+            if (_settingsWindow is null || !_settingsWindow.Settings.Skills.Any(s =>
+                    s.Enabled && s.PacketSkillId == observation.Packet.SkillId)) return;
+            if (!UseTrackingSource(observation)) return;
+            HandlePacketSkill(observation.Packet.SkillId, observation.Packet.DelayMs, "0x043D");
+        });
 
     private void OnPacketEquipmentChanged(RoEquipmentPacket packet) =>
         Dispatcher.BeginInvoke(() => HandlePacketEquipment(packet));
@@ -1157,33 +1139,15 @@ public partial class App : Application
             item.ItemId > 0 && item.ItemId == packet.ItemId).ToList();
     }
 
-    private void HandlePacketSkill(ushort skillId, uint? sourceAid, uint delayMs,
-        string packetName)
+    private void HandlePacketSkill(ushort skillId, uint delayMs, string packetName)
     {
-        if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled)
-            return;
-
-        var settings = _settingsWindow.Settings;
-        if (sourceAid.HasValue && settings.PacketPlayerAid != 0 &&
-            settings.PacketPlayerAid != sourceAid.Value)
-            return;
-
-        var matchingSkills = settings.Skills.Where(skill =>
-            skill.Enabled && skill.PacketSkillId > 0 && skill.PacketSkillId == skillId).ToList();
-        if (matchingSkills.Count == 0) return;
-
-        if (sourceAid.HasValue && settings.PacketPlayerAid == 0)
-        {
-            settings.PacketPlayerAid = sourceAid.Value;
-            _settingsStore?.Save(settings);
-        }
-
-        foreach (var skill in matchingSkills)
+        if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled) return;
+        foreach (var skill in _settingsWindow.Settings.Skills.Where(skill =>
+                     skill.Enabled && skill.PacketSkillId > 0 && skill.PacketSkillId == skillId))
         {
             if (!_overlay.TriggerSkill(skill)) continue;
             _settingsWindow.ReportPacketSkillTrigger(skill, skillId, delayMs);
-            DebugLog.Write($"PACKET COOLDOWN {skill.Name}: packet={packetName}; " +
-                           $"skill={skillId}; aid={sourceAid}; serverDelay={delayMs}");
+            DebugLog.Write($"PACKET COOLDOWN packet={packetName}; skill={skillId}; serverDelay={delayMs}");
         }
     }
 
@@ -1322,10 +1286,4 @@ public partial class App : Application
         base.OnExit(e);
     }
 
-    private sealed class EffectPacketState
-    {
-        public bool? Present { get; set; }
-        public DateTime LastAppeared { get; set; }
-        public DateTime LastDisappeared { get; set; }
-    }
 }

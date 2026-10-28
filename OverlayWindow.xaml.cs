@@ -437,9 +437,19 @@ public partial class OverlayWindow : Window
         else Hide();
     }
 
-    // Fired on the overlay dispatcher only when a finite, server-reported
-    // duration actually expires; never for indefinite/no-duration effects.
-    public event Action<TrackedEffect>? EffectDurationExpired;
+    // Runs on the dispatcher even while F9 hides the host. Status lifetimes
+    // belong to the shared tracker, not to visible effect rows.
+    public event Action<DateTime>? TrackingTick;
+
+    public void ResetPacketCooldowns()
+    {
+        _cooldownEnds.Clear();
+        foreach (var skill in _settings.Skills)
+        {
+            skill.RemainingSeconds = 0;
+            skill.IsReady = true;
+        }
+    }
 
     public void ShowEffectNotification(TrackedEffect effect, bool appeared)
     {
@@ -996,16 +1006,7 @@ public partial class OverlayWindow : Window
             else skill.RemainingSeconds = remaining;
         }
 
-        foreach (var effect in _settings.Effects.Where(effect => effect.IsActive && effect.DurationEndsAtUtc.HasValue))
-        {
-            var remaining = (effect.DurationEndsAtUtc!.Value - now).TotalSeconds;
-            effect.RemainingSeconds = Math.Max(0, remaining);
-            if (remaining <= 0)
-            {
-                effect.DurationEndsAtUtc = null;
-                EffectDurationExpired?.Invoke(effect);
-            }
-        }
+        TrackingTick?.Invoke(now);
 
         foreach (var timer in _settings.MvpTimers.Where(timer => timer.EndsAtUtc.HasValue))
         {

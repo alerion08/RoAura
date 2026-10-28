@@ -29,6 +29,10 @@ public sealed class ReminderItem : INotifyPropertyChanged
     private bool _isStatusPresent;
     private bool _isPlacementPreview;
 
+    private string _learningObservation = "";
+    [JsonIgnore]
+    public string LearningObservation { get => _learningObservation; set => Set(ref _learningObservation, value); }
+
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get => _name; set => Set(ref _name, value); }
     public bool Enabled { get => _enabled; set { if (Set(ref _enabled, value)) OnPropertyChanged(nameof(IsVisible)); } }

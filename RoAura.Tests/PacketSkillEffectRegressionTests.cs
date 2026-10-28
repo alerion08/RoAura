@@ -196,13 +196,13 @@ public sealed class PacketSkillEffectRegressionTests
     }
 
     [Fact]
-    public void Malformed_actor_option_must_not_trigger_statuses()
+    public void Zero_actor_option_must_not_trigger_statuses()
     {
         var bytes = new byte[15];
         Write16(bytes, 0, 0x0229);
-        Write32(bytes, 2, 4200);
+        Write32(bytes, 2, 0);
         Write32(bytes, 10, 2);
-        bytes[14] = 4; // Invalid PK-mode boolean
+        bytes[14] = 4; // Karma is valid; zero actor is not
         var scanner = new RoPacketStreamScanner();
         var count = 0;
         scanner.OptionChanged += _ => count++;
@@ -215,9 +215,9 @@ public sealed class PacketSkillEffectRegressionTests
     {
         var bytes = new byte[15];
         Write16(bytes, 0, 0x0229);
-        Write32(bytes, 2, 4200);
+        Write32(bytes, 2, 0);
         Write32(bytes, 10, 2);
-        bytes[14] = 7; // invalid PK flag
+        bytes[14] = 7; // valid karma; invalid actor
         var scanner = new RoPacketStreamScanner();
         var rejected = new List<ushort>();
         var reasons = new List<string>();
@@ -228,7 +228,7 @@ public sealed class PacketSkillEffectRegressionTests
         scanner.Process(bytes);
         Assert.Equal(0, accepted);
         Assert.Contains((ushort)0x0229, rejected);
-        Assert.Contains("pk-mode-not-boolean-or-embedded-signature", reasons);
+        Assert.Contains("actor-zero-or-embedded-signature", reasons);
     }
 
     [Fact]

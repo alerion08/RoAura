@@ -4,7 +4,7 @@ Status: **fixes under test in DEV; user has NOT verified them in-game**.
 User confirmed all three features fail **also in stable v3.0.0**, so this is
 NOT caused by Character Sessions. Keep stable `main` unchanged.
 
-## Source findings
+## Earlier findings (subsequent corrections below)
 
 1. The `0x0983` status packet was decoded with `Left` at byte 9 and
    `Total` at byte 13. rAthena's `packet_status_change` contains `Total`
@@ -114,3 +114,98 @@ Sources: https://github.com/rathena/rathena/wiki/packets ; https://github.com/br
 
 RTM Refuge reports no equivalent packet issue during this trial;
 its overlay placement discrepancy is deferred by user request.
+
+## Comprehensive follow-up — 2026-10-28
+
+### Confirmed defects corrected
+
+1. **Hiding non-damage ACK was rejected.** The field called `level` in the
+   wire struct is the heal/amount parameter. rAthena's Hiding implementation
+   sends `-1`, which is 65535 / 4294967295 on the wire. A 1–100 validation
+   excluded Hiding, zero-amount skills and large heals. Successful results
+   now pass; unsuccessful non-damage results do not trigger or teach a skill.
+2. **Option karma was treated as a Boolean.** `clif_changeoption_target`
+   assigns `sd->status.karma` to `isPKModeON`. Its name does not justify
+   rejecting values above 1. Nonzero actor and complete-frame checks remain.
+   Earlier logs saying `pk-mode-not-boolean` are not proof of a malformed
+   SpringRO packet. The body/health mask correction remains in place.
+3. **One Hiding bit was shared by all actors.** Another actor could suppress
+   our activation or make a repeated packet look like a new activation.
+   A bounded per-actor tracker now drives the Skill 51 bridge. Status 4
+   remains an independent EFST state; no cooldown or buff duration is invented.
+4. **The 64-KiB carry rescanned consumed bytes.** Only incomplete data is
+   retained now. Known fixed/variable frames are consumed whole; supported
+   chat/list bodies are opaque, even when fragmented. Coalesced 0x0283 can be
+   read at a known boundary instead of only at a TCP-segment start. Existing
+   equipment variants, loot, EXP, Zeny and status frames have mixed-stream
+   fragmentation regression coverage.
+5. **Missing standard layouts and wrong actor offsets.** 0x08FF/0x0984
+   status-on-enter frames place AID before EFST; 0x0983/0x043F place EFST first.
+   Both families now have separate decoders. 0x0117 and 0x0B1A skill layouts
+   are recognized, and ground casts may have zero target AID. The original
+   cooldown-on-cast-ACK behavior is retained: a cast ACK alone is not claimed
+   to prove completion of an interruptible cast.
+6. **UI dispatch lost source provenance.** Each event now carries an
+   in-memory TCP lifetime token, original receipt time and same-flow self
+   evidence. Other-flow and stale/closed-source events cannot update or teach
+   the current overlays. Self identity remains separate from CID/statistics.
+   A bounded two-minute pending status buffer can replay the latest own
+   status after explicit identity arrives, without extending its deadline or
+   resurrecting a status already removed. Old generations cannot register
+   a new live source; scanner creation is serialized across Npcap adapters.
+7. **Reminder expiry depended on an enabled effect row.** A shared status
+   controller handles both collections and emits appearance/disappearance
+   once per configured effect, retaining repeat protection. Standalone
+   reminders expire; refresh moves the deadline; explicit removal wins;
+   unknown duration stays active until removal. Learning replay is idempotent,
+   and a row created by a wizard sees the cached state and original deadline.
+
+### Detection versus attribution
+
+Decoding is independent of AID. During learning, an observed Skill/Status ID
+with unknown or mismatching self identity is shown with an explanation in
+RU/EN, instead of being silently presented as "nothing detected". Automatic
+assignment of actor-scoped events still requires same-flow self evidence in
+DEV. The client-only 0x043D post-delay packet has no AID and no longer depends
+on that check. Configured cooldowns retain their prior fallback when identity
+is unavailable; a matching cast does not establish self identity for statuses
+or a guessed character for statistics.
+
+This does **not** establish what the historical status candidates 11287,
+17519, 17578 or 15832 meant. No new raw SpringRO capture was supplied in this
+iteration. Unknown/custom packet families still use validated scanning, and
+neither encryption nor a specific shuffled protocol is assumed. The changes
+cover reproducible standard-protocol and application defects; SpringRO live
+verification remains necessary.
+
+### Focused acceptance for the next DEV portable
+
+- Start DEV before login. Learn/recast Envenom, Back Slide, Steal (success
+  and failure) and Hiding. Toggle Hiding on/off repeatedly, including near
+  another player doing the same. Verify Skill ID 51 and EFST 4 separately.
+- Learn a finite buff as an Effect and as a Reminder. Check appearance,
+  refresh, remaining/total, explicit removal and expiry. Repeat with only a
+  Reminder configured, and with the matching Effect disabled/deleted.
+- Create rows through both wizards after the first learning packet; wait
+  before completing the wizard and check that the original deadline remains.
+- Launch late without AID: an observation must be distinguished from a
+  confirmed own event. Gain EXP within two minutes and check buffered own
+  status restoration, with no other actor's status applied. Retry learning
+  if its 20-second window expired; self-only post-delay needs no AID.
+- Hide/show with F9 during a countdown; verify reminders, separate sounds,
+  notification groups, saved positions and modifier keys. Test A → B → A,
+  connection retarget, multiple adapters and restart with named presets.
+- Recheck equipment/variants, EXP/Zeny/Gold Goblin and RTM. Do not use a
+  successful synthetic test as a substitute for this game-client check.
+
+### Verification and primary sources
+
+67 focused scenarios pass in the local headless test harness; application
+and test sources cross-compile for Windows with .NET 8. Full WPF tests and
+isolated DEV packaging run in the branch workflow. No main/version/release
+changes are included.
+
+Source snapshot inspected: rAthena `d4b8e7b8f16061cc2496d377ac8f777ce72a4f39`:
+- [Hiding implementation](https://github.com/rathena/rathena/blob/d4b8e7b8f16061cc2496d377ac8f777ce72a4f39/src/map/skills/thief/hiding.cpp)
+- [clif_skill_nodamage, clif_changeoption_target and status delivery](https://github.com/rathena/rathena/blob/d4b8e7b8f16061cc2496d377ac8f777ce72a4f39/src/map/clif.cpp)
+- [Wire structures](https://github.com/rathena/rathena/blob/d4b8e7b8f16061cc2496d377ac8f777ce72a4f39/src/map/packets_struct.hpp)

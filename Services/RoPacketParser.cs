@@ -15,7 +15,8 @@ public readonly record struct RoSkillPacket(
     ushort SkillId,
     uint SourceAid,
     uint TargetAid,
-    uint DelayMs);
+    uint DelayMs,
+    ushort PacketId = 0x07FB);
 
 public readonly record struct RoSkillCooldownPacket(ushort SkillId, uint DelayMs);
 
@@ -95,6 +96,7 @@ public sealed class RoPacketStreamScanner
     private const int SkillCooldownPacketSize = 8;
     private const int MaximumEquipmentListLength = 8192;
     private byte[] _carry = [];
+    private bool _knownBoundary = true;
     private readonly ConcurrentDictionary<ushort, RoEquipmentPacket> _inventoryEquipment;
 
     public RoPacketStreamScanner(
@@ -107,6 +109,7 @@ public sealed class RoPacketStreamScanner
     }
 
     public event Action<RoStatusPacket>? StatusChanged;
+    public event Action? StreamReset;
     public event Action<RoSelfAidPacket>? SelfAidObserved;
     public event Action<RoOptionPacket>? OptionChanged;
     // DEV diagnostics can report an option opcode whose candidate body was
@@ -121,59 +124,62 @@ public sealed class RoPacketStreamScanner
     public event Action<RoProgressPacket>? ProgressChanged;
     public event Action<RoZenyPacket>? ZenyChanged;
 
-    public void ResetStream() => _carry = [];
+    public void ResetStream()
+    {
+        _carry = [];
+        _knownBoundary = true;
+        StreamReset?.Invoke();
+    }
 
     public void Process(ReadOnlySpan<byte> payload)
     {
         if (payload.IsEmpty) return;
 
-        var previousLength = _carry.Length;
-        var combined = new byte[previousLength + payload.Length];
+        var carryLength = _carry.Length;
+        var combined = new byte[carryLength + payload.Length];
         _carry.CopyTo(combined, 0);
-        payload.CopyTo(combined.AsSpan(previousLength));
+        payload.CopyTo(combined.AsSpan(carryLength));
 
-        for (var offset = 0; offset + 2 <= combined.Length; offset++)
+        // Keep only incomplete frames. Re-scanning 64 KiB of already consumed
+        // bytes let a split packet's contents masquerade as new packet headers.
+        var offset = 0;
+        for (; offset + 2 <= combined.Length; offset++)
         {
             var packetId = BinaryPrimitives.ReadUInt16LittleEndian(combined.AsSpan(offset, 2));
+            var start = offset;
+            var frameLength = KnownFrameLength(combined, offset, packetId);
+            if (frameLength == -1 || (frameLength > 0 && offset + frameLength > combined.Length))
+                break;
             switch (packetId)
             {
                 case 0x0B41 when TryReadRtmItemAdded(combined, offset, out var length, out var itemAdded):
-                    var isNewItemPacket = offset + length > previousLength;
-                    if (isNewItemPacket &&
-                        TryReadRtmAddedEquipment(combined, offset, out var addedEquipment))
+                    if (TryReadRtmAddedEquipment(combined, offset, out var addedEquipment))
                     {
                         _inventoryEquipment[addedEquipment.InventoryIndex] = addedEquipment;
                         DebugLog.Write($"PACKET EQUIPMENT CACHE: 0x0B41; index={addedEquipment.InventoryIndex}; " +
                                        $"item={addedEquipment.ItemId}; variant={addedEquipment.VariantKey}");
                     }
-                    if (isNewItemPacket)
-                        ItemAdded?.Invoke(itemAdded);
+                    ItemAdded?.Invoke(itemAdded);
                     offset += length - 1;
                     break;
 
                 case 0x0ACC when TryReadExperience(combined, offset, out var length, out var experience):
-                    if (offset + length > previousLength)
-                        ExperienceChanged?.Invoke(experience);
+                    ExperienceChanged?.Invoke(experience);
                     offset += length - 1;
                     break;
 
                 case 0x0ACB when TryReadProgress(combined, offset, out var length, out var progress):
-                    if (offset + length > previousLength)
-                        ProgressChanged?.Invoke(progress);
+                    ProgressChanged?.Invoke(progress);
                     offset += length - 1;
                     break;
 
                 case 0x00B1 when TryReadZeny(combined, offset, out var length, out var zeny):
-                    if (offset + length > previousLength)
-                        ZenyChanged?.Invoke(zeny);
+                    ZenyChanged?.Invoke(zeny);
                     offset += length - 1;
                     break;
 
-                // List packets: only the cheap header is validated before the
-                // freshness check, so a stale (already processed) list in the
-                // carry is skipped without re-parsing every entry.
+                // Complete lists are consumed once; partial lists stay intact.
                 case 0x00A4 when TryReadEquipmentListHeader(combined, offset, out var length):
-                    if (offset + length > previousLength)
                     {
                         foreach (var entry in ReadEquipmentListEntries(combined, offset, length))
                         {
@@ -187,7 +193,6 @@ public sealed class RoPacketStreamScanner
 
                 case 0x0B39 when TryReadRtmEquipmentListHeader(combined, offset, out var length,
                              out var rtmEntrySize):
-                    if (offset + length > previousLength)
                     {
                         var rtmEquipmentEntries = ReadRtmEquipmentListEntries(combined, offset,
                             length, rtmEntrySize);
@@ -206,7 +211,7 @@ public sealed class RoPacketStreamScanner
                 case 0x00AA when TryReadEquipChange(combined, offset, true, out var length, out var equipped):
                     if (_inventoryEquipment.TryGetValue(equipped.InventoryIndex, out var equippedIdentity))
                         equipped = CopyIdentity(equipped, equippedIdentity);
-                    if (offset + length > previousLength && IsPlausibleEquipmentEvent(equipped))
+                    if (IsPlausibleEquipmentEvent(equipped))
                         EquipmentChanged?.Invoke(equipped);
                     offset += length - 1;
                     break;
@@ -214,7 +219,7 @@ public sealed class RoPacketStreamScanner
                 case 0x00AC when TryReadEquipChange(combined, offset, false, out var length, out var unequipped):
                     if (_inventoryEquipment.TryGetValue(unequipped.InventoryIndex, out var unequippedIdentity))
                         unequipped = CopyIdentity(unequipped, unequippedIdentity);
-                    if (offset + length > previousLength && IsPlausibleEquipmentEvent(unequipped))
+                    if (IsPlausibleEquipmentEvent(unequipped))
                         EquipmentChanged?.Invoke(unequipped);
                     offset += length - 1;
                     break;
@@ -222,7 +227,7 @@ public sealed class RoPacketStreamScanner
                 case 0x0999 when TryReadRtmEquipChange(combined, offset, true, out var length, out var rtmEquipped):
                     if (_inventoryEquipment.TryGetValue(rtmEquipped.InventoryIndex, out var rtmEquippedIdentity))
                         rtmEquipped = CopyIdentity(rtmEquipped, rtmEquippedIdentity);
-                    if (offset + length > previousLength && IsPlausibleEquipmentEvent(rtmEquipped))
+                    if (IsPlausibleEquipmentEvent(rtmEquipped))
                         EquipmentChanged?.Invoke(rtmEquipped);
                     offset += length - 1;
                     break;
@@ -230,43 +235,38 @@ public sealed class RoPacketStreamScanner
                 case 0x099A when TryReadRtmEquipChange(combined, offset, false, out var length, out var rtmUnequipped):
                     if (_inventoryEquipment.TryGetValue(rtmUnequipped.InventoryIndex, out var rtmUnequippedIdentity))
                         rtmUnequipped = CopyIdentity(rtmUnequipped, rtmUnequippedIdentity);
-                    if (offset + length > previousLength && IsPlausibleEquipmentEvent(rtmUnequipped))
+                    if (IsPlausibleEquipmentEvent(rtmUnequipped))
                         EquipmentChanged?.Invoke(rtmUnequipped);
                     offset += length - 1;
                     break;
 
-                // The scanner searches all byte offsets in arbitrary packet payload.
-                // A short 0x0283 signature inside item/text data is not self
-                // identity. Accept only at the start of a TCP chunk (or the
-                // first short fragmented chunk of a new flow).
-                case 0x0283 when (offset == previousLength ||
-                        (offset == 0 && previousLength <= 5)) &&
+                // TCP chunks are not protocol boundaries. A self-AID packet
+                // may follow another complete packet in the same chunk.
+                case 0x0283 when _knownBoundary &&
                         TryReadSelfAid(combined, offset, out var length, out var selfAid):
-                    if (offset + length > previousLength) SelfAidObserved?.Invoke(selfAid);
+                    SelfAidObserved?.Invoke(selfAid);
                     offset += length - 1;
                     break;
 
                 case 0x0119 when TryReadOptionState(combined, offset, OldOptionPacketSize,
                         out var length, out var oldOption):
-                    if (offset + length > previousLength) OptionChanged?.Invoke(oldOption);
+                    OptionChanged?.Invoke(oldOption);
                     offset += length - 1;
                     break;
 
                 case 0x0229 when TryReadOptionState(combined, offset, NewOptionPacketSize,
                         out var length, out var newOption):
-                    if (offset + length > previousLength) OptionChanged?.Invoke(newOption);
+                    OptionChanged?.Invoke(newOption);
                     offset += length - 1;
                     break;
 
-                case 0x0119 when offset + OldOptionPacketSize <= combined.Length &&
-                    offset + OldOptionPacketSize > previousLength:
+                case 0x0119 when offset + OldOptionPacketSize <= combined.Length:
                     OptionCandidateRejected?.Invoke(packetId);
                     OptionCandidateRejectedDetailed?.Invoke(packetId,
                         OptionRejectReason(combined, offset, OldOptionPacketSize));
                     break;
 
-                case 0x0229 when offset + NewOptionPacketSize <= combined.Length &&
-                    offset + NewOptionPacketSize > previousLength:
+                case 0x0229 when offset + NewOptionPacketSize <= combined.Length:
                     OptionCandidateRejected?.Invoke(packetId);
                     OptionCandidateRejectedDetailed?.Invoke(packetId,
                         OptionRejectReason(combined, offset, NewOptionPacketSize));
@@ -274,65 +274,121 @@ public sealed class RoPacketStreamScanner
 
                 case 0x0983 when TryReadTimedStatus(combined, offset, TimedStatusPacketSize, packetId,
                              out var length, out var timedStatus):
-                    if (offset + length > previousLength)
-                        StatusChanged?.Invoke(timedStatus);
+                    StatusChanged?.Invoke(timedStatus);
                     offset += length - 1;
                     break;
 
                 case 0x043F when TryReadTimedStatus(combined, offset, LegacyTimedStatusPacketSize, packetId,
                              out var length, out var legacyTimedStatus):
-                    if (offset + length > previousLength)
-                        StatusChanged?.Invoke(legacyTimedStatus);
+                    StatusChanged?.Invoke(legacyTimedStatus);
                     offset += length - 1;
                     break;
 
                 case 0x0196 when TryReadSimpleStatus(combined, offset, out var length, out var simpleStatus):
-                    if (offset + length > previousLength)
-                        StatusChanged?.Invoke(simpleStatus);
+                    StatusChanged?.Invoke(simpleStatus);
                     offset += length - 1;
                     break;
 
-                case 0x07FB when TryReadSkillUse(combined, offset, out var length, out var skillUse):
-                    if (offset + length > previousLength)
-                        SkillUsed?.Invoke(skillUse);
+                case 0x0984 or 0x08FF when TryReadEnteredStatus(combined, offset, packetId,
+                        out var length, out var enteredStatus):
+                    StatusChanged?.Invoke(enteredStatus);
+                    offset += length - 1;
+                    break;
+
+                case 0x07FB or 0x0B1A when TryReadSkillUse(combined, offset, packetId, out var length, out var skillUse):
+                    SkillUsed?.Invoke(skillUse);
+                    offset += length - 1;
+                    break;
+
+                case 0x0117 when TryReadGroundSkill(combined, offset, out var length, out var groundSkill):
+                    SkillUsed?.Invoke(groundSkill);
                     offset += length - 1;
                     break;
 
                 case 0x011A when TryReadLegacySkillUse(combined, offset, out var length, out var legacySkill):
-                    if (offset + length > previousLength) SkillUsed?.Invoke(legacySkill);
+                    SkillUsed?.Invoke(legacySkill);
                     offset += length - 1;
                     break;
 
                 case 0x09CB when TryReadModernSkillUse(combined, offset, out var length, out var modernSkill):
-                    if (offset + length > previousLength) SkillUsed?.Invoke(modernSkill);
+                    SkillUsed?.Invoke(modernSkill);
                     offset += length - 1;
                     break;
 
                 case 0x013E when TryReadLegacySkillAck(combined, offset, out var length, out var castAck):
-                    if (offset + length > previousLength) SkillUsed?.Invoke(castAck);
+                    SkillUsed?.Invoke(castAck);
                     offset += length - 1;
                     break;
 
                 case 0x0114 when TryReadLegacyDamageSkill(combined, offset, out var length, out var oldDamageSkill):
-                    if (offset + length > previousLength) SkillUsed?.Invoke(oldDamageSkill);
+                    SkillUsed?.Invoke(oldDamageSkill);
                     offset += length - 1;
                     break;
 
                 case 0x01DE when TryReadDamageSkill(combined, offset, out var length, out var damageSkill):
-                    if (offset + length > previousLength) SkillUsed?.Invoke(damageSkill);
+                    SkillUsed?.Invoke(damageSkill);
                     offset += length - 1;
                     break;
 
                 case 0x043D when TryReadSkillCooldown(combined, offset, out var length, out var cooldown):
-                    if (offset + length > previousLength)
-                        SkillCooldown?.Invoke(cooldown);
+                    SkillCooldown?.Invoke(cooldown);
                     offset += length - 1;
                     break;
             }
+            // Even an unsuccessful skill result has a complete frame. Never
+            // search its body (or a chat/list body) for status signatures.
+            var consumed = offset != start;
+            if (frameLength > 0 && (consumed || _knownBoundary))
+            {
+                offset = Math.Max(offset, start + frameLength - 1);
+                _knownBoundary = true;
+            }
+            else _knownBoundary = consumed;
         }
 
-        var keep = Math.Min(CarrySize, combined.Length);
+        var keep = Math.Min(CarrySize, combined.Length - offset);
         _carry = combined.AsSpan(combined.Length - keep, keep).ToArray();
+    }
+
+    // Only established layouts are framed here. Unknown/custom packet versions
+    // still use the existing validated resynchronization scan; this is NOT a
+    // claim that SpringRO's complete packet table has been identified.
+    private int KnownFrameLength(byte[] data, int offset, ushort opcode)
+    {
+        var fixedLength = opcode switch
+        {
+            0x0B41 => 70, 0x0ACC => 18, 0x0ACB => 12, 0x00B1 => 8,
+            0x00AA or 0x00AC => offset + 7 <= data.Length && data[offset + 6] > 1 ? 9 : 7,
+            0x0999 => 11, 0x099A => 9,
+            0x0283 when _knownBoundary => 6,
+            0x0119 => 13, 0x0229 => 15,
+            0x0983 => 29, 0x043F => 25, 0x0196 => 9,
+            0x0984 => 28, 0x08FF => 24,
+            0x07FB => 25, 0x0B1A => 29, 0x013E => 24,
+            0x011A => 15, 0x09CB => 17, 0x0117 => 18,
+            0x0114 => 31, 0x01DE => 33, 0x043D => 8,
+            // Fixed common server frames whose payload is not interesting here.
+            0x00B0 when _knownBoundary => 8,
+            0x007F when _knownBoundary => 6,
+            _ => 0
+        };
+        if (fixedLength > 0) return fixedLength;
+        if (opcode is 0x00A4 or 0x0B39 ||
+            (_knownBoundary && opcode is 0x008D or 0x008E or 0x009A or 0x0097))
+        {
+            if (offset + 4 > data.Length) return -1;
+            var length = ReadUInt16(data, offset + 2);
+            // Do not let an embedded list signature reserve an arbitrary
+            // 64-KiB frame and starve the following real status packets.
+            if (opcode == 0x00A4 && (length > MaximumEquipmentListLength || (length - 4) % 20 != 0))
+                return 0;
+            if (opcode == 0x0B39 && (length < 5 ||
+                ((length - 5) % RtmEquipmentEntrySizeLegacy != 0 &&
+                 (length - 5) % RtmEquipmentEntrySizeCurrent != 0))) return 0;
+            var minimum = opcode == 0x0B39 ? 5 : opcode == 0x0097 ? 28 : opcode == 0x008D ? 8 : 4;
+            if (length >= minimum) return length;
+        }
+        return 0;
     }
 
     private static bool TryReadSelfAid(byte[] data, int offset, out int length,
@@ -350,7 +406,6 @@ public sealed class RoPacketStreamScanner
     private static string OptionRejectReason(byte[] data, int offset, int length)
     {
         if (ReadUInt32(data, offset + 2) == 0) return "actor-zero-or-embedded-signature";
-        if (data[offset + length - 1] > 1) return "pk-mode-not-boolean-or-embedded-signature";
         return "unclassified";
     }
 
@@ -365,8 +420,9 @@ public sealed class RoPacketStreamScanner
         // magnitude-limited values. Values above 4096 are valid.
         var option = packetLength == NewOptionPacketSize
             ? ReadUInt32(data, offset + 10) : ReadUInt16(data, offset + 10);
-        var pkFlag = data[offset + length - 1];
-        if (aid == 0 || pkFlag > 1)
+        // rAthena assigns status.karma to this byte; despite its name it is
+        // not restricted to a Boolean. It is unrelated to OPTION_HIDE.
+        if (aid == 0)
             return false;
         packet = new RoOptionPacket(packetLength == NewOptionPacketSize
             ? (ushort)0x0229 : (ushort)0x0119, aid, option);
@@ -412,11 +468,40 @@ public sealed class RoPacketStreamScanner
         return true;
     }
 
-    private static bool TryReadSkillUse(byte[] data, int offset, out int length,
+    private static bool TryReadEnteredStatus(byte[] data, int offset, ushort opcode,
+        out int length, out RoStatusPacket packet)
+    {
+        packet = default;
+        length = opcode == 0x0984 ? 28 : 24;
+        if (offset + length > data.Length) return false;
+        // SET_ENTER has AID before EFST, unlike MSG_STATE_CHANGE.
+        var aid = ReadUInt32(data, offset + 2);
+        var status = ReadUInt16(data, offset + 6);
+        var total = ReadUInt32(data, offset + 8);
+        var remaining = opcode == 0x0984 ? ReadUInt32(data, offset + 12) : total;
+        if (aid == 0 || status == 0 || !LooksLikeDuration(total) || !LooksLikeDuration(remaining)) return false;
+        packet = new(opcode, status, aid, true, remaining, total);
+        return true;
+    }
+
+    private static bool TryReadGroundSkill(byte[] data, int offset, out int length, out RoSkillPacket packet)
+    {
+        packet = default;
+        length = 18;
+        if (offset + length > data.Length) return false;
+        var skill = ReadUInt16(data, offset + 2);
+        var source = ReadUInt32(data, offset + 4);
+        if (skill == 0 || source == 0 || ReadUInt16(data, offset + 10) > 1000 ||
+            ReadUInt16(data, offset + 12) > 1000) return false;
+        packet = new(skill, source, 0, 0, 0x0117);
+        return true;
+    }
+
+    private static bool TryReadSkillUse(byte[] data, int offset, ushort opcode, out int length,
         out RoSkillPacket packet)
     {
         packet = default;
-        length = SkillUsePacketSize;
+        length = opcode == 0x0B1A ? 29 : SkillUsePacketSize;
         if (offset + length > data.Length) return false;
 
         var sourceAid = ReadUInt32(data, offset + 2);
@@ -426,11 +511,11 @@ public sealed class RoPacketStreamScanner
         var skillId = ReadUInt16(data, offset + 14);
         var delayMs = ReadUInt32(data, offset + 20);
         var disposable = data[offset + 24];
-        if (sourceAid == 0 || targetAid == 0 || skillId is 0 or > 20000 ||
+        if (sourceAid == 0 || skillId is 0 or > 20000 ||
             x > 1000 || y > 1000 || disposable > 1)
             return false;
 
-        packet = new RoSkillPacket(skillId, sourceAid, targetAid, delayMs);
+        packet = new RoSkillPacket(skillId, sourceAid, targetAid, delayMs, opcode);
         return true;
     }
 
@@ -441,13 +526,13 @@ public sealed class RoPacketStreamScanner
         length = LegacySkillUsePacketSize;
         if (offset + length > data.Length) return false;
         var skillId = ReadUInt16(data, offset + 2);
-        var level = ReadUInt16(data, offset + 4);
         var target = ReadUInt32(data, offset + 6);
         var source = ReadUInt32(data, offset + 10);
         var result = data[offset + 14];
-        if (skillId is 0 or > 20000 || level is 0 or > 100 ||
-            target == 0 || source == 0 || result > 1) return false;
-        packet = new RoSkillPacket(skillId, source, target, 0);
+        // This field is heal/amount, NOT a bounded skill level. Zero and
+        // large values are legal. Failed casts must not start cooldowns.
+        if (skillId is 0 or > 20000 || target == 0 || source == 0 || result != 1) return false;
+        packet = new RoSkillPacket(skillId, source, target, 0, 0x011A);
         return true;
     }
 
@@ -458,13 +543,11 @@ public sealed class RoPacketStreamScanner
         length = ModernSkillUsePacketSize;
         if (offset + length > data.Length) return false;
         var skillId = ReadUInt16(data, offset + 2);
-        var level = ReadUInt32(data, offset + 4);
         var target = ReadUInt32(data, offset + 8);
         var source = ReadUInt32(data, offset + 12);
         var result = data[offset + 16];
-        if (skillId is 0 or > 20000 || level is 0 or > 100 ||
-            target == 0 || source == 0 || result > 1) return false;
-        packet = new RoSkillPacket(skillId, source, target, 0);
+        if (skillId is 0 or > 20000 || target == 0 || source == 0 || result != 1) return false;
+        packet = new RoSkillPacket(skillId, source, target, 0, 0x09CB);
         return true;
     }
 
@@ -480,9 +563,9 @@ public sealed class RoPacketStreamScanner
         var y = ReadUInt16(data, offset + 12);
         var skillId = ReadUInt16(data, offset + 14);
         var delay = ReadUInt32(data, offset + 20);
-        if (source == 0 || target == 0 || skillId is 0 or > 20000 ||
+        if (source == 0 || skillId is 0 or > 20000 ||
             x > 1000 || y > 1000) return false;
-        packet = new RoSkillPacket(skillId, source, target, delay);
+        packet = new RoSkillPacket(skillId, source, target, delay, 0x013E);
         return true;
     }
 
@@ -498,7 +581,7 @@ public sealed class RoPacketStreamScanner
         var level = ReadUInt16(data, offset + 26);
         if (skillId is 0 or > 20000 || source == 0 || target == 0 ||
             level > 100) return false;
-        packet = new RoSkillPacket(skillId, source, target, 0);
+        packet = new RoSkillPacket(skillId, source, target, 0, 0x0114);
         return true;
     }
 
@@ -515,7 +598,7 @@ public sealed class RoPacketStreamScanner
         var hitCount = ReadUInt16(data, offset + 30);
         if (skillId is 0 or > 20000 || source == 0 || target == 0 ||
             level > 100 || hitCount > 1000) return false;
-        packet = new RoSkillPacket(skillId, source, target, 0);
+        packet = new RoSkillPacket(skillId, source, target, 0, 0x01DE);
         return true;
     }
 
@@ -771,7 +854,10 @@ public sealed class RoPacketStreamScanner
         var resultOffset = offset + 6;
         // Clients from 2010-06-29 onward insert a two-byte view ID before result.
         if (offset + 9 <= data.Length && data[offset + 6] > 1 && data[offset + 8] <= 1)
+        {
             resultOffset = offset + 8;
+            length = 9;
+        }
         var success = data[resultOffset] == 1;
         if (inventoryIndex == 0 || wearLocation == 0 || data[resultOffset] > 1) return false;
         packet = new RoEquipmentPacket(equipped ? (ushort)0x00AA : (ushort)0x00AC,

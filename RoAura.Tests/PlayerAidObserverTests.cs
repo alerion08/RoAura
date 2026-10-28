@@ -75,7 +75,7 @@ public sealed class PlayerAidObserverTests
         Assert.Equal(0u, observer.AidForFlow(newFlow));
         Assert.Equal("", observer.SourceForFlow(newFlow));
         Assert.True(observer.Observe(newFlow, 5002, "EXP"));
-        Assert.Equal(0u, observer.AidForFlow(oldFlow));
+        Assert.Equal(4001u, observer.AidForFlow(oldFlow));
         Assert.Equal(5002u, observer.AidForFlow(newFlow));
         Assert.Equal("EXP", observer.SourceForFlow(newFlow));
     }

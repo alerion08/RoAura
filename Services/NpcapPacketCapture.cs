@@ -18,6 +18,7 @@ public sealed class NpcapPacketCapture : IDisposable
     // DEV only: diagnostics are completely separate from XP, loot and status routing.
     private readonly CharacterSessionManager _characterSessions = new();
     private readonly PlayerAidObserver _playerAidObserver = new();
+    private readonly ConcurrentDictionary<CharacterSessionFlow, RoPacketSource> _trackingSources = new();
 
     /// <summary>Self actor ID for effect/cooldown tracking only; not CID attribution.</summary>
     public uint VerifiedPlayerAid
@@ -80,10 +81,11 @@ public sealed class NpcapPacketCapture : IDisposable
     private ConcurrentDictionary<ushort, RoEquipmentPacket> _equipmentIdentityCache = new();
     private ConcurrentDictionary<ushort, RoEquipmentPacket> _pendingEquipmentEvents = new();
 
-    public event Action<RoStatusPacket>? StatusChanged;
-    public event Action<RoOptionPacket>? OptionChanged;
-    public event Action<RoSkillPacket>? SkillUsed;
-    public event Action<RoSkillCooldownPacket>? SkillCooldown;
+    public event Action<RoPacketObservation<RoStatusPacket>>? StatusChanged;
+    public event Action<RoPacketObservation<RoOptionPacket>>? OptionChanged;
+    public event Action<RoPacketObservation<RoSkillPacket>>? SkillUsed;
+    public event Action<RoPacketObservation<RoSkillCooldownPacket>>? SkillCooldown;
+    public event Action<RoPacketSource>? TrackingSourceClosed;
     public event Action<RoEquipmentPacket>? EquipmentChanged;
     public event Action<RoItemAddedPacket>? ItemAdded;
     public event Action<RoExperiencePacket>? ExperienceChanged;
@@ -115,6 +117,7 @@ public sealed class NpcapPacketCapture : IDisposable
             oldCancellation?.Cancel();
             _cancellation = null;
             generation = ++_generation;
+            foreach (var source in _trackingSources.Values) CloseTrackingSource(source.Flow);
             _activeGeneration = generation;
             _activeDevices = 0;
             _rejectedOptionDiagnosticCount = 0;
@@ -134,10 +137,15 @@ public sealed class NpcapPacketCapture : IDisposable
                 var serverKey = settings.ServerProfile;
                 loginObserver.CandidateDetected += (flow, candidate) =>
                 {
-                    if (generation != Volatile.Read(ref _generation)) return;
-                    _characterSessions.OnCandidate(serverKey,
-                        CharacterSessionFlow.FromOutbound(flow), candidate.CharacterId,
-                        candidate.PlayerAid);
+                    lock (_lifecycleLock)
+                    {
+                        if (generation != _generation) return;
+                        var selected = CharacterSessionFlow.FromOutbound(flow);
+                        foreach (var source in _trackingSources.Values.Where(s => s.Flow != selected))
+                            CloseTrackingSource(source.Flow, source);
+                        _characterSessions.OnCandidate(serverKey,
+                            selected, candidate.CharacterId, candidate.PlayerAid);
+                    }
                 };
             }
 
@@ -440,6 +448,7 @@ public sealed class NpcapPacketCapture : IDisposable
                         {
                             _characterSessions.OnConnectionClosed(CharacterSessionFlow.FromOutbound(flowKey));
                             _playerAidObserver.OnClosed(CharacterSessionFlow.FromOutbound(flowKey));
+                            CloseTrackingSource(CharacterSessionFlow.FromOutbound(flowKey));
                         }
                         continue;
                     }
@@ -449,10 +458,19 @@ public sealed class NpcapPacketCapture : IDisposable
                     if (!tcpFlows.TryGetValue(flowKey, out var flow))
                     {
                         if (payload.IsEmpty) continue; // Bare FIN/RST for an unknown flow.
-                        PruneIdleFlows(tcpFlows);
-                        flow = tcpFlows.GetOrAdd(flowKey, _ => new TcpFlowState(
-                            CreateScanner(generation, equipmentCache, pendingEquipmentEvents,
-                                CharacterSessionFlow.FromInbound(flowKey))));
+                        // GetOrAdd factories can run more than once across
+                        // adapters. Only the retained scanner may register the
+                        // live source identity for this flow.
+                        lock (tcpFlows)
+                        {
+                            if (!tcpFlows.TryGetValue(flowKey, out flow))
+                            {
+                                PruneIdleFlows(tcpFlows, generation);
+                                flow = new TcpFlowState(CreateScanner(generation, equipmentCache,
+                                    pendingEquipmentEvents, CharacterSessionFlow.FromInbound(flowKey)));
+                                tcpFlows[flowKey] = flow;
+                            }
+                        }
                     }
                     if (AppEnvironment.IsDevelopment && generation == Volatile.Read(ref _generation) &&
                         !payload.IsEmpty)
@@ -462,6 +480,7 @@ public sealed class NpcapPacketCapture : IDisposable
                     {
                         _characterSessions.OnConnectionClosed(CharacterSessionFlow.FromInbound(flowKey));
                         _playerAidObserver.OnClosed(CharacterSessionFlow.FromInbound(flowKey));
+                        CloseTrackingSource(CharacterSessionFlow.FromInbound(flowKey));
                     }
                     // The server side is done with this stream: drop it so the
                     // flow table cannot grow with every reconnect.
@@ -488,14 +507,18 @@ public sealed class NpcapPacketCapture : IDisposable
 
     private const long FlowIdleLimitMs = 10 * 60 * 1000;
 
-    private static void PruneIdleFlows(ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows)
+    private void PruneIdleFlows(ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows, int generation)
     {
         if (tcpFlows.IsEmpty) return;
         var now = Environment.TickCount64;
         foreach (var pair in tcpFlows)
         {
-            if (now - pair.Value.LastSeenTick > FlowIdleLimitMs)
-                tcpFlows.TryRemove(pair.Key, out _);
+            if (now - pair.Value.LastSeenTick > FlowIdleLimitMs && tcpFlows.TryRemove(pair.Key, out _))
+            {
+                var key = CharacterSessionFlow.FromInbound(pair.Key);
+                if (_trackingSources.TryGetValue(key, out var source) && source.Generation == generation)
+                    CloseTrackingSource(key, source);
+            }
         }
     }
 
@@ -529,7 +552,31 @@ public sealed class NpcapPacketCapture : IDisposable
         CharacterSessionFlow packetFlow)
     {
         var scanner = new RoPacketStreamScanner(equipmentCache);
-        scanner.StatusChanged += packet => Forward(generation, () => StatusChanged?.Invoke(packet));
+        var source = RegisterTrackingSource(generation, packetFlow);
+        var hiding = new HidingStateTracker();
+        var pendingStatuses = new PendingStatusObservations();
+        void PublishStatus(RoStatusPacket packet)
+        {
+            var observation = Observe(packet, source);
+            if (observation.SelfAid == 0) pendingStatuses.Remember(observation);
+            StatusChanged?.Invoke(observation);
+        }
+        void ReplayPendingStatuses()
+        {
+            var identity = Observe(default(RoStatusPacket), source);
+            foreach (var pending in pendingStatuses.Resolve(source, identity.SelfAid,
+                         identity.IdentitySource, DateTime.UtcNow))
+                StatusChanged?.Invoke(pending);
+        }
+        scanner.StreamReset += () =>
+        {
+            if (!source.IsActive || generation != Volatile.Read(ref _generation)) return;
+            CloseTrackingSource(packetFlow, source);
+            hiding.Reset();
+            pendingStatuses.Reset();
+            source = RegisterTrackingSource(generation, packetFlow);
+        };
+        scanner.StatusChanged += packet => Forward(generation, () => PublishStatus(packet));
         if (AppEnvironment.IsDevelopment)
             scanner.OptionCandidateRejectedDetailed += (opcode, reason) => Forward(generation, () =>
             {
@@ -539,23 +586,23 @@ public sealed class NpcapPacketCapture : IDisposable
             });
         if (AppEnvironment.IsDevelopment)
             scanner.SelfAidObserved += packet => Forward(generation, () =>
-                ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID"));
+            {
+                ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID");
+                ReplayPendingStatuses();
+            });
         // Actor visibility (not always a skill ack): TF_HIDING is confirmed
         // by OPTION_HIDE, while EFST_HIDING is a separate status icon.
-        bool? lastHidden = null;
         scanner.OptionChanged += packet => Forward(generation, () =>
         {
-            OptionChanged?.Invoke(packet);
+            OptionChanged?.Invoke(Observe(packet, source));
             // EFST_HIDING = 4, TF_HIDING = 51 in standard RO.
             // Synthetic status carries no guessed duration.
-            StatusChanged?.Invoke(new RoStatusPacket(packet.PacketId, 4, packet.Aid,
-                packet.IsHidden, 0, 0));
-            if (packet.IsHidden && lastHidden != true)
-                SkillUsed?.Invoke(new RoSkillPacket(51, packet.Aid, packet.Aid, 0));
-            lastHidden = packet.IsHidden;
+            PublishStatus(new RoStatusPacket(packet.PacketId, 4, packet.Aid, packet.IsHidden, 0, 0));
+            if (hiding.Observe(packet))
+                SkillUsed?.Invoke(Observe(new RoSkillPacket(51, packet.Aid, packet.Aid, 0, packet.PacketId), source));
         });
-        scanner.SkillUsed += packet => Forward(generation, () => SkillUsed?.Invoke(packet));
-        scanner.SkillCooldown += packet => Forward(generation, () => SkillCooldown?.Invoke(packet));
+        scanner.SkillUsed += packet => Forward(generation, () => SkillUsed?.Invoke(Observe(packet, source)));
+        scanner.SkillCooldown += packet => Forward(generation, () => SkillCooldown?.Invoke(Observe(packet, source)));
         scanner.EquipmentChanged += packet => HandleEquipmentPacket(generation, packet,
             equipmentCache, pendingEquipmentEvents);
         scanner.ItemAdded += packet => Forward(generation, () =>
@@ -566,7 +613,10 @@ public sealed class NpcapPacketCapture : IDisposable
         scanner.ExperienceChanged += packet => Forward(generation, () =>
         {
             if (AppEnvironment.IsDevelopment)
+            {
                 ObservePlayerAid(packetFlow, packet.Aid, "EXP");
+                ReplayPendingStatuses();
+            }
             ExperienceChanged?.Invoke(packet);
             ForwardCharacterPacket(packetFlow, packet, CharacterExperienceChanged);
         });
@@ -581,6 +631,53 @@ public sealed class NpcapPacketCapture : IDisposable
             ForwardCharacterPacket(packetFlow, packet, CharacterZenyChanged);
         });
         return scanner;
+    }
+
+    private RoPacketObservation<T> Observe<T>(T packet, RoPacketSource source)
+    {
+        var evidence = _playerAidObserver.SourceForFlow(source.Flow);
+        var aid = _playerAidObserver.AidForFlow(source.Flow);
+        if (evidence.Length == 0 && _characterSessions.TryResolve(source.Flow, out var session))
+        {
+            aid = session.PlayerAid;
+            evidence = aid == 0 ? "" : "map-login";
+        }
+        return new(packet, source, DateTime.UtcNow, aid, evidence);
+    }
+
+    public bool IsCurrentObservation<T>(RoPacketObservation<T> observation) =>
+        observation.Source.IsActive && observation.Source.Generation == Volatile.Read(ref _generation) &&
+        _trackingSources.TryGetValue(observation.Source.Flow, out var current) &&
+        ReferenceEquals(current, observation.Source) &&
+        _playerAidObserver.SourceForFlow(observation.Source.Flow) != "conflict" &&
+        (_characterSessions.CurrentFlow is not { } selected || selected == observation.Source.Flow);
+
+    private RoPacketSource RegisterTrackingSource(int generation, CharacterSessionFlow flow)
+    {
+        var source = new RoPacketSource(generation, flow);
+        lock (_lifecycleLock)
+        {
+            if (generation != _generation) source.Close();
+            else
+            {
+                CloseTrackingSource(flow);
+                _trackingSources[flow] = source;
+            }
+        }
+        return source;
+    }
+
+    private void CloseTrackingSource(CharacterSessionFlow flow, RoPacketSource? expected = null)
+    {
+        lock (_lifecycleLock)
+        {
+            if (!_trackingSources.TryGetValue(flow, out var source) ||
+                (expected is not null && !ReferenceEquals(source, expected))) return;
+            _trackingSources.TryRemove(flow, out _);
+            source.Close();
+            _playerAidObserver.OnClosed(flow);
+            TrackingSourceClosed?.Invoke(source);
+        }
     }
 
     private void ObservePlayerAid(CharacterSessionFlow flow, uint aid, string source)
@@ -696,6 +793,7 @@ public sealed class NpcapPacketCapture : IDisposable
         lock (_lifecycleLock)
         {
             _generation++;
+            foreach (var source in _trackingSources.Values) CloseTrackingSource(source.Flow, source);
             // The capture task owning this source disposes it when it finishes.
             _cancellation?.Cancel();
             _cancellation = null;
