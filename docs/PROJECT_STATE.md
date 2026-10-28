@@ -207,3 +207,14 @@ sessions with IDs A=154386, B=155665, A=154386 (same server port, distinct clien
 ports). Stage 3 adds passive per-flow shadow state and synthetic transition
 tests on the development branch only. No statistics routing, persistence, or
 confirmed server authentication yet; RTM/late-start testing remains necessary.
+
+## Stage 4 per-character storage foundation (2026-10-28)
+
+Added versioned `CharacterStatisticsDocument`, file-based
+`CharacterStatisticsStore` and explicit-time `CharacterStatisticsLedger`
+to the isolated feature branch. Storage is per logical server + CID and has
+backup/validation controls. A→B→A, session reset, Zeny baselining, elapsed time,
+loot separation and recovery scenarios have unit tests. None of these
+components is connected to the live overlay/event route yet; existing
+user-visible statistics are unchanged. Stage 5 requires flow-affine event
+routing and character confirmation before it can safely update UI data.

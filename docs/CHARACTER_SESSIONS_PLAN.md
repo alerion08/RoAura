@@ -79,3 +79,34 @@ Multi-client support is deferred until flow-to-process association can be verifi
 - Still awaiting RTM, VPN/ExitLag and late-start field tests. Only one
   connection may be considered current in the initial design; multi-client
   requires process-level attribution before statistics integration.
+
+## Stage 4 — isolated per-character storage foundation (2026-10-28)
+
+The SpringRO live test established shadow state transitions:
+`154386 Connecting → ActiveObserved → Suspended`,
+`155665 Connecting → ActiveObserved → Suspended`,
+`154386 Connecting → ActiveObserved`. Same map-server port and different
+client TCP ports. That verifies the observed Character Select cycle but does
+not establish a separate authentication acknowledgement.
+
+The following components are added only in the DEV branch:
+- `CharacterStatisticsDocument`: versioned individual and per-session EXP,
+  Job EXP, trusted Zeny gains, loot counts and elapsed active time. Item pricing
+  remains independent from counts, and settings/presets are NOT serialized here.
+- `CharacterStatisticsStore`: per-server/CID JSON in
+  `%LOCALAPPDATA%/RoAura-Dev/CharacterStatistics/` when built with the DEV flag;
+  atomic replacement with `.bak`, validation, and refusal to overwrite damaged
+  or newer-version files. Corrupt primary can be read from backup without
+  silently deleting the damaged file.
+- `CharacterStatisticsLedger`: separate in-memory entries per server+CID.
+  Switch/pause/flush checkpoint elapsed time; switching resets Zeny's *initial*
+  balance; session reset retains lifetime totals and other characters.
+  No per-packet disk writes. UI rate denominator uses active-character time.
+- Synthetic tests verify A→B→A, baseline Zeny, reset, corruption, serialization,
+  profile isolation and rejection of rewards while inactive.
+
+**Integration remains intentionally disabled.** The stage-4 ledger is not fed
+by Npcap packets and does not change existing Gold Goblin, reward notifications
+or on-screen rate indicators. Before enabling this in stage 5, validate reliable
+packet-to-flow association (current packet events do not include their TCP flow),
+confirm character acceptance, and test reconnection/late-start separately.
