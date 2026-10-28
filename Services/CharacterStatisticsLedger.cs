@@ -78,6 +78,19 @@ public sealed class CharacterStatisticsLedger
         }
     }
 
+    public TimeSpan ActiveSessionElapsed(DateTime nowUtc)
+    {
+        CheckUtc(nowUtc);
+        lock (_sync)
+        {
+            if (_active is not { } key || !_documents[key].SessionTimerStarted)
+                return TimeSpan.Zero;
+            var ticks = _documents[key].SessionActiveTicks +
+                (_sinceUtc.HasValue ? ElapsedTicks(_sinceUtc.Value, nowUtc) : 0);
+            return TimeSpan.FromTicks(ticks);
+        }
+    }
+
     public bool AddExperience(long amount, bool isJob, DateTime nowUtc)
     {
         CheckUtc(nowUtc);
