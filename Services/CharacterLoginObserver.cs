@@ -19,6 +19,7 @@ public sealed class CharacterLoginStreamProbe
     private int _prefixLength;
     private bool _initialized;
     private bool _finished;
+    private bool _identified;
     private ushort? _observedOpcode;
     private uint _nextSequence;
     private long _lastSeen = Environment.TickCount64;
@@ -32,6 +33,7 @@ public sealed class CharacterLoginStreamProbe
         }
     }
     public bool Finished { get { lock (_sync) return _finished; } }
+    public bool Identified { get { lock (_sync) return _identified; } }
 
     /// <summary>Returns one candidate at most. Duplicates and gaps cannot produce another.</summary>
     public CharacterLoginCandidate? Process(uint sequence, ReadOnlySpan<byte> payload)
@@ -96,6 +98,7 @@ public sealed class CharacterLoginStreamProbe
             if (length == 0 && _prefixLength >= 23 && _prefix[22] <= 1)
                 length = 23;
             if (length == 0 && _prefixLength < 23) return null;
+            _identified = length != 0;
             Finish();
             return length == 0 ? null : new CharacterLoginCandidate(opcode, cid, length);
         }
@@ -118,6 +121,13 @@ public sealed class CharacterLoginObserver
 {
     private const int MaximumFlows = 512;
     private const long IdleMs = 2 * 60 * 1000;
+    private const long DuplicateDiagnosticWindowMs = 2_000;
+    // Across different adapters the same packet can use different IP tuples.
+    // Duplicate suppression is for LOG OUTPUT only: it does not change parsing.
+    // Static scope also handles overlapping capture generations after retargeting.
+    private static readonly object DiagnosticSync = new();
+    private static readonly Dictionary<(ushort Opcode, uint Cid, ushort ClientPort, ushort MapPort), long>
+        RecentDiagnostics = new();
     private readonly ConcurrentDictionary<TcpFlowKey, CharacterLoginStreamProbe> _flows = new();
     private int _unrecognizedLogged;
 
@@ -138,15 +148,41 @@ public sealed class CharacterLoginObserver
         {
             // Limited, metadata-only hint that this client's packetver may
             // shuffle map-login IDs, or that capture began mid-connection.
-            if (probe.Finished && probe.FirstOpcode is ushort opcode &&
+            if (probe.Finished && !probe.Identified && probe.FirstOpcode is ushort opcode &&
                 Interlocked.Increment(ref _unrecognizedLogged) <= 10)
                 DebugLog.Write($"CHARACTER MAP LOGIN NOT IDENTIFIED: firstOpcode=0x{opcode:X4}; " +
                                $"mapPort={key.DestinationPort}; check packetver / late capture");
             return;
         }
+        if (!ShouldLogCandidate(candidate, key)) return;
         DebugLog.Write($"CHARACTER LOGIN CANDIDATE (unconfirmed): opcode=0x{candidate.PacketId:X4}; " +
                        $"cid={candidate.CharacterId}; length={candidate.PacketLength}; " +
                        $"mapPort={key.DestinationPort}; clientPort={key.SourcePort}");
+    }
+
+    private static bool ShouldLogCandidate(CharacterLoginCandidate candidate, TcpFlowKey flow)
+    {
+        var key = (candidate.PacketId, candidate.CharacterId,
+            flow.SourcePort, flow.DestinationPort);
+        lock (DiagnosticSync)
+        {
+            var now = Environment.TickCount64;
+            if (RecentDiagnostics.TryGetValue(key, out var previous) &&
+                now - previous < DuplicateDiagnosticWindowMs)
+                return false;
+
+            // A log-only cache must never grow indefinitely during lengthy play.
+            if (RecentDiagnostics.Count >= 128)
+            {
+                foreach (var expired in RecentDiagnostics
+                             .Where(pair => now - pair.Value > DuplicateDiagnosticWindowMs)
+                             .Select(pair => pair.Key).ToArray())
+                    RecentDiagnostics.Remove(expired);
+                if (RecentDiagnostics.Count >= 128) RecentDiagnostics.Clear();
+            }
+            RecentDiagnostics[key] = now;
+            return true;
+        }
     }
 
     private void Prune()
