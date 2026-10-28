@@ -396,6 +396,7 @@ public partial class App : Application
             _goldGoblin.Changed += OnCharacterGoldGoblinChanged;
         }
         _overlay = new OverlayWindow(settings, _settingsStore, _goldGoblin);
+        _overlay.EffectDurationExpired += OnEffectDurationExpired;
         if (AppEnvironment.IsDevelopment)
         {
             _overlay.SetCharacterStatisticsSource(CurrentCharacterStatistics, GetCharacterSessionElapsed);
@@ -742,6 +743,38 @@ public partial class App : Application
             DebugLog.Write($"CHARACTER STATISTICS DISABLED after storage or routing error: {error}");
             return default!;
         }
+    }
+
+    // Learning assigns a new Status ID after the first activation was decoded.
+    // Replay just that typed event through the normal handler so its duration,
+    // notification and reminder state are not lost.
+    public void ApplyLearnedStatus(RoStatusPacket packet) =>
+        Dispatcher.BeginInvoke(() => HandlePacketStatusChanged(packet));
+
+    private void OnEffectDurationExpired(TrackedEffect effect)
+    {
+        if (!effect.IsActive || _settingsWindow is null || _overlay is null) return;
+        effect.IsActive = false;
+        effect.ApplyDuration(0, 0);
+        effect.CurrentStateText = _settingsWindow.Settings.Language == "en"
+            ? "missing" : "отсутствует";
+        foreach (var reminder in _settingsWindow.Settings.Reminders.Where(reminder =>
+            reminder.StatusId == effect.StatusId && reminder.Enabled))
+            reminder.IsStatusPresent = false;
+
+        if (!_effectStates.TryGetValue(effect.Id, out var state))
+            return;
+        if (!state.Present) return;
+        state.Present = false;
+        var now = DateTime.UtcNow;
+        if (effect.NotifyOnDisappeared &&
+            now - state.LastDisappeared >= TimeSpan.FromSeconds(effect.RepeatProtectionSeconds))
+        {
+            state.LastDisappeared = now;
+            _overlay.ShowEffectNotification(effect, false);
+        }
+        DebugLog.Write($"PACKET EFFECT TIMEOUT: status={effect.StatusId}; " +
+                       $"name={effect.Name}");
     }
 
     private void OnPacketStatusChanged(RoStatusPacket packet) =>

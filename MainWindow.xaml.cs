@@ -1446,8 +1446,13 @@ public partial class MainWindow : Window
     private void OnLearningStatusObserved(RoStatusPacket packet)
     {
         if (!packet.Active) return;
-        if (AppEnvironment.IsDevelopment && Settings.PacketPlayerAid != 0 &&
-            packet.Aid != Settings.PacketPlayerAid) return;
+        if (AppEnvironment.IsDevelopment)
+        {
+            var active = _packetCapture.CharacterSession;
+            // Prevent learning a nearby actor or an unknown late-attach flow.
+            if (active.Phase != CharacterSessionPhase.ActiveObserved ||
+                active.PlayerAid == 0 || packet.Aid != active.PlayerAid) return;
+        }
         Dispatcher.BeginInvoke(() =>
         {
             if (DateTime.UtcNow > _learningUntil) return;
@@ -1458,6 +1463,7 @@ public partial class MainWindow : Window
                 effect.CurrentStateText = T("ID определён", "ID learned");
                 _learningEffect = null;
                 FinishStatusLearning(effect.Name, packet);
+                if (Application.Current is App app) app.ApplyLearnedStatus(packet);
             }
             else if (_learningReminder is { } reminder)
             {
@@ -1479,8 +1485,12 @@ public partial class MainWindow : Window
 
     private void OnLearningSkillObserved(RoSkillPacket packet)
     {
-        if (AppEnvironment.IsDevelopment && Settings.PacketPlayerAid != 0 &&
-            packet.SourceAid != Settings.PacketPlayerAid) return;
+        if (AppEnvironment.IsDevelopment)
+        {
+            var active = _packetCapture.CharacterSession;
+            if (active.Phase != CharacterSessionPhase.ActiveObserved ||
+                active.PlayerAid == 0 || packet.SourceAid != active.PlayerAid) return;
+        }
         Dispatcher.BeginInvoke(() =>
         {
             var skill = _learningSkill;

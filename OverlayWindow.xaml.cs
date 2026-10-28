@@ -437,6 +437,10 @@ public partial class OverlayWindow : Window
         else Hide();
     }
 
+    // Fired on the overlay dispatcher only when a finite, server-reported
+    // duration actually expires; never for indefinite/no-duration effects.
+    public event Action<TrackedEffect>? EffectDurationExpired;
+
     public void ShowEffectNotification(TrackedEffect effect, bool appeared)
     {
         var text = appeared ? effect.AppearedText : effect.DisappearedText;
@@ -996,7 +1000,11 @@ public partial class OverlayWindow : Window
         {
             var remaining = (effect.DurationEndsAtUtc!.Value - now).TotalSeconds;
             effect.RemainingSeconds = Math.Max(0, remaining);
-            if (remaining <= 0) effect.DurationEndsAtUtc = null;
+            if (remaining <= 0)
+            {
+                effect.DurationEndsAtUtc = null;
+                EffectDurationExpired?.Invoke(effect);
+            }
         }
 
         foreach (var timer in _settings.MvpTimers.Where(timer => timer.EndsAtUtc.HasValue))
