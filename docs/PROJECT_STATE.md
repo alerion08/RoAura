@@ -256,3 +256,18 @@ Do not merge, tag, build an installer or create a public release.
 ## Stage 7 packet-effect regression: Hiding and diagnostic instrument (2026-10-28)
 
 After user verified some self/target Thief skills but no Hiding or Effect/Reminder transitions, DEV parser gained standard actor option packet decoding (0x0119 and 0x0229) and a Hiding-only bridge: OPTION_HIDE flag → Skill 51 upon activation and EFST Status 4 during on/off changes. New synthetic tests cover both layouts. Bounded diagnostic logs report decoded status/option event metadata and whether AID matches the current character (without logging the AID itself). Field test remains mandatory; unknown client-specific packet versions must not be guessed. No main merge/release.
+
+## Stage 7 SpringRO self-AID attribution from uploaded debug.log
+
+The uploaded 2026-10-28 18:34–18:35 log has 12 Npcap adapters filtering
+127.0.0.1:57143, repeating outbound first opcode 0x0317, zero
+map-login candidates/ActiveObserved sessions, and one decoded 0x0983
+status 11287 for 180000 ms with matchesPlayer=false. In the prior
+implementation that last boolean was calculated ONLY from an active
+map-login AID, so it did not prove a different actor. DEV effect/
+reminder learning was hard-gated on ActiveObserved, explaining its
+failure on this capture. A separate self-AID observer now extracts
+ZC_AID 0x0283 or own EXP 0x0ACC on the server flow, permitting secure
+effects/skills attribution without CID; the EXP/Zeny/loot ledger
+still requires a proper CID. Windows CI and real SpringRO verification
+remain required. RTM overlay placement issue explicitly deferred.
