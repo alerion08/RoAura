@@ -16,9 +16,14 @@ public partial class AboutWindow : Window
         var version = assembly.GetName().Version?.ToString(3) ?? "?";
         var information = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
         var revision = information?.Split('+').ElementAtOrDefault(1);
-        VersionRun.Text = " " + version + (string.IsNullOrWhiteSpace(revision)
+        VersionRun.Text = " " + version + (AppEnvironment.IsDevelopment ? " [DEV]" : "") + (string.IsNullOrWhiteSpace(revision)
             ? "" : $" ({revision[..Math.Min(8, revision.Length)]})");
         if (LocalizationService.CurrentLanguage == "en") CheckUpdatesButton.Content = "Check for updates";
+        if (AppEnvironment.IsDevelopment)
+        {
+            CheckUpdatesButton.IsEnabled = false;
+            CheckUpdatesButton.Content = LocalizationService.CurrentLanguage == "en" ? "Updates disabled in DEV" : "Обновления отключены в DEV";
+        }
     }
 
     private async void CheckUpdates_Click(object sender, RoutedEventArgs e)
