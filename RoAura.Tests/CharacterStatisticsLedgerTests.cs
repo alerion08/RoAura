@@ -183,6 +183,25 @@ public sealed class CharacterStatisticsLedgerTests
         });
     }
 
+    [Fact]
+    public void Reconnecting_same_character_creates_fresh_Zeny_baseline()
+    {
+        WithStore(store =>
+        {
+            var ledger = new CharacterStatisticsLedger(store);
+            ledger.SwitchTo(A, Start);
+            Assert.Equal(0, ledger.ObserveZeny(1_000_000, Start));
+            Assert.Equal(700, ledger.ObserveZeny(1_000_700, Start));
+            ledger.Suspend(Start.AddMinutes(5));
+            ledger.SwitchTo(A, Start.AddMinutes(6));
+            Assert.Equal(0, ledger.ObserveZeny(9_000_000, Start.AddMinutes(6)));
+            Assert.Equal(500, ledger.ObserveZeny(9_000_500, Start.AddMinutes(6)));
+            var stats = ledger.Snapshot(A, Start.AddMinutes(7))!;
+            Assert.Equal(1200, stats.SessionZenyGained);
+            Assert.Equal(TimeSpan.FromMinutes(6).Ticks, stats.SessionActiveTicks);
+        });
+    }
+
     private static void WithStore(Action<CharacterStatisticsStore> check)
     {
         var directory = Path.Combine(Path.GetTempPath(), "RoAura-stats-test-" + Guid.NewGuid().ToString("N"));
