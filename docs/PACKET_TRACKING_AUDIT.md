@@ -238,3 +238,18 @@ repeat twice, then start Learn again and apply the same finite buff twice.
 Record the real on/off order/time. Supply the new log; the new binary has
 `packetLayoutDiagnostics=1` in its START line. Do not infer state from odd/even
 cast count or accept a mismatching actor to make learning appear successful.
+
+## 2026-10-28 21:07 field diagnostics — actual layout probes
+
+Read-only analysis of the user's `debug.1.log` excerpt from a DEV run. The earlier script incorrectly reported no diagnostic build because it searched only the current `debug.log` after the 5-MB rotation; `PACKET LAYOUT` entries were present in `debug.1.log`. This is **field evidence**, not an accepted fix or a new decoder. The currently running executable may differ from the historical process that produced this rotated segment.
+
+- Same TCP lifetime (`flow=f1`) and verified own actor (`self=a1`), with continuous scanner offsets:
+  - 21:07:33: `0x0229` @12357 (actor=self, `hideBit=True`) → `0x0983` @12372 (status candidate 11561, actor=a2, alternate=a3; neither self, duration 240000/240000 ms) → `0x09CB` @12401 (Skill 51, actor=self, result=1, amount 4294967295).
+  - 21:07:39: `0x0196` @12471 (status candidate 41769; neither actor interpretation self) → `0x0229` @12480 (actor=self, `hideBit=False`) → `0x09CB` @12495 (Skill 51, actor=self, result=1).
+  - 21:07:47: `0x0229` @12599 (actor=self, **`hideBit=False`**) → `0x0983` @12614 (status candidate 31582, neither actor interpretation self, 240000/240000 ms) → `0x09CB` @12643 (Skill 51, actor=self, result=1).
+  - 21:07:50: `0x0196` @12695 (status candidate 5975, actor not self) → `0x0229` @12704 (actor=self, `hideBit=False`) → `0x09CB` @12719 (Skill 51, actor=self, result=1).
+  - 21:07:53: `0x0983` @12811 (status candidate 33575, duration 180000/180000 ms; neither actor interpretation self) → `0x09CB` @12840 (Skill 138, actor=self, result=1, amount=3).
+
+**Result:** the actor-first +2/+6 hypothesis in the separate Claude audit is **not confirmed and is contradicted for these observed 0x0983 candidates**: `alternate` is never `self`. Merely swapping the actor/status field offsets is not a justified fix. Conversely, the repeated contiguous `0x0983/0x0196` + `0x0229` + successful own Skill 51 sequences are strong *temporal evidence* of a Hiding transition-related packet family. The exact ON/OFF assignment is provisional until matched to the user's action timestamps. High/variable option masks (e.g. 0xAC7F545F, 0x4FEF1CAD, 0x04CF6E3C) and the contradictory `hideBit=False` at 21:07:47 show the current bit-2 option interpretation cannot yet be trusted for SpringRO. `boundary=True` only means the scanner predicted a boundary; it is not independent protocol proof.
+
+**Next safe investigation:** confirm real Hiding ON/OFF timestamps for these samples; examine verified-self Skill 51 and its immediately preceding 0x0983-vs-0x0196 shapes, along with 0x0229 scalars. Prefer metadata-only, flow-local correlation diagnostics before changing status decoding or automatically assigning IDs. Do not assume custom encryption, invent a Status ID, or treat a timed candidate as an own buff without corroboration. Preserve RTM, equipment, statistics and release behavior.
