@@ -46,7 +46,7 @@ public sealed class GoldGoblinService
     public void AddLoot(int itemId, string name, long count)
     {
         if (count <= 0) return;
-        SessionStartedUtc ??= DateTime.UtcNow;
+        if (!AppEnvironment.IsDevelopment) SessionStartedUtc ??= DateTime.UtcNow;
         var row = Rows.FirstOrDefault(item => item.ItemId == itemId);
         if (row is null)
         {
@@ -108,7 +108,7 @@ public sealed class GoldGoblinService
         }).ToList();
 
     public void RestoreCharacterRows(IReadOnlyCollection<CharacterLootCount> savedRows,
-        TimeSpan activeTime)
+        TimeSpan activeTime, bool sessionTimerStarted = true)
     {
         _restoringCharacterRows = true;
         try
@@ -125,10 +125,16 @@ public sealed class GoldGoblinService
                 Watch(row);
                 Rows.Add(row);
             }
-            SessionStartedUtc = Rows.Count > 0 ? DateTime.UtcNow - activeTime : null;
+            SessionStartedUtc = sessionTimerStarted ? DateTime.UtcNow - activeTime : null;
         }
         finally { _restoringCharacterRows = false; }
         Changed?.Invoke();
+    }
+
+    public void SyncSessionClock(TimeSpan elapsed, bool started)
+    {
+        if (AppEnvironment.IsDevelopment)
+            SessionStartedUtc = started ? DateTime.UtcNow - elapsed : null;
     }
 
     public void AddManualItem(int itemId, string name) => AddLoot(itemId, name, 1);
