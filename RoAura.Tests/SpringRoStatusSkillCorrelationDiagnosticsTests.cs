@@ -111,7 +111,7 @@ public sealed class SpringRoStatusSkillCorrelationDiagnosticsTests
     {
         var b = end ? StatusEnd(0, 0) : TimedStatus(0, 0, duration);
         var obfuscatedStatus = (ushort)(trueStatus ^ mask);
-        var obfuscatedLowAid = (ushort)((ushort)Self ^ mask);
+        var obfuscatedLowAid = (ushort)(unchecked((ushort)Self) ^ mask);
         BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(2), obfuscatedStatus);
         BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(4), obfuscatedLowAid);
         BinaryPrimitives.WriteUInt16LittleEndian(b.AsSpan(6), (ushort)(Self >> 16));
