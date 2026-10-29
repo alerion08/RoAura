@@ -220,3 +220,7 @@ Before merging to `main` or publishing:
 - [ ] Four empty overlay list/editor areas align in RU/EN and high DPI.
 - [ ] Item/monster cards wrap text; skills begin collapsed; Baphomet 120–130 min.
 - [ ] Existing user timer intervals stay unchanged when loading new respawn hints.
+
+- [ ] Header Settings button replaces hotkey legend; no Settings sidebar entry. Return to each sidebar section works.
+- [ ] Overlay help cards share Equipment's border/icon/padding/text color in RU and EN.
+- [ ] About icon remains colored across server and packet-switch changes.

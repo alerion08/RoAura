@@ -145,6 +145,14 @@ public partial class MainWindow : Window
         Closed += (_, _) => Settings.PropertyChanged -= Settings_RuntimeChanged;
     }
 
+    private void OpenSettings_Click(object sender, RoutedEventArgs e)
+    {
+        foreach (var button in new[] { HomeNavButton, CooldownNavButton, EffectsNavButton, RemindersNavButton,
+            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton })
+            button.IsChecked = false;
+        MainTabs.SelectedIndex = 9;
+    }
+
     private void Navigation_Checked(object sender, RoutedEventArgs e)
     {
         if (MainTabs is null || sender is not RadioButton { IsEnabled: true, Tag: string tag }) return;
@@ -262,7 +270,7 @@ public partial class MainWindow : Window
     private void UpdateNavigationAvailability()
     {
         var buttons = new[] { HomeNavButton, CooldownNavButton, EffectsNavButton, RemindersNavButton,
-            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton, SettingsNavButton };
+            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton };
         ServicesNavHeading.Visibility = Visibility.Visible;
         for (var i = 0; i < buttons.Length; i++)
         {

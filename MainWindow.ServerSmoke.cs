@@ -8,6 +8,12 @@ public partial class MainWindow
     // Invoked only by the existing isolated package --smoke-test startup.
     internal void ValidateServerNavigationSmoke()
     {
+        OpenSettings_Click(OpenSettingsButton, new RoutedEventArgs());
+        if (MainTabs.SelectedIndex != 9 || !OpenSettingsButton.IsEnabled)
+            throw new InvalidOperationException("Header settings button did not open Settings.");
+        HomeNavButton.IsChecked = true;
+        if (MainTabs.SelectedIndex != 0)
+            throw new InvalidOperationException("Sidebar navigation did not restore after Settings.");
         var selected = ServerProfileBox.SelectedValue;
         var capture = Settings.PacketCaptureEnabled;
         try

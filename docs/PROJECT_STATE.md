@@ -1,5 +1,15 @@
 # Project state
 
+## Header settings and overlay visual corrections (2026-10-30)
+
+Same development branch, based on tested `031591c` (233 Windows tests, eight Python
+checks, package startup/portable passed). Settings now opens from the header button
+instead of the hotkey legend and sidebar entry. Overlay helper cards share the equipment
+info-card template; titles and field labels explicitly use the same theme text color.
+About uses its full-color image directly, without feature-availability conversion.
+Settings/model data and overlay coordinates are unchanged. New visual changes require
+manual Windows/DPI review; in-game acceptance remains pending as recorded below.
+
 ## Settings, character scopes and ToC presentation (2026-10-30)
 
 Active branch: `feature/settings-character-overlays`, based on `c1e2804`.

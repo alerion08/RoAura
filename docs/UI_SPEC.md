@@ -179,7 +179,8 @@ need a fresh observed login rather than reusing the previous CID.
 Settings has General, Hotkeys, Character Manager and Navigation tabs. General binds
 the same model as Home. All five hotkeys are edited in Settings. Other is last.
 Optional navigation visibility only affects the left menu; unsupported or packet-disabled
-features remain gray/disabled. Home and Settings cannot be hidden.
+features remain gray/disabled. Home cannot be hidden. Settings is opened by the header button replacing the old
+hotkey legend; it has no sidebar entry.
 
 Every overlay editor offers a collapsed character selector; no checked characters means
 all, several checked characters means any matching observed server/CID. Unknown session
@@ -190,3 +191,7 @@ Cooldowns detect their draft ID in step two before creation. Empty overlay list/
 areas use the same centered card, title/hint typography, padding and alignment.
 Database statistics use paired label/value cells; technical extras and skill descriptions
 are collapsed. ToC MVP respawn labels use official map detail data when published.
+
+Overlay list help cards share the equipment info-card template, padding, icon and
+text color. Empty-state titles and field labels use RoTextBrush explicitly.
+The About icon always uses its original full-color source.

@@ -562,3 +562,6 @@ Settings and presets remain under `%APPDATA%\RoAura`. Packages exclude personal 
 - Добавлены настройки, менеджер персонажей и выбор видимости навигации; горячие клавиши
   собраны в одном месте. Оверлеи поддерживают несколько персонажей. Мастер кулдаунов
   определяет ID до создания; карточки БД и пустые области оверлеев упорядочены.
+
+- Settings now opens from the header; removed the redundant sidebar entry and hotkey legend.
+- Unified overlay help cards and text colors; restored the always-colored About icon.

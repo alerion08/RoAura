@@ -3,6 +3,7 @@
  LostKeyboardFocus="Save_Changed">
  <UserControl.Resources>
         <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource RoTextBrush}"/>
             <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="VerticalAlignment" Value="Center" />
