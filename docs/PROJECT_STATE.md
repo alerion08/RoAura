@@ -71,6 +71,17 @@ to 128), and matches Npcap events against that cache before/in addition to
 the short callback poll. This is still awaiting Windows gameplay and CPU
 measurement; no effect-specific expiry is inferred from a missed removal.
 
+Third Windows feedback (`debug(10).log`) confirms generic decoded status 6
+starts/removals reach Effects, including early expiration. Decoded status 4
+arrived with 240000 ms, then the old correlated Hiding fallback immediately
+published the same active ID with zero duration, erasing the timer. The
+fallback now publishes only if no matching decoded Hiding transition arrived.
+Status 5 removals decoded but its starts were missed in the reported sequence;
+the bridge now logs recent decoded-frame counts by opcode, unchanged packet
+tail and own actor for missed starts, to locate the generic matching failure.
+The continuous sampler reports about 0.94–1.0 million cross-process reads/s;
+CPU cost has not been measured and remains a material DEV-only concern.
+
 ## Current product
 
 RoAura is a Windows x64 WPF overlay for Ragnarok Online. It reads incoming game packets through Npcap and provides configurable overlays and supporting tools.

@@ -68,8 +68,30 @@ public sealed class SpringRoClientStatusBridge : IDisposable
             if (!readSucceeded) DisposeHandle(); // Process exited or buffer became unreadable.
             if (_missesLogged++ < 20)
                 DebugLog.Write($"SPRINGRO CLIENT STATUS missed opcode=0x{probe.Opcode:X4}; " +
-                               $"readable={readSucceeded}; elapsedMs={watch.ElapsedMilliseconds}");
+                               $"readable={readSucceeded}; elapsedMs={watch.ElapsedMilliseconds}; " +
+                               DescribeRecent(rawBytes, self));
             return null;
+        }
+    }
+
+    private string DescribeRecent(byte[] raw, uint self)
+    {
+        lock (_framesSync)
+        {
+            var cutoff = DateTime.UtcNow.AddMilliseconds(-100);
+            var opcode = 0;
+            var tail = 0;
+            var actor = 0;
+            foreach (var frame in _frames)
+            {
+                if (frame.At < cutoff || !frame.Bytes.AsSpan(0, 2).SequenceEqual(raw.AsSpan(0, 2)))
+                    continue;
+                opcode++;
+                if (!frame.Bytes.AsSpan(6, raw.Length - 6).SequenceEqual(raw.AsSpan(6))) continue;
+                tail++;
+                if (BinaryPrimitives.ReadUInt32LittleEndian(frame.Bytes.AsSpan(4)) == self) actor++;
+            }
+            return $"recentOpcode={opcode}; matchingTail={tail}; matchingActor={actor}";
         }
     }
 

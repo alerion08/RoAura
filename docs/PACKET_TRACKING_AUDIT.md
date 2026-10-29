@@ -574,3 +574,21 @@ a background worker, retains decoded frames for 100 ms and validates them
 against each incoming wire packet. The bounded callback poll remains as a
 fallback. The sampler logs read rate every 15 seconds; the next test must
 check match rate, removal transitions and CPU cost. This is still DEV only.
+
+### Third field run: real durations and competing fallback
+
+The independent sampler delivered Enchant Poison status 6 starts and real
+`0x0196` removals, with effect transitions in the UI pipeline. Hiding status
+4 starts were decoded with total/remaining 240000 ms, but the older
+skill-correlated Hiding fallback emitted another active status 4 with zero
+duration immediately afterward. That second event replaced the timed state;
+the bridge now suppresses only this duplicate fallback when the decoded
+transition was already delivered. It retains fallback on a decode miss.
+
+During Cloaking observations, status 5 removals matched but several 0x0983
+starts did not. The next diagnostic reports recent same-opcode frame count,
+matching unchanged-tail count and matching own-actor count for misses. This
+distinguishes a missed transient buffer from a mismatched field layout
+without guessing status 5 from skill 135. Current sampler rate was roughly
+940000–1000000 reads/s. It remains DEV-only pending CPU measurement and
+generic start/removal validation for distinct statuses.

@@ -596,6 +596,7 @@ public sealed class NpcapPacketCapture : IDisposable
             ? null : new SpringRoCorrelatedHidingTracker();
         var hiding = new HidingStateTracker();
         var pendingStatuses = new PendingStatusObservations();
+        bool? decodedHidingBeforeSkill = null;
         if (AppEnvironment.IsDevelopment)
             scanner.LayoutProbed += probe => Forward(generation, () =>
             {
@@ -603,6 +604,8 @@ public sealed class NpcapPacketCapture : IDisposable
                 if (!IsCurrentObservation(observation)) return;
                 if (clientStatusBridge?.Observe(probe, observation.SelfAid) is { } decoded)
                 {
+                    if (decoded.StatusId == 4)
+                        decodedHidingBeforeSkill = decoded.Active;
                     DebugLog.Write($"SPRINGRO CLIENT STATUS matched opcode=0x{probe.Opcode:X4}; " +
                                    $"status={decoded.StatusId}; active={decoded.Active}; " +
                                    $"totalMs={decoded.TotalMs}; leftMs={decoded.RemainingMs}");
@@ -618,15 +621,18 @@ public sealed class NpcapPacketCapture : IDisposable
                     DebugLog.Write(pair);
                 if (correlatedHiding?.Observe(probe, observation.SelfAid) is { } hidden)
                 {
-                    DebugLog.Write($"SPRINGRO HIDING VERIFIED: active={hidden}; skill=51; " +
-                                   $"statusOpcode=0x{(hidden ? 0x0983 : 0x0196):X4}; " +
-                                   $"source=correlated-own-skill");
-                    // Standard EFST_HIDING = 4. This is a proven state
-                    // transition, NOT a decoded EFST from the scrambled frame.
-                    // No server timer is invented for this indefinite state.
-                    PublishStatus(new RoStatusPacket(
-                        hidden ? (ushort)0x0983 : (ushort)0x0196,
-                        4, observation.SelfAid, hidden, 0, 0));
+                    var alreadyDecoded = clientStatusBridge is not null && decodedHidingBeforeSkill == hidden;
+                    decodedHidingBeforeSkill = null;
+                    if (!alreadyDecoded)
+                    {
+                        DebugLog.Write($"SPRINGRO HIDING VERIFIED: active={hidden}; skill=51; " +
+                                       $"statusOpcode=0x{(hidden ? 0x0983 : 0x0196):X4}; " +
+                                       $"source=correlated-own-skill");
+                        // Fallback only when the generic decoded frame was missed.
+                        PublishStatus(new RoStatusPacket(
+                            hidden ? (ushort)0x0983 : (ushort)0x0196,
+                            4, observation.SelfAid, hidden, 0, 0));
+                    }
                 }
             });
         void PublishStatus(RoStatusPacket packet)
@@ -649,6 +655,7 @@ public sealed class NpcapPacketCapture : IDisposable
             hiding.Reset();
             statusSkillCorrelation?.Reset();
             correlatedHiding?.Reset();
+            decodedHidingBeforeSkill = null;
             pendingStatuses.Reset();
             source = RegisterTrackingSource(generation, packetFlow);
         };
