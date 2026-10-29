@@ -58,13 +58,13 @@ class ExportTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             dest=Path(tmp)/"questie_catalog.sqlite"
             summary=make_runtime(source,dest)
-            self.assertEqual(summary["schema_version"],2)
+            self.assertEqual(summary["schema_version"],3)
             self.assertEqual(summary["sqlite_integrity"],"ok")
             self.assertEqual(summary["foreign_key_violations"],0)
             self.assertGreater(summary["tables"]["dialogue_options"],0)
             self.assertGreater(summary["tables"]["quest_state_facts"],0)
             with sqlite3.connect(dest) as runtime:
-                self.assertEqual(runtime.execute("PRAGMA user_version").fetchone()[0],2)
+                self.assertEqual(runtime.execute("PRAGMA user_version").fetchone()[0],3
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quests").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM scripts").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quest_quality").fetchone()[0],1)
