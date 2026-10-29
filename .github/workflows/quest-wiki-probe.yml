@@ -1,0 +1,39 @@
+name: Wiki DOM probe (research)
+on:
+  push:
+    branches: [research/quest-database]
+    paths: [.github/workflows/quest-wiki-probe.yml]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip -q install requests beautifulsoup4
+      - name: Inspect actual wiki HTML (no content archive)
+        run: |
+          python - <<'PY'
+          import requests,bs4,re,collections
+          for slug in ["Kiel_Hyre_Quest","Juice_Quest","Swordman_Job_Change_Guide","Umbala_Language_Quest"]:
+            u="https://irowiki.org/classic/"+slug
+            try:
+              r=requests.get(u,timeout=25,headers={"User-Agent":"RoAura-Quest-Research/1.1"})
+              s=bs4.BeautifulSoup(r.text,"html.parser")
+              roots={x:len(s.select(x)) for x in ["#mw-content-text",".mw-parser-output","ol","ol>li","h2","p","table.infobox"]}
+              root=s.select_one("#mw-content-text") or s.select_one(".mw-parser-output")
+              children=[]
+              if root:
+                for el in root.find_all(["ol","li","p","div","span"],limit=40):
+                  if el.name=="p" or el.name=="ol" or (el.name=="div" and el.get("class")):
+                    children.append((el.name,str(el.get("class","")),re.sub(r"\s+"," ",el.get_text(" ",strip=True))[:110]))
+              nums=[(e.name,str(e.get("class","")),re.sub(r"\s+"," ",e.get_text(" ",strip=True))[:115]) for e in root.find_all(["p","div","li"],limit=800) if re.match(r"^\d+[.)]\s",e.get_text(" ",strip=True))] if root else []
+              print("PAGE",slug,"HTTP",r.status_code,"BYTES",len(r.content),"TITLE",s.title.get_text(" ",strip=True)[:100] if s.title else None,"COUNTS",roots,flush=True)
+              print("ELEMENTS",children[:12],flush=True)
+              print("NUMBERED",len(nums),nums[:6],flush=True)
+            except Exception as e:print("ERROR",slug,str(e),flush=True)
+          PY
