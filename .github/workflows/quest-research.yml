@@ -31,6 +31,10 @@ jobs:
           python-version: "3.12"
       - name: Dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4 pyyaml
+      - name: Regression tests for wiki parser and script linking
+        run: |
+          cd research/quest-database
+          python -m unittest -v test_enrich.py
       - name: Build SQLite from public sources
         run: python research/quest-database/build.py --out research/quest-database/output
       - name: Validate finished SQLite
@@ -44,6 +48,14 @@ jobs:
           assert not con.execute("PRAGMA foreign_key_check").fetchall()
           scripts=con.execute("select count(*) from provenance").fetchone()[0]
           assert scripts>0, "No NPC scripts collected"
+          pcount=con.execute("SELECT count(*) FROM wiki_pages WHERE status='walkthrough_parsed'").fetchone()[0]
+          nsteps=con.execute("SELECT count(*) FROM wiki_step_sources WHERE kind in ('numbered','ordered_list')").fetchone()[0]
+          linked=con.execute("SELECT count(DISTINCT page_id) FROM wiki_script_links").fetchone()[0]
+          sample=con.execute("SELECT count(*) FROM wiki_steps s JOIN wiki_pages p ON p.id=s.page_id WHERE p.title='Kiel Hyre Quest'").fetchone()[0]
+          assert nsteps>=100, f"Suspicious numbered guide extraction: {nsteps}"
+          assert sample>=60, f"Kiel Hyre walkthrough lost steps: {sample}"
+          assert linked>=1, f"No quest-script candidates: {linked}"
+          print(f"Wiki: {pcount} numbered guide pages, {nsteps} steps, {linked} pages with script candidates; Kiel Hyre {sample} steps")
           print(f"Verified SQLite: {p.stat().st_size} bytes; {scripts} original scripts.")
           PY
       - name: Archive verified database
