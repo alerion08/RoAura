@@ -124,6 +124,16 @@ def create_dossiers(db,max_dialogue_examples=4,max_fact_examples=16):
                 local_qids=sorted({f[4] for f in facts if f[2] in QUEST_ROLES and f[4] is not None})
                 quest_ids.update(local_qids)
                 matching_guide=" ".join(v for _,v in interactions)
+                # Only compare source literal positions within the SAME wiki step.
+                # Missing/mismatching coordinates never disprove a quest identity.
+                explicit_positions=db.execute("""SELECT w.step_no,d.value
+                  FROM wiki_missing_script_evidence e
+                  JOIN wiki_details d ON d.page_id=e.page_id AND d.step_no=e.step_no
+                  JOIN wiki_steps w ON w.page_id=e.page_id AND w.step_no=e.step_no
+                  WHERE e.page_id=? AND e.source_id=? AND e.npc_id=?
+                    AND d.kind='map_coord'""",(pid,sid,nid)).fetchall()
+                exact_position_steps=sorted({step for step,value in explicit_positions
+                    if value==f"{(mapname or '').lower()}:{x}:{y}"})
                 overlap=set()
                 for ln,cmd,arg in messages:
                     overlap.update(lexical_overlap(matching_guide,arg))
@@ -148,6 +158,8 @@ def create_dossiers(db,max_dialogue_examples=4,max_fact_examples=16):
                     "dialogue_examples":[{"line_no":ln,"command":cmd,"source_argument":arg[:250]}
                                          for ln,cmd,arg in messages[:max_dialogue_examples]],
                     "source_token_overlap":sorted(overlap)[:25],
+                    "wiki_map_coordinate_mentions_in_matched_steps":len(explicit_positions),
+                    "exact_wiki_to_source_position_steps":exact_position_steps,
                     "state_roles":dict(role_counts),
                     "literal_quest_ids":local_qids,
                     "state_examples":[{"line_no":f[0],"occurrence":f[1],"role":f[2],
@@ -191,6 +203,8 @@ def create_dossiers(db,max_dialogue_examples=4,max_fact_examples=16):
                 "literal_quest_ids_found_in_matched_npcs":sorted(quest_ids),
                 "review_flags":flags,"review_state":status,
                 "npc_evidence":sections,
+                "npc_name_and_exact_coordinate_supported_steps":sum(
+                    len(n["exact_wiki_to_source_position_steps"]) for n in sections),
                 "assurance":"NPC source-code facts only; quest identity/state transition is unverified",
                 "can_auto_promote_to_quest_link":False
             })
