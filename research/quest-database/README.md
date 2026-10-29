@@ -15,6 +15,42 @@ Isolated **research branch**. No changes to the RoAura WPF application, settings
 
 **Status: source research dataset, not a complete Questie-ready database.**
 
+## Guide parsing and NPC cross-links (research stage 2)
+
+The wiki parser now covers ordinary HTML numbered paragraphs (`1. ...`),
+ordered lists and unnumbered narrative paragraphs. It appends continuation
+paragraphs and list notes to the preceding step, preserving original guide
+step numbers separately in `wiki_step_sources`. Narrative-only pages use
+`wiki_parse_quality.mode=narrative`; they are **not** treated as verified
+ordered walkthroughs.
+
+The script collector includes rAthena pre-renewal quest/job script directories.
+For each wiki guide, `wiki_script_links` connects likely NPC script files
+by distinctive filename tokens; `wiki_step_npc_links` records limited
+step-to-NPC candidates supported by exact same-map coordinates and/or
+explicit NPC names. Match confidence is a ranking heuristic (60–95),
+**not a probability and not verification of server correctness**. Status
+always remains `candidate`. Do not auto-navigate to these coordinates
+or infer dialogue branches without subsequent in-game validation.
+
+Query examples (SQLite):
+
+    SELECT p.title, s.step_no, s.instruction, sn.source_step
+    FROM wiki_pages p JOIN wiki_steps s ON p.id=s.page_id
+    LEFT JOIN wiki_step_sources sn ON sn.page_id=s.page_id AND sn.step_no=s.step_no
+    WHERE p.title='Kiel Hyre Quest' ORDER BY s.step_no;
+
+    SELECT p.title, v.path, l.score, l.method, l.status
+    FROM wiki_script_links l JOIN wiki_pages p ON p.id=l.page_id
+    JOIN provenance v ON v.id=l.source_id
+    WHERE p.title='Kiel Hyre Quest' ORDER BY l.score DESC;
+
+The original `script_events` provides ordered NPC script commands including
+`mes`, `select`, `menu`, `setquest` and `close`. Full original script
+payloads remain in `provenance` as compressed bytes. We **have not yet**
+built a control-flow graph that ties each NPC menu option to game state,
+nor confirmed which server-specific scripts are active in ToC/SpringRO.
+
 ## Download the database
 
 After the GitHub Actions job **Quest research database (isolated)** finishes successfully, use:
