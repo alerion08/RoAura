@@ -9,11 +9,13 @@ from pathlib import Path
 from urllib.parse import unquote,urlparse
 from quality import ensure_quality_schema
 from prerequisites import SCHEMA as PREREQ_SCHEMA
+from content import SCHEMA as CONTENT_SCHEMA
+from dependencies import SCHEMA as DEPENDENCY_SCHEMA
 
-RUNTIME_VERSION=3
+RUNTIME_VERSION=4
 SCHEMA="""
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=3;
+PRAGMA user_version=4;
 CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL) WITHOUT ROWID;
 CREATE TABLE quests(
  quest_key TEXT PRIMARY KEY,title TEXT NOT NULL,source_url TEXT NOT NULL,
@@ -41,11 +43,39 @@ CREATE TABLE quest_prerequisites(
  assurance TEXT NOT NULL,
  PRIMARY KEY(quest_key,prerequisite_key)
 ) WITHOUT ROWID;
+CREATE TABLE quest_dependency_paths(
+ quest_key TEXT NOT NULL REFERENCES quests(quest_key),
+ dependency_key TEXT NOT NULL REFERENCES quests(quest_key),
+ min_hops INTEGER NOT NULL CHECK(min_hops>=1),
+ provenance TEXT NOT NULL,
+ PRIMARY KEY(quest_key,dependency_key)
+) WITHOUT ROWID;
+CREATE TABLE quest_content_categories(
+ quest_key TEXT PRIMARY KEY REFERENCES quests(quest_key),
+ category TEXT NOT NULL,method TEXT NOT NULL,
+ explanation TEXT NOT NULL,evidence_steps INTEGER NOT NULL,
+ assurance TEXT NOT NULL
+) WITHOUT ROWID;
+CREATE TABLE quest_content_signals(
+ quest_key TEXT NOT NULL,step_no INTEGER NOT NULL,
+ signal TEXT NOT NULL,matched_text TEXT NOT NULL,source_kind TEXT NOT NULL,
+ PRIMARY KEY(quest_key,step_no,signal),
+ FOREIGN KEY(quest_key,step_no) REFERENCES quest_steps(quest_key,step_no)
+) WITHOUT ROWID;
 CREATE TABLE quest_steps(
  quest_key TEXT NOT NULL REFERENCES quests(quest_key),step_no INTEGER NOT NULL,
  source_step INTEGER,kind TEXT,section TEXT,instruction TEXT NOT NULL,
  PRIMARY KEY(quest_key,step_no)
 ) WITHOUT ROWID;
+CREATE TABLE quest_step_locations(
+ quest_key TEXT NOT NULL,step_no INTEGER NOT NULL,
+ hint_kind TEXT NOT NULL,raw_hint TEXT NOT NULL,
+ map TEXT,x INTEGER NOT NULL,y INTEGER NOT NULL,
+ assurance TEXT NOT NULL,
+ PRIMARY KEY(quest_key,step_no,hint_kind,raw_hint),
+ FOREIGN KEY(quest_key,step_no) REFERENCES quest_steps(quest_key,step_no)
+) WITHOUT ROWID;
+CREATE INDEX quest_step_locations_by_map ON quest_step_locations(map,x,y);
 CREATE TABLE step_hints(
  quest_key TEXT NOT NULL,step_no INTEGER NOT NULL,
  kind TEXT NOT NULL,value TEXT NOT NULL,source_verified INTEGER NOT NULL DEFAULT 0,
@@ -179,6 +209,8 @@ def script_variant_scope(path):
 def make_runtime(source,destination):
     ensure_quality_schema(source)
     source.executescript(PREREQ_SCHEMA)
+    source.executescript(CONTENT_SCHEMA)
+    source.executescript(DEPENDENCY_SCHEMA)
     path=Path(destination);path.parent.mkdir(parents=True,exist_ok=True)
     if path.exists():path.unlink()
     out=sqlite3.connect(path)
@@ -211,12 +243,43 @@ def make_runtime(source,destination):
           ((page_keys[pid],page_keys[requires],title,assurance)
           for pid,requires,title,assurance in source.execute(
               "SELECT page_id,prerequisite_page_id,matched_title,assurance FROM wiki_quest_prerequisite_links")))
+        out.executemany("INSERT INTO quest_dependency_paths VALUES(?,?,?,?)",
+          ((page_keys[pid],page_keys[dep],hops,provenance) for pid,dep,hops,provenance
+           in source.execute("""SELECT page_id,dependency_page_id,min_hops,provenance
+              FROM wiki_prerequisite_paths""")))
+        out.executemany("INSERT INTO quest_content_categories VALUES(?,?,?,?,?,?)",
+          ((page_keys[pid],cat,method,explanation,steps,assurance)
+           for pid,cat,method,explanation,steps,assurance in source.execute(
+               """SELECT page_id,category,method,explanation,evidence_steps,assurance
+               FROM wiki_content_categories""")))
         out.executemany("INSERT INTO quest_steps VALUES(?,?,?,?,?,?)",
           ((page_keys[pid],step,source_step,kind,section,instruction)
            for pid,step,section,instruction,source_step,kind in source.execute(
                """SELECT s.page_id,s.step_no,s.section,s.instruction,t.source_step,t.kind
                FROM wiki_steps s LEFT JOIN wiki_step_sources t ON
                t.page_id=s.page_id AND t.step_no=s.step_no""")))
+        out.executemany("INSERT INTO quest_content_signals VALUES(?,?,?,?,?)",
+          ((page_keys[pid],step,kind,matched,source_kind)
+           for pid,step,kind,matched,source_kind in source.execute(
+              """SELECT page_id,step_no,signal,matched_text,source_kind
+                 FROM wiki_content_signals""")))
+        # Locations from the guide itself are valuable even without any
+        # rAthena/Hercules NPC match. Mapless coordinates are NOT assigned a
+        # guessed map. These are waypoint hints, not verified NPC positions.
+        for pid,step,kind,value in source.execute(
+                """SELECT page_id,step_no,kind,value FROM wiki_details
+                WHERE kind IN ('map_coord','bare_coord')"""):
+            bits=value.split(":")
+            if kind=="map_coord" and len(bits)==3:
+                mapname,x,y=bits
+            elif kind=="bare_coord" and len(bits)==2:
+                x,y=bits;mapname=None
+            else:
+                continue
+            if not x.isdigit() or not y.isdigit():continue
+            out.execute("INSERT OR IGNORE INTO quest_step_locations VALUES(?,?,?,?,?,?,?,?)",
+                        (page_keys[pid],step,kind,value,mapname,int(x),int(y),
+                         "wiki_literal_not_npc_verified"))
         out.executemany("INSERT INTO step_hints VALUES(?,?,?,?,?)",
           ((page_keys[pid],step,kind,value,verified) for pid,step,kind,value,verified
             in source.execute("SELECT page_id,step_no,kind,value,verified FROM wiki_details")))
@@ -291,7 +354,9 @@ def make_runtime(source,destination):
         "schema_version":RUNTIME_VERSION,
         "sqlite_integrity":integrity,"foreign_key_violations":len(fk),
         "tables":{name:out.execute(f"SELECT count(*) FROM {name}").fetchone()[0] for name in
-          ("quests","quest_quality","quest_prerequisite_text","quest_prerequisites","quest_steps","step_hints","scripts","quest_scripts","npcs",
+          ("quests","quest_quality","quest_prerequisite_text","quest_prerequisites",
+           "quest_dependency_paths","quest_content_categories","quest_content_signals",
+           "quest_steps","quest_step_locations","step_hints","scripts","quest_scripts","npcs",
            "quest_step_npcs","dialogue_lines","dialogue_points","dialogue_options",
            "dialogue_guards","dialogue_jumps","quest_state_facts","quest_registry",
            "quest_registry_evidence","candidate_answers")}
