@@ -221,3 +221,19 @@ Upstream files include their original notices, and provenance stores the source 
 - `SERVER_VALIDATION.md` describes generic evidence tiers and optional server overlays.
 
 The shared ROQuestie database is **not yet complete** or available-for-all-servers verified. The iRO wiki source freshness remains legacy/unknown for 286 pages until the separate live refresh succeeds.
+
+## Verified stage 9 — content evidence, grounded NPC leads and dependency paths
+
+**[GitHub Actions #40936291908](https://github.com/alerion08/RoAura/actions/runs/40936291908) SUCCESS**, including focused unit tests, source DB/consumer SQLite integrity check, zero foreign-key violations and published artifacts. The rebuild reused the successfully refreshed 2026-10-29 iRO wiki snapshot. No game-server validation was performed.
+
+ROQuestie remains a server-neutral knowledge base; source-derived categories and guessed links must **never** be advertised as quests or NPCs guaranteed to exist on every server.
+
+- `content.py`: explicit walkthrough phrase and wiki-requirement signals with source step and matched text, exported in research tables `wiki_content_categories`/`wiki_content_signals`. 1,370 source text signals across 286 pages; **27 previously unsorted pages** gained an evidence-qualified category, reducing the unclassified queue from 155 to **128**. Many more labels remain provisional; unknown pages are not forced into a category.
+- `name_links.py`: only explicit "talk/speak/meet/visit ... Name" guide mentions and distinctive unique NPC names in **strong existing script candidates**, preserving score 55 and candidate status. **267 new step→NPC candidate links**, total 1,565 (previous 1,298). These may still be wrong; game verification is required.
+- `dependencies.py`: cycle-safe shortest-reference graph for exact wiki prerequisite statements. The original **57** direct links yield **91** additional transitive *wiki references* (148 pairs); **0** cycles detected in this snapshot. AND/OR prerequisite logic and actual game activation are unresolved.
+- **Questie consumer v4**, `questie_catalog.sqlite`: now includes 1,254 structured wiki waypoint hints in `quest_step_locations`, including bare coordinates with NULL map rather than guessing. Also exports per-quest source classifications, matching evidence and dependency paths. No parser/Python dependency is needed at runtime.
+- Research SQLite schema v8 retains all original NPC script sources, full step text, flags and provenance. 939 scripts and 3,420 wiki guide rows remain; data were not discarded to inflate coverage.
+- `roquestie_core_worklist.json` v2 covers all 286 pages. Provisional categories: 44 profession-related, 22 dungeon/access, 8 storyline, 3 repeatable, 2 collection, 67 seasonal/archival, 12 profession references, **128 unclassified**. Source categories are research directions, not definitive RO quest taxonomy.
+- Gaps: **117 guides still lack any candidate script**, and no quest is certified universally available. Exact NPC identification, game conditions, quest progress signals and cross-server compatibility still need separate verification.
+
+The consumer upgrade changes `PRAGMA user_version` from 3 to **4**. Downstream readers must check this value and preserve player state separately from the updateable catalog. See `INTEGRATION_CONTRACT.md`.
