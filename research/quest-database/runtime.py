@@ -108,6 +108,21 @@ CREATE TABLE candidate_answers(
  FOREIGN KEY(quest_key,step_no) REFERENCES quest_steps(quest_key,step_no),
  FOREIGN KEY(npc_key,line_no,kind,option_no) REFERENCES dialogue_options(npc_key,line_no,kind,option_no)
 ) WITHOUT ROWID;
+CREATE VIEW quest_navigation_candidates AS
+ SELECT s.quest_key,s.step_no,n.npc_key,n.name,n.map,n.x,n.y,
+        s.score,s.evidence,s.status
+ FROM quest_step_npcs s JOIN npcs n ON n.npc_key=s.npc_key;
+CREATE VIEW quest_progress_evidence AS
+ SELECT q.quest_key,q.script_key,q.status AS script_link_status,
+        f.npc_key,f.line_no,f.occurrence,f.role,f.object_id,
+        f.amount_expr,f.value_expr,f.context_guard_line,f.evidence
+ FROM quest_scripts q JOIN npcs n ON n.script_key=q.script_key
+ JOIN quest_state_facts f ON f.npc_key=n.npc_key;
+CREATE VIEW quest_dialogue_candidates AS
+ SELECT q.quest_key,q.status AS script_link_status,
+        n.npc_key,n.name,o.line_no,o.option_no,o.label,o.target_line,o.resolution
+ FROM quest_scripts q JOIN npcs n ON n.script_key=q.script_key
+ JOIN dialogue_options o ON o.npc_key=n.npc_key;
 """
 
 def key_page(url):
