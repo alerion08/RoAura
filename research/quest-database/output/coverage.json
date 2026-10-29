@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T19:02:04.576423+00:00",
+  "created_utc": "2026-10-29T19:33:56.211068+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -133,6 +133,20 @@
     "nodes_in_detected_cycles": 0,
     "assurance": "page citation graph only; no AND/OR semantics or server verification"
   },
+  "unlinked_script_discovery": {
+    "no_explicit_npc_interaction_phrases": 18,
+    "multiple_distinct_npc_names_same_script_manual_review": 13,
+    "proposals": 25,
+    "pages_with_proposals": 13,
+    "insufficient_independent_npc_name_evidence": 29,
+    "no_distinctive_npc_names_in_source_corpus": 56,
+    "no_extracted_guide_steps": 1,
+    "unlinked_pages": 117,
+    "evidence_rows": 83
+  },
+  "unclassified_content_review": {
+    "pages": 128
+  },
   "counts": {
     "scripts": 939,
     "npcs": 8739,
@@ -153,7 +167,10 @@
     "npc_quest_registry_refs": 5950,
     "wiki_content_signals": 1370,
     "wiki_content_categories": 286,
-    "wiki_prerequisite_paths": 148
+    "wiki_prerequisite_paths": 148,
+    "wiki_missing_script_reviews": 117,
+    "wiki_missing_script_proposals": 25,
+    "wiki_missing_script_evidence": 83
   },
   "quality": {
     "wiki_refresh": {
