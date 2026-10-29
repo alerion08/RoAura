@@ -143,6 +143,12 @@ CREATE TABLE IF NOT EXISTS wiki_step_npc_links (
  score INTEGER NOT NULL,evidence TEXT NOT NULL,status TEXT NOT NULL DEFAULT 'candidate',
  PRIMARY KEY(page_id,step_no,npc_id)) WITHOUT ROWID;
 CREATE INDEX IF NOT EXISTS page_script_link ON wiki_script_links(source_id);
+CREATE VIEW IF NOT EXISTS npc_dialogue_events AS
+ SELECT source_id,npc_ordinal,line_no,command,argument FROM script_events
+ WHERE command IN ('mes','mesf','npctalk');
+CREATE VIEW IF NOT EXISTS npc_choice_events AS
+ SELECT source_id,npc_ordinal,line_no,command,argument FROM script_events
+ WHERE command IN ('select','menu','input');
 """
 def ensure_enrichment_schema(db):
     db.executescript(SCHEMA)
