@@ -5,6 +5,8 @@ Research branch: `research/quest-database`. Published evidence:
 [`output/missing_script_discovery.json`](output/missing_script_discovery.json),
 [`output/coverage.json`](output/coverage.json).
 
+Public GitHub links below follow live upstream branches; the saved file contents are separately identified by their Git blob SHAs, which are the reproducible research source hashes.
+
 **Status:** 25 previously unlinked source proposals have now been cross-checked
 lexically against their named NPC blocks. **None are promoted into
 `wiki_script_links` or the RoAura consumer catalog.** NPC names, script
@@ -32,7 +34,7 @@ execution and guide steps are not interchangeable sources of truth.
 ### Einbroch Murder Quest — verify shared state track, not just names
 
 Source: rAthena
-[`npc/quests/quests_ein.txt`](https://github.com/rathena/rathena/blob/3a83a1fcac9708bed1ba55d61486b1c4ae119f18/npc/quests/quests_ein.txt),
+[`npc/quests/quests_ein.txt`](https://github.com/rathena/rathena/blob/master/npc/quests/quests_ein.txt),
 snapshot Git blob SHA `3a83a1fcac9708bed1ba55d61486b1c4ae119f18`.
 
 - Around source line **4223**, the comment `Murder Quest :: ein_main_tre`
@@ -52,7 +54,7 @@ with a single chain. **Not approved for automatic guidance.**
 ### Rebirth Walkthrough / Prayer To Heaven
 
 Source: rAthena
-[`npc/jobs/valkyrie.txt`](https://github.com/rathena/rathena/blob/9a4dcfe4903f85bd3e76a980befcf2298fae93c8/npc/jobs/valkyrie.txt),
+[`npc/jobs/valkyrie.txt`](https://github.com/rathena/rathena/blob/master/npc/jobs/valkyrie.txt),
 snapshot Git blob SHA `9a4dcfe4903f85bd3e76a980befcf2298fae93c8`.
 
 - `Valkyrie#` is defined at line **43**, with conditional access checks
