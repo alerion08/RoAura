@@ -70,6 +70,9 @@ class ExportTests(unittest.TestCase):
                 self.assertEqual(runtime.execute("PRAGMA foreign_key_check").fetchall(),[])
                 self.assertEqual(runtime.execute("SELECT object_id FROM quest_state_facts WHERE role='quest_start'").fetchone()[0],1001)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM candidate_answers").fetchone()[0],1)
+                self.assertGreater(runtime.execute("SELECT count(*) FROM quest_progress_evidence").fetchone()[0],0)
+                self.assertGreater(runtime.execute("SELECT count(*) FROM quest_dialogue_candidates").fetchone()[0],0)
+                self.assertEqual(runtime.execute("SELECT count(*) FROM quest_navigation_candidates").fetchone()[0],0)
                 self.assertNotIn("provenance", {row[0] for row in runtime.execute(
                     "SELECT name FROM sqlite_master WHERE type='table'")})
             # Keys/rows stay stable across independent builds from identical data.
