@@ -9,10 +9,10 @@ from pathlib import Path
 from urllib.parse import unquote,urlparse
 from quality import ensure_quality_schema
 
-RUNTIME_VERSION=2
+RUNTIME_VERSION=3
 SCHEMA="""
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=2;
+PRAGMA user_version=3;
 CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL) WITHOUT ROWID;
 CREATE TABLE quests(
  quest_key TEXT PRIMARY KEY,title TEXT NOT NULL,source_url TEXT NOT NULL,
@@ -26,6 +26,19 @@ CREATE TABLE quest_quality(
  last_success_utc TEXT,
  last_error TEXT,
  stored_steps INTEGER NOT NULL
+) WITHOUT ROWID;
+CREATE TABLE quest_prerequisite_text(
+ quest_key TEXT PRIMARY KEY REFERENCES quests(quest_key),
+ raw_text TEXT NOT NULL,
+ expression_logic TEXT NOT NULL,
+ source TEXT NOT NULL
+) WITHOUT ROWID;
+CREATE TABLE quest_prerequisites(
+ quest_key TEXT NOT NULL REFERENCES quests(quest_key),
+ prerequisite_key TEXT NOT NULL REFERENCES quests(quest_key),
+ matched_title TEXT NOT NULL,
+ assurance TEXT NOT NULL,
+ PRIMARY KEY(quest_key,prerequisite_key)
 ) WITHOUT ROWID;
 CREATE TABLE quest_steps(
  quest_key TEXT NOT NULL REFERENCES quests(quest_key),step_no INTEGER NOT NULL,
@@ -188,6 +201,14 @@ def make_runtime(source,destination):
           ((page_keys[pid],state,attempt,success,error,num) for pid,state,attempt,success,error,num
            in source.execute("""SELECT page_id,refresh_state,last_attempt_utc,
                  last_success_utc,last_error,stored_steps FROM wiki_refresh_state""")))
+        out.executemany("INSERT INTO quest_prerequisite_text VALUES(?,?,?,?)",
+          ((page_keys[pid],raw,logic,source_name)
+          for pid,raw,logic,source_name in source.execute(
+              "SELECT page_id,raw_text,expression_logic,source FROM wiki_quest_prerequisite_text")))
+        out.executemany("INSERT INTO quest_prerequisites VALUES(?,?,?,?)",
+          ((page_keys[pid],page_keys[requires],title,assurance)
+          for pid,requires,title,assurance in source.execute(
+              "SELECT page_id,prerequisite_page_id,matched_title,assurance FROM wiki_quest_prerequisite_links")))
         out.executemany("INSERT INTO quest_steps VALUES(?,?,?,?,?,?)",
           ((page_keys[pid],step,source_step,kind,section,instruction)
            for pid,step,section,instruction,source_step,kind in source.execute(
@@ -268,7 +289,7 @@ def make_runtime(source,destination):
         "schema_version":RUNTIME_VERSION,
         "sqlite_integrity":integrity,"foreign_key_violations":len(fk),
         "tables":{name:out.execute(f"SELECT count(*) FROM {name}").fetchone()[0] for name in
-          ("quests","quest_quality","quest_steps","step_hints","scripts","quest_scripts","npcs",
+          ("quests","quest_quality","quest_prerequisite_text","quest_prerequisites","quest_steps","step_hints","scripts","quest_scripts","npcs",
            "quest_step_npcs","dialogue_lines","dialogue_points","dialogue_options",
            "dialogue_guards","dialogue_jumps","quest_state_facts","quest_registry",
            "quest_registry_evidence","candidate_answers")}
