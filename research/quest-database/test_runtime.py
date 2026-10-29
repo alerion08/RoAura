@@ -10,6 +10,8 @@ from graph import create_flow
 from reconcile import create_reviews
 from state import create_state_facts
 from runtime import make_runtime, key_page, key_script
+from content import extract_content
+from dependencies import build_dependency_paths
 
 SCRIPT=b"""prt_in,49,172,3\tscript\tMarianne#juice\t53,{
  if (checkquest(1001) == 0 && countitem(517) > 0) {
@@ -50,24 +52,37 @@ class ExportTests(unittest.TestCase):
           (1,1,'','Talk to Marianne in Prontera'),(1,2,'','Say "Talk to me"')""")
         source.execute("INSERT INTO wiki_step_sources VALUES (1,1,1,'numbered'),(1,2,2,'numbered')")
         source.execute("INSERT INTO wiki_details VALUES (1,2,'guide_answer','Talk to me',0)")
+        source.execute("INSERT INTO wiki_details VALUES (1,1,'map_coord','prt_in:49:172',0)")
+        source.execute("INSERT INTO wiki_details VALUES (1,2,'bare_coord','49:172',0)")
         source.execute("""INSERT INTO wiki_script_links VALUES(1,1,95,'exact_title_filename','candidate')""")
         # Retain the explicitly supplied 95-point source link for this fixture.
         create_flow(source)
         create_state_facts(source)
         create_reviews(source)
+        extract_content(source)
+        build_dependency_paths(source)
         with tempfile.TemporaryDirectory() as tmp:
             dest=Path(tmp)/"questie_catalog.sqlite"
             summary=make_runtime(source,dest)
-            self.assertEqual(summary["schema_version"],3)
+            self.assertEqual(summary["schema_version"],4)
             self.assertEqual(summary["sqlite_integrity"],"ok")
             self.assertEqual(summary["foreign_key_violations"],0)
             self.assertGreater(summary["tables"]["dialogue_options"],0)
             self.assertGreater(summary["tables"]["quest_state_facts"],0)
             with sqlite3.connect(dest) as runtime:
-                self.assertEqual(runtime.execute("PRAGMA user_version").fetchone()[0],3)
+                self.assertEqual(runtime.execute("PRAGMA user_version").fetchone()[0],4)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quests").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM scripts").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quest_quality").fetchone()[0],1)
+                self.assertEqual(runtime.execute("SELECT count(*) FROM quest_content_categories").fetchone()[0],1)
+                self.assertEqual(runtime.execute("SELECT count(*) FROM quest_content_signals").fetchone()[0],1)
+                self.assertEqual(runtime.execute("SELECT count(*) FROM quest_dependency_paths").fetchone()[0],0)
+                locations=runtime.execute("""SELECT map,x,y,assurance FROM quest_step_locations
+                                              ORDER BY hint_kind""").fetchall()
+                self.assertEqual(len(locations),2)
+                self.assertTrue(any(v[0] is None and v[1:3]==(49,172) for v in locations))
+                self.assertTrue(any(v[0]=="prt_in" for v in locations))
+                self.assertTrue(all(v[3]=="wiki_literal_not_npc_verified" for v in locations))
                 self.assertEqual(runtime.execute("SELECT variant_scope FROM scripts").fetchone()[0],"common")
                 self.assertEqual(runtime.execute("SELECT refresh_state FROM quest_quality").fetchone()[0],"legacy_cached")
                 self.assertEqual(runtime.execute("PRAGMA foreign_key_check").fetchall(),[])
