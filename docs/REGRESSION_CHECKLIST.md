@@ -188,3 +188,22 @@ Before merging to `main` or publishing:
 - [ ] Portable and installer were produced by successful Windows CI.
 - [ ] SHA-256 checksums were generated.
 - [ ] User explicitly approved merge/release.
+
+## ToC / packet switch acceptance
+
+- [ ] Select ToC: 61 MVPs, ToC item names/slots, descriptions/scripts, maps, server
+  EXP and normal/MVP drops; no SpringRO item-detail or market calls/results.
+- [ ] ToC NPC prices (Red Potion: 25 Zeny; OC10: 31), manual rules and loot values;
+  SpringRO rules and ToC rules/timers remain separate across switches and presets.
+- [ ] Unknown ToC respawns are shown as unknown; manual timer duration is retained.
+- [ ] All navigation stays visible. Unsupported entries are gray/transparent and
+  cannot be opened by clicking, Home quick actions or keyboard; disabled icon alpha
+  is preserved. Switch servers while a now-unsupported page is selected.
+- [ ] Home warning and toggle fit RU/EN at 100/125/150% DPI and minimum size.
+- [ ] Turn packets off during capture/learning: Npcap and SpringRO client sampler
+  stop, no queued reward/status is applied, packet overlays/notifications stop;
+  Database, manual MVP timers and SpringRO HTTP Market remain usable.
+- [ ] Turn packets on, relog, verify fresh CID/AID and correct server-specific
+  EXP/loot/Gold Goblin session; no old server events or history are attributed.
+- [ ] Restart and apply named presets with packets off: off remains off; settings,
+  timers, rules, positions and saved character history remain intact.

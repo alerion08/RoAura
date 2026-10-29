@@ -6,26 +6,30 @@ namespace RoAura.Services;
 public sealed class GameDatabaseService
 {
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
-    private readonly GameDatabase _database;
-    private readonly IReadOnlyDictionary<int, DatabaseMonster> _monstersById;
+    private GameDatabase _database = new();
+    private IReadOnlyDictionary<int, DatabaseMonster> _monstersById = new Dictionary<int, DatabaseMonster>();
     public IReadOnlyList<DatabaseMonster> Monsters => _database.Monsters;
     public IReadOnlyList<DatabaseItem> Items => _database.Items;
     public IReadOnlyList<DatabaseMap> Maps => _database.Maps;
 
-    public GameDatabaseService()
+    public string Version { get; private set; } = GameDatabaseVersion.SpringRo;
+    public GameDatabaseService(string? version = GameDatabaseVersion.SpringRo) => Reload(version);
+    public void Reload(string? version)
     {
+        Version = GameDatabaseVersion.Normalize(version);
         var path = Path.Combine(AppContext.BaseDirectory, "Data", "database.springro.json");
         try
         {
-            _database = JsonSerializer.Deserialize<GameDatabase>(File.ReadAllText(path), JsonOptions) ?? new GameDatabase();
+            _database = Version == GameDatabaseVersion.Toc ? TocDatabaseService.Database :
+                JsonSerializer.Deserialize<GameDatabase>(File.ReadAllText(path), JsonOptions) ?? new GameDatabase();
         }
         catch (Exception ex)
         {
             DebugLog.Write($"DATABASE LOAD ERROR: {ex}");
-            _database = new GameDatabase();
+            _database = new GameDatabase { Source = Version };
         }
         // The item catalog carries the server's full equipment names, including slot suffixes.
-        var catalog = ItemCatalogService.Load(GameDatabaseVersion.SpringRo);
+        var catalog = ItemCatalogService.Load(Version);
         foreach (var item in _database.Items)
             if (catalog.TryGetValue(item.Id, out var entry) && !string.IsNullOrWhiteSpace(entry.FullName))
                 item.Name = entry.FullName;

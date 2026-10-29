@@ -12,6 +12,7 @@ public partial class DatabaseSettingsControl : UserControl
 {
     private readonly GameDatabaseService _database = (Application.Current as App)?.MarketWatchDatabase ?? new();
     private MarketWatchNotificationSettings? _previewSettings;
+    private AppSettings? _profileSettings;
     private ImageSource? _previewIcon;
     private string? _previewIconKey;
     public static readonly DependencyProperty PreviewNotificationProperty = DependencyProperty.Register(nameof(PreviewNotification), typeof(MarketWatchNotification), typeof(DatabaseSettingsControl));
@@ -27,7 +28,7 @@ public partial class DatabaseSettingsControl : UserControl
             RefreshHistory();
         };
         DataContextChanged += (_, _) => AttachPreview();
-        Unloaded += (_, _) => { if (CurrentApp is { } app) app.MarketWatchHistoryChanged -= RefreshHistory; if (_previewSettings is not null) _previewSettings.PropertyChanged -= PreviewSettingsChanged; _previewSettings = null; };
+        Unloaded += (_, _) => { if (_profileSettings is not null) _profileSettings.PropertyChanged -= ProfileSettingsChanged; _profileSettings = null; if (CurrentApp is { } app) app.MarketWatchHistoryChanged -= RefreshHistory; if (_previewSettings is not null) _previewSettings.PropertyChanged -= PreviewSettingsChanged; _previewSettings = null; };
     }
     private App? CurrentApp => Application.Current as App;
     private void OpenDatabase_Click(object sender, RoutedEventArgs e) => CurrentApp?.ToggleDatabase();
@@ -101,8 +102,17 @@ public partial class DatabaseSettingsControl : UserControl
         settings.MarketWatchNotifications.SoundEnabled = true;
         CurrentApp?.PersistMarketWatchSettings();
     }
+    private void ProfileSettingsChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName is nameof(AppSettings.ServerProfile) or "")
+            if (_profileSettings?.SupportsMarket != true && DatabaseSettingsTabs is not null) DatabaseSettingsTabs.SelectedIndex = 0;
+    }
     private void AttachPreview()
     {
+        if (_profileSettings is not null) _profileSettings.PropertyChanged -= ProfileSettingsChanged;
+        _profileSettings = DataContext as AppSettings;
+        if (_profileSettings is not null) _profileSettings.PropertyChanged += ProfileSettingsChanged;
+        ProfileSettingsChanged(null, new System.ComponentModel.PropertyChangedEventArgs(""));
         if (_previewSettings is not null) _previewSettings.PropertyChanged -= PreviewSettingsChanged;
         _previewSettings = (DataContext as AppSettings)?.MarketWatchNotifications;
         if (_previewSettings is not null) _previewSettings.PropertyChanged += PreviewSettingsChanged;

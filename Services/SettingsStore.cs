@@ -10,7 +10,7 @@ public sealed class SettingsStore
     private const string UiUpgradeBackupMarker = "ui-2.0-backup.completed";
     private const string FirstRunPendingMarker = "first-run.pending";
     private const string FirstRunCompletedMarker = "first-run.completed";
-    private const int CurrentSettingsVersion = 11;
+    private const int CurrentSettingsVersion = 12;
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -319,6 +319,8 @@ public sealed class SettingsStore
         settings.Reminders ??= new();
         settings.Equipment ??= new();
         settings.MvpTimers ??= new();
+        settings.TocMvpTimers ??= new();
+        settings.TocGoldGoblinPriceRules ??= new();
         settings.BuffPanelGroups ??= new();
         settings.RewardChannels ??= new();
         settings.RewardGroups ??= new();
@@ -556,7 +558,7 @@ public sealed class SettingsStore
             }
         }
 
-        foreach (var timer in settings.MvpTimers)
+        foreach (var timer in settings.MvpTimers.Concat(settings.TocMvpTimers))
         {
             timer.RemainingSeconds = timer.EndsAtUtc.HasValue
                 ? Math.Max(0, (timer.EndsAtUtc.Value - DateTime.UtcNow).TotalSeconds)

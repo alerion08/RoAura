@@ -302,7 +302,7 @@
     <sys:String x:Key="KilledAt">Убит</sys:String>
     <sys:String x:Key="InvalidKillTime">Укажите корректное время убийства в формате ЧЧ:ММ:СС.</sys:String>
     <sys:String x:Key="RespawnHint">Подсказка по респавну</sys:String>
-    <sys:String x:Key="RespawnHintHelp">Интервалы взяты из локальной базы SpringRO и не задают таймер автоматически.</sys:String>
+    <sys:String x:Key="RespawnHintHelp">Подсказки берутся из базы выбранного сервера. Для ToC интервал неизвестен: укажите его вручную. Подсказка не задаёт таймер автоматически.</sys:String>
     <sys:String x:Key="TimersHotkey">MVP-таймеры</sys:String>
     <sys:String x:Key="LearnEquipment">Обучить экипировку (20 сек)</sys:String>
     <sys:String x:Key="TestEquipment">Тест экипировки</sys:String>
@@ -393,7 +393,7 @@
     <sys:String x:Key="OverlayMoveRateIndicator">Перетащите выбранный индикатор. ESC — сохранить.</sys:String>
     <sys:String x:Key="OverlayMoveRateIndicatorGroup">Перетащите индикатор — переместится вся его группа. ESC — сохранить.</sys:String>
     <sys:String x:Key="Database">База данных</sys:String>
-    <sys:String x:Key="DatabaseTitle">Внутриигровая база SpringRO</sys:String>
+    <sys:String x:Key="DatabaseTitle">Внутриигровая база данных</sys:String>
     <sys:String x:Key="DatabaseHotkey">База данных</sys:String>
     <sys:String x:Key="DatabaseHotkeyTitle">Горячая клавиша</sys:String>
     <sys:String x:Key="DatabaseSearchLimitHint">Для быстрого поиска поддерживаются названия и числовые ID. В одной выборке показывается до 100 результатов.</sys:String>
@@ -531,4 +531,9 @@
     <sys:String x:Key="ColorPickerInvalid">Введите HEX: #RRGGBB или #AARRGGBB.</sys:String>
     <sys:String x:Key="NavigationOverlays">Оверлеи</sys:String>
     <sys:String x:Key="NavigationServices">Сервисы</sys:String>
+    <sys:String x:Key="PacketReadingWarning">При включённых функциях чтения пакетов RoAura использует Npcap для чтения сетевых пакетов игрового клиента. Это может нарушать правила вашего сервера Ragnarok Online. Перед включением ознакомьтесь с правилами сервера.</sys:String>
+    <sys:String x:Key="PacketFeaturesOn">Чтение пакетов включено — выключить</sys:String>
+    <sys:String x:Key="PacketFeaturesOff">Чтение пакетов выключено — включить</sys:String>
+    <sys:String x:Key="PacketIndependentHint">Без чтения пакетов доступны база данных и ручные MVP-таймеры. Настройки отключённых разделов сохраняются.</sys:String>
+    <sys:String x:Key="DatabaseCatalogHint">База выбирается по серверу. Для ToC используется локальный каталог; интервалы респауна источник не публикует. Маркет и отслеживание предложений доступны только для SpringRO.</sys:String>
 </ResourceDictionary>

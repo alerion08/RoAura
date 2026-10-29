@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using RoAura.Services;
+using RoAura.Models;
 
 namespace RoAura;
 
@@ -55,8 +56,10 @@ public partial class MainWindow
             UpdateCharacterBrowserDetails();
             return;
         }
-        var keys = app.ListSavedCharacters().ToList();
-        if (session.Phase == CharacterSessionPhase.ActiveObserved && session.CharacterId is > 0)
+        var keys = app.ListSavedCharacters().Where(key => string.Equals(key.ServerKey, Settings.ServerProfile, StringComparison.OrdinalIgnoreCase)).ToList();
+        if (_historySelectedCharacter is { } previous && !string.Equals(previous.ServerKey, Settings.ServerProfile, StringComparison.OrdinalIgnoreCase))
+            _historySelectedCharacter = null;
+        if (session.Phase == CharacterSessionPhase.ActiveObserved && session.CharacterId is > 0 && string.Equals(session.ServerKey, Settings.ServerProfile, StringComparison.OrdinalIgnoreCase))
         {
             try
             {
@@ -66,7 +69,7 @@ public partial class MainWindow
             catch (ArgumentException) { }
         }
         keys = keys.Distinct().OrderBy(x => x.ServerKey).ThenBy(x => x.CharacterId).ToList();
-        var signature = Settings.Language + ":" +
+        var signature = Settings.Language + ":" + Settings.ServerProfile + ":" +
             string.Join(";", keys.Select(key => key.ServerKey + ":" + key.CharacterId));
         if (signature != _characterBrowserSignature)
         {

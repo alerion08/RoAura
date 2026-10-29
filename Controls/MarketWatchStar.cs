@@ -51,7 +51,7 @@ public sealed class MarketWatchStar : Button
     private void Refresh()
     {
         var id = Item switch { DatabaseItem i => i.Id, MarketListing l => l.ItemId, _ => 0 };
-        Visibility = id > 0 ? Visibility.Visible : Visibility.Collapsed;
+        Visibility = id > 0 && (_settings is null || GameServerProfile.SupportsMarket(_settings.ServerProfile)) ? Visibility.Visible : Visibility.Collapsed;
         var existing = _settings?.MarketWatchRules.FirstOrDefault(r => r.ItemId == id);
         var active = existing?.Enabled == true;
         Opacity = active ? 1 : .4;

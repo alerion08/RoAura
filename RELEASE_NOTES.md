@@ -1,3 +1,21 @@
+# Unreleased — ToC integration
+
+## Русский
+
+- Выбор ToC: локальные предметы/монстры/карты, MVP, статистика персонажа и NPC/ручные цены Gold Goblin.
+- Отдельные таймеры и ценовые правила ToC; существующие настройки сохраняются.
+- Недоступные разделы остаются видимыми, серыми и неактивными.
+- Предупреждение на главной и общий переключатель чтения пакетов. База и ручные MVP-таймеры доступны без пакетов.
+- ToC: интервалы респауна неизвестны; маркет SpringRO недоступен. Проверка в игре ещё требуется.
+
+## English
+
+- ToC selection with offline items/monsters/maps, MVPs, character statistics and Gold Goblin NPC/manual valuation.
+- Separate ToC timers and price rules; existing configuration is retained.
+- Unavailable navigation stays visible, gray and disabled.
+- Home warning and global packet-reading toggle; offline Database and manual MVP timers work without capture.
+- ToC respawn intervals remain unknown; SpringRO Market is unavailable. In-game acceptance is still required.
+
 # RoAura 3.1.1
 
 See [3.1.1 release notes](docs/releases/3.1.1.md) for the completed character identification and statistics release.

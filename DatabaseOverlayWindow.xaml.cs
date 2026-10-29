@@ -63,12 +63,26 @@ public partial class DatabaseOverlayWindow : Window
         _settings.PropertyChanged += Settings_PropertyChanged;
     }
 
+    public void RefreshServer()
+    {
+        HideDatabase();
+        _details.ResetServer();
+        foreach (var key in _searchQueries.Keys.ToList()) _searchQueries[key] = "";
+        SearchBox.Text = "";
+        _kind = DatabaseSearchKind.Monsters;
+        MonstersMode.IsChecked = true;
+        RefreshLanguage();
+        RefreshResults();
+    }
+
     public void RefreshLanguage()
     {
         var raceIndex = Math.Max(0, RaceFilter.SelectedIndex);
         var elementIndex = Math.Max(0, ElementFilter.SelectedIndex);
         var sizeIndex = Math.Max(0, SizeFilter.SelectedIndex);
-        OverlayTitle.Text = T("База SpringRO", "SpringRO Database");
+        OverlayTitle.Text = T($"База {_database.Version}", $"{_database.Version} Database");
+        MarketMode.IsEnabled = GameServerProfile.SupportsMarket(_settings.ServerProfile);
+        MarketMode.Opacity = MarketMode.IsEnabled ? 1 : 0.6;
         MonstersMode.Content = T("Монстры", "Monsters");
         ItemsMode.Content = T("Предметы", "Items");
         MapsMode.Content = T("Карты", "Maps");
@@ -310,6 +324,7 @@ public partial class DatabaseOverlayWindow : Window
 
     private async Task RefreshMarketResultsAsync()
     {
+        if (!GameServerProfile.SupportsMarket(_settings.ServerProfile)) return;
         var query = SearchBox.Text.Trim();
         _marketSearchCancellation?.Cancel();
         _marketSearchCancellation = null;
@@ -450,7 +465,7 @@ public partial class DatabaseOverlayWindow : Window
 
     private async Task RefreshMarketInBackgroundAsync()
     {
-        if (_marketRefreshRunning) return;
+        if (_marketRefreshRunning || !GameServerProfile.SupportsMarket(_settings.ServerProfile)) return;
         _marketRefreshRunning = true;
         try
         {
@@ -462,7 +477,7 @@ public partial class DatabaseOverlayWindow : Window
 
     private void Market_DataUpdated() => Dispatcher.BeginInvoke(async () =>
     {
-        if (IsDatabaseOpen && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))
+        if (GameServerProfile.SupportsMarket(_settings.ServerProfile) && IsDatabaseOpen && _kind == DatabaseSearchKind.Market && !string.IsNullOrWhiteSpace(SearchBox.Text))
             await RefreshMarketResultsAsync();
     });
     private string T(string ru, string en) => _settings.Language == "en" ? en : ru;

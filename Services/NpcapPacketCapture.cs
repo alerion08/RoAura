@@ -145,7 +145,7 @@ public sealed class NpcapPacketCapture : IDisposable
             _clientStatusBridge?.Dispose();
             _clientStatusBridge = null;
             _springRoStatusCorrelationEnabled =
-                GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
+                settings.PacketCaptureEnabled && GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
             if (_springRoStatusCorrelationEnabled)
             {
                 _clientStatusBridge = new SpringRoClientStatusBridge();

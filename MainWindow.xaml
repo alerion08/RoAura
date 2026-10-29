@@ -9,6 +9,7 @@
         Icon="Assets/roaura.ico" WindowStartupLocation="CenterScreen"
         WindowStyle="None" ResizeMode="CanResize" Background="{StaticResource RoWindowBrush}" Foreground="{StaticResource RoTextBrush}">
     <Window.Resources>
+        <converters:NavigationIconConverter x:Key="NavigationIcon" />
         <converters:Base64ToImageSourceConverter x:Key="Base64Image" />
         <converters:DoubleToThicknessConverter x:Key="PreviewPadding" />
         <converters:PercentToOpacityConverter x:Key="PercentOpacity" />
@@ -58,6 +59,12 @@
                                 <Setter TargetName="NavBorder" Property="BorderBrush" Value="#FF6E96CE" />
                                 <Setter TargetName="GoldMarker" Property="Visibility" Value="Visible" />
                                 <Setter Property="Foreground" Value="#FF174E9A" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#FF858C96"/>
+                                <Setter Property="Opacity" Value="0.6"/>
+                                <Setter TargetName="GoldMarker" Property="Visibility" Value="Collapsed"/>
+                                <Setter TargetName="NavBorder" Property="Background" Value="Transparent"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -128,6 +135,7 @@
                             <ComboBoxItem Content="RTM" Tag="RTM"/>
                             <ComboBoxItem Content="SpringRO" Tag="SpringRO"/>
                             <ComboBoxItem Content="Другой" Tag="Other"/>
+                            <ComboBoxItem Content="ToC" Tag="ToC"/>
                         </ComboBox>
                         <TextBlock Text="{DynamicResource Language}" VerticalAlignment="Center" Margin="0,0,6,0" />
                         <ComboBox x:Name="LanguageBox" Width="120" SelectionChanged="Language_SelectionChanged">
@@ -164,39 +172,39 @@
                         <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel Margin="2,8">
                             <RadioButton x:Name="HomeNavButton" Tag="0" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/00_home.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Home}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/00_home.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Home}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                             <TextBlock Text="{DynamicResource NavigationOverlays}" FontWeight="SemiBold" Foreground="{StaticResource RoMutedBrush}" Margin="16,12,8,3"/>
                             <RadioButton x:Name="CooldownNavButton" Tag="1" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/01_cooldowns.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Cooldowns}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/01_cooldowns.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Cooldowns}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                             <RadioButton x:Name="EffectsNavButton" Tag="2" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/02_buffs_debuffs.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Effects}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/02_buffs_debuffs.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Effects}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                             <RadioButton x:Name="RemindersNavButton" Tag="3" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/03_reminder.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Reminders}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/03_reminder.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Reminders}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                             <RadioButton x:Name="EquipmentNavButton" Tag="4" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/04_equipment.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Equipment}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/04_equipment.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Equipment}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                             <TextBlock x:Name="ServicesNavHeading" Text="{DynamicResource NavigationServices}" FontWeight="SemiBold" Foreground="{StaticResource RoMutedBrush}" Margin="16,12,8,3"/>
                             <RadioButton x:Name="MvpNavButton" Tag="5" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/05_mvp_timers.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource MvpTimers}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/05_mvp_timers.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource MvpTimers}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                             <RadioButton x:Name="LootNavButton" Tag="6" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/06_loot_zeny_exp.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource LootRewards}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/06_loot_zeny_exp.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource LootRewards}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                             <RadioButton x:Name="GoldGoblinNavButton" Tag="7" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/08_gold_goblin.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource GoldGoblin}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/08_gold_goblin.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource GoldGoblin}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                             <RadioButton x:Name="DatabaseNavButton" Tag="8" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/09_database.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Database}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/09_database.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Database}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                         </StackPanel></ScrollViewer>
                         <StackPanel Grid.Row="1" Margin="9,0,9,10">
                             <Separator Margin="2,4,2,8" Background="{StaticResource RoSoftBorderBrush}"/>
                             <Button Click="About_Click" HorizontalContentAlignment="Left" Style="{StaticResource GhostButtonStyle}">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/07_about.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource About}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/07_about.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource About}" VerticalAlignment="Center"/></StackPanel>
                             </Button>
                         </StackPanel>
                     </Grid>
@@ -260,6 +268,18 @@
                 <TabItem Header="{DynamicResource Home}">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <StackPanel Margin="8,4,12,12">
+                            <Border Padding="16" Margin="0,0,0,12" CornerRadius="8" Background="#FFFFF3D9" BorderBrush="#FFE1BB61" BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock Text="{DynamicResource PacketReadingWarning}" TextWrapping="Wrap" Foreground="#FF71521C"/>
+                                    <ToggleButton x:Name="PacketFeaturesToggle" IsChecked="{Binding PacketCaptureEnabled, Mode=TwoWay}" HorizontalAlignment="Left" Margin="0,12,0,0" MinWidth="220">
+                                        <ToggleButton.Style><Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                            <Setter Property="Content" Value="{DynamicResource PacketFeaturesOff}"/>
+                                            <Style.Triggers><Trigger Property="IsChecked" Value="True"><Setter Property="Content" Value="{DynamicResource PacketFeaturesOn}"/></Trigger></Style.Triggers>
+                                        </Style></ToggleButton.Style>
+                                    </ToggleButton>
+                                    <TextBlock Text="{DynamicResource PacketIndependentHint}" TextWrapping="Wrap" Foreground="#FF71521C" Margin="0,8,0,0"/>
+                                </StackPanel>
+                            </Border>
                             <Border Padding="22,18" CornerRadius="10" Background="{StaticResource RoHeaderBrush}"
                                     BorderBrush="{StaticResource RoBorderBrush}" BorderThickness="1">
                                 <Grid>
@@ -344,10 +364,10 @@
                                 <GroupBox Header="{DynamicResource QuickStart}" Style="{StaticResource DetailGroupBoxStyle}">
                                     <StackPanel>
                                         <TextBlock Text="{DynamicResource QuickStartHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,0,0,10"/>
-                                        <Button Content="{DynamicResource ConfigureCooldowns}" Tag="1" Click="QuickNavigate_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Stretch"/>
-                                        <Button Content="{DynamicResource ConfigureEffects}" Tag="2" Click="QuickNavigate_Click" HorizontalAlignment="Stretch"/>
-                                        <Button Content="{DynamicResource ConfigureReminders}" Tag="3" Click="QuickNavigate_Click" HorizontalAlignment="Stretch"/>
-                                        <Button Content="{DynamicResource ConfigureEquipment}" Tag="4" Click="QuickNavigate_Click" HorizontalAlignment="Stretch"/>
+                                        <Button Content="{DynamicResource ConfigureCooldowns}" Tag="1" IsEnabled="{Binding IsEnabled, ElementName=CooldownNavButton}" Click="QuickNavigate_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Stretch"/>
+                                        <Button Content="{DynamicResource ConfigureEffects}" Tag="2" IsEnabled="{Binding IsEnabled, ElementName=EffectsNavButton}" Click="QuickNavigate_Click" HorizontalAlignment="Stretch"/>
+                                        <Button Content="{DynamicResource ConfigureReminders}" Tag="3" IsEnabled="{Binding IsEnabled, ElementName=RemindersNavButton}" Click="QuickNavigate_Click" HorizontalAlignment="Stretch"/>
+                                        <Button Content="{DynamicResource ConfigureEquipment}" Tag="4" IsEnabled="{Binding IsEnabled, ElementName=EquipmentNavButton}" Click="QuickNavigate_Click" HorizontalAlignment="Stretch"/>
                                     </StackPanel>
                                 </GroupBox>
                                 <GroupBox Grid.Column="1" Header="{DynamicResource ConnectionStatus}" Style="{StaticResource DetailGroupBoxStyle}" Margin="0,0,0,12">
@@ -933,7 +953,7 @@
                         <Border Grid.ColumnSpan="3" Margin="0,0,0,8" Padding="14,9" CornerRadius="7" Background="#E5F0FC" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{DynamicResource MvpTimersTitle}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource MvpTimersHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/></StackPanel><Button Grid.Column="1" Content="{DynamicResource AddMvpTimer}" Click="AddMvpTimer_Click" Style="{StaticResource PrimaryButtonStyle}"/></Grid></Border>
                         <Border Grid.Row="1" Style="{StaticResource WorkspacePanelStyle}">
                             <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions><Grid Margin="2,0,2,10"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{DynamicResource MvpTimers}" FontWeight="Bold" FontSize="15"/><TextBlock Foreground="{StaticResource RoMutedBrush}" FontSize="11"><Run Text="{Binding MvpTimers.Count, Mode=OneWay}"/><Run Text=" "/><Run Text="{DynamicResource ConfiguredTimers}"/></TextBlock></StackPanel><Button Grid.Column="1" Content="{DynamicResource Add}" Click="AddMvpTimer_Click" Style="{StaticResource PrimaryButtonStyle}"/></Grid>
-                                <ListBox Grid.Row="1" x:Name="MvpTimersGrid" ItemsSource="{Binding MvpTimers}" BorderThickness="0" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ListBox Grid.Row="1" x:Name="MvpTimersGrid" ItemsSource="{Binding ActiveMvpTimers}" BorderThickness="0" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                     <ListBox.ItemContainerStyle><Style TargetType="ListBoxItem"><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Padding" Value="0"/><Setter Property="Margin" Value="0,0,0,7"/><Setter Property="BorderThickness" Value="0"/></Style></ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate><DataTemplate><Border Padding="10" CornerRadius="8" BorderThickness="1"><Border.Style><Style TargetType="Border"><Setter Property="Background" Value="#F8FBFF"/><Setter Property="BorderBrush" Value="{StaticResource RoSoftBorderBrush}"/><Style.Triggers><DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True"><Setter Property="Background" Value="{StaticResource RoSelectionBrush}"/><Setter Property="BorderBrush" Value="{StaticResource RoBlueBrush}"/></DataTrigger></Style.Triggers></Style></Border.Style>
                                         <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="52"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
@@ -1378,7 +1398,7 @@
                                                 <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="180"/><ColumnDefinition Width="180"/></Grid.ColumnDefinitions>
                                                 <TextBox x:Name="GoldGoblinSearchBox" Margin="0,0,10,0" TextChanged="GoldGoblinFilter_Changed" ToolTip="{DynamicResource ItemNameOrId}"/>
                                                 <ComboBox x:Name="GoldGoblinSourceFilter" Grid.Column="1" Margin="0,0,10,0" SelectionChanged="GoldGoblinFilter_Changed">
-                                                    <ComboBoxItem Content="{DynamicResource AllItems}" Tag="all"/><ComboBoxItem Content="{DynamicResource PriceNpcName}" Tag="npc"/><ComboBoxItem Content="{DynamicResource PriceVendingName}" Tag="vending"/><ComboBoxItem Content="{DynamicResource PriceManualName}" Tag="manual"/><ComboBoxItem Content="{DynamicResource WithoutPrice}" Tag="unknown"/>
+                                                    <ComboBoxItem Content="{DynamicResource AllItems}" Tag="all"/><ComboBoxItem Content="{DynamicResource PriceNpcName}" Tag="npc"/><ComboBoxItem Content="{DynamicResource PriceVendingName}" Tag="vending" IsEnabled="{Binding SupportsMarket}"/><ComboBoxItem Content="{DynamicResource PriceManualName}" Tag="manual"/><ComboBoxItem Content="{DynamicResource WithoutPrice}" Tag="unknown"/>
                                                 </ComboBox>
                                                 <ComboBox x:Name="GoldGoblinSortBox" Grid.Column="2" SelectionChanged="GoldGoblinSort_Changed">
                                                     <ComboBoxItem Content="{DynamicResource SortByName}" Tag="name"/><ComboBoxItem Content="{DynamicResource SortByTotal}" Tag="total"/><ComboBoxItem Content="{DynamicResource SortByCount}" Tag="count"/>
@@ -1457,7 +1477,7 @@
                                                 </Grid>
                                                 <TextBlock Text="{DynamicResource PriceSource}" Style="{StaticResource FieldLabelStyle}"/>
                                                 <ComboBox x:Name="GoldGoblinPriceSourceBox" SelectedValuePath="Tag" SelectionChanged="GoldGoblinPriceSource_Changed">
-                                                    <ComboBoxItem Content="{DynamicResource PriceNpcDescription}" Tag="npc"/><ComboBoxItem Content="{DynamicResource PriceVendingDescription}" Tag="vending"/><ComboBoxItem Content="{DynamicResource PriceManualDescription}" Tag="manual"/>
+                                                    <ComboBoxItem Content="{DynamicResource PriceNpcDescription}" Tag="npc"/><ComboBoxItem Content="{DynamicResource PriceVendingDescription}" Tag="vending" IsEnabled="{Binding SupportsMarket}"/><ComboBoxItem Content="{DynamicResource PriceManualDescription}" Tag="manual"/>
                                                 </ComboBox>
                                                 <Button Content="{DynamicResource DeleteFromSession}" Click="DeleteGoldGoblinLoot_Click" Style="{StaticResource DangerButtonStyle}" Margin="0,12,0,0" HorizontalAlignment="Left"/>
                                                 <TextBlock Text="{DynamicResource GoldGoblinPriceEditHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,9,0,0"/>
@@ -1483,11 +1503,11 @@
                                         <Button Grid.Column="1" Margin="0,0,8,0" Content="{DynamicResource AddItem}" Click="AddGoldGoblinRule_Click" Style="{StaticResource PrimaryButtonStyle}"/>
                                         <Button Grid.Column="2" Content="{DynamicResource Delete}" Click="DeleteGoldGoblinRule_Click" Style="{StaticResource DangerButtonStyle}"/>
                                     </Grid>
-                                    <DataGrid x:Name="GoldGoblinRulesGrid" Grid.Row="2" ItemsSource="{Binding GoldGoblinPriceRules}" AutoGenerateColumns="False" CanUserAddRows="False">
+                                    <DataGrid x:Name="GoldGoblinRulesGrid" Grid.Row="2" ItemsSource="{Binding ActiveGoldGoblinPriceRules}" AutoGenerateColumns="False" CanUserAddRows="False">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="Item ID" Binding="{Binding ItemId}" IsReadOnly="True" Width="100"/>
                                             <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
-                                            <DataGridCheckBoxColumn Header="{DynamicResource VendingPrice}" Binding="{Binding UseVendingPrice, UpdateSourceTrigger=PropertyChanged}" Width="180"/>
+                                            <DataGridTemplateColumn Header="{DynamicResource VendingPrice}" Width="180"><DataGridTemplateColumn.CellTemplate><DataTemplate><CheckBox IsChecked="{Binding UseVendingPrice, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.SupportsMarket, RelativeSource={RelativeSource AncestorType=DataGrid}}" HorizontalAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
                                             <DataGridTextColumn Header="{DynamicResource ManualPrice}" Binding="{Binding ManualPrice, UpdateSourceTrigger=PropertyChanged}" Width="180"/>
                                         </DataGrid.Columns>
                                     </DataGrid>

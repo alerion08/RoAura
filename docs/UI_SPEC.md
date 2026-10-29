@@ -6,7 +6,7 @@ This document records current product-level UI behavior. It is intentionally com
 
 - Desktop application: Windows x64, WPF, .NET 8.
 - Visual direction: Ragnarok-inspired light-blue interface, not a literal copy of the game client.
-- Main navigation stays on the left: Home; Overlays (Cooldowns, Effects, Reminder, Equipment); Services (MVP Timers, Statistics, Gold Goblin, Database). The sidebar scrolls at minimum height.
+- Main navigation stays on the left: Home; Overlays (Cooldowns, Effects, Reminder, Equipment); Services (MVP Timers, Statistics, Gold Goblin, Database). The sidebar scrolls at minimum height. Unavailable destinations remain visible, disabled, gray (icon and title) and at 60% opacity; a tooltip explains server support or the Home packet switch. A disabled page cannot remain selected.
 - Header wordmark has 80% opacity. Windows/About use the supplied crystal icon; Home uses the supplied house. Gold Goblin and Database share other sections’ header-card style, with tabs below the header.
 - Settings are organized as readable cards with consistent spacing.
 - There is no separate permanent preview panel.
@@ -97,7 +97,7 @@ This document records current product-level UI behavior. It is intentionally com
 
 ## MVP Timers
 
-- Timers use the searchable JSON-backed catalog.
+- Timers use the searchable catalog for the selected server; ToC uses its compact SQLite snapshot. ToC intervals are not supplied by the source and must be entered manually. ToC timers are saved separately from legacy server timers.
 - Restart/reset behavior, dedicated hotkey and movable list remain available.
 - Custom user names must not be replaced by database names after refresh.
 - Empty or unselected rows must be handled safely.
@@ -112,7 +112,7 @@ This document records current product-level UI behavior. It is intentionally com
 
 ## Database panels
 
-- RTM and SpringRO data remain separate.
+- RTM, SpringRO and ToC data remain separate. ToC items/monsters/maps are read offline; only images use remote URLs. SpringRO HTTP item details and Market are never substituted for ToC data.
 - Item, monster and Market panels open over the currently selected Ragnarok client.
 - They must not first appear over another application and then jump to the game.
 - First open and first click inside the game must behave the same as later opens.
@@ -161,3 +161,15 @@ For any changed screen, verify:
 - keyboard focus and modifier keys;
 - long names and large numeric values;
 - no content hidden behind scrollbars or collapsed panels.
+
+## Home packet-reading control
+
+A RU/EN warning explains that active Npcap packet reading may violate the selected
+Ragnarok server's rules. The toggle immediately persists the existing packet
+preference, stops/starts workers, cancels learning and invalidates old flow state.
+It does not delete configured overlays, rules, timers, saved history or positions.
+Cooldowns, Effects/Buff Panel, Reminder, Equipment, Statistics and Gold Goblin
+become unavailable while off. Database and manual MVP timers do not require packet
+reading and remain available where the server supports them. SpringRO HTTP Market
+is also independent. Re-enabling restores navigation; verified character statistics
+need a fresh observed login rather than reusing the previous CID.

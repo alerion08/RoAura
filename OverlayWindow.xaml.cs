@@ -661,7 +661,7 @@ public partial class OverlayWindow : Window
         var xpPerHour = _baseExperienceStartedUtc.HasValue
             ? _sessionBaseExperience / Math.Max((now - _baseExperienceStartedUtc.Value).TotalHours, 1d / 3600d)
             : 0;
-        var includeLootValue = _settings.ServerProfile == GameServerProfile.SpringRo && _settings.IncludeGoldGoblinInZenyPerHour;
+        var includeLootValue = GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile) && _settings.IncludeGoldGoblinInZenyPerHour;
         var effectiveZeny = _sessionZeny + (includeLootValue ? _goldGoblin.SessionTotal : 0);
         var zenyStarted = new[] { _zenyStartedUtc, includeLootValue ? _goldGoblin.SessionStartedUtc : null }
             .Where(value => value.HasValue).Select(value => value!.Value).DefaultIfEmpty().Min();
@@ -702,7 +702,7 @@ public partial class OverlayWindow : Window
                 _baseExperienceStartedUtc,
                 _jobExperienceStartedUtc,
                 _zenyStartedUtc,
-                _settings.ServerProfile == GameServerProfile.SpringRo
+                GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile)
                     ? _goldGoblin.SessionStartedUtc
                     : null
             }
@@ -712,7 +712,7 @@ public partial class OverlayWindow : Window
             .Min();
         var hasSession = _baseExperienceStartedUtc.HasValue || _jobExperienceStartedUtc.HasValue ||
                          _zenyStartedUtc.HasValue ||
-                         (_settings.ServerProfile == GameServerProfile.SpringRo &&
+                         (GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile) &&
                           _goldGoblin.SessionStartedUtc.HasValue);
         var sessionTime = hasSession ? FormatElapsed(now - sessionStarted) : "00:00:00";
 
@@ -758,7 +758,7 @@ public partial class OverlayWindow : Window
         var jobRate = record?.JobExperiencePerHour ?? 0;
         var activeHours = record?.SessionActiveHours ?? 0;
         var zenyTotal = (record?.SessionZenyGained ?? 0) +
-            (record is not null && _settings.ServerProfile == GameServerProfile.SpringRo &&
+            (record is not null && GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile) &&
              _settings.IncludeGoldGoblinInZenyPerHour ? _goldGoblin.SessionTotal : 0);
         var zenyRate = activeHours > 0 ? zenyTotal / activeHours : 0;
         var timeToLevel = CharacterEta(record?.CurrentBaseExperience ?? 0,
@@ -802,7 +802,7 @@ public partial class OverlayWindow : Window
                 _baseExperienceStartedUtc,
                 _jobExperienceStartedUtc,
                 _zenyStartedUtc,
-                _settings.ServerProfile == GameServerProfile.SpringRo
+                GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile)
                     ? _goldGoblin.SessionStartedUtc
                     : null
             }
@@ -824,7 +824,7 @@ public partial class OverlayWindow : Window
     private string FormatRewardText(RewardNotification notification) => notification.Kind switch
     {
         RewardKind.Loot => $"{notification.ItemName} x{notification.Amount:N0}" +
-            (_settings.ServerProfile == GameServerProfile.SpringRo && _settings.ShowLootZenyPrice
+            (GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile) && _settings.ShowLootZenyPrice
                 ? $" ({_goldGoblin.LootValue(notification.ItemId, notification.ItemName, notification.Amount):N0} Z)"
                 : ""),
         RewardKind.Zeny => $"Zeny +{notification.Amount:N0}",
@@ -1014,7 +1014,7 @@ public partial class OverlayWindow : Window
         foreach (var notification in staleNotifications) _settings.ActiveNotifications.Remove(notification);
         if (staleNotifications.Count > 0) ReflowNotifications();
 
-        foreach (var timer in _settings.MvpTimers.Where(timer => timer.EndsAtUtc.HasValue))
+        foreach (var timer in _settings.ActiveMvpTimers.Where(timer => timer.EndsAtUtc.HasValue))
         {
             var remaining = (timer.EndsAtUtc!.Value - now).TotalSeconds;
             timer.RemainingSeconds = Math.Max(0, remaining);
@@ -1045,7 +1045,7 @@ public partial class OverlayWindow : Window
 
     private void UpdateTimerPanelVisibility()
     {
-        var hasRunningTimers = _settings.MvpTimers.Any(timer => timer.IsVisible);
+        var hasRunningTimers = _settings.ActiveMvpTimers.Any(timer => timer.IsVisible);
         MvpTimerPanel.Visibility = _settings.TimersOverlayVisible &&
                                    GameServerProfile.SupportsServerDatabases(_settings.ServerProfile) &&
                                    (_timerPanelEditMode || hasRunningTimers)

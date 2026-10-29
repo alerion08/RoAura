@@ -1,8 +1,11 @@
 # Tides of Comodo (ToC): offline catalog
 
 Scope: data preparation for Database, MVP Timers, Statistics and Gold Goblin.
-No ToC packet support, server selector, UI activation or market-price integration
-is implied by this catalog. Existing settings, presets and server behavior are unchanged.
+The catalog-only preparation did not activate UI or capture. The subsequent
+`feature/toc-server-integration` branch connects this snapshot to the ToC selector,
+Database, manual MVP timers, character statistics and Gold Goblin NPC/manual
+valuation. ToC gameplay/packet acceptance remains pending; no ToC market
+integration or custom protocol decoder is claimed.
 
 ## Snapshot: 2026-10-29
 
@@ -101,5 +104,5 @@ cannot rule out source edits while downloading.
 - MVP status comes from the official filter and explicit flag, not `class=Boss`.
 - Spawn amount is not a respawn duration. Missing delay/randomness must remain
   unknown; do not derive timers from unrelated skill delay fields or another server.
-- This is an offline catalog foundation. Connecting it to the WPF services and
-  validating ToC packets, character identity, loot valuation and timers are later work.
+- WPF integration is recorded in `PROJECT_STATE.md`; real ToC packets, identity,
+  loot valuation, toggle/relog behavior and timer layout still need manual testing.

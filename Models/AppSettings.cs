@@ -51,8 +51,20 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string ServerProfile
     {
         get => _serverProfile;
-        set => Set(ref _serverProfile, GameServerProfile.Normalize(value));
+        set
+        {
+            var normalized = GameServerProfile.Normalize(value);
+            if (_serverProfile != normalized)
+            {
+                Set(ref _serverProfile, normalized);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarket)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveMvpTimers)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveGoldGoblinPriceRules)));
+            }
+        }
     }
+
+    [JsonIgnore] public bool SupportsMarket => GameServerProfile.SupportsMarket(ServerProfile);
 
     public bool Enabled { get; set; } = true;
     public bool OnlyWhenGameIsActive { get; set; } = true;
@@ -114,7 +126,7 @@ public sealed class AppSettings : INotifyPropertyChanged
 
     [JsonIgnore]
     public IReadOnlyList<string> GameDatabaseVersions { get; } =
-        [GameDatabaseVersion.Rtm, GameDatabaseVersion.SpringRo];
+        [GameDatabaseVersion.Rtm, GameDatabaseVersion.SpringRo, GameDatabaseVersion.Toc];
 
     [JsonIgnore]
     public string PacketCaptureStateText { get => _packetCaptureStateText; set => Set(ref _packetCaptureStateText, value); }
@@ -160,6 +172,10 @@ public sealed class AppSettings : INotifyPropertyChanged
 
     public ObservableCollection<ReminderItem> Reminders { get; set; } = [];
     public ObservableCollection<EquipmentTracker> Equipment { get; set; } = [];
+    public ObservableCollection<MvpTimer> TocMvpTimers { get; set; } = [];
+    [JsonIgnore] public ObservableCollection<MvpTimer> ActiveMvpTimers => ServerProfile == GameServerProfile.Toc ? TocMvpTimers : MvpTimers;
+    public ObservableCollection<GoldGoblinPriceRule> TocGoldGoblinPriceRules { get; set; } = [];
+    [JsonIgnore] public ObservableCollection<GoldGoblinPriceRule> ActiveGoldGoblinPriceRules => ServerProfile == GameServerProfile.Toc ? TocGoldGoblinPriceRules : GoldGoblinPriceRules;
     public ObservableCollection<MvpTimer> MvpTimers { get; set; } = [];
     public ObservableCollection<BuffPanelGroup> BuffPanelGroups { get; set; } = [];
     public ObservableCollection<RewardChannelSettings> RewardChannels { get; set; } =

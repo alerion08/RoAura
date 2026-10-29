@@ -1,5 +1,49 @@
 # Project state
 
+## ToC integration and packet feature control (2026-10-29)
+
+Active branch: `feature/toc-server-integration`, based on the completed ToC
+catalog branch (`9783f9d`). Stable `main` remains 3.1.1; no version/tag/release change.
+The prior catalog-only block below is historical; its Windows CI passed 218 app
+tests, six Python tests and portable verification.
+
+Implemented in this block:
+
+- Explicit ToC profile, SQLite-backed database/items/MVPs, offline item descriptions,
+  scripts, restrictions, monster skills/rules, normal/MVP drops and linked maps.
+  The read-only adapter uses System32 `winsqlite3.dll`, already supplied by supported
+  Windows, without a new installed dependency or a duplicate JSON catalog.
+- ToC NPC prices and manual valuation in Gold Goblin; no SpringRO vending prices,
+  item HTTP requests or market/watch UI for ToC. Unknown respawns stay unknown;
+  ToC MVP timer intervals are entered manually.
+- Separate persisted ToC timer and price-rule collections. Legacy collections and
+  layout settings are retained. Settings schema is 12 so older releases preserve a
+  newer-version recovery copy. Packet preference remains the existing persisted
+  `PacketCaptureEnabled` field and participates in presets.
+- Persistent navigation entries: unavailable features are disabled, gray (including
+  icon pixels, preserving alpha) and slightly transparent. Selecting a server or
+  switching packets off returns from an unavailable page to Home.
+- RU/EN Home warning and packet toggle. Off stops Npcap, disposes the SpringRO
+  client reader, invalidates queued events and learning, and hides packet overlays.
+  Offline Database, manual MVP timers and SpringRO HTTP Market remain independent.
+- ToC character statistics reuse the existing verified packet/CID ledger with a
+  distinct server key; the history selector follows the selected server. Server
+  switches invalidate the previous capture even when address/port are unchanged.
+
+Local validation: app and full test project cross-compile with .NET 8;
+actual C# ToC adapter/catalogs and feature matrix pass seven headless checks
+(using system SQLite on Linux in place of Windows SQLite only). Six Python
+import tests, snapshot/hash checks, XAML XML and RU/EN key parity pass. Added
+Windows regressions cover the actual snapshot, NPC prices/overcharge, rule/timer
+isolation, disk/preset persistence, grayscale alpha and packet-off workers.
+The branch's Windows Actions run is the authority for full tests, native Windows
+SQLite and portable startup, including live navigation/toggle smoke assertions.
+
+Manual acceptance is still required: ToC executable/process selection, real
+Npcap/login/CID/EXP/loot/status events, relog/reconnect, switch-server history,
+packet off/on during play, RU/EN layout and DPI. No ToC-specific wire decoder is
+claimed; the existing standard parser is used. Do not call this release-ready.
+
 ## ToC catalog preparation (2026-10-29)
 
 GitHub was checked directly: stable `main` is `4f75b78` (3.1.1), published
@@ -125,7 +169,7 @@ Current published release: **3.1.1** (verified on GitHub 2026-10-29)
 
 Stable branch: `main` (unchanged by this work)
 
-Active data-preparation branch: `feature/toc-local-database`
+Active integration branch: `feature/toc-server-integration`
 
 Previous SpringRO investigation branch: `feature/character-statistics`
 

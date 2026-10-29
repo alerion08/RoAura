@@ -56,6 +56,7 @@ public partial class App : Application
     private readonly HashSet<MarketWatchRule> _observedWatchRules = [];
     private AppSettings? _marketWatchSettings;
     private GameDatabaseService? _watchDatabase;
+    private GameDatabaseService? _activeDatabase;
     public AppSettings? MarketWatchSettings => _marketWatchSettings;
     internal GameDatabaseService? MarketWatchDatabase => _watchDatabase;
 
@@ -72,7 +73,7 @@ public partial class App : Application
             MarketListing l => _watchDatabase?.Item(l.ItemId) ?? new DatabaseItem { Id = l.ItemId, Name = l.ItemName },
             _ => null
         };
-        if (item is null || _marketWatchSettings is null) return;
+        if (item is null || _marketWatchSettings is null || !GameServerProfile.SupportsMarket(_marketWatchSettings.ServerProfile)) return;
         var existing = _marketWatchSettings.MarketWatchRules.FirstOrDefault(r => r.ItemId == item.Id);
         if (existing is not null && !existing.Enabled) { existing.Enabled = true; return; }
         if (existing is not null)
@@ -288,6 +289,7 @@ public partial class App : Application
 
         if (!resetTrackedState || _settingsWindow is null) return;
         _statusTracking.Reset();
+        _overlay?.ResetPacketCooldowns();
         _trackingSource = null;
         Interlocked.Exchange(ref _statusDiagnosticCount, 0);
         Interlocked.Exchange(ref _statusRejectedDiagnosticCount, 0);
@@ -400,8 +402,8 @@ public partial class App : Application
         _marketService = new SpringRoMarketService();
         _marketService.SnapshotUpdated += snapshot => Dispatcher.BeginInvoke(() =>
         {
-            var matches = _marketWatch.Evaluate(settings.MarketWatchRules, snapshot, settings.MarketWatchHistoryRetentionDays);
             if (settings.ServerProfile != GameServerProfile.SpringRo) return;
+            var matches = _marketWatch.Evaluate(settings.MarketWatchRules, snapshot, settings.MarketWatchHistoryRetentionDays);
             foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
         });
         _goldGoblin = new GoldGoblinService(settings, _marketService);
@@ -424,7 +426,8 @@ public partial class App : Application
                 _characterLedger?.Flush(DateTime.UtcNow));
             _characterFlushTimer.Start();
         }
-        _databaseOverlay = new DatabaseOverlayWindow(settings, _watchDatabase, _marketService);
+        _activeDatabase = new GameDatabaseService(settings.ServerProfile == GameServerProfile.Toc ? GameDatabaseVersion.Toc : GameDatabaseVersion.SpringRo);
+        _databaseOverlay = new DatabaseOverlayWindow(settings, _activeDatabase, _marketService);
         _databaseOverlay.HideRequested += HideDatabase;
         _settingsWindow = new MainWindow(settings, _settingsStore, _overlay, _packetCapture, _goldGoblin);
         if (AppEnvironment.IsDevelopment) _settingsWindow.Title = "RoAura DEV — Character Statistics";
@@ -469,6 +472,7 @@ public partial class App : Application
             settings.Language = "ru";
             LocalizationService.ApplyLanguage("ru");
             _databaseOverlay.RefreshLanguage();
+            _settingsWindow.ValidateServerNavigationSmoke();
             DebugLog.Write("SMOKE TEST: startup completed successfully");
             Dispatcher.BeginInvoke(async () =>
             {
@@ -578,6 +582,12 @@ public partial class App : Application
     public void ReloadItemCatalog(string gameVersion)
     {
         _itemCatalog = ItemCatalogService.Load(gameVersion);
+        if (_activeDatabase is not null && GameServerProfile.SupportsDatabaseOverlay(gameVersion) && _activeDatabase.Version != gameVersion)
+        {
+            CloseDatabaseOverlay();
+            _activeDatabase.Reload(gameVersion);
+            _databaseOverlay?.RefreshServer();
+        }
         DebugLog.Write($"ITEM CATALOG switched to {GameDatabaseVersion.Normalize(gameVersion)}; entries={_itemCatalog.Count}");
     }
 
@@ -609,6 +619,8 @@ public partial class App : Application
 
     private bool TryUseCharacterSession(CharacterSessionSnapshot session)
     {
+        if (_settingsWindow is not null && (!_settingsWindow.Settings.PacketCaptureEnabled ||
+            !string.Equals(_settingsWindow.Settings.ServerProfile, session.ServerKey, StringComparison.OrdinalIgnoreCase))) return false;
         if (!AppEnvironment.CharacterSessionsEnabled || _characterStatisticsFaulted ||
             _packetCapture is null || _characterLedger is null ||
             !_packetCapture.IsCurrentCharacterSession(session) || session.CharacterId is not > 0)
@@ -659,6 +671,7 @@ public partial class App : Application
             _packetCapture is null)
             return null;
         var current = _packetCapture.CharacterSession;
+        if (_settingsWindow is not null && !string.Equals(_settingsWindow.Settings.ServerProfile, key.ServerKey, StringComparison.OrdinalIgnoreCase)) return null;
         if (current.Phase != CharacterSessionPhase.ActiveObserved ||
             current.CharacterId != key.CharacterId ||
             !string.Equals(current.ServerKey, key.ServerKey, StringComparison.OrdinalIgnoreCase))
@@ -673,6 +686,7 @@ public partial class App : Application
             _characterLedger?.Active is not { } key || _goldGoblin is null ||
             _packetCapture is null) return;
         var session = _packetCapture.CharacterSession;
+        if (_settingsWindow is not null && !string.Equals(_settingsWindow.Settings.ServerProfile, key.ServerKey, StringComparison.OrdinalIgnoreCase)) return;
         if (session.Phase != CharacterSessionPhase.ActiveObserved ||
             session.CharacterId != key.CharacterId ||
             !string.Equals(session.ServerKey, key.ServerKey, StringComparison.OrdinalIgnoreCase))
@@ -777,7 +791,7 @@ public partial class App : Application
 
     private bool UseTrackingSource<T>(RoPacketObservation<T> observation)
     {
-        if (_packetCapture?.IsCurrentObservation(observation) != true) return false;
+        if (_settingsWindow?.Settings.PacketCaptureEnabled != true || _packetCapture?.IsCurrentObservation(observation) != true) return false;
         if (!ReferenceEquals(_trackingSource, observation.Source))
         {
             _statusTracking.Reset();
@@ -791,6 +805,7 @@ public partial class App : Application
     {
         if (_settingsWindow is null || _overlay is null) return;
         var settings = _settingsWindow.Settings;
+        if (!settings.PacketCaptureEnabled) return;
         foreach (var transition in _statusTracking.Synchronize(settings.Effects,
                      settings.Reminders, now, settings.Language, settings.Enabled))
         {
@@ -828,6 +843,7 @@ public partial class App : Application
 
     private void HandlePacketStatusChanged(RoPacketObservation<RoStatusPacket> observation)
     {
+        if (_settingsWindow?.Settings.PacketCaptureEnabled != true) return;
         if (_settingsWindow is null || _overlay is null ||
             _packetCapture?.IsCurrentObservation(observation) != true) return;
         var packet = observation.Packet;
@@ -897,7 +913,7 @@ public partial class App : Application
     private void HandleItemAdded(RoItemAddedPacket packet, CharacterSessionSnapshot? session)
     {
         if (session is { } captured && !TryUseCharacterSession(captured)) return;
-        if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled) return;
+        if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled || !_settingsWindow.Settings.PacketCaptureEnabled) return;
         var item = _itemCatalog.GetValueOrDefault(packet.ItemId) ?? new ItemEntry
         {
             Id = packet.ItemId,
@@ -908,7 +924,7 @@ public partial class App : Application
             SafeCharacterStatisticsAction(() => _characterLedger?.AddLoot(packet.ItemId, item.FullName,
                 packet.Count, DateTime.UtcNow));
         _overlay.ShowLootReward(packet.ItemId, item.Name, item.Type, packet.Count);
-        if (_settingsWindow.Settings.ServerProfile == GameServerProfile.SpringRo)
+        if (GameServerProfile.SupportsGoldGoblin(_settingsWindow.Settings.ServerProfile))
             _goldGoblin?.AddLoot(packet.ItemId, item.FullName, packet.Count);
         DebugLog.Write($"PACKET LOOT item={packet.ItemId}; name={item.Name}; type={item.Type}; count={packet.Count}");
         if (session.HasValue) _overlay.RefreshCharacterStatistics();
@@ -919,6 +935,7 @@ public partial class App : Application
 
     private void HandleProgressChanged(RoProgressPacket packet, CharacterSessionSnapshot? session)
     {
+        if (_settingsWindow?.Settings.PacketCaptureEnabled != true) return;
         if (session is { } captured && !TryUseCharacterSession(captured)) return;
         if (packet.Parameter == 22)
         {
@@ -974,7 +991,7 @@ public partial class App : Application
     private void HandleExperienceChanged(RoExperiencePacket packet, CharacterSessionSnapshot? session)
     {
         if (session is { } captured && !TryUseCharacterSession(captured)) return;
-        if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled || packet.Amount <= 0)
+        if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled || !_settingsWindow.Settings.PacketCaptureEnabled || packet.Amount <= 0)
             return;
         var settings = _settingsWindow.Settings;
         if (!session.HasValue && settings.PacketPlayerAid != 0 &&
@@ -1026,7 +1043,7 @@ public partial class App : Application
     private void HandleZenyChanged(RoZenyPacket packet, CharacterSessionSnapshot? session)
     {
         if (session is { } captured && !TryUseCharacterSession(captured)) return;
-        if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled) return;
+        if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled || !_settingsWindow.Settings.PacketCaptureEnabled) return;
         long gained;
         if (session.HasValue)
             gained = SafeCharacterStatisticsValue(() =>
@@ -1050,6 +1067,7 @@ public partial class App : Application
 
     private void HandlePacketEquipment(RoEquipmentPacket packet)
     {
+        if (_settingsWindow?.Settings.PacketCaptureEnabled != true) return;
         if (_settingsWindow is null || !_settingsWindow.Settings.Enabled || !packet.Success) return;
 
         // Equip acknowledgements do not contain Item ID. If the inventory cache
@@ -1143,7 +1161,7 @@ public partial class App : Application
 
     private void HandlePacketSkill(ushort skillId, uint delayMs, string packetName)
     {
-        if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled) return;
+        if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled || !_settingsWindow.Settings.PacketCaptureEnabled) return;
         foreach (var skill in _settingsWindow.Settings.Skills.Where(skill =>
                      skill.Enabled && skill.PacketSkillId > 0 && skill.PacketSkillId == skillId))
         {

@@ -17,6 +17,7 @@
         <converters:DoubleToThicknessConverter x:Key="IconPadding" />
     </Window.Resources>
     <Grid x:Name="OverlaySurface" Background="Transparent">
+      <Grid x:Name="PacketOverlaySurface" Visibility="{Binding PacketCaptureEnabled, Converter={StaticResource BoolToVisibility}}">
         <ItemsControl ItemsSource="{Binding Skills}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
@@ -479,6 +480,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
+        </Grid>
         <Canvas IsHitTestVisible="True">
             <Border x:Name="MvpTimerPanel" Canvas.Left="{Binding TimersX}" Canvas.Top="{Binding TimersY}"
                     Padding="10" CornerRadius="6" Background="#B011141B" BorderBrush="#B8C5CBD4" BorderThickness="1"
@@ -486,7 +488,7 @@
                     MouseLeftButtonDown="MvpTimerPanel_MouseLeftButtonDown" MouseMove="MvpTimerPanel_MouseMove" MouseLeftButtonUp="MvpTimerPanel_MouseLeftButtonUp">
                 <StackPanel>
                 <TextBlock x:Name="TimerPanelPreview" Text="MVP TIMERS" FontWeight="Bold" Foreground="#FFFFD45C" Visibility="Collapsed" Margin="0,0,0,5"/>
-                <ItemsControl ItemsSource="{Binding MvpTimers}">
+                <ItemsControl ItemsSource="{Binding ActiveMvpTimers}">
                     <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>

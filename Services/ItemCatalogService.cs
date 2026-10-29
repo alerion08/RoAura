@@ -18,6 +18,18 @@ public static class ItemCatalogService
     public static IReadOnlyDictionary<int, ItemEntry> Load(string? gameVersion = null)
     {
         var version = GameDatabaseVersion.Normalize(gameVersion);
+        if (version == GameDatabaseVersion.Toc)
+        {
+            try
+            {
+                return TocDatabaseService.Database.Items.ToDictionary(i => i.Id, i => new ItemEntry { Id = i.Id, Name = i.Name, Type = i.Type });
+            }
+            catch (Exception ex)
+            {
+                DebugLog.Write($"TOC CATALOG ERROR: {ex}");
+                return new Dictionary<int, ItemEntry>();
+            }
+        }
         var fileName = version == GameDatabaseVersion.SpringRo ? "items.springro.json" : "items.rtm.json";
         var candidates = new List<string>
         {

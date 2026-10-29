@@ -41,6 +41,8 @@ public partial class DatabaseDetailWindow : Window
         Top = game.Top + ((game.Bottom - game.Top) - height) / 2;
     }
 
+    public void ResetServer() { _detailVersion++; Clear(); }
+
     public void Clear() => DetailsPanel.Children.Clear();
 
     public async void ShowDetails(object value)
@@ -50,6 +52,11 @@ public partial class DatabaseDetailWindow : Window
         switch (value)
         {
             case DatabaseMonster monster: ShowMonster(monster); break;
+            case DatabaseItem item when _database.Version == GameDatabaseVersion.Toc:
+                ShowItem(item, new SpringRoItemDetails { ImageUrl = item.ImageUrl, Description = item.Description,
+                    NpcSellValue = item.NpcSellPrice.ToString("N0") }, false);
+                foreach (var field in item.Stats) AddLine(field.Key, field.Value);
+                break;
             case DatabaseItem item:
                 ShowItem(item, null, true);
                 try
@@ -103,11 +110,14 @@ public partial class DatabaseDetailWindow : Window
         {
             AddSection(T($"Навыки ({monster.Skills.Count})", $"Skills ({monster.Skills.Count})"));
             foreach (var skill in monster.Skills)
+            {
                 AddLine(skill.Name, $"{(skill.Level.Length > 0 ? "Lv " + skill.Level : "—")}{(skill.Type.Length > 0 ? " · " + skill.Type : "")}");
+                if (skill.Description.Length > 0) DetailsPanel.Children.Add(Meta(skill.Description));
+            }
         }
         AddSection(T($"Дроп ({monster.Drops.Count})", $"Drops ({monster.Drops.Count})"));
         foreach (var drop in monster.Drops.OrderByDescending(x => ParseRate(x.Rate)))
-            AddLink($"{drop.Name} — {drop.Rate}{(drop.IsMvp ? " MVP" : "")}", () => OpenItem(drop.ItemId));
+            AddLink($"{drop.Name} — {drop.Rate}{(drop.IsMvp ? " MVP" : "")}{(_database.Version == GameDatabaseVersion.Toc && drop.IsMvp ? T(" · базовый шанс", " · base rate") : "")}", () => OpenItem(drop.ItemId));
         AddSection(T($"Локации ({monster.Spawns.Count})", $"Maps ({monster.Spawns.Count})"));
         foreach (var spawn in monster.Spawns.OrderByDescending(x => ParseCount(x.Count)))
             AddLink($"{spawn.Name}\n{spawn.Count} · {spawn.Respawn}", () => OpenMap(spawn.Code));
@@ -141,7 +151,8 @@ public partial class DatabaseDetailWindow : Window
         else if (detail is not null)
         {
             AddLine(T("Цена продажи NPC", "NPC sell value"), detail.NpcSellValue.Length > 0 ? detail.NpcSellValue : "—");
-            AddLine(T("Количество на сервере", "Copies on server"), detail.ServerCopies.Length > 0 ? detail.ServerCopies : "—");
+            if (_database.Version != GameDatabaseVersion.Toc)
+                AddLine(T("Количество на сервере", "Copies on server"), detail.ServerCopies.Length > 0 ? detail.ServerCopies : "—");
             if (!string.IsNullOrWhiteSpace(detail.Description))
             {
                 AddSection(T("Описание и эффекты", "Description & effects"));
@@ -151,9 +162,9 @@ public partial class DatabaseDetailWindow : Window
         }
         else DetailsPanel.Children.Add(Meta(T("Актуальные данные временно недоступны.", "Current data is temporarily unavailable.")));
         AddSection(T($"Источники ({item.DroppedBy.Count})", $"Sources ({item.DroppedBy.Count})"));
-        if (item.DroppedBy.Count == 0) DetailsPanel.Children.Add(Meta(T("Нет в дроп-листах монстров SpringRO.", "Not found in SpringRO monster drop lists.")));
+        if (item.DroppedBy.Count == 0) DetailsPanel.Children.Add(Meta(T($"Нет в дроп-листах монстров {_database.Version}.", $"Not found in {_database.Version} monster drop lists.")));
         foreach (var source in item.DroppedBy.OrderByDescending(x => ParseRate(x.Rate)))
-            AddLink($"{source.Name} — {source.Rate}{(source.IsMvp ? " MVP" : "")}", () => OpenMonster(source.MonsterId));
+            AddLink($"{source.Name} — {source.Rate}{(source.IsMvp ? " MVP" : "")}{(_database.Version == GameDatabaseVersion.Toc && source.IsMvp ? T(" · базовый шанс", " · base rate") : "")}", () => OpenMonster(source.MonsterId));
     }
 
     private void ShowMap(DatabaseMap map)

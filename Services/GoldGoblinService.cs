@@ -11,7 +11,7 @@ public sealed class GoldGoblinService
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
     private readonly AppSettings _settings;
     private readonly SpringRoMarketService _market;
-    private readonly Dictionary<int, SpringRoItemPrice> _prices;
+    private Dictionary<int, SpringRoItemPrice> _prices;
     // Rows is bound to the UI; market updates arrive on thread-pool threads and must
     // be marshalled before touching it.
     private readonly Dispatcher? _dispatcher;
@@ -26,19 +26,25 @@ public sealed class GoldGoblinService
         _settings = settings;
         _market = market;
         _dispatcher = System.Windows.Application.Current?.Dispatcher ?? Dispatcher.FromThread(Thread.CurrentThread);
-        _prices = LoadPrices();
-        foreach (var rule in settings.GoldGoblinPriceRules) Watch(rule);
-        settings.GoldGoblinPriceRules.CollectionChanged += (_, args) =>
+        _prices = LoadPrices(settings.ServerProfile);
+        foreach (var rules in new[] { settings.GoldGoblinPriceRules, settings.TocGoldGoblinPriceRules })
         {
-            if (args.OldItems is not null)
-                foreach (GoldGoblinPriceRule rule in args.OldItems) rule.PropertyChanged -= Rule_PropertyChanged;
-            if (args.NewItems is not null)
-                foreach (GoldGoblinPriceRule rule in args.NewItems) Watch(rule);
-            Reprice();
-        };
+            foreach (var rule in rules) Watch(rule);
+            rules.CollectionChanged += (_, args) =>
+            {
+                if (args.OldItems is not null) foreach (GoldGoblinPriceRule rule in args.OldItems) rule.PropertyChanged -= Rule_PropertyChanged;
+                if (args.NewItems is not null) foreach (GoldGoblinPriceRule rule in args.NewItems) Watch(rule);
+                Reprice();
+            };
+        }
         settings.PropertyChanged += (_, args) =>
         {
             if (args.PropertyName == nameof(AppSettings.GoldGoblinOverchargeLevel)) Reprice();
+            if (args.PropertyName == nameof(AppSettings.ServerProfile))
+            {
+                _prices = LoadPrices(settings.ServerProfile);
+                Reset();
+            }
         };
         market.DataUpdated += Market_DataUpdated;
     }
@@ -66,13 +72,13 @@ public sealed class GoldGoblinService
     public (long Value, string Source, bool Known) ResolvePriceInfo(int itemId, string name)
     {
         // A rule bound to an item ID matches that ID only; a rule without an ID matches by name.
-        var rule = _settings.GoldGoblinPriceRules.FirstOrDefault(item =>
+        var rule = _settings.ActiveGoldGoblinPriceRules.FirstOrDefault(item =>
             item.ItemId > 0
                 ? item.ItemId == itemId
                 : string.Equals(item.Name, name, StringComparison.CurrentCultureIgnoreCase));
         if (rule is not null)
         {
-            if (rule.UseVendingPrice && _market.TryGetMinimumSellPrice(itemId, name, out var vending))
+            if (GameServerProfile.SupportsMarket(_settings.ServerProfile) && rule.UseVendingPrice && _market.TryGetMinimumSellPrice(itemId, name, out var vending))
                 return (vending, "Vending", true);
             if (rule.ManualPrice > 0) return (rule.ManualPrice, "Manual", true);
         }
@@ -174,10 +180,12 @@ public sealed class GoldGoblinService
         row.PropertyChanged += (_, _) => { if (!_restoringCharacterRows) Changed?.Invoke(); };
     private void Rule_PropertyChanged(object? sender, PropertyChangedEventArgs e) => Reprice();
 
-    private static Dictionary<int, SpringRoItemPrice> LoadPrices()
+    private static Dictionary<int, SpringRoItemPrice> LoadPrices(string profile)
     {
         try
         {
+            if (GameServerProfile.Normalize(profile) == GameServerProfile.Toc)
+                return TocDatabaseService.Database.Items.ToDictionary(i => i.Id, i => new SpringRoItemPrice { Id = i.Id, NpcSellPrice = i.NpcSellPrice });
             var path = Path.Combine(AppContext.BaseDirectory, "Data", "item-prices.springro.json");
             var data = JsonSerializer.Deserialize<SpringRoItemPriceDatabase>(File.ReadAllText(path), JsonOptions);
             if (data is null) return [];
