@@ -538,3 +538,22 @@ The comparison tool now reports both exact wire matches and timestamp-only
 layout matches, clearly distinguished. No further repeated cast of these
 two skills is needed. Engineering work should address generic access to the
 decoded receive path and its lifetime, not infer a per-skill status mapping.
+
+### Experimental DEV status bridge
+
+`--springro-client-status` enables read-only, bounded observation after each
+SpringRO status packet. It requires one SpringRO.exe with the exact analyzed
+SHA-256, opens `PROCESS_VM_READ | PROCESS_QUERY_LIMITED_INFORMATION`, polls
+for at most 15 ms and compares a stable double-read to the wire packet's
+opcode and bytes +6 onward. Only the independently verified own AID can
+produce a status event. The existing `StatusChanged` pipeline then drives
+learning, effects and reminders. The raw transformed `0x0983`/`0x0196`
+events are suppressed in this opt-in mode; unrelated packet paths remain.
+No client process is modified. Multiple simultaneous clients are declined.
+
+This candidate must be run on Windows with the actual game to measure hit
+rate, timing and CPU, including removal and reconnect. A 15 ms timeout is
+an empirical starting bound, not proof that every status frame can be read.
+Run the DEV build with `--springro-client-status` and inspect `SPRINGRO CLIENT
+STATUS matched` lines in the private DEV debug log. Synthetic tests cannot
+establish gameplay correctness.

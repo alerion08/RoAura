@@ -42,6 +42,17 @@ own actor; the corresponding wire layout events precede them by 2.425–5.255
 ms but the wire sampler did not record their raw bytes because it is limited
 to skill 138. Generic decoded event delivery remains the implementation task.
 
+Experimental implementation: SpringRO DEV accepts `--springro-client-status`.
+For one running client matching the analyzed EXE hash, an inbound `0x0983` or
+`0x0196` triggers up to 15 ms of read-only client-buffer observation. Only a
+double-read stable frame with the same opcode, all unchanged wire bytes from
+offset +6 onward and verified own actor reaches the existing status pipeline;
+unmatched events are dropped for these two opcodes. Other servers and regular
+builds retain their prior path, and correlated Hiding is unchanged. The
+matching code passes focused headless tests; actual Windows gameplay, first
+event latency, CPU impact and reconnect remain unverified. This is a DEV test
+build candidate, not a general decoder or completed fix.
+
 ## Current product
 
 RoAura is a Windows x64 WPF overlay for Ragnarok Online. It reads incoming game packets through Npcap and provides configurable overlays and supporting tools.

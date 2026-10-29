@@ -84,6 +84,7 @@ public sealed class NpcapPacketCapture : IDisposable
     private readonly PacketLayoutDiagnostics _layoutDiagnostics = new();
     private volatile bool _springRoStatusCorrelationEnabled;
     private readonly SpringRoStatusWireCapture _statusWireCapture = new();
+    private SpringRoClientStatusBridge? _clientStatusBridge;
     private static bool WireSamplesRequested => AppEnvironment.IsDevelopment &&
         Environment.GetCommandLineArgs().Contains(SpringRoStatusWireCapture.Argument, StringComparer.Ordinal);
 
@@ -141,8 +142,17 @@ public sealed class NpcapPacketCapture : IDisposable
             _activeDevices = 0;
             _rejectedOptionDiagnosticCount = 0;
             _statusWireCapture.Reset();
+            _clientStatusBridge?.Dispose();
+            _clientStatusBridge = null;
             _springRoStatusCorrelationEnabled = AppEnvironment.IsDevelopment &&
                 GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
+            if (_springRoStatusCorrelationEnabled &&
+                Environment.GetCommandLineArgs().Contains(SpringRoClientStatusBridge.Argument, StringComparer.Ordinal))
+            {
+                _clientStatusBridge = new SpringRoClientStatusBridge();
+                var bridge = _clientStatusBridge;
+                _ = Task.Run(bridge.Prepare);
+            }
             if (AppEnvironment.IsDevelopment) _layoutDiagnostics.Begin(DateTime.UtcNow);
             // Replace rather than clear: workers from the cancelled generation
             // may finish parsing one last frame and must not repopulate the new
@@ -575,7 +585,9 @@ public sealed class NpcapPacketCapture : IDisposable
         CharacterSessionFlow packetFlow)
     {
         var scanner = new RoPacketStreamScanner(equipmentCache);
-        scanner.CaptureStatusWireBytes = _springRoStatusCorrelationEnabled && WireSamplesRequested;
+        var clientStatusBridge = _clientStatusBridge;
+        scanner.CaptureStatusWireBytes = _springRoStatusCorrelationEnabled &&
+            (WireSamplesRequested || clientStatusBridge is not null);
         var source = RegisterTrackingSource(generation, packetFlow);
         var statusSkillCorrelation = _springRoStatusCorrelationEnabled
             ? new SpringRoStatusSkillCorrelationDiagnostics() : null;
@@ -588,6 +600,13 @@ public sealed class NpcapPacketCapture : IDisposable
             {
                 var observation = Observe(probe, source);
                 if (!IsCurrentObservation(observation)) return;
+                if (clientStatusBridge?.Observe(probe, observation.SelfAid) is { } decoded)
+                {
+                    DebugLog.Write($"SPRINGRO CLIENT STATUS matched opcode=0x{probe.Opcode:X4}; " +
+                                   $"status={decoded.StatusId}; active={decoded.Active}; " +
+                                   $"totalMs={decoded.TotalMs}; leftMs={decoded.RemainingMs}");
+                    PublishStatus(decoded);
+                }
                 if (_layoutDiagnostics.Format(probe, source, observation.SelfAid,
                         observation.IdentitySource, observation.ObservedAtUtc) is { } line)
                     DebugLog.Write(line);
@@ -632,7 +651,13 @@ public sealed class NpcapPacketCapture : IDisposable
             pendingStatuses.Reset();
             source = RegisterTrackingSource(generation, packetFlow);
         };
-        scanner.StatusChanged += packet => Forward(generation, () => PublishStatus(packet));
+        scanner.StatusChanged += packet => Forward(generation, () =>
+        {
+            // Raw SpringRO status/actor fields are transformed per frame. With
+            // the opt-in bridge, only a matched decoded frame may drive UI.
+            if (clientStatusBridge is null || packet.PacketId is not (0x0983 or 0x0196))
+                PublishStatus(packet);
+        });
         if (AppEnvironment.IsDevelopment)
             scanner.OptionCandidateRejectedDetailed += (opcode, reason) => Forward(generation, () =>
             {
@@ -858,6 +883,8 @@ public sealed class NpcapPacketCapture : IDisposable
             // The capture task owning this source disposes it when it finishes.
             _cancellation?.Cancel();
             _cancellation = null;
+            _clientStatusBridge?.Dispose();
+            _clientStatusBridge = null;
         }
     }
 }
