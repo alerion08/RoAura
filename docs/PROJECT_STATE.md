@@ -8,8 +8,8 @@ handlers and confirmed the standard status/actor offsets (+2/+4). The visible
 receive-buffer path contains no field decoder; the runtime-resolved `recv`
 implementation remains unidentified. See the final section of
 `PACKET_TRACKING_AUDIT.md` for reproducible addresses and limits. General Status
-ID learning remains unresolved; accepted Hiding behavior is unchanged. This
-checkpoint changes documentation only and needs no new gameplay test build.
+ID learning remains unresolved in the normal packet path; accepted Hiding
+behavior is unchanged. An opt-in DEV bridge is now awaiting gameplay testing.
 
 DLL follow-up: the supplied installation includes Gepard Shield 3.0. Its
 network-diagnostic references lead into protected `.vmp0` code; this does not
@@ -36,7 +36,7 @@ client frames within 0.969–7.286 ms. Exactly bytes +2..+5 change before
 dispatch; client Status ID is 6 and actor is the verified player. This proves
 the present raw parser cannot identify ownership or Status ID for these
 frames. It does not reveal the changing transform or establish a safe general
-client-memory capture path. No production parser change or new build yet.
+client-memory capture path; see the experimental bridge below.
 Second client run confirms status 5 on three starts and five removals with
 own actor; the corresponding wire layout events precede them by 2.425–5.255
 ms but the wire sampler did not record their raw bytes because it is limited
