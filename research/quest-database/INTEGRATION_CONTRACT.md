@@ -4,10 +4,19 @@
 
 ## Two deliverables
 
-- `output/quest_research.sqlite` (research schema **5**): full compressed upstream NPC sources and extracted evidence, public wiki pages, audit rows, parser-derived dialogue/control flow and literal quest/item state facts.
-- `output/questie_catalog.sqlite` (consumer schema **1**, `PRAGMA user_version = 1`): ready-to-query local SQLite projection, **without compressed scripts or Python dependency**. The consumer must **not** guess the correctness of unverified responses or use candidates as verified directions.
+- `output/quest_research.sqlite` (research schema **6**): full compressed upstream NPC sources and extracted evidence, public wiki pages, audit rows, parser-derived dialogue/control flow and literal quest/item state facts.
+- `output/questie_catalog.sqlite` (consumer schema **2**, `PRAGMA user_version = 2`): ready-to-query local SQLite projection, **without compressed scripts or Python dependency**. The consumer must **not** guess the correctness of unverified responses or use candidates as verified directions.
 
 Both formats are independently checked with `PRAGMA integrity_check` and `PRAGMA foreign_key_check`. Their `.gz` variants compress for download; decompress before SQLite use.
+
+## Data quality and safe refresh rules
+
+- `output/quest_review_queue.json` is a machine-readable manual verification queue: each wiki quest carries freshness, missing-script/missing-NPC issues, mixed gameplay variants, and an explicit unverified assurance state.
+- Consumer `quest_quality` records each wiki guide's `refresh_state`, `last_success_utc`, `last_attempt_utc`, `last_error`, and `stored_steps`. An imported older guide is labeled `legacy_cached` with **unknown last success time**, never guessed fresh.
+- Source script `variant_scope` is `common`, `pre-re`, or `renewal`; a mix of them must never be silently selected as one active server variant.
+- The crawler retries transient failures and rechecks previously discovered pages. Failed requests retain last-known-good steps/content hash and are flagged `cached_http_error`. Unexpectedly empty/shrunken parses retain the earlier walkthrough and are flagged `cached_parse_regression`.
+- New incremental snapshots must pass a no-regression gate before publishing: no unexpected loss greater than 5% of source scripts/steps or 2% of wiki pages. This protects storage completeness, **not** factual correctness; report flags and in-game verification remain mandatory.
+- Consumer schema v2 adds `quest_quality` and `scripts.variant_scope`. Never open v2 as if it were v1: integrations must check `PRAGMA user_version`, use a versioned reader/migration, and preserve character progress separately.
 
 ## Stable identities and source variants
 
