@@ -1,0 +1,5392 @@
+{
+  "schema_version": 1,
+  "summary": {
+    "rejected": 4,
+    "source_supported": 19,
+    "variant_conflict": 2,
+    "total": 25,
+    "source_sequence_rows": 83
+  },
+  "assurance": "individually reviewed source identity; dynamic gameplay and all server variants remain unverified",
+  "decisions": [
+    {
+      "guide_title": "2014 Fourth of July Event",
+      "guide_url": "https://irowiki.org/classic/2014_Fourth_of_July_Event",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_amatsu.txt",
+      "source_blob_sha": "1d5fea3ebe686b13040d17e931be1211448cac52",
+      "decision": "rejected",
+      "reason": "The proposal originates from generic Amatsu quest NPCs and has no distinct 2014 Fourth of July event implementation evidence. Shared Grandma/Grandpa names are a collision, not a traceable event quest.",
+      "support_basis": [],
+      "source_witnesses": [
+        "Grandma",
+        "Grandpa"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 9,
+          "npc_id": 34095,
+          "npc_name": "Grandma#ama2",
+          "npc_ordinal": 27,
+          "script_line": 1916
+        },
+        {
+          "step_no": 10,
+          "npc_id": 34095,
+          "npc_name": "Grandma#ama2",
+          "npc_ordinal": 27,
+          "script_line": 1916
+        },
+        {
+          "step_no": 11,
+          "npc_id": 34071,
+          "npc_name": "Grandpa#ama",
+          "npc_ordinal": 3,
+          "script_line": 431
+        },
+        {
+          "step_no": 14,
+          "npc_id": 34071,
+          "npc_name": "Grandpa#ama",
+          "npc_ordinal": 3,
+          "script_line": 431
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 9,
+          "npc_name": "Grandma#ama2",
+          "npc_source_line": 1916,
+          "wiki_step_excerpt": "In Comodo speak to Grandma Vira (comodo 173, 315). She will request you bring her 20 Bread and 5 Grapes .",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 1917,
+              "expression": "event_amatsu == 4"
+            },
+            {
+              "line_no": 1929,
+              "expression": "(BaseJob == Job_Priest || BaseJob != Job_Acolyte && BaseJob != Job_Monk) || (countitem(Holy_Water) < 1 || countitem(Bears_Foot) < 1 || countitem(Tigers_Skin) < 1)"
+            },
+            {
+              "line_no": 1930,
+              "expression": "rand(1,4) == 1"
+            },
+            {
+              "line_no": 1936,
+              "expression": "rand(1,2) == 1"
+            },
+            {
+              "line_no": 1941,
+              "expression": ".@fox_kill == 1"
+            },
+            {
+              "line_no": 1957,
+              "expression": "RENEWAL_EXP"
+            },
+            {
+              "line_no": 1974,
+              "expression": "event_amatsu == 5"
+            },
+            {
+              "line_no": 1995,
+              "expression": "event_amatsu == 6"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 10,
+          "npc_name": "Grandma#ama2",
+          "npc_source_line": 1916,
+          "wiki_step_excerpt": "Return to Grandma Vira with the items she requested and she will give you a Yggdrasil Seed . Note: Currently, upon completion of the quest she will not take the bread and grapes from you.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 1917,
+              "expression": "event_amatsu == 4"
+            },
+            {
+              "line_no": 1929,
+              "expression": "(BaseJob == Job_Priest || BaseJob != Job_Acolyte && BaseJob != Job_Monk) || (countitem(Holy_Water) < 1 || countitem(Bears_Foot) < 1 || countitem(Tigers_Skin) < 1)"
+            },
+            {
+              "line_no": 1930,
+              "expression": "rand(1,4) == 1"
+            },
+            {
+              "line_no": 1936,
+              "expression": "rand(1,2) == 1"
+            },
+            {
+              "line_no": 1941,
+              "expression": ".@fox_kill == 1"
+            },
+            {
+              "line_no": 1957,
+              "expression": "RENEWAL_EXP"
+            },
+            {
+              "line_no": 1974,
+              "expression": "event_amatsu == 5"
+            },
+            {
+              "line_no": 1995,
+              "expression": "event_amatsu == 6"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 11,
+          "npc_name": "Grandpa#ama",
+          "npc_source_line": 431,
+          "wiki_step_excerpt": "Talk to Grandpa Winston in Comodo (comodo 168, 318) and he will ask that you recover his missing teeth from the Comodo Casino.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 483,
+              "expression": "countitem(Baby_Desert_Wolf_Egg) > 0 || countitem(Picky_Egg) > 0 || countitem(Yoyo_Egg) > 0"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 14,
+          "npc_name": "Grandpa#ama",
+          "npc_source_line": 431,
+          "wiki_step_excerpt": "Return to Grandpa Winston and you will receive 1 Yggdrasil Seed .",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 483,
+              "expression": "countitem(Baby_Desert_Wolf_Egg) > 0 || countitem(Picky_Egg) > 0 || countitem(Yoyo_Egg) > 0"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "2014 Fourth of July Event",
+      "guide_url": "https://irowiki.org/classic/2014_Fourth_of_July_Event",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_amatsu.txt",
+      "source_blob_sha": "ace1cd7e1583beeb3ae6466b923c84e184b1ef22",
+      "decision": "rejected",
+      "reason": "The proposal originates from generic Amatsu quest NPCs and has no distinct 2014 Fourth of July event implementation evidence. Shared Grandma/Grandpa names are a collision, not a traceable event quest.",
+      "support_basis": [],
+      "source_witnesses": [
+        "Grandma",
+        "Grandpa"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 9,
+          "npc_id": 29097,
+          "npc_name": "Grandma#ama2",
+          "npc_ordinal": 27,
+          "script_line": 1916
+        },
+        {
+          "step_no": 10,
+          "npc_id": 29097,
+          "npc_name": "Grandma#ama2",
+          "npc_ordinal": 27,
+          "script_line": 1916
+        },
+        {
+          "step_no": 11,
+          "npc_id": 29073,
+          "npc_name": "Grandpa#ama",
+          "npc_ordinal": 3,
+          "script_line": 406
+        },
+        {
+          "step_no": 14,
+          "npc_id": 29073,
+          "npc_name": "Grandpa#ama",
+          "npc_ordinal": 3,
+          "script_line": 406
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 9,
+          "npc_name": "Grandma#ama2",
+          "npc_source_line": 1916,
+          "wiki_step_excerpt": "In Comodo speak to Grandma Vira (comodo 173, 315). She will request you bring her 20 Bread and 5 Grapes .",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 1917,
+              "expression": "event_amatsu == 4"
+            },
+            {
+              "line_no": 1929,
+              "expression": "BaseJob == Job_Priest"
+            },
+            {
+              "line_no": 1930,
+              "expression": "rand(1,4) == 1"
+            },
+            {
+              "line_no": 1935,
+              "expression": "BaseJob == Job_Acolyte || BaseJob == Job_Monk || countitem(523) > 0 || countitem(948) > 0 || countitem(1029) > 0"
+            },
+            {
+              "line_no": 1936,
+              "expression": "rand(1,2) == 1"
+            },
+            {
+              "line_no": 1942,
+              "expression": "rand(1,4) == 1"
+            },
+            {
+              "line_no": 1947,
+              "expression": ".@fox_kill == 1"
+            },
+            {
+              "line_no": 1978,
+              "expression": "event_amatsu == 5"
+            },
+            {
+              "line_no": 1999,
+              "expression": "event_amatsu == 6"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 10,
+          "npc_name": "Grandma#ama2",
+          "npc_source_line": 1916,
+          "wiki_step_excerpt": "Return to Grandma Vira with the items she requested and she will give you a Yggdrasil Seed . Note: Currently, upon completion of the quest she will not take the bread and grapes from you.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 1917,
+              "expression": "event_amatsu == 4"
+            },
+            {
+              "line_no": 1929,
+              "expression": "BaseJob == Job_Priest"
+            },
+            {
+              "line_no": 1930,
+              "expression": "rand(1,4) == 1"
+            },
+            {
+              "line_no": 1935,
+              "expression": "BaseJob == Job_Acolyte || BaseJob == Job_Monk || countitem(523) > 0 || countitem(948) > 0 || countitem(1029) > 0"
+            },
+            {
+              "line_no": 1936,
+              "expression": "rand(1,2) == 1"
+            },
+            {
+              "line_no": 1942,
+              "expression": "rand(1,4) == 1"
+            },
+            {
+              "line_no": 1947,
+              "expression": ".@fox_kill == 1"
+            },
+            {
+              "line_no": 1978,
+              "expression": "event_amatsu == 5"
+            },
+            {
+              "line_no": 1999,
+              "expression": "event_amatsu == 6"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 11,
+          "npc_name": "Grandpa#ama",
+          "npc_source_line": 406,
+          "wiki_step_excerpt": "Talk to Grandpa Winston in Comodo (comodo 168, 318) and he will ask that you recover his missing teeth from the Comodo Casino.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 458,
+              "expression": "countitem(9010) > 0 || countitem(9005) > 0 || countitem(9016) > 0"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 14,
+          "npc_name": "Grandpa#ama",
+          "npc_source_line": 406,
+          "wiki_step_excerpt": "Return to Grandpa Winston and you will receive 1 Yggdrasil Seed .",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 458,
+              "expression": "countitem(9010) > 0 || countitem(9005) > 0 || countitem(9016) > 0"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Broken Diamond Quest",
+      "guide_url": "https://irowiki.org/classic/Broken_Diamond_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_nameless.txt",
+      "source_blob_sha": "d32f5c9ea180d63ff8660980170c46896b8e2b4b",
+      "decision": "source_supported",
+      "reason": "Wiki visits Jhonnita at step 2, Kimeunbang at step 3, and Rogue Investigator at step 8; these NPC blocks coexist in the same Nameless quest script with diamond_edq writes. Scope is file identity only, not the entire jewel-quest branching sequence.",
+      "support_basis": [
+        "distinctive named NPCs in guide order",
+        "shared diamond_edq state writes",
+        "original code and wiki step provenance"
+      ],
+      "source_witnesses": [
+        "Jhonnita",
+        "Kimeunbang",
+        "Rogue Investigator"
+      ],
+      "shared_variable": "diamond_edq",
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 2,
+          "npc_id": 34578,
+          "npc_name": "Jhonnita",
+          "npc_ordinal": 35,
+          "script_line": 5184
+        },
+        {
+          "step_no": 3,
+          "npc_id": 34579,
+          "npc_name": "Kimeunbang",
+          "npc_ordinal": 36,
+          "script_line": 5345
+        },
+        {
+          "step_no": 8,
+          "npc_id": 34581,
+          "npc_name": "Rogue Investigator",
+          "npc_ordinal": 38,
+          "script_line": 6032
+        },
+        {
+          "step_no": 9,
+          "npc_id": 34582,
+          "npc_name": "Investigator",
+          "npc_ordinal": 39,
+          "script_line": 6231
+        }
+      ],
+      "shared_npc_variable_write_facts": {
+        "jewel_nd": {
+          "35": [
+            {
+              "line_no": 5302,
+              "value_expression": "= 2"
+            }
+          ],
+          "36": [
+            {
+              "line_no": 5429,
+              "value_expression": "= 2"
+            }
+          ]
+        },
+        "diamond_edq": {
+          "36": [
+            {
+              "line_no": 5386,
+              "value_expression": "= 16"
+            }
+          ],
+          "38": [
+            {
+              "line_no": 6127,
+              "value_expression": "= 23"
+            },
+            {
+              "line_no": 6199,
+              "value_expression": "= 23"
+            }
+          ]
+        }
+      },
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 2,
+          "npc_name": "Jhonnita",
+          "npc_source_line": 5184,
+          "wiki_step_excerpt": "In Alberta, ask Jhonnita (102, 80) about the Diamond. He's upset over how he lost it to Ibrahim, and explains how all of the jewelers are trying to obtain the Four Cursed Jewels.",
+          "shared_variable_writes": {
+            "jewel_nd": [
+              {
+                "line_no": 5302,
+                "value_expression": "= 2"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 5185,
+              "expression": "(diamond_edq == 15) || (diamond_edq == 16)"
+            },
+            {
+              "line_no": 5230,
+              "expression": "diamond_edq == 26"
+            },
+            {
+              "line_no": 5231,
+              "expression": "jewel_nd == 0"
+            },
+            {
+              "line_no": 5241,
+              "expression": "jewel_nd == 1"
+            },
+            {
+              "line_no": 5256,
+              "expression": "Sex == SEX_MALE"
+            },
+            {
+              "line_no": 5274,
+              "expression": "countitem(Unlucky_Emerald) > 0"
+            },
+            {
+              "line_no": 5314,
+              "expression": "jewel_nd == 2"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 3,
+          "npc_name": "Kimeunbang",
+          "npc_source_line": 5345,
+          "wiki_step_excerpt": "In Payon, talk to Kimeunbang (69, 65), who says Belder stole the Diamond from him. He gives you 1 Pearl .",
+          "shared_variable_writes": {
+            "jewel_nd": [
+              {
+                "line_no": 5429,
+                "value_expression": "= 2"
+              }
+            ],
+            "diamond_edq": [
+              {
+                "line_no": 5386,
+                "value_expression": "= 16"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 5346,
+              "expression": "diamond_edq == 15"
+            },
+            {
+              "line_no": 5398,
+              "expression": "diamond_edq == 26"
+            },
+            {
+              "line_no": 5399,
+              "expression": "jewel_nd == 0"
+            },
+            {
+              "line_no": 5406,
+              "expression": "jewel_nd == 1"
+            },
+            {
+              "line_no": 5418,
+              "expression": "countitem(Unlucky_Emerald) > 0"
+            },
+            {
+              "line_no": 5450,
+              "expression": "jewel_nd == 2"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 8,
+          "npc_name": "Rogue Investigator",
+          "npc_source_line": 6032,
+          "wiki_step_excerpt": "Head to the Rogue guild at Paros Lighthouse, and on the first floor, talk to the Rogue Investigator (366, 46). Ask him about the Z-Gang, but he won't tell you the location of their hideout (apparently they're back and have moved) until you pay him 10,000 Zeny.",
+          "shared_variable_writes": {
+            "diamond_edq": [
+              {
+                "line_no": 6127,
+                "value_expression": "= 23"
+              },
+              {
+                "line_no": 6199,
+                "value_expression": "= 23"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 6033,
+              "expression": "(diamond_edq == 22) && (BaseJob == Job_Rogue)"
+            },
+            {
+              "line_no": 6070,
+              "expression": "(diamond_edq == 22) && (BaseClass == Job_Thief)"
+            },
+            {
+              "line_no": 6111,
+              "expression": "Zeny > 9999"
+            },
+            {
+              "line_no": 6148,
+              "expression": "diamond_edq == 22"
+            },
+            {
+              "line_no": 6189,
+              "expression": "Zeny > 9999"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 9,
+          "npc_name": "Investigator",
+          "npc_source_line": 6231,
+          "wiki_step_excerpt": "In Comodo, go to the Kafra Headquarters (129, 192), and go downstairs. Talk to the investigator there, who says the Z-Gang is gone, but that you can look around.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 6232,
+              "expression": "(diamond_edq == 22) || (diamond_edq == 23)"
+            },
+            {
+              "line_no": 6233,
+              "expression": "BaseJob == Job_Rogue"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Broken Diamond Quest",
+      "guide_url": "https://irowiki.org/classic/Broken_Diamond_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_nameless.txt",
+      "source_blob_sha": "7e5c967a02b542ebf2b9cd1ddb7a45d3e9308dc4",
+      "decision": "source_supported",
+      "reason": "Wiki visits Jhonnita at step 2, Kimeunbang at step 3, and Rogue Investigator at step 8; these NPC blocks coexist in the same Nameless quest script with diamond_edq writes. Scope is file identity only, not the entire jewel-quest branching sequence.",
+      "support_basis": [
+        "distinctive named NPCs in guide order",
+        "shared diamond_edq state writes",
+        "original code and wiki step provenance"
+      ],
+      "source_witnesses": [
+        "Jhonnita",
+        "Kimeunbang",
+        "Rogue Investigator"
+      ],
+      "shared_variable": "diamond_edq",
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 2,
+          "npc_id": 29574,
+          "npc_name": "Jhonnita",
+          "npc_ordinal": 34,
+          "script_line": 5182
+        },
+        {
+          "step_no": 3,
+          "npc_id": 29575,
+          "npc_name": "Kimeunbang",
+          "npc_ordinal": 35,
+          "script_line": 5343
+        },
+        {
+          "step_no": 8,
+          "npc_id": 29577,
+          "npc_name": "Rogue Investigator",
+          "npc_ordinal": 37,
+          "script_line": 6030
+        },
+        {
+          "step_no": 9,
+          "npc_id": 29578,
+          "npc_name": "Investigator",
+          "npc_ordinal": 38,
+          "script_line": 6229
+        }
+      ],
+      "shared_npc_variable_write_facts": {
+        "jewel_nd": {
+          "34": [
+            {
+              "line_no": 5300,
+              "value_expression": "2"
+            }
+          ],
+          "35": [
+            {
+              "line_no": 5427,
+              "value_expression": "2"
+            }
+          ]
+        },
+        "diamond_edq": {
+          "35": [
+            {
+              "line_no": 5384,
+              "value_expression": "16"
+            }
+          ],
+          "37": [
+            {
+              "line_no": 6125,
+              "value_expression": "23"
+            },
+            {
+              "line_no": 6197,
+              "value_expression": "23"
+            }
+          ]
+        }
+      },
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 2,
+          "npc_name": "Jhonnita",
+          "npc_source_line": 5182,
+          "wiki_step_excerpt": "In Alberta, ask Jhonnita (102, 80) about the Diamond. He's upset over how he lost it to Ibrahim, and explains how all of the jewelers are trying to obtain the Four Cursed Jewels.",
+          "shared_variable_writes": {
+            "jewel_nd": [
+              {
+                "line_no": 5300,
+                "value_expression": "2"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 5183,
+              "expression": "(diamond_edq == 15) || (diamond_edq == 16)"
+            },
+            {
+              "line_no": 5228,
+              "expression": "diamond_edq == 26"
+            },
+            {
+              "line_no": 5229,
+              "expression": "jewel_nd == 0"
+            },
+            {
+              "line_no": 5239,
+              "expression": "jewel_nd == 1"
+            },
+            {
+              "line_no": 5254,
+              "expression": "Sex == SEX_MALE"
+            },
+            {
+              "line_no": 5272,
+              "expression": "countitem(7725) > 0"
+            },
+            {
+              "line_no": 5312,
+              "expression": "jewel_nd == 2"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 3,
+          "npc_name": "Kimeunbang",
+          "npc_source_line": 5343,
+          "wiki_step_excerpt": "In Payon, talk to Kimeunbang (69, 65), who says Belder stole the Diamond from him. He gives you 1 Pearl .",
+          "shared_variable_writes": {
+            "jewel_nd": [
+              {
+                "line_no": 5427,
+                "value_expression": "2"
+              }
+            ],
+            "diamond_edq": [
+              {
+                "line_no": 5384,
+                "value_expression": "16"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 5344,
+              "expression": "diamond_edq == 15"
+            },
+            {
+              "line_no": 5396,
+              "expression": "diamond_edq == 26"
+            },
+            {
+              "line_no": 5397,
+              "expression": "jewel_nd == 0"
+            },
+            {
+              "line_no": 5404,
+              "expression": "jewel_nd == 1"
+            },
+            {
+              "line_no": 5416,
+              "expression": "countitem(7725) > 0"
+            },
+            {
+              "line_no": 5448,
+              "expression": "jewel_nd == 2"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 8,
+          "npc_name": "Rogue Investigator",
+          "npc_source_line": 6030,
+          "wiki_step_excerpt": "Head to the Rogue guild at Paros Lighthouse, and on the first floor, talk to the Rogue Investigator (366, 46). Ask him about the Z-Gang, but he won't tell you the location of their hideout (apparently they're back and have moved) until you pay him 10,000 Zeny.",
+          "shared_variable_writes": {
+            "diamond_edq": [
+              {
+                "line_no": 6125,
+                "value_expression": "23"
+              },
+              {
+                "line_no": 6197,
+                "value_expression": "23"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 6031,
+              "expression": "(diamond_edq == 22) && (BaseJob == Job_Rogue)"
+            },
+            {
+              "line_no": 6068,
+              "expression": "(diamond_edq == 22) && (BaseClass == Job_Thief)"
+            },
+            {
+              "line_no": 6109,
+              "expression": "Zeny > 9999"
+            },
+            {
+              "line_no": 6146,
+              "expression": "diamond_edq == 22"
+            },
+            {
+              "line_no": 6187,
+              "expression": "Zeny > 9999"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 9,
+          "npc_name": "Investigator",
+          "npc_source_line": 6229,
+          "wiki_step_excerpt": "In Comodo, go to the Kafra Headquarters (129, 192), and go downstairs. Talk to the investigator there, who says the Z-Gang is gone, but that you can look around.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 6230,
+              "expression": "(diamond_edq == 22) || (diamond_edq == 23)"
+            },
+            {
+              "line_no": 6231,
+              "expression": "BaseJob == Job_Rogue"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Continental Guard Quest (Resurrection of Satan Morroc)",
+      "guide_url": "https://irowiki.org/classic/Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_morocc.txt",
+      "source_blob_sha": "d0fc59155b52e4406c50485e11665af7951d7c9f",
+      "decision": "source_supported",
+      "reason": "The wiki introduces the Continental Official before Chief Balrog and the matched source NPC blocks advance rebirth_moc_edq. This corroborates Continental Guard source identity without proving activation, prerequisite checks, or completion on a server.",
+      "support_basis": [
+        "distinctive ordered NPC visits",
+        "rebirth_moc_edq source state writes",
+        "source script line provenance"
+      ],
+      "source_witnesses": [
+        "Continental Official",
+        "Chief Balrog"
+      ],
+      "shared_variable": "rebirth_moc_edq",
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 2,
+          "npc_id": 34417,
+          "npc_name": "Continental Official",
+          "npc_ordinal": 12,
+          "script_line": 1206
+        },
+        {
+          "step_no": 3,
+          "npc_id": 34418,
+          "npc_name": "Chief Balrog",
+          "npc_ordinal": 13,
+          "script_line": 1280
+        }
+      ],
+      "shared_npc_variable_write_facts": {
+        "rebirth_moc_edq": {
+          "12": [
+            {
+              "line_no": 1246,
+              "value_expression": "= 1"
+            }
+          ],
+          "13": [
+            {
+              "line_no": 1396,
+              "value_expression": "= 2"
+            },
+            {
+              "line_no": 1478,
+              "value_expression": "= 3"
+            },
+            {
+              "line_no": 1504,
+              "value_expression": "= 4"
+            },
+            {
+              "line_no": 1616,
+              "value_expression": "= 7"
+            },
+            {
+              "line_no": 1638,
+              "value_expression": "= 8"
+            },
+            {
+              "line_no": 1670,
+              "value_expression": "= 8"
+            },
+            {
+              "line_no": 1702,
+              "value_expression": "= 8"
+            },
+            {
+              "line_no": 1750,
+              "value_expression": "= 8"
+            },
+            {
+              "line_no": 1782,
+              "value_expression": "= 8"
+            },
+            {
+              "line_no": 1814,
+              "value_expression": "= 8"
+            }
+          ]
+        }
+      },
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 2,
+          "npc_name": "Continental Official",
+          "npc_source_line": 1206,
+          "wiki_step_excerpt": "In Morroc , Talk to the Continental Official (176, 103), and tell him that you want to volunteer.",
+          "shared_variable_writes": {
+            "rebirth_moc_edq": [
+              {
+                "line_no": 1246,
+                "value_expression": "= 1"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 1207,
+              "expression": "rebirth_moc_edq > 3"
+            },
+            {
+              "line_no": 1218,
+              "expression": "rebirth_moc_edq == 0"
+            },
+            {
+              "line_no": 1237,
+              "expression": "BaseLevel > 79"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 3,
+          "npc_name": "Chief Balrog",
+          "npc_source_line": 1280,
+          "wiki_step_excerpt": "Talk to Chief Balrog in Morroc (159, 113) and tell him that you want to join the Continental Guard. He'll ask you to bring him 50 Glacial Heart and 30 Live Coal .",
+          "shared_variable_writes": {
+            "rebirth_moc_edq": [
+              {
+                "line_no": 1396,
+                "value_expression": "= 2"
+              },
+              {
+                "line_no": 1478,
+                "value_expression": "= 3"
+              },
+              {
+                "line_no": 1504,
+                "value_expression": "= 4"
+              },
+              {
+                "line_no": 1616,
+                "value_expression": "= 7"
+              },
+              {
+                "line_no": 1638,
+                "value_expression": "= 8"
+              },
+              {
+                "line_no": 1670,
+                "value_expression": "= 8"
+              },
+              {
+                "line_no": 1702,
+                "value_expression": "= 8"
+              },
+              {
+                "line_no": 1750,
+                "value_expression": "= 8"
+              },
+              {
+                "line_no": 1782,
+                "value_expression": "= 8"
+              },
+              {
+                "line_no": 1814,
+                "value_expression": "= 8"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 1281,
+              "expression": "rebirth_moc_edq == 0"
+            },
+            {
+              "line_no": 1292,
+              "expression": "rebirth_moc_edq == 1"
+            },
+            {
+              "line_no": 1321,
+              "expression": "BaseLevel > 79"
+            },
+            {
+              "line_no": 1425,
+              "expression": "rebirth_moc_edq == 2"
+            },
+            {
+              "line_no": 1429,
+              "expression": "countitem(Live_Coal) > 29"
+            },
+            {
+              "line_no": 1492,
+              "expression": "rebirth_moc_edq == 3"
+            },
+            {
+              "line_no": 1496,
+              "expression": "countitem(Ice_Heart) > 49"
+            },
+            {
+              "line_no": 1535,
+              "expression": "rebirth_moc_edq == 4"
+            },
+            {
+              "line_no": 1574,
+              "expression": "rebirth_moc_edq == 5"
+            },
+            {
+              "line_no": 1588,
+              "expression": "rebirth_moc_edq == 6"
+            },
+            {
+              "line_no": 1595,
+              "expression": "countitem(Morroc_Skin) > 0"
+            },
+            {
+              "line_no": 1729,
+              "expression": "rebirth_moc_edq == 7"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Crow of Destiny Quest",
+      "guide_url": "https://irowiki.org/classic/Crow_of_Destiny_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_morocc.txt",
+      "source_blob_sha": "d0fc59155b52e4406c50485e11665af7951d7c9f",
+      "decision": "source_supported",
+      "reason": "The original Morocc script header explicitly lists The Crow of the Fate and contains Library Part-Timer and Monsterous Man in the guide's encounter order, including barmunt_crow in a later NPC. This is an implementation-file association, not a complete route proof.",
+      "support_basis": [
+        "source header names The Crow of the Fate",
+        "two explicitly named guide NPCs in ordered steps",
+        "lexical source variable barmunt_crow"
+      ],
+      "source_witnesses": [
+        "Library Part-Timer",
+        "Monsterous Man"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 4,
+          "npc_id": 34427,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_ordinal": 22,
+          "script_line": 2752
+        },
+        {
+          "step_no": 10,
+          "npc_id": 34427,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_ordinal": 22,
+          "script_line": 2752
+        },
+        {
+          "step_no": 14,
+          "npc_id": 34443,
+          "npc_name": "Monsterous Man#zid",
+          "npc_ordinal": 38,
+          "script_line": 4059
+        },
+        {
+          "step_no": 17,
+          "npc_id": 34427,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_ordinal": 22,
+          "script_line": 2752
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 4,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_source_line": 2752,
+          "wiki_step_excerpt": "Go inside the library, and talk to the Library Part-Timer, who says you can find the book in the room on the right side of the hall in the bestseller corner.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 2753,
+              "expression": "barmunt_crow == 3"
+            },
+            {
+              "line_no": 2774,
+              "expression": "barmunt_crow == 7"
+            },
+            {
+              "line_no": 2791,
+              "expression": "barmunt_crow == 11"
+            },
+            {
+              "line_no": 2824,
+              "expression": "barmunt_crow == 12"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 10,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_source_line": 2752,
+          "wiki_step_excerpt": "Talk to the Library Part-Timer again, who tells you that the old news articles are found in the room opposite that of the first.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 2753,
+              "expression": "barmunt_crow == 3"
+            },
+            {
+              "line_no": 2774,
+              "expression": "barmunt_crow == 7"
+            },
+            {
+              "line_no": 2791,
+              "expression": "barmunt_crow == 11"
+            },
+            {
+              "line_no": 2824,
+              "expression": "barmunt_crow == 12"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 14,
+          "npc_name": "Monsterous Man#zid",
+          "npc_source_line": 4059,
+          "wiki_step_excerpt": "Walk through the black tunnel until you reach a room with a portal, then go through it. Keep walking through the next passageway, and talk to the Monsterous Man in the room at the end. You show him the book, and is surprised, and tells you his name is Zid. He ",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 4060,
+              "expression": "barmunt_crow == 9"
+            },
+            {
+              "line_no": 4184,
+              "expression": ".@exitloop"
+            },
+            {
+              "line_no": 4232,
+              "expression": "barmunt_crow == 10"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 17,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_source_line": 2752,
+          "wiki_step_excerpt": "Return to the Juno Library and talk to the Library Part-Timer, who tells you where you can find the book. Before you can find it however, you black out again.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 2753,
+              "expression": "barmunt_crow == 3"
+            },
+            {
+              "line_no": 2774,
+              "expression": "barmunt_crow == 7"
+            },
+            {
+              "line_no": 2791,
+              "expression": "barmunt_crow == 11"
+            },
+            {
+              "line_no": 2824,
+              "expression": "barmunt_crow == 12"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Crow of Destiny Quest",
+      "guide_url": "https://irowiki.org/classic/Crow_of_Destiny_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_morocc.txt",
+      "source_blob_sha": "ae13d7154e3265b193964564935dd48a972d876b",
+      "decision": "source_supported",
+      "reason": "The original Morocc script header explicitly lists The Crow of the Fate and contains Library Part-Timer and Monsterous Man in the guide's encounter order, including barmunt_crow in a later NPC. This is an implementation-file association, not a complete route proof.",
+      "support_basis": [
+        "source header names The Crow of the Fate",
+        "two explicitly named guide NPCs in ordered steps",
+        "lexical source variable barmunt_crow"
+      ],
+      "source_witnesses": [
+        "Library Part-Timer",
+        "Monsterous Man"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 4,
+          "npc_id": 29451,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_ordinal": 19,
+          "script_line": 2745
+        },
+        {
+          "step_no": 10,
+          "npc_id": 29451,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_ordinal": 19,
+          "script_line": 2745
+        },
+        {
+          "step_no": 14,
+          "npc_id": 29467,
+          "npc_name": "Monsterous Man#zid",
+          "npc_ordinal": 35,
+          "script_line": 4056
+        },
+        {
+          "step_no": 17,
+          "npc_id": 29451,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_ordinal": 19,
+          "script_line": 2745
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 4,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_source_line": 2745,
+          "wiki_step_excerpt": "Go inside the library, and talk to the Library Part-Timer, who says you can find the book in the room on the right side of the hall in the bestseller corner.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 2746,
+              "expression": "barmunt_crow == 3"
+            },
+            {
+              "line_no": 2767,
+              "expression": "barmunt_crow == 7"
+            },
+            {
+              "line_no": 2784,
+              "expression": "barmunt_crow == 11"
+            },
+            {
+              "line_no": 2817,
+              "expression": "barmunt_crow == 12"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 10,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_source_line": 2745,
+          "wiki_step_excerpt": "Talk to the Library Part-Timer again, who tells you that the old news articles are found in the room opposite that of the first.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 2746,
+              "expression": "barmunt_crow == 3"
+            },
+            {
+              "line_no": 2767,
+              "expression": "barmunt_crow == 7"
+            },
+            {
+              "line_no": 2784,
+              "expression": "barmunt_crow == 11"
+            },
+            {
+              "line_no": 2817,
+              "expression": "barmunt_crow == 12"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 14,
+          "npc_name": "Monsterous Man#zid",
+          "npc_source_line": 4056,
+          "wiki_step_excerpt": "Walk through the black tunnel until you reach a room with a portal, then go through it. Keep walking through the next passageway, and talk to the Monsterous Man in the room at the end. You show him the book, and is surprised, and tells you his name is Zid. He ",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 4057,
+              "expression": "barmunt_crow == 9"
+            },
+            {
+              "line_no": 4181,
+              "expression": ".@exitloop"
+            },
+            {
+              "line_no": 4229,
+              "expression": "barmunt_crow == 10"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 17,
+          "npc_name": "Library Part-Timer#garas",
+          "npc_source_line": 2745,
+          "wiki_step_excerpt": "Return to the Juno Library and talk to the Library Part-Timer, who tells you where you can find the book. Before you can find it however, you black out again.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 2746,
+              "expression": "barmunt_crow == 3"
+            },
+            {
+              "line_no": 2767,
+              "expression": "barmunt_crow == 7"
+            },
+            {
+              "line_no": 2784,
+              "expression": "barmunt_crow == 11"
+            },
+            {
+              "line_no": 2817,
+              "expression": "barmunt_crow == 12"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Einbroch Murder Quest",
+      "guide_url": "https://irowiki.org/classic/Einbroch_Murder_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_ein.txt",
+      "source_blob_sha": "ee8fa1ea66904bc3c0677514afd958e9323f7800",
+      "decision": "source_supported",
+      "reason": "The Einbroch script labels Murder Quest near Buender Hikeman. Buender and Scientist both advance Shinokas_Quest and are encountered in that wiki order. Zelmeto uses EinFactory and represents a documented Factory Quest prerequisite rather than proof of a single shared state chain.",
+      "support_basis": [
+        "source comment Murder Quest",
+        "two matched NPCs write Shinokas_Quest",
+        "wiki explicitly includes Factory Quest/Zelmeto as prerequisite branch"
+      ],
+      "source_witnesses": [
+        "Buender Hikeman",
+        "Scientist",
+        "Zelmeto"
+      ],
+      "shared_variable": "Shinokas_Quest",
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 1,
+          "npc_id": 34149,
+          "npc_name": "Buender Hikeman#ein",
+          "npc_ordinal": 12,
+          "script_line": 2740
+        },
+        {
+          "step_no": 3,
+          "npc_id": 34141,
+          "npc_name": "Zelmeto",
+          "npc_ordinal": 4,
+          "script_line": 1969
+        },
+        {
+          "step_no": 5,
+          "npc_id": 34152,
+          "npc_name": "Scientist#ein",
+          "npc_ordinal": 15,
+          "script_line": 3808
+        },
+        {
+          "step_no": 6,
+          "npc_id": 34152,
+          "npc_name": "Scientist#ein",
+          "npc_ordinal": 15,
+          "script_line": 3808
+        }
+      ],
+      "shared_npc_variable_write_facts": {
+        "Shinokas_Quest": {
+          "12": [
+            {
+              "line_no": 2917,
+              "value_expression": "= 1"
+            },
+            {
+              "line_no": 3029,
+              "value_expression": "= 2"
+            },
+            {
+              "line_no": 3188,
+              "value_expression": "= 11"
+            }
+          ],
+          "15": [
+            {
+              "line_no": 3845,
+              "value_expression": "= 8"
+            }
+          ]
+        }
+      },
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 1,
+          "npc_name": "Buender Hikeman#ein",
+          "npc_source_line": 2740,
+          "wiki_step_excerpt": "Go to Einbech . When you step off the train there is a Young Man (einbech 58 209) who talks about depressed guy in pub. Go talk to Buender Hikeman behind the tavern (einbech 164 102). He will mistake you for a killer. Talk to him again, and ask him how he esca",
+          "shared_variable_writes": {
+            "Shinokas_Quest": [
+              {
+                "line_no": 2917,
+                "value_expression": "= 1"
+              },
+              {
+                "line_no": 3029,
+                "value_expression": "= 2"
+              },
+              {
+                "line_no": 3188,
+                "value_expression": "= 11"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 2742,
+              "expression": "Shinokas_Quest == 0"
+            },
+            {
+              "line_no": 2922,
+              "expression": "Shinokas_Quest == 1"
+            },
+            {
+              "line_no": 3034,
+              "expression": "Shinokas_Quest == 2"
+            },
+            {
+              "line_no": 3042,
+              "expression": "Shinokas_Quest == 10"
+            },
+            {
+              "line_no": 3081,
+              "expression": "Sex == SEX_FEMALE"
+            },
+            {
+              "line_no": 3189,
+              "expression": "RENEWAL_EXP"
+            },
+            {
+              "line_no": 3190,
+              "expression": "BaseLevel < 70"
+            },
+            {
+              "line_no": 3191,
+              "expression": "(BaseLevel > 69) && (BaseLevel < 80)"
+            },
+            {
+              "line_no": 3192,
+              "expression": "(BaseLevel > 79) && (BaseLevel < 90)"
+            },
+            {
+              "line_no": 3195,
+              "expression": "BaseLevel < 70"
+            },
+            {
+              "line_no": 3196,
+              "expression": "(BaseLevel > 69) && (BaseLevel < 80)"
+            },
+            {
+              "line_no": 3197,
+              "expression": "(BaseLevel > 79) && (BaseLevel < 90)"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 3,
+          "npc_name": "Zelmeto",
+          "npc_source_line": 1969,
+          "wiki_step_excerpt": "Return to Shinokas and he'll ask you to search the factory next. Talk to Zelmeto (ein_in 67, 247) (and finish the Einbroch Factory Maintenance quest up to the part where one must hand him spare parts if you haven't already) in the factory and return to Shinoka",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 1970,
+              "expression": "$EinPolution > 9"
+            },
+            {
+              "line_no": 2000,
+              "expression": "EinFactory == 16"
+            },
+            {
+              "line_no": 2010,
+              "expression": "(EinFactory == 15) && (countitem(Tube) > 19) && (countitem(Screw) > 9) && (countitem(Old_Steel_Plate) > 9)"
+            },
+            {
+              "line_no": 2075,
+              "expression": "RENEWAL_EXP"
+            },
+            {
+              "line_no": 2076,
+              "expression": "BaseLevel < 41"
+            },
+            {
+              "line_no": 2077,
+              "expression": "BaseLevel < 51"
+            },
+            {
+              "line_no": 2078,
+              "expression": "BaseLevel < 61"
+            },
+            {
+              "line_no": 2079,
+              "expression": "BaseLevel < 71"
+            },
+            {
+              "line_no": 2080,
+              "expression": "BaseLevel < 81"
+            },
+            {
+              "line_no": 2081,
+              "expression": "BaseLevel < 91"
+            },
+            {
+              "line_no": 2084,
+              "expression": "BaseLevel < 41"
+            },
+            {
+              "line_no": 2085,
+              "expression": "BaseLevel < 51"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 5,
+          "npc_name": "Scientist#ein",
+          "npc_source_line": 3808,
+          "wiki_step_excerpt": "Talk to the scientist inside, and he will tell you the head of the lab is on the airship flirting with some lady. While here, click on the small \"Unknown Stuff\" in the middle of the room at the center of the machine.",
+          "shared_variable_writes": {
+            "Shinokas_Quest": [
+              {
+                "line_no": 3845,
+                "value_expression": "= 8"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 3828,
+              "expression": "Shinokas_Quest == 7"
+            },
+            {
+              "line_no": 3855,
+              "expression": "Shinokas_Quest == 8"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 6,
+          "npc_name": "Scientist#ein",
+          "npc_source_line": 3808,
+          "wiki_step_excerpt": "Take the airship and go downstairs (airplane 34 77). The scientist (Drunken Old Man) is throwing dice and losing badly. Talk to the Apple Merchant, buy 100 apples, then talk to the scientist. He'll use them to gamble another round and lose even more. The key h",
+          "shared_variable_writes": {
+            "Shinokas_Quest": [
+              {
+                "line_no": 3845,
+                "value_expression": "= 8"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 3828,
+              "expression": "Shinokas_Quest == 7"
+            },
+            {
+              "line_no": 3855,
+              "expression": "Shinokas_Quest == 8"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Einbroch Murder Quest",
+      "guide_url": "https://irowiki.org/classic/Einbroch_Murder_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_ein.txt",
+      "source_blob_sha": "3a83a1fcac9708bed1ba55d61486b1c4ae119f18",
+      "decision": "source_supported",
+      "reason": "The Einbroch script labels Murder Quest near Buender Hikeman. Buender and Scientist both advance Shinokas_Quest and are encountered in that wiki order. Zelmeto uses EinFactory and represents a documented Factory Quest prerequisite rather than proof of a single shared state chain.",
+      "support_basis": [
+        "source comment Murder Quest",
+        "two matched NPCs write Shinokas_Quest",
+        "wiki explicitly includes Factory Quest/Zelmeto as prerequisite branch"
+      ],
+      "source_witnesses": [
+        "Buender Hikeman",
+        "Scientist",
+        "Zelmeto"
+      ],
+      "shared_variable": "Shinokas_Quest",
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 1,
+          "npc_id": 29178,
+          "npc_name": "Buender Hikeman#ein",
+          "npc_ordinal": 12,
+          "script_line": 4226
+        },
+        {
+          "step_no": 3,
+          "npc_id": 29170,
+          "npc_name": "Zelmeto",
+          "npc_ordinal": 4,
+          "script_line": 3453
+        },
+        {
+          "step_no": 5,
+          "npc_id": 29181,
+          "npc_name": "Scientist#ein",
+          "npc_ordinal": 15,
+          "script_line": 5294
+        },
+        {
+          "step_no": 6,
+          "npc_id": 29181,
+          "npc_name": "Scientist#ein",
+          "npc_ordinal": 15,
+          "script_line": 5294
+        }
+      ],
+      "shared_npc_variable_write_facts": {
+        "Shinokas_Quest": {
+          "12": [
+            {
+              "line_no": 4403,
+              "value_expression": "1"
+            },
+            {
+              "line_no": 4515,
+              "value_expression": "2"
+            },
+            {
+              "line_no": 4674,
+              "value_expression": "11"
+            }
+          ],
+          "15": [
+            {
+              "line_no": 5331,
+              "value_expression": "8"
+            }
+          ]
+        }
+      },
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 1,
+          "npc_name": "Buender Hikeman#ein",
+          "npc_source_line": 4226,
+          "wiki_step_excerpt": "Go to Einbech . When you step off the train there is a Young Man (einbech 58 209) who talks about depressed guy in pub. Go talk to Buender Hikeman behind the tavern (einbech 164 102). He will mistake you for a killer. Talk to him again, and ask him how he esca",
+          "shared_variable_writes": {
+            "Shinokas_Quest": [
+              {
+                "line_no": 4403,
+                "value_expression": "1"
+              },
+              {
+                "line_no": 4515,
+                "value_expression": "2"
+              },
+              {
+                "line_no": 4674,
+                "value_expression": "11"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 4228,
+              "expression": "Shinokas_Quest == 0"
+            },
+            {
+              "line_no": 4408,
+              "expression": "Shinokas_Quest == 1"
+            },
+            {
+              "line_no": 4520,
+              "expression": "Shinokas_Quest == 2"
+            },
+            {
+              "line_no": 4528,
+              "expression": "Shinokas_Quest == 10"
+            },
+            {
+              "line_no": 4567,
+              "expression": "Sex == SEX_FEMALE"
+            },
+            {
+              "line_no": 4675,
+              "expression": "checkre(3)"
+            },
+            {
+              "line_no": 4676,
+              "expression": "BaseLevel < 70"
+            },
+            {
+              "line_no": 4677,
+              "expression": "(BaseLevel > 69) && (BaseLevel < 80)"
+            },
+            {
+              "line_no": 4678,
+              "expression": "(BaseLevel > 79) && (BaseLevel < 90)"
+            },
+            {
+              "line_no": 4681,
+              "expression": "BaseLevel < 70"
+            },
+            {
+              "line_no": 4682,
+              "expression": "(BaseLevel > 69) && (BaseLevel < 80)"
+            },
+            {
+              "line_no": 4683,
+              "expression": "(BaseLevel > 79) && (BaseLevel < 90)"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 3,
+          "npc_name": "Zelmeto",
+          "npc_source_line": 3453,
+          "wiki_step_excerpt": "Return to Shinokas and he'll ask you to search the factory next. Talk to Zelmeto (ein_in 67, 247) (and finish the Einbroch Factory Maintenance quest up to the part where one must hand him spare parts if you haven't already) in the factory and return to Shinoka",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 3454,
+              "expression": "$EinPolution > 9"
+            },
+            {
+              "line_no": 3484,
+              "expression": "EinFactory == 16"
+            },
+            {
+              "line_no": 3494,
+              "expression": "(EinFactory == 15) && (countitem(7325) > 19) && (countitem(7317) > 9) && (countitem(7319) > 9)"
+            },
+            {
+              "line_no": 3559,
+              "expression": "checkre(3)"
+            },
+            {
+              "line_no": 3560,
+              "expression": "BaseLevel < 41"
+            },
+            {
+              "line_no": 3561,
+              "expression": "BaseLevel < 51"
+            },
+            {
+              "line_no": 3562,
+              "expression": "BaseLevel < 61"
+            },
+            {
+              "line_no": 3563,
+              "expression": "BaseLevel < 71"
+            },
+            {
+              "line_no": 3564,
+              "expression": "BaseLevel < 81"
+            },
+            {
+              "line_no": 3565,
+              "expression": "BaseLevel < 91"
+            },
+            {
+              "line_no": 3568,
+              "expression": "BaseLevel < 41"
+            },
+            {
+              "line_no": 3569,
+              "expression": "BaseLevel < 51"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 5,
+          "npc_name": "Scientist#ein",
+          "npc_source_line": 5294,
+          "wiki_step_excerpt": "Talk to the scientist inside, and he will tell you the head of the lab is on the airship flirting with some lady. While here, click on the small \"Unknown Stuff\" in the middle of the room at the center of the machine.",
+          "shared_variable_writes": {
+            "Shinokas_Quest": [
+              {
+                "line_no": 5331,
+                "value_expression": "8"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 5314,
+              "expression": "Shinokas_Quest == 7"
+            },
+            {
+              "line_no": 5341,
+              "expression": "Shinokas_Quest == 8"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 6,
+          "npc_name": "Scientist#ein",
+          "npc_source_line": 5294,
+          "wiki_step_excerpt": "Take the airship and go downstairs (airplane 34 77). The scientist (Drunken Old Man) is throwing dice and losing badly. Talk to the Apple Merchant, buy 100 apples, then talk to the scientist. He'll use them to gamble another round and lose even more. The key h",
+          "shared_variable_writes": {
+            "Shinokas_Quest": [
+              {
+                "line_no": 5331,
+                "value_expression": "8"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 5314,
+              "expression": "Shinokas_Quest == 7"
+            },
+            {
+              "line_no": 5341,
+              "expression": "Shinokas_Quest == 8"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Endless Tower Quest",
+      "guide_url": "https://irowiki.org/classic/Endless_Tower_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/instances/EndlessTower.txt",
+      "source_blob_sha": "064b7d8a15b5a6f60b9c51f8c6ea84f8f1f25d84",
+      "decision": "source_supported",
+      "reason": "Captain Janssen precedes Tower Protection Stone in the wiki and both source NPC blocks are defined in the dedicated EndlessTower instance script, with a Zeny charge/instance creation machinery. Timers and per-server access rules remain variant-specific.",
+      "support_basis": [
+        "dedicated EndlessTower source path",
+        "Captain Janssen then Tower Protection Stone guide sequence",
+        "instance NPC state and menu evidence"
+      ],
+      "source_witnesses": [
+        "Captain Janssen",
+        "Tower Protection Stone"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 1,
+          "npc_id": 33056,
+          "npc_name": "Captain Janssen",
+          "npc_ordinal": 1,
+          "script_line": 39
+        },
+        {
+          "step_no": 3,
+          "npc_id": 33057,
+          "npc_name": "Tower Protection Stone",
+          "npc_ordinal": 2,
+          "script_line": 202
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 1,
+          "npc_name": "Captain Janssen",
+          "npc_source_line": 39,
+          "wiki_step_excerpt": "In Alberta , talk to Captain Janssen (214, 77) and donate 10,000 Zeny .",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 40,
+              "expression": "checkweight(Knife, 1) == 0"
+            },
+            {
+              "line_no": 45,
+              "expression": "BaseLevel < 50"
+            },
+            {
+              "line_no": 51,
+              "expression": "in_102tower == 1"
+            },
+            {
+              "line_no": 73,
+              "expression": "in_102tower == 2"
+            },
+            {
+              "line_no": 117,
+              "expression": "in_102tower == 3"
+            },
+            {
+              "line_no": 134,
+              "expression": "in_102tower > 3"
+            },
+            {
+              "line_no": 147,
+              "expression": "Zeny < 10000"
+            },
+            {
+              "line_no": 182,
+              "expression": "Zeny < 10000"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 3,
+          "npc_name": "Tower Protection Stone",
+          "npc_source_line": 202,
+          "wiki_step_excerpt": "After reaching the island, your party leader must speak with the Tower Protection Stone. They then must generate the Endless Tower Dungeon instance.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 211,
+              "expression": "!instance_check_party(.@party_id, 2)"
+            },
+            {
+              "line_no": 215,
+              "expression": "!.@etower_timer"
+            },
+            {
+              "line_no": 216,
+              "expression": "getcharid(CHAR_ID_CHAR) == getpartyleader(.@party_id, 2)"
+            },
+            {
+              "line_no": 223,
+              "expression": ".@instance >= 0"
+            },
+            {
+              "line_no": 225,
+              "expression": "instance_attachmap(.@i + \"@tower\", .@instance) == \"\""
+            },
+            {
+              "line_no": 263,
+              "expression": ".@etower_timer == 1 && .@etower_timer2 == 2"
+            },
+            {
+              "line_no": 278,
+              "expression": ".@etower_timer == 1"
+            },
+            {
+              "line_no": 302,
+              "expression": "has_instance(\"1@tower\") == \"\""
+            },
+            {
+              "line_no": 308,
+              "expression": "getarg(1)"
+            },
+            {
+              "line_no": 314,
+              "expression": "getarg(0) == 0"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Endless Tower Quest",
+      "guide_url": "https://irowiki.org/classic/Endless_Tower_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/instances/EndlessTower.txt",
+      "source_blob_sha": "bbd5bb0823955774f70721429ed327b2dc3f1d23",
+      "decision": "source_supported",
+      "reason": "Captain Janssen precedes Tower Protection Stone in the wiki and both source NPC blocks are defined in the dedicated EndlessTower instance script, with a Zeny charge/instance creation machinery. Timers and per-server access rules remain variant-specific.",
+      "support_basis": [
+        "dedicated EndlessTower source path",
+        "Captain Janssen then Tower Protection Stone guide sequence",
+        "instance NPC state and menu evidence"
+      ],
+      "source_witnesses": [
+        "Captain Janssen",
+        "Tower Protection Stone"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 1,
+          "npc_id": 28055,
+          "npc_name": "Captain Janssen",
+          "npc_ordinal": 1,
+          "script_line": 41
+        },
+        {
+          "step_no": 3,
+          "npc_id": 28056,
+          "npc_name": "Tower Protection Stone",
+          "npc_ordinal": 2,
+          "script_line": 205
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 1,
+          "npc_name": "Captain Janssen",
+          "npc_source_line": 41,
+          "wiki_step_excerpt": "In Alberta , talk to Captain Janssen (214, 77) and donate 10,000 Zeny .",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 42,
+              "expression": "checkweight(1201,1) == 0"
+            },
+            {
+              "line_no": 47,
+              "expression": "BaseLevel < 50"
+            },
+            {
+              "line_no": 53,
+              "expression": "in_102tower == 1"
+            },
+            {
+              "line_no": 75,
+              "expression": "in_102tower == 2"
+            },
+            {
+              "line_no": 119,
+              "expression": "in_102tower == 3"
+            },
+            {
+              "line_no": 136,
+              "expression": "in_102tower > 3"
+            },
+            {
+              "line_no": 149,
+              "expression": "Zeny < 10000"
+            },
+            {
+              "line_no": 185,
+              "expression": "Zeny < 10000"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 3,
+          "npc_name": "Tower Protection Stone",
+          "npc_source_line": 205,
+          "wiki_step_excerpt": "After reaching the island, your party leader must speak with the Tower Protection Stone. They then must generate the Endless Tower Dungeon instance.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 213,
+              "expression": "!instance_check_party(.@party_id,2)"
+            },
+            {
+              "line_no": 219,
+              "expression": "is_party_leader() == true"
+            },
+            {
+              "line_no": 224,
+              "expression": "instance_create(.@md_name$) < 0"
+            },
+            {
+              "line_no": 257,
+              "expression": ".@etower_timer2 < 2 && getcharid(1) == etower_partyid"
+            },
+            {
+              "line_no": 309,
+              "expression": "getarg(1)"
+            },
+            {
+              "line_no": 316,
+              "expression": "getarg(0) == 0"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Halloween Event (2006/10/24) ~ (2006/11/07)",
+      "guide_url": "https://irowiki.org/classic/Halloween_Event_(2006/10/24)_~_(2006/11/07)",
+      "source_project": "hercules",
+      "source_path": "npc/events/halloween_2006.txt",
+      "source_blob_sha": "05364baf3a890a3428e324f7b84e43d4dc264f68",
+      "decision": "source_supported",
+      "reason": "The indexed source is explicitly halloween_2006.txt and contains all three named 2006 event NPCs in the wiki steps; this corroborates an historical script implementation but not modern availability or identical event dates.",
+      "support_basis": [
+        "year-specific halloween_2006 source filename",
+        "three named event NPCs matched to guide steps",
+        "event code branches and state facts"
+      ],
+      "source_witnesses": [
+        "Cool Devi",
+        "Chicken Masta",
+        "Deviruchi"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 1,
+          "npc_id": 32991,
+          "npc_name": "Cool Devi#06_hw",
+          "npc_ordinal": 1,
+          "script_line": 58
+        },
+        {
+          "step_no": 5,
+          "npc_id": 32994,
+          "npc_name": "Chicken Masta#06_hw",
+          "npc_ordinal": 4,
+          "script_line": 500
+        },
+        {
+          "step_no": 6,
+          "npc_id": 32993,
+          "npc_name": "Deviruchi#06_hw",
+          "npc_ordinal": 3,
+          "script_line": 409
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 1,
+          "npc_name": "Cool Devi#06_hw",
+          "npc_source_line": 58,
+          "wiki_step_excerpt": "Talk to the Cool Devi NPC in Prontera (prontera 165,68).",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 59,
+              "expression": "MaxWeight - Weight < 2000 || checkweight(Knife,1) == 0"
+            },
+            {
+              "line_no": 68,
+              "expression": "countitem(Pumpkin_Mojo) > 0"
+            },
+            {
+              "line_no": 82,
+              "expression": "select(\"What will he say?\", \"I also know about it.\") == 1"
+            },
+            {
+              "line_no": 116,
+              "expression": "(countitem(Pumpkin_Mojo) > 0) && (countitem(Pumpkin_Hat) > 0)"
+            },
+            {
+              "line_no": 124,
+              "expression": "select( \"No, I'll come back later.\", \"Oh, good. Make it now!\") == 1"
+            },
+            {
+              "line_no": 160,
+              "expression": "(countitem(Pumpkin_Mojo) > 0) && (countitem(Pumpkin) > 0) && (countitem(Cap) > 0)"
+            },
+            {
+              "line_no": 168,
+              "expression": "select( \"No, I'll come back later.\", \"Oh,good. Make it now!\") == 1"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 5,
+          "npc_name": "Chicken Masta#06_hw",
+          "npc_source_line": 500,
+          "wiki_step_excerpt": "Collect the following items, and bring them to her: 1 Pumpkin Mojo, 2 Pumpkins, and 2 Eggs. She will then give you a Pumpkin Pie. Eggs: You must find one of the Chicken Masta's many missing chickens and return them to him. There are a number of locations on th",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 501,
+              "expression": "MaxWeight - Weight < 2000 || checkweight(Knife,1) == 0"
+            },
+            {
+              "line_no": 510,
+              "expression": "halloween == 101"
+            },
+            {
+              "line_no": 523,
+              "expression": "select( \"Actually, yes. I came here to get some eggs.\", \"Nope.\") == 1"
+            },
+            {
+              "line_no": 531,
+              "expression": "Zeny > 1999"
+            },
+            {
+              "line_no": 547,
+              "expression": "Zeny > 999"
+            },
+            {
+              "line_no": 575,
+              "expression": "halloween == 102"
+            },
+            {
+              "line_no": 604,
+              "expression": "halloween == 103"
+            },
+            {
+              "line_no": 618,
+              "expression": ".@input <= 0"
+            },
+            {
+              "line_no": 623,
+              "expression": "@input > 3"
+            },
+            {
+              "line_no": 633,
+              "expression": "Zeny < @hw_egg"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 6,
+          "npc_name": "Deviruchi#06_hw",
+          "npc_source_line": 409,
+          "wiki_step_excerpt": "Talk to the Deviruchi (nif_in 20,32) in the Inn in Nifflheim (niflheim 189,207). The Deviruchi will tell you that Pumpkin Pie is Loli Ruri's favorite dish and ask you for it. Give him the pumpkin pie and he'll give you 3 Nifflheim Express Tickets or a Cookie B",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 410,
+              "expression": "MaxWeight - Weight < 2000 || checkweight(Knife,1) == 0"
+            },
+            {
+              "line_no": 437,
+              "expression": "countitem(Pumpkin_Pie) > 0"
+            },
+            {
+              "line_no": 454,
+              "expression": "@hw_temp == 2"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Halloween Event (2006/10/24) ~ (2006/11/07)",
+      "guide_url": "https://irowiki.org/classic/Halloween_Event_(2006/10/24)_~_(2006/11/07)",
+      "source_project": "rathena",
+      "source_path": "npc/events/halloween_2006.txt",
+      "source_blob_sha": "faff568081de319b872224b44503f168faef73f8",
+      "decision": "source_supported",
+      "reason": "The indexed source is explicitly halloween_2006.txt and contains all three named 2006 event NPCs in the wiki steps; this corroborates an historical script implementation but not modern availability or identical event dates.",
+      "support_basis": [
+        "year-specific halloween_2006 source filename",
+        "three named event NPCs matched to guide steps",
+        "event code branches and state facts"
+      ],
+      "source_witnesses": [
+        "Cool Devi",
+        "Chicken Masta",
+        "Deviruchi"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 1,
+          "npc_id": 27980,
+          "npc_name": "Cool Devi#06_hw",
+          "npc_ordinal": 1,
+          "script_line": 44
+        },
+        {
+          "step_no": 5,
+          "npc_id": 27983,
+          "npc_name": "Chicken Masta#06_hw",
+          "npc_ordinal": 4,
+          "script_line": 486
+        },
+        {
+          "step_no": 6,
+          "npc_id": 27982,
+          "npc_name": "Deviruchi#06_hw",
+          "npc_ordinal": 3,
+          "script_line": 394
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 1,
+          "npc_name": "Cool Devi#06_hw",
+          "npc_source_line": 44,
+          "wiki_step_excerpt": "Talk to the Cool Devi NPC in Prontera (prontera 165,68).",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 45,
+              "expression": "MaxWeight - Weight < 2000 || checkweight(1201,1) == 0"
+            },
+            {
+              "line_no": 54,
+              "expression": "countitem(7609) > 0"
+            },
+            {
+              "line_no": 68,
+              "expression": "select(\"What will he say?:I also know about it.\") == 1"
+            },
+            {
+              "line_no": 102,
+              "expression": "(countitem(7609) > 0) && (countitem(5134) > 0)"
+            },
+            {
+              "line_no": 110,
+              "expression": "select( \"No, I'll come back later.:Oh, good. Make it now!\") == 1"
+            },
+            {
+              "line_no": 146,
+              "expression": "(countitem(7609) > 0) && (countitem(535) > 0) && (countitem(2226) > 0)"
+            },
+            {
+              "line_no": 154,
+              "expression": "select( \"No, I'll come back later.:Oh,good. Make it now!\") == 1"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 5,
+          "npc_name": "Chicken Masta#06_hw",
+          "npc_source_line": 486,
+          "wiki_step_excerpt": "Collect the following items, and bring them to her: 1 Pumpkin Mojo, 2 Pumpkins, and 2 Eggs. She will then give you a Pumpkin Pie. Eggs: You must find one of the Chicken Masta's many missing chickens and return them to him. There are a number of locations on th",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 487,
+              "expression": "MaxWeight - Weight < 2000 || checkweight(1201,1) == 0"
+            },
+            {
+              "line_no": 496,
+              "expression": "halloween == 101"
+            },
+            {
+              "line_no": 509,
+              "expression": "select( \"Actually, yes. I came here to get some eggs.:Nope.\") == 1"
+            },
+            {
+              "line_no": 517,
+              "expression": "Zeny > 1999"
+            },
+            {
+              "line_no": 533,
+              "expression": "Zeny > 999"
+            },
+            {
+              "line_no": 561,
+              "expression": "halloween == 102"
+            },
+            {
+              "line_no": 590,
+              "expression": "halloween == 103"
+            },
+            {
+              "line_no": 604,
+              "expression": ".@input == 0"
+            },
+            {
+              "line_no": 609,
+              "expression": "@input > 3"
+            },
+            {
+              "line_no": 619,
+              "expression": "Zeny < @hw_egg"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 6,
+          "npc_name": "Deviruchi#06_hw",
+          "npc_source_line": 394,
+          "wiki_step_excerpt": "Talk to the Deviruchi (nif_in 20,32) in the Inn in Nifflheim (niflheim 189,207). The Deviruchi will tell you that Pumpkin Pie is Loli Ruri's favorite dish and ask you for it. Give him the pumpkin pie and he'll give you 3 Nifflheim Express Tickets or a Cookie B",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 395,
+              "expression": "MaxWeight - Weight < 2000 || checkweight(1201,1) == 0"
+            },
+            {
+              "line_no": 422,
+              "expression": "countitem(12192) > 0"
+            },
+            {
+              "line_no": 439,
+              "expression": "@hw_temp == 2"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Hugel Memory Quest",
+      "guide_url": "https://irowiki.org/classic/Hugel_Memory_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_hugel.txt",
+      "source_blob_sha": "7bb9972bdbcdd9085f533005bb8bf2470ad43d59",
+      "decision": "source_supported",
+      "reason": "Wiki step 3 El Schatt, step 4 Perfitz and step 5 return to El Schatt match source NPC visits. El Schatt writes hg_memory 3/5 while Perfitz checks 3 and writes 4: a direct state progression witness, though later routes remain unverified.",
+      "support_basis": [
+        "El Schatt to Perfitz to El Schatt wiki visit order",
+        "shared hg_memory state writes",
+        "source conditional guards on hg_memory"
+      ],
+      "source_witnesses": [
+        "El Schatt",
+        "Perfitz"
+      ],
+      "shared_variable": "hg_memory",
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 3,
+          "npc_id": 34236,
+          "npc_name": "El Schatt",
+          "npc_ordinal": 32,
+          "script_line": 4640
+        },
+        {
+          "step_no": 4,
+          "npc_id": 34235,
+          "npc_name": "Perfitz",
+          "npc_ordinal": 31,
+          "script_line": 4578
+        },
+        {
+          "step_no": 5,
+          "npc_id": 34236,
+          "npc_name": "El Schatt",
+          "npc_ordinal": 32,
+          "script_line": 4640
+        }
+      ],
+      "shared_npc_variable_write_facts": {
+        "hg_memory": {
+          "31": [
+            {
+              "line_no": 4580,
+              "value_expression": "= 4"
+            }
+          ],
+          "32": [
+            {
+              "line_no": 4665,
+              "value_expression": "= 3"
+            },
+            {
+              "line_no": 4691,
+              "value_expression": "= 5"
+            },
+            {
+              "line_no": 4862,
+              "value_expression": "= 12"
+            }
+          ]
+        }
+      },
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 3,
+          "npc_name": "El Schatt",
+          "npc_source_line": 4640,
+          "wiki_step_excerpt": "Talk to El Schatt in Hugel (196 164) and learn that his father plans on developing the area.",
+          "shared_variable_writes": {
+            "hg_memory": [
+              {
+                "line_no": 4665,
+                "value_expression": "= 3"
+              },
+              {
+                "line_no": 4691,
+                "value_expression": "= 5"
+              },
+              {
+                "line_no": 4862,
+                "value_expression": "= 12"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 4641,
+              "expression": "hg_memory == 2"
+            },
+            {
+              "line_no": 4675,
+              "expression": "hg_memory == 3"
+            },
+            {
+              "line_no": 4690,
+              "expression": "hg_memory == 4"
+            },
+            {
+              "line_no": 4708,
+              "expression": "hg_memory == 5"
+            },
+            {
+              "line_no": 4716,
+              "expression": "hg_memory == 7"
+            },
+            {
+              "line_no": 4725,
+              "expression": "hg_memory == 10"
+            },
+            {
+              "line_no": 4737,
+              "expression": "hg_memory == 11"
+            },
+            {
+              "line_no": 4872,
+              "expression": "hg_memory == 12"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 4,
+          "npc_name": "Perfitz",
+          "npc_source_line": 4578,
+          "wiki_step_excerpt": "Talk to Perfitz in Hugel (100 103) and he will explain that El Schatt has changed.",
+          "shared_variable_writes": {
+            "hg_memory": [
+              {
+                "line_no": 4580,
+                "value_expression": "= 4"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 4579,
+              "expression": "hg_memory == 3"
+            },
+            {
+              "line_no": 4605,
+              "expression": "hg_memory == 4"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 5,
+          "npc_name": "El Schatt",
+          "npc_source_line": 4640,
+          "wiki_step_excerpt": "Return to El Schatt. He will say that he will not change his mind on cutting down the tree.",
+          "shared_variable_writes": {
+            "hg_memory": [
+              {
+                "line_no": 4665,
+                "value_expression": "= 3"
+              },
+              {
+                "line_no": 4691,
+                "value_expression": "= 5"
+              },
+              {
+                "line_no": 4862,
+                "value_expression": "= 12"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 4641,
+              "expression": "hg_memory == 2"
+            },
+            {
+              "line_no": 4675,
+              "expression": "hg_memory == 3"
+            },
+            {
+              "line_no": 4690,
+              "expression": "hg_memory == 4"
+            },
+            {
+              "line_no": 4708,
+              "expression": "hg_memory == 5"
+            },
+            {
+              "line_no": 4716,
+              "expression": "hg_memory == 7"
+            },
+            {
+              "line_no": 4725,
+              "expression": "hg_memory == 10"
+            },
+            {
+              "line_no": 4737,
+              "expression": "hg_memory == 11"
+            },
+            {
+              "line_no": 4872,
+              "expression": "hg_memory == 12"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Hugel Memory Quest",
+      "guide_url": "https://irowiki.org/classic/Hugel_Memory_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_hugel.txt",
+      "source_blob_sha": "2f355ec6b203b0f2efd2e300404b90f36e5a1f62",
+      "decision": "source_supported",
+      "reason": "Wiki step 3 El Schatt, step 4 Perfitz and step 5 return to El Schatt match source NPC visits. El Schatt writes hg_memory 3/5 while Perfitz checks 3 and writes 4: a direct state progression witness, though later routes remain unverified.",
+      "support_basis": [
+        "El Schatt to Perfitz to El Schatt wiki visit order",
+        "shared hg_memory state writes",
+        "source conditional guards on hg_memory"
+      ],
+      "source_witnesses": [
+        "El Schatt",
+        "Perfitz"
+      ],
+      "shared_variable": "hg_memory",
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 3,
+          "npc_id": 29265,
+          "npc_name": "El Schatt",
+          "npc_ordinal": 32,
+          "script_line": 4638
+        },
+        {
+          "step_no": 4,
+          "npc_id": 29264,
+          "npc_name": "Perfitz",
+          "npc_ordinal": 31,
+          "script_line": 4576
+        },
+        {
+          "step_no": 5,
+          "npc_id": 29265,
+          "npc_name": "El Schatt",
+          "npc_ordinal": 32,
+          "script_line": 4638
+        }
+      ],
+      "shared_npc_variable_write_facts": {
+        "hg_memory": {
+          "31": [
+            {
+              "line_no": 4578,
+              "value_expression": "4"
+            }
+          ],
+          "32": [
+            {
+              "line_no": 4663,
+              "value_expression": "3"
+            },
+            {
+              "line_no": 4689,
+              "value_expression": "5"
+            },
+            {
+              "line_no": 4860,
+              "value_expression": "12"
+            }
+          ]
+        }
+      },
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 3,
+          "npc_name": "El Schatt",
+          "npc_source_line": 4638,
+          "wiki_step_excerpt": "Talk to El Schatt in Hugel (196 164) and learn that his father plans on developing the area.",
+          "shared_variable_writes": {
+            "hg_memory": [
+              {
+                "line_no": 4663,
+                "value_expression": "3"
+              },
+              {
+                "line_no": 4689,
+                "value_expression": "5"
+              },
+              {
+                "line_no": 4860,
+                "value_expression": "12"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 4639,
+              "expression": "hg_memory == 2"
+            },
+            {
+              "line_no": 4673,
+              "expression": "hg_memory == 3"
+            },
+            {
+              "line_no": 4688,
+              "expression": "hg_memory == 4"
+            },
+            {
+              "line_no": 4706,
+              "expression": "hg_memory == 5"
+            },
+            {
+              "line_no": 4714,
+              "expression": "hg_memory == 7"
+            },
+            {
+              "line_no": 4723,
+              "expression": "hg_memory == 10"
+            },
+            {
+              "line_no": 4735,
+              "expression": "hg_memory == 11"
+            },
+            {
+              "line_no": 4870,
+              "expression": "hg_memory == 12"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 4,
+          "npc_name": "Perfitz",
+          "npc_source_line": 4576,
+          "wiki_step_excerpt": "Talk to Perfitz in Hugel (100 103) and he will explain that El Schatt has changed.",
+          "shared_variable_writes": {
+            "hg_memory": [
+              {
+                "line_no": 4578,
+                "value_expression": "4"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 4577,
+              "expression": "hg_memory == 3"
+            },
+            {
+              "line_no": 4603,
+              "expression": "hg_memory == 4"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 5,
+          "npc_name": "El Schatt",
+          "npc_source_line": 4638,
+          "wiki_step_excerpt": "Return to El Schatt. He will say that he will not change his mind on cutting down the tree.",
+          "shared_variable_writes": {
+            "hg_memory": [
+              {
+                "line_no": 4663,
+                "value_expression": "3"
+              },
+              {
+                "line_no": 4689,
+                "value_expression": "5"
+              },
+              {
+                "line_no": 4860,
+                "value_expression": "12"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 4639,
+              "expression": "hg_memory == 2"
+            },
+            {
+              "line_no": 4673,
+              "expression": "hg_memory == 3"
+            },
+            {
+              "line_no": 4688,
+              "expression": "hg_memory == 4"
+            },
+            {
+              "line_no": 4706,
+              "expression": "hg_memory == 5"
+            },
+            {
+              "line_no": 4714,
+              "expression": "hg_memory == 7"
+            },
+            {
+              "line_no": 4723,
+              "expression": "hg_memory == 10"
+            },
+            {
+              "line_no": 4735,
+              "expression": "hg_memory == 11"
+            },
+            {
+              "line_no": 4870,
+              "expression": "hg_memory == 12"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Prayer To Heaven (Transcendence Quest)",
+      "guide_url": "https://irowiki.org/classic/Prayer_To_Heaven_(Transcendence_Quest)",
+      "source_project": "hercules",
+      "source_path": "npc/jobs/valkyrie.txt",
+      "source_blob_sha": "f294140c0fe28dd65f0463fbd1da270b235119ee",
+      "decision": "rejected",
+      "reason": "The wiki describes a separate Toyotino/Michael expedition with intermediate engineering, airship and Dark Minion stages absent from the generic valkyrie.txt rebirth implementation. Matching entry/exit NPCs cannot validate this separate quest source.",
+      "support_basis": [],
+      "source_witnesses": [
+        "Metheus Sylphe",
+        "Valkyrie"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 2,
+          "npc_id": 33212,
+          "npc_name": "Metheus Sylphe#Library",
+          "npc_ordinal": 2,
+          "script_line": 214
+        },
+        {
+          "step_no": 17,
+          "npc_id": 33211,
+          "npc_name": "Valkyrie#",
+          "npc_ordinal": 1,
+          "script_line": 42
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 2,
+          "npc_name": "Metheus Sylphe#Library",
+          "npc_source_line": 214,
+          "wiki_step_excerpt": "Talk to Metheus Sylphe(88,164), and select \"Donate\", then \"Join the Expedition\" (last option).",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 215,
+              "expression": "BaseLevel > 98 && JobLevel > 49 && Class >= Job_Knight && Class <= Job_Crusader2"
+            },
+            {
+              "line_no": 216,
+              "expression": "valkyrie_Q == 0"
+            },
+            {
+              "line_no": 219,
+              "expression": "RENEWAL"
+            },
+            {
+              "line_no": 220,
+              "expression": "questprogress(5160) != 0"
+            },
+            {
+              "line_no": 223,
+              "expression": "select((countitem(Captured_Book) > 0 ? \"I'm here for the book.\" : \"Tell me the report.\"), \"Donate Zeny\") == 1"
+            },
+            {
+              "line_no": 224,
+              "expression": "countitem(Captured_Book) != 0"
+            },
+            {
+              "line_no": 233,
+              "expression": "countitem(Captured_Book) == 0"
+            },
+            {
+              "line_no": 237,
+              "expression": "questprogress(5160) != 0"
+            },
+            {
+              "line_no": 260,
+              "expression": "Zeny < 1285000"
+            },
+            {
+              "line_no": 268,
+              "expression": "select(\"Unable to tell.\", \"Just Donate..\") != 2"
+            },
+            {
+              "line_no": 276,
+              "expression": "questprogress(5160) != 0"
+            },
+            {
+              "line_no": 299,
+              "expression": "Zeny >= 1285000"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 17,
+          "npc_name": "Valkyrie#",
+          "npc_source_line": 42,
+          "wiki_step_excerpt": "After you've been warped to Valhalla, walk north as far as you can, and talk to the Valkyrie.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 43,
+              "expression": "ADVJOB != 0 || Upper == 1"
+            },
+            {
+              "line_no": 56,
+              "expression": "BaseLevel > 98 && JobLevel > 49 && Class >= Job_Knight && Class <= Job_Crusader2"
+            },
+            {
+              "line_no": 68,
+              "expression": "Weight > 0 || Zeny > 0 || checkcart() || checkfalcon() || checkmount()"
+            },
+            {
+              "line_no": 97,
+              "expression": "SkillPoint"
+            },
+            {
+              "line_no": 148,
+              "expression": "ADVJOB == Job_Lord_Knight2"
+            },
+            {
+              "line_no": 149,
+              "expression": "ADVJOB == Job_Paladin2"
+            },
+            {
+              "line_no": 175,
+              "expression": "RENEWAL"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Prayer To Heaven (Transcendence Quest)",
+      "guide_url": "https://irowiki.org/classic/Prayer_To_Heaven_(Transcendence_Quest)",
+      "source_project": "rathena",
+      "source_path": "npc/jobs/valkyrie.txt",
+      "source_blob_sha": "9a4dcfe4903f85bd3e76a980befcf2298fae93c8",
+      "decision": "rejected",
+      "reason": "The wiki describes a separate Toyotino/Michael expedition with intermediate engineering, airship and Dark Minion stages absent from the generic valkyrie.txt rebirth implementation. Matching entry/exit NPCs cannot validate this separate quest source.",
+      "support_basis": [],
+      "source_witnesses": [
+        "Metheus Sylphe",
+        "Valkyrie"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 2,
+          "npc_id": 28208,
+          "npc_name": "Metheus Sylphe#Library",
+          "npc_ordinal": 2,
+          "script_line": 215
+        },
+        {
+          "step_no": 17,
+          "npc_id": 28207,
+          "npc_name": "Valkyrie#",
+          "npc_ordinal": 1,
+          "script_line": 43
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 2,
+          "npc_name": "Metheus Sylphe#Library",
+          "npc_source_line": 215,
+          "wiki_step_excerpt": "Talk to Metheus Sylphe(88,164), and select \"Donate\", then \"Join the Expedition\" (last option).",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 216,
+              "expression": "BaseLevel > 98 && JobLevel > 49 && Class >= Job_Knight && Class <= Job_Crusader2"
+            },
+            {
+              "line_no": 217,
+              "expression": "valkyrie_Q == 0"
+            },
+            {
+              "line_no": 234,
+              "expression": "select(\"Donate.:Cancel.\") == 1"
+            },
+            {
+              "line_no": 235,
+              "expression": "Zeny >= 1285000"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 17,
+          "npc_name": "Valkyrie#",
+          "npc_source_line": 43,
+          "wiki_step_excerpt": "After you've been warped to Valhalla, walk north as far as you can, and talk to the Valkyrie.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 44,
+              "expression": "ADVJOB != 0 || Upper == 1"
+            },
+            {
+              "line_no": 57,
+              "expression": "BaseLevel > 98 && JobLevel > 49 && Class >= Job_Knight && Class <= Job_Crusader2"
+            },
+            {
+              "line_no": 69,
+              "expression": "Weight > 0 || Zeny > 0 || checkcart() != 0 || checkfalcon() != 0 || checkriding() != 0"
+            },
+            {
+              "line_no": 98,
+              "expression": "SkillPoint"
+            },
+            {
+              "line_no": 149,
+              "expression": "ADVJOB == Job_Lord_Knight2"
+            },
+            {
+              "line_no": 150,
+              "expression": "ADVJOB == Job_Paladin2"
+            },
+            {
+              "line_no": 176,
+              "expression": "checkre(0)"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Rebirth Walkthrough",
+      "guide_url": "https://irowiki.org/classic/Rebirth_Walkthrough",
+      "source_project": "hercules",
+      "source_path": "npc/jobs/valkyrie.txt",
+      "source_blob_sha": "f294140c0fe28dd65f0463fbd1da270b235119ee",
+      "decision": "variant_conflict",
+      "reason": "The wiki specifies a 2,500,000 Zeny donation (1,250,000 VIP), but this valkyrie.txt source charges 1,285,000 Zeny. NPC visitation matches; the exact guide/source variant conflicts and requires a server/episode-specific resolution.",
+      "support_basis": [],
+      "source_witnesses": [
+        "Metheus Sylphe",
+        "Valkyrie"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 2,
+          "npc_id": 33212,
+          "npc_name": "Metheus Sylphe#Library",
+          "npc_ordinal": 2,
+          "script_line": 214
+        },
+        {
+          "step_no": 8,
+          "npc_id": 33211,
+          "npc_name": "Valkyrie#",
+          "npc_ordinal": 1,
+          "script_line": 42
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 2,
+          "npc_name": "Metheus Sylphe#Library",
+          "npc_source_line": 214,
+          "wiki_step_excerpt": "Talk to Metheus Sylphe, and pay 2,500,000 Zeny (1,250,000 Zeny if you are VIP). To proceed in this quest, the player's character must have less than 100 Weight, no Cart, Pet or Peco Peco, and all of his or her Skill Points spent.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 215,
+              "expression": "BaseLevel > 98 && JobLevel > 49 && Class >= Job_Knight && Class <= Job_Crusader2"
+            },
+            {
+              "line_no": 216,
+              "expression": "valkyrie_Q == 0"
+            },
+            {
+              "line_no": 219,
+              "expression": "RENEWAL"
+            },
+            {
+              "line_no": 220,
+              "expression": "questprogress(5160) != 0"
+            },
+            {
+              "line_no": 223,
+              "expression": "select((countitem(Captured_Book) > 0 ? \"I'm here for the book.\" : \"Tell me the report.\"), \"Donate Zeny\") == 1"
+            },
+            {
+              "line_no": 224,
+              "expression": "countitem(Captured_Book) != 0"
+            },
+            {
+              "line_no": 233,
+              "expression": "countitem(Captured_Book) == 0"
+            },
+            {
+              "line_no": 237,
+              "expression": "questprogress(5160) != 0"
+            },
+            {
+              "line_no": 260,
+              "expression": "Zeny < 1285000"
+            },
+            {
+              "line_no": 268,
+              "expression": "select(\"Unable to tell.\", \"Just Donate..\") != 2"
+            },
+            {
+              "line_no": 276,
+              "expression": "questprogress(5160) != 0"
+            },
+            {
+              "line_no": 299,
+              "expression": "Zeny >= 1285000"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 8,
+          "npc_name": "Valkyrie#",
+          "npc_source_line": 42,
+          "wiki_step_excerpt": "After you've been warped to Valhalla, walk north as far as you can, and talk to the Valkyrie.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 43,
+              "expression": "ADVJOB != 0 || Upper == 1"
+            },
+            {
+              "line_no": 56,
+              "expression": "BaseLevel > 98 && JobLevel > 49 && Class >= Job_Knight && Class <= Job_Crusader2"
+            },
+            {
+              "line_no": 68,
+              "expression": "Weight > 0 || Zeny > 0 || checkcart() || checkfalcon() || checkmount()"
+            },
+            {
+              "line_no": 97,
+              "expression": "SkillPoint"
+            },
+            {
+              "line_no": 148,
+              "expression": "ADVJOB == Job_Lord_Knight2"
+            },
+            {
+              "line_no": 149,
+              "expression": "ADVJOB == Job_Paladin2"
+            },
+            {
+              "line_no": 175,
+              "expression": "RENEWAL"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Rebirth Walkthrough",
+      "guide_url": "https://irowiki.org/classic/Rebirth_Walkthrough",
+      "source_project": "rathena",
+      "source_path": "npc/jobs/valkyrie.txt",
+      "source_blob_sha": "9a4dcfe4903f85bd3e76a980befcf2298fae93c8",
+      "decision": "variant_conflict",
+      "reason": "The wiki specifies a 2,500,000 Zeny donation (1,250,000 VIP), but this valkyrie.txt source charges 1,285,000 Zeny. NPC visitation matches; the exact guide/source variant conflicts and requires a server/episode-specific resolution.",
+      "support_basis": [],
+      "source_witnesses": [
+        "Metheus Sylphe",
+        "Valkyrie"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 2,
+          "npc_id": 28208,
+          "npc_name": "Metheus Sylphe#Library",
+          "npc_ordinal": 2,
+          "script_line": 215
+        },
+        {
+          "step_no": 8,
+          "npc_id": 28207,
+          "npc_name": "Valkyrie#",
+          "npc_ordinal": 1,
+          "script_line": 43
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 2,
+          "npc_name": "Metheus Sylphe#Library",
+          "npc_source_line": 215,
+          "wiki_step_excerpt": "Talk to Metheus Sylphe, and pay 2,500,000 Zeny (1,250,000 Zeny if you are VIP). To proceed in this quest, the player's character must have less than 100 Weight, no Cart, Pet or Peco Peco, and all of his or her Skill Points spent.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 216,
+              "expression": "BaseLevel > 98 && JobLevel > 49 && Class >= Job_Knight && Class <= Job_Crusader2"
+            },
+            {
+              "line_no": 217,
+              "expression": "valkyrie_Q == 0"
+            },
+            {
+              "line_no": 234,
+              "expression": "select(\"Donate.:Cancel.\") == 1"
+            },
+            {
+              "line_no": 235,
+              "expression": "Zeny >= 1285000"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 8,
+          "npc_name": "Valkyrie#",
+          "npc_source_line": 43,
+          "wiki_step_excerpt": "After you've been warped to Valhalla, walk north as far as you can, and talk to the Valkyrie.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 44,
+              "expression": "ADVJOB != 0 || Upper == 1"
+            },
+            {
+              "line_no": 57,
+              "expression": "BaseLevel > 98 && JobLevel > 49 && Class >= Job_Knight && Class <= Job_Crusader2"
+            },
+            {
+              "line_no": 69,
+              "expression": "Weight > 0 || Zeny > 0 || checkcart() != 0 || checkfalcon() != 0 || checkriding() != 0"
+            },
+            {
+              "line_no": 98,
+              "expression": "SkillPoint"
+            },
+            {
+              "line_no": 149,
+              "expression": "ADVJOB == Job_Lord_Knight2"
+            },
+            {
+              "line_no": 150,
+              "expression": "ADVJOB == Job_Paladin2"
+            },
+            {
+              "line_no": 176,
+              "expression": "checkre(0)"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Snowysnow Quest",
+      "guide_url": "https://irowiki.org/classic/Snowysnow_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/cities/lutie.txt",
+      "source_blob_sha": "432e36ea73f93bad462b501848b4889a971c1386",
+      "decision": "source_supported",
+      "reason": "The Lutie source Snowman and Uncle Hairy NPC blocks both operate on the xmas_npc quest variable and appear in the wiki's repeated NPC visits. Supports a core Snowysnow chain despite its Lutie holiday setting; names may vary between server versions.",
+      "support_basis": [
+        "source name and map Lutie NPCs",
+        "shared xmas_npc variable writes",
+        "wiki return visits to Snowman"
+      ],
+      "source_witnesses": [
+        "Uncle Hairy",
+        "Snowman"
+      ],
+      "shared_variable": "xmas_npc",
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 2,
+          "npc_id": 32678,
+          "npc_name": "Uncle Hairy",
+          "npc_ordinal": 6,
+          "script_line": 339
+        },
+        {
+          "step_no": 6,
+          "npc_id": 32679,
+          "npc_name": "Snowman",
+          "npc_ordinal": 7,
+          "script_line": 472
+        },
+        {
+          "step_no": 7,
+          "npc_id": 32679,
+          "npc_name": "Snowman",
+          "npc_ordinal": 7,
+          "script_line": 472
+        },
+        {
+          "step_no": 11,
+          "npc_id": 32679,
+          "npc_name": "Snowman",
+          "npc_ordinal": 7,
+          "script_line": 472
+        }
+      ],
+      "shared_npc_variable_write_facts": {
+        "xmas_npc": {
+          "6": [
+            {
+              "line_no": 402,
+              "value_expression": "= 5"
+            }
+          ],
+          "7": [
+            {
+              "line_no": 559,
+              "value_expression": "= 3"
+            },
+            {
+              "line_no": 621,
+              "value_expression": "= 7"
+            },
+            {
+              "line_no": 680,
+              "value_expression": "= 11"
+            },
+            {
+              "line_no": 689,
+              "value_expression": "= 11"
+            },
+            {
+              "line_no": 697,
+              "value_expression": "= 11"
+            },
+            {
+              "line_no": 705,
+              "value_expression": "= 11"
+            },
+            {
+              "line_no": 713,
+              "value_expression": "= 11"
+            },
+            {
+              "line_no": 721,
+              "value_expression": "= 11"
+            },
+            {
+              "line_no": 729,
+              "value_expression": "= 11"
+            },
+            {
+              "line_no": 737,
+              "value_expression": "= 11"
+            }
+          ]
+        }
+      },
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 2,
+          "npc_name": "Uncle Hairy",
+          "npc_source_line": 339,
+          "wiki_step_excerpt": "Poze is located to the west of the Toy Factory entrance, he is wearing a red Christmas coat (117,303). Talk to Poze and he will send you to talk to Uncle Hairy Cantata.",
+          "shared_variable_writes": {
+            "xmas_npc": [
+              {
+                "line_no": 402,
+                "value_expression": "= 5"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 340,
+              "expression": "xmas_npc == 4"
+            },
+            {
+              "line_no": 341,
+              "expression": "countitem(Chinese_Ink) > 0 && countitem(Sticky_Mucus) > 0"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 6,
+          "npc_name": "Snowman",
+          "npc_source_line": 472,
+          "wiki_step_excerpt": "She will send you to get the Roughest Salt in the world from the snowman. So return to the snowman and talk to him again.",
+          "shared_variable_writes": {
+            "xmas_npc": [
+              {
+                "line_no": 559,
+                "value_expression": "= 3"
+              },
+              {
+                "line_no": 621,
+                "value_expression": "= 7"
+              },
+              {
+                "line_no": 680,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 689,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 697,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 705,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 713,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 721,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 729,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 737,
+                "value_expression": "= 11"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 473,
+              "expression": "checkweight(Knife,1) == 0 "
+            },
+            {
+              "line_no": 496,
+              "expression": "xmas_npc < 2"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 7,
+          "npc_name": "Snowman",
+          "npc_source_line": 472,
+          "wiki_step_excerpt": "When you talk to the snowman again, select the first option, the one in blue. This will lead you though a dialogue, and at the end, you get the salt.",
+          "shared_variable_writes": {
+            "xmas_npc": [
+              {
+                "line_no": 559,
+                "value_expression": "= 3"
+              },
+              {
+                "line_no": 621,
+                "value_expression": "= 7"
+              },
+              {
+                "line_no": 680,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 689,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 697,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 705,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 713,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 721,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 729,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 737,
+                "value_expression": "= 11"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 473,
+              "expression": "checkweight(Knife,1) == 0 "
+            },
+            {
+              "line_no": 496,
+              "expression": "xmas_npc < 2"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 11,
+          "npc_name": "Snowman",
+          "npc_source_line": 472,
+          "wiki_step_excerpt": "At the end of the girl's monologue, she will send you back once more to talk to the snowman. Again, select the blue option. The snowman will give you a gift from his bag; reach in and you get a present! | 5-10 Candy | 5-10 Candy Cane | 5-10 Well-baked Cookie |",
+          "shared_variable_writes": {
+            "xmas_npc": [
+              {
+                "line_no": 559,
+                "value_expression": "= 3"
+              },
+              {
+                "line_no": 621,
+                "value_expression": "= 7"
+              },
+              {
+                "line_no": 680,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 689,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 697,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 705,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 713,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 721,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 729,
+                "value_expression": "= 11"
+              },
+              {
+                "line_no": 737,
+                "value_expression": "= 11"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 473,
+              "expression": "checkweight(Knife,1) == 0 "
+            },
+            {
+              "line_no": 496,
+              "expression": "xmas_npc < 2"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Snowysnow Quest",
+      "guide_url": "https://irowiki.org/classic/Snowysnow_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/cities/lutie.txt",
+      "source_blob_sha": "3ef194efcde606e2065805162f254a3c48091116",
+      "decision": "source_supported",
+      "reason": "The Lutie source Snowman and Uncle Hairy NPC blocks both operate on the xmas_npc quest variable and appear in the wiki's repeated NPC visits. Supports a core Snowysnow chain despite its Lutie holiday setting; names may vary between server versions.",
+      "support_basis": [
+        "source name and map Lutie NPCs",
+        "shared xmas_npc variable writes",
+        "wiki return visits to Snowman"
+      ],
+      "source_witnesses": [
+        "Uncle Hairy",
+        "Snowman"
+      ],
+      "shared_variable": "xmas_npc",
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 2,
+          "npc_id": 27653,
+          "npc_name": "Uncle Hairy",
+          "npc_ordinal": 5,
+          "script_line": 318
+        },
+        {
+          "step_no": 6,
+          "npc_id": 27654,
+          "npc_name": "Snowman",
+          "npc_ordinal": 6,
+          "script_line": 451
+        },
+        {
+          "step_no": 7,
+          "npc_id": 27654,
+          "npc_name": "Snowman",
+          "npc_ordinal": 6,
+          "script_line": 451
+        },
+        {
+          "step_no": 11,
+          "npc_id": 27654,
+          "npc_name": "Snowman",
+          "npc_ordinal": 6,
+          "script_line": 451
+        }
+      ],
+      "shared_npc_variable_write_facts": {
+        "xmas_npc": {
+          "5": [
+            {
+              "line_no": 381,
+              "value_expression": "5"
+            }
+          ],
+          "6": [
+            {
+              "line_no": 538,
+              "value_expression": "3"
+            },
+            {
+              "line_no": 600,
+              "value_expression": "7"
+            },
+            {
+              "line_no": 658,
+              "value_expression": "11"
+            },
+            {
+              "line_no": 667,
+              "value_expression": "11"
+            },
+            {
+              "line_no": 675,
+              "value_expression": "11"
+            },
+            {
+              "line_no": 683,
+              "value_expression": "11"
+            },
+            {
+              "line_no": 691,
+              "value_expression": "11"
+            },
+            {
+              "line_no": 699,
+              "value_expression": "11"
+            },
+            {
+              "line_no": 707,
+              "value_expression": "11"
+            },
+            {
+              "line_no": 715,
+              "value_expression": "11"
+            }
+          ]
+        }
+      },
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 2,
+          "npc_name": "Uncle Hairy",
+          "npc_source_line": 318,
+          "wiki_step_excerpt": "Poze is located to the west of the Toy Factory entrance, he is wearing a red Christmas coat (117,303). Talk to Poze and he will send you to talk to Uncle Hairy Cantata.",
+          "shared_variable_writes": {
+            "xmas_npc": [
+              {
+                "line_no": 381,
+                "value_expression": "5"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 319,
+              "expression": "xmas_npc == 4"
+            },
+            {
+              "line_no": 320,
+              "expression": "countitem(1024) > 0 && countitem(938) > 0"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 6,
+          "npc_name": "Snowman",
+          "npc_source_line": 451,
+          "wiki_step_excerpt": "She will send you to get the Roughest Salt in the world from the snowman. So return to the snowman and talk to him again.",
+          "shared_variable_writes": {
+            "xmas_npc": [
+              {
+                "line_no": 538,
+                "value_expression": "3"
+              },
+              {
+                "line_no": 600,
+                "value_expression": "7"
+              },
+              {
+                "line_no": 658,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 667,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 675,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 683,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 691,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 699,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 707,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 715,
+                "value_expression": "11"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 452,
+              "expression": "checkweight(1201,1) == 0 "
+            },
+            {
+              "line_no": 475,
+              "expression": "xmas_npc < 2"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 7,
+          "npc_name": "Snowman",
+          "npc_source_line": 451,
+          "wiki_step_excerpt": "When you talk to the snowman again, select the first option, the one in blue. This will lead you though a dialogue, and at the end, you get the salt.",
+          "shared_variable_writes": {
+            "xmas_npc": [
+              {
+                "line_no": 538,
+                "value_expression": "3"
+              },
+              {
+                "line_no": 600,
+                "value_expression": "7"
+              },
+              {
+                "line_no": 658,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 667,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 675,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 683,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 691,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 699,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 707,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 715,
+                "value_expression": "11"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 452,
+              "expression": "checkweight(1201,1) == 0 "
+            },
+            {
+              "line_no": 475,
+              "expression": "xmas_npc < 2"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 11,
+          "npc_name": "Snowman",
+          "npc_source_line": 451,
+          "wiki_step_excerpt": "At the end of the girl's monologue, she will send you back once more to talk to the snowman. Again, select the blue option. The snowman will give you a gift from his bag; reach in and you get a present! | 5-10 Candy | 5-10 Candy Cane | 5-10 Well-baked Cookie |",
+          "shared_variable_writes": {
+            "xmas_npc": [
+              {
+                "line_no": 538,
+                "value_expression": "3"
+              },
+              {
+                "line_no": 600,
+                "value_expression": "7"
+              },
+              {
+                "line_no": 658,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 667,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 675,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 683,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 691,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 699,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 707,
+                "value_expression": "11"
+              },
+              {
+                "line_no": 715,
+                "value_expression": "11"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 452,
+              "expression": "checkweight(1201,1) == 0 "
+            },
+            {
+              "line_no": 475,
+              "expression": "xmas_npc < 2"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Successor to the Throne Quest",
+      "guide_url": "https://irowiki.org/classic/Successor_to_the_Throne_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_morocc.txt",
+      "source_blob_sha": "d0fc59155b52e4406c50485e11665af7951d7c9f",
+      "decision": "source_supported",
+      "reason": "The Morocc source describes Succession of the Prince and defines the Inspector and Servant in the wiki encounter order; prince quest-state IDs/branches are present. Approval applies only to the source file, not the full sequence of seven princes.",
+      "support_basis": [
+        "explicit Succession of the Prince source documentation",
+        "Inspector and Servant wiki source occurrences",
+        "source branching and prince quest-state facts"
+      ],
+      "source_witnesses": [
+        "Inspector",
+        "Servant"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 1,
+          "npc_id": 34417,
+          "npc_name": "Continental Official",
+          "npc_ordinal": 12,
+          "script_line": 1206
+        },
+        {
+          "step_no": 3,
+          "npc_id": 34451,
+          "npc_name": "Inspector#prince",
+          "npc_ordinal": 46,
+          "script_line": 4432
+        },
+        {
+          "step_no": 6,
+          "npc_id": 34453,
+          "npc_name": "Servant#hans",
+          "npc_ordinal": 48,
+          "script_line": 5378
+        },
+        {
+          "step_no": 17,
+          "npc_id": 34451,
+          "npc_name": "Inspector#prince",
+          "npc_ordinal": 46,
+          "script_line": 4432
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 1,
+          "npc_name": "Continental Official",
+          "npc_source_line": 1206,
+          "wiki_step_excerpt": "In Morroc , Talk to the Continental Official (176, 103), and tell him that you want to volunteer. (Or just complete the Continental Guard Quest up to Step 2.)",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 1207,
+              "expression": "rebirth_moc_edq > 3"
+            },
+            {
+              "line_no": 1218,
+              "expression": "rebirth_moc_edq == 0"
+            },
+            {
+              "line_no": 1237,
+              "expression": "BaseLevel > 79"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 3,
+          "npc_name": "Inspector#prince",
+          "npc_source_line": 4432,
+          "wiki_step_excerpt": "Head into the castle, and talk to the Inspector (117, 163). He needs to test your suitability for the task by giving you a test of strength. If you are below a certain level, he will request you bring him 2 Reins first.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 4433,
+              "expression": "questprogress(10004) == 1"
+            },
+            {
+              "line_no": 4472,
+              "expression": "nk_prince < 2"
+            },
+            {
+              "line_no": 4485,
+              "expression": "nk_prince == 0"
+            },
+            {
+              "line_no": 4494,
+              "expression": "BaseLevel > 89"
+            },
+            {
+              "line_no": 4705,
+              "expression": ".@brave > 50"
+            },
+            {
+              "line_no": 4706,
+              "expression": ".@int > 30"
+            },
+            {
+              "line_no": 4713,
+              "expression": ".@solid > 30"
+            },
+            {
+              "line_no": 4727,
+              "expression": ".@int > 50"
+            },
+            {
+              "line_no": 4728,
+              "expression": ".@brave > 30"
+            },
+            {
+              "line_no": 4735,
+              "expression": ".@solid > 30"
+            },
+            {
+              "line_no": 4749,
+              "expression": ".@solid > 50"
+            },
+            {
+              "line_no": 4750,
+              "expression": ".@brave > 30"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 6,
+          "npc_name": "Servant#hans",
+          "npc_source_line": 5378,
+          "wiki_step_excerpt": "Head up the stairs, and go into the first portal along the long hallway (300, 274). Talk to the Prince, but he apparently isn't very chatty. Talk to the Servant instead, who talks about the Prince.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 5379,
+              "expression": "questprogress(10020) == 2"
+            },
+            {
+              "line_no": 5389,
+              "expression": "questprogress(10020) == 1"
+            },
+            {
+              "line_no": 5394,
+              "expression": "nk_prince == 6"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 17,
+          "npc_name": "Inspector#prince",
+          "npc_source_line": 4432,
+          "wiki_step_excerpt": "Return to the Inspector, and you talk to him about your impressions of the Princes. He says he's worried about Ahrum, and tells you to go talk to some of them again.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 4433,
+              "expression": "questprogress(10004) == 1"
+            },
+            {
+              "line_no": 4472,
+              "expression": "nk_prince < 2"
+            },
+            {
+              "line_no": 4485,
+              "expression": "nk_prince == 0"
+            },
+            {
+              "line_no": 4494,
+              "expression": "BaseLevel > 89"
+            },
+            {
+              "line_no": 4705,
+              "expression": ".@brave > 50"
+            },
+            {
+              "line_no": 4706,
+              "expression": ".@int > 30"
+            },
+            {
+              "line_no": 4713,
+              "expression": ".@solid > 30"
+            },
+            {
+              "line_no": 4727,
+              "expression": ".@int > 50"
+            },
+            {
+              "line_no": 4728,
+              "expression": ".@brave > 30"
+            },
+            {
+              "line_no": 4735,
+              "expression": ".@solid > 30"
+            },
+            {
+              "line_no": 4749,
+              "expression": ".@solid > 50"
+            },
+            {
+              "line_no": 4750,
+              "expression": ".@brave > 30"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Successor to the Throne Quest",
+      "guide_url": "https://irowiki.org/classic/Successor_to_the_Throne_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/pre-re/quests/quests_morocc.txt",
+      "source_blob_sha": "5c5bc0012e5883751c38b154166bb5a6455cca07",
+      "decision": "source_supported",
+      "reason": "The Morocc source describes Succession of the Prince and defines the Inspector and Servant in the wiki encounter order; prince quest-state IDs/branches are present. Approval applies only to the source file, not the full sequence of seven princes.",
+      "support_basis": [
+        "explicit Succession of the Prince source documentation",
+        "Inspector and Servant wiki source occurrences",
+        "source branching and prince quest-state facts"
+      ],
+      "source_witnesses": [
+        "Inspector",
+        "Servant"
+      ],
+      "shared_variable": null,
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 3,
+          "npc_id": 28549,
+          "npc_name": "Inspector#prince",
+          "npc_ordinal": 2,
+          "script_line": 149
+        },
+        {
+          "step_no": 6,
+          "npc_id": 28551,
+          "npc_name": "Servant#hans",
+          "npc_ordinal": 4,
+          "script_line": 1113
+        },
+        {
+          "step_no": 17,
+          "npc_id": 28549,
+          "npc_name": "Inspector#prince",
+          "npc_ordinal": 2,
+          "script_line": 149
+        }
+      ],
+      "shared_npc_variable_write_facts": {},
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 3,
+          "npc_name": "Inspector#prince",
+          "npc_source_line": 149,
+          "wiki_step_excerpt": "Head into the castle, and talk to the Inspector (117, 163). He needs to test your suitability for the task by giving you a test of strength. If you are below a certain level, he will request you bring him 2 Reins first.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 150,
+              "expression": "checkquest(10004) == 0 || checkquest(10004) == 1"
+            },
+            {
+              "line_no": 189,
+              "expression": "nk_prince < 2"
+            },
+            {
+              "line_no": 202,
+              "expression": "nk_prince == 0"
+            },
+            {
+              "line_no": 211,
+              "expression": "BaseLevel > 89"
+            },
+            {
+              "line_no": 422,
+              "expression": ".@brave > 50"
+            },
+            {
+              "line_no": 423,
+              "expression": ".@int > 30"
+            },
+            {
+              "line_no": 430,
+              "expression": ".@solid > 30"
+            },
+            {
+              "line_no": 444,
+              "expression": ".@int > 50"
+            },
+            {
+              "line_no": 445,
+              "expression": ".@brave > 30"
+            },
+            {
+              "line_no": 452,
+              "expression": ".@solid > 30"
+            },
+            {
+              "line_no": 466,
+              "expression": ".@solid > 50"
+            },
+            {
+              "line_no": 467,
+              "expression": ".@brave > 30"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 6,
+          "npc_name": "Servant#hans",
+          "npc_source_line": 1113,
+          "wiki_step_excerpt": "Head up the stairs, and go into the first portal along the long hallway (300, 274). Talk to the Prince, but he apparently isn't very chatty. Talk to the Servant instead, who talks about the Prince.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 1114,
+              "expression": "checkquest(10020) == 2"
+            },
+            {
+              "line_no": 1124,
+              "expression": "checkquest(10020) == 0 || checkquest(10020) == 1"
+            },
+            {
+              "line_no": 1129,
+              "expression": "nk_prince == 6"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 17,
+          "npc_name": "Inspector#prince",
+          "npc_source_line": 149,
+          "wiki_step_excerpt": "Return to the Inspector, and you talk to him about your impressions of the Princes. He says he's worried about Ahrum, and tells you to go talk to some of them again.",
+          "shared_variable_writes": {},
+          "source_condition_guards": [
+            {
+              "line_no": 150,
+              "expression": "checkquest(10004) == 0 || checkquest(10004) == 1"
+            },
+            {
+              "line_no": 189,
+              "expression": "nk_prince < 2"
+            },
+            {
+              "line_no": 202,
+              "expression": "nk_prince == 0"
+            },
+            {
+              "line_no": 211,
+              "expression": "BaseLevel > 89"
+            },
+            {
+              "line_no": 422,
+              "expression": ".@brave > 50"
+            },
+            {
+              "line_no": 423,
+              "expression": ".@int > 30"
+            },
+            {
+              "line_no": 430,
+              "expression": ".@solid > 30"
+            },
+            {
+              "line_no": 444,
+              "expression": ".@int > 50"
+            },
+            {
+              "line_no": 445,
+              "expression": ".@brave > 30"
+            },
+            {
+              "line_no": 452,
+              "expression": ".@solid > 30"
+            },
+            {
+              "line_no": 466,
+              "expression": ".@solid > 50"
+            },
+            {
+              "line_no": 467,
+              "expression": ".@brave > 30"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Unlucky Emerald Quest",
+      "guide_url": "https://irowiki.org/classic/Unlucky_Emerald_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_nameless.txt",
+      "source_blob_sha": "d32f5c9ea180d63ff8660980170c46896b8e2b4b",
+      "decision": "source_supported",
+      "reason": "Guide visits Ragged Man first, Man in Hiding later, and the matched source code advances treasure_nd in both NPC blocks. Later jewel_nd branches are related but must be reviewed separately before automatic stage navigation.",
+      "support_basis": [
+        "Ragged Man then Man in Hiding ordered guide steps",
+        "shared treasure_nd state writes",
+        "independent source state branches"
+      ],
+      "source_witnesses": [
+        "Ragged Man",
+        "Man in Hiding"
+      ],
+      "shared_variable": "treasure_nd",
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 1,
+          "npc_id": 34595,
+          "npc_name": "Ragged Man#nd",
+          "npc_ordinal": 52,
+          "script_line": 9290
+        },
+        {
+          "step_no": 7,
+          "npc_id": 34597,
+          "npc_name": "Man in Hiding#nd",
+          "npc_ordinal": 54,
+          "script_line": 9927
+        },
+        {
+          "step_no": 10,
+          "npc_id": 34600,
+          "npc_name": "Shaman",
+          "npc_ordinal": 57,
+          "script_line": 10402
+        },
+        {
+          "step_no": 10,
+          "npc_id": 34601,
+          "npc_name": "Archeologist",
+          "npc_ordinal": 58,
+          "script_line": 10819
+        },
+        {
+          "step_no": 10,
+          "npc_id": 34602,
+          "npc_name": "Old Soldier",
+          "npc_ordinal": 59,
+          "script_line": 11018
+        }
+      ],
+      "shared_npc_variable_write_facts": {
+        "treasure_nd": {
+          "52": [
+            {
+              "line_no": 9349,
+              "value_expression": "= 1"
+            },
+            {
+              "line_no": 9370,
+              "value_expression": "= 1"
+            },
+            {
+              "line_no": 9411,
+              "value_expression": "= 2"
+            },
+            {
+              "line_no": 9482,
+              "value_expression": "= 2"
+            }
+          ],
+          "54": [
+            {
+              "line_no": 9979,
+              "value_expression": "= 10"
+            },
+            {
+              "line_no": 9986,
+              "value_expression": "= 9"
+            },
+            {
+              "line_no": 10046,
+              "value_expression": "= 10"
+            },
+            {
+              "line_no": 10053,
+              "value_expression": "= 9"
+            }
+          ]
+        },
+        "jewel_nd": {
+          "57": [
+            {
+              "line_no": 10461,
+              "value_expression": "= 13"
+            },
+            {
+              "line_no": 10493,
+              "value_expression": "= 14"
+            },
+            {
+              "line_no": 10526,
+              "value_expression": "= 15"
+            },
+            {
+              "line_no": 10544,
+              "value_expression": "= 16"
+            },
+            {
+              "line_no": 10608,
+              "value_expression": "= 17"
+            },
+            {
+              "line_no": 10654,
+              "value_expression": "= 18"
+            },
+            {
+              "line_no": 10717,
+              "value_expression": "= 20"
+            },
+            {
+              "line_no": 10769,
+              "value_expression": "= 21"
+            }
+          ],
+          "58": [
+            {
+              "line_no": 10880,
+              "value_expression": "= 19"
+            },
+            {
+              "line_no": 10942,
+              "value_expression": "= 24"
+            },
+            {
+              "line_no": 10977,
+              "value_expression": "= 25"
+            }
+          ],
+          "59": [
+            {
+              "line_no": 11090,
+              "value_expression": "= 26"
+            },
+            {
+              "line_no": 11170,
+              "value_expression": "= 30"
+            },
+            {
+              "line_no": 11189,
+              "value_expression": "= 31"
+            },
+            {
+              "line_no": 11244,
+              "value_expression": "= 31"
+            }
+          ]
+        }
+      },
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 1,
+          "npc_name": "Ragged Man#nd",
+          "npc_source_line": 9290,
+          "wiki_step_excerpt": "In Morroc , talk to the Ragged Man southwest of the south Kafra (143, 63). He says he's a treasure hunter from Prontera , who's spent all of his money searching for it. He needs 1,200 Zeny to return home.",
+          "shared_variable_writes": {
+            "treasure_nd": [
+              {
+                "line_no": 9349,
+                "value_expression": "= 1"
+              },
+              {
+                "line_no": 9370,
+                "value_expression": "= 1"
+              },
+              {
+                "line_no": 9411,
+                "value_expression": "= 2"
+              },
+              {
+                "line_no": 9482,
+                "value_expression": "= 2"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 9291,
+              "expression": "treasure_nd == 0"
+            },
+            {
+              "line_no": 9358,
+              "expression": "Zeny < 1200"
+            },
+            {
+              "line_no": 9427,
+              "expression": "treasure_nd == 1"
+            },
+            {
+              "line_no": 9444,
+              "expression": "Zeny < 1200"
+            },
+            {
+              "line_no": 9495,
+              "expression": "treasure_nd == 2"
+            },
+            {
+              "line_no": 9504,
+              "expression": "treasure_nd > 10"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 7,
+          "npc_name": "Man in Hiding#nd",
+          "npc_source_line": 9927,
+          "wiki_step_excerpt": "In Comodo, go to the northeast part of town, and talk to the Man in Hiding (339, 224). He has the other half of the note, which reads \"Treasure]\" or \"Sesame]\".",
+          "shared_variable_writes": {
+            "treasure_nd": [
+              {
+                "line_no": 9979,
+                "value_expression": "= 10"
+              },
+              {
+                "line_no": 9986,
+                "value_expression": "= 9"
+              },
+              {
+                "line_no": 10046,
+                "value_expression": "= 10"
+              },
+              {
+                "line_no": 10053,
+                "value_expression": "= 9"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 9928,
+              "expression": "treasure_nd < 7"
+            },
+            {
+              "line_no": 9933,
+              "expression": "(treasure_nd == 7) || (treasure_nd == 8)"
+            },
+            {
+              "line_no": 9934,
+              "expression": "zdan_edq > 12"
+            },
+            {
+              "line_no": 9975,
+              "expression": "treasure_nd == 7"
+            },
+            {
+              "line_no": 10042,
+              "expression": "treasure_nd == 7"
+            },
+            {
+              "line_no": 10066,
+              "expression": "treasure_nd == 9"
+            },
+            {
+              "line_no": 10075,
+              "expression": "zdan_edq > 12"
+            },
+            {
+              "line_no": 10092,
+              "expression": "treasure_nd == 10"
+            },
+            {
+              "line_no": 10101,
+              "expression": "zdan_edq > 12"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 10,
+          "npc_name": "Shaman",
+          "npc_source_line": 10402,
+          "wiki_step_excerpt": "Talk to Ibrahim ( moc_ruins 152, 147), who wants to take a look at the Emerald. You can choose to either sell it or study it. A. Sell It | Note: (This path basically just sends you to the B Path with the extra added step of going to another town and back, so t",
+          "shared_variable_writes": {
+            "jewel_nd": [
+              {
+                "line_no": 10461,
+                "value_expression": "= 13"
+              },
+              {
+                "line_no": 10493,
+                "value_expression": "= 14"
+              },
+              {
+                "line_no": 10526,
+                "value_expression": "= 15"
+              },
+              {
+                "line_no": 10544,
+                "value_expression": "= 16"
+              },
+              {
+                "line_no": 10608,
+                "value_expression": "= 17"
+              },
+              {
+                "line_no": 10654,
+                "value_expression": "= 18"
+              },
+              {
+                "line_no": 10717,
+                "value_expression": "= 20"
+              },
+              {
+                "line_no": 10769,
+                "value_expression": "= 21"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 10403,
+              "expression": "jewel_nd == 0"
+            },
+            {
+              "line_no": 10411,
+              "expression": "(jewel_nd > 0) && (jewel_nd < 12)"
+            },
+            {
+              "line_no": 10419,
+              "expression": "jewel_nd == 12"
+            },
+            {
+              "line_no": 10444,
+              "expression": "countitem(Unlucky_Emerald) > 0"
+            },
+            {
+              "line_no": 10475,
+              "expression": "jewel_nd == 13"
+            },
+            {
+              "line_no": 10484,
+              "expression": "Zeny > 199999"
+            },
+            {
+              "line_no": 10511,
+              "expression": "jewel_nd == 14"
+            },
+            {
+              "line_no": 10529,
+              "expression": "jewel_nd == 15"
+            },
+            {
+              "line_no": 10537,
+              "expression": "Zeny > 99999"
+            },
+            {
+              "line_no": 10564,
+              "expression": "jewel_nd == 16"
+            },
+            {
+              "line_no": 10611,
+              "expression": "jewel_nd == 17"
+            },
+            {
+              "line_no": 10618,
+              "expression": "countitem(Boody_Red) > 0"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 10,
+          "npc_name": "Archeologist",
+          "npc_source_line": 10819,
+          "wiki_step_excerpt": "Talk to Ibrahim ( moc_ruins 152, 147), who wants to take a look at the Emerald. You can choose to either sell it or study it. A. Sell It | Note: (This path basically just sends you to the B Path with the extra added step of going to another town and back, so t",
+          "shared_variable_writes": {
+            "jewel_nd": [
+              {
+                "line_no": 10880,
+                "value_expression": "= 19"
+              },
+              {
+                "line_no": 10942,
+                "value_expression": "= 24"
+              },
+              {
+                "line_no": 10977,
+                "value_expression": "= 25"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 10820,
+              "expression": "jewel_nd < 18"
+            },
+            {
+              "line_no": 10829,
+              "expression": "jewel_nd == 18"
+            },
+            {
+              "line_no": 10838,
+              "expression": "countitem(Unlucky_Emerald) > 0"
+            },
+            {
+              "line_no": 10901,
+              "expression": "jewel_nd == 22"
+            },
+            {
+              "line_no": 10918,
+              "expression": "jewel_nd == 23"
+            },
+            {
+              "line_no": 10945,
+              "expression": "jewel_nd == 24"
+            },
+            {
+              "line_no": 10980,
+              "expression": "jewel_nd == 25"
+            },
+            {
+              "line_no": 10990,
+              "expression": "jewel_nd > 28"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 10,
+          "npc_name": "Old Soldier",
+          "npc_source_line": 11018,
+          "wiki_step_excerpt": "Talk to Ibrahim ( moc_ruins 152, 147), who wants to take a look at the Emerald. You can choose to either sell it or study it. A. Sell It | Note: (This path basically just sends you to the B Path with the extra added step of going to another town and back, so t",
+          "shared_variable_writes": {
+            "jewel_nd": [
+              {
+                "line_no": 11090,
+                "value_expression": "= 26"
+              },
+              {
+                "line_no": 11170,
+                "value_expression": "= 30"
+              },
+              {
+                "line_no": 11189,
+                "value_expression": "= 31"
+              },
+              {
+                "line_no": 11244,
+                "value_expression": "= 31"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 11019,
+              "expression": "checkweight(Resin,200) == 0"
+            },
+            {
+              "line_no": 11027,
+              "expression": "jewel_nd == 25"
+            },
+            {
+              "line_no": 11094,
+              "expression": "(jewel_nd > 25) && (jewel_nd < 29)"
+            },
+            {
+              "line_no": 11102,
+              "expression": "jewel_nd == 29"
+            },
+            {
+              "line_no": 11172,
+              "expression": "countitem(Unlucky_Emerald) > 0"
+            },
+            {
+              "line_no": 11191,
+              "expression": "RENEWAL_EXP"
+            },
+            {
+              "line_no": 11192,
+              "expression": "BaseLevel < 66"
+            },
+            {
+              "line_no": 11193,
+              "expression": "(BaseLevel > 65) && (BaseLevel < 75)"
+            },
+            {
+              "line_no": 11194,
+              "expression": "(BaseLevel > 74) && (BaseLevel < 81)"
+            },
+            {
+              "line_no": 11195,
+              "expression": "(BaseLevel > 80) && (BaseLevel < 86)"
+            },
+            {
+              "line_no": 11196,
+              "expression": "(BaseLevel > 85) && (BaseLevel < 91)"
+            },
+            {
+              "line_no": 11197,
+              "expression": "(BaseLevel > 90) && (BaseLevel < 96)"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    },
+    {
+      "guide_title": "Unlucky Emerald Quest",
+      "guide_url": "https://irowiki.org/classic/Unlucky_Emerald_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_nameless.txt",
+      "source_blob_sha": "7e5c967a02b542ebf2b9cd1ddb7a45d3e9308dc4",
+      "decision": "source_supported",
+      "reason": "Guide visits Ragged Man first, Man in Hiding later, and the matched source code advances treasure_nd in both NPC blocks. Later jewel_nd branches are related but must be reviewed separately before automatic stage navigation.",
+      "support_basis": [
+        "Ragged Man then Man in Hiding ordered guide steps",
+        "shared treasure_nd state writes",
+        "independent source state branches"
+      ],
+      "source_witnesses": [
+        "Ragged Man",
+        "Man in Hiding"
+      ],
+      "shared_variable": "treasure_nd",
+      "wiki_npc_visit_sequence": [
+        {
+          "step_no": 1,
+          "npc_id": 29591,
+          "npc_name": "Ragged Man#nd",
+          "npc_ordinal": 51,
+          "script_line": 9019
+        },
+        {
+          "step_no": 7,
+          "npc_id": 29593,
+          "npc_name": "Man in Hiding#nd",
+          "npc_ordinal": 53,
+          "script_line": 9656
+        },
+        {
+          "step_no": 10,
+          "npc_id": 29596,
+          "npc_name": "Shaman",
+          "npc_ordinal": 56,
+          "script_line": 10132
+        },
+        {
+          "step_no": 10,
+          "npc_id": 29597,
+          "npc_name": "Archeologist",
+          "npc_ordinal": 57,
+          "script_line": 10549
+        },
+        {
+          "step_no": 10,
+          "npc_id": 29598,
+          "npc_name": "Old Soldier",
+          "npc_ordinal": 58,
+          "script_line": 10748
+        }
+      ],
+      "shared_npc_variable_write_facts": {
+        "treasure_nd": {
+          "51": [
+            {
+              "line_no": 9078,
+              "value_expression": "1"
+            },
+            {
+              "line_no": 9099,
+              "value_expression": "1"
+            },
+            {
+              "line_no": 9140,
+              "value_expression": "2"
+            },
+            {
+              "line_no": 9211,
+              "value_expression": "2"
+            }
+          ],
+          "53": [
+            {
+              "line_no": 9708,
+              "value_expression": "10"
+            },
+            {
+              "line_no": 9715,
+              "value_expression": "9"
+            },
+            {
+              "line_no": 9775,
+              "value_expression": "10"
+            },
+            {
+              "line_no": 9782,
+              "value_expression": "9"
+            }
+          ]
+        },
+        "jewel_nd": {
+          "56": [
+            {
+              "line_no": 10191,
+              "value_expression": "13"
+            },
+            {
+              "line_no": 10223,
+              "value_expression": "14"
+            },
+            {
+              "line_no": 10256,
+              "value_expression": "15"
+            },
+            {
+              "line_no": 10274,
+              "value_expression": "16"
+            },
+            {
+              "line_no": 10338,
+              "value_expression": "17"
+            },
+            {
+              "line_no": 10384,
+              "value_expression": "18"
+            },
+            {
+              "line_no": 10447,
+              "value_expression": "20"
+            },
+            {
+              "line_no": 10499,
+              "value_expression": "21"
+            }
+          ],
+          "57": [
+            {
+              "line_no": 10610,
+              "value_expression": "19"
+            },
+            {
+              "line_no": 10672,
+              "value_expression": "24"
+            },
+            {
+              "line_no": 10707,
+              "value_expression": "25"
+            }
+          ],
+          "58": [
+            {
+              "line_no": 10820,
+              "value_expression": "26"
+            },
+            {
+              "line_no": 10900,
+              "value_expression": "30"
+            },
+            {
+              "line_no": 10919,
+              "value_expression": "31"
+            },
+            {
+              "line_no": 10974,
+              "value_expression": "31"
+            }
+          ]
+        }
+      },
+      "wiki_steps_vs_source_conditions": [
+        {
+          "step_no": 1,
+          "npc_name": "Ragged Man#nd",
+          "npc_source_line": 9019,
+          "wiki_step_excerpt": "In Morroc , talk to the Ragged Man southwest of the south Kafra (143, 63). He says he's a treasure hunter from Prontera , who's spent all of his money searching for it. He needs 1,200 Zeny to return home.",
+          "shared_variable_writes": {
+            "treasure_nd": [
+              {
+                "line_no": 9078,
+                "value_expression": "1"
+              },
+              {
+                "line_no": 9099,
+                "value_expression": "1"
+              },
+              {
+                "line_no": 9140,
+                "value_expression": "2"
+              },
+              {
+                "line_no": 9211,
+                "value_expression": "2"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 9020,
+              "expression": "treasure_nd == 0"
+            },
+            {
+              "line_no": 9087,
+              "expression": "Zeny < 1200"
+            },
+            {
+              "line_no": 9156,
+              "expression": "treasure_nd == 1"
+            },
+            {
+              "line_no": 9173,
+              "expression": "Zeny < 1200"
+            },
+            {
+              "line_no": 9224,
+              "expression": "treasure_nd == 2"
+            },
+            {
+              "line_no": 9233,
+              "expression": "treasure_nd > 10"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 7,
+          "npc_name": "Man in Hiding#nd",
+          "npc_source_line": 9656,
+          "wiki_step_excerpt": "In Comodo, go to the northeast part of town, and talk to the Man in Hiding (339, 224). He has the other half of the note, which reads \"Treasure]\" or \"Sesame]\".",
+          "shared_variable_writes": {
+            "treasure_nd": [
+              {
+                "line_no": 9708,
+                "value_expression": "10"
+              },
+              {
+                "line_no": 9715,
+                "value_expression": "9"
+              },
+              {
+                "line_no": 9775,
+                "value_expression": "10"
+              },
+              {
+                "line_no": 9782,
+                "value_expression": "9"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 9657,
+              "expression": "treasure_nd < 7"
+            },
+            {
+              "line_no": 9662,
+              "expression": "(treasure_nd == 7) || (treasure_nd == 8)"
+            },
+            {
+              "line_no": 9663,
+              "expression": "zdan_edq > 12"
+            },
+            {
+              "line_no": 9704,
+              "expression": "treasure_nd == 7"
+            },
+            {
+              "line_no": 9771,
+              "expression": "treasure_nd == 7"
+            },
+            {
+              "line_no": 9795,
+              "expression": "treasure_nd == 9"
+            },
+            {
+              "line_no": 9804,
+              "expression": "zdan_edq > 12"
+            },
+            {
+              "line_no": 9821,
+              "expression": "treasure_nd == 10"
+            },
+            {
+              "line_no": 9830,
+              "expression": "zdan_edq > 12"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 10,
+          "npc_name": "Shaman",
+          "npc_source_line": 10132,
+          "wiki_step_excerpt": "Talk to Ibrahim ( moc_ruins 152, 147), who wants to take a look at the Emerald. You can choose to either sell it or study it. A. Sell It | Note: (This path basically just sends you to the B Path with the extra added step of going to another town and back, so t",
+          "shared_variable_writes": {
+            "jewel_nd": [
+              {
+                "line_no": 10191,
+                "value_expression": "13"
+              },
+              {
+                "line_no": 10223,
+                "value_expression": "14"
+              },
+              {
+                "line_no": 10256,
+                "value_expression": "15"
+              },
+              {
+                "line_no": 10274,
+                "value_expression": "16"
+              },
+              {
+                "line_no": 10338,
+                "value_expression": "17"
+              },
+              {
+                "line_no": 10384,
+                "value_expression": "18"
+              },
+              {
+                "line_no": 10447,
+                "value_expression": "20"
+              },
+              {
+                "line_no": 10499,
+                "value_expression": "21"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 10133,
+              "expression": "jewel_nd == 0"
+            },
+            {
+              "line_no": 10141,
+              "expression": "(jewel_nd > 0) && (jewel_nd < 12)"
+            },
+            {
+              "line_no": 10149,
+              "expression": "jewel_nd == 12"
+            },
+            {
+              "line_no": 10174,
+              "expression": "countitem(7725) > 0"
+            },
+            {
+              "line_no": 10205,
+              "expression": "jewel_nd == 13"
+            },
+            {
+              "line_no": 10214,
+              "expression": "Zeny > 199999"
+            },
+            {
+              "line_no": 10241,
+              "expression": "jewel_nd == 14"
+            },
+            {
+              "line_no": 10259,
+              "expression": "jewel_nd == 15"
+            },
+            {
+              "line_no": 10267,
+              "expression": "Zeny > 99999"
+            },
+            {
+              "line_no": 10294,
+              "expression": "jewel_nd == 16"
+            },
+            {
+              "line_no": 10341,
+              "expression": "jewel_nd == 17"
+            },
+            {
+              "line_no": 10348,
+              "expression": "countitem(990) > 0"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 10,
+          "npc_name": "Archeologist",
+          "npc_source_line": 10549,
+          "wiki_step_excerpt": "Talk to Ibrahim ( moc_ruins 152, 147), who wants to take a look at the Emerald. You can choose to either sell it or study it. A. Sell It | Note: (This path basically just sends you to the B Path with the extra added step of going to another town and back, so t",
+          "shared_variable_writes": {
+            "jewel_nd": [
+              {
+                "line_no": 10610,
+                "value_expression": "19"
+              },
+              {
+                "line_no": 10672,
+                "value_expression": "24"
+              },
+              {
+                "line_no": 10707,
+                "value_expression": "25"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 10550,
+              "expression": "jewel_nd < 18"
+            },
+            {
+              "line_no": 10559,
+              "expression": "jewel_nd == 18"
+            },
+            {
+              "line_no": 10568,
+              "expression": "countitem(7725) > 0"
+            },
+            {
+              "line_no": 10631,
+              "expression": "jewel_nd == 22"
+            },
+            {
+              "line_no": 10648,
+              "expression": "jewel_nd == 23"
+            },
+            {
+              "line_no": 10675,
+              "expression": "jewel_nd == 24"
+            },
+            {
+              "line_no": 10710,
+              "expression": "jewel_nd == 25"
+            },
+            {
+              "line_no": 10720,
+              "expression": "jewel_nd > 28"
+            }
+          ],
+          "guard_execution_verified": false
+        },
+        {
+          "step_no": 10,
+          "npc_name": "Old Soldier",
+          "npc_source_line": 10748,
+          "wiki_step_excerpt": "Talk to Ibrahim ( moc_ruins 152, 147), who wants to take a look at the Emerald. You can choose to either sell it or study it. A. Sell It | Note: (This path basically just sends you to the B Path with the extra added step of going to another town and back, so t",
+          "shared_variable_writes": {
+            "jewel_nd": [
+              {
+                "line_no": 10820,
+                "value_expression": "26"
+              },
+              {
+                "line_no": 10900,
+                "value_expression": "30"
+              },
+              {
+                "line_no": 10919,
+                "value_expression": "31"
+              },
+              {
+                "line_no": 10974,
+                "value_expression": "31"
+              }
+            ]
+          },
+          "source_condition_guards": [
+            {
+              "line_no": 10749,
+              "expression": "checkweight(907,200) == 0"
+            },
+            {
+              "line_no": 10757,
+              "expression": "jewel_nd == 25"
+            },
+            {
+              "line_no": 10824,
+              "expression": "(jewel_nd > 25) && (jewel_nd < 29)"
+            },
+            {
+              "line_no": 10832,
+              "expression": "jewel_nd == 29"
+            },
+            {
+              "line_no": 10902,
+              "expression": "countitem(7725) > 0"
+            },
+            {
+              "line_no": 10921,
+              "expression": "checkre(3)"
+            },
+            {
+              "line_no": 10922,
+              "expression": "BaseLevel < 66"
+            },
+            {
+              "line_no": 10923,
+              "expression": "(BaseLevel > 65) && (BaseLevel < 75)"
+            },
+            {
+              "line_no": 10924,
+              "expression": "(BaseLevel > 74) && (BaseLevel < 81)"
+            },
+            {
+              "line_no": 10925,
+              "expression": "(BaseLevel > 80) && (BaseLevel < 86)"
+            },
+            {
+              "line_no": 10926,
+              "expression": "(BaseLevel > 85) && (BaseLevel < 91)"
+            },
+            {
+              "line_no": 10927,
+              "expression": "(BaseLevel > 90) && (BaseLevel < 96)"
+            }
+          ],
+          "guard_execution_verified": false
+        }
+      ],
+      "source_code_execution_order_verified": false,
+      "status_scope": "source-file identity only; not a verified full quest route",
+      "approved_for_automatic_gameplay": false
+    }
+  ]
+}

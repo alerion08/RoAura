@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T19:47:52.122485+00:00",
+  "created_utc": "2026-10-29T20:55:18.406242+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -154,6 +154,13 @@
     "proposals_reviewed": 25,
     "dossier_facts": 688
   },
+  "source_adjudication": {
+    "rejected": 4,
+    "source_supported": 19,
+    "variant_conflict": 2,
+    "total": 25,
+    "source_sequence_rows": 83
+  },
   "unclassified_content_review": {
     "pages": 128
   },
@@ -182,7 +189,9 @@
     "wiki_missing_script_proposals": 25,
     "wiki_missing_script_evidence": 83,
     "wiki_missing_script_dossiers": 25,
-    "wiki_missing_script_dossier_facts": 688
+    "wiki_missing_script_dossier_facts": 688,
+    "wiki_source_decisions": 25,
+    "wiki_source_sequence_evidence": 83
   },
   "quality": {
     "wiki_refresh": {
@@ -252,7 +261,7 @@
   "sqlite_integrity": "ok",
   "foreign_key_violations": 0,
   "runtime_export": {
-    "schema_version": 4,
+    "schema_version": 5,
     "sqlite_integrity": "ok",
     "foreign_key_violations": 0,
     "tables": {
@@ -268,6 +277,7 @@
       "step_hints": 1476,
       "scripts": 939,
       "quest_scripts": 574,
+      "quest_source_decisions": 25,
       "npcs": 8739,
       "quest_step_npcs": 1565,
       "dialogue_lines": 526791,
@@ -280,7 +290,7 @@
       "quest_registry_evidence": 5950,
       "candidate_answers": 156
     },
-    "bytes": 73273344
+    "bytes": 73289728
   },
-  "questie_schema_version": 4
+  "questie_schema_version": 5
 }
