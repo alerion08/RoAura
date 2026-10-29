@@ -33,6 +33,18 @@ class GuideParserTests(unittest.TestCase):
         self.assertIn(("guide_answer","Sure"),details)
         self.assertNotIn(("bare_coord","51:105"),details)
 
+    def test_mediawiki_table_wrapped_quest_guide(self):
+        html = """<div id="mw-content-text"><div class="mw-parser-output">
+        <table><tbody><tr><td>
+        <table><tr><th>Requirements</th></tr><tr><td>Base Level: 70</td></tr>
+        <tr><th>Rewards</th></tr><tr><td>Experience</td></tr></table>
+        <p>1. Enter the inn at yuno 51,105.</p><p>2. Speak to the academy guard.</p>
+        </td></tr></tbody></table></div></div>"""
+        steps,quality,meta=parse_guide(html)
+        self.assertEqual(quality["numbered"],2)
+        self.assertEqual(steps[0].source_number,1)
+        self.assertEqual(meta["base_level"],70)
+
     def test_narrative_fallback_is_labeled(self):
         html="""<div class="mw-parser-output">
         <p>Talk to the priest in Prontera to begin your adventure.</p>
