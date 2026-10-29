@@ -46,17 +46,7 @@ jobs:
           assert scripts>0, "No NPC scripts collected"
           print(f"Verified SQLite: {p.stat().st_size} bytes; {scripts} original scripts.")
           PY
-      - name: Commit database to isolated research branch
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research/quest-database/output/quest_research.sqlite research/quest-database/output/quest_research.sqlite.gz research/quest-database/output/coverage.json
-          if ! git diff --cached --quiet; then
-            git commit -m "research: refresh extracted quest source database [skip ci]"
-            git push
-          fi
       - name: Archive verified database
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: quest-research-database
@@ -66,3 +56,26 @@ jobs:
             research/quest-database/output/coverage.json
           if-no-files-found: error
           retention-days: 30
+      - name: Publish database to research branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/quest-database/output/quest_research.sqlite research/quest-database/output/quest_research.sqlite.gz research/quest-database/output/coverage.json
+          if git diff --cached --quiet; then
+            echo "No database changes to publish."
+            exit 0
+          fi
+          git commit -m "research: refresh extracted quest source database [skip ci]"
+          # Docs and scripts may have been committed after this run started.
+          # Rebase the generated data commit onto the latest research head.
+          for attempt in 1 2 3; do
+            git fetch origin "$GITHUB_REF_NAME"
+            git rebase "origin/$GITHUB_REF_NAME"
+            if git push origin "HEAD:$GITHUB_REF_NAME"; then
+              echo "Database published to $GITHUB_REF_NAME"
+              exit 0
+            fi
+            echo "Remote advanced during publication; retrying ($attempt/3)"
+          done
+          echo "Database artifact uploaded, but branch update failed."
+          exit 1
