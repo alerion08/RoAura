@@ -61,6 +61,16 @@ different artifact from argument handling or settings timing. Automatic DEV
 activation and explicit enabled/missed lines make the next test diagnostic;
 in-game matching still requires confirmation.
 
+Next Windows feedback (`debug(9).log`) confirms the bridge really activated
+and decoded status 6 on eight starts. It missed seven other 0x0983 starts and
+one 0x0196 removal during the Enchant Poison sequence; a timer continued
+after an unconfirmed removal. The 15 ms packet-callback poll is therefore
+insufficient. The bridge now samples the read-only client dispatch buffer on
+an independent worker, keeps only the last 100 ms of status frames (bounded
+to 128), and matches Npcap events against that cache before/in addition to
+the short callback poll. This is still awaiting Windows gameplay and CPU
+measurement; no effect-specific expiry is inferred from a missed removal.
+
 ## Current product
 
 RoAura is a Windows x64 WPF overlay for Ragnarok Online. It reads incoming game packets through Npcap and provides configurable overlays and supporting tools.

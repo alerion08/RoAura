@@ -557,3 +557,20 @@ an empirical starting bound, not proof that every status frame can be read.
 Run the DEV build normally and inspect `SPRINGRO CLIENT STATUS enabled` and
 `SPRINGRO CLIENT STATUS matched` lines in the private DEV debug log. Synthetic tests cannot
 establish gameplay correctness.
+
+### Partial match and missed removal in the first bridge field test
+
+At 14:56–14:58 local, the new build logged successful decoded `0x0983`
+status 6 starts (eight) and multiple misses (seven starts plus one `0x0196`
+around 14:57:03). The matched start supplied the real server duration of
+180000 ms; a later server removal was not decoded, so the existing timeline
+continued counting. The status 5 removal at 14:58:00 was decoded, confirming
+that removal matching can work, but it did not remove status 6. No hardcoded
+duration or cast-based inference should hide a missed `0x0196`.
+
+The read-only diagnostic probe previously caught every frame in one run by
+sampling independently of Npcap callbacks. The bridge now does the same on
+a background worker, retains decoded frames for 100 ms and validates them
+against each incoming wire packet. The bounded callback poll remains as a
+fallback. The sampler logs read rate every 15 seconds; the next test must
+check match rate, removal transitions and CPU cost. This is still DEV only.

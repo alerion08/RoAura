@@ -12,11 +12,13 @@ public sealed class SpringRoClientStatusBridge : IDisposable
 {
     private const string ExpectedHash = "591e3776e40ac3661a1c60576a145e34e69a61423a890fda292c955d237f91c2";
     private readonly object _sync = new();
+    private readonly object _framesSync = new();
+    private readonly Queue<(DateTime At, byte[] Bytes)> _frames = new();
     private IntPtr _handle;
     private IntPtr _address;
     private int _pid;
     private bool _unavailable;
-    private bool _disposed;
+    private volatile bool _disposed;
     private int _missesLogged;
 
     public void Prepare()
@@ -41,30 +43,95 @@ public sealed class SpringRoClientStatusBridge : IDisposable
             }
             finally { foreach (var game in games) game.Dispose(); }
             var raw = probe.WireBytes.Span;
+            var rawBytes = raw.ToArray();
             var first = new byte[29];
             var second = new byte[29];
             var watch = Stopwatch.StartNew();
             var readSucceeded = false;
             do
             {
+                if (FindRecent(rawBytes, self) is { } captured) return captured;
                 var read = ReadProcessMemory(_handle, _address, first, (UIntPtr)29, out var length) &&
                     length.ToUInt32() == 29;
                 readSucceeded |= read;
                 if (read &&
                     ReadProcessMemory(_handle, _address, second, (UIntPtr)29, out length) &&
                     length.ToUInt32() == 29 && first.AsSpan().SequenceEqual(second) &&
-                    DecodeMatchedFrame(raw.ToArray(), first, self) is { } decoded)
+                    DecodeMatchedFrame(rawBytes, first, self) is { } decoded)
                 {
                     return decoded;
                 }
                 // Yield occasionally to avoid monopolizing a capture thread.
                 Thread.Yield();
             } while (watch.ElapsedMilliseconds < 15);
+            if (FindRecent(rawBytes, self) is { } late) return late;
             if (!readSucceeded) DisposeHandle(); // Process exited or buffer became unreadable.
             if (_missesLogged++ < 20)
                 DebugLog.Write($"SPRINGRO CLIENT STATUS missed opcode=0x{probe.Opcode:X4}; " +
                                $"readable={readSucceeded}; elapsedMs={watch.ElapsedMilliseconds}");
             return null;
+        }
+    }
+
+    private RoStatusPacket? FindRecent(byte[] raw, uint self)
+    {
+        lock (_framesSync)
+        {
+            var cutoff = DateTime.UtcNow.AddMilliseconds(-100);
+            while (_frames.TryPeek(out var head) && head.At < cutoff) _frames.Dequeue();
+            foreach (var frame in _frames)
+                if (DecodeMatchedFrame(raw, frame.Bytes, self) is { } decoded)
+                    return decoded;
+        }
+        return null;
+    }
+
+    // The client dispatch buffer can be overwritten before Npcap's managed
+    // callback runs. Observe it independently and retain only a brief window.
+    private void CaptureLoop(IntPtr handle, IntPtr address)
+    {
+        var first = new byte[29];
+        var second = new byte[29];
+        var previousWasStatus = false;
+        byte[]? previous = null;
+        long reads = 0;
+        var report = Stopwatch.StartNew();
+        while (!_disposed)
+        {
+            if (!ReadProcessMemory(handle, address, first, (UIntPtr)29, out var length) ||
+                length.ToUInt32() != 29) break;
+            reads++;
+            var opcode = BinaryPrimitives.ReadUInt16LittleEndian(first);
+            if (opcode is 0x0983 or 0x0196)
+            {
+                var size = opcode == 0x0983 ? 29 : 9;
+                if ((!previousWasStatus || previous is null || !first.AsSpan(0, size).SequenceEqual(previous)) &&
+                    ReadProcessMemory(handle, address, second, (UIntPtr)29, out length) &&
+                    length.ToUInt32() == 29 && first.AsSpan().SequenceEqual(second))
+                {
+                    var frame = first.AsSpan(0, size).ToArray();
+                    lock (_framesSync)
+                    {
+                        _frames.Enqueue((DateTime.UtcNow, frame));
+                        while (_frames.Count > 128) _frames.Dequeue();
+                    }
+                    previous = frame;
+                }
+                previousWasStatus = true;
+            }
+            else
+            {
+                previousWasStatus = false;
+                previous = null;
+            }
+            if ((reads & 255) == 0) Thread.Sleep(0);
+            if (report.Elapsed >= TimeSpan.FromSeconds(15))
+            {
+                DebugLog.Write($"SPRINGRO CLIENT STATUS sampler readsPerSecond={reads / report.Elapsed.TotalSeconds:0}; " +
+                               $"windowMs=100");
+                reads = 0;
+                report.Restart();
+            }
         }
     }
 
@@ -113,7 +180,10 @@ public sealed class SpringRoClientStatusBridge : IDisposable
                 return false;
             }
             _pid = game.Id;
-            DebugLog.Write($"SPRINGRO CLIENT STATUS observing PID {_pid}; read-only; opt-in=true");
+            DebugLog.Write($"SPRINGRO CLIENT STATUS observing PID {_pid}; read-only; sampler=continuous");
+            var handle = _handle;
+            var address = _address;
+            _ = Task.Run(() => CaptureLoop(handle, address));
             return true;
         }
         catch (Exception ex) when (ex is IOException or System.ComponentModel.Win32Exception or InvalidOperationException)
@@ -130,6 +200,7 @@ public sealed class SpringRoClientStatusBridge : IDisposable
         {
             _disposed = true;
             DisposeHandle();
+            lock (_framesSync) _frames.Clear();
         }
     }
 
