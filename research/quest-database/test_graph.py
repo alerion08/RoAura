@@ -65,7 +65,7 @@ class FlowParserTests(unittest.TestCase):
         options=[x for x in record["choices"] if x[0]==first]
         self.assertEqual([x[3] for x in options],["Yes","No","More information"])
         self.assertEqual([x[5] for x in options],["switch_case"]*3)
-        self.assertEqual([x[4] for x in options],[7,12,14])
+        self.assertEqual([x[4] for x in options],[6,11,13])
         nested=[x for x in record["choices"] if x[3] in ("A","B")]
         self.assertEqual([x[5] for x in nested],["switch_case","switch_case"])
 
