@@ -8,6 +8,7 @@ import sqlite3
 from pathlib import Path
 from urllib.parse import unquote,urlparse
 from quality import ensure_quality_schema
+from prerequisites import SCHEMA as PREREQ_SCHEMA
 
 RUNTIME_VERSION=3
 SCHEMA="""
@@ -177,6 +178,7 @@ def script_variant_scope(path):
 
 def make_runtime(source,destination):
     ensure_quality_schema(source)
+    source.executescript(PREREQ_SCHEMA)
     path=Path(destination);path.parent.mkdir(parents=True,exist_ok=True)
     if path.exists():path.unlink()
     out=sqlite3.connect(path)
