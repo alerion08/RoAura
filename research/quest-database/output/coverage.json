@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T19:36:16.573416+00:00",
+  "created_utc": "2026-10-29T19:47:52.122485+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -144,6 +144,16 @@
     "unlinked_pages": 117,
     "evidence_rows": 83
   },
+  "npc_source_dossiers": {
+    "seasonal_source_identity_check": 2,
+    "flag_seasonal_source_identity_risk": 2,
+    "dialogue_and_other_state_present_review_required": 11,
+    "flag_one_source_proposed_for_multiple_guides": 11,
+    "flag_no_literal_or_dynamic_quest_state_commands_in_matched_npcs": 11,
+    "dialogue_and_quest_state_present_review_required": 12,
+    "proposals_reviewed": 25,
+    "dossier_facts": 688
+  },
   "unclassified_content_review": {
     "pages": 128
   },
@@ -170,7 +180,9 @@
     "wiki_prerequisite_paths": 148,
     "wiki_missing_script_reviews": 117,
     "wiki_missing_script_proposals": 25,
-    "wiki_missing_script_evidence": 83
+    "wiki_missing_script_evidence": 83,
+    "wiki_missing_script_dossiers": 25,
+    "wiki_missing_script_dossier_facts": 688
   },
   "quality": {
     "wiki_refresh": {
