@@ -1,4 +1,4 @@
-# RoAura 3.1.0 — user guide
+# RoAura 3.1.1 — user guide
 
 ## Gold Goblin
 

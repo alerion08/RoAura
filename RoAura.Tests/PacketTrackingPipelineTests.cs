@@ -128,7 +128,7 @@ public sealed class PacketTrackingPipelineTests
         var packets = new List<RoPacketObservation<RoStatusPacket>>();
         capture.StatusChanged += packets.Add;
         scanner.Process(Status(4200).Concat(new byte[] { 0x83, 0x02, 0x68, 0x10, 0, 0 }).ToArray());
-        if (!AppEnvironment.IsDevelopment) return; // Self evidence is deliberately DEV-only.
+        if (!AppEnvironment.CharacterSessionsEnabled) return;
         Assert.Equal(2, packets.Count);
         Assert.Equal(0u, packets[0].SelfAid);
         Assert.True(packets[1].IsOwnActor(4200));

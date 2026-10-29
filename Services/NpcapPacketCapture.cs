@@ -15,7 +15,7 @@ namespace RoAura.Services;
 public sealed class NpcapPacketCapture : IDisposable
 {
     private readonly object _lifecycleLock = new();
-    // DEV only: diagnostics are completely separate from XP, loot and status routing.
+    // Character identity is bound to the observed TCP flow.
     private readonly CharacterSessionManager _characterSessions = new();
     private readonly PlayerAidObserver _playerAidObserver = new();
     private readonly ConcurrentDictionary<CharacterSessionFlow, RoPacketSource> _trackingSources = new();
@@ -58,11 +58,11 @@ public sealed class NpcapPacketCapture : IDisposable
     public CharacterSessionSnapshot CharacterSession => _characterSessions.Current;
     public event Action<CharacterSessionSnapshot>? CharacterSessionChanged;
     public bool IsCurrentCharacterSession(CharacterSessionSnapshot snapshot) =>
-        AppEnvironment.IsDevelopment && _characterSessions.IsCurrent(snapshot);
+        AppEnvironment.CharacterSessionsEnabled && _characterSessions.IsCurrent(snapshot);
 
     public NpcapPacketCapture()
     {
-        if (AppEnvironment.IsDevelopment)
+        if (AppEnvironment.CharacterSessionsEnabled)
             _characterSessions.StateChanged += snapshot =>
             {
                 DebugLog.Write($"CHARACTER SESSION SHADOW: phase={snapshot.Phase}; " +
@@ -164,8 +164,8 @@ public sealed class NpcapPacketCapture : IDisposable
             pendingEquipmentEvents = _pendingEquipmentEvents;
             tcpFlows = new();
             _playerAidObserver.Reset();
-            if (AppEnvironment.IsDevelopment) _characterSessions.OnCaptureInterrupted();
-            loginObserver = AppEnvironment.IsDevelopment ? new CharacterLoginObserver() : null;
+            if (AppEnvironment.CharacterSessionsEnabled) _characterSessions.OnCaptureInterrupted();
+            loginObserver = AppEnvironment.CharacterSessionsEnabled ? new CharacterLoginObserver() : null;
             if (loginObserver is not null)
             {
                 var serverKey = settings.ServerProfile;
@@ -471,7 +471,7 @@ public sealed class NpcapPacketCapture : IDisposable
                         out var payload, out var flowKey, out var sequence, out var tcpFlags))
                 {
                     var closing = (tcpFlags & 0x05) != 0; // FIN or RST
-                    // DEV only: client-to-server first-packet inspection runs in
+                    // Client-to-server first-packet inspection runs in
                     // a separate bounded observer. NEVER feed outbound bytes
                     // into the existing server-to-client packet parser.
                     if (loginObserver is not null &&
@@ -506,11 +506,11 @@ public sealed class NpcapPacketCapture : IDisposable
                             }
                         }
                     }
-                    if (AppEnvironment.IsDevelopment && generation == Volatile.Read(ref _generation) &&
+                    if (AppEnvironment.CharacterSessionsEnabled && generation == Volatile.Read(ref _generation) &&
                         !payload.IsEmpty)
                         _characterSessions.OnServerPayload(CharacterSessionFlow.FromInbound(flowKey));
                     flow.Process(sequence, payload);
-                    if (AppEnvironment.IsDevelopment && generation == Volatile.Read(ref _generation) && closing)
+                    if (AppEnvironment.CharacterSessionsEnabled && generation == Volatile.Read(ref _generation) && closing)
                     {
                         _characterSessions.OnConnectionClosed(CharacterSessionFlow.FromInbound(flowKey));
                         _playerAidObserver.OnClosed(CharacterSessionFlow.FromInbound(flowKey));
@@ -674,7 +674,7 @@ public sealed class NpcapPacketCapture : IDisposable
                     DebugLog.Write($"PACKET OPTION CANDIDATE REJECTED opcode=0x{opcode:X4}; " +
                                    $"reason={reason}");
             });
-        if (_springRoStatusCorrelationEnabled || AppEnvironment.IsDevelopment)
+        if (AppEnvironment.CharacterSessionsEnabled)
             scanner.SelfAidObserved += packet => Forward(generation, () =>
             {
                 ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID");
@@ -707,7 +707,7 @@ public sealed class NpcapPacketCapture : IDisposable
         });
         scanner.ExperienceChanged += packet => Forward(generation, () =>
         {
-            if (_springRoStatusCorrelationEnabled || AppEnvironment.IsDevelopment)
+            if (AppEnvironment.CharacterSessionsEnabled)
             {
                 ObservePlayerAid(packetFlow, packet.Aid, "EXP");
                 ReplayPendingStatuses();
@@ -793,7 +793,7 @@ public sealed class NpcapPacketCapture : IDisposable
     private void ForwardCharacterPacket<T>(CharacterSessionFlow flow, T packet,
         Action<CharacterSessionPacket<T>>? callback)
     {
-        if (!AppEnvironment.IsDevelopment || callback is null ||
+        if (!AppEnvironment.CharacterSessionsEnabled || callback is null ||
             !_characterSessions.TryResolve(flow, out var session)) return;
         callback(new CharacterSessionPacket<T>(session, packet));
     }
@@ -860,10 +860,10 @@ public sealed class NpcapPacketCapture : IDisposable
     {
         if (IPAddress.TryParse(address, out var parsed) &&
             parsed.AddressFamily == AddressFamily.InterNetwork)
-            return AppEnvironment.IsDevelopment
+            return AppEnvironment.CharacterSessionsEnabled
                 ? $"host {parsed} and tcp port {port}"
                 : $"src host {parsed} and tcp src port {port}";
-        return AppEnvironment.IsDevelopment ? $"tcp port {port}" : $"tcp src port {port}";
+        return AppEnvironment.CharacterSessionsEnabled ? $"tcp port {port}" : $"tcp src port {port}";
     }
 
     private void SetState(int generation, string state)

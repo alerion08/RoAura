@@ -96,7 +96,7 @@ public sealed class CharacterLoginProbeTests
     }
 
     [Fact]
-    public void Capture_filter_enables_outgoing_only_for_development()
+    public void Capture_filter_includes_outgoing_map_login_for_character_sessions()
     {
         var method = typeof(NpcapPacketCapture).GetMethod("BuildFilter",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
@@ -104,10 +104,10 @@ public sealed class CharacterLoginProbeTests
         string Filter(string address, int port) =>
             (string)method.Invoke(null, new object[] { address, port })!;
 
-        var ip = AppEnvironment.IsDevelopment
+        var ip = AppEnvironment.CharacterSessionsEnabled
             ? "host 192.0.2.10 and tcp port 6121"
             : "src host 192.0.2.10 and tcp src port 6121";
-        var anyIp = AppEnvironment.IsDevelopment
+        var anyIp = AppEnvironment.CharacterSessionsEnabled
             ? "tcp port 6121"
             : "tcp src port 6121";
         Assert.Equal(ip, Filter("192.0.2.10", 6121));

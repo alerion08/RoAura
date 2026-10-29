@@ -3,6 +3,8 @@ namespace RoAura.Services;
 /// <summary>Separate the development portable identity from the public release at compile time.</summary>
 public static class AppEnvironment
 {
+    // Character-bound statistics are part of the regular product since 3.1.1.
+    public const bool CharacterSessionsEnabled = true;
 #if ROAURA_DEV
     public const bool IsDevelopment = true;
     public const string DataFolderName = "RoAura-Dev";
