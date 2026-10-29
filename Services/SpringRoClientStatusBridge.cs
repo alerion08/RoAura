@@ -10,7 +10,6 @@ namespace RoAura.Services;
 // to the game process. A failed or ambiguous match produces no status event.
 public sealed class SpringRoClientStatusBridge : IDisposable
 {
-    public const string Argument = "--springro-client-status";
     private const string ExpectedHash = "591e3776e40ac3661a1c60576a145e34e69a61423a890fda292c955d237f91c2";
     private readonly object _sync = new();
     private IntPtr _handle;
@@ -18,6 +17,7 @@ public sealed class SpringRoClientStatusBridge : IDisposable
     private int _pid;
     private bool _unavailable;
     private bool _disposed;
+    private int _missesLogged;
 
     public void Prepare()
     {
@@ -61,6 +61,9 @@ public sealed class SpringRoClientStatusBridge : IDisposable
                 Thread.Yield();
             } while (watch.ElapsedMilliseconds < 15);
             if (!readSucceeded) DisposeHandle(); // Process exited or buffer became unreadable.
+            if (_missesLogged++ < 20)
+                DebugLog.Write($"SPRINGRO CLIENT STATUS missed opcode=0x{probe.Opcode:X4}; " +
+                               $"readable={readSucceeded}; elapsedMs={watch.ElapsedMilliseconds}");
             return null;
         }
     }

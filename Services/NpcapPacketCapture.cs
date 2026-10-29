@@ -146,11 +146,12 @@ public sealed class NpcapPacketCapture : IDisposable
             _clientStatusBridge = null;
             _springRoStatusCorrelationEnabled = AppEnvironment.IsDevelopment &&
                 GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
-            if (_springRoStatusCorrelationEnabled &&
-                Environment.GetCommandLineArgs().Contains(SpringRoClientStatusBridge.Argument, StringComparer.Ordinal))
+            if (_springRoStatusCorrelationEnabled)
             {
                 _clientStatusBridge = new SpringRoClientStatusBridge();
                 var bridge = _clientStatusBridge;
+                DebugLog.Write("SPRINGRO CLIENT STATUS enabled; mode=read-only; " +
+                               "requires=single-matching-client");
                 _ = Task.Run(bridge.Prepare);
             }
             if (AppEnvironment.IsDevelopment) _layoutDiagnostics.Begin(DateTime.UtcNow);

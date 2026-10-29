@@ -499,7 +499,8 @@ public partial class App : Application
         }
 
         DebugLog.Write($"START RoAura {VersionString}; development={AppEnvironment.IsDevelopment}; " +
-                       $"assembly={typeof(App).Assembly.ManifestModule.ModuleVersionId}; packetLayoutDiagnostics=1");
+                       $"assembly={typeof(App).Assembly.ManifestModule.ModuleVersionId}; " +
+                       "packetLayoutDiagnostics=1; springRoClientBridgeBuild=2");
 
         if (settings.PacketCaptureEnabled && !NpcapPacketCapture.IsNpcapInstalled())
         {
