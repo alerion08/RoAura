@@ -51,7 +51,7 @@ class ExportTests(unittest.TestCase):
         source.execute("INSERT INTO wiki_step_sources VALUES (1,1,1,'numbered'),(1,2,2,'numbered')")
         source.execute("INSERT INTO wiki_details VALUES (1,2,'guide_answer','Talk to me',0)")
         source.execute("""INSERT INTO wiki_script_links VALUES(1,1,95,'exact_title_filename','candidate')""")
-        link_database(source)
+        # Retain the explicitly supplied 95-point source link for this fixture.
         create_flow(source)
         create_state_facts(source)
         create_reviews(source)
