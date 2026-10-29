@@ -21,6 +21,8 @@ from bs4 import BeautifulSoup
 from enrich import parse_guide, step_evidence, ensure_enrichment_schema, link_database
 from graph import SCHEMA as FLOW_SCHEMA, create_flow
 from reconcile import SCHEMA as REVIEW_SCHEMA, create_reviews
+from state import SCHEMA as STATE_SCHEMA, create_state_facts
+from runtime import make_runtime
 
 UA = "RoAura-Quest-Research/1.0 (public source research, limited crawl)"
 WIKI = "https://irowiki.org/classic/"
@@ -316,7 +318,8 @@ def counts(db):
        [("scripts","provenance"),("npcs","script_npcs"),("script_events","script_events"),("quest_registry_entries","quest_registry"),("wiki_pages","wiki_pages"),("wiki_steps","wiki_steps"),("wiki_details","wiki_details"),("wiki_script_links","wiki_script_links"),("wiki_step_npc_links","wiki_step_npc_links"),
        ("npc_flow_points","npc_flow_points"),("npc_flow_options","npc_flow_options"),
        ("npc_flow_conditions","npc_flow_conditions"),("npc_flow_jumps","npc_flow_jumps"),
-       ("wiki_script_reviews","wiki_script_reviews"),("wiki_answer_menu_matches","wiki_answer_menu_matches")]}
+       ("wiki_script_reviews","wiki_script_reviews"),("wiki_answer_menu_matches","wiki_answer_menu_matches"),
+        ("npc_state_facts","npc_state_facts"),("npc_quest_registry_refs","npc_quest_registry_refs")]}
 
 def main():
     p=argparse.ArgumentParser()
@@ -324,14 +327,22 @@ def main():
     p.add_argument("--wiki-limit",type=int,default=1000)
     p.add_argument("--skip-wiki",action="store_true")
     p.add_argument("--skip-hercules",action="store_true")
+    p.add_argument("--enrich-only",action="store_true",help="Reparse cached source SQLite without network access")
     args=p.parse_args()
     target=Path(args.out);target.mkdir(parents=True,exist_ok=True)
     dst=target/"quest_research.sqlite"
+    if args.enrich_only and (not dst.is_file() or dst.stat().st_size<1000):
+        raise SystemExit("--enrich-only requires existing validated quest_research.sqlite")
+    previous=None
+    coverage_file=target/"coverage.json"
+    if args.enrich_only and coverage_file.is_file():
+        previous=json.loads(coverage_file.read_text(encoding="utf-8"))
     db=sqlite3.connect(dst)
     db.executescript(SCHEMA)
     ensure_enrichment_schema(db)
     db.executescript(FLOW_SCHEMA)
     db.executescript(REVIEW_SCHEMA)
+    db.executescript(STATE_SCHEMA)
     # A previous generated review links to menu point IDs. Clear those first.
     with db:
         db.execute("DELETE FROM wiki_answer_menu_matches")
@@ -344,31 +355,47 @@ def main():
             "limitations":["Wiki quest list is not necessarily exhaustive","Only explicit static branches are linked; dynamic conditions and menus remain unresolved",
                            "Server scripts are not evidence of exact official iRO/ToC behavior"],
             "sources":{}}
-    session=requests.Session()
-    session.headers.update({"User-Agent":UA})
-    for label,job in [
-        ("rathena",lambda:ingest_repo(db,"rathena/rathena","master","rathena")),
-        ("hercules",lambda:ingest_repo(db,"HerculesWS/Hercules","stable","hercules") if not args.skip_hercules else {"skipped":True}),
-        ("rathena_pre_re_registry",lambda:import_registry(db,session)),
-        ("irowiki_classic",lambda:ingest_wiki(db,args.wiki_limit) if not args.skip_wiki else {"skipped":True})]:
-        try:report["sources"][label]=job()
-        except Exception as exc:
-            report["sources"][label]={"error":str(exc)}
-            print(f"ERROR {label}: {exc}",flush=True)
-    session.close()
+    if args.enrich_only:
+        for table in ("provenance","wiki_pages","script_npcs","wiki_steps"):
+            if db.execute("SELECT count(*) FROM "+table).fetchone()[0]==0:
+                raise SystemExit("Existing research database is missing required records: "+table)
+        report["sources"]=previous.get("sources",{}) if previous else {"mode":"reused_unverified_snapshot"}
+        report["source_snapshot_utc"]=previous.get("source_snapshot_utc",previous.get("created_utc")) if previous else None
+        report["fetch_mode"]="reused_existing_snapshot"
+        print("Reusing existing captured wiki and NPC scripts without network requests",flush=True)
+    else:
+        session=requests.Session()
+        session.headers.update({"User-Agent":UA})
+        for label,job in [
+            ("rathena",lambda:ingest_repo(db,"rathena/rathena","master","rathena")),
+            ("hercules",lambda:ingest_repo(db,"HerculesWS/Hercules","stable","hercules") if not args.skip_hercules else {"skipped":True}),
+            ("rathena_pre_re_registry",lambda:import_registry(db,session)),
+            ("irowiki_classic",lambda:ingest_wiki(db,args.wiki_limit) if not args.skip_wiki else {"skipped":True})]:
+            try:report["sources"][label]=job()
+            except Exception as exc:
+                report["sources"][label]={"error":str(exc)}
+                print(f"ERROR {label}: {exc}",flush=True)
+        session.close()
+        report["source_snapshot_utc"]=report["created_utc"]
+        report["fetch_mode"]="fresh_upstream_requests"
     report["linking"]=link_database(db)
     report["dialogue_flow"]=create_flow(db)
+    report["quest_state"]=create_state_facts(db)
     report["script_link_review"]=create_reviews(db)
-    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','4')")
+    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','5')")
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('research_status','candidate matches only; see coverage.json')")
     db.commit()
     report["counts"]=counts(db)
     report["sqlite_integrity"]=db.execute("PRAGMA integrity_check").fetchone()[0]
     report["foreign_key_violations"]=len(db.execute("PRAGMA foreign_key_check").fetchall())
-    db.execute("VACUUM");db.close()
+    db.execute("VACUUM")
+    report["runtime_export"]=make_runtime(db,target/"questie_catalog.sqlite")
+    db.close()
+    report["questie_schema_version"]=report["runtime_export"]["schema_version"]
     (target/"coverage.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
-    with dst.open("rb") as src,gzip.open(str(dst)+".gz","wb",compresslevel=9) as sink:
-        while chunk:=src.read(1024*1024):sink.write(chunk)
+    for payload in (dst,target/"questie_catalog.sqlite"):
+        with payload.open("rb") as src,gzip.open(str(payload)+".gz","wb",compresslevel=9) as sink:
+            while chunk:=src.read(1024*1024):sink.write(chunk)
     print(json.dumps({"counts":report["counts"],"integrity":report["sqlite_integrity"],"source_status":{k:(v.get("error") or "OK") if isinstance(v,dict) else "OK" for k,v in report["sources"].items()}},ensure_ascii=False),flush=True)
     if report["sqlite_integrity"]!="ok" or report["foreign_key_violations"]>0:raise SystemExit(1)
 
