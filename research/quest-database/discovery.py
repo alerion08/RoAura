@@ -156,3 +156,39 @@ def review_unlinked_scripts(db,max_sources_per_name=8,max_proposals_per_page=12)
     return {"version":1,
             "purpose":"missing script discovery for human audit; never joined to game catalog",
             "metrics":dict(metrics),"proposals":exported}
+
+
+def review_unclassified_content(db,max_excerpt=210):
+    """Make unresolved wiki content actionable without hallucinating a category."""
+    pages=db.execute("""SELECT p.id,p.title,p.url,p.requirements,c.explanation
+      FROM wiki_pages p JOIN wiki_content_categories c ON c.page_id=p.id
+      WHERE c.category='unsorted_quest_candidate' ORDER BY p.title""").fetchall()
+    result=[]
+    for pid,title,url,req,reason in pages:
+        signals=dict(db.execute(
+            "SELECT signal,count(*) FROM wiki_content_signals WHERE page_id=? GROUP BY signal",
+            (pid,)).fetchall())
+        hints=dict(db.execute(
+            "SELECT kind,count(*) FROM wiki_details WHERE page_id=? GROUP BY kind",
+            (pid,)).fetchall())
+        steps=db.execute(
+            "SELECT step_no,section,instruction FROM wiki_steps WHERE page_id=? ORDER BY step_no LIMIT 4",
+            (pid,)).fetchall()
+        related=db.execute(
+            "SELECT count(*) FROM wiki_script_links WHERE page_id=?",(pid,)).fetchone()[0]
+        result.append({
+            "quest_title":title,"guide_url":url,
+            "reason_unclassified":reason,
+            "known_script_candidates":related,
+            "steps_total":db.execute("SELECT count(*) FROM wiki_steps WHERE page_id=?",(pid,)).fetchone()[0],
+            "source_signal_counts":signals,
+            "literal_hint_counts":hints,
+            "wiki_requirement_excerpt":(req or "")[:max_excerpt],
+            "source_step_excerpts":[{"step_no":no,"section":section or "",
+                                     "text_excerpt":text[:max_excerpt]}
+                                    for no,section,text in steps],
+            "manual_review_focus":"determine permanent quest type and missing evidence from full source",
+            "server_availability":"unknown",
+        })
+    return {"version":1,"purpose":"unclassified wiki guides needing source review",
+            "total":len(result),"quests":result}
