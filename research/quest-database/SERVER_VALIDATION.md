@@ -1,61 +1,63 @@
-# Server-specific quest verification protocol — Tides of Comodo
+# ROQuestie — server-neutral quest verification protocol
 
-**Status:** Research only. Nothing in the quest database is currently verified
-against live ToC NPC scripts or a controlled in-game test session.
+**Primary scope:** build a comprehensive, cited catalog of the main quests
+shared across the Ragnarok Online ecosystem (Classic / Pre-Renewal / Renewal),
+with explicit optional differences for individual servers. This research is not
+limited to one server. No quest is *guaranteed* to be present on every server.
 
-## Source/assurance levels
+## Evidence and trust levels
 
-- `wiki_documented`: explicitly present in a named iRO Wiki Classic page,
-  with page URL and a stable content hash (not necessarily freshly retrieved).
-- `emulator_source_derived`: specific rAthena/Hercules filename, Git blob SHA,
-  NPC code line, map/name/coordinates, Quest ID and condition expression.
-- `candidate_link`: correspondence inferred by filename/header/NPC proximity.
-  Its numeric score is **not** a probability.
-- `toc_server_authoritative`: requires a real ToC source supplied by its
-  operators: enabled quest script manifest or implementation, date/revision.
-- `toc_gameplay_observed`: a reproducible quest acceptance/step/completion
-  observation on ToC with client/server version and exact character state.
+- `wiki_documented`: documented by a named wiki guide, with URL, source
+  content hash and independently recorded refresh status.
+- `emulator_source_derived`: exact rAthena/Hercules script file, repository
+  revision/blob SHA, original NPC script line, coordinates and literal state.
+- `candidate_link`: heuristic alignment of guide with source NPC script(s).
+  Similar names, coordinates and scores are clues, not proof.
+- `server_authoritative`: evidence that a particular server and revision
+  enables a known quest implementation, preferably authoritative manifests
+  or published NPC scripts.
+- `server_gameplay_observed`: reproducible interaction/quest-state evidence
+  on a named server, with version, NPC map/cell, character state and date.
 
-Never promote the first three levels to either ToC level automatically.
+Never automatically upgrade wiki/emulator evidence to server-authoritative.
 
-## Primary review queue
+## Main research order
 
-Read `output/critical_quest_triage.json` rather than considering every old
-iRO seasonal event a permanent ToC quest. Source entries are retained even
-when likely historical. First investigate core storyline and dungeon access
-quests, especially President Quest, Biolabs Entrance, Odin's Temple Excavation,
-Einbroch Murder, Thanatos Tower, and regional quest prerequisites. Check
-whether the quest is actually present before collecting a complete walkthrough.
+1. Permanent story chains and multi-stage quests.
+2. Dungeon access and region unlock quests.
+3. Job advancement, class-related skills and rebirth quests.
+4. Repeatable or regional quests where a useful walkthrough exists.
+5. Historical/seasonal events and archived iRO-specific activities.
 
-Each verification needs: (1) canonical quest and content/version marker,
-(2) server source or precise in-game evidence, (3) NPC name, map and cell,
-(4) starting and step conditions, consumed/nonconsumed items and output,
-(5) Quest ID/log entry if one exists, (6) dialogue choices and transition
-conditions, (7) quest completion criteria and known branches, (8) evidence
-timestamp and a reviewer decision. Not every quest has a Quest Window entry;
-do not manufacture a Quest ID for an untracked script quest.
+These are **research priorities**, not claims of server availability. The
+`roquestie_core_worklist.json` provides a complete, server-neutral queue;
+`critical_quest_triage.json` retains detailed explanations for severe
+coverage gaps. Even an old event remains in the source archive.
 
-## Dataset rules
+## Verification record for a concrete server variant
 
-- A script with path `npc/re/...` is a Renewal source. A ToC quest is **not**
-  assigned the Renewal implementation without affirmative server evidence.
-- Common and Pre-Renewal scripts also require verification of the active
-  ToC variant. Source filenames alone are insufficient.
-- The new consumer SQLite `quest_id_candidates` view is an audit aid: Quest
-  ID appearing in a candidate script does not mean that ID is the wiki
-  quest's journal ID on ToC.
-- Never mutate a user's saved quest progress while updating a catalog.
-- Game observations can be recorded manually; do not bypass server anti-cheat,
-  inject packets, or rely on speculative packet layouts.
-- The ToC public website has not supplied an accessible authoritative
-  quest-script/Quest ID list in this research stage. Its item/monster/MVP
-  database, if accessible, is a separate source and cannot validate quests.
+For a quest/server/revision pair, capture: canonical quest key, source
+revision, NPC map/coordinates, start conditions, sequential and branching
+steps, item requirements and rewards, Quest ID or quest journal absence,
+dialogue options, completion checkpoints, provenance and review date.
+Store different implementations separately, including Pre-Renewal and
+Renewal; server-specific changes are optional overlays, never silent
+replacements of the shared quest catalog.
 
-## Minimum acceptance before implementing automatic quest navigation
+Not every classic quest has a journal Quest ID. Do not invent one. The
+`quest_id_candidates` view only establishes that a literal ID appears in
+the **candidate** emulator script, not that it belongs uniquely to the guide
+or is active on a server.
 
-For a specific quest and server revision, require a verified NPC position and
-start requirements, all branch conditions and allowed choices across the
-player's tested paths, exact progression checkpoints, and a reliable way to
-distinguish started, active and completed. If any item is missing, RoAura may
-display a cited guide with an *unverified* indicator, but must not
-automatically assert the next dialogue response or completed quest state.
+## Runtime and safety requirements
+
+- The catalog is read-only and contains no account/user state; per-character
+  progress is separate and survives catalog updates.
+- The consumer must not auto-select a dialogue option based on an ambiguous
+  candidate. Show unverified steps as references with provenance.
+- Do not bypass server protections or assume packet identifiers without
+  verified evidence.
+- A fully automatic Questie guide for an individual server/revision requires
+  trustworthy NPC positions, branches, prerequisites, progress and completion
+  signals. Missing evidence means a read-only walkthrough, not a claimed
+  completed or available quest.
