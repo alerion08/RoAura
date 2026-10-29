@@ -2,6 +2,19 @@
 
 Isolated **research branch**. No changes to the RoAura WPF application, settings, updater, main, release files or database runtime.
 
+## Verified GitHub Actions build (2026-10-29)
+
+[Successful validation and publication run](https://github.com/alerion08/RoAura/actions/runs/40899345670).
+
+- SQLite: 26,980,352 bytes; gzip: 11,481,308 bytes.
+- SQLite integrity_check: ok; foreign key violations: 0.
+- Script sources: rAthena 184/184; Hercules 87/87; source download errors 0.
+- NPC positions: 3,837; command rows: 393,561; pre-re quest registry entries: 2,879.
+- iRO Wiki: 286/286 discovered pages fetched; **only 90 structured wiki steps and 53 wiki details**. This is a major extraction coverage gap, not complete quest coverage.
+- "Fetched" proves an HTTP request succeeded; it does not prove the guide's steps were parsed. Original script payloads are kept, but semantic branching and wiki-to-script quest matching require further work.
+
+**Status: source research dataset, not a complete Questie-ready database.**
+
 ## Download the database
 
 After the GitHub Actions job **Quest research database (isolated)** finishes successfully, use:
