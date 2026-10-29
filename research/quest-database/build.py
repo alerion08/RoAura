@@ -23,7 +23,7 @@ from enrich import parse_guide, step_evidence, ensure_enrichment_schema, link_da
 UA = "RoAura-Quest-Research/1.0 (public source research, limited crawl)"
 WIKI = "https://irowiki.org/classic/"
 NPC_HEADER = re.compile(r"^\s*([a-zA-Z0-9_]+),(\d+),(\d+),(\d+)\s+script\s+(.+?)\s+([a-zA-Z0-9_-]+),\s*\{\s*$")
-COMMAND = re.compile(r"^\s*(?:if\s*\([^;]+\)\s*)?(mes|mesf|npctalk|select|menu|input|next|close|close2|getitem|delitem|setquest|completequest|erasequest|checkquest|questinfo)\b(.*)", re.I)
+COMMAND = re.compile(r"^\s*(?:(?:if\s*\([^;]+\)\s*)|(?:switch\s*\(\s*))?(mes|mesf|npctalk|select|menu|input|next|close|close2|getitem|delitem|setquest|completequest|erasequest|checkquest|questinfo)\b(.*)", re.I)
 MARKUP_CLEAN = re.compile(r"\s+")
 SCHEMA = """
 PRAGMA foreign_keys=ON;
