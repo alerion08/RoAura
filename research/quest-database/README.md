@@ -283,3 +283,18 @@ branch uses `EinFactory`; two distinct wiki rebirth guides share the same
 Metheus Sylphe/Valkyrie script. See
 [`STAGE11_SOURCE_REVIEW.md`](STAGE11_SOURCE_REVIEW.md) for line-anchored
 source findings and safe next review gates.
+
+## Stage 12 — 25 individually adjudicated source-file mappings (2026-10-30)
+
+**Published and validated:** [GitHub Actions #40953222015](https://github.com/alerion08/RoAura/actions/runs/40953222015) SUCCESS; [50 focused tests #40952845002](https://github.com/alerion08/RoAura/actions/runs/40952845002) SUCCESS. Research SQLite **schema v11** and ROQuestie read-only consumer SQLite **schema v5** passed integrity checks and 0 foreign-key violations.
+
+All **25** stage-11 source proposals have independent, explicit, blob-SHA-pinned decisions in [`source_decisions.json`](source_decisions.json) with machine-readable findings in [`output/source_adjudication.json`](output/source_adjudication.json). Their wiki NPC visit order, NPC lines, source conditional guards, lexical source writes and shared state variables are retained. A wiki NPC visit sequence is *not* an execution trace; branching expressions were not evaluated. A source review verifies the **identity of an implementation file**, not a complete walkthrough or current availability on every RO server.
+
+- **19 `source_supported`**: evidence corroborates a source implementation of the guide. Examples: Einbroch Murder's `Shinokas_Quest` on Buender Hikeman + Scientist (Zelmeto is an EinFactory prerequisite); Hugel Memory's El Schatt → Perfitz → El Schatt via `hg_memory`; Broken Diamond's `diamond_edq`; legacy event and dungeon sources remain separate variants.
+- **4 `rejected`**: two 2014 Fourth of July event proposals based on generic Grandma/Grandpa in Amatsu quests, and two `Prayer To Heaven` proposals based on generic `valkyrie.txt` with missing Toyotino/Michael expedition stages.
+- **2 `variant_conflict`**: the classic Rebirth Walkthrough requires 2,500,000 Zeny (or 1,250,000 VIP), while the indexed Metheus Sylphe script asks for 1,285,000 Zeny. Source NPC identity is plausible, but this version of the guide is not aligned.
+- **Zero automatic gameplay approvals** and no change to the 574 unreviewed/heuristic `quest_scripts` rows or 3,420 wiki steps.
+
+Research tables `wiki_source_decisions` and `wiki_source_sequence_evidence` preserve reviewer results and source-line provenance. Consumer v5 adds `quest_source_decisions` plus read-only `quest_source_supported` view for separately discoverable source-supported mappings; it does not alter the legacy `quest_scripts` candidate table. Consumers must check `PRAGMA user_version=5` and keep character progress in independent storage. New upstream source blob hashes invalidate pinned review identities until rechecked.
+
+**Next:** verify full dialogue/branch state machines for high-value chains against tested server variants before enabling automatic next-step quest navigation.

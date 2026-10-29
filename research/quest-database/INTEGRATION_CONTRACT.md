@@ -49,10 +49,38 @@ all linked quests exist on a chosen server. Cyclic references are diagnosed.
 Open `PRAGMA user_version` and migrate the reader explicitly. User quest
 progress belongs in separate per-character storage.
 
+## Individually reviewed source implementations (schema v5)
+
+`quest_source_decisions` is a distinct, source-SHA-pinned review ledger for
+newly discovered quest↔script proposals. Each row is
+`source_supported`, `rejected`, `variant_conflict` or `needs_review`,
+with a specific explanation and reviewer scope. The read-only
+`quest_source_supported` view selects **only source-supported mappings**,
+including source project and Pre-Renewal/Renewal scope.
+
+Source-supported means that a human source-code review found a plausible
+file implementing the named wiki quest, with NPC step order and code-state
+evidence. It does **not** claim that every dialogue branch, Quest ID, reward,
+prerequisite or server variation is correct. Never treat this view as a
+quest-completion detector or silently merge it into automatic route advice.
+
+The old `quest_scripts` table remains the unchanged set of 574 heuristic
+source candidates, so a consumer can distinguish the two confidence tiers.
+`source_decisions.json` pins exact source blob SHAs and wiki URLs; the
+build fails closed on changed snapshots and requires re-review. Research
+`output/source_adjudication.json` retains the wiki step-to-NPC sequence,
+relevant variable writes and source guards for each of the 25 decisions.
+`source_code_execution_order_verified: false` is intentional: a lexical
+script search is not an executable branch trace.
+
+**Migration to v5:** check `PRAGMA user_version = 5`, read the separate
+source-review tables explicitly and retain all per-character progression data
+outside the catalog.
+
 ## Two deliverables
 
 - `output/quest_research.sqlite` (research schema **7**): full compressed upstream NPC sources and extracted evidence, public wiki pages, audit rows, parser-derived dialogue/control flow and literal quest/item state facts.
-- `output/questie_catalog.sqlite` (consumer schema **4**, `PRAGMA user_version = 4`): ready-to-query local SQLite projection, **without compressed scripts or Python dependency**. The consumer must **not** guess the correctness of unverified responses or use candidates as verified directions.
+- `output/questie_catalog.sqlite` (consumer schema **5**, `PRAGMA user_version = 5`): ready-to-query local SQLite projection, **without compressed scripts or Python dependency**. The consumer must **not** guess the correctness of unverified responses or use candidates as verified directions.
 
 Both formats are independently checked with `PRAGMA integrity_check` and `PRAGMA foreign_key_check`. Their `.gz` variants compress for download; decompress before SQLite use.
 

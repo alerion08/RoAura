@@ -598,3 +598,33 @@ in the inspected branch; Rebirth Walkthrough/Prayer To Heaven share the
 Valkyrie/Metheus source. Next task is precise NPC-level state-track, branch
 and wiki-step alignment plus source-reviewed accept/reject decisions.
 No server gameplay validation performed.
+
+## ROQuestie stage 12 — individual source adjudication, catalog v5 (2026-10-30)
+
+User explicitly requested mapping wiki NPC/variable/dialogue sequences to
+source and individual accept/reject decisions. Implemented isolated research
+`adjudicate.py` and `source_decisions.json`: each of 25 proposed
+quest/source pairs has a source-file-specific decision, explanation, NPC
+witnesses, wiki step sequence and exact upstream blob SHA. Build validates
+all 25 match the current corpus and checks claimed shared state variables
+appear as writes on >=2 named NPC blocks. No script control flow is
+executed, and no full guide/game-server path is marked gameplay verified.
+
+**Verified**: GitHub Actions run #40953222015 SUCCESS; focused
+50-test run #40952845002 SUCCESS. 19 source-file identities supported,
+4 rejected, 2 with documented rebirth variant conflict. The rejected
+cases are the generic-Amatsu Grandma/Grandpa proposals for Fourth of July
+2014 and the generic Valkyrie script for distinct Prayer To Heaven
+expedition; Rebirth fee differs from indexed Valkyrie implementation.
+Stage-12 coverage: 83 source sequence evidence rows, 939 original scripts,
+286 wiki guides, 3,420 extracted steps and original 574 heuristic
+wiki↔script candidate links preserved.
+
+**Research SQLite v11**, **ROQuestie consumer SQLite v5**; integrity OK,
+zero FK violations. Read-only `quest_source_decisions` and
+`quest_source_supported` distinguish reviewed implementation-file
+identities from heuristic `quest_scripts` candidates.
+`research/quest-database/output/source_adjudication.json` has the full
+line-anchored and source hash-pinned findings. No main/app/release/settings
+edits, no merge, and no in-game validation. Next verify quest branch
+state machines, prerequisites and actual server variation for auto routing.
