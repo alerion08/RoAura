@@ -144,7 +144,7 @@ public sealed class NpcapPacketCapture : IDisposable
             _statusWireCapture.Reset();
             _clientStatusBridge?.Dispose();
             _clientStatusBridge = null;
-            _springRoStatusCorrelationEnabled = AppEnvironment.IsDevelopment &&
+            _springRoStatusCorrelationEnabled =
                 GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
             if (_springRoStatusCorrelationEnabled)
             {
@@ -597,7 +597,7 @@ public sealed class NpcapPacketCapture : IDisposable
         var hiding = new HidingStateTracker();
         var pendingStatuses = new PendingStatusObservations();
         bool? decodedHidingBeforeSkill = null;
-        if (AppEnvironment.IsDevelopment)
+        if (_springRoStatusCorrelationEnabled)
             scanner.LayoutProbed += probe => Forward(generation, () =>
             {
                 var observation = Observe(probe, source);
@@ -611,10 +611,11 @@ public sealed class NpcapPacketCapture : IDisposable
                                    $"totalMs={decoded.TotalMs}; leftMs={decoded.RemainingMs}");
                     PublishStatus(decoded);
                 }
-                if (_layoutDiagnostics.Format(probe, source, observation.SelfAid,
+                if (AppEnvironment.IsDevelopment &&
+                    _layoutDiagnostics.Format(probe, source, observation.SelfAid,
                         observation.IdentitySource, observation.ObservedAtUtc) is { } line)
                     DebugLog.Write(line);
-                if (scanner.CaptureStatusWireBytes && _statusWireCapture.Observe(probe, source,
+                if (WireSamplesRequested && scanner.CaptureStatusWireBytes && _statusWireCapture.Observe(probe, source,
                         observation.SelfAid, observation.ObservedAtUtc) is { } sample)
                     DebugLog.Write(sample);
                 if (statusSkillCorrelation?.Observe(probe, observation.SelfAid) is { } pair)
@@ -662,7 +663,7 @@ public sealed class NpcapPacketCapture : IDisposable
         scanner.StatusChanged += packet => Forward(generation, () =>
         {
             // Raw SpringRO status/actor fields are transformed per frame. With
-            // the opt-in bridge, only a matched decoded frame may drive UI.
+            // the client bridge, only a matched decoded frame may drive UI.
             if (clientStatusBridge is null || packet.PacketId is not (0x0983 or 0x0196))
                 PublishStatus(packet);
         });
@@ -673,7 +674,7 @@ public sealed class NpcapPacketCapture : IDisposable
                     DebugLog.Write($"PACKET OPTION CANDIDATE REJECTED opcode=0x{opcode:X4}; " +
                                    $"reason={reason}");
             });
-        if (AppEnvironment.IsDevelopment)
+        if (_springRoStatusCorrelationEnabled || AppEnvironment.IsDevelopment)
             scanner.SelfAidObserved += packet => Forward(generation, () =>
             {
                 ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID");
@@ -684,10 +685,10 @@ public sealed class NpcapPacketCapture : IDisposable
         scanner.OptionChanged += packet => Forward(generation, () =>
         {
             OptionChanged?.Invoke(Observe(packet, source));
-            // SpringRO DEV's OPTION_HIDE bit fluctuates even within
+            // SpringRO's OPTION_HIDE bit fluctuates even within
             // confirmed own Hiding transitions. Only the corroborated
             // 0x0983/0x0196 -> own Skill 51 path may drive status=4.
-            // RTM, Other, and all non-DEV behavior remain untouched.
+            // RTM and Other retain their existing option handling.
             if (correlatedHiding is not null) return;
             // EFST_HIDING = 4, TF_HIDING = 51 in standard RO.
             // Synthetic status carries no guessed duration.
@@ -706,7 +707,7 @@ public sealed class NpcapPacketCapture : IDisposable
         });
         scanner.ExperienceChanged += packet => Forward(generation, () =>
         {
-            if (AppEnvironment.IsDevelopment)
+            if (_springRoStatusCorrelationEnabled || AppEnvironment.IsDevelopment)
             {
                 ObservePlayerAid(packetFlow, packet.Aid, "EXP");
                 ReplayPendingStatuses();

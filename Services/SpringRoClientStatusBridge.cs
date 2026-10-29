@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 
 namespace RoAura.Services;
 
-// Experimental DEV-only bridge: observes the client's already decoded dispatch
+// SpringRO bridge: observes the client's already decoded dispatch
 // buffer for a short period after a matching inbound status frame. Never writes
 // to the game process. A failed or ambiguous match produces no status event.
 public sealed class SpringRoClientStatusBridge : IDisposable

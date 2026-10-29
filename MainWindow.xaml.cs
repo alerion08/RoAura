@@ -1441,7 +1441,8 @@ public partial class MainWindow : Window
         // the very first status of another player/mob to be learned as ours.
         // Client AID can be known from ZC_AID or own EXP even when the
         // map-login CID is unavailable behind a local proxy (127.0.0.1).
-        Settings.PacketPlayerAid = AppEnvironment.IsDevelopment
+        Settings.PacketPlayerAid = (AppEnvironment.IsDevelopment ||
+            GameServerProfile.Normalize(Settings.ServerProfile) == GameServerProfile.SpringRo)
             ? _packetCapture.VerifiedPlayerAid
             : 0;
         _learningSkill = null;
@@ -1468,7 +1469,9 @@ public partial class MainWindow : Window
 
     private bool ReportLearningActor<TPacket>(RoPacketObservation<TPacket> observation, string kind, ushort id, uint actor)
     {
-        if (!AppEnvironment.IsDevelopment || observation.IsOwnActor(actor)) return true;
+        if ((!AppEnvironment.IsDevelopment &&
+             GameServerProfile.Normalize(Settings.ServerProfile) != GameServerProfile.SpringRo) ||
+            observation.IsOwnActor(actor)) return true;
         // Detection is independent of attribution: expose the observed ID and
         // the reason it cannot be auto-assigned, without guessing a self actor.
         _learningObservedSummary = observation.SelfAid == 0

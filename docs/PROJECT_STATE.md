@@ -1,5 +1,9 @@
 # Project state
 
+## Release preparation: 3.1.0 (2026-10-29)
+
+The user provisionally accepted the latest SpringRO DEV behavior: Skill ID, Status ID, reminders, equipment and own-character AID work in their game test. The normal build previously excluded the client status bridge and verified AID observations. Branch `release/3.1.0-springro` enables that path for SpringRO in normal builds, keeps lossless packet sampling DEV-only, and updates version and bilingual notes. This is a release candidate until Windows CI validates the normal portable and installer. The client bridge remains tied to one executable hash and uses a high-frequency read-only sampler; extended-session CPU and reconnect were not individually accepted. Do not claim those checks passed.
+
 Last updated: 2026-10-29
 
 Latest SpringRO investigation: 16 exact Enchant Poison samples were received.

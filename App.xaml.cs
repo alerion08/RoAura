@@ -832,7 +832,8 @@ public partial class App : Application
             _packetCapture?.IsCurrentObservation(observation) != true) return;
         var packet = observation.Packet;
         var settings = _settingsWindow.Settings;
-        if (AppEnvironment.IsDevelopment)
+        if (AppEnvironment.IsDevelopment ||
+            GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo)
         {
             if (!observation.IsOwnActor(packet.Aid))
             {
