@@ -493,3 +493,29 @@ short, bounded client-memory observation could safely feed the existing
 status event pipeline. A continuous high-frequency read loop has not been
 validated for application use. Do not publish the user's client-buffer JSONL
 or the raw RoAura log.
+
+### Same-run wire/client alignment
+
+The supplied `debug(6).log` contains seven wire samples at 14:00:17–22.
+`tools/compare_springro_status_views.py` matches all seven against the
+client-buffer JSONL by opcode, complete bytes from offset +6 onward, unique
+timestamp within 50 ms and packet length. Client observations follow Npcap
+timestamps by 0.969–7.286 ms. In every pair, wire bytes +2..+5 differ and
+the client has `06 00 FA 95`, status 6 and own actor `0x001E95FA` (the high
+two actor bytes at +6..+7 remain `1E 00` in both views). The wire +2..+5
+values are `65C8F8A8`, `FD065EB3`, `E6EA10F2`, `F7950080`,
+`D95D07CF`, `446E49D0`, `64DFBF3C`. The remaining 25 bytes match.
+
+This establishes a per-frame transformation of those four bytes before the
+client dispatches `0x0983`. It explains why the raw parser rejects the
+status as belonging to another actor. Seven distinct inputs with the same
+output do not identify a general decoder or its changing state. Do not
+hardcode status 6 from duration, skill ID or these samples; that would fail
+other statuses and removals. The preceding client `0x0196` status 1689
+has no corresponding captured wire sample and is still unclassified.
+
+Next implementation decision requires either identifying the actual receive
+transformation and its state, or validating bounded client-buffer observation
+for a second distinct status, removal, relog and multiple clients. The
+current probe is a diagnostic only: continuous high-frequency cross-process
+reads have not been measured for CPU, frame retention or compatibility.

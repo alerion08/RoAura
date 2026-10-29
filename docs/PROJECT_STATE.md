@@ -31,6 +31,12 @@ bounded loop. Its second field run captured seven identical decoded 0x0983
 frames for Enchant Poison: EFST 6, verified own actor and 180000 ms. A separate
 0x0196 status 1689 is not attributed to Enchant Poison. Same-run RoAura wire
 log is needed to align individual frames before any generic application path.
+The matching log has now arrived: all seven wire frames align uniquely with
+client frames within 0.969–7.286 ms. Exactly bytes +2..+5 change before
+dispatch; client Status ID is 6 and actor is the verified player. This proves
+the present raw parser cannot identify ownership or Status ID for these
+frames. It does not reveal the changing transform or establish a safe general
+client-memory capture path. No production parser change or new build yet.
 
 ## Current product
 
