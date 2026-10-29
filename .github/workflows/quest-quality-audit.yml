@@ -1,0 +1,30 @@
+name: Quest research QA (fast)
+on:
+  push:
+    branches: [research/quest-database]
+    paths: [.github/workflows/quest-quality-audit.yml]
+permissions: {contents: read}
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/quest-database
+      - name: Audit populated SQLite data
+        run: |
+          python - <<'PY'
+          import sqlite3
+          db=sqlite3.connect("research/quest-database/output/quest_research.sqlite")
+          print("STATUS",db.execute("select status,count(*) from wiki_pages group by status order by count(*) desc").fetchall(),flush=True)
+          print("QUALITY",db.execute("select mode,count(*),sum(numbered_steps),sum(narrative_steps) from wiki_parse_quality group by mode").fetchall(),flush=True)
+          print("TOP_STEPS",db.execute("select title,status,(select count(*) from wiki_steps s where s.page_id=p.id) n from wiki_pages p order by n desc limit 30").fetchall(),flush=True)
+          print("NO_STEPS",db.execute("select title,status,url from wiki_pages p where not exists(select 1 from wiki_steps s where s.page_id=p.id) limit 40").fetchall(),flush=True)
+          print("NARRATIVE",db.execute("select title,(select count(*) from wiki_steps s where s.page_id=p.id) n from wiki_pages p where status='narrative_parsed' order by n desc limit 40").fetchall(),flush=True)
+          print("LINKED",db.execute("select p.title,l.score,substr(v.path,1,90) from wiki_script_links l join wiki_pages p on p.id=l.page_id join provenance v on v.id=l.source_id where l.score>=86 order by p.title limit 50").fetchall(),flush=True)
+          for title in ["Kiel Hyre Quest","Juice Quest","Swordman Job Change Guide","Sign Quest","Rachel Sanctuary","Factory Quest","Amatsu Dungeon Entrance Quest"]:
+            row=db.execute("select id,status from wiki_pages where title=?",(title,)).fetchone()
+            if row:
+              print("SAMPLE",title,row,db.execute("select step_no,substr(instruction,1,130) from wiki_steps where page_id=? limit 3",(row[0],)).fetchall(),flush=True)
+          PY
