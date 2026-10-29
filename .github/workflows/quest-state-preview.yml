@@ -1,0 +1,51 @@
+name: Quest state/runtime preview (offline)
+on:
+  push:
+    branches: [research/quest-database]
+    paths: [.github/workflows/quest-state-preview.yml]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/quest-database
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -q requests beautifulsoup4 pyyaml
+      - name: Rebuild current source snapshot without network
+        run: |
+          mkdir -p /tmp/roaura-quest-preview
+          cp research/quest-database/output/quest_research.sqlite /tmp/roaura-quest-preview/
+          cp research/quest-database/output/coverage.json /tmp/roaura-quest-preview/
+          python research/quest-database/build.py --out /tmp/roaura-quest-preview --enrich-only
+      - name: Check source-state, consumer links and integrity
+        run: |
+          python - <<'PY'
+          import sqlite3, json
+          root='/tmp/roaura-quest-preview/'
+          report=json.load(open(root+'coverage.json',encoding='utf-8'))
+          for f in ['quest_research.sqlite','questie_catalog.sqlite']:
+            db=sqlite3.connect(root+f)
+            assert db.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
+            assert db.execute('PRAGMA foreign_key_check').fetchall()==[]
+            print('VALID',f,db.execute('PRAGMA user_version').fetchone()[0],flush=True)
+          print('STATE',report['quest_state'],flush=True)
+          print('RUNTIME',report['runtime_export'],flush=True)
+          assert report['quest_state']['facts']>0
+          assert report['runtime_export']['tables']['quests']>=286
+          assert report['runtime_export']['tables']['dialogue_options']>=14081
+          PY
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: quest-stage5-validated-preview
+          path: |
+            /tmp/roaura-quest-preview/questie_catalog.sqlite
+            /tmp/roaura-quest-preview/questie_catalog.sqlite.gz
+            /tmp/roaura-quest-preview/coverage.json
+          retention-days: 10
