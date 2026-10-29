@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS wiki_content_categories(
 # alone is not a sufficient content classification.
 PATTERNS={
     "explicit_dungeon_access":re.compile(
-        r"\b(?:gain (?:access|entry) to|(?:get|obtain) permission to enter|"
+        r"\b(?:gains? (?:access|entry) to|(?:get|obtain) permission to enter|"
         r"unlock (?:the )?(?:entrance|portal)|"
         r"allows? you to enter|enter (?:the |a )?[\w' -]{0,36}(?:dungeon|tower|sanctuary))\b",re.I),
     "explicit_job_change":re.compile(
