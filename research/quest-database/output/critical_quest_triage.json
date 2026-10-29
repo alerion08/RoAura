@@ -23,7 +23,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -40,7 +39,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -57,7 +55,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -74,7 +71,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -91,7 +87,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -108,7 +103,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -125,7 +119,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -142,7 +135,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -159,7 +151,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -176,7 +167,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -193,7 +183,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -210,7 +199,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -227,7 +215,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -244,7 +231,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -261,7 +247,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -278,7 +263,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -295,7 +279,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -312,7 +295,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -329,7 +311,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -346,7 +327,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -363,7 +343,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -380,7 +359,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -397,7 +375,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -414,7 +391,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -431,7 +407,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -448,7 +423,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -465,7 +439,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -482,7 +455,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -499,7 +471,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -516,7 +487,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -533,7 +503,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -550,7 +519,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -567,7 +535,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -584,7 +551,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -601,7 +567,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -618,7 +583,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -635,7 +599,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -652,7 +615,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -669,7 +631,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -686,7 +647,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -703,7 +663,6 @@
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -720,7 +679,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -737,7 +695,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -754,7 +711,6 @@
       "verification_action": "determine whether this is a profession walkthrough or general class reference",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -771,7 +727,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -788,7 +743,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -805,7 +759,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -822,7 +775,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -839,7 +791,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -856,7 +807,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -873,7 +823,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -890,7 +839,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -907,7 +855,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -924,7 +871,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -941,7 +887,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -958,7 +903,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -975,7 +919,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -992,7 +935,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1009,7 +951,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1026,7 +967,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1043,7 +983,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1060,7 +999,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1077,7 +1015,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1094,7 +1031,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1111,7 +1047,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1128,7 +1063,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1145,7 +1079,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1162,7 +1095,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1179,7 +1111,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1196,7 +1127,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1213,7 +1143,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1230,7 +1159,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1247,7 +1175,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1264,7 +1191,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1281,7 +1207,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1298,7 +1223,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1315,7 +1239,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1332,7 +1255,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1349,7 +1271,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1366,7 +1287,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1383,7 +1303,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1400,7 +1319,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1417,7 +1335,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",
@@ -1434,7 +1351,6 @@
       "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
       "reason": [
         "no_script_candidate",
-        "not_freshly_verified",
         "incomplete_step_npc_mapping"
       ],
       "server_compatibility": "unverified",

@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T18:28:04.759312+00:00",
+  "created_utc": "2026-10-29T18:31:15.784381+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -31,25 +31,26 @@
     },
     "rathena_pre_re_registry": 2879,
     "irowiki_classic": {
-      "indexed": 256,
-      "attempted": 256,
-      "fetched": 255,
-      "numbered_steps": 2587,
+      "discovered": 286,
+      "retained_from_previous": 0,
+      "indexed": 286,
+      "attempted": 286,
+      "fetched": 286,
+      "updated": 286,
+      "cached_errors": 0,
+      "parse_regressions_prevented": 0,
+      "numbered_steps": 2931,
       "narrative_steps": 489,
-      "errors": [
-        {
-          "url": "https://irowiki.org/classic/Category:Quests",
-          "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-        },
-        {
-          "url": "https://irowiki.org/classic/Swordman",
-          "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
-        }
-      ]
+      "health": {
+        "fresh": 285,
+        "fresh_empty": 1
+      },
+      "errors": []
     }
   },
   "source_snapshot_utc": "2026-10-29T17:15:16.302035+00:00",
-  "fetch_mode": "reused_existing_snapshot",
+  "wiki_snapshot_utc": "2026-10-29T18:31:15.784381+00:00",
+  "fetch_mode": "wiki_refreshed_cached_npc_sources",
   "linking": {
     "wiki_script_links": 574,
     "linked_pages": 169,
@@ -106,7 +107,7 @@
     "quest_registry_entries": 2879,
     "wiki_pages": 286,
     "wiki_steps": 3420,
-    "wiki_details": 1475,
+    "wiki_details": 1476,
     "wiki_script_links": 574,
     "wiki_step_npc_links": 1298,
     "npc_flow_points": 14135,
@@ -120,8 +121,8 @@
   },
   "quality": {
     "wiki_refresh": {
-      "legacy_cached": 285,
-      "never_fetched": 1
+      "fresh": 285,
+      "fresh_empty": 1
     },
     "nonregression": {
       "passed": true,
@@ -148,7 +149,7 @@
       "pages_with_step_npc_links": 123,
       "pages_without_script": 117,
       "pages_with_mixed_scopes": 32,
-      "pages_not_freshly_verified": 286,
+      "pages_not_freshly_verified": 0,
       "priority_counts": {
         "critical": 84,
         "high": 105,
@@ -191,7 +192,7 @@
       "quest_prerequisite_text": 51,
       "quest_prerequisites": 57,
       "quest_steps": 3420,
-      "step_hints": 1475,
+      "step_hints": 1476,
       "scripts": 939,
       "quest_scripts": 574,
       "npcs": 8739,
@@ -206,7 +207,7 @@
       "quest_registry_evidence": 5950,
       "candidate_answers": 156
     },
-    "bytes": 72753152
+    "bytes": 72769536
   },
   "questie_schema_version": 3
 }
