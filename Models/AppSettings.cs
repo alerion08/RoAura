@@ -183,7 +183,9 @@ public sealed class AppSettings : INotifyPropertyChanged
         set => AllowedProcesses = (value ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
     public ObservableCollection<CharacterProfile> Characters { get; set; } = [];
-    public ObservableCollection<NavigationPreference> NavigationSections { get; set; } = [];
+    public ObservableCollection<NavigationPreference> NavigationSections { get; set; } = new(
+        Enum.GetValues<AppFeature>().Where(f => f is not (AppFeature.Home or AppFeature.Settings))
+            .Select(f => new NavigationPreference { Feature = f }));
     public void EnsureNavigationSections()
     {
         foreach (var feature in Enum.GetValues<AppFeature>().Where(f => f is not (AppFeature.Home or AppFeature.Settings)))

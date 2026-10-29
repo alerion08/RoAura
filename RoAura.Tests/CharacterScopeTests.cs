@@ -55,6 +55,28 @@ public sealed class CharacterScopeTests
     }
 
     [Fact]
+    public void PresetsRetainKnownAliasesAndScopeTargetsRoundtrip()
+    {
+        var current = new AppSettings();
+        var character = new CharacterProfile { CharacterId = 42, DetectedServer = "ToC", ServerProfile = "ToC", Name = "My Knight" };
+        current.Characters.Add(character);
+        var preset = new AppSettings();
+        preset.Characters.Add(new CharacterProfile { Id = character.Id, CharacterId = 42, DetectedServer = "ToC", Name = "Old name" });
+        var aura = new SkillAura { X = 321, Y = 123 };
+        aura.CharacterScope.Characters.Add(character.Id);
+        preset.Skills.Add(aura);
+        SettingsSnapshot.Apply(preset, current);
+        Assert.Equal("My Knight", current.Characters.Single().Name);
+        Assert.Equal(character.Id, current.Skills.Single().CharacterScope.Characters.Single());
+        var json = System.Text.Json.JsonSerializer.Serialize(current);
+        var restored = System.Text.Json.JsonSerializer.Deserialize<AppSettings>(json)!;
+        Assert.Equal(character.Id, restored.Skills.Single().CharacterScope.Characters.Single());
+        Assert.Equal(321, restored.Skills.Single().X);
+        Assert.Equal(123, restored.Skills.Single().Y);
+        Assert.DoesNotContain("IsAllowed", json);
+    }
+
+    [Fact]
     public void HomeAndSettingsRemainReachable()
     {
         var settings = new AppSettings();
