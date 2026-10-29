@@ -1,0 +1,37 @@
+name: Quest graph source QA (fast)
+on:
+  push:
+    branches: [research/quest-database]
+    paths: [.github/workflows/quest-flow-audit.yml]
+permissions: {contents: read}
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/quest-database
+      - name: Inspect real rAthena NPC graph records
+        run: |
+          python - <<'PY'
+          import sqlite3
+          db=sqlite3.connect('research/quest-database/output/quest_research.sqlite')
+          for basename in ('bunnyband.txt','juice_maker.txt','kiel_hyre_quest.txt'):
+            entries=db.execute('''SELECT v.project,v.path,count(DISTINCT f.id),count(o.point_id),
+                     sum(case when o.target_line is not null then 1 else 0 end)
+                     FROM provenance v JOIN npc_flow_points f ON f.source_id=v.id
+                     JOIN npc_flow_options o ON o.point_id=f.id
+                     WHERE v.project='rathena' AND v.path LIKE ?
+                     GROUP BY v.id''',('%/'+basename,)).fetchall()
+            print('REAL_NPC',basename,entries,flush=True)
+            assert entries and entries[0][3]>0
+          print('RESOLVED_CHOICE_EXAMPLES',db.execute('''SELECT v.path,n.name,f.line_no,o.option_no,o.label,o.target_line,o.resolution
+             FROM npc_flow_points f JOIN npc_flow_options o ON o.point_id=f.id
+             JOIN provenance v ON v.id=f.source_id
+             JOIN script_npcs n ON n.source_id=f.source_id AND n.ordinal=f.npc_ordinal
+             WHERE v.project='rathena' AND v.path LIKE '%bunnyband.txt' AND o.target_line IS NOT NULL
+             LIMIT 8''').fetchall(),flush=True)
+          print('UNKNOWN_DYNAMIC',db.execute("select count(*) from npc_flow_options where resolution='dynamic_menu'").fetchone()[0],flush=True)
+          print('DIAGNOSTIC',db.execute("select review_state,count(*) from wiki_script_reviews group by review_state").fetchall(),flush=True)
+          PY
