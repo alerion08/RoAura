@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T18:31:15.784381+00:00",
+  "created_utc": "2026-10-29T18:58:54.461901+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -49,8 +49,7 @@
     }
   },
   "source_snapshot_utc": "2026-10-29T17:15:16.302035+00:00",
-  "wiki_snapshot_utc": "2026-10-29T18:31:15.784381+00:00",
-  "fetch_mode": "wiki_refreshed_cached_npc_sources",
+  "fetch_mode": "reused_existing_snapshot",
   "linking": {
     "wiki_script_links": 574,
     "linked_pages": 169,
@@ -177,6 +176,8 @@
       },
       "core_research_candidates": 52,
       "seasonal_archive_candidates": 67,
+      "categorized_from_content": 0,
+      "still_unsorted": 155,
       "server_verified": 0
     }
   },
