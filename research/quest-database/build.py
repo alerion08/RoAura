@@ -24,6 +24,8 @@ from reconcile import SCHEMA as REVIEW_SCHEMA, create_reviews
 from state import SCHEMA as STATE_SCHEMA, create_state_facts
 from runtime import make_runtime
 from augment import augment_evidence
+from quality import (ensure_quality_schema, update_state, state_counts,
+                     dataset_counts, check_nonregression, too_few_steps)
 
 UA = "RoAura-Quest-Research/1.0 (public source research, limited crawl)"
 WIKI = "https://irowiki.org/classic/"
@@ -225,13 +227,27 @@ class WikiFetcher:
         if self.robot_error:raise RuntimeError("robots.txt could not be checked: "+self.robot_error)
         if not self.robots.can_fetch(UA,url):
             raise PermissionError("Disallowed by robots.txt: "+url)
-        delta=self.delay-(time.monotonic()-self.last)
-        if delta>0:time.sleep(delta)
-        self.last=time.monotonic()
-        r=self.session.get(url,timeout=35)
-        r.raise_for_status()
-        if "html" not in r.headers.get("Content-Type","html").lower():raise ValueError("not html")
-        return r.text,r.url
+        for attempt in range(3):
+            delta=self.delay-(time.monotonic()-self.last)
+            if delta>0:time.sleep(delta)
+            self.last=time.monotonic()
+            try:
+                r=self.session.get(url,timeout=35)
+                # Retry transient overloads; a missing or forbidden page is
+                # not a transient failure and must remain an explicit error.
+                if r.status_code in (429,500,502,503,504):
+                    r.raise_for_status()
+                r.raise_for_status()
+                if "html" not in r.headers.get("Content-Type","html").lower():
+                    raise ValueError("not html")
+                return r.text,r.url
+            except (requests.ConnectionError,requests.Timeout,requests.HTTPError) as exc:
+                transient=not isinstance(exc,requests.HTTPError) or (
+                    exc.response is not None and exc.response.status_code in (429,500,502,503,504))
+                if not transient or attempt==2:raise
+                time.sleep(min(4,2**attempt))
+        raise RuntimeError("Wiki retries exhausted")
+
 
 def article_links(html,base_url):
     soup=BeautifulSoup(html,"html.parser")
@@ -290,26 +306,45 @@ def wiki_discover(fetcher,max_categories=150):
     return {name:url for name,url in urls.items() if name not in skip},errors
 
 def ingest_wiki(db,max_pages=1000):
+    ensure_quality_schema(db)
     fetcher=WikiFetcher()
-    urls,errors=wiki_discover(fetcher)
-    print(f"Discovered {len(urls)} wiki candidate pages",flush=True)
-    count=0
-    parsed_numbered=0
-    parsed_narrative=0
+    discovered,errors=wiki_discover(fetcher)
+    historical={title:url for title,url in db.execute("SELECT title,url FROM wiki_pages")}
+    retained={title:url for title,url in historical.items() if title not in discovered}
+    # Preserve *and recheck* historical source URLs when category discovery
+    # temporarily fails, instead of silently dropping them from the catalog.
+    urls={**discovered,**retained}
+    print(f"Discovered {len(discovered)} wiki candidates; retained {len(retained)} historical URLs",flush=True)
+    fetched=0;updated=0;failed=0;regressions=0;new_numbered=0;new_narrative=0
     known_maps={row[0].lower() for row in db.execute("SELECT DISTINCT map FROM script_npcs WHERE map IS NOT NULL")}
     with db:
         for title,url in urls.items():
-            db.execute("INSERT INTO wiki_pages(title,url) VALUES(?,?) ON CONFLICT(title) DO UPDATE SET url=excluded.url",(title,url))
+            db.execute("INSERT INTO wiki_pages(title,url) VALUES(?,?) ON CONFLICT(title) DO NOTHING",(title,url))
+    ensure_quality_schema(db)
+    with db:
+        for pid,title in db.execute("SELECT id,title FROM wiki_pages"):
+            if title not in urls:
+                update_state(db,pid,"cached_not_discovered")
     for idx,(title,url) in enumerate(urls.items(),1):
         if idx>max_pages:break
         pid=db.execute("SELECT id FROM wiki_pages WHERE title=?",(title,)).fetchone()[0]
+        old_steps=db.execute("SELECT count(*) FROM wiki_steps WHERE page_id=?",(pid,)).fetchone()[0]
         try:
             html,actual=fetcher.get(url)
+            fetched+=1
             steps,quality,meta=parse_guide(html)
+            if too_few_steps(old_steps,len(steps)):
+                regressions+=1
+                with db:
+                    update_state(db,pid,"cached_parse_regression",error=(
+                        f"Extracted {len(steps)} steps; retained {old_steps} previously parsed steps"))
+                errors.append({"url":url,"error":"parse_regression","previous_steps":old_steps,
+                               "new_steps":len(steps)})
+                continue
             with db:
                 db.execute("DELETE FROM wiki_step_sources WHERE page_id=?",(pid,))
-                db.execute("DELETE FROM wiki_steps WHERE page_id=?",(pid,))
                 db.execute("DELETE FROM wiki_details WHERE page_id=?",(pid,))
+                db.execute("DELETE FROM wiki_steps WHERE page_id=?",(pid,))
                 for sn,step in enumerate(steps,1):
                     db.execute("INSERT INTO wiki_steps VALUES(?,?,?,?)",(pid,sn,step.section,step.instruction))
                     db.execute("INSERT INTO wiki_step_sources VALUES(?,?,?,?)",(pid,sn,step.source_number,step.kind))
@@ -323,15 +358,28 @@ def ingest_wiki(db,max_pages=1000):
                    hashlib.sha256(norm(BeautifulSoup(html,"html.parser").get_text(" ",strip=True)).encode()).hexdigest(),pid))
                 db.execute("INSERT OR REPLACE INTO wiki_parse_quality VALUES(?,?,?,?)",
                            (pid,quality["mode"],quality["numbered"],quality["narrative"]))
-            parsed_numbered+=quality["numbered"]
-            parsed_narrative+=quality["narrative"]
-            count+=1
-        except Exception as e:
-            with db:db.execute("UPDATE wiki_pages SET status='fetch_error',error=? WHERE id=?",(str(e)[:300],pid))
-            errors.append({"url":url,"error":str(e)})
+                update_state(db,pid,"fresh" if steps else "fresh_empty",steps=len(steps),success=True)
+            updated+=1
+            new_numbered+=quality["numbered"]
+            new_narrative+=quality["narrative"]
+        except Exception as exc:
+            failed+=1
+            with db:
+                # Never overwrite last successful guide state/hash on transient
+                # error, even when historical scripts and wiki links still exist.
+                update_state(db,pid,"cached_http_error" if old_steps else "never_fetched",
+                             error=str(exc))
+                if not old_steps:
+                    db.execute("UPDATE wiki_pages SET error=? WHERE id=?",(str(exc)[:300],pid))
+            errors.append({"url":url,"error":str(exc)})
         if idx%50==0:print(f"Wiki: {idx}/{min(len(urls),max_pages)} pages processed",flush=True)
     fetcher.session.close()
-    return {"indexed":len(urls),"attempted":min(len(urls),max_pages),"fetched":count,"numbered_steps":parsed_numbered,"narrative_steps":parsed_narrative,"errors":errors}
+    return {"discovered":len(discovered),"retained_from_previous":len(retained),
+            "indexed":len(urls),"attempted":min(len(urls),max_pages),
+            "fetched":fetched,"updated":updated,"cached_errors":failed,
+            "parse_regressions_prevented":regressions,
+            "numbered_steps":new_numbered,"narrative_steps":new_narrative,
+            "health":state_counts(db),"errors":errors}
 
 def counts(db):
     return {name:db.execute("SELECT count(*) FROM "+table).fetchone()[0] for name,table in
@@ -363,6 +411,8 @@ def main():
     db.executescript(FLOW_SCHEMA)
     db.executescript(REVIEW_SCHEMA)
     db.executescript(STATE_SCHEMA)
+    ensure_quality_schema(db)
+    original_counts=dataset_counts(db)
     # A previous generated review links to menu point IDs. Clear those first.
     with db:
         db.execute("DELETE FROM wiki_answer_menu_matches")
@@ -408,11 +458,13 @@ def main():
     report["dialogue_flow"]=create_flow(db)
     report["quest_state"]=create_state_facts(db)
     report["script_link_review"]=create_reviews(db)
-    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','5')")
+    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','6')")
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('matching_revision','header_and_correlated_npc_coordinate_v1')")
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('research_status','candidate matches only; see coverage.json')")
     db.commit()
     report["counts"]=counts(db)
+    report["quality"]={"wiki_refresh":state_counts(db),
+                        "nonregression":check_nonregression(original_counts,dataset_counts(db))}
     report["sqlite_integrity"]=db.execute("PRAGMA integrity_check").fetchone()[0]
     report["foreign_key_violations"]=len(db.execute("PRAGMA foreign_key_check").fetchall())
     db.execute("VACUUM")
