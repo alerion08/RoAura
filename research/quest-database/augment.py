@@ -18,7 +18,7 @@ def normalize(s):
 def title_in_header(title,raw):
     """Require exact ordered multiword title inside script's own lead comments."""
     needle=normalize(title)
-    if not needle or len(needle)<10 or len(tokens(title))<2:return False
+    if not needle or len(needle)<10 or len(needle.split())<2 or not tokens(title):return False
     header=[]
     for line in raw.splitlines()[:HEADER_LINES]:
         stripped=line.strip()
