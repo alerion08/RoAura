@@ -34,7 +34,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Nifflheim_Spotlight",
@@ -53,7 +53,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:President_Quest",
@@ -72,7 +72,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:TaeKwon_Kid",
@@ -91,7 +91,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Valentine's_and_White_Day_Event_(2008/02/12)_~_(2008/02/19)",
@@ -110,7 +110,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:IRO_6th_Anniversary_Event_(2009/06/02)_~_(2009/07/07)",
@@ -129,7 +129,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:2014_Fourth_of_July_Event",
@@ -148,7 +148,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Glast_Heim_Spotlight",
@@ -167,7 +167,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Talk_Like_a_Pirate_Day_Event_(2012/09/11)",
@@ -186,7 +186,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Thanatos_Tower_Quest/old",
@@ -205,7 +205,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Biolabs_Entrance_Quest",
@@ -224,7 +224,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Crow_of_Destiny_Quest",
@@ -243,7 +243,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Odin's_Temple_Excavation_Quest",
@@ -262,7 +262,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Successor_to_the_Throne_Quest",
@@ -281,7 +281,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:IRO_10th_Anniversary_Event",
@@ -300,7 +300,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Chief's_Quest",
@@ -319,7 +319,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Prayer_To_Heaven_(Transcendence_Quest)",
@@ -338,7 +338,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Rogue_Guild_Investigation_Quest",
@@ -357,7 +357,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
@@ -376,7 +376,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Talk_Like_a_Pirate_Day_Event_(2009/09/15)_~_(2009/10/06)",
@@ -395,7 +395,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:2013_Veins_Spotlight",
@@ -414,7 +414,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Hugel_Fifth_Anniversary_Festival_Event_(2008/06/10)_~_(2008/07/08)",
@@ -433,7 +433,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Thanksgiving_Event_(2006/11/21)_~_(2006/11/28)",
@@ -452,7 +452,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Christmas_Event_(2006/12/19)_~_(2007/01/02)",
@@ -471,7 +471,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Muff's_Loan_Quest",
@@ -490,7 +490,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Adventure_of_the_Tarnished_Lamp",
@@ -509,7 +509,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:April_Fools_Event_(2010/04/01)_~_(2010/04/20)",
@@ -528,7 +528,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Asgard_Training_Village_Beginner_Equipment",
@@ -547,7 +547,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Broken_Diamond_Quest",
@@ -566,7 +566,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:God_Items_Quest_2",
@@ -585,7 +585,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Hugel_Memory_Quest",
@@ -604,7 +604,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Mother's_Day_Quest_(2007/05/08)_~_(2007/05/15)",
@@ -623,7 +623,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Snowysnow_Quest",
@@ -642,7 +642,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Spring_Event_Quest_(2008/04/22)_~_(2008/04/29)",
@@ -661,7 +661,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Talk_Like_a_Pirate_Day_Event_(2013/9/18)",
@@ -680,7 +680,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:2012_Christmas_Event",
@@ -699,7 +699,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:2017_St._Patrick's_Day_Event",
@@ -718,7 +718,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest",
@@ -737,7 +737,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Christmas_Event_(2008/12/16)_~_(2009/01/06)",
@@ -756,7 +756,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Guardian_of_Yggdrasil",
@@ -775,7 +775,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Unlucky_Emerald_Quest",
@@ -794,7 +794,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:4th_Anniversary_Quest_(2007/05/29)_~_(2007/07/10)",
@@ -813,7 +813,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Biological_Weapon_Quest",
@@ -832,7 +832,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Halloween_Event_(2007/10/30)_~_(2007/11/06)",
@@ -851,7 +851,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Hugel_Cow_Milking",
@@ -870,7 +870,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Memorial_Day_Event_(2008/05/20)_~_(2008/05/27)",
@@ -889,7 +889,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:New_Beginnings_(2007/01/23)_~_(2007/01/30)",
@@ -908,7 +908,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Rebirth_Walkthrough",
@@ -927,7 +927,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Talk_Like_a_Pirate_Day_Event_(2007/09/18)_~_(2007/09/25)",
@@ -946,7 +946,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Talk_Like_a_Pirate_Day_Event_(2010/09/16)_~_(2010/09/30)",
@@ -965,7 +965,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Christmas_Event_(2009/12/22)_~_(2010/01/05)",
@@ -984,7 +984,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)",
@@ -1003,7 +1003,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Einbroch_Murder_Quest",
@@ -1022,7 +1022,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Fishing_Quest_(08/12/2015)",
@@ -1041,7 +1041,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Nidhoggur's_Nest",
@@ -1060,7 +1060,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Snowy_Days_Event_(2008/01/22)_~_(2008/01/29)",
@@ -1079,7 +1079,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Thanksgiving_Event_(2007/11/20)_~_(2007/11/27)",
@@ -1098,7 +1098,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:April_Fool's_Quest_(2007/03/27)_~_(2007/04/03)",
@@ -1117,7 +1117,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Easter_Event_Quest_(2009/04/07)_~_(2009/04/21)",
@@ -1136,7 +1136,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Easter_Quest_(2007/04/03)_~_(2007/04/10)",
@@ -1155,7 +1155,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Footprint_Quest",
@@ -1174,7 +1174,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Hair_Styling/Dye_Quests",
@@ -1193,7 +1193,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Halloween_Event_(2006/10/24)_~_(2006/11/07)",
@@ -1212,7 +1212,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Level_4_Weapons_(Type_2)",
@@ -1231,7 +1231,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Summoner_Event_(2009/02/24)_~_(2009/03/10)",
@@ -1250,7 +1250,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Valentine's_Day_Event_(2010/02/11)_~_(2010/02/25)",
@@ -1269,7 +1269,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Valentine's_Day_Event_2017",
@@ -1288,7 +1288,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Harvest_Moon_Festival_Event_(2009/09/29)_~_(2009/10/13)",
@@ -1307,7 +1307,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Hide_n'_Seek_Quest",
@@ -1326,7 +1326,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Ore_Downgrading",
@@ -1345,7 +1345,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Remembrance_Day_Event_(2007/11/06)_~_(2007/11/13)",
@@ -1364,7 +1364,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Shout_Mountain_Quest",
@@ -1383,7 +1383,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Story_of_the_Stone_Cutters_Event_(2008/08/05)_~_(2008/09/02)",
@@ -1402,7 +1402,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Summoner_Event_(2010/08/19)_~_(2010/09/16)",
@@ -1421,7 +1421,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
@@ -1440,7 +1440,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Thanksgiving_Event_(2009/11/24)_~_(2009/12/08)",
@@ -1459,7 +1459,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
@@ -1478,7 +1478,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:WoE_2_Guild_Dungeon_Event",
@@ -1497,7 +1497,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:12th_Anniversary_Quest_(June_2015)",
@@ -1516,7 +1516,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Lunar_New_Year_Event_(2008/02/05)_~_(2008/02/12)",
@@ -1535,7 +1535,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Pickpocket_Quest",
@@ -1554,7 +1554,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Soul_Linker_Job_Change_Guide",
@@ -1573,7 +1573,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Spring_Event_(2009/05/19)_~_(2009/06/02)",
@@ -1592,7 +1592,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:St._Patrick's_Day_Event_(2010/03/11)_~_(2010/03/25)",
@@ -1611,7 +1611,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "critical",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:God_Items_Quest",
@@ -1634,7 +1634,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Sign_Quest",
@@ -1658,7 +1658,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Archer_Training_Quest",
@@ -1683,7 +1683,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Knight",
@@ -1706,7 +1706,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Headgear_Quests",
@@ -1728,7 +1728,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Monk",
@@ -1750,7 +1750,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Ninja",
@@ -1774,7 +1774,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Halloween_Event_(2013)",
@@ -1795,7 +1795,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Guild_Relay_Quest",
@@ -1817,7 +1817,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Dancer",
@@ -1839,7 +1839,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Thanatos_Tower_Quest",
@@ -1861,7 +1861,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Cursed_Spirit_Quest",
@@ -1882,7 +1882,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Wizard",
@@ -1904,7 +1904,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Sage",
@@ -1926,7 +1926,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Bard",
@@ -1948,7 +1948,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Crusader",
@@ -1972,7 +1972,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Knight_Job_Change_Guide",
@@ -1995,7 +1995,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Poison_King_Quest",
@@ -2017,7 +2017,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Rebellion_Quest",
@@ -2039,7 +2039,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Priest",
@@ -2061,7 +2061,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Rogue",
@@ -2083,7 +2083,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Geffen_Bard_Quest",
@@ -2105,7 +2105,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Merchant_Training_Quest",
@@ -2127,7 +2127,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Blacksmith",
@@ -2149,7 +2149,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Medicine_Quest",
@@ -2171,7 +2171,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Novice",
@@ -2196,7 +2196,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Cooking_Quest",
@@ -2220,7 +2220,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Crusader_Job_Change_Guide",
@@ -2244,7 +2244,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Doctor_Quest",
@@ -2266,7 +2266,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Heart_Fragment_Quest",
@@ -2288,7 +2288,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Juperos_Quest",
@@ -2310,7 +2310,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Lovers_Quest",
@@ -2332,7 +2332,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Revolution_Quest",
@@ -2354,7 +2354,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Airship_Ticket_Quest",
@@ -2376,7 +2376,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Thief",
@@ -2400,7 +2400,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Thief_Job_Change_Guide",
@@ -2424,7 +2424,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Thief_Skill_Quest",
@@ -2448,7 +2448,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Crusader_Skill_Quest",
@@ -2472,7 +2472,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:How_the_Airship_Works_Quest",
@@ -2493,7 +2493,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Knight_Skill_Quest",
@@ -2516,7 +2516,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Novice_Skill_Quest",
@@ -2540,7 +2540,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Soul_Linker",
@@ -2562,7 +2562,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Swordman",
@@ -2585,7 +2585,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Swordman_Job_Change_Guide",
@@ -2608,7 +2608,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:TaeKwon_Master",
@@ -2629,7 +2629,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Dandelion's_Request",
@@ -2651,7 +2651,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Factory_Quest",
@@ -2673,7 +2673,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:God_Item_Creation",
@@ -2695,7 +2695,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Merchant",
@@ -2718,7 +2718,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Merchant_Job_Change_Guide",
@@ -2741,7 +2741,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Message_Delivery_Quest",
@@ -2763,7 +2763,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Repeatable_EXP_Quests",
@@ -2785,7 +2785,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Abyss_Lake_Entrance_Guide",
@@ -2804,7 +2804,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Bard_Job_Change_Guide",
@@ -2826,7 +2826,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Dano_Festival_Event_(2010/05/27)_~_(2010/06/10)",
@@ -2845,7 +2845,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Endless_Tower",
@@ -2867,7 +2867,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Endless_Tower_Quest",
@@ -2886,7 +2886,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Experience",
@@ -2905,7 +2905,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Lunar_New_Year_Event_(2009/01/20)_~_(2009/02/03)",
@@ -2924,7 +2924,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Mage",
@@ -2948,7 +2948,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Mage_Job_Change_Guide",
@@ -2972,7 +2972,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Sage_Skill_Quest",
@@ -2994,7 +2994,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Super_Novice",
@@ -3018,7 +3018,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Super_Novice_Job_Change_Guide",
@@ -3037,7 +3037,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Wizard_Skill_Quest",
@@ -3059,7 +3059,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Access_Quests",
@@ -3078,7 +3078,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Acorn_Exchange_Quest",
@@ -3097,7 +3097,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Archer",
@@ -3121,7 +3121,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Archer_Job_Change_Guide",
@@ -3145,7 +3145,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Battle_Arena_Entrance_Quest",
@@ -3164,7 +3164,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Collecting_Draco_Eggs",
@@ -3183,7 +3183,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Dropped_Knife_Quest",
@@ -3202,7 +3202,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Forgotten_Tales_of_Rune_Midgard_(2007/08/21)_~_(2007/09/11)",
@@ -3221,7 +3221,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Juice_Quest",
@@ -3243,7 +3243,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Manuk's_Monster_Suppression",
@@ -3262,7 +3262,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Merchant_Skill_Quest",
@@ -3286,7 +3286,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Revenge_of_the_Towels_Event_(2008/08/26)_~_(2008/09/09)",
@@ -3305,7 +3305,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Swordman_Skill_Quest",
@@ -3329,7 +3329,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Acolyte",
@@ -3353,7 +3353,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Acolyte_Job_Change_Guide",
@@ -3377,7 +3377,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Alchemist_Item_Gathering",
@@ -3396,7 +3396,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Archer_Skill_Quest",
@@ -3420,7 +3420,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Bradium_Collection",
@@ -3442,7 +3442,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Dragon_Hunting_Event_(2010/05/06)_~_(2010/06/03)",
@@ -3461,7 +3461,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Language_Quest",
@@ -3483,7 +3483,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Laphine_Craftsman",
@@ -3505,7 +3505,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Ore_Combining",
@@ -3524,7 +3524,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Training_Grounds_Novice_Test",
@@ -3543,7 +3543,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Trick_or_Treat_Halloween_Celebration_(2009/10/20)_~_(2009/11/03)",
@@ -3562,7 +3562,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Turtle_Island_Entrance_Quest",
@@ -3581,7 +3581,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:2013_April_Fools_Day_Event",
@@ -3600,7 +3600,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Acolyte_Skill_Quest",
@@ -3623,7 +3623,7 @@
         "mixed_gameplay_variants"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Cyfar_(and_Brigan)_Exchange_Event_(2006/09/19)_~_(2006/09/26)",
@@ -3642,7 +3642,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Gemstone_Exchanging",
@@ -3661,7 +3661,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Glitch_in_Time",
@@ -3680,7 +3680,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Ice_Dungeon_Leveling_Event_(2010/09/02)_~_(2010/09/23)",
@@ -3699,7 +3699,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Lighthalzen_Spotlight",
@@ -3718,7 +3718,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Mage_Skill_Quest",
@@ -3741,7 +3741,7 @@
         "mixed_gameplay_variants"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Monster_Activity_Researcher_Event_(2009/08/11)_~_(2009/09/29)",
@@ -3760,7 +3760,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Monster_Activity_Researcher_Event_(2010/01/14)_~_(2010/02/04)",
@@ -3779,7 +3779,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Monster_Activity_Researcher_Event_(2010/04/14)_~_(2010/04/29)",
@@ -3798,7 +3798,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Party_Relay_Quest",
@@ -3820,7 +3820,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Ragnarok_Tactics_Event",
@@ -3839,7 +3839,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:The_Tome_of_the_Dark_Lord",
@@ -3858,7 +3858,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Turtle_Island_Hunting_Event_(2010/07/08)_~_(2010/08/12)",
@@ -3877,7 +3877,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Kiel_Hyre_Quest",
@@ -3898,7 +3898,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Alchemist",
@@ -3919,7 +3919,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Assassin_Job_Change_Guide",
@@ -3940,7 +3940,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Rogue_Job_Change_Guide",
@@ -3961,7 +3961,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Blacksmith_Job_Change_Guide",
@@ -3982,7 +3982,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Dancer_Job_Change_Guide",
@@ -4003,7 +4003,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Doomed_Swords_and_Comodo_Cheese_Quest",
@@ -4024,7 +4024,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Pursuing_Rayan_Moore",
@@ -4045,7 +4045,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Gunslinger",
@@ -4066,7 +4066,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Two_Tribes",
@@ -4087,7 +4087,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Mage_Training_Quest",
@@ -4108,7 +4108,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Spy_Quest",
@@ -4129,7 +4129,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Christmas_Event_(2007/12/18)_~_(2008/01/04)",
@@ -4150,7 +4150,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Eye_of_Hellion_Quest",
@@ -4171,7 +4171,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:New_Surroundings",
@@ -4192,7 +4192,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Thor_Volcano_Base_Quest",
@@ -4213,7 +4213,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Peace_for_Arunafeltz_Quest",
@@ -4234,7 +4234,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Thief_Training_Quest",
@@ -4255,7 +4255,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Tripatriate_Union's_Feud",
@@ -4276,7 +4276,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Banish_Winter_Quest",
@@ -4296,7 +4296,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Hunter_Job_Change_Guide",
@@ -4317,7 +4317,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Nameless_Island_Entrance_Quest",
@@ -4338,7 +4338,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Veins_Siblings_Quest",
@@ -4359,7 +4359,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Bruspetti_Quest",
@@ -4380,7 +4380,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:First_Expanded_Change_Guides",
@@ -4400,7 +4400,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:First_Expanded_Job_Change_Guides",
@@ -4420,7 +4420,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Z-Gang_Quest",
@@ -4441,7 +4441,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Onward_to_the_New_World_Quest",
@@ -4462,7 +4462,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Alchemist_Job_Change_Guide",
@@ -4483,7 +4483,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Assassin",
@@ -4504,7 +4504,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Attitude_to_the_New_World",
@@ -4525,7 +4525,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Acolyte_Training_Quest",
@@ -4546,7 +4546,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Alchemist_Skill_Quest",
@@ -4567,7 +4567,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Finding_The_Moving_Island_Quest",
@@ -4588,7 +4588,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Hunter",
@@ -4609,7 +4609,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Rachel_Sanctuary_Quest",
@@ -4630,7 +4630,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)",
@@ -4651,7 +4651,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Friendship_Quest",
@@ -4672,7 +4672,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Help_Mikhail_Quest",
@@ -4693,7 +4693,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Koschei_the_Immortal",
@@ -4714,7 +4714,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Orc_Memory_Dungeon",
@@ -4735,7 +4735,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Ring_of_the_Wise_King",
@@ -4755,7 +4755,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Gunslinger_Weapon_Quests",
@@ -4776,7 +4776,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Lost_Child_Quest",
@@ -4797,7 +4797,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Piano_Keys_Quest",
@@ -4818,7 +4818,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Report_from_the_New_World",
@@ -4839,7 +4839,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Juno_Remedy_Quest",
@@ -4860,7 +4860,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Rogue_Skill_Quest",
@@ -4881,7 +4881,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Sealed_Shrine_Quest",
@@ -4902,7 +4902,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Sage_Job_Change_Guide",
@@ -4923,7 +4923,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Swordman_Training_Quest",
@@ -4944,7 +4944,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Wizard_Job_Change_Guide",
@@ -4965,7 +4965,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Alberta_Boy",
@@ -4986,7 +4986,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Cat_Hand_Services",
@@ -5007,7 +5007,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Juperos_Ruins_History_Quest",
@@ -5028,7 +5028,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Ninja_Weapon_Quests",
@@ -5048,7 +5048,7 @@
         "not_freshly_verified"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Priest_Job_Change_Guide",
@@ -5069,7 +5069,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Stop_Metto's_Research",
@@ -5090,7 +5090,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Monk_Job_Change_Guide",
@@ -5111,7 +5111,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Ninja_Equipment_Quests",
@@ -5132,7 +5132,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Amatsu_Dungeon_Entrance_Quest",
@@ -5153,7 +5153,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Ice_Necklace_Quest",
@@ -5174,7 +5174,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Tom_Yung_Goong_Quest",
@@ -5195,7 +5195,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Assassin_Skill_Quest",
@@ -5216,7 +5216,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Bard_Skill_Quest",
@@ -5237,7 +5237,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Dokebi_Battle_Quest",
@@ -5258,7 +5258,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Easter_Event_Quest_(2008/03/18)_~_(2008/03/25)",
@@ -5279,7 +5279,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Help_Mr._Zabaroo_Quest",
@@ -5300,7 +5300,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:2013_Easter_Event",
@@ -5321,7 +5321,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Alfheim_Perfume",
@@ -5342,7 +5342,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Fish_Cake_Soup_Quest",
@@ -5363,7 +5363,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Halloween_Event_(2008/10/28)_~_(2008/11/04)",
@@ -5384,7 +5384,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Tribe_Investigation",
@@ -5405,7 +5405,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Blacksmith_Skill_Quest",
@@ -5426,7 +5426,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Easter_Event_(2010/04/01)_~_(2010/04/20)",
@@ -5447,7 +5447,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Finding_a_Fairy",
@@ -5468,7 +5468,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Level_4_Weapons_(Type_1)",
@@ -5489,7 +5489,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Midgard_Ore",
@@ -5510,7 +5510,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:OBB_Quest",
@@ -5531,7 +5531,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Rin's_Request",
@@ -5552,7 +5552,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:St._Patrick's_Day_Event_(2009/03/10)_~_(2009/03/24)",
@@ -5573,7 +5573,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:St._Patrick's_Day_Event_Quest_(2008/03/11)_~_(2008/03/18)",
@@ -5594,7 +5594,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:2009_Valentine's_Day_Event_(2009/02/10)_~_(2009/02/24)",
@@ -5615,7 +5615,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Counteragent_and_Mixture_Quest",
@@ -5635,7 +5635,7 @@
         "not_freshly_verified"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Dancer_Skill_Quest",
@@ -5655,7 +5655,7 @@
         "not_freshly_verified"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Hood_Quest",
@@ -5676,7 +5676,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Monk_Skill_Quest",
@@ -5697,7 +5697,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Turtle_Island_Treasure_Quest",
@@ -5718,7 +5718,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Beginner_Skill_Resetter",
@@ -5739,7 +5739,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Card_Trade-In_Mini_Event_(2008/07/29)_~_(2008/08/12)",
@@ -5760,7 +5760,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Hunter_Skill_Quest",
@@ -5781,7 +5781,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Meat_Exchange",
@@ -5802,7 +5802,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Part_Time_Job",
@@ -5823,7 +5823,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Priest_Skill_Quest",
@@ -5844,7 +5844,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Prontera_Culverts_Entrance_Quest",
@@ -5865,7 +5865,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Sashimi_Knife_Quest",
@@ -5886,7 +5886,7 @@
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
       "quest_key": "irowiki-classic:Back_to_School_Event_(2006/09/19)_~_(2006/09/26)",
@@ -5905,7 +5905,7 @@
         "not_freshly_verified"
       ],
       "review_priority": "medium",
-      "assurance": "source-derived candidates only; target server unverified"
+      "assurance": "source-derived candidates only; all server implementations unverified"
     }
   ]
 }

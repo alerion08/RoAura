@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T18:16:34.155469+00:00",
+  "created_utc": "2026-10-29T18:28:04.759312+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -92,6 +92,13 @@
     "pages_candidate_with_npc_evidence": 4,
     "guide_answer_menu_matches": 156
   },
+  "wiki_prerequisites": {
+    "explicit_prerequisite_statements": 51,
+    "wiki_page_links": 57,
+    "pages_with_resolved_prerequisites": 45,
+    "statements_with_no_exact_catalog_match": 6,
+    "assurance": "wiki statements only; server implementation unknown"
+  },
   "counts": {
     "scripts": 939,
     "npcs": 8739,
@@ -156,17 +163,33 @@
         "core_or_other_quest_candidate": 41,
         "class_or_reference_page": 1
       }
+    },
+    "core_quest_worklist": {
+      "total_source_pages": 286,
+      "categories": {
+        "storyline_candidate": 8,
+        "profession_quest_candidate": 27,
+        "dungeon_or_access_candidate": 17,
+        "unsorted_quest_candidate": 155,
+        "profession_reference_candidate": 12,
+        "historical_or_seasonal": 67
+      },
+      "core_research_candidates": 52,
+      "seasonal_archive_candidates": 67,
+      "server_verified": 0
     }
   },
   "sqlite_integrity": "ok",
   "foreign_key_violations": 0,
   "runtime_export": {
-    "schema_version": 2,
+    "schema_version": 3,
     "sqlite_integrity": "ok",
     "foreign_key_violations": 0,
     "tables": {
       "quests": 286,
       "quest_quality": 286,
+      "quest_prerequisite_text": 51,
+      "quest_prerequisites": 57,
       "quest_steps": 3420,
       "step_hints": 1475,
       "scripts": 939,
@@ -183,7 +206,7 @@
       "quest_registry_evidence": 5950,
       "candidate_answers": 156
     },
-    "bytes": 72724480
+    "bytes": 72753152
   },
-  "questie_schema_version": 2
+  "questie_schema_version": 3
 }
