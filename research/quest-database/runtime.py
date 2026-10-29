@@ -7,16 +7,25 @@ import json
 import sqlite3
 from pathlib import Path
 from urllib.parse import unquote,urlparse
+from quality import ensure_quality_schema
 
-RUNTIME_VERSION=1
+RUNTIME_VERSION=2
 SCHEMA="""
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=1;
+PRAGMA user_version=2;
 CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL) WITHOUT ROWID;
 CREATE TABLE quests(
  quest_key TEXT PRIMARY KEY,title TEXT NOT NULL,source_url TEXT NOT NULL,
  status TEXT NOT NULL,review_state TEXT NOT NULL,base_level INTEGER,job_level INTEGER,
  requirements TEXT,rewards TEXT,content_sha TEXT
+) WITHOUT ROWID;
+CREATE TABLE quest_quality(
+ quest_key TEXT PRIMARY KEY REFERENCES quests(quest_key),
+ refresh_state TEXT NOT NULL,
+ last_attempt_utc TEXT,
+ last_success_utc TEXT,
+ last_error TEXT,
+ stored_steps INTEGER NOT NULL
 ) WITHOUT ROWID;
 CREATE TABLE quest_steps(
  quest_key TEXT NOT NULL REFERENCES quests(quest_key),step_no INTEGER NOT NULL,
@@ -31,6 +40,7 @@ CREATE TABLE step_hints(
 ) WITHOUT ROWID;
 CREATE TABLE scripts(
  script_key TEXT PRIMARY KEY,project TEXT NOT NULL,source_path TEXT NOT NULL,
+ variant_scope TEXT NOT NULL CHECK(variant_scope IN ('common','pre-re','renewal')),
  source_url TEXT NOT NULL,git_blob_sha TEXT
 ) WITHOUT ROWID;
 CREATE TABLE quest_scripts(
@@ -136,7 +146,13 @@ def key_script(project,path):
 def key_npc(script_key,ordinal):
     return f"{script_key}#{ordinal}"
 
+def script_variant_scope(path):
+    if path.startswith("npc/pre-re/"):return "pre-re"
+    if path.startswith("npc/re/"):return "renewal"
+    return "common"
+
 def make_runtime(source,destination):
+    ensure_quality_schema(source)
     path=Path(destination);path.parent.mkdir(parents=True,exist_ok=True)
     if path.exists():path.unlink()
     out=sqlite3.connect(path)
@@ -157,6 +173,10 @@ def make_runtime(source,destination):
               """SELECT p.id,p.title,p.url,p.status,p.base_level,p.job_level,p.requirements,
               p.rewards,p.content_sha,r.review_state FROM wiki_pages p
               LEFT JOIN wiki_script_reviews r ON r.page_id=p.id""")))
+        out.executemany("INSERT INTO quest_quality VALUES(?,?,?,?,?,?)",
+          ((page_keys[pid],state,attempt,success,error,num) for pid,state,attempt,success,error,num
+           in source.execute("""SELECT page_id,refresh_state,last_attempt_utc,
+                 last_success_utc,last_error,stored_steps FROM wiki_refresh_state""")))
         out.executemany("INSERT INTO quest_steps VALUES(?,?,?,?,?,?)",
           ((page_keys[pid],step,source_step,kind,section,instruction)
            for pid,step,section,instruction,source_step,kind in source.execute(
@@ -166,8 +186,8 @@ def make_runtime(source,destination):
         out.executemany("INSERT INTO step_hints VALUES(?,?,?,?,?)",
           ((page_keys[pid],step,kind,value,verified) for pid,step,kind,value,verified
             in source.execute("SELECT page_id,step_no,kind,value,verified FROM wiki_details")))
-        out.executemany("INSERT INTO scripts VALUES(?,?,?,?,?)",
-          ((source_keys[sid],project,path,url,sha)
+        out.executemany("INSERT INTO scripts VALUES(?,?,?,?,?,?)",
+          ((source_keys[sid],project,path,script_variant_scope(path),url,sha)
            for sid,project,path,url,sha in source.execute(
                "SELECT id,project,path,source_url,blob_sha FROM provenance")))
         out.executemany("INSERT INTO quest_scripts VALUES(?,?,?,?,?)",
@@ -237,7 +257,7 @@ def make_runtime(source,destination):
         "schema_version":RUNTIME_VERSION,
         "sqlite_integrity":integrity,"foreign_key_violations":len(fk),
         "tables":{name:out.execute(f"SELECT count(*) FROM {name}").fetchone()[0] for name in
-          ("quests","quest_steps","step_hints","scripts","quest_scripts","npcs",
+          ("quests","quest_quality","quest_steps","step_hints","scripts","quest_scripts","npcs",
            "quest_step_npcs","dialogue_lines","dialogue_points","dialogue_options",
            "dialogue_guards","dialogue_jumps","quest_state_facts","quest_registry",
            "quest_registry_evidence","candidate_answers")}
