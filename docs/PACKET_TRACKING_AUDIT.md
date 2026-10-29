@@ -432,3 +432,29 @@ field transformation, or obtaining that protocol information from the server
 maintainer. Another identical gameplay trace does not resolve this gap. No
 runtime patch, injection, protection change, speculative parser edit or DEV
 build was made. Hiding remains unchanged.
+
+### Next experiment: client-side comparison without modifying the client
+
+The visible client dispatch calls `0x00C147D0` with a global packet buffer at
+preferred VA `0x015E8198` (RVA `0x011E8198`) and subsequently passes that
+buffer to the 0x0983/0x0196 handlers. `tools/Capture-SpringRoClientStatus.ps1`
+polls *only* this 29-byte buffer through Windows `ReadProcessMemory` for up to
+90 seconds. It checks the executable SHA-256, accounts for image relocation,
+logs only 0x0983/0x0196 frames locally, and aborts on access denial. It does
+not request debug privileges, attach a debugger, inject, patch or execute
+game code. It may miss short-lived frames; Gepard may deny access. Treat a
+zero-event run as inconclusive. A successful run provides the client-side
+packet values needed to test the wire-to-handler hypothesis, not automatically
+a reusable decoder.
+
+Run one SpringRO client and the existing DEV RoAura with
+`--springro-status-samples`; start Learn Status ID. In a separate Windows
+PowerShell window from the repository root, execute
+`powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\Capture-SpringRoClientStatus.ps1`
+and apply Enchant Poison three times while it is running. Collect the local
+`%LOCALAPPDATA%\RoAura-Dev\Diagnostics\SpringRoClientStatus-*.jsonl` and the
+matching RoAura DEV debug log privately. Do not publish either: both contain
+actor-related values. Repeat for a second distinct status and its removal
+only if the first comparison demonstrates readable, matching frames. The
+prior 16 samples remain useful controls, but cannot substitute for same-run
+client/wire alignment. Do not attempt to bypass an access denial.

@@ -18,6 +18,12 @@ encryption/compression, and `dinput.dll` identifies ROExt. No validated network
 decoder was recovered from these files. DLL fingerprints and evidence limits
 are recorded in the audit; no additional identical live capture is requested.
 
+The next independent experiment is a read-only, one-shot client packet-buffer
+probe (`tools/Capture-SpringRoClientStatus.ps1`) paired with the existing DEV
+wire sampler. This captures a different observation point from prior repeated
+wire tests. It has not yet run in the user's protected Windows client and does
+not implement a Status ID decoder; see the audit for limits and instructions.
+
 ## Current product
 
 RoAura is a Windows x64 WPF overlay for Ragnarok Online. It reads incoming game packets through Npcap and provides configurable overlays and supporting tools.
