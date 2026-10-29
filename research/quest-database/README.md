@@ -9,6 +9,18 @@ Isolated **research branch**. No changes to the RoAura WPF application, settings
 Acceptance direction: per server/variant, stable quest IDs and steps, NPC map/coordinates and dialogue branches, prerequisite checks, item/kill requirements, variables and quest state transitions, consequences/rewards, traceable evidence, coverage flags, ambiguity review queue, and a read-only local runtime export with explicit schema version. Source-derived data, parser-derived candidates and in-game-verified facts must never be conflated. Do not silently promote emulator sources to verified iRO/ToC behavior.
 
 Future RoAura integration must not require joining raw parser tables or parsing NPC script code at runtime. Preserve the richer research SQLite and ship an independent, stable, smaller runtime database when the contract has been validated.
+## Stage 7 — quality, reproducibility and manual review queue
+
+This stage addresses a real data-quality regression observed in the extended 939-script crawl: a partial wiki category response discovered fewer pages, and a transient wiki page fetch failed even though prior guide steps were retained. A passing SQLite integrity check does not prove freshness or source coverage.
+
+- `quality.py`: the wiki fetcher retries transient HTTP/network failures; the importer merges the previously known wiki URLs when category discovery is incomplete; it does not overwrite previously parsed quest text or its content hash after fetch errors or a severe parser regression. The wiki page refresh state is recorded separately. For historical data with unknown per-page timestamps, `legacy_cached` explicitly means **not fresh-verified**.
+- Research schema v6 stores `wiki_refresh_state`, with last attempt/success timestamps, last error, and stored step counts. `coverage.json` records the cache/freshness distribution and a no-regression check against previous source/page/step totals.
+- Runtime Questie schema v2 adds `quest_quality` and `scripts.variant_scope` (`common`, `pre-re`, `renewal`). The latter prevents future RoAura readers from silently mixing gameplay branches. Applications must check `PRAGMA user_version` before opening a catalog and keep user progress separately.
+- `audit.py` publishes `quest_review_queue.json` with a prioritized list of known quest data gaps (missing script, missing NPC location per stage, missing guide steps, stale source, competing game variants). Every report is explicitly marked as **not game/server validated**. This file is for development/curation, not user quest recommendations.
+- `test_quality.py` and `test_audit.py` exercise transient errors, retained data, parser regression protection, variant classification, idempotency and prioritization. New CI assertions validate the runtime schema, review queue, source catalog and foreign keys.
+
+**Limitations:** a cached guide is still old data until revalidated, and a source script is not proof it is active on ToC. The no-regression gate protects against accidental truncation but cannot guarantee quest accuracy. Use `output/coverage.json` and the per-quest review queue for the actual latest verified counts; the historical stage statistics below are not a current coverage claim.
+
 ## Stage 6 — expanded quest-script source discovery and corroboration
 
 The collector now inventories shared NPC quest, job, city, other and event scripts **plus distinct rAthena/Hercules pre-renewal and renewal quest/job/guide/location directories**. It explicitly excludes custom scripts, mobs, warps and most non-quest stores by default. Source paths distinguish variants; raw bytes must match each GitHub tree blob SHA. Limits such as the 900 KiB per-file ceiling mean this is not an exhaustive server installation.
