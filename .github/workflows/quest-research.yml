@@ -56,7 +56,7 @@ jobs:
           python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py
       - name: Rebuild research and runtime SQLite
         run: |
-          if [ "${{ github.event.inputs.refresh_sources }}" = "true" ]; then
+          if [ "${{ github.event.inputs.refresh_sources }}" = "true" ] || [ "${{ github.event.head_commit.message }}" = "research: perform one-time full NPC source refresh" ]; then
             python research/quest-database/build.py --out research/quest-database/output
           else
             python research/quest-database/build.py --out research/quest-database/output --enrich-only
