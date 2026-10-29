@@ -18,6 +18,8 @@ on:
       - research/quest-database/test_runtime.py
       - research/quest-database/augment.py
       - research/quest-database/test_augment.py
+      - research/quest-database/quality.py
+      - research/quest-database/test_quality.py
       - .github/workflows/quest-research.yml
   workflow_dispatch:
     inputs:
@@ -53,7 +55,7 @@ jobs:
       - name: Regression tests for wiki parser and script linking
         run: |
           cd research/quest-database
-          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py
+          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py
       - name: Rebuild research and runtime SQLite
         run: |
           if [ "${{ github.event.inputs.refresh_sources }}" = "true" ] || [ "${{ github.event.head_commit.message }}" = "research: perform one-time full NPC source refresh" ]; then
@@ -108,7 +110,10 @@ jobs:
           output=Path("research/quest-database/output/questie_catalog.sqlite")
           assert output.is_file() and output.stat().st_size>100000
           consumer=sqlite3.connect(output)
-          assert consumer.execute("PRAGMA user_version").fetchone()[0]==1
+          assert consumer.execute("PRAGMA user_version").fetchone()[0]==2
+          assert consumer.execute("SELECT count(*) FROM quest_quality").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM scripts WHERE variant_scope IN ('common','pre-re','renewal')").fetchone()[0]==scripts
+          assert con.execute("SELECT count(*) FROM wiki_refresh_state").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
           assert consumer.execute("PRAGMA integrity_check").fetchone()[0]=="ok"
           assert not consumer.execute("PRAGMA foreign_key_check").fetchall()
           assert consumer.execute("SELECT count(*) FROM quests").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
