@@ -64,15 +64,17 @@ class ExportTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             dest=Path(tmp)/"questie_catalog.sqlite"
             summary=make_runtime(source,dest)
-            self.assertEqual(summary["schema_version"],4)
+            self.assertEqual(summary["schema_version"],5)
             self.assertEqual(summary["sqlite_integrity"],"ok")
             self.assertEqual(summary["foreign_key_violations"],0)
             self.assertGreater(summary["tables"]["dialogue_options"],0)
             self.assertGreater(summary["tables"]["quest_state_facts"],0)
             with sqlite3.connect(dest) as runtime:
-                self.assertEqual(runtime.execute("PRAGMA user_version").fetchone()[0],4)
+                self.assertEqual(runtime.execute("PRAGMA user_version").fetchone()[0],5)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quests").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM scripts").fetchone()[0],1)
+                self.assertEqual(runtime.execute("SELECT count(*) FROM quest_source_decisions").fetchone()[0],0)
+                self.assertEqual(runtime.execute("SELECT count(*) FROM quest_source_supported").fetchone()[0],0)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quest_quality").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quest_content_categories").fetchone()[0],1)
                 self.assertGreaterEqual(runtime.execute("SELECT count(*) FROM quest_content_signals").fetchone()[0],1)

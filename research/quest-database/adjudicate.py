@@ -47,11 +47,23 @@ def source_sequence(db,pid,sid):
         if subject.startswith((".@","@","$@")) or subject in {"Zeny","BaseLevel","JobLevel","Weight"}:continue
         shared[subject][ordinal].append({"line_no":ln,"value_expression":(value or "")[:120]})
     common={k:v for k,v in shared.items() if len(v)>=2}
+    timeline=[]
+    for step,nid,name,ordinal,ln in visits:
+        relevant={var:values[ordinal][:12] for var,values in common.items() if ordinal in values}
+        guards=db.execute("""SELECT line_no,expression FROM npc_flow_conditions
+           WHERE source_id=? AND npc_ordinal=? ORDER BY line_no LIMIT 12""",(sid,ordinal)).fetchall()
+        guide=db.execute("SELECT instruction FROM wiki_steps WHERE page_id=? AND step_no=?",(pid,step)).fetchone()
+        timeline.append({"step_no":step,"npc_name":name,"npc_source_line":ln,
+                         "wiki_step_excerpt":guide[0][:260] if guide else "",
+                         "shared_variable_writes":relevant,
+                         "source_condition_guards":[{"line_no":line,"expression":expr[:180]}
+                            for line,expr in guards],"guard_execution_verified":False})
     return {"visits":[{"step_no":step,"npc_id":nid,"npc_name":name,
                         "npc_ordinal":ordinal,"script_line":ln}
                        for step,nid,name,ordinal,ln in visits],
             "unique_npcs":len({v[1] for v in visits}),
             "independent_steps":len({v[0] for v in visits}),
+            "stepwise_source_witnesses":timeline,
             "shared_write_variables":common,
             "execution_order_verified":False}
 
@@ -115,6 +127,7 @@ def adjudicate(db,manifest):
                 "source_witnesses":witnesses,"shared_variable":shared,
                 "wiki_npc_visit_sequence":seq["visits"],
                 "shared_npc_variable_write_facts":seq["shared_write_variables"],
+                "wiki_steps_vs_source_conditions":seq["stepwise_source_witnesses"],
                 "source_code_execution_order_verified":False,
                 "status_scope":"source-file identity only; not a verified full quest route",
                 "approved_for_automatic_gameplay":False

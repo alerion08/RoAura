@@ -11,11 +11,12 @@ from quality import ensure_quality_schema
 from prerequisites import SCHEMA as PREREQ_SCHEMA
 from content import SCHEMA as CONTENT_SCHEMA
 from dependencies import SCHEMA as DEPENDENCY_SCHEMA
+from adjudicate import SCHEMA as ADJUDICATION_SCHEMA
 
-RUNTIME_VERSION=4
+RUNTIME_VERSION=5
 SCHEMA="""
 PRAGMA foreign_keys=ON;
-PRAGMA user_version=4;
+PRAGMA user_version=5;
 CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL) WITHOUT ROWID;
 CREATE TABLE quests(
  quest_key TEXT PRIMARY KEY,title TEXT NOT NULL,source_url TEXT NOT NULL,
@@ -93,6 +94,18 @@ CREATE TABLE quest_scripts(
  score INTEGER NOT NULL,method TEXT NOT NULL,status TEXT NOT NULL,
  PRIMARY KEY(quest_key,script_key)
 ) WITHOUT ROWID;
+CREATE TABLE quest_source_decisions(
+ quest_key TEXT NOT NULL REFERENCES quests(quest_key),
+ script_key TEXT NOT NULL REFERENCES scripts(script_key),
+ source_blob_sha TEXT NOT NULL,decision TEXT NOT NULL,
+ reason TEXT NOT NULL,reviewer TEXT NOT NULL,
+ status_scope TEXT NOT NULL,
+ PRIMARY KEY(quest_key,script_key)
+) WITHOUT ROWID;
+CREATE VIEW quest_source_supported AS
+ SELECT d.quest_key,d.script_key,d.reason,s.project,s.variant_scope
+ FROM quest_source_decisions d JOIN scripts s ON s.script_key=d.script_key
+ WHERE d.decision='source_supported';
 CREATE TABLE npcs(
  npc_key TEXT PRIMARY KEY,script_key TEXT NOT NULL REFERENCES scripts(script_key),
  source_ordinal INTEGER NOT NULL,name TEXT NOT NULL,map TEXT,x INTEGER,y INTEGER,
@@ -211,6 +224,7 @@ def make_runtime(source,destination):
     source.executescript(PREREQ_SCHEMA)
     source.executescript(CONTENT_SCHEMA)
     source.executescript(DEPENDENCY_SCHEMA)
+    source.executescript(ADJUDICATION_SCHEMA)
     path=Path(destination);path.parent.mkdir(parents=True,exist_ok=True)
     if path.exists():path.unlink()
     out=sqlite3.connect(path)
@@ -291,6 +305,11 @@ def make_runtime(source,destination):
           ((page_keys[pid],source_keys[sid],score,method,status)
            for pid,sid,score,method,status in source.execute(
                "SELECT page_id,source_id,score,method,status FROM wiki_script_links")))
+        out.executemany("INSERT INTO quest_source_decisions VALUES(?,?,?,?,?,?,?)",
+          ((page_keys[pid],source_keys[sid],sha,state,reason,reviewer,scope)
+           for pid,sid,sha,state,reason,reviewer,scope in source.execute(
+             """SELECT page_id,source_id,source_blob_sha,decision,reason,reviewer,status_scope
+                  FROM wiki_source_decisions""")))
         out.executemany("INSERT INTO npcs VALUES(?,?,?,?,?,?,?,?,?,?)",
           ((npc_keys[(sid,ord_)],source_keys[sid],ord_,name,map_,x,y,direction,first,last)
           for sid,ord_,name,map_,x,y,direction,first,last in source.execute(
@@ -356,7 +375,7 @@ def make_runtime(source,destination):
         "tables":{name:out.execute(f"SELECT count(*) FROM {name}").fetchone()[0] for name in
           ("quests","quest_quality","quest_prerequisite_text","quest_prerequisites",
            "quest_dependency_paths","quest_content_categories","quest_content_signals",
-           "quest_steps","quest_step_locations","step_hints","scripts","quest_scripts","npcs",
+           "quest_steps","quest_step_locations","step_hints","scripts","quest_scripts","quest_source_decisions","npcs",
            "quest_step_npcs","dialogue_lines","dialogue_points","dialogue_options",
            "dialogue_guards","dialogue_jumps","quest_state_facts","quest_registry",
            "quest_registry_evidence","candidate_answers")}
