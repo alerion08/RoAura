@@ -29,6 +29,8 @@ jobs:
             p=root.find('p') if root else None
             lineage=[(n.name,n.get('class','')) for n in (list(p.parents)[:5] if p else [])]
             steps,quality,meta=parse_guide(r.text)
+            if slug=='Kiel_Hyre_Quest': assert quality['numbered']>=60, quality
+            if slug=='Juice_Quest': assert quality['numbered']>=3, quality
             print('LIVE',slug,'http',r.status_code,'url',r.url,'root',str(root.get('class',[])) if root else None,
               'tags',tags[:12],'p_parents',lineage,'PARSED',quality,'FIRST',steps[0].instruction[:90] if steps else None,flush=True)
           PY
