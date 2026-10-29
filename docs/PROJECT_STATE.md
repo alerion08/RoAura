@@ -523,3 +523,7 @@ identity/lifetime decisions. The client sampler reports aggregate status
 opcode and stable-frame counts every 15 seconds. No raw actors or memory
 contents are added. The next Windows build and SpringRO test must identify
 the missing step before changing the generic decoder or attribution rules.
+
+## Isolated quest database research (2026-10-29)
+
+Research branch `research/quest-database` contains only a standalone Python/iRO Wiki/rAthena/Hercules harvester, SQLite database and isolated GitHub Actions. The RoAura application/runtime and main release are untouched. Data includes complete compressed source NPC scripts, extracted wiki steps, sourced coordinates/choice hints, and candidate (not verified) script/NPC links. Research commands/queries and known quality limits are documented in `research/quest-database/README.md`; actual extraction statistics are in `research/quest-database/output/coverage.json`. Tests cover the wiki's table-nested numbered guides. This is *not* a complete NPC conversation state machine nor a server-verified Questie implementation. Never promote these candidate links to confirmed gameplay directions without further validation.
