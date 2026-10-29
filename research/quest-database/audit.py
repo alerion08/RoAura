@@ -1,4 +1,4 @@
-"""Rank per-quest data gaps for source verification and eventual ToC validation.
+"""Rank per-quest data gaps for source verification and optional server-specific validation.
 
 This queue is a quality control artifact, not a recommendation to the player.
 Only explicit SQL evidence is shown; no quest IDs or NPCs are fabricated.
@@ -44,7 +44,7 @@ def summarize_review_queue(db):
             "steps":steps,"linked_scripts":links,"steps_with_npc":npc_steps,
             "matched_guide_answers":answers,"source_scopes":scopes,
             "issues":issues,"review_priority":priority,
-            "assurance":"source-derived candidates only; target server unverified"
+            "assurance":"source-derived candidates only; all server implementations unverified"
         })
     rank={"critical":0,"high":1,"medium":2,"low":3}
     result.sort(key=lambda x:(rank[x["review_priority"]],-x["steps"],x["quest_key"]))
