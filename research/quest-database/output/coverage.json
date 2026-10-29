@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T17:12:34.215298+00:00",
+  "created_utc": "2026-10-29T17:13:55.832853+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -35,18 +35,18 @@
   "source_snapshot_utc": "2026-10-29T16:55:45.631423+00:00",
   "fetch_mode": "reused_existing_snapshot",
   "linking": {
-    "wiki_script_links": 418,
-    "linked_pages": 148,
+    "wiki_script_links": 443,
+    "linked_pages": 155,
     "wiki_step_npc_links": 1146
   },
   "evidence_augmentation": {
-    "header_title_leads": 93,
+    "header_title_leads": 137,
     "pages_with_corroborated_coordinate_evidence": 73,
-    "new_script_candidates": 181,
+    "new_script_candidates": 206,
     "stronger_existing_candidates": 0,
     "new_step_npc_links": 426,
-    "linked_pages": 148,
-    "script_candidates": 418,
+    "linked_pages": 155,
+    "script_candidates": 443,
     "step_npc_candidates": 1146
   },
   "dialogue_flow": {
@@ -70,9 +70,9 @@
     "guarded_facts": 21468
   },
   "script_link_review": {
-    "pages_no_script": 138,
-    "pages_ambiguous": 73,
-    "pages_cross_source_variants": 64,
+    "pages_no_script": 131,
+    "pages_ambiguous": 75,
+    "pages_cross_source_variants": 69,
     "pages_candidate_with_npc_evidence": 7,
     "guide_answer_menu_matches": 155
   },
@@ -84,7 +84,7 @@
     "wiki_pages": 286,
     "wiki_steps": 3420,
     "wiki_details": 1472,
-    "wiki_script_links": 418,
+    "wiki_script_links": 443,
     "wiki_step_npc_links": 1146,
     "npc_flow_points": 5815,
     "npc_flow_options": 14081,
@@ -106,7 +106,7 @@
       "quest_steps": 3420,
       "step_hints": 1472,
       "scripts": 314,
-      "quest_scripts": 418,
+      "quest_scripts": 443,
       "npcs": 3904,
       "quest_step_npcs": 1146,
       "dialogue_lines": 298131,
@@ -119,7 +119,7 @@
       "quest_registry_evidence": 1374,
       "candidate_answers": 155
     },
-    "bytes": 37867520
+    "bytes": 37871616
   },
   "questie_schema_version": 1
 }
