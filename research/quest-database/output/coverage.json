@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T17:15:16.302035+00:00",
+  "created_utc": "2026-10-29T17:56:05.559377+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -49,11 +49,11 @@
     }
   },
   "source_snapshot_utc": "2026-10-29T17:15:16.302035+00:00",
-  "fetch_mode": "fresh_upstream_requests",
+  "fetch_mode": "reused_existing_snapshot",
   "linking": {
-    "wiki_script_links": 568,
-    "linked_pages": 168,
-    "wiki_step_npc_links": 1288
+    "wiki_script_links": 574,
+    "linked_pages": 169,
+    "wiki_step_npc_links": 1298
   },
   "evidence_augmentation": {
     "header_title_leads": 172,
@@ -61,9 +61,9 @@
     "new_script_candidates": 247,
     "stronger_existing_candidates": 0,
     "new_step_npc_links": 474,
-    "linked_pages": 168,
-    "script_candidates": 568,
-    "step_npc_candidates": 1288
+    "linked_pages": 169,
+    "script_candidates": 574,
+    "step_npc_candidates": 1298
   },
   "dialogue_flow": {
     "points": 14135,
@@ -86,8 +86,8 @@
     "guarded_facts": 39276
   },
   "script_link_review": {
-    "pages_no_script": 118,
-    "pages_ambiguous": 76,
+    "pages_no_script": 117,
+    "pages_ambiguous": 77,
     "pages_cross_source_variants": 84,
     "pages_candidate_with_npc_evidence": 4,
     "guide_answer_menu_matches": 156
@@ -100,8 +100,8 @@
     "wiki_pages": 286,
     "wiki_steps": 3420,
     "wiki_details": 1475,
-    "wiki_script_links": 568,
-    "wiki_step_npc_links": 1288,
+    "wiki_script_links": 574,
+    "wiki_step_npc_links": 1298,
     "npc_flow_points": 14135,
     "npc_flow_options": 32825,
     "npc_flow_conditions": 51857,
@@ -110,6 +110,30 @@
     "wiki_answer_menu_matches": 156,
     "npc_state_facts": 51795,
     "npc_quest_registry_refs": 5950
+  },
+  "quality": {
+    "wiki_refresh": {
+      "legacy_cached": 285,
+      "never_fetched": 1
+    },
+    "nonregression": {
+      "passed": true,
+      "before": {
+        "script_sources": 939,
+        "wiki_pages": 286,
+        "wiki_steps": 3420,
+        "wiki_pages_with_steps": 285,
+        "wiki_pages_with_script": 168
+      },
+      "after": {
+        "script_sources": 939,
+        "wiki_pages": 286,
+        "wiki_steps": 3420,
+        "wiki_pages_with_steps": 285,
+        "wiki_pages_with_script": 169
+      },
+      "limits": "script_sources>=95%, wiki_pages>=98%, wiki_steps>=95% of previous snapshot"
+    }
   },
   "sqlite_integrity": "ok",
   "foreign_key_violations": 0,
@@ -122,9 +146,9 @@
       "quest_steps": 3420,
       "step_hints": 1475,
       "scripts": 939,
-      "quest_scripts": 568,
+      "quest_scripts": 574,
       "npcs": 8739,
-      "quest_step_npcs": 1288,
+      "quest_step_npcs": 1298,
       "dialogue_lines": 526791,
       "dialogue_points": 14135,
       "dialogue_options": 32825,
