@@ -12,8 +12,18 @@ on:
       - research/quest-database/reconcile.py
       - research/quest-database/test_graph.py
       - research/quest-database/test_reconcile.py
+      - research/quest-database/state.py
+      - research/quest-database/test_state.py
+      - research/quest-database/runtime.py
+      - research/quest-database/test_runtime.py
       - .github/workflows/quest-research.yml
   workflow_dispatch:
+    inputs:
+      refresh_sources:
+        description: "Re-crawl public sources (otherwise reuse the current checked-in snapshot)"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -41,9 +51,14 @@ jobs:
       - name: Regression tests for wiki parser and script linking
         run: |
           cd research/quest-database
-          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py
-      - name: Build SQLite from public sources
-        run: python research/quest-database/build.py --out research/quest-database/output
+          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py
+      - name: Rebuild research and runtime SQLite
+        run: |
+          if [ "${{ github.event.inputs.refresh_sources }}" = "true" ]; then
+            python research/quest-database/build.py --out research/quest-database/output
+          else
+            python research/quest-database/build.py --out research/quest-database/output --enrich-only
+          fi
       - name: Validate finished SQLite
         run: |
           python - <<'PY'
@@ -72,6 +87,24 @@ jobs:
           assert flow_options>=100, f"No dialogue options: {flow_options}"
           assert flow_edges>=10, f"No explicit flow edges: {flow_edges}"
           assert reviewed==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
+          roles={x[0]:x[1] for x in con.execute("SELECT role,count(*) FROM npc_state_facts GROUP BY role")}
+          assert roles.get('quest_start',0)>0 and roles.get('quest_check',0)>0, roles
+          assert roles.get('item_grant',0)>0 and roles.get('item_check',0)>0, roles
+          assert roles.get('variable_write',0)>0, roles
+          ref_count=con.execute("SELECT count(*) FROM npc_quest_registry_refs").fetchone()[0]
+          assert ref_count>0, f"No registry-linked quest state evidence: {ref_count}"
+          output=Path("research/quest-database/output/questie_catalog.sqlite")
+          assert output.is_file() and output.stat().st_size>100000
+          consumer=sqlite3.connect(output)
+          assert consumer.execute("PRAGMA user_version").fetchone()[0]==1
+          assert consumer.execute("PRAGMA integrity_check").fetchone()[0]=="ok"
+          assert not consumer.execute("PRAGMA foreign_key_check").fetchall()
+          assert consumer.execute("SELECT count(*) FROM quests").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quest_steps").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_steps").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM dialogue_options").fetchone()[0]==con.execute("SELECT count(*) FROM npc_flow_options").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quest_state_facts").fetchone()[0]==con.execute("SELECT count(*) FROM npc_state_facts").fetchone()[0]
+          print(f"Quest state roles: {roles}; registry links={ref_count}; runtime SQLite={output.stat().st_size} bytes")
+          consumer.close()
           print(f"NPC graph: {flow_points} menu points, {flow_options} options, {flow_edges} resolved edges, {reviewed} review rows")
           print(f"Wiki: {pcount} numbered guide pages, {nsteps} steps, {linked} pages with script candidates; Kiel Hyre {sample} steps")
           print(f"Verified SQLite: {p.stat().st_size} bytes; {scripts} original scripts.")
@@ -84,13 +117,15 @@ jobs:
             research/quest-database/output/quest_research.sqlite
             research/quest-database/output/quest_research.sqlite.gz
             research/quest-database/output/coverage.json
+            research/quest-database/output/questie_catalog.sqlite
+            research/quest-database/output/questie_catalog.sqlite.gz
           if-no-files-found: error
           retention-days: 30
       - name: Publish database to research branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research/quest-database/output/quest_research.sqlite research/quest-database/output/quest_research.sqlite.gz research/quest-database/output/coverage.json
+          git add research/quest-database/output/quest_research.sqlite research/quest-database/output/quest_research.sqlite.gz research/quest-database/output/coverage.json research/quest-database/output/questie_catalog.sqlite research/quest-database/output/questie_catalog.sqlite.gz
           if git diff --cached --quiet; then
             echo "No database changes to publish."
             exit 0
