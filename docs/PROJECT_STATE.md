@@ -573,3 +573,28 @@ Implemented source-cited content classification in `content.py` (1,370 lexical e
 ## ROQuestie research stage 10 — unlinked script discovery queue
 
 User goal: improve a comprehensive **server-neutral** Ragnarok Online quest database for ROQuestie, without touching RoAura application/main. Research branch full CI GitHub Actions #40941334922 SUCCESS; fast tests #40941334999 passed (45 cases). Previous wiki refresh remains the source snapshot, no new live source claims. `discovery.py` and `test_discovery.py` implemented a manual-verification-only proposal queue for 117 wiki pages without script links, requiring >=2 distinct NPC names in >=2 separate explicit interaction steps within one source script, recorded with wiki steps, NPC IDs, source paths, line provenance and `needs_manual_review` status. Results: 13 wiki guides, 25 proposals, 83 evidence rows; 56 pages lack distinctive matching source NPC names, 29 have insufficient independent names, 18 lack explicit interaction phrases, 1 lacks parsed guide steps. **Do not count these as new verified `wiki_script_links`: prior 574 script candidates and 286 wiki pages remain unchanged.** `unclassified_quest_review.json` preserves explicit source excerpts and evidence for all 128 unclassified wiki pages. Research SQLite schema v9 includes new audit tables; consumer Questie SQLite schema remains v4 with no changes to the application compatibility contract. Both SQLite checks are OK and foreign key violations zero. See README, `output/coverage.json`, `output/missing_script_discovery.json` and `output/unclassified_quest_review.json`. Pending manual review for prominent story chains such as Einbroch Murder, Rebirth and Hugel Memory. No main merge, release or runtime changes.
+
+## ROQuestie stage 11 — NPC source dossier validation
+
+The objective remains a complete **server-neutral** ROQuestie Ragnarok Online
+quest data corpus; no implementation or availability claim is made for every
+server, and RoAura app/main/releases/settings are unchanged. On isolated
+`research/quest-database`, GitHub Actions #40943245833 SUCCESS and fast CI
+#40943245769 SUCCESS (48 tests). Research SQLite schema 10 includes
+`wiki_missing_script_dossiers` and
+`wiki_missing_script_dossier_facts`; consumer SQLite remains schema 4.
+Source evidence report `output/npc_source_dossiers.json` evaluates all 25
+candidate script leads by matched NPC dialogue, literal Quest IDs, item
+transactions, variable writes, branch guards and menu choices. 688 lexical
+fact records retained; 12 candidates include quest-state facts and dialogue,
+11 have nonquest state and dialogue, 2 have seasonal source identity risk,
+11 have source files shared with other proposed guides. 0 candidates promoted
+automatically. SQLite integrity OK and no broken foreign keys; prior 939
+scripts, 286 wiki pages, 3,420 steps and 574 candidate wiki script links
+preserved. Manual reviewed notes at
+`research/quest-database/STAGE11_SOURCE_REVIEW.md`: Einbroch Murder has
+`Shinokas_Quest` on Buender/Scientist while Zelmeto uses `EinFactory`
+in the inspected branch; Rebirth Walkthrough/Prayer To Heaven share the
+Valkyrie/Metheus source. Next task is precise NPC-level state-track, branch
+and wiki-step alignment plus source-reviewed accept/reject decisions.
+No server gameplay validation performed.
