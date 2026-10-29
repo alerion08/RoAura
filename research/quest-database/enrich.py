@@ -29,7 +29,7 @@ def info(root):
     # iRO wiki quest template is a plain table, not table.infobox.
     for table in root.find_all("table"):
         text = clean(table.get_text(" ", strip=True))
-        if "Requirements" not in text or "Rewards" not in text or len(text) > 5000:
+        if "Requirements" not in text or "Rewards" not in text:
             continue
         for field,label in (("base_level","Base Level"),("job_level","Job Level")):
             m = re.search(r"\b" + re.escape(label) + r"\s*:\s*(\d+)", text, re.I)
@@ -37,7 +37,7 @@ def info(root):
         halves = re.split(r"\bRewards\b", text, maxsplit=1)
         before = re.split(r"\bRequirements\b", halves[0], maxsplit=1)
         values["requirements"] = clean(before[-1])[:2000] or None
-        values["rewards"] = clean(halves[-1])[:2000] if len(halves)>1 else None
+        values["rewards"] = clean(re.split(r"\b1\.\s", halves[-1], maxsplit=1)[0])[:2000] if len(halves)>1 else None
         break
     return values
 
@@ -59,8 +59,11 @@ def parse_guide(raw):
     numbered=[]
     narrative=[]
     section=""
-    for child in root.children:
-        if not isinstance(child,Tag): continue
+    # MediaWiki quest templates often wrap the entire guide inside a table cell.
+    # Descend through tables while skipping duplicate nested list descendants.
+    for child in root.find_all(["h2","h3","h4","p","ol","ul"]):
+        if child.name=="p" and child.find_parent(["ol","ul","li"]):continue
+        if child.name in ("ol","ul") and child.find_parent(["ol","ul","li"]):continue
         if child.name in ("h2","h3","h4"):
             section = clean(child.get_text(" ",strip=True))
             continue
