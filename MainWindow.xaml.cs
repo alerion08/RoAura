@@ -139,7 +139,7 @@ public partial class MainWindow : Window
         _goldGoblinSessionTimer.Tick += (_, _) =>
         {
             UpdateGoldGoblinSessionTime();
-            if (AppEnvironment.IsDevelopment) UpdateCharacterBrowser();
+            if (AppEnvironment.CharacterSessionsEnabled) UpdateCharacterBrowser();
         };
         _goldGoblinSessionTimer.Start();
         InitializeCharacterBrowser();
@@ -265,7 +265,7 @@ public partial class MainWindow : Window
     private void UpdateGoldGoblinSessionTime()
     {
         if (GoldGoblinSessionTimeText is null) return;
-        var elapsed = AppEnvironment.IsDevelopment && Application.Current is App app
+        var elapsed = AppEnvironment.CharacterSessionsEnabled && Application.Current is App app
             ? app.GetCharacterSessionElapsed()
             : _goldGoblin.SessionStartedUtc.HasValue
                 ? DateTime.UtcNow - _goldGoblin.SessionStartedUtc.Value
@@ -317,7 +317,7 @@ public partial class MainWindow : Window
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
         }
-        if (AppEnvironment.IsDevelopment)
+        if (AppEnvironment.CharacterSessionsEnabled)
         {
             if (Application.Current is not App app || !app.StartCharacterStatisticsSession())
                 SetStatus(T("Сначала войдите на персонажа: общая сессия не запущена.",
@@ -1441,8 +1441,7 @@ public partial class MainWindow : Window
         // the very first status of another player/mob to be learned as ours.
         // Client AID can be known from ZC_AID or own EXP even when the
         // map-login CID is unavailable behind a local proxy (127.0.0.1).
-        Settings.PacketPlayerAid = (AppEnvironment.IsDevelopment ||
-            GameServerProfile.Normalize(Settings.ServerProfile) == GameServerProfile.SpringRo)
+        Settings.PacketPlayerAid = AppEnvironment.CharacterSessionsEnabled
             ? _packetCapture.VerifiedPlayerAid
             : 0;
         _learningSkill = null;
@@ -1469,9 +1468,7 @@ public partial class MainWindow : Window
 
     private bool ReportLearningActor<TPacket>(RoPacketObservation<TPacket> observation, string kind, ushort id, uint actor)
     {
-        if ((!AppEnvironment.IsDevelopment &&
-             GameServerProfile.Normalize(Settings.ServerProfile) != GameServerProfile.SpringRo) ||
-            observation.IsOwnActor(actor)) return true;
+        if (!AppEnvironment.CharacterSessionsEnabled || observation.IsOwnActor(actor)) return true;
         // Detection is independent of attribution: expose the observed ID and
         // the reason it cannot be auto-assigned, without guessing a self actor.
         _learningObservedSummary = observation.SelfAid == 0
@@ -2045,7 +2042,7 @@ public partial class MainWindow : Window
     private void ResetStatisticsSession_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (AppEnvironment.IsDevelopment)
+        if (AppEnvironment.CharacterSessionsEnabled)
         {
             if (Application.Current is not App app || !app.ResetCharacterStatisticsSession())
             {

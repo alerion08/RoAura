@@ -14,7 +14,7 @@ public partial class MainWindow
 
     private void InitializeCharacterBrowser()
     {
-        if (!AppEnvironment.IsDevelopment) return;
+        if (!AppEnvironment.CharacterSessionsEnabled) return;
         CharacterStatsPanel.Visibility = Visibility.Visible;
         _characterBrowserInitialized = true;
         UpdateCharacterBrowser(force: true);

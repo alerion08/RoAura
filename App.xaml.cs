@@ -358,7 +358,7 @@ public partial class App : Application
         _packetCapture.SkillUsed += OnPacketSkillUsed;
         _packetCapture.SkillCooldown += OnPacketSkillCooldown;
         _packetCapture.EquipmentChanged += OnPacketEquipmentChanged;
-        if (AppEnvironment.IsDevelopment)
+        if (AppEnvironment.CharacterSessionsEnabled)
         {
             _packetCapture.CharacterSessionChanged += OnCharacterSessionChanged;
             _packetCapture.CharacterItemAdded += evt =>
@@ -405,7 +405,7 @@ public partial class App : Application
             foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
         });
         _goldGoblin = new GoldGoblinService(settings, _marketService);
-        if (AppEnvironment.IsDevelopment)
+        if (AppEnvironment.CharacterSessionsEnabled)
         {
             _characterStore = new CharacterStatisticsStore();
             _characterLedger = new CharacterStatisticsLedger(_characterStore);
@@ -413,7 +413,7 @@ public partial class App : Application
         }
         _overlay = new OverlayWindow(settings, _settingsStore, _goldGoblin);
         _overlay.TrackingTick += SynchronizeStatusTracking;
-        if (AppEnvironment.IsDevelopment)
+        if (AppEnvironment.CharacterSessionsEnabled)
         {
             _overlay.SetCharacterStatisticsSource(CurrentCharacterStatistics, GetCharacterSessionElapsed);
             _characterFlushTimer = new System.Windows.Threading.DispatcherTimer
@@ -586,12 +586,12 @@ public partial class App : Application
         _databaseOverlay?.RefreshLanguage();
     }
 
-    // This bridge runs only in experimental DEV builds. The immutable capture
+    // The immutable capture
     // revision prevents late queued packets from being charged to a new character.
     private void OnCharacterSessionChanged(CharacterSessionSnapshot state) =>
         Dispatcher.BeginInvoke(() =>
         {
-            if (!AppEnvironment.IsDevelopment || _characterStatisticsFaulted ||
+            if (!AppEnvironment.CharacterSessionsEnabled || _characterStatisticsFaulted ||
                 _packetCapture is null || _characterLedger is null) return;
             var current = _packetCapture.CharacterSession;
             if (current.Revision != state.Revision || current.Phase != state.Phase)
@@ -609,7 +609,7 @@ public partial class App : Application
 
     private bool TryUseCharacterSession(CharacterSessionSnapshot session)
     {
-        if (!AppEnvironment.IsDevelopment || _characterStatisticsFaulted ||
+        if (!AppEnvironment.CharacterSessionsEnabled || _characterStatisticsFaulted ||
             _packetCapture is null || _characterLedger is null ||
             !_packetCapture.IsCurrentCharacterSession(session) || session.CharacterId is not > 0)
             return false;
@@ -669,7 +669,7 @@ public partial class App : Application
 
     private void OnCharacterGoldGoblinChanged()
     {
-        if (!AppEnvironment.IsDevelopment || _changingCharacterRows || _characterStatisticsFaulted ||
+        if (!AppEnvironment.CharacterSessionsEnabled || _changingCharacterRows || _characterStatisticsFaulted ||
             _characterLedger?.Active is not { } key || _goldGoblin is null ||
             _packetCapture is null) return;
         var session = _packetCapture.CharacterSession;
@@ -693,14 +693,14 @@ public partial class App : Application
 
     public IReadOnlyList<CharacterStatisticsKey> ListSavedCharacters()
     {
-        if (!AppEnvironment.IsDevelopment || _characterStore is null || _characterStatisticsFaulted)
+        if (!AppEnvironment.CharacterSessionsEnabled || _characterStore is null || _characterStatisticsFaulted)
             return [];
         return SafeCharacterStatisticsValue(() => _characterStore.ListKnownCharacters());
     }
 
     public CharacterStatisticsDocument? ReadSavedCharacter(CharacterStatisticsKey key)
     {
-        if (!AppEnvironment.IsDevelopment || _characterLedger is null || _characterStatisticsFaulted)
+        if (!AppEnvironment.CharacterSessionsEnabled || _characterLedger is null || _characterStatisticsFaulted)
             return null;
         return SafeCharacterStatisticsValue(() =>
             _characterLedger.Snapshot(key, DateTime.UtcNow));
@@ -719,7 +719,7 @@ public partial class App : Application
 
     public bool StartCharacterStatisticsSession()
     {
-        if (!AppEnvironment.IsDevelopment || _characterLedger?.Active is null ||
+        if (!AppEnvironment.CharacterSessionsEnabled || _characterLedger?.Active is null ||
             _packetCapture?.CharacterSession.Phase != CharacterSessionPhase.ActiveObserved ||
             _characterStatisticsFaulted) return false;
         return SafeCharacterStatisticsValue(() =>
@@ -735,7 +735,7 @@ public partial class App : Application
 
     public bool ResetCharacterStatisticsSession()
     {
-        if (!AppEnvironment.IsDevelopment || _characterLedger?.Active is null ||
+        if (!AppEnvironment.CharacterSessionsEnabled || _characterLedger?.Active is null ||
             _characterStatisticsFaulted) return false;
         return SafeCharacterStatisticsValue(() =>
         {
@@ -832,8 +832,7 @@ public partial class App : Application
             _packetCapture?.IsCurrentObservation(observation) != true) return;
         var packet = observation.Packet;
         var settings = _settingsWindow.Settings;
-        if (AppEnvironment.IsDevelopment ||
-            GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo)
+        if (AppEnvironment.CharacterSessionsEnabled)
         {
             if (!observation.IsOwnActor(packet.Aid))
             {
@@ -870,7 +869,7 @@ public partial class App : Application
             if (!_settingsWindow.Settings.Skills.Any(s => s.Enabled && s.PacketSkillId == packet.SkillId)) return;
             var ownAid = observation.SelfAid != 0 ? observation.SelfAid : _settingsWindow.Settings.PacketPlayerAid;
             if (ownAid != 0 && ownAid != packet.SourceAid) return;
-            if (!AppEnvironment.IsDevelopment && ownAid == 0)
+            if (!AppEnvironment.CharacterSessionsEnabled && ownAid == 0)
             {
                 _settingsWindow.Settings.PacketPlayerAid = packet.SourceAid;
                 _settingsStore?.Save(_settingsWindow.Settings);

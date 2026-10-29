@@ -46,7 +46,7 @@ public sealed class GoldGoblinService
     public void AddLoot(int itemId, string name, long count)
     {
         if (count <= 0) return;
-        if (!AppEnvironment.IsDevelopment) SessionStartedUtc ??= DateTime.UtcNow;
+        if (!AppEnvironment.CharacterSessionsEnabled) SessionStartedUtc ??= DateTime.UtcNow;
         var row = Rows.FirstOrDefault(item => item.ItemId == itemId);
         if (row is null)
         {
@@ -133,7 +133,7 @@ public sealed class GoldGoblinService
 
     public void SyncSessionClock(TimeSpan elapsed, bool started)
     {
-        if (AppEnvironment.IsDevelopment)
+        if (AppEnvironment.CharacterSessionsEnabled)
             SessionStartedUtc = started ? DateTime.UtcNow - elapsed : null;
     }
 

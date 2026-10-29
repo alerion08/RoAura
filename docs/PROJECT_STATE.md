@@ -1,5 +1,9 @@
 # Project state
 
+## Release correction: 3.1.1 (2026-10-29)
+
+The published 3.1.0 regular build omitted the DEV character-session and statistics path. This release candidate promotes map-login observation, flow-bound CID sessions, character-specific statistics storage, the active-character browser and shared Gold Goblin/session clock to the regular build. DEV-only raw diagnostics, updater isolation and the separate RoAura-Dev data directory remain gated. The normal build writes new character records to RoAura's local data directory; DEV history is not automatically migrated. A late launch after map login cannot infer CID. Windows CI and in-game relog/Character Select checks remain necessary before calling this correction verified.
+
 ## Release preparation: 3.1.0 (2026-10-29)
 
 The user provisionally accepted the latest SpringRO DEV behavior: Skill ID, Status ID, reminders, equipment and own-character AID work in their game test. The normal build previously excluded the client status bridge and verified AID observations. Branch `release/3.1.0-springro` enables that path for SpringRO in normal builds, keeps lossless packet sampling DEV-only, and updates version and bilingual notes. This is a release candidate until Windows CI validates the normal portable and installer. The client bridge remains tied to one executable hash and uses a high-frequency read-only sampler; extended-session CPU and reconnect were not individually accepted. Do not claim those checks passed.
