@@ -63,6 +63,9 @@ class DossierTests(unittest.TestCase):
         self.assertEqual(db.execute("PRAGMA foreign_key_check").fetchall(),[])
         create_dossiers(db)
         self.assertEqual(db.execute("SELECT count(*) FROM wiki_missing_script_dossiers").fetchone()[0],1)
+        review_unlinked_scripts(db)
+        create_dossiers(db)
+        self.assertEqual(db.execute("SELECT count(*) FROM wiki_missing_script_dossiers").fetchone()[0],1)
 
     def test_seasonal_name_pair_cannot_be_reported_verified(self):
         db=self.make_db(seasonal=True)

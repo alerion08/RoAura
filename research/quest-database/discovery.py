@@ -93,6 +93,11 @@ def review_unlinked_scripts(db,max_sources_per_name=8,max_proposals_per_page=12)
     metrics=Counter()
     exported=[]
     with db:
+        # A full rebuild has last run's dossiers, which depend on proposal
+        # rows. Drop only derived dossier evidence before refreshing proposals.
+        if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='wiki_missing_script_dossier_facts'").fetchone():
+            db.execute("DELETE FROM wiki_missing_script_dossier_facts")
+            db.execute("DELETE FROM wiki_missing_script_dossiers")
         db.execute("DELETE FROM wiki_missing_script_evidence")
         db.execute("DELETE FROM wiki_missing_script_proposals")
         db.execute("DELETE FROM wiki_missing_script_reviews")
