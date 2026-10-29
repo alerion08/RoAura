@@ -12,6 +12,8 @@ on:
       - research/quest-database/test_runtime.py
       - research/quest-database/augment.py
       - research/quest-database/test_augment.py
+      - research/quest-database/quality.py
+      - research/quest-database/test_quality.py
       - research/quest-database/test_graph.py
       - research/quest-database/enrich.py
       - .github/workflows/quest-graph-tests.yml
@@ -30,4 +32,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install -q requests beautifulsoup4 pyyaml
-      - run: cd research/quest-database && python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py
+      - run: cd research/quest-database && python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py
