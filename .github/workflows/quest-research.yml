@@ -90,6 +90,7 @@ jobs:
       - name: Validate finished SQLite
         run: |
           python - <<'PY'
+          import json
           import sqlite3
           from pathlib import Path
           p=Path("research/quest-database/output/quest_research.sqlite")
