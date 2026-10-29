@@ -19,6 +19,8 @@ import requests
 import yaml
 from bs4 import BeautifulSoup
 from enrich import parse_guide, step_evidence, ensure_enrichment_schema, link_database
+from graph import SCHEMA as FLOW_SCHEMA, create_flow
+from reconcile import SCHEMA as REVIEW_SCHEMA, create_reviews
 
 UA = "RoAura-Quest-Research/1.0 (public source research, limited crawl)"
 WIKI = "https://irowiki.org/classic/"
@@ -311,7 +313,10 @@ def ingest_wiki(db,max_pages=1000):
 
 def counts(db):
     return {name:db.execute("SELECT count(*) FROM "+table).fetchone()[0] for name,table in
-       [("scripts","provenance"),("npcs","script_npcs"),("script_events","script_events"),("quest_registry_entries","quest_registry"),("wiki_pages","wiki_pages"),("wiki_steps","wiki_steps"),("wiki_details","wiki_details"),("wiki_script_links","wiki_script_links"),("wiki_step_npc_links","wiki_step_npc_links")]}
+       [("scripts","provenance"),("npcs","script_npcs"),("script_events","script_events"),("quest_registry_entries","quest_registry"),("wiki_pages","wiki_pages"),("wiki_steps","wiki_steps"),("wiki_details","wiki_details"),("wiki_script_links","wiki_script_links"),("wiki_step_npc_links","wiki_step_npc_links"),
+       ("npc_flow_points","npc_flow_points"),("npc_flow_options","npc_flow_options"),
+       ("npc_flow_conditions","npc_flow_conditions"),("npc_flow_jumps","npc_flow_jumps"),
+       ("wiki_script_reviews","wiki_script_reviews"),("wiki_answer_menu_matches","wiki_answer_menu_matches")]}
 
 def main():
     p=argparse.ArgumentParser()
@@ -325,13 +330,18 @@ def main():
     db=sqlite3.connect(dst)
     db.executescript(SCHEMA)
     ensure_enrichment_schema(db)
+    db.executescript(FLOW_SCHEMA)
+    db.executescript(REVIEW_SCHEMA)
+    # A previous generated review links to menu point IDs. Clear those first.
+    with db:
+        db.execute("DELETE FROM wiki_answer_menu_matches")
     # Rebuild candidate links after refreshing source NPC rows. Otherwise
     # existing link FKs would block replacing source NPCs on a second run.
     with db:
         db.execute("DELETE FROM wiki_step_npc_links")
         db.execute("DELETE FROM wiki_script_links")
     report={"created_utc":utcnow(),"scope":"wiki Classic + rAthena scripts + Hercules quest scripts",
-            "limitations":["Wiki quest list is not necessarily exhaustive","NPC code branches not yet executed/verified",
+            "limitations":["Wiki quest list is not necessarily exhaustive","Only explicit static branches are linked; dynamic conditions and menus remain unresolved",
                            "Server scripts are not evidence of exact official iRO/ToC behavior"],
             "sources":{}}
     session=requests.Session()
@@ -347,7 +357,9 @@ def main():
             print(f"ERROR {label}: {exc}",flush=True)
     session.close()
     report["linking"]=link_database(db)
-    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','3')")
+    report["dialogue_flow"]=create_flow(db)
+    report["script_link_review"]=create_reviews(db)
+    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','4')")
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('research_status','candidate matches only; see coverage.json')")
     db.commit()
     report["counts"]=counts(db)
