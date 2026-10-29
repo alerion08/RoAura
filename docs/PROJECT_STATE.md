@@ -501,3 +501,17 @@ closed source, count/time bounds and default-off behavior. 92 focused C# harness
 scenarios and 3 Python inspector tests pass locally. Windows CI remains the
 full application/portable check. No new game-facing decoder or skill-triggered
 fallback, no main merge, version change or release.
+
+## SpringRO fourth run: missing starts and reported Skill ID learning regression
+
+In the latest log a `0x0983` start at 15:45:19 was missed with
+`recentOpcode=0`; later status 4 and 6 starts/removals matched. The user
+reports that Cloaking still does not appear and cooldown Skill ID learning
+stopped working. The log does not show whether a skill event entered the
+active UI learning window, so no cause is established yet.
+
+DEV now logs learning-window activation, skill/post-delay arrival and existing
+identity/lifetime decisions. The client sampler reports aggregate status
+opcode and stable-frame counts every 15 seconds. No raw actors or memory
+contents are added. The next Windows build and SpringRO test must identify
+the missing step before changing the generic decoder or attribution rules.

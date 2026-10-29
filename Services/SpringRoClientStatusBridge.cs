@@ -117,6 +117,8 @@ public sealed class SpringRoClientStatusBridge : IDisposable
         var previousWasStatus = false;
         byte[]? previous = null;
         long reads = 0;
+        long statusCandidates = 0;
+        long stableCandidates = 0;
         var report = Stopwatch.StartNew();
         while (!_disposed)
         {
@@ -126,11 +128,13 @@ public sealed class SpringRoClientStatusBridge : IDisposable
             var opcode = BinaryPrimitives.ReadUInt16LittleEndian(first);
             if (opcode is 0x0983 or 0x0196)
             {
+                statusCandidates++;
                 var size = opcode == 0x0983 ? 29 : 9;
                 if ((!previousWasStatus || previous is null || !first.AsSpan(0, size).SequenceEqual(previous)) &&
                     ReadProcessMemory(handle, address, second, (UIntPtr)29, out length) &&
                     length.ToUInt32() == 29 && first.AsSpan().SequenceEqual(second))
                 {
+                    stableCandidates++;
                     var frame = first.AsSpan(0, size).ToArray();
                     lock (_framesSync)
                     {
@@ -150,8 +154,10 @@ public sealed class SpringRoClientStatusBridge : IDisposable
             if (report.Elapsed >= TimeSpan.FromSeconds(15))
             {
                 DebugLog.Write($"SPRINGRO CLIENT STATUS sampler readsPerSecond={reads / report.Elapsed.TotalSeconds:0}; " +
-                               $"windowMs=100");
+                               $"statusCandidates={statusCandidates}; stableCandidates={stableCandidates}; windowMs=100");
                 reads = 0;
+                statusCandidates = 0;
+                stableCandidates = 0;
                 report.Restart();
             }
         }

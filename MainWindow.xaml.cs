@@ -1457,6 +1457,8 @@ public partial class MainWindow : Window
         if (!captureWasEnabled || !_packetCapture.IsActive)
             ApplyPacketCaptureIfChanged(force: true);
         _packetCapture.BeginLearningDiagnostics();
+        if (AppEnvironment.IsDevelopment)
+            DebugLog.Write($"PACKET LEARN armed; captureActive={_packetCapture.IsActive}; windowSeconds=20");
     }
 
     private bool IsLearningObservation<T>(RoPacketObservation<T> observation, int generation) =>
@@ -1522,7 +1524,14 @@ public partial class MainWindow : Window
         Dispatcher.BeginInvoke(() =>
         {
             var skill = _learningSkill;
-            if (skill is null || !IsLearningObservation(observation, generation)) return;
+            var valid = IsLearningObservation(observation, generation);
+            if (AppEnvironment.IsDevelopment && DateTime.UtcNow <= _learningUntil &&
+                _learningUntil != default)
+                DebugLog.Write($"PACKET LEARN skill event; id={observation.Packet.SkillId}; " +
+                               $"armed={skill is not null}; valid={valid}; " +
+                               $"own={observation.IsOwnActor(observation.Packet.SourceAid)}; " +
+                               $"identityKnown={observation.SelfAid != 0}");
+            if (skill is null || !valid) return;
             var packet = observation.Packet;
             if (!ReportLearningActor(observation, "Skill ID", packet.SkillId, packet.SourceAid)) return;
             skill.PacketSkillId = packet.SkillId;
@@ -1542,7 +1551,12 @@ public partial class MainWindow : Window
         Dispatcher.BeginInvoke(() =>
         {
             var skill = _learningSkill;
-            if (skill is null || !IsLearningObservation(observation, generation)) return;
+            var valid = IsLearningObservation(observation, generation);
+            if (AppEnvironment.IsDevelopment && DateTime.UtcNow <= _learningUntil &&
+                _learningUntil != default)
+                DebugLog.Write($"PACKET LEARN post-delay event; id={observation.Packet.SkillId}; " +
+                               $"armed={skill is not null}; valid={valid}");
+            if (skill is null || !valid) return;
             // Post-delay is sent to this client, has no actor ID and does not
             // require a separate CID or AID handshake to learn its SKID.
             var packet = observation.Packet;
