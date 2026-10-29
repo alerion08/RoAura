@@ -11,6 +11,13 @@ implementation remains unidentified. See the final section of
 ID learning remains unresolved; accepted Hiding behavior is unchanged. This
 checkpoint changes documentation only and needs no new gameplay test build.
 
+DLL follow-up: the supplied installation includes Gepard Shield 3.0. Its
+network-diagnostic references lead into protected `.vmp0` code; this does not
+yet prove a status-field transformation. `spring.dll` identifies GRF resource
+encryption/compression, and `dinput.dll` identifies ROExt. No validated network
+decoder was recovered from these files. DLL fingerprints and evidence limits
+are recorded in the audit; no additional identical live capture is requested.
+
 ## Current product
 
 RoAura is a Windows x64 WPF overlay for Ragnarok Online. It reads incoming game packets through Npcap and provides configurable overlays and supporting tools.

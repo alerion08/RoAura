@@ -389,3 +389,46 @@ EXE. A directory/module inventory can distinguish that from the system DLL;
 the EXE alone cannot. No additional same-buff capture or speculative DEV build
 is justified. No decoder or general Status ID fix was implemented in this
 analysis. Preserve the accepted correlated Hiding path.
+
+### Supplied DLLs — follow-up
+
+The installation screenshot has no local `ws2_32.dll` among the displayed
+files, but does include `gepard.dll`, `spring.dll` and `dinput.dll`. All three
+were supplied and inspected statically, without executing or modifying them.
+Absence of a Gepard import in the EXE did not establish absence of Gepard from
+the installation. Runtime loading remains unverified.
+
+- `dinput.dll`: PE32, export `DirectInputCreateA`, internal name `ROExt.dll`.
+  Inspected startup reads ROExt configuration via `GetPrivateProfileIntA`;
+  imports cover input/window/DirectDraw functions. No direct Winsock imports.
+  This is not evidence that it decodes status packets.
+- `spring.dll`: PE32, exports `compress` and `gawbfxkiab`, internal export
+  name `Fury.dll`. Embedded source path identifies GRF Editor client encryption
+  and `Fury/zlib.cpp`. The exported path contains a byte-permutation/XOR loop
+  at preferred VA `0x10004720` followed by a call to `0x10004D90`, whose visible
+  branches handle compressed input (including a `0x78` header). No direct
+  Winsock imports. Do not transplant this resource-processing transformation
+  into the status parser: no network connection has been established.
+- `gepard.dll`: identifies itself as Gepard Shield 3.0; includes Winsock `send`
+  import and messages about incoming unknown packet IDs, previous packet IDs,
+  init acknowledgments and packet logs. References to those network diagnostics
+  occur in `.vmp0` (e.g. `0x10D34FFD` references the incoming-ID message and
+  `0x1094A58E` references the corrupted-init-ack message). `.vmp0/.vmp1/.vmp2`
+  and the fragmented inspected code prevent treating ordinary linear
+  disassembly as an identified receive decoder. This makes Gepard relevant
+  to the investigation, but does **not** prove it transforms bytes +2..+5.
+
+SHA-256 fingerprints, for reproducibility without redistributing binaries:
+
+| File | SHA-256 |
+| --- | --- |
+| dinput.dll | `3d8d3f03f96cd859f587afe6bcb7beb7915b1a35044a58be324c779c1e42e878` |
+| spring.dll | `44f17591c39bd9b0281357b744ca942c99d032e5549809528fc3cb0f7d208b79` |
+| gepard.dll | `7dd1805651dd556a68e28e220841dcc94b9750b9dfcd0de9c0d556d04c474b01` |
+
+No executable decoder has been recovered or validated on the 16 samples.
+The unresolved task is establishing the actual runtime receive path and its
+field transformation, or obtaining that protocol information from the server
+maintainer. Another identical gameplay trace does not resolve this gap. No
+runtime patch, injection, protection change, speculative parser edit or DEV
+build was made. Hiding remains unchanged.
