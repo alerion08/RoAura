@@ -23,6 +23,7 @@ from graph import SCHEMA as FLOW_SCHEMA, create_flow
 from reconcile import SCHEMA as REVIEW_SCHEMA, create_reviews
 from state import SCHEMA as STATE_SCHEMA, create_state_facts
 from runtime import make_runtime
+from augment import augment_evidence
 
 UA = "RoAura-Quest-Research/1.0 (public source research, limited crawl)"
 WIKI = "https://irowiki.org/classic/"
@@ -131,11 +132,18 @@ def github_tree(session, repo, ref):
     return data["tree"]
 
 def scripts_from_tree(tree, provider):
-    prefixes=("npc/quests/","npc/jobs/","npc/other/","npc/cities/","npc/instances/","npc/pre-re/quests/","npc/pre-re/jobs/")
+    # Public server sources are not mutually equivalent. Keep pre-re and re
+    # folder paths intact so downstream consumers can select their variant.
+    prefixes=(
+        "npc/quests/","npc/jobs/","npc/other/","npc/cities/","npc/instances/",
+        "npc/events/","npc/airports/",
+        "npc/pre-re/quests/","npc/pre-re/jobs/","npc/pre-re/guides/",
+        "npc/pre-re/cities/","npc/pre-re/other/","npc/pre-re/instances/",
+        "npc/re/quests/","npc/re/jobs/","npc/re/guides/",
+        "npc/re/cities/","npc/re/other/","npc/re/instances/",
+    )
     out=[x for x in tree if x.get("type")=="blob" and x["path"].endswith(".txt")
          and x["path"].startswith(prefixes) and (x.get("size",0) <= 900000)]
-    if provider=="hercules":
-        out=[x for x in out if x["path"].startswith("npc/quests/")]
     return sorted(out,key=lambda x:x["path"])
 
 def download_script(session, repo, ref, entry):
@@ -145,6 +153,11 @@ def download_script(session, repo, ref, entry):
         try:
             res=session.get(url,timeout=45)
             res.raise_for_status()
+            # Git tree blob SHA pins the exact upstream bytes, even when a
+            # branch advances between listing and raw downloads.
+            actual=hashlib.sha1(b"blob "+str(len(res.content)).encode()+b"\0"+res.content).hexdigest()
+            if entry.get("sha") and actual!=entry["sha"]:
+                raise ValueError("Git blob SHA mismatch for "+path)
             return entry,res.content,None
         except Exception as e:
             if attempt==2:return entry,None,str(e)
@@ -155,7 +168,12 @@ def ingest_repo(db, repo, ref, provider, threads=5):
     session.headers.update({"User-Agent":UA,"Accept":"application/vnd.github+json"})
     tree=github_tree(session,repo,ref)
     entries=scripts_from_tree(tree,provider)
-    print(f"Discovered {len(entries)} {provider} script files",flush=True)
+    counts={}
+    for entry in entries:
+        parts=entry["path"].split("/")
+        scope=parts[1] if len(parts)>2 and parts[1] in ("pre-re","re") else "common"
+        counts[scope]=counts.get(scope,0)+1
+    print(f"Discovered {len(entries)} {provider} NPC script files by scope: {counts}",flush=True)
     successes=0
     errors=[]
     # Each worker uses an isolated requests Session (requests.Session is not thread-safe).
@@ -173,7 +191,9 @@ def ingest_repo(db, repo, ref, provider, threads=5):
             successes+=1
             if idx%50==0:print(f"{provider}: {idx}/{len(entries)} fetched",flush=True)
     session.close()
-    return {"listed":len(entries),"saved":successes,"errors":errors}
+    return {"listed":len(entries),"saved":successes,"errors":errors,
+            "scope_counts":counts,
+            "download_integrity":"GitHub blob SHA verified for every stored script"}
 
 def import_registry(db, session):
     url="https://raw.githubusercontent.com/rathena/rathena/master/db/pre-re/quest_db.yml"
@@ -379,10 +399,17 @@ def main():
         report["source_snapshot_utc"]=report["created_utc"]
         report["fetch_mode"]="fresh_upstream_requests"
     report["linking"]=link_database(db)
+    report["evidence_augmentation"]=augment_evidence(db)
+    report["linking"].update({
+        "wiki_script_links":report["evidence_augmentation"]["script_candidates"],
+        "linked_pages":report["evidence_augmentation"]["linked_pages"],
+        "wiki_step_npc_links":report["evidence_augmentation"]["step_npc_candidates"],
+    })
     report["dialogue_flow"]=create_flow(db)
     report["quest_state"]=create_state_facts(db)
     report["script_link_review"]=create_reviews(db)
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','5')")
+    db.execute("INSERT OR REPLACE INTO research_meta VALUES('matching_revision','header_and_correlated_npc_coordinate_v1')")
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('research_status','candidate matches only; see coverage.json')")
     db.commit()
     report["counts"]=counts(db)
