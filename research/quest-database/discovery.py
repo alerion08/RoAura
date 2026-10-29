@@ -52,9 +52,11 @@ def interaction_names(text,by_first):
         tail=re.sub(r"^(?:the |a |an |npc )","",tail)
         first=re.match(r"[\w']+",tail)
         if not first:continue
-        for name in by_first.get(first.group(),()):
+        # A full name wins over its prefix (Marianne Smith, not Marianne).
+        for name in sorted(by_first.get(first.group(),()),key=lambda n:(-len(n),n)):
             if re.match(re.escape(name)+r"(?![\w'-])",tail):
                 identified.add(name)
+                break
     return cue_count,identified
 
 def review_unlinked_scripts(db,max_sources_per_name=8,max_proposals_per_page=12):
