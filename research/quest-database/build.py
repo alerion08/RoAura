@@ -325,6 +325,11 @@ def main():
     db=sqlite3.connect(dst)
     db.executescript(SCHEMA)
     ensure_enrichment_schema(db)
+    # Rebuild candidate links after refreshing source NPC rows. Otherwise
+    # existing link FKs would block replacing source NPCs on a second run.
+    with db:
+        db.execute("DELETE FROM wiki_step_npc_links")
+        db.execute("DELETE FROM wiki_script_links")
     report={"created_utc":utcnow(),"scope":"wiki Classic + rAthena scripts + Hercules quest scripts",
             "limitations":["Wiki quest list is not necessarily exhaustive","NPC code branches not yet executed/verified",
                            "Server scripts are not evidence of exact official iRO/ToC behavior"],
