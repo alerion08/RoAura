@@ -64,7 +64,7 @@ class ExportTests(unittest.TestCase):
             self.assertGreater(summary["tables"]["dialogue_options"],0)
             self.assertGreater(summary["tables"]["quest_state_facts"],0)
             with sqlite3.connect(dest) as runtime:
-                self.assertEqual(runtime.execute("PRAGMA user_version").fetchone()[0],3
+                self.assertEqual(runtime.execute("PRAGMA user_version").fetchone()[0],3)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quests").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM scripts").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quest_quality").fetchone()[0],1)
