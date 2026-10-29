@@ -439,13 +439,24 @@ The visible client dispatch calls `0x00C147D0` with a global packet buffer at
 preferred VA `0x015E8198` (RVA `0x011E8198`) and subsequently passes that
 buffer to the 0x0983/0x0196 handlers. `tools/Capture-SpringRoClientStatus.ps1`
 polls *only* this 29-byte buffer through Windows `ReadProcessMemory` for up to
-90 seconds. It checks the executable SHA-256, accounts for image relocation,
+45 seconds by default. It checks the executable SHA-256, accounts for image relocation,
 logs only 0x0983/0x0196 frames locally, and aborts on access denial. It does
 not request debug privileges, attach a debugger, inject, patch or execute
 game code. It may miss short-lived frames; Gepard may deny access. Treat a
 zero-event run as inconclusive. A successful run provides the client-side
 packet values needed to test the wire-to-handler hypothesis, not automatically
 a reusable decoder.
+
+First Windows run at 13:53 local time read the buffer 5,695 times over 90
+seconds (~63 reads/second) and saw zero 0x0983/0x0196 frames. Access was
+granted; the PowerShell `Start-Sleep -Milliseconds 1` loop effectively sampled
+only once per ~16 ms. This negative result says nothing about the bytes at
+dispatch time and must not be mistaken for absence of the status packet. The
+probe now performs the bounded read loop in compiled C# code, reports read
+count during collection, and checks a second read before saving a candidate.
+A further zero-result run at higher frequency would still be inconclusive if
+the client overwrites its global buffer too quickly. Do not keep repeating
+that experiment without a different method.
 
 Run one SpringRO client and the existing DEV RoAura with
 `--springro-status-samples`; start Learn Status ID. In a separate Windows

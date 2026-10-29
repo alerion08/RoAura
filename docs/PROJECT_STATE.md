@@ -21,8 +21,13 @@ are recorded in the audit; no additional identical live capture is requested.
 The next independent experiment is a read-only, one-shot client packet-buffer
 probe (`tools/Capture-SpringRoClientStatus.ps1`) paired with the existing DEV
 wire sampler. This captures a different observation point from prior repeated
-wire tests. It has not yet run in the user's protected Windows client and does
-not implement a Status ID decoder; see the audit for limits and instructions.
+wire tests. It does not implement a Status ID decoder; see the audit for
+limits and instructions.
+
+The first protected-client probe had access but returned zero frames in 5,695
+reads/90 seconds (~63 Hz), a limitation of the PowerShell polling loop. It is
+not evidence about decrypted status values. The updated probe uses a compiled
+bounded loop; the new version still awaits live validation.
 
 ## Current product
 

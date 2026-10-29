@@ -2,7 +2,7 @@
 # This tool does not inject code, attach a debugger or modify the game process.
 param(
     [int]$TargetProcessId = 0,
-    [int]$Seconds = 90,
+    [int]$Seconds = 45,
     [string]$OutputPath = ''
 )
 
@@ -11,7 +11,10 @@ if ($Seconds -lt 5 -or $Seconds -gt 180) { throw 'Seconds must be between 5 and 
 
 Add-Type -TypeDefinition @'
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 public static class SpringRoReadOnlyMemory {
     [DllImport("kernel32.dll", SetLastError = true)]
     public static extern IntPtr OpenProcess(uint access, bool inherit, int processId);
@@ -22,6 +25,54 @@ public static class SpringRoReadOnlyMemory {
     [DllImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool CloseHandle(IntPtr handle);
+
+    // Run the short-lived packet probe in compiled code. A PowerShell sleep of
+    // 1 ms produced only ~63 reads/s on the user's Windows machine.
+    public static long Capture(IntPtr process, IntPtr address, int seconds, string path, out int frames) {
+        var buffer = new byte[29];
+        var verify = new byte[29];
+        var size = new UIntPtr(29);
+        long reads = 0;
+        frames = 0;
+        string previous = "";
+        var watch = Stopwatch.StartNew();
+        int nextUpdate = 10;
+        using (var writer = new StreamWriter(path, false, new System.Text.UTF8Encoding(false))) {
+            while (watch.Elapsed.TotalSeconds < seconds && frames < 32) {
+                UIntPtr bytesRead;
+                if (!ReadProcessMemory(process, address, buffer, size, out bytesRead) || bytesRead.ToUInt32() != 29)
+                    throw new InvalidOperationException("Packet buffer became unreadable (Windows error " + Marshal.GetLastWin32Error() + ").");
+                reads++;
+                ushort opcode = BitConverter.ToUInt16(buffer, 0);
+                if (opcode == 0x0983 || opcode == 0x0196) {
+                    // Reject a frame being overwritten during a cross-process read.
+                    UIntPtr verifiedRead;
+                    if (ReadProcessMemory(process, address, verify, size, out verifiedRead) && verifiedRead.ToUInt32() == 29) {
+                        bool equal = true;
+                        for (int i = 0; i < 29; i++) if (buffer[i] != verify[i]) { equal = false; break; }
+                        if (equal) {
+                            int length = opcode == 0x0983 ? 29 : 9;
+                            string hex = BitConverter.ToString(buffer, 0, length).Replace("-", "");
+                            if (hex != previous) {
+                                writer.WriteLine("{\"observedAtUtc\":\"" + DateTime.UtcNow.ToString("o") +
+                                    "\",\"opcode\":\"0x" + opcode.ToString("X4") + "\",\"hex\":\"" + hex + "\"}");
+                                writer.Flush();
+                                previous = hex;
+                                frames++;
+                                Console.WriteLine("Status frame captured: " + frames);
+                            }
+                        }
+                    }
+                } else previous = "";
+                if (watch.Elapsed.TotalSeconds >= nextUpdate) {
+                    Console.WriteLine("Still watching; " + frames + " frames in " + reads + " reads.");
+                    nextUpdate += 10;
+                }
+                if ((reads & 255) == 0) Thread.Sleep(0);
+            }
+        }
+        return reads;
+    }
 }
 '@
 
@@ -59,48 +110,10 @@ try {
         [IO.Directory]::CreateDirectory($diagnostics) | Out-Null
         $OutputPath = Join-Path $diagnostics ('SpringRoClientStatus-{0:yyyyMMdd-HHmmss}.jsonl' -f [DateTime]::Now)
     }
-    $buffer = New-Object byte[] 29
-    $until = [DateTime]::UtcNow.AddSeconds($Seconds)
-    $nextUpdate = [DateTime]::UtcNow.AddSeconds(10)
-    $lastHex = ''
-    $count = 0
-    $reads = 0
-    $writer = New-Object IO.StreamWriter($OutputPath, $false, [Text.Encoding]::UTF8)
     Write-Host "Watching SpringRO PID $($game.Id) for up to $Seconds seconds. Apply the status now."
     Write-Host "Local output: $OutputPath"
-    try {
-        while ([DateTime]::UtcNow -lt $until -and $count -lt 32 -and -not $game.HasExited) {
-            [UIntPtr]$bytesRead = [UIntPtr]::Zero
-            $readOk = [SpringRoReadOnlyMemory]::ReadProcessMemory($handle, $packetAddress,
-                $buffer, [UIntPtr]::new(29), [ref]$bytesRead)
-            if (-not $readOk -or $bytesRead.ToUInt32() -ne 29) {
-                $code = [Runtime.InteropServices.Marshal]::GetLastWin32Error()
-                throw "Packet buffer became unreadable (Windows error $code); stopping."
-            }
-            $reads++
-            $opcode = [BitConverter]::ToUInt16($buffer, 0)
-            if ($opcode -eq 0x0983 -or $opcode -eq 0x0196) {
-                $length = if ($opcode -eq 0x0983) { 29 } else { 9 }
-                $hex = [BitConverter]::ToString($buffer, 0, $length).Replace('-', '')
-                $now = [DateTime]::UtcNow
-                if ($hex -ne $lastHex) {
-                    $record = @{ observedAtUtc = $now.ToString('o'); opcode = ('0x{0:X4}' -f $opcode); hex = $hex }
-                    $writer.WriteLine(($record | ConvertTo-Json -Compress))
-                    $writer.Flush()
-                    $lastHex = $hex
-                    $count++
-                    Write-Host "Status frame captured: $count"
-                }
-            } else {
-                $lastHex = ''
-            }
-            if ([DateTime]::UtcNow -ge $nextUpdate) {
-                Write-Host "Still watching; $count frames captured."
-                $nextUpdate = [DateTime]::UtcNow.AddSeconds(10)
-            }
-            Start-Sleep -Milliseconds 1
-        }
-    } finally { $writer.Dispose() }
+    $count = 0
+    $reads = [SpringRoReadOnlyMemory]::Capture($handle, $packetAddress, $Seconds, $OutputPath, [ref]$count)
     Write-Host "Captured $count status frames in $reads reads: $OutputPath"
     if ($count -eq 0) { Write-Warning 'No status frame was observed. This does not imply that packet fields are unchanged.' }
 } finally {
