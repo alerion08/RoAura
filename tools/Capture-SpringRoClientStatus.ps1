@@ -61,10 +61,13 @@ try {
     }
     $buffer = New-Object byte[] 29
     $until = [DateTime]::UtcNow.AddSeconds($Seconds)
+    $nextUpdate = [DateTime]::UtcNow.AddSeconds(10)
     $lastHex = ''
     $count = 0
     $reads = 0
     $writer = New-Object IO.StreamWriter($OutputPath, $false, [Text.Encoding]::UTF8)
+    Write-Host "Watching SpringRO PID $($game.Id) for up to $Seconds seconds. Apply the status now."
+    Write-Host "Local output: $OutputPath"
     try {
         while ([DateTime]::UtcNow -lt $until -and $count -lt 32 -and -not $game.HasExited) {
             [UIntPtr]$bytesRead = [UIntPtr]::Zero
@@ -86,9 +89,14 @@ try {
                     $writer.Flush()
                     $lastHex = $hex
                     $count++
+                    Write-Host "Status frame captured: $count"
                 }
             } else {
                 $lastHex = ''
+            }
+            if ([DateTime]::UtcNow -ge $nextUpdate) {
+                Write-Host "Still watching; $count frames captured."
+                $nextUpdate = [DateTime]::UtcNow.AddSeconds(10)
             }
             Start-Sleep -Milliseconds 1
         }
