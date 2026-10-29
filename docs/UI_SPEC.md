@@ -173,3 +173,20 @@ become unavailable while off. Database and manual MVP timers do not require pack
 reading and remain available where the server supports them. SpringRO HTTP Market
 is also independent. Re-enabling restores navigation; verified character statistics
 need a fresh observed login rather than reusing the previous CID.
+
+## Settings and character targeting (2026-10-30)
+
+Settings has General, Hotkeys, Character Manager and Navigation tabs. General binds
+the same model as Home. All five hotkeys are edited in Settings. Other is last.
+Optional navigation visibility only affects the left menu; unsupported or packet-disabled
+features remain gray/disabled. Home and Settings cannot be hidden.
+
+Every overlay editor offers a collapsed character selector; no checked characters means
+all, several checked characters means any matching observed server/CID. Unknown session
+hides targeted overlays. Aliases and assigned server are metadata; history/CID is immutable.
+Character metadata survives preset changes. Buff panel groups also have independent scope.
+
+Cooldowns detect their draft ID in step two before creation. Empty overlay list/editor
+areas use the same centered card, title/hint typography, padding and alignment.
+Database statistics use paired label/value cells; technical extras and skill descriptions
+are collapsed. ToC MVP respawn labels use official map detail data when published.

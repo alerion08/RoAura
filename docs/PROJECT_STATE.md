@@ -1,5 +1,35 @@
 # Project state
 
+## Settings, character scopes and ToC presentation (2026-10-30)
+
+Active branch: `feature/settings-character-overlays`, based on `c1e2804`.
+Stable main remains 3.1.1; no merge, tag or release is authorized.
+
+- Settings now contains General (shared Home connection controls, server and language),
+  all five hotkey editors, Character Manager and optional navigation visibility.
+  Other is last in both server selectors. Home and Settings remain reachable.
+- Detected CID metadata has stable identities; aliases and assigned servers do not
+  rewrite captured identities/history. Presets retain the global character registry.
+- All five overlay model types support multiple character targets. An empty selection
+  retains legacy all-character behavior; assigned overlays require an observed matching
+  server/CID, never AID. Existing coordinates and overlay options are retained.
+- Cooldown wizard detects a draft Skill ID before creation and cancels pending learning
+  on close/back; no half-created overlay is inserted.
+- Uniform empty list/editor cards; structured item/monster statistics and collapsed
+  skill descriptions. Existing headers and tabs retain their styling.
+- ToC catalog schema 2 adds 53 spawn-location records from 48 official map pages,
+  preserving exact source delay fields. Database and timer hints share these records.
+  Missing published intervals remain unknown; saved timer durations are not overwritten.
+- Settings schema 13 adds registry, scope and navigation preferences with legacy defaults.
+- Local validation: .NET/WPF cross-build succeeds; eight Python tests and full SQLite
+  integrity/count/hash validation pass. Windows regression/portable results are recorded
+  in the branch Actions run. New behavior has NOT been verified in Ragnarok/ToC.
+- Smoke startup uses isolated temporary data and disables real packet capture.
+
+Manual acceptance required: relog/server switching and multiple clients; all-character
+and multiple-character overlay targeting; global hotkeys and pre-creation learning;
+RU/EN layouts and empty-state alignment at Windows DPI; ToC packet statistics/equipment.
+
 ## ToC integration and packet feature control (2026-10-29)
 
 Active branch: `feature/toc-server-integration`, based on the completed ToC

@@ -40,6 +40,15 @@ def inspect(path, kind=None, identifier=None):
         mvp = db.execute('SELECT count(*) FROM mvp').fetchone()[0]
         if mvp != int(meta['mvp']):
             raise ValueError('MVP count mismatch')
+        if int(meta.get('schema_version', '1')) >= 2:
+            rows = db.execute('SELECT payload FROM mvp_respawns').fetchall()
+            if len(rows) != int(meta['map_respawn_rows']):
+                raise ValueError('Map respawn count mismatch')
+            mvp_ids = {r[0] for r in db.execute('SELECT id FROM mvp')}
+            for row in rows:
+                spawn = unpacked(row[0])
+                if spawn['monster_id'] not in mvp_ids or not spawn['map_code'] or not spawn['source'].startswith('https://tidesofcomodo.com/db/map/'):
+                    raise ValueError('Invalid map respawn identity/source')
         manifest = path.with_suffix('.manifest.json')
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         if manifest.exists() and json.loads(manifest.read_text(encoding='utf-8'))['sha256'] != digest:

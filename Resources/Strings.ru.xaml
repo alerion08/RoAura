@@ -302,7 +302,7 @@
     <sys:String x:Key="KilledAt">Убит</sys:String>
     <sys:String x:Key="InvalidKillTime">Укажите корректное время убийства в формате ЧЧ:ММ:СС.</sys:String>
     <sys:String x:Key="RespawnHint">Подсказка по респавну</sys:String>
-    <sys:String x:Key="RespawnHintHelp">Подсказки берутся из базы выбранного сервера. Для ToC интервал неизвестен: укажите его вручную. Подсказка не задаёт таймер автоматически.</sys:String>
+    <sys:String x:Key="RespawnHintHelp">Подсказки берутся из базы выбранного сервера. Для ToC интервалы берутся со страниц карт; если источник не публикует интервал, укажите его вручную. Подсказка не задаёт таймер автоматически.</sys:String>
     <sys:String x:Key="TimersHotkey">MVP-таймеры</sys:String>
     <sys:String x:Key="LearnEquipment">Обучить экипировку (20 сек)</sys:String>
     <sys:String x:Key="TestEquipment">Тест экипировки</sys:String>
@@ -535,5 +535,20 @@
     <sys:String x:Key="PacketFeaturesOn">Чтение пакетов включено — выключить</sys:String>
     <sys:String x:Key="PacketFeaturesOff">Чтение пакетов выключено — включить</sys:String>
     <sys:String x:Key="PacketIndependentHint">Без чтения пакетов доступны база данных и ручные MVP-таймеры. Настройки отключённых разделов сохраняются.</sys:String>
-    <sys:String x:Key="DatabaseCatalogHint">База выбирается по серверу. Для ToC используется локальный каталог; интервалы респауна источник не публикует. Маркет и отслеживание предложений доступны только для SpringRO.</sys:String>
+    <sys:String x:Key="DatabaseCatalogHint">База выбирается по серверу. Для ToC используется локальный каталог; интервалы появления MVP берутся со страниц карт. Маркет и отслеживание предложений доступны только для SpringRO.</sys:String>
+    <sys:String x:Key="SettingsTitle">Настройки</sys:String>
+    <sys:String x:Key="SettingsDescription">Подключение, горячие клавиши, персонажи и левое меню.</sys:String>
+    <sys:String x:Key="OtherServer">Другой</sys:String>
+    <sys:String x:Key="AllHotkeysHint">Все горячие клавиши RoAura собраны здесь. Изменения применяются без перезапуска.</sys:String>
+    <sys:String x:Key="CharacterManager">Менеджер персонажей</sys:String>
+    <sys:String x:Key="CharacterManagerHint">Здесь появляются подтверждённые CID из сохранённой истории и текущего подключения. Укажите имя и сервер для привязок оверлеев. Это не изменяет CID, подключение и накопленную статистику.</sys:String>
+    <sys:String x:Key="NavigationTitle">Навигация</sys:String>
+    <sys:String x:Key="NavigationHint">Выберите доступные разделы, которые нужно показывать слева. Скрытие пункта не отключает его оверлеи. Главная и Настройки всегда доступны.</sys:String>
+    <sys:String x:Key="CharacterScopeTitle">Показывать для персонажей</sys:String>
+    <sys:String x:Key="CharacterScopeHint">Без выбора — для всех. Можно выбрать несколько персонажей. Привязанный оверлей скрыт, пока нужный сервер и CID не подтверждены в игре.</sys:String>
+    <sys:String x:Key="CharacterScopeAll">Все персонажи (очистить выбор)</sys:String>
+    <sys:String x:Key="CharacterScopeNoCharacters">Персонажей пока нет. Войдите в игру при активном чтении пакетов — CID появится в Менеджере персонажей.</sys:String>
+    <sys:String x:Key="DetectAgain">Повторить определение</sys:String>
+    <sys:String x:Key="SelectSkillTitle">Выберите умение</sys:String>
+    <sys:String x:Key="SelectSkillHint">Его параметры появятся в этой области.</sys:String>
 </ResourceDictionary>

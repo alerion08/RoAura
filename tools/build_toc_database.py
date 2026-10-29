@@ -165,7 +165,16 @@ def main():
     args = p.parse_args()
     if not 1 <= args.workers <= 8:
         p.error('workers must be 1..8')
-    build(args.output, Source(args.cache), args.workers)
+    import tempfile
+    from enrich_toc_respawns import enrich
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=args.output.parent, prefix='.toc-import-') as temporary:
+        stage = pathlib.Path(temporary) / args.output.name
+        source = Source(args.cache)
+        build(stage, source, args.workers)
+        enrich(stage, source, args.workers)
+        stage.replace(args.output)
+        stage.with_suffix('.manifest.json').replace(args.output.with_suffix('.manifest.json'))
 
 
 if __name__ == '__main__':

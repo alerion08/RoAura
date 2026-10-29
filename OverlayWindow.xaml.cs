@@ -107,6 +107,14 @@ public partial class OverlayWindow : Window
                                  _rewardGroupEditMode || _rateIndicatorEditMode || _marketWatchEditMode;
     public bool AreOverlaysVisible => _overlaysVisible;
 
+    public void RefreshCharacterScopes()
+    {
+        var session = (Application.Current as App)?.CurrentCharacterSession ?? default;
+        CharacterScopeService.Refresh(_settings, session);
+        foreach (var n in _settings.ActiveNotifications.Where(n => _settings.Effects.Any(e => e.Id == n.EffectId && !e.CharacterScope.IsAllowed)).ToList())
+            _settings.ActiveNotifications.Remove(n);
+    }
+
     public void RefreshServerProfile()
     {
         var supported = GameServerProfile.SupportsServerDatabases(_settings.ServerProfile);
@@ -176,6 +184,8 @@ public partial class OverlayWindow : Window
 
     public bool TriggerSkill(SkillAura skill, bool force = false)
     {
+        RefreshCharacterScopes();
+        if (!skill.CharacterScope.IsAllowed) return false;
         var now = DateTime.UtcNow;
         if (!force && _cooldownEnds.TryGetValue(skill.Id, out var currentEnd) && currentEnd > now)
             return false;
@@ -453,6 +463,8 @@ public partial class OverlayWindow : Window
 
     public void ShowEffectNotification(TrackedEffect effect, bool appeared, bool followStatus = true)
     {
+        RefreshCharacterScopes();
+        if (!effect.CharacterScope.IsAllowed) return;
         var text = appeared ? effect.AppearedText : effect.DisappearedText;
         if (string.IsNullOrWhiteSpace(text))
             text = appeared ? $"{effect.Name}: appeared" : $"{effect.Name}: ended";
@@ -999,6 +1011,7 @@ public partial class OverlayWindow : Window
 
     private void UpdateCooldowns()
     {
+        RefreshCharacterScopes();
         var now = DateTime.UtcNow;
         foreach (var skill in _settings.Skills)
         {

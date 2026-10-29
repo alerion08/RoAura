@@ -23,7 +23,7 @@
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
-                <Style TargetType="ContentPresenter">
+                <Style TargetType="ContentPresenter"><Setter Property="Visibility" Value="{Binding CharacterScope.IsAllowed, Converter={StaticResource BoolToVisibility}}"/>
                     <Setter Property="Canvas.Left" Value="{Binding X}" />
                     <Setter Property="Canvas.Top" Value="{Binding Y}" />
                 </Style>
@@ -132,7 +132,7 @@
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
-                <Style TargetType="ContentPresenter">
+                <Style TargetType="ContentPresenter"><Setter Property="Visibility" Value="{Binding CharacterScope.IsAllowed, Converter={StaticResource BoolToVisibility}}"/>
                     <Setter Property="Canvas.Left" Value="{Binding X}" />
                     <Setter Property="Canvas.Top" Value="{Binding Y}" />
                 </Style>
@@ -158,7 +158,7 @@
                                 </Style.Triggers>
                             </Style>
                         </Border.Style>
-                        <ItemsControl ItemsSource="{Binding Effects}" Tag="{Binding}">
+                        <ItemsControl ItemsSource="{Binding Effects}" Tag="{Binding}"><ItemsControl.ItemContainerStyle><Style TargetType="ContentPresenter"><Setter Property="Visibility" Value="{Binding CharacterScope.IsAllowed, Converter={StaticResource BoolToVisibility}}"/></Style></ItemsControl.ItemContainerStyle>
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate><StackPanel Orientation="Horizontal" /></ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
@@ -233,7 +233,7 @@
                 <ItemsPanelTemplate><Canvas /></ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
-                <Style TargetType="ContentPresenter">
+                <Style TargetType="ContentPresenter"><Setter Property="Visibility" Value="{Binding CharacterScope.IsAllowed, Converter={StaticResource BoolToVisibility}}"/>
                     <Setter Property="Canvas.Left">
                         <Setter.Value><MultiBinding Converter="{StaticResource CenterCoordinate}">
                             <Binding Path="X"/><Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
@@ -292,7 +292,7 @@
         <ItemsControl ItemsSource="{Binding Equipment}">
             <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
-                <Style TargetType="ContentPresenter">
+                <Style TargetType="ContentPresenter"><Setter Property="Visibility" Value="{Binding CharacterScope.IsAllowed, Converter={StaticResource BoolToVisibility}}"/>
                     <Setter Property="Canvas.Left"><Setter.Value><MultiBinding Converter="{StaticResource CenterCoordinate}"><Binding Path="X"/><Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/></MultiBinding></Setter.Value></Setter>
                     <Setter Property="Canvas.Top"><Setter.Value><MultiBinding Converter="{StaticResource CenterCoordinate}"><Binding Path="Y"/><Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/></MultiBinding></Setter.Value></Setter>
                 </Style>

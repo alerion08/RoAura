@@ -550,3 +550,15 @@ Settings and presets remain under `%APPDATA%\RoAura`. Packages exclude personal 
 - Fixed clipped links in the About window and updated the displayed version.
 - Preserved separate appeared/disappeared sounds and volume controls.
 - Discord: http://discord.gg/aleriontv
+
+## Unreleased — Settings and ToC improvements
+
+- Added shared General settings, centralized hotkeys, character aliases/server assignment
+  and navigation visibility preferences. Other is always last in server selection.
+- Added multi-character targeting for every overlay type while retaining legacy defaults.
+- Cooldown wizard learns Skill ID before creating an overlay.
+- Unified empty overlay editors; item/monster cards use tables and collapsed skills.
+- ToC MVP respawn details now come from official map pages; offline snapshot remains compact.
+- Добавлены настройки, менеджер персонажей и выбор видимости навигации; горячие клавиши
+  собраны в одном месте. Оверлеи поддерживают несколько персонажей. Мастер кулдаунов
+  определяет ID до создания; карточки БД и пустые области оверлеев упорядочены.

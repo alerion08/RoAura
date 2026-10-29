@@ -806,8 +806,9 @@ public partial class App : Application
         if (_settingsWindow is null || _overlay is null) return;
         var settings = _settingsWindow.Settings;
         if (!settings.PacketCaptureEnabled) return;
-        foreach (var transition in _statusTracking.Synchronize(settings.Effects,
-                     settings.Reminders, now, settings.Language, settings.Enabled))
+        _overlay.RefreshCharacterScopes();
+        foreach (var transition in _statusTracking.Synchronize(settings.Effects.Where(e => e.CharacterScope.IsAllowed),
+                     settings.Reminders.Where(r => r.CharacterScope.IsAllowed), now, settings.Language, settings.Enabled))
         {
             _overlay.ShowEffectNotification(transition.Effect, transition.Active);
             DebugLog.Write($"PACKET EFFECT TRANSITION status={transition.Effect.StatusId}; active={transition.Active}");
@@ -1082,7 +1083,8 @@ public partial class App : Application
         }
         var settings = _settingsWindow.Settings;
 
-        var matchedItems = FindMatchingEquipmentItems(settings.Equipment, packet);
+        _overlay?.RefreshCharacterScopes();
+        var matchedItems = FindMatchingEquipmentItems(settings.Equipment.Where(e => e.CharacterScope.IsAllowed), packet);
 
         if (packet.Equipped && packet.WearLocation != 0)
         {

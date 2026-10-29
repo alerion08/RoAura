@@ -115,14 +115,9 @@ public partial class MainWindow : Window
         HomeNavButton.IsChecked = true;
         FirstRunPanel.Visibility = _store.IsFirstRun ? Visibility.Visible : Visibility.Collapsed;
         _languageReady = true;
-        ServerProfileBox.SelectedIndex = settings.ServerProfile switch
-        {
-            GameServerProfile.SpringRo => 1,
-            GameServerProfile.Other => 2,
-            GameServerProfile.Toc => 3,
-            _ => 0
-        };
+        ServerProfileBox.SelectedValue = settings.ServerProfile;
         _serverProfileReady = true;
+        Settings.EnsureNavigationSections();
         ApplyServerProfile(save: false);
 
         DetectConnection(userInitiated: false, restartCapture: false);
@@ -210,8 +205,8 @@ public partial class MainWindow : Window
 
     private void UpdateServerProfileLabels()
     {
-        if (ServerProfileBox.Items.Count > 2 && ServerProfileBox.Items[2] is ComboBoxItem other)
-            other.Content = Settings.Language == "en" ? "Other" : "Другой";
+        var other = ServerProfileBox.Items.OfType<ComboBoxItem>().FirstOrDefault(i => (string?)i.Tag == GameServerProfile.Other);
+        if (other is not null) other.Content = Settings.Language == "en" ? "Other" : "Другой";
     }
 
     private void ApplyServerProfile(bool save)
@@ -267,21 +262,21 @@ public partial class MainWindow : Window
     private void UpdateNavigationAvailability()
     {
         var buttons = new[] { HomeNavButton, CooldownNavButton, EffectsNavButton, RemindersNavButton,
-            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton };
+            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton, SettingsNavButton };
         ServicesNavHeading.Visibility = Visibility.Visible;
         for (var i = 0; i < buttons.Length; i++)
         {
             var button = buttons[i];
             var feature = (AppFeature)i;
             var enabled = FeatureAvailability.CanUse(Settings.ServerProfile, Settings.PacketCaptureEnabled, feature);
-            button.Visibility = Visibility.Visible;
+            button.Visibility = Settings.IsNavigationVisible(feature) ? Visibility.Visible : Visibility.Collapsed;
             button.IsEnabled = enabled;
             button.ToolTip = enabled ? null : !Settings.PacketCaptureEnabled && FeatureAvailability.RequiresPackets(feature)
                 ? T("Включите функции чтения пакетов на главной странице.", "Enable packet features on Home.")
                 : T("Недоступно для выбранного сервера.", "Unavailable for the selected server.");
             ToolTipService.SetShowOnDisabled(button, true);
             if (MainTabs.Items[i] is TabItem tab) { tab.Visibility = Visibility.Visible; tab.IsEnabled = enabled; }
-            if (!enabled && MainTabs.SelectedIndex == i) HomeNavButton.IsChecked = true;
+            if ((!enabled || button.Visibility != Visibility.Visible) && MainTabs.SelectedIndex == i) HomeNavButton.IsChecked = true;
         }
     }
 
@@ -880,9 +875,7 @@ public partial class MainWindow : Window
             LootColorsGroup.DataContext = Settings.RewardChannels.FirstOrDefault(c => c.Kind == RewardKind.Loot);
             LocalizationService.ApplyLanguage(Settings.Language);
             LanguageBox.SelectedIndex = Settings.Language == "en" ? 1 : 0;
-            ServerProfileBox.SelectedIndex = Settings.ServerProfile switch
-            { GameServerProfile.SpringRo => 1, GameServerProfile.Other => 2,
-            GameServerProfile.Toc => 3, _ => 0 };
+            ServerProfileBox.SelectedValue = Settings.ServerProfile;
             UpdateServerProfileLabels();
             Settings.SyncCooldownGroups();
             Settings.SyncBuffPanelGroups();
@@ -1059,7 +1052,8 @@ public partial class MainWindow : Window
     private void Add_Click(object sender, RoutedEventArgs e)
     {
         Settings.SyncCooldownGroups();
-        var wizard = new SkillWizardWindow(Settings.CooldownGroups, Settings.Language == "en") { Owner = this };
+        var wizard = new SkillWizardWindow(Settings.CooldownGroups, Settings.Language == "en", StartSkillLearningFromWizard) { Owner = this };
+        wizard.LearningClosed += draft => { if (ReferenceEquals(_learningSkill, draft)) { _learningSkill = null; _learningGeneration++; } };
         if (wizard.ShowDialog() != true || wizard.Result is not { } skill) return;
         skill.X = 100 + Settings.Skills.Count * 80;
         skill.Y = 100;
@@ -1071,14 +1065,16 @@ public partial class MainWindow : Window
         SkillsGrid.SelectedItem = skill;
         SkillsGrid.ScrollIntoView(skill);
         SaveSettings();
-        if (wizard.LearnAfterCreate)
-        {
-            if (!EnsureNpcap()) return;
-            StartLearning();
-            _learningSkill = skill;
-            skill.LearningObservation = "";
-            SetStatus(T($"Примените «{skill.Name}» в RO в течение 20 секунд.", $"Use “{skill.Name}” in RO within 20 seconds."));
-        }
+
+    }
+
+    private void StartSkillLearningFromWizard(SkillAura draft)
+    {
+        if (!EnsureNpcap()) { draft.LearningObservation = T("Чтение пакетов недоступно. Проверьте Npcap и переключатель на главной.", "Packet reading unavailable. Check Npcap and the Home switch."); return; }
+        StartLearning();
+        _learningSkill = draft;
+        draft.LearningObservation = "";
+        _ = ExpireLearningAsync(draft.Id, "skill", _learningGeneration);
     }
 
     private void Delete_Click(object sender, RoutedEventArgs e)
@@ -1668,7 +1664,7 @@ public partial class MainWindow : Window
             // same row (a common path after relogging to populate item cache).
             if (generation != _learningGeneration) return;
             var expired = false;
-            if (kind == "skill" && _learningSkill?.Id == id) { _learningSkill = null; expired = true; }
+            if (kind == "skill" && _learningSkill?.Id == id) { _learningSkill.LearningObservation = T("ID не обнаружен. Повторите определение.", "ID was not detected. Retry detection."); _learningSkill = null; expired = true; }
             else if (kind == "effect" && _learningEffect?.Id == id) { _learningEffect = null; expired = true; }
             else if (kind == "reminder" && _learningReminder?.Id == id) { _learningReminder = null; expired = true; }
             else if (kind == "equipment" && _learningEquipment?.Id == id) { _learningEquipment = null; expired = true; }

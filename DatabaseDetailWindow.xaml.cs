@@ -55,7 +55,6 @@ public partial class DatabaseDetailWindow : Window
             case DatabaseItem item when _database.Version == GameDatabaseVersion.Toc:
                 ShowItem(item, new SpringRoItemDetails { ImageUrl = item.ImageUrl, Description = item.Description,
                     NpcSellValue = item.NpcSellPrice.ToString("N0") }, false);
-                foreach (var field in item.Stats) AddLine(field.Key, field.Value);
                 break;
             case DatabaseItem item:
                 ShowItem(item, null, true);
@@ -87,34 +86,8 @@ public partial class DatabaseDetailWindow : Window
         var title = new StackPanel(); title.Children.Add(Heading(monster.Name, 20));
         title.Children.Add(Meta($"#{monster.Id} · Lv {monster.Level}\n{monster.Race} · {monster.Element} · {monster.Size}"));
         header.Children.Add(title); DetailsPanel.Children.Add(header);
-        AddSection(T("Характеристики", "Stats"));
-        if (monster.Stats.Count > 0)
-            foreach (var stat in monster.Stats) AddLine(MonsterField(stat.Key), stat.Value);
-        else
-        {
-            AddLine("HP", monster.Hp); AddLine("ATK", monster.Attack);
-            AddLine("DEF / MDEF", $"{monster.Defense} / {monster.MagicDefense}");
-            AddLine("Base / Job EXP", $"{monster.BaseExp} / {monster.JobExp}");
-        }
-        if (monster.ElementDamage.Count > 0)
-        {
-            AddSection(T("Урон стихий по монстру", "Element damage"));
-            foreach (var element in monster.ElementDamage) AddLine(MonsterField(element.Key), element.Value);
-        }
-        if (monster.Behavior.Count > 0)
-        {
-            AddSection(T("Поведение", "Behavior"));
-            foreach (var behavior in monster.Behavior) AddLine(MonsterField(behavior.Key), MonsterValue(behavior.Value));
-        }
-        if (monster.Skills.Count > 0)
-        {
-            AddSection(T($"Навыки ({monster.Skills.Count})", $"Skills ({monster.Skills.Count})"));
-            foreach (var skill in monster.Skills)
-            {
-                AddLine(skill.Name, $"{(skill.Level.Length > 0 ? "Lv " + skill.Level : "—")}{(skill.Type.Length > 0 ? " · " + skill.Type : "")}");
-                if (skill.Description.Length > 0) DetailsPanel.Children.Add(Meta(skill.Description));
-            }
-        }
+        ShowMonsterStatistics(monster);
+        ShowMonsterSkills(monster.Skills);
         AddSection(T($"Дроп ({monster.Drops.Count})", $"Drops ({monster.Drops.Count})"));
         foreach (var drop in monster.Drops.OrderByDescending(x => ParseRate(x.Rate)))
             AddLink($"{drop.Name} — {drop.Rate}{(drop.IsMvp ? " MVP" : "")}{(_database.Version == GameDatabaseVersion.Toc && drop.IsMvp ? T(" · базовый шанс", " · base rate") : "")}", () => OpenItem(drop.ItemId));
@@ -146,7 +119,8 @@ public partial class DatabaseDetailWindow : Window
         DetailsPanel.Children.Add(itemHeader);
 
         AddSection(T("Информация", "Information"));
-        if (loading)
+        if (_database.Version == GameDatabaseVersion.Toc) ShowTocItemInformation(item);
+        else if (loading)
             DetailsPanel.Children.Add(Meta(T("Загружаем актуальные данные SpringRO…", "Loading current SpringRO data…")));
         else if (detail is not null)
         {
@@ -245,7 +219,7 @@ public partial class DatabaseDetailWindow : Window
     private void OpenItem(int id) { var value = _database.Item(id); if (value is not null) ShowDetails(value); }
     private void OpenMap(string code) { var value = _database.Map(code); if (value is not null) ShowDetails(value); }
     private void AddSection(string text) => DetailsPanel.Children.Add(new TextBlock { Text = text, FontFamily = new FontFamily("Georgia"), FontWeight = FontWeights.Bold, FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(23,78,145)), Margin = new Thickness(0,15,0,5) });
-    private void AddLine(string name, string value) => DetailsPanel.Children.Add(new TextBlock { Text = $"{name}: {value}", Margin = new Thickness(0,2,0,2), FontSize = 12 });
+    private void AddLine(string name, string value) => DetailsPanel.Children.Add(new TextBlock { Text = $"{name}: {value}", TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0,2,0,2), FontSize = 12 });
     private void AddLink(string text, Action action) { var label = new TextBlock { Text = text, TextWrapping = TextWrapping.Wrap }; var button = new Button { Content = label, HorizontalContentAlignment = HorizontalAlignment.Left, Margin = new Thickness(0,2,0,2), Padding = new Thickness(7,4,7,4), FontSize = 11 }; button.Click += (_, _) => action(); DetailsPanel.Children.Add(button); }
     private static TextBlock Heading(string text, double size) => new() { Text = text, FontFamily = new FontFamily("Georgia"), FontWeight = FontWeights.Bold, FontSize = size, Foreground = new SolidColorBrush(Color.FromRgb(23,78,145)), TextWrapping = TextWrapping.Wrap, MaxWidth = 260 };
     private static TextBlock Meta(string text) => new() { Text = text, Foreground = new SolidColorBrush(Color.FromRgb(91,116,150)), Margin = new Thickness(0,4,0,4), TextWrapping = TextWrapping.Wrap };

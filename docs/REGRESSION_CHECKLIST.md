@@ -207,3 +207,16 @@ Before merging to `main` or publishing:
   EXP/loot/Gold Goblin session; no old server events or history are attributed.
 - [ ] Restart and apply named presets with packets off: off remains off; settings,
   timers, rules, positions and saved character history remain intact.
+
+## Settings / scopes / ToC cards
+
+- [ ] Home and Settings share connection controls, packet switch and language/server.
+- [ ] All five hotkeys edit/persist; Other is last; navigation preferences persist.
+- [ ] Home/Settings cannot be hidden; packet-disabled features remain gray.
+- [ ] CID aliases survive presets; same CID on different servers remains separate.
+- [ ] All overlay types: empty scope, one/multiple characters, unknown CID, relog.
+- [ ] Overlay coordinates and legacy settings survive schema 13 migration.
+- [ ] Cooldown ID is visible before creation; retry/back/cancel leaves no overlay.
+- [ ] Four empty overlay list/editor areas align in RU/EN and high DPI.
+- [ ] Item/monster cards wrap text; skills begin collapsed; Baphomet 120–130 min.
+- [ ] Existing user timer intervals stay unchanged when loading new respawn hints.

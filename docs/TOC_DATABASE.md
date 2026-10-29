@@ -12,15 +12,19 @@ integration or custom protocol decoder is claimed.
 - 9,894 items, 1,061 monsters, 61 MVPs.
 - 4,946 resolved normal-drop rows and 156 MVP reward rows.
 - All indexed normal-drop item IDs and MVP reward Aegis names resolve locally.
-- SQLite file: 12,386,304 bytes (11.81 MiB); full record JSON before compression:
+- SQLite file: 12,402,688 bytes (11.83 MiB); full record JSON before compression:
   31,764,418 bytes. Exact checksum is in `database.toc.manifest.json`.
 - Integrity, every payload ID, counts and manifest checksum checked locally.
   Six importer/reader regression tests pass. SQLite readers explicitly close
   handles, including fixture cleanup on Windows (the first CI run exposed a
   Windows file-lock failure in the test harness; corrected in the follow-up). Item 501/909 list/detail records
   match exactly; all twelve inverse Jellopy drop rows match its public detail.
-- Across **all** retrieved spawn records, the only fields are `map_name`,
-  `map_display_name` and `amount`: respawn times are not published here.
+- Monster detail endpoints omit timing. Schema 2 additionally stores 53 spawn-location
+  records from 48 `/api/v1/maps/{code}` responses, linked to official map detail pages.
+  Exact `delay1`, `delay2`, amount, coordinates and published `spawn_time` are retained.
+  Baphomet on prt_maze03 is `120~130 min`; absent timing remains unknown.
+- `tools/enrich_toc_respawns.py` stages updates and preserves the old snapshot on fetch
+  failure. The full builder stages both catalog and map enrichment before replacing it.
 - Full Windows app tests and portable packaging are delegated to this branch's
   validation workflow; no local .NET SDK is available. Game integration is outside
   this data-only change and has no ToC manual acceptance yet.

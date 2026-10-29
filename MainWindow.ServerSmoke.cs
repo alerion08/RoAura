@@ -8,12 +8,12 @@ public partial class MainWindow
     // Invoked only by the existing isolated package --smoke-test startup.
     internal void ValidateServerNavigationSmoke()
     {
-        var selected = ServerProfileBox.SelectedIndex;
+        var selected = ServerProfileBox.SelectedValue;
         var capture = Settings.PacketCaptureEnabled;
         try
         {
             Settings.PacketCaptureEnabled = false;
-            ServerProfileBox.SelectedIndex = 3;
+            ServerProfileBox.SelectedValue = GameServerProfile.Toc;
             if (Settings.ServerProfile != GameServerProfile.Toc || _monsters.Count != 61 || _items.Count != 9894)
                 throw new InvalidOperationException("ToC profile did not load its catalogs.");
             if (!DatabaseNavButton.IsEnabled || !MvpNavButton.IsEnabled || LootNavButton.IsEnabled || GoldGoblinNavButton.IsEnabled || EffectsNavButton.IsEnabled)
@@ -22,10 +22,10 @@ public partial class MainWindow
                 if (nav.Visibility != Visibility.Visible) throw new InvalidOperationException("Unavailable navigation must remain visible.");
             if (PacketFeaturesToggle.IsChecked != false)
                 throw new InvalidOperationException("Home packet toggle binding is incorrect.");
-            ServerProfileBox.SelectedIndex = 2;
+            ServerProfileBox.SelectedValue = GameServerProfile.Other;
             if (DatabaseNavButton.IsEnabled || MvpNavButton.IsEnabled || DatabaseNavButton.Visibility != Visibility.Visible)
                 throw new InvalidOperationException("Unsupported-server navigation is incorrect.");
-            ServerProfileBox.SelectedIndex = 3;
+            ServerProfileBox.SelectedValue = GameServerProfile.Toc;
             Settings.PacketCaptureEnabled = true;
             if (!EffectsNavButton.IsEnabled || !LootNavButton.IsEnabled || !GoldGoblinNavButton.IsEnabled)
                 throw new InvalidOperationException("Packet feature navigation did not restore.");
@@ -33,7 +33,7 @@ public partial class MainWindow
         }
         finally
         {
-            ServerProfileBox.SelectedIndex = selected;
+            ServerProfileBox.SelectedValue = selected;
             Settings.PacketCaptureEnabled = capture;
         }
     }

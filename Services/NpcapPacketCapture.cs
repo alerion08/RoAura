@@ -145,7 +145,7 @@ public sealed class NpcapPacketCapture : IDisposable
             _clientStatusBridge?.Dispose();
             _clientStatusBridge = null;
             _springRoStatusCorrelationEnabled =
-                settings.PacketCaptureEnabled && GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
+                settings.PacketCaptureEnabled && !AppEnvironment.IsSmokeTest && GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
             if (_springRoStatusCorrelationEnabled)
             {
                 _clientStatusBridge = new SpringRoClientStatusBridge();
@@ -183,7 +183,7 @@ public sealed class NpcapPacketCapture : IDisposable
                 };
             }
 
-            if (!settings.PacketCaptureEnabled)
+            if (!settings.PacketCaptureEnabled || AppEnvironment.IsSmokeTest)
             {
                 SetState(generation, L("Пакеты: отключены", "Packets: disabled"));
                 return;

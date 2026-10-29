@@ -7,6 +7,7 @@ on:
       - "integration/**"
       - "feature/toc-local-database"
       - "feature/toc-server-integration"
+      - "feature/settings-character-overlays"
   pull_request:
     branches:
       - "dev/roaura-2-ui"
@@ -31,7 +32,7 @@ jobs:
       - name: Validate ToC catalog and importer
         shell: pwsh
         run: |
-          python -m unittest discover -s tools -p test_build_toc_database.py
+          python -m unittest discover -s tools -p 'test_*toc*.py'
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python tools/inspect_toc_database.py Data/database.toc.sqlite
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

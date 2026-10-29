@@ -16,8 +16,11 @@ public static class AppEnvironment
     public const string SingleInstanceMutexName = @"Local\RoAura.SingleInstance";
     public const string ActivateEventName = @"Local\RoAura.Activate";
 #endif
-    public static string RoamingDirectory => Path.Combine(
+    public static bool IsSmokeTest { get; } = Environment.GetCommandLineArgs().Contains("--smoke-test", StringComparer.OrdinalIgnoreCase);
+    private static readonly string SmokeRoot = Environment.GetEnvironmentVariable("ROAURA_SMOKE_DATA")
+        ?? Path.Combine(Path.GetTempPath(), "RoAura-Smoke-" + Guid.NewGuid().ToString("N"));
+    public static string RoamingDirectory => IsSmokeTest ? Path.Combine(SmokeRoot, "Roaming") : Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), DataFolderName);
-    public static string LocalDirectory => Path.Combine(
+    public static string LocalDirectory => IsSmokeTest ? Path.Combine(SmokeRoot, "Local") : Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DataFolderName);
 }

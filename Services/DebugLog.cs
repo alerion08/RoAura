@@ -33,9 +33,7 @@ public static class DebugLog
     private static long _flushTicket;
     private static long _flushCompleted;
 
-    public static string PathName { get; } = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        AppEnvironment.DataFolderName, "debug.log");
+    public static string PathName { get; } = Path.Combine(AppEnvironment.RoamingDirectory, "debug.log");
 
     public static void Write(string message)
     {

@@ -10,7 +10,7 @@ public sealed class SettingsStore
     private const string UiUpgradeBackupMarker = "ui-2.0-backup.completed";
     private const string FirstRunPendingMarker = "first-run.pending";
     private const string FirstRunCompletedMarker = "first-run.completed";
-    private const int CurrentSettingsVersion = 12;
+    private const int CurrentSettingsVersion = 13;
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -47,8 +47,7 @@ public sealed class SettingsStore
     public string? LoadRecoveryPath { get; private set; }
     public string? LastSaveError { get; private set; }
 
-    public SettingsStore() : this(Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppEnvironment.DataFolderName))
+    public SettingsStore() : this(AppEnvironment.RoamingDirectory)
     {
     }
 
@@ -320,8 +319,17 @@ public sealed class SettingsStore
         settings.Equipment ??= new();
         settings.MvpTimers ??= new();
         settings.TocMvpTimers ??= new();
+        settings.Characters ??= new();
+        settings.NavigationSections ??= new();
+        settings.EnsureNavigationSections();
+        foreach (var skill in settings.Skills) { skill.CharacterScope ??= new(); skill.CharacterScope.Characters ??= new(); }
+        foreach (var effect in settings.Effects) { effect.CharacterScope ??= new(); effect.CharacterScope.Characters ??= new(); }
+        foreach (var reminder in settings.Reminders) { reminder.CharacterScope ??= new(); reminder.CharacterScope.Characters ??= new(); }
+        foreach (var equipment in settings.Equipment) { equipment.CharacterScope ??= new(); equipment.CharacterScope.Characters ??= new(); }
         settings.TocGoldGoblinPriceRules ??= new();
         settings.BuffPanelGroups ??= new();
+        foreach (var group in settings.BuffPanelGroups) { group.CharacterScope ??= new(); group.CharacterScope.Characters ??= new(); }
+
         settings.RewardChannels ??= new();
         settings.RewardGroups ??= new();
         settings.RateIndicators ??= new();

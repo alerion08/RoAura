@@ -66,7 +66,8 @@ public sealed class AppSettings : INotifyPropertyChanged
 
     [JsonIgnore] public bool SupportsMarket => GameServerProfile.SupportsMarket(ServerProfile);
 
-    public bool Enabled { get; set; } = true;
+    private bool _enabled = true;
+    public bool Enabled { get => _enabled; set => Set(ref _enabled, value); }
     public bool OnlyWhenGameIsActive { get; set; } = true;
     public bool ShowShortNames { get => _showShortNames; set => Set(ref _showShortNames, value); }
     public bool ShowReadyText { get => _showReadyText; set => Set(ref _showReadyText, value); }
@@ -164,7 +165,31 @@ public sealed class AppSettings : INotifyPropertyChanged
             _ => Language == "en" ? "Packets: connection error" : "Пакеты: ошибка подключения"
         };
     }
-    public List<string> AllowedProcesses { get; set; } = ["PRM", "Refuge", "ragexe", "RagexeRE"];
+    private List<string> _allowedProcesses = ["PRM", "Refuge", "ragexe", "RagexeRE"];
+    public List<string> AllowedProcesses
+    {
+        get => _allowedProcesses;
+        set
+        {
+            var incoming = value ?? [];
+            if (_allowedProcesses.SequenceEqual(incoming, StringComparer.OrdinalIgnoreCase)) return;
+            Set(ref _allowedProcesses, incoming);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllowedProcessesText)));
+        }
+    }
+    [JsonIgnore] public string AllowedProcessesText
+    {
+        get => string.Join(", ", AllowedProcesses);
+        set => AllowedProcesses = (value ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+    }
+    public ObservableCollection<CharacterProfile> Characters { get; set; } = [];
+    public ObservableCollection<NavigationPreference> NavigationSections { get; set; } = [];
+    public void EnsureNavigationSections()
+    {
+        foreach (var feature in Enum.GetValues<AppFeature>().Where(f => f is not (AppFeature.Home or AppFeature.Settings)))
+            if (!NavigationSections.Any(p => p.Feature == feature)) NavigationSections.Add(new NavigationPreference { Feature = feature });
+    }
+    public bool IsNavigationVisible(AppFeature feature) => feature is AppFeature.Home or AppFeature.Settings || NavigationSections.FirstOrDefault(p => p.Feature == feature)?.Visible != false;
     public ObservableCollection<SkillAura> Skills { get; set; } = [];
     public ObservableCollection<CooldownGroupSettings> CooldownGroups { get; set; } = [];
 

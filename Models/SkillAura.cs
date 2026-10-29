@@ -7,6 +7,8 @@ namespace RoAura.Models;
 
 public sealed class SkillAura : INotifyPropertyChanged
 {
+    public CharacterScope CharacterScope { get; set; } = new();
+
     private string _name = "Новый скилл";
     private double _cooldownSeconds = 5;
     private double _x = 100;

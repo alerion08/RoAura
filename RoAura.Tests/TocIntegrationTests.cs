@@ -48,6 +48,8 @@ public sealed class TocIntegrationTests
         Assert.Contains(poring.Drops, d => d.ItemId == 909 && d.Rate == "100%" && !d.IsMvp);
         Assert.All(poring.Spawns, s => Assert.Equal("—", s.Respawn));
         Assert.NotEmpty(poring.Skills);
+        Assert.Contains(database.Monsters.Single(m => m.Id == 1039).Spawns,
+            s => s.Respawn == "120~130 min");
         var potion = database.Items.Single(i => i.Id == 501);
         Assert.Equal(25, potion.NpcSellPrice);
         Assert.Contains("potion", potion.Description, StringComparison.OrdinalIgnoreCase);
@@ -106,7 +108,7 @@ public sealed class TocIntegrationTests
             settings.MvpTimers.Add(new MvpTimer { Name = "Legacy" });
             store.Save(settings);
             var restored = new SettingsStore(root).Load();
-            Assert.Equal(12, restored.SettingsVersion);
+            Assert.Equal(13, restored.SettingsVersion);
             Assert.Equal("ToC", restored.ServerProfile);
             Assert.False(restored.PacketCaptureEnabled);
             Assert.Equal(1039, Assert.Single(restored.ActiveMvpTimers).MonsterId);

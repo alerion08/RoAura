@@ -72,12 +72,12 @@ public sealed partial class SpringRoMarketService
             $"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 RoAura/{version}");
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
         _client.DefaultRequestHeaders.AcceptLanguage.ParseAdd("en-US,en;q=0.9");
-        var directory = cacheDirectory ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AppEnvironment.DataFolderName);
+        var directory = cacheDirectory ?? AppEnvironment.LocalDirectory;
         _cachePath = Path.Combine(directory, "springro-market-cache.json");
         _snapshotPath = Path.Combine(directory, "springro-market-snapshot.json");
         // Older builds kept the files under Roaming; read them once as a fallback so
         // the cache is not lost. New writes always go to LocalApplicationData.
-        var legacyDirectory = cacheDirectory ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppEnvironment.DataFolderName);
+        var legacyDirectory = cacheDirectory ?? AppEnvironment.RoamingDirectory;
         _legacyCachePath = Path.Combine(legacyDirectory, "springro-market-cache.json");
         _legacySnapshotPath = Path.Combine(legacyDirectory, "springro-market-snapshot.json");
         LoadPersistentCache();

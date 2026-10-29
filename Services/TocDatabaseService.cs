@@ -78,6 +78,29 @@ public static class TocDatabaseService
                 result.Monsters.Add(m);
             }
         }
+        // The monster endpoint omits respawns; map pages are the authoritative source.
+        List<JsonDocument> timingDocuments;
+        try { timingDocuments = Read(path, "mvp_respawns").ToList(); }
+        catch (InvalidDataException) { timingDocuments = []; } // tolerate an older catalog file
+        foreach (var group in timingDocuments.GroupBy(d => (Code: Text(d.RootElement, "map_code"), Id: Int(d.RootElement, "monster_id"))))
+        {
+            var monster = result.Monsters.FirstOrDefault(m => m.Id == group.Key.Id);
+            if (monster is null) { foreach (var d in group) d.Dispose(); continue; }
+            monster.Spawns.RemoveAll(s => s.Code == group.Key.Code);
+            if (maps.TryGetValue(group.Key.Code, out var map)) map.Monsters.RemoveAll(m => m.MonsterId == monster.Id);
+            foreach (var document in group)
+            {
+                using (document)
+                {
+                    var timing = document.RootElement;
+                    var spawn = new DatabaseSpawn { Code = group.Key.Code, Name = Text(timing, "map_name"),
+                        Count = Text(timing, "amount"), Respawn = Text(timing, "spawn_time") };
+                    if (spawn.Respawn.Length == 0) spawn.Respawn = "—";
+                    monster.Spawns.Add(spawn);
+                    map?.Monsters.Add(new DatabaseMapMonster { MonsterId = monster.Id, Name = monster.Name, Count = spawn.Count, Respawn = spawn.Respawn });
+                }
+            }
+        }
         result.Maps = maps.Values.OrderBy(m => m.Code).ToList();
         return result;
     }
