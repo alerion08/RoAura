@@ -56,7 +56,12 @@ public sealed class TocIntegrationTests
         var catalog = ItemCatalogService.Load(GameDatabaseVersion.Toc);
         Assert.Equal(9894, catalog.Count);
         Assert.Contains(catalog.Values, item => item.FullName.Contains("[3]"));
-        Assert.Equal(61, MonsterCatalogService.Load(GameDatabaseVersion.Toc).Count);
+        var mvps = MonsterCatalogService.Load(GameDatabaseVersion.Toc);
+        Assert.Equal(61, mvps.Count);
+        Assert.All(mvps, m => Assert.StartsWith("https://tidesofcomodo.com/", m.ImagePath));
+        var timer = new MvpTimer { MonsterId = mvps[0].Id };
+        timer.SetMonsterDetails(mvps[0]);
+        Assert.Equal(mvps[0].ImagePath, timer.MonsterImagePath);
         database.Reload(GameDatabaseVersion.SpringRo);
         Assert.Equal(GameDatabaseVersion.SpringRo, database.Version);
         Assert.DoesNotContain(database.Items, i => i.ImageUrl.StartsWith("https://tidesofcomodo.com/"));
@@ -122,8 +127,16 @@ public sealed class TocIntegrationTests
         Assert.Equal(31, service.ResolveUnitPrice(501, "Red Potion"));
         settings.TocGoldGoblinPriceRules.Add(new GoldGoblinPriceRule { ItemId = 501, ManualPrice = 77, UseVendingPrice = true });
         Assert.Equal((77L, "Manual", true), service.ResolvePriceInfo(501, "Red Potion"));
+        service.AddLoot(501, "Red Potion", 3);
         settings.ServerProfile = GameServerProfile.SpringRo;
+        Assert.Empty(service.Rows);
         Assert.Equal(999, service.ResolveUnitPrice(501, "Red Potion"));
+        service.AddLoot(501, "Red Potion", 7);
+        settings.ServerProfile = GameServerProfile.Toc;
+        Assert.Equal(3, Assert.Single(service.Rows).Count);
+        Assert.Equal(77, Assert.Single(service.Rows).Cost);
+        settings.ServerProfile = GameServerProfile.SpringRo;
+        Assert.Equal(7, Assert.Single(service.Rows).Count);
     }
 
     [Fact]

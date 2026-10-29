@@ -20,7 +20,7 @@ public static class MonsterCatalogService
             try
             {
                 return TocDatabaseService.Database.Monsters.Where(m => m.IsMvp).OrderBy(m => m.Name).Select(m => new MonsterEntry
-                { Id = m.Id, Name = m.Name, IsMvp = true, Spawns = m.Spawns.Select(s => new MonsterSpawnEntry
+                { Id = m.Id, Name = m.Name, ImageUrl = m.ImageUrl, IsMvp = true, Spawns = m.Spawns.Select(s => new MonsterSpawnEntry
                   { Code = s.Code, Name = s.Name, Count = s.Count, Respawn = s.Respawn }).ToList() }).ToList();
             }
             catch (Exception ex)

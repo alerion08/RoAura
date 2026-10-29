@@ -16,6 +16,8 @@ public sealed class GoldGoblinService
     // be marshalled before touching it.
     private readonly Dispatcher? _dispatcher;
     private bool _restoringCharacterRows;
+    private string _priceProfile;
+    private readonly Dictionary<string, (IReadOnlyList<CharacterLootCount> Rows, DateTime? Started)> _serverRows = [];
     public ObservableCollection<GoldGoblinLootRow> Rows { get; } = [];
     public event Action? Changed;
     public long SessionTotal => Rows.Sum(row => row.Total);
@@ -26,6 +28,7 @@ public sealed class GoldGoblinService
         _settings = settings;
         _market = market;
         _dispatcher = System.Windows.Application.Current?.Dispatcher ?? Dispatcher.FromThread(Thread.CurrentThread);
+        _priceProfile = GameServerProfile.Normalize(settings.ServerProfile);
         _prices = LoadPrices(settings.ServerProfile);
         foreach (var rules in new[] { settings.GoldGoblinPriceRules, settings.TocGoldGoblinPriceRules })
         {
@@ -42,8 +45,13 @@ public sealed class GoldGoblinService
             if (args.PropertyName == nameof(AppSettings.GoldGoblinOverchargeLevel)) Reprice();
             if (args.PropertyName == nameof(AppSettings.ServerProfile))
             {
+                _serverRows[_priceProfile] = (SnapshotCharacterRows(), SessionStartedUtc);
+                _priceProfile = GameServerProfile.Normalize(settings.ServerProfile);
                 _prices = LoadPrices(settings.ServerProfile);
-                Reset();
+                var saved = _serverRows.GetValueOrDefault(_priceProfile);
+                RestoreCharacterRows(saved.Rows ?? Array.Empty<CharacterLootCount>(),
+                    saved.Started.HasValue ? DateTime.UtcNow - saved.Started.Value : TimeSpan.Zero,
+                    saved.Started.HasValue);
             }
         };
         market.DataUpdated += Market_DataUpdated;

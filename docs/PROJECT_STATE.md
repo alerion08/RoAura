@@ -16,7 +16,8 @@ Implemented in this block:
 - ToC NPC prices and manual valuation in Gold Goblin; no SpringRO vending prices,
   item HTTP requests or market/watch UI for ToC. Unknown respawns stay unknown;
   ToC MVP timer intervals are entered manually.
-- Separate persisted ToC timer and price-rule collections. Legacy collections and
+- Separate persisted ToC timer and price-rule collections; transient Gold Goblin
+  rows are retained per server during switches instead of being cleared. Legacy collections and
   layout settings are retained. Settings schema is 12 so older releases preserve a
   newer-version recovery copy. Packet preference remains the existing persisted
   `PacketCaptureEnabled` field and participates in presets.
