@@ -24,6 +24,7 @@ from reconcile import SCHEMA as REVIEW_SCHEMA, create_reviews
 from state import SCHEMA as STATE_SCHEMA, create_state_facts
 from runtime import make_runtime
 from audit import summarize_review_queue
+from triage import triage_review
 from augment import augment_evidence
 from quality import (ensure_quality_schema, update_state, state_counts,
                      dataset_counts, check_nonregression, too_few_steps)
@@ -487,6 +488,10 @@ def main():
     report["quality"]["review_queue"]=review["metrics"]
     (target/"quest_review_queue.json").write_text(
         json.dumps(review,ensure_ascii=False,indent=2),encoding="utf-8")
+    critical=triage_review(review)
+    report["quality"]["critical_triage"]=critical["counts"]
+    (target/"critical_quest_triage.json").write_text(
+        json.dumps(critical,ensure_ascii=False,indent=2),encoding="utf-8")
     db.close()
     report["questie_schema_version"]=report["runtime_export"]["schema_version"]
     (target/"coverage.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
