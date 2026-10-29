@@ -92,6 +92,7 @@ def create_dossiers(db,max_dialogue_examples=4,max_fact_examples=16):
                WHERE e.page_id=? AND e.source_id=?
                ORDER BY n.line_start,n.id""",(pid,sid)).fetchall()
             sections=[]
+            pending_facts=[]
             dialogue_count=quest_count=item_count=variable_count=menu_count=guard_count=0
             quest_ids=set()
             all_guide=[]
@@ -144,10 +145,7 @@ def create_dossiers(db,max_dialogue_examples=4,max_fact_examples=16):
                 menu_count+=menus
                 guard_count+=guards
                 for f in facts:
-                    db.execute("""INSERT INTO wiki_missing_script_dossier_facts
-                        (page_id,source_id,npc_id,line_no,occurrence,role,object_id,argument,context_guard_line)
-                        VALUES(?,?,?,?,?,?,?,?,?)""",
-                        (pid,sid,nid,f[0],f[1],f[2],f[4],f[7],f[8]))
+                    pending_facts.append((pid,sid,nid,f[0],f[1],f[2],f[4],f[7],f[8]))
                 sections.append({
                     "npc_id":nid,"npc_ordinal":ordinal,"name":name,
                     "map":mapname,"x":x,"y":y,
@@ -191,6 +189,11 @@ def create_dossiers(db,max_dialogue_examples=4,max_fact_examples=16):
                VALUES(?,?,?,?,?,?,?,?,?,?,?,?)""",
                (pid,sid,len(source),dialogue_count,quest_count,item_count,variable_count,
                 len(quest_ids),menu_count,guard_count,status,",".join(flags)))
+            # Insert the parent dossier before its source fact evidence: strict
+            # SQLite FK checks must remain active during both build and tests.
+            db.executemany("""INSERT INTO wiki_missing_script_dossier_facts
+              (page_id,source_id,npc_id,line_no,occurrence,role,object_id,argument,context_guard_line)
+              VALUES(?,?,?,?,?,?,?,?,?)""",pending_facts)
             counts[status]+=1
             for flag in flags:counts["flag_"+flag]+=1
             dossiers.append({
