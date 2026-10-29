@@ -5,6 +5,7 @@ not fully parsed. A transitive path only means that wiki pages cite other
 pages in a chain. Cycles are retained in diagnostics, never as self-edges.
 """
 from collections import defaultdict,deque
+from prerequisites import SCHEMA as PREREQ_SCHEMA
 
 SCHEMA="""
 CREATE TABLE IF NOT EXISTS wiki_prerequisite_paths(
@@ -16,6 +17,7 @@ CREATE TABLE IF NOT EXISTS wiki_prerequisite_paths(
 ) WITHOUT ROWID;
 """
 def build_dependency_paths(db):
+    db.executescript(PREREQ_SCHEMA)
     db.executescript(SCHEMA)
     adjacency=defaultdict(set)
     for pid,other in db.execute("SELECT page_id,prerequisite_page_id FROM wiki_quest_prerequisite_links"):
