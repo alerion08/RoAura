@@ -397,14 +397,17 @@ def main():
     p.add_argument("--skip-wiki",action="store_true")
     p.add_argument("--skip-hercules",action="store_true")
     p.add_argument("--enrich-only",action="store_true",help="Reparse cached source SQLite without network access")
+    p.add_argument("--refresh-wiki-only",action="store_true",help="Refresh wiki HTML only; preserve cached upstream NPC scripts")
     args=p.parse_args()
     target=Path(args.out);target.mkdir(parents=True,exist_ok=True)
     dst=target/"quest_research.sqlite"
-    if args.enrich_only and (not dst.is_file() or dst.stat().st_size<1000):
-        raise SystemExit("--enrich-only requires existing validated quest_research.sqlite")
+    if args.enrich_only and args.refresh_wiki_only:
+        raise SystemExit("--enrich-only and --refresh-wiki-only are mutually exclusive")
+    if (args.enrich_only or args.refresh_wiki_only) and (not dst.is_file() or dst.stat().st_size<1000):
+        raise SystemExit("Incremental mode requires existing validated quest_research.sqlite")
     previous=None
     coverage_file=target/"coverage.json"
-    if args.enrich_only and coverage_file.is_file():
+    if (args.enrich_only or args.refresh_wiki_only) and coverage_file.is_file():
         previous=json.loads(coverage_file.read_text(encoding="utf-8"))
     db=sqlite3.connect(dst)
     db.executescript(SCHEMA)
@@ -434,6 +437,16 @@ def main():
         report["source_snapshot_utc"]=previous.get("source_snapshot_utc",previous.get("created_utc")) if previous else None
         report["fetch_mode"]="reused_existing_snapshot"
         print("Reusing existing captured wiki and NPC scripts without network requests",flush=True)
+    elif args.refresh_wiki_only:
+        for table in ("provenance","wiki_pages","script_npcs","wiki_steps"):
+            if db.execute("SELECT count(*) FROM "+table).fetchone()[0]==0:
+                raise SystemExit("Existing research database is missing required records: "+table)
+        report["sources"]=dict(previous.get("sources",{})) if previous else {}
+        report["sources"]["irowiki_classic"]=ingest_wiki(db,args.wiki_limit)
+        report["source_snapshot_utc"]=previous.get("source_snapshot_utc") if previous else None
+        report["wiki_snapshot_utc"]=report["created_utc"]
+        report["fetch_mode"]="wiki_refreshed_cached_npc_sources"
+        print("Wiki refreshed while original NPC script revisions remain unchanged",flush=True)
     else:
         session=requests.Session()
         session.headers.update({"User-Agent":UA})
