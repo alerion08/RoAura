@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate a ToC snapshot or print a complete offline item/monster record."""
 import argparse
+from contextlib import closing
 import hashlib
 import json
 import pathlib
@@ -10,7 +11,7 @@ from build_toc_database import unpacked
 
 
 def inspect(path, kind=None, identifier=None):
-    with sqlite3.connect(path.resolve().as_uri() + '?mode=ro', uri=True) as db:
+    with closing(sqlite3.connect(path.resolve().as_uri() + '?mode=ro', uri=True)) as db:
         if kind:
             table = {'item': 'items', 'monster': 'monsters', 'mvp': 'mvp'}[kind]
             row = db.execute(f'SELECT payload FROM {table} WHERE id=?', (identifier,)).fetchone()

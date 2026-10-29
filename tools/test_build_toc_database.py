@@ -39,7 +39,7 @@ class CatalogTests(unittest.TestCase):
             path = pathlib.Path(temp) / 'db.sqlite'
             with contextlib.redirect_stdout(io.StringIO()):
                 toc.build(path, Fixture(), 1)
-            with sqlite3.connect(path) as db:
+            with contextlib.closing(sqlite3.connect(path)) as db:
                 self.assertEqual(db.execute('PRAGMA integrity_check').fetchone()[0], 'ok')
                 self.assertEqual(db.execute('SELECT id FROM mvp').fetchall(), [(1002,)])
                 raw = toc.unpacked(db.execute('SELECT payload FROM monsters').fetchone()[0])

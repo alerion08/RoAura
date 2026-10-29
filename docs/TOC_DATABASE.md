@@ -12,7 +12,9 @@ is implied by this catalog. Existing settings, presets and server behavior are u
 - SQLite file: 12,386,304 bytes (11.81 MiB); full record JSON before compression:
   31,764,418 bytes. Exact checksum is in `database.toc.manifest.json`.
 - Integrity, every payload ID, counts and manifest checksum checked locally.
-  Six importer/reader regression tests pass. Item 501/909 list/detail records
+  Six importer/reader regression tests pass. SQLite readers explicitly close
+  handles, including fixture cleanup on Windows (the first CI run exposed a
+  Windows file-lock failure in the test harness; corrected in the follow-up). Item 501/909 list/detail records
   match exactly; all twelve inverse Jellopy drop rows match its public detail.
 - Across **all** retrieved spawn records, the only fields are `map_name`,
   `map_display_name` and `amount`: respawn times are not published here.
