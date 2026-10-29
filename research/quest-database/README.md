@@ -9,6 +9,19 @@ Isolated **research branch**. No changes to the RoAura WPF application, settings
 Acceptance direction: per server/variant, stable quest IDs and steps, NPC map/coordinates and dialogue branches, prerequisite checks, item/kill requirements, variables and quest state transitions, consequences/rewards, traceable evidence, coverage flags, ambiguity review queue, and a read-only local runtime export with explicit schema version. Source-derived data, parser-derived candidates and in-game-verified facts must never be conflated. Do not silently promote emulator sources to verified iRO/ToC behavior.
 
 Future RoAura integration must not require joining raw parser tables or parsing NPC script code at runtime. Preserve the richer research SQLite and ship an independent, stable, smaller runtime database when the contract has been validated.
+## Stage 5 — quest-state evidence and consumer SQLite
+
+**Mission:** build a maximally complete, sourced, compact and independently consumable Ragnarok Online quest database for future RoAura Questie-style help. Do not modify the RoAura application during research.
+
+- `state.py` extracts literal source commands `setquest`, `completequest`, `erasequest`, `checkquest`, `getitem`, `delitem`, `countitem` and variable writes, retaining per-NPC source lines, arguments and enclosing explicit-brace `if` guards. These are code facts, not evaluated/verified player progression.
+- `npc_state_facts` keeps actions, checks, possible object IDs, count expressions, condition line references and script source identity. `npc_quest_registry_refs` links literal Quest IDs to the pre-re registry where a matching ID exists.
+- `runtime.py` generates `output/questie_catalog.sqlite` (consumer `PRAGMA user_version=1`) and `questie_catalog.sqlite.gz`. The smaller integration surface contains stable wiki/source/NPC keys, steps, source-qualified coordinates, dialogue text and choices, source conditions, literal state facts and candidate matches; no Python parser or compressed raw script dependency at runtime.
+- The consumer schema and SQL examples are documented in [INTEGRATION_CONTRACT.md](./INTEGRATION_CONTRACT.md). Consumer views include `quest_navigation_candidates`, `quest_progress_evidence` and `quest_dialogue_candidates`.
+- `build.py --enrich-only` refreshes parser-derived tables from an already stored source SQLite without another upstream crawl. The report records the source snapshot timestamp. For new upstream source material, run `build.py` without this flag or use the workflow's explicit refresh option.
+
+**Validated full-source snapshot, isolated test run [#40917146417](https://github.com/alerion08/RoAura/actions/runs/40917146417):** 24,309 lexical quest/item/variable facts, 1,005 quest-state actions, 396 quest checks, 6,057 item grants/consumptions, 5,020 item checks, 11,831 variable writes and 1,374 registry-linked literal Quest ID references. Preview runtime catalog: 286 quests, 3,420 guide rows, 3,904 NPC locations, 298,131 dialogue lines and 14,081 menu options, with SQLite integrity = OK and zero foreign-key violations.
+
+These counts do **not** prove all quests or game states are captured. 216 wiki pages still have no matching script; dynamic control flow, server-specific variants, and manual quest validation remain unresolved.
 ## Verified stage 3 dataset (2026-10-29)
 
 **[Full GitHub Actions build: SUCCESS](https://github.com/alerion08/RoAura/actions/runs/40910651236)** — schema version 4, SQLite integrity_check = ok, 0 foreign-key violations, 0 source-fetch errors.
