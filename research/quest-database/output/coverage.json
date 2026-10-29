@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T16:19:49.381212+00:00",
+  "created_utc": "2026-10-29T16:27:43.576337+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -42,7 +42,8 @@
   },
   "script_link_review": {
     "pages_no_script": 216,
-    "pages_ambiguous": 70,
+    "pages_ambiguous": 61,
+    "pages_cross_source_variants": 9,
     "pages_candidate_with_npc_evidence": 0,
     "guide_answer_menu_matches": 33
   },
