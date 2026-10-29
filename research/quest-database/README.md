@@ -237,3 +237,15 @@ ROQuestie remains a server-neutral knowledge base; source-derived categories and
 - Gaps: **117 guides still lack any candidate script**, and no quest is certified universally available. Exact NPC identification, game conditions, quest progress signals and cross-server compatibility still need separate verification.
 
 The consumer upgrade changes `PRAGMA user_version` from 3 to **4**. Downstream readers must check this value and preserve player state separately from the updateable catalog. See `INTEGRATION_CONTRACT.md`.
+
+## Verified stage 10 — evidence-only discovery of missing quest scripts
+
+**GitHub Actions [#40941334922](https://github.com/alerion08/RoAura/actions/runs/40941334922): SUCCESS.** Fast regression tests [#40941334999](https://github.com/alerion08/RoAura/actions/runs/40941334999): 45 passed. Both SQLite integrity checks returned `ok`; zero foreign-key violations. Scope remains the isolated `research/quest-database` branch. The build reuses the last refreshed wiki/source snapshot and does not claim new upstream verification.
+
+The **117** indexed wiki pages with no accepted script candidates are now audited by `discovery.py`. Results are in `output/missing_script_discovery.json` and the research-only `wiki_missing_script_reviews`, `wiki_missing_script_proposals` and `wiki_missing_script_evidence` tables. For a new source proposal the guide must explicitly say to interact with at least **two distinctive NPC names in two separate steps**, and both NPCs must be unique within the **same** indexed source script. Common, generic or overly frequent names are deliberately excluded. Script blobs, NPC names, source lines and guide step numbers remain available for manual source audit. **No proposal is automatically added to `wiki_script_links` or to the RoAura consumer SQLite.**
+
+Verified queue: 13 wiki pages have **25 research-only script proposals** supported by 83 source evidence rows; the remaining 104 pages are classified by investigation reason (56 with no distinctive matching NPC in the indexed scripts, 29 with insufficient independent evidence, 18 with no explicit NPC interaction phrase and 1 with no extracted guide steps). Multiple script variants (rAthena/Hercules; pre-re/renewal) are retained separately, so 25 proposals do not mean 25 confirmed quests.
+
+`output/unclassified_quest_review.json` is a separate **128-page** curation report preserving wiki requirements, original guide excerpts, source signals and literal map-coordinate evidence. It does **not** invent an arbitrary category for unclassified material.
+
+Examples worth manual scrutiny include `Einbroch Murder Quest` → `quests_ein.txt`, `Rebirth Walkthrough` → `valkyrie.txt`, and `Hugel Memory Quest` → `quests_hugel.txt`. All are source-backed hypotheses, not server-confirmed walkthroughs. **Next stage:** inspect top proposals against actual NPC dialogue and quest variables, approve or reject individually with reviewer provenance, then investigate truly missing source files and the 128 unclassified guide pages.
