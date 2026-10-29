@@ -1,7 +1,8 @@
 param(
     # Terminate a running RoAura.exe before publishing. Off by default so a
     # build never kills the developer's live session by accident.
-    [switch]$KillRunning
+    [switch]$KillRunning,
+    [switch]$Development
 )
 
 $ErrorActionPreference = "Stop"
@@ -10,6 +11,7 @@ Set-StrictMode -Version Latest
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $projectRoot
 
+if ($Development -and $KillRunning) { throw "DEV build must not stop stable RoAura." }
 if ($KillRunning) {
     Stop-Process -Name RoAura -Force -ErrorAction SilentlyContinue
 }
@@ -22,8 +24,10 @@ if ([string]::IsNullOrWhiteSpace($projectVersion)) {
 }
 
 $artifactRoot = Join-Path $projectRoot "artifacts"
-$publishDir = Join-Path $artifactRoot "publish"
-$portableZip = Join-Path $artifactRoot "RoAura-$projectVersion-portable.zip"
+$publishDir = Join-Path $artifactRoot $(if ($Development) { "dev/publish" } else { "publish" })
+$revision = if ($env:GITHUB_SHA -and $env:GITHUB_SHA.Length -ge 8) { $env:GITHUB_SHA.Substring(0,8) } else { "local" }
+$portableZip = Join-Path $artifactRoot $(if ($Development) { "dev/RoAura-Dev-$projectVersion-$revision-portable.zip" } else { "RoAura-$projectVersion-portable.zip" })
+$developmentFlag = if ($Development) { "true" } else { "false" }
 
 $dotnetCommand = Get-Command dotnet -ErrorAction SilentlyContinue
 if ($null -eq $dotnetCommand) {
@@ -87,6 +91,7 @@ New-Item -ItemType Directory -Path $publishDir -Force | Out-Null
   --self-contained true `
   -p:PublishSingleFile=true `
   -p:IncludeNativeLibrariesForSelfExtract=true `
+  -p:RoAuraDevelopment=$developmentFlag `
   -o $publishDir
 
 if ($LASTEXITCODE -ne 0) {
@@ -108,7 +113,7 @@ if (-not $smokeProcess.WaitForExit(15000)) {
     throw "RoAura startup smoke test timed out. Release files were not created."
 }
 if ($smokeProcess.ExitCode -ne 0) {
-    $smokeLog = Join-Path $env:APPDATA "RoAura\debug.log"
+    $smokeLog = Join-Path $env:APPDATA $(if ($Development) { "RoAura-Dev\debug.log" } else { "RoAura\debug.log" })
     if (Test-Path $smokeLog -PathType Leaf) {
         Write-Host "----- RoAura smoke-test debug.log -----"
         Get-Content $smokeLog -Tail 120

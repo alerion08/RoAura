@@ -37,3 +37,6 @@ Desktop.ini
 # Local Market watch history contains shop and discovery data.
 market-watch-history.json
 market-watch-history.json.*.tmp
+
+# Offline packet-analysis tooling
+__pycache__/

@@ -1,4 +1,4 @@
-# RoAura 3.0.0
+# RoAura 3.1.0
 
 Windows x64 overlay for Ragnarok Online. It tracks cooldowns and statuses from incoming RO packets via Npcap and displays configurable overlays.
 

@@ -13,7 +13,7 @@ public sealed class MarketWatchHistoryStore
     private bool _canWrite = true;
 
     public MarketWatchHistoryStore(string? filePath = null) => FilePath = filePath ?? Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RoAura", FileName);
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), AppEnvironment.DataFolderName, FileName);
 
     public IReadOnlyList<MarketWatchHistoryEntry> Load()
     {

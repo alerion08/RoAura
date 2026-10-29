@@ -35,7 +35,7 @@ public static class DebugLog
 
     public static string PathName { get; } = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "RoAura", "debug.log");
+        AppEnvironment.DataFolderName, "debug.log");
 
     public static void Write(string message)
     {

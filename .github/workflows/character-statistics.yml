@@ -1,0 +1,58 @@
+name: Validate isolated character-statistics development
+
+on:
+  push:
+    branches:
+      - "feature/character-statistics"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Each GitHub contents edit is a push; test only the newest candidate rather
+# than running parallel Windows builds for stale intermediate commits.
+concurrency:
+  group: character-statistics-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - name: Install .NET 8 SDK
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: "8.0.415"
+      - name: Run development identity and regression tests
+        shell: pwsh
+        run: dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release -p:RoAuraDevelopment=true
+      - name: Build isolated portable
+        shell: pwsh
+        run: .\build-development.ps1
+      - name: Validate development artifact
+        shell: pwsh
+        run: |
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $archives = @(Get-ChildItem .\artifacts\dev\RoAura-Dev-*-portable.zip)
+          if ($archives.Count -ne 1) { throw "Expected one DEV portable archive." }
+          if (Test-Path .\artifacts\RoAura-3.0.0-portable.zip) { throw "Stable portable must not be produced." }
+          $forbidden = @('settings.json','active-profile.txt','market-watch-history.json',
+            'springro-market-cache.json','springro-market-snapshot.json','debug.log')
+          $zip = [System.IO.Compression.ZipFile]::OpenRead($archives[0].FullName)
+          try {
+            foreach ($entry in $zip.Entries) {
+              $parts = $entry.FullName -split '[/\\]'
+              if ($forbidden -contains $parts[-1] -or $parts -contains 'Profiles' -or $parts -contains 'Recovery') {
+                throw "Private data in portable: $($entry.FullName)"
+              }
+            }
+          } finally { $zip.Dispose() }
+      - name: Upload development portable only
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: RoAura-Dev-${{ github.run_number }}-${{ github.sha }}
+          path: artifacts/dev/*-portable.zip
+          if-no-files-found: error

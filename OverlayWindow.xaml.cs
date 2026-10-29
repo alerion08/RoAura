@@ -79,6 +79,8 @@ public partial class OverlayWindow : Window
     private Point _rateIndicatorDragStart;
     private readonly Dictionary<RateIndicatorKind, Point> _rateIndicatorDragStarts = [];
     private DateTime _lastRateIndicatorUpdateUtc = DateTime.MinValue;
+    private Func<CharacterStatisticsDocument?>? _characterStatisticsSource;
+    private Func<TimeSpan>? _characterElapsedSource;
     private long _sessionBaseExperience;
     private DateTime? _baseExperienceStartedUtc;
     private ulong _currentBaseExperience;
@@ -435,7 +437,21 @@ public partial class OverlayWindow : Window
         else Hide();
     }
 
-    public void ShowEffectNotification(TrackedEffect effect, bool appeared)
+    // Runs on the dispatcher even while F9 hides the host. Status lifetimes
+    // belong to the shared tracker, not to visible effect rows.
+    public event Action<DateTime>? TrackingTick;
+
+    public void ResetPacketCooldowns()
+    {
+        _cooldownEnds.Clear();
+        foreach (var skill in _settings.Skills)
+        {
+            skill.RemainingSeconds = 0;
+            skill.IsReady = true;
+        }
+    }
+
+    public void ShowEffectNotification(TrackedEffect effect, bool appeared, bool followStatus = true)
     {
         var text = appeared ? effect.AppearedText : effect.DisappearedText;
         if (string.IsNullOrWhiteSpace(text))
@@ -446,7 +462,7 @@ public partial class OverlayWindow : Window
                      .ToList())
             _settings.ActiveNotifications.Remove(old);
 
-        var notification = CreateNotification(effect, appeared, false);
+        var notification = CreateNotification(effect, appeared, false, followStatus);
         _settings.ActiveNotifications.Add(notification);
         ReflowNotifications();
         if (_overlaysVisible)
@@ -541,6 +557,16 @@ public partial class OverlayWindow : Window
         }
     }
 
+    public void SetCharacterStatisticsSource(Func<CharacterStatisticsDocument?>? source,
+        Func<TimeSpan>? elapsedSource = null)
+    {
+        _characterStatisticsSource = source;
+        _characterElapsedSource = elapsedSource;
+        UpdateRateIndicators(true);
+    }
+
+    public void RefreshCharacterStatistics() => UpdateRateIndicators(true);
+
     public void RecordBaseExperience(long amount)
     {
         if (amount <= 0) return;
@@ -591,6 +617,7 @@ public partial class OverlayWindow : Window
 
     public void ResetRateStatistics()
     {
+        if (_characterStatisticsSource is not null) { UpdateRateIndicators(true); return; }
         ResetRateSessionCounters();
         _currentBaseExperience = 0;
         _nextBaseExperience = 0;
@@ -601,6 +628,7 @@ public partial class OverlayWindow : Window
 
     public void ResetRateSession()
     {
+        if (_characterStatisticsSource is not null) { UpdateRateIndicators(true); return; }
         ResetRateSessionCounters();
         UpdateRateIndicators(true);
     }
@@ -619,6 +647,12 @@ public partial class OverlayWindow : Window
     private void UpdateRateIndicators(bool force = false)
     {
         var now = DateTime.UtcNow;
+        if (_characterStatisticsSource is not null)
+        {
+            UpdateCharacterSessionTimeIndicator(); // independent of RateStatisticsRefreshSeconds
+            UpdateCharacterRateIndicators(now, force);
+            return;
+        }
         UpdateSessionTimeIndicator(now);
         if (!force && now - _lastRateIndicatorUpdateUtc <
             TimeSpan.FromSeconds(_settings.RateStatisticsRefreshSeconds))
@@ -702,6 +736,65 @@ public partial class OverlayWindow : Window
         }
     }
 
+    private void UpdateCharacterSessionTimeIndicator()
+    {
+        var time = _characterElapsedSource?.Invoke() ?? TimeSpan.Zero;
+        var indicator = _settings.RateIndicators.FirstOrDefault(row =>
+            row.Kind == RateIndicatorKind.SessionTime);
+        if (indicator is null) return;
+        var formatted = FormatElapsed(time);
+        var text = _settings.Language == "en" ? $"Session time: {formatted}" : $"Время сессии: {formatted}";
+        if (indicator.ValueText != text) indicator.ValueText = text;
+    }
+
+    private void UpdateCharacterRateIndicators(DateTime nowUtc, bool force)
+    {
+        if (!force && nowUtc - _lastRateIndicatorUpdateUtc <
+            TimeSpan.FromSeconds(_settings.RateStatisticsRefreshSeconds))
+            return;
+        _lastRateIndicatorUpdateUtc = nowUtc;
+        var record = _characterStatisticsSource?.Invoke();
+        var baseRate = record?.BaseExperiencePerHour ?? 0;
+        var jobRate = record?.JobExperiencePerHour ?? 0;
+        var activeHours = record?.SessionActiveHours ?? 0;
+        var zenyTotal = (record?.SessionZenyGained ?? 0) +
+            (record is not null && _settings.ServerProfile == GameServerProfile.SpringRo &&
+             _settings.IncludeGoldGoblinInZenyPerHour ? _goldGoblin.SessionTotal : 0);
+        var zenyRate = activeHours > 0 ? zenyTotal / activeHours : 0;
+        var timeToLevel = CharacterEta(record?.CurrentBaseExperience ?? 0,
+            record?.NextBaseExperience ?? 0, baseRate);
+        var timeToJob = CharacterEta(record?.CurrentJobExperience ?? 0,
+            record?.NextJobExperience ?? 0, jobRate);
+        var elapsed = TimeSpan.FromTicks(record?.SessionActiveTicks ?? 0);
+        var sessionTime = FormatElapsed(elapsed);
+        foreach (var indicator in _settings.RateIndicators)
+        {
+            indicator.ValueText = indicator.Kind switch
+            {
+                RateIndicatorKind.XpPerHour => $"XP/h: {baseRate:N0}",
+                RateIndicatorKind.TimeToLevel => _settings.Language == "en"
+                    ? $"Time to level: {timeToLevel}" : $"До уровня: {timeToLevel}",
+                RateIndicatorKind.TimeToJobLevel => _settings.Language == "en"
+                    ? $"Time to Job level: {timeToJob}" : $"До Job уровня: {timeToJob}",
+                RateIndicatorKind.ZenyPerHour => $"Zeny/h: {zenyRate:N0}",
+                RateIndicatorKind.ZenyTotal => $"Zeny Total: {zenyTotal:N0}",
+                _ => indicator.ValueText // The timer updates each tick, not on the rate interval.
+            };
+        }
+    }
+
+    private static string CharacterEta(ulong current, ulong required, double perHour)
+    {
+        if (perHour <= 0 || required <= current) return "--:--:--";
+        var seconds = (required - current) / perHour * 3600d;
+        if (!double.IsFinite(seconds) || seconds >= TimeSpan.FromDays(1000).TotalSeconds)
+            return "--:--:--";
+        var duration = TimeSpan.FromSeconds(Math.Max(0, seconds));
+        return duration.TotalDays >= 1
+            ? $"{(int)duration.TotalDays}d {duration:hh\\:mm\\:ss}"
+            : duration.ToString("hh\\:mm\\:ss");
+    }
+
     private void UpdateSessionTimeIndicator(DateTime now)
     {
         var starts = new[]
@@ -751,13 +844,15 @@ public partial class OverlayWindow : Window
         foreach (var item in sorted) group.Notifications.Add(item);
     }
 
-    private EffectNotification CreateNotification(TrackedEffect effect, bool appeared, bool preview)
+    private EffectNotification CreateNotification(TrackedEffect effect, bool appeared, bool preview, bool followStatus = true)
     {
         var text = appeared ? effect.AppearedText : effect.DisappearedText;
         if (string.IsNullOrWhiteSpace(text)) text = effect.Name;
         return new EffectNotification
         {
             EffectId = effect.Id,
+            Appeared = appeared,
+            FollowsStatus = followStatus,
             GroupNumber = effect.GroupNumber,
             Text = text,
             IconBase64 = effect.TemplateImageBase64,
@@ -913,12 +1008,11 @@ public partial class OverlayWindow : Window
             else skill.RemainingSeconds = remaining;
         }
 
-        foreach (var effect in _settings.Effects.Where(effect => effect.IsActive && effect.DurationEndsAtUtc.HasValue))
-        {
-            var remaining = (effect.DurationEndsAtUtc!.Value - now).TotalSeconds;
-            effect.RemainingSeconds = Math.Max(0, remaining);
-            if (remaining <= 0) effect.DurationEndsAtUtc = null;
-        }
+        TrackingTick?.Invoke(now);
+        var staleNotifications = _settings.ActiveNotifications.Where(n =>
+            !n.MatchesCurrentState(_settings.Effects.FirstOrDefault(e => e.Id == n.EffectId))).ToList();
+        foreach (var notification in staleNotifications) _settings.ActiveNotifications.Remove(notification);
+        if (staleNotifications.Count > 0) ReflowNotifications();
 
         foreach (var timer in _settings.MvpTimers.Where(timer => timer.EndsAtUtc.HasValue))
         {

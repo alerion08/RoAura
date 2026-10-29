@@ -52,7 +52,7 @@
                         <Border.Style><Style TargetType="Border"><Setter Property="Visibility" Value="Visible"/><Style.Triggers><DataTrigger Binding="{Binding Draft.StatusId}" Value="0"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></Border.Style>
                         <TextBlock Foreground="#24734A" FontWeight="SemiBold"><Run Text="{DynamicResource WizardDetectedStatus}"/><Run Text=" "/><Run Text="{Binding Draft.StatusId}"/><Run Text=" · "/><Run Text="{Binding Draft.CurrentStateText}"/></TextBlock>
                     </Border>
-                    <TextBlock x:Name="ValidationText" Foreground="#B64B55" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Draft.LearningObservation}" TextWrapping="Wrap" Foreground="#536681"/><TextBlock x:Name="ValidationText" Foreground="#B64B55" TextWrapping="Wrap"/>
                 </StackPanel>
             </Grid>
 

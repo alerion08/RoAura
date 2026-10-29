@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>RoAura</AssemblyName>
+    <DefineConstants Condition="'$(RoAuraDevelopment)' == 'true'">$(DefineConstants);ROAURA_DEV</DefineConstants>
     <RootNamespace>RoAura</RootNamespace>
     <!--
       Single source of truth for the product version. build-release.ps1,
@@ -13,9 +14,9 @@
       read it from here. The only other copy is app.manifest/assemblyIdentity,
       which MSBuild cannot substitute; keep it in sync manually.
     -->
-    <Version>3.0.0</Version>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
+    <Version>3.1.0</Version>
+    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+    <FileVersion>3.1.0.0</FileVersion>
     <InformationalVersion>$(Version)</InformationalVersion>
     <Company>Alerion</Company>
     <Authors>Alerion</Authors>

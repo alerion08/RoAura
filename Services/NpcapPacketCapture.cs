@@ -15,23 +15,107 @@ namespace RoAura.Services;
 public sealed class NpcapPacketCapture : IDisposable
 {
     private readonly object _lifecycleLock = new();
+    // DEV only: diagnostics are completely separate from XP, loot and status routing.
+    private readonly CharacterSessionManager _characterSessions = new();
+    private readonly PlayerAidObserver _playerAidObserver = new();
+    private readonly ConcurrentDictionary<CharacterSessionFlow, RoPacketSource> _trackingSources = new();
+
+    /// <summary>Self actor ID for effect/cooldown tracking only; not CID attribution.</summary>
+    public uint VerifiedPlayerAid
+    {
+        get
+        {
+            var session = _characterSessions.Current;
+            if (session.Phase == CharacterSessionPhase.ActiveObserved &&
+                _characterSessions.CurrentFlow is { } flow)
+            {
+                var evidence = _playerAidObserver.SourceForFlow(flow);
+                // A conflicting actor identity cannot safely be attributed.
+                if (evidence == "conflict") return 0;
+                var observed = _playerAidObserver.AidForFlow(flow);
+                if (observed != 0) return observed;
+                return session.PlayerAid;
+            }
+            return _playerAidObserver.Aid;
+        }
+    }
+
+    public string PlayerAidIdentitySource
+    {
+        get
+        {
+            var session = _characterSessions.Current;
+            if (session.Phase == CharacterSessionPhase.ActiveObserved &&
+                _characterSessions.CurrentFlow is { } flow)
+            {
+                var source = _playerAidObserver.SourceForFlow(flow);
+                if (source.Length > 0) return source;
+                if (session.PlayerAid != 0) return "map-login";
+            }
+            return _playerAidObserver.Source;
+        }
+    }
+    public CharacterSessionSnapshot CharacterSession => _characterSessions.Current;
+    public event Action<CharacterSessionSnapshot>? CharacterSessionChanged;
+    public bool IsCurrentCharacterSession(CharacterSessionSnapshot snapshot) =>
+        AppEnvironment.IsDevelopment && _characterSessions.IsCurrent(snapshot);
+
+    public NpcapPacketCapture()
+    {
+        if (AppEnvironment.IsDevelopment)
+            _characterSessions.StateChanged += snapshot =>
+            {
+                DebugLog.Write($"CHARACTER SESSION SHADOW: phase={snapshot.Phase}; " +
+                               $"server={snapshot.ServerKey}; cid={snapshot.CharacterId}; " +
+                               $"clientPort={snapshot.ClientPort}; mapPort={snapshot.MapPort}");
+                CharacterSessionChanged?.Invoke(snapshot);
+            };
+    }
     private CancellationTokenSource? _cancellation;
     private int _generation;
     private int _activeDevices;
+    private int _rejectedOptionDiagnosticCount;
     private int _activeGeneration;
     private string _lastState = "";
     private string _language = "ru";
     private ConcurrentDictionary<ushort, RoEquipmentPacket> _equipmentIdentityCache = new();
     private ConcurrentDictionary<ushort, RoEquipmentPacket> _pendingEquipmentEvents = new();
 
-    public event Action<RoStatusPacket>? StatusChanged;
-    public event Action<RoSkillPacket>? SkillUsed;
-    public event Action<RoSkillCooldownPacket>? SkillCooldown;
+    private readonly PacketLayoutDiagnostics _layoutDiagnostics = new();
+    private volatile bool _springRoStatusCorrelationEnabled;
+    private readonly SpringRoStatusWireCapture _statusWireCapture = new();
+    private SpringRoClientStatusBridge? _clientStatusBridge;
+    private static bool WireSamplesRequested => AppEnvironment.IsDevelopment &&
+        Environment.GetCommandLineArgs().Contains(SpringRoStatusWireCapture.Argument, StringComparer.Ordinal);
+
+    public void BeginLearningDiagnostics()
+    {
+        if (!AppEnvironment.IsDevelopment) return;
+        _layoutDiagnostics.Begin(DateTime.UtcNow);
+        if (_springRoStatusCorrelationEnabled && WireSamplesRequested)
+        {
+            _statusWireCapture.Begin(DateTime.UtcNow);
+            DebugLog.Write("SPRINGRO WIRE WINDOW started; maxSamples=16; durationSeconds=120; " +
+                "contains=exact-status-option-skill-bytes-and-self-AID; optIn=true");
+        }
+        DebugLog.Write("PACKET LAYOUT WINDOW started; durationSeconds=120; maxCandidates=256; actorLabels=window-local");
+    }
+
+    public event Action<RoPacketObservation<RoStatusPacket>>? StatusChanged;
+    public event Action<RoPacketObservation<RoOptionPacket>>? OptionChanged;
+    public event Action<RoPacketObservation<RoSkillPacket>>? SkillUsed;
+    public event Action<RoPacketObservation<RoSkillCooldownPacket>>? SkillCooldown;
+    public event Action<RoPacketSource>? TrackingSourceClosed;
     public event Action<RoEquipmentPacket>? EquipmentChanged;
     public event Action<RoItemAddedPacket>? ItemAdded;
     public event Action<RoExperiencePacket>? ExperienceChanged;
     public event Action<RoProgressPacket>? ProgressChanged;
     public event Action<RoZenyPacket>? ZenyChanged;
+    // DEV-only: immutable source character session accompanies each reward packet.
+    public event Action<CharacterSessionPacket<RoItemAddedPacket>>? CharacterItemAdded;
+    public event Action<CharacterSessionPacket<RoExperiencePacket>>? CharacterExperienceChanged;
+    public event Action<CharacterSessionPacket<RoProgressPacket>>? CharacterProgressChanged;
+    public event Action<CharacterSessionPacket<RoZenyPacket>>? CharacterZenyChanged;
     public event Action<string>? StateChanged;
 
     public static bool IsNpcapInstalled() => NpcapNative.FindLibraryFolder() is not null;
@@ -45,6 +129,7 @@ public sealed class NpcapPacketCapture : IDisposable
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache;
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents;
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows;
+        CharacterLoginObserver? loginObserver;
         int generation;
         lock (_lifecycleLock)
         {
@@ -52,8 +137,24 @@ public sealed class NpcapPacketCapture : IDisposable
             oldCancellation?.Cancel();
             _cancellation = null;
             generation = ++_generation;
+            foreach (var source in _trackingSources.Values) CloseTrackingSource(source.Flow);
             _activeGeneration = generation;
             _activeDevices = 0;
+            _rejectedOptionDiagnosticCount = 0;
+            _statusWireCapture.Reset();
+            _clientStatusBridge?.Dispose();
+            _clientStatusBridge = null;
+            _springRoStatusCorrelationEnabled =
+                GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
+            if (_springRoStatusCorrelationEnabled)
+            {
+                _clientStatusBridge = new SpringRoClientStatusBridge();
+                var bridge = _clientStatusBridge;
+                DebugLog.Write("SPRINGRO CLIENT STATUS enabled; mode=read-only; " +
+                               "requires=single-matching-client");
+                _ = Task.Run(bridge.Prepare);
+            }
+            if (AppEnvironment.IsDevelopment) _layoutDiagnostics.Begin(DateTime.UtcNow);
             // Replace rather than clear: workers from the cancelled generation
             // may finish parsing one last frame and must not repopulate the new
             // connection's identity table.
@@ -62,6 +163,25 @@ public sealed class NpcapPacketCapture : IDisposable
             equipmentCache = _equipmentIdentityCache;
             pendingEquipmentEvents = _pendingEquipmentEvents;
             tcpFlows = new();
+            _playerAidObserver.Reset();
+            if (AppEnvironment.IsDevelopment) _characterSessions.OnCaptureInterrupted();
+            loginObserver = AppEnvironment.IsDevelopment ? new CharacterLoginObserver() : null;
+            if (loginObserver is not null)
+            {
+                var serverKey = settings.ServerProfile;
+                loginObserver.CandidateDetected += (flow, candidate) =>
+                {
+                    lock (_lifecycleLock)
+                    {
+                        if (generation != _generation) return;
+                        var selected = CharacterSessionFlow.FromOutbound(flow);
+                        foreach (var source in _trackingSources.Values.Where(s => s.Flow != selected))
+                            CloseTrackingSource(source.Flow, source);
+                        _characterSessions.OnCandidate(serverKey,
+                            selected, candidate.CharacterId, candidate.PlayerAid);
+                    }
+                };
+            }
 
             if (!settings.PacketCaptureEnabled)
             {
@@ -78,7 +198,7 @@ public sealed class NpcapPacketCapture : IDisposable
         var cancellation = newCancellation!;
         SetState(generation, L("Пакеты: подключение к Npcap…", "Packets: connecting to Npcap…"));
         _ = Task.Run(() => StartCaptureAsync(address, port, generation, equipmentCache,
-            pendingEquipmentEvents, tcpFlows, cancellation), CancellationToken.None);
+            pendingEquipmentEvents, tcpFlows, loginObserver, cancellation), CancellationToken.None);
     }
 
     private enum SessionResult
@@ -101,6 +221,7 @@ public sealed class NpcapPacketCapture : IDisposable
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
+        CharacterLoginObserver? loginObserver,
         CancellationTokenSource cancellation)
     {
         var cancellationToken = cancellation.Token;
@@ -123,8 +244,8 @@ public sealed class NpcapPacketCapture : IDisposable
             var filter = BuildFilter(address, port);
             var stats = new GenerationStats();
             var workers = devices.Select(device => Task.Run(
-                () => CaptureDevice(device, filter, generation, stats, equipmentCache,
-                    pendingEquipmentEvents, tcpFlows, cancellationToken),
+                () => CaptureDevice(device, filter, port, generation, stats, equipmentCache,
+                    pendingEquipmentEvents, tcpFlows, loginObserver, cancellationToken),
                 CancellationToken.None)).ToArray();
 
             // Report the aggregated first-open result once every adapter has
@@ -179,11 +300,12 @@ public sealed class NpcapPacketCapture : IDisposable
         }
     }
 
-    private async Task CaptureDevice(PcapDeviceInfo device, string filter, int generation,
+    private async Task CaptureDevice(PcapDeviceInfo device, string filter, int port, int generation,
         GenerationStats stats,
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
+        CharacterLoginObserver? loginObserver,
         CancellationToken cancellationToken)
     {
         const int MinimumBackoffMs = 2000;
@@ -199,8 +321,8 @@ public sealed class NpcapPacketCapture : IDisposable
             attempts++;
             var logFailure = attempts == 1 ||
                              Environment.TickCount64 - lastFailureLogTick >= FailureLogIntervalMs;
-            var result = CaptureDeviceSession(device, filter, generation, stats, equipmentCache,
-                pendingEquipmentEvents, tcpFlows, cancellationToken, logFailure, attempts == 1);
+            var result = CaptureDeviceSession(device, filter, port, generation, stats, equipmentCache,
+                pendingEquipmentEvents, tcpFlows, loginObserver, cancellationToken, logFailure, attempts == 1);
             if (cancellationToken.IsCancellationRequested ||
                 generation != Volatile.Read(ref _generation))
                 break;
@@ -238,11 +360,12 @@ public sealed class NpcapPacketCapture : IDisposable
         }
     }
 
-    private SessionResult CaptureDeviceSession(PcapDeviceInfo device, string filter, int generation,
+    private SessionResult CaptureDeviceSession(PcapDeviceInfo device, string filter, int port, int generation,
         GenerationStats stats,
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
         ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
+        CharacterLoginObserver? loginObserver,
         CancellationToken cancellationToken, bool logFailure, bool firstAttempt)
     {
         IntPtr handle = IntPtr.Zero;
@@ -348,14 +471,51 @@ public sealed class NpcapPacketCapture : IDisposable
                         out var payload, out var flowKey, out var sequence, out var tcpFlags))
                 {
                     var closing = (tcpFlags & 0x05) != 0; // FIN or RST
+                    // DEV only: client-to-server first-packet inspection runs in
+                    // a separate bounded observer. NEVER feed outbound bytes
+                    // into the existing server-to-client packet parser.
+                    if (loginObserver is not null &&
+                        flowKey.DestinationPort == port && flowKey.SourcePort != port)
+                    {
+                        loginObserver.Observe(flowKey, sequence, payload, closing);
+                        if (closing && generation == Volatile.Read(ref _generation))
+                        {
+                            _characterSessions.OnConnectionClosed(CharacterSessionFlow.FromOutbound(flowKey));
+                            _playerAidObserver.OnClosed(CharacterSessionFlow.FromOutbound(flowKey));
+                            CloseTrackingSource(CharacterSessionFlow.FromOutbound(flowKey));
+                        }
+                        continue;
+                    }
+                    if (flowKey.SourcePort != port || flowKey.DestinationPort == port)
+                        continue;
+
                     if (!tcpFlows.TryGetValue(flowKey, out var flow))
                     {
                         if (payload.IsEmpty) continue; // Bare FIN/RST for an unknown flow.
-                        PruneIdleFlows(tcpFlows);
-                        flow = tcpFlows.GetOrAdd(flowKey, _ => new TcpFlowState(
-                            CreateScanner(generation, equipmentCache, pendingEquipmentEvents)));
+                        // GetOrAdd factories can run more than once across
+                        // adapters. Only the retained scanner may register the
+                        // live source identity for this flow.
+                        lock (tcpFlows)
+                        {
+                            if (!tcpFlows.TryGetValue(flowKey, out flow))
+                            {
+                                PruneIdleFlows(tcpFlows, generation);
+                                flow = new TcpFlowState(CreateScanner(generation, equipmentCache,
+                                    pendingEquipmentEvents, CharacterSessionFlow.FromInbound(flowKey)));
+                                tcpFlows[flowKey] = flow;
+                            }
+                        }
                     }
+                    if (AppEnvironment.IsDevelopment && generation == Volatile.Read(ref _generation) &&
+                        !payload.IsEmpty)
+                        _characterSessions.OnServerPayload(CharacterSessionFlow.FromInbound(flowKey));
                     flow.Process(sequence, payload);
+                    if (AppEnvironment.IsDevelopment && generation == Volatile.Read(ref _generation) && closing)
+                    {
+                        _characterSessions.OnConnectionClosed(CharacterSessionFlow.FromInbound(flowKey));
+                        _playerAidObserver.OnClosed(CharacterSessionFlow.FromInbound(flowKey));
+                        CloseTrackingSource(CharacterSessionFlow.FromInbound(flowKey));
+                    }
                     // The server side is done with this stream: drop it so the
                     // flow table cannot grow with every reconnect.
                     if (closing) tcpFlows.TryRemove(flowKey, out _);
@@ -381,14 +541,18 @@ public sealed class NpcapPacketCapture : IDisposable
 
     private const long FlowIdleLimitMs = 10 * 60 * 1000;
 
-    private static void PruneIdleFlows(ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows)
+    private void PruneIdleFlows(ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows, int generation)
     {
         if (tcpFlows.IsEmpty) return;
         var now = Environment.TickCount64;
         foreach (var pair in tcpFlows)
         {
-            if (now - pair.Value.LastSeenTick > FlowIdleLimitMs)
-                tcpFlows.TryRemove(pair.Key, out _);
+            if (now - pair.Value.LastSeenTick > FlowIdleLimitMs && tcpFlows.TryRemove(pair.Key, out _))
+            {
+                var key = CharacterSessionFlow.FromInbound(pair.Key);
+                if (_trackingSources.TryGetValue(key, out var source) && source.Generation == generation)
+                    CloseTrackingSource(key, source);
+            }
         }
     }
 
@@ -418,19 +582,220 @@ public sealed class NpcapPacketCapture : IDisposable
 
     private RoPacketStreamScanner CreateScanner(int generation,
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents)
+        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
+        CharacterSessionFlow packetFlow)
     {
         var scanner = new RoPacketStreamScanner(equipmentCache);
-        scanner.StatusChanged += packet => Forward(generation, () => StatusChanged?.Invoke(packet));
-        scanner.SkillUsed += packet => Forward(generation, () => SkillUsed?.Invoke(packet));
-        scanner.SkillCooldown += packet => Forward(generation, () => SkillCooldown?.Invoke(packet));
+        var clientStatusBridge = _clientStatusBridge;
+        scanner.CaptureStatusWireBytes = _springRoStatusCorrelationEnabled &&
+            (WireSamplesRequested || clientStatusBridge is not null);
+        var source = RegisterTrackingSource(generation, packetFlow);
+        var statusSkillCorrelation = _springRoStatusCorrelationEnabled
+            ? new SpringRoStatusSkillCorrelationDiagnostics() : null;
+        var correlatedHiding = statusSkillCorrelation is null
+            ? null : new SpringRoCorrelatedHidingTracker();
+        var hiding = new HidingStateTracker();
+        var pendingStatuses = new PendingStatusObservations();
+        bool? decodedHidingBeforeSkill = null;
+        if (_springRoStatusCorrelationEnabled)
+            scanner.LayoutProbed += probe => Forward(generation, () =>
+            {
+                var observation = Observe(probe, source);
+                if (!IsCurrentObservation(observation)) return;
+                if (clientStatusBridge?.Observe(probe, observation.SelfAid) is { } decoded)
+                {
+                    if (decoded.StatusId == 4)
+                        decodedHidingBeforeSkill = decoded.Active;
+                    DebugLog.Write($"SPRINGRO CLIENT STATUS matched opcode=0x{probe.Opcode:X4}; " +
+                                   $"status={decoded.StatusId}; active={decoded.Active}; " +
+                                   $"totalMs={decoded.TotalMs}; leftMs={decoded.RemainingMs}");
+                    PublishStatus(decoded);
+                }
+                if (AppEnvironment.IsDevelopment &&
+                    _layoutDiagnostics.Format(probe, source, observation.SelfAid,
+                        observation.IdentitySource, observation.ObservedAtUtc) is { } line)
+                    DebugLog.Write(line);
+                if (WireSamplesRequested && scanner.CaptureStatusWireBytes && _statusWireCapture.Observe(probe, source,
+                        observation.SelfAid, observation.ObservedAtUtc) is { } sample)
+                    DebugLog.Write(sample);
+                if (statusSkillCorrelation?.Observe(probe, observation.SelfAid) is { } pair)
+                    DebugLog.Write(pair);
+                if (correlatedHiding?.Observe(probe, observation.SelfAid) is { } hidden)
+                {
+                    var alreadyDecoded = clientStatusBridge is not null && decodedHidingBeforeSkill == hidden;
+                    decodedHidingBeforeSkill = null;
+                    if (!alreadyDecoded)
+                    {
+                        DebugLog.Write($"SPRINGRO HIDING VERIFIED: active={hidden}; skill=51; " +
+                                       $"statusOpcode=0x{(hidden ? 0x0983 : 0x0196):X4}; " +
+                                       $"source=correlated-own-skill");
+                        // Fallback only when the generic decoded frame was missed.
+                        PublishStatus(new RoStatusPacket(
+                            hidden ? (ushort)0x0983 : (ushort)0x0196,
+                            4, observation.SelfAid, hidden, 0, 0));
+                    }
+                }
+            });
+        void PublishStatus(RoStatusPacket packet)
+        {
+            var observation = Observe(packet, source);
+            if (observation.SelfAid == 0) pendingStatuses.Remember(observation);
+            StatusChanged?.Invoke(observation);
+        }
+        void ReplayPendingStatuses()
+        {
+            var identity = Observe(default(RoStatusPacket), source);
+            foreach (var pending in pendingStatuses.Resolve(source, identity.SelfAid,
+                         identity.IdentitySource, DateTime.UtcNow))
+                StatusChanged?.Invoke(pending);
+        }
+        scanner.StreamReset += () =>
+        {
+            if (!source.IsActive || generation != Volatile.Read(ref _generation)) return;
+            CloseTrackingSource(packetFlow, source);
+            hiding.Reset();
+            statusSkillCorrelation?.Reset();
+            correlatedHiding?.Reset();
+            decodedHidingBeforeSkill = null;
+            pendingStatuses.Reset();
+            source = RegisterTrackingSource(generation, packetFlow);
+        };
+        scanner.StatusChanged += packet => Forward(generation, () =>
+        {
+            // Raw SpringRO status/actor fields are transformed per frame. With
+            // the client bridge, only a matched decoded frame may drive UI.
+            if (clientStatusBridge is null || packet.PacketId is not (0x0983 or 0x0196))
+                PublishStatus(packet);
+        });
+        if (AppEnvironment.IsDevelopment)
+            scanner.OptionCandidateRejectedDetailed += (opcode, reason) => Forward(generation, () =>
+            {
+                if (Interlocked.Increment(ref _rejectedOptionDiagnosticCount) <= 20)
+                    DebugLog.Write($"PACKET OPTION CANDIDATE REJECTED opcode=0x{opcode:X4}; " +
+                                   $"reason={reason}");
+            });
+        if (_springRoStatusCorrelationEnabled || AppEnvironment.IsDevelopment)
+            scanner.SelfAidObserved += packet => Forward(generation, () =>
+            {
+                ObservePlayerAid(packetFlow, packet.Aid, "ZC_AID");
+                ReplayPendingStatuses();
+            });
+        // Actor visibility (not always a skill ack): TF_HIDING is confirmed
+        // by OPTION_HIDE, while EFST_HIDING is a separate status icon.
+        scanner.OptionChanged += packet => Forward(generation, () =>
+        {
+            OptionChanged?.Invoke(Observe(packet, source));
+            // SpringRO's OPTION_HIDE bit fluctuates even within
+            // confirmed own Hiding transitions. Only the corroborated
+            // 0x0983/0x0196 -> own Skill 51 path may drive status=4.
+            // RTM and Other retain their existing option handling.
+            if (correlatedHiding is not null) return;
+            // EFST_HIDING = 4, TF_HIDING = 51 in standard RO.
+            // Synthetic status carries no guessed duration.
+            PublishStatus(new RoStatusPacket(packet.PacketId, 4, packet.Aid, packet.IsHidden, 0, 0));
+            if (hiding.Observe(packet))
+                SkillUsed?.Invoke(Observe(new RoSkillPacket(51, packet.Aid, packet.Aid, 0, packet.PacketId), source));
+        });
+        scanner.SkillUsed += packet => Forward(generation, () => SkillUsed?.Invoke(Observe(packet, source)));
+        scanner.SkillCooldown += packet => Forward(generation, () => SkillCooldown?.Invoke(Observe(packet, source)));
         scanner.EquipmentChanged += packet => HandleEquipmentPacket(generation, packet,
             equipmentCache, pendingEquipmentEvents);
-        scanner.ItemAdded += packet => Forward(generation, () => ItemAdded?.Invoke(packet));
-        scanner.ExperienceChanged += packet => Forward(generation, () => ExperienceChanged?.Invoke(packet));
-        scanner.ProgressChanged += packet => Forward(generation, () => ProgressChanged?.Invoke(packet));
-        scanner.ZenyChanged += packet => Forward(generation, () => ZenyChanged?.Invoke(packet));
+        scanner.ItemAdded += packet => Forward(generation, () =>
+        {
+            ItemAdded?.Invoke(packet);
+            ForwardCharacterPacket(packetFlow, packet, CharacterItemAdded);
+        });
+        scanner.ExperienceChanged += packet => Forward(generation, () =>
+        {
+            if (_springRoStatusCorrelationEnabled || AppEnvironment.IsDevelopment)
+            {
+                ObservePlayerAid(packetFlow, packet.Aid, "EXP");
+                ReplayPendingStatuses();
+            }
+            ExperienceChanged?.Invoke(packet);
+            ForwardCharacterPacket(packetFlow, packet, CharacterExperienceChanged);
+        });
+        scanner.ProgressChanged += packet => Forward(generation, () =>
+        {
+            ProgressChanged?.Invoke(packet);
+            ForwardCharacterPacket(packetFlow, packet, CharacterProgressChanged);
+        });
+        scanner.ZenyChanged += packet => Forward(generation, () =>
+        {
+            ZenyChanged?.Invoke(packet);
+            ForwardCharacterPacket(packetFlow, packet, CharacterZenyChanged);
+        });
         return scanner;
+    }
+
+    private RoPacketObservation<T> Observe<T>(T packet, RoPacketSource source)
+    {
+        var evidence = _playerAidObserver.SourceForFlow(source.Flow);
+        var aid = _playerAidObserver.AidForFlow(source.Flow);
+        if (evidence.Length == 0 && _characterSessions.TryResolve(source.Flow, out var session))
+        {
+            aid = session.PlayerAid;
+            evidence = aid == 0 ? "" : "map-login";
+        }
+        return new(packet, source, DateTime.UtcNow, aid, evidence);
+    }
+
+    public bool IsCurrentObservation<T>(RoPacketObservation<T> observation) =>
+        observation.Source.IsActive && observation.Source.Generation == Volatile.Read(ref _generation) &&
+        _trackingSources.TryGetValue(observation.Source.Flow, out var current) &&
+        ReferenceEquals(current, observation.Source) &&
+        _playerAidObserver.SourceForFlow(observation.Source.Flow) != "conflict" &&
+        (_characterSessions.CurrentFlow is not { } selected || selected == observation.Source.Flow);
+
+    private RoPacketSource RegisterTrackingSource(int generation, CharacterSessionFlow flow)
+    {
+        var source = new RoPacketSource(generation, flow);
+        lock (_lifecycleLock)
+        {
+            if (generation != _generation) source.Close();
+            else
+            {
+                CloseTrackingSource(flow);
+                _trackingSources[flow] = source;
+            }
+        }
+        return source;
+    }
+
+    private void CloseTrackingSource(CharacterSessionFlow flow, RoPacketSource? expected = null)
+    {
+        lock (_lifecycleLock)
+        {
+            if (!_trackingSources.TryGetValue(flow, out var source) ||
+                (expected is not null && !ReferenceEquals(source, expected))) return;
+            _trackingSources.TryRemove(flow, out _);
+            source.Close();
+            _playerAidObserver.OnClosed(flow);
+            TrackingSourceClosed?.Invoke(source);
+        }
+    }
+
+    private void ObservePlayerAid(CharacterSessionFlow flow, uint aid, string source)
+    {
+        if (_playerAidObserver.Observe(flow, aid, source))
+        {
+            var current = _characterSessions.Current;
+            var sameFlow = _characterSessions.CurrentFlow == flow;
+            var comparison = sameFlow && current.PlayerAid != 0
+                ? (current.PlayerAid == aid ? "agree" : "disagree")
+                : "unavailable";
+            DebugLog.Write($"PLAYER SELF AID VERIFIED source={source}; " +
+                           $"mapLoginComparison={comparison}; " +
+                           $"clientPort={flow.ClientPort}; mapPort={flow.ServerPort}");
+        }
+    }
+
+    private void ForwardCharacterPacket<T>(CharacterSessionFlow flow, T packet,
+        Action<CharacterSessionPacket<T>>? callback)
+    {
+        if (!AppEnvironment.IsDevelopment || callback is null ||
+            !_characterSessions.TryResolve(flow, out var session)) return;
+        callback(new CharacterSessionPacket<T>(session, packet));
     }
 
     private void Forward(int generation, Action action)
@@ -495,8 +860,10 @@ public sealed class NpcapPacketCapture : IDisposable
     {
         if (IPAddress.TryParse(address, out var parsed) &&
             parsed.AddressFamily == AddressFamily.InterNetwork)
-            return $"src host {parsed} and tcp src port {port}";
-        return $"tcp src port {port}";
+            return AppEnvironment.IsDevelopment
+                ? $"host {parsed} and tcp port {port}"
+                : $"src host {parsed} and tcp src port {port}";
+        return AppEnvironment.IsDevelopment ? $"tcp port {port}" : $"tcp src port {port}";
     }
 
     private void SetState(int generation, string state)
@@ -521,9 +888,12 @@ public sealed class NpcapPacketCapture : IDisposable
         lock (_lifecycleLock)
         {
             _generation++;
+            foreach (var source in _trackingSources.Values) CloseTrackingSource(source.Flow, source);
             // The capture task owning this source disposes it when it finishes.
             _cancellation?.Cancel();
             _cancellation = null;
+            _clientStatusBridge?.Dispose();
+            _clientStatusBridge = null;
         }
     }
 }

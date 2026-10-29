@@ -48,7 +48,7 @@ public sealed class SettingsStore
     public string? LastSaveError { get; private set; }
 
     public SettingsStore() : this(Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RoAura"))
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppEnvironment.DataFolderName))
     {
     }
 

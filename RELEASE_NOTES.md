@@ -1,4 +1,8 @@
-# RoAura 3.0
+# RoAura 3.1.0
+
+See [3.1.0 release notes](docs/releases/3.1.0.md) for the SpringRO status and identity update.
+
+## Previous release: RoAura 3.0
 
 ## Русский
 

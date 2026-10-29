@@ -79,6 +79,7 @@ public partial class MainWindow : Window
         _goldGoblin.Changed += GoldGoblin_Changed;
         _packetCapture.StatusChanged += OnLearningStatusObserved;
         _packetCapture.SkillUsed += OnLearningSkillObserved;
+        _packetCapture.SkillCooldown += OnLearningCooldownObserved;
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
         DataContext = settings;
         RefreshMvpTimerDetails();
@@ -135,8 +136,13 @@ public partial class MainWindow : Window
         };
         _connectionDetectionTimer.Start();
         _goldGoblinSessionTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
-        _goldGoblinSessionTimer.Tick += (_, _) => UpdateGoldGoblinSessionTime();
+        _goldGoblinSessionTimer.Tick += (_, _) =>
+        {
+            UpdateGoldGoblinSessionTime();
+            if (AppEnvironment.IsDevelopment) UpdateCharacterBrowser();
+        };
         _goldGoblinSessionTimer.Start();
+        InitializeCharacterBrowser();
         _saveDebounceTimer.Tick += (_, _) => FlushPendingSave();
     }
 
@@ -259,9 +265,11 @@ public partial class MainWindow : Window
     private void UpdateGoldGoblinSessionTime()
     {
         if (GoldGoblinSessionTimeText is null) return;
-        var elapsed = _goldGoblin.SessionStartedUtc.HasValue
-            ? DateTime.UtcNow - _goldGoblin.SessionStartedUtc.Value
-            : TimeSpan.Zero;
+        var elapsed = AppEnvironment.IsDevelopment && Application.Current is App app
+            ? app.GetCharacterSessionElapsed()
+            : _goldGoblin.SessionStartedUtc.HasValue
+                ? DateTime.UtcNow - _goldGoblin.SessionStartedUtc.Value
+                : TimeSpan.Zero;
         GoldGoblinSessionTimeText.Text = elapsed.TotalDays >= 1
             ? $"{(int)elapsed.TotalDays}d {elapsed:hh\\:mm\\:ss}"
             : elapsed.ToString("hh\\:mm\\:ss");
@@ -308,6 +316,13 @@ public partial class MainWindow : Window
                 T("Новая сессия Gold Goblin", "New Gold Goblin session"),
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
+        }
+        if (AppEnvironment.IsDevelopment)
+        {
+            if (Application.Current is not App app || !app.StartCharacterStatisticsSession())
+                SetStatus(T("Сначала войдите на персонажа: общая сессия не запущена.",
+                    "Log in to a character first: shared session could not start."));
+            return;
         }
         _goldGoblin.StartSession();
     }
@@ -1016,6 +1031,7 @@ public partial class MainWindow : Window
             if (!EnsureNpcap()) return;
             StartLearning();
             _learningSkill = skill;
+            skill.LearningObservation = "";
             SetStatus(T($"Примените «{skill.Name}» в RO в течение 20 секунд.", $"Use “{skill.Name}” in RO within 20 seconds."));
         }
     }
@@ -1165,6 +1181,7 @@ public partial class MainWindow : Window
         if (!EnsureNpcap()) return;
         StartLearning();
         _learningSkill = skill;
+        skill.LearningObservation = "";
         SetStatus(T($"Примените «{skill.Name}» в RO в течение 20 секунд.",
             $"Use “{skill.Name}” in RO within 20 seconds."));
         _ = ExpireLearningAsync(skill.Id, "skill", _learningGeneration);
@@ -1178,7 +1195,9 @@ public partial class MainWindow : Window
         {
             Owner = this
         };
-        if (wizard.ShowDialog() != true || wizard.CreatedEffect is not { } effect) return;
+        var created = wizard.ShowDialog() == true;
+        if (_learningEffect == wizard.Draft) _learningEffect = null;
+        if (!created || wizard.CreatedEffect is not { } effect) return;
         Settings.Effects.Add(effect);
         Settings.SyncBuffPanelGroups();
         EffectsGrid.SelectedItem = effect;
@@ -1191,6 +1210,7 @@ public partial class MainWindow : Window
         if (!EnsureNpcap()) return;
         StartLearning();
         _learningEffect = effect;
+        effect.LearningObservation = "";
         SetStatus(T("Активируйте нужный эффект в RO в течение 20 секунд.",
             "Activate the required effect in RO within 20 seconds."));
         _ = ExpireLearningAsync(effect.Id, "effect", _learningGeneration);
@@ -1338,7 +1358,7 @@ public partial class MainWindow : Window
     private void TestEffect(bool appeared)
     {
         if (EffectsGrid.SelectedItem is not TrackedEffect effect) { SelectFirst("effect"); return; }
-        _overlay.ShowEffectNotification(effect, appeared);
+        _overlay.ShowEffectNotification(effect, appeared, followStatus: false);
     }
 
     private void LearnEffectPacket_Click(object sender, RoutedEventArgs e)
@@ -1347,6 +1367,7 @@ public partial class MainWindow : Window
         if (!EnsureNpcap()) return;
         StartLearning();
         _learningEffect = effect;
+        effect.LearningObservation = "";
         SetStatus(T($"Наложите эффект «{effect.Name}» в RO в течение 20 секунд.",
             $"Apply “{effect.Name}” in RO within 20 seconds."));
         _ = ExpireLearningAsync(effect.Id, "effect", _learningGeneration);
@@ -1359,6 +1380,7 @@ public partial class MainWindow : Window
             if (!EnsureNpcap()) return;
             StartLearning();
             _learningReminder = draft;
+            draft.LearningObservation = "";
             SetStatus(T("Активируйте нужный эффект в RO в течение 20 секунд.",
                 "Activate the required effect in RO within 20 seconds."));
             _ = ExpireLearningAsync(draft.Id, "reminder", _learningGeneration);
@@ -1393,6 +1415,7 @@ public partial class MainWindow : Window
         if (!EnsureNpcap()) return;
         StartLearning();
         _learningReminder = reminder;
+        reminder.LearningObservation = "";
         SetStatus(T($"Активируйте статус для «{reminder.Name}» в RO в течение 20 секунд.",
             $"Activate the status for “{reminder.Name}” in RO within 20 seconds."));
         _ = ExpireLearningAsync(reminder.Id, "reminder", _learningGeneration);
@@ -1406,68 +1429,147 @@ public partial class MainWindow : Window
         if (!_overlay.IsBusyEditing) reminder.IsPlacementPreview = false;
     }
 
+    private DateTime _learningStartedUtc;
+    private string _learningObservedSummary = "";
+
     private void StartLearning()
     {
         _learningGeneration++;
         var captureWasEnabled = Settings.PacketCaptureEnabled;
         Settings.PacketCaptureEnabled = true;
-        Settings.PacketPlayerAid = 0;
+        // Preserve the player AID from map-login identity. Erasing it allowed
+        // the very first status of another player/mob to be learned as ours.
+        // Client AID can be known from ZC_AID or own EXP even when the
+        // map-login CID is unavailable behind a local proxy (127.0.0.1).
+        Settings.PacketPlayerAid = (AppEnvironment.IsDevelopment ||
+            GameServerProfile.Normalize(Settings.ServerProfile) == GameServerProfile.SpringRo)
+            ? _packetCapture.VerifiedPlayerAid
+            : 0;
         _learningSkill = null;
         _learningEffect = null;
         _learningReminder = null;
         _learningEquipment = null;
-        _learningUntil = DateTime.UtcNow.AddSeconds(20);
+        _learningStartedUtc = DateTime.UtcNow;
+        _learningUntil = _learningStartedUtc.AddSeconds(20);
+        _learningObservedSummary = "";
         // Learning only observes the already-running packet stream. Restarting
         // every Npcap adapter here caused an unnecessary load spike exactly when
         // the user returned to the game to equip an item.
         if (!captureWasEnabled || !_packetCapture.IsActive)
             ApplyPacketCaptureIfChanged(force: true);
+        _packetCapture.BeginLearningDiagnostics();
+        if (AppEnvironment.IsDevelopment)
+            DebugLog.Write($"PACKET LEARN armed; captureActive={_packetCapture.IsActive}; windowSeconds=20");
     }
 
-    private void OnLearningStatusObserved(RoStatusPacket packet)
+    private bool IsLearningObservation<T>(RoPacketObservation<T> observation, int generation) =>
+        generation == _learningGeneration && observation.ObservedAtUtc >= _learningStartedUtc &&
+        observation.ObservedAtUtc <= _learningUntil && DateTime.UtcNow <= _learningUntil &&
+        _packetCapture.IsCurrentObservation(observation);
+
+    private bool ReportLearningActor<TPacket>(RoPacketObservation<TPacket> observation, string kind, ushort id, uint actor)
     {
-        if (!packet.Active) return;
+        if ((!AppEnvironment.IsDevelopment &&
+             GameServerProfile.Normalize(Settings.ServerProfile) != GameServerProfile.SpringRo) ||
+            observation.IsOwnActor(actor)) return true;
+        // Detection is independent of attribution: expose the observed ID and
+        // the reason it cannot be auto-assigned, without guessing a self actor.
+        _learningObservedSummary = observation.SelfAid == 0
+            ? T($"Обнаружен {kind} {id}, но свой персонаж пока не подтверждён. Повторите после входа в игру или получения опыта.",
+                $"Observed {kind} {id}, but your actor is not confirmed yet. Retry after login or gaining EXP.")
+            : T($"Обнаружен {kind} {id}, но AID не совпадает. Возможен другой персонаж или неподдерживаемый формат пакета.",
+                $"Observed {kind} {id}, but its AID differs. This may be another actor or an unsupported packet layout.");
+        if (_learningEffect is { } effect) effect.LearningObservation = _learningObservedSummary;
+        if (_learningReminder is { } reminder) reminder.LearningObservation = _learningObservedSummary;
+        if (_learningSkill is { } skill) skill.LearningObservation = _learningObservedSummary;
+        SetStatus(_learningObservedSummary);
+        return false;
+    }
+
+    private void OnLearningStatusObserved(RoPacketObservation<RoStatusPacket> observation)
+    {
+        if (!observation.Packet.Active) return;
+        var generation = _learningGeneration;
         Dispatcher.BeginInvoke(() =>
         {
-            if (DateTime.UtcNow > _learningUntil) return;
+            if ((_learningEffect is null && _learningReminder is null) ||
+                !IsLearningObservation(observation, generation)) return;
+            var packet = observation.Packet;
+            if (!ReportLearningActor(observation, "Status ID", packet.StatusId, packet.Aid)) return;
+            string name;
             if (_learningEffect is { } effect)
             {
                 effect.StatusId = packet.StatusId;
-                effect.IsActive = true;
+                effect.LearningObservation = "";
                 effect.CurrentStateText = T("ID определён", "ID learned");
+                name = effect.Name;
                 _learningEffect = null;
-                FinishStatusLearning(effect.Name, packet);
             }
             else if (_learningReminder is { } reminder)
             {
                 reminder.StatusId = packet.StatusId;
-                reminder.IsStatusPresent = true;
+                reminder.LearningObservation = "";
+                name = reminder.Name;
                 _learningReminder = null;
-                FinishStatusLearning(reminder.Name, packet);
             }
+            else return;
+            if (!AppEnvironment.IsDevelopment) Settings.PacketPlayerAid = packet.Aid;
+            RequestSave();
+            SetStatus(T($"«{name}»: найден Status ID {packet.StatusId}.",
+                $"“{name}”: learned Status ID {packet.StatusId}."));
+            if (Application.Current is App app) app.ApplyLearnedStatus(observation);
         });
     }
 
-    private void FinishStatusLearning(string name, RoStatusPacket packet)
+    private void OnLearningSkillObserved(RoPacketObservation<RoSkillPacket> observation)
     {
-        Settings.PacketPlayerAid = packet.Aid;
-        RequestSave();
-        SetStatus(T($"«{name}»: найден Status ID {packet.StatusId}, AID {packet.Aid}.",
-            $"“{name}”: learned Status ID {packet.StatusId}, AID {packet.Aid}."));
-    }
-
-    private void OnLearningSkillObserved(RoSkillPacket packet)
-    {
+        var generation = _learningGeneration;
         Dispatcher.BeginInvoke(() =>
         {
             var skill = _learningSkill;
-            if (skill is null || DateTime.UtcNow > _learningUntil) return;
+            var valid = IsLearningObservation(observation, generation);
+            if (AppEnvironment.IsDevelopment && DateTime.UtcNow <= _learningUntil &&
+                _learningUntil != default)
+                DebugLog.Write($"PACKET LEARN skill event; id={observation.Packet.SkillId}; " +
+                               $"armed={skill is not null}; valid={valid}; " +
+                               $"own={observation.IsOwnActor(observation.Packet.SourceAid)}; " +
+                               $"identityKnown={observation.SelfAid != 0}");
+            if (skill is null || !valid) return;
+            var packet = observation.Packet;
+            if (!ReportLearningActor(observation, "Skill ID", packet.SkillId, packet.SourceAid)) return;
             skill.PacketSkillId = packet.SkillId;
-            Settings.PacketPlayerAid = packet.SourceAid;
+            skill.LearningObservation = "";
+            if (!AppEnvironment.IsDevelopment) Settings.PacketPlayerAid = packet.SourceAid;
             _learningSkill = null;
             RequestSave();
-            SetStatus(T($"«{skill.Name}»: найден Skill ID {packet.SkillId}, AID {packet.SourceAid}.",
-                $"“{skill.Name}”: learned Skill ID {packet.SkillId}, AID {packet.SourceAid}."));
+            SetStatus(T($"«{skill.Name}»: найден Skill ID {packet.SkillId}.",
+                $"“{skill.Name}”: learned Skill ID {packet.SkillId}."));
+            if (Application.Current is App app) app.ApplyLearnedSkill(observation);
+        });
+    }
+
+    private void OnLearningCooldownObserved(RoPacketObservation<RoSkillCooldownPacket> observation)
+    {
+        var generation = _learningGeneration;
+        Dispatcher.BeginInvoke(() =>
+        {
+            var skill = _learningSkill;
+            var valid = IsLearningObservation(observation, generation);
+            if (AppEnvironment.IsDevelopment && DateTime.UtcNow <= _learningUntil &&
+                _learningUntil != default)
+                DebugLog.Write($"PACKET LEARN post-delay event; id={observation.Packet.SkillId}; " +
+                               $"armed={skill is not null}; valid={valid}");
+            if (skill is null || !valid) return;
+            // Post-delay is sent to this client, has no actor ID and does not
+            // require a separate CID or AID handshake to learn its SKID.
+            var packet = observation.Packet;
+            skill.PacketSkillId = packet.SkillId;
+            skill.LearningObservation = "";
+            _learningSkill = null;
+            RequestSave();
+            SetStatus(T($"«{skill.Name}»: определён Skill ID {packet.SkillId} по пакету задержки.",
+                $"“{skill.Name}”: Skill ID {packet.SkillId} learned from post-delay packet."));
+            if (Application.Current is App app) app.ApplyLearnedCooldown(observation);
         });
     }
 
@@ -1528,8 +1630,8 @@ public partial class MainWindow : Window
             else if (kind == "effect" && _learningEffect?.Id == id) { _learningEffect = null; expired = true; }
             else if (kind == "reminder" && _learningReminder?.Id == id) { _learningReminder = null; expired = true; }
             else if (kind == "equipment" && _learningEquipment?.Id == id) { _learningEquipment = null; expired = true; }
-            if (expired) SetStatus(T("ID не обнаружен. Попробуйте обучение ещё раз.",
-                "ID was not detected. Try learning again."));
+            if (expired) SetStatus(_learningObservedSummary.Length > 0 ? _learningObservedSummary :
+                T("ID не обнаружен. Попробуйте обучение ещё раз.", "ID was not detected. Try learning again."));
         });
     }
 
@@ -1943,9 +2045,23 @@ public partial class MainWindow : Window
     private void ResetStatisticsSession_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        _overlay.ResetRateSession();
-        SetStatus(T("Сессия статистики сброшена. Новый расчёт начнётся со следующего получения опыта или Zeny.",
-            "Statistics session reset. A new calculation starts with the next EXP or Zeny gain."));
+        if (AppEnvironment.IsDevelopment)
+        {
+            if (Application.Current is not App app || !app.ResetCharacterStatisticsSession())
+            {
+                SetStatus(T("Не удалось сбросить статистику: персонаж ещё не определён.",
+                    "Cannot reset statistics: active character is not identified."));
+                return;
+            }
+            SetStatus(T("Сессия выбранного персонажа сброшена; общая история сохранена.",
+                "Active character session reset; lifetime history preserved."));
+        }
+        else
+        {
+            _overlay.ResetRateSession();
+            SetStatus(T("Сессия статистики сброшена. Новый расчёт начнётся со следующего получения опыта или Zeny.",
+                "Statistics session reset. A new calculation starts with the next EXP or Zeny gain."));
+        }
     }
 
     private void HandleRateIndicatorMoveToggle(ToggleButton button, bool groupMode)
