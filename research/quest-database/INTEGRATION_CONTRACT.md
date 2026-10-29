@@ -30,6 +30,15 @@ Both formats are independently checked with `PRAGMA integrity_check` and `PRAGMA
 
 Every script-derived position, line and condition can be traced to `scripts.source_url` and `scripts.git_blob_sha` in the full research database. Keep associated source/license notices when distributing.
 
+## Read-only consumer views
+
+For simple integration without query-builder joins, the runtime SQLite also provides these **views** (no duplicated rows in storage):
+
+- `quest_navigation_candidates`: quest key + step number + NPC map/coordinates + evidence/status.
+- `quest_progress_evidence`: quest key + NPC + lexical quest/item/variable actions and guard references. These are **not** proven quest requirements or results.
+- `quest_dialogue_candidates`: quest key + linked script NPC + menu options and explicit code-line targets. A candidate must not automatically be treated as the correct dialogue choice.
+
+Read the underlying fields/statuses; never present a `candidate` edge as game-verified. New views can be added in a future consumer schema version, but existing columns require migration discipline.
 ## Example queries
 
 List stages:
