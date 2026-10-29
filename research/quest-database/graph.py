@@ -124,10 +124,10 @@ def literal(token):
 
 def options_for_select(expr):
     parts=split_top_level(expr)
-    if not parts:return [(1,None)]
+    if not parts:return [(0,None)]
     values=[literal(x) for x in parts]
     if any(v is None for v in values):
-        return [(1,None)]  # unknown dynamic options: never fabricate texts
+        return [(0,None)]  # unknown dynamic options: sentinel; never invent a first choice
     labels=[]
     for v in values:labels.extend(v.split(':'))
     return [(i,label) for i,label in enumerate(labels,1)]
@@ -227,8 +227,9 @@ def extract_npc(raw,start_line,end_line):
             targets=selected_if_target(mask,m.start(),end,starts)
             if targets:method='if_selected_equals'
         for idx,label in options_for_select(arg):
-            tgt=targets.get(idx)
-            choices.append((ln,'select',idx,label[:MAX_FIELD] if label is not None else None,offset+tgt if tgt else None,method if tgt else 'unresolved'))
+            tgt=targets.get(idx) if idx>0 else None
+            resolution=method if tgt else ('dynamic_menu' if idx==0 else 'unresolved')
+            choices.append((ln,'select',idx,label[:MAX_FIELD] if label is not None else None,offset+tgt if tgt else None,resolution))
     for m in MENU.finditer(mask):
         line0=mask.rfind('\n',0,m.start())+1
         # A menu command can appear after a conditional, but must have a terminal ';'.
