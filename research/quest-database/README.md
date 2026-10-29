@@ -2,7 +2,20 @@
 
 Isolated **research branch**. No changes to the RoAura WPF application, settings, updater, main, release files or database runtime.
 
-## Current verified dataset (2026-10-29)
+## Verified stage 3 dataset (2026-10-29)
+
+**[Full GitHub Actions build: SUCCESS](https://github.com/alerion08/RoAura/actions/runs/40910651236)** — schema version 4, SQLite integrity_check = ok, 0 foreign-key violations, 0 source-fetch errors.
+
+- 314 compressed original NPC scripts; 3,904 NPC position records; 406,386 extracted script events.
+- 286 wiki pages, 3,420 guide rows and 2,879 pre-renewal Quest ID entries.
+- 5,815 NPC choice points; 14,081 options; **9,295 explicitly linked choice destinations**, 24,646 unevaluated if-guards and 38 locally resolved goto statements.
+- 286 quest review rows: **216 without a candidate**, **61 tied competing script candidates**, **9 tied source/emulator variants**. These categories are *not* confirmed matching scripts.
+- 33 candidate matches between explicit guide text and literal NPC menu labels. No gameplay routing is verified.
+- SQLite 31,698,944 bytes; compressed GZIP 13,110,334 bytes.
+
+All isolated parser/graph/review tests and full-build checks passed. [Real-source QA](https://github.com/alerion08/RoAura/actions/runs/40910773274) inspected Bunny Band (6 of 6 option edges), Juice Maker (18 of 24), and Kiel Hyre (169 of 213). Dynamic menus remain unresolved.
+
+## Historical stage 2 dataset (2026-10-29)
 
 **[Successful full extractor build + regression tests](https://github.com/alerion08/RoAura/actions/runs/40904241602)**. Data was published to this research branch and the run provides a downloadable ZIP artifact.
 
