@@ -7,6 +7,7 @@ No captured bytes are written to disk by this tool.
 import argparse
 import datetime as dt
 import json
+import re
 from pathlib import Path
 
 
@@ -23,10 +24,16 @@ def main():
     parser.add_argument("client_jsonl", type=Path)
     args = parser.parse_args()
     wire = []
+    layout = []
     for line in args.debug_log.read_text(encoding="utf-8-sig").splitlines():
         if MARKER in line:
             item = json.loads(line.split(MARKER, 1)[1])
             wire.append((time(item["observedAtUtc"]), bytes.fromhex(item["statusHex"])))
+        if "PACKET LAYOUT " in line and "opcode=0x" in line:
+            match = re.search(r"^(\S+ \S+) PACKET LAYOUT .*?opcode=(0x[0-9A-F]+).*?status=(\d+); state=(\d+)", line)
+            if match:
+                local = dt.datetime.fromisoformat(match[1]).replace(tzinfo=dt.timezone(dt.timedelta(hours=6)))
+                layout.append((local.astimezone(dt.timezone.utc), match[2], int(match[3]), int(match[4])))
     client = []
     for line in args.client_jsonl.read_text(encoding="utf-8-sig").splitlines():
         item = json.loads(line)
@@ -51,6 +58,20 @@ def main():
               f"status={int.from_bytes(decoded[2:4], 'little')} "
               f"actor={int.from_bytes(decoded[4:8], 'little')}")
     print(f"Matched {len(used)}/{len(client)} client frames; {len(wire)} wire samples available")
+    # Layout observations have rounded millisecond timestamps and no raw bytes.
+    # They corroborate event order, but cannot establish a field transform.
+    for line in args.client_jsonl.read_text(encoding="utf-8-sig").splitlines():
+        item = json.loads(line)
+        observed = time(item["observedAtUtc"])
+        frame = bytes.fromhex(item["hex"])
+        candidates = [(abs((observed - at).total_seconds()), status, state)
+                      for at, opcode, status, state in layout if opcode == item["opcode"]]
+        if candidates:
+            delta, status, state = min(candidates)
+            if delta <= 0.05:
+                print(f"layout delta={delta * 1000:.3f}ms opcode={item['opcode']} "
+                      f"wireParsedStatus={status} clientStatus={int.from_bytes(frame[2:4], 'little')} "
+                      f"wireState={state} clientState={frame[8]}")
 
 
 if __name__ == "__main__":

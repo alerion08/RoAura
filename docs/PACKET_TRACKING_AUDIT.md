@@ -519,3 +519,22 @@ transformation and its state, or validating bounded client-buffer observation
 for a second distinct status, removal, relog and multiple clients. The
 current probe is a diagnostic only: continuous high-frequency cross-process
 reads have not been measured for CPU, frame retention or compatibility.
+
+### Second status and removal, 14:15 local
+
+The next client-buffer sample contains three `0x0983` starts with status 5,
+own actor `0x001E95FA`, state 1 and both durations 9999 ms, and five
+`0x0196` removals of status 5 for that same actor. Each of the eight events
+has a unique same-opcode Npcap `PACKET LAYOUT` observation 2.425–5.255 ms
+earlier. Npcap's parsed IDs vary across starts (10880, 51022, 50681) and
+removals (40343, 54632, 37175, 2305, 844), and actor checks fail. These
+are observational event matches, not exact byte matches: the existing
+`SPRINGRO WIRE SAMPLE` logger emits only status/skill-138 pairs, whereas
+this run contains skill 135. The client capture itself independently
+establishes status 5 activation and removal; it does not establish that all
+other effects or relog/multiple-client scenarios work.
+
+The comparison tool now reports both exact wire matches and timestamp-only
+layout matches, clearly distinguished. No further repeated cast of these
+two skills is needed. Engineering work should address generic access to the
+decoded receive path and its lifetime, not infer a per-skill status mapping.

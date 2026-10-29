@@ -37,6 +37,10 @@ dispatch; client Status ID is 6 and actor is the verified player. This proves
 the present raw parser cannot identify ownership or Status ID for these
 frames. It does not reveal the changing transform or establish a safe general
 client-memory capture path. No production parser change or new build yet.
+Second client run confirms status 5 on three starts and five removals with
+own actor; the corresponding wire layout events precede them by 2.425–5.255
+ms but the wire sampler did not record their raw bytes because it is limited
+to skill 138. Generic decoded event delivery remains the implementation task.
 
 ## Current product
 
