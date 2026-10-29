@@ -20,6 +20,8 @@ on:
       - research/quest-database/test_augment.py
       - research/quest-database/quality.py
       - research/quest-database/test_quality.py
+      - research/quest-database/audit.py
+      - research/quest-database/test_audit.py
       - .github/workflows/quest-research.yml
   workflow_dispatch:
     inputs:
@@ -55,7 +57,7 @@ jobs:
       - name: Regression tests for wiki parser and script linking
         run: |
           cd research/quest-database
-          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py
+          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py
       - name: Rebuild research and runtime SQLite
         run: |
           if [ "${{ github.event.inputs.refresh_sources }}" = "true" ] || [ "${{ github.event.head_commit.message }}" = "research: perform one-time full NPC source refresh" ]; then
@@ -117,6 +119,13 @@ jobs:
           assert consumer.execute("PRAGMA integrity_check").fetchone()[0]=="ok"
           assert not consumer.execute("PRAGMA foreign_key_check").fetchall()
           assert consumer.execute("SELECT count(*) FROM quests").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
+          import json
+          review_path=Path("research/quest-database/output/quest_review_queue.json")
+          review=json.loads(review_path.read_text(encoding="utf-8"))
+          assert review["metrics"]["indexed_pages"]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
+          assert len(review["quests"])==review["metrics"]["indexed_pages"]
+          assert sum(1 for q in review["quests"] if q["steps"]>0)==review["metrics"]["pages_with_steps"]
+          assert all(q["assurance"].endswith("unverified") for q in review["quests"])
           assert consumer.execute("SELECT count(*) FROM quest_steps").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_steps").fetchone()[0]
           assert consumer.execute("SELECT count(*) FROM dialogue_options").fetchone()[0]==con.execute("SELECT count(*) FROM npc_flow_options").fetchone()[0]
           assert consumer.execute("SELECT count(*) FROM quest_state_facts").fetchone()[0]==con.execute("SELECT count(*) FROM npc_state_facts").fetchone()[0]
@@ -136,13 +145,14 @@ jobs:
             research/quest-database/output/coverage.json
             research/quest-database/output/questie_catalog.sqlite
             research/quest-database/output/questie_catalog.sqlite.gz
+            research/quest-database/output/quest_review_queue.json
           if-no-files-found: error
           retention-days: 30
       - name: Publish database to research branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research/quest-database/output/quest_research.sqlite research/quest-database/output/quest_research.sqlite.gz research/quest-database/output/coverage.json research/quest-database/output/questie_catalog.sqlite research/quest-database/output/questie_catalog.sqlite.gz
+          git add research/quest-database/output/quest_research.sqlite research/quest-database/output/quest_research.sqlite.gz research/quest-database/output/coverage.json research/quest-database/output/questie_catalog.sqlite research/quest-database/output/questie_catalog.sqlite.gz research/quest-database/output/quest_review_queue.json
           if git diff --cached --quiet; then
             echo "No database changes to publish."
             exit 0
