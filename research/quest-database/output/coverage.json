@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T17:03:38.449535+00:00",
+  "created_utc": "2026-10-29T17:12:34.215298+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -35,9 +35,19 @@
   "source_snapshot_utc": "2026-10-29T16:55:45.631423+00:00",
   "fetch_mode": "reused_existing_snapshot",
   "linking": {
-    "wiki_script_links": 237,
-    "linked_pages": 70,
-    "wiki_step_npc_links": 720
+    "wiki_script_links": 418,
+    "linked_pages": 148,
+    "wiki_step_npc_links": 1146
+  },
+  "evidence_augmentation": {
+    "header_title_leads": 93,
+    "pages_with_corroborated_coordinate_evidence": 73,
+    "new_script_candidates": 181,
+    "stronger_existing_candidates": 0,
+    "new_step_npc_links": 426,
+    "linked_pages": 148,
+    "script_candidates": 418,
+    "step_npc_candidates": 1146
   },
   "dialogue_flow": {
     "points": 5815,
@@ -60,11 +70,11 @@
     "guarded_facts": 21468
   },
   "script_link_review": {
-    "pages_no_script": 216,
-    "pages_ambiguous": 61,
-    "pages_cross_source_variants": 9,
-    "pages_candidate_with_npc_evidence": 0,
-    "guide_answer_menu_matches": 33
+    "pages_no_script": 138,
+    "pages_ambiguous": 73,
+    "pages_cross_source_variants": 64,
+    "pages_candidate_with_npc_evidence": 7,
+    "guide_answer_menu_matches": 155
   },
   "counts": {
     "scripts": 314,
@@ -74,14 +84,14 @@
     "wiki_pages": 286,
     "wiki_steps": 3420,
     "wiki_details": 1472,
-    "wiki_script_links": 237,
-    "wiki_step_npc_links": 720,
+    "wiki_script_links": 418,
+    "wiki_step_npc_links": 1146,
     "npc_flow_points": 5815,
     "npc_flow_options": 14081,
     "npc_flow_conditions": 24646,
     "npc_flow_jumps": 38,
     "wiki_script_reviews": 286,
-    "wiki_answer_menu_matches": 33,
+    "wiki_answer_menu_matches": 155,
     "npc_state_facts": 24309,
     "npc_quest_registry_refs": 1374
   },
@@ -96,9 +106,9 @@
       "quest_steps": 3420,
       "step_hints": 1472,
       "scripts": 314,
-      "quest_scripts": 237,
+      "quest_scripts": 418,
       "npcs": 3904,
-      "quest_step_npcs": 720,
+      "quest_step_npcs": 1146,
       "dialogue_lines": 298131,
       "dialogue_points": 5815,
       "dialogue_options": 14081,
@@ -107,9 +117,9 @@
       "quest_state_facts": 24309,
       "quest_registry": 2879,
       "quest_registry_evidence": 1374,
-      "candidate_answers": 33
+      "candidate_answers": 155
     },
-    "bytes": 37773312
+    "bytes": 37867520
   },
   "questie_schema_version": 1
 }
