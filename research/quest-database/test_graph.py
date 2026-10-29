@@ -54,7 +54,7 @@ class FlowParserTests(unittest.TestCase):
     def test_nested_colons_comma_escaped(self):
         self.assertEqual(split_top_level('"one,two",foo(1,2),"third"'),['"one,two"','foo(1,2)','"third"'])
         self.assertEqual(options_for_select('"Yes:No"'),[(1,"Yes"),(2,"No")])
-        self.assertEqual(options_for_select('choice
+        self.assertEqual(options_for_select('choice_var'),[(0,None)])
         self.assertEqual(options_for_select('"First","Second"'),[(1,"First"),(2,"Second")])
 
     def test_switch_cases_and_nested_switch_scopes(self):
