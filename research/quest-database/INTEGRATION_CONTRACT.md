@@ -4,8 +4,8 @@
 
 ## Two deliverables
 
-- `output/quest_research.sqlite` (research schema **6**): full compressed upstream NPC sources and extracted evidence, public wiki pages, audit rows, parser-derived dialogue/control flow and literal quest/item state facts.
-- `output/questie_catalog.sqlite` (consumer schema **2**, `PRAGMA user_version = 2`): ready-to-query local SQLite projection, **without compressed scripts or Python dependency**. The consumer must **not** guess the correctness of unverified responses or use candidates as verified directions.
+- `output/quest_research.sqlite` (research schema **7**): full compressed upstream NPC sources and extracted evidence, public wiki pages, audit rows, parser-derived dialogue/control flow and literal quest/item state facts.
+- `output/questie_catalog.sqlite` (consumer schema **3**, `PRAGMA user_version = 3`): ready-to-query local SQLite projection, **without compressed scripts or Python dependency**. The consumer must **not** guess the correctness of unverified responses or use candidates as verified directions.
 
 Both formats are independently checked with `PRAGMA integrity_check` and `PRAGMA foreign_key_check`. Their `.gz` variants compress for download; decompress before SQLite use.
 
@@ -16,7 +16,7 @@ Both formats are independently checked with `PRAGMA integrity_check` and `PRAGMA
 - Source script `variant_scope` is `common`, `pre-re`, or `renewal`; a mix of them must never be silently selected as one active server variant.
 - The crawler retries transient failures and rechecks previously discovered pages. Failed requests retain last-known-good steps/content hash and are flagged `cached_http_error`. Unexpectedly empty/shrunken parses retain the earlier walkthrough and are flagged `cached_parse_regression`.
 - New incremental snapshots must pass a no-regression gate before publishing: no unexpected loss greater than 5% of source scripts/steps or 2% of wiki pages. This protects storage completeness, **not** factual correctness; report flags and in-game verification remain mandatory.
-- Consumer schema v2 adds `quest_quality` and `scripts.variant_scope`. Never open v2 as if it were v1: integrations must check `PRAGMA user_version`, use a versioned reader/migration, and preserve character progress separately.
+- Consumer schema v2 introduced `quest_quality` and `scripts.variant_scope`. Never open v2/v3 as if it were v1: integrations must check `PRAGMA user_version`, use a versioned reader/migration, and preserve character progress separately.
 
 ## Stable identities and source variants
 
@@ -48,6 +48,19 @@ For simple integration without query-builder joins, the runtime SQLite also prov
 - `quest_dialogue_candidates`: quest key + linked script NPC + menu options and explicit code-line targets. A candidate must not automatically be treated as the correct dialogue choice.
 
 Read the underlying fields/statuses; never present a `candidate` edge as game-verified. New views can be added in a future consumer schema version, but existing columns require migration discipline.
+### Explicit wiki prerequisites
+
+`wiki_quest_prerequisite_text` retains the exact section following
+`Quest Prerequisite(s):` from source wiki requirements. References to **known
+wiki page titles** are extracted into `wiki_quest_prerequisite_links` only when
+a full bounded title match exists. An unmatched requirement remains available
+as raw text for future research. Boolean expression logic is *unspecified*;
+a comma or an "or" is not automatically converted to executable conditions.
+
+The consumer SQLite v3 exports `quest_prerequisite_text` and
+`quest_prerequisites`. Both are source-documented statements,
+**not confirmation that ToC has enabled the quests**.
+
 ### Candidate Quest IDs (not live quest progress)
 
 The `quest_id_candidates` SQL view connects a guide's *candidate* script with literal
