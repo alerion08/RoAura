@@ -16,6 +16,8 @@ on:
       - research/quest-database/test_state.py
       - research/quest-database/runtime.py
       - research/quest-database/test_runtime.py
+      - research/quest-database/augment.py
+      - research/quest-database/test_augment.py
       - .github/workflows/quest-research.yml
   workflow_dispatch:
     inputs:
@@ -51,7 +53,7 @@ jobs:
       - name: Regression tests for wiki parser and script linking
         run: |
           cd research/quest-database
-          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py
+          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py
       - name: Rebuild research and runtime SQLite
         run: |
           if [ "${{ github.event.inputs.refresh_sources }}" = "true" ]; then
@@ -87,6 +89,16 @@ jobs:
           assert flow_options>=100, f"No dialogue options: {flow_options}"
           assert flow_edges>=10, f"No explicit flow edges: {flow_edges}"
           assert reviewed==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
+          evidence=con.execute("SELECT value FROM research_meta WHERE key='matching_revision'").fetchone()
+          assert evidence and evidence[0]=='header_and_correlated_npc_coordinate_v1'
+          print("Script-link evidence:",con.execute("SELECT method,count(*) FROM wiki_script_links GROUP BY method").fetchall())
+          print("Provider/source scopes:",con.execute("""
+             SELECT project,
+                    CASE WHEN path LIKE 'npc/pre-re/%' THEN 'pre-re'
+                         WHEN path LIKE 'npc/re/%' THEN 'renewal'
+                         ELSE 'common' END,
+                    count(*)
+             FROM provenance GROUP BY project,2""").fetchall())
           roles={x[0]:x[1] for x in con.execute("SELECT role,count(*) FROM npc_state_facts GROUP BY role")}
           assert roles.get('quest_start',0)>0 and roles.get('quest_check',0)>0, roles
           assert roles.get('item_grant',0)>0 and roles.get('item_check',0)>0, roles
