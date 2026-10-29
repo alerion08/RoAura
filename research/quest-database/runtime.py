@@ -133,6 +133,17 @@ CREATE VIEW quest_dialogue_candidates AS
         n.npc_key,n.name,o.line_no,o.option_no,o.label,o.target_line,o.resolution
  FROM quest_scripts q JOIN npcs n ON n.script_key=q.script_key
  JOIN dialogue_options o ON o.npc_key=n.npc_key;
+CREATE VIEW quest_id_candidates AS
+ SELECT q.quest_key, q.script_key, n.npc_key, n.map, n.x, n.y,
+        r.quest_id, r.project AS registry_project, r.variant AS registry_variant,
+        f.line_no, f.occurrence, f.role, q.method AS source_link_method,
+        q.status AS script_match_status,
+        'candidate_unverified' AS assurance
+ FROM quest_scripts q JOIN npcs n ON n.script_key=q.script_key
+ JOIN quest_registry_evidence e ON e.npc_key=n.npc_key
+ JOIN quest_state_facts f ON f.npc_key=e.npc_key
+      AND f.line_no=e.line_no AND f.occurrence=e.occurrence
+ JOIN quest_registry r ON r.project=e.project AND r.variant=e.variant AND r.quest_id=e.quest_id;
 """
 
 def key_page(url):
