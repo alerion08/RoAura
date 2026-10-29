@@ -52,6 +52,31 @@ payloads remain in `provenance` as compressed bytes. We **have not yet**
 built a control-flow graph that ties each NPC menu option to game state,
 nor confirmed which server-specific scripts are active in ToC/SpringRO.
 
+## Dialogue graph and ambiguity audit (stage 3)
+
+The third research stage adds a **partial lexical graph** of NPC dialogues. It never executes game code or claims to know the player's quest state.
+
+- **npc_flow_points:** per-NPC select/menu anchors with the original expression.
+- **npc_flow_options:** option number, literal label (NULL for dynamic choices), explicit target line when resolvable and an evidence tag.
+- **npc_flow_conditions:** literal if-conditions and matched brace-block end where available; conditions are not evaluated.
+- **npc_flow_jumps:** goto targets resolved only to unique local labels.
+- **npc_flow_edges:** zero-copy SQL view over resolved menu-option and goto edges, with original script line numbers.
+- **wiki_script_reviews:** one row per wiki page identifying no candidates, tied best candidates, single filename candidates, or additional coordinate support.
+- **wiki_answer_menu_matches:** exact, distinctive wiki answer to literal menu-label candidates. Repeated labels stay ambiguous; generic Yes/No are excluded.
+
+Resolved edges mean *explicit source references*, **not** a correct in-game answer or a verified route. Dynamic menus, function calls, switch fallthrough, loops, else branches, and many one-line conditions remain unresolved. The graph is not a complete control-flow interpreter.
+
+Example SQL queries:
+
+    SELECT p.line_no,o.option_no,o.label,o.target_line,o.resolution
+    FROM npc_flow_points p JOIN npc_flow_options o ON o.point_id=p.id
+    WHERE p.source_id=1 ORDER BY p.line_no,o.option_no;
+
+    SELECT q.title,r.review_state,r.candidates,r.best_score_ties
+    FROM wiki_script_reviews r JOIN wiki_pages q ON q.id=r.page_id
+    WHERE r.review_state='ambiguous_top';
+
+Schema version 4. All original source files remain in provenance, so future graph analysis can improve without losing source lines.
 ## Download the database
 
 After the GitHub Actions job **Quest research database (isolated)** finishes successfully, use:
