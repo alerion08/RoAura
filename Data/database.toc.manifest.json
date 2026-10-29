@@ -1,0 +1,14 @@
+{
+  "schema_version": "1",
+  "source": "https://tidesofcomodo.com/api/v1",
+  "retrieved_utc": "2026-10-29T14:07:37.569282+00:00",
+  "items": "9894",
+  "monsters": "1061",
+  "mvp": "61",
+  "payload_encoding": "zlib+utf8-json",
+  "images": "remote URLs; binaries excluded",
+  "item_image_template": "https://tidesofcomodo.com/db/collection-img/{id}.png",
+  "monster_image_template": "https://tidesofcomodo.com/db/mob-img/{id}.gif",
+  "bytes": 12386304,
+  "sha256": "9efcb3bd519de571be5907df78bc85f945679a3f6f3b0037ec4c96fb919fca00"
+}

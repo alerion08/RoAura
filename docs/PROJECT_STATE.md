@@ -1,5 +1,32 @@
 # Project state
 
+## ToC catalog preparation (2026-10-29)
+
+GitHub was checked directly: stable `main` is `4f75b78` (3.1.1), published
+`v3.1.1` has portable/installer assets, and release workflow run `40877228467`
+completed successfully. Older 3.0.0/current-branch statements below are historical
+and do not describe the current stable release. Remote branches include
+`release/3.1.1-character-identity`, `release/3.1.0-springro`,
+`feature/character-statistics`, `fix/gold-goblin-zero-prices`,
+`integration/2.14.0-audit-fixes` and `dev/roaura-2-ui`.
+
+Active task: `feature/toc-local-database`, based on stable main. Prepare a compact
+ToC item/monster/MVP catalog for later Database, MVP Timers, Statistics and Gold
+Goblin integration. See `TOC_DATABASE.md` for schema, source, refresh and limits.
+Snapshot completed: 9,894 items, 1,061 monsters, 61 MVPs, 4,946 normal-drop
+relations and 156 MVP rewards in a 12,386,304-byte SQLite file. Indexed drop/reward
+references all resolve. Six local Python regressions plus snapshot/payload/hash
+checks pass. Full Windows application/package checks belong to this branch's
+Actions run; local .NET SDK is unavailable.
+No settings migration, packet/UI changes, version bump or release is included.
+
+Verification boundary: user provisionally accepted SpringRO Skill ID, Status ID,
+reminders, equipment and own AID behavior. Earlier character-statistics stages
+have field feedback, but ordinary 3.1.1 CID/relog/Character Select and long-session
+CPU/reconnect acceptance are not separately recorded. Successful release CI proves
+automated build/package checks, not these gameplay checks. ToC runtime support
+has not been verified in game.
+
 ## Release correction: 3.1.1 (2026-10-29)
 
 The published 3.1.0 regular build omitted the DEV character-session and statistics path. This release candidate promotes map-login observation, flow-bound CID sessions, character-specific statistics storage, the active-character browser and shared Gold Goblin/session clock to the regular build. DEV-only raw diagnostics, updater isolation and the separate RoAura-Dev data directory remain gated. The normal build writes new character records to RoAura's local data directory; DEV history is not automatically migrated. A late launch after map login cannot infer CID. Windows CI and in-game relog/Character Select checks remain necessary before calling this correction verified.
@@ -94,11 +121,13 @@ CPU cost has not been measured and remains a material DEV-only concern.
 
 RoAura is a Windows x64 WPF overlay for Ragnarok Online. It reads incoming game packets through Npcap and provides configurable overlays and supporting tools.
 
-Current published release: **3.0.0**
+Current published release: **3.1.1** (verified on GitHub 2026-10-29)
 
 Stable branch: `main` (unchanged by this work)
 
-Active bug-fix branch: `feature/character-statistics`
+Active data-preparation branch: `feature/toc-local-database`
+
+Previous SpringRO investigation branch: `feature/character-statistics`
 
 Active redesign branch: `dev/roaura-2-ui`  
 Audit integration branch: `integration/2.14.0-audit-fixes`  

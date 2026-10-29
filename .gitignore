@@ -40,3 +40,6 @@ market-watch-history.json.*.tmp
 
 # Offline packet-analysis tooling
 __pycache__/
+
+# Incomplete ToC catalog staging file
+Data/*.building*
