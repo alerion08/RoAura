@@ -160,3 +160,5 @@ It respects wiki robots.txt, uses a request delay, never bypasses source access 
 ## Licensing
 
 Upstream files include their original notices, and provenance stores the source URL. Follow rAthena and Hercules GPL terms before redistribution or reuse. iRO Wiki content has separate licensing requirements. This research archive does not grant any additional rights.
+
+**Final stage 5 publication:** [GitHub Actions #40916787665](https://github.com/alerion08/RoAura/actions/runs/40916787665) SUCCESS. Research SQLite schema 5 = 35,082,240 bytes; consumer SQLite schema 1 = 37,773,312 bytes (7,602,500 bytes gzip). Both integrity checks = OK, zero FK violations. Source snapshot is from 2026-10-29T16:55:45Z; this run safely reused it with the offline enrichment mode. The consumer artifact is available in this branch at `output/questie_catalog.sqlite` / `.gz`. All new state/export unit tests and end-to-end row-count assertions passed. A separate earlier full-source refresh completed successfully in run #40916329046.
