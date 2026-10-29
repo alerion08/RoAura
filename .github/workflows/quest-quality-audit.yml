@@ -12,6 +12,26 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: research/quest-database
+      - name: Compare live wiki DOM with stored data
+        run: |
+          cd research/quest-database
+          python -m pip -q install requests beautifulsoup4
+          python - <<'PY'
+          import requests
+          from bs4 import BeautifulSoup,Tag
+          from enrich import parse_guide
+          for slug in ['Kiel_Hyre_Quest','Juice_Quest','Swordman_Job_Change_Guide','Factory_Quest']:
+            uri='https://irowiki.org/classic/'+slug
+            r=requests.get(uri,timeout=30,headers={'User-Agent':'RoAura-Quest-Research/1.0 (public source research, limited crawl)'})
+            soup=BeautifulSoup(r.text,'html.parser')
+            root=soup.select_one('.mw-parser-output') or soup.select_one('#mw-content-text')
+            tags=[(c.name,c.get('class',''),c.get_text(' ',strip=True)[:60]) for c in root.children if isinstance(c,Tag)] if root else []
+            p=root.find('p') if root else None
+            lineage=[(n.name,n.get('class','')) for n in (list(p.parents)[:5] if p else [])]
+            steps,quality,meta=parse_guide(r.text)
+            print('LIVE',slug,'http',r.status_code,'url',r.url,'root',str(root.get('class',[])) if root else None,
+              'tags',tags[:12],'p_parents',lineage,'PARSED',quality,'FIRST',steps[0].instruction[:90] if steps else None,flush=True)
+          PY
       - name: Audit populated SQLite data
         run: |
           python - <<'PY'
