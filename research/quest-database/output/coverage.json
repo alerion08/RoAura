@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T18:14:18.550687+00:00",
+  "created_utc": "2026-10-29T18:16:34.155469+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -148,6 +148,14 @@
         "medium": 97
       },
       "unverified_by_server": 286
+    },
+    "critical_triage": {
+      "critical_total": 84,
+      "categories": {
+        "historical_event_or_spotlight": 42,
+        "core_or_other_quest_candidate": 41,
+        "class_or_reference_page": 1
+      }
     }
   },
   "sqlite_integrity": "ok",
