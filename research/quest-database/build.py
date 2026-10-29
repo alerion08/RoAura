@@ -25,6 +25,7 @@ from state import SCHEMA as STATE_SCHEMA, create_state_facts
 from runtime import make_runtime
 from audit import summarize_review_queue
 from triage import triage_review
+from baseline import assemble_core_worklist
 from prerequisites import SCHEMA as PREREQ_SCHEMA, extract_prerequisites
 from augment import augment_evidence
 from quality import (ensure_quality_schema, update_state, state_counts,
@@ -495,6 +496,10 @@ def main():
     report["quality"]["critical_triage"]=critical["counts"]
     (target/"critical_quest_triage.json").write_text(
         json.dumps(critical,ensure_ascii=False,indent=2),encoding="utf-8")
+    core=assemble_core_worklist(review)
+    report["quality"]["core_quest_worklist"]=core["metrics"]
+    (target/"roquestie_core_worklist.json").write_text(
+        json.dumps(core,ensure_ascii=False,indent=2),encoding="utf-8")
     db.close()
     report["questie_schema_version"]=report["runtime_export"]["schema_version"]
     (target/"coverage.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
