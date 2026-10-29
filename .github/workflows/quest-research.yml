@@ -33,6 +33,8 @@ on:
       - research/quest-database/test_name_links.py
       - research/quest-database/dependencies.py
       - research/quest-database/test_dependencies.py
+      - research/quest-database/discovery.py
+      - research/quest-database/test_discovery.py
       - research/quest-database/prerequisites.py
       - research/quest-database/test_prerequisites.py
       - .github/workflows/quest-research.yml
@@ -70,7 +72,7 @@ jobs:
       - name: Regression tests for wiki parser and script linking
         run: |
           cd research/quest-database
-          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py test_prerequisites.py test_baseline.py test_content.py test_name_links.py test_dependencies.py
+          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py test_prerequisites.py test_baseline.py test_content.py test_name_links.py test_dependencies.py test_discovery.py
       - name: Rebuild research and runtime SQLite
         run: |
           if [ "${{ github.event.inputs.refresh_sources }}" = "true" ] || [ "${{ github.event.head_commit.message }}" = "research: perform one-time full NPC source refresh" ]; then
@@ -163,6 +165,19 @@ jobs:
           assert consumer.execute("SELECT count(*) FROM quest_steps").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_steps").fetchone()[0]
           assert consumer.execute("SELECT count(*) FROM dialogue_options").fetchone()[0]==con.execute("SELECT count(*) FROM npc_flow_options").fetchone()[0]
           assert consumer.execute("SELECT count(*) FROM quest_state_facts").fetchone()[0]==con.execute("SELECT count(*) FROM npc_state_facts").fetchone()[0]
+          missing=json.loads(Path("research/quest-database/output/missing_script_discovery.json").read_text(encoding="utf-8"))
+          missing_count=con.execute("""SELECT count(*) FROM wiki_pages p
+                 WHERE NOT EXISTS(SELECT 1 FROM wiki_script_links s WHERE s.page_id=p.id)""").fetchone()[0]
+          assert missing["metrics"]["unlinked_pages"]==missing_count
+          assert con.execute("SELECT count(*) FROM wiki_missing_script_reviews").fetchone()[0]==missing_count
+          assert con.execute("SELECT count(*) FROM wiki_missing_script_proposals").fetchone()[0]==missing["metrics"].get("proposals",0)
+          assert all(p["review_status"]=="needs_manual_review" for p in missing["proposals"])
+          assert all(p["distinct_npc_names"]>=2 and p["independent_guide_steps"]>=2 for p in missing["proposals"])
+          assert not con.execute("""SELECT 1 FROM wiki_missing_script_proposals d
+              JOIN wiki_script_links l ON l.page_id=d.page_id LIMIT 1""").fetchone()
+          unsorted=json.loads(Path("research/quest-database/output/unclassified_quest_review.json").read_text(encoding="utf-8"))
+          assert unsorted["total"]==con.execute("SELECT count(*) FROM wiki_content_categories WHERE category='unsorted_quest_candidate'").fetchone()[0]
+          assert len(unsorted["quests"])==unsorted["total"]
           print(f"Quest state roles: {roles}; registry links={ref_count}; runtime SQLite={output.stat().st_size} bytes")
           consumer.close()
           print(f"NPC graph: {flow_points} menu points, {flow_options} options, {flow_edges} resolved edges, {reviewed} review rows")
@@ -182,13 +197,15 @@ jobs:
             research/quest-database/output/quest_review_queue.json
             research/quest-database/output/critical_quest_triage.json
             research/quest-database/output/roquestie_core_worklist.json
+            research/quest-database/output/missing_script_discovery.json
+            research/quest-database/output/unclassified_quest_review.json
           if-no-files-found: error
           retention-days: 30
       - name: Publish database to research branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research/quest-database/output/quest_research.sqlite research/quest-database/output/quest_research.sqlite.gz research/quest-database/output/coverage.json research/quest-database/output/questie_catalog.sqlite research/quest-database/output/questie_catalog.sqlite.gz research/quest-database/output/quest_review_queue.json research/quest-database/output/critical_quest_triage.json research/quest-database/output/roquestie_core_worklist.json
+          git add research/quest-database/output/quest_research.sqlite research/quest-database/output/quest_research.sqlite.gz research/quest-database/output/coverage.json research/quest-database/output/questie_catalog.sqlite research/quest-database/output/questie_catalog.sqlite.gz research/quest-database/output/quest_review_queue.json research/quest-database/output/critical_quest_triage.json research/quest-database/output/roquestie_core_worklist.json research/quest-database/output/missing_script_discovery.json research/quest-database/output/unclassified_quest_review.json
           if git diff --cached --quiet; then
             echo "No database changes to publish."
             exit 0
