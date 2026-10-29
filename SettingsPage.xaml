@@ -1,6 +1,23 @@
 <UserControl x:Class="RoAura.SettingsPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="clr-namespace:RoAura.Controls"
  LostKeyboardFocus="Save_Changed">
+ <UserControl.Resources>
+        <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,5,10,5" />
+        </Style>
+        <Style x:Key="FieldEditorStyle" TargetType="TextBox" BasedOn="{StaticResource RoTextBoxStyle}">
+            <Setter Property="Margin" Value="0,4,14,4" />
+            <Setter Property="MinWidth" Value="72" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+ </UserControl.Resources>
  <Grid Margin="8,4,8,8"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
   <Border Style="{StaticResource SectionHeaderCardStyle}"><StackPanel><TextBlock Text="{DynamicResource SettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource SettingsDescription}" Style="{StaticResource RoCaptionTextStyle}" TextWrapping="Wrap"/></StackPanel></Border>
   <TabControl x:Name="SettingsTabs" Grid.Row="1" Style="{StaticResource SectionTabControlStyle}">
@@ -12,9 +29,9 @@
     <CheckBox Content="{DynamicResource TrackingEnabled}" IsChecked="{Binding Enabled, Mode=TwoWay}" Margin="0,4"/>
     <CheckBox Content="{DynamicResource ReadPackets}" IsChecked="{Binding PacketCaptureEnabled, Mode=TwoWay}" Margin="0,4"/>
     <Grid Margin="0,12,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="180"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-     <TextBlock Text="{DynamicResource Server}" Style="{DynamicResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding PacketServerAddress, UpdateSourceTrigger=LostFocus}" Style="{DynamicResource FieldEditorStyle}"/>
-     <TextBlock Grid.Row="1" Text="{DynamicResource Port}" Style="{DynamicResource FieldLabelStyle}"/><controls:NumericTextBox Grid.Row="1" Grid.Column="1" Value="{Binding PacketServerPort, Mode=TwoWay}" Style="{DynamicResource FieldEditorStyle}"/>
-     <TextBlock Grid.Row="2" Text="{DynamicResource Process}" Style="{DynamicResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding AllowedProcessesText, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{DynamicResource FieldEditorStyle}"/>
+     <TextBlock Text="{DynamicResource Server}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding PacketServerAddress, UpdateSourceTrigger=LostFocus}" Style="{StaticResource FieldEditorStyle}"/>
+     <TextBlock Grid.Row="1" Text="{DynamicResource Port}" Style="{StaticResource FieldLabelStyle}"/><controls:NumericTextBox Grid.Row="1" Grid.Column="1" Value="{Binding PacketServerPort, Mode=TwoWay}" Style="{StaticResource FieldEditorStyle}"/>
+     <TextBlock Grid.Row="2" Text="{DynamicResource Process}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="2" Grid.Column="1" Text="{Binding AllowedProcessesText, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{StaticResource FieldEditorStyle}"/>
     </Grid>
     <CheckBox Content="{DynamicResource AutoDetectConnection}" IsChecked="{Binding AutoDetectConnection}" Margin="0,12"/>
     <WrapPanel><Button Content="{DynamicResource DetectConnectionNow}" Tag="detect" Click="Connection_Click"/><Button Content="{DynamicResource CheckNpcap}" Tag="npcap" Click="Connection_Click"/><Button Content="{DynamicResource ResetAid}" Tag="aid" Click="Connection_Click"/></WrapPanel>
@@ -23,11 +40,11 @@
    <TabItem Header="{DynamicResource Hotkeys}"><ScrollViewer><StackPanel Margin="18" MaxWidth="720" HorizontalAlignment="Left">
     <TextBlock Text="{DynamicResource AllHotkeysHint}" TextWrapping="Wrap" Margin="0,0,0,12"/>
     <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="150"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-     <TextBlock Text="{DynamicResource SettingsWindowHotkey}" Style="{DynamicResource FieldLabelStyle}"/><ComboBox Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding SettingsHotkey}"/>
-     <TextBlock Grid.Row="1" Text="{DynamicResource OverlaysHotkey}" Style="{DynamicResource FieldLabelStyle}"/><ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding OverlaysHotkey}"/>
-     <TextBlock Grid.Row="2" Text="{DynamicResource FinishMoveHotkey}" Style="{DynamicResource FieldLabelStyle}"/><ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding FinishMoveHotkey}"/>
-     <TextBlock Grid.Row="3" Text="{DynamicResource TimersHotkey}" Style="{DynamicResource FieldLabelStyle}"/><ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding TimersHotkey}"/>
-     <TextBlock Grid.Row="4" Text="{DynamicResource DatabaseHotkey}" Style="{DynamicResource FieldLabelStyle}"/><ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding DatabaseHotkey}"/>
+     <TextBlock Text="{DynamicResource SettingsWindowHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding SettingsHotkey}"/>
+     <TextBlock Grid.Row="1" Text="{DynamicResource OverlaysHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding OverlaysHotkey}"/>
+     <TextBlock Grid.Row="2" Text="{DynamicResource FinishMoveHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding FinishMoveHotkey}"/>
+     <TextBlock Grid.Row="3" Text="{DynamicResource TimersHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding TimersHotkey}"/>
+     <TextBlock Grid.Row="4" Text="{DynamicResource DatabaseHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding DatabaseHotkey}"/>
     </Grid>
    </StackPanel></ScrollViewer></TabItem>
    <TabItem Header="{DynamicResource CharacterManager}"><Grid Margin="18"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
