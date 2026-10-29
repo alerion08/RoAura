@@ -2,18 +2,19 @@
 
 Isolated **research branch**. No changes to the RoAura WPF application, settings, updater, main, release files or database runtime.
 
-## Verified GitHub Actions build (2026-10-29)
+## Current verified dataset (2026-10-29)
 
-[Successful validation and publication run](https://github.com/alerion08/RoAura/actions/runs/40899345670).
+**[Successful full extractor build + regression tests](https://github.com/alerion08/RoAura/actions/runs/40904241602)**. Data was published to this research branch and the run provides a downloadable ZIP artifact.
 
-- SQLite: 26,980,352 bytes; gzip: 11,481,308 bytes.
-- SQLite integrity_check: ok; foreign key violations: 0.
-- Script sources: rAthena 184/184; Hercules 87/87; source download errors 0.
-- NPC positions: 3,837; command rows: 393,561; pre-re quest registry entries: 2,879.
-- iRO Wiki: 286/286 discovered pages fetched; **only 90 structured wiki steps and 53 wiki details**. This is a major extraction coverage gap, not complete quest coverage.
-- "Fetched" proves an HTTP request succeeded; it does not prove the guide's steps were parsed. Original script payloads are kept, but semantic branching and wiki-to-script quest matching require further work.
+- SQLite: **29,405,184 bytes**; compressed SQLite (.gz): **12,310,410 bytes**.
+- Database checks: `PRAGMA integrity_check = ok`, **0 foreign-key violations**.
+- Public NPC source files: **227/227 rAthena**, **87/87 Hercules**, **314 total**, with no download errors.
+- NPC position records: **3,904**; script command events: **406,386**; pre-renewal Quest ID registry records: **2,879**.
+- iRO Wiki Classic: **286/286 pages fetched**, **3,420 extracted guide rows** including **2,931 numbered steps** and **489 narrative-only paragraphs**.
+- Cross-references: **237 candidate wiki-to-script file links** spanning **70 distinct wiki pages**, plus **720 candidate wiki-step-to-NPC links**. Evidence and score are stored per link; NONE are gameplay-verified.
+- Live wiki parser probe checked **75** steps for Kiel Hyre, **3** for Juice, **6** for Swordman Job Change, and **5** for Factory. The full build checked source coverage and SQLite integrity.
 
-**Status: source research dataset, not a complete Questie-ready database.**
+**Caveats:** 286 fetched pages are a discovery catalog, not proof every page is a standalone quest. Unnumbered narrative paragraphs are not verified ordered steps. Most wiki pages have no script match yet. Cross-server variants, NPC branch conditions, complete dialogue trees and active ToC scripts remain unresolved. This is a sourced **research database**, not a complete Questie navigation engine.
 
 ## Guide parsing and NPC cross-links (research stage 2)
 
