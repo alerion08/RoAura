@@ -9,6 +9,14 @@ Isolated **research branch**. No changes to the RoAura WPF application, settings
 Acceptance direction: per server/variant, stable quest IDs and steps, NPC map/coordinates and dialogue branches, prerequisite checks, item/kill requirements, variables and quest state transitions, consequences/rewards, traceable evidence, coverage flags, ambiguity review queue, and a read-only local runtime export with explicit schema version. Source-derived data, parser-derived candidates and in-game-verified facts must never be conflated. Do not silently promote emulator sources to verified iRO/ToC behavior.
 
 Future RoAura integration must not require joining raw parser tables or parsing NPC script code at runtime. Preserve the richer research SQLite and ship an independent, stable, smaller runtime database when the contract has been validated.
+## Stage 6 — expanded quest-script source discovery and corroboration
+
+The collector now inventories shared NPC quest, job, city, other and event scripts **plus distinct rAthena/Hercules pre-renewal and renewal quest/job/guide/location directories**. It explicitly excludes custom scripts, mobs, warps and most non-quest stores by default. Source paths distinguish variants; raw bytes must match each GitHub tree blob SHA. Limits such as the 900 KiB per-file ceiling mean this is not an exhaustive server installation.
+
+An additional evidence pass in `augment.py` supplements earlier filename matches with (a) an exact multiword quest title found in the lead script comments, (b) the same map and coordinates **plus a distinctive NPC name** in the same wiki step, or (c) **two distinct** exact map/coordinate matches in the same candidate script. A single coincidental coordinate does not create a new quest-script mapping. All matches remain `candidate`, with method and evidence preserved in SQLite.
+
+On the prior 314-script snapshot, the augmented matching increased wiki pages with candidate scripts from **70 to 155**, added 206 script candidates, and added 426 quest-step-to-NPC candidate rows (443 and 1,146 respectively). These are **candidate coverage** metrics, not gameplay validation; refreshed source counts are recorded separately in `output/coverage.json`. New tests cover distinct script variants, exact-header matching, refusal of single-coordinate evidence, and repeatability.
+
 ## Stage 5 — quest-state evidence and consumer SQLite
 
 **Mission:** build a maximally complete, sourced, compact and independently consumable Ragnarok Online quest database for future RoAura Questie-style help. Do not modify the RoAura application during research.
