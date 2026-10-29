@@ -27,7 +27,10 @@ limits and instructions.
 The first protected-client probe had access but returned zero frames in 5,695
 reads/90 seconds (~63 Hz), a limitation of the PowerShell polling loop. It is
 not evidence about decrypted status values. The updated probe uses a compiled
-bounded loop; the new version still awaits live validation.
+bounded loop. Its second field run captured seven identical decoded 0x0983
+frames for Enchant Poison: EFST 6, verified own actor and 180000 ms. A separate
+0x0196 status 1689 is not attributed to Enchant Poison. Same-run RoAura wire
+log is needed to align individual frames before any generic application path.
 
 ## Current product
 

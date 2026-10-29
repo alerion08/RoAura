@@ -469,3 +469,27 @@ actor-related values. Repeat for a second distinct status and its removal
 only if the first comparison demonstrates readable, matching frames. The
 prior 16 samples remain useful controls, but cannot substitute for same-run
 client/wire alignment. Do not attempt to bypass an access denial.
+
+### Client buffer observation, 2026-10-29 14:00 local
+
+The user's second, compiled-loop run captured seven complete client-buffer
+0x0983 frames over ~5 seconds. All seven have status ID **6**, actor
+`0x001E95FA` (same independently verified self AID as earlier wire samples),
+state 1 and total/remaining 180000 ms. The [client EFST table](https://github.com/scriptord3/Ragnarok-Client-Scripts/blob/master/data/luafiles514/lua%20files/stateicon/efstids.lua)
+associates 6 with Enchant Poison. These are actual decoded values at the client's packet
+dispatch buffer, not a guess based on duration. Earlier 16 Npcap wire frames
+for Enchant Poison had different values in bytes +2..+5 every time while the
+other 25 bytes matched. Together these observations establish a difference
+between the network and client-dispatch views, but they come from different
+runs, so no exact per-frame wire/decrypted pair or reusable transform exists
+yet. The single preceding client-buffer 0x0196 frame has status ID 1689 and
+the same actor; it must not be treated as Enchant Poison removal.
+
+The next required artifact is the RoAura DEV `debug.log` (and rotated file if
+needed) **from that same ~14:00 run**. The user need not cast again. Align
+`SPRINGRO WIRE SAMPLE` timestamps and packet tails with the seven client
+events, then examine how long the decoded frame remains readable and whether
+short, bounded client-memory observation could safely feed the existing
+status event pipeline. A continuous high-frequency read loop has not been
+validated for application use. Do not publish the user's client-buffer JSONL
+or the raw RoAura log.
