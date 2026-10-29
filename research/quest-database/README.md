@@ -2,6 +2,13 @@
 
 Isolated **research branch**. No changes to the RoAura WPF application, settings, updater, main, release files or database runtime.
 
+## Long-term deliverable / completion contract
+
+**The objective is a maximally comprehensive, sourced, compact, versioned Ragnarok Online quest dataset that can be integrated into RoAura as a full quest assistant with minimal application-specific transformation.** This research repository develops the *data product and its contract*, not the WPF UI or packet capture implementation.
+
+Acceptance direction: per server/variant, stable quest IDs and steps, NPC map/coordinates and dialogue branches, prerequisite checks, item/kill requirements, variables and quest state transitions, consequences/rewards, traceable evidence, coverage flags, ambiguity review queue, and a read-only local runtime export with explicit schema version. Source-derived data, parser-derived candidates and in-game-verified facts must never be conflated. Do not silently promote emulator sources to verified iRO/ToC behavior.
+
+Future RoAura integration must not require joining raw parser tables or parsing NPC script code at runtime. Preserve the richer research SQLite and ship an independent, stable, smaller runtime database when the contract has been validated.
 ## Verified stage 3 dataset (2026-10-29)
 
 **[Full GitHub Actions build: SUCCESS](https://github.com/alerion08/RoAura/actions/runs/40910651236)** — schema version 4, SQLite integrity_check = ok, 0 foreign-key violations, 0 source-fetch errors.
