@@ -1,6 +1,23 @@
-# Questie-ready data contract for RoAura
+# ROQuestie — shared Ragnarok Online quest data contract
 
-**Objective:** one maximally complete, compact, documented, source-backed Ragnarok Online quest dataset, easy to integrate later as a full quest assistant. This contract belongs to the standalone research work; it must not modify RoAura runtime code during collection.
+**Objective:** a maximally complete, source-backed, versioned **ROQuestie** knowledge base for main Ragnarok Online quests across the wider RO ecosystem. The shared quest data are reusable, while Classic/Pre-Renewal/Renewal and optional individual-server differences are handled separately. A quest in the catalog is **not a guarantee that every server offers it**. This contract belongs to the standalone research work; it must not modify RoAura runtime code during collection.
+
+## Shared core and optional server compatibility
+
+ROQuestie is organized around stable quest identities, wiki walkthroughs,
+source-backed NPC/dialogue evidence and explicit variants. Main story,
+dungeon-access and class-advancement quests are researched first; seasonal
+events remain available as historical source records.
+
+`output/roquestie_core_worklist.json` is a complete, heuristic curation
+worklist across all indexed guides. Its categories prioritize research rather
+than claim universal availability. Every row retains `server_availability:
+unknown` and `universal_availability_claim: false` until verified sources
+are added for specific server/revision combinations.
+
+Per-server compatibility (when later requested) should be an **optional
+overlay** keyed by a canonical quest key, server identifier, revision and
+evidence; it must never replace or mutate the shared source catalog.
 
 ## Two deliverables
 
@@ -32,7 +49,7 @@ Both formats are independently checked with `PRAGMA integrity_check` and `PRAGMA
 | --- | --- | --- |
 | Quest index | `quests`, `quest_steps`, `step_hints` | Ordered walkthrough and literal guide hints |
 | Variant link | `scripts`, `quest_scripts` | Candidate script source and confidence method |
-| Position | `npcs`, `quest_step_npcs` | Sourced map coordinates, unverified against ToC |
+| Position | `npcs`, `quest_step_npcs` | Sourced map coordinates, not validated for a particular server |
 | Dialogue | `dialogue_lines`, `dialogue_points`, `dialogue_options`, `dialogue_guards`, `dialogue_jumps` | Literal dialogue, choices, explicit code-line targets, stored guards |
 | Quest state | `quest_state_facts`, `quest_registry`, `quest_registry_evidence` | Lexical setquest/completequest/erasequest/checkquest, item operations, variables, matched Quest IDs |
 | Answer matching | `candidate_answers` | Heuristic guide/menu text equality; never verified correct answer |
@@ -59,14 +76,14 @@ a comma or an "or" is not automatically converted to executable conditions.
 
 The consumer SQLite v3 exports `quest_prerequisite_text` and
 `quest_prerequisites`. Both are source-documented statements,
-**not confirmation that ToC has enabled the quests**.
+**not confirmation that any particular server enables these quests**.
 
 ### Candidate Quest IDs (not live quest progress)
 
 The `quest_id_candidates` SQL view connects a guide's *candidate* script with literal
 quest ID operations in the original NPC code, matching a Quest ID to source
 registry rows, source line, NPC and script. This is **not** proof that an ID
-uniquely belongs to a quest or that a quest is active on ToC.
+uniquely belongs to a quest or that a quest is enabled on a particular server.
 
 ```sql
 SELECT quest_key,script_key,quest_id,registry_variant,role,line_no,assurance
@@ -123,4 +140,4 @@ ORDER BY n.source_ordinal,f.line_no,f.occurrence;
 
 ## Coverage / unresolved work
 
-Currently source scripts are from selected public emulator directories, not a complete official iRO/ToC NPC installation. iRO Wiki index may contain nonquest pages. Cross-references are largely unverified; dynamic choices and control flow are incomplete. Need broaden source coverage, reduce ambiguous links, model true state-transition paths, and validate against target server recordings/authoritative scripts. See `output/coverage.json` for **actual** counts rather than reading this design contract as a completion claim.
+Currently source scripts are from selected public emulator directories, not a complete installation of every Ragnarok Online server. iRO Wiki index may contain nonquest pages. Cross-references are largely unverified; dynamic choices and control flow are incomplete. Need broaden source coverage, reduce ambiguous links, model true state-transition paths, and validate against target server recordings/authoritative scripts. See `output/coverage.json` for **actual** counts rather than reading this design contract as a completion claim.
