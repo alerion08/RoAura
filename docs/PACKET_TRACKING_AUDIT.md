@@ -346,3 +346,46 @@ Acceptance for any future decoder: one hypothesis must recover consistent
 EFST and full actor identity on the original bytes across multiple known
 statuses and both start/end packets, with a negative control; only then add
 an anonymized structural regression fixture. Do not check in a private sample.
+
+## 2026-10-29 — raw samples and static client analysis
+
+The opted-in capture succeeded: 16 Enchant Poison status/Skill 138 pairs.
+Across the 29-byte 0x0983 frames only offsets +2..+5 vary; all 17-byte
+acknowledgments are identical. The full own actor ID is absent from the status
+frames. This is not evidence for another field swap or a particular cipher.
+Private samples and the client executable remain outside git.
+
+Read-only analysis of the supplied PE32 client (SHA-256
+`591e3776e40ac3661a1c60576a145e34e69a61423a890fda292c955d237f91c2`,
+preferred image base `0x00400000`) located actual packet dispatch, rather than
+guessing handlers from opcode constants. Addresses below are preferred VAs,
+not file offsets or guaranteed live addresses.
+
+| Site | Verified static behavior |
+| --- | --- |
+| `0x00C9E29C` / table `0x00CAA2E0` | Dispatch index is signed packet opcode minus `0x73`. |
+| 0x0983 case `0x00CA8ACE` | Calls `0x00CF8810`. |
+| `0x00CF8810` | Reads signed status word +2, actor DWORD +4, state byte +8, DWORDs +9/+13/+17/+21/+25; calls `0x00CE9A60`. |
+| 0x0196 case `0x00CA634C` | Calls `0x00D039B0`, which reads actor +4, status +2 and state +8. |
+| 0x09CB case `0x00CA3A16` | Reads skill +2, amount +4, actors +8/+12 and result +16. |
+| `0x00C14530` | Calls receive pointer stored at `0x015C5A18`, then appends returned bytes through `0x00C16640`. |
+| `0x00C147D0` | Frames packets using the packet-length lookup, then consumes buffered bytes through `0x00C16570`. |
+| `0x00C16640` / `0x00C16570` | Append/consume use the imported `memcpy` thunk `0x00E07D4B`; no status-field transformation is present in these inspected routines. |
+| `0x00C14B10` | Resolves `recv` with `LoadLibraryA("ws2_32.dll")` and `GetProcAddress`, with an IAT fallback. |
+
+The visible status handlers expect the standard layout already used by RoAura.
+This independently contradicts fixing the observed values by swapping fields.
+It does **not** explain the wire-to-handler transformation: the actual runtime
+receive target, loaded modules and possible runtime patches are unknown.
+WinLicense/Themida sections and strings exist, but do not establish that those
+components transform status packets. Raw address matches in `.winlice` around
+`0x01D9DE23` / `0x01DE46D3` belong to dense address tables, not demonstrated
+calls to the receive/status handlers. Do not treat arbitrary linear disassembly
+of these data tables as a decoder.
+
+Next evidence needed is the receive implementation actually loaded by this
+installation, starting with whether a local `ws2_32.dll` exists beside the game
+EXE. A directory/module inventory can distinguish that from the system DLL;
+the EXE alone cannot. No additional same-buff capture or speculative DEV build
+is justified. No decoder or general Status ID fix was implemented in this
+analysis. Preserve the accepted correlated Hiding path.

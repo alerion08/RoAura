@@ -2,6 +2,15 @@
 
 Last updated: 2026-10-29
 
+Latest SpringRO investigation: 16 exact Enchant Poison samples were received.
+Static analysis of the supplied client located the actual 0x0983/0x0196
+handlers and confirmed the standard status/actor offsets (+2/+4). The visible
+receive-buffer path contains no field decoder; the runtime-resolved `recv`
+implementation remains unidentified. See the final section of
+`PACKET_TRACKING_AUDIT.md` for reproducible addresses and limits. General Status
+ID learning remains unresolved; accepted Hiding behavior is unchanged. This
+checkpoint changes documentation only and needs no new gameplay test build.
+
 ## Current product
 
 RoAura is a Windows x64 WPF overlay for Ragnarok Online. It reads incoming game packets through Npcap and provides configurable overlays and supporting tools.
