@@ -6,6 +6,14 @@ from enrich import parse_guide, step_evidence, script_score, link_database, ensu
 
 
 class GuideParserTests(unittest.TestCase):
+    def test_nested_switch_select_is_indexed(self):
+        from build import COMMAND
+        sample='    switch(select("Join the Event:Event Information:Cancel")) {'
+        match=COMMAND.match(sample)
+        self.assertIsNotNone(match)
+        self.assertEqual(match.group(1),"select")
+
+
     def test_numbered_paragraphs_with_continuation_and_bullets(self):
         raw = """<div id="mw-content-text"><div class="mw-parser-output">
           <table><tr><th>Requirements</th></tr><tr><td>Base Level: 70</td></tr>
