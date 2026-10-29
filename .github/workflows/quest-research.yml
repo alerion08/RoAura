@@ -1,3 +1,4 @@
+# Re-check public wiki source freshness independently of ROQuestie server variants.
 name: Quest research database (isolated)
 
 on:
