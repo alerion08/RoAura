@@ -18,6 +18,8 @@ on:
       - research/quest-database/test_audit.py
       - research/quest-database/triage.py
       - research/quest-database/test_triage.py
+      - research/quest-database/baseline.py
+      - research/quest-database/test_baseline.py
       - research/quest-database/prerequisites.py
       - research/quest-database/test_prerequisites.py
       - research/quest-database/test_graph.py
@@ -38,4 +40,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install -q requests beautifulsoup4 pyyaml
-      - run: cd research/quest-database && python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py test_prerequisites.py
+      - run: cd research/quest-database && python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py test_prerequisites.py test_baseline.py
