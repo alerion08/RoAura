@@ -5,7 +5,8 @@ import zlib
 
 from build import SCHEMA
 from enrich import ensure_enrichment_schema
-from discovery import interaction_names,review_unlinked_scripts
+from discovery import interaction_names,review_unlinked_scripts,review_unclassified_content
+from content import extract_content
 
 class DiscoveryTests(unittest.TestCase):
     def test_interaction_cues_require_exact_name(self):
@@ -63,6 +64,11 @@ class DiscoveryTests(unittest.TestCase):
         self.assertEqual(db.execute("PRAGMA foreign_key_check").fetchall(),[])
         review_unlinked_scripts(db)
         self.assertEqual(db.execute("SELECT count(*) FROM wiki_missing_script_proposals").fetchone()[0],1)
+        extract_content(db)
+        content_review=review_unclassified_content(db)
+        self.assertGreaterEqual(content_review["total"],1)
+        self.assertTrue(all(x["server_availability"]=="unknown" for x in content_review["quests"]))
+        self.assertTrue(all(x["source_step_excerpts"] or x["steps_total"]==0 for x in content_review["quests"]))
 
 if __name__=="__main__":
     unittest.main()
