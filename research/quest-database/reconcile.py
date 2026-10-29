@@ -40,7 +40,7 @@ def create_reviews(db):
         db.execute("DELETE FROM wiki_script_reviews")
         pages=db.execute("SELECT id FROM wiki_pages ORDER BY id").fetchall()
         for (pid,) in pages:
-            links=db.execute("SELECT source_id,score FROM wiki_script_links WHERE page_id=? ORDER BY score DESC",(pid,)).fetchall()
+            links=db.execute("""SELECT l.source_id,l.score,p.path FROM wiki_script_links l JOIN provenance p ON p.id=l.source_id WHERE l.page_id=? ORDER BY l.score DESC""",(pid,)).fetchall()
             score=links[0][1] if links else None
             top_ties=sum(x[1]==score for x in links) if links else 0
             npc_support=db.execute("""SELECT count(*) FROM wiki_step_npc_links
@@ -49,8 +49,14 @@ def create_reviews(db):
                 state="no_candidate"
                 note="No script filename candidate. Not proof the quest is absent."
             elif top_ties>1:
-                state="ambiguous_top"
-                note="Several scripts tie for strongest filename match; manual source/variant comparison required."
+                best=[path for _sid,value,path in links if value==score]
+                stems={path.rsplit("/",1)[-1].lower() for path in best}
+                if len(stems)==1:
+                    state="cross_source_variant"
+                    note="Several emulator/source variants share the strongest script filename; compare implementations, not yet verified."
+                else:
+                    state="ambiguous_top"
+                    note="Different script filenames tie for strongest match; manual quest/state comparison required."
             elif npc_support:
                 state="candidate_with_npc_evidence"
                 note="Filename match and at least one NPC exact-coordinate hint; still unverified."
@@ -85,6 +91,7 @@ def create_reviews(db):
     return {
         "pages_no_script": db.execute("SELECT count(*) FROM wiki_script_reviews WHERE review_state='no_candidate'").fetchone()[0],
         "pages_ambiguous": db.execute("SELECT count(*) FROM wiki_script_reviews WHERE review_state='ambiguous_top'").fetchone()[0],
+        "pages_cross_source_variants": db.execute("SELECT count(*) FROM wiki_script_reviews WHERE review_state='cross_source_variant'").fetchone()[0],
         "pages_candidate_with_npc_evidence": db.execute("SELECT count(*) FROM wiki_script_reviews WHERE review_state='candidate_with_npc_evidence'").fetchone()[0],
         "guide_answer_menu_matches": db.execute("SELECT count(*) FROM wiki_answer_menu_matches").fetchone()[0],
     }
