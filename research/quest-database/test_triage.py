@@ -19,7 +19,7 @@ class TriageTests(unittest.TestCase):
         output=triage_review(data)
         self.assertEqual(output["counts"]["critical_total"],2)
         self.assertEqual(output["queue"][0]["title"],"President Quest")
-        self.assertTrue(all(x["target_server_status"]=="unknown" for x in output["queue"]))
+        self.assertTrue(all(x["server_compatibility"]=="unverified" and x["availability_claim"]=="none" for x in output["queue"]))
         self.assertEqual(output["counts"]["categories"]["historical_event_or_spotlight"],1)
 
 if __name__=="__main__":
