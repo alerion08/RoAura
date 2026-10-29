@@ -6,6 +6,8 @@ on:
       - research/quest-database
     paths:
       - research/quest-database/build.py
+      - research/quest-database/enrich.py
+      - research/quest-database/test_enrich.py
       - .github/workflows/quest-research.yml
   workflow_dispatch:
 
@@ -53,9 +55,11 @@ jobs:
           nsteps=con.execute("SELECT count(*) FROM wiki_step_sources WHERE kind in ('numbered','ordered_list')").fetchone()[0]
           linked=con.execute("SELECT count(DISTINCT page_id) FROM wiki_script_links").fetchone()[0]
           sample=con.execute("SELECT count(*) FROM wiki_steps s JOIN wiki_pages p ON p.id=s.page_id WHERE p.title='Kiel Hyre Quest'").fetchone()[0]
-          assert nsteps>=100, f"Suspicious numbered guide extraction: {nsteps}"
+          assert nsteps>=500, f"Suspicious numbered guide extraction: {nsteps}"
+          juice=con.execute("SELECT count(*) FROM wiki_steps s JOIN wiki_pages p ON p.id=s.page_id WHERE p.title='Juice Quest'").fetchone()[0]
           assert sample>=60, f"Kiel Hyre walkthrough lost steps: {sample}"
-          assert linked>=1, f"No quest-script candidates: {linked}"
+          assert juice>=3, f"Juice Quest walkthrough lost steps: {juice}"
+          assert linked>=30, f"Too few quest-script candidates: {linked}"
           print(f"Wiki: {pcount} numbered guide pages, {nsteps} steps, {linked} pages with script candidates; Kiel Hyre {sample} steps")
           print(f"Verified SQLite: {p.stat().st_size} bytes; {scripts} original scripts.")
           PY
