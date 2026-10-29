@@ -207,3 +207,17 @@ It respects wiki robots.txt, uses a request delay, never bypasses source access 
 Upstream files include their original notices, and provenance stores the source URL. Follow rAthena and Hercules GPL terms before redistribution or reuse. iRO Wiki content has separate licensing requirements. This research archive does not grant any additional rights.
 
 **Final stage 5 publication:** [GitHub Actions #40916787665](https://github.com/alerion08/RoAura/actions/runs/40916787665) SUCCESS. Research SQLite schema 5 = 35,082,240 bytes; consumer SQLite schema 1 = 37,773,312 bytes (7,602,500 bytes gzip). Both integrity checks = OK, zero FK violations. Source snapshot is from 2026-10-29T16:55:45Z; this run safely reused it with the offline enrichment mode. The consumer artifact is available in this branch at `output/questie_catalog.sqlite` / `.gz`. All new state/export unit tests and end-to-end row-count assertions passed. A separate earlier full-source refresh completed successfully in run #40916329046.
+
+## Verified stage 8 server-neutral ROQuestie dataset (2026-10-30)
+
+**[Full build succeeded](https://github.com/alerion08/RoAura/actions/runs/40930800624)**. Source snapshot was reused from 2026-10-29T17:15:16Z; wiki freshness is **not** certified by this run.
+
+- Research SQLite schema v7 (69,914,624 bytes), consumer Questie catalog v3 (72,753,152 bytes). Both integrity checks OK; 0 foreign key violations.
+- 939 pinned source scripts, 286 indexed wiki records, 3,420 source-extracted steps, 574 source-script candidates across 169 wiki records, 1,298 step-to-NPC candidates.
+- Explicit wiki quest prerequisite sections: **51**; exact known-page prerequisite edges: **57**, covering 45 pages; 6 sections have no matching indexed page title. Unspecified Boolean logic is **not** interpreted.
+- Generic `roquestie_core_worklist.json` covers all 286 pages: 52 clearly tagged main-story/dungeon/job research candidates, 67 seasonal/historical archive candidates, 12 possible profession reference pages, 155 uncategorized candidates. Classifications are title-based **research hints**, not game facts.
+- `critical_quest_triage.json` preserves all 84 critical records (42 iRO events/spotlights, 41 other quest candidates, 1 possible reference page). No quests are discarded or declared supported/unsupported across servers.
+- `quest_id_candidates` view exposes Quest IDs found in emulator code alongside NPC, script line and source evidence. This does **not** prove a quest is active on any specific server.
+- `SERVER_VALIDATION.md` describes generic evidence tiers and optional server overlays.
+
+The shared ROQuestie database is **not yet complete** or available-for-all-servers verified. The iRO wiki source freshness remains legacy/unknown for 286 pages until the separate live refresh succeeds.
