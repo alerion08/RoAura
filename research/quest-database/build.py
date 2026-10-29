@@ -26,6 +26,9 @@ from runtime import make_runtime
 from audit import summarize_review_queue
 from triage import triage_review
 from baseline import assemble_core_worklist
+from content import SCHEMA as CONTENT_SCHEMA, extract_content
+from name_links import link_npc_name_mentions
+from dependencies import SCHEMA as DEPENDENCY_SCHEMA, build_dependency_paths
 from prerequisites import SCHEMA as PREREQ_SCHEMA, extract_prerequisites
 from augment import augment_evidence
 from quality import (ensure_quality_schema, update_state, state_counts,
@@ -391,7 +394,9 @@ def counts(db):
        ("npc_flow_points","npc_flow_points"),("npc_flow_options","npc_flow_options"),
        ("npc_flow_conditions","npc_flow_conditions"),("npc_flow_jumps","npc_flow_jumps"),
        ("wiki_script_reviews","wiki_script_reviews"),("wiki_answer_menu_matches","wiki_answer_menu_matches"),
-        ("npc_state_facts","npc_state_facts"),("npc_quest_registry_refs","npc_quest_registry_refs")]}
+        ("npc_state_facts","npc_state_facts"),("npc_quest_registry_refs","npc_quest_registry_refs"),
+         ("wiki_content_signals","wiki_content_signals"),("wiki_content_categories","wiki_content_categories"),
+         ("wiki_prerequisite_paths","wiki_prerequisite_paths")]}
 
 def main():
     p=argparse.ArgumentParser()
@@ -419,6 +424,8 @@ def main():
     db.executescript(REVIEW_SCHEMA)
     db.executescript(STATE_SCHEMA)
     db.executescript(PREREQ_SCHEMA)
+    db.executescript(CONTENT_SCHEMA)
+    db.executescript(DEPENDENCY_SCHEMA)
     ensure_quality_schema(db)
     original_counts=dataset_counts(db)
     # A previous generated review links to menu point IDs. Clear those first.
@@ -468,16 +475,19 @@ def main():
         report["fetch_mode"]="fresh_upstream_requests"
     report["linking"]=link_database(db)
     report["evidence_augmentation"]=augment_evidence(db)
+    report["npc_name_links"]=link_npc_name_mentions(db)
+    report["content_curation"]=extract_content(db)
     report["linking"].update({
         "wiki_script_links":report["evidence_augmentation"]["script_candidates"],
         "linked_pages":report["evidence_augmentation"]["linked_pages"],
-        "wiki_step_npc_links":report["evidence_augmentation"]["step_npc_candidates"],
+        "wiki_step_npc_links":db.execute("SELECT count(*) FROM wiki_step_npc_links").fetchone()[0],
     })
     report["dialogue_flow"]=create_flow(db)
     report["quest_state"]=create_state_facts(db)
     report["script_link_review"]=create_reviews(db)
     report["wiki_prerequisites"]=extract_prerequisites(db)
-    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','7')")
+    report["prerequisite_paths"]=build_dependency_paths(db)
+    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','8')")
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('matching_revision','header_and_correlated_npc_coordinate_v1')")
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('research_status','candidate matches only; see coverage.json')")
     db.commit()
@@ -496,7 +506,7 @@ def main():
     report["quality"]["critical_triage"]=critical["counts"]
     (target/"critical_quest_triage.json").write_text(
         json.dumps(critical,ensure_ascii=False,indent=2),encoding="utf-8")
-    core=assemble_core_worklist(review)
+    core=assemble_core_worklist(review,db)
     report["quality"]["core_quest_worklist"]=core["metrics"]
     (target/"roquestie_core_worklist.json").write_text(
         json.dumps(core,ensure_ascii=False,indent=2),encoding="utf-8")
