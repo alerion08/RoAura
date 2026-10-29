@@ -5,14 +5,14 @@
     "indexed_pages": 286,
     "pages_with_steps": 285,
     "pages_with_scripts": 169,
-    "pages_with_step_npc_links": 123,
+    "pages_with_step_npc_links": 139,
     "pages_without_script": 117,
     "pages_with_mixed_scopes": 32,
     "pages_not_freshly_verified": 0,
     "priority_counts": {
       "critical": 84,
-      "high": 105,
-      "medium": 97
+      "high": 91,
+      "medium": 111
     },
     "unverified_by_server": 286
   },
@@ -1537,7 +1537,7 @@
       "script_review": "ambiguous_top",
       "steps": 115,
       "linked_scripts": 8,
-      "steps_with_npc": 19,
+      "steps_with_npc": 23,
       "matched_guide_answers": 43,
       "source_scopes": [
         "common",
@@ -1582,7 +1582,7 @@
       "script_review": "cross_source_variant",
       "steps": 40,
       "linked_scripts": 6,
-      "steps_with_npc": 0,
+      "steps_with_npc": 17,
       "matched_guide_answers": 12,
       "source_scopes": [
         "common",
@@ -1590,7 +1590,6 @@
         "renewal"
       ],
       "issues": [
-        "no_step_npc_correspondence",
         "cross_source_variant",
         "mixed_gameplay_variants",
         "incomplete_step_npc_mapping"
@@ -1615,27 +1614,6 @@
       "issues": [
         "ambiguous_top",
         "mixed_gameplay_variants",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Headgear_Quests",
-      "title": "Headgear Quests",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "ambiguous_top",
-      "steps": 36,
-      "linked_scripts": 8,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "ambiguous_top",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
@@ -1680,26 +1658,6 @@
         "no_step_npc_correspondence",
         "ambiguous_top",
         "mixed_gameplay_variants",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Halloween_Event_(2013)",
-      "title": "Halloween Event (2013)",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "filename_candidate",
-      "steps": 33,
-      "linked_scripts": 1,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
@@ -1763,26 +1721,6 @@
       "issues": [
         "no_step_npc_correspondence",
         "cross_source_variant",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Cursed_Spirit_Quest",
-      "title": "Cursed Spirit Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "filename_candidate",
-      "steps": 22,
-      "linked_scripts": 1,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
@@ -2002,27 +1940,6 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Merchant_Training_Quest",
-      "title": "Merchant Training Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 13,
-      "linked_scripts": 2,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "cross_source_variant",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
       "quest_key": "irowiki-classic:Blacksmith",
       "title": "Blacksmith",
       "guide_status": "narrative_parsed",
@@ -2135,48 +2052,6 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Doctor_Quest",
-      "title": "Doctor Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 9,
-      "linked_scripts": 2,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "cross_source_variant",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Heart_Fragment_Quest",
-      "title": "Heart Fragment Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "ambiguous_top",
-      "steps": 9,
-      "linked_scripts": 2,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "ambiguous_top",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
       "quest_key": "irowiki-classic:Juperos_Quest",
       "title": "Juperos Quest",
       "guide_status": "walkthrough_parsed",
@@ -2192,69 +2067,6 @@
       "issues": [
         "no_step_npc_correspondence",
         "cross_source_variant",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Lovers_Quest",
-      "title": "Lovers Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 9,
-      "linked_scripts": 2,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "cross_source_variant",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Revolution_Quest",
-      "title": "Revolution Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 9,
-      "linked_scripts": 2,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "cross_source_variant",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Airship_Ticket_Quest",
-      "title": "Airship Ticket Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "ambiguous_top",
-      "steps": 8,
-      "linked_scripts": 3,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 8,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "ambiguous_top",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
@@ -2503,27 +2315,6 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Dandelion's_Request",
-      "title": "Dandelion's Request",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "ambiguous_top",
-      "steps": 5,
-      "linked_scripts": 3,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "ambiguous_top",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
       "quest_key": "irowiki-classic:Factory_Quest",
       "title": "Factory Quest",
       "guide_status": "walkthrough_parsed",
@@ -2610,27 +2401,6 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Message_Delivery_Quest",
-      "title": "Message Delivery Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 5,
-      "linked_scripts": 2,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "cross_source_variant",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
       "quest_key": "irowiki-classic:Repeatable_EXP_Quests",
       "title": "Repeatable EXP Quests",
       "guide_status": "narrative_parsed",
@@ -2703,27 +2473,6 @@
       "source_scopes": [],
       "issues": [
         "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Endless_Tower",
-      "title": "Endless Tower",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 4,
-      "linked_scripts": 2,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "cross_source_variant",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
@@ -2858,14 +2607,13 @@
       "script_review": "ambiguous_top",
       "steps": 4,
       "linked_scripts": 4,
-      "steps_with_npc": 0,
+      "steps_with_npc": 1,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common",
         "renewal"
       ],
       "issues": [
-        "no_step_npc_correspondence",
         "ambiguous_top",
         "mixed_gameplay_variants",
         "incomplete_step_npc_mapping"
@@ -3257,27 +3005,6 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Bradium_Collection",
-      "title": "Bradium Collection",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 2,
-      "linked_scripts": 2,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "cross_source_variant",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
       "quest_key": "irowiki-classic:Dragon_Hunting_Event_(2010/05/06)_~_(2010/06/03)",
       "title": "Dragon Hunting Event (2010/05/06) ~ (2010/06/03)",
       "guide_status": "narrative_parsed",
@@ -3616,27 +3343,6 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Party_Relay_Quest",
-      "title": "Party Relay Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 1,
-      "linked_scripts": 2,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "cross_source_variant",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
       "quest_key": "irowiki-classic:Ragnarok_Tactics_Event",
       "title": "Ragnarok Tactics Event",
       "guide_status": "walkthrough_parsed",
@@ -3791,6 +3497,45 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
+      "quest_key": "irowiki-classic:Headgear_Quests",
+      "title": "Headgear Quests",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "ambiguous_top",
+      "steps": 36,
+      "linked_scripts": 8,
+      "steps_with_npc": 5,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "ambiguous_top",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Halloween_Event_(2013)",
+      "title": "Halloween Event (2013)",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "filename_candidate",
+      "steps": 33,
+      "linked_scripts": 1,
+      "steps_with_npc": 1,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
       "quest_key": "irowiki-classic:Dancer_Job_Change_Guide",
       "title": "Dancer Job Change Guide",
       "guide_status": "walkthrough_parsed",
@@ -3818,7 +3563,7 @@
       "script_review": "ambiguous_top",
       "steps": 28,
       "linked_scripts": 6,
-      "steps_with_npc": 12,
+      "steps_with_npc": 14,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -3878,7 +3623,7 @@
       "script_review": "cross_source_variant",
       "steps": 25,
       "linked_scripts": 2,
-      "steps_with_npc": 1,
+      "steps_with_npc": 4,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -3951,6 +3696,25 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
+      "quest_key": "irowiki-classic:Cursed_Spirit_Quest",
+      "title": "Cursed Spirit Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "filename_candidate",
+      "steps": 22,
+      "linked_scripts": 1,
+      "steps_with_npc": 2,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
       "quest_key": "irowiki-classic:Eye_of_Hellion_Quest",
       "title": "Eye of Hellion Quest",
       "guide_status": "walkthrough_parsed",
@@ -3978,7 +3742,7 @@
       "script_review": "cross_source_variant",
       "steps": 22,
       "linked_scripts": 2,
-      "steps_with_npc": 6,
+      "steps_with_npc": 9,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -3998,7 +3762,7 @@
       "script_review": "ambiguous_top",
       "steps": 22,
       "linked_scripts": 4,
-      "steps_with_npc": 2,
+      "steps_with_npc": 4,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4018,7 +3782,7 @@
       "script_review": "ambiguous_top",
       "steps": 21,
       "linked_scripts": 4,
-      "steps_with_npc": 4,
+      "steps_with_npc": 7,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4117,7 +3881,7 @@
       "script_review": "cross_source_variant",
       "steps": 20,
       "linked_scripts": 2,
-      "steps_with_npc": 3,
+      "steps_with_npc": 5,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4137,7 +3901,7 @@
       "script_review": "cross_source_variant",
       "steps": 20,
       "linked_scripts": 2,
-      "steps_with_npc": 5,
+      "steps_with_npc": 6,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4157,7 +3921,7 @@
       "script_review": "cross_source_variant",
       "steps": 18,
       "linked_scripts": 2,
-      "steps_with_npc": 4,
+      "steps_with_npc": 9,
       "matched_guide_answers": 16,
       "source_scopes": [
         "common"
@@ -4215,7 +3979,7 @@
       "script_review": "cross_source_variant",
       "steps": 18,
       "linked_scripts": 2,
-      "steps_with_npc": 1,
+      "steps_with_npc": 7,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4235,7 +3999,7 @@
       "script_review": "cross_source_variant",
       "steps": 17,
       "linked_scripts": 2,
-      "steps_with_npc": 7,
+      "steps_with_npc": 8,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4255,7 +4019,7 @@
       "script_review": "ambiguous_top",
       "steps": 16,
       "linked_scripts": 6,
-      "steps_with_npc": 4,
+      "steps_with_npc": 5,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4355,7 +4119,7 @@
       "script_review": "cross_source_variant",
       "steps": 15,
       "linked_scripts": 2,
-      "steps_with_npc": 3,
+      "steps_with_npc": 6,
       "matched_guide_answers": 2,
       "source_scopes": [
         "common"
@@ -4435,7 +4199,7 @@
       "script_review": "cross_source_variant",
       "steps": 14,
       "linked_scripts": 4,
-      "steps_with_npc": 3,
+      "steps_with_npc": 4,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4455,7 +4219,7 @@
       "script_review": "cross_source_variant",
       "steps": 14,
       "linked_scripts": 2,
-      "steps_with_npc": 8,
+      "steps_with_npc": 10,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4475,7 +4239,7 @@
       "script_review": "cross_source_variant",
       "steps": 14,
       "linked_scripts": 2,
-      "steps_with_npc": 3,
+      "steps_with_npc": 8,
       "matched_guide_answers": 3,
       "source_scopes": [
         "common"
@@ -4495,7 +4259,7 @@
       "script_review": "cross_source_variant",
       "steps": 14,
       "linked_scripts": 2,
-      "steps_with_npc": 1,
+      "steps_with_npc": 2,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4515,7 +4279,7 @@
       "script_review": "candidate_with_npc_evidence",
       "steps": 14,
       "linked_scripts": 2,
-      "steps_with_npc": 3,
+      "steps_with_npc": 4,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4534,7 +4298,7 @@
       "script_review": "cross_source_variant",
       "steps": 13,
       "linked_scripts": 2,
-      "steps_with_npc": 4,
+      "steps_with_npc": 7,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4554,7 +4318,27 @@
       "script_review": "cross_source_variant",
       "steps": 13,
       "linked_scripts": 2,
-      "steps_with_npc": 8,
+      "steps_with_npc": 10,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Merchant_Training_Quest",
+      "title": "Merchant Training Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 13,
+      "linked_scripts": 2,
+      "steps_with_npc": 1,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4594,7 +4378,7 @@
       "script_review": "cross_source_variant",
       "steps": 13,
       "linked_scripts": 2,
-      "steps_with_npc": 4,
+      "steps_with_npc": 9,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4614,7 +4398,7 @@
       "script_review": "ambiguous_top",
       "steps": 12,
       "linked_scripts": 4,
-      "steps_with_npc": 3,
+      "steps_with_npc": 6,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4654,7 +4438,7 @@
       "script_review": "cross_source_variant",
       "steps": 12,
       "linked_scripts": 2,
-      "steps_with_npc": 2,
+      "steps_with_npc": 3,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4694,7 +4478,7 @@
       "script_review": "cross_source_variant",
       "steps": 11,
       "linked_scripts": 2,
-      "steps_with_npc": 1,
+      "steps_with_npc": 4,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4754,13 +4538,53 @@
       "script_review": "cross_source_variant",
       "steps": 9,
       "linked_scripts": 2,
-      "steps_with_npc": 2,
+      "steps_with_npc": 7,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
       ],
       "issues": [
         "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Doctor_Quest",
+      "title": "Doctor Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 9,
+      "linked_scripts": 2,
+      "steps_with_npc": 1,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Heart_Fragment_Quest",
+      "title": "Heart Fragment Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "ambiguous_top",
+      "steps": 9,
+      "linked_scripts": 2,
+      "steps_with_npc": 3,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "ambiguous_top",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
@@ -4775,6 +4599,26 @@
       "steps": 9,
       "linked_scripts": 2,
       "steps_with_npc": 3,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Lovers_Quest",
+      "title": "Lovers Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 9,
+      "linked_scripts": 2,
+      "steps_with_npc": 2,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4826,6 +4670,26 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
+      "quest_key": "irowiki-classic:Revolution_Quest",
+      "title": "Revolution Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 9,
+      "linked_scripts": 2,
+      "steps_with_npc": 3,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
       "quest_key": "irowiki-classic:Stop_Metto's_Research",
       "title": "Stop Metto's Research",
       "guide_status": "walkthrough_parsed",
@@ -4840,6 +4704,26 @@
       ],
       "issues": [
         "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Airship_Ticket_Quest",
+      "title": "Airship Ticket Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "ambiguous_top",
+      "steps": 8,
+      "linked_scripts": 3,
+      "steps_with_npc": 1,
+      "matched_guide_answers": 8,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "ambiguous_top",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
@@ -4893,7 +4777,7 @@
       "script_review": "cross_source_variant",
       "steps": 7,
       "linked_scripts": 2,
-      "steps_with_npc": 2,
+      "steps_with_npc": 3,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -5013,7 +4897,7 @@
       "script_review": "cross_source_variant",
       "steps": 6,
       "linked_scripts": 2,
-      "steps_with_npc": 3,
+      "steps_with_npc": 4,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -5073,13 +4957,33 @@
       "script_review": "cross_source_variant",
       "steps": 5,
       "linked_scripts": 2,
-      "steps_with_npc": 1,
+      "steps_with_npc": 2,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
       ],
       "issues": [
         "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Dandelion's_Request",
+      "title": "Dandelion's Request",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "ambiguous_top",
+      "steps": 5,
+      "linked_scripts": 3,
+      "steps_with_npc": 1,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "ambiguous_top",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
@@ -5093,7 +4997,7 @@
       "script_review": "cross_source_variant",
       "steps": 5,
       "linked_scripts": 2,
-      "steps_with_npc": 1,
+      "steps_with_npc": 3,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -5126,6 +5030,26 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
+      "quest_key": "irowiki-classic:Message_Delivery_Quest",
+      "title": "Message Delivery Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 5,
+      "linked_scripts": 2,
+      "steps_with_npc": 2,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
       "quest_key": "irowiki-classic:Tribe_Investigation",
       "title": "Tribe Investigation",
       "guide_status": "walkthrough_parsed",
@@ -5133,7 +5057,7 @@
       "script_review": "cross_source_variant",
       "steps": 5,
       "linked_scripts": 2,
-      "steps_with_npc": 1,
+      "steps_with_npc": 2,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -5186,14 +5110,14 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Finding_a_Fairy",
-      "title": "Finding a Fairy",
+      "quest_key": "irowiki-classic:Endless_Tower",
+      "title": "Endless Tower",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
       "script_review": "cross_source_variant",
       "steps": 4,
       "linked_scripts": 2,
-      "steps_with_npc": 3,
+      "steps_with_npc": 2,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -5201,6 +5125,25 @@
       "issues": [
         "cross_source_variant",
         "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Finding_a_Fairy",
+      "title": "Finding a Fairy",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 4,
+      "linked_scripts": 2,
+      "steps_with_npc": 4,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant"
       ],
       "review_priority": "medium",
       "assurance": "source-derived candidates only; all server implementations unverified"
@@ -5233,7 +5176,7 @@
       "script_review": "cross_source_variant",
       "steps": 4,
       "linked_scripts": 2,
-      "steps_with_npc": 1,
+      "steps_with_npc": 2,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -5464,6 +5407,26 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
+      "quest_key": "irowiki-classic:Bradium_Collection",
+      "title": "Bradium Collection",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 2,
+      "linked_scripts": 2,
+      "steps_with_npc": 1,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
       "quest_key": "irowiki-classic:Card_Trade-In_Mini_Event_(2008/07/29)_~_(2008/08/12)",
       "title": "Card Trade-In Mini Event (2008/07/29) ~ (2008/08/12)",
       "guide_status": "narrative_parsed",
@@ -5599,6 +5562,25 @@
       "issues": [
         "cross_source_variant",
         "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Party_Relay_Quest",
+      "title": "Party Relay Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 1,
+      "linked_scripts": 2,
+      "steps_with_npc": 1,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant"
       ],
       "review_priority": "medium",
       "assurance": "source-derived candidates only; all server implementations unverified"

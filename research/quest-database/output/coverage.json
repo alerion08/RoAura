@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T18:58:54.461901+00:00",
+  "created_utc": "2026-10-29T19:02:04.576423+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -53,7 +53,7 @@
   "linking": {
     "wiki_script_links": 574,
     "linked_pages": 169,
-    "wiki_step_npc_links": 1298
+    "wiki_step_npc_links": 1565
   },
   "evidence_augmentation": {
     "header_title_leads": 172,
@@ -64,6 +64,33 @@
     "linked_pages": 169,
     "script_candidates": 574,
     "step_npc_candidates": 1298
+  },
+  "npc_name_links": {
+    "new_name_based_npc_candidates": 267,
+    "pages_with_name_based_links": 52,
+    "steps_with_name_based_links": 133,
+    "assurance": "explicit wiki name + candidate script only; NPC identity and map not verified"
+  },
+  "content_curation": {
+    "unsorted_quest_candidate": 128,
+    "signal_talk_to_npc": 1191,
+    "signal_deliver_items": 30,
+    "signal_collect_items": 44,
+    "signal_explicit_dungeon_access": 16,
+    "storyline_candidate": 8,
+    "item_collection_candidate": 2,
+    "dungeon_or_access_candidate": 22,
+    "signal_kill_monsters": 31,
+    "historical_or_seasonal": 67,
+    "profession_quest_candidate": 44,
+    "signal_explicit_repeatability": 8,
+    "repeatable_quest_candidate": 3,
+    "profession_reference_candidate": 12,
+    "signal_explicit_job_change": 50,
+    "pages": 286,
+    "categorized_beyond_title": 27,
+    "content_signals": 1370,
+    "still_unsorted": 128
   },
   "dialogue_flow": {
     "points": 14135,
@@ -99,6 +126,13 @@
     "statements_with_no_exact_catalog_match": 6,
     "assurance": "wiki statements only; server implementation unknown"
   },
+  "prerequisite_paths": {
+    "direct_edges": 57,
+    "transitive_references": 91,
+    "all_reference_pairs": 148,
+    "nodes_in_detected_cycles": 0,
+    "assurance": "page citation graph only; no AND/OR semantics or server verification"
+  },
   "counts": {
     "scripts": 939,
     "npcs": 8739,
@@ -108,7 +142,7 @@
     "wiki_steps": 3420,
     "wiki_details": 1476,
     "wiki_script_links": 574,
-    "wiki_step_npc_links": 1298,
+    "wiki_step_npc_links": 1565,
     "npc_flow_points": 14135,
     "npc_flow_options": 32825,
     "npc_flow_conditions": 51857,
@@ -116,7 +150,10 @@
     "wiki_script_reviews": 286,
     "wiki_answer_menu_matches": 156,
     "npc_state_facts": 51795,
-    "npc_quest_registry_refs": 5950
+    "npc_quest_registry_refs": 5950,
+    "wiki_content_signals": 1370,
+    "wiki_content_categories": 286,
+    "wiki_prerequisite_paths": 148
   },
   "quality": {
     "wiki_refresh": {
@@ -145,14 +182,14 @@
       "indexed_pages": 286,
       "pages_with_steps": 285,
       "pages_with_scripts": 169,
-      "pages_with_step_npc_links": 123,
+      "pages_with_step_npc_links": 139,
       "pages_without_script": 117,
       "pages_with_mixed_scopes": 32,
       "pages_not_freshly_verified": 0,
       "priority_counts": {
         "critical": 84,
-        "high": 105,
-        "medium": 97
+        "high": 91,
+        "medium": 111
       },
       "unverified_by_server": 286
     },
@@ -168,23 +205,25 @@
       "total_source_pages": 286,
       "categories": {
         "storyline_candidate": 8,
-        "profession_quest_candidate": 27,
-        "dungeon_or_access_candidate": 17,
-        "unsorted_quest_candidate": 155,
+        "dungeon_or_access_candidate": 22,
+        "profession_quest_candidate": 44,
+        "item_collection_candidate": 2,
+        "repeatable_quest_candidate": 3,
+        "unsorted_quest_candidate": 128,
         "profession_reference_candidate": 12,
         "historical_or_seasonal": 67
       },
-      "core_research_candidates": 52,
+      "core_research_candidates": 74,
       "seasonal_archive_candidates": 67,
-      "categorized_from_content": 0,
-      "still_unsorted": 155,
+      "categorized_from_content": 27,
+      "still_unsorted": 128,
       "server_verified": 0
     }
   },
   "sqlite_integrity": "ok",
   "foreign_key_violations": 0,
   "runtime_export": {
-    "schema_version": 3,
+    "schema_version": 4,
     "sqlite_integrity": "ok",
     "foreign_key_violations": 0,
     "tables": {
@@ -192,12 +231,16 @@
       "quest_quality": 286,
       "quest_prerequisite_text": 51,
       "quest_prerequisites": 57,
+      "quest_dependency_paths": 148,
+      "quest_content_categories": 286,
+      "quest_content_signals": 1370,
       "quest_steps": 3420,
+      "quest_step_locations": 1254,
       "step_hints": 1476,
       "scripts": 939,
       "quest_scripts": 574,
       "npcs": 8739,
-      "quest_step_npcs": 1298,
+      "quest_step_npcs": 1565,
       "dialogue_lines": 526791,
       "dialogue_points": 14135,
       "dialogue_options": 32825,
@@ -208,7 +251,7 @@
       "quest_registry_evidence": 5950,
       "candidate_answers": 156
     },
-    "bytes": 72769536
+    "bytes": 73273344
   },
-  "questie_schema_version": 3
+  "questie_schema_version": 4
 }
