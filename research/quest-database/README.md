@@ -249,3 +249,37 @@ Verified queue: 13 wiki pages have **25 research-only script proposals** support
 `output/unclassified_quest_review.json` is a separate **128-page** curation report preserving wiki requirements, original guide excerpts, source signals and literal map-coordinate evidence. It does **not** invent an arbitrary category for unclassified material.
 
 Examples worth manual scrutiny include `Einbroch Murder Quest` → `quests_ein.txt`, `Rebirth Walkthrough` → `valkyrie.txt`, and `Hugel Memory Quest` → `quests_hugel.txt`. All are source-backed hypotheses, not server-confirmed walkthroughs. **Next stage:** inspect top proposals against actual NPC dialogue and quest variables, approve or reject individually with reviewer provenance, then investigate truly missing source files and the 128 unclassified guide pages.
+
+## Verified stage 11 — NPC source-code dossiers (2026-10-30)
+
+**Source review completed and published:** GitHub Actions
+[#40943245833](https://github.com/alerion08/RoAura/actions/runs/40943245833)
+SUCCESS, fast unit tests
+[#40943245769](https://github.com/alerion08/RoAura/actions/runs/40943245769)
+SUCCESS (48 tests). Research SQLite schema **v10** and consumer catalog **v4**
+both have integrity `ok` and zero foreign-key violations.
+
+The complete dossier export `output/npc_source_dossiers.json` and
+research-only tables `wiki_missing_script_dossiers` and
+`wiki_missing_script_dossier_facts` analyze all **25 proposed script
+links** by named NPC, source-line dialogue, lexical Quest ID, quest/item/variable
+facts, menu options and conditional guards, including literal wiki/source
+position agreement when present. There are **688** retained source fact
+records. Twelve candidates have dialogue plus lexical quest-state commands;
+11 have dialogue plus other forms of state; 2 have a seasonal/source
+identity warning. Eleven reuse a source proposed for another guide.
+No matched wiki step coordinate confirms a candidate NPC position in this
+corpus, so no new quest is approved.
+
+**Important:** these are source-code inspections, not proof of game behavior,
+end-to-end quest step sequencing, or implementation on every RO server.
+All `can_auto_promote_to_quest_link` values remain false. Core consumer
+`wiki_script_links` equivalents stay at **574**; wiki pages remain
+**286**, guide steps **3,420** and source scripts **939**.
+
+Manual source checks identified common `Shinokas_Quest` tracking by Buender
+Hikeman and Scientist for Einbroch Murder, while Zelmeto in the examined
+branch uses `EinFactory`; two distinct wiki rebirth guides share the same
+Metheus Sylphe/Valkyrie script. See
+[`STAGE11_SOURCE_REVIEW.md`](STAGE11_SOURCE_REVIEW.md) for line-anchored
+source findings and safe next review gates.
