@@ -19,10 +19,40 @@ Per-server compatibility (when later requested) should be an **optional
 overlay** keyed by a canonical quest key, server identifier, revision and
 evidence; it must never replace or mutate the shared source catalog.
 
+## Source-cited content, NPC and dependency evidence (schema v4)
+
+ROQuestie builds conservative `wiki_content_signals` and
+`wiki_content_categories` from source guide steps and requirements.
+Categories are **research candidates**, not mechanics or server availability
+claims. The `roquestie_core_worklist.json` export shows the evidence method,
+number of supporting steps and remaining unclassified pages. Broad words such
+as "quest" or "dungeon" alone are not sufficient evidence.
+
+Step-to-NPC name matching is permitted only when the wiki explicitly says to
+talk/speak/meet/visit a **distinctive, unique NPC name** found in a strongly
+matched script. These candidates have score 55 and method
+`explicit_npc_name_in_candidate_script`; they are weaker than exact map and
+NPC-coordinate evidence. Different source variants remain separate.
+
+`quest_step_locations` in the read-only catalog exposes structured waypoint
+coordinates **directly documented in the wiki**, even without a matched NPC:
+`map` is NULL when the source only gives bare `x,y`. They must not be
+presented as verified NPC locations or assigned an inferred map.
+
+`quest_content_categories` and `quest_content_signals` preserve literal
+guide evidence and provisional classification. `quest_dependency_paths`
+contains direct or transitive **wiki page references**, with minimum hop
+count; it does not imply AND/OR prerequisites, a quest journal state or that
+all linked quests exist on a chosen server. Cyclic references are diagnosed.
+
+**Migration:** schema v4 adds these tables without changing v3 quest keys.
+Open `PRAGMA user_version` and migrate the reader explicitly. User quest
+progress belongs in separate per-character storage.
+
 ## Two deliverables
 
 - `output/quest_research.sqlite` (research schema **7**): full compressed upstream NPC sources and extracted evidence, public wiki pages, audit rows, parser-derived dialogue/control flow and literal quest/item state facts.
-- `output/questie_catalog.sqlite` (consumer schema **3**, `PRAGMA user_version = 3`): ready-to-query local SQLite projection, **without compressed scripts or Python dependency**. The consumer must **not** guess the correctness of unverified responses or use candidates as verified directions.
+- `output/questie_catalog.sqlite` (consumer schema **4**, `PRAGMA user_version = 4`): ready-to-query local SQLite projection, **without compressed scripts or Python dependency**. The consumer must **not** guess the correctness of unverified responses or use candidates as verified directions.
 
 Both formats are independently checked with `PRAGMA integrity_check` and `PRAGMA foreign_key_check`. Their `.gz` variants compress for download; decompress before SQLite use.
 
