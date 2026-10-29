@@ -2,6 +2,27 @@
 
 Isolated **research branch**. No changes to the RoAura WPF application, settings, updater, main, release files or database runtime.
 
+## Current ROQuestie scope — shared quests across Ragnarok Online
+
+**ROQuestie is server-neutral.** The main objective is a source-backed, nearly
+complete catalog of the fundamental Ragnarok Online quests that can later
+power a full walkthrough assistant in RoAura. We prioritize permanent
+storylines, dungeon access, class changes/skills, repeatable regional quests
+and explicit prerequisite chains. Old iRO events remain in the source archive
+without displacing core research.
+
+**Universal catalog does not mean universal availability:** official and
+private servers can have different quest implementations, locations and IDs.
+Classic, Pre-Renewal, Renewal and emulator variants are retained separately;
+a server-specific compatibility overlay is optional and must be evidence-based.
+Never silently treat a script from one source as active on every server.
+
+Stage 8 also produces `roquestie_core_worklist.json`: a full catalogue of
+source pages with provisional research category, useful main-quest research
+priority, gaps/known source scopes and unknown server availability. Historical
+seasonal events are still indexed. See `INTEGRATION_CONTRACT.md` and the
+generic `SERVER_VALIDATION.md` for future optional compatibility checks.
+
 ## Long-term deliverable / completion contract
 
 **The objective is a maximally comprehensive, sourced, compact, versioned Ragnarok Online quest dataset that can be integrated into RoAura as a full quest assistant with minimal application-specific transformation.** This research repository develops the *data product and its contract*, not the WPF UI or packet capture implementation.
