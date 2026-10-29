@@ -1,0 +1,464 @@
+{
+  "schema_version": 1,
+  "reviewer": "ROQuestie stage12 source code inspection",
+  "review_basis": "iRO Wiki Classic source snapshots + rAthena/Hercules pinned Git blob SHA; lexical NPC state and guide order; does not confirm server runtime",
+  "decisions": [
+    {
+      "guide_title": "2014 Fourth of July Event",
+      "guide_url": "https://irowiki.org/classic/2014_Fourth_of_July_Event",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_amatsu.txt",
+      "source_blob_sha": "1d5fea3ebe686b13040d17e931be1211448cac52",
+      "decision": "rejected",
+      "reason": "The proposal originates from generic Amatsu quest NPCs and has no distinct 2014 Fourth of July event implementation evidence. Shared Grandma/Grandpa names are a collision, not a traceable event quest.",
+      "source_witnesses": [
+        "Grandma",
+        "Grandpa"
+      ],
+      "shared_variable": null,
+      "support_basis": []
+    },
+    {
+      "guide_title": "2014 Fourth of July Event",
+      "guide_url": "https://irowiki.org/classic/2014_Fourth_of_July_Event",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_amatsu.txt",
+      "source_blob_sha": "ace1cd7e1583beeb3ae6466b923c84e184b1ef22",
+      "decision": "rejected",
+      "reason": "The proposal originates from generic Amatsu quest NPCs and has no distinct 2014 Fourth of July event implementation evidence. Shared Grandma/Grandpa names are a collision, not a traceable event quest.",
+      "source_witnesses": [
+        "Grandma",
+        "Grandpa"
+      ],
+      "shared_variable": null,
+      "support_basis": []
+    },
+    {
+      "guide_title": "Broken Diamond Quest",
+      "guide_url": "https://irowiki.org/classic/Broken_Diamond_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_nameless.txt",
+      "source_blob_sha": "d32f5c9ea180d63ff8660980170c46896b8e2b4b",
+      "decision": "source_supported",
+      "reason": "Wiki visits Jhonnita at step 2, Kimeunbang at step 3, and Rogue Investigator at step 8; these NPC blocks coexist in the same Nameless quest script with diamond_edq writes. Scope is file identity only, not the entire jewel-quest branching sequence.",
+      "source_witnesses": [
+        "Jhonnita",
+        "Kimeunbang",
+        "Rogue Investigator"
+      ],
+      "shared_variable": "diamond_edq",
+      "support_basis": [
+        "distinctive named NPCs in guide order",
+        "shared diamond_edq state writes",
+        "original code and wiki step provenance"
+      ]
+    },
+    {
+      "guide_title": "Broken Diamond Quest",
+      "guide_url": "https://irowiki.org/classic/Broken_Diamond_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_nameless.txt",
+      "source_blob_sha": "7e5c967a02b542ebf2b9cd1ddb7a45d3e9308dc4",
+      "decision": "source_supported",
+      "reason": "Wiki visits Jhonnita at step 2, Kimeunbang at step 3, and Rogue Investigator at step 8; these NPC blocks coexist in the same Nameless quest script with diamond_edq writes. Scope is file identity only, not the entire jewel-quest branching sequence.",
+      "source_witnesses": [
+        "Jhonnita",
+        "Kimeunbang",
+        "Rogue Investigator"
+      ],
+      "shared_variable": "diamond_edq",
+      "support_basis": [
+        "distinctive named NPCs in guide order",
+        "shared diamond_edq state writes",
+        "original code and wiki step provenance"
+      ]
+    },
+    {
+      "guide_title": "Continental Guard Quest (Resurrection of Satan Morroc)",
+      "guide_url": "https://irowiki.org/classic/Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_morocc.txt",
+      "source_blob_sha": "d0fc59155b52e4406c50485e11665af7951d7c9f",
+      "decision": "source_supported",
+      "reason": "The wiki introduces the Continental Official before Chief Balrog and the matched source NPC blocks advance rebirth_moc_edq. This corroborates Continental Guard source identity without proving activation, prerequisite checks, or completion on a server.",
+      "source_witnesses": [
+        "Continental Official",
+        "Chief Balrog"
+      ],
+      "shared_variable": "rebirth_moc_edq",
+      "support_basis": [
+        "distinctive ordered NPC visits",
+        "rebirth_moc_edq source state writes",
+        "source script line provenance"
+      ]
+    },
+    {
+      "guide_title": "Crow of Destiny Quest",
+      "guide_url": "https://irowiki.org/classic/Crow_of_Destiny_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_morocc.txt",
+      "source_blob_sha": "d0fc59155b52e4406c50485e11665af7951d7c9f",
+      "decision": "source_supported",
+      "reason": "The original Morocc script header explicitly lists The Crow of the Fate and contains Library Part-Timer and Monsterous Man in the guide's encounter order, including barmunt_crow in a later NPC. This is an implementation-file association, not a complete route proof.",
+      "source_witnesses": [
+        "Library Part-Timer",
+        "Monsterous Man"
+      ],
+      "shared_variable": null,
+      "support_basis": [
+        "source header names The Crow of the Fate",
+        "two explicitly named guide NPCs in ordered steps",
+        "lexical source variable barmunt_crow"
+      ]
+    },
+    {
+      "guide_title": "Crow of Destiny Quest",
+      "guide_url": "https://irowiki.org/classic/Crow_of_Destiny_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_morocc.txt",
+      "source_blob_sha": "ae13d7154e3265b193964564935dd48a972d876b",
+      "decision": "source_supported",
+      "reason": "The original Morocc script header explicitly lists The Crow of the Fate and contains Library Part-Timer and Monsterous Man in the guide's encounter order, including barmunt_crow in a later NPC. This is an implementation-file association, not a complete route proof.",
+      "source_witnesses": [
+        "Library Part-Timer",
+        "Monsterous Man"
+      ],
+      "shared_variable": null,
+      "support_basis": [
+        "source header names The Crow of the Fate",
+        "two explicitly named guide NPCs in ordered steps",
+        "lexical source variable barmunt_crow"
+      ]
+    },
+    {
+      "guide_title": "Einbroch Murder Quest",
+      "guide_url": "https://irowiki.org/classic/Einbroch_Murder_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_ein.txt",
+      "source_blob_sha": "ee8fa1ea66904bc3c0677514afd958e9323f7800",
+      "decision": "source_supported",
+      "reason": "The Einbroch script labels Murder Quest near Buender Hikeman. Buender and Scientist both advance Shinokas_Quest and are encountered in that wiki order. Zelmeto uses EinFactory and represents a documented Factory Quest prerequisite rather than proof of a single shared state chain.",
+      "source_witnesses": [
+        "Buender Hikeman",
+        "Scientist",
+        "Zelmeto"
+      ],
+      "shared_variable": "Shinokas_Quest",
+      "support_basis": [
+        "source comment Murder Quest",
+        "two matched NPCs write Shinokas_Quest",
+        "wiki explicitly includes Factory Quest/Zelmeto as prerequisite branch"
+      ]
+    },
+    {
+      "guide_title": "Einbroch Murder Quest",
+      "guide_url": "https://irowiki.org/classic/Einbroch_Murder_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_ein.txt",
+      "source_blob_sha": "3a83a1fcac9708bed1ba55d61486b1c4ae119f18",
+      "decision": "source_supported",
+      "reason": "The Einbroch script labels Murder Quest near Buender Hikeman. Buender and Scientist both advance Shinokas_Quest and are encountered in that wiki order. Zelmeto uses EinFactory and represents a documented Factory Quest prerequisite rather than proof of a single shared state chain.",
+      "source_witnesses": [
+        "Buender Hikeman",
+        "Scientist",
+        "Zelmeto"
+      ],
+      "shared_variable": "Shinokas_Quest",
+      "support_basis": [
+        "source comment Murder Quest",
+        "two matched NPCs write Shinokas_Quest",
+        "wiki explicitly includes Factory Quest/Zelmeto as prerequisite branch"
+      ]
+    },
+    {
+      "guide_title": "Endless Tower Quest",
+      "guide_url": "https://irowiki.org/classic/Endless_Tower_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/instances/EndlessTower.txt",
+      "source_blob_sha": "064b7d8a15b5a6f60b9c51f8c6ea84f8f1f25d84",
+      "decision": "source_supported",
+      "reason": "Captain Janssen precedes Tower Protection Stone in the wiki and both source NPC blocks are defined in the dedicated EndlessTower instance script, with a Zeny charge/instance creation machinery. Timers and per-server access rules remain variant-specific.",
+      "source_witnesses": [
+        "Captain Janssen",
+        "Tower Protection Stone"
+      ],
+      "shared_variable": null,
+      "support_basis": [
+        "dedicated EndlessTower source path",
+        "Captain Janssen then Tower Protection Stone guide sequence",
+        "instance NPC state and menu evidence"
+      ]
+    },
+    {
+      "guide_title": "Endless Tower Quest",
+      "guide_url": "https://irowiki.org/classic/Endless_Tower_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/instances/EndlessTower.txt",
+      "source_blob_sha": "bbd5bb0823955774f70721429ed327b2dc3f1d23",
+      "decision": "source_supported",
+      "reason": "Captain Janssen precedes Tower Protection Stone in the wiki and both source NPC blocks are defined in the dedicated EndlessTower instance script, with a Zeny charge/instance creation machinery. Timers and per-server access rules remain variant-specific.",
+      "source_witnesses": [
+        "Captain Janssen",
+        "Tower Protection Stone"
+      ],
+      "shared_variable": null,
+      "support_basis": [
+        "dedicated EndlessTower source path",
+        "Captain Janssen then Tower Protection Stone guide sequence",
+        "instance NPC state and menu evidence"
+      ]
+    },
+    {
+      "guide_title": "Halloween Event (2006/10/24) ~ (2006/11/07)",
+      "guide_url": "https://irowiki.org/classic/Halloween_Event_(2006/10/24)_~_(2006/11/07)",
+      "source_project": "hercules",
+      "source_path": "npc/events/halloween_2006.txt",
+      "source_blob_sha": "05364baf3a890a3428e324f7b84e43d4dc264f68",
+      "decision": "source_supported",
+      "reason": "The indexed source is explicitly halloween_2006.txt and contains all three named 2006 event NPCs in the wiki steps; this corroborates an historical script implementation but not modern availability or identical event dates.",
+      "source_witnesses": [
+        "Cool Devi",
+        "Chicken Masta",
+        "Deviruchi"
+      ],
+      "shared_variable": null,
+      "support_basis": [
+        "year-specific halloween_2006 source filename",
+        "three named event NPCs matched to guide steps",
+        "event code branches and state facts"
+      ]
+    },
+    {
+      "guide_title": "Halloween Event (2006/10/24) ~ (2006/11/07)",
+      "guide_url": "https://irowiki.org/classic/Halloween_Event_(2006/10/24)_~_(2006/11/07)",
+      "source_project": "rathena",
+      "source_path": "npc/events/halloween_2006.txt",
+      "source_blob_sha": "faff568081de319b872224b44503f168faef73f8",
+      "decision": "source_supported",
+      "reason": "The indexed source is explicitly halloween_2006.txt and contains all three named 2006 event NPCs in the wiki steps; this corroborates an historical script implementation but not modern availability or identical event dates.",
+      "source_witnesses": [
+        "Cool Devi",
+        "Chicken Masta",
+        "Deviruchi"
+      ],
+      "shared_variable": null,
+      "support_basis": [
+        "year-specific halloween_2006 source filename",
+        "three named event NPCs matched to guide steps",
+        "event code branches and state facts"
+      ]
+    },
+    {
+      "guide_title": "Hugel Memory Quest",
+      "guide_url": "https://irowiki.org/classic/Hugel_Memory_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_hugel.txt",
+      "source_blob_sha": "7bb9972bdbcdd9085f533005bb8bf2470ad43d59",
+      "decision": "source_supported",
+      "reason": "Wiki step 3 El Schatt, step 4 Perfitz and step 5 return to El Schatt match source NPC visits. El Schatt writes hg_memory 3/5 while Perfitz checks 3 and writes 4: a direct state progression witness, though later routes remain unverified.",
+      "source_witnesses": [
+        "El Schatt",
+        "Perfitz"
+      ],
+      "shared_variable": "hg_memory",
+      "support_basis": [
+        "El Schatt to Perfitz to El Schatt wiki visit order",
+        "shared hg_memory state writes",
+        "source conditional guards on hg_memory"
+      ]
+    },
+    {
+      "guide_title": "Hugel Memory Quest",
+      "guide_url": "https://irowiki.org/classic/Hugel_Memory_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_hugel.txt",
+      "source_blob_sha": "2f355ec6b203b0f2efd2e300404b90f36e5a1f62",
+      "decision": "source_supported",
+      "reason": "Wiki step 3 El Schatt, step 4 Perfitz and step 5 return to El Schatt match source NPC visits. El Schatt writes hg_memory 3/5 while Perfitz checks 3 and writes 4: a direct state progression witness, though later routes remain unverified.",
+      "source_witnesses": [
+        "El Schatt",
+        "Perfitz"
+      ],
+      "shared_variable": "hg_memory",
+      "support_basis": [
+        "El Schatt to Perfitz to El Schatt wiki visit order",
+        "shared hg_memory state writes",
+        "source conditional guards on hg_memory"
+      ]
+    },
+    {
+      "guide_title": "Prayer To Heaven (Transcendence Quest)",
+      "guide_url": "https://irowiki.org/classic/Prayer_To_Heaven_(Transcendence_Quest)",
+      "source_project": "hercules",
+      "source_path": "npc/jobs/valkyrie.txt",
+      "source_blob_sha": "f294140c0fe28dd65f0463fbd1da270b235119ee",
+      "decision": "rejected",
+      "reason": "The wiki describes a separate Toyotino/Michael expedition with intermediate engineering, airship and Dark Minion stages absent from the generic valkyrie.txt rebirth implementation. Matching entry/exit NPCs cannot validate this separate quest source.",
+      "source_witnesses": [
+        "Metheus Sylphe",
+        "Valkyrie"
+      ],
+      "shared_variable": null,
+      "support_basis": []
+    },
+    {
+      "guide_title": "Prayer To Heaven (Transcendence Quest)",
+      "guide_url": "https://irowiki.org/classic/Prayer_To_Heaven_(Transcendence_Quest)",
+      "source_project": "rathena",
+      "source_path": "npc/jobs/valkyrie.txt",
+      "source_blob_sha": "9a4dcfe4903f85bd3e76a980befcf2298fae93c8",
+      "decision": "rejected",
+      "reason": "The wiki describes a separate Toyotino/Michael expedition with intermediate engineering, airship and Dark Minion stages absent from the generic valkyrie.txt rebirth implementation. Matching entry/exit NPCs cannot validate this separate quest source.",
+      "source_witnesses": [
+        "Metheus Sylphe",
+        "Valkyrie"
+      ],
+      "shared_variable": null,
+      "support_basis": []
+    },
+    {
+      "guide_title": "Rebirth Walkthrough",
+      "guide_url": "https://irowiki.org/classic/Rebirth_Walkthrough",
+      "source_project": "hercules",
+      "source_path": "npc/jobs/valkyrie.txt",
+      "source_blob_sha": "f294140c0fe28dd65f0463fbd1da270b235119ee",
+      "decision": "variant_conflict",
+      "reason": "The wiki specifies a 2,500,000 Zeny donation (1,250,000 VIP), but this valkyrie.txt source charges 1,285,000 Zeny. NPC visitation matches; the exact guide/source variant conflicts and requires a server/episode-specific resolution.",
+      "source_witnesses": [
+        "Metheus Sylphe",
+        "Valkyrie"
+      ],
+      "shared_variable": null,
+      "support_basis": []
+    },
+    {
+      "guide_title": "Rebirth Walkthrough",
+      "guide_url": "https://irowiki.org/classic/Rebirth_Walkthrough",
+      "source_project": "rathena",
+      "source_path": "npc/jobs/valkyrie.txt",
+      "source_blob_sha": "9a4dcfe4903f85bd3e76a980befcf2298fae93c8",
+      "decision": "variant_conflict",
+      "reason": "The wiki specifies a 2,500,000 Zeny donation (1,250,000 VIP), but this valkyrie.txt source charges 1,285,000 Zeny. NPC visitation matches; the exact guide/source variant conflicts and requires a server/episode-specific resolution.",
+      "source_witnesses": [
+        "Metheus Sylphe",
+        "Valkyrie"
+      ],
+      "shared_variable": null,
+      "support_basis": []
+    },
+    {
+      "guide_title": "Snowysnow Quest",
+      "guide_url": "https://irowiki.org/classic/Snowysnow_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/cities/lutie.txt",
+      "source_blob_sha": "432e36ea73f93bad462b501848b4889a971c1386",
+      "decision": "source_supported",
+      "reason": "The Lutie source Snowman and Uncle Hairy NPC blocks both operate on the xmas_npc quest variable and appear in the wiki's repeated NPC visits. Supports a core Snowysnow chain despite its Lutie holiday setting; names may vary between server versions.",
+      "source_witnesses": [
+        "Uncle Hairy",
+        "Snowman"
+      ],
+      "shared_variable": "xmas_npc",
+      "support_basis": [
+        "source name and map Lutie NPCs",
+        "shared xmas_npc variable writes",
+        "wiki return visits to Snowman"
+      ]
+    },
+    {
+      "guide_title": "Snowysnow Quest",
+      "guide_url": "https://irowiki.org/classic/Snowysnow_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/cities/lutie.txt",
+      "source_blob_sha": "3ef194efcde606e2065805162f254a3c48091116",
+      "decision": "source_supported",
+      "reason": "The Lutie source Snowman and Uncle Hairy NPC blocks both operate on the xmas_npc quest variable and appear in the wiki's repeated NPC visits. Supports a core Snowysnow chain despite its Lutie holiday setting; names may vary between server versions.",
+      "source_witnesses": [
+        "Uncle Hairy",
+        "Snowman"
+      ],
+      "shared_variable": "xmas_npc",
+      "support_basis": [
+        "source name and map Lutie NPCs",
+        "shared xmas_npc variable writes",
+        "wiki return visits to Snowman"
+      ]
+    },
+    {
+      "guide_title": "Successor to the Throne Quest",
+      "guide_url": "https://irowiki.org/classic/Successor_to_the_Throne_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_morocc.txt",
+      "source_blob_sha": "d0fc59155b52e4406c50485e11665af7951d7c9f",
+      "decision": "source_supported",
+      "reason": "The Morocc source describes Succession of the Prince and defines the Inspector and Servant in the wiki encounter order; prince quest-state IDs/branches are present. Approval applies only to the source file, not the full sequence of seven princes.",
+      "source_witnesses": [
+        "Inspector",
+        "Servant"
+      ],
+      "shared_variable": null,
+      "support_basis": [
+        "explicit Succession of the Prince source documentation",
+        "Inspector and Servant wiki source occurrences",
+        "source branching and prince quest-state facts"
+      ]
+    },
+    {
+      "guide_title": "Successor to the Throne Quest",
+      "guide_url": "https://irowiki.org/classic/Successor_to_the_Throne_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/pre-re/quests/quests_morocc.txt",
+      "source_blob_sha": "5c5bc0012e5883751c38b154166bb5a6455cca07",
+      "decision": "source_supported",
+      "reason": "The Morocc source describes Succession of the Prince and defines the Inspector and Servant in the wiki encounter order; prince quest-state IDs/branches are present. Approval applies only to the source file, not the full sequence of seven princes.",
+      "source_witnesses": [
+        "Inspector",
+        "Servant"
+      ],
+      "shared_variable": null,
+      "support_basis": [
+        "explicit Succession of the Prince source documentation",
+        "Inspector and Servant wiki source occurrences",
+        "source branching and prince quest-state facts"
+      ]
+    },
+    {
+      "guide_title": "Unlucky Emerald Quest",
+      "guide_url": "https://irowiki.org/classic/Unlucky_Emerald_Quest",
+      "source_project": "hercules",
+      "source_path": "npc/quests/quests_nameless.txt",
+      "source_blob_sha": "d32f5c9ea180d63ff8660980170c46896b8e2b4b",
+      "decision": "source_supported",
+      "reason": "Guide visits Ragged Man first, Man in Hiding later, and the matched source code advances treasure_nd in both NPC blocks. Later jewel_nd branches are related but must be reviewed separately before automatic stage navigation.",
+      "source_witnesses": [
+        "Ragged Man",
+        "Man in Hiding"
+      ],
+      "shared_variable": "treasure_nd",
+      "support_basis": [
+        "Ragged Man then Man in Hiding ordered guide steps",
+        "shared treasure_nd state writes",
+        "independent source state branches"
+      ]
+    },
+    {
+      "guide_title": "Unlucky Emerald Quest",
+      "guide_url": "https://irowiki.org/classic/Unlucky_Emerald_Quest",
+      "source_project": "rathena",
+      "source_path": "npc/quests/quests_nameless.txt",
+      "source_blob_sha": "7e5c967a02b542ebf2b9cd1ddb7a45d3e9308dc4",
+      "decision": "source_supported",
+      "reason": "Guide visits Ragged Man first, Man in Hiding later, and the matched source code advances treasure_nd in both NPC blocks. Later jewel_nd branches are related but must be reviewed separately before automatic stage navigation.",
+      "source_witnesses": [
+        "Ragged Man",
+        "Man in Hiding"
+      ],
+      "shared_variable": "treasure_nd",
+      "support_basis": [
+        "Ragged Man then Man in Hiding ordered guide steps",
+        "shared treasure_nd state writes",
+        "independent source state branches"
+      ]
+    }
+  ]
+}
