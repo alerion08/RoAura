@@ -25,6 +25,7 @@ from state import SCHEMA as STATE_SCHEMA, create_state_facts
 from runtime import make_runtime
 from audit import summarize_review_queue
 from triage import triage_review
+from prerequisites import SCHEMA as PREREQ_SCHEMA, extract_prerequisites
 from augment import augment_evidence
 from quality import (ensure_quality_schema, update_state, state_counts,
                      dataset_counts, check_nonregression, too_few_steps)
@@ -416,6 +417,7 @@ def main():
     db.executescript(FLOW_SCHEMA)
     db.executescript(REVIEW_SCHEMA)
     db.executescript(STATE_SCHEMA)
+    db.executescript(PREREQ_SCHEMA)
     ensure_quality_schema(db)
     original_counts=dataset_counts(db)
     # A previous generated review links to menu point IDs. Clear those first.
@@ -473,7 +475,8 @@ def main():
     report["dialogue_flow"]=create_flow(db)
     report["quest_state"]=create_state_facts(db)
     report["script_link_review"]=create_reviews(db)
-    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','6')")
+    report["wiki_prerequisites"]=extract_prerequisites(db)
+    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','7')")
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('matching_revision','header_and_correlated_npc_coordinate_v1')")
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('research_status','candidate matches only; see coverage.json')")
     db.commit()
