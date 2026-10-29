@@ -21,9 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
-      - name: Checkout research branch
+      - name: Checkout latest research branch
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.ref_name }}
           persist-credentials: true
       - name: Set up Python
         uses: actions/setup-python@v5
