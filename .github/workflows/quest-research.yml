@@ -8,6 +8,10 @@ on:
       - research/quest-database/build.py
       - research/quest-database/enrich.py
       - research/quest-database/test_enrich.py
+      - research/quest-database/graph.py
+      - research/quest-database/reconcile.py
+      - research/quest-database/test_graph.py
+      - research/quest-database/test_reconcile.py
       - .github/workflows/quest-research.yml
   workflow_dispatch:
 
@@ -37,7 +41,7 @@ jobs:
       - name: Regression tests for wiki parser and script linking
         run: |
           cd research/quest-database
-          python -m unittest -v test_enrich.py
+          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py
       - name: Build SQLite from public sources
         run: python research/quest-database/build.py --out research/quest-database/output
       - name: Validate finished SQLite
@@ -60,6 +64,15 @@ jobs:
           assert sample>=60, f"Kiel Hyre walkthrough lost steps: {sample}"
           assert juice>=3, f"Juice Quest walkthrough lost steps: {juice}"
           assert linked>=30, f"Too few quest-script candidates: {linked}"
+          flow_points=con.execute("SELECT count(*) FROM npc_flow_points").fetchone()[0]
+          flow_options=con.execute("SELECT count(*) FROM npc_flow_options").fetchone()[0]
+          flow_edges=con.execute("SELECT count(*) FROM npc_flow_edges").fetchone()[0]
+          reviewed=con.execute("SELECT count(*) FROM wiki_script_reviews").fetchone()[0]
+          assert flow_points>=100, f"No useful dialogue menus: {flow_points}"
+          assert flow_options>=100, f"No dialogue options: {flow_options}"
+          assert flow_edges>=10, f"No explicit flow edges: {flow_edges}"
+          assert reviewed==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
+          print(f"NPC graph: {flow_points} menu points, {flow_options} options, {flow_edges} resolved edges, {reviewed} review rows")
           print(f"Wiki: {pcount} numbered guide pages, {nsteps} steps, {linked} pages with script candidates; Kiel Hyre {sample} steps")
           print(f"Verified SQLite: {p.stat().st_size} bytes; {scripts} original scripts.")
           PY
