@@ -11,6 +11,10 @@ Acceptance direction: per server/variant, stable quest IDs and steps, NPC map/co
 Future RoAura integration must not require joining raw parser tables or parsing NPC script code at runtime. Preserve the richer research SQLite and ship an independent, stable, smaller runtime database when the contract has been validated.
 ## Stage 7 — quality, reproducibility and manual review queue
 
+**Verified stage 7 build:** [GitHub Actions #40926491951](https://github.com/alerion08/RoAura/actions/runs/40926491951) SUCCESS; focused regression tests [#40926483207](https://github.com/alerion08/RoAura/actions/runs/40926483207) SUCCESS. Research SQLite v6 and runtime catalog v2 both passed integrity and foreign-key checks. This snapshot retains 939 script files, 286 wiki records, 3,420 guide steps, 574 quest-script candidates covering 169 pages and 1,298 step-to-NPC candidate links. `quest_review_queue.json` identifies 117 wiki pages without any script candidate, 32 with mixed gameplay variants, and 84 critical/105 high/97 medium review items. All 286 wiki-page freshness records remain historical/unknown, because this run was deliberately **offline-enrichment only**; this must not be reported as a fresh iRO crawl.
+
+
+
 This stage addresses a real data-quality regression observed in the extended 939-script crawl: a partial wiki category response discovered fewer pages, and a transient wiki page fetch failed even though prior guide steps were retained. A passing SQLite integrity check does not prove freshness or source coverage.
 
 - `quality.py`: the wiki fetcher retries transient HTTP/network failures; the importer merges the previously known wiki URLs when category discovery is incomplete; it does not overwrite previously parsed quest text or its content hash after fetch errors or a severe parser regression. The wiki page refresh state is recorded separately. For historical data with unknown per-page timestamps, `legacy_cached` explicitly means **not fresh-verified**.
