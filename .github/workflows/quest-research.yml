@@ -24,6 +24,8 @@ on:
       - research/quest-database/test_audit.py
       - research/quest-database/triage.py
       - research/quest-database/test_triage.py
+      - research/quest-database/prerequisites.py
+      - research/quest-database/test_prerequisites.py
       - .github/workflows/quest-research.yml
   workflow_dispatch:
     inputs:
@@ -59,7 +61,7 @@ jobs:
       - name: Regression tests for wiki parser and script linking
         run: |
           cd research/quest-database
-          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py
+          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py test_prerequisites.py
       - name: Rebuild research and runtime SQLite
         run: |
           if [ "${{ github.event.inputs.refresh_sources }}" = "true" ] || [ "${{ github.event.head_commit.message }}" = "research: perform one-time full NPC source refresh" ]; then
@@ -116,7 +118,9 @@ jobs:
           output=Path("research/quest-database/output/questie_catalog.sqlite")
           assert output.is_file() and output.stat().st_size>100000
           consumer=sqlite3.connect(output)
-          assert consumer.execute("PRAGMA user_version").fetchone()[0]==2
+          assert consumer.execute("PRAGMA user_version").fetchone()[0]==3
+          assert consumer.execute("SELECT count(*) FROM quest_prerequisites").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_quest_prerequisite_links").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quest_prerequisite_text").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_quest_prerequisite_text").fetchone()[0]
           assert consumer.execute("SELECT count(*) FROM quest_quality").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
           assert consumer.execute("SELECT count(*) FROM scripts WHERE variant_scope IN ('common','pre-re','renewal')").fetchone()[0]==scripts
           assert con.execute("SELECT count(*) FROM wiki_refresh_state").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
