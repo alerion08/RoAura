@@ -15,17 +15,17 @@ class AdjudicateTests(unittest.TestCase):
   db.execute("""INSERT INTO provenance(id,project,path,blob_sha,source_url,stored_at,raw_size,content_zlib)
                 VALUES(1,'rathena','npc/quests/test.txt','sha1','https://example.invalid','2026',1,X'78')""")
   db.execute("INSERT INTO wiki_pages(id,title,url) VALUES(1,'Test Quest','https://irowiki.org/classic/Test_Quest')")
+  db.execute("INSERT INTO wiki_missing_script_proposals VALUES(1,1,2,2,'unverified_needs_manual_review','npc_name_pair_candidate')")
   for n,name in ((1,"Marianne#one"),(2,"Morrison#two")):
    db.execute("INSERT INTO wiki_steps VALUES(?,?,?,?)",(1,n,"","Talk to "+name))
    db.execute("INSERT INTO script_npcs(id,source_id,ordinal,name,map,x,y,line_start,line_end) VALUES(?,1,?,?,'prt_in',20,30,?,?)",
      (n,n,name,n*10,n*10+8))
-   db.execute("INSERT INTO wiki_missing_script_evidence VALUES(1,1,?,?,?,?,?)",
+   db.execute("INSERT INTO wiki_missing_script_evidence VALUES(1,1,?,?,?,?)",
               (n,n,name,n*10))
    db.execute("""INSERT INTO npc_state_facts
       (source_id,npc_ordinal,line_no,occurrence,role,subject,value_expr,argument)
       VALUES(1,?,?,1,'variable_write','questflag',?,?)""",
       (n,n*10+1,str(n),str(n)))
-  db.execute("INSERT INTO wiki_missing_script_proposals VALUES(1,1,2,2,'unverified_needs_manual_review','npc_name_pair_candidate')")
   return db
  def manifest(self,sha="sha1"):
   return {"decisions":[{"guide_title":"Test Quest","guide_url":"https://irowiki.org/classic/Test_Quest",
