@@ -55,7 +55,7 @@ COMMAND = re.compile(
 )
 # Function syntax, including nested use in if/checks. No evaluation.
 CHECK = re.compile(r"(?<![\w.@])\b(checkquest|countitem)\s*\(",re.I)
-VARIABLE = re.compile(r"(?m)^[ \t]*set[ \t]+([.@#'$A-Za-z_][.@#'$\w\[\]]*)[ \t]*,[ \t]*([^;\n]{1,500});",re.I)
+VARIABLE = re.compile(r"(?<![\w.@])\bset[ \t]+([.@#'$A-Za-z_][.@#'$\w\[\]]*)[ \t]*,[ \t]*([^;\n]{1,500});",re.I)
 ASSIGNMENT = re.compile(
     r"(?m)^[ \t]*([.@#'$A-Za-z_][.@#'$\w\[\]]*)\s*(\+=|-=|=(?!=))\s*([^;\n]{1,500});"
 )
