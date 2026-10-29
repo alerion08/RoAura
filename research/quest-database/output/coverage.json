@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T16:27:43.576337+00:00",
+  "created_utc": "2026-10-29T16:55:45.631423+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -21,12 +21,19 @@
     "irowiki_classic": {
       "indexed": 286,
       "attempted": 286,
-      "fetched": 286,
-      "numbered_steps": 2931,
+      "fetched": 285,
+      "numbered_steps": 2920,
       "narrative_steps": 489,
-      "errors": []
+      "errors": [
+        {
+          "url": "https://irowiki.org/classic/Talk_Like_a_Pirate_Day_Event_(2013/9/18)",
+          "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+        }
+      ]
     }
   },
+  "source_snapshot_utc": "2026-10-29T16:55:45.631423+00:00",
+  "fetch_mode": "fresh_upstream_requests",
   "linking": {
     "wiki_script_links": 237,
     "linked_pages": 70,
@@ -39,6 +46,18 @@
     "guards": 24646,
     "jumps": 38,
     "resolved_jumps": 38
+  },
+  "quest_state": {
+    "facts": 24309,
+    "quest_actions": 1005,
+    "quest_checks": 396,
+    "item_actions": 6057,
+    "item_checks": 5020,
+    "variable_writes": 11831,
+    "literal_quest_ids": 1374,
+    "literal_item_ids": 5939,
+    "registry_matches": 1374,
+    "guarded_facts": 21468
   },
   "script_link_review": {
     "pages_no_script": 216,
@@ -62,8 +81,35 @@
     "npc_flow_conditions": 24646,
     "npc_flow_jumps": 38,
     "wiki_script_reviews": 286,
-    "wiki_answer_menu_matches": 33
+    "wiki_answer_menu_matches": 33,
+    "npc_state_facts": 24309,
+    "npc_quest_registry_refs": 1374
   },
   "sqlite_integrity": "ok",
-  "foreign_key_violations": 0
+  "foreign_key_violations": 0,
+  "runtime_export": {
+    "schema_version": 1,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": 0,
+    "tables": {
+      "quests": 286,
+      "quest_steps": 3420,
+      "step_hints": 1472,
+      "scripts": 314,
+      "quest_scripts": 237,
+      "npcs": 3904,
+      "quest_step_npcs": 720,
+      "dialogue_lines": 298131,
+      "dialogue_points": 5815,
+      "dialogue_options": 14081,
+      "dialogue_guards": 24646,
+      "dialogue_jumps": 38,
+      "quest_state_facts": 24309,
+      "quest_registry": 2879,
+      "quest_registry_evidence": 1374,
+      "candidate_answers": 33
+    },
+    "bytes": 37773312
+  },
+  "questie_schema_version": 1
 }
