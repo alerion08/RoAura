@@ -18,6 +18,7 @@ from pathlib import Path
 import requests
 import yaml
 from bs4 import BeautifulSoup
+from enrich import parse_guide, step_evidence, ensure_enrichment_schema, link_database
 
 UA = "RoAura-Quest-Research/1.0 (public source research, limited crawl)"
 WIKI = "https://irowiki.org/classic/"
@@ -126,7 +127,7 @@ def github_tree(session, repo, ref):
     return data["tree"]
 
 def scripts_from_tree(tree, provider):
-    prefixes=("npc/quests/","npc/jobs/","npc/other/","npc/cities/","npc/instances/")
+    prefixes=("npc/quests/","npc/jobs/","npc/other/","npc/cities/","npc/instances/","npc/pre-re/quests/","npc/pre-re/jobs/")
     out=[x for x in tree if x.get("type")=="blob" and x["path"].endswith(".txt")
          and x["path"].startswith(prefixes) and (x.get("size",0) <= 900000)]
     if provider=="hercules":
@@ -264,34 +265,14 @@ def wiki_discover(fetcher,max_categories=150):
     skip={"Quests","Quest Table","Quest Window","Item Mixing","Maps","Monsters","NPCs","Classes"}
     return {name:url for name,url in urls.items() if name not in skip},errors
 
-COORD = re.compile(r"\b([a-z][a-z0-9_]{2,22})\s+(\d{1,3})\s*,\s*(\d{1,3})\b|\(?(\d{1,3})\s*,\s*(\d{1,3})\)?",re.I)
-CHOICE = re.compile(r'(?:choose|select|answer|say|input|enter|type)\s+(?:[^\"]{0,45})?["“]([^"”]{1,120})["”]',re.I)
-def parse_wiki(raw):
-    soup=BeautifulSoup(raw,"html.parser")
-    root=soup.select_one("#mw-content-text") or soup.select_one(".mw-parser-output")
-    if root is None:return [],None,None,None,None
-    for node in root.select(".mw-editsection,.toc,.navbox,script,style"):node.decompose()
-    root_text=norm(root.get_text(" ",strip=True))
-    bl=re.search(r"Base Level\s*:\s*(\d+)",root_text,re.I)
-    jl=re.search(r"Job Level\s*:\s*(\d+)",root_text,re.I)
-    box=root.select_one("table.infobox")
-    box_text=norm(box.get_text(" ",strip=True)) if box else ""
-    req=re.search(r"Requirements\s+(.*?)\s+Rewards\s+(.*)$",box_text,re.I)
-    steps=[]
-    for ol in root.find_all("ol"):
-        if ol.find_parent(["table","ol"]):continue
-        section_el=ol.find_previous(["h2","h3","h4"])
-        section=norm(section_el.get_text(" ",strip=True)) if section_el else ""
-        for li in ol.find_all("li",recursive=False):
-            t=norm(li.get_text(" ",strip=True))
-            if t:steps.append((section,t))
-    return steps,int(bl.group(1)) if bl else None,int(jl.group(1)) if jl else None,(req.group(1) if req else None),(req.group(2) if req else None)
-
 def ingest_wiki(db,max_pages=1000):
     fetcher=WikiFetcher()
     urls,errors=wiki_discover(fetcher)
     print(f"Discovered {len(urls)} wiki candidate pages",flush=True)
     count=0
+    parsed_numbered=0
+    parsed_narrative=0
+    known_maps={row[0].lower() for row in db.execute("SELECT DISTINCT map FROM script_npcs WHERE map IS NOT NULL")}
     with db:
         for title,url in urls.items():
             db.execute("INSERT INTO wiki_pages(title,url) VALUES(?,?) ON CONFLICT(title) DO UPDATE SET url=excluded.url",(title,url))
@@ -300,31 +281,37 @@ def ingest_wiki(db,max_pages=1000):
         pid=db.execute("SELECT id FROM wiki_pages WHERE title=?",(title,)).fetchone()[0]
         try:
             html,actual=fetcher.get(url)
-            steps,bl,jl,req,rew=parse_wiki(html)
+            steps,quality,meta=parse_guide(html)
             with db:
+                db.execute("DELETE FROM wiki_step_sources WHERE page_id=?",(pid,))
                 db.execute("DELETE FROM wiki_steps WHERE page_id=?",(pid,))
                 db.execute("DELETE FROM wiki_details WHERE page_id=?",(pid,))
-                for sn,(section,instruction) in enumerate(steps,1):
-                    db.execute("INSERT INTO wiki_steps VALUES(?,?,?,?)",(pid,sn,section,instruction))
-                    for m in COORD.finditer(instruction):
-                        db.execute("INSERT OR IGNORE INTO wiki_details VALUES(?,?,?,?,0)",(pid,sn,"coordinate",m.group(0)))
-                    for m in CHOICE.finditer(instruction):
-                        db.execute("INSERT OR IGNORE INTO wiki_details VALUES(?,?,?,?,0)",(pid,sn,"guide_answer",m.group(1)))
+                for sn,step in enumerate(steps,1):
+                    db.execute("INSERT INTO wiki_steps VALUES(?,?,?,?)",(pid,sn,step.section,step.instruction))
+                    db.execute("INSERT INTO wiki_step_sources VALUES(?,?,?,?)",(pid,sn,step.source_number,step.kind))
+                    for kind,value in step_evidence(step.instruction,known_maps):
+                        db.execute("INSERT OR IGNORE INTO wiki_details VALUES(?,?,?,?,0)",(pid,sn,kind,value))
+                status=("walkthrough_parsed" if quality["mode"]=="numbered" else
+                        "narrative_parsed" if quality["mode"]=="narrative" else "article_no_steps")
                 db.execute("""UPDATE wiki_pages SET url=?,status=?,base_level=?,job_level=?,requirements=?,
                   rewards=?,content_sha=?,error=NULL WHERE id=?""",
-                  (actual,"walkthrough_parsed" if steps else "article_no_steps",bl,jl,req,rew,
+                  (actual,status,meta["base_level"],meta["job_level"],meta["requirements"],meta["rewards"],
                    hashlib.sha256(norm(BeautifulSoup(html,"html.parser").get_text(" ",strip=True)).encode()).hexdigest(),pid))
+                db.execute("INSERT OR REPLACE INTO wiki_parse_quality VALUES(?,?,?,?)",
+                           (pid,quality["mode"],quality["numbered"],quality["narrative"]))
+            parsed_numbered+=quality["numbered"]
+            parsed_narrative+=quality["narrative"]
             count+=1
         except Exception as e:
             with db:db.execute("UPDATE wiki_pages SET status='fetch_error',error=? WHERE id=?",(str(e)[:300],pid))
             errors.append({"url":url,"error":str(e)})
         if idx%50==0:print(f"Wiki: {idx}/{min(len(urls),max_pages)} pages processed",flush=True)
     fetcher.session.close()
-    return {"indexed":len(urls),"attempted":min(len(urls),max_pages),"fetched":count,"errors":errors}
+    return {"indexed":len(urls),"attempted":min(len(urls),max_pages),"fetched":count,"numbered_steps":parsed_numbered,"narrative_steps":parsed_narrative,"errors":errors}
 
 def counts(db):
     return {name:db.execute("SELECT count(*) FROM "+table).fetchone()[0] for name,table in
-       [("scripts","provenance"),("npcs","script_npcs"),("script_events","script_events"),("quest_registry_entries","quest_registry"),("wiki_pages","wiki_pages"),("wiki_steps","wiki_steps"),("wiki_details","wiki_details")]}
+       [("scripts","provenance"),("npcs","script_npcs"),("script_events","script_events"),("quest_registry_entries","quest_registry"),("wiki_pages","wiki_pages"),("wiki_steps","wiki_steps"),("wiki_details","wiki_details"),("wiki_script_links","wiki_script_links"),("wiki_step_npc_links","wiki_step_npc_links")]}
 
 def main():
     p=argparse.ArgumentParser()
@@ -337,6 +324,7 @@ def main():
     dst=target/"quest_research.sqlite"
     db=sqlite3.connect(dst)
     db.executescript(SCHEMA)
+    ensure_enrichment_schema(db)
     report={"created_utc":utcnow(),"scope":"wiki Classic + rAthena scripts + Hercules quest scripts",
             "limitations":["Wiki quest list is not necessarily exhaustive","NPC code branches not yet executed/verified",
                            "Server scripts are not evidence of exact official iRO/ToC behavior"],
@@ -353,8 +341,9 @@ def main():
             report["sources"][label]={"error":str(exc)}
             print(f"ERROR {label}: {exc}",flush=True)
     session.close()
-    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','2')")
-    db.execute("INSERT OR REPLACE INTO research_meta VALUES('research_status','unverified; see coverage.json')")
+    report["linking"]=link_database(db)
+    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','3')")
+    db.execute("INSERT OR REPLACE INTO research_meta VALUES('research_status','candidate matches only; see coverage.json')")
     db.commit()
     report["counts"]=counts(db)
     report["sqlite_integrity"]=db.execute("PRAGMA integrity_check").fetchone()[0]
