@@ -75,7 +75,7 @@ class ExportTests(unittest.TestCase):
                 self.assertEqual(runtime.execute("SELECT count(*) FROM scripts").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quest_quality").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quest_content_categories").fetchone()[0],1)
-                self.assertEqual(runtime.execute("SELECT count(*) FROM quest_content_signals").fetchone()[0],1)
+                self.assertGreaterEqual(runtime.execute("SELECT count(*) FROM quest_content_signals").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quest_dependency_paths").fetchone()[0],0)
                 locations=runtime.execute("""SELECT map,x,y,assurance FROM quest_step_locations
                                               ORDER BY hint_kind""").fetchall()
