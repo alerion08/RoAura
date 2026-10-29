@@ -69,7 +69,7 @@ class ExportTests(unittest.TestCase):
                 self.assertEqual(runtime.execute("SELECT count(*) FROM scripts").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM quest_quality").fetchone()[0],1)
                 self.assertEqual(runtime.execute("SELECT variant_scope FROM scripts").fetchone()[0],"common")
-                self.assertEqual(runtime.execute("SELECT refresh_state FROM quest_quality").fetchone()[0],"never_fetched")
+                self.assertEqual(runtime.execute("SELECT refresh_state FROM quest_quality").fetchone()[0],"legacy_cached")
                 self.assertEqual(runtime.execute("PRAGMA foreign_key_check").fetchall(),[])
                 self.assertEqual(runtime.execute("SELECT object_id FROM quest_state_facts WHERE role='quest_start'").fetchone()[0],1001)
                 self.assertEqual(runtime.execute("SELECT count(*) FROM candidate_answers").fetchone()[0],1)
