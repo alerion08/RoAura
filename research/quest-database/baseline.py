@@ -37,10 +37,22 @@ def classify_quest_title(title):
         return "storyline_candidate", "Storyline keyword in wiki title"
     return "unsorted_quest_candidate", "Source content needs manual category review"
 
-def assemble_core_worklist(review):
+def assemble_core_worklist(review,db=None):
+    # Legacy callers may provide only a review JSON; the full builder uses
+    # source-cited content classifications when a SQLite connection is present.
+    by_key={}
+    if db is not None:
+        from runtime import key_page
+        for url,category,method,reason,n in db.execute(
+                """SELECT p.url,c.category,c.method,c.explanation,c.evidence_steps
+                   FROM wiki_pages p JOIN wiki_content_categories c ON c.page_id=p.id"""):
+            by_key[key_page(url)]=(category,method,reason,n)
     rows=[]
     for r in review["quests"]:
-        category,reason=classify_quest_title(r["title"])
+        title_category,title_reason=classify_quest_title(r["title"])
+        category,source,reason,evidence_steps=by_key.get(
+            r["quest_key"],(title_category,"wiki_title" if title_category!="unsorted_quest_candidate"
+                             else "needs_content_review",title_reason,0))
         emphasis="archive_for_reference" if category=="historical_or_seasonal" else (
             "verify_reference_type" if category=="profession_reference_candidate" else
             "prioritize_core_research" if category in (
@@ -51,6 +63,8 @@ def assemble_core_worklist(review):
             "title":r["title"],
             "source_category_candidate":category,
             "category_evidence":reason,
+            "category_method":source,
+            "category_evidence_steps":evidence_steps,
             "curation_action":emphasis,
             "walkthrough_steps":r["steps"],
             "script_candidates":r["linked_scripts"],
@@ -68,13 +82,17 @@ def assemble_core_worklist(review):
                             -x["walkthrough_steps"],x["quest_key"]))
     categories=Counter(x["source_category_candidate"] for x in rows)
     return {
-        "version":1,
+        "version":2,
         "product":"ROQuestie",
         "coverage_scope":"common Ragnarok Online quest knowledge base; individual server behavior is variable",
         "assurance":"Unverified reference candidates, not a list of quests guaranteed on every server",
         "metrics":{"total_source_pages":len(rows),"categories":dict(categories),
                    "core_research_candidates":sum(x["curation_action"]=="prioritize_core_research" for x in rows),
                    "seasonal_archive_candidates":categories["historical_or_seasonal"],
+                   "categorized_from_content":sum(r["category_method"] in
+                       ("explicit_guide_step","corroborated_guide_steps","wiki_requirements",
+                        "dated_title") for r in rows),
+                   "still_unsorted":categories["unsorted_quest_candidate"],
                    "server_verified":0},
         "quests":rows
     }
