@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T17:13:55.832853+00:00",
+  "created_utc": "2026-10-29T17:15:16.302035+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -8,92 +8,108 @@
   ],
   "sources": {
     "rathena": {
-      "listed": 227,
-      "saved": 227,
-      "errors": []
+      "listed": 513,
+      "saved": 513,
+      "errors": [],
+      "scope_counts": {
+        "common": 227,
+        "pre-re": 78,
+        "re": 208
+      },
+      "download_integrity": "GitHub blob SHA verified for every stored script"
     },
     "hercules": {
-      "listed": 87,
-      "saved": 87,
-      "errors": []
+      "listed": 426,
+      "saved": 426,
+      "errors": [],
+      "scope_counts": {
+        "common": 228,
+        "pre-re": 67,
+        "re": 131
+      },
+      "download_integrity": "GitHub blob SHA verified for every stored script"
     },
     "rathena_pre_re_registry": 2879,
     "irowiki_classic": {
-      "indexed": 286,
-      "attempted": 286,
-      "fetched": 285,
-      "numbered_steps": 2920,
+      "indexed": 256,
+      "attempted": 256,
+      "fetched": 255,
+      "numbered_steps": 2587,
       "narrative_steps": 489,
       "errors": [
         {
-          "url": "https://irowiki.org/classic/Talk_Like_a_Pirate_Day_Event_(2013/9/18)",
+          "url": "https://irowiki.org/classic/Category:Quests",
+          "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+        },
+        {
+          "url": "https://irowiki.org/classic/Swordman",
           "error": "('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
         }
       ]
     }
   },
-  "source_snapshot_utc": "2026-10-29T16:55:45.631423+00:00",
-  "fetch_mode": "reused_existing_snapshot",
+  "source_snapshot_utc": "2026-10-29T17:15:16.302035+00:00",
+  "fetch_mode": "fresh_upstream_requests",
   "linking": {
-    "wiki_script_links": 443,
-    "linked_pages": 155,
-    "wiki_step_npc_links": 1146
+    "wiki_script_links": 568,
+    "linked_pages": 168,
+    "wiki_step_npc_links": 1288
   },
   "evidence_augmentation": {
-    "header_title_leads": 137,
-    "pages_with_corroborated_coordinate_evidence": 73,
-    "new_script_candidates": 206,
+    "header_title_leads": 172,
+    "pages_with_corroborated_coordinate_evidence": 84,
+    "new_script_candidates": 247,
     "stronger_existing_candidates": 0,
-    "new_step_npc_links": 426,
-    "linked_pages": 155,
-    "script_candidates": 443,
-    "step_npc_candidates": 1146
+    "new_step_npc_links": 474,
+    "linked_pages": 168,
+    "script_candidates": 568,
+    "step_npc_candidates": 1288
   },
   "dialogue_flow": {
-    "points": 5815,
-    "options": 14081,
-    "resolved_options": 9295,
-    "guards": 24646,
-    "jumps": 38,
-    "resolved_jumps": 38
+    "points": 14135,
+    "options": 32825,
+    "resolved_options": 18909,
+    "guards": 51857,
+    "jumps": 91,
+    "resolved_jumps": 91
   },
   "quest_state": {
-    "facts": 24309,
-    "quest_actions": 1005,
-    "quest_checks": 396,
-    "item_actions": 6057,
-    "item_checks": 5020,
-    "variable_writes": 11831,
-    "literal_quest_ids": 1374,
-    "literal_item_ids": 5939,
-    "registry_matches": 1374,
-    "guarded_facts": 21468
+    "facts": 51795,
+    "quest_actions": 7693,
+    "quest_checks": 2098,
+    "item_actions": 9747,
+    "item_checks": 7661,
+    "variable_writes": 24596,
+    "literal_quest_ids": 9243,
+    "literal_item_ids": 9274,
+    "registry_matches": 5950,
+    "guarded_facts": 39276
   },
   "script_link_review": {
-    "pages_no_script": 131,
-    "pages_ambiguous": 75,
-    "pages_cross_source_variants": 69,
-    "pages_candidate_with_npc_evidence": 7,
-    "guide_answer_menu_matches": 155
+    "pages_no_script": 118,
+    "pages_ambiguous": 76,
+    "pages_cross_source_variants": 84,
+    "pages_candidate_with_npc_evidence": 4,
+    "guide_answer_menu_matches": 156
   },
   "counts": {
-    "scripts": 314,
-    "npcs": 3904,
-    "script_events": 406386,
+    "scripts": 939,
+    "npcs": 8739,
+    "script_events": 752183,
     "quest_registry_entries": 2879,
     "wiki_pages": 286,
     "wiki_steps": 3420,
-    "wiki_details": 1472,
-    "wiki_script_links": 443,
-    "wiki_step_npc_links": 1146,
-    "npc_flow_points": 5815,
-    "npc_flow_options": 14081,
-    "npc_flow_conditions": 24646,
-    "npc_flow_jumps": 38,
+    "wiki_details": 1475,
+    "wiki_script_links": 568,
+    "wiki_step_npc_links": 1288,
+    "npc_flow_points": 14135,
+    "npc_flow_options": 32825,
+    "npc_flow_conditions": 51857,
+    "npc_flow_jumps": 91,
     "wiki_script_reviews": 286,
-    "wiki_answer_menu_matches": 155,
-    "npc_state_facts": 24309,
-    "npc_quest_registry_refs": 1374
+    "wiki_answer_menu_matches": 156,
+    "npc_state_facts": 51795,
+    "npc_quest_registry_refs": 5950
   },
   "sqlite_integrity": "ok",
   "foreign_key_violations": 0,
@@ -104,22 +120,22 @@
     "tables": {
       "quests": 286,
       "quest_steps": 3420,
-      "step_hints": 1472,
-      "scripts": 314,
-      "quest_scripts": 443,
-      "npcs": 3904,
-      "quest_step_npcs": 1146,
-      "dialogue_lines": 298131,
-      "dialogue_points": 5815,
-      "dialogue_options": 14081,
-      "dialogue_guards": 24646,
-      "dialogue_jumps": 38,
-      "quest_state_facts": 24309,
+      "step_hints": 1475,
+      "scripts": 939,
+      "quest_scripts": 568,
+      "npcs": 8739,
+      "quest_step_npcs": 1288,
+      "dialogue_lines": 526791,
+      "dialogue_points": 14135,
+      "dialogue_options": 32825,
+      "dialogue_guards": 51857,
+      "dialogue_jumps": 91,
+      "quest_state_facts": 51795,
       "quest_registry": 2879,
-      "quest_registry_evidence": 1374,
-      "candidate_answers": 155
+      "quest_registry_evidence": 5950,
+      "candidate_answers": 156
     },
-    "bytes": 37871616
+    "bytes": 72691712
   },
   "questie_schema_version": 1
 }
