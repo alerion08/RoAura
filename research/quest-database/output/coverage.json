@@ -1,9 +1,9 @@
 {
-  "created_utc": "2026-10-29T15:46:10.367244+00:00",
+  "created_utc": "2026-10-29T16:12:11.391603+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
-    "NPC code branches not yet executed/verified",
+    "Only explicit static branches are linked; dynamic conditions and menus remain unresolved",
     "Server scripts are not evidence of exact official iRO/ToC behavior"
   ],
   "sources": {
@@ -32,6 +32,20 @@
     "linked_pages": 70,
     "wiki_step_npc_links": 720
   },
+  "dialogue_flow": {
+    "points": 5815,
+    "options": 14081,
+    "resolved_options": 9295,
+    "guards": 24646,
+    "jumps": 38,
+    "resolved_jumps": 38
+  },
+  "script_link_review": {
+    "pages_no_script": 216,
+    "pages_ambiguous": 70,
+    "pages_candidate_with_npc_evidence": 0,
+    "guide_answer_menu_matches": 33
+  },
   "counts": {
     "scripts": 314,
     "npcs": 3904,
@@ -41,7 +55,13 @@
     "wiki_steps": 3420,
     "wiki_details": 1472,
     "wiki_script_links": 237,
-    "wiki_step_npc_links": 720
+    "wiki_step_npc_links": 720,
+    "npc_flow_points": 5815,
+    "npc_flow_options": 14081,
+    "npc_flow_conditions": 24646,
+    "npc_flow_jumps": 38,
+    "wiki_script_reviews": 286,
+    "wiki_answer_menu_matches": 33
   },
   "sqlite_integrity": "ok",
   "foreign_key_violations": 0
