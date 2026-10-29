@@ -23,6 +23,7 @@ from graph import SCHEMA as FLOW_SCHEMA, create_flow
 from reconcile import SCHEMA as REVIEW_SCHEMA, create_reviews
 from state import SCHEMA as STATE_SCHEMA, create_state_facts
 from runtime import make_runtime
+from audit import summarize_review_queue
 from augment import augment_evidence
 from quality import (ensure_quality_schema, update_state, state_counts,
                      dataset_counts, check_nonregression, too_few_steps)
@@ -469,6 +470,10 @@ def main():
     report["foreign_key_violations"]=len(db.execute("PRAGMA foreign_key_check").fetchall())
     db.execute("VACUUM")
     report["runtime_export"]=make_runtime(db,target/"questie_catalog.sqlite")
+    review=summarize_review_queue(db)
+    report["quality"]["review_queue"]=review["metrics"]
+    (target/"quest_review_queue.json").write_text(
+        json.dumps(review,ensure_ascii=False,indent=2),encoding="utf-8")
     db.close()
     report["questie_schema_version"]=report["runtime_export"]["schema_version"]
     (target/"coverage.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
