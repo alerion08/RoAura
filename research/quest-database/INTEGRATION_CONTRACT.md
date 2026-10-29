@@ -48,6 +48,18 @@ For simple integration without query-builder joins, the runtime SQLite also prov
 - `quest_dialogue_candidates`: quest key + linked script NPC + menu options and explicit code-line targets. A candidate must not automatically be treated as the correct dialogue choice.
 
 Read the underlying fields/statuses; never present a `candidate` edge as game-verified. New views can be added in a future consumer schema version, but existing columns require migration discipline.
+### Candidate Quest IDs (not live quest progress)
+
+The `quest_id_candidates` SQL view connects a guide's *candidate* script with literal
+quest ID operations in the original NPC code, matching a Quest ID to source
+registry rows, source line, NPC and script. This is **not** proof that an ID
+uniquely belongs to a quest or that a quest is active on ToC.
+
+```sql
+SELECT quest_key,script_key,quest_id,registry_variant,role,line_no,assurance
+FROM quest_id_candidates WHERE quest_key='irowiki-classic:President_Quest';
+```
+
 ## Example queries
 
 List stages:
