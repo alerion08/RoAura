@@ -1,0 +1,890 @@
+{
+  "version": 1,
+  "purpose": "missing script discovery for human audit; never joined to game catalog",
+  "metrics": {
+    "no_explicit_npc_interaction_phrases": 18,
+    "multiple_distinct_npc_names_same_script_manual_review": 13,
+    "proposals": 25,
+    "pages_with_proposals": 13,
+    "insufficient_independent_npc_name_evidence": 29,
+    "no_distinctive_npc_names_in_source_corpus": 56,
+    "no_extracted_guide_steps": 1,
+    "unlinked_pages": 117,
+    "evidence_rows": 83
+  },
+  "proposals": [
+    {
+      "guide_url": "https://irowiki.org/classic/Einbroch_Murder_Quest",
+      "guide_title": "Einbroch Murder Quest",
+      "source_id": 137,
+      "project": "rathena",
+      "script_path": "npc/quests/quests_ein.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/quests/quests_ein.txt",
+      "blob_sha": "3a83a1fcac9708bed1ba55d61486b1c4ae119f18",
+      "distinct_npc_names": 3,
+      "independent_guide_steps": 4,
+      "evidence": [
+        {
+          "step_no": 1,
+          "npc_id": 29178,
+          "npc_name": "Buender Hikeman#ein",
+          "script_line": 4226
+        },
+        {
+          "step_no": 5,
+          "npc_id": 29181,
+          "npc_name": "Scientist#ein",
+          "script_line": 5294
+        },
+        {
+          "step_no": 6,
+          "npc_id": 29181,
+          "npc_name": "Scientist#ein",
+          "script_line": 5294
+        },
+        {
+          "step_no": 3,
+          "npc_id": 29170,
+          "npc_name": "Zelmeto",
+          "script_line": 3453
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Einbroch_Murder_Quest",
+      "guide_title": "Einbroch Murder Quest",
+      "source_id": 225,
+      "project": "hercules",
+      "script_path": "npc/quests/quests_ein.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/quests/quests_ein.txt",
+      "blob_sha": "ee8fa1ea66904bc3c0677514afd958e9323f7800",
+      "distinct_npc_names": 3,
+      "independent_guide_steps": 4,
+      "evidence": [
+        {
+          "step_no": 1,
+          "npc_id": 34149,
+          "npc_name": "Buender Hikeman#ein",
+          "script_line": 2740
+        },
+        {
+          "step_no": 5,
+          "npc_id": 34152,
+          "npc_name": "Scientist#ein",
+          "script_line": 3808
+        },
+        {
+          "step_no": 6,
+          "npc_id": 34152,
+          "npc_name": "Scientist#ein",
+          "script_line": 3808
+        },
+        {
+          "step_no": 3,
+          "npc_id": 34141,
+          "npc_name": "Zelmeto",
+          "script_line": 1969
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Rebirth_Walkthrough",
+      "guide_title": "Rebirth Walkthrough",
+      "source_id": 64,
+      "project": "rathena",
+      "script_path": "npc/jobs/valkyrie.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/jobs/valkyrie.txt",
+      "blob_sha": "9a4dcfe4903f85bd3e76a980befcf2298fae93c8",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 2,
+      "evidence": [
+        {
+          "step_no": 2,
+          "npc_id": 28208,
+          "npc_name": "Metheus Sylphe#Library",
+          "script_line": 215
+        },
+        {
+          "step_no": 8,
+          "npc_id": 28207,
+          "npc_name": "Valkyrie#",
+          "script_line": 43
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Rebirth_Walkthrough",
+      "guide_title": "Rebirth Walkthrough",
+      "source_id": 704,
+      "project": "hercules",
+      "script_path": "npc/jobs/valkyrie.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/jobs/valkyrie.txt",
+      "blob_sha": "f294140c0fe28dd65f0463fbd1da270b235119ee",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 2,
+      "evidence": [
+        {
+          "step_no": 2,
+          "npc_id": 33212,
+          "npc_name": "Metheus Sylphe#Library",
+          "script_line": 214
+        },
+        {
+          "step_no": 8,
+          "npc_id": 33211,
+          "npc_name": "Valkyrie#",
+          "script_line": 42
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Hugel_Memory_Quest",
+      "guide_title": "Hugel Memory Quest",
+      "source_id": 140,
+      "project": "rathena",
+      "script_path": "npc/quests/quests_hugel.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/quests/quests_hugel.txt",
+      "blob_sha": "2f355ec6b203b0f2efd2e300404b90f36e5a1f62",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 3,
+      "evidence": [
+        {
+          "step_no": 3,
+          "npc_id": 29265,
+          "npc_name": "El Schatt",
+          "script_line": 4638
+        },
+        {
+          "step_no": 5,
+          "npc_id": 29265,
+          "npc_name": "El Schatt",
+          "script_line": 4638
+        },
+        {
+          "step_no": 4,
+          "npc_id": 29264,
+          "npc_name": "Perfitz",
+          "script_line": 4576
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Hugel_Memory_Quest",
+      "guide_title": "Hugel Memory Quest",
+      "source_id": 228,
+      "project": "hercules",
+      "script_path": "npc/quests/quests_hugel.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/quests/quests_hugel.txt",
+      "blob_sha": "7bb9972bdbcdd9085f533005bb8bf2470ad43d59",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 3,
+      "evidence": [
+        {
+          "step_no": 3,
+          "npc_id": 34236,
+          "npc_name": "El Schatt",
+          "script_line": 4640
+        },
+        {
+          "step_no": 5,
+          "npc_id": 34236,
+          "npc_name": "El Schatt",
+          "script_line": 4640
+        },
+        {
+          "step_no": 4,
+          "npc_id": 34235,
+          "npc_name": "Perfitz",
+          "script_line": 4578
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Broken_Diamond_Quest",
+      "guide_title": "Broken Diamond Quest",
+      "source_id": 148,
+      "project": "rathena",
+      "script_path": "npc/quests/quests_nameless.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/quests/quests_nameless.txt",
+      "blob_sha": "7e5c967a02b542ebf2b9cd1ddb7a45d3e9308dc4",
+      "distinct_npc_names": 4,
+      "independent_guide_steps": 4,
+      "evidence": [
+        {
+          "step_no": 9,
+          "npc_id": 29578,
+          "npc_name": "Investigator",
+          "script_line": 6229
+        },
+        {
+          "step_no": 2,
+          "npc_id": 29574,
+          "npc_name": "Jhonnita",
+          "script_line": 5182
+        },
+        {
+          "step_no": 3,
+          "npc_id": 29575,
+          "npc_name": "Kimeunbang",
+          "script_line": 5343
+        },
+        {
+          "step_no": 8,
+          "npc_id": 29577,
+          "npc_name": "Rogue Investigator",
+          "script_line": 6030
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Broken_Diamond_Quest",
+      "guide_title": "Broken Diamond Quest",
+      "source_id": 236,
+      "project": "hercules",
+      "script_path": "npc/quests/quests_nameless.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/quests/quests_nameless.txt",
+      "blob_sha": "d32f5c9ea180d63ff8660980170c46896b8e2b4b",
+      "distinct_npc_names": 4,
+      "independent_guide_steps": 4,
+      "evidence": [
+        {
+          "step_no": 9,
+          "npc_id": 34582,
+          "npc_name": "Investigator",
+          "script_line": 6231
+        },
+        {
+          "step_no": 2,
+          "npc_id": 34578,
+          "npc_name": "Jhonnita",
+          "script_line": 5184
+        },
+        {
+          "step_no": 3,
+          "npc_id": 34579,
+          "npc_name": "Kimeunbang",
+          "script_line": 5345
+        },
+        {
+          "step_no": 8,
+          "npc_id": 34581,
+          "npc_name": "Rogue Investigator",
+          "script_line": 6032
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Unlucky_Emerald_Quest",
+      "guide_title": "Unlucky Emerald Quest",
+      "source_id": 148,
+      "project": "rathena",
+      "script_path": "npc/quests/quests_nameless.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/quests/quests_nameless.txt",
+      "blob_sha": "7e5c967a02b542ebf2b9cd1ddb7a45d3e9308dc4",
+      "distinct_npc_names": 5,
+      "independent_guide_steps": 3,
+      "evidence": [
+        {
+          "step_no": 10,
+          "npc_id": 29597,
+          "npc_name": "Archeologist",
+          "script_line": 10549
+        },
+        {
+          "step_no": 7,
+          "npc_id": 29593,
+          "npc_name": "Man in Hiding#nd",
+          "script_line": 9656
+        },
+        {
+          "step_no": 10,
+          "npc_id": 29598,
+          "npc_name": "Old Soldier",
+          "script_line": 10748
+        },
+        {
+          "step_no": 1,
+          "npc_id": 29591,
+          "npc_name": "Ragged Man#nd",
+          "script_line": 9019
+        },
+        {
+          "step_no": 10,
+          "npc_id": 29596,
+          "npc_name": "Shaman",
+          "script_line": 10132
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Unlucky_Emerald_Quest",
+      "guide_title": "Unlucky Emerald Quest",
+      "source_id": 236,
+      "project": "hercules",
+      "script_path": "npc/quests/quests_nameless.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/quests/quests_nameless.txt",
+      "blob_sha": "d32f5c9ea180d63ff8660980170c46896b8e2b4b",
+      "distinct_npc_names": 5,
+      "independent_guide_steps": 3,
+      "evidence": [
+        {
+          "step_no": 10,
+          "npc_id": 34601,
+          "npc_name": "Archeologist",
+          "script_line": 10819
+        },
+        {
+          "step_no": 7,
+          "npc_id": 34597,
+          "npc_name": "Man in Hiding#nd",
+          "script_line": 9927
+        },
+        {
+          "step_no": 10,
+          "npc_id": 34602,
+          "npc_name": "Old Soldier",
+          "script_line": 11018
+        },
+        {
+          "step_no": 1,
+          "npc_id": 34595,
+          "npc_name": "Ragged Man#nd",
+          "script_line": 9290
+        },
+        {
+          "step_no": 10,
+          "npc_id": 34600,
+          "npc_name": "Shaman",
+          "script_line": 10402
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)",
+      "guide_title": "Continental Guard Quest (Resurrection of Satan Morroc)",
+      "source_id": 234,
+      "project": "hercules",
+      "script_path": "npc/quests/quests_morocc.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/quests/quests_morocc.txt",
+      "blob_sha": "d0fc59155b52e4406c50485e11665af7951d7c9f",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 2,
+      "evidence": [
+        {
+          "step_no": 3,
+          "npc_id": 34418,
+          "npc_name": "Chief Balrog",
+          "script_line": 1280
+        },
+        {
+          "step_no": 2,
+          "npc_id": 34417,
+          "npc_name": "Continental Official",
+          "script_line": 1206
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Successor_to_the_Throne_Quest",
+      "guide_title": "Successor to the Throne Quest",
+      "source_id": 234,
+      "project": "hercules",
+      "script_path": "npc/quests/quests_morocc.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/quests/quests_morocc.txt",
+      "blob_sha": "d0fc59155b52e4406c50485e11665af7951d7c9f",
+      "distinct_npc_names": 3,
+      "independent_guide_steps": 4,
+      "evidence": [
+        {
+          "step_no": 1,
+          "npc_id": 34417,
+          "npc_name": "Continental Official",
+          "script_line": 1206
+        },
+        {
+          "step_no": 3,
+          "npc_id": 34451,
+          "npc_name": "Inspector#prince",
+          "script_line": 4432
+        },
+        {
+          "step_no": 17,
+          "npc_id": 34451,
+          "npc_name": "Inspector#prince",
+          "script_line": 4432
+        },
+        {
+          "step_no": 6,
+          "npc_id": 34453,
+          "npc_name": "Servant#hans",
+          "script_line": 5378
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Successor_to_the_Throne_Quest",
+      "guide_title": "Successor to the Throne Quest",
+      "source_id": 307,
+      "project": "rathena",
+      "script_path": "npc/pre-re/quests/quests_morocc.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/pre-re/quests/quests_morocc.txt",
+      "blob_sha": "5c5bc0012e5883751c38b154166bb5a6455cca07",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 3,
+      "evidence": [
+        {
+          "step_no": 3,
+          "npc_id": 28549,
+          "npc_name": "Inspector#prince",
+          "script_line": 149
+        },
+        {
+          "step_no": 17,
+          "npc_id": 28549,
+          "npc_name": "Inspector#prince",
+          "script_line": 149
+        },
+        {
+          "step_no": 6,
+          "npc_id": 28551,
+          "npc_name": "Servant#hans",
+          "script_line": 1113
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Crow_of_Destiny_Quest",
+      "guide_title": "Crow of Destiny Quest",
+      "source_id": 146,
+      "project": "rathena",
+      "script_path": "npc/quests/quests_morocc.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/quests/quests_morocc.txt",
+      "blob_sha": "ae13d7154e3265b193964564935dd48a972d876b",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 4,
+      "evidence": [
+        {
+          "step_no": 4,
+          "npc_id": 29451,
+          "npc_name": "Library Part-Timer#garas",
+          "script_line": 2745
+        },
+        {
+          "step_no": 10,
+          "npc_id": 29451,
+          "npc_name": "Library Part-Timer#garas",
+          "script_line": 2745
+        },
+        {
+          "step_no": 17,
+          "npc_id": 29451,
+          "npc_name": "Library Part-Timer#garas",
+          "script_line": 2745
+        },
+        {
+          "step_no": 14,
+          "npc_id": 29467,
+          "npc_name": "Monsterous Man#zid",
+          "script_line": 4056
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Crow_of_Destiny_Quest",
+      "guide_title": "Crow of Destiny Quest",
+      "source_id": 234,
+      "project": "hercules",
+      "script_path": "npc/quests/quests_morocc.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/quests/quests_morocc.txt",
+      "blob_sha": "d0fc59155b52e4406c50485e11665af7951d7c9f",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 4,
+      "evidence": [
+        {
+          "step_no": 4,
+          "npc_id": 34427,
+          "npc_name": "Library Part-Timer#garas",
+          "script_line": 2752
+        },
+        {
+          "step_no": 10,
+          "npc_id": 34427,
+          "npc_name": "Library Part-Timer#garas",
+          "script_line": 2752
+        },
+        {
+          "step_no": 17,
+          "npc_id": 34427,
+          "npc_name": "Library Part-Timer#garas",
+          "script_line": 2752
+        },
+        {
+          "step_no": 14,
+          "npc_id": 34443,
+          "npc_name": "Monsterous Man#zid",
+          "script_line": 4059
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Endless_Tower_Quest",
+      "guide_title": "Endless Tower Quest",
+      "source_id": 28,
+      "project": "rathena",
+      "script_path": "npc/instances/EndlessTower.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/instances/EndlessTower.txt",
+      "blob_sha": "bbd5bb0823955774f70721429ed327b2dc3f1d23",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 2,
+      "evidence": [
+        {
+          "step_no": 1,
+          "npc_id": 28055,
+          "npc_name": "Captain Janssen",
+          "script_line": 41
+        },
+        {
+          "step_no": 3,
+          "npc_id": 28056,
+          "npc_name": "Tower Protection Stone",
+          "script_line": 205
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Endless_Tower_Quest",
+      "guide_title": "Endless Tower Quest",
+      "source_id": 668,
+      "project": "hercules",
+      "script_path": "npc/instances/EndlessTower.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/instances/EndlessTower.txt",
+      "blob_sha": "064b7d8a15b5a6f60b9c51f8c6ea84f8f1f25d84",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 2,
+      "evidence": [
+        {
+          "step_no": 1,
+          "npc_id": 33056,
+          "npc_name": "Captain Janssen",
+          "script_line": 39
+        },
+        {
+          "step_no": 3,
+          "npc_id": 33057,
+          "npc_name": "Tower Protection Stone",
+          "script_line": 202
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Snowysnow_Quest",
+      "guide_title": "Snowysnow Quest",
+      "source_id": 16,
+      "project": "rathena",
+      "script_path": "npc/cities/lutie.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/cities/lutie.txt",
+      "blob_sha": "3ef194efcde606e2065805162f254a3c48091116",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 4,
+      "evidence": [
+        {
+          "step_no": 6,
+          "npc_id": 27654,
+          "npc_name": "Snowman",
+          "script_line": 451
+        },
+        {
+          "step_no": 7,
+          "npc_id": 27654,
+          "npc_name": "Snowman",
+          "script_line": 451
+        },
+        {
+          "step_no": 11,
+          "npc_id": 27654,
+          "npc_name": "Snowman",
+          "script_line": 451
+        },
+        {
+          "step_no": 2,
+          "npc_id": 27653,
+          "npc_name": "Uncle Hairy",
+          "script_line": 318
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Snowysnow_Quest",
+      "guide_title": "Snowysnow Quest",
+      "source_id": 622,
+      "project": "hercules",
+      "script_path": "npc/cities/lutie.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/cities/lutie.txt",
+      "blob_sha": "432e36ea73f93bad462b501848b4889a971c1386",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 4,
+      "evidence": [
+        {
+          "step_no": 6,
+          "npc_id": 32679,
+          "npc_name": "Snowman",
+          "script_line": 472
+        },
+        {
+          "step_no": 7,
+          "npc_id": 32679,
+          "npc_name": "Snowman",
+          "script_line": 472
+        },
+        {
+          "step_no": 11,
+          "npc_id": 32679,
+          "npc_name": "Snowman",
+          "script_line": 472
+        },
+        {
+          "step_no": 2,
+          "npc_id": 32678,
+          "npc_name": "Uncle Hairy",
+          "script_line": 339
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Halloween_Event_(2006/10/24)_~_(2006/11/07)",
+      "guide_title": "Halloween Event (2006/10/24) ~ (2006/11/07)",
+      "source_id": 338,
+      "project": "rathena",
+      "script_path": "npc/events/halloween_2006.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/events/halloween_2006.txt",
+      "blob_sha": "faff568081de319b872224b44503f168faef73f8",
+      "distinct_npc_names": 3,
+      "independent_guide_steps": 3,
+      "evidence": [
+        {
+          "step_no": 5,
+          "npc_id": 27983,
+          "npc_name": "Chicken Masta#06_hw",
+          "script_line": 486
+        },
+        {
+          "step_no": 1,
+          "npc_id": 27980,
+          "npc_name": "Cool Devi#06_hw",
+          "script_line": 44
+        },
+        {
+          "step_no": 6,
+          "npc_id": 27982,
+          "npc_name": "Deviruchi#06_hw",
+          "script_line": 394
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Halloween_Event_(2006/10/24)_~_(2006/11/07)",
+      "guide_title": "Halloween Event (2006/10/24) ~ (2006/11/07)",
+      "source_id": 649,
+      "project": "hercules",
+      "script_path": "npc/events/halloween_2006.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/events/halloween_2006.txt",
+      "blob_sha": "05364baf3a890a3428e324f7b84e43d4dc264f68",
+      "distinct_npc_names": 3,
+      "independent_guide_steps": 3,
+      "evidence": [
+        {
+          "step_no": 5,
+          "npc_id": 32994,
+          "npc_name": "Chicken Masta#06_hw",
+          "script_line": 500
+        },
+        {
+          "step_no": 1,
+          "npc_id": 32991,
+          "npc_name": "Cool Devi#06_hw",
+          "script_line": 58
+        },
+        {
+          "step_no": 6,
+          "npc_id": 32993,
+          "npc_name": "Deviruchi#06_hw",
+          "script_line": 409
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Prayer_To_Heaven_(Transcendence_Quest)",
+      "guide_title": "Prayer To Heaven (Transcendence Quest)",
+      "source_id": 64,
+      "project": "rathena",
+      "script_path": "npc/jobs/valkyrie.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/jobs/valkyrie.txt",
+      "blob_sha": "9a4dcfe4903f85bd3e76a980befcf2298fae93c8",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 2,
+      "evidence": [
+        {
+          "step_no": 2,
+          "npc_id": 28208,
+          "npc_name": "Metheus Sylphe#Library",
+          "script_line": 215
+        },
+        {
+          "step_no": 17,
+          "npc_id": 28207,
+          "npc_name": "Valkyrie#",
+          "script_line": 43
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/Prayer_To_Heaven_(Transcendence_Quest)",
+      "guide_title": "Prayer To Heaven (Transcendence Quest)",
+      "source_id": 704,
+      "project": "hercules",
+      "script_path": "npc/jobs/valkyrie.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/jobs/valkyrie.txt",
+      "blob_sha": "f294140c0fe28dd65f0463fbd1da270b235119ee",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 2,
+      "evidence": [
+        {
+          "step_no": 2,
+          "npc_id": 33212,
+          "npc_name": "Metheus Sylphe#Library",
+          "script_line": 214
+        },
+        {
+          "step_no": 17,
+          "npc_id": 33211,
+          "npc_name": "Valkyrie#",
+          "script_line": 42
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/2014_Fourth_of_July_Event",
+      "guide_title": "2014 Fourth of July Event",
+      "source_id": 133,
+      "project": "rathena",
+      "script_path": "npc/quests/quests_amatsu.txt",
+      "script_url": "https://github.com/rathena/rathena/blob/master/npc/quests/quests_amatsu.txt",
+      "blob_sha": "ace1cd7e1583beeb3ae6466b923c84e184b1ef22",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 4,
+      "evidence": [
+        {
+          "step_no": 9,
+          "npc_id": 29097,
+          "npc_name": "Grandma#ama2",
+          "script_line": 1916
+        },
+        {
+          "step_no": 10,
+          "npc_id": 29097,
+          "npc_name": "Grandma#ama2",
+          "script_line": 1916
+        },
+        {
+          "step_no": 11,
+          "npc_id": 29073,
+          "npc_name": "Grandpa#ama",
+          "script_line": 406
+        },
+        {
+          "step_no": 14,
+          "npc_id": 29073,
+          "npc_name": "Grandpa#ama",
+          "script_line": 406
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    },
+    {
+      "guide_url": "https://irowiki.org/classic/2014_Fourth_of_July_Event",
+      "guide_title": "2014 Fourth of July Event",
+      "source_id": 222,
+      "project": "hercules",
+      "script_path": "npc/quests/quests_amatsu.txt",
+      "script_url": "https://github.com/HerculesWS/Hercules/blob/stable/npc/quests/quests_amatsu.txt",
+      "blob_sha": "1d5fea3ebe686b13040d17e931be1211448cac52",
+      "distinct_npc_names": 2,
+      "independent_guide_steps": 4,
+      "evidence": [
+        {
+          "step_no": 9,
+          "npc_id": 34095,
+          "npc_name": "Grandma#ama2",
+          "script_line": 1916
+        },
+        {
+          "step_no": 10,
+          "npc_id": 34095,
+          "npc_name": "Grandma#ama2",
+          "script_line": 1916
+        },
+        {
+          "step_no": 11,
+          "npc_id": 34071,
+          "npc_name": "Grandpa#ama",
+          "script_line": 431
+        },
+        {
+          "step_no": 14,
+          "npc_id": 34071,
+          "npc_name": "Grandpa#ama",
+          "script_line": 431
+        }
+      ],
+      "review_status": "needs_manual_review",
+      "assurance": "unverified_name_pair_not_quest_script_link"
+    }
+  ]
+}
