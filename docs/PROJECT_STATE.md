@@ -957,3 +957,29 @@ unrecognized item names remain plain rather than guessed.
 Artifact: [RoAura-development-75-9cbdc3a](https://github.com/alerion08/RoAura/actions/runs/41089927571/artifacts/12992839460).
 Portable SHA256: `2fdd096f155e155e5f12c306adeaef45e6b3ea7593e61f25b7514edbece8a238`.
 No main/research write, version bump, merge, tag or public release.
+
+## ROQuestie copied feedback, collapsed tracker and step marks (2026-10-31)
+
+Owner feedback supersedes earlier checkmarks/20-row tracker behavior. Navi has a
+64-DIP width and green white-text copied state. Coordinate/text copy buttons restore
+the exact original caption/template after four seconds; repeated clicks restart the
+timer. Tracker feedback is scoped to its entry/step and survives card rebuilds.
+Active-list reorder controls move to the top right; Prev/Next are removed there,
+More shares the lower action row. Tracker Prev/Next remain independent.
+MaxTrackedQuests clamps legacy values to 1–5 (default 5). Excess visible active
+quests are reachable with a separate persistent nonactivating vertical scrollbar;
+card rebuilds do not destroy its captured thumb. Screen-fit may expose fewer rows
+on small clients, with overflow still reachable. Collapse state is per quest/profile;
+a collapsed row shows title/position and expand control only. Header drag remains.
+Step checkboxes persist explicit completion keys (instruction number + content
+anchor), independently of current navigation; identical text at another step is
+not automatically marked. Done marks the current step; checking the current step
+advances/completes like Done. Other step marks do not advance, and unchecking does
+not rewind or reopen a completed quest. Marked cards have green outlines.
+These are manual user confirmations, never inferred game progress. Additive fields
+retain external progress schema 1, with bounded/validated completion keys. Marks
+remain stored when source changes; changed instructions no longer match a mark.
+The details Active button is green; explicit restore-to-active is red. New guides
+retain the ordinary style. Native smoke checks copied expiry, fold/unfold and
+scroll overflow; focused tests check mark/collapse persistence and CID isolation.
+Automated validation pending; real SpringRO/fullscreen/DPI acceptance remains open.

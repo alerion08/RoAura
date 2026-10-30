@@ -130,6 +130,7 @@ public sealed class QuestProgressStore
             if (q is null || string.IsNullOrWhiteSpace(q.QuestKey) || q.QuestKey.Length > 2048 || !keys.Add(q.QuestKey) ||
                 q.Title is null || q.Title.Length > 8192 || q.CurrentStep < 1 || q.Order < 0 || !Enum.IsDefined(q.State) ||
                 (q.StepAnchor is not null && (q.StepAnchor.Length != 64 || q.StepAnchor.Any(c => !Uri.IsHexDigit(c)))) ||
+                q.CompletedStepAnchors is null || q.CompletedStepAnchors.Count>20000 || q.CompletedStepAnchors.Any(a=>a is null || !QuestProgress.ValidCompletionKey(a)) ||
                 q.CatalogContentHash?.Length > 256 || q.History is null || q.History.Count > 20_000 ||
                 q.History.Any(h => h is null || !Enum.IsDefined(h.State) || h.Method != "manual" || h.AtUtc.Kind != DateTimeKind.Utc))
                 throw new InvalidDataException("Invalid or duplicate quest progress entry.");

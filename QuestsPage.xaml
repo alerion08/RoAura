@@ -42,14 +42,14 @@
    <TabItem Header="{DynamicResource QActiveTab}">
     <Grid Margin="0,8,0,0">
      <Grid><ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><ItemsControl x:Name="ActiveList" ItemsSource="{Binding Active}">
-      <ItemsControl.ItemTemplate><DataTemplate><Border Style="{StaticResource QuestCard}"><StackPanel>
-       <CheckBox Content="{DynamicResource QVisible}" IsEnabled="{Binding Editable}" IsChecked="{Binding Progress.IsVisibleInOverlay, Mode=OneWay}" Click="Visibility_Click"/>
+      <ItemsControl.ItemTemplate><DataTemplate><Border Style="{StaticResource QuestCard}"><StackPanel><DockPanel><StackPanel Orientation="Horizontal" DockPanel.Dock="Right"><Button Content="↑" Tag="up" IsEnabled="{Binding Editable}" Click="QuestAction_Click" ToolTip="{DynamicResource QUp}"/><Button Content="↓" Tag="down" IsEnabled="{Binding Editable}" Click="QuestAction_Click" ToolTip="{DynamicResource QDown}"/></StackPanel>
+       <CheckBox Content="{DynamicResource QVisible}" IsEnabled="{Binding Editable}" IsChecked="{Binding Progress.IsVisibleInOverlay, Mode=OneWay}" Click="Visibility_Click"/></DockPanel>
        <TextBlock Text="{Binding Title}" Style="{StaticResource QuestText}" FontWeight="SemiBold"/><TextBlock Text="{Binding Position}"/>
        <TextBlock Text="{Binding Instruction}" Style="{StaticResource QuestText}"/>
        <TextBlock Text="{DynamicResource QReviewStep}" Foreground="#B42318" TextWrapping="Wrap" Visibility="{Binding Progress.NeedsStepReview, Converter={StaticResource BoolVisibility}}"/>
        <TextBlock Text="{DynamicResource QMissing}" Foreground="#B42318" TextWrapping="Wrap" Visibility="{Binding Progress.IsMissingFromCatalog, Converter={StaticResource BoolVisibility}}"/>
-       <WrapPanel><Button Content="Prev" Tag="prev" Click="QuestAction_Click" IsEnabled="{Binding CanPrev}"/><Button Content="Next" Tag="next" Click="QuestAction_Click" IsEnabled="{Binding CanNext}"/><Button Content="More" Tag="more" Click="QuestAction_Click"/><Button Content="↑" Tag="up" IsEnabled="{Binding Editable}" Click="QuestAction_Click" ToolTip="{DynamicResource QUp}"/><Button Content="↓" Tag="down" IsEnabled="{Binding Editable}" Click="QuestAction_Click" ToolTip="{DynamicResource QDown}"/></WrapPanel>
-       <WrapPanel><Button Content="{DynamicResource QPause}" Tag="pause" IsEnabled="{Binding Editable}" Click="QuestAction_Click"/><Button Content="{DynamicResource QComplete}" Tag="complete" IsEnabled="{Binding Editable}" Click="QuestAction_Click"/><Button Content="{DynamicResource QRemove}" Tag="remove" IsEnabled="{Binding Editable}" Click="QuestAction_Click"/></WrapPanel>
+
+       <WrapPanel><Button Content="More" Tag="more" Click="QuestAction_Click"/><Button Content="{DynamicResource QPause}" Tag="pause" IsEnabled="{Binding Editable}" Click="QuestAction_Click"/><Button Content="{DynamicResource QComplete}" Tag="complete" IsEnabled="{Binding Editable}" Click="QuestAction_Click"/><Button Content="{DynamicResource QRemove}" Tag="remove" IsEnabled="{Binding Editable}" Click="QuestAction_Click"/></WrapPanel>
       </StackPanel></Border></DataTemplate></ItemsControl.ItemTemplate>
      </ItemsControl></ScrollViewer><TextBlock x:Name="ActiveEmpty" Text="{DynamicResource QNoActive}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="18" IsHitTestVisible="False"/></Grid>
 

@@ -7,6 +7,29 @@ namespace RoAura.Tests;
 public sealed class QuestInteractionTests
 {
     [Fact]
+    public async Task CompletionMarksAndCollapsePersistAndIdenticalInstructionsStayIndependent()
+    {
+        var root=Path.Combine(Path.GetTempPath(),"RoAura-Marks-"+Guid.NewGuid().ToString("N"));
+        try
+        {
+            var guide=QuestProgressTests.Guide("repeated","v1","Same","Same","Last");
+            var settings=new AppSettings {ServerProfile="SpringRO",PacketCaptureEnabled=false};
+            var catalog=new QuestCatalog([guide]);var store=new QuestProgressStore(root);
+            var workspace=new QuestWorkspace(settings,store,catalog:catalog);var key=new QuestProfileKey("SpringRO",123,null);
+            await workspace.SelectProfileAsync(key,default);workspace.ToggleTracking(guide);
+            workspace.SetStepDone(guide,guide.Steps[0],true);
+            Assert.True(workspace.IsStepDone(guide,guide.Steps[0]));Assert.False(workspace.IsStepDone(guide,guide.Steps[1]));
+            Assert.Equal(2,workspace.Active.Single().Progress.CurrentStep);
+            workspace.ToggleCollapsed(workspace.Active.Single());Assert.True(await workspace.FlushAsync());
+            var next=new QuestWorkspace(settings,store,catalog:catalog);await next.SelectProfileAsync(key,default);
+            Assert.True(next.Active.Single().Progress.IsCollapsed);Assert.True(next.IsStepDone(guide,guide.Steps[0]));
+            next.SetStepDone(guide,guide.Steps[0],false);Assert.False(next.IsStepDone(guide,guide.Steps[0]));
+            Assert.Equal(2,next.Active.Single().Progress.CurrentStep);
+            await next.SelectProfileAsync(new("SpringRO",456,null),default);Assert.False(next.IsStepDone(guide,guide.Steps[0]));
+        }
+        finally{if(Directory.Exists(root))Directory.Delete(root,true);}
+    }
+    [Fact]
     public void InstructionHighlightsPreserveSourceAndPreferAnswerOverItem()
     {
         const string source="Type \"Milk\" then bring 3 Milk and a Red Potion. Milky stays plain.";
@@ -20,12 +43,12 @@ public sealed class QuestInteractionTests
     [Fact]
     public void TrackerLimitSurvivesSettingsPresetAndClamps()
     {
-        var source=new AppSettings();Assert.Equal(20,source.QuestOverlay.MaxTrackedQuests);
+        var source=new AppSettings();Assert.Equal(5,source.QuestOverlay.MaxTrackedQuests);
         source.QuestOverlay.MaxTrackedQuests=0;Assert.Equal(1,source.QuestOverlay.MaxTrackedQuests);
-        source.QuestOverlay.MaxTrackedQuests=99;Assert.Equal(50,source.QuestOverlay.MaxTrackedQuests);
-        source.QuestOverlay.MaxTrackedQuests=7;
+        source.QuestOverlay.MaxTrackedQuests=99;Assert.Equal(5,source.QuestOverlay.MaxTrackedQuests);
+        source.QuestOverlay.MaxTrackedQuests=4;
         var copy=System.Text.Json.JsonSerializer.Deserialize<AppSettings>(System.Text.Json.JsonSerializer.Serialize(source))!;
-        var target=new AppSettings();SettingsSnapshot.Apply(copy,target);Assert.Equal(7,target.QuestOverlay.MaxTrackedQuests);
+        var target=new AppSettings();SettingsSnapshot.Apply(copy,target);Assert.Equal(4,target.QuestOverlay.MaxTrackedQuests);
     }
     [Fact]
     public void PartialBrowserOverlapClipsOnlyCoveredActionPixels()

@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -20,6 +21,10 @@ public sealed class QuestOverlayHost : IDisposable
     private readonly Action _saveVisuals;
     private readonly Action<bool> _dragMode;
     private readonly QuestPassiveWindow _text=new(true);
+    private readonly QuestPassiveWindow _scrollWindow=new(false);
+    private readonly ScrollBar _scrollBar=new() {Orientation=Orientation.Vertical,Focusable=false,IsTabStop=false,SmallChange=1,LargeChange=1};
+    private int _firstQuestIndex;private double _scrollHeight;private bool _updatingScroll;
+    private string _scrollScope="";
     private readonly Canvas _canvas=new() { ClipToBounds=true,Background=null };
     private readonly StackPanel _cards=new();
     private readonly DispatcherTimer _timer=new() {Interval=TimeSpan.FromMilliseconds(120)};
@@ -58,6 +63,9 @@ public sealed class QuestOverlayHost : IDisposable
             if(Browser.IsVisible && (!_browserRequested || !_global))Browser.Hide();
             KeyboardModeChanged?.Invoke();
         };
+        _scrollWindow.Content=_scrollBar;
+        _scrollBar.ValueChanged+=(_,e)=>{if(!_updatingScroll){_firstQuestIndex=(int)Math.Round(e.NewValue);_dirty=true;}};
+        _scrollBar.PreviewMouseWheel+=(_,e)=>{_scrollBar.Value=Math.Clamp(_scrollBar.Value-Math.Sign(e.Delta),0,_scrollBar.Maximum);e.Handled=true;};
         _text.Content=_canvas;_canvas.Children.Add(_cards);
         _workspace.Changed+=Changed;Options.PropertyChanged+=VisualChanged;
         _timer.Tick+=(_,_)=>Tick();_timer.Start();
@@ -114,6 +122,7 @@ public sealed class QuestOverlayHost : IDisposable
     private void Changed()
     {
         _dirty=true;
+        if(_scrollScope!=_workspace.ScopeCaption){_scrollScope=_workspace.ScopeCaption;_firstQuestIndex=0;}
         if(_choices is not null && !_workspace.Active.Any(r=>ReferenceEquals(r.Progress,_choiceEntry) && r.Progress.CurrentStep==_choiceStep))CloseChoices();
     }
     private void VisualChanged(object? sender,PropertyChangedEventArgs e)
@@ -172,6 +181,14 @@ public sealed class QuestOverlayHost : IDisposable
             if(!inside || !Options.ShowButtons) {window.Hide();continue;}
             if(!window.IsVisible)window.Show();QuestWindowNative.Place(window,rect,promote);
         }
+        if(_scrollBar.Maximum>0 && Options.ShowButtons)
+        {
+            var scrollRect=new Rect(_gamePixels.X+Options.X*_dpi+(Options.Width+3)*scale,_gamePixels.Y+(Options.Y+28*Options.Scale)*_dpi,16*scale,Math.Max(40,_scrollHeight)*scale);
+            _scrollBar.LayoutTransform=new ScaleTransform(Options.Scale,Options.Scale);
+            _scrollBar.Clip=OverlayOcclusion.CreateClip(new Size(16,Math.Max(40,_scrollHeight)),excluded.Select(r=>new Rect((r.X-scrollRect.X)/scale,(r.Y-scrollRect.Y)/scale,r.Width/scale,r.Height/scale)));
+            if(_gamePixels.Contains(scrollRect)){if(!_scrollWindow.IsVisible)_scrollWindow.Show();QuestWindowNative.Place(_scrollWindow,scrollRect,promote);}else _scrollWindow.Hide();
+        }
+        else _scrollWindow.Hide();
         if(_choices is not null)
         {
             if(!gameActive && !browserActive)CloseChoices();
@@ -219,13 +236,25 @@ public sealed class QuestOverlayHost : IDisposable
         _actions.Add((headerStrip,0));_cards.Children.Add(new Border {Height=28});
         var y=28d;var count=0;
         var visibleRows=_workspace.Active.Where(q=>q.Progress.IsVisibleInOverlay).ToList();
-        foreach(var row in visibleRows)
+        _firstQuestIndex=Math.Clamp(_firstQuestIndex,0,Math.Max(0,visibleRows.Count-1));
+        foreach(var row in visibleRows.Skip(_firstQuestIndex))
         {
             if(count>=Options.MaxTrackedQuests)break;
             // Only rows that fit the client are exposed. The final More action opens the full list.
-            if(count>0 && Options.Y+(y+90)*Options.Scale>_gamePixels.Height/_dpi)break;
+            if(count>0 && Options.Y+(y+(row.Progress.IsCollapsed?30:90))*Options.Scale>_gamePixels.Height/_dpi)break;
             var panel=new StackPanel();
-            var title=Label(row.Title+" "+row.Position,color,true);title.MaxHeight=(Options.FontSize+3)*2;title.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(title);
+            var title=Label(row.Title+" "+row.Position,color,true);title.Width=Math.Max(40,Options.Width-32);title.MaxHeight=(Options.FontSize+3);title.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(title);
+            var foldStrip=new QuestPassiveWindow(false) {Opacity=Options.OpacityPercent/100};
+            var foldButtons=new StackPanel {Orientation=Orientation.Horizontal,LayoutTransform=new ScaleTransform(Options.Scale,Options.Scale)};
+            foldButtons.Children.Add(new Border {Width=Options.Width-30,Height=22});
+            var fold=ActionButton(row.Progress.IsCollapsed?"▸":"▾",()=>_workspace.ToggleCollapsed(row));fold.Width=24;fold.IsEnabled=row.Editable;
+            fold.ToolTip=T(row.Progress.IsCollapsed?"QExpandQuest":"QCollapseQuest");foldButtons.Children.Add(fold);foldStrip.Content=foldButtons;
+            _actions.Add((foldStrip,y));
+            if(row.Progress.IsCollapsed)
+            {
+                _cards.Children.Add(panel);_cards.Children.Add(new Border {Height=Options.CardGap});
+                y+=Math.Max(24,Options.FontSize+6)+Options.CardGap;panel.MinHeight=Math.Max(24,Options.FontSize+6);count++;continue;
+            }
             var instruction=Label(row.Progress.IsMissingFromCatalog?T("QMissing"):row.Progress.NeedsStepReview?T("QReviewStep"):row.Instruction,color);
             if(!row.Progress.IsMissingFromCatalog && !row.Progress.NeedsStepReview)QuestInstructionText.Apply(instruction,row.Instruction,true);
             instruction.MaxHeight=(Options.FontSize+3)*Options.DescriptionLines;instruction.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(instruction);
@@ -236,7 +265,7 @@ public sealed class QuestOverlayHost : IDisposable
             }
             panel.Measure(new Size(Options.Width,double.PositiveInfinity));
             var textHeight=panel.DesiredSize.Height;
-            if(count>0 && Options.Y+(y+textHeight+(Options.ShowButtons?24:0)+Options.CardGap)*Options.Scale>_gamePixels.Height/_dpi)break;
+            if(count>0 && Options.Y+(y+textHeight+(Options.ShowButtons?24:0)+Options.CardGap)*Options.Scale>_gamePixels.Height/_dpi){_actions.RemoveAt(_actions.Count-1);foldStrip.Close();break;}
             _cards.Children.Add(panel);
             if(Options.ShowButtons)
             {
@@ -246,8 +275,8 @@ public sealed class QuestOverlayHost : IDisposable
                 buttons.Children.Add(ActionButton("More",async()=>await OpenBrowserAsync(row.Guide)));
                 var targets=QuestNavigation.Targets(row);
                 var copied=ReferenceEquals(_copiedEntry,row.Progress) && _copiedStep==row.Progress.CurrentStep && DateTime.UtcNow<_copiedUntil;
-                var navi=ActionButton(copied?"✓":"navi",()=>Navigate(row,strip,targets));
-                if(copied)QuestCopyFeedback.Success(navi);navi.IsEnabled=targets.Count>0 && _workspace.Settings.ServerProfile!=GameServerProfile.Other;
+                var navi=ActionButton("navi",()=>Navigate(row,strip,targets));navi.Width=64;
+                if(copied)QuestCopyFeedback.Success(navi,false);navi.IsEnabled=targets.Count>0 && _workspace.Settings.ServerProfile!=GameServerProfile.Other;
                 navi.ToolTip=T(targets.Count==0?"QNoNavigation":"QWikiCoordinates");buttons.Children.Add(navi);
                 var step=row.Progress.CurrentStep;
                 var done=ActionButton("Done",()=>_workspace.Done(row,step));done.IsEnabled=row.Editable && !row.Progress.NeedsStepReview && !row.Progress.IsMissingFromCatalog;done.ToolTip=T("QDoneHint");buttons.Children.Add(done);
@@ -263,7 +292,14 @@ public sealed class QuestOverlayHost : IDisposable
             }
             _cards.Children.Add(new Border {Height=Options.CardGap});y+=textHeight+(Options.ShowButtons?24:0)+Options.CardGap;count++;
         }
-        if(count<visibleRows.Count)_cards.Children.Add(Label(T("QMoreQuests")+" "+(visibleRows.Count-count)+" · "+_workspace.Settings.QuestBrowserHotkey,color));
+        _scrollHeight=Math.Max(40,y-28);
+        _updatingScroll=true;
+        try
+        {
+            _scrollBar.Maximum=Math.Max(0,visibleRows.Count-Math.Max(1,count));_scrollBar.ViewportSize=Math.Max(1,count);
+            if(!_scrollBar.IsMouseCaptureWithin)_scrollBar.Value=Math.Min(_firstQuestIndex,_scrollBar.Maximum);
+        }
+        finally{_updatingScroll=false;}
         _dirty=false;
     }
     private TextBlock Label(string value,Brush color,bool bold=false)=>new()
@@ -304,16 +340,17 @@ public sealed class QuestOverlayHost : IDisposable
     }
     private void CloseChoices(){_choices?.Close();_choices=null;}
     private void HideTracker()
-    {EndDrag();_text.Hide();foreach(var a in _actions)a.Window.Hide();CloseChoices();}
+    {EndDrag();_scrollWindow.Hide();_text.Hide();foreach(var a in _actions)a.Window.Hide();CloseChoices();}
     private void HideSurfaces(){Browser.Hide();HideTracker();KeyboardModeChanged?.Invoke();}
     internal void RefreshNow()=>Tick();
     internal IReadOnlyList<QuestPassiveWindow> ActionWindows=>_actions.Select(a=>a.Window).ToList();
     internal QuestPassiveWindow TextWindow=>_text;
+    internal ScrollBar TrackerScrollBar=>_scrollBar;
     internal QuestPassiveWindow? TargetChooser=>_choices;
     public void Dispose()
     {
         if(_disposed)return;_disposed=true;_timer.Stop();EndDrag();_workspace.Changed-=Changed;Options.PropertyChanged-=VisualChanged;
-        CloseChoices();foreach(var a in _actions)a.Window.Close();_actions.Clear();_text.Close();
+        CloseChoices();foreach(var a in _actions)a.Window.Close();_actions.Clear();_scrollWindow.Close();_text.Close();
         Browser.ClosingPermanently=true;Browser.Close();KeyboardModeChanged?.Invoke();
     }
 }

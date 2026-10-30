@@ -15,6 +15,7 @@ public partial class QuestDetailsControl : UserControl
     private QuestWorkspace? _workspace;
     private string _stamp = "";
     private string? _lastKey;
+    private int? _lastStep;
     public QuestDetailsControl() => InitializeComponent();
     private static string T(string key) => LocalizationService.Get(key);
     public void Render(QuestWorkspace workspace)
@@ -22,9 +23,11 @@ public partial class QuestDetailsControl : UserControl
         _workspace = workspace;
         var guide = workspace.SelectedGuide;
         var stamp = guide?.Key + "|" + guide?.ContentHash + "|" + workspace.CanEdit + "|" + workspace.IsActive(guide) + "|" +
-            LocalizationService.CurrentLanguage + "|" + string.Join(",", workspace.Active.Concat(workspace.History).Where(q => q.Progress.QuestKey == guide?.Key).Select(q => q.Progress.CurrentStep));
+            LocalizationService.CurrentLanguage + "|" + string.Join(",", workspace.Active.Concat(workspace.History).Where(q => q.Progress.QuestKey == guide?.Key).Select(q => q.Progress.CurrentStep+":"+string.Join(";",q.Progress.CompletedStepAnchors)));
         if (_stamp == stamp) return;
         _stamp = stamp;
+        var currentStep=workspace.Active.Concat(workspace.History).FirstOrDefault(r=>r.Progress.QuestKey==guide?.Key)?.Progress.CurrentStep;
+        var moveToCurrent=_lastKey!=guide?.Key || _lastStep!=currentStep;_lastStep=currentStep;
         var offset = _lastKey == guide?.Key ? WalkScroll.VerticalOffset : 0;
         _lastKey = guide?.Key;
         QuestTitle.Text = guide?.Title ?? T("QSelectGuide");
@@ -37,20 +40,27 @@ public partial class QuestDetailsControl : UserControl
             T("QFreshness") + ": " + guide.RefreshState + "\n" + (guide.LastSuccessUtc ?? T("QUnknown")) + "\n" + guide.LastError + "\n\n" + T("QEvidenceHint");
         AddButton.Content = T(workspace.IsActive(guide) ? "QActive" : workspace.HasProgress(guide) ? "QRestore" : "QAdd");
         AddButton.IsEnabled = workspace.CanEdit && guide?.Steps.Count > 0;
+        if(workspace.IsActive(guide))QuestCopyFeedback.ColorState(AddButton,Brushes.ForestGreen);
+        else if(workspace.HasProgress(guide))QuestCopyFeedback.ColorState(AddButton,Brushes.Firebrick);
+        else {AddButton.ClearValue(Button.TemplateProperty);AddButton.ClearValue(Button.ForegroundProperty); }
         StepsPanel.Children.Clear();
         if (guide is null || guide.Steps.Count == 0) StepsPanel.Children.Add(Text(T("QNoSteps")));
         if (guide is not null)
             foreach (var step in guide.Steps)
             {
                 var content = new StackPanel();
-                content.Children.Add(Text($"{step.Number}. " + (step.SourceNumber is null ? T("QNarrative") : ""), true));
+                var heading=new DockPanel();
+                var completed=new CheckBox {IsChecked=workspace.IsStepDone(guide,step),IsEnabled=workspace.CanEdit && workspace.HasProgress(guide),ToolTip=T("QStepDone"),VerticalAlignment=VerticalAlignment.Top,Margin=new Thickness(8,0,0,0)};
+                DockPanel.SetDock(completed,Dock.Right);heading.Children.Add(completed);
+                completed.Click+=(_,_)=>workspace.SetStepDone(guide,step,completed.IsChecked==true);
+                heading.Children.Add(Text($"{step.Number}. " + (step.SourceNumber is null ? T("QNarrative") : ""),true));content.Children.Add(heading);
                 if (!string.IsNullOrWhiteSpace(step.Section)) content.Children.Add(Text(step.Section));
                 var instruction=Text("");QuestInstructionText.Apply(instruction,step.Instruction);content.Children.Add(instruction);
                 var points=new WrapPanel();
                 var row=new QuestListRow(new QuestProgressEntry {QuestKey=guide.Key,CurrentStep=step.Number},guide);
                 foreach(var target in QuestNavigation.Targets(row))
                 {
-                    var coordinate=new Button {Content=target.ToString(),HorizontalAlignment=HorizontalAlignment.Left,Margin=new Thickness(0,3,4,0),Padding=new Thickness(4,0,4,0),FontSize=11,MinHeight=22,Height=22,ToolTip=target.Command,
+                    var coordinate=new Button {Tag=target,Content=target.ToString(),HorizontalAlignment=HorizontalAlignment.Left,Margin=new Thickness(0,3,4,0),Padding=new Thickness(4,0,4,0),FontSize=11,MinHeight=22,Height=22,ToolTip=target.Command,
                         IsEnabled=workspace.Settings.ServerProfile!=RoAura.Models.GameServerProfile.Other};
                     coordinate.Click+=(_,_)=>{if(ClipboardService.TryCopy(target.Command))QuestCopyFeedback.Success(coordinate);else coordinate.ToolTip=T("QCopyFailed");};
                     points.Children.Add(coordinate);
@@ -70,11 +80,11 @@ public partial class QuestDetailsControl : UserControl
                 content.Children.Add(keys);
                 StepsPanel.Children.Add(new Border { CornerRadius = new CornerRadius(6), Padding = new Thickness(10), Margin = new Thickness(0, 0, 0, 6),
                     Background = (Brush)FindResource(workspace.IsCurrentStep(step.Number) ? "RoTitleBrush" : "RoCardBrush"),
-                    BorderBrush = (Brush)FindResource(workspace.IsCurrentStep(step.Number) ? "RoGoldBrush" : "RoSoftBorderBrush"),
-                    BorderThickness = new Thickness(workspace.IsCurrentStep(step.Number) ? 2 : 1), Child = content, Tag = step.Number });
+                    BorderBrush = workspace.IsStepDone(guide,step)?Brushes.ForestGreen:(Brush)FindResource(workspace.IsCurrentStep(step.Number) ? "RoGoldBrush" : "RoSoftBorderBrush"),
+                    BorderThickness = new Thickness(workspace.IsCurrentStep(step.Number) || workspace.IsStepDone(guide,step) ? 2 : 1), Child = content, Tag = step.Number });
             }
         WalkScroll.ScrollToVerticalOffset(offset);
-        if (guide is not null) Dispatcher.BeginInvoke(ScrollToCurrent, DispatcherPriority.Loaded);
+        if (guide is not null && moveToCurrent) Dispatcher.BeginInvoke(ScrollToCurrent, DispatcherPriority.Loaded);
     }
     private void RenderFacts(string title, string? original)
     {
@@ -129,6 +139,8 @@ public partial class QuestDetailsControl : UserControl
         foreach(var card in StepsPanel.Children.OfType<Border>())
             if(card.Tag is int step && _workspace?.IsCurrentStep(step)==true) {WalkScroll.UpdateLayout();var top=card.TranslatePoint(new Point(0,0),StepsPanel).Y;WalkScroll.ScrollToVerticalOffset(top);return;}
     }
+    internal Button? CurrentNavigationButton=>StepsPanel.Children.OfType<Border>().Where(c=>c.Tag is int n && _workspace?.IsCurrentStep(n)==true)
+        .SelectMany(c=>((StackPanel)c.Child).Children.OfType<WrapPanel>()).SelectMany(p=>p.Children.OfType<Button>()).FirstOrDefault(b=>b.Tag is QuestNavigationTarget);
     internal bool CurrentStepInView
     {
         get

@@ -676,4 +676,7 @@
     <sys:String x:Key="QDescriptionLines">Instruction lines</sys:String>
     <sys:String x:Key="QCopyAnswer">Copy text</sys:String>
     <sys:String x:Key="QMaxTrackedQuests">Maximum tracker quests</sys:String>
+    <sys:String x:Key="QStepDone">Step completed</sys:String>
+    <sys:String x:Key="QExpandQuest">Expand quest</sys:String>
+    <sys:String x:Key="QCollapseQuest">Collapse quest</sys:String>
 </ResourceDictionary>

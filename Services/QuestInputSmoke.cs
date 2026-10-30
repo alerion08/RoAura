@@ -80,9 +80,17 @@ internal static class QuestInputSmoke
                     var border=(Border)host.TargetChooser!.Content;var grid=(Grid)border.Child;
                     var target=((StackPanel)grid.Children.OfType<ScrollViewer>().Single().Content).Children.OfType<Button>().First();
                     Click(target.PointToScreen(new Point(target.ActualWidth/2,target.ActualHeight/2)));
-                    await Until(()=>host.TargetChooser is null && host.ActionWindows.Any(w=>((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"✓") && b.Foreground==System.Windows.Media.Brushes.White)),"navigation copied checkmark");
+                    await Until(()=>host.TargetChooser is null && host.ActionWindows.Any(w=>((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"copied") && b.Foreground==System.Windows.Media.Brushes.White)),"navigation copied checkmark");
                     await Pause();SaveDesktop(host.TextWindow,"tracker-copied-native");
                 }
+                var foldWindow=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"▾")));
+                var fold=((StackPanel)foldWindow.Content).Children.OfType<Button>().Single();
+                Click(fold.PointToScreen(new Point(fold.ActualWidth/2,fold.ActualHeight/2)));
+                await Until(()=>row.Progress.IsCollapsed,"collapse tracker quest");await Pause();host.RefreshNow();
+                var expandWindow=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"▸")));
+                var expand=((StackPanel)expandWindow.Content).Children.OfType<Button>().Single();
+                Click(expand.PointToScreen(new Point(expand.ActualWidth/2,expand.ActualHeight/2)));
+                await Until(()=>!row.Progress.IsCollapsed,"expand tracker quest");await Pause();host.RefreshNow();
                 // Reopen a guide previously left on Facts: More must force Walkthrough/current step.
                 host.Browser.Page.ShowFacts(row.Guide!);
                 var moreStrip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"More")));
@@ -103,6 +111,12 @@ internal static class QuestInputSmoke
                 await Until(()=>host.BrowserShowing && host.Browser.IsActive,"browser hotkey/focus");
                 if(!host.TrackerRequested)throw new InvalidOperationException("Browser toggle changed tracker preference.");
                 host.Browser.Page.ShowGuide(row.Guide);await Pause();SaveDesktop(host.Browser,"browser-native");
+                var pointButton=host.Browser.Page.CurrentNavigationButton ?? throw new InvalidOperationException("Current navigation button missing.");
+                var coordinateCaption=pointButton.Content;
+                Click(pointButton.PointToScreen(new Point(pointButton.ActualWidth/2,pointButton.ActualHeight/2)));
+                await Until(()=>Equals(pointButton.Content,"copied"),"detail coordinate copied feedback");
+                SaveDesktop(host.Browser,"detail-copied-native");
+                await Until(()=>Equals(pointButton.Content,coordinateCaption),"detail coordinate label restored after four seconds");
                 if(row.Guide is not null){host.Browser.Page.ShowFacts(row.Guide);await Pause();SaveDesktop(host.Browser,"facts-native");}
                 var keys=Read(reportPath)!.Keys;Key(0x5A,true);Key(0x5A,false);await Pause();
                 if(Read(reportPath)!.Keys!=keys)throw new InvalidOperationException("Quest search typing reached the game.");
@@ -140,7 +154,9 @@ internal static class QuestInputSmoke
                 workspace.Settings.QuestOverlay.MaxTrackedQuests=1;host.RefreshNow();
                 if(host.ActionWindows.Count(w=>((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"More")))!=1)
                     throw new InvalidOperationException("Tracker quest limit was not applied.");
-                workspace.Settings.QuestOverlay.MaxTrackedQuests=oldLimit;host.RefreshNow();
+                if(host.TrackerScrollBar.Maximum<1)throw new InvalidOperationException("Tracker overflow has no scrollbar.");
+                host.TrackerScrollBar.Value=1;host.RefreshNow();SaveDesktop(host.TextWindow,"tracker-scrolled-native");
+                host.TrackerScrollBar.Value=0;workspace.Settings.QuestOverlay.MaxTrackedQuests=oldLimit;host.RefreshNow();
                 ((App)Application.Current).ToggleDatabase();
                 var database=Application.Current.Windows.OfType<DatabaseOverlayWindow>().Single();
                 await Until(()=>database.IsDatabaseOpen && database.IsVisible,"database priority open");

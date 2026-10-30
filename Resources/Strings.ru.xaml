@@ -676,4 +676,7 @@
     <sys:String x:Key="QDescriptionLines">Строк описания этапа</sys:String>
     <sys:String x:Key="QCopyAnswer">Копировать текст</sys:String>
     <sys:String x:Key="QMaxTrackedQuests">Максимум квестов в трекере</sys:String>
+    <sys:String x:Key="QStepDone">Этап выполнен</sys:String>
+    <sys:String x:Key="QExpandQuest">Развернуть квест</sys:String>
+    <sys:String x:Key="QCollapseQuest">Свернуть квест</sys:String>
 </ResourceDictionary>

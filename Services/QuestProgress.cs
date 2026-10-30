@@ -33,6 +33,8 @@ public sealed class QuestProgressEntry
 {
     public string QuestKey { get; set; } = "";
     public string Title { get; set; } = "";
+    public bool IsCollapsed {get;set;}
+    public List<string> CompletedStepAnchors {get;set;}=[];
     public int CurrentStep { get; set; }
     public string? StepAnchor { get; set; }
     public string? CatalogContentHash { get; set; }
@@ -62,6 +64,12 @@ public static class QuestProgress
     public static string Anchor(QuestStep step) => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(
         (step.Kind ?? "") + "\n" + step.Instruction)));
 
+    public static string CompletionKey(QuestStep step)=>step.Number+":"+Anchor(step);
+    public static bool ValidCompletionKey(string value)
+    {
+        var parts=value.Split(':');
+        return parts.Length==2 && int.TryParse(parts[0],out var number) && number>0 && parts[1].Length==64 && parts[1].All(Uri.IsHexDigit);
+    }
     public static QuestProgressEntry Add(QuestProgressDocument document, QuestGuide guide)
     {
         var existing = document.Quests.FirstOrDefault(q => q.QuestKey == guide.Key);
@@ -103,6 +111,7 @@ public static class QuestProgress
         if (entry.State != QuestManualState.Active || entry.NeedsStepReview || entry.IsMissingFromCatalog || entry.CurrentStep != expectedStep) return false;
         var index = guide.Steps.ToList().FindIndex(s => s.Number == expectedStep);
         if (index < 0) return false;
+        var anchor=CompletionKey(guide.Steps[index]);if(!entry.CompletedStepAnchors.Contains(anchor))entry.CompletedStepAnchors.Add(anchor);
         if (index + 1 < guide.Steps.Count) SelectStep(entry, guide, guide.Steps[index + 1].Number);
         else SetState(entry, QuestManualState.Completed, atUtc, true);
         return true;

@@ -167,6 +167,20 @@ public sealed class QuestWorkspace : INotifyPropertyChanged
             SetState(row,state);
         }
     }
+    public void ToggleCollapsed(QuestListRow row)
+    {if(CanEdit && Owns(row)){row.Progress.IsCollapsed=!row.Progress.IsCollapsed;MarkDirty();}}
+    public bool IsStepDone(QuestGuide guide,QuestStep step)=>Rows.Any(r=>r.Progress.QuestKey==guide.Key && r.Progress.CompletedStepAnchors.Contains(QuestProgress.CompletionKey(step)));
+    public void SetStepDone(QuestGuide guide,QuestStep step,bool done)
+    {
+        var row=Rows.FirstOrDefault(r=>r.Progress.QuestKey==guide.Key);
+        if(!CanEdit || row is null || row.Progress.NeedsStepReview || row.Progress.IsMissingFromCatalog)return;
+        var anchor=QuestProgress.CompletionKey(step);
+        if(done && row.Progress.State==QuestManualState.Active && row.Progress.CurrentStep==step.Number)
+        {Done(row,step.Number);return;}
+        if(done){if(!row.Progress.CompletedStepAnchors.Contains(anchor))row.Progress.CompletedStepAnchors.Add(anchor);}
+        else row.Progress.CompletedStepAnchors.RemoveAll(a=>a==anchor);
+        MarkDirty();
+    }
     public void Done(QuestListRow row, int expectedStep)
     { if (CanEdit && Owns(row) && row.Guide is not null && QuestProgress.ConfirmStep(row.Progress, row.Guide, expectedStep, DateTime.UtcNow)) MarkDirty(); }
     public void Move(QuestListRow row, int direction)
