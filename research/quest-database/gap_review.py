@@ -46,7 +46,7 @@ GUARD_SYMBOL = r"(?<![\w.@]){symbol}(?![\w])"
 def has_symbol(text,symbol):
     return bool(re.search(GUARD_SYMBOL.format(symbol=re.escape(symbol)),text or ""))
 
-def item_role_rows(db,sid,ordinal,npc_id,limit=120):
+def item_role_rows(db,sid,ordinal,npc_id):
     return [{"npc_id":npc_id,"line_no":ln,"occurrence":occ,"role":role,
              "item_id":obj,"amount_expr":amount,"argument":arg[:260],
              "guard_line":guard}
@@ -55,16 +55,16 @@ def item_role_rows(db,sid,ordinal,npc_id,limit=120):
                           argument,context_guard_line FROM npc_state_facts
                    WHERE source_id=? AND npc_ordinal=?
                      AND role IN ('item_check','item_consume','item_grant')
-                   ORDER BY line_no,occurrence LIMIT ?""",(sid,ordinal,limit))]
+                   ORDER BY line_no,occurrence""",(sid,ordinal))]
 
-def npc_conditions(db,sid,ordinal,limit=100):
+def npc_conditions(db,sid,ordinal):
     return [{"line_no":ln,"expression":expr[:320],"end_line":end}
             for ln,expr,end in db.execute(
                 """SELECT line_no,expression,end_line FROM npc_flow_conditions
-                   WHERE source_id=? AND npc_ordinal=? ORDER BY line_no LIMIT ?""",
-                (sid,ordinal,limit))]
+                   WHERE source_id=? AND npc_ordinal=? ORDER BY line_no""",
+                (sid,ordinal))]
 
-def npc_menus(db,sid,ordinal,limit=100):
+def npc_menus(db,sid,ordinal):
     return [{"line_no":line,"kind":kind,"option_no":no,"label":label,
              "target_line":target,"resolution":resolution,
              "is_resolved_target":target is not None}
@@ -72,17 +72,17 @@ def npc_menus(db,sid,ordinal,limit=100):
                 """SELECT p.line_no,p.kind,o.option_no,o.label,o.target_line,o.resolution
                    FROM npc_flow_points p JOIN npc_flow_options o ON o.point_id=p.id
                    WHERE p.source_id=? AND p.npc_ordinal=?
-                   ORDER BY p.line_no,o.option_no LIMIT ?""",
-                (sid,ordinal,limit))]
+                   ORDER BY p.line_no,o.option_no""",
+                (sid,ordinal))]
 
-def npc_writes(db,sid,ordinal,limit=250):
+def npc_writes(db,sid,ordinal):
     return [{"line_no":ln,"symbol":subject,"value_expr":value,
              "literal_value":literal_write(value),"guard_line":guard}
             for ln,subject,value,guard in db.execute(
                 """SELECT line_no,subject,value_expr,context_guard_line
                    FROM npc_state_facts
                    WHERE source_id=? AND npc_ordinal=? AND role='variable_write'
-                   ORDER BY line_no LIMIT ?""",(sid,ordinal,limit))
+                   ORDER BY line_no""",(sid,ordinal))
             if trackable_symbol(subject)]
 
 def terminal_audit(db,pid,sid,visited):
@@ -95,9 +95,14 @@ def terminal_audit(db,pid,sid,visited):
                    FROM npc_state_facts WHERE source_id=? AND npc_ordinal=?
                      AND role IN ('quest_start','quest_complete','quest_erase')
                    ORDER BY line_no,occurrence""",(sid,ordinal)):
+            condition=(db.execute("""SELECT expression FROM npc_flow_conditions
+                WHERE source_id=? AND npc_ordinal=? AND line_no=?""",
+                (sid,ordinal,guard)).fetchone() if guard is not None else None)
             rows.append({"npc_id":nid,"line_no":ln,"occurrence":occ,"role":role,
                          "quest_id":obj,"argument":arg[:260],
-                         "guard_line":guard})
+                         "guard_line":guard,
+                         "guard_expression":condition[0][:300] if condition else None,
+                         "guard_branch_executed":False})
     starts={r["quest_id"] for r in rows if r["role"]=="quest_start"
             and r["quest_id"] is not None}
     finishes={r["quest_id"] for r in rows if r["role"]=="quest_complete"
@@ -213,6 +218,21 @@ def audit_gaps(db):
                                               "target_variable_write_not_established":True})
                             break
             item_a=first["items"];item_b=second["items"]
+            same_npc_item_pairs=[]
+            for actor in ([first] if nid1==nid2 else [first,second]):
+                here=actor["items"]
+                checks={r["item_id"] for r in here if r["role"]=="item_check"
+                        and r["item_id"] is not None}
+                consumed={r["item_id"] for r in here if r["role"]=="item_consume"
+                          and r["item_id"] is not None}
+                for item_id in sorted(checks&consumed):
+                    same_npc_item_pairs.append({
+                        "npc":actor["name"],"item_id":item_id,
+                        "check_lines":[r["line_no"] for r in here
+                                       if r["role"]=="item_check" and r["item_id"]==item_id],
+                        "consume_lines":[r["line_no"] for r in here
+                                         if r["role"]=="item_consume" and r["item_id"]==item_id],
+                        "same_branch_verified":False,"mandatory_item_requirement_verified":False})
             # An item handed to a later NPC is an evidence candidate only
             # if its source operation is an actual getitem and the next NPC
             # explicitly checks/consumes the same literal item ID.
@@ -237,7 +257,9 @@ def audit_gaps(db):
                  len(terminal_audit(db,pid,sid,{first["ordinal"]:nid1,second["ordinal"]:nid2})["source_command_evidence"]),
                  json.dumps({"first_npc":first,"second_npc":second,
                              "guard_reads_without_proven_target_write":read_only,
-                             "item_handoffs":handoffs,"unresolved_menu_options":unresolved},
+                             "item_handoffs":handoffs,
+                             "same_npc_item_check_consume_pairs":same_npc_item_pairs,
+                             "unresolved_menu_options":unresolved},
                             ensure_ascii=False)))
             row={"title":title,"source_project":project,"source_path":path,
                  "source_blob_sha":sha,"from_step":step1,"to_step":step2,
@@ -254,6 +276,7 @@ def audit_gaps(db):
                  "first_npc_item_operations":item_a[:35],
                  "second_npc_item_operations":item_b[:35],
                  "literal_item_handoff_candidates":handoffs,
+                 "same_npc_item_check_consume_pairs":same_npc_item_pairs,
                  "unresolved_menu_options_in_two_npcs":unresolved,
                  "guards_executed":False,"item_requirements_proven":False,
                  "transition_verified":False,"safe_for_automatic_navigation":False}
@@ -261,6 +284,8 @@ def audit_gaps(db):
             counts["gaps"]+=1;counts[kind]+=1
             counts["gaps_with_literal_read_candidates"]+=bool(read_only)
             counts["literal_guard_read_hints"]+=len(read_only)
+            counts["gaps_with_same_npc_item_check_consume_pairs"]+=bool(same_npc_item_pairs)
+            counts["same_npc_item_check_consume_pairs"]+=len(same_npc_item_pairs)
             counts["gaps_with_item_handoff_candidates"]+=bool(handoffs)
             counts["literal_item_handoffs"]+=len(handoffs)
             counts["gaps_with_any_item_source_facts"]+=bool(item_a or item_b)
