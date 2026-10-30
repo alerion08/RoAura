@@ -1207,7 +1207,7 @@ public partial class App : Application
     public bool SetEscapeHotkeyEnabled(bool enabled) =>
         _inputHook?.SetEscapeEnabled(enabled) ?? false;
 
-    private void ExitOverlayEditMode()
+    internal void ExitOverlayEditMode()
     {
         Dispatcher.BeginInvoke(() =>
         {

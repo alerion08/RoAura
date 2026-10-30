@@ -14,6 +14,7 @@ internal static class QuestInputSmoke
     internal static async Task Run(QuestOverlayHost host,QuestWorkspace workspace,Window settingsWindow,Action<string> setProcesses)
     {
         var directory=Path.Combine(AppEnvironment.LocalDirectory,"QuestInputProbe");Directory.CreateDirectory(directory);
+        settingsWindow.Hide();
         DebugLog.Write("QUEST INPUT: copying isolated probe executable");
         var exe=Path.Combine(directory,"RoAura-QuestProbe.exe");File.Copy(Environment.ProcessPath!,exe,true);
         DebugLog.Write("QUEST INPUT: launching isolated probe");
@@ -35,7 +36,7 @@ internal static class QuestInputSmoke
             using var hook=new GlobalInputHook(workspace.Settings);
             hook.ToggleQuestBrowserPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleBrowser);
             hook.ToggleQuestTrackerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleTracker);
-            hook.EscapePressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>{if(settingsWindow is MainWindow main)main.TryFinishQuestDrag();});
+            hook.EscapePressed+=()=>((App)Application.Current).ExitOverlayEditMode();
             hook.ToggleOverlaysPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>host.SetGlobalVisible(!host.GlobalVisible));
             void KeyboardMode()=>hook.SetKeyboardBlocked(host.BrowserRequested && host.BrowserShowing);
             host.KeyboardModeChanged+=KeyboardMode;
