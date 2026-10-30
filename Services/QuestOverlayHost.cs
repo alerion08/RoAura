@@ -243,7 +243,7 @@ public sealed class QuestOverlayHost : IDisposable
             // Only rows that fit the client are exposed. The final More action opens the full list.
             if(count>0 && Options.Y+(y+(row.Progress.IsCollapsed?30:90))*Options.Scale>_gamePixels.Height/_dpi)break;
             var panel=new StackPanel();
-            var title=Label(row.Title+" "+row.Position,color,true);title.Width=Math.Max(40,Options.Width-32);title.MaxHeight=(Options.FontSize+3);title.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(title);
+            var title=Label(row.Title+" "+row.Position,color,true);title.HorizontalAlignment=HorizontalAlignment.Left;title.Width=Math.Max(40,Options.Width-32);title.MaxHeight=(Options.FontSize+3);title.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(title);
             var foldStrip=new QuestPassiveWindow(false) {Opacity=Options.OpacityPercent/100};
             var foldButtons=new StackPanel {Orientation=Orientation.Horizontal,LayoutTransform=new ScaleTransform(Options.Scale,Options.Scale)};
             foldButtons.Children.Add(new Border {Width=Options.Width-30,Height=22});

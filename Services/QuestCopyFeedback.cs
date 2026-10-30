@@ -33,6 +33,7 @@ internal static class QuestCopyFeedback
     {
         button.Foreground=Brushes.White;
         var border=new FrameworkElementFactory(typeof(Border));
+        border.SetBinding(Border.PaddingProperty,new Binding("Padding") {RelativeSource=new RelativeSource(RelativeSourceMode.TemplatedParent)});
         border.SetValue(Border.BackgroundProperty,fill);border.SetValue(Border.CornerRadiusProperty,new CornerRadius(5));
         var content=new FrameworkElementFactory(typeof(TextBlock));
         content.SetBinding(TextBlock.TextProperty,new Binding("Content") {RelativeSource=new RelativeSource(RelativeSourceMode.TemplatedParent)});
