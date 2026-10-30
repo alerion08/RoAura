@@ -7,7 +7,7 @@ follow a conditional branch, or invent start/completion signals.
 """
 from collections import Counter,defaultdict
 import re
-from adjudicate import source_sequence, SCHEMA as REVIEW_SCHEMA
+from adjudicate import SCHEMA as REVIEW_SCHEMA
 
 SCHEMA="""
 CREATE TABLE IF NOT EXISTS wiki_transition_audits(
@@ -87,7 +87,18 @@ def audit_transitions(db):
         db.execute("DELETE FROM wiki_transition_witnesses")
         db.execute("DELETE FROM wiki_transition_audits")
         for pid,sid,title,project,path,sha in candidates:
-            visits=source_sequence(db,pid,sid)["visits"]
+            # The stage-12 accepted review has already pinned specific NPC
+            # and wiki-step witnesses. Do NOT fall back to unreviewed discovery.
+            visits=[{"step_no":step,"npc_id":nid,"npc_name":name,
+                     "npc_ordinal":ordinal,"script_line":line}
+                    for step,nid,name,ordinal,line in db.execute(
+                       """SELECT e.step_no,e.npc_id,e.npc_name,n.ordinal,e.script_line
+                          FROM wiki_source_sequence_evidence e
+                          JOIN script_npcs n ON n.id=e.npc_id
+                          WHERE e.page_id=? AND e.source_id=?
+                          ORDER BY e.step_no,e.npc_id""",(pid,sid))]
+            if len({v["npc_id"] for v in visits})<2 or len({v["step_no"] for v in visits})<2:
+                raise ValueError(f"Reviewed NPC/step evidence missing for {(pid,sid)}")
             visited={row["npc_ordinal"]:row["npc_id"] for row in visits}
             records=defaultdict(list)
             guard_map=defaultdict(list)
