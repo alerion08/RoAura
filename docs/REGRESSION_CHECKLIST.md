@@ -286,6 +286,6 @@ larger edge spacing; navi chooser has rounded border and internal padding.
 Tests cover confirmation, history persistence/isolation, stars and literal links;
 native input smoke now selects header/quest surfaces by action and checks Done
 and the rounded multi-target chooser. CI fake client fits the desktop for captures.
-Validation for this iteration is pending; prior build acceptance does not carry over.
+Automated verification: 294 tests and eight ToC checks pass; real-game acceptance remains open.
 
 - [ ] Real SpringRO: header-only drag; Done/last-step history; star toggle/restore; internal quest links; rounded navi chooser; settings-only catalog reload.

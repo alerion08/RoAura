@@ -850,4 +850,17 @@ larger edge spacing; navi chooser has rounded border and internal padding.
 Tests cover confirmation, history persistence/isolation, stars and literal links;
 native input smoke now selects header/quest surfaces by action and checks Done
 and the rounded multi-target chooser. CI fake client fits the desktop for captures.
-Validation for this iteration is pending; prior build acceptance does not carry over.
+Automated verification: 294 tests and eight ToC checks pass; real-game acceptance remains open.
+
+Interaction verification: [Actions #41066780089](https://github.com/alerion08/RoAura/actions/runs/41066780089)
+SUCCESS on `7fcce0062a4e866111190b2a11f742daa3245798`: 294 tests passed,
+zero skipped/failed, eight ToC checks, portable startup, RU/EN and clean package.
+Native input additionally passed Done/next instruction without focus loss,
+multi-target chooser open/cancel, and the single header drag with production Escape.
+The fake client now fits the desktop; tracker, navigation chooser, catalog star
+and facts/link rasters were inspected. The native browser edge is no longer clipped
+by the oversized test fixture. These are still not real SpringRO/mixed-DPI checks.
+Artifact: [RoAura-development-71-7fcce00](https://github.com/alerion08/RoAura/actions/runs/41066780089/artifacts/12983925091),
+one portable and 16 PNGs. Portable SHA256:
+`a3d58e98484db5ede04dd9adac11ea4ebf4c286d904bfb4183090a49ef1b3aea`.
+No main/research changes, version bump, merge, tag or release.
