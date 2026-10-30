@@ -1,5 +1,18 @@
 # Project state
 
+## RoAura 3.2.0 publication (2026-10-30)
+
+User explicitly authorized preparation and publication of this release. Release branch:
+`release/3.2.0`, based on `0f0468f` from `feature/settings-character-overlays`.
+Main before publication: `4f75b78` / v3.1.1. Version metadata is now 3.2.0.
+The release PR must pass full Windows tests, portable startup, installer compilation,
+ToC importer/integrity validation, clean-payload checks and checksums before merging.
+The main push then creates v3.2.0 and publishes portable/installer/checksums through release.yml.
+Historical "no release authorized" notes below are superseded by this instruction.
+New ToC gameplay, multi-client/relog scope behavior and DPI visual acceptance remain
+unverified; publication notes explicitly retain these limitations. Prior feature CI passed
+233 app tests, eight Python tests, startup and portable verification.
+
 ## Header settings and overlay visual corrections (2026-10-30)
 
 Same development branch, based on tested `031591c` (233 Windows tests, eight Python

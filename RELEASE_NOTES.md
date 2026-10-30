@@ -1,20 +1,6 @@
-# Unreleased — ToC integration
+# RoAura 3.2.0
 
-## Русский
-
-- Выбор ToC: локальные предметы/монстры/карты, MVP, статистика персонажа и NPC/ручные цены Gold Goblin.
-- Отдельные таймеры и ценовые правила ToC; существующие настройки сохраняются.
-- Недоступные разделы остаются видимыми, серыми и неактивными.
-- Предупреждение на главной и общий переключатель чтения пакетов. База и ручные MVP-таймеры доступны без пакетов.
-- ToC: интервалы респауна неизвестны; маркет SpringRO недоступен. Проверка в игре ещё требуется.
-
-## English
-
-- ToC selection with offline items/monsters/maps, MVPs, character statistics and Gold Goblin NPC/manual valuation.
-- Separate ToC timers and price rules; existing configuration is retained.
-- Unavailable navigation stays visible, gray and disabled.
-- Home warning and global packet-reading toggle; offline Database and manual MVP timers work without capture.
-- ToC respawn intervals remain unknown; SpringRO Market is unavailable. In-game acceptance is still required.
+See [3.2.0 release notes](docs/releases/3.2.0.md) for ToC, Settings, character-targeted overlays and UI improvements.
 
 # RoAura 3.1.1
 
@@ -550,18 +536,3 @@ Settings and presets remain under `%APPDATA%\RoAura`. Packages exclude personal 
 - Fixed clipped links in the About window and updated the displayed version.
 - Preserved separate appeared/disappeared sounds and volume controls.
 - Discord: http://discord.gg/aleriontv
-
-## Unreleased — Settings and ToC improvements
-
-- Added shared General settings, centralized hotkeys, character aliases/server assignment
-  and navigation visibility preferences. Other is always last in server selection.
-- Added multi-character targeting for every overlay type while retaining legacy defaults.
-- Cooldown wizard learns Skill ID before creating an overlay.
-- Unified empty overlay editors; item/monster cards use tables and collapsed skills.
-- ToC MVP respawn details now come from official map pages; offline snapshot remains compact.
-- Добавлены настройки, менеджер персонажей и выбор видимости навигации; горячие клавиши
-  собраны в одном месте. Оверлеи поддерживают несколько персонажей. Мастер кулдаунов
-  определяет ID до создания; карточки БД и пустые области оверлеев упорядочены.
-
-- Settings now opens from the header; removed the redundant sidebar entry and hotkey legend.
-- Unified overlay help cards and text colors; restored the always-colored About icon.

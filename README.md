@@ -1,10 +1,15 @@
-# RoAura 3.1.1
+# RoAura 3.2.0
 
 Windows x64 overlay for Ragnarok Online. It tracks cooldowns and statuses from incoming RO packets via Npcap and displays configurable overlays.
 
 Gold Goblin calculates the value of the current SpringRO loot session using NPC sell prices, Overcharge, current Vending offers or manual price rules. The calculated value can be included in loot notifications and Zeny-per-hour statistics.
 
 Version 3.0 introduces the redesigned Ragnarok-inspired interface, shared rounded controls, color palettes, categorized navigation and full-settings preset switching without restarting. Ordinary overlays remain visible while editing settings, with only the area beneath RoAura excluded.
+
+Version 3.2.0 adds ToC offline data, header Settings, character-targeted overlays and a global
+packet-reading switch. ToC Gold Goblin uses NPC/manual prices; Market remains SpringRO-only.
+Published map respawns appear in Database/timer hints. See [release notes](docs/releases/3.2.0.md)
+for migration details and the remaining manual ToC acceptance checks.
 
 ## Features
 
@@ -15,10 +20,10 @@ Version 3.0 introduces the redesigned Ragnarok-inspired interface, shared rounde
 - server-duration countdown and remaining-time fill on active buff/debuff icons;
 - missing-status Reminder icons with centered, configurable icon/text presentation;
 - learned equipment tracking by packet, inventory index, Item ID and wear slot;
-- searchable JSON-backed MVP timers with restart/reset, movable list and dedicated hotkey;
+- searchable server-specific MVP timers with restart/reset, movable list and dedicated hotkey;
 - packet-based loot, Zeny and Base/Job EXP notifications with aggregation, independent colors, numbered groups, movable positions and per-group line limits;
-- separate RTM and SpringRO item databases with Equip/Card/Loot/Consumable classification;
-- separate RTM and SpringRO MVP catalogs;
+- separate RTM, SpringRO and ToC item databases with Equip/Card/Loot/Consumable classification;
+- separate RTM, SpringRO and ToC MVP catalogs;
 - named full-settings presets with instant switching for different characters, classes and clients;
 - SpringRO item watchlists with price conditions, customizable notifications and persistent local shop history;
 - independently configurable XP/hour, time-to-level and Zeny/hour overlay indicators;

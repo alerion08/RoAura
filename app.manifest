@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
   <!-- MSBuild cannot substitute the csproj <Version> here; keep in sync with RoAura.csproj manually. -->
-  <assemblyIdentity version="3.1.1.0" name="RoAura.app" />
+  <assemblyIdentity version="3.2.0.0" name="RoAura.app" />
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
     <security>
       <requestedPrivileges>
