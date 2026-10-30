@@ -303,5 +303,5 @@ Copy text/Copy controls in walkthrough/tracker. Variable passwords, menu choices
 and research candidate answers are not inferred or promoted to verified progress.
 More always selects Walkthrough, updates layout and scrolls to the active row,
 even after the same guide was left on Facts. Native smoke checks this path and
-successful navi feedback. Automated validation for this iteration is pending;
+successful navi feedback. Automated validation passed on c6065b2 (302 tests, eight ToC checks, Windows portable startup);
 real SpringRO/DPI/input acceptance remains manual.

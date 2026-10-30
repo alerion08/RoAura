@@ -878,5 +878,23 @@ Copy text/Copy controls in walkthrough/tracker. Variable passwords, menu choices
 and research candidate answers are not inferred or promoted to verified progress.
 More always selects Walkthrough, updates layout and scrolls to the active row,
 even after the same guide was left on Facts. Native smoke checks this path and
-successful navi feedback. Automated validation for this iteration is pending;
+successful navi feedback. Automated validation passed on c6065b2 (302 tests, eight ToC checks, Windows portable startup);
 real SpringRO/DPI/input acceptance remains manual.
+
+Feedback verification: [Actions #41070762636](https://github.com/alerion08/RoAura/actions/runs/41070762636)
+SUCCESS on `c6065b29ce5762e88c74f41dc2dede948a5799e4`: 302 tests,
+zero skipped/failed, eight ToC checks, resources/package checks and portable startup.
+Native input checked successful navi copy/checkmark and More returning from Facts
+to a visible current instruction. Native rasters inspected: no repeated toast,
+per-row green button with white checkmark, location glyph, active details toggle,
+and walkthrough scrolled to the current highlighted step. The shared theme initially
+overrode the checkmark color; its success template now sets the glyph foreground
+explicitly, confirmed in the final native capture.
+Answer-copy behavior is literal-source only; no guarantee of server-specific
+dialogue compatibility or variable password inference. Real SpringRO acceptance
+remains open. Linux build tooling intermittently failed in process metadata;
+the final Windows CI compilation and checks are the validation authority.
+Artifact: [RoAura-development-73-c6065b2](https://github.com/alerion08/RoAura/actions/runs/41070762636/artifacts/12985270376),
+portable plus 17 UI PNGs. Portable SHA256:
+`2274a41fbf6a21c20404cfa78dc603086c505da47bcc284797bf7449fc62ff9a`.
+No release/version/main/research mutation.
