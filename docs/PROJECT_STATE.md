@@ -38,6 +38,15 @@ store methods are explicit now and not attached to the application's lifecycle.
 No gameplay, DPI, hotkey or focus acceptance is claimed. No merge/tag/release.
 See `ROQUESTIE_DATA.md` for APIs and validation boundaries.
 
+Stage-1 Windows verification: [Actions #41041421010](https://github.com/alerion08/RoAura/actions/runs/41041421010)
+SUCCESS on `b6524ae3a7fbd50f220251a6806c9863221a74ca`: 264 app tests
+passed, zero skipped/failed (31 new quest cases included); eight ToC Python
+checks passed; actual pinned quest catalog read through Windows SQLite passed.
+Portable startup smoke, build and clean-payload verification passed. One test
+artifact: `RoAura-development-62-b6524ae3a7fbd50f220251a6806c9863221a74ca`.
+This is a CI test portable with unchanged 3.2.0 metadata, not a new public release;
+it has no quest UI/catalog distribution yet. In-game/manual checks remain pending.
+
 ## ROQuestie stage 0 audit (2026-10-30)
 
 Active scoped branch: `feature/roquestie-mvp`, created from stable main
