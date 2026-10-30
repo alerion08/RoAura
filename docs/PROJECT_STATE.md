@@ -982,4 +982,19 @@ remain stored when source changes; changed instructions no longer match a mark.
 The details Active button is green; explicit restore-to-active is red. New guides
 retain the ordinary style. Native smoke checks copied expiry, fold/unfold and
 scroll overflow; focused tests check mark/collapse persistence and CID isolation.
-Automated validation pending; real SpringRO/fullscreen/DPI acceptance remains open.
+Automated validation passed: 306 tests, eight ToC checks and Windows portable startup; real SpringRO/fullscreen/DPI acceptance remains open.
+
+Fold/scroll/marks verification: [Actions #41130006660](https://github.com/alerion08/RoAura/actions/runs/41130006660)
+SUCCESS on `5dd23348254823752127518be7c69ced21592b0c`: 306 tests,
+zero failed/skipped, eight ToC checks, RU/EN and clean portable validation.
+Native smoke clicks collapse/expand, checks copied coordinate caption and its
+four-second restoration, applies overflow/scrollbar value and preserves prior
+input/focus/database-priority checks. Persistence tests cover completion marks,
+duplicate instruction isolation, collapse state, unchecking and CID separation.
+Active list, copied coordinate/tracker and scrolled native rasters inspected.
+Colored button padding and title alignment were corrected after visual review.
+Actual scrollbar-thumb dragging in SpringRO, fullscreen/mixed-DPI and broad manual
+regression remain open; CI scrollbar value checks do not establish those behaviors.
+Artifact: [RoAura-development-77-5dd2334](https://github.com/alerion08/RoAura/actions/runs/41130006660/artifacts/13013395165).
+Portable SHA256: `5b46c9800c6350be7f45007d94e13cfe9e1ae80d42223668a7032b3a3d551049`.
+No main/research write, product version bump, merge, tag or release.

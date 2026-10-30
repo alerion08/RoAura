@@ -365,4 +365,4 @@ remain stored when source changes; changed instructions no longer match a mark.
 The details Active button is green; explicit restore-to-active is red. New guides
 retain the ordinary style. Native smoke checks copied expiry, fold/unfold and
 scroll overflow; focused tests check mark/collapse persistence and CID isolation.
-Automated validation pending; real SpringRO/fullscreen/DPI acceptance remains open.
+Automated validation passed: 306 tests, eight ToC checks and Windows portable startup; real SpringRO/fullscreen/DPI acceptance remains open.
