@@ -135,6 +135,12 @@ def audit_gaps(db):
                                   w.from_npc_id,w.to_npc_id,w.evidence_type
                           FROM wiki_transition_witnesses w
                           WHERE w.evidence_type!='literal_write_guard_correspondence_nonexecuted'
+                            AND NOT EXISTS (
+                              SELECT 1 FROM wiki_transition_witnesses yes
+                              WHERE yes.page_id=w.page_id AND yes.source_id=w.source_id
+                                AND yes.from_step=w.from_step AND yes.to_step=w.to_step
+                                AND yes.from_npc_id=w.from_npc_id AND yes.to_npc_id=w.to_npc_id
+                                AND yes.evidence_type='literal_write_guard_correspondence_nonexecuted')
                           ORDER BY w.page_id,w.source_id,w.from_step,w.to_step,w.from_npc_id,w.to_npc_id""").fetchall()
     # One gap per ordered wiki NPC pair. Several different common variables
     # are evidence on the same hop; they are NOT separate quest transitions.
