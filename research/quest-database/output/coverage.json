@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-30T05:05:36.698651+00:00",
+  "created_utc": "2026-10-30T07:16:56.492384+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -174,6 +174,26 @@
     "excluded_non_supported_decisions": 6,
     "transition_witnesses": 44
   },
+  "source_transition_gap_review": {
+    "terminal_no_literal_journal_completion_in_named_npcs": 11,
+    "matched_journal_start_complete_literal_ids": 2,
+    "terminal_completequest_present_without_matching_start_in_named_npcs": 5,
+    "terminal_erasequest_only_not_a_completion_signal": 1,
+    "terminal_matching_literal_journal_start_complete_not_executed": 2,
+    "gaps": 40,
+    "no_shared_written_variable": 23,
+    "gaps_with_literal_read_candidates": 7,
+    "literal_guard_read_hints": 7,
+    "gaps_with_item_handoff_candidates": 0,
+    "literal_item_handoffs": 0,
+    "gaps_with_any_item_source_facts": 26,
+    "gaps_with_menu_source_facts": 38,
+    "gaps_with_unresolved_menus": 18,
+    "same_npc_revisit": 8,
+    "shared_write_without_proven_target_guard": 9,
+    "terminal_audits": 19,
+    "supported_source_variants": 19
+  },
   "unclassified_content_review": {
     "pages": 128
   },
@@ -207,7 +227,9 @@
     "wiki_source_sequence_evidence": 83,
     "wiki_transition_audits": 19,
     "wiki_transition_witnesses": 44,
-    "wiki_transition_completion_facts": 24
+    "wiki_transition_completion_facts": 24,
+    "wiki_gap_reviews": 40,
+    "wiki_terminal_reviews": 19
   },
   "quality": {
     "wiki_refresh": {
