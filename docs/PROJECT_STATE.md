@@ -38,6 +38,27 @@ protected/fullscreen, relog/multiple clients, long-session focus and actual mixe
 acceptance remain unverified. This is a test branch, not a release candidate.
 No main/research changes, merges, tags, product version bump or public release.
 
+Game-first verification: [Actions #41056398770](https://github.com/alerion08/RoAura/actions/runs/41056398770)
+SUCCESS on `87b3d5c84b183fae985e880d7793e2e5473e1277`: 290 tests passed,
+zero skipped/failed, plus eight ToC checks. `build-release.ps1`, portable startup,
+RU/EN resources and clean payload passed. The startup includes real cross-process
+mouse/keyboard delivery: Next without activation/click leakage, transparent
+margins/text, Shift/Ctrl/Alt and ordinary keys, independent F5/F6, browser typing
+isolation/exact-client focus restore, F9, drag beyond the handle, production Escape
+handler, settings occlusion, resize-coordinate retention and minimized-client hiding.
+The fake game's native Alt system menu is suppressed in the probe only; all game
+input assertions remain enabled. The probe begins with main settings hidden.
+
+Artifact: [RoAura-development-70-87b3d5c](https://github.com/alerion08/RoAura/actions/runs/41056398770/artifacts/12977186474),
+one portable archive and 15 UI PNGs. Portable SHA256:
+`83b9517226ef42de3d482b4da1d3a44f989f5f0c614d78b75daa7a8a4b4afa4b`.
+Native browser/facts/tracker and Russian walkthrough rasters were inspected:
+full-width steps/current highlight, structured facts and compact multiple quest
+rows are present. The CI fake client exceeds its desktop width/height, so native
+captures clip the right/bottom desktop edge; these do not establish real screen-fit
+or mixed-DPI acceptance. Offscreen scale variants are rendering checks only.
+Real SpringRO checks listed above remain open; no release readiness is claimed.
+
 ## ROQuestie stage 2 — application UI and persistence lifecycle (2026-10-30)
 
 Branch `feature/roquestie-mvp`, based on stage 1 / audit documentation `7f7c2ce`;
