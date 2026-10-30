@@ -32,6 +32,7 @@ from dependencies import SCHEMA as DEPENDENCY_SCHEMA, build_dependency_paths
 from discovery import SCHEMA as DISCOVERY_SCHEMA, review_unlinked_scripts, review_unclassified_content
 from dossiers import SCHEMA as DOSSIER_SCHEMA, create_dossiers
 from adjudicate import SCHEMA as ADJUDICATION_SCHEMA, adjudicate
+from transitions import SCHEMA as TRANSITION_SCHEMA, audit_transitions
 from prerequisites import SCHEMA as PREREQ_SCHEMA, extract_prerequisites
 from augment import augment_evidence
 from quality import (ensure_quality_schema, update_state, state_counts,
@@ -406,7 +407,10 @@ def counts(db):
          ("wiki_missing_script_dossiers","wiki_missing_script_dossiers"),
          ("wiki_missing_script_dossier_facts","wiki_missing_script_dossier_facts"),
          ("wiki_source_decisions","wiki_source_decisions"),
-         ("wiki_source_sequence_evidence","wiki_source_sequence_evidence")]}
+         ("wiki_source_sequence_evidence","wiki_source_sequence_evidence"),
+         ("wiki_transition_audits","wiki_transition_audits"),
+         ("wiki_transition_witnesses","wiki_transition_witnesses"),
+         ("wiki_transition_completion_facts","wiki_transition_completion_facts")]}
 
 def main():
     p=argparse.ArgumentParser()
@@ -439,6 +443,7 @@ def main():
     db.executescript(DISCOVERY_SCHEMA)
     db.executescript(DOSSIER_SCHEMA)
     db.executescript(ADJUDICATION_SCHEMA)
+    db.executescript(TRANSITION_SCHEMA)
     ensure_quality_schema(db)
     original_counts=dataset_counts(db)
     # A previous generated review links to menu point IDs. Clear those first.
@@ -513,11 +518,15 @@ def main():
     report["source_adjudication"]=verdicts["summary"]
     (target/"source_adjudication.json").write_text(
         json.dumps(verdicts,ensure_ascii=False,indent=2),encoding="utf-8")
+    transition_review=audit_transitions(db)
+    report["source_transition_audit"]=transition_review["summary"]
+    (target/"source_transition_audit.json").write_text(
+        json.dumps(transition_review,ensure_ascii=False,indent=2),encoding="utf-8")
     unclassified=review_unclassified_content(db)
     report["unclassified_content_review"]={"pages":unclassified["total"]}
     (target/"unclassified_quest_review.json").write_text(
         json.dumps(unclassified,ensure_ascii=False,indent=2),encoding="utf-8")
-    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','11')")
+    db.execute("INSERT OR REPLACE INTO research_meta VALUES('schema_version','12')")
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('matching_revision','header_and_correlated_npc_coordinate_v1')")
     db.execute("INSERT OR REPLACE INTO research_meta VALUES('research_status','candidate matches only; see coverage.json')")
     db.commit()

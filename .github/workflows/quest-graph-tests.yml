@@ -32,6 +32,8 @@ on:
       - research/quest-database/test_dossiers.py
       - research/quest-database/adjudicate.py
       - research/quest-database/test_adjudicate.py
+      - research/quest-database/transitions.py
+      - research/quest-database/test_transitions.py
       - research/quest-database/source_decisions.json
       - research/quest-database/prerequisites.py
       - research/quest-database/test_prerequisites.py
@@ -53,4 +55,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install -q requests beautifulsoup4 pyyaml
-      - run: cd research/quest-database && python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py test_prerequisites.py test_baseline.py test_content.py test_name_links.py test_dependencies.py test_discovery.py test_dossiers.py test_adjudicate.py
+      - run: cd research/quest-database && python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py test_prerequisites.py test_baseline.py test_content.py test_name_links.py test_dependencies.py test_discovery.py test_dossiers.py test_adjudicate.py test_transitions.py

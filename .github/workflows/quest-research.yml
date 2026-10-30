@@ -39,6 +39,8 @@ on:
       - research/quest-database/test_dossiers.py
       - research/quest-database/adjudicate.py
       - research/quest-database/test_adjudicate.py
+      - research/quest-database/transitions.py
+      - research/quest-database/test_transitions.py
       - research/quest-database/source_decisions.json
       - research/quest-database/prerequisites.py
       - research/quest-database/test_prerequisites.py
@@ -77,7 +79,7 @@ jobs:
       - name: Regression tests for wiki parser and script linking
         run: |
           cd research/quest-database
-          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py test_prerequisites.py test_baseline.py test_content.py test_name_links.py test_dependencies.py test_discovery.py test_dossiers.py test_adjudicate.py
+          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py test_prerequisites.py test_baseline.py test_content.py test_name_links.py test_dependencies.py test_discovery.py test_dossiers.py test_adjudicate.py test_transitions.py
       - name: Rebuild research and runtime SQLite
         run: |
           if [ "${{ github.event.inputs.refresh_sources }}" = "true" ] || [ "${{ github.event.head_commit.message }}" = "research: perform one-time full NPC source refresh" ]; then
@@ -143,6 +145,13 @@ jobs:
           assert consumer.execute("SELECT count(*) FROM quest_source_supported").fetchone()[0]==verdicts["summary"].get("source_supported",0)
           assert con.execute("SELECT count(*) FROM wiki_source_sequence_evidence").fetchone()[0]==verdicts["summary"]["source_sequence_rows"]
           assert all(not x["approved_for_automatic_gameplay"] and not x["source_code_execution_order_verified"] for x in verdicts["decisions"])
+          transitions=json.loads(Path("research/quest-database/output/source_transition_audit.json").read_text(encoding="utf-8"))
+          assert transitions["summary"]["reviewed_source_implementations"]==verdicts["summary"].get("source_supported",0)
+          assert transitions["summary"]["excluded_non_supported_decisions"]==verdicts["summary"].get("rejected",0)+verdicts["summary"].get("variant_conflict",0)
+          assert len(transitions["quests"])==transitions["summary"]["reviewed_source_implementations"]
+          assert con.execute("SELECT count(*) FROM wiki_transition_audits").fetchone()[0]==len(transitions["quests"])
+          assert con.execute("SELECT count(*) FROM wiki_transition_witnesses").fetchone()[0]==transitions["summary"]["transition_witnesses"]
+          assert all(not q["complete_route_verified"] and not q["safe_for_automatic_dialogue"] for q in transitions["quests"])
           assert consumer.execute("SELECT count(*) FROM quest_content_categories").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
           assert consumer.execute("SELECT count(*) FROM quest_content_signals").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_content_signals").fetchone()[0]
           assert consumer.execute("SELECT count(*) FROM quest_dependency_paths").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_prerequisite_paths").fetchone()[0]
@@ -222,13 +231,14 @@ jobs:
             research/quest-database/output/unclassified_quest_review.json
             research/quest-database/output/npc_source_dossiers.json
             research/quest-database/output/source_adjudication.json
+            research/quest-database/output/source_transition_audit.json
           if-no-files-found: error
           retention-days: 30
       - name: Publish database to research branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research/quest-database/output/quest_research.sqlite research/quest-database/output/quest_research.sqlite.gz research/quest-database/output/coverage.json research/quest-database/output/questie_catalog.sqlite research/quest-database/output/questie_catalog.sqlite.gz research/quest-database/output/quest_review_queue.json research/quest-database/output/critical_quest_triage.json research/quest-database/output/roquestie_core_worklist.json research/quest-database/output/missing_script_discovery.json research/quest-database/output/unclassified_quest_review.json research/quest-database/output/npc_source_dossiers.json research/quest-database/output/source_adjudication.json
+          git add research/quest-database/output/quest_research.sqlite research/quest-database/output/quest_research.sqlite.gz research/quest-database/output/coverage.json research/quest-database/output/questie_catalog.sqlite research/quest-database/output/questie_catalog.sqlite.gz research/quest-database/output/quest_review_queue.json research/quest-database/output/critical_quest_triage.json research/quest-database/output/roquestie_core_worklist.json research/quest-database/output/missing_script_discovery.json research/quest-database/output/unclassified_quest_review.json research/quest-database/output/npc_source_dossiers.json research/quest-database/output/source_adjudication.json research/quest-database/output/source_transition_audit.json
           if git diff --cached --quiet; then
             echo "No database changes to publish."
             exit 0
