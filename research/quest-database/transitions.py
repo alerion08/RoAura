@@ -83,6 +83,9 @@ def audit_transitions(db):
     overview=Counter()
     results=[]
     with db:
+        if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='wiki_gap_reviews'").fetchone():
+            db.execute("DELETE FROM wiki_gap_reviews")
+            db.execute("DELETE FROM wiki_terminal_reviews")
         db.execute("DELETE FROM wiki_transition_completion_facts")
         db.execute("DELETE FROM wiki_transition_witnesses")
         db.execute("DELETE FROM wiki_transition_audits")

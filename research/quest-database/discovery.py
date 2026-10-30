@@ -97,6 +97,9 @@ def review_unlinked_scripts(db,max_sources_per_name=8,max_proposals_per_page=12)
         # which in turn reference this proposal. Clear from leaves to roots.
         # These are fully reproducible research records, never player state.
         if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='wiki_transition_completion_facts'").fetchone():
+            if db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='wiki_gap_reviews'").fetchone():
+                db.execute("DELETE FROM wiki_gap_reviews")
+                db.execute("DELETE FROM wiki_terminal_reviews")
             db.execute("DELETE FROM wiki_transition_completion_facts")
             db.execute("DELETE FROM wiki_transition_witnesses")
             db.execute("DELETE FROM wiki_transition_audits")
