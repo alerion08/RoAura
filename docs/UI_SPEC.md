@@ -339,4 +339,4 @@ pixels while visible, even with game focus. No capture/parser changes or window
 ownership; shared clipping keeps other visible areas and input behavior intact.
 Native smoke checks quest limit and database priority for tracker/statistics;
 focused tests cover literal emphasis/source preservation and limit persistence.
-Automated validation pending; actual SpringRO/mixed-DPI acceptance remains open.
+Automated validation passed: 305 tests, eight ToC checks and Windows portable startup; actual SpringRO/mixed-DPI acceptance remains open.

@@ -941,4 +941,19 @@ pixels while visible, even with game focus. No capture/parser changes or window
 ownership; shared clipping keeps other visible areas and input behavior intact.
 Native smoke checks quest limit and database priority for tracker/statistics;
 focused tests cover literal emphasis/source preservation and limit persistence.
-Automated validation pending; actual SpringRO/mixed-DPI acceptance remains open.
+Automated validation passed: 305 tests, eight ToC checks and Windows portable startup; actual SpringRO/mixed-DPI acceptance remains open.
+
+Emphasis/priority verification: [Actions #41089927571](https://github.com/alerion08/RoAura/actions/runs/41089927571)
+SUCCESS on `9cbdc3a754a354f4627b1349763dc04edc038fe6`: 305 tests,
+zero skipped/failed, eight ToC checks, RU/EN/package validation and portable startup.
+Native smoke applies the one-quest limit, opens the actual Database overlay, returns
+focus to the fake game and verifies that both quest and ordinary/statistics surfaces
+exclude the database center. Prior input/focus/drag tests continue to pass.
+Native browser/database and RU catalog rasters inspected: compact point controls,
+separate action row, no availability label and unobstructed database panel. Literal
+highlight matching/source preservation and maximum-limit persistence are covered by
+focused tests. Real SpringRO, mixed-DPI and broad item-name coverage remain manual;
+unrecognized item names remain plain rather than guessed.
+Artifact: [RoAura-development-75-9cbdc3a](https://github.com/alerion08/RoAura/actions/runs/41089927571/artifacts/12992839460).
+Portable SHA256: `2fdd096f155e155e5f12c306adeaef45e6b3ea7593e61f25b7514edbece8a238`.
+No main/research write, version bump, merge, tag or public release.
