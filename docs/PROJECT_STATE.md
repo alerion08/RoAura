@@ -1,5 +1,43 @@
 # Project state
 
+## ROQuestie stage 1 — catalog and manual progress (2026-10-30)
+
+Branch: `feature/roquestie-mvp`, stable base `10adb870` / 3.2.0,
+implementation starts after stage-0 audit `bd3d152`. Version metadata unchanged.
+
+- Added an isolated asynchronous/cancellable consumer schema-v5 reader using
+  Windows system SQLite. It validates schema/integrity/foreign keys, required
+  columns, bounded rows/text, identities and stored step counts. Original wiki
+  text, NULL values, narrative kinds, freshness and location assurance remain
+  distinct. Search is local; no packet/network activity or new dependency.
+- Added manual progress and history keyed by canonical server + CID or explicitly
+  selected local-profile GUID. Observed identity requires ActiveObserved and
+  matching server with packets enabled; unknown/logout/off never inherit CID/AID.
+- New independent `LocalDirectory/ROQuestie` JSON schema 1 store uses atomic
+  replacement, flushed writes, backups, stale-writer checks and read-only recovery.
+  Invalid/future data cannot be overwritten. No old quest format exists: unknown
+  versions are rejected, not implicitly migrated. Presets/settings are untouched.
+- Stable quest keys and instruction anchors preserve missing quests/history.
+  Unique text matches can remap changed catalog steps; missing/ambiguous matches
+  retain the saved position and require explicit selection. Unchanged repeated
+  text retains the chosen row. Next never completes a quest; completion requires
+  an explicit manual confirmation and retains timestamped history.
+- Added 31 focused C# cases, including real pinned schema-v5 catalog tests.
+  Local execution passed all 31 using actual source/tests and xUnit assertions,
+  with Linux system SQLite substituted only for native Windows SQLite. Full
+  Windows-targeted app + test project cross-build succeeded (existing warnings).
+- Development Windows workflow now includes this branch, extracts the exact
+  research catalog at `41bfc483` to RUNNER_TEMP and verifies its SHA before the
+  real Windows reader test. It runs the full suite and existing portable checks.
+  The workflow result for the implementation commit is the Windows authority.
+
+This is the data layer only: no navigation/page/overlay/input/capture/ToC edits,
+no user-visible quest UI yet, no runtime catalog payload bundled in this stage.
+UI/controller stages will schedule debounced saves and flush on scope/close;
+store methods are explicit now and not attached to the application's lifecycle.
+No gameplay, DPI, hotkey or focus acceptance is claimed. No merge/tag/release.
+See `ROQUESTIE_DATA.md` for APIs and validation boundaries.
+
 ## ROQuestie stage 0 audit (2026-10-30)
 
 Active scoped branch: `feature/roquestie-mvp`, created from stable main

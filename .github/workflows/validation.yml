@@ -8,6 +8,7 @@ on:
       - "feature/toc-local-database"
       - "feature/toc-server-integration"
       - "feature/settings-character-overlays"
+      - "feature/roquestie-mvp"
   pull_request:
     branches:
       - "dev/roaura-2-ui"
@@ -37,7 +38,20 @@ jobs:
           python tools/inspect_toc_database.py Data/database.toc.sqlite
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: Prepare pinned ROQuestie consumer for reader tests
+        if: github.ref_name == 'feature/roquestie-mvp'
+        shell: python
+        run: |
+          import hashlib, os, pathlib, subprocess
+          revision = '41bfc483311fa0e24ee84d1b1edcb0b4558914bd'
+          subprocess.run(['git', 'fetch', '--depth=1', 'origin', revision], check=True)
+          payload = subprocess.check_output(['git', 'show', revision + ':research/quest-database/output/questie_catalog.sqlite'])
+          assert hashlib.sha256(payload).hexdigest() == '7c89954c66b90603467ee4b645979fe4bad46ff0003ebaf9073e32c18d748745'
+          (pathlib.Path(os.environ['RUNNER_TEMP']) / 'questie_catalog.sqlite').write_bytes(payload)
+
       - name: Run logic and UI regression tests
+        env:
+          ROAURA_QUEST_CATALOG_TEST_PATH: ${{ github.ref_name == 'feature/roquestie-mvp' && format('{0}/questie_catalog.sqlite', runner.temp) || '' }}
         shell: pwsh
         run: dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release --logger "trx;LogFileName=regression.trx"
 
