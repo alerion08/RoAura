@@ -151,7 +151,13 @@ def audit_transitions(db):
                         for r in before_by[symbol]:
                             if r["literal"] is None:continue
                             for guardline,expression in guard_map[b]:
-                                if guard_tests_symbol(expression,symbol,r["literal"]):
+                                # Only a condition directly associated with
+                                # the destination NPC's write is corroboration.
+                                # An unrelated check elsewhere in the same
+                                # NPC script is not a quest transition.
+                                if (guard_tests_symbol(expression,symbol,r["literal"])
+                                    and any(z["guard_line"]==guardline
+                                            for z in after_by[symbol])):
                                     corroboration=(r,guardline,expression)
                                     break
                             if corroboration:break
