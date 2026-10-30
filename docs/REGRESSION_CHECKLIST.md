@@ -245,3 +245,27 @@ Before merging to `main` or publishing:
       Windows 100/125/150% and long guide names. CI PNGs are supporting evidence only.
 - [ ] Settings preview remains inside RoAura; game overlay/drag/F9/navi acceptance
       stays pending for stages 3/4, without changing existing overlay behavior.
+
+## ROQuestie two game windows (owner priority override)
+
+- [ ] Main Quests section has settings only; no main-app quest search dependency.
+- [ ] F6 browser and F5 tracker toggle independently; remapping/presets and new-key
+      conflicts preserve legacy F7/F8/F9/F10/finish assignments.
+- [ ] Browser catalog/active/history/full-width walkthrough work over the exact
+      game client; More highlights that quest's current instruction.
+- [ ] Combined requirements/rewards has clear source-labeled blocks/lists/values;
+      unknown text, numeric separators, branches and original source remain intact.
+- [ ] Tracker Prev/Next affect only that quest; no automatic completion. Navi copy
+      identifies wiki uncertainty and requires a choice for multiple targets.
+- [ ] Real OS clicks on tracker buttons do not activate it or reach the game;
+      text, blank margins and transparent corners pass through to the game.
+- [ ] Ctrl/Shift/Alt/Windows, movement, typing, F9 and finish-drag remain usable.
+      Browser typing stays in browser; close returns to the exact game HWND.
+- [ ] Settings, Database and native/modal dialogs are not covered by tracker
+      buttons; ordinary overlays are not hidden by the passive full-client HWND.
+- [ ] Resize/minimize/client switch, mixed/negative monitors and 100/125/150% DPI
+      retain every saved coordinate. Dragging/resizing saves only explicit changes.
+- [ ] Cross-client automatic CID stays suspended until a fresh observed session;
+      manual profile stays explicit; logout/server switch never inherits old state.
+- [ ] Run fake-game CI input checks and inspect native captures. Separately test
+      actual SpringRO protected/fullscreen, 2K, multi-client/relog and paste navi.

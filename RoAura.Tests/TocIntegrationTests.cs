@@ -108,7 +108,7 @@ public sealed class TocIntegrationTests
             settings.MvpTimers.Add(new MvpTimer { Name = "Legacy" });
             store.Save(settings);
             var restored = new SettingsStore(root).Load();
-            Assert.Equal(14, restored.SettingsVersion);
+            Assert.Equal(15, restored.SettingsVersion);
             Assert.Equal("ToC", restored.ServerProfile);
             Assert.False(restored.PacketCaptureEnabled);
             Assert.Equal(1039, Assert.Single(restored.ActiveMvpTimers).MonsterId);

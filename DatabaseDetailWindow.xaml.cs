@@ -254,26 +254,6 @@ public partial class DatabaseDetailWindow : Window
 
     // The clipboard is a shared COM resource; another application (or the
     // game client) may hold it for a moment and SetText throws COMException.
-    private static bool TryCopyToClipboard(string text)
-    {
-        for (var attempt = 1; attempt <= 3; attempt++)
-        {
-            try
-            {
-                Clipboard.SetText(text);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                if (attempt == 3)
-                {
-                    DebugLog.Write($"CLIPBOARD ERROR: {ex}");
-                    return false;
-                }
-                System.Threading.Thread.Sleep(50);
-            }
-        }
-        return false;
-    }
+    private static bool TryCopyToClipboard(string text) => ClipboardService.TryCopy(text);
     private void Close_Click(object sender, RoutedEventArgs e) => HideRequested?.Invoke();
 }

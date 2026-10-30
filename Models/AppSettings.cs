@@ -28,6 +28,8 @@ public sealed class AppSettings : INotifyPropertyChanged
     private string _finishMoveHotkey = "Escape";
     private string _timersHotkey = "F10";
     private string _databaseHotkey = "F7";
+    private string _questBrowserHotkey = "F6";
+    private string _questTrackerHotkey = "F5";
     private double _marketBackgroundRefreshMinutes = 10;
     private int _marketWatchHistoryRetentionDays = 30;
     private bool _timersOverlayVisible = true;
@@ -88,6 +90,9 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string FinishMoveHotkey { get => _finishMoveHotkey; set => Set(ref _finishMoveHotkey, NormalizeHotkey(value, "Escape")); }
     public string TimersHotkey { get => _timersHotkey; set => Set(ref _timersHotkey, NormalizeHotkey(value, "F10")); }
     public string DatabaseHotkey { get => _databaseHotkey; set => Set(ref _databaseHotkey, NormalizeHotkey(value, "F7")); }
+    public string QuestBrowserHotkey { get => _questBrowserHotkey; set => Set(ref _questBrowserHotkey, NormalizeHotkey(value,"F6")); }
+    public string QuestTrackerHotkey { get => _questTrackerHotkey; set => Set(ref _questTrackerHotkey, NormalizeHotkey(value,"F5")); }
+    [JsonIgnore] public bool QuestHotkeyConflict { get { var enabled=Services.QuestHotkeys.Enabled(this); return !enabled.Browser || !enabled.Tracker; } }
     public int MarketWatchHistoryRetentionDays
     {
         get => _marketWatchHistoryRetentionDays;
@@ -364,5 +369,7 @@ public sealed class AppSettings : INotifyPropertyChanged
         if (EqualityComparer<T>.Default.Equals(field, value)) return;
         field = value;
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        if (propertyName?.EndsWith("Hotkey", StringComparison.Ordinal) == true)
+            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(QuestHotkeyConflict)));
     }
 }

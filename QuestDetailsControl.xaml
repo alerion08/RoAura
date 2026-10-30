@@ -6,11 +6,10 @@
    <StackPanel><TextBlock x:Name="QuestTitle" Text="{DynamicResource QSelectGuide}" Style="{StaticResource RoSectionTitleStyle}" TextWrapping="Wrap"/>
     <TextBlock x:Name="Metadata" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,4,0,6"/>
    </StackPanel>
-   <Button Grid.Row="1" x:Name="AddButton" Content="{DynamicResource QAdd}" Click="Add_Click" HorizontalAlignment="Left" Margin="0,0,0,8"/>
-   <TabControl Grid.Row="2" Style="{StaticResource EditorTabControlStyle}">
+   <WrapPanel Grid.Row="1"><Button x:Name="AddButton" Content="{DynamicResource QAdd}" Click="Add_Click" HorizontalAlignment="Left" Margin="0,0,8,8"/><Button Content="{DynamicResource QCurrentInstruction}" Click="Current_Click" Margin="0,0,0,8"/></WrapPanel>
+   <TabControl x:Name="DetailsTabs" Grid.Row="2" Style="{StaticResource EditorTabControlStyle}">
     <TabItem Header="{DynamicResource QWalkthrough}"><ScrollViewer x:Name="WalkScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel x:Name="StepsPanel" Margin="0,6,6,0"/></ScrollViewer></TabItem>
-    <TabItem Header="{DynamicResource QRequirements}"><ScrollViewer VerticalScrollBarVisibility="Auto"><TextBlock x:Name="Requirements" TextWrapping="Wrap" Margin="8"/></ScrollViewer></TabItem>
-    <TabItem Header="{DynamicResource QRewards}"><ScrollViewer VerticalScrollBarVisibility="Auto"><TextBlock x:Name="Rewards" TextWrapping="Wrap" Margin="8"/></ScrollViewer></TabItem>
+    <TabItem Header="{DynamicResource QRequirementsRewards}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel x:Name="FactsPanel" Margin="10"/></ScrollViewer></TabItem>
     <TabItem Header="{DynamicResource QSources}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="8"><TextBlock x:Name="SourceText" TextWrapping="Wrap"/><Button Content="{DynamicResource QOpenSource}" Click="Source_Click" HorizontalAlignment="Left" Margin="0,10,0,0"/></StackPanel></ScrollViewer></TabItem>
    </TabControl>
   </Grid>

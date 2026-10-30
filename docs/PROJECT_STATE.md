@@ -1,5 +1,43 @@
 # Project state
 
+## ROQuestie game-first windows (2026-10-30)
+
+Owner explicitly superseded conflicting stage-2/original UX: all normal quest
+work belongs in a large game window, plus an independently toggled edge tracker.
+Main RoAura contains settings only. See `ROQUESTIE_PRODUCT_DIRECTION.md`.
+
+Development remains `feature/roquestie-mvp`, stable main `10adb870` / 3.2.0,
+based on stage-2 documentation `2fddd08`. Product version/manifest unchanged.
+
+Implemented in this block:
+- Large activating game browser, full-width walkthrough/current-step highlight,
+  catalog/active/history and structured combined requirements/rewards with raw
+  source retention. Main-app quest settings are separated from the browser.
+- Independent F6/F5 hotkeys in the existing service/Settings UI, collision-safe
+  new bindings, and a shared F9 mask that retains independent requested states.
+  Legacy hotkey values remain intact; Windows modifiers join the existing bypass.
+- Transparent text tracker and tiny nonactivating mouse-action surfaces, independent
+  per-quest controls and drag handle. DPI/physical client positioning, game lifecycle,
+  settings/browser occlusion and exact-client focus restoration. No cross-process
+  owner or ordinary-overlay interactivity. Passive quest HWNDs are excluded from
+  existing overlay control masks to preserve other overlays.
+- Same-step wiki-only navigation with explicit multi-target choice and shared bounded
+  clipboard behavior; no SendInput command path. Other stays reference-only.
+- Settings schema 15 adds hotkeys/browser geometry; external progress schema stays 1.
+  Client switches invalidate stale automatic CID display until a fresh revision;
+  manual selection remains labeled. Capture/parser/market/ToC behavior unchanged.
+- Focused source-format/navigation/hotkey/preset tests; optional portable startup
+  launches a separate explicit fake-game probe and uses real OS mouse/keyboard input.
+  Native captures supplement browser RU/EN snapshots. Probe/injected input is gated
+  by --smoke-test/explicit probe flag and never used for normal game interaction.
+
+Local validation: Windows-targeted app/test cross-build, XAML XML and RU/EN
+key/reference checks. Exact implementation Windows CI result is the authority
+for full tests, portable startup and cross-process input. Real SpringRO 2K,
+protected/fullscreen, relog/multiple clients, long-session focus and actual mixed-DPI
+acceptance remain unverified. This is a test branch, not a release candidate.
+No main/research changes, merges, tags, product version bump or public release.
+
 ## ROQuestie stage 2 — application UI and persistence lifecycle (2026-10-30)
 
 Branch `feature/roquestie-mvp`, based on stage 1 / audit documentation `7f7c2ce`;

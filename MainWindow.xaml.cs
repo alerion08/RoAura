@@ -742,6 +742,7 @@ public partial class MainWindow : Window
 
     public void EndOverlayEditModes()
     {
+        _questWindows?.EndDrag();
         _changingMoveMode = true;
         MoveModeButton.IsChecked = false;
         GroupMoveModeButton.IsChecked = false;

@@ -41,7 +41,7 @@ public partial class QuestsPage : UserControl
         _workspace = workspace; _observed = observed; _saveVisuals = saveVisuals;
         WorkspaceRoot.DataContext = workspace;
         workspace.Changed += Render;
-        workspace.Settings.QuestOverlay.PropertyChanged += Visuals_Changed;
+
         Render();
     }
     public void Detach()
@@ -49,7 +49,7 @@ public partial class QuestsPage : UserControl
         _searchTimer.Stop();
         if (_workspace is null) return;
         _workspace.Changed -= Render;
-        _workspace.Settings.QuestOverlay.PropertyChanged -= Visuals_Changed;
+
     }
     private static string T(string key) => LocalizationService.Get(key);
     private void Render()
@@ -70,8 +70,8 @@ public partial class QuestsPage : UserControl
                 T("QCatalogReady") + " · v5 · " + _workspace.Catalog.Guides.Count;
             ActiveEmpty.Visibility = _workspace.Active.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             HistoryEmpty.Visibility = _workspace.History.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
-            CatalogDetails.Render(_workspace); ActiveDetails.Render(_workspace);
-            Filter(); RenderPreview();
+            CatalogDetails.Render(_workspace);
+            Filter();
         }
         finally { _updating = false; }
     }
@@ -113,7 +113,7 @@ public partial class QuestsPage : UserControl
         {
             case "prev": _workspace.Move(row, -1); break;
             case "next": _workspace.Move(row, 1); break;
-            case "more": _workspace.SelectedGuide = row.Guide; QuestTabs.SelectedIndex = 1; break;
+            case "more": ShowGuide(row.Guide); break;
             case "up": _workspace.Reorder(row, -1); break;
             case "down": _workspace.Reorder(row, 1); break;
             case "pause": _workspace.SetState(row, QuestManualState.Paused); break;
@@ -125,37 +125,12 @@ public partial class QuestsPage : UserControl
                 break;
         }
     }
-    private void Visuals_Changed(object? sender, PropertyChangedEventArgs e) { _saveVisuals?.Invoke(); RenderPreview(); }
-    private void RenderPreview()
-    {
-        if (_workspace is null) return;
-        PreviewPanel.Children.Clear();
-        var options = _workspace.Settings.QuestOverlay;
-        PreviewPanel.Width = options.Width;
-        PreviewPanel.Opacity = options.OpacityPercent / 100;
-        PreviewPanel.LayoutTransform = new ScaleTransform(options.Scale, options.Scale);
-        Brush color;
-        try { color = (Brush)new BrushConverter().ConvertFromString(options.TextColor)!; }
-        catch { color = Brushes.White; }
-        var rows = _workspace.Active.Where(q => q.Progress.IsVisibleInOverlay).Take(3).ToList();
-        if (rows.Count == 0) { PreviewPanel.Children.Add(new TextBlock { Text = T("QPreviewEmpty"), TextWrapping = TextWrapping.Wrap, Foreground = Brushes.White }); return; }
-        foreach (var row in rows)
-        {
-            PreviewPanel.Children.Add(new TextBlock { Text = row.Title + " " + row.Position + "\n" + row.Instruction,
-                TextWrapping = TextWrapping.Wrap, FontSize = options.FontSize, Foreground = color, Margin = new Thickness(0, 0, 0, options.CardGap) });
-            if (options.ShowCoordinates)
-            {
-                var points = row.Guide?.Steps.FirstOrDefault(s => s.Number == row.Progress.CurrentStep)?.Locations;
-                foreach (var point in points ?? []) PreviewPanel.Children.Add(new TextBlock { Text = (point.Map ?? T("QMapUnknown")) + $" {point.X},{point.Y}", TextWrapping = TextWrapping.Wrap, Foreground = color });
-            }
-            if (options.ShowButtons)
-            {
-                var buttons = new WrapPanel();
-                foreach (var text in new[] { "Prev", "Next", "More", "navi" }) buttons.Children.Add(new Button { Content = text, IsEnabled = false, FontSize = 10, MinHeight = 22, Height = 22, Padding = new Thickness(5, 0, 5, 0) });
-                PreviewPanel.Children.Add(buttons);
-            }
-        }
-    }
+    public void ShowGuide(RoAura.Models.QuestGuide? guide)
+    { if (_workspace is null) return; _workspace.SelectedGuide=guide; QuestTabs.SelectedIndex=3; Dispatcher.BeginInvoke(CatalogDetails.ScrollToCurrent, DispatcherPriority.Loaded); }
+    private void OpenGuide_Click(object sender,RoutedEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
+    private void OpenGuide_DoubleClick(object sender,MouseButtonEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
+    public void FocusSearch() {if(QuestTabs.SelectedIndex==0)SearchInput.Focus();}
+    internal void ShowFacts(RoAura.Models.QuestGuide guide) {ShowGuide(guide);CatalogDetails.ShowFacts();}
     internal async Task ValidateSmokeAsync(QuestWorkspace workspace)
     {
         _workspace = workspace;
@@ -176,7 +151,7 @@ public partial class QuestsPage : UserControl
                 QuestTabs.SelectedIndex = 0;
                 SaveSnapshot(output, language + "-catalog-" + (int)(scale * 100), scale);
             }
-            foreach (var (tab, name) in new[] { (1, "active"), (2, "history"), (3, "settings") })
+            foreach (var (tab, name) in new[] { (1, "active"), (2, "history"), (3, "walkthrough") })
             {
                 QuestTabs.SelectedIndex = tab;
                 SaveSnapshot(output, language + "-" + name, 1);

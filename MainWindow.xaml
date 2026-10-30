@@ -1572,7 +1572,7 @@
                     <local:DatabaseSettingsControl/>
                 </TabItem>
                     <TabItem x:Name="SettingsTab" Header="{DynamicResource SettingsTitle}"><local:SettingsPage/></TabItem>
-                    <TabItem x:Name="QuestsTab" Header="{DynamicResource Quests}"><local:QuestsPage x:Name="QuestPage"/></TabItem>
+                    <TabItem x:Name="QuestsTab" Header="{DynamicResource Quests}"><local:QuestSettingsControl x:Name="QuestPage"/></TabItem>
                     </TabControl>
                 </Grid>
             </Grid>

@@ -1,4 +1,7 @@
 using System.Diagnostics;
+using System.Windows.Documents;
+using System.Windows.Threading;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -25,8 +28,9 @@ public partial class QuestDetailsControl : UserControl
         _lastKey = guide?.Key;
         QuestTitle.Text = guide?.Title ?? T("QSelectGuide");
         Metadata.Text = guide is null ? "" : T("QUnverified") + " · " + T("QFreshness") + ": " + guide.RefreshState + " · " + T("QBaseLevel") + " " + (guide.BaseLevel?.ToString() ?? T("QUnknown")) + " · Job Lv. " + (guide.JobLevel?.ToString() ?? T("QUnknown"));
-        Requirements.Text = string.IsNullOrWhiteSpace(guide?.Requirements) ? T("QUnknown") : guide.Requirements;
-        Rewards.Text = string.IsNullOrWhiteSpace(guide?.Rewards) ? T("QUnknown") : guide.Rewards;
+        FactsPanel.Children.Clear();
+        RenderFacts("QRequirements", guide?.Requirements);
+        RenderFacts("QRewards", guide?.Rewards);
         SourceText.Text = guide is null ? T("QUnknown") : guide.SourceUrl + "\n\n" + T("QReview") + ": " + guide.ReviewState +
             "\n" + T("QSourceHash") + ": " + (guide.ContentHash ?? T("QUnknown")) + "\n" +
             T("QFreshness") + ": " + guide.RefreshState + "\n" + (guide.LastSuccessUtc ?? T("QUnknown")) + "\n" + guide.LastError + "\n\n" + T("QEvidenceHint");
@@ -50,10 +54,47 @@ public partial class QuestDetailsControl : UserControl
                 content.Children.Add(select);
                 StepsPanel.Children.Add(new Border { CornerRadius = new CornerRadius(6), Padding = new Thickness(10), Margin = new Thickness(0, 0, 0, 6),
                     Background = (Brush)FindResource(workspace.IsCurrentStep(step.Number) ? "RoTitleBrush" : "RoCardBrush"),
-                    BorderBrush = (Brush)FindResource("RoSoftBorderBrush"), BorderThickness = new Thickness(1), Child = content });
+                    BorderBrush = (Brush)FindResource(workspace.IsCurrentStep(step.Number) ? "RoGoldBrush" : "RoSoftBorderBrush"),
+                    BorderThickness = new Thickness(workspace.IsCurrentStep(step.Number) ? 2 : 1), Child = content, Tag = step.Number });
             }
         WalkScroll.ScrollToVerticalOffset(offset);
+        if (guide is not null) Dispatcher.BeginInvoke(ScrollToCurrent, DispatcherPriority.Loaded);
     }
+    private void RenderFacts(string title, string? original)
+    {
+        var group = new StackPanel { Margin = new Thickness(0,0,0,18) };
+        var heading = Text(T(title), true); heading.Style=(Style)FindResource("RoSectionTitleStyle");group.Children.Add(heading);
+        var facts = QuestFactFormatter.Parse(original);
+        if (facts.Count == 0) group.Children.Add(Text(T("QUnknown")));
+        foreach(var fact in facts)
+        {
+            var card = new StackPanel();
+            if (fact.Label.Length>0)
+            {
+                var label=Text(QuestFactFormatter.LabelKey(fact.Label) is { } key ? T(key) : fact.Label,true);
+                label.ToolTip=fact.Label;card.Children.Add(label);
+            }
+            if(string.IsNullOrWhiteSpace(fact.Value))card.Children.Add(Text(T("QUnknown")));
+            foreach(var line in QuestFactFormatter.Lines(fact))
+            {
+                var block = Text("",false); block.Margin=new Thickness(12,4,0,5);
+                var last=0;
+                foreach(Match match in Regex.Matches(line,@"\b\d[\d,]*(?:\.\d+)?(?:%|\s*(?:EXP|Zeny))?"))
+                { block.Inlines.Add(new Run(line[last..match.Index]));block.Inlines.Add(new Bold(new Run(match.Value)));last=match.Index+match.Length; }
+                block.Inlines.Add(new Run(line[last..])); card.Children.Add(block);
+            }
+            group.Children.Add(new Border { Child=card, Padding=new Thickness(12),Margin=new Thickness(0,8,0,0),CornerRadius=new CornerRadius(6),Background=(Brush)FindResource("RoTitleBrush") });
+        }
+        if (!string.IsNullOrWhiteSpace(original)) group.Children.Add(new Expander { Header=T("QOriginalText"),Content=Text(original),Margin=new Thickness(0,8,0,0) });
+        FactsPanel.Children.Add(group);
+    }
+    internal void ShowFacts()=>DetailsTabs.SelectedIndex=1;
+    public void ScrollToCurrent()
+    {
+        foreach(var card in StepsPanel.Children.OfType<Border>())
+            if(card.Tag is int step && _workspace?.IsCurrentStep(step)==true) {card.BringIntoView();return;}
+    }
+    private void Current_Click(object sender,RoutedEventArgs e)=>ScrollToCurrent();
     private static TextBlock Text(string value, bool bold = false) => new() { Text = value, TextWrapping = TextWrapping.Wrap,
         FontWeight = bold ? FontWeights.SemiBold : FontWeights.Normal, Margin = new Thickness(0, 2, 0, 3) };
     internal bool HasStepCount(int count) => StepsPanel.Children.Count == count;

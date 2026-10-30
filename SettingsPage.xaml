@@ -2,6 +2,7 @@
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:controls="clr-namespace:RoAura.Controls"
  LostKeyboardFocus="Save_Changed">
  <UserControl.Resources>
+  <BooleanToVisibilityConverter x:Key="QuestBoolVisibility"/>
         <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource RoTextBrush}"/>
             <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}" />
@@ -40,13 +41,17 @@
    </StackPanel></ScrollViewer></TabItem>
    <TabItem Header="{DynamicResource Hotkeys}"><ScrollViewer><StackPanel Margin="18" MaxWidth="720" HorizontalAlignment="Left">
     <TextBlock Text="{DynamicResource AllHotkeysHint}" TextWrapping="Wrap" Margin="0,0,0,12"/>
-    <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="150"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="150"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <TextBlock Text="{DynamicResource SettingsWindowHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding SettingsHotkey}"/>
      <TextBlock Grid.Row="1" Text="{DynamicResource OverlaysHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding OverlaysHotkey}"/>
      <TextBlock Grid.Row="2" Text="{DynamicResource FinishMoveHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding FinishMoveHotkey}"/>
      <TextBlock Grid.Row="3" Text="{DynamicResource TimersHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding TimersHotkey}"/>
      <TextBlock Grid.Row="4" Text="{DynamicResource DatabaseHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding DatabaseHotkey}"/>
+     <TextBlock Grid.Row="5" Text="{DynamicResource QBrowserHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding QuestBrowserHotkey}"/>
+     <TextBlock Grid.Row="6" Text="{DynamicResource QTrackerHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding QuestTrackerHotkey}"/>
+
     </Grid>
+    <TextBlock Text="{DynamicResource QHotkeyConflict}" Visibility="{Binding QuestHotkeyConflict, Converter={StaticResource QuestBoolVisibility}}" Foreground="#B42318" TextWrapping="Wrap" Margin="0,12,0,0"/>
    </StackPanel></ScrollViewer></TabItem>
    <TabItem Header="{DynamicResource CharacterManager}"><Grid Margin="18"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
     <TextBlock Text="{DynamicResource CharacterManagerHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,0,0,12"/>

@@ -307,6 +307,7 @@ public partial class App : Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        if(QuestInputProbe.TryStart(this,e))return;
         // Ragnarok clients and wrappers such as dgVoodoo use the legacy Direct3D
         // device aggressively. Keeping WPF on the software compositor prevents
         // the transparent overlay from sharing GPU resources with the game and
@@ -491,6 +492,8 @@ public partial class App : Application
             _inputHook.EscapePressed += ExitOverlayEditMode;
             _inputHook.ToggleTimersPressed += ToggleTimers;
             _inputHook.ToggleDatabasePressed += ToggleDatabase;
+            _inputHook.ToggleQuestBrowserPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestBrowser());
+            _inputHook.ToggleQuestTrackerPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestTracker());
             _inputHook.Install();
         }
         catch (Exception ex)
@@ -574,7 +577,7 @@ public partial class App : Application
         _nextBaseExperience = _nextJobExperience = 0;
         _previousNextBaseExperience = _previousNextJobExperience = 0;
         _databaseOverlay?.HideDatabase();
-        _inputHook?.SetKeyboardBlocked(false);
+        RefreshKeyboardMode();
         if (_settingsWindow is not null)
             _marketWatch.PruneHistory(_settingsWindow.Settings.MarketWatchHistoryRetentionDays);
         SyncWatchRuleSubscriptions();
@@ -1221,6 +1224,7 @@ public partial class App : Application
             _settingsWindow?.EndOverlayEditModes();
             var visible = !_overlay.AreOverlaysVisible;
             _overlay.SetOverlaysVisible(visible);
+            _settingsWindow?.SetQuestGlobalVisible(visible);
             _settingsWindow?.ReportOverlayVisibility(visible);
         });
     }
@@ -1255,8 +1259,9 @@ public partial class App : Application
             }
             else
             {
-                _inputHook?.SetKeyboardBlocked(true);
+                _settingsWindow?.HideQuestBrowser();
                 _databaseOverlay.ShowForGame();
+                RefreshKeyboardMode();
             }
         });
     }
@@ -1264,10 +1269,12 @@ public partial class App : Application
     private void HideDatabase()
     {
         _databaseOverlay?.HideDatabase();
-        _inputHook?.SetKeyboardBlocked(false);
+        RefreshKeyboardMode();
         if (ForegroundProcess.TryActivateWindow(
                 _settingsWindow?.Settings.AllowedProcesses ?? [], out _)) { }
     }
+
+    public void RefreshKeyboardMode()=>_inputHook?.SetKeyboardBlocked(_databaseOverlay?.IsDatabaseOpen==true || _settingsWindow?.IsQuestBrowserOpen==true);
 
     public void CloseDatabaseOverlay()
     {

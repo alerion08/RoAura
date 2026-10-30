@@ -99,7 +99,7 @@ public sealed class QuestWorkspaceTests : IDisposable
     {
         Directory.CreateDirectory(_root);
         File.WriteAllText(Path.Combine(_root, "settings.json"), """{"SettingsVersion":13,"OverlayCoordinatesRelativeToGame":true,"Skills":[{"X":321,"Y":654}],"QuestOverlay":null}""");
-        var settings = new SettingsStore(_root).Load(); Assert.Equal(14, settings.SettingsVersion);
+        var settings = new SettingsStore(_root).Load(); Assert.Equal(15, settings.SettingsVersion);
         Assert.Equal(321, settings.Skills.Single().X); Assert.Equal(654, settings.Skills.Single().Y);
         Assert.Equal(12, settings.QuestOverlay.X); Assert.Equal(200, settings.QuestOverlay.Y);
         Assert.Contains(settings.NavigationSections, p => p.Feature == AppFeature.Quests);

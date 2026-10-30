@@ -34,6 +34,8 @@ public sealed class GlobalInputHook : IDisposable
     private bool _finishMoveHeld;
     private bool _timersHeld;
     private bool _databaseHeld;
+    private bool _questBrowserHeld, _questTrackerHeld, _questBrowserHookHeld, _questTrackerHookHeld;
+    private volatile int _questBrowserKey, _questTrackerKey;
     private bool _databaseHookHeld;
     private bool _settingsHookHeld;
     private volatile bool _finishMoveEnabled;
@@ -58,6 +60,7 @@ public sealed class GlobalInputHook : IDisposable
     public event Action? EscapePressed;
     public event Action? ToggleTimersPressed;
     public event Action? ToggleDatabasePressed;
+    public event Action? ToggleQuestBrowserPressed, ToggleQuestTrackerPressed;
 
     public GlobalInputHook(AppSettings settings)
     {
@@ -97,6 +100,8 @@ public sealed class GlobalInputHook : IDisposable
             case nameof(AppSettings.FinishMoveHotkey):
             case nameof(AppSettings.TimersHotkey):
             case nameof(AppSettings.DatabaseHotkey):
+            case nameof(AppSettings.QuestBrowserHotkey):
+            case nameof(AppSettings.QuestTrackerHotkey):
                 RefreshVirtualKeys();
                 break;
         }
@@ -109,6 +114,9 @@ public sealed class GlobalInputHook : IDisposable
         _finishMoveKey = ParseVirtualKey(_settings.FinishMoveHotkey);
         _timersKey = ParseVirtualKey(_settings.TimersHotkey);
         _databaseKey = ParseVirtualKey(_settings.DatabaseHotkey);
+        var enabled=QuestHotkeys.Enabled(_settings);
+        _questBrowserKey=enabled.Browser?ParseVirtualKey(_settings.QuestBrowserHotkey):0;
+        _questTrackerKey=enabled.Tracker?ParseVirtualKey(_settings.QuestTrackerHotkey):0;
     }
 
     private IntPtr KeyboardHookCallback(int code, IntPtr message, IntPtr data)
@@ -138,6 +146,16 @@ public sealed class GlobalInputHook : IDisposable
             {
                 if (isDown && !_settingsHookHeld) ToggleSettingsPressed?.Invoke();
                 _settingsHookHeld = isDown;
+            }
+            else if (virtualKey == _questBrowserKey && _questBrowserKey>0)
+            {
+                if(isDown && !_questBrowserHookHeld) ToggleQuestBrowserPressed?.Invoke();
+                _questBrowserHookHeld=isDown;
+            }
+            else if (virtualKey == _questTrackerKey && _questTrackerKey>0)
+            {
+                if(isDown && !_questTrackerHookHeld) ToggleQuestTrackerPressed?.Invoke();
+                _questTrackerHookHeld=isDown;
             }
             return new IntPtr(1);
         }
@@ -200,7 +218,7 @@ public sealed class GlobalInputHook : IDisposable
 
     private static bool IsModifier(int virtualKey) => virtualKey is
         VkShift or VkControl or VkMenu or VkLShift or VkRShift or
-        VkLControl or VkRControl or VkLMenu or VkRMenu;
+        VkLControl or VkRControl or VkLMenu or VkRMenu or 0x5B or 0x5C;
 
     private void PollKeys()
     {
@@ -219,6 +237,13 @@ public sealed class GlobalInputHook : IDisposable
                 PollKey(_databaseKey, ref _databaseHeld, ToggleDatabasePressed);
             else
                 _databaseHeld = false;
+
+            if (!_keyboardBlocked || foregroundProcessId == (uint)Environment.ProcessId)
+            {
+                PollKey(_questBrowserKey,ref _questBrowserHeld,ToggleQuestBrowserPressed);
+                PollKey(_questTrackerKey,ref _questTrackerHeld,ToggleQuestTrackerPressed);
+            }
+            else { _questBrowserHeld=false;_questTrackerHeld=false; }
 
             if (_finishMoveEnabled)
                 PollKey(_finishMoveKey, ref _finishMoveHeld, EscapePressed);

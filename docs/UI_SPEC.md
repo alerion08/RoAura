@@ -236,3 +236,42 @@ navi; the UI explicitly says these are later stages. No duplicate hotkey editor.
 CI startup smoke exercises all-server packet-off navigation, the real catalog,
 two manual guides and RU/EN render captures at 100/125/150% equivalent pixel
 densities. These captures are not real mixed-monitor OS DPI/game acceptance.
+
+## ROQuestie game-first direction (supersedes stage 2)
+
+See `ROQUESTIE_PRODUCT_DIRECTION.md` for the owner's explicit priority override.
+The main application now contains quest settings only. F6 opens/closes a large
+in-game catalog/active/history/walkthrough window; F5 toggles the independent edge
+tracker. Defaults participate in the existing hotkey service/presets and global
+F9 mask. Conflicts disable new quest assignments only, with a localized hint.
+Settings schema 15 adds hotkeys and independent client-relative browser geometry.
+
+The browser reuses the proven activating Database interaction pattern for typing,
+but does not make the game its owner. Walkthrough is a full-width tab, with current
+instruction border/background, jump-to-current and direct manual selection. More
+from any tracker row opens that quest here. Requirements/rewards share a structured
+source-labeled tab; original text is retained. Known field labels may be localized;
+names, conditions, quantities, variants and unsupported text are never guessed.
+
+Tracker text is transparent, shadowed and compact. Its full-client text HWND is
+WS_EX_TRANSPARENT/NOACTIVATE. Separate tiny layered action windows use NOACTIVATE
+and WM_MOUSEACTIVATE=MA_NOACTIVATE, with nonfocusable controls and transparent
+margins. No HTTRANSPARENT cross-process assumption, global mouse hook or new
+capture technology. Visible buttons handle only their painted area; text/world
+clicks pass through. Drag the small handle; mouse-up/finish key ends placement.
+
+Both window types follow the selected eligible client in physical screen bounds,
+with per-window DPI and model coordinates in DIP. Browser moves/resizes persist
+only on explicit user geometry changes. Tiny/minimized/missing clients hide
+surfaces without rewriting layouts. Existing occlusion excludes passive quest
+HWNDs from control masks and treats the browser as a real control window.
+
+Navi filters only same-step literal wiki map/cells; bare/candidate/invalid points
+stay ineligible. Multiple targets require explicit choice. It shares the existing
+bounded clipboard helper with Database; copied is not navigation-started. The
+source/server uncertainty remains visible. Other stays reference-only.
+
+Optional CI smoke uses a separate fake-game executable and real OS input to test
+button focus/clicks, transparent text/margins, keyboard/modifiers, independent keys,
+F9, settings exclusion and resize/minimize. This does not establish protected
+SpringRO/fullscreen/mixed-DPI acceptance. Real-game manual gates remain mandatory.

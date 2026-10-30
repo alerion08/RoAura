@@ -102,7 +102,7 @@ public sealed class SettingsStoreTests : IDisposable
         Assert.False(store.LoadFailed);
         store.Save(settings);
         Assert.NotEqual(invalidJson, File.ReadAllText(settingsPath));
-        Assert.Equal(14, new SettingsStore(_root).Load().SettingsVersion);
+        Assert.Equal(15, new SettingsStore(_root).Load().SettingsVersion);
     }
 
     [Fact]
@@ -142,7 +142,7 @@ public sealed class SettingsStoreTests : IDisposable
         var settings = store.Load();
 
         Assert.False(store.LoadFailed);
-        Assert.Equal(14, settings.SettingsVersion);
+        Assert.Equal(15, settings.SettingsVersion);
         Assert.Equal(4242, settings.PacketServerPort);
         var copy = Assert.Single(Directory.EnumerateFiles(store.RecoveryDirectory, "settings.newer.*.json"));
         Assert.Contains("\"SettingsVersion\": 99", File.ReadAllText(copy));
@@ -394,7 +394,7 @@ public sealed class SettingsStoreTests : IDisposable
         store.Save(migrated);
         var loadedAgain = new SettingsStore(_root).Load();
 
-        Assert.Equal(14, loadedAgain.SettingsVersion);
+        Assert.Equal(15, loadedAgain.SettingsVersion);
         var skill = Assert.Single(loadedAgain.Skills);
         Assert.Equal((1, 80d, 75d, 51d),
             (skill.GroupNumber, skill.IndividualIconSize,

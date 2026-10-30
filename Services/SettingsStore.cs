@@ -10,7 +10,7 @@ public sealed class SettingsStore
     private const string UiUpgradeBackupMarker = "ui-2.0-backup.completed";
     private const string FirstRunPendingMarker = "first-run.pending";
     private const string FirstRunCompletedMarker = "first-run.completed";
-    private const int CurrentSettingsVersion = 14;
+    private const int CurrentSettingsVersion = 15;
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
