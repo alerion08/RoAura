@@ -1,0 +1,24 @@
+ROQuestie reference catalog — schema v5
+
+Source snapshot: alerion08/RoAura, research/quest-database at
+41bfc483311fa0e24ee84d1b1edcb0b4558914bd
+Catalog SHA-256: 7c89954c66b90603467ee4b645979fe4bad46ff0003ebaf9073e32c18d748745
+
+Wiki walkthrough text: iRO Wiki Classic contributors, https://irowiki.org/classic/
+Per-guide original URLs, content hashes and freshness remain in the quests and
+quest_quality tables. Open the source page for its attribution/license notices.
+
+Other catalog tables contain source-derived rAthena and Hercules research,
+with per-script project, source_url and git_blob_sha in the scripts table.
+Original projects: https://github.com/rathena/rathena and
+https://github.com/HerculesWS/Hercules . Their original notices and GPL terms
+remain applicable. This snapshot grants no additional rights.
+
+Research contract and source/license context:
+https://github.com/alerion08/RoAura/tree/41bfc483311fa0e24ee84d1b1edcb0b4558914bd/research/quest-database
+
+Source references/candidate links are not server-verified routes, guaranteed
+requirements/rewards, dialogue answers or live character progress. Manual player
+state belongs in the separate local ROQuestie directory, never this catalog.
+This is a feature-test distribution; full packaging/license review remains a
+stage-5 gate before public release.

@@ -1,5 +1,41 @@
 # Project state
 
+## ROQuestie stage 2 — application UI and persistence lifecycle (2026-10-30)
+
+Branch `feature/roquestie-mvp`, based on stage 1 / audit documentation `7f7c2ce`;
+stable base remains `10adb870` / 3.2.0. No product version/release change.
+
+- Added the supplied scroll icon and Quests after Database in Services. Shared
+  sidebar spacing is slightly tighter. Explicit destination mapping preserves
+  Settings index 9 and all prior feature IDs; Quests is appended as 10 and works
+  without packets on every server, including reference-only Other.
+- Added four theme-consistent RU/EN tabs: local catalog search/provisional filters,
+  active guides, manual history/restore and visual settings with an in-app preview.
+  Full details preserve all source rows, original requirements/rewards, wiki
+  coordinates, freshness/hash/URL and unverified-server labels. More currently
+  uses the application's detail pane; game overlay/More/navi follow in stages 3/4.
+- QuestWorkspace observes existing session snapshots independently of the statistics
+  health gate. Explicit offline choices include saved CID records/backup-only files
+  and one local profile per server. Mutable aliases do not move history. Unknown
+  identity never inherits a CID; switching server clears manual profile selection.
+- Debounced saves (400ms), scope flush and normal-exit flush use independent document
+  copies for background writes. Failed saves preserve pending state and block silent
+  scope/exit loss. Settings schema 14 adds only nested visual options; presets retain
+  live references and do not replace quest history or other overlay coordinates.
+- Feature CI provisions the pinned v5 snapshot to Data (not committed a second time)
+  and includes provenance notices. Source builds can extract the same research blob;
+  absent catalog remains a nonfatal Quests-only error. Source/license/package final
+  review remains a stage-5 public-release gate.
+- Added controller/scope/preset/migration regressions. Full app/test cross-build and
+  XML/RU-EN key parity/reference validation pass locally. Windows full tests,
+  portable startup and RU/EN UI captures are checked on the implementation commit.
+  No actual in-game, mixed-monitor DPI or new overlay-input checks are claimed.
+
+Only data/UI/persistence lifecycle changed. Capture/parser, Gold Goblin, ToC adapter,
+ordinary overlay host, global input hook and hotkey implementations are untouched.
+The existing startup smoke now tests offline quest navigation/catalog and exports
+optional UI PNGs; it still runs in isolated data directories with real capture off.
+
 ## ROQuestie stage 1 — catalog and manual progress (2026-10-30)
 
 Branch: `feature/roquestie-mvp`, stable base `10adb870` / 3.2.0,

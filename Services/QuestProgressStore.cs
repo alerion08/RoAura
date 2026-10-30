@@ -27,6 +27,26 @@ public sealed class QuestProgressStore
     public QuestProgressStore(string? root = null) => _root = root ?? Path.Combine(AppEnvironment.LocalDirectory, "ROQuestie");
     public string PathFor(QuestProfileKey key) => Path.Combine(_root, key.Server, key.StorageId + ".json");
 
+    public IReadOnlyList<QuestProfileKey> ListKnownProfiles(string server)
+    {
+        var canonicalServer = new QuestProfileKey(server, 1, null).Server;
+        var directory = Path.Combine(_root, canonicalServer);
+        if (!Directory.Exists(directory)) return [];
+        var keys = new HashSet<QuestProfileKey>();
+        foreach (var file in Directory.EnumerateFiles(directory, "*.json*"))
+        {
+            var name = Path.GetFileName(file);
+            if (name.EndsWith(".bak", StringComparison.Ordinal)) name = name[..^4];
+            if (!name.EndsWith(".json", StringComparison.Ordinal)) continue;
+            name = name[..^5];
+            if (name.StartsWith("cid-", StringComparison.Ordinal) && uint.TryParse(name[4..], out var cid) && cid > 0)
+                keys.Add(new QuestProfileKey(canonicalServer, cid, null));
+            if (name.StartsWith("local-", StringComparison.Ordinal) && Guid.TryParseExact(name[6..], "N", out var local) && local != Guid.Empty)
+                keys.Add(new QuestProfileKey(canonicalServer, null, local));
+        }
+        return keys.OrderBy(k => k.StorageId, StringComparer.Ordinal).ToList();
+    }
+
     public QuestProgressSession Load(QuestProfileKey key)
     {
         var path = PathFor(key);

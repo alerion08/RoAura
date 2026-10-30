@@ -195,3 +195,44 @@ are collapsed. ToC MVP respawn labels use official map detail data when publishe
 Overlay list help cards share the equipment info-card template, padding, icon and
 text color. Empty-state titles and field labels use RoTextBrush explicitly.
 The About icon always uses its original full-color source.
+
+## ROQuestie stage 2 (feature branch, 2026-10-30)
+
+Quests follows Database in Services and remains available on every server with
+packets off. Settings stays at tab/enum 9 and opens from the header; Quests is
+appended at 10. Existing enum values and destinations are preserved through an
+explicit destination mapping. Shared sidebar rows are 44 DIP with 2-DIP vertical
+margins and 30-DIP icons. The supplied 48px scroll asset is a WPF resource with
+NearestNeighbor; About behavior is untouched.
+
+The light-blue section has the shared header card above Catalog / Active quests /
+History / Overlay settings. Catalog search debounces typing, with provisional
+category and optional character Base Lv. filters; unknown levels remain visible.
+Original names/text stay in their source language. Details show every guide row,
+requirements/rewards (unknown means Not specified), literal wiki coordinates,
+freshness/source URL/hash and assurance. No candidate script becomes a gameplay
+confirmation. More selects the same full detail pane; a game-side More window
+belongs to stage 3.
+
+An automatic observed CID or an explicit manual saved CID/local profile is
+required to edit progress. Manual mode is visibly labeled. Immutable detected
+server identity, not an editable server alias, identifies saved profiles. Unknown
+sessions do not inherit the last CID; changing server clears manual selection.
+Backup-only records can be selected read-only. Active quests have independent
+Prev/Next, visibility, ordering, pause, manual completion confirmation and removal.
+History/restoration retains dates and explicitly manual evidence.
+
+Quest progress autosaves after 400ms, flushes before scope switch and normal exit,
+and remains outside presets. Background saves use isolated document copies and
+stale-writer protection. Failed writes retain pending changes and prevent a scope
+switch or normal exit from silently discarding them. Settings schema 14 adds only
+QuestOverlay visual options, preserving schema-13 layout. Named presets copy the
+nested visual model while retaining its observed reference and external progress.
+
+Overlay settings use NumericTextBox and the standard color palette. The in-app
+preview has smaller 22-DIP buttons and honors width/text/opacity/spacing/scale,
+coordinates and button visibility. Stage 2 does not create a game overlay or send
+navi; the UI explicitly says these are later stages. No duplicate hotkey editor.
+CI startup smoke exercises all-server packet-off navigation, the real catalog,
+two manual guides and RU/EN render captures at 100/125/150% equivalent pixel
+densities. These captures are not real mixed-monitor OS DPI/game acceptance.

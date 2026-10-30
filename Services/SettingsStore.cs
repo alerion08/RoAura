@@ -10,7 +10,7 @@ public sealed class SettingsStore
     private const string UiUpgradeBackupMarker = "ui-2.0-backup.completed";
     private const string FirstRunPendingMarker = "first-run.pending";
     private const string FirstRunCompletedMarker = "first-run.completed";
-    private const int CurrentSettingsVersion = 13;
+    private const int CurrentSettingsVersion = 14;
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -320,6 +320,7 @@ public sealed class SettingsStore
         settings.MvpTimers ??= new();
         settings.TocMvpTimers ??= new();
         settings.Characters ??= new();
+        settings.QuestOverlay ??= new();
         settings.NavigationSections ??= new();
         settings.EnsureNavigationSections();
         foreach (var skill in settings.Skills) { skill.CharacterScope ??= new(); skill.CharacterScope.Characters ??= new(); }

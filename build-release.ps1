@@ -112,7 +112,8 @@ $smokeDataRoot = Join-Path ([IO.Path]::GetTempPath()) ("RoAura-Smoke-" + [guid]:
 $env:ROAURA_SMOKE_DATA = $smokeDataRoot
 try {
 $smokeProcess = Start-Process -FilePath $publishedExecutable -ArgumentList "--smoke-test" -PassThru
-if (-not $smokeProcess.WaitForExit(15000)) {
+$startupSmokeTimeout = if ($env:ROAURA_QUEST_UI_SNAPSHOTS) { 45000 } else { 15000 }
+if (-not $smokeProcess.WaitForExit($startupSmokeTimeout)) {
     Stop-Process -Id $smokeProcess.Id -Force -ErrorAction SilentlyContinue
     throw "RoAura startup smoke test timed out. Release files were not created."
 }

@@ -476,6 +476,7 @@ public partial class App : Application
             DebugLog.Write("SMOKE TEST: startup completed successfully");
             Dispatcher.BeginInvoke(async () =>
             {
+                await _settingsWindow.ValidateQuestsSmokeAsync();
                 await Task.Delay(1200);
                 Shutdown(0);
             });

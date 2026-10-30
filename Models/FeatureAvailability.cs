@@ -1,6 +1,6 @@
 namespace RoAura.Models;
 
-public enum AppFeature { Home, Cooldowns, Effects, Reminders, Equipment, MvpTimers, Statistics, GoldGoblin, Database, Settings }
+public enum AppFeature { Home, Cooldowns, Effects, Reminders, Equipment, MvpTimers, Statistics, GoldGoblin, Database, Settings, Quests }
 
 public static class FeatureAvailability
 {

@@ -37,7 +37,7 @@ public partial class SettingsPage : UserControl
         if (DataContext is not AppSettings settings || NavigationChoices is null) return;
         settings.EnsureNavigationSections();
         NavigationChoices.Children.Clear();
-        string[] labels = ["Home", "Cooldowns", "Effects", "Reminders", "Equipment", "MvpTimers", "LootRewards", "GoldGoblin", "Database", "SettingsTitle"];
+        string[] labels = ["Home", "Cooldowns", "Effects", "Reminders", "Equipment", "MvpTimers", "LootRewards", "GoldGoblin", "Database", "SettingsTitle", "Quests"];
         foreach (var preference in settings.NavigationSections.Where(p => p.Feature is not (AppFeature.Home or AppFeature.Settings) && (int)p.Feature < labels.Length))
         {
             var box = new CheckBox { Margin = new Thickness(0, 6, 0, 6), DataContext = preference,

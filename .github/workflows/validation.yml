@@ -48,6 +48,7 @@ jobs:
           payload = subprocess.check_output(['git', 'show', revision + ':research/quest-database/output/questie_catalog.sqlite'])
           assert hashlib.sha256(payload).hexdigest() == '7c89954c66b90603467ee4b645979fe4bad46ff0003ebaf9073e32c18d748745'
           (pathlib.Path(os.environ['RUNNER_TEMP']) / 'questie_catalog.sqlite').write_bytes(payload)
+          pathlib.Path('Data/questie_catalog.sqlite').write_bytes(payload)
 
       - name: Run logic and UI regression tests
         env:
@@ -71,6 +72,8 @@ jobs:
           }
 
       - name: Build development portable package
+        env:
+          ROAURA_QUEST_UI_SNAPSHOTS: ${{ github.ref_name == 'feature/roquestie-mvp' && format('{0}/artifacts/roquestie-ui', github.workspace) || '' }}
         shell: pwsh
         run: .\build-release.ps1
 
@@ -104,5 +107,7 @@ jobs:
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: RoAura-development-${{ github.run_number }}-${{ github.sha }}
-          path: artifacts/*-portable.zip
+          path: |
+            artifacts/*-portable.zip
+            artifacts/roquestie-ui/*.png
           if-no-files-found: error

@@ -77,6 +77,7 @@ public partial class MainWindow : Window
         _store = store;
         _overlay = overlay;
         _packetCapture = packetCapture;
+        InitializeQuests();
         _goldGoblin.Changed += GoldGoblin_Changed;
         _packetCapture.StatusChanged += OnLearningStatusObserved;
         _packetCapture.SkillUsed += OnLearningSkillObserved;
@@ -148,7 +149,7 @@ public partial class MainWindow : Window
     private void OpenSettings_Click(object sender, RoutedEventArgs e)
     {
         foreach (var button in new[] { HomeNavButton, CooldownNavButton, EffectsNavButton, RemindersNavButton,
-            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton })
+            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton, QuestsNavButton })
             button.IsChecked = false;
         MainTabs.SelectedIndex = 9;
     }
@@ -269,13 +270,15 @@ public partial class MainWindow : Window
 
     private void UpdateNavigationAvailability()
     {
-        var buttons = new[] { HomeNavButton, CooldownNavButton, EffectsNavButton, RemindersNavButton,
-            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton };
+        (RadioButton Button, AppFeature Feature, int Tab)[] destinations = [
+            (HomeNavButton, AppFeature.Home, 0), (CooldownNavButton, AppFeature.Cooldowns, 1),
+            (EffectsNavButton, AppFeature.Effects, 2), (RemindersNavButton, AppFeature.Reminders, 3),
+            (EquipmentNavButton, AppFeature.Equipment, 4), (MvpNavButton, AppFeature.MvpTimers, 5),
+            (LootNavButton, AppFeature.Statistics, 6), (GoldGoblinNavButton, AppFeature.GoldGoblin, 7),
+            (DatabaseNavButton, AppFeature.Database, 8), (QuestsNavButton, AppFeature.Quests, 10) ];
         ServicesNavHeading.Visibility = Visibility.Visible;
-        for (var i = 0; i < buttons.Length; i++)
+        foreach (var (button, feature, i) in destinations)
         {
-            var button = buttons[i];
-            var feature = (AppFeature)i;
             var enabled = FeatureAvailability.CanUse(Settings.ServerProfile, Settings.PacketCaptureEnabled, feature);
             button.Visibility = Settings.IsNavigationVisible(feature) ? Visibility.Visible : Visibility.Collapsed;
             button.IsEnabled = enabled;
@@ -882,6 +885,7 @@ public partial class MainWindow : Window
             RebuildCooldownGroupFilterItems();
             LootColorsGroup.DataContext = Settings.RewardChannels.FirstOrDefault(c => c.Kind == RewardKind.Loot);
             LocalizationService.ApplyLanguage(Settings.Language);
+            _questWorkspace.RefreshLanguage();
             LanguageBox.SelectedIndex = Settings.Language == "en" ? 1 : 0;
             ServerProfileBox.SelectedValue = Settings.ServerProfile;
             UpdateServerProfileLabels();
@@ -2203,6 +2207,7 @@ public partial class MainWindow : Window
         if (!_languageReady || LanguageBox.SelectedItem is not ComboBoxItem { Tag: string language }) return;
         Settings.Language = language;
         LocalizationService.ApplyLanguage(language);
+        _questWorkspace.RefreshLanguage();
         Settings.RefreshPacketCaptureStateLanguage();
         UpdateServerProfileLabels();
         RebuildCooldownGroupFilterItems();
@@ -2240,15 +2245,20 @@ public partial class MainWindow : Window
 
     private void Exit_Click(object sender, RoutedEventArgs e)
     {
-        SaveSettings();
-        _shutdownStarted = true;
-        Application.Current.Shutdown();
+        Close();
     }
 
     private void SetStatus(string text) => StatusText.Text = $"{DateTime.Now:HH:mm:ss} · {text}";
 
     protected override void OnClosing(CancelEventArgs e)
     {
+        if (_questWorkspace.HasPendingWrites && !_questCloseFlushed)
+        {
+            e.Cancel = true;
+            if (!_questClosing) _ = FlushQuestsThenCloseAsync();
+            return;
+        }
+        CloseQuests();
         if (Keyboard.FocusedElement is Controls.NumericTextBox numericEditor)
             numericEditor.CommitInput();
         _connectionDetectionTimer.Stop();

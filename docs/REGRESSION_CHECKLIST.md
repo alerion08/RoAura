@@ -224,3 +224,24 @@ Before merging to `main` or publishing:
 - [ ] Header Settings button replaces hotkey legend; no Settings sidebar entry. Return to each sidebar section works.
 - [ ] Overlay help cards share Equipment's border/icon/padding/text color in RU and EN.
 - [ ] About icon remains colored across server and packet-switch changes.
+
+## ROQuestie stage 2
+
+- [ ] Quests follows Database; compact sidebar retains every destination; Settings
+      still opens from the header and About remains colored.
+- [ ] RTM/SpringRO/ToC/Other, packets off: Quests is readable and enabled.
+- [ ] Catalog missing/corrupt/unsupported: only Quests reports an error; retry works.
+- [ ] Original-title search, provisional categories, unknown/known level filters;
+      Lost Child shows 13 original rows and Friendship 14, including source details.
+- [ ] Unknown CID needs explicit profile choice; manual mode is clearly labeled.
+      Switch CID/server/relog; immutable detected server and aliases do not mix state.
+- [ ] Prev/Next/More, reorder, visibility, pause/remove, confirmed manual completion,
+      history and restore retain each quest's independent position through restart.
+- [ ] Save failure/backup-only recovery: no silent overwrite, no unsaved scope/exit
+      loss; explicit retry remains possible.
+- [ ] Schema 13 -> 14 and presets preserve all old overlay coordinates, exact
+      equipment data and external quest progress; only quest visuals follow presets.
+- [ ] RU/EN empty/loading/error/populated states at minimum window size; actual
+      Windows 100/125/150% and long guide names. CI PNGs are supporting evidence only.
+- [ ] Settings preview remains inside RoAura; game overlay/drag/F9/navi acceptance
+      stays pending for stages 3/4, without changing existing overlay behavior.

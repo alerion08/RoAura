@@ -92,3 +92,28 @@ The complete app and test project cross-compile for Windows with .NET 8.0.415.
 These checks do not prove native Windows/WPF/game behavior. Full Windows suite,
 portable startup/payload validation and its exact commit CI result are required.
 No interactive in-game/DPI/manual regression or release readiness is claimed.
+
+## Stage-2 integration
+
+QuestWorkspace is the UI-thread controller; MainWindow.Quests dispatches existing
+CID snapshots independently of statistics, debounces saves and flushes before
+scope changes/normal close. The page's automatic and manual choices are explicit.
+ListKnownProfiles enumerates safe per-server CID/local filenames (including backup
+only), never using an alias to rewrite detected identity. Read-only recovery stays
+read-only. Save failures preserve the old pending document until retry.
+
+Feature CI now extracts the pinned consumer to Data/questie_catalog.sqlite for
+the test portable and real-app smoke; .gitignore avoids duplicating the research
+binary. On a full clone, provision it locally without changing research:
+
+```python
+import pathlib, subprocess
+revision = '41bfc483311fa0e24ee84d1b1edcb0b4558914bd'
+subprocess.run(['git', 'fetch', 'origin', revision], check=True)
+payload = subprocess.check_output(['git', 'show', revision + ':research/quest-database/output/questie_catalog.sqlite'])
+pathlib.Path('Data/questie_catalog.sqlite').write_bytes(payload)
+```
+
+The source tree retains the reader's nonfatal missing-catalog state. Notices ship
+next to the snapshot. Full packaging/license review remains stage 5. Schema 14
+visual settings participate in presets; external quest state never does.
