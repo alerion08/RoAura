@@ -7,7 +7,7 @@
     <TextBlock x:Name="Metadata" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,4,0,6"/>
    </StackPanel>
    <Button Grid.Row="1" x:Name="AddButton" Content="{DynamicResource QAdd}" Click="Add_Click" HorizontalAlignment="Left" Margin="0,0,0,8"/>
-   <TabControl Grid.Row="2">
+   <TabControl Grid.Row="2" Style="{StaticResource EditorTabControlStyle}">
     <TabItem Header="{DynamicResource QWalkthrough}"><ScrollViewer x:Name="WalkScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel x:Name="StepsPanel" Margin="0,6,6,0"/></ScrollViewer></TabItem>
     <TabItem Header="{DynamicResource QRequirements}"><ScrollViewer VerticalScrollBarVisibility="Auto"><TextBlock x:Name="Requirements" TextWrapping="Wrap" Margin="8"/></ScrollViewer></TabItem>
     <TabItem Header="{DynamicResource QRewards}"><ScrollViewer VerticalScrollBarVisibility="Auto"><TextBlock x:Name="Rewards" TextWrapping="Wrap" Margin="8"/></ScrollViewer></TabItem>

@@ -4,7 +4,8 @@ using RoAura.Models;
 
 namespace RoAura.Services;
 
-public sealed record QuestProfileChoice(string Caption, QuestProfileKey? Key);
+public sealed record QuestProfileChoice(string Caption, QuestProfileKey? Key)
+{ public override string ToString() => Caption; }
 public sealed record QuestListRow(QuestProgressEntry Progress, QuestGuide? Guide, bool Editable = true)
 {
     public string Title => Guide?.Title ?? Progress.Title;

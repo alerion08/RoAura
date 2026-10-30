@@ -9,7 +9,8 @@ using RoAura.Services;
 
 namespace RoAura;
 
-public sealed record QuestCategoryChoice(string Caption, string? Key);
+public sealed record QuestCategoryChoice(string Caption, string? Key)
+{ public override string ToString() => Caption; }
 public sealed record QuestCatalogListRow(QuestGuide Guide)
 {
     public string Title => Guide.Title;
@@ -185,14 +186,22 @@ public partial class QuestsPage : UserControl
     }
     private void SaveSnapshot(string directory, string name, double scale)
     {
-        // Render at equivalent pixel densities, not a claim of mixed-monitor OS DPI acceptance.
-        Measure(new Size(840, 560)); Arrange(new Rect(0, 0, 840, 560)); UpdateLayout();
-        Dispatcher.Invoke(() => { }, DispatcherPriority.ContextIdle);
-        var bitmap = new System.Windows.Media.Imaging.RenderTargetBitmap((int)(840 * scale), (int)(560 * scale), 96 * scale, 96 * scale, PixelFormats.Pbgra32);
-        bitmap.Render(this);
-        var encoder = new System.Windows.Media.Imaging.PngBitmapEncoder();
-        encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bitmap));
-        using var file = File.Create(Path.Combine(directory, name + ".png")); encoder.Save(file);
+        // A detached view cannot be re-arranged by MainWindow's larger parent slot.
+        // Equivalent pixel densities are not real mixed-monitor OS DPI acceptance.
+        var view = new QuestsPage();
+        view.Initialize(_workspace!, () => default, () => { });
+        try
+        {
+            view.SearchInput.Text = SearchInput.Text; view._searchTimer.Stop(); view.Filter();
+            view.QuestTabs.SelectedIndex = QuestTabs.SelectedIndex;
+            view.Measure(new Size(840, 560)); view.Arrange(new Rect(0, 0, 840, 560)); view.UpdateLayout();
+            var bitmap = new System.Windows.Media.Imaging.RenderTargetBitmap((int)(840 * scale), (int)(560 * scale), 96 * scale, 96 * scale, PixelFormats.Pbgra32);
+            bitmap.Render(view);
+            var encoder = new System.Windows.Media.Imaging.PngBitmapEncoder();
+            encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bitmap));
+            using var file = File.Create(Path.Combine(directory, name + ".png")); encoder.Save(file);
+        }
+        finally { view.Detach(); }
     }
 
 }

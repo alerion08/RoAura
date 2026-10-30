@@ -3,13 +3,14 @@
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
  xmlns:local="clr-namespace:RoAura" xmlns:controls="clr-namespace:RoAura.Controls">
  <UserControl.Resources>
+  <Style x:Key="QuestError" TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="Foreground" Value="#B42318"/><Style.Triggers><Trigger Property="Text" Value=""><Setter Property="Visibility" Value="Collapsed"/></Trigger><Trigger Property="Text" Value="{x:Null}"><Setter Property="Visibility" Value="Collapsed"/></Trigger></Style.Triggers></Style>
   <BooleanToVisibilityConverter x:Key="BoolVisibility"/>
   <local:QuestStateConverter x:Key="QuestState"/>
   <Style x:Key="QuestCard" TargetType="Border"><Setter Property="Background" Value="{StaticResource RoCardBrush}"/><Setter Property="BorderBrush" Value="{StaticResource RoSoftBorderBrush}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="CornerRadius" Value="7"/><Setter Property="Padding" Value="12"/><Setter Property="Margin" Value="0,0,6,8"/></Style>
   <Style x:Key="QuestText" TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="Foreground" Value="{StaticResource RoTextBrush}"/><Setter Property="Margin" Value="0,3"/></Style>
   <Style x:Key="QuestNumber" TargetType="controls:NumericTextBox" BasedOn="{StaticResource RoTextBoxStyle}"><Setter Property="Width" Value="80"/><Setter Property="Margin" Value="8,3,14,3"/></Style>
  </UserControl.Resources>
- <Grid x:Name="WorkspaceRoot" Margin="4">
+ <Grid x:Name="WorkspaceRoot" Margin="4" Background="{StaticResource RoPanelBrush}">
   <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
   <Border Style="{StaticResource SectionHeaderCardStyle}"><StackPanel><TextBlock Text="ROQuestie" Style="{StaticResource RoDisplayTextStyle}" FontSize="22"/><TextBlock Text="{DynamicResource QSubtitle}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}"/></StackPanel></Border>
   <Border Grid.Row="1" Style="{StaticResource InfoHintStyle}" Margin="0,0,0,8"><StackPanel>
@@ -18,9 +19,9 @@
    <TextBlock Text="{Binding ScopeCaption}" TextWrapping="Wrap" Margin="0,5,0,0"/>
   </StackPanel></Border>
   <StackPanel Grid.Row="2" Margin="0,0,0,8"><DockPanel><Button Content="{DynamicResource QReload}" DockPanel.Dock="Right" Click="Reload_Click"/><TextBlock x:Name="CatalogStatus" TextWrapping="Wrap" VerticalAlignment="Center"/></DockPanel>
-   <TextBlock Text="{Binding CatalogError}" TextWrapping="Wrap" Foreground="#B42318"/><TextBlock Text="{Binding Error}" TextWrapping="Wrap" Foreground="#B42318"/>
+   <TextBlock Text="{Binding CatalogError}" Style="{StaticResource QuestError}"/><TextBlock Text="{Binding Error}" Style="{StaticResource QuestError}"/>
   </StackPanel>
-  <TabControl Grid.Row="3" x:Name="QuestTabs">
+  <TabControl Grid.Row="3" x:Name="QuestTabs" Style="{StaticResource SectionTabControlStyle}">
    <TabItem Header="{DynamicResource QCatalog}">
     <Grid Margin="0,8,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width=".8*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="1.3*"/></Grid.ColumnDefinitions>
      <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
