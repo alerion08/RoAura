@@ -11,6 +11,8 @@
     "no_shared_written_variable": 23,
     "gaps_with_literal_read_candidates": 7,
     "literal_guard_read_hints": 7,
+    "gaps_with_same_npc_item_check_consume_pairs": 8,
+    "same_npc_item_check_consume_pairs": 20,
     "gaps_with_item_handoff_candidates": 0,
     "literal_item_handoffs": 0,
     "gaps_with_any_item_source_facts": 26,
@@ -572,6 +574,44 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [
+        {
+          "npc": "Zelmeto",
+          "item_id": 7317,
+          "check_lines": [
+            3494
+          ],
+          "consume_lines": [
+            3554
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Zelmeto",
+          "item_id": 7319,
+          "check_lines": [
+            3494
+          ],
+          "consume_lines": [
+            3555
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Zelmeto",
+          "item_id": 7325,
+          "check_lines": [
+            3494
+          ],
+          "consume_lines": [
+            3553
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        }
+      ],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -983,6 +1023,44 @@
       ],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [
+        {
+          "npc": "Zelmeto",
+          "item_id": 7317,
+          "check_lines": [
+            3494
+          ],
+          "consume_lines": [
+            3554
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Zelmeto",
+          "item_id": 7319,
+          "check_lines": [
+            3494
+          ],
+          "consume_lines": [
+            3555
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Zelmeto",
+          "item_id": 7325,
+          "check_lines": [
+            3494
+          ],
+          "consume_lines": [
+            3553
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        }
+      ],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -1100,6 +1178,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -1649,6 +1728,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -2053,6 +2133,7 @@
       ],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -2170,6 +2251,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -2407,6 +2489,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -2675,6 +2758,7 @@
       ],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 6,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -2857,6 +2941,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 6,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -3094,6 +3179,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -3362,6 +3448,7 @@
       ],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 6,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -3544,6 +3631,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 6,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -3794,6 +3882,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 2,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -4206,6 +4295,68 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [
+        {
+          "npc": "Shaman",
+          "item_id": 523,
+          "check_lines": [
+            10348
+          ],
+          "consume_lines": [
+            10360
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Shaman",
+          "item_id": 748,
+          "check_lines": [
+            10348
+          ],
+          "consume_lines": [
+            10359
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Shaman",
+          "item_id": 990,
+          "check_lines": [
+            10348
+          ],
+          "consume_lines": [
+            10356
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Shaman",
+          "item_id": 991,
+          "check_lines": [
+            10348
+          ],
+          "consume_lines": [
+            10357
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Shaman",
+          "item_id": 992,
+          "check_lines": [
+            10348
+          ],
+          "consume_lines": [
+            10358
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        }
+      ],
       "unresolved_menu_options_in_two_npcs": 4,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -4456,6 +4607,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 2,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -4868,6 +5020,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 4,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -5532,6 +5685,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -6260,6 +6414,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -6980,6 +7135,7 @@
       ],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 1,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -7700,6 +7856,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 1,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -8420,6 +8577,20 @@
       ],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [
+        {
+          "npc": "Inspector#prince",
+          "item_id": 1064,
+          "check_lines": [
+            539
+          ],
+          "consume_lines": [
+            546
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        }
+      ],
       "unresolved_menu_options_in_two_npcs": 1,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -9140,6 +9311,20 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [
+        {
+          "npc": "Inspector#prince",
+          "item_id": 1064,
+          "check_lines": [
+            539
+          ],
+          "consume_lines": [
+            546
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        }
+      ],
       "unresolved_menu_options_in_two_npcs": 1,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -9212,6 +9397,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -9324,6 +9510,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -9436,6 +9623,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -9508,6 +9696,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -9620,6 +9809,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -9732,6 +9922,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -9968,6 +10159,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 3,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -10253,6 +10445,7 @@
       "first_npc_item_operations": [],
       "second_npc_item_operations": [],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 1,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -10536,6 +10729,32 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [
+        {
+          "npc": "Uncle Hairy",
+          "item_id": 938,
+          "check_lines": [
+            320
+          ],
+          "consume_lines": [
+            325
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Uncle Hairy",
+          "item_id": 1024,
+          "check_lines": [
+            320
+          ],
+          "consume_lines": [
+            324
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        }
+      ],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -10950,6 +11169,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -11364,6 +11584,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -11647,6 +11868,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -12061,6 +12283,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -12475,6 +12698,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 0,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -12877,6 +13101,59 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [
+        {
+          "npc": "Cool Devi#06_hw",
+          "item_id": 535,
+          "check_lines": [
+            146
+          ],
+          "consume_lines": [
+            175
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Cool Devi#06_hw",
+          "item_id": 2226,
+          "check_lines": [
+            146
+          ],
+          "consume_lines": [
+            176
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Cool Devi#06_hw",
+          "item_id": 5134,
+          "check_lines": [
+            102
+          ],
+          "consume_lines": [
+            131
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        },
+        {
+          "npc": "Cool Devi#06_hw",
+          "item_id": 7609,
+          "check_lines": [
+            54,
+            102,
+            146
+          ],
+          "consume_lines": [
+            130,
+            174
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        }
+      ],
       "unresolved_menu_options_in_two_npcs": 4,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -13142,6 +13419,20 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [
+        {
+          "npc": "Deviruchi#06_hw",
+          "item_id": 12192,
+          "check_lines": [
+            422
+          ],
+          "consume_lines": [
+            437
+          ],
+          "same_branch_verified": false,
+          "mandatory_item_requirement_verified": false
+        }
+      ],
       "unresolved_menu_options_in_two_npcs": 1,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -13544,6 +13835,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 4,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -13809,6 +14101,7 @@
         }
       ],
       "literal_item_handoff_candidates": [],
+      "same_npc_item_check_consume_pairs": [],
       "unresolved_menu_options_in_two_npcs": 1,
       "guards_executed": false,
       "item_requirements_proven": false,
@@ -13861,7 +14154,9 @@
           "role": "quest_start",
           "quest_id": 3050,
           "argument": "3050",
-          "guard_line": 1237
+          "guard_line": 1237,
+          "guard_expression": "BaseLevel > 79",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34418,
@@ -13870,7 +14165,9 @@
           "role": "quest_complete",
           "quest_id": 3056,
           "argument": "3056",
-          "guard_line": 1595
+          "guard_line": 1595,
+          "guard_expression": "countitem(Morroc_Skin) > 0",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34418,
@@ -13879,7 +14176,9 @@
           "role": "quest_complete",
           "quest_id": 3056,
           "argument": "3056",
-          "guard_line": 1595
+          "guard_line": 1595,
+          "guard_expression": "countitem(Morroc_Skin) > 0",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34418,
@@ -13888,7 +14187,9 @@
           "role": "quest_complete",
           "quest_id": 3056,
           "argument": "3056",
-          "guard_line": 1595
+          "guard_line": 1595,
+          "guard_expression": "countitem(Morroc_Skin) > 0",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34418,
@@ -13897,7 +14198,9 @@
           "role": "quest_complete",
           "quest_id": 3056,
           "argument": "3056",
-          "guard_line": 1729
+          "guard_line": 1729,
+          "guard_expression": "rebirth_moc_edq == 7",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34418,
@@ -13906,7 +14209,9 @@
           "role": "quest_complete",
           "quest_id": 3056,
           "argument": "3056",
-          "guard_line": 1729
+          "guard_line": 1729,
+          "guard_expression": "rebirth_moc_edq == 7",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34418,
@@ -13915,7 +14220,9 @@
           "role": "quest_complete",
           "quest_id": 3056,
           "argument": "3056",
-          "guard_line": 1729
+          "guard_line": 1729,
+          "guard_expression": "rebirth_moc_edq == 7",
+          "guard_branch_executed": false
         }
       ],
       "full_quest_terminal_path_verified": false
@@ -13964,7 +14271,9 @@
           "role": "quest_start",
           "quest_id": 2071,
           "argument": "2071",
-          "guard_line": 2742
+          "guard_line": 2742,
+          "guard_expression": "Shinokas_Quest == 0",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34149,
@@ -13973,7 +14282,9 @@
           "role": "quest_complete",
           "quest_id": 2078,
           "argument": "2078",
-          "guard_line": 3042
+          "guard_line": 3042,
+          "guard_expression": "Shinokas_Quest == 10",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34141,
@@ -13982,7 +14293,9 @@
           "role": "quest_complete",
           "quest_id": 8031,
           "argument": "8031",
-          "guard_line": 2010
+          "guard_line": 2010,
+          "guard_expression": "(EinFactory == 15) && (countitem(Tube) > 19) && (countitem(Screw) > 9) && (countitem(Old_Steel_Plate) > 9)",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34141,
@@ -13991,7 +14304,9 @@
           "role": "quest_start",
           "quest_id": 8017,
           "argument": "8017",
-          "guard_line": null
+          "guard_line": null,
+          "guard_expression": null,
+          "guard_branch_executed": false
         }
       ],
       "full_quest_terminal_path_verified": false
@@ -14014,7 +14329,9 @@
           "role": "quest_start",
           "quest_id": 2071,
           "argument": "2071",
-          "guard_line": 4228
+          "guard_line": 4228,
+          "guard_expression": "Shinokas_Quest == 0",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 29178,
@@ -14023,7 +14340,9 @@
           "role": "quest_complete",
           "quest_id": 2078,
           "argument": "2078",
-          "guard_line": 4528
+          "guard_line": 4528,
+          "guard_expression": "Shinokas_Quest == 10",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 29170,
@@ -14032,7 +14351,9 @@
           "role": "quest_complete",
           "quest_id": 8031,
           "argument": "8031",
-          "guard_line": 3494
+          "guard_line": 3494,
+          "guard_expression": "(EinFactory == 15) && (countitem(7325) > 19) && (countitem(7317) > 9) && (countitem(7319) > 9)",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 29170,
@@ -14041,7 +14362,9 @@
           "role": "quest_start",
           "quest_id": 8017,
           "argument": "8017",
-          "guard_line": null
+          "guard_line": null,
+          "guard_expression": null,
+          "guard_branch_executed": false
         }
       ],
       "full_quest_terminal_path_verified": false
@@ -14077,7 +14400,9 @@
           "role": "quest_erase",
           "quest_id": 60200,
           "argument": "60200",
-          "guard_line": null
+          "guard_line": null,
+          "guard_expression": null,
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28056,
@@ -14086,7 +14411,9 @@
           "role": "quest_erase",
           "quest_id": 60201,
           "argument": "60201",
-          "guard_line": null
+          "guard_line": null,
+          "guard_expression": null,
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28056,
@@ -14095,7 +14422,9 @@
           "role": "quest_start",
           "quest_id": 60200,
           "argument": "60200",
-          "guard_line": 309
+          "guard_line": 309,
+          "guard_expression": "getarg(1)",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28056,
@@ -14104,7 +14433,9 @@
           "role": "quest_start",
           "quest_id": 60201,
           "argument": "60201",
-          "guard_line": 309
+          "guard_line": 309,
+          "guard_expression": "getarg(1)",
+          "guard_branch_executed": false
         }
       ],
       "full_quest_terminal_path_verified": false
@@ -14153,7 +14484,9 @@
           "role": "quest_complete",
           "quest_id": 8063,
           "argument": "8063",
-          "guard_line": 4737
+          "guard_line": 4737,
+          "guard_expression": "hg_memory == 11",
+          "guard_branch_executed": false
         }
       ],
       "full_quest_terminal_path_verified": false
@@ -14176,7 +14509,9 @@
           "role": "quest_complete",
           "quest_id": 8063,
           "argument": "8063",
-          "guard_line": 4735
+          "guard_line": 4735,
+          "guard_expression": "hg_memory == 11",
+          "guard_branch_executed": false
         }
       ],
       "full_quest_terminal_path_verified": false
@@ -14227,7 +14562,9 @@
           "role": "quest_start",
           "quest_id": 3050,
           "argument": "3050",
-          "guard_line": 1237
+          "guard_line": 1237,
+          "guard_expression": "BaseLevel > 79",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14236,7 +14573,9 @@
           "role": "quest_complete",
           "quest_id": 10004,
           "argument": "10004",
-          "guard_line": 4433
+          "guard_line": 4433,
+          "guard_expression": "questprogress(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14245,7 +14584,9 @@
           "role": "quest_start",
           "quest_id": 10018,
           "argument": "10018",
-          "guard_line": 4433
+          "guard_line": 4433,
+          "guard_expression": "questprogress(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14254,7 +14595,9 @@
           "role": "quest_start",
           "quest_id": 10019,
           "argument": "10019",
-          "guard_line": 4433
+          "guard_line": 4433,
+          "guard_expression": "questprogress(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14263,7 +14606,9 @@
           "role": "quest_start",
           "quest_id": 10020,
           "argument": "10020",
-          "guard_line": 4433
+          "guard_line": 4433,
+          "guard_expression": "questprogress(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14272,7 +14617,9 @@
           "role": "quest_start",
           "quest_id": 10021,
           "argument": "10021",
-          "guard_line": 4433
+          "guard_line": 4433,
+          "guard_expression": "questprogress(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14281,7 +14628,9 @@
           "role": "quest_start",
           "quest_id": 10022,
           "argument": "10022",
-          "guard_line": 4433
+          "guard_line": 4433,
+          "guard_expression": "questprogress(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14290,7 +14639,9 @@
           "role": "quest_complete",
           "quest_id": 10003,
           "argument": "10003",
-          "guard_line": 5176
+          "guard_line": 5176,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14299,7 +14650,9 @@
           "role": "quest_start",
           "quest_id": 10005,
           "argument": "10005",
-          "guard_line": 5176
+          "guard_line": 5176,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14308,7 +14661,9 @@
           "role": "quest_start",
           "quest_id": 10006,
           "argument": "10006",
-          "guard_line": 5176
+          "guard_line": 5176,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14317,7 +14672,9 @@
           "role": "quest_start",
           "quest_id": 10007,
           "argument": "10007",
-          "guard_line": 5176
+          "guard_line": 5176,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14326,7 +14683,9 @@
           "role": "quest_start",
           "quest_id": 10008,
           "argument": "10008",
-          "guard_line": 5176
+          "guard_line": 5176,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14335,7 +14694,9 @@
           "role": "quest_start",
           "quest_id": 10009,
           "argument": "10009",
-          "guard_line": 5176
+          "guard_line": 5176,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14344,7 +14705,9 @@
           "role": "quest_start",
           "quest_id": 10010,
           "argument": "10010",
-          "guard_line": 5176
+          "guard_line": 5176,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14353,7 +14716,9 @@
           "role": "quest_start",
           "quest_id": 10011,
           "argument": "10011",
-          "guard_line": 5176
+          "guard_line": 5176,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14362,7 +14727,9 @@
           "role": "quest_complete",
           "quest_id": 10025,
           "argument": "10025",
-          "guard_line": 5223
+          "guard_line": 5223,
+          "guard_expression": "nkprince_eisen == 15 && questprogress(10025) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14371,7 +14738,9 @@
           "role": "quest_complete",
           "quest_id": 10004,
           "argument": "10004",
-          "guard_line": 5288
+          "guard_line": 5288,
+          "guard_expression": "questprogress(10005) == 2 && questprogress(10006) == 2 && questprogress(10007) == 2 && questprogress(10008) == 2\n\t\t\t && questprogress(10009) == 2 && questprogress(10010) == 2 && questprogress(10011) == 2",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14380,7 +14749,9 @@
           "role": "quest_start",
           "quest_id": 10004,
           "argument": "10004",
-          "guard_line": 5288
+          "guard_line": 5288,
+          "guard_expression": "questprogress(10005) == 2 && questprogress(10006) == 2 && questprogress(10007) == 2 && questprogress(10008) == 2\n\t\t\t && questprogress(10009) == 2 && questprogress(10010) == 2 && questprogress(10011) == 2",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14389,7 +14760,9 @@
           "role": "quest_complete",
           "quest_id": 10004,
           "argument": "10004",
-          "guard_line": 5302
+          "guard_line": 5302,
+          "guard_expression": "questprogress(10005) == 2 && questprogress(10006) == 2 && questprogress(10007) == 2 && questprogress(10008) == 2\n\t\t\t && questprogress(10009) == 2 && questprogress(10010) == 2 && questprogress(10011) == 2",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 34451,
@@ -14398,7 +14771,9 @@
           "role": "quest_start",
           "quest_id": 10004,
           "argument": "10004",
-          "guard_line": 5302
+          "guard_line": 5302,
+          "guard_expression": "questprogress(10005) == 2 && questprogress(10006) == 2 && questprogress(10007) == 2 && questprogress(10008) == 2\n\t\t\t && questprogress(10009) == 2 && questprogress(10010) == 2 && questprogress(10011) == 2",
+          "guard_branch_executed": false
         }
       ],
       "full_quest_terminal_path_verified": false
@@ -14423,7 +14798,9 @@
           "role": "quest_complete",
           "quest_id": 10004,
           "argument": "10004",
-          "guard_line": 150
+          "guard_line": 150,
+          "guard_expression": "checkquest(10004) == 0 || checkquest(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14432,7 +14809,9 @@
           "role": "quest_start",
           "quest_id": 10018,
           "argument": "10018",
-          "guard_line": 150
+          "guard_line": 150,
+          "guard_expression": "checkquest(10004) == 0 || checkquest(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14441,7 +14820,9 @@
           "role": "quest_start",
           "quest_id": 10019,
           "argument": "10019",
-          "guard_line": 150
+          "guard_line": 150,
+          "guard_expression": "checkquest(10004) == 0 || checkquest(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14450,7 +14831,9 @@
           "role": "quest_start",
           "quest_id": 10020,
           "argument": "10020",
-          "guard_line": 150
+          "guard_line": 150,
+          "guard_expression": "checkquest(10004) == 0 || checkquest(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14459,7 +14842,9 @@
           "role": "quest_start",
           "quest_id": 10021,
           "argument": "10021",
-          "guard_line": 150
+          "guard_line": 150,
+          "guard_expression": "checkquest(10004) == 0 || checkquest(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14468,7 +14853,9 @@
           "role": "quest_start",
           "quest_id": 10022,
           "argument": "10022",
-          "guard_line": 150
+          "guard_line": 150,
+          "guard_expression": "checkquest(10004) == 0 || checkquest(10004) == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14477,7 +14864,9 @@
           "role": "quest_complete",
           "quest_id": 10003,
           "argument": "10003",
-          "guard_line": 893
+          "guard_line": 893,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14486,7 +14875,9 @@
           "role": "quest_start",
           "quest_id": 10005,
           "argument": "10005",
-          "guard_line": 893
+          "guard_line": 893,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14495,7 +14886,9 @@
           "role": "quest_start",
           "quest_id": 10006,
           "argument": "10006",
-          "guard_line": 893
+          "guard_line": 893,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14504,7 +14897,9 @@
           "role": "quest_start",
           "quest_id": 10007,
           "argument": "10007",
-          "guard_line": 893
+          "guard_line": 893,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14513,7 +14908,9 @@
           "role": "quest_start",
           "quest_id": 10008,
           "argument": "10008",
-          "guard_line": 893
+          "guard_line": 893,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14522,7 +14919,9 @@
           "role": "quest_start",
           "quest_id": 10009,
           "argument": "10009",
-          "guard_line": 893
+          "guard_line": 893,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14531,7 +14930,9 @@
           "role": "quest_start",
           "quest_id": 10010,
           "argument": "10010",
-          "guard_line": 893
+          "guard_line": 893,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14540,7 +14941,9 @@
           "role": "quest_start",
           "quest_id": 10011,
           "argument": "10011",
-          "guard_line": 893
+          "guard_line": 893,
+          "guard_expression": ".@prince == 1",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14549,7 +14952,9 @@
           "role": "quest_complete",
           "quest_id": 10025,
           "argument": "10025",
-          "guard_line": 940
+          "guard_line": 940,
+          "guard_expression": "(nkprince_eisen == 15) && (checkquest(10025) == 0 || checkquest(10025) == 1)",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14558,7 +14963,9 @@
           "role": "quest_complete",
           "quest_id": 10004,
           "argument": "10004",
-          "guard_line": 1012
+          "guard_line": 1012,
+          "guard_expression": ".@prin1 + .@prin2 + .@prin3 + .@prin4 + .@prin5 + .@prin6 + .@prin7 == 14",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14567,7 +14974,9 @@
           "role": "quest_start",
           "quest_id": 10004,
           "argument": "10004",
-          "guard_line": 1012
+          "guard_line": 1012,
+          "guard_expression": ".@prin1 + .@prin2 + .@prin3 + .@prin4 + .@prin5 + .@prin6 + .@prin7 == 14",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14576,7 +14985,9 @@
           "role": "quest_complete",
           "quest_id": 10004,
           "argument": "10004",
-          "guard_line": 1032
+          "guard_line": 1032,
+          "guard_expression": ".@prin1 + .@prin2 + .@prin3 + .@prin4 + .@prin5 + .@prin6 + .@prin7 == 14",
+          "guard_branch_executed": false
         },
         {
           "npc_id": 28549,
@@ -14585,7 +14996,9 @@
           "role": "quest_start",
           "quest_id": 10004,
           "argument": "10004",
-          "guard_line": 1032
+          "guard_line": 1032,
+          "guard_expression": ".@prin1 + .@prin2 + .@prin3 + .@prin4 + .@prin5 + .@prin6 + .@prin7 == 14",
+          "guard_branch_executed": false
         }
       ],
       "full_quest_terminal_path_verified": false

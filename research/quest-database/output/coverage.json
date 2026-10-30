@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-30T07:16:56.492384+00:00",
+  "created_utc": "2026-10-30T07:20:17.123321+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -184,6 +184,8 @@
     "no_shared_written_variable": 23,
     "gaps_with_literal_read_candidates": 7,
     "literal_guard_read_hints": 7,
+    "gaps_with_same_npc_item_check_consume_pairs": 8,
+    "same_npc_item_check_consume_pairs": 20,
     "gaps_with_item_handoff_candidates": 0,
     "literal_item_handoffs": 0,
     "gaps_with_any_item_source_facts": 26,
