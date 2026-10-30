@@ -1,3 +1,7 @@
+# RoAura 3.2.0
+
+See [3.2.0 release notes](docs/releases/3.2.0.md) for ToC, Settings, character-targeted overlays and UI improvements.
+
 # RoAura 3.1.1
 
 See [3.1.1 release notes](docs/releases/3.1.1.md) for the completed character identification and statistics release.

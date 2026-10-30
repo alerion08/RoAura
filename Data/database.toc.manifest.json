@@ -1,0 +1,17 @@
+{
+  "images": "remote URLs; binaries excluded",
+  "item_image_template": "https://tidesofcomodo.com/db/collection-img/{id}.png",
+  "items": "9894",
+  "map_respawn_rows": "53",
+  "map_respawn_sources": "48",
+  "monster_image_template": "https://tidesofcomodo.com/db/mob-img/{id}.gif",
+  "monsters": "1061",
+  "mvp": "61",
+  "payload_encoding": "zlib+utf8-json",
+  "respawns_retrieved_utc": "2026-10-29T19:02:45.912451+00:00",
+  "retrieved_utc": "2026-10-29T14:07:37.569282+00:00",
+  "schema_version": "2",
+  "source": "https://tidesofcomodo.com/api/v1",
+  "bytes": 12402688,
+  "sha256": "3d21c1dacd393deab49069e311d232d9adc60281ca10cb8ea7f16cd03a1bfe1f"
+}

@@ -302,7 +302,7 @@
     <sys:String x:Key="KilledAt">Killed</sys:String>
     <sys:String x:Key="InvalidKillTime">Enter a valid kill time in HH:mm:ss format.</sys:String>
     <sys:String x:Key="RespawnHint">Respawn hint</sys:String>
-    <sys:String x:Key="RespawnHintHelp">Intervals come from the bundled SpringRO database and do not set the timer automatically.</sys:String>
+    <sys:String x:Key="RespawnHintHelp">Hints use the selected server catalog. ToC intervals come from map pages; enter an interval manually when the source does not publish one. A hint never sets the timer automatically.</sys:String>
     <sys:String x:Key="TimersHotkey">MVP timers</sys:String>
     <sys:String x:Key="LearnEquipment">Learn equipment (20 sec)</sys:String>
     <sys:String x:Key="TestEquipment">Test equipment</sys:String>
@@ -393,7 +393,7 @@
     <sys:String x:Key="OverlayMoveRateIndicator">Drag the selected indicator. ESC — save.</sys:String>
     <sys:String x:Key="OverlayMoveRateIndicatorGroup">Drag an indicator to move its entire group. ESC — save.</sys:String>
     <sys:String x:Key="Database">Database</sys:String>
-    <sys:String x:Key="DatabaseTitle">SpringRO in-game database</sys:String>
+    <sys:String x:Key="DatabaseTitle">In-game database</sys:String>
     <sys:String x:Key="DatabaseHotkey">Database</sys:String>
     <sys:String x:Key="DatabaseHotkeyTitle">Hotkey</sys:String>
     <sys:String x:Key="DatabaseSearchLimitHint">Quick search supports names and numeric IDs. Up to 100 results are shown at a time.</sys:String>
@@ -531,4 +531,24 @@
     <sys:String x:Key="ColorPickerInvalid">Enter HEX: #RRGGBB or #AARRGGBB.</sys:String>
     <sys:String x:Key="NavigationOverlays">Overlays</sys:String>
     <sys:String x:Key="NavigationServices">Services</sys:String>
+    <sys:String x:Key="PacketReadingWarning">When packet features are enabled, RoAura uses Npcap to read network packets from the game client. This may violate your Ragnarok Online server rules. Check the server rules before enabling these features.</sys:String>
+    <sys:String x:Key="PacketFeaturesOn">Packet reading is ON — turn off</sys:String>
+    <sys:String x:Key="PacketFeaturesOff">Packet reading is OFF — turn on</sys:String>
+    <sys:String x:Key="PacketIndependentHint">The database and manual MVP timers remain available without packet reading. Settings for disabled sections are retained.</sys:String>
+    <sys:String x:Key="DatabaseCatalogHint">The catalog follows the selected server. ToC uses its offline catalog; MVP respawn intervals come from map pages. Market and offer tracking are available for SpringRO only.</sys:String>
+    <sys:String x:Key="SettingsTitle">Settings</sys:String>
+    <sys:String x:Key="SettingsDescription">Connection, hotkeys, characters and sidebar.</sys:String>
+    <sys:String x:Key="OtherServer">Other</sys:String>
+    <sys:String x:Key="AllHotkeysHint">All RoAura hotkeys are configured here. Changes apply without restarting.</sys:String>
+    <sys:String x:Key="CharacterManager">Character manager</sys:String>
+    <sys:String x:Key="CharacterManagerHint">Verified CIDs from saved history and the current connection appear here. Set names and servers for overlay assignments. This does not alter CID, the connection or recorded statistics.</sys:String>
+    <sys:String x:Key="NavigationTitle">Navigation</sys:String>
+    <sys:String x:Key="NavigationHint">Choose which available sections appear in the sidebar. Hiding an entry does not disable its overlays. Home and Settings are always accessible.</sys:String>
+    <sys:String x:Key="CharacterScopeTitle">Show for characters</sys:String>
+    <sys:String x:Key="CharacterScopeHint">No selection means all characters. Multiple characters may be selected. Assigned overlays stay hidden until the correct server and CID are verified in game.</sys:String>
+    <sys:String x:Key="CharacterScopeAll">All characters (clear selection)</sys:String>
+    <sys:String x:Key="CharacterScopeNoCharacters">No characters yet. Log in while packet reading is enabled; the CID will appear in Character manager.</sys:String>
+    <sys:String x:Key="DetectAgain">Retry detection</sys:String>
+    <sys:String x:Key="SelectSkillTitle">Select a skill</sys:String>
+    <sys:String x:Key="SelectSkillHint">Its settings will appear here.</sys:String>
 </ResourceDictionary>

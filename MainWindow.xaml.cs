@@ -45,6 +45,7 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer _goldGoblinSessionTimer;
     private readonly DispatcherTimer _saveDebounceTimer = new() { Interval = TimeSpan.FromMilliseconds(500) };
     private bool _appliedPacketCaptureEnabled;
+    private string _appliedServerProfile = "";
     private string _appliedPacketServerAddress = "";
     private int _appliedPacketServerPort;
     private TextBox? _mvpMonsterEditor;
@@ -100,12 +101,12 @@ public partial class MainWindow : Window
         if (settings.Effects.Count > 0) EffectsGrid.SelectedIndex = 0;
         if (settings.Reminders.Count > 0) RemindersGrid.SelectedIndex = 0;
         if (settings.Equipment.Count > 0) EquipmentGrid.SelectedIndex = 0;
-        if (settings.MvpTimers.Count > 0) MvpTimersGrid.SelectedIndex = 0;
+        if (settings.ActiveMvpTimers.Count > 0) MvpTimersGrid.SelectedIndex = 0;
         if (settings.BuffPanelGroups.Count > 0) BuffPanelGroupBox.SelectedIndex = 0;
         if (settings.RewardChannels.Count > 0) RewardChannelsGrid.SelectedIndex = 0;
         if (settings.RewardGroups.Count > 0) RewardGroupBox.SelectedIndex = 0;
         if (settings.RateIndicators.Count > 0) RateIndicatorsGrid.SelectedIndex = 0;
-        if (settings.GoldGoblinPriceRules.Count > 0) GoldGoblinRulesGrid.SelectedIndex = 0;
+        if (settings.ActiveGoldGoblinPriceRules.Count > 0) GoldGoblinRulesGrid.SelectedIndex = 0;
         GoldGoblinSourceFilter.SelectedIndex = 0;
         GoldGoblinSortBox.SelectedIndex = 0;
         LanguageBox.SelectedIndex = settings.Language == "en" ? 1 : 0;
@@ -114,13 +115,9 @@ public partial class MainWindow : Window
         HomeNavButton.IsChecked = true;
         FirstRunPanel.Visibility = _store.IsFirstRun ? Visibility.Visible : Visibility.Collapsed;
         _languageReady = true;
-        ServerProfileBox.SelectedIndex = settings.ServerProfile switch
-        {
-            GameServerProfile.SpringRo => 1,
-            GameServerProfile.Other => 2,
-            _ => 0
-        };
+        ServerProfileBox.SelectedValue = settings.ServerProfile;
         _serverProfileReady = true;
+        Settings.EnsureNavigationSections();
         ApplyServerProfile(save: false);
 
         DetectConnection(userInitiated: false, restartCapture: false);
@@ -144,11 +141,21 @@ public partial class MainWindow : Window
         _goldGoblinSessionTimer.Start();
         InitializeCharacterBrowser();
         _saveDebounceTimer.Tick += (_, _) => FlushPendingSave();
+        Settings.PropertyChanged += Settings_RuntimeChanged;
+        Closed += (_, _) => Settings.PropertyChanged -= Settings_RuntimeChanged;
+    }
+
+    private void OpenSettings_Click(object sender, RoutedEventArgs e)
+    {
+        foreach (var button in new[] { HomeNavButton, CooldownNavButton, EffectsNavButton, RemindersNavButton,
+            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton })
+            button.IsChecked = false;
+        MainTabs.SelectedIndex = 9;
     }
 
     private void Navigation_Checked(object sender, RoutedEventArgs e)
     {
-        if (MainTabs is null || sender is not RadioButton { Tag: string tag }) return;
+        if (MainTabs is null || sender is not RadioButton { IsEnabled: true, Tag: string tag }) return;
         if (int.TryParse(tag, out var index) && index >= 0 && index < MainTabs.Items.Count)
             MainTabs.SelectedIndex = index;
     }
@@ -164,7 +171,7 @@ public partial class MainWindow : Window
             "4" => EquipmentNavButton,
             _ => null
         };
-        if (target is not null) target.IsChecked = true;
+        if (target?.IsEnabled == true) target.IsChecked = true;
     }
 
     private void FirstRunFindGame_Click(object sender, RoutedEventArgs e)
@@ -177,7 +184,8 @@ public partial class MainWindow : Window
     {
         _store.CompleteFirstRun();
         FirstRunPanel.Visibility = Visibility.Collapsed;
-        EffectsNavButton.IsChecked = true;
+        if (EffectsNavButton.IsEnabled) EffectsNavButton.IsChecked = true;
+        else HomeNavButton.IsChecked = true;
     }
 
     private void CompleteFirstRun_Click(object sender, RoutedEventArgs e)
@@ -190,14 +198,23 @@ public partial class MainWindow : Window
     {
         if (!_serverProfileReady || ServerProfileBox.SelectedItem is not ComboBoxItem { Tag: string profile })
             return;
-        Settings.ServerProfile = profile;
-        ApplyServerProfile(save: true);
+        var wasUpdating = _updatingMvpMonsterSelection;
+        _updatingMvpMonsterSelection = true;
+        try
+        {
+            MvpMonsterBox.IsDropDownOpen = false;
+            GoldGoblinRulesGrid.CommitEdit();
+            Settings.ServerProfile = profile;
+            ApplyServerProfile(save: true);
+        }
+        finally { _updatingMvpMonsterSelection = wasUpdating; }
+        RefreshMvpTimerDetails();
     }
 
     private void UpdateServerProfileLabels()
     {
-        if (ServerProfileBox.Items.Count > 2 && ServerProfileBox.Items[2] is ComboBoxItem other)
-            other.Content = Settings.Language == "en" ? "Other" : "Другой";
+        var other = ServerProfileBox.Items.OfType<ComboBoxItem>().FirstOrDefault(i => (string?)i.Tag == GameServerProfile.Other);
+        if (other is not null) other.Content = Settings.Language == "en" ? "Other" : "Другой";
     }
 
     private void ApplyServerProfile(bool save)
@@ -205,26 +222,12 @@ public partial class MainWindow : Window
         var profile = GameServerProfile.Normalize(Settings.ServerProfile);
         var supportsDatabases = GameServerProfile.SupportsServerDatabases(profile);
         var supportsOverlayDatabase = GameServerProfile.SupportsDatabaseOverlay(profile);
-        ServicesNavHeading.Visibility = supportsDatabases || supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
-        MvpNavButton.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
-        LootNavButton.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
-        MvpTab.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
-        LootTab.Visibility = supportsDatabases ? Visibility.Visible : Visibility.Collapsed;
-        var supportsGoldGoblin = profile == GameServerProfile.SpringRo;
-        GoldGoblinNavButton.Visibility = supportsGoldGoblin ? Visibility.Visible : Visibility.Collapsed;
-        GoldGoblinTab.Visibility = supportsGoldGoblin ? Visibility.Visible : Visibility.Collapsed;
-        DatabaseNavButton.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
-        DatabaseTab.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
+        UpdateNavigationAvailability();
         DatabaseHotkeyControls.Visibility = supportsOverlayDatabase ? Visibility.Visible : Visibility.Collapsed;
-
-        if (!supportsDatabases && MainTabs.SelectedIndex >= 5)
-            CooldownNavButton.IsChecked = true;
 
         if (supportsDatabases)
         {
-            var version = profile == GameServerProfile.SpringRo
-                ? GameDatabaseVersion.SpringRo
-                : GameDatabaseVersion.Rtm;
+            var version = GameDatabaseVersion.Normalize(profile);
             Settings.MvpDatabaseVersion = version;
             Settings.LootDatabaseVersion = version;
             _monsters.Clear();
@@ -232,6 +235,9 @@ public partial class MainWindow : Window
             MvpMonsterView.Refresh();
             RefreshMvpTimerDetails();
             _items = ItemCatalogService.Load(version);
+            if (version == GameDatabaseVersion.Toc && (_items.Count == 0 || _monsters.Count == 0))
+                SetStatus(T("Не удалось открыть локальную базу ToC. Проверьте Data/database.toc.sqlite в папке приложения.",
+                    "Cannot open the ToC catalog. Check Data/database.toc.sqlite in the app folder."));
             RefreshGoldGoblinItemSuggestions();
             if (Application.Current is App app) app.ReloadItemCatalog(version);
         }
@@ -239,7 +245,47 @@ public partial class MainWindow : Window
         if (!supportsOverlayDatabase && Application.Current is App currentApp)
             currentApp.CloseDatabaseOverlay();
         _overlay.RefreshServerProfile();
+        if (save) ApplyPacketCaptureIfChanged(force: true);
         if (save) _store.Save(Settings);
+    }
+
+    private void Settings_RuntimeChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (_applyingPreset || e.PropertyName != nameof(AppSettings.PacketCaptureEnabled)) return;
+        // Stop workers before clearing the old status timeline. Enabling starts a fresh capture.
+        EndOverlayEditModes();
+        _learningGeneration++;
+        _learningEffect = null; _learningSkill = null; _learningReminder = null; _learningEquipment = null;
+        ApplyPacketCaptureIfChanged(force: true);
+        if (!Settings.PacketCaptureEnabled)
+        {
+            Settings.PacketPlayerAid = 0;
+            if (Application.Current is App app) app.ResetPacketSession(resetTrackedState: true);
+        }
+        UpdateNavigationAvailability();
+        _overlay.RefreshServerProfile();
+        _store.Save(Settings);
+    }
+
+    private void UpdateNavigationAvailability()
+    {
+        var buttons = new[] { HomeNavButton, CooldownNavButton, EffectsNavButton, RemindersNavButton,
+            EquipmentNavButton, MvpNavButton, LootNavButton, GoldGoblinNavButton, DatabaseNavButton };
+        ServicesNavHeading.Visibility = Visibility.Visible;
+        for (var i = 0; i < buttons.Length; i++)
+        {
+            var button = buttons[i];
+            var feature = (AppFeature)i;
+            var enabled = FeatureAvailability.CanUse(Settings.ServerProfile, Settings.PacketCaptureEnabled, feature);
+            button.Visibility = Settings.IsNavigationVisible(feature) ? Visibility.Visible : Visibility.Collapsed;
+            button.IsEnabled = enabled;
+            button.ToolTip = enabled ? null : !Settings.PacketCaptureEnabled && FeatureAvailability.RequiresPackets(feature)
+                ? T("Включите функции чтения пакетов на главной странице.", "Enable packet features on Home.")
+                : T("Недоступно для выбранного сервера.", "Unavailable for the selected server.");
+            ToolTipService.SetShowOnDisabled(button, true);
+            if (MainTabs.Items[i] is TabItem tab) { tab.Visibility = Visibility.Visible; tab.IsEnabled = enabled; }
+            if ((!enabled || button.Visibility != Visibility.Visible) && MainTabs.SelectedIndex == i) HomeNavButton.IsChecked = true;
+        }
     }
 
     private string T(string ru, string en) => Settings.Language == "en" ? en : ru;
@@ -279,11 +325,11 @@ public partial class MainWindow : Window
     {
         var dialog = new GoldGoblinAddItemWindow(_items.Values) { Owner = this };
         if (dialog.ShowDialog() != true || dialog.SelectedItem is not ItemEntry item) return;
-        var existing = Settings.GoldGoblinPriceRules.FirstOrDefault(rule => rule.ItemId == item.Id);
+        var existing = Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(rule => rule.ItemId == item.Id);
         if (existing is null)
         {
             existing = new GoldGoblinPriceRule { ItemId = item.Id, Name = item.FullName };
-            Settings.GoldGoblinPriceRules.Add(existing);
+            Settings.ActiveGoldGoblinPriceRules.Add(existing);
         }
         GoldGoblinRulesGrid.SelectedItem = existing;
         _goldGoblin.Reprice();
@@ -292,7 +338,7 @@ public partial class MainWindow : Window
     private void DeleteGoldGoblinRule_Click(object sender, RoutedEventArgs e)
     {
         if (GoldGoblinRulesGrid.SelectedItem is not GoldGoblinPriceRule rule) return;
-        Settings.GoldGoblinPriceRules.Remove(rule);
+        Settings.ActiveGoldGoblinPriceRules.Remove(rule);
         _goldGoblin.Reprice();
     }
 
@@ -397,7 +443,7 @@ public partial class MainWindow : Window
     {
         if (GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row) return;
         _updatingGoldGoblinEditor = true;
-        var rule = Settings.GoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
+        var rule = Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
         GoldGoblinPriceSourceBox.SelectedValue = rule is null
             ? "npc"
             : rule.UseVendingPrice ? "vending" : "manual";
@@ -407,10 +453,10 @@ public partial class MainWindow : Window
 
     private GoldGoblinPriceRule GetOrCreateGoldGoblinRule(GoldGoblinLootRow row)
     {
-        var rule = Settings.GoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
+        var rule = Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
         if (rule is not null) return rule;
         rule = new GoldGoblinPriceRule { ItemId = row.ItemId, Name = row.Item };
-        Settings.GoldGoblinPriceRules.Add(rule);
+        Settings.ActiveGoldGoblinPriceRules.Add(rule);
         return rule;
     }
 
@@ -418,10 +464,10 @@ public partial class MainWindow : Window
     {
         if (_updatingGoldGoblinEditor || GoldGoblinLootGrid.SelectedItem is not GoldGoblinLootRow row ||
             GoldGoblinPriceSourceBox.SelectedValue is not string source) return;
-        var existing = Settings.GoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
+        var existing = Settings.ActiveGoldGoblinPriceRules.FirstOrDefault(item => item.ItemId == row.ItemId);
         if (source == "npc")
         {
-            if (existing is not null) Settings.GoldGoblinPriceRules.Remove(existing);
+            if (existing is not null) Settings.ActiveGoldGoblinPriceRules.Remove(existing);
         }
         else
         {
@@ -837,8 +883,7 @@ public partial class MainWindow : Window
             LootColorsGroup.DataContext = Settings.RewardChannels.FirstOrDefault(c => c.Kind == RewardKind.Loot);
             LocalizationService.ApplyLanguage(Settings.Language);
             LanguageBox.SelectedIndex = Settings.Language == "en" ? 1 : 0;
-            ServerProfileBox.SelectedIndex = Settings.ServerProfile switch
-            { GameServerProfile.SpringRo => 1, GameServerProfile.Other => 2, _ => 0 };
+            ServerProfileBox.SelectedValue = Settings.ServerProfile;
             UpdateServerProfileLabels();
             Settings.SyncCooldownGroups();
             Settings.SyncBuffPanelGroups();
@@ -931,13 +976,14 @@ public partial class MainWindow : Window
     private void RememberPacketCaptureConfiguration()
     {
         _appliedPacketCaptureEnabled = Settings.PacketCaptureEnabled;
+        _appliedServerProfile = Settings.ServerProfile;
         _appliedPacketServerAddress = Settings.PacketServerAddress;
         _appliedPacketServerPort = Settings.PacketServerPort;
     }
 
     private bool ApplyPacketCaptureIfChanged(bool force = false)
     {
-        var changed = force ||
+        var changed = force || _appliedServerProfile != Settings.ServerProfile ||
                       _appliedPacketCaptureEnabled != Settings.PacketCaptureEnabled ||
                       !string.Equals(_appliedPacketServerAddress, Settings.PacketServerAddress,
                           StringComparison.OrdinalIgnoreCase) ||
@@ -1014,7 +1060,8 @@ public partial class MainWindow : Window
     private void Add_Click(object sender, RoutedEventArgs e)
     {
         Settings.SyncCooldownGroups();
-        var wizard = new SkillWizardWindow(Settings.CooldownGroups, Settings.Language == "en") { Owner = this };
+        var wizard = new SkillWizardWindow(Settings.CooldownGroups, Settings.Language == "en", StartSkillLearningFromWizard) { Owner = this };
+        wizard.LearningClosed += draft => { if (ReferenceEquals(_learningSkill, draft)) { _learningSkill = null; _learningGeneration++; } };
         if (wizard.ShowDialog() != true || wizard.Result is not { } skill) return;
         skill.X = 100 + Settings.Skills.Count * 80;
         skill.Y = 100;
@@ -1026,14 +1073,16 @@ public partial class MainWindow : Window
         SkillsGrid.SelectedItem = skill;
         SkillsGrid.ScrollIntoView(skill);
         SaveSettings();
-        if (wizard.LearnAfterCreate)
-        {
-            if (!EnsureNpcap()) return;
-            StartLearning();
-            _learningSkill = skill;
-            skill.LearningObservation = "";
-            SetStatus(T($"Примените «{skill.Name}» в RO в течение 20 секунд.", $"Use “{skill.Name}” in RO within 20 seconds."));
-        }
+
+    }
+
+    private void StartSkillLearningFromWizard(SkillAura draft)
+    {
+        if (!EnsureNpcap()) { draft.LearningObservation = T("Чтение пакетов недоступно. Проверьте Npcap и переключатель на главной.", "Packet reading unavailable. Check Npcap and the Home switch."); return; }
+        StartLearning();
+        _learningSkill = draft;
+        draft.LearningObservation = "";
+        _ = ExpireLearningAsync(draft.Id, "skill", _learningGeneration);
     }
 
     private void Delete_Click(object sender, RoutedEventArgs e)
@@ -1436,7 +1485,7 @@ public partial class MainWindow : Window
     {
         _learningGeneration++;
         var captureWasEnabled = Settings.PacketCaptureEnabled;
-        Settings.PacketCaptureEnabled = true;
+        if (!Settings.PacketCaptureEnabled) return;
         // Preserve the player AID from map-login identity. Erasing it allowed
         // the very first status of another player/mob to be learned as ours.
         // Client AID can be known from ZC_AID or own EXP even when the
@@ -1623,7 +1672,7 @@ public partial class MainWindow : Window
             // same row (a common path after relogging to populate item cache).
             if (generation != _learningGeneration) return;
             var expired = false;
-            if (kind == "skill" && _learningSkill?.Id == id) { _learningSkill = null; expired = true; }
+            if (kind == "skill" && _learningSkill?.Id == id) { _learningSkill.LearningObservation = T("ID не обнаружен. Повторите определение.", "ID was not detected. Retry detection."); _learningSkill = null; expired = true; }
             else if (kind == "effect" && _learningEffect?.Id == id) { _learningEffect = null; expired = true; }
             else if (kind == "reminder" && _learningReminder?.Id == id) { _learningReminder = null; expired = true; }
             else if (kind == "equipment" && _learningEquipment?.Id == id) { _learningEquipment = null; expired = true; }
@@ -1842,7 +1891,7 @@ public partial class MainWindow : Window
         var wizard = new MvpTimerWizardWindow(_monsters) { Owner = this };
         if (wizard.ShowDialog() != true || wizard.CreatedTimer is not { } timer) return;
         timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
-        Settings.MvpTimers.Add(timer);
+        Settings.ActiveMvpTimers.Add(timer);
         MvpTimersGrid.SelectedItem = timer;
         MvpTimersGrid.ScrollIntoView(timer);
         SaveSettings();
@@ -1850,7 +1899,7 @@ public partial class MainWindow : Window
 
     private void DeleteMvpTimer_Click(object sender, RoutedEventArgs e)
     {
-        if (MvpTimersGrid.SelectedItem is MvpTimer timer) Settings.MvpTimers.Remove(timer);
+        if (MvpTimersGrid.SelectedItem is MvpTimer timer) Settings.ActiveMvpTimers.Remove(timer);
     }
 
     private void RestartMvpTimer_Click(object sender, RoutedEventArgs e)
@@ -1916,7 +1965,7 @@ public partial class MainWindow : Window
 
     private void RefreshMvpTimerDetails()
     {
-        foreach (var timer in Settings.MvpTimers)
+        foreach (var timer in Settings.ActiveMvpTimers)
             timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
     }
 
@@ -2099,6 +2148,7 @@ public partial class MainWindow : Window
 
     private bool EnsureNpcap()
     {
+        if (!Settings.PacketCaptureEnabled) return false;
         if (NpcapPacketCapture.IsNpcapInstalled()) return true;
         CheckNpcap_Click(this, new RoutedEventArgs());
         return NpcapPacketCapture.IsNpcapInstalled();

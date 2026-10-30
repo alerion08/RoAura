@@ -6,7 +6,7 @@ This document records current product-level UI behavior. It is intentionally com
 
 - Desktop application: Windows x64, WPF, .NET 8.
 - Visual direction: Ragnarok-inspired light-blue interface, not a literal copy of the game client.
-- Main navigation stays on the left: Home; Overlays (Cooldowns, Effects, Reminder, Equipment); Services (MVP Timers, Statistics, Gold Goblin, Database). The sidebar scrolls at minimum height.
+- Main navigation stays on the left: Home; Overlays (Cooldowns, Effects, Reminder, Equipment); Services (MVP Timers, Statistics, Gold Goblin, Database). The sidebar scrolls at minimum height. Unavailable destinations remain visible, disabled, gray (icon and title) and at 60% opacity; a tooltip explains server support or the Home packet switch. A disabled page cannot remain selected.
 - Header wordmark has 80% opacity. Windows/About use the supplied crystal icon; Home uses the supplied house. Gold Goblin and Database share other sections’ header-card style, with tabs below the header.
 - Settings are organized as readable cards with consistent spacing.
 - There is no separate permanent preview panel.
@@ -97,7 +97,7 @@ This document records current product-level UI behavior. It is intentionally com
 
 ## MVP Timers
 
-- Timers use the searchable JSON-backed catalog.
+- Timers use the searchable catalog for the selected server; ToC uses its compact SQLite snapshot. ToC intervals are not supplied by the source and must be entered manually. ToC timers are saved separately from legacy server timers.
 - Restart/reset behavior, dedicated hotkey and movable list remain available.
 - Custom user names must not be replaced by database names after refresh.
 - Empty or unselected rows must be handled safely.
@@ -112,7 +112,7 @@ This document records current product-level UI behavior. It is intentionally com
 
 ## Database panels
 
-- RTM and SpringRO data remain separate.
+- RTM, SpringRO and ToC data remain separate. ToC items/monsters/maps are read offline; only images use remote URLs. SpringRO HTTP item details and Market are never substituted for ToC data.
 - Item, monster and Market panels open over the currently selected Ragnarok client.
 - They must not first appear over another application and then jump to the game.
 - First open and first click inside the game must behave the same as later opens.
@@ -161,3 +161,37 @@ For any changed screen, verify:
 - keyboard focus and modifier keys;
 - long names and large numeric values;
 - no content hidden behind scrollbars or collapsed panels.
+
+## Home packet-reading control
+
+A RU/EN warning explains that active Npcap packet reading may violate the selected
+Ragnarok server's rules. The toggle immediately persists the existing packet
+preference, stops/starts workers, cancels learning and invalidates old flow state.
+It does not delete configured overlays, rules, timers, saved history or positions.
+Cooldowns, Effects/Buff Panel, Reminder, Equipment, Statistics and Gold Goblin
+become unavailable while off. Database and manual MVP timers do not require packet
+reading and remain available where the server supports them. SpringRO HTTP Market
+is also independent. Re-enabling restores navigation; verified character statistics
+need a fresh observed login rather than reusing the previous CID.
+
+## Settings and character targeting (2026-10-30)
+
+Settings has General, Hotkeys, Character Manager and Navigation tabs. General binds
+the same model as Home. All five hotkeys are edited in Settings. Other is last.
+Optional navigation visibility only affects the left menu; unsupported or packet-disabled
+features remain gray/disabled. Home cannot be hidden. Settings is opened by the header button replacing the old
+hotkey legend; it has no sidebar entry.
+
+Every overlay editor offers a collapsed character selector; no checked characters means
+all, several checked characters means any matching observed server/CID. Unknown session
+hides targeted overlays. Aliases and assigned server are metadata; history/CID is immutable.
+Character metadata survives preset changes. Buff panel groups also have independent scope.
+
+Cooldowns detect their draft ID in step two before creation. Empty overlay list/editor
+areas use the same centered card, title/hint typography, padding and alignment.
+Database statistics use paired label/value cells; technical extras and skill descriptions
+are collapsed. ToC MVP respawn labels use official map detail data when published.
+
+Overlay list help cards share the equipment info-card template, padding, icon and
+text color. Empty-state titles and field labels use RoTextBrush explicitly.
+The About icon always uses its original full-color source.

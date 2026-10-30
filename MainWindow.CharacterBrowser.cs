@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using RoAura.Services;
+using RoAura.Models;
 
 namespace RoAura;
 
@@ -39,8 +40,8 @@ public partial class MainWindow
         var status = session.Phase switch
         {
             CharacterSessionPhase.ActiveObserved when session.CharacterId is > 0 =>
-                T($"Подключён · {session.ServerKey} · CID {session.CharacterId}",
-                  $"Connected · {session.ServerKey} · CID {session.CharacterId}"),
+                T($"Подключён · {CharacterCaption(CharacterStatisticsKey.Create(session.ServerKey, session.CharacterId.Value))}",
+                  $"Connected · {CharacterCaption(CharacterStatisticsKey.Create(session.ServerKey, session.CharacterId.Value))}"),
             CharacterSessionPhase.Connecting =>
                 T("Подключение к игровому серверу…", "Connecting to the game server…"),
             CharacterSessionPhase.Suspended =>
@@ -55,8 +56,11 @@ public partial class MainWindow
             UpdateCharacterBrowserDetails();
             return;
         }
-        var keys = app.ListSavedCharacters().ToList();
-        if (session.Phase == CharacterSessionPhase.ActiveObserved && session.CharacterId is > 0)
+        RefreshCharacterManager();
+        var keys = app.ListSavedCharacters().Where(key => string.Equals(key.ServerKey, Settings.ServerProfile, StringComparison.OrdinalIgnoreCase)).ToList();
+        if (_historySelectedCharacter is { } previous && !string.Equals(previous.ServerKey, Settings.ServerProfile, StringComparison.OrdinalIgnoreCase))
+            _historySelectedCharacter = null;
+        if (session.Phase == CharacterSessionPhase.ActiveObserved && session.CharacterId is > 0 && string.Equals(session.ServerKey, Settings.ServerProfile, StringComparison.OrdinalIgnoreCase))
         {
             try
             {
@@ -66,8 +70,8 @@ public partial class MainWindow
             catch (ArgumentException) { }
         }
         keys = keys.Distinct().OrderBy(x => x.ServerKey).ThenBy(x => x.CharacterId).ToList();
-        var signature = Settings.Language + ":" +
-            string.Join(";", keys.Select(key => key.ServerKey + ":" + key.CharacterId));
+        var signature = Settings.Language + ":" + Settings.ServerProfile + ":" +
+            string.Join(";", keys.Select(CharacterCaption));
         if (signature != _characterBrowserSignature)
         {
             _characterBrowserSignature = signature;
@@ -82,7 +86,7 @@ public partial class MainWindow
                 foreach (var key in keys)
                     CharacterBrowseCombo.Items.Add(new ComboBoxItem
                     {
-                        Content = $"{key.ServerKey} · CID {key.CharacterId}",
+                        Content = CharacterCaption(key),
                         Tag = key
                     });
                 var found = CharacterBrowseCombo.Items.OfType<ComboBoxItem>().FirstOrDefault(item =>

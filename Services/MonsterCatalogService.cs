@@ -15,6 +15,20 @@ public static class MonsterCatalogService
     public static IReadOnlyList<MonsterEntry> Load(string? gameVersion = null)
     {
         var version = GameDatabaseVersion.Normalize(gameVersion);
+        if (version == GameDatabaseVersion.Toc)
+        {
+            try
+            {
+                return TocDatabaseService.Database.Monsters.Where(m => m.IsMvp).OrderBy(m => m.Name).Select(m => new MonsterEntry
+                { Id = m.Id, Name = m.Name, ImageUrl = m.ImageUrl, IsMvp = true, Spawns = m.Spawns.Select(s => new MonsterSpawnEntry
+                  { Code = s.Code, Name = s.Name, Count = s.Count, Respawn = s.Respawn }).ToList() }).ToList();
+            }
+            catch (Exception ex)
+            {
+                DebugLog.Write($"TOC CATALOG ERROR: {ex}");
+                return [];
+            }
+        }
         var fileName = version == GameDatabaseVersion.SpringRo ? "monsters.springro.json" : "monsters.rtm.json";
         var candidates = new List<string>
         {

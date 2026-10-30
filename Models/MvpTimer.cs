@@ -7,6 +7,7 @@ namespace RoAura.Models;
 public sealed class MvpTimer : INotifyPropertyChanged
 {
     private string _name = "MVP";
+    private string _monsterImageUrl = "";
     private int _monsterId;
     private double _durationMinutes = 60;
     private DateTime? _killedAtUtc;
@@ -26,6 +27,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
         set
         {
             if (!Set(ref _monsterId, Math.Max(0, value))) return;
+            _monsterImageUrl = "";
             OnPropertyChanged(nameof(MonsterImagePath));
         }
     }
@@ -88,6 +90,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
     {
         get
         {
+            if (!string.IsNullOrWhiteSpace(_monsterImageUrl)) return _monsterImageUrl;
             var path = Path.Combine(AppContext.BaseDirectory, "Data", "MvpImages", $"{MonsterId}.png");
             return File.Exists(path) ? path : "";
         }
@@ -110,6 +113,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
 
     public void SetMonsterDetails(MonsterEntry? monster)
     {
+        _monsterImageUrl = monster?.ImageUrl ?? "";
         RespawnHints = monster is null ? Array.Empty<MonsterSpawnEntry>() : monster.Spawns;
         OnPropertyChanged(nameof(RespawnHints));
         OnPropertyChanged(nameof(MonsterImagePath));

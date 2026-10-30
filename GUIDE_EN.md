@@ -1,4 +1,4 @@
-# RoAura 3.1.1 — user guide
+# RoAura 3.2.0 — user guide
 
 ## Gold Goblin
 
@@ -173,3 +173,12 @@ Only successful fresh selling-shop snapshots are evaluated. The first refresh ma
 Refresh interval: 1–1440 minutes, default 10. **Refreshing too frequently may result in a server-side block.** There is no hidden ten-minute floor; crawls do not overlap and server-directed back-off remains active.
 
 Pause a watch with Enabled in the third column: its item and price rule are retained. Re-enable it to check the next fresh Market update. The live preview is always at the top; Show icon affects both it and the game overlay. Move in game hides settings and lets you drag a persistent sample; finish with the configured hotkey (Esc by default). Listen auditions the chosen sound at the selected volume; 0% is silent.
+
+## New in 3.2.0
+
+Open Settings using the header button for General, all hotkeys, detected CID aliases/server
+assignments and navigation visibility. Overlay Advanced settings can target multiple characters;
+no selection means all characters. Start RoAura before map login to observe CID.
+ToC provides an offline catalog, MVP data and NPC/manual Gold Goblin valuation; Market is
+SpringRO-only. The Home packet switch stops capture and disables dependent sections while
+leaving offline Database and manual timers available. Packet reading may conflict with server rules.

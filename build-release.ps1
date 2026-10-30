@@ -107,19 +107,27 @@ if (-not (Test-Path $publishedExecutable -PathType Leaf)) {
 # process constructs the real WPF windows and exits by itself, so XAML/runtime
 # initialization errors fail the release before an archive is created.
 Write-Host "Running RoAura startup smoke test..."
+$previousSmokeData = $env:ROAURA_SMOKE_DATA
+$smokeDataRoot = Join-Path ([IO.Path]::GetTempPath()) ("RoAura-Smoke-" + [guid]::NewGuid())
+$env:ROAURA_SMOKE_DATA = $smokeDataRoot
+try {
 $smokeProcess = Start-Process -FilePath $publishedExecutable -ArgumentList "--smoke-test" -PassThru
 if (-not $smokeProcess.WaitForExit(15000)) {
     Stop-Process -Id $smokeProcess.Id -Force -ErrorAction SilentlyContinue
     throw "RoAura startup smoke test timed out. Release files were not created."
 }
 if ($smokeProcess.ExitCode -ne 0) {
-    $smokeLog = Join-Path $env:APPDATA $(if ($Development) { "RoAura-Dev\debug.log" } else { "RoAura\debug.log" })
+    $smokeLog = Join-Path $smokeDataRoot "Roaming\debug.log"
     if (Test-Path $smokeLog -PathType Leaf) {
         Write-Host "----- RoAura smoke-test debug.log -----"
         Get-Content $smokeLog -Tail 120
         Write-Host "----- end debug.log -----"
     }
-    throw "RoAura startup smoke test failed with exit code $($smokeProcess.ExitCode). Check %APPDATA%\RoAura\debug.log. Release files were not created."
+    throw "RoAura startup smoke test failed with exit code $($smokeProcess.ExitCode). See the isolated smoke log above. Release files were not created."
+}
+} finally {
+    $env:ROAURA_SMOKE_DATA = $previousSmokeData
+    Remove-Item $smokeDataRoot -Recurse -Force -ErrorAction SilentlyContinue
 }
 Write-Host "Startup smoke test passed."
 

@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - "integration/**"
+      - "feature/toc-local-database"
+      - "feature/toc-server-integration"
+      - "feature/settings-character-overlays"
   pull_request:
     branches:
       - "dev/roaura-2-ui"
@@ -25,6 +28,14 @@ jobs:
         uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
         with:
           dotnet-version: "8.0.415"
+
+      - name: Validate ToC catalog and importer
+        shell: pwsh
+        run: |
+          python -m unittest discover -s tools -p 'test_*toc*.py'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python tools/inspect_toc_database.py Data/database.toc.sqlite
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Run logic and UI regression tests
         shell: pwsh

@@ -7,6 +7,8 @@ namespace RoAura.Models;
 
 public sealed class EquipmentTracker : INotifyPropertyChanged
 {
+    public CharacterScope CharacterScope { get; set; } = new();
+
     private string _name = "New equipment";
     private bool _enabled = true;
     private int _itemId;

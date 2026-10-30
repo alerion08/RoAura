@@ -7,6 +7,8 @@ namespace RoAura.Models;
 
 public sealed class BuffPanelGroup : INotifyPropertyChanged
 {
+    public CharacterScope CharacterScope { get; set; } = new();
+
     private int _groupNumber = 1;
     private double _x = 900;
     private double _y = 360;

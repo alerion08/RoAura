@@ -51,10 +51,23 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string ServerProfile
     {
         get => _serverProfile;
-        set => Set(ref _serverProfile, GameServerProfile.Normalize(value));
+        set
+        {
+            var normalized = GameServerProfile.Normalize(value);
+            if (_serverProfile != normalized)
+            {
+                Set(ref _serverProfile, normalized);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SupportsMarket)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveMvpTimers)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveGoldGoblinPriceRules)));
+            }
+        }
     }
 
-    public bool Enabled { get; set; } = true;
+    [JsonIgnore] public bool SupportsMarket => GameServerProfile.SupportsMarket(ServerProfile);
+
+    private bool _enabled = true;
+    public bool Enabled { get => _enabled; set => Set(ref _enabled, value); }
     public bool OnlyWhenGameIsActive { get; set; } = true;
     public bool ShowShortNames { get => _showShortNames; set => Set(ref _showShortNames, value); }
     public bool ShowReadyText { get => _showReadyText; set => Set(ref _showReadyText, value); }
@@ -114,7 +127,7 @@ public sealed class AppSettings : INotifyPropertyChanged
 
     [JsonIgnore]
     public IReadOnlyList<string> GameDatabaseVersions { get; } =
-        [GameDatabaseVersion.Rtm, GameDatabaseVersion.SpringRo];
+        [GameDatabaseVersion.Rtm, GameDatabaseVersion.SpringRo, GameDatabaseVersion.Toc];
 
     [JsonIgnore]
     public string PacketCaptureStateText { get => _packetCaptureStateText; set => Set(ref _packetCaptureStateText, value); }
@@ -152,7 +165,33 @@ public sealed class AppSettings : INotifyPropertyChanged
             _ => Language == "en" ? "Packets: connection error" : "Пакеты: ошибка подключения"
         };
     }
-    public List<string> AllowedProcesses { get; set; } = ["PRM", "Refuge", "ragexe", "RagexeRE"];
+    private List<string> _allowedProcesses = ["PRM", "Refuge", "ragexe", "RagexeRE"];
+    public List<string> AllowedProcesses
+    {
+        get => _allowedProcesses;
+        set
+        {
+            var incoming = value ?? [];
+            if (_allowedProcesses.SequenceEqual(incoming, StringComparer.OrdinalIgnoreCase)) return;
+            Set(ref _allowedProcesses, incoming);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AllowedProcessesText)));
+        }
+    }
+    [JsonIgnore] public string AllowedProcessesText
+    {
+        get => string.Join(", ", AllowedProcesses);
+        set => AllowedProcesses = (value ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+    }
+    public ObservableCollection<CharacterProfile> Characters { get; set; } = [];
+    public ObservableCollection<NavigationPreference> NavigationSections { get; set; } = new(
+        Enum.GetValues<AppFeature>().Where(f => f is not (AppFeature.Home or AppFeature.Settings))
+            .Select(f => new NavigationPreference { Feature = f }));
+    public void EnsureNavigationSections()
+    {
+        foreach (var feature in Enum.GetValues<AppFeature>().Where(f => f is not (AppFeature.Home or AppFeature.Settings)))
+            if (!NavigationSections.Any(p => p.Feature == feature)) NavigationSections.Add(new NavigationPreference { Feature = feature });
+    }
+    public bool IsNavigationVisible(AppFeature feature) => feature is AppFeature.Home or AppFeature.Settings || NavigationSections.FirstOrDefault(p => p.Feature == feature)?.Visible != false;
     public ObservableCollection<SkillAura> Skills { get; set; } = [];
     public ObservableCollection<CooldownGroupSettings> CooldownGroups { get; set; } = [];
 
@@ -160,6 +199,10 @@ public sealed class AppSettings : INotifyPropertyChanged
 
     public ObservableCollection<ReminderItem> Reminders { get; set; } = [];
     public ObservableCollection<EquipmentTracker> Equipment { get; set; } = [];
+    public ObservableCollection<MvpTimer> TocMvpTimers { get; set; } = [];
+    [JsonIgnore] public ObservableCollection<MvpTimer> ActiveMvpTimers => ServerProfile == GameServerProfile.Toc ? TocMvpTimers : MvpTimers;
+    public ObservableCollection<GoldGoblinPriceRule> TocGoldGoblinPriceRules { get; set; } = [];
+    [JsonIgnore] public ObservableCollection<GoldGoblinPriceRule> ActiveGoldGoblinPriceRules => ServerProfile == GameServerProfile.Toc ? TocGoldGoblinPriceRules : GoldGoblinPriceRules;
     public ObservableCollection<MvpTimer> MvpTimers { get; set; } = [];
     public ObservableCollection<BuffPanelGroup> BuffPanelGroups { get; set; } = [];
     public ObservableCollection<RewardChannelSettings> RewardChannels { get; set; } =

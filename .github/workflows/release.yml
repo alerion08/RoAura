@@ -49,6 +49,14 @@ jobs:
         shell: pwsh
         run: choco install innosetup --version=6.7.1 --no-progress --yes
 
+      - name: Validate ToC catalog and importer
+        shell: pwsh
+        run: |
+          python -m unittest discover -s tools -p 'test_*toc*.py'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python tools/inspect_toc_database.py Data/database.toc.sqlite
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Run logic tests
         shell: pwsh
         run: dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release
@@ -67,6 +75,8 @@ jobs:
             '.\artifacts\publish\RoAura.exe',
             '.\artifacts\publish\Data\items.springro.json',
             '.\artifacts\publish\Data\item-prices.springro.json',
+            '.\artifacts\publish\Data\database.toc.sqlite',
+            '.\artifacts\publish\Data\database.toc.manifest.json',
             ".\artifacts\RoAura-$version-portable.zip",
             ".\artifacts\RoAura-$version-Setup.exe"
           )

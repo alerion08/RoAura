@@ -37,6 +37,7 @@ public sealed class DatabaseMonster
 
 public sealed class DatabaseMonsterSkill
 {
+    public string Description { get; set; } = "";
     public string Name { get; set; } = "";
     public string Level { get; set; } = "";
     public string Type { get; set; } = "";
@@ -60,6 +61,10 @@ public sealed class DatabaseSpawn
 
 public sealed class DatabaseItem
 {
+    public string AegisName { get; set; } = "";
+    public string Description { get; set; } = "";
+    public long NpcSellPrice { get; set; }
+    public Dictionary<string, string> Stats { get; set; } = [];
     public int Id { get; set; }
     public string Name { get; set; } = "";
     public string Type { get; set; } = "";

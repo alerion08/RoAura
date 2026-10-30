@@ -1,5 +1,130 @@
 # Project state
 
+## RoAura 3.2.0 publication (2026-10-30)
+
+User explicitly authorized preparation and publication of this release. Release branch:
+`release/3.2.0`, based on `0f0468f` from `feature/settings-character-overlays`.
+Main before publication: `4f75b78` / v3.1.1. Version metadata is now 3.2.0.
+The release PR must pass full Windows tests, portable startup, installer compilation,
+ToC importer/integrity validation, clean-payload checks and checksums before merging.
+The main push then creates v3.2.0 and publishes portable/installer/checksums through release.yml.
+Historical "no release authorized" notes below are superseded by this instruction.
+New ToC gameplay, multi-client/relog scope behavior and DPI visual acceptance remain
+unverified; publication notes explicitly retain these limitations. Prior feature CI passed
+233 app tests, eight Python tests, startup and portable verification.
+
+## Header settings and overlay visual corrections (2026-10-30)
+
+Same development branch, based on tested `031591c` (233 Windows tests, eight Python
+checks, package startup/portable passed). Settings now opens from the header button
+instead of the hotkey legend and sidebar entry. Overlay helper cards share the equipment
+info-card template; titles and field labels explicitly use the same theme text color.
+About uses its full-color image directly, without feature-availability conversion.
+Settings/model data and overlay coordinates are unchanged. New visual changes require
+manual Windows/DPI review; in-game acceptance remains pending as recorded below.
+
+## Settings, character scopes and ToC presentation (2026-10-30)
+
+Active branch: `feature/settings-character-overlays`, based on `c1e2804`.
+Stable main remains 3.1.1; no merge, tag or release is authorized.
+
+- Settings now contains General (shared Home connection controls, server and language),
+  all five hotkey editors, Character Manager and optional navigation visibility.
+  Other is last in both server selectors. Home and Settings remain reachable.
+- Detected CID metadata has stable identities; aliases and assigned servers do not
+  rewrite captured identities/history. Presets retain the global character registry.
+- All five overlay model types support multiple character targets. An empty selection
+  retains legacy all-character behavior; assigned overlays require an observed matching
+  server/CID, never AID. Existing coordinates and overlay options are retained.
+- Cooldown wizard detects a draft Skill ID before creation and cancels pending learning
+  on close/back; no half-created overlay is inserted.
+- Uniform empty list/editor cards; structured item/monster statistics and collapsed
+  skill descriptions. Existing headers and tabs retain their styling.
+- ToC catalog schema 2 adds 53 spawn-location records from 48 official map pages,
+  preserving exact source delay fields. Database and timer hints share these records.
+  Missing published intervals remain unknown; saved timer durations are not overwritten.
+- Settings schema 13 adds registry, scope and navigation preferences with legacy defaults.
+- Local validation: .NET/WPF cross-build succeeds; eight Python tests and full SQLite
+  integrity/count/hash validation pass. Windows regression/portable results are recorded
+  in the branch Actions run. New behavior has NOT been verified in Ragnarok/ToC.
+- Smoke startup uses isolated temporary data and disables real packet capture.
+
+Manual acceptance required: relog/server switching and multiple clients; all-character
+and multiple-character overlay targeting; global hotkeys and pre-creation learning;
+RU/EN layouts and empty-state alignment at Windows DPI; ToC packet statistics/equipment.
+
+## ToC integration and packet feature control (2026-10-29)
+
+Active branch: `feature/toc-server-integration`, based on the completed ToC
+catalog branch (`9783f9d`). Stable `main` remains 3.1.1; no version/tag/release change.
+The prior catalog-only block below is historical; its Windows CI passed 218 app
+tests, six Python tests and portable verification.
+
+Implemented in this block:
+
+- Explicit ToC profile, SQLite-backed database/items/MVPs, offline item descriptions,
+  scripts, restrictions, monster skills/rules, normal/MVP drops and linked maps.
+  The read-only adapter uses System32 `winsqlite3.dll`, already supplied by supported
+  Windows, without a new installed dependency or a duplicate JSON catalog.
+- ToC NPC prices and manual valuation in Gold Goblin; no SpringRO vending prices,
+  item HTTP requests or market/watch UI for ToC. Unknown respawns stay unknown;
+  ToC MVP timer intervals are entered manually.
+- Separate persisted ToC timer and price-rule collections; transient Gold Goblin
+  rows are retained per server during switches instead of being cleared. Legacy collections and
+  layout settings are retained. Settings schema is 12 so older releases preserve a
+  newer-version recovery copy. Packet preference remains the existing persisted
+  `PacketCaptureEnabled` field and participates in presets.
+- Persistent navigation entries: unavailable features are disabled, gray (including
+  icon pixels, preserving alpha) and slightly transparent. Selecting a server or
+  switching packets off returns from an unavailable page to Home.
+- RU/EN Home warning and packet toggle. Off stops Npcap, disposes the SpringRO
+  client reader, invalidates queued events and learning, and hides packet overlays.
+  Offline Database, manual MVP timers and SpringRO HTTP Market remain independent.
+- ToC character statistics reuse the existing verified packet/CID ledger with a
+  distinct server key; the history selector follows the selected server. Server
+  switches invalidate the previous capture even when address/port are unchanged.
+
+Local validation: app and full test project cross-compile with .NET 8;
+actual C# ToC adapter/catalogs and feature matrix pass seven headless checks
+(using system SQLite on Linux in place of Windows SQLite only). Six Python
+import tests, snapshot/hash checks, XAML XML and RU/EN key parity pass. Added
+Windows regressions cover the actual snapshot, NPC prices/overcharge, rule/timer
+isolation, disk/preset persistence, grayscale alpha and packet-off workers.
+The branch's Windows Actions run is the authority for full tests, native Windows
+SQLite and portable startup, including live navigation/toggle smoke assertions.
+
+Manual acceptance is still required: ToC executable/process selection, real
+Npcap/login/CID/EXP/loot/status events, relog/reconnect, switch-server history,
+packet off/on during play, RU/EN layout and DPI. No ToC-specific wire decoder is
+claimed; the existing standard parser is used. Do not call this release-ready.
+
+## ToC catalog preparation (2026-10-29)
+
+GitHub was checked directly: stable `main` is `4f75b78` (3.1.1), published
+`v3.1.1` has portable/installer assets, and release workflow run `40877228467`
+completed successfully. Older 3.0.0/current-branch statements below are historical
+and do not describe the current stable release. Remote branches include
+`release/3.1.1-character-identity`, `release/3.1.0-springro`,
+`feature/character-statistics`, `fix/gold-goblin-zero-prices`,
+`integration/2.14.0-audit-fixes` and `dev/roaura-2-ui`.
+
+Active task: `feature/toc-local-database`, based on stable main. Prepare a compact
+ToC item/monster/MVP catalog for later Database, MVP Timers, Statistics and Gold
+Goblin integration. See `TOC_DATABASE.md` for schema, source, refresh and limits.
+Snapshot completed: 9,894 items, 1,061 monsters, 61 MVPs, 4,946 normal-drop
+relations and 156 MVP rewards in a 12,386,304-byte SQLite file. Indexed drop/reward
+references all resolve. Six local Python regressions plus snapshot/payload/hash
+checks pass. Full Windows application/package checks belong to this branch's
+Actions run; local .NET SDK is unavailable.
+No settings migration, packet/UI changes, version bump or release is included.
+
+Verification boundary: user provisionally accepted SpringRO Skill ID, Status ID,
+reminders, equipment and own AID behavior. Earlier character-statistics stages
+have field feedback, but ordinary 3.1.1 CID/relog/Character Select and long-session
+CPU/reconnect acceptance are not separately recorded. Successful release CI proves
+automated build/package checks, not these gameplay checks. ToC runtime support
+has not been verified in game.
+
 ## Release correction: 3.1.1 (2026-10-29)
 
 The published 3.1.0 regular build omitted the DEV character-session and statistics path. This release candidate promotes map-login observation, flow-bound CID sessions, character-specific statistics storage, the active-character browser and shared Gold Goblin/session clock to the regular build. DEV-only raw diagnostics, updater isolation and the separate RoAura-Dev data directory remain gated. The normal build writes new character records to RoAura's local data directory; DEV history is not automatically migrated. A late launch after map login cannot infer CID. Windows CI and in-game relog/Character Select checks remain necessary before calling this correction verified.
@@ -94,11 +219,13 @@ CPU cost has not been measured and remains a material DEV-only concern.
 
 RoAura is a Windows x64 WPF overlay for Ragnarok Online. It reads incoming game packets through Npcap and provides configurable overlays and supporting tools.
 
-Current published release: **3.0.0**
+Current published release: **3.1.1** (verified on GitHub 2026-10-29)
 
 Stable branch: `main` (unchanged by this work)
 
-Active bug-fix branch: `feature/character-statistics`
+Active integration branch: `feature/toc-server-integration`
+
+Previous SpringRO investigation branch: `feature/character-statistics`
 
 Active redesign branch: `dev/roaura-2-ui`  
 Audit integration branch: `integration/2.14.0-audit-fixes`  

@@ -28,7 +28,16 @@ public static class SettingsSnapshot
                 property.GetIndexParameters().Length != 0 || property.IsDefined(typeof(JsonIgnoreAttribute))) continue;
             var incoming = property.GetValue(source);
             var current = property.GetValue(target);
-            if (incoming is IList items && current is IList existing)
+            if (source is AppSettings && property.Name == nameof(AppSettings.Characters) &&
+                incoming is IEnumerable<CharacterProfile> characters && current is IList knownCharacters)
+            {
+                // Names/server assignments are a global registry, not destructive preset state.
+                foreach (var character in characters)
+                    if (!knownCharacters.Cast<CharacterProfile>().Any(c => c.Id == character.Id ||
+                        (c.CharacterId == character.CharacterId && string.Equals(c.DetectedServer, character.DetectedServer, StringComparison.OrdinalIgnoreCase))))
+                        knownCharacters.Add(character);
+            }
+            else if (incoming is IList items && current is IList existing)
             {
                 // Remove individually: Reset carries no OldItems for subscribers that detach item handlers.
                 for (var i = existing.Count - 1; i >= 0; i--) existing.RemoveAt(i);

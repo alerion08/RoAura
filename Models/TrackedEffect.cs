@@ -7,6 +7,8 @@ namespace RoAura.Models;
 
 public sealed class TrackedEffect : INotifyPropertyChanged
 {
+    public CharacterScope CharacterScope { get; set; } = new();
+
     private string _name = "Новый эффект";
     private bool _enabled = true;
     private int _statusId;

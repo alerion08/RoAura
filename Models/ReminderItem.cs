@@ -7,6 +7,8 @@ namespace RoAura.Models;
 
 public sealed class ReminderItem : INotifyPropertyChanged
 {
+    public CharacterScope CharacterScope { get; set; } = new();
+
     private string _name = "New reminder";
     private bool _enabled = true;
     private int _statusId;
