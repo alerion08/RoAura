@@ -37,7 +37,7 @@ internal static class QuestInputSmoke
             hook.ToggleQuestTrackerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleTracker);
             hook.EscapePressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>{if(settingsWindow is MainWindow main)main.TryFinishQuestDrag();});
             hook.ToggleOverlaysPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>host.SetGlobalVisible(!host.GlobalVisible));
-            void KeyboardMode()=>hook.SetKeyboardBlocked(host.BrowserShowing);
+            void KeyboardMode()=>hook.SetKeyboardBlocked(host.BrowserRequested && host.BrowserShowing);
             host.KeyboardModeChanged+=KeyboardMode;
             try
             {
@@ -62,7 +62,7 @@ internal static class QuestInputSmoke
                 await Until(()=>Read(reportPath)!.Clicks>clicks,"text/world click-through");
                 foreach(var vk in new ushort[]{0x10,0x11,0x12}) {Key(vk,true);await Pause(50);Key(vk,false);await Pause(50);}
                 Key(0x41,true);Key(0x41,false);
-                var delivered=Read(reportPath)!;DebugLog.Write("QUEST INPUT DELIVERY: keys="+delivered.Keys+"; modifiers="+string.Join(",",delivered.Modifiers));
+                var delivered=Read(reportPath)!;DebugLog.Write("QUEST INPUT DELIVERY: keys="+delivered.Keys+"; modifiers="+string.Join(",",delivered.Modifiers)+"; gameForeground="+(QuestWindowNative.GetForegroundWindow()==game)+"; browserVisible="+host.BrowserShowing+"; browserRequested="+host.BrowserRequested+"; blocked="+typeof(GlobalInputHook).GetField("_keyboardBlocked",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!.GetValue(hook));
                 await Until(()=>Read(reportPath)!.Keys>0 && Read(reportPath)!.Modifiers.Count>=3,"game keyboard and modifiers");
                 await Press(workspace.Settings.QuestTrackerHotkey);
                 await Until(()=>!host.TrackerRequested,"independent tracker hotkey");

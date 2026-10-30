@@ -475,12 +475,19 @@ public partial class App : Application
             _databaseOverlay.RefreshLanguage();
             _settingsWindow.ValidateServerNavigationSmoke();
             DebugLog.Write("SMOKE TEST: startup completed successfully");
-            Dispatcher.BeginInvoke(async () =>
+            Dispatcher.BeginInvoke(new Action(async () =>
             {
-                await _settingsWindow.ValidateQuestsSmokeAsync();
-                await Task.Delay(1200);
-                Shutdown(0);
-            });
+                try
+                {
+                    await _settingsWindow.ValidateQuestsSmokeAsync();
+                    await Task.Delay(1200);
+                    Shutdown(0);
+                }
+                catch(Exception ex)
+                {
+                    DebugLog.Write("QUEST STARTUP VALIDATION FAILED: "+ex);DebugLog.Flush();Shutdown(-1);
+                }
+            }));
             return;
         }
 

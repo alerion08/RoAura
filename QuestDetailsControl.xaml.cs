@@ -91,6 +91,7 @@ public partial class QuestDetailsControl : UserControl
     internal void ShowFacts()=>DetailsTabs.SelectedIndex=1;
     public void ScrollToCurrent()
     {
+        if(Window.GetWindow(this) is {IsVisible:false})return;
         foreach(var card in StepsPanel.Children.OfType<Border>())
             if(card.Tag is int step && _workspace?.IsCurrentStep(step)==true) {card.BringIntoView();return;}
     }

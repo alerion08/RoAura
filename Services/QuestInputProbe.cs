@@ -35,6 +35,9 @@ internal static class QuestInputProbe
         report.Handle=new WindowInteropHelper(window).Handle.ToInt64();
         IntPtr Observe(IntPtr hwnd,int message,IntPtr wp,IntPtr lp,ref bool handled)
         {
+            // The fake game has no native Alt menu. Still record/forward Alt keys,
+            // but suppress the frame's SC_KEYMENU modal loop, unlike a game client.
+            if(message==0x112 && (wp.ToInt64()&0xFFF0)==0xF100){handled=true;return IntPtr.Zero;}
             if(message is 0x100 or 0x104)
             {
                 var key=wp.ToInt32();

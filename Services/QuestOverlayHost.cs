@@ -52,7 +52,11 @@ public sealed class QuestOverlayHost : IDisposable
         Browser=new(workspace,observed);
         Browser.HideRequested+=()=>HideBrowser(true);
         Browser.UserGeometryChanged+=SaveBrowserGeometry;
-        Browser.IsVisibleChanged+=(_,_)=>KeyboardModeChanged?.Invoke();
+        Browser.IsVisibleChanged+=(_,_)=>
+        {
+            if(Browser.IsVisible && (!_browserRequested || !_global))Browser.Hide();
+            KeyboardModeChanged?.Invoke();
+        };
         _text.Content=_canvas;_canvas.Children.Add(_cards);
         _workspace.Changed+=Changed;Options.PropertyChanged+=VisualChanged;
         _timer.Tick+=(_,_)=>Tick();_timer.Start();

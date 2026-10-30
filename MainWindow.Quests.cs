@@ -14,7 +14,7 @@ public partial class MainWindow
     private QuestOverlayHost _questWindows=null!;
     private bool _questTargetBlocked;
     private long _questTargetRevisionFloor;
-    public bool IsQuestBrowserOpen=>_questWindows?.BrowserShowing==true;
+    public bool IsQuestBrowserOpen=>_questWindows?.BrowserRequested==true && _questWindows.BrowserShowing;
     private CharacterSessionSnapshot CurrentQuestSession()=>_questTargetBlocked
         ? new("",null,CharacterSessionPhase.Unknown,0,0) : _packetCapture.CharacterSession;
     private void InitializeQuests()
