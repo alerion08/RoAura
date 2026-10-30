@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-29T20:55:18.406242+00:00",
+  "created_utc": "2026-10-30T05:03:17.956803+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -161,6 +161,19 @@
     "total": 25,
     "source_sequence_rows": 83
   },
+  "source_transition_audit": {
+    "reviewed_source_implementations": 19,
+    "potential_hops": 44,
+    "literal_guard_correspondences": 7,
+    "hops_without_correspondence": 37,
+    "unresolved_menu_options": 34,
+    "source_quest_complete_commands": 22,
+    "no_explicit_quest_journal_completion_in_matched_npcs": 11,
+    "literal_completequest_present_unattributed": 7,
+    "erasequest_present_not_proof_of_completion": 1,
+    "excluded_non_supported_decisions": 6,
+    "transition_witnesses": 44
+  },
   "unclassified_content_review": {
     "pages": 128
   },
@@ -191,7 +204,10 @@
     "wiki_missing_script_dossiers": 25,
     "wiki_missing_script_dossier_facts": 688,
     "wiki_source_decisions": 25,
-    "wiki_source_sequence_evidence": 83
+    "wiki_source_sequence_evidence": 83,
+    "wiki_transition_audits": 19,
+    "wiki_transition_witnesses": 44,
+    "wiki_transition_completion_facts": 24
   },
   "quality": {
     "wiki_refresh": {
