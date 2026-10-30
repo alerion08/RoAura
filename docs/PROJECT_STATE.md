@@ -1,5 +1,23 @@
 # Project state
 
+## ToC SQLite missing from 3.2.0 installer (2026-10-31)
+
+A user reported the "Could not open local ToC database" error. The ToC runtime
+looks for `Data/database.toc.sqlite` beside the executable. The release project
+publishes that file and the 3.2.0 workflow confirms the published copy, but
+`installer.iss` copies only `Data/*.json` and MVP images. Consequently an
+installation made using the 3.2.0 Setup EXE lacks the SQLite catalog; this is
+independent of packet capture and character settings.
+
+Fix branch: `fix/toc-installer-sqlite`, based on main at `10adb870`.
+The installer now copies `Data/*.sqlite` to the installed `Data` directory.
+A `test_toc_installer.py` regression runs in the existing release workflow's
+ToC test discovery. For existing users, copying the database file from the
+3.2.0 portable archive into the installed `Data` directory is a temporary
+workaround. This change does not replace published v3.2.0 artifacts, create
+a release, or modify settings. Windows installer build, install and real ToC
+catalog loading still require validation before a corrective release.
+
 ## RoAura 3.2.0 publication (2026-10-30)
 
 User explicitly authorized preparation and publication of this release. Release branch:

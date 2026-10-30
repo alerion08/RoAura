@@ -55,6 +55,8 @@ Source: "artifacts\publish\GUIDE_RU.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "artifacts\publish\GUIDE_EN.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "artifacts\publish\RELEASE_NOTES.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "artifacts\publish\Data\*.json"; DestDir: "{app}\Data"; Flags: ignoreversion
+; The offline ToC database is SQLite, not JSON; include it in installed builds.
+Source: "artifacts\publish\Data\*.sqlite"; DestDir: "{app}\Data"; Flags: ignoreversion
 Source: "artifacts\publish\Data\MvpImages\*.png"; DestDir: "{app}\Data\MvpImages"; Flags: ignoreversion skipifsourcedoesntexist
 
 [Icons]

@@ -167,6 +167,7 @@ On 2026-10-27 the user confirmed that tested build `28fa0d5` works well and acce
 ## Installer and updater
 
 - [ ] Installer builds with the version from `RoAura.csproj`.
+- [ ] Install the Setup EXE into a clean directory, confirm `Data/database.toc.sqlite` exists there, and select ToC to load its offline item and monster catalog (checking only `artifacts/publish` is insufficient).
 - [ ] Installer warns when Npcap is missing but can continue.
 - [ ] Installer refuses unsupported Windows versions.
 - [ ] Install preserves user data under `%APPDATA%\RoAura`.
