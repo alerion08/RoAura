@@ -1,5 +1,28 @@
 # Project state
 
+## ROQuestie stage 0 audit (2026-10-30)
+
+Active scoped branch: `feature/roquestie-mvp`, created from stable main
+`10adb870f760f080711fb29d9d77fd32d1ff120c` (3.2.0). Research stays at
+`41bfc483311fa0e24ee84d1b1edcb0b4558914bd`; consumer SQLite schema v5.
+These match the approved specification. Read-only integrity and foreign-key
+checks passed on the actual catalog (286 quests / 3,420 guide rows).
+See [integration audit](ROQUESTIE_INTEGRATION_AUDIT.md) for the pinned catalog
+hash, actual APIs, planned touch points, sample navigation ambiguities and risks.
+
+No application behavior changes in this stage. Implementation stages 1–5 are
+pending. Existing Navi is clipboard-only; no verified send-to-game API was
+found. The ordinary overlay is click-through, while Database intentionally
+takes focus: neither may be copied blindly for interactive quest buttons.
+Progress must remain separate from presets and use server-qualified CID or an
+explicit manual local profile. No automatic quest completion from research.
+
+Current development workflow does not auto-trigger on this branch; wire or
+dispatch Windows validation after a coherent implementation block. This host
+has no dotnet executable; no app tests, portable or Windows/game validation
+were performed for this documentation-only audit. No release/merge/tag/version
+change is authorized. Stable main and the research branch are unchanged.
+
 ## RoAura 3.2.0 publication (2026-10-30)
 
 User explicitly authorized preparation and publication of this release. Release branch:
