@@ -13,7 +13,9 @@ internal static class QuestCopyFeedback
         var border=new FrameworkElementFactory(typeof(Border));
         border.SetValue(Border.BackgroundProperty,Brushes.ForestGreen);
         border.SetValue(Border.CornerRadiusProperty,new CornerRadius(5));
-        var content=new FrameworkElementFactory(typeof(ContentPresenter));
+        var content=new FrameworkElementFactory(typeof(TextBlock));
+        content.SetValue(TextBlock.TextProperty,"✓");
+        content.SetValue(TextBlock.ForegroundProperty,Brushes.White);
         content.SetValue(FrameworkElement.HorizontalAlignmentProperty,HorizontalAlignment.Center);
         content.SetValue(FrameworkElement.VerticalAlignmentProperty,VerticalAlignment.Center);
         border.AppendChild(content);
