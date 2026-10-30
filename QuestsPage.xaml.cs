@@ -96,9 +96,13 @@ public partial class QuestsPage : UserControl
     private void Level_Changed(object sender, KeyboardFocusChangedEventArgs e) => Filter();
     private void Level_KeyUp(object sender, KeyEventArgs e) { if (e.Key == Key.Enter) Filter(); }
     private async void Profile_Changed(object sender, SelectionChangedEventArgs e)
-    { if (!_updating && _workspace is not null && ProfileChoice.SelectedItem is QuestProfileChoice choice) await _workspace.SelectProfileAsync(choice.Key, _observed!()); }
+    {
+        if (!_updating && _workspace is not null && ProfileChoice.SelectedItem is QuestProfileChoice choice &&
+            (choice.Key is null || string.Equals(choice.Key.Server, _workspace.Settings.ServerProfile, StringComparison.OrdinalIgnoreCase)))
+            await _workspace.SelectProfileAsync(choice.Key, _observed!());
+    }
     private async void Reload_Click(object sender, RoutedEventArgs e) { if (_workspace is not null) await _workspace.LoadCatalogAsync(); }
-    private async void Save_Click(object sender, RoutedEventArgs e) { if (_workspace is not null) await _workspace.FlushAsync(); }
+    private async void Save_Click(object sender, RoutedEventArgs e) { if (_workspace is not null) await _workspace.SaveAndRefreshAsync(_observed!()); }
     private void Visibility_Click(object sender, RoutedEventArgs e)
     { if (sender is CheckBox { DataContext: QuestListRow row } box) _workspace?.SetVisibility(row, box.IsChecked == true); }
     private void QuestAction_Click(object sender, RoutedEventArgs e)

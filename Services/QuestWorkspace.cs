@@ -103,6 +103,9 @@ public sealed class QuestWorkspace : INotifyPropertyChanged
     {
         if (manual is not null && !string.Equals(manual.Server, Settings.ServerProfile, StringComparison.OrdinalIgnoreCase))
             throw new ArgumentException("Profile server mismatch.");
+        // This is a fresh explicit choice for the currently selected server,
+        // not the previous server's manual selection that Refresh must clear.
+        _server = Settings.ServerProfile;
         _manual = manual;
         return RefreshIdentityAsync(observed);
     }
@@ -184,6 +187,12 @@ public sealed class QuestWorkspace : INotifyPropertyChanged
         await _gate.WaitAsync();
         try { return await SaveCoreAsync(); }
         finally { _gate.Release(); Notify(); }
+    }
+    public async Task<bool> SaveAndRefreshAsync(CharacterSessionSnapshot observed)
+    {
+        if (!await FlushAsync()) return false;
+        await RefreshIdentityAsync(observed);
+        return !HasPendingWrites;
     }
     private async Task<bool> SaveCoreAsync()
     {

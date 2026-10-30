@@ -76,7 +76,8 @@ public sealed class QuestWorkspaceTests : IDisposable
         Assert.False(await workspace.FlushAsync()); Assert.True(workspace.HasPendingWrites); Assert.NotEmpty(workspace.Error);
         await workspace.SelectProfileAsync(new("SpringRO", 99, null), Observed()); Assert.False(workspace.CanEdit); Assert.True(workspace.HasPendingWrites);
         File.Delete(store.PathFor(key)); // remove test conflict, not production recovery behavior
-        await workspace.SelectProfileAsync(key, Observed()); Assert.True(await workspace.FlushAsync()); Assert.Single(workspace.Active);
+        Assert.True(await workspace.SaveAndRefreshAsync(Observed())); Assert.True(workspace.CanEdit); Assert.Empty(workspace.Active);
+        await workspace.SelectProfileAsync(key, Observed()); Assert.Single(workspace.Active);
     }
     [Fact]
     public async Task ReloadAfterMissingCatalogCanSucceedAndCancelIsSafeAfterCompletion()
