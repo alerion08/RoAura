@@ -67,7 +67,7 @@ class GapReviewTests(unittest.TestCase):
         self.assertTrue(has_symbol("hg_memory == 4","hg_memory"))
         db=self.fixture()
         db.execute("UPDATE npc_flow_conditions SET expression='hg_memory != 4' WHERE source_id=1 AND npc_ordinal=1")
-        db.execute("UPDATE npc_state_facts SET object_id=513 WHERE role='item_check'")
+        db.execute("UPDATE npc_state_facts SET object_id=513 WHERE role IN ('item_check','item_consume')")
         audit_transitions(db)
         result=audit_gaps(db)
         self.assertEqual(result["summary"]["gaps_with_literal_read_candidates"],0)
