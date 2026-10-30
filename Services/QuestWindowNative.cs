@@ -26,6 +26,8 @@ internal static class QuestWindowNative
     internal static bool IsOwnedBy(IntPtr window,IntPtr owner)
     { for(var i=0;i<12 && window!=IntPtr.Zero;i++) {window=GetWindow(window,4);if(window==owner && owner!=IntPtr.Zero)return true;}return false; }
     [DllImport("user32.dll")] private static extern IntPtr GetWindow(IntPtr hwnd,uint command);
+    internal static bool LeftMouseDown=>(GetAsyncKeyState(1)&0x8000)!=0;
+    [DllImport("user32.dll")] private static extern short GetAsyncKeyState(int key);
     internal static Point Cursor() { GetCursorPos(out var p);return new Point(p.X,p.Y); }
     internal static double Scale(IntPtr hwnd) {var dpi=GetDpiForWindow(hwnd);return dpi>0?dpi/96d:1;}
     [DllImport("user32.dll")] internal static extern IntPtr GetForegroundWindow();

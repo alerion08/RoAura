@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 
@@ -27,16 +28,24 @@ internal static class QuestInputProbe
             var temporary=path+".tmp";File.WriteAllText(temporary,JsonSerializer.Serialize(report));File.Move(temporary,path,true);
         }
         window.PreviewMouseDown+=(_,_)=>{report.Clicks++;Write();};
-        window.PreviewKeyDown+=(_,e)=>
-        {
-            var key=e.Key==Key.System?e.SystemKey:e.Key;
-            if(key is Key.LeftCtrl or Key.RightCtrl or Key.LeftShift or Key.RightShift or Key.LeftAlt or Key.RightAlt)
-            {if(!report.Modifiers.Contains(key.ToString()))report.Modifiers.Add(key.ToString());}
-            else report.Keys++;
-            Write();
-        };
+        var input=new TextBox {Width=280,Height=34,HorizontalAlignment=HorizontalAlignment.Center,VerticalAlignment=VerticalAlignment.Bottom,Margin=new Thickness(0,0,0,35)};
+        window.Content=input;
         window.Closed+=(_,_)=>app.Shutdown(0);
-        window.Show();window.Activate();report.Handle=new WindowInteropHelper(window).Handle.ToInt64();Write();
+        window.Show();window.Activate();input.Focus();Keyboard.Focus(input);
+        report.Handle=new WindowInteropHelper(window).Handle.ToInt64();
+        IntPtr Observe(IntPtr hwnd,int message,IntPtr wp,IntPtr lp,ref bool handled)
+        {
+            if(message is 0x100 or 0x104)
+            {
+                var key=wp.ToInt32();
+                var modifier=key switch {0x10 or 0xA0 or 0xA1=>"Shift",0x11 or 0xA2 or 0xA3=>"Control",0x12 or 0xA4 or 0xA5=>"Alt",_=>null};
+                if(modifier is null)report.Keys++;else if(!report.Modifiers.Contains(modifier))report.Modifiers.Add(modifier);
+                Write();
+            }
+            return IntPtr.Zero;
+        }
+        HwndSource.FromHwnd(new IntPtr(report.Handle))!.AddHook(Observe);
+        Write();
         return true;
     }
 }

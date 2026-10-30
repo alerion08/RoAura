@@ -36,6 +36,7 @@ public sealed class QuestOverlayHost : IDisposable
     private string _toast="";
     private DateTime _toastUntil;
     public QuestBrowserWindow Browser {get;}
+    public bool IsDragging=>_dragElement is not null;
     public bool BrowserShowing=>Browser.IsVisible;
     public bool BrowserRequested=>_browserRequested;
     public bool TrackerRequested=>_trackerRequested;
@@ -118,6 +119,11 @@ public sealed class QuestOverlayHost : IDisposable
     private void Tick()
     {
         if(_disposed)return;
+        if(_dragElement is not null)
+        {
+            if(!QuestWindowNative.LeftMouseDown){EndDrag();_dirty=true;}
+            else{var delta=QuestWindowNative.Cursor()-_dragCursor;Options.X=_dragOrigin.X+delta.X/_dpi;Options.Y=_dragOrigin.Y+delta.Y/_dpi;}
+        }
         if(_toast.Length>0 && DateTime.UtcNow>=_toastUntil){_toast="";_dirty=true;}
         if(!_global || !ResolveGame()) {HideSurfaces();return;}
         var foreground=QuestWindowNative.GetForegroundWindow();

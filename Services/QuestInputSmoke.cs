@@ -20,6 +20,7 @@ internal static class QuestInputSmoke
         var reportPath=Path.Combine(directory,"input.json");
         var start=new ProcessStartInfo(exe,"--smoke-test --quest-input-probe") {UseShellExecute=false};
         start.Environment["ROAURA_QUEST_PROBE_REPORT"]=reportPath;
+        start.Environment["ROAURA_SMOKE_DATA"]=Path.Combine(directory,"ChildData");
         start.Environment.Remove("ROAURA_QUEST_UI_SNAPSHOTS");
         using var process=Process.Start(start) ?? throw new InvalidOperationException("Could not start isolated quest input probe.");
         var original=workspace.Settings.AllowedProcesses.ToList();
@@ -34,6 +35,7 @@ internal static class QuestInputSmoke
             using var hook=new GlobalInputHook(workspace.Settings);
             hook.ToggleQuestBrowserPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleBrowser);
             hook.ToggleQuestTrackerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleTracker);
+            hook.EscapePressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>{if(settingsWindow is MainWindow main)main.TryFinishQuestDrag();});
             hook.ToggleOverlaysPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>host.SetGlobalVisible(!host.GlobalVisible));
             void KeyboardMode()=>hook.SetKeyboardBlocked(host.BrowserShowing);
             host.KeyboardModeChanged+=KeyboardMode;
@@ -60,6 +62,7 @@ internal static class QuestInputSmoke
                 await Until(()=>Read(reportPath)!.Clicks>clicks,"text/world click-through");
                 foreach(var vk in new ushort[]{0x10,0x11,0x12}) {Key(vk,true);await Pause(50);Key(vk,false);await Pause(50);}
                 Key(0x41,true);Key(0x41,false);
+                var delivered=Read(reportPath)!;DebugLog.Write("QUEST INPUT DELIVERY: keys="+delivered.Keys+"; modifiers="+string.Join(",",delivered.Modifiers));
                 await Until(()=>Read(reportPath)!.Keys>0 && Read(reportPath)!.Modifiers.Count>=3,"game keyboard and modifiers");
                 await Press(workspace.Settings.QuestTrackerHotkey);
                 await Until(()=>!host.TrackerRequested,"independent tracker hotkey");
@@ -79,6 +82,17 @@ internal static class QuestInputSmoke
                 await Until(()=>!host.GlobalVisible && !host.TextWindow.IsVisible,"global overlay hide");
                 await Press(workspace.Settings.OverlaysHotkey);
                 await Until(()=>host.GlobalVisible && host.TrackerRequested,"global overlay restore");
+                await Pause();host.RefreshNow();
+                var moveStrip=host.ActionWindows.First(w=>w.IsVisible);var handle=((StackPanel)moveStrip.Content).Children.OfType<Button>().Last();
+                var grab=handle.PointToScreen(new Point(handle.ActualWidth/2,handle.ActualHeight/2));
+                SetCursorPos((int)grab.X,(int)grab.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});
+                await Until(()=>host.IsDragging,"tracker drag start");
+                hook.SetEscapeEnabled(true);SetCursorPos((int)grab.X+25,(int)grab.Y+35);
+                await Until(()=>workspace.Settings.QuestOverlay.Y!=y,"nonactivating drag outside handle");
+                await Press(workspace.Settings.FinishMoveHotkey);await Until(()=>!host.IsDragging,"finish tracker drag");
+                Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=4}}});hook.SetEscapeEnabled(false);
+                if(settingsWindow.IsVisible)throw new InvalidOperationException("Finishing tracker drag opened main settings.");
+                x=workspace.Settings.QuestOverlay.X;y=workspace.Settings.QuestOverlay.Y;
                 settingsWindow.Show();settingsWindow.Activate();host.RefreshNow();
                 if(host.ActionWindows.Any(w=>w.IsVisible && QuestWindowNative.Bounds(new WindowInteropHelper(w).Handle).IntersectsWith(QuestWindowNative.Bounds(new WindowInteropHelper(settingsWindow).Handle))))
                     throw new InvalidOperationException("Tracker actions overlap settings.");
@@ -92,6 +106,7 @@ internal static class QuestInputSmoke
             }
             finally {host.KeyboardModeChanged-=KeyboardMode;hook.SetKeyboardBlocked(false);host.HideBrowser(false);}
         }
+        catch(Exception ex) {DebugLog.Write("QUEST INPUT FAILURE: "+ex);DebugLog.Flush();throw;}
         finally
         {
             workspace.Settings.AllowedProcesses=original;setProcesses(string.Join(", ",original));

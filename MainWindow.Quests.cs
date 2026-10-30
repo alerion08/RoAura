@@ -84,6 +84,7 @@ public partial class MainWindow
     }
     public void ToggleQuestTracker() {if(QuestToggleContext())_questWindows.ToggleTracker();}
     private bool QuestToggleContext()=>IsActive || IsQuestBrowserOpen || ForegroundProcess.IsForegroundAllowed(Settings.AllowedProcesses);
+    public bool TryFinishQuestDrag() {if(!_questWindows.IsDragging)return false;_questWindows.EndDrag();return true;}
     public void HideQuestBrowser(bool restoreFocus=false)=>_questWindows.HideBrowser(restoreFocus);
     public void SetQuestGlobalVisible(bool visible)=>_questWindows.SetGlobalVisible(visible);
     private void CloseQuests()

@@ -1205,6 +1205,7 @@ public partial class App : Application
         Dispatcher.BeginInvoke(() =>
         {
             if (_settingsWindow is null) return;
+            if(_settingsWindow.TryFinishQuestDrag())return;
             _settingsWindow.EndOverlayEditModes();
             _settingsWindow.Show();
             _settingsWindow.Activate();
