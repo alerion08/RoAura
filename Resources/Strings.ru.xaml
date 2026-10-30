@@ -594,7 +594,7 @@
     <sys:String x:Key="QSourceHash">Отпечаток источника</sys:String>
     <sys:String x:Key="QEvidenceHint">Wiki и сопоставления скриптов — справочные источники. Они не подтверждают наличие квеста, правильность всех веток или прогресс на выбранном сервере.</sys:String>
     <sys:String x:Key="QNarrative">Исходный ненумерованный абзац</sys:String>
-    <sys:String x:Key="QWikiCoordinates">Координаты из wiki, на сервере не проверены</sys:String>
+    <sys:String x:Key="QWikiCoordinates">Координаты</sys:String>
     <sys:String x:Key="QMapUnknown">Карта не указана</sys:String>
     <sys:String x:Key="QSelectStep">Перейти к этой инструкции</sys:String>
     <sys:String x:Key="QVisible">Показывать в оверлее</sys:String>
@@ -653,7 +653,7 @@
     <sys:String x:Key="QNoGame">Подходящее окно игры не найдено. Запустите клиент из списка разрешённых процессов.</sys:String>
     <sys:String x:Key="QWikiShort">Wiki</sys:String>
     <sys:String x:Key="QNoNavigation">Нет однозначной карты и координат текущего шага.</sys:String>
-    <sys:String x:Key="QChooseNavigation">Выберите точку из wiki. На сервере не проверена.</sys:String>
+    <sys:String x:Key="QChooseNavigation">Выберите точку навигации.</sys:String>
     <sys:String x:Key="QCommandCopied">Команда скопирована — вставьте её в игре</sys:String>
     <sys:String x:Key="QCopyFailed">Не удалось скопировать команду</sys:String>
     <sys:String x:Key="QMoreQuests">Ещё квестов:</sys:String>

@@ -124,8 +124,17 @@ internal static class QuestInputSmoke
                 if(settingsWindow.IsVisible)throw new InvalidOperationException("Finishing tracker drag opened main settings.");
                 x=workspace.Settings.QuestOverlay.X;y=workspace.Settings.QuestOverlay.Y;
                 settingsWindow.Show();settingsWindow.Activate();host.RefreshNow();
-                if(host.ActionWindows.Any(w=>w.IsVisible && QuestWindowNative.Bounds(new WindowInteropHelper(w).Handle).IntersectsWith(QuestWindowNative.Bounds(new WindowInteropHelper(settingsWindow).Handle))))
-                    throw new InvalidOperationException("Tracker actions overlap settings.");
+                var settingsBounds=QuestWindowNative.Bounds(new WindowInteropHelper(settingsWindow).Handle);
+                foreach(var action in host.ActionWindows.Where(w=>w.IsVisible))
+                {
+                    var content=(StackPanel)action.Content;
+                    foreach(var button in content.Children.OfType<Button>())
+                    {
+                        var center=new Point(button.ActualWidth/2,button.ActualHeight/2);
+                        if(settingsBounds.Contains(button.PointToScreen(center)) && (content.Clip?.FillContains(button.TranslatePoint(center,content))??true))
+                            throw new InvalidOperationException("Painted tracker button overlaps settings without a clip.");
+                    }
+                }
                 settingsWindow.Hide();QuestWindowNative.SetForegroundWindow(game);await Pause();
                 SetWindowPos(game,IntPtr.Zero,20,20,340,240,0x14);await Pause();host.RefreshNow();
                 if(workspace.Settings.QuestOverlay.X!=x || workspace.Settings.QuestOverlay.Y!=y)

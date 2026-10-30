@@ -6,6 +6,15 @@ namespace RoAura.Tests;
 
 public sealed class QuestInteractionTests
 {
+    [Fact]
+    public void PartialBrowserOverlapClipsOnlyCoveredActionPixels()
+    {
+        var clip=OverlayOcclusion.CreateClip(new System.Windows.Size(320,24),[new System.Windows.Rect(290,0,760,500)]);
+        Assert.NotNull(clip);
+        Assert.True(clip.FillContains(new System.Windows.Point(20,12)));
+        Assert.True(clip.FillContains(new System.Windows.Point(200,12)));
+        Assert.False(clip.FillContains(new System.Windows.Point(310,12)));
+    }
     [Theory]
     [InlineData("Talk to her and type \"Freya's Spring\".", "Freya's Spring")]
     [InlineData("Type in Yellow Key .", "Yellow Key")]

@@ -898,3 +898,16 @@ Artifact: [RoAura-development-73-c6065b2](https://github.com/alerion08/RoAura/ac
 portable plus 17 UI PNGs. Portable SHA256:
 `2274a41fbf6a21c20404cfa78dc603086c505da47bcc284797bf7449fc62ff9a`.
 No release/version/main/research mutation.
+
+## ROQuestie action occlusion and detail navigation (2026-10-30)
+
+Owner-reported disappearing tracker buttons were caused by whole-strip hiding
+when the browser/settings intersected only its transparent edge. Action content
+now uses a render/input alpha clip for covered pixels only; uncovered buttons
+remain visible. Existing game bounds, visibility toggles and passive focus remain.
+Walkthrough literal usable map points are coordinate-labeled copy buttons using
+the same filtered /navi command and success feedback; Other remains reference-only.
+Coordinate warning prose is removed from point labels/tooltips/chooser. Original
+catalog/source assurance is retained internally; no new server verification claim.
+Regression smoke checks clipped painted button centers rather than demanding
+nonintersecting transparent HWND rectangles. Automated validation pending.

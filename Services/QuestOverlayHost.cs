@@ -163,8 +163,12 @@ public sealed class QuestOverlayHost : IDisposable
         {
             var rect=new Rect(_gamePixels.X+Options.X*_dpi,_gamePixels.Y+(Options.Y+y*Options.Scale)*_dpi,Options.Width*scale,24*scale);
             var inside=_gamePixels.Contains(rect);
-            var masked=excluded.Any(r=>r.IntersectsWith(rect));
-            if(!inside || masked || !Options.ShowButtons) {window.Hide();continue;}
+            // Clip only the covered pixels. A wide transparent strip can intersect
+            // the browser even when all its painted buttons are still to the left.
+            if(window.Content is FrameworkElement content)
+                content.Clip=OverlayOcclusion.CreateClip(new Size(Options.Width,24),excluded.Select(r=>
+                    new Rect((r.X-rect.X)/scale,(r.Y-rect.Y)/scale,r.Width/scale,r.Height/scale)));
+            if(!inside || !Options.ShowButtons) {window.Hide();continue;}
             if(!window.IsVisible)window.Show();QuestWindowNative.Place(window,rect,promote);
         }
         if(_choices is not null)

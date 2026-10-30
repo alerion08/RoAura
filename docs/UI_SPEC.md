@@ -309,3 +309,16 @@ More always selects Walkthrough, updates layout and scrolls to the active row,
 even after the same guide was left on Facts. Native smoke checks this path and
 successful navi feedback. Automated validation passed on c6065b2 (302 tests, eight ToC checks, Windows portable startup);
 real SpringRO/DPI/input acceptance remains manual.
+
+## ROQuestie action occlusion and detail navigation (2026-10-30)
+
+Owner-reported disappearing tracker buttons were caused by whole-strip hiding
+when the browser/settings intersected only its transparent edge. Action content
+now uses a render/input alpha clip for covered pixels only; uncovered buttons
+remain visible. Existing game bounds, visibility toggles and passive focus remain.
+Walkthrough literal usable map points are coordinate-labeled copy buttons using
+the same filtered /navi command and success feedback; Other remains reference-only.
+Coordinate warning prose is removed from point labels/tooltips/chooser. Original
+catalog/source assurance is retained internally; no new server verification claim.
+Regression smoke checks clipped painted button centers rather than demanding
+nonintersecting transparent HWND rectangles. Automated validation pending.

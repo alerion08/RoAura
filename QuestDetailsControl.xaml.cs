@@ -46,9 +46,16 @@ public partial class QuestDetailsControl : UserControl
                 content.Children.Add(Text($"{step.Number}. " + (step.SourceNumber is null ? T("QNarrative") : ""), true));
                 if (!string.IsNullOrWhiteSpace(step.Section)) content.Children.Add(Text(step.Section));
                 content.Children.Add(Text(step.Instruction));
-                foreach (var location in step.Locations)
-                    content.Children.Add(Text(T("QWikiCoordinates") + ": " + (location.Map ?? T("QMapUnknown")) +
-                        $" {location.X},{location.Y}"));
+                var points=new WrapPanel();
+                var row=new QuestListRow(new QuestProgressEntry {QuestKey=guide.Key,CurrentStep=step.Number},guide);
+                foreach(var target in QuestNavigation.Targets(row))
+                {
+                    var coordinate=new Button {Content=target.ToString(),HorizontalAlignment=HorizontalAlignment.Left,Margin=new Thickness(0,4,6,2),ToolTip=target.Command,
+                        IsEnabled=workspace.Settings.ServerProfile!=RoAura.Models.GameServerProfile.Other};
+                    coordinate.Click+=(_,_)=>{if(ClipboardService.TryCopy(target.Command))QuestCopyFeedback.Success(coordinate);else coordinate.ToolTip=T("QCopyFailed");};
+                    points.Children.Add(coordinate);
+                }
+                content.Children.Add(points);
                 var select = new Button { Content = T("QSelectStep"), IsEnabled = workspace.CanEdit && workspace.HasProgress(guide),
                     HorizontalAlignment = HorizontalAlignment.Left, Margin = new Thickness(0, 6, 0, 0), Tag = step.Number };
                 select.Click += (_, _) => workspace.SelectStep((int)select.Tag);

@@ -594,7 +594,7 @@
     <sys:String x:Key="QSourceHash">Source fingerprint</sys:String>
     <sys:String x:Key="QEvidenceHint">Wiki guides and script mappings are reference evidence. They do not confirm availability, every dialogue branch or progress on the selected server.</sys:String>
     <sys:String x:Key="QNarrative">Original unnumbered paragraph</sys:String>
-    <sys:String x:Key="QWikiCoordinates">Wiki coordinates, not verified on this server</sys:String>
+    <sys:String x:Key="QWikiCoordinates">Coordinates</sys:String>
     <sys:String x:Key="QMapUnknown">Map not specified</sys:String>
     <sys:String x:Key="QSelectStep">Use this instruction</sys:String>
     <sys:String x:Key="QVisible">Show in overlay</sys:String>
@@ -653,7 +653,7 @@
     <sys:String x:Key="QNoGame">No eligible game window found. Start a client listed in allowed processes.</sys:String>
     <sys:String x:Key="QWikiShort">Wiki</sys:String>
     <sys:String x:Key="QNoNavigation">No usable map and coordinates for the current instruction.</sys:String>
-    <sys:String x:Key="QChooseNavigation">Choose a wiki location. Not verified on this server.</sys:String>
+    <sys:String x:Key="QChooseNavigation">Choose a navigation point.</sys:String>
     <sys:String x:Key="QCommandCopied">Command copied — paste it in game</sys:String>
     <sys:String x:Key="QCopyFailed">Could not copy command</sys:String>
     <sys:String x:Key="QMoreQuests">More quests:</sys:String>
