@@ -35,8 +35,8 @@ public partial class QuestDetailsControl : UserControl
         SourceText.Text = guide is null ? T("QUnknown") : guide.SourceUrl + "\n\n" + T("QReview") + ": " + guide.ReviewState +
             "\n" + T("QSourceHash") + ": " + (guide.ContentHash ?? T("QUnknown")) + "\n" +
             T("QFreshness") + ": " + guide.RefreshState + "\n" + (guide.LastSuccessUtc ?? T("QUnknown")) + "\n" + guide.LastError + "\n\n" + T("QEvidenceHint");
-        AddButton.Content = T(workspace.IsActive(guide) ? "QActive" : workspace.HasProgress(guide) ? "QInHistory" : "QAdd");
-        AddButton.IsEnabled = workspace.CanEdit && guide?.Steps.Count > 0 && !workspace.HasProgress(guide);
+        AddButton.Content = T(workspace.IsActive(guide) ? "QActive" : workspace.HasProgress(guide) ? "QRestore" : "QAdd");
+        AddButton.IsEnabled = workspace.CanEdit && guide?.Steps.Count > 0;
         StepsPanel.Children.Clear();
         if (guide is null || guide.Steps.Count == 0) StepsPanel.Children.Add(Text(T("QNoSteps")));
         if (guide is not null)
@@ -53,6 +53,12 @@ public partial class QuestDetailsControl : UserControl
                     HorizontalAlignment = HorizontalAlignment.Left, Margin = new Thickness(0, 6, 0, 0), Tag = step.Number };
                 select.Click += (_, _) => workspace.SelectStep((int)select.Tag);
                 content.Children.Add(select);
+                foreach(var answer in QuestAnswers.Extract(step.Instruction))
+                {
+                    var copy=new Button {Content=T("QCopyAnswer"),ToolTip=answer,HorizontalAlignment=HorizontalAlignment.Left,Margin=new Thickness(0,6,0,0)};
+                    copy.Click+=(_,_)=>{if(ClipboardService.TryCopy(answer)){QuestCopyFeedback.Success(copy);}else copy.ToolTip=T("QCopyFailed");};
+                    content.Children.Add(copy);
+                }
                 StepsPanel.Children.Add(new Border { CornerRadius = new CornerRadius(6), Padding = new Thickness(10), Margin = new Thickness(0, 0, 0, 6),
                     Background = (Brush)FindResource(workspace.IsCurrentStep(step.Number) ? "RoTitleBrush" : "RoCardBrush"),
                     BorderBrush = (Brush)FindResource(workspace.IsCurrentStep(step.Number) ? "RoGoldBrush" : "RoSoftBorderBrush"),
@@ -103,17 +109,33 @@ public partial class QuestDetailsControl : UserControl
         block.Inlines.Add(new Run(text[last..]));
     }
     internal void ShowFacts()=>DetailsTabs.SelectedIndex=1;
+    public void ShowCurrentStep()
+    {
+        DetailsTabs.SelectedIndex=0;
+        Dispatcher.BeginInvoke(new Action(()=>{UpdateLayout();ScrollToCurrent();}),DispatcherPriority.ContextIdle);
+    }
     public void ScrollToCurrent()
     {
         if(Window.GetWindow(this) is {IsVisible:false})return;
         foreach(var card in StepsPanel.Children.OfType<Border>())
-            if(card.Tag is int step && _workspace?.IsCurrentStep(step)==true) {card.BringIntoView();return;}
+            if(card.Tag is int step && _workspace?.IsCurrentStep(step)==true) {WalkScroll.UpdateLayout();var top=card.TranslatePoint(new Point(0,0),StepsPanel).Y;WalkScroll.ScrollToVerticalOffset(top);return;}
+    }
+    internal bool CurrentStepInView
+    {
+        get
+        {
+            if(DetailsTabs.SelectedIndex!=0)return false;
+            var card=StepsPanel.Children.OfType<Border>().FirstOrDefault(c=>c.Tag is int n && _workspace?.IsCurrentStep(n)==true);
+            if(card is null)return false;
+            var top=card.TranslatePoint(new Point(0,0),StepsPanel).Y-WalkScroll.VerticalOffset;
+            return top>=-1 && top<WalkScroll.ViewportHeight;
+        }
     }
     private void Current_Click(object sender,RoutedEventArgs e)=>ScrollToCurrent();
     private static TextBlock Text(string value, bool bold = false) => new() { Text = value, TextWrapping = TextWrapping.Wrap,
         FontWeight = bold ? FontWeights.SemiBold : FontWeights.Normal, Margin = new Thickness(0, 2, 0, 3) };
     internal bool HasStepCount(int count) => StepsPanel.Children.Count == count;
-    private void Add_Click(object sender, RoutedEventArgs e) => _workspace?.AddSelected();
+    private void Add_Click(object sender, RoutedEventArgs e) {if(_workspace?.SelectedGuide is { } guide)_workspace.ToggleTracking(guide);}
     private void Source_Click(object sender, RoutedEventArgs e)
     {
         if (!Uri.TryCreate(_workspace?.SelectedGuide?.SourceUrl, UriKind.Absolute, out var uri) || uri.Scheme is not ("https" or "http")) return;

@@ -6,6 +6,29 @@ namespace RoAura.Tests;
 
 public sealed class QuestInteractionTests
 {
+    [Theory]
+    [InlineData("Talk to her and type \"Freya's Spring\".", "Freya's Spring")]
+    [InlineData("Type in Yellow Key .", "Yellow Key")]
+    [InlineData("Examine it and type in Black Key. You'll get an Oval.", "Black Key")]
+    [InlineData("Type in ‘unknown’", null)]
+    [InlineData("Type in your password to enter the room.", null)]
+    [InlineData("Choose \"No thanks\" and enter the house.", null)]
+    [InlineData("Enter \"Hotel\" and speak to the owner.", null)]
+    public void AnswerCopyUsesOnlyExplicitLiteralInput(string source,string? expected)
+    {
+        var values=QuestAnswers.Extract(source);
+        if(expected is null)Assert.Empty(values);else Assert.Equal(expected,Assert.Single(values));
+    }
+    [Fact]
+    public void InstructionLinesClampAndSurvivePresetAndSerialization()
+    {
+        var settings=new AppSettings();Assert.Equal(3,settings.QuestOverlay.DescriptionLines);
+        settings.QuestOverlay.DescriptionLines=100;Assert.Equal(20,settings.QuestOverlay.DescriptionLines);
+        settings.QuestOverlay.DescriptionLines=0;Assert.Equal(1,settings.QuestOverlay.DescriptionLines);
+        settings.QuestOverlay.DescriptionLines=6;
+        var copy=System.Text.Json.JsonSerializer.Deserialize<AppSettings>(System.Text.Json.JsonSerializer.Serialize(settings))!;
+        var target=new AppSettings();SettingsSnapshot.Apply(copy,target);Assert.Equal(6,target.QuestOverlay.DescriptionLines);
+    }
     [Fact]
     public void DoneAdvancesThenCompletesExactlyOnceWhileNavigationStaysManual()
     {

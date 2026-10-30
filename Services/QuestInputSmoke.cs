@@ -78,10 +78,18 @@ internal static class QuestInputSmoke
                     await Until(()=>host.TargetChooser?.IsVisible==true,"rounded navigation chooser");
                     await Pause();SaveDesktop(host.TargetChooser!,"navigation-native");
                     var border=(Border)host.TargetChooser!.Content;var grid=(Grid)border.Child;
-                    var cancel=grid.Children.OfType<Button>().Single();
-                    Click(cancel.PointToScreen(new Point(cancel.ActualWidth/2,cancel.ActualHeight/2)));
-                    await Until(()=>host.TargetChooser is null,"navigation chooser cancel");
+                    var target=((StackPanel)grid.Children.OfType<ScrollViewer>().Single().Content).Children.OfType<Button>().First();
+                    Click(target.PointToScreen(new Point(target.ActualWidth/2,target.ActualHeight/2)));
+                    await Until(()=>host.TargetChooser is null && host.ActionWindows.Any(w=>((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"✓") && b.Foreground==System.Windows.Media.Brushes.White)),"navigation copied checkmark");
+                    await Pause();SaveDesktop(host.TextWindow,"tracker-copied-native");
                 }
+                // Reopen a guide previously left on Facts: More must force Walkthrough/current step.
+                host.Browser.Page.ShowFacts(row.Guide!);
+                var moreStrip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"More")));
+                var more=((StackPanel)moreStrip.Content).Children.OfType<Button>().Single(b=>Equals(b.Content,"More"));
+                Click(more.PointToScreen(new Point(more.ActualWidth/2,more.ActualHeight/2)));
+                await Until(()=>host.BrowserShowing && host.Browser.Page.CurrentStepInView,"More opens current instruction from Facts");
+                host.HideBrowser(true);await Pause();
                 foreach(var vk in new ushort[]{0x10,0x11,0x12}) {Key(vk,true);await Pause(50);Key(vk,false);await Pause(50);}
                 Key(0x41,true);Key(0x41,false);
                 var delivered=Read(reportPath)!;DebugLog.Write("QUEST INPUT DELIVERY: keys="+delivered.Keys+"; modifiers="+string.Join(",",delivered.Modifiers)+"; gameForeground="+(QuestWindowNative.GetForegroundWindow()==game)+"; browserVisible="+host.BrowserShowing+"; browserRequested="+host.BrowserRequested+"; blocked="+typeof(GlobalInputHook).GetField("_keyboardBlocked",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!.GetValue(hook));

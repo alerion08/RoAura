@@ -32,8 +32,8 @@ public partial class QuestSettingsControl : UserControl
         if (rows.Count == 0) { PreviewPanel.Children.Add(new TextBlock { Text = T("QPreviewEmpty"), TextWrapping = TextWrapping.Wrap, Foreground = Brushes.White }); return; }
         foreach (var row in rows)
         {
-            PreviewPanel.Children.Add(new TextBlock { Text = row.Title + " " + row.Position + "\n" + row.Instruction,
-                TextWrapping = TextWrapping.Wrap, FontSize = options.FontSize, Foreground = color, Margin = new Thickness(0, 0, 0, options.CardGap) });
+            PreviewPanel.Children.Add(new TextBlock {Text=row.Title+" "+row.Position,Foreground=color,FontSize=options.FontSize,FontWeight=FontWeights.SemiBold});
+            PreviewPanel.Children.Add(new TextBlock {Text=row.Instruction,TextWrapping=TextWrapping.Wrap,FontSize=options.FontSize,LineHeight=options.FontSize+3,MaxHeight=(options.FontSize+3)*options.DescriptionLines,TextTrimming=TextTrimming.CharacterEllipsis,Foreground=color,Margin=new Thickness(0,0,0,options.CardGap)});
             if (options.ShowCoordinates)
             {
                 var points = row.Guide?.Steps.FirstOrDefault(s => s.Number == row.Progress.CurrentStep)?.Locations;

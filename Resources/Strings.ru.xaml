@@ -673,4 +673,6 @@
     <sys:String x:Key="QFactOther">Дополнительно</sys:String>
     <sys:String x:Key="QTrackToggle">Добавить в отслеживание / убрать из отслеживания</sys:String>
     <sys:String x:Key="QDoneHint">Подтвердить текущий шаг. На последнем шаге завершает квест.</sys:String>
+    <sys:String x:Key="QDescriptionLines">Строк описания этапа</sys:String>
+    <sys:String x:Key="QCopyAnswer">Копировать текст</sys:String>
 </ResourceDictionary>

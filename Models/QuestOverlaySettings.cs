@@ -7,6 +7,8 @@ public sealed class QuestOverlaySettings : INotifyPropertyChanged
 {
     private bool _enabled = true, _buttons = true, _coordinates = true;
     private double _x = 12, _y = 200, _width = 320, _fontSize = 14, _opacity = 90, _gap = 6, _scale = 1;
+    private int _descriptionLines=3;
+    public int DescriptionLines {get=>_descriptionLines;set=>Set(ref _descriptionLines,Math.Clamp(value,1,20));}
     private string _textColor = "#FFFFFFFF";
     private double _browserX=70,_browserY=40,_browserWidth=1120,_browserHeight=780;
     public double BrowserX { get=>_browserX;set=>Number(ref _browserX,value,-10000,10000); }

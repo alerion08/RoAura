@@ -289,3 +289,19 @@ and the rounded multi-target chooser. CI fake client fits the desktop for captur
 Automated verification: 294 tests and eight ToC checks pass; real-game acceptance remains open.
 
 - [ ] Real SpringRO: header-only drag; Done/last-step history; star toggle/restore; internal quest links; rounded navi chooser; settings-only catalog reload.
+
+## ROQuestie feedback and current-step navigation (2026-10-30)
+
+Feature-only owner feedback: the details Active button now toggles tracking via
+the same progress-preserving action as a catalog star. Navi success is per entry
+and current instruction: four seconds of green/white checkmark, including hover;
+no repeated copied-command text in tracker cards. A map-pin glyph replaces Wiki
+while the tooltip retains source uncertainty. DescriptionLines defaults to 3,
+clamps to 1–20 and participates in settings/presets and the live preview.
+Explicit quoted input or short literal capitalized names after "type in" receive
+Copy text/Copy controls in walkthrough/tracker. Variable passwords, menu choices
+and research candidate answers are not inferred or promoted to verified progress.
+More always selects Walkthrough, updates layout and scrolls to the active row,
+even after the same guide was left on Facts. Native smoke checks this path and
+successful navi feedback. Automated validation for this iteration is pending;
+real SpringRO/DPI/input acceptance remains manual.

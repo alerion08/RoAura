@@ -33,8 +33,9 @@ public sealed class QuestOverlayHost : IDisposable
     private double _dpi=1;
     private UIElement? _dragElement;
     private Point _dragCursor,_dragOrigin;
-    private string _toast="";
-    private DateTime _toastUntil;
+    private QuestProgressEntry? _copiedEntry;
+    private int _copiedStep;
+    private DateTime _copiedUntil;
     public QuestBrowserWindow Browser {get;}
     public bool IsDragging=>_dragElement is not null;
     public bool BrowserShowing=>Browser.IsVisible;
@@ -128,7 +129,7 @@ public sealed class QuestOverlayHost : IDisposable
             if(!QuestWindowNative.LeftMouseDown){EndDrag();_dirty=true;}
             else{var delta=QuestWindowNative.Cursor()-_dragCursor;Options.X=_dragOrigin.X+delta.X/_dpi;Options.Y=_dragOrigin.Y+delta.Y/_dpi;}
         }
-        if(_toast.Length>0 && DateTime.UtcNow>=_toastUntil){_toast="";_dirty=true;}
+        if(_copiedEntry is not null && DateTime.UtcNow>=_copiedUntil){_copiedEntry=null;_dirty=true;}
         if(!_global || !ResolveGame()) {HideSurfaces();return;}
         var foreground=QuestWindowNative.GetForegroundWindow();
         var gameActive=foreground==_game;
@@ -220,13 +221,12 @@ public sealed class QuestOverlayHost : IDisposable
             var panel=new StackPanel();
             var title=Label(row.Title+" "+row.Position,color,true);title.MaxHeight=(Options.FontSize+3)*2;title.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(title);
             var instruction=Label(row.Progress.IsMissingFromCatalog?T("QMissing"):row.Progress.NeedsStepReview?T("QReviewStep"):row.Instruction,color);
-            instruction.MaxHeight=(Options.FontSize+3)*3;instruction.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(instruction);
+            instruction.MaxHeight=(Options.FontSize+3)*Options.DescriptionLines;instruction.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(instruction);
             if(Options.ShowCoordinates)
             {
                 var targets=QuestNavigation.Targets(row);
-                if(targets.Count>0){var coordinates=Label(T("QWikiShort")+": "+string.Join(" · ",targets),color);coordinates.MaxHeight=(Options.FontSize+3)*2;coordinates.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(coordinates);}
+                if(targets.Count>0){var coordinates=Label("",color);coordinates.Inlines.Add(new System.Windows.Documents.Run("\uE707 ") {FontFamily=new FontFamily("Segoe MDL2 Assets")});coordinates.Inlines.Add(new System.Windows.Documents.Run(string.Join(" · ",targets)));coordinates.ToolTip=T("QWikiCoordinates");coordinates.MaxHeight=(Options.FontSize+3)*2;coordinates.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(coordinates);}
             }
-            if(DateTime.UtcNow<_toastUntil)panel.Children.Add(Label(_toast,Brushes.Gold));
             panel.Measure(new Size(Options.Width,double.PositiveInfinity));
             var textHeight=panel.DesiredSize.Height;
             if(count>0 && Options.Y+(y+textHeight+(Options.ShowButtons?24:0)+Options.CardGap)*Options.Scale>_gamePixels.Height/_dpi)break;
@@ -238,10 +238,19 @@ public sealed class QuestOverlayHost : IDisposable
                 var next=ActionButton("Next",()=>_workspace.Move(row,1));next.IsEnabled=row.CanNext;buttons.Children.Add(next);
                 buttons.Children.Add(ActionButton("More",async()=>await OpenBrowserAsync(row.Guide)));
                 var targets=QuestNavigation.Targets(row);
-                var navi=ActionButton("navi",()=>Navigate(row,strip,targets));navi.IsEnabled=targets.Count>0 && _workspace.Settings.ServerProfile!=GameServerProfile.Other;
+                var copied=ReferenceEquals(_copiedEntry,row.Progress) && _copiedStep==row.Progress.CurrentStep && DateTime.UtcNow<_copiedUntil;
+                var navi=ActionButton(copied?"✓":"navi",()=>Navigate(row,strip,targets));
+                if(copied)QuestCopyFeedback.Success(navi);navi.IsEnabled=targets.Count>0 && _workspace.Settings.ServerProfile!=GameServerProfile.Other;
                 navi.ToolTip=T(targets.Count==0?"QNoNavigation":"QWikiCoordinates");buttons.Children.Add(navi);
                 var step=row.Progress.CurrentStep;
-                var done=ActionButton("Done",()=>_workspace.Done(row,step));done.IsEnabled=row.Editable && !row.Progress.NeedsStepReview && !row.Progress.IsMissingFromCatalog;done.ToolTip=T("QDoneHint");buttons.Children.Add(done);strip.Content=buttons;
+                var done=ActionButton("Done",()=>_workspace.Done(row,step));done.IsEnabled=row.Editable && !row.Progress.NeedsStepReview && !row.Progress.IsMissingFromCatalog;done.ToolTip=T("QDoneHint");buttons.Children.Add(done);
+                foreach(var answer in QuestAnswers.Extract(row.Instruction))
+                {
+                    var copy=ActionButton("Copy",()=>{});copy.ToolTip=T("QCopyAnswer")+": "+answer;
+                    copy.Click+=(_,_)=>{if(ClipboardService.TryCopy(answer)){QuestCopyFeedback.Success(copy);}else copy.ToolTip=T("QCopyFailed");};
+                    buttons.Children.Add(copy);
+                }
+                strip.Content=buttons;
                 _actions.Add((strip,y+textHeight));
                 _cards.Children.Add(new Border {Height=24});
             }
@@ -264,10 +273,10 @@ public sealed class QuestOverlayHost : IDisposable
     private void Navigate(QuestListRow row,QuestPassiveWindow strip,IReadOnlyList<QuestNavigationTarget> targets)
     {
         if(targets.Count==0)return;
-        if(targets.Count==1){Copy(targets[0]);return;}
+        if(targets.Count==1){Copy(row,targets[0]);return;}
         CloseChoices();_choices=new QuestPassiveWindow(false) {IsTargetChooser=true};_choiceEntry=row.Progress;_choiceStep=row.Progress.CurrentStep;
         var list=new StackPanel();
-        foreach(var target in targets)list.Children.Add(ActionButton(target.ToString(),()=>Copy(target)));
+        foreach(var target in targets)list.Children.Add(ActionButton(target.ToString(),()=>Copy(row,target)));
         var layout=new Grid {Margin=new Thickness(10)};
         layout.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});layout.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});layout.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});
         layout.Children.Add(new TextBlock {Text=T("QChooseNavigation"),TextWrapping=TextWrapping.Wrap,Margin=new Thickness(8)});
@@ -279,9 +288,11 @@ public sealed class QuestOverlayHost : IDisposable
         var top=Math.Clamp(anchor.Bottom,_gamePixels.Top,Math.Max(_gamePixels.Top,_gamePixels.Bottom-height));
         _choices.Show();QuestWindowNative.Place(_choices,new(x,top,width,height));
     }
-    private void Copy(QuestNavigationTarget target)
+    private void Copy(QuestListRow row,QuestNavigationTarget target)
     {
-        _toast=T(ClipboardService.TryCopy(target.Command)?"QCommandCopied":"QCopyFailed");_toastUntil=DateTime.UtcNow.AddSeconds(4);
+        if(ClipboardService.TryCopy(target.Command))
+        {_copiedEntry=row.Progress;_copiedStep=row.Progress.CurrentStep;_copiedUntil=DateTime.UtcNow.AddSeconds(4);}
+        else if(_choices is not null)_choices.ToolTip=T("QCopyFailed");
         CloseChoices();_dirty=true;
     }
     private void CloseChoices(){_choices?.Close();_choices=null;}

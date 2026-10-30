@@ -127,9 +127,10 @@ public partial class QuestsPage : UserControl
         }
     }
     public void ShowGuide(RoAura.Models.QuestGuide? guide)
-    { if (_workspace is null) return; _workspace.SelectedGuide=guide; QuestTabs.SelectedIndex=3; Dispatcher.BeginInvoke(CatalogDetails.ScrollToCurrent, DispatcherPriority.Loaded); }
+    { if (_workspace is null) return; _workspace.SelectedGuide=guide; QuestTabs.SelectedIndex=3; CatalogDetails.ShowCurrentStep(); }
     private void OpenGuide_Click(object sender,RoutedEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
     private void OpenGuide_DoubleClick(object sender,MouseButtonEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
+    internal bool CurrentStepInView=>CatalogDetails.CurrentStepInView;
     public void FocusSearch() {if(QuestTabs.SelectedIndex==0)SearchInput.Focus();}
     internal void ShowFacts(RoAura.Models.QuestGuide guide) {ShowGuide(guide);CatalogDetails.ShowFacts();}
     internal async Task ValidateSmokeAsync(QuestWorkspace workspace)
