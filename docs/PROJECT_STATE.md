@@ -36,6 +36,24 @@ ordinary overlay host, global input hook and hotkey implementations are untouche
 The existing startup smoke now tests offline quest navigation/catalog and exports
 optional UI PNGs; it still runs in isolated data directories with real capture off.
 
+
+Stage-2 verification: [Actions #41046358448](https://github.com/alerion08/RoAura/actions/runs/41046358448)
+SUCCESS on `4323935aa818acc6f6e75f9f3df683a9ab147f5d`: 276 tests passed,
+zero skipped/failed, plus eight ToC checks. Portable startup, clean payload and
+real-app offline quest/catalog smoke passed. Artifact:
+`RoAura-development-65-4323935aa818acc6f6e75f9f3df683a9ab147f5d`
+([download](https://github.com/alerion08/RoAura/actions/runs/41046358448/artifacts/12972392809)).
+Its single CI archive contains the portable and 12 optional RU/EN PNGs. Source
+catalog is still the pinned schema-v5 snapshot, not a new research revision.
+
+Visual review corrected technical record captions and default Windows tabs to
+shared RoAura styles, collapsed empty errors and detached screenshot layout from
+the larger parent window. Catalog/active/settings/history rasters were inspected.
+Some offscreen History/Settings captures show top glyph baseline cropping after
+mixed-density rendering; these are not accepted as real-window DPI verification.
+Actual Windows minimum-size, 100/125/150% / mixed-monitor visual acceptance remains
+open. No game overlay/focus/F9/navi acceptance or release readiness is claimed.
+
 ## ROQuestie stage 1 — catalog and manual progress (2026-10-30)
 
 Branch: `feature/roquestie-mvp`, stable base `10adb870` / 3.2.0,
