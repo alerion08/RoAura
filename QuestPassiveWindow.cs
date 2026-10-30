@@ -7,6 +7,7 @@ namespace RoAura;
 /// action surfaces are mouse-interactive only over their painted controls.</summary>
 public sealed class QuestPassiveWindow : Window
 {
+    public bool IsTargetChooser {get;init;}
     public QuestPassiveWindow(bool passThrough)
     {
         WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;AllowsTransparency=true;

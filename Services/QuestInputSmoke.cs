@@ -14,7 +14,9 @@ internal static class QuestInputSmoke
     internal static async Task Run(QuestOverlayHost host,QuestWorkspace workspace,Window settingsWindow,Action<string> setProcesses)
     {
         var directory=Path.Combine(AppEnvironment.LocalDirectory,"QuestInputProbe");Directory.CreateDirectory(directory);
+        DebugLog.Write("QUEST INPUT: copying isolated probe executable");
         var exe=Path.Combine(directory,"RoAura-QuestProbe.exe");File.Copy(Environment.ProcessPath!,exe,true);
+        DebugLog.Write("QUEST INPUT: launching isolated probe");
         var reportPath=Path.Combine(directory,"input.json");
         var start=new ProcessStartInfo(exe,"--smoke-test --quest-input-probe") {UseShellExecute=false};
         start.Environment["ROAURA_QUEST_PROBE_REPORT"]=reportPath;
@@ -98,6 +100,7 @@ internal static class QuestInputSmoke
     }
     private static void SaveDesktop(Window window,string name)
     {
+        DebugLog.Write("QUEST INPUT CAPTURE: "+name);
         var folder=Environment.GetEnvironmentVariable("ROAURA_QUEST_UI_SNAPSHOTS");if(string.IsNullOrWhiteSpace(folder))return;
         var rect=QuestWindowNative.Bounds(new WindowInteropHelper(window).Handle);if(rect.IsEmpty)return;
         var screen=GetDC(IntPtr.Zero);var dc=CreateCompatibleDC(screen);var bitmap=CreateCompatibleBitmap(screen,(int)rect.Width,(int)rect.Height);
@@ -122,7 +125,7 @@ internal static class QuestInputSmoke
     private static QuestInputProbe.Report? Read(string path)
     {try{using var file=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.ReadWrite|FileShare.Delete);return JsonSerializer.Deserialize<QuestInputProbe.Report>(file);}catch(Exception ex) when(ex is IOException or JsonException){return null;}}
     private static async Task Until(Func<bool> condition,string name)
-    {var end=DateTime.UtcNow.AddSeconds(6);while(DateTime.UtcNow<end){if(condition())return;await Pause(60);}throw new InvalidOperationException("Quest input smoke timeout: "+name);}
+    {DebugLog.Write("QUEST INPUT WAIT: "+name);var end=DateTime.UtcNow.AddSeconds(6);while(DateTime.UtcNow<end){if(condition()){DebugLog.Write("QUEST INPUT PASS: "+name);return;}await Pause(60);}throw new InvalidOperationException("Quest input smoke timeout: "+name);}
     private static Task Pause(int ms=180)=>Task.Delay(ms);
     private static async Task Press(string name)
     {var key=(System.Windows.Input.Key)Enum.Parse(typeof(System.Windows.Input.Key),name,true);var vk=(ushort)System.Windows.Input.KeyInterop.VirtualKeyFromKey(key);Key(vk,true);await Pause(100);Key(vk,false);await Pause();}

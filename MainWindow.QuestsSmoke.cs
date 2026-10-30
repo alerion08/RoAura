@@ -9,6 +9,7 @@ public partial class MainWindow
     // Only the existing isolated --smoke-test path calls this; no live data/capture.
     internal async Task ValidateQuestsSmokeAsync()
     {
+        DebugLog.Write("QUEST SMOKE: starting game-first validation");
         var server = Settings.ServerProfile; var packets = Settings.PacketCaptureEnabled; var language = Settings.Language;
         try
         {
@@ -38,7 +39,9 @@ public partial class MainWindow
                 if (lost.Progress.CurrentStep != 3 || _questWorkspace.Active.Single(q => q.Progress.QuestKey.EndsWith(":Friendship_Quest")).Progress.CurrentStep != 1)
                     throw new InvalidOperationException("Quest UI controller did not retain independent instructions.");
                 if (!await _questWorkspace.FlushAsync()) throw new InvalidOperationException(_questWorkspace.Error);
+                DebugLog.Write("QUEST SMOKE: rendering browser snapshots");
                 await _questWindows.Browser.Page.ValidateSmokeAsync(_questWorkspace);
+                DebugLog.Write("QUEST SMOKE: browser snapshots complete");
                 if(!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ROAURA_QUEST_UI_SNAPSHOTS")))
                     await QuestInputSmoke.Run(_questWindows,_questWorkspace,this,text=>ProcessesBox.Text=text);
             }

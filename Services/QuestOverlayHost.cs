@@ -25,6 +25,8 @@ public sealed class QuestOverlayHost : IDisposable
     private readonly DispatcherTimer _timer=new() {Interval=TimeSpan.FromMilliseconds(120)};
     private readonly List<(QuestPassiveWindow Window,double Y)> _actions=[];
     private QuestPassiveWindow? _choices;
+    private QuestProgressEntry? _choiceEntry;
+    private int _choiceStep;
     private bool _browserRequested,_trackerRequested=true,_global=true,_dirty=true,_disposed;
     private IntPtr _game;
     private Rect _gamePixels;
@@ -103,7 +105,11 @@ public sealed class QuestOverlayHost : IDisposable
     }
     private void ActivateGame()
     {if(_game!=IntPtr.Zero && ForegroundProcess.IsWindowAllowed(_game,_workspace.Settings.AllowedProcesses))QuestWindowNative.SetForegroundWindow(_game);}
-    private void Changed() { _dirty=true;CloseChoices(); }
+    private void Changed()
+    {
+        _dirty=true;
+        if(_choices is not null && !_workspace.Active.Any(r=>ReferenceEquals(r.Progress,_choiceEntry) && r.Progress.CurrentStep==_choiceStep))CloseChoices();
+    }
     private void VisualChanged(object? sender,PropertyChangedEventArgs e)
     {
         if(e.PropertyName is not (nameof(QuestOverlaySettings.X) or nameof(QuestOverlaySettings.Y) or nameof(QuestOverlaySettings.BrowserX) or nameof(QuestOverlaySettings.BrowserY) or nameof(QuestOverlaySettings.BrowserWidth) or nameof(QuestOverlaySettings.BrowserHeight)))
@@ -150,7 +156,11 @@ public sealed class QuestOverlayHost : IDisposable
             if(!inside || masked || !Options.ShowButtons) {window.Hide();continue;}
             if(!window.IsVisible)window.Show();QuestWindowNative.Place(window,rect,promote);
         }
-        if(_choices is not null && (!gameActive && !browserActive))CloseChoices();
+        if(_choices is not null)
+        {
+            if(!gameActive && !browserActive)CloseChoices();
+            else QuestWindowNative.Place(_choices,QuestWindowNative.Bounds(new WindowInteropHelper(_choices).Handle),promote);
+        }
     }
     private void PlaceBrowser(bool promote)
     {
@@ -239,12 +249,16 @@ public sealed class QuestOverlayHost : IDisposable
     {
         if(targets.Count==0)return;
         if(targets.Count==1){Copy(targets[0]);return;}
-        CloseChoices();_choices=new QuestPassiveWindow(false);
-        var list=new StackPanel {Background=(Brush)Browser.FindResource("RoCardBrush")};
-        list.Children.Add(new TextBlock {Text=T("QChooseNavigation"),TextWrapping=TextWrapping.Wrap,Margin=new Thickness(8)});
+        CloseChoices();_choices=new QuestPassiveWindow(false) {IsTargetChooser=true};_choiceEntry=row.Progress;_choiceStep=row.Progress.CurrentStep;
+        var list=new StackPanel();
         foreach(var target in targets)list.Children.Add(ActionButton(target.ToString(),()=>Copy(target)));
-        _choices.Content=list;var anchor=QuestWindowNative.Bounds(new WindowInteropHelper(strip).Handle);
-        var width=Math.Min(340*_dpi,_gamePixels.Width);var height=Math.Min((targets.Count*26+48)*_dpi,_gamePixels.Height);
+        var layout=new Grid {Background=(Brush)Browser.FindResource("RoCardBrush")};
+        layout.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});layout.RowDefinitions.Add(new RowDefinition());layout.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});
+        layout.Children.Add(new TextBlock {Text=T("QChooseNavigation"),TextWrapping=TextWrapping.Wrap,Margin=new Thickness(8)});
+        var scroll=new ScrollViewer {Content=list,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,Focusable=false};Grid.SetRow(scroll,1);layout.Children.Add(scroll);
+        var cancel=ActionButton("×",CloseChoices);Grid.SetRow(cancel,2);layout.Children.Add(cancel);
+        _choices.Content=layout;var anchor=QuestWindowNative.Bounds(new WindowInteropHelper(strip).Handle);
+        var width=Math.Min(340*_dpi,_gamePixels.Width);var height=Math.Min((targets.Count*26+90)*_dpi,_gamePixels.Height);
         var x=Math.Clamp(anchor.Left,_gamePixels.Left,Math.Max(_gamePixels.Left,_gamePixels.Right-width));
         var top=Math.Clamp(anchor.Bottom,_gamePixels.Top,Math.Max(_gamePixels.Top,_gamePixels.Bottom-height));
         _choices.Show();QuestWindowNative.Place(_choices,new(x,top,width,height));
