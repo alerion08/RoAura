@@ -11,6 +11,7 @@ namespace RoAura;
 
 public partial class QuestDetailsControl : UserControl
 {
+    public event Action<RoAura.Models.QuestGuide?>? GuideRequested;
     private QuestWorkspace? _workspace;
     private string _stamp = "";
     private string? _lastKey;
@@ -78,15 +79,28 @@ public partial class QuestDetailsControl : UserControl
             foreach(var line in QuestFactFormatter.Lines(fact))
             {
                 var block = Text("",false); block.Margin=new Thickness(12,4,0,5);
-                var last=0;
-                foreach(Match match in Regex.Matches(line,@"\b\d[\d,]*(?:\.\d+)?(?:%|\s*(?:EXP|Zeny))?"))
-                { block.Inlines.Add(new Run(line[last..match.Index]));block.Inlines.Add(new Bold(new Run(match.Value)));last=match.Index+match.Length; }
-                block.Inlines.Add(new Run(line[last..])); card.Children.Add(block);
+                foreach(var part in QuestLinks.Split(line,_workspace?.Catalog,_workspace?.SelectedGuide?.Key))
+                {
+                    if(part.Guide is { } linked)
+                    {
+                        var link=new Hyperlink(new Run(part.Text)) {ToolTip=linked.Title};
+                        link.Click+=(_,_)=>GuideRequested?.Invoke(linked);block.Inlines.Add(link);
+                    }
+                    else AddNumbers(block,part.Text);
+                }
+                card.Children.Add(block);
             }
             group.Children.Add(new Border { Child=card, Padding=new Thickness(12),Margin=new Thickness(0,8,0,0),CornerRadius=new CornerRadius(6),Background=(Brush)FindResource("RoTitleBrush") });
         }
         if (!string.IsNullOrWhiteSpace(original)) group.Children.Add(new Expander { Header=T("QOriginalText"),Content=Text(original),Margin=new Thickness(0,8,0,0) });
         FactsPanel.Children.Add(group);
+    }
+    private static void AddNumbers(TextBlock block,string text)
+    {
+        var last=0;
+        foreach(Match match in Regex.Matches(text,@"\b\d[\d,]*(?:\.\d+)?(?:%|\s*(?:EXP|Zeny))?"))
+        {block.Inlines.Add(new Run(text[last..match.Index]));block.Inlines.Add(new Bold(new Run(match.Value)));last=match.Index+match.Length;}
+        block.Inlines.Add(new Run(text[last..]));
     }
     internal void ShowFacts()=>DetailsTabs.SelectedIndex=1;
     public void ScrollToCurrent()

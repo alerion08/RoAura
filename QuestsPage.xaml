@@ -10,7 +10,7 @@
   <Style x:Key="QuestText" TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/><Setter Property="Foreground" Value="{StaticResource RoTextBrush}"/><Setter Property="Margin" Value="0,3"/></Style>
   <Style x:Key="QuestNumber" TargetType="controls:NumericTextBox" BasedOn="{StaticResource RoTextBoxStyle}"><Setter Property="Width" Value="80"/><Setter Property="Margin" Value="8,3,14,3"/></Style>
  </UserControl.Resources>
- <Grid x:Name="WorkspaceRoot" Margin="4" Background="{StaticResource RoPanelBrush}">
+ <Grid x:Name="WorkspaceRoot" Margin="12" Background="{StaticResource RoPanelBrush}">
   <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
   <Border Visibility="Collapsed" Style="{StaticResource SectionHeaderCardStyle}"><StackPanel><TextBlock Text="ROQuestie" Style="{StaticResource RoDisplayTextStyle}" FontSize="22"/><TextBlock Text="{DynamicResource QSubtitle}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}"/></StackPanel></Border>
   <Border Grid.Row="1" Style="{StaticResource InfoHintStyle}" Margin="0,0,0,8"><StackPanel>
@@ -18,7 +18,7 @@
    <WrapPanel Margin="0,6,0,0"><TextBlock Text="{DynamicResource QProfile}" VerticalAlignment="Center"/><ComboBox x:Name="ProfileChoice" DisplayMemberPath="Caption" MinWidth="220" MaxWidth="360" Margin="8,0" SelectionChanged="Profile_Changed"/><Button Content="{DynamicResource QSaveNow}" Click="Save_Click"/></WrapPanel>
    <TextBlock Text="{Binding ScopeCaption}" TextWrapping="Wrap" Margin="0,5,0,0"/>
   </StackPanel></Border>
-  <StackPanel Grid.Row="2" Margin="0,0,0,8"><DockPanel><Button Content="{DynamicResource QReload}" DockPanel.Dock="Right" Click="Reload_Click"/><TextBlock x:Name="CatalogStatus" TextWrapping="Wrap" VerticalAlignment="Center"/></DockPanel>
+  <StackPanel Grid.Row="2" Margin="0,0,0,8">
    <TextBlock Text="{Binding CatalogError}" Style="{StaticResource QuestError}"/><TextBlock Text="{Binding Error}" Style="{StaticResource QuestError}"/>
   </StackPanel>
   <TabControl Grid.Row="3" x:Name="QuestTabs" Style="{StaticResource SectionTabControlStyle}">
@@ -34,7 +34,7 @@
       <Button Grid.Row="2" Content="{DynamicResource QOpenWalkthrough}" Click="OpenGuide_Click" Margin="0,8"/>
      </Grid>
       <Grid Grid.Column="2"><ListBox x:Name="CatalogList" SelectionChanged="Guide_Changed" MouseDoubleClick="OpenGuide_DoubleClick" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-       <ListBox.ItemTemplate><DataTemplate><StackPanel Margin="4,6"><TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextWrapping="Wrap"/><TextBlock Text="{Binding Summary}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}"/></StackPanel></DataTemplate></ListBox.ItemTemplate>
+       <ListBox.ItemTemplate><DataTemplate><DockPanel Margin="4,6"><Button Content="★" DockPanel.Dock="Right" Click="Track_Click" IsEnabled="{Binding CanTrack}" ToolTip="{DynamicResource QTrackToggle}" Width="30" Height="28" MinHeight="28" Padding="0" Margin="8,0,2,0"><Button.Style><Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"><Setter Property="Foreground" Value="#A0A7AF"/><Setter Property="Opacity" Value="0.55"/><Style.Triggers><DataTrigger Binding="{Binding Tracked}" Value="True"><Setter Property="Foreground" Value="#123D78"/><Setter Property="Opacity" Value="1"/></DataTrigger></Style.Triggers></Style></Button.Style></Button><StackPanel><TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextWrapping="Wrap"/><TextBlock Text="{Binding Summary}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}"/></StackPanel></DockPanel></DataTemplate></ListBox.ItemTemplate>
       </ListBox><TextBlock x:Name="CatalogEmpty" Text="{DynamicResource QNoResults}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="18" IsHitTestVisible="False"/></Grid>
 
     </Grid>

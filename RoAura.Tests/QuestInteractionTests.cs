@@ -1,0 +1,70 @@
+using RoAura.Models;
+using RoAura.Services;
+using Xunit;
+
+namespace RoAura.Tests;
+
+public sealed class QuestInteractionTests
+{
+    [Fact]
+    public void DoneAdvancesThenCompletesExactlyOnceWhileNavigationStaysManual()
+    {
+        var guide=QuestProgressTests.Guide();
+        var entry=QuestProgress.Add(QuestProgressDocument.Create(new("SpringRO",123,null)),guide);
+        Assert.True(QuestProgress.ConfirmStep(entry,guide,1,DateTime.UtcNow));
+        Assert.Equal(2,entry.CurrentStep);Assert.Empty(entry.History);
+        Assert.False(QuestProgress.ConfirmStep(entry,guide,1,DateTime.UtcNow)); // stale/double click
+        Assert.Equal(2,entry.CurrentStep);
+        Assert.True(QuestProgress.Move(entry,guide,1));Assert.Equal(QuestManualState.Active,entry.State);
+        Assert.True(QuestProgress.ConfirmStep(entry,guide,3,DateTime.UtcNow));
+        Assert.Equal(QuestManualState.Completed,entry.State);
+        Assert.Equal("manual",Assert.Single(entry.History).Method);
+        Assert.False(QuestProgress.ConfirmStep(entry,guide,3,DateTime.UtcNow));Assert.Single(entry.History);
+    }
+    [Fact]
+    public void DoneRejectsUnreviewedMissingAndInactiveInstructions()
+    {
+        var guide=QuestProgressTests.Guide();var entry=new QuestProgressEntry {QuestKey=guide.Key,CurrentStep=1,NeedsStepReview=true};
+        Assert.False(QuestProgress.ConfirmStep(entry,guide,1,DateTime.UtcNow));
+        entry.NeedsStepReview=false;entry.IsMissingFromCatalog=true;
+        Assert.False(QuestProgress.ConfirmStep(entry,guide,1,DateTime.UtcNow));
+        entry.IsMissingFromCatalog=false;entry.State=QuestManualState.Paused;
+        Assert.False(QuestProgress.ConfirmStep(entry,guide,1,DateTime.UtcNow));
+        Assert.Throws<ArgumentException>(()=>QuestProgress.ConfirmStep(entry,QuestProgressTests.Guide("other"),1,DateTime.UtcNow));
+    }
+    [Fact]
+    public void LinksPreserveLiteralTextResolveLongestTitlesAndRejectAmbiguity()
+    {
+        var a=QuestProgressTests.Guide("a") with {Title="Sanctuary Quest"};
+        var b=QuestProgressTests.Guide("b") with {Title="Rachel Sanctuary Quest"};
+        var text="Steps 1 through 5 of Rachel Sanctuary Quest; Sanctuary Quest. Unknown Quest";
+        var parts=QuestLinks.Split(text,new QuestCatalog([a,b]));
+        Assert.Equal(text,string.Concat(parts.Select(p=>p.Text)));
+        Assert.Equal(new[]{"b","a"},parts.Where(p=>p.Guide is not null).Select(p=>p.Guide!.Key));
+        Assert.All(QuestLinks.Split("Rachel Sanctuary Quest",new QuestCatalog([b,b with {Key="duplicate"}])),p=>Assert.Null(p.Guide));
+        Assert.All(QuestLinks.Split("Sanctuary QuestExtra",new QuestCatalog([a])),p=>Assert.Null(p.Guide));
+    }
+    [Fact]
+    public async Task StarsAndDoneRetainProgressPerProfileAcrossRestart()
+    {
+        var root=Path.Combine(Path.GetTempPath(),"RoAura-QuestInteraction-"+Guid.NewGuid().ToString("N"));
+        try
+        {
+            var guide=QuestProgressTests.Guide();var catalog=new QuestCatalog([guide]);var settings=new AppSettings {ServerProfile="SpringRO",PacketCaptureEnabled=false};
+            var store=new QuestProgressStore(root);var workspace=new QuestWorkspace(settings,store,catalog:catalog);
+            workspace.ToggleTracking(guide);Assert.Empty(workspace.Active);
+            var profile=new QuestProfileKey("SpringRO",123,null);
+            await workspace.SelectProfileAsync(profile,default);
+            workspace.ToggleTracking(guide);var row=Assert.Single(workspace.Active);
+            workspace.Done(row,1);workspace.ToggleTracking(guide);Assert.Empty(workspace.Active);
+            workspace.ToggleTracking(guide);Assert.Equal(2,Assert.Single(workspace.Active).Progress.CurrentStep);
+            workspace.Done(row,2);workspace.Done(row,3);Assert.Empty(workspace.Active);
+            Assert.Equal(QuestManualState.Completed,Assert.Single(workspace.History).Progress.State);
+            Assert.True(await workspace.FlushAsync());
+            var next=new QuestWorkspace(settings,store,catalog:catalog);await next.SelectProfileAsync(profile,default);
+            Assert.Empty(next.Active);Assert.Equal(QuestManualState.Completed,Assert.Single(next.History).Progress.State);
+            await next.SelectProfileAsync(new("SpringRO",456,null),default);Assert.Empty(next.History);
+        }
+        finally {if(Directory.Exists(root))Directory.Delete(root,true);}
+    }
+}

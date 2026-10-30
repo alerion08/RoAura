@@ -155,6 +155,20 @@ public sealed class QuestWorkspace : INotifyPropertyChanged
     }
     public bool IsActive(QuestGuide? guide) => guide is not null && Rows.Any(q => q.Progress.QuestKey == guide.Key && q.Progress.State == QuestManualState.Active);
     public bool HasProgress(QuestGuide? guide) => guide is not null && Rows.Any(q => q.Progress.QuestKey == guide.Key);
+    public void ToggleTracking(QuestGuide guide)
+    {
+        if (!CanEdit || Catalog?.Guides.GetValueOrDefault(guide.Key) != guide || guide.Steps.Count == 0) return;
+        var row = Rows.FirstOrDefault(r => r.Progress.QuestKey == guide.Key);
+        if (row is null) { QuestProgress.Add(_session!.Document, guide); MarkDirty(); }
+        else
+        {
+            var state=row.Progress.State == QuestManualState.Active ? QuestManualState.Removed : QuestManualState.Active;
+            if(state==QuestManualState.Active)row.Progress.IsVisibleInOverlay=true;
+            SetState(row,state);
+        }
+    }
+    public void Done(QuestListRow row, int expectedStep)
+    { if (CanEdit && Owns(row) && row.Guide is not null && QuestProgress.ConfirmStep(row.Progress, row.Guide, expectedStep, DateTime.UtcNow)) MarkDirty(); }
     public void Move(QuestListRow row, int direction)
     { if (CanEdit && Owns(row) && row.Guide is not null && QuestProgress.Move(row.Progress, row.Guide, direction)) MarkDirty(); }
     public void SelectStep(int number)

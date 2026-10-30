@@ -22,7 +22,8 @@ internal static class QuestInputProbe
         if(!AppEnvironment.IsSmokeTest || !args.Args.Contains("--quest-input-probe"))return false;
         var path=Environment.GetEnvironmentVariable("ROAURA_QUEST_PROBE_REPORT") ?? throw new InvalidOperationException("Missing isolated input-probe path.");
         var report=new Report();
-        var window=new Window {Title="RoAura quest input probe",Width=1100,Height=780,Left=20,Top=20,Background=Brushes.DarkSlateGray};
+        var area=SystemParameters.WorkArea;
+        var window=new Window {Title="RoAura quest input probe",Width=Math.Min(1100,area.Width-40),Height=Math.Min(780,area.Height-40),Left=20,Top=20,Background=Brushes.DarkSlateGray};
         void Write()
         {
             var temporary=path+".tmp";File.WriteAllText(temporary,JsonSerializer.Serialize(report));File.Move(temporary,path,true);

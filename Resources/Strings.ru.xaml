@@ -671,4 +671,6 @@
     <sys:String x:Key="QFactZeny">Zeny</sys:String>
     <sys:String x:Key="QFactPrecondition">Исходные условия</sys:String>
     <sys:String x:Key="QFactOther">Дополнительно</sys:String>
+    <sys:String x:Key="QTrackToggle">Добавить в отслеживание / убрать из отслеживания</sys:String>
+    <sys:String x:Key="QDoneHint">Подтвердить текущий шаг. На последнем шаге завершает квест.</sys:String>
 </ResourceDictionary>

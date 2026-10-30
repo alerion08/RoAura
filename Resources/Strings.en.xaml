@@ -671,4 +671,6 @@
     <sys:String x:Key="QFactZeny">Zeny</sys:String>
     <sys:String x:Key="QFactPrecondition">Source precondition</sys:String>
     <sys:String x:Key="QFactOther">Other</sys:String>
+    <sys:String x:Key="QTrackToggle">Track / stop tracking this quest</sys:String>
+    <sys:String x:Key="QDoneHint">Confirm the current step. Completes the quest on the final step.</sys:String>
 </ResourceDictionary>

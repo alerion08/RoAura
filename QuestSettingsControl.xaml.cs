@@ -11,13 +11,16 @@ public partial class QuestSettingsControl : UserControl
  private void VisualsChanged(object? sender, PropertyChangedEventArgs e) { _save?.Invoke();RenderPreview(); }
  private static string T(string key)=>LocalizationService.Get(key);
  public void Report(string text)=>GameStatus.Text=text;
+ private async void Reload_Click(object sender,RoutedEventArgs e) {if(_workspace is not null)await _workspace.LoadCatalogAsync();}
  private void Open_Click(object sender,RoutedEventArgs e)=>OpenBrowserRequested?.Invoke();
  private void Tracker_Click(object sender,RoutedEventArgs e)=>ToggleTrackerRequested?.Invoke();
  private void Move_Click(object sender,RoutedEventArgs e)=>MoveTrackerRequested?.Invoke();
     private void RenderPreview()
     {
         if (_workspace is null) return;
+        CatalogStatus.Text=_workspace.IsLoadingCatalog?T("QLoading"):_workspace.Catalog is null?T("QCatalogMissing"):T("QCatalogReady")+" · v5 · "+_workspace.Catalog.Guides.Count;
         PreviewPanel.Children.Clear();
+        PreviewPanel.Children.Add(new TextBlock {Text="ROQuestie  ⋮⋮",Foreground=Brushes.White,FontWeight=FontWeights.SemiBold,Margin=new Thickness(0,0,0,8)});
         var options = _workspace.Settings.QuestOverlay;
         PreviewPanel.Width = options.Width;
         PreviewPanel.Opacity = options.OpacityPercent / 100;
@@ -39,7 +42,7 @@ public partial class QuestSettingsControl : UserControl
             if (options.ShowButtons)
             {
                 var buttons = new WrapPanel();
-                foreach (var text in new[] { "Prev", "Next", "More", "navi" }) buttons.Children.Add(new Button { Content = text, IsEnabled = false, FontSize = 10, MinHeight = 22, Height = 22, Padding = new Thickness(5, 0, 5, 0) });
+                foreach (var text in new[] { "Prev", "Next", "More", "navi", "Done" }) buttons.Children.Add(new Button { Content = text, IsEnabled = false, FontSize = 10, MinHeight = 22, Height = 22, Padding = new Thickness(5, 0, 5, 0) });
                 PreviewPanel.Children.Add(buttons);
             }
         }

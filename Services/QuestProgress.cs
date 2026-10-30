@@ -56,7 +56,7 @@ public sealed class QuestProgressDocument
         { Server = key.Server, CharacterId = key.CharacterId, LocalProfileId = key.LocalProfileId };
 }
 
-/// <summary>Manual instructions only. Reaching the last row never completes a quest.</summary>
+/// <summary>Manual instructions only. Navigation does not complete; explicit Done confirms the current instruction.</summary>
 public static class QuestProgress
 {
     public static string Anchor(QuestStep step) => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(
@@ -93,6 +93,18 @@ public static class QuestProgress
         var index = guide.Steps.ToList().FindIndex(s => s.Number == entry.CurrentStep);
         if (index < 0 || index + direction < 0 || index + direction >= guide.Steps.Count) return false;
         SelectStep(entry, guide, guide.Steps[index + direction].Number);
+        return true;
+    }
+
+    public static bool ConfirmStep(QuestProgressEntry entry, QuestGuide guide, int expectedStep, DateTime atUtc)
+    {
+        RequireSameQuest(entry, guide);
+        if (atUtc.Kind != DateTimeKind.Utc) throw new ArgumentException("UTC required.");
+        if (entry.State != QuestManualState.Active || entry.NeedsStepReview || entry.IsMissingFromCatalog || entry.CurrentStep != expectedStep) return false;
+        var index = guide.Steps.ToList().FindIndex(s => s.Number == expectedStep);
+        if (index < 0) return false;
+        if (index + 1 < guide.Steps.Count) SelectStep(entry, guide, guide.Steps[index + 1].Number);
+        else SetState(entry, QuestManualState.Completed, atUtc, true);
         return true;
     }
 

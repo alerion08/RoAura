@@ -47,7 +47,7 @@ internal static class QuestInputSmoke
                 await Pause();
                 SaveDesktop(host.TextWindow,"tracker-native");
                 var row=workspace.Active.First();var initial=row.Progress.CurrentStep;
-                var strip=host.ActionWindows.First(w=>w.IsVisible);
+                var strip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"Next")));
                 var buttons=((StackPanel)strip.Content).Children.OfType<Button>().ToArray();
                 // Real OS mouse delivery, not RaiseEvent: buttons consume clicks without activation.
                 var clicks=Read(reportPath)!.Clicks;
@@ -55,12 +55,33 @@ internal static class QuestInputSmoke
                 await Until(()=>row.Progress.CurrentStep==initial+1,"Next click");
                 if(QuestWindowNative.GetForegroundWindow()!=game || Read(reportPath)!.Clicks!=clicks)
                     throw new InvalidOperationException("Quest button stole game focus or leaked its click.");
-                await Pause();host.RefreshNow();strip=host.ActionWindows.First(w=>w.IsVisible);
+                await Pause();host.RefreshNow();strip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"Next")));
                 Click(strip.PointToScreen(new Point(0,0))); // fully transparent corner, a different process underneath
                 await Until(()=>Read(reportPath)!.Clicks>clicks,"transparent button margin click-through");
                 clicks=Read(reportPath)!.Clicks;
-                Click(host.TextWindow.PointToScreen(new Point(x+15,y+10)));
+                Click(host.TextWindow.PointToScreen(new Point(x+15,y+40)));
                 await Until(()=>Read(reportPath)!.Clicks>clicks,"text/world click-through");
+                var doneStep=row.Progress.CurrentStep;
+                var doneStrip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"Done")));
+                var done=((StackPanel)doneStrip.Content).Children.OfType<Button>().Single(b=>Equals(b.Content,"Done"));
+                Click(done.PointToScreen(new Point(done.ActualWidth/2,done.ActualHeight/2)));
+                await Until(()=>row.Progress.CurrentStep==doneStep+1,"Done confirms and advances current step");
+                if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("Done stole game focus.");
+                await Pause();host.RefreshNow();
+                var multi=workspace.Active.FirstOrDefault(r=>QuestNavigation.Targets(r).Count>1);
+                if(multi is not null)
+                {
+                    var index=workspace.Active.Where(r=>r.Progress.IsVisibleInOverlay).ToList().FindIndex(r=>ReferenceEquals(r.Progress,multi.Progress));
+                    var naviStrip=host.ActionWindows.Where(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"navi"))).ElementAt(index);
+                    var navi=((StackPanel)naviStrip.Content).Children.OfType<Button>().Single(b=>Equals(b.Content,"navi"));
+                    Click(navi.PointToScreen(new Point(navi.ActualWidth/2,navi.ActualHeight/2)));
+                    await Until(()=>host.TargetChooser?.IsVisible==true,"rounded navigation chooser");
+                    await Pause();SaveDesktop(host.TargetChooser!,"navigation-native");
+                    var border=(Border)host.TargetChooser!.Content;var grid=(Grid)border.Child;
+                    var cancel=grid.Children.OfType<Button>().Single();
+                    Click(cancel.PointToScreen(new Point(cancel.ActualWidth/2,cancel.ActualHeight/2)));
+                    await Until(()=>host.TargetChooser is null,"navigation chooser cancel");
+                }
                 foreach(var vk in new ushort[]{0x10,0x11,0x12}) {Key(vk,true);await Pause(50);Key(vk,false);await Pause(50);}
                 Key(0x41,true);Key(0x41,false);
                 var delivered=Read(reportPath)!;DebugLog.Write("QUEST INPUT DELIVERY: keys="+delivered.Keys+"; modifiers="+string.Join(",",delivered.Modifiers)+"; gameForeground="+(QuestWindowNative.GetForegroundWindow()==game)+"; browserVisible="+host.BrowserShowing+"; browserRequested="+host.BrowserRequested+"; blocked="+typeof(GlobalInputHook).GetField("_keyboardBlocked",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!.GetValue(hook));
@@ -84,7 +105,7 @@ internal static class QuestInputSmoke
                 await Press(workspace.Settings.OverlaysHotkey);
                 await Until(()=>host.GlobalVisible && host.TrackerRequested,"global overlay restore");
                 await Pause();host.RefreshNow();
-                var moveStrip=host.ActionWindows.First(w=>w.IsVisible);var handle=((StackPanel)moveStrip.Content).Children.OfType<Button>().Last();
+                var moveStrip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"⋮⋮")));var handle=((StackPanel)moveStrip.Content).Children.OfType<Button>().Last();
                 var grab=handle.PointToScreen(new Point(handle.ActualWidth/2,handle.ActualHeight/2));
                 SetCursorPos((int)grab.X,(int)grab.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});
                 await Until(()=>host.IsDragging,"tracker drag start");

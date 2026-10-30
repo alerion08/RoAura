@@ -198,7 +198,20 @@ public sealed class QuestOverlayHost : IDisposable
         _cards.Width=Options.Width;_cards.LayoutTransform=new ScaleTransform(Options.Scale,Options.Scale);
         _cards.Opacity=Options.OpacityPercent/100;
         Brush color;try {color=(Brush)new BrushConverter().ConvertFromString(Options.TextColor)!;}catch{color=Brushes.White;}
-        var y=0d;var count=0;
+        var headerStrip=new QuestPassiveWindow(false) {Opacity=Options.OpacityPercent/100};
+        var header=new StackPanel {Orientation=Orientation.Horizontal,LayoutTransform=new ScaleTransform(Options.Scale,Options.Scale)};
+        var heading=Label("ROQuestie",color,true);heading.Width=Math.Max(40,Options.Width-32);header.Children.Add(heading);
+                var drag=ActionButton("⋮⋮",()=>{});drag.Width=24;drag.ToolTip=T("QMoveTracker");
+                drag.PreviewMouseLeftButtonDown+=(_,e)=>
+                {
+                    _dragElement=drag;_dragCursor=QuestWindowNative.Cursor();_dragOrigin=new(Options.X,Options.Y);drag.CaptureMouse();_dragMode(true);e.Handled=true;
+                };
+                drag.PreviewMouseMove+=(_,e)=>
+                {if(_dragElement!=drag)return;var delta=QuestWindowNative.Cursor()-_dragCursor;Options.X=_dragOrigin.X+delta.X/_dpi;Options.Y=_dragOrigin.Y+delta.Y/_dpi;Tick();};
+                drag.PreviewMouseLeftButtonUp+=(_,e)=>{EndDrag();_dirty=true;e.Handled=true;};
+                header.Children.Add(drag);headerStrip.Content=header;
+        _actions.Add((headerStrip,0));_cards.Children.Add(new Border {Height=28});
+        var y=28d;var count=0;
         var visibleRows=_workspace.Active.Where(q=>q.Progress.IsVisibleInOverlay).ToList();
         foreach(var row in visibleRows)
         {
@@ -227,15 +240,8 @@ public sealed class QuestOverlayHost : IDisposable
                 var targets=QuestNavigation.Targets(row);
                 var navi=ActionButton("navi",()=>Navigate(row,strip,targets));navi.IsEnabled=targets.Count>0 && _workspace.Settings.ServerProfile!=GameServerProfile.Other;
                 navi.ToolTip=T(targets.Count==0?"QNoNavigation":"QWikiCoordinates");buttons.Children.Add(navi);
-                var drag=ActionButton("⋮⋮",()=>{});drag.Width=24;drag.ToolTip=T("QMoveTracker");
-                drag.PreviewMouseLeftButtonDown+=(_,e)=>
-                {
-                    _dragElement=drag;_dragCursor=QuestWindowNative.Cursor();_dragOrigin=new(Options.X,Options.Y);drag.CaptureMouse();_dragMode(true);e.Handled=true;
-                };
-                drag.PreviewMouseMove+=(_,e)=>
-                {if(_dragElement!=drag)return;var delta=QuestWindowNative.Cursor()-_dragCursor;Options.X=_dragOrigin.X+delta.X/_dpi;Options.Y=_dragOrigin.Y+delta.Y/_dpi;Tick();};
-                drag.PreviewMouseLeftButtonUp+=(_,e)=>{EndDrag();_dirty=true;e.Handled=true;};
-                buttons.Children.Add(drag);strip.Content=buttons;
+                var step=row.Progress.CurrentStep;
+                var done=ActionButton("Done",()=>_workspace.Done(row,step));done.IsEnabled=row.Editable && !row.Progress.NeedsStepReview && !row.Progress.IsMissingFromCatalog;done.ToolTip=T("QDoneHint");buttons.Children.Add(done);strip.Content=buttons;
                 _actions.Add((strip,y+textHeight));
                 _cards.Children.Add(new Border {Height=24});
             }
@@ -262,13 +268,13 @@ public sealed class QuestOverlayHost : IDisposable
         CloseChoices();_choices=new QuestPassiveWindow(false) {IsTargetChooser=true};_choiceEntry=row.Progress;_choiceStep=row.Progress.CurrentStep;
         var list=new StackPanel();
         foreach(var target in targets)list.Children.Add(ActionButton(target.ToString(),()=>Copy(target)));
-        var layout=new Grid {Background=(Brush)Browser.FindResource("RoCardBrush")};
-        layout.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});layout.RowDefinitions.Add(new RowDefinition());layout.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});
+        var layout=new Grid {Margin=new Thickness(10)};
+        layout.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});layout.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});layout.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});
         layout.Children.Add(new TextBlock {Text=T("QChooseNavigation"),TextWrapping=TextWrapping.Wrap,Margin=new Thickness(8)});
-        var scroll=new ScrollViewer {Content=list,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,Focusable=false};Grid.SetRow(scroll,1);layout.Children.Add(scroll);
+        var scroll=new ScrollViewer {MaxHeight=220,Content=list,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,Focusable=false};Grid.SetRow(scroll,1);layout.Children.Add(scroll);
         var cancel=ActionButton("×",CloseChoices);Grid.SetRow(cancel,2);layout.Children.Add(cancel);
-        _choices.Content=layout;var anchor=QuestWindowNative.Bounds(new WindowInteropHelper(strip).Handle);
-        var width=Math.Min(340*_dpi,_gamePixels.Width);var height=Math.Min((targets.Count*26+90)*_dpi,_gamePixels.Height);
+        _choices.Content=new Border {Child=layout,CornerRadius=new CornerRadius(8),BorderThickness=new Thickness(1),BorderBrush=(Brush)Browser.FindResource("RoSoftBorderBrush"),Background=(Brush)Browser.FindResource("RoCardBrush")};var anchor=QuestWindowNative.Bounds(new WindowInteropHelper(strip).Handle);
+        var width=Math.Min(340*_dpi,_gamePixels.Width);var height=Math.Min((Math.Min(targets.Count*26,220)+100)*_dpi,_gamePixels.Height);
         var x=Math.Clamp(anchor.Left,_gamePixels.Left,Math.Max(_gamePixels.Left,_gamePixels.Right-width));
         var top=Math.Clamp(anchor.Bottom,_gamePixels.Top,Math.Max(_gamePixels.Top,_gamePixels.Bottom-height));
         _choices.Show();QuestWindowNative.Place(_choices,new(x,top,width,height));
@@ -285,6 +291,7 @@ public sealed class QuestOverlayHost : IDisposable
     internal void RefreshNow()=>Tick();
     internal IReadOnlyList<QuestPassiveWindow> ActionWindows=>_actions.Select(a=>a.Window).ToList();
     internal QuestPassiveWindow TextWindow=>_text;
+    internal QuestPassiveWindow? TargetChooser=>_choices;
     public void Dispose()
     {
         if(_disposed)return;_disposed=true;_timer.Stop();EndDrag();_workspace.Changed-=Changed;Options.PropertyChanged-=VisualChanged;

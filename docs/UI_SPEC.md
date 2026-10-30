@@ -275,3 +275,21 @@ Optional CI smoke uses a separate fake-game executable and real OS input to test
 button focus/clicks, transparent text/margins, keyboard/modifiers, independent keys,
 F9, settings exclusion and resize/minimize. This does not establish protected
 SpringRO/fullscreen/mixed-DPI acceptance. Real-game manual gates remain mandatory.
+
+## ROQuestie interaction refinements (2026-10-30, feature only)
+
+Owner feedback: one ROQuestie tracker header owns the only drag handle. Quest rows
+keep Prev/Next/More/navi and replace their drag handle with Done. Done is explicit
+manual confirmation: advances one instruction or completes the last and moves to
+history. Navigation alone still never completes. Missing/review/readonly/inactive
+rows and stale step actions cannot confirm. Progress/history stays per server/CID.
+Catalog stars toggle active tracking without deleting saved progress; reactivation
+retains the instruction and restores tracker visibility. Active is dark blue,
+inactive light gray/translucent. Exact unambiguous catalog titles in facts become
+internal quest links; unknown/ambiguous names remain original text.
+Catalog status/reload belongs in RoAura quest settings only. Game browser has
+larger edge spacing; navi chooser has rounded border and internal padding.
+Tests cover confirmation, history persistence/isolation, stars and literal links;
+native input smoke now selects header/quest surfaces by action and checks Done
+and the rounded multi-target chooser. CI fake client fits the desktop for captures.
+Validation for this iteration is pending; prior build acceptance does not carry over.

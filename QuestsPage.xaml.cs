@@ -11,7 +11,7 @@ namespace RoAura;
 
 public sealed record QuestCategoryChoice(string Caption, string? Key)
 { public override string ToString() => Caption; }
-public sealed record QuestCatalogListRow(QuestGuide Guide)
+public sealed record QuestCatalogListRow(QuestGuide Guide, bool Tracked, bool CanTrack)
 {
     public string Title => Guide.Title;
     public string Summary => LocalizationService.Get("QCategory" + Guide.Category) + " · " +
@@ -32,6 +32,7 @@ public partial class QuestsPage : UserControl
     public QuestsPage()
     {
         InitializeComponent();
+        CatalogDetails.GuideRequested += ShowGuide;
         _searchTimer.Tick += (_, _) => { _searchTimer.Stop(); Filter(); };
         Loaded += async (_, _) => { if (_workspace?.Catalog is null && _workspace?.IsLoadingCatalog == false) await _workspace.LoadCatalogAsync(); Render(); };
         Unloaded += (_, _) => _searchTimer.Stop();
@@ -66,8 +67,6 @@ public partial class QuestsPage : UserControl
                     .Select(c => new QuestCategoryChoice(T("QCategory" + c), c)) ?? [] ).ToArray();
             CategoryChoice.SelectedItem = ((IEnumerable<QuestCategoryChoice>)CategoryChoice.ItemsSource).FirstOrDefault(c => c.Key == category)
                 ?? ((IEnumerable<QuestCategoryChoice>)CategoryChoice.ItemsSource).First();
-            CatalogStatus.Text = _workspace.IsLoadingCatalog ? T("QLoading") : _workspace.Catalog is null ? T("QCatalogMissing") :
-                T("QCatalogReady") + " · v5 · " + _workspace.Catalog.Guides.Count;
             ActiveEmpty.Visibility = _workspace.Active.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             HistoryEmpty.Visibility = _workspace.History.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             CatalogDetails.Render(_workspace);
@@ -82,13 +81,15 @@ public partial class QuestsPage : UserControl
         try
         {
             var rows = _workspace.Catalog?.Search(SearchInput.Text, (CategoryChoice.SelectedItem as QuestCategoryChoice)?.Key,
-                UseLevel.IsChecked == true ? (int)FilterLevel : null).Select(g => new QuestCatalogListRow(g)).ToList() ?? [];
+                UseLevel.IsChecked == true ? (int)FilterLevel : null).Select(g => new QuestCatalogListRow(g, _workspace.IsActive(g), _workspace.CanEdit && g.Steps.Count > 0)).ToList() ?? [];
             CatalogList.ItemsSource = rows;
             CatalogList.SelectedItem = rows.FirstOrDefault(r => r.Guide.Key == _workspace.SelectedGuide?.Key);
             CatalogEmpty.Visibility = rows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
         }
         finally { _updating = old; }
     }
+    private void Track_Click(object sender, RoutedEventArgs e)
+    { if (sender is Button { DataContext: QuestCatalogListRow row }) { _workspace?.ToggleTracking(row.Guide); e.Handled=true; } }
     private void Guide_Changed(object sender, SelectionChangedEventArgs e)
     { if (!_updating && _workspace is not null && CatalogList.SelectedItem is QuestCatalogListRow row) _workspace.SelectedGuide = row.Guide; }
     private void Search_Changed(object sender, TextChangedEventArgs e) { _searchTimer.Stop(); _searchTimer.Start(); }
