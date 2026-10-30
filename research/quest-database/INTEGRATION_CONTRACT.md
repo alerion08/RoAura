@@ -199,3 +199,19 @@ ORDER BY n.source_ordinal,f.line_no,f.occurrence;
 ## Coverage / unresolved work
 
 Currently source scripts are from selected public emulator directories, not a complete installation of every Ragnarok Online server. iRO Wiki index may contain nonquest pages. Cross-references are largely unverified; dynamic choices and control flow are incomplete. Need broaden source coverage, reduce ambiguous links, model true state-transition paths, and validate against target server recordings/authoritative scripts. See `output/coverage.json` for **actual** counts rather than reading this design contract as a completion claim.
+
+## ROQuestie stage 13 — static transition evidence is not automatic navigation
+
+`output/source_transition_audit.json` contains research-only,
+non-executed correlations of wiki NPC order to source variable writes and
+explicit NPC guard comparisons for the 19 previously reviewed source files.
+A positive `literal_write_guard_correspondence_nonexecuted` is a code
+relationship; it does not establish that the guarded path is reached,
+that the menu choice is correct, or that all quest prerequisites and terminal
+conditions are satisfied. A missing `completequest` in the sampled NPCs
+does not mean a classic quest lacks completion.
+
+**The consumer SQLite remains schema v5.** The research audit is not
+projected into a runnable navigation state machine. Never auto-select
+dialogue choices or set per-character quest completion from these reports;
+only display literal, cited source facts with the relevant confidence level.

@@ -628,3 +628,28 @@ identities from heuristic `quest_scripts` candidates.
 line-anchored and source hash-pinned findings. No main/app/release/settings
 edits, no merge, and no in-game validation. Next verify quest branch
 state machines, prerequisites and actual server variation for auto routing.
+
+## ROQuestie stage 13 — reviewed NPC state transitions (2026-10-30)
+
+Completed in isolated `research/quest-database`. Full GitHub Actions
+run **#41006258251 SUCCESS**; focused unit suite **#41006258225 SUCCESS**.
+Research SQLite schema **v12** adds `wiki_transition_audits`,
+`wiki_transition_witnesses` and `wiki_transition_completion_facts`.
+Consumer ROQuestie remains **v5**; main/WPF/settings/releases unmodified.
+`transitions.py` uses only stage12 pinned, source-supported NPC-step
+witnesses, strictly requiring a literal write and following NPC guard
+attached to a variable write to report a positive correspondence.
+Results: 19 reviewed implementations; 44 visit-to-visit source
+correlations; **4** guarded value correspondences (2 per rAthena/Hercules
+Hugel Memory); 40 unsupported edges; 34 unresolved menu options; 22 literal
+`completequest` commands across source code, with explicit completion
+present in 7 implementations, `erasequest` without `completequest`
+in 1, and no explicit quest-journal completion in 11 matched NPC sets.
+None of these are simulated or verified gameplay paths; `complete_route_verified`
+and `safe_for_automatic_dialogue` are false for all 19.
+Source-derived details are in
+`research/quest-database/output/source_transition_audit.json`.
+Integrity checks passed and foreign-key violations = 0. Preserved 939
+upstream scripts, 286 wiki pages, 3,420 steps, 574 heuristic candidates
+and 25 adjudicated source identity decisions. Next: deeper guards, item
+requirements, branches and terminal-state evidence; no auto gameplay claims.

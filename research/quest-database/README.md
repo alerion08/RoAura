@@ -298,3 +298,15 @@ All **25** stage-11 source proposals have independent, explicit, blob-SHA-pinned
 Research tables `wiki_source_decisions` and `wiki_source_sequence_evidence` preserve reviewer results and source-line provenance. Consumer v5 adds `quest_source_decisions` plus read-only `quest_source_supported` view for separately discoverable source-supported mappings; it does not alter the legacy `quest_scripts` candidate table. Consumers must check `PRAGMA user_version=5` and keep character progress in independent storage. New upstream source blob hashes invalidate pinned review identities until rechecked.
 
 **Next:** verify full dialogue/branch state machines for high-value chains against tested server variants before enabling automatic next-step quest navigation.
+
+## ROQuestie stage 13 — source-guarded transition audit (2026-10-30)
+
+**Verified:** [full research CI #41006258251](https://github.com/alerion08/RoAura/actions/runs/41006258251) SUCCESS and [focused CI #41006258225](https://github.com/alerion08/RoAura/actions/runs/41006258225) SUCCESS. The research SQLite advances to schema **v12**; the consumer ROQuestie SQLite deliberately stays at **v5**. Both have SQLite integrity `ok`, foreign key violations **0**. Original 939 scripts, 286 wiki pages, 3,420 wiki steps, 574 heuristic script links, 25 individual source decisions retained.
+
+The new `transitions.py` correlates **the 19 source-supported implementations** with 44 wiki visit-to-visit edges. A stricter positive witness requires an NPC's literal variable write to equal a literal comparison in a guard **attached to the following NPC's variable write**, not merely a matching expression somewhere else in a source file. Only **4 of 44** edges have this specific, static corroboration (2 each for rAthena/Hercules Hugel Memory); **40** lack that level of evidence. These are not executed branches.
+
+The [`output/source_transition_audit.json`](output/source_transition_audit.json) describes source lines, symbols, guard expressions, unresolved visits, **34** unresolved menu options, and lexical quest-completion commands with their originating NPC source. Across sources, `completequest` appears **22** times in named NPC blocks; 7 audited implementations include one or more such commands, 1 has `erasequest` without an explicit `completequest`, and **11** have no explicit journal completion command in the matched NPC blocks. Those 11 **are not necessarily unfinished or missing**: classic RO quests frequently use state variables or completion in other NPCs.
+
+All 19 audited implementations deliberately set `complete_route_verified=false` and `safe_for_automatic_dialogue=false`. This report is **research-only** and does not change the runtime catalog's approved mappings, the NPC dialogue user interface, or any player progression data.
+
+**Next:** investigate the 40 unsupported edges through source code in additional NPC blocks, preconditions, optional branch variants, item-check/consume/grant relationships and actual quest terminal states. For automated navigation, a server-specific observed path and reliable progress signals are still required.
