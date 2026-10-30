@@ -215,3 +215,20 @@ does not mean a classic quest lacks completion.
 projected into a runnable navigation state machine. Never auto-select
 dialogue choices or set per-character quest completion from these reports;
 only display literal, cited source facts with the relevant confidence level.
+
+## ROQuestie stage 14 — unresolved-source evidence only
+
+\`output/source_transition_gap_review.json\` and research SQLite v13
+\`wiki_gap_reviews\`/\`wiki_terminal_reviews\` store **non-executed**
+NPC source evidence: alternative menu options and unknown targets,
+source variable write/guard comparisons, literal item checks/grants/
+consumptions and \`setquest\`/\`completequest\`/\`erasequest\` evidence with
+guard lines. These fields must **not** become automatically selected
+dialogue responses, proven required inventories, or completed character
+quest flags. A common Quest ID or common item ID in code is not proof that
+the same branch executes or that the user's server contains that version.
+
+The end-user catalog remains **schema v5** and no runtime migration is
+required for this research iteration. Keep all per-character progress
+separate from source research and use a per-server verified ruleset
+before enabling next-step navigation.

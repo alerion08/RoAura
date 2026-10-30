@@ -310,3 +310,16 @@ The [`output/source_transition_audit.json`](output/source_transition_audit.json)
 All 19 audited implementations deliberately set `complete_route_verified=false` and `safe_for_automatic_dialogue=false`. This report is **research-only** and does not change the runtime catalog's approved mappings, the NPC dialogue user interface, or any player progression data.
 
 **Next:** investigate the 40 unsupported edges through source code in additional NPC blocks, preconditions, optional branch variants, item-check/consume/grant relationships and actual quest terminal states. For automated navigation, a server-specific observed path and reliable progress signals are still required.
+
+## ROQuestie stage 14 — all 40 unresolved source transitions triaged
+
+[Stage 14 research report](STAGE14_GAP_REVIEW.md) and
+[\`output/source_transition_gap_review.json\`](output/source_transition_gap_review.json)
+analyze **all 40** unresolved stage-13 wiki NPC hops.
+The research SQLite schema advances to **v13** with two evidence tables;
+the read-only consumer stays **v5** with no new automatic quest behavior.
+A non-executing static review identified 7 weaker NPC write→guard-read
+clues, 20 same-NPC check/consume Item ID pair candidates across 8 gaps,
+and preserved raw menu branches and journal terminal state evidence.
+No source claim was upgraded to proven gameplay. The report gives exact
+scope, negative findings and manual review instructions.

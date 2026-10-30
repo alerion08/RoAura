@@ -653,3 +653,28 @@ Integrity checks passed and foreign-key violations = 0. Preserved 939
 upstream scripts, 286 wiki pages, 3,420 steps, 574 heuristic candidates
 and 25 adjudicated source identity decisions. Next: deeper guards, item
 requirements, branches and terminal-state evidence; no auto gameplay claims.
+
+## ROQuestie stage 14 — inspect 40 unresolved transitions (2026-10-30)
+
+In isolated \`research/quest-database\`, new \`gap_review.py\` and
+\`test_gap_review.py\` audit all 40 unsupported NPC visit hops from stage
+13: 23 lack shared variable writes, 9 share a write but lack proven guard
+transition, 8 revisit the same NPC. They recover 7 additional
+**unproven** literal write→guard-read clues, and identify 20 same-NPC
+item-check/consume literal-ID pairs across 8 hops (26 gaps have some item
+facts). No literal item-grant→next NPC check/consume match was found.
+38 gaps have menu evidence and 18 have unresolved menu options.
+
+Separate completion review for 19 supported source variants identifies
+2 variants (Successor to the Throne) with \`setquest\`/\`completequest\`
+for the same literal Quest ID 10004, 5 with \`completequest\` but no
+matching \`setquest\` ID among the matched NPCs, 1 with \`erasequest\`
+only, and 11 with neither explicit completion operation. All source
+guard expressions remain raw and unevaluated. The reports explicitly
+disallow automatic navigation and quest-complete inference.
+
+Research SQLite schema **v13**, consumer stays **v5**, no application,
+settings, release, or main changes. Detailed evidence and caveats:
+\`research/quest-database/STAGE14_GAP_REVIEW.md\` and
+\`output/source_transition_gap_review.json\`. Automated test/build
+details in GitHub Actions; no in-game tests on any server.
