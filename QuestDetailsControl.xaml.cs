@@ -28,7 +28,7 @@ public partial class QuestDetailsControl : UserControl
         var offset = _lastKey == guide?.Key ? WalkScroll.VerticalOffset : 0;
         _lastKey = guide?.Key;
         QuestTitle.Text = guide?.Title ?? T("QSelectGuide");
-        Metadata.Text = guide is null ? "" : T("QUnverified") + " · " + T("QFreshness") + ": " + guide.RefreshState + " · " + T("QBaseLevel") + " " + (guide.BaseLevel?.ToString() ?? T("QUnknown")) + " · Job Lv. " + (guide.JobLevel?.ToString() ?? T("QUnknown"));
+        Metadata.Text = guide is null ? "" : T("QFreshness") + ": " + guide.RefreshState + " · " + T("QBaseLevel") + " " + (guide.BaseLevel?.ToString() ?? T("QUnknown")) + " · Job Lv. " + (guide.JobLevel?.ToString() ?? T("QUnknown"));
         FactsPanel.Children.Clear();
         RenderFacts("QRequirements", guide?.Requirements);
         RenderFacts("QRewards", guide?.Rewards);
@@ -45,27 +45,29 @@ public partial class QuestDetailsControl : UserControl
                 var content = new StackPanel();
                 content.Children.Add(Text($"{step.Number}. " + (step.SourceNumber is null ? T("QNarrative") : ""), true));
                 if (!string.IsNullOrWhiteSpace(step.Section)) content.Children.Add(Text(step.Section));
-                content.Children.Add(Text(step.Instruction));
+                var instruction=Text("");QuestInstructionText.Apply(instruction,step.Instruction);content.Children.Add(instruction);
                 var points=new WrapPanel();
                 var row=new QuestListRow(new QuestProgressEntry {QuestKey=guide.Key,CurrentStep=step.Number},guide);
                 foreach(var target in QuestNavigation.Targets(row))
                 {
-                    var coordinate=new Button {Content=target.ToString(),HorizontalAlignment=HorizontalAlignment.Left,Margin=new Thickness(0,4,6,2),ToolTip=target.Command,
+                    var coordinate=new Button {Content=target.ToString(),HorizontalAlignment=HorizontalAlignment.Left,Margin=new Thickness(0,3,4,0),Padding=new Thickness(4,0,4,0),FontSize=11,MinHeight=22,Height=22,ToolTip=target.Command,
                         IsEnabled=workspace.Settings.ServerProfile!=RoAura.Models.GameServerProfile.Other};
                     coordinate.Click+=(_,_)=>{if(ClipboardService.TryCopy(target.Command))QuestCopyFeedback.Success(coordinate);else coordinate.ToolTip=T("QCopyFailed");};
                     points.Children.Add(coordinate);
                 }
                 content.Children.Add(points);
+                var keys=new WrapPanel {Margin=new Thickness(0,4,0,0)};
                 var select = new Button { Content = T("QSelectStep"), IsEnabled = workspace.CanEdit && workspace.HasProgress(guide),
                     HorizontalAlignment = HorizontalAlignment.Left, Margin = new Thickness(0, 6, 0, 0), Tag = step.Number };
                 select.Click += (_, _) => workspace.SelectStep((int)select.Tag);
-                content.Children.Add(select);
+                keys.Children.Add(select);
                 foreach(var answer in QuestAnswers.Extract(step.Instruction))
                 {
                     var copy=new Button {Content=T("QCopyAnswer"),ToolTip=answer,HorizontalAlignment=HorizontalAlignment.Left,Margin=new Thickness(0,6,0,0)};
                     copy.Click+=(_,_)=>{if(ClipboardService.TryCopy(answer)){QuestCopyFeedback.Success(copy);}else copy.ToolTip=T("QCopyFailed");};
-                    content.Children.Add(copy);
+                    keys.Children.Add(copy);
                 }
+                content.Children.Add(keys);
                 StepsPanel.Children.Add(new Border { CornerRadius = new CornerRadius(6), Padding = new Thickness(10), Margin = new Thickness(0, 0, 0, 6),
                     Background = (Brush)FindResource(workspace.IsCurrentStep(step.Number) ? "RoTitleBrush" : "RoCardBrush"),
                     BorderBrush = (Brush)FindResource(workspace.IsCurrentStep(step.Number) ? "RoGoldBrush" : "RoSoftBorderBrush"),

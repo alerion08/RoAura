@@ -136,6 +136,26 @@ internal static class QuestInputSmoke
                     }
                 }
                 settingsWindow.Hide();QuestWindowNative.SetForegroundWindow(game);await Pause();
+                var oldLimit=workspace.Settings.QuestOverlay.MaxTrackedQuests;
+                workspace.Settings.QuestOverlay.MaxTrackedQuests=1;host.RefreshNow();
+                if(host.ActionWindows.Count(w=>((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"More")))!=1)
+                    throw new InvalidOperationException("Tracker quest limit was not applied.");
+                workspace.Settings.QuestOverlay.MaxTrackedQuests=oldLimit;host.RefreshNow();
+                ((App)Application.Current).ToggleDatabase();
+                var database=Application.Current.Windows.OfType<DatabaseOverlayWindow>().Single();
+                await Until(()=>database.IsDatabaseOpen && database.IsVisible,"database priority open");
+                QuestWindowNative.SetForegroundWindow(game);await Pause(350);host.RefreshNow();
+                var databaseBounds=QuestWindowNative.Bounds(new WindowInteropHelper(database).Handle);
+                var dbCenter=new Point(databaseBounds.X+databaseBounds.Width/2,databaseBounds.Y+databaseBounds.Height/2);
+                var questCanvas=(Canvas)host.TextWindow.Content;
+                if(questCanvas.Clip?.FillContains(host.TextWindow.PointFromScreen(dbCenter))!=false)
+                    throw new InvalidOperationException("Quest tracker paints above the database.");
+                var ordinary=Application.Current.Windows.OfType<OverlayWindow>().Single();
+                var surface=(FrameworkElement)ordinary.FindName("OverlaySurface");
+                if(surface.Clip?.FillContains(ordinary.PointFromScreen(dbCenter))!=false)
+                    throw new InvalidOperationException("Statistics/ordinary overlays paint above the database.");
+                SaveDesktop(database,"database-priority-native");
+                ((App)Application.Current).CloseDatabaseOverlay();await Pause();
                 SetWindowPos(game,IntPtr.Zero,20,20,340,240,0x14);await Pause();host.RefreshNow();
                 if(workspace.Settings.QuestOverlay.X!=x || workspace.Settings.QuestOverlay.Y!=y)
                     throw new InvalidOperationException("Game resize rewrote tracker coordinates.");

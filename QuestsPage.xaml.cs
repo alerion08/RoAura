@@ -16,7 +16,7 @@ public sealed record QuestCatalogListRow(QuestGuide Guide, bool Tracked, bool Ca
     public string Title => Guide.Title;
     public string Summary => LocalizationService.Get("QCategory" + Guide.Category) + " · " +
         LocalizationService.Get("QBaseLevel") + " " + (Guide.BaseLevel?.ToString() ?? LocalizationService.Get("QUnknown")) +
-        " · " + Guide.Steps.Count + " " + LocalizationService.Get("QSteps") + "\n" + LocalizationService.Get("QUnverified");
+        " · " + Guide.Steps.Count + " " + LocalizationService.Get("QSteps");
 }
 
 public partial class QuestsPage : UserControl

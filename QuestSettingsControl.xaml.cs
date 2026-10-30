@@ -28,7 +28,7 @@ public partial class QuestSettingsControl : UserControl
         Brush color;
         try { color = (Brush)new BrushConverter().ConvertFromString(options.TextColor)!; }
         catch { color = Brushes.White; }
-        var rows = _workspace.Active.Where(q => q.Progress.IsVisibleInOverlay).Take(3).ToList();
+        var rows = _workspace.Active.Where(q => q.Progress.IsVisibleInOverlay).Take(Math.Min(3,options.MaxTrackedQuests)).ToList();
         if (rows.Count == 0) { PreviewPanel.Children.Add(new TextBlock { Text = T("QPreviewEmpty"), TextWrapping = TextWrapping.Wrap, Foreground = Brushes.White }); return; }
         foreach (var row in rows)
         {

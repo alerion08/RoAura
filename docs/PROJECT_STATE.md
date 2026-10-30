@@ -924,3 +924,21 @@ verification. General catalog availability/source metadata is unchanged.
 Artifact: [RoAura-development-74-aa0fd9b](https://github.com/alerion08/RoAura/actions/runs/41073669338/artifacts/12986003102).
 Portable SHA256: `b94bb96d5ec76efbfc6aff3e8f28eb12b8f0ea28a349feda7d4b79548aa1fb99`.
 No main/research changes, product version bump, merge, tag or release.
+
+## ROQuestie emphasis, compact actions and database priority (2026-10-30)
+
+Owner priority: catalog is a general quest reference. Availability-on-server
+labels are removed from catalog and details without rewriting source assurance.
+Explicit answer literals use bold purple; exact bundled item names use bold green,
+with source text preserved. Unknown names are not inferred. The tracker uses
+lighter colors over the game; walkthrough uses darker colors on its light cards.
+Step navigation buttons share a compact wrapping row (22 DIP, minimal padding).
+Step selection/copy buttons share their own wrapping row. No category headings.
+MaxTrackedQuests is 1–50 (default 20, preserving practical screen-fit behavior),
+saved with visuals/presets; extra quests stay active and accessible in the browser.
+Database search/details permanently occlude lower tracker and ordinary/statistics
+pixels while visible, even with game focus. No capture/parser changes or window
+ownership; shared clipping keeps other visible areas and input behavior intact.
+Native smoke checks quest limit and database priority for tracker/statistics;
+focused tests cover literal emphasis/source preservation and limit persistence.
+Automated validation pending; actual SpringRO/mixed-DPI acceptance remains open.

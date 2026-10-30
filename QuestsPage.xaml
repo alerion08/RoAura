@@ -30,7 +30,7 @@
        <WrapPanel><CheckBox x:Name="UseLevel" Content="{DynamicResource QLevelFilter}" VerticalAlignment="Center" Click="Filter_Click"/><controls:NumericTextBox x:Name="LevelInput" Value="{Binding FilterLevel, RelativeSource={RelativeSource AncestorType=local:QuestsPage}, Mode=TwoWay}" Style="{StaticResource QuestNumber}" LostKeyboardFocus="Level_Changed" KeyUp="Level_KeyUp"/></WrapPanel>
        <TextBlock Text="{DynamicResource QCategoryHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}"/>
       </StackPanel>
-      <TextBlock Grid.Row="1" Text="{DynamicResource QUnverified}" TextWrapping="Wrap" Margin="0,10"/>
+
       <Button Grid.Row="2" Content="{DynamicResource QOpenWalkthrough}" Click="OpenGuide_Click" Margin="0,8"/>
      </Grid>
       <Grid Grid.Column="2"><ListBox x:Name="CatalogList" SelectionChanged="Guide_Changed" MouseDoubleClick="OpenGuide_DoubleClick" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">

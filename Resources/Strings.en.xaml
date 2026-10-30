@@ -675,4 +675,5 @@
     <sys:String x:Key="QDoneHint">Confirm the current step. Completes the quest on the final step.</sys:String>
     <sys:String x:Key="QDescriptionLines">Instruction lines</sys:String>
     <sys:String x:Key="QCopyAnswer">Copy text</sys:String>
+    <sys:String x:Key="QMaxTrackedQuests">Maximum tracker quests</sys:String>
 </ResourceDictionary>

@@ -318,3 +318,21 @@ Coordinate warning prose is removed from point labels/tooltips/chooser. Original
 catalog/source assurance is retained internally; no new server verification claim.
 Regression smoke checks clipped painted button centers rather than demanding
 nonintersecting transparent HWND rectangles. Windows validation passed: 303 tests, eight ToC checks and portable startup; real-game acceptance remains open.
+
+## ROQuestie emphasis, compact actions and database priority (2026-10-30)
+
+Owner priority: catalog is a general quest reference. Availability-on-server
+labels are removed from catalog and details without rewriting source assurance.
+Explicit answer literals use bold purple; exact bundled item names use bold green,
+with source text preserved. Unknown names are not inferred. The tracker uses
+lighter colors over the game; walkthrough uses darker colors on its light cards.
+Step navigation buttons share a compact wrapping row (22 DIP, minimal padding).
+Step selection/copy buttons share their own wrapping row. No category headings.
+MaxTrackedQuests is 1–50 (default 20, preserving practical screen-fit behavior),
+saved with visuals/presets; extra quests stay active and accessible in the browser.
+Database search/details permanently occlude lower tracker and ordinary/statistics
+pixels while visible, even with game focus. No capture/parser changes or window
+ownership; shared clipping keeps other visible areas and input behavior intact.
+Native smoke checks quest limit and database priority for tracker/statistics;
+focused tests cover literal emphasis/source preservation and limit persistence.
+Automated validation pending; actual SpringRO/mixed-DPI acceptance remains open.

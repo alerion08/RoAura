@@ -7,6 +7,27 @@ namespace RoAura.Tests;
 public sealed class QuestInteractionTests
 {
     [Fact]
+    public void InstructionHighlightsPreserveSourceAndPreferAnswerOverItem()
+    {
+        const string source="Type \"Milk\" then bring 3 Milk and a Red Potion. Milky stays plain.";
+        var parts=QuestHighlights.Split(source,["Milk"],["Milk","Red Potion"]);
+        Assert.Equal(source,string.Concat(parts.Select(p=>p.Text)));
+        Assert.Equal("item",Assert.Single(parts.Where(p=>p.Text=="Red Potion")).Kind);
+        Assert.All(parts.Where(p=>p.Text=="Milk"),p=>Assert.Equal("answer",p.Kind));
+        Assert.Contains(parts,p=>p.Kind=="" && p.Text.Contains("Milky"));
+        Assert.Empty(QuestHighlights.Split("",[],[]));
+    }
+    [Fact]
+    public void TrackerLimitSurvivesSettingsPresetAndClamps()
+    {
+        var source=new AppSettings();Assert.Equal(20,source.QuestOverlay.MaxTrackedQuests);
+        source.QuestOverlay.MaxTrackedQuests=0;Assert.Equal(1,source.QuestOverlay.MaxTrackedQuests);
+        source.QuestOverlay.MaxTrackedQuests=99;Assert.Equal(50,source.QuestOverlay.MaxTrackedQuests);
+        source.QuestOverlay.MaxTrackedQuests=7;
+        var copy=System.Text.Json.JsonSerializer.Deserialize<AppSettings>(System.Text.Json.JsonSerializer.Serialize(source))!;
+        var target=new AppSettings();SettingsSnapshot.Apply(copy,target);Assert.Equal(7,target.QuestOverlay.MaxTrackedQuests);
+    }
+    [Fact]
     public void PartialBrowserOverlapClipsOnlyCoveredActionPixels()
     {
         var clip=OverlayOcclusion.CreateClip(new System.Windows.Size(320,24),[new System.Windows.Rect(290,0,760,500)]);

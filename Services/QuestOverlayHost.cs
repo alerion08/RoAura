@@ -153,6 +153,7 @@ public sealed class QuestOverlayHost : IDisposable
         _canvas.Width=_gamePixels.Width/_dpi;_canvas.Height=_gamePixels.Height/_dpi;
         Canvas.SetLeft(_cards,Options.X);Canvas.SetTop(_cards,Options.Y);
         var excluded=(controlsActive?controls.Select(w=>QuestWindowNative.Bounds(new WindowInteropHelper(w).Handle)):Enumerable.Empty<Rect>())
+            .Concat(controls.Where(w=>w is DatabaseOverlayWindow or DatabaseDetailWindow).Select(w=>QuestWindowNative.Bounds(new WindowInteropHelper(w).Handle)))
             .Concat(Browser.IsVisible?[QuestWindowNative.Bounds(new WindowInteropHelper(Browser).Handle)]:[])
             .Where(r=>!r.IsEmpty).ToArray();
         _canvas.Clip=OverlayOcclusion.CreateClip(new Size(_canvas.Width,_canvas.Height),excluded.Select(r=>
@@ -220,11 +221,13 @@ public sealed class QuestOverlayHost : IDisposable
         var visibleRows=_workspace.Active.Where(q=>q.Progress.IsVisibleInOverlay).ToList();
         foreach(var row in visibleRows)
         {
+            if(count>=Options.MaxTrackedQuests)break;
             // Only rows that fit the client are exposed. The final More action opens the full list.
             if(count>0 && Options.Y+(y+90)*Options.Scale>_gamePixels.Height/_dpi)break;
             var panel=new StackPanel();
             var title=Label(row.Title+" "+row.Position,color,true);title.MaxHeight=(Options.FontSize+3)*2;title.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(title);
             var instruction=Label(row.Progress.IsMissingFromCatalog?T("QMissing"):row.Progress.NeedsStepReview?T("QReviewStep"):row.Instruction,color);
+            if(!row.Progress.IsMissingFromCatalog && !row.Progress.NeedsStepReview)QuestInstructionText.Apply(instruction,row.Instruction,true);
             instruction.MaxHeight=(Options.FontSize+3)*Options.DescriptionLines;instruction.TextTrimming=TextTrimming.CharacterEllipsis;panel.Children.Add(instruction);
             if(Options.ShowCoordinates)
             {

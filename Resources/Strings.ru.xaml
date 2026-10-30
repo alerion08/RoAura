@@ -675,4 +675,5 @@
     <sys:String x:Key="QDoneHint">Подтвердить текущий шаг. На последнем шаге завершает квест.</sys:String>
     <sys:String x:Key="QDescriptionLines">Строк описания этапа</sys:String>
     <sys:String x:Key="QCopyAnswer">Копировать текст</sys:String>
+    <sys:String x:Key="QMaxTrackedQuests">Максимум квестов в трекере</sys:String>
 </ResourceDictionary>
