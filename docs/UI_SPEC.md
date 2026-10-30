@@ -321,4 +321,4 @@ the same filtered /navi command and success feedback; Other remains reference-on
 Coordinate warning prose is removed from point labels/tooltips/chooser. Original
 catalog/source assurance is retained internally; no new server verification claim.
 Regression smoke checks clipped painted button centers rather than demanding
-nonintersecting transparent HWND rectangles. Automated validation pending.
+nonintersecting transparent HWND rectangles. Windows validation passed: 303 tests, eight ToC checks and portable startup; real-game acceptance remains open.

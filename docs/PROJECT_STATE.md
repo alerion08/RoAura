@@ -910,4 +910,17 @@ the same filtered /navi command and success feedback; Other remains reference-on
 Coordinate warning prose is removed from point labels/tooltips/chooser. Original
 catalog/source assurance is retained internally; no new server verification claim.
 Regression smoke checks clipped painted button centers rather than demanding
-nonintersecting transparent HWND rectangles. Automated validation pending.
+nonintersecting transparent HWND rectangles. Windows validation passed: 303 tests, eight ToC checks and portable startup; real-game acceptance remains open.
+
+Occlusion/navigation verification: [Actions #41073669338](https://github.com/alerion08/RoAura/actions/runs/41073669338)
+SUCCESS on `aa0fd9b3581847ad05bcb59dd82587241afe3ece`: 303 tests,
+zero failed/skipped, eight ToC checks, portable startup and clean package checks.
+The partial-overlap regression checks uncovered/covered action points; native smoke
+checks settings exclusion against painted button centers while preserving prior
+focus/click-through/keyboard checks. Native walkthrough raster inspected: usable
+map points are buttons and coordinate-warning lines are absent. The user-reported
+SpringRO partial-window placement and actual coordinate paste still need manual
+verification. General catalog availability/source metadata is unchanged.
+Artifact: [RoAura-development-74-aa0fd9b](https://github.com/alerion08/RoAura/actions/runs/41073669338/artifacts/12986003102).
+Portable SHA256: `b94bb96d5ec76efbfc6aff3e8f28eb12b8f0ea28a349feda7d4b79548aa1fb99`.
+No main/research changes, product version bump, merge, tag or release.
