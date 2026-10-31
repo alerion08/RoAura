@@ -33,6 +33,32 @@ class GuideParserTests(unittest.TestCase):
         self.assertIn(("guide_answer","Sure"),details)
         self.assertNotIn(("bare_coord","51:105"),details)
 
+    def test_space_separated_xy_preserves_qualified_map_and_rejects_numeric_prose(self):
+        known=["prontera","ra_in01"]
+        samples=(
+            "Talk to the guard at prontera 249 132.",
+            "Talk to the guard at prontera 249,132.",
+            "Talk to the guard at prontera (249, 132).",
+            "Talk to the guard at prontera (249 132).",
+            "Talk to the guard at prontera, 249 132.",
+        )
+        for instruction in samples:
+            with self.subTest(instruction=instruction):
+                self.assertIn(("map_coord","prontera:249:132"),
+                              step_evidence(instruction,known))
+                self.assertNotIn(("bare_coord","249:132"),
+                                 step_evidence(instruction,known))
+        self.assertIn(("map_coord","ra_in01:372:200"),
+                      step_evidence("Visit ra_in01 372 200.",[]))
+        self.assertEqual(step_evidence("Buy item_count 10 20.",known),[])
+        self.assertEqual(step_evidence("Collect 10 Jellopy and 20 Red Potion.",known),[])
+        self.assertEqual(step_evidence("Base Level 60 and Job Level 30.",known),[])
+        self.assertEqual(step_evidence("249 132",known),[])
+        self.assertEqual(step_evidence("prontera 2490 132",known),[])
+        self.assertEqual(step_evidence("prontera 249 1320",known),[])
+        self.assertEqual(step_evidence("249,132",known),[("bare_coord","249:132")])
+        self.assertEqual(step_evidence("ra_in01 372 200",[]),[])
+
     def test_mediawiki_table_wrapped_quest_guide(self):
         html = """<div id="mw-content-text"><div class="mw-parser-output">
         <table><tbody><tr><td>
@@ -78,7 +104,7 @@ class GuideParserTests(unittest.TestCase):
         db.execute("INSERT INTO wiki_pages VALUES(1,'Kiel Hyre Quest','walkthrough_parsed')")
         db.execute("INSERT INTO provenance VALUES(1,'npc/quests/kiel_hyre_quest.txt')")
         db.execute("INSERT INTO script_npcs VALUES(1,1,'yuno',51,105,'Bar Keeper#kiel')")
-        db.execute("INSERT INTO wiki_steps VALUES(1,1,'Talk to Bar Keeper at yuno 51,105')")
+        db.execute("INSERT INTO wiki_steps VALUES(1,1,'Talk to Bar Keeper at yuno 51 105')")
         summary=link_database(db)
         self.assertEqual(summary["linked_pages"],1)
         self.assertEqual(summary["wiki_step_npc_links"],1)

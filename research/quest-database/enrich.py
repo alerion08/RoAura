@@ -10,7 +10,8 @@ from bs4 import BeautifulSoup, Tag
 
 SPACE = re.compile(r"\s+")
 STEP_START = re.compile(r"^\s*(\d{1,3})\s*[.)]\s+(.*)$", re.S)
-MAP_COORD = re.compile(r"\b([a-z][a-z0-9_]{2,24})\s*[, ]?\s*\(?\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)?", re.I)
+MAP_COORD = re.compile(r"\b([a-z][a-z0-9_]{2,24})\s*[, ]?\s*\(?\s*(\d{1,3})\s*(?:,\s*|\s+)(\d{1,3})(?!\d)", re.I)
+NAVIGATION_CONTEXT = re.compile(r"\b(?:at|in|to|near|inside|around|on|visit|enter)\s+(?:the\s+)?$", re.I)
 BARE_COORD = re.compile(r"\b(\d{1,3})\s*,\s*(\d{1,3})\b")
 QUOTED = re.compile(r'["“]([^"”\n]{1,110})["”]')
 ANSWERS = re.compile(r"\b(select|choose|answer|say|input|enter|type|tell|reply|respond|press)\b", re.I)
@@ -96,17 +97,36 @@ def parse_guide(raw):
     return prose,{"mode":"narrative" if prose else "empty","numbered":0,"narrative":len(prose)},metadata
 
 def step_evidence(text,known_maps=()):
-    """Only literal guide data, bare coordinates are deliberately map-unknown."""
+    """Extract literal guide hints; unqualified X Y remains ambiguous, never infer its map.
+
+    For comma-free X Y, require a known map or a map-code with navigation
+    language nearby. This prevents quantities like 'item_count 10 20' from
+    silently becoming waypoints. Findings remain wiki hints, not verified NPCs.
+    """
     result=set()
     recognized={x.lower() for x in known_maps}
-    named_matches=list(MAP_COORD.finditer(text))
-    for m in named_matches:
+    named_matches=[]
+    for m in MAP_COORD.finditer(text):
         mapname=m.group(1).lower()
         x=int(m.group(2));y=int(m.group(3))
-        if x<=400 and y<=400 and (mapname in recognized or "_" in mapname):
+        if x>400 or y>400:
+            continue
+        if mapname in recognized:
+            supported=True
+        elif "_" in mapname:
+            # Preserve the existing map-code + comma format, but apply
+            # contextual validation when the X/Y separator is only whitespace.
+            pair=text[m.start(2):m.end(3)]
+            prefix=text[max(0,m.start()-40):m.start()]
+            supported="," in pair or bool(NAVIGATION_CONTEXT.search(prefix))
+        else:
+            supported=False
+        if supported:
+            named_matches.append(m)
             result.add(("map_coord",f"{mapname}:{x}:{y}"))
     for m in BARE_COORD.finditer(text):
-        if any(n.start()<=m.start() and m.end()<=n.end() for n in named_matches):continue
+        if any(n.start()<=m.start() and m.end()<=n.end() for n in named_matches):
+            continue
         if int(m.group(1))<=400 and int(m.group(2))<=400:
             result.add(("bare_coord",f"{int(m.group(1))}:{int(m.group(2))}"))
     for m in QUOTED.finditer(text):

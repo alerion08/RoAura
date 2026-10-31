@@ -96,6 +96,18 @@ All isolated parser/graph/review tests and full-build checks passed. [Real-sourc
 
 ## Guide parsing and NPC cross-links (research stage 2)
 
+The guide extractor accepts explicit map-qualified coordinates both with commas
+(`prontera 249,132`, `prontera (249,132)`) and with whitespace between X/Y
+(`prontera 249 132`, `prontera (249 132)`). Numbers must fit the
+conservative 0–400 coordinate bounds. Comma-free coordinates require a recognized
+NPC-script map or an underscore-containing map code in nearby navigation context
+(e.g. `visit ra_in01 372 200`); bare `249 132` is not interpreted as a location.
+An old bare `249,132` remains a map-unknown hint, not a navigable target.
+Source text is kept unchanged. This is lexical/contextual evidence, not proof of
+an NPC position or SpringRO server compatibility. Rebuild research and consumer
+SQLite to propagate new hints into a RoAura snapshot.
+
+
 The wiki parser now covers ordinary HTML numbered paragraphs (`1. ...`),
 ordered lists and unnumbered narrative paragraphs. It appends continuation
 paragraphs and list notes to the preceding step, preserving original guide
