@@ -419,4 +419,14 @@ tracked quests exist. AutoLoadCatalog defaults true, persists with quest setting
 loads at application startup and gates browser/page implicit loading; manual reload
 remains available. Check disabled startup, saved option, empty-profile preview,
 button heights, monitor DPI, clipping after actions and database/browser priority.
-Validation pending for this block; actual SpringRO acceptance remains manual.
+Validation: [Windows run 41182802140](https://github.com/alerion08/RoAura/actions/runs/41182802140)
+passed on `ed06d76e16da2be063f1d1f44411ba7a24abd414`: 318 tests, zero failed/skipped,
+eight ToC validation/import checks, portable startup and package privacy/resource
+checks. Native smoke includes post-layout WPF/HWND size agreement, equal tracker
+button heights/lowercase captions, focus/click-through, copied expiry, collapse,
+current-step navigation and database priority. The first run failed to compile due
+to a probe variable-name collision, corrected before this successful run.
+Artifact: [RoAura-development-81-ed06d76](https://github.com/alerion08/RoAura/actions/runs/41182802140/artifacts/13034954377).
+Portable SHA256: `ae502ff9067fdca7fa14497bea00d50769ce82315d7bf2a2f3ab4c4f315cb02f`.
+Real SpringRO clipping/mixed-DPI and settings preview acceptance remain manual.
+No main/research writes, version changes, merge, tag or release.
