@@ -29,7 +29,19 @@ public partial class QuestSettingsControl : UserControl
         try { color = (Brush)new BrushConverter().ConvertFromString(options.TextColor)!; }
         catch { color = Brushes.White; }
         var rows = _workspace.Active.Where(q => q.Progress.IsVisibleInOverlay).Take(Math.Min(3,options.MaxTrackedQuests)).ToList();
-        if (rows.Count == 0) { PreviewPanel.Children.Add(new TextBlock { Text = T("QPreviewEmpty"), TextWrapping = TextWrapping.Wrap, Foreground = Brushes.White }); return; }
+        if (rows.Count == 0)
+        {
+            // Preview-only examples: never add these to character progress.
+            foreach(var example in new[] {("Lost Child Quest [1/13]", "Talk to Vincent (ra_in01 384,246).", "ra_in01 384,246"), ("Sign Quest [48/81]", "Go inside a Niflheim building (niflheim 187 241).", "niflheim 187,241")}.Take(options.MaxTrackedQuests))
+            {
+                PreviewPanel.Children.Add(new TextBlock {Text=example.Item1,Foreground=color,FontWeight=FontWeights.SemiBold,FontSize=options.FontSize});
+                PreviewPanel.Children.Add(new TextBlock {Text=example.Item2,Foreground=color,FontSize=options.FontSize,TextWrapping=TextWrapping.Wrap,LineHeight=options.FontSize+3,MaxHeight=(options.FontSize+3)*options.DescriptionLines});
+                if(options.ShowCoordinates)PreviewPanel.Children.Add(new TextBlock {Text="⌖ "+example.Item3,Foreground=color});
+                AddPreviewButtons(options.ShowButtons);
+                PreviewPanel.Children.Add(new Border {Height=options.CardGap});
+            }
+            return;
+        }
         foreach (var row in rows)
         {
             PreviewPanel.Children.Add(new TextBlock {Text=row.Title+" "+row.Position,Foreground=color,FontSize=options.FontSize,FontWeight=FontWeights.SemiBold});
@@ -39,12 +51,15 @@ public partial class QuestSettingsControl : UserControl
                 var points = row.Guide?.Steps.FirstOrDefault(s => s.Number == row.Progress.CurrentStep)?.Locations;
                 foreach (var point in points ?? []) PreviewPanel.Children.Add(new TextBlock { Text = (point.Map ?? T("QMapUnknown")) + $" {point.X},{point.Y}", TextWrapping = TextWrapping.Wrap, Foreground = color });
             }
-            if (options.ShowButtons)
-            {
-                var buttons = new WrapPanel();
-                foreach (var text in new[] { "Prev", "Next", "More", "navi", "Done" }) buttons.Children.Add(new Button { Content = text, IsEnabled = false, FontSize = 10, MinHeight = 22, Height = 22, Padding = new Thickness(5, 0, 5, 0) });
-                PreviewPanel.Children.Add(buttons);
-            }
+            AddPreviewButtons(options.ShowButtons);
         }
+    }
+    private void AddPreviewButtons(bool visible)
+    {
+        if(!visible)return;
+        var buttons=new WrapPanel();
+        foreach(var text in new[]{"prev","next","more","navi","done"})
+            buttons.Children.Add(new Button {Content=text,IsEnabled=false,FontSize=11,Height=22,MinHeight=22,Padding=new Thickness(5,0,5,0)});
+        PreviewPanel.Children.Add(buttons);
     }
 }

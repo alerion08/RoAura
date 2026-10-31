@@ -257,19 +257,19 @@ public sealed class QuestOverlayHost : IDisposable
             if(Options.ShowButtons)
             {
                 var strip=ActionSurface();var buttons=new StackPanel {Orientation=Orientation.Horizontal,Background=null,LayoutTransform=new ScaleTransform(Options.Scale,Options.Scale)};
-                var prev=ActionButton("Prev",()=>_workspace.Move(row,-1));prev.IsEnabled=row.CanPrev;buttons.Children.Add(prev);
-                var next=ActionButton("Next",()=>_workspace.Move(row,1));next.IsEnabled=row.CanNext;buttons.Children.Add(next);
-                buttons.Children.Add(ActionButton("More",async()=>await OpenBrowserAsync(row.Guide)));
+                var prev=ActionButton("prev",()=>_workspace.Move(row,-1));prev.IsEnabled=row.CanPrev;buttons.Children.Add(prev);
+                var next=ActionButton("next",()=>_workspace.Move(row,1));next.IsEnabled=row.CanNext;buttons.Children.Add(next);
+                buttons.Children.Add(ActionButton("more",async()=>await OpenBrowserAsync(row.Guide)));
                 var targets=QuestNavigation.Targets(row);
                 var copied=ReferenceEquals(_copiedEntry,row.Progress) && _copiedStep==row.Progress.CurrentStep && DateTime.UtcNow<_copiedUntil;
                 var navi=ActionButton("navi",()=>Navigate(row,strip,targets));navi.Width=64;
                 if(copied)QuestCopyFeedback.Success(navi,false);navi.IsEnabled=targets.Count>0 && _workspace.Settings.ServerProfile!=GameServerProfile.Other;
                 navi.ToolTip=T(targets.Count==0?"QNoNavigation":"QWikiCoordinates");buttons.Children.Add(navi);
                 var step=row.Progress.CurrentStep;
-                var done=ActionButton("Done",()=>_workspace.Done(row,step));done.IsEnabled=row.Editable && !row.Progress.NeedsStepReview && !row.Progress.IsMissingFromCatalog;done.ToolTip=T("QDoneHint");buttons.Children.Add(done);
+                var done=ActionButton("done",()=>_workspace.Done(row,step));done.IsEnabled=row.Editable && !row.Progress.NeedsStepReview && !row.Progress.IsMissingFromCatalog;done.ToolTip=T("QDoneHint");buttons.Children.Add(done);
                 foreach(var answer in QuestAnswers.Extract(row.Instruction))
                 {
-                    var copy=ActionButton("Copy",()=>{});copy.ToolTip=T("QCopyAnswer")+": "+answer;
+                    var copy=ActionButton("copy",()=>{});copy.ToolTip=T("QCopyAnswer")+": "+answer;
                     copy.Click+=(_,_)=>{if(ClipboardService.TryCopy(answer)){QuestCopyFeedback.Success(copy);}else copy.ToolTip=T("QCopyFailed");};
                     buttons.Children.Add(copy);
                 }
@@ -292,6 +292,7 @@ public sealed class QuestOverlayHost : IDisposable
     private static Button ActionButton(string caption,Action action)
     {
         var button=new Button {Content=caption,Focusable=false,IsTabStop=false,MinHeight=22,Height=22,FontSize=11,Padding=new Thickness(5,0,5,0),Margin=new Thickness(1,1,2,1)};
+        QuestCopyFeedback.ApplyTemplate(button,(Brush)Application.Current.FindResource("RoCardBrush"));
         button.Click+=(_,_)=>action();return button;
     }
     private void Navigate(QuestListRow row,QuestPassiveWindow strip,IReadOnlyList<QuestNavigationTarget> targets)

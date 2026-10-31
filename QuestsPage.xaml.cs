@@ -34,7 +34,7 @@ public partial class QuestsPage : UserControl
         InitializeComponent();
         CatalogDetails.GuideRequested += ShowGuide;
         _searchTimer.Tick += (_, _) => { _searchTimer.Stop(); Filter(); };
-        Loaded += async (_, _) => { if (_workspace?.Catalog is null && _workspace?.IsLoadingCatalog == false) await _workspace.LoadCatalogAsync(); Render(); };
+        Loaded += async (_, _) => { if (_workspace?.Settings.QuestOverlay.AutoLoadCatalog == true && _workspace.Catalog is null && _workspace?.IsLoadingCatalog == false) await _workspace.LoadCatalogAsync(); Render(); };
         Unloaded += (_, _) => _searchTimer.Stop();
     }
     public void Initialize(QuestWorkspace workspace, Func<CharacterSessionSnapshot> observed, Action saveVisuals)

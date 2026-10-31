@@ -23,7 +23,7 @@ public partial class QuestBrowserWindow : Window
     }
     public async Task LoadGuideAsync(QuestGuide? guide=null,bool activate=true)
     {
-        if(_workspace.Catalog is null && !_workspace.IsLoadingCatalog) await _workspace.LoadCatalogAsync();
+        if(_workspace.Settings.QuestOverlay.AutoLoadCatalog && _workspace.Catalog is null && !_workspace.IsLoadingCatalog) await _workspace.LoadCatalogAsync();
         if(guide is not null) Page.ShowGuide(guide);
         if(activate && IsVisible) {Activate();if(guide is null) Page.FocusSearch();}
     }

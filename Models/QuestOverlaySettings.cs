@@ -5,6 +5,8 @@ namespace RoAura.Models;
 
 public sealed class QuestOverlaySettings : INotifyPropertyChanged
 {
+    private bool _autoLoadCatalog=true;
+    public bool AutoLoadCatalog {get=>_autoLoadCatalog;set=>Set(ref _autoLoadCatalog,value);}
     private bool _enabled = true, _buttons = true, _coordinates = true;
     private double _x = 12, _y = 200, _width = 320, _fontSize = 14, _opacity = 90, _gap = 6, _scale = 1;
     private int _maxTrackedQuests=5;

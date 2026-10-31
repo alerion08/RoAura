@@ -90,10 +90,12 @@ public sealed class QuestGameTests
     public void BrowserGeometryAndKeysParticipateInPresetsWithoutChangingOtherOverlayCoordinates()
     {
         var source=new AppSettings {QuestBrowserHotkey="F3",QuestTrackerHotkey="F4"};
+        source.QuestOverlay.AutoLoadCatalog=false;
         source.QuestOverlay.BrowserX=123;source.QuestOverlay.BrowserY=77;source.QuestOverlay.BrowserWidth=1050;
         source.Skills.Add(new SkillAura {X=333,Y=444});
         var target=new AppSettings();var options=target.QuestOverlay;
         SettingsSnapshot.Apply(source,target);
+        Assert.False(options.AutoLoadCatalog);
         Assert.Same(options,target.QuestOverlay);Assert.Equal(123,options.BrowserX);Assert.Equal(1050,options.BrowserWidth);
         Assert.Equal("F3",target.QuestBrowserHotkey);Assert.Equal("F4",target.QuestTrackerHotkey);
         Assert.Equal(333,target.Skills.Single().X);Assert.Equal(444,target.Skills.Single().Y);

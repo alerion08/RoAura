@@ -48,8 +48,18 @@ internal static class QuestInputSmoke
                 await Pause();
                 SaveDesktop(host.TextWindow,"tracker-native");
                 var row=workspace.Active.First();var initial=row.Progress.CurrentStep;
-                var strip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"Next")));
+                var strip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"next")));
                 var buttons=((StackPanel)strip.Content).Children.OfType<Button>().ToArray();
+                // Validate after dispatcher/render processing, not only immediately after SetWindowPos.
+                foreach(var surface in host.ActionWindows.Where(w=>w.IsVisible))
+                {
+                    var bounds=QuestWindowNative.Bounds(new WindowInteropHelper(surface).Handle);
+                    var dpi=QuestWindowNative.Scale(new WindowInteropHelper(surface).Handle);
+                    if(Math.Abs(surface.Width*dpi-bounds.Width)>2 || Math.Abs(surface.Height*dpi-bounds.Height)>2)
+                        throw new InvalidOperationException("WPF/native tracker size diverged after layout.");
+                }
+                if(buttons.Select(b=>b.ActualHeight).Distinct().Count()!=1 || buttons.Any(b=>b.Content is string t && char.IsUpper(t[0])))
+                    throw new InvalidOperationException("Tracker buttons must have equal heights and lowercase labels.");
                 // Real OS mouse delivery, not RaiseEvent: buttons consume clicks without activation.
                 var originalStripHandle=new WindowInteropHelper(strip).Handle;
                 var clicks=Read(reportPath)!.Clicks;
@@ -57,7 +67,7 @@ internal static class QuestInputSmoke
                 await Until(()=>row.Progress.CurrentStep==initial+1,"Next click");
                 if(QuestWindowNative.GetForegroundWindow()!=game || Read(reportPath)!.Clicks!=clicks)
                     throw new InvalidOperationException("Quest button stole game focus or leaked its click.");
-                await Pause();host.RefreshNow();strip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"Next")));
+                await Pause();host.RefreshNow();strip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"next")));
                 if(new WindowInteropHelper(strip).Handle!=originalStripHandle)throw new InvalidOperationException("Tracker action HWND was recreated after Next.");
                 Click(strip.PointToScreen(new Point(0,0))); // fully transparent corner, a different process underneath
                 await Until(()=>Read(reportPath)!.Clicks>clicks,"transparent button margin click-through");
@@ -65,8 +75,8 @@ internal static class QuestInputSmoke
                 Click(host.TextWindow.PointToScreen(new Point(x+15,y+40)));
                 await Until(()=>Read(reportPath)!.Clicks>clicks,"text/world click-through");
                 var doneStep=row.Progress.CurrentStep;
-                var doneStrip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"Done")));
-                var done=((StackPanel)doneStrip.Content).Children.OfType<Button>().Single(b=>Equals(b.Content,"Done"));
+                var doneStrip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"done")));
+                var done=((StackPanel)doneStrip.Content).Children.OfType<Button>().Single(b=>Equals(b.Content,"done"));
                 Click(done.PointToScreen(new Point(done.ActualWidth/2,done.ActualHeight/2)));
                 await Until(()=>row.Progress.CurrentStep==doneStep+1,"Done confirms and advances current step");
                 if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("Done stole game focus.");
@@ -96,8 +106,8 @@ internal static class QuestInputSmoke
                 await Until(()=>!row.Progress.IsCollapsed,"expand tracker quest");await Pause();host.RefreshNow();
                 // Reopen a guide previously left on Facts: More must force Walkthrough/current step.
                 host.Browser.Page.ShowFacts(row.Guide!);
-                var moreStrip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"More")));
-                var more=((StackPanel)moreStrip.Content).Children.OfType<Button>().Single(b=>Equals(b.Content,"More"));
+                var moreStrip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"more")));
+                var more=((StackPanel)moreStrip.Content).Children.OfType<Button>().Single(b=>Equals(b.Content,"more"));
                 Click(more.PointToScreen(new Point(more.ActualWidth/2,more.ActualHeight/2)));
                 await Until(()=>host.BrowserShowing && host.Browser.Page.CurrentStepInView,"More opens current instruction from Facts");
                 var oldBrowserWidth=workspace.Settings.QuestOverlay.BrowserWidth;var oldBrowserX=workspace.Settings.QuestOverlay.BrowserX;
@@ -167,7 +177,7 @@ internal static class QuestInputSmoke
                 settingsWindow.Hide();QuestWindowNative.SetForegroundWindow(game);await Pause();
                 var oldLimit=workspace.Settings.QuestOverlay.MaxTrackedQuests;
                 workspace.Settings.QuestOverlay.MaxTrackedQuests=1;host.RefreshNow();
-                if(host.ActionWindows.Count(w=>((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"More")))!=1)
+                if(host.ActionWindows.Count(w=>((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"more")))!=1)
                     throw new InvalidOperationException("Tracker quest limit was not applied.");
                 workspace.Settings.QuestOverlay.MaxTrackedQuests=oldLimit;host.RefreshNow();
                 ((App)Application.Current).ToggleDatabase();

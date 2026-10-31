@@ -614,6 +614,7 @@
     <sys:String x:Key="QStatePaused">Paused</sys:String>
     <sys:String x:Key="QStateCompleted">Completed manually</sys:String>
     <sys:String x:Key="QStateRemoved">Removed from active</sys:String>
+    <sys:String x:Key="QAutoLoadCatalog">Load catalog automatically on startup</sys:String>
     <sys:String x:Key="QOverlayEnabled">Enable quest overlay</sys:String>
     <sys:String x:Key="QClientCoordinates">Relative to the game client, DIP</sys:String>
     <sys:String x:Key="QWidth">Width</sys:String>

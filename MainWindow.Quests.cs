@@ -38,6 +38,7 @@ public partial class MainWindow
         _packetCapture.CharacterSessionChanged += QuestSessionChanged;
         Settings.PropertyChanged += QuestSettingsChanged;
         _ = _questWorkspace.RefreshIdentityAsync(_packetCapture.CharacterSession);
+        if(Settings.QuestOverlay.AutoLoadCatalog)_ = _questWorkspace.LoadCatalogAsync();
     }
     private void RequestQuestSave() { _questSaveTimer.Stop(); _questSaveTimer.Start(); }
     private async void QuestSave_Tick(object? sender, EventArgs e)

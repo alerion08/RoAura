@@ -614,6 +614,7 @@
     <sys:String x:Key="QStatePaused">Отложен</sys:String>
     <sys:String x:Key="QStateCompleted">Завершён вручную</sys:String>
     <sys:String x:Key="QStateRemoved">Убран из активных</sys:String>
+    <sys:String x:Key="QAutoLoadCatalog">Автоматически загружать каталог при запуске</sys:String>
     <sys:String x:Key="QOverlayEnabled">Включить оверлей квестов</sys:String>
     <sys:String x:Key="QClientCoordinates">Относительно окна игры, DIP</sys:String>
     <sys:String x:Key="QWidth">Ширина</sys:String>

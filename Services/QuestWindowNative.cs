@@ -20,6 +20,11 @@ internal static class QuestWindowNative
     internal static void Place(Window window,Rect pixels,bool topmost=true)
     {
         var hwnd=new WindowInteropHelper(window).EnsureHandle();
+        // Keep WPF layout and the layered HWND in sync after content invalidation.
+        var dpi=Scale(hwnd);
+        var width=pixels.Width/dpi;var height=pixels.Height/dpi;
+        if(Math.Abs(window.Width-width)>.01)window.Width=width;
+        if(Math.Abs(window.Height-height)>.01)window.Height=height;
         SetWindowPos(hwnd,topmost?new IntPtr(-1):new IntPtr(-2),(int)Math.Round(pixels.X),(int)Math.Round(pixels.Y),
             Math.Max(1,(int)Math.Round(pixels.Width)),Math.Max(1,(int)Math.Round(pixels.Height)),0x10);
     }

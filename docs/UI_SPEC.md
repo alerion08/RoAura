@@ -407,3 +407,16 @@ Bounds, deduplication and original assurance remain; no script candidates/progre
 are promoted. The pinned catalog remains read-only and research is not modified.
 Focused tests cover niflheim/nif_in and rejection cases plus catalog immutability.
 Automated validation passed: 318 tests, eight ToC checks and Windows portable startup; real SpringRO/mixed-DPI acceptance remains open.
+
+## Quest tracker layout and startup catalog — 2026-10-31
+
+The previous clipping fix is not accepted in SpringRO: the user still observes
+truncated text/actions. Keep WPF Width/Height synchronized with native layered
+window placement; native smoke checks their agreement after dispatcher/layout.
+Tracker buttons share template geometry and lowercase captions, including copied.
+Quest settings preview sits left of controls and uses read-only examples when no
+tracked quests exist. AutoLoadCatalog defaults true, persists with quest settings,
+loads at application startup and gates browser/page implicit loading; manual reload
+remains available. Check disabled startup, saved option, empty-profile preview,
+button heights, monitor DPI, clipping after actions and database/browser priority.
+Validation pending for this block; actual SpringRO acceptance remains manual.

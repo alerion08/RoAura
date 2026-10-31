@@ -1072,3 +1072,16 @@ Actual SpringRO monitor DPI and the user's exact window arrangement remain manua
 Artifact: [RoAura-development-79-1e47220](https://github.com/alerion08/RoAura/actions/runs/41180900987/artifacts/13034911842).
 Portable SHA256: `eabf910bc41266c6526be749009e8ba51ed6f28f291143f55062cefd32a08e2f`.
 No main/research write, version bump, merge, tag or release.
+
+## Quest tracker layout and startup catalog — 2026-10-31
+
+The previous clipping fix is not accepted in SpringRO: the user still observes
+truncated text/actions. Keep WPF Width/Height synchronized with native layered
+window placement; native smoke checks their agreement after dispatcher/layout.
+Tracker buttons share template geometry and lowercase captions, including copied.
+Quest settings preview sits left of controls and uses read-only examples when no
+tracked quests exist. AutoLoadCatalog defaults true, persists with quest settings,
+loads at application startup and gates browser/page implicit loading; manual reload
+remains available. Check disabled startup, saved option, empty-profile preview,
+button heights, monitor DPI, clipping after actions and database/browser priority.
+Validation pending for this block; actual SpringRO acceptance remains manual.

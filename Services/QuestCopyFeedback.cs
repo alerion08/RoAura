@@ -32,12 +32,16 @@ internal static class QuestCopyFeedback
     internal static void ColorState(Button button,Brush fill)
     {
         button.Foreground=Brushes.White;
+        ApplyTemplate(button,fill);
+    }
+    internal static void ApplyTemplate(Button button,Brush fill)
+    {
         var border=new FrameworkElementFactory(typeof(Border));
         border.SetBinding(Border.PaddingProperty,new Binding("Padding") {RelativeSource=new RelativeSource(RelativeSourceMode.TemplatedParent)});
         border.SetValue(Border.BackgroundProperty,fill);border.SetValue(Border.CornerRadiusProperty,new CornerRadius(5));
         var content=new FrameworkElementFactory(typeof(TextBlock));
         content.SetBinding(TextBlock.TextProperty,new Binding("Content") {RelativeSource=new RelativeSource(RelativeSourceMode.TemplatedParent)});
-        content.SetValue(TextBlock.ForegroundProperty,Brushes.White);
+        content.SetBinding(TextBlock.ForegroundProperty,new Binding("Foreground") {RelativeSource=new RelativeSource(RelativeSourceMode.TemplatedParent)});
         content.SetValue(FrameworkElement.HorizontalAlignmentProperty,HorizontalAlignment.Center);
         content.SetValue(FrameworkElement.VerticalAlignmentProperty,VerticalAlignment.Center);
         border.AppendChild(content);button.Template=new ControlTemplate(typeof(Button)) {VisualTree=border};
