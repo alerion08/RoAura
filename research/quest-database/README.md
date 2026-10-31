@@ -2,6 +2,8 @@
 
 Isolated **research branch**. No changes to the RoAura WPF application, settings, updater, main, release files or database runtime.
 
+> **Current scope decision — 2026-10-31:** [SEMANTIC_DATA_SPEC.md](./SEMANTIC_DATA_SPEC.md) is the approved next-phase requirement. Work **only on the quest database**, not on RoAura integration. Require **Russian and English short/full step descriptions**, preserving original in-game names (cities/maps/NPCs/items/monsters) without translation. Remove archived event-only quests from working datasets and usable catalog exports; older notes below about keeping archived events describe prior stages, not current requirements.
+
 ## Current ROQuestie scope — shared quests across Ragnarok Online
 
 **ROQuestie is server-neutral.** The main objective is a source-backed, nearly

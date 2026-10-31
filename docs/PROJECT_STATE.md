@@ -1,5 +1,11 @@
 # Project state
 
+## ROQuestie quest database — current scope decision (2026-10-31)
+
+Authoritative database-phase specification: `research/quest-database/SEMANTIC_DATA_SPEC.md` in `research/quest-database` branch.
+**Active work is the database ONLY**: exclude archived/retired event quests from active quest catalogs; normalize NPCs, map locations, items, monsters, dialogue/answers, rewards, stage descriptions and optional sourced images; analyze each quest/stage in context; produce independent **RU and EN short and full step descriptions**. **Never translate in-game names of cities/maps, NPCs, items or monsters** (nor exact dialogue answers); use typed entity references for future formatting. Preserve original source text, provenance and uncertainty.
+**RoAura app / UI / overlay / runtime / release integration is deferred until user explicitly requests it**; do not treat previous plans as present authorization. The present entry supersedes older historical project references to ROQuestie integration. See linked specification for acceptance criteria and exclusions.
+
 ## Release correction: 3.1.1 (2026-10-29)
 
 The published 3.1.0 regular build omitted the DEV character-session and statistics path. This release candidate promotes map-login observation, flow-bound CID sessions, character-specific statistics storage, the active-character browser and shared Gold Goblin/session clock to the regular build. DEV-only raw diagnostics, updater isolation and the separate RoAura-Dev data directory remain gated. The normal build writes new character records to RoAura's local data directory; DEV history is not automatically migrated. A late launch after map login cannot infer CID. Windows CI and in-game relog/Character Select checks remain necessary before calling this correction verified.

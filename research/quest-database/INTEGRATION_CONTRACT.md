@@ -1,5 +1,7 @@
 # ROQuestie — shared Ragnarok Online quest data contract
 
+> **2026-10-31 superseding database-scope decision:** See [SEMANTIC_DATA_SPEC.md](./SEMANTIC_DATA_SPEC.md). Current work is the normalized **bilingual RU/EN semantic quest database** with immutable original game names and no archived event-only quests in active working/catalog outputs. RoAura integration is postponed. Historical statements below about event retention or integration describe earlier research, not current work authorization.
+
 **Objective:** a maximally complete, source-backed, versioned **ROQuestie** knowledge base for main Ragnarok Online quests across the wider RO ecosystem. The shared quest data are reusable, while Classic/Pre-Renewal/Renewal and optional individual-server differences are handled separately. A quest in the catalog is **not a guarantee that every server offers it**. This contract belongs to the standalone research work; it must not modify RoAura runtime code during collection.
 
 ## Shared core and optional server compatibility
