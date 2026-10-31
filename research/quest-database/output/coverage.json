@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-30T07:21:54.001582+00:00",
+  "created_utc": "2026-10-31T17:21:43.863092+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -51,24 +51,24 @@
   "source_snapshot_utc": "2026-10-29T17:15:16.302035+00:00",
   "fetch_mode": "reused_existing_snapshot",
   "linking": {
-    "wiki_script_links": 574,
-    "linked_pages": 169,
-    "wiki_step_npc_links": 1565
+    "wiki_script_links": 595,
+    "linked_pages": 176,
+    "wiki_step_npc_links": 1690
   },
   "evidence_augmentation": {
     "header_title_leads": 172,
-    "pages_with_corroborated_coordinate_evidence": 84,
-    "new_script_candidates": 247,
+    "pages_with_corroborated_coordinate_evidence": 98,
+    "new_script_candidates": 268,
     "stronger_existing_candidates": 0,
-    "new_step_npc_links": 474,
-    "linked_pages": 169,
-    "script_candidates": 574,
-    "step_npc_candidates": 1298
+    "new_step_npc_links": 580,
+    "linked_pages": 176,
+    "script_candidates": 595,
+    "step_npc_candidates": 1424
   },
   "npc_name_links": {
-    "new_name_based_npc_candidates": 267,
-    "pages_with_name_based_links": 52,
-    "steps_with_name_based_links": 133,
+    "new_name_based_npc_candidates": 266,
+    "pages_with_name_based_links": 50,
+    "steps_with_name_based_links": 130,
     "assurance": "explicit wiki name + candidate script only; NPC identity and map not verified"
   },
   "content_curation": {
@@ -113,11 +113,11 @@
     "guarded_facts": 39276
   },
   "script_link_review": {
-    "pages_no_script": 117,
-    "pages_ambiguous": 77,
-    "pages_cross_source_variants": 84,
-    "pages_candidate_with_npc_evidence": 4,
-    "guide_answer_menu_matches": 156
+    "pages_no_script": 110,
+    "pages_ambiguous": 76,
+    "pages_cross_source_variants": 94,
+    "pages_candidate_with_npc_evidence": 5,
+    "guide_answer_menu_matches": 174
   },
   "wiki_prerequisites": {
     "explicit_prerequisite_statements": 51,
@@ -134,14 +134,14 @@
     "assurance": "page citation graph only; no AND/OR semantics or server verification"
   },
   "unlinked_script_discovery": {
-    "no_explicit_npc_interaction_phrases": 18,
+    "no_explicit_npc_interaction_phrases": 17,
     "multiple_distinct_npc_names_same_script_manual_review": 13,
     "proposals": 25,
     "pages_with_proposals": 13,
-    "insufficient_independent_npc_name_evidence": 29,
-    "no_distinctive_npc_names_in_source_corpus": 56,
+    "insufficient_independent_npc_name_evidence": 25,
+    "no_distinctive_npc_names_in_source_corpus": 54,
     "no_extracted_guide_steps": 1,
-    "unlinked_pages": 117,
+    "unlinked_pages": 110,
     "evidence_rows": 83
   },
   "npc_source_dossiers": {
@@ -206,21 +206,21 @@
     "quest_registry_entries": 2879,
     "wiki_pages": 286,
     "wiki_steps": 3420,
-    "wiki_details": 1476,
-    "wiki_script_links": 574,
-    "wiki_step_npc_links": 1565,
+    "wiki_details": 2149,
+    "wiki_script_links": 595,
+    "wiki_step_npc_links": 1690,
     "npc_flow_points": 14135,
     "npc_flow_options": 32825,
     "npc_flow_conditions": 51857,
     "npc_flow_jumps": 91,
     "wiki_script_reviews": 286,
-    "wiki_answer_menu_matches": 156,
+    "wiki_answer_menu_matches": 174,
     "npc_state_facts": 51795,
     "npc_quest_registry_refs": 5950,
     "wiki_content_signals": 1370,
     "wiki_content_categories": 286,
     "wiki_prerequisite_paths": 148,
-    "wiki_missing_script_reviews": 117,
+    "wiki_missing_script_reviews": 110,
     "wiki_missing_script_proposals": 25,
     "wiki_missing_script_evidence": 83,
     "wiki_missing_script_dossiers": 25,
@@ -252,49 +252,49 @@
         "wiki_pages": 286,
         "wiki_steps": 3420,
         "wiki_pages_with_steps": 285,
-        "wiki_pages_with_script": 169
+        "wiki_pages_with_script": 176
       },
       "limits": "script_sources>=95%, wiki_pages>=98%, wiki_steps>=95% of previous snapshot"
     },
     "review_queue": {
       "indexed_pages": 286,
       "pages_with_steps": 285,
-      "pages_with_scripts": 169,
-      "pages_with_step_npc_links": 139,
-      "pages_without_script": 117,
+      "pages_with_scripts": 176,
+      "pages_with_step_npc_links": 148,
+      "pages_without_script": 110,
       "pages_with_mixed_scopes": 32,
       "pages_not_freshly_verified": 0,
       "priority_counts": {
-        "critical": 84,
-        "high": 91,
-        "medium": 111
+        "critical": 76,
+        "high": 89,
+        "medium": 121
       },
       "unverified_by_server": 286
     },
     "critical_triage": {
-      "critical_total": 84,
+      "critical_total": 76,
       "categories": {
-        "historical_event_or_spotlight": 42,
-        "core_or_other_quest_candidate": 41,
-        "class_or_reference_page": 1
+        "historical_event_or_spotlight": 43,
+        "class_or_reference_page": 1,
+        "core_or_other_quest_candidate": 32
       }
     },
     "core_quest_worklist": {
-      "total_source_pages": 286,
+      "total_source_pages": 217,
       "categories": {
         "storyline_candidate": 8,
         "dungeon_or_access_candidate": 22,
         "profession_quest_candidate": 44,
         "item_collection_candidate": 2,
         "repeatable_quest_candidate": 3,
-        "unsorted_quest_candidate": 128,
+        "unsorted_quest_candidate": 122,
         "profession_reference_candidate": 12,
-        "historical_or_seasonal": 67
+        "historical_or_seasonal": 4
       },
       "core_research_candidates": 74,
-      "seasonal_archive_candidates": 67,
+      "seasonal_archive_candidates": 4,
       "categorized_from_content": 27,
-      "still_unsorted": 128,
+      "still_unsorted": 122,
       "server_verified": 0
     }
   },
@@ -305,21 +305,21 @@
     "sqlite_integrity": "ok",
     "foreign_key_violations": 0,
     "tables": {
-      "quests": 286,
-      "quest_quality": 286,
-      "quest_prerequisite_text": 51,
+      "quests": 217,
+      "quest_quality": 217,
+      "quest_prerequisite_text": 50,
       "quest_prerequisites": 57,
       "quest_dependency_paths": 148,
-      "quest_content_categories": 286,
-      "quest_content_signals": 1370,
-      "quest_steps": 3420,
-      "quest_step_locations": 1254,
-      "step_hints": 1476,
+      "quest_content_categories": 217,
+      "quest_content_signals": 1071,
+      "quest_steps": 2753,
+      "quest_step_locations": 1460,
+      "step_hints": 1646,
       "scripts": 939,
-      "quest_scripts": 574,
-      "quest_source_decisions": 25,
+      "quest_scripts": 578,
+      "quest_source_decisions": 21,
       "npcs": 8739,
-      "quest_step_npcs": 1565,
+      "quest_step_npcs": 1665,
       "dialogue_lines": 526791,
       "dialogue_points": 14135,
       "dialogue_options": 32825,
@@ -328,9 +328,82 @@
       "quest_state_facts": 51795,
       "quest_registry": 2879,
       "quest_registry_evidence": 5950,
-      "candidate_answers": 156
+      "candidate_answers": 174
     },
-    "bytes": 73289728
+    "bytes": 72851456
+  },
+  "semantic_export": {
+    "schema_version": 1,
+    "data_version": "8002f408cecad96ae6e78355edea8d45d02f7dfcbc186e8bae7d3ddd06ddc109",
+    "generator_version": "semantic-1.1.0",
+    "complete": false,
+    "source_pages": 286,
+    "selection_counts": {
+      "included": 217,
+      "excluded_archived": 59,
+      "quarantined": 10
+    },
+    "curated_quests": 12,
+    "pending_quests": 205,
+    "counts": {
+      "description_mentions": 1497,
+      "dialogue_options": 8,
+      "dialogues": 7,
+      "entities": 270,
+      "entity_aliases": 12,
+      "entity_evidence": 986,
+      "evidence": 4908,
+      "evidence_context": 8,
+      "items": 34,
+      "locations": 1142,
+      "maps": 185,
+      "metadata": 4,
+      "monsters": 5,
+      "npcs": 46,
+      "quest_relations": 57,
+      "quest_steps": 2753,
+      "quests": 217,
+      "requirements": 152,
+      "review_queue": 6940,
+      "rewards": 37,
+      "sources": 234,
+      "step_actions": 140,
+      "step_descriptions": 2753,
+      "step_dialogues": 7,
+      "step_edges": 2536,
+      "step_images": 0,
+      "step_items": 40,
+      "step_locations": 1233,
+      "step_monsters": 5,
+      "step_npcs": 73,
+      "step_rewards": 35,
+      "variants": 1
+    },
+    "fully_localized_steps": 76,
+    "not_fully_localized_steps": 2677,
+    "localized_fields": {
+      "short_ru": 76,
+      "short_en": 76,
+      "full_ru": 76,
+      "full_en": 2753
+    },
+    "evidence_status_counts": {
+      "context_inferred": 4,
+      "source_literal": 4904
+    },
+    "checks": {
+      "integrity_check": "ok",
+      "foreign_key_violations": 0,
+      "invalid_mentions": 0
+    },
+    "server_verified": 0,
+    "limitations": [
+      "Only curated quests have whole-quest semantic analysis and full bilingual text.",
+      "All other retained rows have original English prose and explicit blocking review entries.",
+      "Source order is not an executable branch graph; server availability is unknown.",
+      "Uncertain event status is quarantined, not asserted retired.",
+      "Legacy source extraction may omit tables/images and contains nonquest reference pages."
+    ]
   },
   "questie_schema_version": 5
 }

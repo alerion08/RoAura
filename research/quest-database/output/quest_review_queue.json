@@ -4,15 +4,15 @@
   "metrics": {
     "indexed_pages": 286,
     "pages_with_steps": 285,
-    "pages_with_scripts": 169,
-    "pages_with_step_npc_links": 139,
-    "pages_without_script": 117,
+    "pages_with_scripts": 176,
+    "pages_with_step_npc_links": 148,
+    "pages_without_script": 110,
     "pages_with_mixed_scopes": 32,
     "pages_not_freshly_verified": 0,
     "priority_counts": {
-      "critical": 84,
-      "high": 91,
-      "medium": 111
+      "critical": 76,
+      "high": 89,
+      "medium": 121
     },
     "unverified_by_server": 286
   },
@@ -42,24 +42,6 @@
       "freshness": "fresh",
       "script_review": "no_candidate",
       "steps": 39,
-      "linked_scripts": 0,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [],
-      "issues": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "critical",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:President_Quest",
-      "title": "President Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "no_candidate",
-      "steps": 38,
       "linked_scripts": 0,
       "steps_with_npc": 0,
       "matched_guide_answers": 0,
@@ -180,24 +162,6 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Thanatos_Tower_Quest/old",
-      "title": "Thanatos Tower Quest/old",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "no_candidate",
-      "steps": 23,
-      "linked_scripts": 0,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [],
-      "issues": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "critical",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
       "quest_key": "irowiki-classic:Biolabs_Entrance_Quest",
       "title": "Biolabs Entrance Quest",
       "guide_status": "walkthrough_parsed",
@@ -218,24 +182,6 @@
     {
       "quest_key": "irowiki-classic:Crow_of_Destiny_Quest",
       "title": "Crow of Destiny Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "no_candidate",
-      "steps": 21,
-      "linked_scripts": 0,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [],
-      "issues": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "critical",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "title": "Odin's Temple Excavation Quest",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
       "script_review": "no_candidate",
@@ -434,24 +380,6 @@
     {
       "quest_key": "irowiki-classic:Christmas_Event_(2006/12/19)_~_(2007/01/02)",
       "title": "Christmas Event (2006/12/19) ~ (2007/01/02)",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "no_candidate",
-      "steps": 14,
-      "linked_scripts": 0,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [],
-      "issues": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "critical",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Muff's_Loan_Quest",
-      "title": "Muff's Loan Quest",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
       "script_review": "no_candidate",
@@ -774,44 +702,8 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Biological_Weapon_Quest",
-      "title": "Biological Weapon Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "no_candidate",
-      "steps": 9,
-      "linked_scripts": 0,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [],
-      "issues": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "critical",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
       "quest_key": "irowiki-classic:Halloween_Event_(2007/10/30)_~_(2007/11/06)",
       "title": "Halloween Event (2007/10/30) ~ (2007/11/06)",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "no_candidate",
-      "steps": 9,
-      "linked_scripts": 0,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [],
-      "issues": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "critical",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Hugel_Cow_Milking",
-      "title": "Hugel Cow Milking",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
       "script_review": "no_candidate",
@@ -1098,24 +990,6 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Footprint_Quest",
-      "title": "Footprint Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "no_candidate",
-      "steps": 7,
-      "linked_scripts": 0,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [],
-      "issues": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "critical",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
       "quest_key": "irowiki-classic:Hair_Styling/Dye_Quests",
       "title": "Hair Styling/Dye Quests",
       "guide_status": "walkthrough_parsed",
@@ -1136,24 +1010,6 @@
     {
       "quest_key": "irowiki-classic:Halloween_Event_(2006/10/24)_~_(2006/11/07)",
       "title": "Halloween Event (2006/10/24) ~ (2006/11/07)",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "no_candidate",
-      "steps": 7,
-      "linked_scripts": 0,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [],
-      "issues": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "critical",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Level_4_Weapons_(Type_2)",
-      "title": "Level 4 Weapons (Type 2)",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
       "script_review": "no_candidate",
@@ -1226,24 +1082,6 @@
     {
       "quest_key": "irowiki-classic:Harvest_Moon_Festival_Event_(2009/09/29)_~_(2009/10/13)",
       "title": "Harvest Moon Festival Event (2009/09/29) ~ (2009/10/13)",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "no_candidate",
-      "steps": 6,
-      "linked_scripts": 0,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [],
-      "issues": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "critical",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Hide_n'_Seek_Quest",
-      "title": "Hide n' Seek Quest",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
       "script_review": "no_candidate",
@@ -1350,24 +1188,6 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "title": "TaeKwon Master Job Change Guide",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "no_candidate",
-      "steps": 6,
-      "linked_scripts": 0,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [],
-      "issues": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "critical",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
       "quest_key": "irowiki-classic:Thanksgiving_Event_(2009/11/24)_~_(2009/12/08)",
       "title": "Thanksgiving Event (2009/11/24) ~ (2009/12/08)",
       "guide_status": "walkthrough_parsed",
@@ -1424,6 +1244,42 @@
     {
       "quest_key": "irowiki-classic:12th_Anniversary_Quest_(June_2015)",
       "title": "12th Anniversary Quest (June 2015)",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "no_candidate",
+      "steps": 5,
+      "linked_scripts": 0,
+      "steps_with_npc": 0,
+      "matched_guide_answers": 0,
+      "source_scopes": [],
+      "issues": [
+        "no_script_candidate",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "critical",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:2013_Easter_Event",
+      "title": "2013 Easter Event",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "no_candidate",
+      "steps": 5,
+      "linked_scripts": 0,
+      "steps_with_npc": 0,
+      "matched_guide_answers": 0,
+      "source_scopes": [],
+      "issues": [
+        "no_script_candidate",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "critical",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Fish_Cake_Soup_Quest",
+      "title": "Fish Cake Soup Quest",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
       "script_review": "no_candidate",
@@ -1537,7 +1393,7 @@
       "script_review": "ambiguous_top",
       "steps": 115,
       "linked_scripts": 8,
-      "steps_with_npc": 23,
+      "steps_with_npc": 24,
       "matched_guide_answers": 43,
       "source_scopes": [
         "common",
@@ -1558,8 +1414,8 @@
       "freshness": "fresh",
       "script_review": "cross_source_variant",
       "steps": 81,
-      "linked_scripts": 5,
-      "steps_with_npc": 50,
+      "linked_scripts": 9,
+      "steps_with_npc": 60,
       "matched_guide_answers": 4,
       "source_scopes": [
         "common",
@@ -1700,27 +1556,6 @@
       "issues": [
         "no_step_npc_correspondence",
         "ambiguous_top",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Thanatos_Tower_Quest",
-      "title": "Thanatos Tower Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 24,
-      "linked_scripts": 2,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "cross_source_variant",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
@@ -1961,27 +1796,6 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Medicine_Quest",
-      "title": "Medicine Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 12,
-      "linked_scripts": 2,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
-        "cross_source_variant",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
       "quest_key": "irowiki-classic:Novice",
       "title": "Novice",
       "guide_status": "walkthrough_parsed",
@@ -2058,6 +1872,27 @@
       "freshness": "fresh",
       "script_review": "cross_source_variant",
       "steps": 9,
+      "linked_scripts": 2,
+      "steps_with_npc": 0,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "no_step_npc_correspondence",
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "high",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Ice_Necklace_Quest",
+      "title": "Ice Necklace Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 7,
       "linked_scripts": 2,
       "steps_with_npc": 0,
       "matched_guide_answers": 0,
@@ -2159,26 +1994,6 @@
       "issues": [
         "ambiguous_top",
         "mixed_gameplay_variants",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:How_the_Airship_Works_Quest",
-      "title": "How the Airship Works Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "filename_candidate",
-      "steps": 6,
-      "linked_scripts": 1,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
@@ -2289,26 +2104,6 @@
       "issues": [
         "ambiguous_top",
         "mixed_gameplay_variants",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "high",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:TaeKwon_Master",
-      "title": "TaeKwon Master",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "filename_candidate",
-      "steps": 6,
-      "linked_scripts": 1,
-      "steps_with_npc": 0,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "no_step_npc_correspondence",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "high",
@@ -2463,6 +2258,24 @@
     {
       "quest_key": "irowiki-classic:Dano_Festival_Event_(2010/05/27)_~_(2010/06/10)",
       "title": "Dano Festival Event (2010/05/27) ~ (2010/06/10)",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "no_candidate",
+      "steps": 4,
+      "linked_scripts": 0,
+      "steps_with_npc": 0,
+      "matched_guide_answers": 0,
+      "source_scopes": [],
+      "issues": [
+        "no_script_candidate",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "high",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Easter_Event_(2010/04/01)_~_(2010/04/20)",
+      "title": "Easter Event (2010/04/01) ~ (2010/04/20)",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
       "script_review": "no_candidate",
@@ -2860,15 +2673,15 @@
       "freshness": "fresh",
       "script_review": "ambiguous_top",
       "steps": 3,
-      "linked_scripts": 8,
-      "steps_with_npc": 1,
+      "linked_scripts": 6,
+      "steps_with_npc": 0,
       "matched_guide_answers": 0,
       "source_scopes": [
-        "common",
         "pre-re",
         "renewal"
       ],
       "issues": [
+        "no_step_npc_correspondence",
         "ambiguous_top",
         "mixed_gameplay_variants",
         "incomplete_step_npc_mapping"
@@ -3457,6 +3270,26 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
+      "quest_key": "irowiki-classic:President_Quest",
+      "title": "President Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 38,
+      "linked_scripts": 2,
+      "steps_with_npc": 9,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
       "quest_key": "irowiki-classic:Rogue_Job_Change_Guide",
       "title": "Rogue Job Change Guide",
       "guide_status": "walkthrough_parsed",
@@ -3562,8 +3395,8 @@
       "freshness": "fresh",
       "script_review": "ambiguous_top",
       "steps": 28,
-      "linked_scripts": 6,
-      "steps_with_npc": 14,
+      "linked_scripts": 4,
+      "steps_with_npc": 7,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -3636,6 +3469,26 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
+      "quest_key": "irowiki-classic:Thanatos_Tower_Quest",
+      "title": "Thanatos Tower Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 24,
+      "linked_scripts": 2,
+      "steps_with_npc": 2,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
       "quest_key": "irowiki-classic:Mage_Training_Quest",
       "title": "Mage Training Quest",
       "guide_status": "walkthrough_parsed",
@@ -3663,7 +3516,27 @@
       "script_review": "cross_source_variant",
       "steps": 23,
       "linked_scripts": 2,
-      "steps_with_npc": 4,
+      "steps_with_npc": 2,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Thanatos_Tower_Quest/old",
+      "title": "Thanatos Tower Quest/old",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 23,
+      "linked_scripts": 2,
+      "steps_with_npc": 3,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -3700,15 +3573,16 @@
       "title": "Cursed Spirit Quest",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
-      "script_review": "filename_candidate",
+      "script_review": "cross_source_variant",
       "steps": 22,
-      "linked_scripts": 1,
-      "steps_with_npc": 2,
+      "linked_scripts": 2,
+      "steps_with_npc": 4,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
       ],
       "issues": [
+        "cross_source_variant",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
@@ -3722,7 +3596,7 @@
       "script_review": "cross_source_variant",
       "steps": 22,
       "linked_scripts": 2,
-      "steps_with_npc": 6,
+      "steps_with_npc": 7,
       "matched_guide_answers": 2,
       "source_scopes": [
         "common"
@@ -3762,13 +3636,33 @@
       "script_review": "ambiguous_top",
       "steps": 22,
       "linked_scripts": 4,
-      "steps_with_npc": 4,
+      "steps_with_npc": 5,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
       ],
       "issues": [
         "ambiguous_top",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Odin's_Temple_Excavation_Quest",
+      "title": "Odin's Temple Excavation Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 21,
+      "linked_scripts": 2,
+      "steps_with_npc": 1,
+      "matched_guide_answers": 2,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
@@ -4179,7 +4073,7 @@
       "script_review": "ambiguous_top",
       "steps": 14,
       "linked_scripts": 6,
-      "steps_with_npc": 9,
+      "steps_with_npc": 10,
       "matched_guide_answers": 4,
       "source_scopes": [
         "common"
@@ -4199,7 +4093,7 @@
       "script_review": "cross_source_variant",
       "steps": 14,
       "linked_scripts": 4,
-      "steps_with_npc": 4,
+      "steps_with_npc": 5,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4241,6 +4135,26 @@
       "linked_scripts": 2,
       "steps_with_npc": 8,
       "matched_guide_answers": 3,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Muff's_Loan_Quest",
+      "title": "Muff's Loan Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 14,
+      "linked_scripts": 2,
+      "steps_with_npc": 1,
+      "matched_guide_answers": 0,
       "source_scopes": [
         "common"
       ],
@@ -4298,7 +4212,7 @@
       "script_review": "cross_source_variant",
       "steps": 13,
       "linked_scripts": 2,
-      "steps_with_npc": 7,
+      "steps_with_npc": 6,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4405,6 +4319,26 @@
       ],
       "issues": [
         "ambiguous_top",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Medicine_Quest",
+      "title": "Medicine Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 12,
+      "linked_scripts": 2,
+      "steps_with_npc": 1,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
@@ -4531,6 +4465,26 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
+      "quest_key": "irowiki-classic:Biological_Weapon_Quest",
+      "title": "Biological Weapon Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 9,
+      "linked_scripts": 2,
+      "steps_with_npc": 5,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
       "quest_key": "irowiki-classic:Cat_Hand_Services",
       "title": "Cat Hand Services",
       "guide_status": "walkthrough_parsed",
@@ -4575,16 +4529,36 @@
       "title": "Heart Fragment Quest",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
-      "script_review": "ambiguous_top",
+      "script_review": "cross_source_variant",
       "steps": 9,
-      "linked_scripts": 2,
-      "steps_with_npc": 3,
+      "linked_scripts": 3,
+      "steps_with_npc": 4,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
       ],
       "issues": [
-        "ambiguous_top",
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:Hugel_Cow_Milking",
+      "title": "Hugel Cow Milking",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 9,
+      "linked_scripts": 2,
+      "steps_with_npc": 1,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
@@ -4677,7 +4651,7 @@
       "script_review": "cross_source_variant",
       "steps": 9,
       "linked_scripts": 2,
-      "steps_with_npc": 3,
+      "steps_with_npc": 4,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4790,8 +4764,8 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:Ice_Necklace_Quest",
-      "title": "Ice Necklace Quest",
+      "quest_key": "irowiki-classic:Footprint_Quest",
+      "title": "Footprint Quest",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
       "script_review": "cross_source_variant",
@@ -4810,6 +4784,26 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
+      "quest_key": "irowiki-classic:Level_4_Weapons_(Type_2)",
+      "title": "Level 4 Weapons (Type 2)",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 7,
+      "linked_scripts": 2,
+      "steps_with_npc": 3,
+      "matched_guide_answers": 16,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
       "quest_key": "irowiki-classic:Tom_Yung_Goong_Quest",
       "title": "Tom Yung Goong Quest",
       "guide_status": "walkthrough_parsed",
@@ -4817,7 +4811,7 @@
       "script_review": "cross_source_variant",
       "steps": 7,
       "linked_scripts": 2,
-      "steps_with_npc": 2,
+      "steps_with_npc": 4,
       "matched_guide_answers": 10,
       "source_scopes": [
         "common"
@@ -4897,7 +4891,7 @@
       "script_review": "cross_source_variant",
       "steps": 6,
       "linked_scripts": 2,
-      "steps_with_npc": 4,
+      "steps_with_npc": 1,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
@@ -4930,12 +4924,71 @@
       "assurance": "source-derived candidates only; all server implementations unverified"
     },
     {
-      "quest_key": "irowiki-classic:2013_Easter_Event",
-      "title": "2013 Easter Event",
+      "quest_key": "irowiki-classic:Hide_n'_Seek_Quest",
+      "title": "Hide n' Seek Quest",
       "guide_status": "walkthrough_parsed",
       "freshness": "fresh",
       "script_review": "cross_source_variant",
-      "steps": 5,
+      "steps": 6,
+      "linked_scripts": 2,
+      "steps_with_npc": 3,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:How_the_Airship_Works_Quest",
+      "title": "How the Airship Works Quest",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 6,
+      "linked_scripts": 2,
+      "steps_with_npc": 2,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "cross_source_variant",
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:TaeKwon_Master",
+      "title": "TaeKwon Master",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "candidate_with_npc_evidence",
+      "steps": 6,
+      "linked_scripts": 2,
+      "steps_with_npc": 2,
+      "matched_guide_answers": 0,
+      "source_scopes": [
+        "common"
+      ],
+      "issues": [
+        "incomplete_step_npc_mapping"
+      ],
+      "review_priority": "medium",
+      "assurance": "source-derived candidates only; all server implementations unverified"
+    },
+    {
+      "quest_key": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
+      "title": "TaeKwon Master Job Change Guide",
+      "guide_status": "walkthrough_parsed",
+      "freshness": "fresh",
+      "script_review": "cross_source_variant",
+      "steps": 6,
       "linked_scripts": 2,
       "steps_with_npc": 2,
       "matched_guide_answers": 0,
@@ -4976,34 +5029,14 @@
       "freshness": "fresh",
       "script_review": "ambiguous_top",
       "steps": 5,
-      "linked_scripts": 3,
-      "steps_with_npc": 1,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "ambiguous_top",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "medium",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Fish_Cake_Soup_Quest",
-      "title": "Fish Cake Soup Quest",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 5,
-      "linked_scripts": 2,
+      "linked_scripts": 6,
       "steps_with_npc": 3,
       "matched_guide_answers": 0,
       "source_scopes": [
         "common"
       ],
       "issues": [
-        "cross_source_variant",
+        "ambiguous_top",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",
@@ -5084,26 +5117,6 @@
       ],
       "issues": [
         "ambiguous_top",
-        "incomplete_step_npc_mapping"
-      ],
-      "review_priority": "medium",
-      "assurance": "source-derived candidates only; all server implementations unverified"
-    },
-    {
-      "quest_key": "irowiki-classic:Easter_Event_(2010/04/01)_~_(2010/04/20)",
-      "title": "Easter Event (2010/04/01) ~ (2010/04/20)",
-      "guide_status": "walkthrough_parsed",
-      "freshness": "fresh",
-      "script_review": "cross_source_variant",
-      "steps": 4,
-      "linked_scripts": 2,
-      "steps_with_npc": 2,
-      "matched_guide_answers": 0,
-      "source_scopes": [
-        "common"
-      ],
-      "issues": [
-        "cross_source_variant",
         "incomplete_step_npc_mapping"
       ],
       "review_priority": "medium",

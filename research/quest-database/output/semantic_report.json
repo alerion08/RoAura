@@ -1,0 +1,73 @@
+{
+  "checks": {
+    "foreign_key_violations": 0,
+    "integrity_check": "ok",
+    "invalid_mentions": 0
+  },
+  "complete": false,
+  "counts": {
+    "description_mentions": 1497,
+    "dialogue_options": 8,
+    "dialogues": 7,
+    "entities": 270,
+    "entity_aliases": 12,
+    "entity_evidence": 986,
+    "evidence": 4908,
+    "evidence_context": 8,
+    "items": 34,
+    "locations": 1142,
+    "maps": 185,
+    "metadata": 4,
+    "monsters": 5,
+    "npcs": 46,
+    "quest_relations": 57,
+    "quest_steps": 2753,
+    "quests": 217,
+    "requirements": 152,
+    "review_queue": 6940,
+    "rewards": 37,
+    "sources": 234,
+    "step_actions": 140,
+    "step_descriptions": 2753,
+    "step_dialogues": 7,
+    "step_edges": 2536,
+    "step_images": 0,
+    "step_items": 40,
+    "step_locations": 1233,
+    "step_monsters": 5,
+    "step_npcs": 73,
+    "step_rewards": 35,
+    "variants": 1
+  },
+  "curated_quests": 12,
+  "data_version": "8002f408cecad96ae6e78355edea8d45d02f7dfcbc186e8bae7d3ddd06ddc109",
+  "evidence_status_counts": {
+    "context_inferred": 4,
+    "source_literal": 4904
+  },
+  "fully_localized_steps": 76,
+  "generator_version": "semantic-1.1.0",
+  "limitations": [
+    "Only curated quests have whole-quest semantic analysis and full bilingual text.",
+    "All other retained rows have original English prose and explicit blocking review entries.",
+    "Source order is not an executable branch graph; server availability is unknown.",
+    "Uncertain event status is quarantined, not asserted retired.",
+    "Legacy source extraction may omit tables/images and contains nonquest reference pages."
+  ],
+  "localized_fields": {
+    "full_en": 2753,
+    "full_ru": 76,
+    "short_en": 76,
+    "short_ru": 76
+  },
+  "not_fully_localized_steps": 2677,
+  "pending_quests": 205,
+  "schema_version": 1,
+  "selection_counts": {
+    "excluded_archived": 59,
+    "included": 217,
+    "quarantined": 10
+  },
+  "server_verified": 0,
+  "source_pages": 286
+}

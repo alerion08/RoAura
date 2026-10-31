@@ -2324,7 +2324,7 @@
             "mistake",
             "there"
           ],
-          "wiki_map_coordinate_mentions_in_matched_steps": 0,
+          "wiki_map_coordinate_mentions_in_matched_steps": 2,
           "exact_wiki_to_source_position_steps": [],
           "state_roles": {
             "quest_start": 1,
@@ -2440,7 +2440,7 @@
             "scientist",
             "while"
           ],
-          "wiki_map_coordinate_mentions_in_matched_steps": 0,
+          "wiki_map_coordinate_mentions_in_matched_steps": 1,
           "exact_wiki_to_source_position_steps": [],
           "state_roles": {
             "variable_write": 1
@@ -2765,7 +2765,7 @@
             "mistake",
             "there"
           ],
-          "wiki_map_coordinate_mentions_in_matched_steps": 0,
+          "wiki_map_coordinate_mentions_in_matched_steps": 2,
           "exact_wiki_to_source_position_steps": [],
           "state_roles": {
             "quest_start": 1,
@@ -2881,7 +2881,7 @@
             "scientist",
             "while"
           ],
-          "wiki_map_coordinate_mentions_in_matched_steps": 0,
+          "wiki_map_coordinate_mentions_in_matched_steps": 1,
           "exact_wiki_to_source_position_steps": [],
           "state_roles": {
             "variable_write": 1

@@ -68,8 +68,8 @@
         "talk_to_npc": 8
       },
       "literal_hint_counts": {
-        "bare_coord": 2,
-        "map_coord": 2
+        "bare_coord": 5,
+        "map_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: ?? Hunting: 50 Kobold Archers",
       "source_step_excerpts": [
@@ -107,7 +107,8 @@
         "talk_to_npc": 5
       },
       "literal_hint_counts": {
-        "guide_answer": 6
+        "guide_answer": 6,
+        "map_coord": 3
       },
       "wiki_requirement_excerpt": "Base Level: N/A",
       "source_step_excerpts": [
@@ -290,6 +291,7 @@
         "talk_to_npc": 2
       },
       "literal_hint_counts": {
+        "bare_coord": 1,
         "map_coord": 2
       },
       "wiki_requirement_excerpt": "Base Level: None Job Level: 30 Class: Archer Item(s) (Consumed): 7 Mushroom Spore , 1 Red Potion , 20 Resin , 41 Tough Scalelike Stem , 13 Trunk",
@@ -318,7 +320,7 @@
         "talk_to_npc": 10
       },
       "literal_hint_counts": {
-        "map_coord": 1
+        "bare_coord": 7
       },
       "wiki_requirement_excerpt": "Base Level: None Item(s) (Consumed): None Item(s) (Not Consumed): None",
       "source_step_excerpts": [
@@ -355,7 +357,9 @@
       "source_signal_counts": {
         "talk_to_npc": 2
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "bare_coord": 2
+      },
       "wiki_requirement_excerpt": "Base Level: None Job Level: None Class: Assassin",
       "source_step_excerpts": [
         {
@@ -393,6 +397,7 @@
         "talk_to_npc": 7
       },
       "literal_hint_counts": {
+        "bare_coord": 1,
         "map_coord": 6
       },
       "wiki_requirement_excerpt": "Base Level: 70 Item(s) (Consumed): 1 Empty Bottle , 1 Strong Vine , 5 Holy Water , 30 Sticky Mucus , 20 Horn of Hillslion Quest Prerequisite(s): Onward to the New World Quest",
@@ -432,6 +437,7 @@
         "talk_to_npc": 3
       },
       "literal_hint_counts": {
+        "bare_coord": 3,
         "guide_answer": 2,
         "map_coord": 7
       },
@@ -472,7 +478,7 @@
         "talk_to_npc": 2
       },
       "literal_hint_counts": {
-        "bare_coord": 5
+        "bare_coord": 6
       },
       "wiki_requirement_excerpt": "Base Level: None Job Level: 40 Class: Bard Quest Prerequisite(s): Completed the Geffen Bard Quest",
       "source_step_excerpts": [
@@ -532,12 +538,14 @@
       "quest_title": "Biological Weapon Quest",
       "guide_url": "https://irowiki.org/classic/Biological_Weapon_Quest",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 0,
+      "known_script_candidates": 2,
       "steps_total": 9,
       "source_signal_counts": {
         "talk_to_npc": 3
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "map_coord": 8
+      },
       "wiki_requirement_excerpt": "Base Level: 60 Item(s) (Consumed): 5 Coal , 5 Brigan , 5 Cyfar , 1 Unripe Apple , 3 Detrimindexta , 20 Shell , 1 Red Herb , 1 Blue Herb , 1 Green Herb , 1 White Herb , 1 Yellow Herb Quest Prerequisite(s): Medic",
       "source_step_excerpts": [
         {
@@ -613,6 +621,7 @@
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
+        "bare_coord": 1,
         "map_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: 70 Item(s) (Consumed): 20 Bradium Fragments Quest Prerequisite(s): Ring of the Wise King",
@@ -641,6 +650,7 @@
         "talk_to_npc": 7
       },
       "literal_hint_counts": {
+        "bare_coord": 10,
         "map_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: 65 Item(s) (Consumed): 20 Fine Sand , 10 Brigan , 10 Soft Blade of Grass , 5 Empty Bottle Zeny: 10,000 Zeny Quest Prerequisite(s): Muff's Loan Quest",
@@ -720,6 +730,7 @@
         "talk_to_npc": 5
       },
       "literal_hint_counts": {
+        "bare_coord": 2,
         "map_coord": 5
       },
       "wiki_requirement_excerpt": "",
@@ -759,6 +770,7 @@
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
+        "bare_coord": 1,
         "map_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: 70 Item(s) (Consumed): 10 Draco's Egg Quest Prerequisite(s): Started Two Tribes (Access to Yggdrasil Dungeon)",
@@ -792,8 +804,8 @@
         "talk_to_npc": 3
       },
       "literal_hint_counts": {
-        "guide_answer": 1,
-        "map_coord": 2
+        "bare_coord": 3,
+        "guide_answer": 1
       },
       "wiki_requirement_excerpt": "Base Level: 50 Item(s) (Consumed): Food Creation Items Item(s) (Not Consumed): 1 Chef Hat (Must be able to equip it)",
       "source_step_excerpts": [
@@ -895,14 +907,14 @@
       "quest_title": "Cursed Spirit Quest",
       "guide_url": "https://irowiki.org/classic/Cursed_Spirit_Quest",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 1,
+      "known_script_candidates": 2,
       "steps_total": 22,
       "source_signal_counts": {
         "talk_to_npc": 9
       },
       "literal_hint_counts": {
         "bare_coord": 9,
-        "map_coord": 2
+        "map_coord": 15
       },
       "wiki_requirement_excerpt": "Base Level: 60 Item(s) (Consumed): 1 Handcuffs 1 Glass Bead 1 Bouquet 5 Holy Water Item(s) (Not Consumed): 1 Grandpa Beard 1 Geek Glasses Quest Prerequisite(s): Biolabs Entrance Quest",
       "source_step_excerpts": [
@@ -940,7 +952,7 @@
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
-        "map_coord": 2
+        "bare_coord": 2
       },
       "wiki_requirement_excerpt": "Base Level: None Job Level: 40 Class: Dancer Item(s) (Consumed): 1 Alcohol , 1 China , 1 Apple , 3 Banana , 5 Well Baked Cookies , 1 Crystal Mirror",
       "source_step_excerpts": [
@@ -967,12 +979,15 @@
       "quest_title": "Dandelion's Request",
       "guide_url": "https://irowiki.org/classic/Dandelion%27s_Request",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 3,
+      "known_script_candidates": 6,
       "steps_total": 5,
       "source_signal_counts": {
         "talk_to_npc": 1
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "bare_coord": 1,
+        "map_coord": 22
+      },
       "wiki_requirement_excerpt": "Base Level: 60 Party : 5 Players (Thanatos Portion) Item(s) (Consumed): 1 Flame Heart , 1 Great Nature , 1 Rough Wind , 1 Mystic Frozen",
       "source_step_excerpts": [
         {
@@ -1009,7 +1024,7 @@
         "talk_to_npc": 3
       },
       "literal_hint_counts": {
-        "bare_coord": 1
+        "bare_coord": 8
       },
       "wiki_requirement_excerpt": "Base Level: 40 Item(s) (Consumed): 2 Leopard Claw , 10 Solid Peach , 5 Poisonous Toad Skin , 20 Brown Root , 10 Sprout , 5 Honey Pot",
       "source_step_excerpts": [
@@ -1080,15 +1095,15 @@
       "quest_title": "Doomed Swords and Comodo Cheese Quest",
       "guide_url": "https://irowiki.org/classic/Doomed_Swords_and_Comodo_Cheese_Quest",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 6,
+      "known_script_candidates": 4,
       "steps_total": 28,
       "source_signal_counts": {
         "talk_to_npc": 14
       },
       "literal_hint_counts": {
-        "bare_coord": 4,
+        "bare_coord": 18,
         "guide_answer": 3,
-        "map_coord": 14
+        "map_coord": 7
       },
       "wiki_requirement_excerpt": "Base Level: N/A Item(s) (Consumed): 1 Blue Gemstone , 1 Sapphire , 1 Emerald , 1 Shining Stone , 1 Rough Elunium , 1 Spider Web , 2 Snake Scales , 1 Shining Scale , 1 Stinky Scale , 1 Scale Shell , 3 Claw of De",
       "source_step_excerpts": [
@@ -1125,7 +1140,9 @@
       "source_signal_counts": {
         "talk_to_npc": 1
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "bare_coord": 2
+      },
       "wiki_requirement_excerpt": "Base Level: None",
       "source_step_excerpts": [
         {
@@ -1197,7 +1214,7 @@
       },
       "literal_hint_counts": {
         "bare_coord": 3,
-        "map_coord": 3
+        "map_coord": 8
       },
       "wiki_requirement_excerpt": "Base Level: None Quest Prerequisite(s): Factory Quest",
       "source_step_excerpts": [
@@ -1269,9 +1286,9 @@
         "talk_to_npc": 2
       },
       "literal_hint_counts": {
-        "bare_coord": 2,
+        "bare_coord": 9,
         "guide_answer": 2,
-        "map_coord": 3
+        "map_coord": 8
       },
       "wiki_requirement_excerpt": "Base Level: 60 Item(s) (Consumed): 1 Blue Gemstone Zeny: 10,000",
       "source_step_excerpts": [
@@ -1309,8 +1326,7 @@
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
-        "bare_coord": 11,
-        "map_coord": 1
+        "bare_coord": 12
       },
       "wiki_requirement_excerpt": "Base Level: None Item(s) (Consumed): 10 Rusty Screw 20 Flexible Tube 10 Used Iron Plate",
       "source_step_excerpts": [
@@ -1348,6 +1364,7 @@
         "talk_to_npc": 12
       },
       "literal_hint_counts": {
+        "bare_coord": 1,
         "guide_answer": 1,
         "map_coord": 6
       },
@@ -1425,7 +1442,7 @@
         "talk_to_npc": 7
       },
       "literal_hint_counts": {
-        "bare_coord": 4,
+        "bare_coord": 7,
         "map_coord": 4
       },
       "wiki_requirement_excerpt": "Base Level: None Job Level: 10 Class: Novice",
@@ -1458,13 +1475,13 @@
       "quest_title": "Fish Cake Soup Quest",
       "guide_url": "https://irowiki.org/classic/Fish_Cake_Soup_Quest",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 2,
+      "known_script_candidates": 0,
       "steps_total": 5,
       "source_signal_counts": {
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
-        "map_coord": 5
+        "bare_coord": 5
       },
       "wiki_requirement_excerpt": "Base Level: None Item(s) (Consumed): 1 Mushroom Spore -OR- 1 Whip -OR- 1 Bookclip In Memory -OR- 1 China",
       "source_step_excerpts": [
@@ -1532,11 +1549,11 @@
       "quest_title": "Footprint Quest",
       "guide_url": "https://irowiki.org/classic/Footprint_Quest",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 0,
+      "known_script_candidates": 2,
       "steps_total": 7,
       "source_signal_counts": {},
       "literal_hint_counts": {
-        "map_coord": 10
+        "map_coord": 12
       },
       "wiki_requirement_excerpt": "Base Level: N/A Item(s) (Consumed): Monster Feed , 1 White Potion Item(s) (Not Consumed): Holy Threads , Holier Threads , Quest Prerequisite(s): Ayothaya Dungeon Entrance Quest",
       "source_step_excerpts": [
@@ -1608,7 +1625,7 @@
       },
       "literal_hint_counts": {
         "bare_coord": 4,
-        "map_coord": 8
+        "map_coord": 9
       },
       "wiki_requirement_excerpt": "Base Level: 50",
       "source_step_excerpts": [
@@ -1646,7 +1663,7 @@
         "talk_to_npc": 4
       },
       "literal_hint_counts": {
-        "bare_coord": 3,
+        "bare_coord": 5,
         "guide_answer": 7
       },
       "wiki_requirement_excerpt": "Base Level: N/A (50-60+?) Item(s) (Consumed): 1 Magnifier",
@@ -1685,7 +1702,7 @@
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
-        "map_coord": 1
+        "bare_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: N/A (None?) Item(s) (Consumed): 2+ of one type of Gemstone",
       "source_step_excerpts": [
@@ -1801,7 +1818,8 @@
         "talk_to_npc": 10
       },
       "literal_hint_counts": {
-        "map_coord": 11
+        "bare_coord": 10,
+        "map_coord": 6
       },
       "wiki_requirement_excerpt": "Base Level: 68 Job Level: None Class: Gunslinger Item(s) (Consumed): 1000 Orc Claw , 1000 Skel-Bone Zeny: 100,000 Zeny",
       "source_step_excerpts": [
@@ -1839,8 +1857,7 @@
         "talk_to_npc": 2
       },
       "literal_hint_counts": {
-        "bare_coord": 1,
-        "map_coord": 1
+        "bare_coord": 6
       },
       "wiki_requirement_excerpt": "Base Level: 60 Item(s) (Consumed): 3 Counteragent , 3 Mixture , 100 Black Hair , 100 Golden Hair , 100 Daenggie , 100 Short Daenggie Zeny: 99,800 Zeny",
       "source_step_excerpts": [
@@ -1872,12 +1889,14 @@
       "quest_title": "Heart Fragment Quest",
       "guide_url": "https://irowiki.org/classic/Heart_Fragment_Quest",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 2,
+      "known_script_candidates": 3,
       "steps_total": 9,
       "source_signal_counts": {
         "talk_to_npc": 3
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "map_coord": 6
+      },
       "wiki_requirement_excerpt": "Base Level: 60 Quest Prerequisite(s): How the Airship Works Quest",
       "source_step_excerpts": [
         {
@@ -1915,6 +1934,7 @@
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
+        "bare_coord": 3,
         "map_coord": 10
       },
       "wiki_requirement_excerpt": "Base Level: None Item(s) (Consumed): 1 Medicine Bowl (buy it at Al De Baran ) Item(s) (Not Consumed): 1 Gusli Zeny: 6,000z Quest Prerequisite(s): Finding The Moving Island Quest",
@@ -1953,7 +1973,7 @@
         "talk_to_npc": 2
       },
       "literal_hint_counts": {
-        "bare_coord": 1,
+        "bare_coord": 2,
         "guide_answer": 2,
         "map_coord": 4
       },
@@ -1987,12 +2007,15 @@
       "quest_title": "Hide n' Seek Quest",
       "guide_url": "https://irowiki.org/classic/Hide_n%27_Seek_Quest",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 0,
+      "known_script_candidates": 2,
       "steps_total": 6,
       "source_signal_counts": {
         "talk_to_npc": 5
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "bare_coord": 1,
+        "map_coord": 3
+      },
       "wiki_requirement_excerpt": "Base Level: 50 Item(s) (Consumed): 1 Steamed Crab Nippers ( Vit +1 Food)",
       "source_step_excerpts": [
         {
@@ -2023,12 +2046,14 @@
       "quest_title": "How the Airship Works Quest",
       "guide_url": "https://irowiki.org/classic/How_the_Airship_Works_Quest",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 1,
+      "known_script_candidates": 2,
       "steps_total": 6,
       "source_signal_counts": {
         "talk_to_npc": 2
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "map_coord": 2
+      },
       "wiki_requirement_excerpt": "Base Level: 60 Item(s) (Consumed): 2 Prickly Fruit and 2 Will of the Darkness",
       "source_step_excerpts": [
         {
@@ -2064,7 +2089,9 @@
       "source_signal_counts": {
         "talk_to_npc": 5
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "bare_coord": 1
+      },
       "wiki_requirement_excerpt": "Base Level: 50",
       "source_step_excerpts": [
         {
@@ -2129,7 +2156,8 @@
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
-        "map_coord": 4
+        "bare_coord": 3,
+        "map_coord": 3
       },
       "wiki_requirement_excerpt": "Base Level: None Item(s) (Consumed): 5 Rough Wind , 1 Hammer , 1 Blank Scroll",
       "source_step_excerpts": [
@@ -2199,6 +2227,7 @@
         "talk_to_npc": 3
       },
       "literal_hint_counts": {
+        "bare_coord": 2,
         "map_coord": 6
       },
       "wiki_requirement_excerpt": "Base Level: 60 Party : 4 Other Players (Bingo) Item(s) (Consumed): 5 Rune of Darkness",
@@ -2272,7 +2301,8 @@
         "talk_to_npc": 4
       },
       "literal_hint_counts": {
-        "map_coord": 8
+        "bare_coord": 1,
+        "map_coord": 12
       },
       "wiki_requirement_excerpt": "Base Level: N/A Item(s) (Consumed): 4 Transparent Plate (1 of each color)",
       "source_step_excerpts": [
@@ -2350,9 +2380,9 @@
         "talk_to_npc": 9
       },
       "literal_hint_counts": {
-        "bare_coord": 9,
+        "bare_coord": 10,
         "guide_answer": 3,
-        "map_coord": 19
+        "map_coord": 20
       },
       "wiki_requirement_excerpt": "Base Level: 60 Item(s) (Consumed): 1 Cursed Water , 1 Holy Water , 10 Hinalle Leaflet , 2 Yggdrasil Leaf , 25 Steel , 3 Gold , 2 Cursed Ruby Item(s) (Not Consumed): 1 Poring Card + 1 Milk if you are Swordman cl",
       "source_step_excerpts": [
@@ -2418,6 +2448,7 @@
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
+        "bare_coord": 1,
         "map_coord": 2
       },
       "wiki_requirement_excerpt": "Base Level: 70 Item(s) (Consumed): 15 Crystallized Teardrop , 15 Florescent Liquid Quest Prerequisite(s): Started Two Tribes (access to Yggdrasil Dungeon)",
@@ -2479,14 +2510,16 @@
       "quest_title": "Level 4 Weapons (Type 2)",
       "guide_url": "https://irowiki.org/classic/Level_4_Weapons_(Type_2)",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 0,
+      "known_script_candidates": 2,
       "steps_total": 7,
       "source_signal_counts": {
         "collect_items": 1,
         "talk_to_npc": 7
       },
       "literal_hint_counts": {
-        "guide_answer": 1
+        "bare_coord": 4,
+        "guide_answer": 1,
+        "map_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: N/A (70?) Item(s) (Consumed): 2 Hammer of Blacksmith , 1 Emperium Anvil , 1 Illusion Flower , 20 Gold , and 3 sets of 30 special Ores",
       "source_step_excerpts": [
@@ -2604,6 +2637,7 @@
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
+        "bare_coord": 2,
         "map_coord": 2
       },
       "wiki_requirement_excerpt": "Base Level: None Job Level: 35 Class: Mage Item(s) (Consumed): 3 Glass Beads , 1 1 Carat Diamond , 5 Shells , 1 Solid Shell",
@@ -2628,7 +2662,7 @@
         "talk_to_npc": 18
       },
       "literal_hint_counts": {
-        "bare_coord": 3,
+        "bare_coord": 12,
         "map_coord": 6
       },
       "wiki_requirement_excerpt": "Base Level: None Job Level: None Class: Mage Item(s) (Consumed): 10 Chrysalis , 1 Green Potion , 1 Green Herb , 1 Red Gemstone",
@@ -2668,6 +2702,7 @@
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
+        "bare_coord": 1,
         "map_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: 70 Quest Prerequisite(s): Two Tribes",
@@ -2729,7 +2764,10 @@
       "source_signal_counts": {
         "talk_to_npc": 3
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "bare_coord": 1,
+        "map_coord": 3
+      },
       "wiki_requirement_excerpt": "Base Level: 50 Item(s) (Consumed): 1 White Potion",
       "source_step_excerpts": [
         {
@@ -2760,13 +2798,13 @@
       "quest_title": "Merchant Skill Quest",
       "guide_url": "https://irowiki.org/classic/Merchant_Skill_Quest",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 8,
+      "known_script_candidates": 6,
       "steps_total": 3,
       "source_signal_counts": {
         "talk_to_npc": 3
       },
       "literal_hint_counts": {
-        "map_coord": 3
+        "bare_coord": 3
       },
       "wiki_requirement_excerpt": "Base Level: None Job Level: 30 Class: Merchant Item(s) (Consumed): 20 Animal Skins , 10 Iron , 50 Trunks",
       "source_step_excerpts": [
@@ -2910,7 +2948,7 @@
         "talk_to_npc": 4
       },
       "literal_hint_counts": {
-        "bare_coord": 3,
+        "bare_coord": 5,
         "guide_answer": 2
       },
       "wiki_requirement_excerpt": "",
@@ -2943,13 +2981,14 @@
       "quest_title": "Muff's Loan Quest",
       "guide_url": "https://irowiki.org/classic/Muff%27s_Loan_Quest",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 0,
+      "known_script_candidates": 2,
       "steps_total": 14,
       "source_signal_counts": {
         "talk_to_npc": 4
       },
       "literal_hint_counts": {
-        "bare_coord": 1
+        "bare_coord": 2,
+        "map_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: 60 Item(s) (Consumed): 20 Rusty Screw , 10 Iron Ore , 5 Steel , 2 Ruby , 5 Red Gemstone",
       "source_step_excerpts": [
@@ -2986,7 +3025,9 @@
       "source_signal_counts": {
         "talk_to_npc": 1
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "bare_coord": 1
+      },
       "wiki_requirement_excerpt": "",
       "source_step_excerpts": [
         {
@@ -3023,7 +3064,7 @@
         "talk_to_npc": 8
       },
       "literal_hint_counts": {
-        "bare_coord": 3,
+        "bare_coord": 7,
         "map_coord": 8
       },
       "wiki_requirement_excerpt": "Base Level: 70 Item(s) (Consumed): 20 Ordinary Branch , 20 Strong Vine Quest Prerequisite(s): Onward to the New World Quest",
@@ -3063,7 +3104,8 @@
         "talk_to_npc": 3
       },
       "literal_hint_counts": {
-        "map_coord": 6
+        "bare_coord": 6,
+        "map_coord": 3
       },
       "wiki_requirement_excerpt": "Base Level: 20 Class: Ninja Item(s) (Consumed): 1 Guard , 1 Arm Guard Zeny: 10,000 Zeny",
       "source_step_excerpts": [
@@ -3101,8 +3143,9 @@
         "talk_to_npc": 9
       },
       "literal_hint_counts": {
+        "bare_coord": 9,
         "guide_answer": 9,
-        "map_coord": 18
+        "map_coord": 9
       },
       "wiki_requirement_excerpt": "Base Level: None Job Level: None Class: Ninja Item(s) (Consumed): 25 Steel , 5 Worn-Out Magic Scroll Zeny: 32,000 Zeny",
       "source_step_excerpts": [
@@ -3140,7 +3183,7 @@
         "talk_to_npc": 4
       },
       "literal_hint_counts": {
-        "map_coord": 2
+        "bare_coord": 2
       },
       "wiki_requirement_excerpt": "Base Level: 4 (Outside Training Grounds) Class: Novice Item(s) (Consumed): 3 Red Herbs and 3 Clovers (Outside Training Grounds)",
       "source_step_excerpts": [
@@ -3208,15 +3251,16 @@
       "quest_title": "Odin's Temple Excavation Quest",
       "guide_url": "https://irowiki.org/classic/Odin%27s_Temple_Excavation_Quest",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 0,
+      "known_script_candidates": 2,
       "steps_total": 21,
       "source_signal_counts": {
         "collect_items": 2,
         "talk_to_npc": 8
       },
       "literal_hint_counts": {
-        "bare_coord": 6,
-        "guide_answer": 1
+        "bare_coord": 11,
+        "guide_answer": 1,
+        "map_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: 60 Item(s) (Consumed): 5 Rune of Darkness Zeny: 2,400",
       "source_step_excerpts": [
@@ -3255,7 +3299,7 @@
         "talk_to_npc": 11
       },
       "literal_hint_counts": {
-        "bare_coord": 1,
+        "bare_coord": 4,
         "guide_answer": 1,
         "map_coord": 11
       },
@@ -3321,6 +3365,7 @@
         "talk_to_npc": 2
       },
       "literal_hint_counts": {
+        "bare_coord": 1,
         "map_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: None Item(s) (Consumed): 1 Mr. Smile , Various Elemental Stones Item(s) (Not Consumed): 1 Blue Gemstone , 1 Red Gemstone Quest Prerequisite(s): Umbala Language Quest",
@@ -3459,7 +3504,9 @@
       "source_signal_counts": {
         "deliver_items": 1
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "map_coord": 3
+      },
       "wiki_requirement_excerpt": "Base Level: 60",
       "source_step_excerpts": [
         {
@@ -3497,7 +3544,7 @@
         "talk_to_npc": 12
       },
       "literal_hint_counts": {
-        "bare_coord": 1,
+        "bare_coord": 5,
         "guide_answer": 9
       },
       "wiki_requirement_excerpt": "Base Level: 40 (Prerequisite) Item(s) (Consumed): 10 Empty Potion Bottles , 4 Bee Stings , 31 Green Potions , 10 Venom Canines , 1 Large Jellopy , 1 Empty Bottle , 1 Sticky Mucus Zeny: 1,000 Zeny Quest Prerequi",
@@ -3563,6 +3610,7 @@
         "talk_to_npc": 13
       },
       "literal_hint_counts": {
+        "bare_coord": 4,
         "map_coord": 12
       },
       "wiki_requirement_excerpt": "Base Level: 70 Item(s) (Consumed): 30 Rune of Darkness , 30 Bloody Rune , and 30 Holy Water Quest Prerequisite(s): Onward to the New World Quest",
@@ -3601,7 +3649,7 @@
         "talk_to_npc": 5
       },
       "literal_hint_counts": {
-        "bare_coord": 1,
+        "bare_coord": 4,
         "guide_answer": 1,
         "map_coord": 11
       },
@@ -3714,7 +3762,9 @@
       "source_signal_counts": {
         "talk_to_npc": 3
       },
-      "literal_hint_counts": {},
+      "literal_hint_counts": {
+        "map_coord": 3
+      },
       "wiki_requirement_excerpt": "Base Level: N/A Party : 8 Characters, including 1 with a Pushcart",
       "source_step_excerpts": [
         {
@@ -3891,7 +3941,7 @@
         "talk_to_npc": 2
       },
       "literal_hint_counts": {
-        "bare_coord": 2
+        "bare_coord": 3
       },
       "wiki_requirement_excerpt": "Base Level: None",
       "source_step_excerpts": [
@@ -3969,7 +4019,8 @@
         "talk_to_npc": 17
       },
       "literal_hint_counts": {
-        "map_coord": 9
+        "bare_coord": 7,
+        "map_coord": 5
       },
       "wiki_requirement_excerpt": "Base Level: 48 Item(s) (Consumed): 1 Violin , 1 Fried Monkey Tails Zeny: 500,000",
       "source_step_excerpts": [
@@ -4046,7 +4097,7 @@
         "talk_to_npc": 1
       },
       "literal_hint_counts": {
-        "bare_coord": 1,
+        "bare_coord": 2,
         "guide_answer": 1
       },
       "wiki_requirement_excerpt": "Base Level: 45 Job Level: 10 Class: Novice Item(s) (Consumed): 30 Resin , 30 Sticky Mucus",
@@ -4085,7 +4136,8 @@
         "talk_to_npc": 3
       },
       "literal_hint_counts": {
-        "map_coord": 2
+        "bare_coord": 2,
+        "map_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: None Job Level: 35 Class: Swordman Item(s) (Consumed): 200 Empty Bottles , 1 Moth Wing Item(s) (Not Consumed): 1 Armor",
       "source_step_excerpts": [
@@ -4118,6 +4170,7 @@
         "talk_to_npc": 7
       },
       "literal_hint_counts": {
+        "bare_coord": 4,
         "map_coord": 5
       },
       "wiki_requirement_excerpt": "Base Level: None Job Level: None Class: Swordman",
@@ -4150,13 +4203,14 @@
       "quest_title": "TaeKwon Master",
       "guide_url": "https://irowiki.org/classic/TaeKwon_Master",
       "reason_unclassified": "No distinctive evidence supports a more specific source category",
-      "known_script_candidates": 1,
+      "known_script_candidates": 2,
       "steps_total": 6,
       "source_signal_counts": {
         "talk_to_npc": 2
       },
       "literal_hint_counts": {
-        "bare_coord": 1
+        "bare_coord": 1,
+        "map_coord": 4
       },
       "wiki_requirement_excerpt": "Base Level: None Job Level: 40 Class: TaeKwon Kid Item(s) (Consumed): 1 Flame Heart , 1 Mystic Frozen , 1 Rough Wind , 1 Great Nature , 1 Star Crumb , 1 Star Dust",
       "source_step_excerpts": [
@@ -4251,9 +4305,9 @@
         "talk_to_npc": 7
       },
       "literal_hint_counts": {
-        "bare_coord": 7,
+        "bare_coord": 12,
         "guide_answer": 1,
-        "map_coord": 5
+        "map_coord": 8
       },
       "wiki_requirement_excerpt": "Base Level: 60 Quest Prerequisite(s): Veins Siblings Quest",
       "source_step_excerpts": [
@@ -4291,8 +4345,9 @@
         "talk_to_npc": 2
       },
       "literal_hint_counts": {
+        "bare_coord": 3,
         "guide_answer": 9,
-        "map_coord": 2
+        "map_coord": 5
       },
       "wiki_requirement_excerpt": "Base Level: 50 Item(s) (Consumed): 20 Shrimp , 10 Lemons , 30 Chilies Zeny: 13,000 Zeny (To Buy Ingredients, Optional)",
       "source_step_excerpts": [
@@ -4393,6 +4448,7 @@
         "talk_to_npc": 6
       },
       "literal_hint_counts": {
+        "bare_coord": 2,
         "map_coord": 6
       },
       "wiki_requirement_excerpt": "Base Level: 70 Item(s) (Consumed): 1 Folding Fan of Cat Ghost , 1 Flame Stone , 1 Old Frying Pan , 1 Squid Ink Quest Prerequisite(s): Onward to the New World Quest",
@@ -4464,7 +4520,7 @@
         "talk_to_npc": 5
       },
       "literal_hint_counts": {
-        "bare_coord": 8,
+        "bare_coord": 19,
         "map_coord": 1
       },
       "wiki_requirement_excerpt": "Base Level: N/A Party : 1 Person Item(s) (Consumed): 2 Pearl , 2 Zargon , 20 Memento , 1 Holy Water , 1 Witherless Rose , 1 Crystal Blue , 1 Red Blood , 1 Wind of Verdure Zeny: 301,200 Zeny Quest Prerequisite(s",
@@ -4503,7 +4559,7 @@
         "talk_to_npc": 10
       },
       "literal_hint_counts": {
-        "bare_coord": 1,
+        "bare_coord": 2,
         "map_coord": 6
       },
       "wiki_requirement_excerpt": "Base Level: 60 Item(s) (Consumed): 100+ Green Herb , 5 Monster's Feed , 1 Unripe Apple , 2 Yellow Potion , 10+ Milk , 50+ Jellopy , 6 Empty Bottle Item(s) (Not Consumed): 1 Steel Quest Prerequisite(s): Rachel S",
@@ -4577,7 +4633,7 @@
         "talk_to_npc": 9
       },
       "literal_hint_counts": {
-        "bare_coord": 3,
+        "bare_coord": 8,
         "map_coord": 2
       },
       "wiki_requirement_excerpt": "Base Level: 70 Item(s) (Consumed): 5 Morroc Fruit Wine (INT +4 Food), 20 Live Coal , 2 Alcohol , 1 Matchstick , 10 Burning Heart",

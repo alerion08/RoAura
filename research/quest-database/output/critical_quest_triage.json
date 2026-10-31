@@ -6,46 +6,14 @@
     "The source wiki itself includes historical iRO events and nonquest/reference pages"
   ],
   "counts": {
-    "critical_total": 84,
+    "critical_total": 76,
     "categories": {
-      "historical_event_or_spotlight": 42,
-      "core_or_other_quest_candidate": 41,
-      "class_or_reference_page": 1
+      "historical_event_or_spotlight": 43,
+      "class_or_reference_page": 1,
+      "core_or_other_quest_candidate": 32
     }
   },
   "queue": [
-    {
-      "quest_key": "irowiki-classic:President_Quest",
-      "title": "President Quest",
-      "source_steps": 38,
-      "source_scopes": [],
-      "classification": "core_or_other_quest_candidate",
-      "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
-      "reason": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "server_compatibility": "unverified",
-      "availability_claim": "none",
-      "source": "walkthrough_parsed",
-      "priority_from_audit": "critical"
-    },
-    {
-      "quest_key": "irowiki-classic:Thanatos_Tower_Quest/old",
-      "title": "Thanatos Tower Quest/old",
-      "source_steps": 23,
-      "source_scopes": [],
-      "classification": "core_or_other_quest_candidate",
-      "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
-      "reason": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "server_compatibility": "unverified",
-      "availability_claim": "none",
-      "source": "walkthrough_parsed",
-      "priority_from_audit": "critical"
-    },
     {
       "quest_key": "irowiki-classic:Biolabs_Entrance_Quest",
       "title": "Biolabs Entrance Quest",
@@ -65,22 +33,6 @@
     {
       "quest_key": "irowiki-classic:Crow_of_Destiny_Quest",
       "title": "Crow of Destiny Quest",
-      "source_steps": 21,
-      "source_scopes": [],
-      "classification": "core_or_other_quest_candidate",
-      "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
-      "reason": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "server_compatibility": "unverified",
-      "availability_claim": "none",
-      "source": "walkthrough_parsed",
-      "priority_from_audit": "critical"
-    },
-    {
-      "quest_key": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "title": "Odin's Temple Excavation Quest",
       "source_steps": 21,
       "source_scopes": [],
       "classification": "core_or_other_quest_candidate",
@@ -162,22 +114,6 @@
       "quest_key": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
       "title": "Shadow Quest (Rekenber Job Quest)",
       "source_steps": 17,
-      "source_scopes": [],
-      "classification": "core_or_other_quest_candidate",
-      "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
-      "reason": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "server_compatibility": "unverified",
-      "availability_claim": "none",
-      "source": "walkthrough_parsed",
-      "priority_from_audit": "critical"
-    },
-    {
-      "quest_key": "irowiki-classic:Muff's_Loan_Quest",
-      "title": "Muff's Loan Quest",
-      "source_steps": 14,
       "source_scopes": [],
       "classification": "core_or_other_quest_candidate",
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
@@ -351,38 +287,6 @@
       "priority_from_audit": "critical"
     },
     {
-      "quest_key": "irowiki-classic:Biological_Weapon_Quest",
-      "title": "Biological Weapon Quest",
-      "source_steps": 9,
-      "source_scopes": [],
-      "classification": "core_or_other_quest_candidate",
-      "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
-      "reason": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "server_compatibility": "unverified",
-      "availability_claim": "none",
-      "source": "walkthrough_parsed",
-      "priority_from_audit": "critical"
-    },
-    {
-      "quest_key": "irowiki-classic:Hugel_Cow_Milking",
-      "title": "Hugel Cow Milking",
-      "source_steps": 9,
-      "source_scopes": [],
-      "classification": "core_or_other_quest_candidate",
-      "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
-      "reason": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "server_compatibility": "unverified",
-      "availability_claim": "none",
-      "source": "walkthrough_parsed",
-      "priority_from_audit": "critical"
-    },
-    {
       "quest_key": "irowiki-classic:New_Beginnings_(2007/01/23)_~_(2007/01/30)",
       "title": "New Beginnings (2007/01/23) ~ (2007/01/30)",
       "source_steps": 9,
@@ -511,57 +415,9 @@
       "priority_from_audit": "critical"
     },
     {
-      "quest_key": "irowiki-classic:Footprint_Quest",
-      "title": "Footprint Quest",
-      "source_steps": 7,
-      "source_scopes": [],
-      "classification": "core_or_other_quest_candidate",
-      "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
-      "reason": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "server_compatibility": "unverified",
-      "availability_claim": "none",
-      "source": "walkthrough_parsed",
-      "priority_from_audit": "critical"
-    },
-    {
       "quest_key": "irowiki-classic:Hair_Styling/Dye_Quests",
       "title": "Hair Styling/Dye Quests",
       "source_steps": 7,
-      "source_scopes": [],
-      "classification": "core_or_other_quest_candidate",
-      "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
-      "reason": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "server_compatibility": "unverified",
-      "availability_claim": "none",
-      "source": "walkthrough_parsed",
-      "priority_from_audit": "critical"
-    },
-    {
-      "quest_key": "irowiki-classic:Level_4_Weapons_(Type_2)",
-      "title": "Level 4 Weapons (Type 2)",
-      "source_steps": 7,
-      "source_scopes": [],
-      "classification": "core_or_other_quest_candidate",
-      "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
-      "reason": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "server_compatibility": "unverified",
-      "availability_claim": "none",
-      "source": "walkthrough_parsed",
-      "priority_from_audit": "critical"
-    },
-    {
-      "quest_key": "irowiki-classic:Hide_n'_Seek_Quest",
-      "title": "Hide n' Seek Quest",
-      "source_steps": 6,
       "source_scopes": [],
       "classification": "core_or_other_quest_candidate",
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
@@ -607,8 +463,8 @@
       "priority_from_audit": "critical"
     },
     {
-      "quest_key": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "title": "TaeKwon Master Job Change Guide",
+      "quest_key": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
+      "title": "Thor Volcano Level 2 Access Quest",
       "source_steps": 6,
       "source_scopes": [],
       "classification": "core_or_other_quest_candidate",
@@ -623,9 +479,9 @@
       "priority_from_audit": "critical"
     },
     {
-      "quest_key": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "title": "Thor Volcano Level 2 Access Quest",
-      "source_steps": 6,
+      "quest_key": "irowiki-classic:Fish_Cake_Soup_Quest",
+      "title": "Fish Cake Soup Quest",
+      "source_steps": 5,
       "source_scopes": [],
       "classification": "core_or_other_quest_candidate",
       "verification_action": "prioritize canonical quest steps, prerequisites, NPC locations, script variants and optional Quest ID",
@@ -1297,6 +1153,22 @@
     {
       "quest_key": "irowiki-classic:12th_Anniversary_Quest_(June_2015)",
       "title": "12th Anniversary Quest (June 2015)",
+      "source_steps": 5,
+      "source_scopes": [],
+      "classification": "historical_event_or_spotlight",
+      "verification_action": "archive as a historical/seasonal candidate; verify inclusion per optional server profile",
+      "reason": [
+        "no_script_candidate",
+        "incomplete_step_npc_mapping"
+      ],
+      "server_compatibility": "unverified",
+      "availability_claim": "none",
+      "source": "walkthrough_parsed",
+      "priority_from_audit": "critical"
+    },
+    {
+      "quest_key": "irowiki-classic:2013_Easter_Event",
+      "title": "2013 Easter Event",
       "source_steps": 5,
       "source_scopes": [],
       "classification": "historical_event_or_spotlight",

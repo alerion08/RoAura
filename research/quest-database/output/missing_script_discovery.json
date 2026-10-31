@@ -2,14 +2,14 @@
   "version": 1,
   "purpose": "missing script discovery for human audit; never joined to game catalog",
   "metrics": {
-    "no_explicit_npc_interaction_phrases": 18,
+    "no_explicit_npc_interaction_phrases": 17,
     "multiple_distinct_npc_names_same_script_manual_review": 13,
     "proposals": 25,
     "pages_with_proposals": 13,
-    "insufficient_independent_npc_name_evidence": 29,
-    "no_distinctive_npc_names_in_source_corpus": 56,
+    "insufficient_independent_npc_name_evidence": 25,
+    "no_distinctive_npc_names_in_source_corpus": 54,
     "no_extracted_guide_steps": 1,
-    "unlinked_pages": 117,
+    "unlinked_pages": 110,
     "evidence_rows": 83
   },
   "proposals": [
