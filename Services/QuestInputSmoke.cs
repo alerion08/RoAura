@@ -51,11 +51,11 @@ internal static class QuestInputSmoke
                 var strip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"next")));
                 var buttons=((StackPanel)strip.Content).Children.OfType<Button>().ToArray();
                 // Validate after dispatcher/render processing, not only immediately after SetWindowPos.
-                foreach(var surface in host.ActionWindows.Where(w=>w.IsVisible))
+                foreach(var actionSurface in host.ActionWindows.Where(w=>w.IsVisible))
                 {
-                    var bounds=QuestWindowNative.Bounds(new WindowInteropHelper(surface).Handle);
-                    var dpi=QuestWindowNative.Scale(new WindowInteropHelper(surface).Handle);
-                    if(Math.Abs(surface.Width*dpi-bounds.Width)>2 || Math.Abs(surface.Height*dpi-bounds.Height)>2)
+                    var bounds=QuestWindowNative.Bounds(new WindowInteropHelper(actionSurface).Handle);
+                    var dpi=QuestWindowNative.Scale(new WindowInteropHelper(actionSurface).Handle);
+                    if(Math.Abs(actionSurface.Width*dpi-bounds.Width)>2 || Math.Abs(actionSurface.Height*dpi-bounds.Height)>2)
                         throw new InvalidOperationException("WPF/native tracker size diverged after layout.");
                 }
                 if(buttons.Select(b=>b.ActualHeight).Distinct().Count()!=1 || buttons.Any(b=>b.Content is string t && char.IsUpper(t[0])))
