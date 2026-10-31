@@ -402,4 +402,4 @@ Source NPC map identifiers are a whitelist only, not NPC-position verification.
 Bounds, deduplication and original assurance remain; no script candidates/progress
 are promoted. The pinned catalog remains read-only and research is not modified.
 Focused tests cover niflheim/nif_in and rejection cases plus catalog immutability.
-Automated validation pending; real SpringRO/mixed-DPI acceptance remains open.
+Automated validation passed: 318 tests, eight ToC checks and Windows portable startup; real SpringRO/mixed-DPI acceptance remains open.

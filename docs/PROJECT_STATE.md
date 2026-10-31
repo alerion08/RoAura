@@ -1054,4 +1054,21 @@ Source NPC map identifiers are a whitelist only, not NPC-position verification.
 Bounds, deduplication and original assurance remain; no script candidates/progress
 are promoted. The pinned catalog remains read-only and research is not modified.
 Focused tests cover niflheim/nif_in and rejection cases plus catalog immutability.
-Automated validation pending; real SpringRO/mixed-DPI acceptance remains open.
+Automated validation passed: 318 tests, eight ToC checks and Windows portable startup; real SpringRO/mixed-DPI acceptance remains open.
+
+Visual-clip/waypoint verification: [Actions #41180900987](https://github.com/alerion08/RoAura/actions/runs/41180900987)
+SUCCESS on `1e4722014384608f1fb831c424563f6a7c4758d4`: 318 tests,
+zero failed/skipped, eight ToC checks, resources/clean-package and portable startup.
+Native smoke tests browser-edge exclusion with the tracker visual transformed to
+125%, requiring the inside point to be clipped and the outside point to remain.
+Prior focus, click-through, copied expiry, collapse and database priority pass.
+Parser/reader tests cover comma/whitespace qualified coordinates (niflheim 313 70,
+niflheim 187 241 and nif_in 105 81), numeric-prose rejection and SQLite immutability.
+Tracker scrolling code/template/window is removed, not merely hidden. Maximum
+visible count remains 1–5 and all other quests stay in the browser/order controls.
+The source rule update is research 48c9dd2; the pinned binary remains 41bfc483's
+schema-v5 projection. No source-supported script evidence was promoted to gameplay.
+Actual SpringRO monitor DPI and the user's exact window arrangement remain manual.
+Artifact: [RoAura-development-79-1e47220](https://github.com/alerion08/RoAura/actions/runs/41180900987/artifacts/13034911842).
+Portable SHA256: `eabf910bc41266c6526be749009e8ba51ed6f28f291143f55062cefd32a08e2f`.
+No main/research write, version bump, merge, tag or release.
