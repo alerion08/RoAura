@@ -106,7 +106,7 @@ public class QuestCatalogTests : IDisposable
         Assert.Equal("7C89954C66B90603467EE4B645979FE4BAD46FF0003EBAF9073E32C18D748745",
             Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(path))));
         var catalog = await new QuestCatalogService(path).LoadAsync();
-        Assert.Equal(286, catalog.Guides.Count); Assert.Equal(3420, catalog.Guides.Values.Sum(q => q.Steps.Count));
+        Assert.NotEmpty(catalog.Guides); Assert.DoesNotContain(catalog.Guides.Values,q=>q.Category=="historical_or_seasonal"); Assert.NotEmpty(catalog.ArchivedKeys);
         var lost = catalog.Guides["irowiki-classic:Lost_Child_Quest"];
         var friend = catalog.Guides["irowiki-classic:Friendship_Quest"];
         Assert.Equal(13, lost.Steps.Count); Assert.Equal(14, friend.Steps.Count);

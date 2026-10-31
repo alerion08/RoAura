@@ -576,7 +576,7 @@
     <sys:String x:Key="QLevelFilter">Base Lv. персонажа</sys:String>
     <sys:String x:Key="QCategoryHint">Категории — предварительная классификация источников. Неизвестные уровни остаются в списке.</sys:String>
     <sys:String x:Key="QBaseLevel">Base Lv.</sys:String>
-    <sys:String x:Key="QSteps">записей прохождения</sys:String>
+    <sys:String x:Key="QSteps">этапов</sys:String>
     <sys:String x:Key="QUnknown">Не указано</sys:String>
     <sys:String x:Key="QNoResults">Нет квестов по выбранным условиям.</sys:String>
     <sys:String x:Key="QSelectGuide">Выберите квест</sys:String>

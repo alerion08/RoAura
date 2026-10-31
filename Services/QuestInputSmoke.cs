@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using RoAura.Models;
@@ -50,12 +51,14 @@ internal static class QuestInputSmoke
                 var strip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"Next")));
                 var buttons=((StackPanel)strip.Content).Children.OfType<Button>().ToArray();
                 // Real OS mouse delivery, not RaiseEvent: buttons consume clicks without activation.
+                var originalStripHandle=new WindowInteropHelper(strip).Handle;
                 var clicks=Read(reportPath)!.Clicks;
                 Click(buttons[1].PointToScreen(new Point(buttons[1].ActualWidth/2,buttons[1].ActualHeight/2)));
                 await Until(()=>row.Progress.CurrentStep==initial+1,"Next click");
                 if(QuestWindowNative.GetForegroundWindow()!=game || Read(reportPath)!.Clicks!=clicks)
                     throw new InvalidOperationException("Quest button stole game focus or leaked its click.");
                 await Pause();host.RefreshNow();strip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"Next")));
+                if(new WindowInteropHelper(strip).Handle!=originalStripHandle)throw new InvalidOperationException("Tracker action HWND was recreated after Next.");
                 Click(strip.PointToScreen(new Point(0,0))); // fully transparent corner, a different process underneath
                 await Until(()=>Read(reportPath)!.Clicks>clicks,"transparent button margin click-through");
                 clicks=Read(reportPath)!.Clicks;
@@ -155,7 +158,19 @@ internal static class QuestInputSmoke
                 if(host.ActionWindows.Count(w=>((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"More")))!=1)
                     throw new InvalidOperationException("Tracker quest limit was not applied.");
                 if(host.TrackerScrollBar.Maximum<1)throw new InvalidOperationException("Tracker overflow has no scrollbar.");
-                host.TrackerScrollBar.Value=1;host.RefreshNow();SaveDesktop(host.TextWindow,"tracker-scrolled-native");
+                await Pause();
+                var scrollbar=host.TrackerScrollBar;
+                var track=(Track)scrollbar.Template.FindName("PART_Track",scrollbar);
+                var thumb=track.Thumb;var originalThumbHeight=thumb.ActualHeight;var originalTrackHeight=scrollbar.ActualHeight;
+                var thumbCenter=thumb.PointToScreen(new Point(thumb.ActualWidth/2,thumb.ActualHeight/2));
+                SetCursorPos((int)thumbCenter.X,(int)thumbCenter.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});
+                await Pause(100);SetCursorPos((int)thumbCenter.X,(int)thumbCenter.Y+(int)Math.Max(60,track.ActualHeight));await Pause(180);
+                Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=4}}});
+                await Until(()=>scrollbar.Value>0.5,"native fixed-thumb scrollbar drag");host.RefreshNow();await Pause();
+                if(Math.Abs(thumb.ActualHeight-originalThumbHeight)>0.1 || Math.Abs(scrollbar.ActualHeight-originalTrackHeight)>0.1)
+                    throw new InvalidOperationException("Tracker thumb/track changed size while scrolling.");
+                if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("Tracker scrollbar stole focus.");
+                SaveDesktop(host.TextWindow,"tracker-scrolled-native");
                 host.TrackerScrollBar.Value=0;workspace.Settings.QuestOverlay.MaxTrackedQuests=oldLimit;host.RefreshNow();
                 ((App)Application.Current).ToggleDatabase();
                 var database=Application.Current.Windows.OfType<DatabaseOverlayWindow>().Single();

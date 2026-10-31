@@ -576,7 +576,7 @@
     <sys:String x:Key="QLevelFilter">Character Base Lv.</sys:String>
     <sys:String x:Key="QCategoryHint">Categories are provisional source classifications. Unknown levels remain visible.</sys:String>
     <sys:String x:Key="QBaseLevel">Base Lv.</sys:String>
-    <sys:String x:Key="QSteps">guide entries</sys:String>
+    <sys:String x:Key="QSteps">steps</sys:String>
     <sys:String x:Key="QUnknown">Not specified</sys:String>
     <sys:String x:Key="QNoResults">No quests match these filters.</sys:String>
     <sys:String x:Key="QSelectGuide">Select a quest</sys:String>

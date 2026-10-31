@@ -14,9 +14,9 @@ public sealed record QuestCategoryChoice(string Caption, string? Key)
 public sealed record QuestCatalogListRow(QuestGuide Guide, bool Tracked, bool CanTrack)
 {
     public string Title => Guide.Title;
-    public string Summary => LocalizationService.Get("QCategory" + Guide.Category) + " · " +
-        LocalizationService.Get("QBaseLevel") + " " + (Guide.BaseLevel?.ToString() ?? LocalizationService.Get("QUnknown")) +
-        " · " + Guide.Steps.Count + " " + LocalizationService.Get("QSteps");
+    public string CategoryTag=>LocalizationService.Get("QCategory"+Guide.Category);
+    public string LevelTag=>LocalizationService.Get("QBaseLevel")+" "+(Guide.BaseLevel?.ToString()??LocalizationService.Get("QUnknown"));
+    public string StepsTag=>Guide.Steps.Count+" "+LocalizationService.Get("QSteps");
 }
 
 public partial class QuestsPage : UserControl

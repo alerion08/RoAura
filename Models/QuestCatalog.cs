@@ -16,8 +16,13 @@ public sealed class QuestCatalog
     public const int SupportedSchema = 5;
     public IReadOnlyDictionary<string, QuestGuide> Guides { get; }
 
-    public QuestCatalog(IEnumerable<QuestGuide> guides) => Guides =
-        new ReadOnlyDictionary<string, QuestGuide>(guides.ToDictionary(q => q.Key, StringComparer.Ordinal));
+    public IReadOnlySet<string> ArchivedKeys {get;}
+    public QuestCatalog(IEnumerable<QuestGuide> guides)
+    {
+        var source=guides.ToList();
+        ArchivedKeys=source.Where(q=>q.Category=="historical_or_seasonal").Select(q=>q.Key).ToHashSet(StringComparer.Ordinal);
+        Guides=new ReadOnlyDictionary<string,QuestGuide>(source.Where(q=>!ArchivedKeys.Contains(q.Key)).ToDictionary(q=>q.Key,StringComparer.Ordinal));
+    }
 
     // Classification is provisional source evidence; a level filter keeps unknown levels visible.
     public IReadOnlyList<QuestGuide> Search(string? text = null, string? category = null, int? level = null) =>

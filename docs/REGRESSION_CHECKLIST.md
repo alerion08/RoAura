@@ -362,3 +362,22 @@ The details Active button is green; explicit restore-to-active is red. New guide
 retain the ordinary style. Native smoke checks copied expiry, fold/unfold and
 scroll overflow; focused tests check mark/collapse persistence and CID isolation.
 Automated validation passed: 306 tests, eight ToC checks and Windows portable startup; real SpringRO/fullscreen/DPI acceptance remains open.
+
+## ROQuestie stable tracker and catalog tags (2026-10-31)
+
+Owner video revealed window destruction/recreation after each action and scrollbar
+geometry derived from currently displayed card heights. Action HWNDs are now pooled
+and reused; card text swaps in one UI batch. Unused surfaces hide and are reused,
+not destroyed. Existing focus/click-through/occlusion behavior remains in place.
+Scrollbar has a transparent track and fixed 36-DIP thumb. Track height and page
+range depend on configured capacity, text options and available client space,
+not which cards happen to be expanded/on screen. A native thumb-drag smoke checks
+geometry invariance and game focus; Next checks action HWND identity retention.
+Historical_or_seasonal guides are excluded from the working catalog, links and
+saved-row presentation. The pinned research snapshot and saved progress are not
+modified/deleted; archived keys remain known for safe suppression and recovery.
+Catalog metadata is three compact outlined light-navy tags with 3x1-DIP padding:
+category, base level and stage count. RU wording is now этапов, EN steps.
+A generated edit of the exact selected screenshot is a styling reference only;
+shipped tags are WPF controls and are validated in actual app captures.
+Automated validation pending; real SpringRO/mixed-DPI acceptance remains open.

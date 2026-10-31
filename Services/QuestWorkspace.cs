@@ -47,7 +47,7 @@ public sealed class QuestWorkspace : INotifyPropertyChanged
     public IReadOnlyList<QuestListRow> Active => Rows.Where(q => q.Progress.State == QuestManualState.Active).ToList();
     public IReadOnlyList<QuestListRow> History => Rows.Where(q => q.Progress.State != QuestManualState.Active).ToList();
     private IEnumerable<QuestListRow> Rows => _session is null || _session.Key != _desired ? [] :
-        _session.Document.Quests.OrderBy(q => q.Order).Select(q => new QuestListRow(q, Catalog?.Guides.GetValueOrDefault(q.QuestKey), CanEdit));
+        _session.Document.Quests.Where(q=>Catalog?.ArchivedKeys.Contains(q.QuestKey)!=true).OrderBy(q => q.Order).Select(q => new QuestListRow(q, Catalog?.Guides.GetValueOrDefault(q.QuestKey), CanEdit));
     public event PropertyChangedEventHandler? PropertyChanged;
     public event Action? Changed;
     public event Action? SaveRequested;

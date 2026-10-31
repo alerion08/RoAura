@@ -7,6 +7,24 @@ namespace RoAura.Tests;
 public sealed class QuestInteractionTests
 {
     [Fact]
+    public async Task HistoricalEventsAreExcludedWithoutErasingSavedProgress()
+    {
+        var normal=QuestProgressTests.Guide("normal");
+        var old=QuestProgressTests.Guide("event") with {Category="historical_or_seasonal"};
+        var catalog=new QuestCatalog([normal,old]);Assert.Single(catalog.Guides);Assert.Contains("event",catalog.ArchivedKeys);
+        Assert.Empty(catalog.Search("event"));
+        var root=Path.Combine(Path.GetTempPath(),"RoAura-Archived-"+Guid.NewGuid().ToString("N"));
+        try
+        {
+            var store=new QuestProgressStore(root);var key=new QuestProfileKey("SpringRO",123,null);var session=store.Load(key);
+            QuestProgress.Add(session.Document,old);store.Save(session);
+            var workspace=new QuestWorkspace(new AppSettings {ServerProfile="SpringRO",PacketCaptureEnabled=false},store,catalog:catalog);
+            await workspace.SelectProfileAsync(key,default);Assert.Empty(workspace.Active);Assert.Empty(workspace.History);
+            Assert.Single(store.Load(key).Document.Quests);
+        }
+        finally{if(Directory.Exists(root))Directory.Delete(root,true);}
+    }
+    [Fact]
     public async Task CompletionMarksAndCollapsePersistAndIdenticalInstructionsStayIndependent()
     {
         var root=Path.Combine(Path.GetTempPath(),"RoAura-Marks-"+Guid.NewGuid().ToString("N"));

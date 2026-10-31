@@ -28,7 +28,7 @@ public partial class MainWindow
             if (File.Exists(Path.Combine(AppContext.BaseDirectory, "Data", "questie_catalog.sqlite")))
             {
                 await _questWorkspace.LoadCatalogAsync();
-                if (_questWorkspace.Catalog?.Guides.Count != 286) throw new InvalidOperationException("Quest catalog did not load in the real app.");
+                if (_questWorkspace.Catalog is null || _questWorkspace.Catalog.Guides.Count==0 || _questWorkspace.Catalog.Guides.Values.Any(g=>g.Category=="historical_or_seasonal")) throw new InvalidOperationException("Quest catalog did not load in the real app.");
                 await _questWorkspace.SelectProfileAsync(new("SpringRO", null, QuestWorkspace.LocalProfile), default);
                 _questWorkspace.SelectedGuide = _questWorkspace.Catalog.Guides["irowiki-classic:Lost_Child_Quest"];
                 _questWorkspace.AddSelected(); _questWorkspace.SelectStep(3);
