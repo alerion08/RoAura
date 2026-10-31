@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
 namespace RoAura.Services;
 
 internal static class QuestWindowNative
@@ -22,6 +23,8 @@ internal static class QuestWindowNative
         SetWindowPos(hwnd,topmost?new IntPtr(-1):new IntPtr(-2),(int)Math.Round(pixels.X),(int)Math.Round(pixels.Y),
             Math.Max(1,(int)Math.Round(pixels.Width)),Math.Max(1,(int)Math.Round(pixels.Height)),0x10);
     }
+    internal static Geometry? ExclusionClip(FrameworkElement visual,Size size,IEnumerable<Rect> screenBounds)=>
+        OverlayOcclusion.CreateClip(size,screenBounds.Select(r=>new Rect(visual.PointFromScreen(r.TopLeft),visual.PointFromScreen(r.BottomRight))));
     internal static Rect Bounds(IntPtr hwnd) => GetWindowRect(hwnd,out var r) ? new Rect(r.Left,r.Top,Math.Max(0,r.Right-r.Left),Math.Max(0,r.Bottom-r.Top)) : Rect.Empty;
     internal static bool IsOwnedBy(IntPtr window,IntPtr owner)
     { for(var i=0;i<12 && window!=IntPtr.Zero;i++) {window=GetWindow(window,4);if(window==owner && owner!=IntPtr.Zero)return true;}return false; }

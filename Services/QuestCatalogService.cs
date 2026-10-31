@@ -29,9 +29,16 @@ public sealed class QuestCatalogService
         var locations = db.Query("SELECT quest_key,step_no,map,x,y,hint_kind,raw_hint,assurance FROM quest_step_locations", r =>
             (Key: r.Text(0), Step: r.Number(1), Location: new QuestLocation(r.NullableText(2), r.Number(3), r.Number(4), r.Text(5), r.Text(6), r.Text(7))))
             .GroupBy(x => (x.Key, x.Step)).ToDictionary(g => g.Key, g => (IReadOnlyList<QuestLocation>)g.Select(x => x.Location).ToList().AsReadOnly());
+        var knownMaps=db.Query("SELECT DISTINCT map FROM npcs WHERE map IS NOT NULL",r=>r.Text(0))
+            .Concat(locations.Values.SelectMany(x=>x).Where(l=>l.Map is not null).Select(l=>l.Map!)).ToHashSet(StringComparer.OrdinalIgnoreCase);
         var rows = db.Query("SELECT quest_key,step_no,source_step,kind,section,instruction FROM quest_steps ORDER BY quest_key,step_no", r =>
-            (Key: r.Text(0), Step: new QuestStep(r.Number(1), r.NullableNumber(2), r.NullableText(3), r.NullableText(4), r.Text(5),
-                locations.GetValueOrDefault((r.Text(0), r.Number(1))) ?? Array.Empty<QuestLocation>())));
+        {
+            var key=r.Text(0);var number=r.Number(1);var instruction=r.Text(5);
+            var literal=locations.GetValueOrDefault((key,number))??Array.Empty<QuestLocation>();
+            var all=literal.Concat(QuestWikiLocations.Parse(instruction,knownMaps))
+                .DistinctBy(l=>(l.Map?.ToLowerInvariant(),l.X,l.Y,l.Kind,l.Assurance)).ToList().AsReadOnly();
+            return (Key:key,Step:new QuestStep(number,r.NullableNumber(2),r.NullableText(3),r.NullableText(4),instruction,all));
+        });
         if (rows.Any(x => x.Step.Number < 1) || rows.GroupBy(x => (x.Key, x.Step.Number)).Any(g => g.Count() != 1))
             throw new InvalidDataException("Invalid or duplicate quest steps.");
         var stepKeys = rows.Select(x => (x.Key, x.Step.Number)).ToHashSet();

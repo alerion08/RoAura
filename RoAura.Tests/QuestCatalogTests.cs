@@ -14,6 +14,8 @@ public class QuestCatalogTests : IDisposable
         CREATE TABLE quests(quest_key TEXT,title TEXT,source_url TEXT,status TEXT,review_state TEXT,base_level INTEGER,job_level INTEGER,requirements TEXT,rewards TEXT,content_sha TEXT);
         CREATE TABLE quest_steps(quest_key TEXT,step_no INTEGER,source_step INTEGER,kind TEXT,section TEXT,instruction TEXT);
         CREATE TABLE quest_step_locations(quest_key TEXT,step_no INTEGER,map TEXT,x INTEGER,y INTEGER,hint_kind TEXT,raw_hint TEXT,assurance TEXT);
+        CREATE TABLE npcs(map TEXT);
+        INSERT INTO npcs VALUES('niflheim'),('nif_in');
         CREATE TABLE quest_quality(quest_key TEXT,refresh_state TEXT,last_success_utc TEXT,last_error TEXT,stored_steps INTEGER);
         CREATE TABLE quest_content_categories(quest_key TEXT,category TEXT,assurance TEXT);
         INSERT INTO quests VALUES('lost','Lost Child Quest','https://example.test/lost','walkthrough_parsed','cross_source_variant',60,NULL,'Original requirements','Original rewards','abc');
@@ -60,6 +62,17 @@ public class QuestCatalogTests : IDisposable
         Assert.Single(catalog.Search(level: 50)); // unknown level is not invented as zero
     }
 
+    [Fact]
+    public async Task ReaderSupplementsWhitespaceLocationsWithoutWritingSourceOrChangingSteps()
+    {
+        Create("UPDATE quest_steps SET instruction='Talk to Serin (niflheim 313 70) and Crayu (nif_in 105 81).' WHERE quest_key='friend';");
+        var before=SHA256.HashData(File.ReadAllBytes(CatalogPath));
+        var catalog=await new QuestCatalogService(CatalogPath).LoadAsync();var step=catalog.Guides["friend"].Steps.Single();
+        Assert.Contains(step.Locations,l=>l.Map=="niflheim" && l.X==313 && l.Y==70);
+        Assert.Contains(step.Locations,l=>l.Map=="nif_in" && l.X==105 && l.Y==81);
+        Assert.All(step.Locations,l=>Assert.Equal("wiki_literal_not_npc_verified",l.Assurance));
+        Assert.Equal(before,SHA256.HashData(File.ReadAllBytes(CatalogPath)));
+    }
     [Theory]
     [InlineData("PRAGMA user_version=4;")]
     [InlineData("PRAGMA user_version=6;")]

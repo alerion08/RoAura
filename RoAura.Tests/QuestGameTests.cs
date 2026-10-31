@@ -6,6 +6,25 @@ namespace RoAura.Tests;
 
 public sealed class QuestGameTests
 {
+    [Theory]
+    [InlineData("Talk to Serin (niflheim 313 70).", "niflheim",313,70)]
+    [InlineData("Enter the building (niflheim 187 241) then visit Crayu (nif_in 105 81).", "niflheim",187,241)]
+    [InlineData("Visit ra_in01 372 200.", "ra_in01",372,200)]
+    [InlineData("Go to niflheim 313,70.", "niflheim",313,70)]
+    public void QualifiedWikiCoordinatesSupportBothSeparators(string text,string map,int x,int y)
+    {
+        var maps=new HashSet<string>(["niflheim","nif_in"],StringComparer.OrdinalIgnoreCase);
+        Assert.Contains(QuestWikiLocations.Parse(text,maps),p=>p.Map==map && p.X==x && p.Y==y);
+    }
+    [Theory]
+    [InlineData("Buy item_count 10 20.")]
+    [InlineData("Collect 10 Jellopy and 20 Red Potion.")]
+    [InlineData("Base Level 60 and Job Level 30.")]
+    [InlineData("niflheim 3130 70")]
+    [InlineData("niflheim 313 7000")]
+    [InlineData("313 70")]
+    public void WikiCoordinateSupplementDoesNotGuessMapsFromNumericProse(string text)=>
+        Assert.Empty(QuestWikiLocations.Parse(text,new HashSet<string>(["niflheim"],StringComparer.OrdinalIgnoreCase)));
     [Fact]
     public void FactsKeepSourceLabelsValuesUnknownsAndNumberSeparators()
     {

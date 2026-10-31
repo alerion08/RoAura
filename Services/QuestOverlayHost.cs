@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -21,10 +20,6 @@ public sealed class QuestOverlayHost : IDisposable
     private readonly Action _saveVisuals;
     private readonly Action<bool> _dragMode;
     private readonly QuestPassiveWindow _text=new(true);
-    private readonly QuestPassiveWindow _scrollWindow=new(false);
-    private readonly ScrollBar _scrollBar=new() {Orientation=Orientation.Vertical,Focusable=false,IsTabStop=false,SmallChange=1,LargeChange=1};
-    private int _firstQuestIndex;private double _scrollHeight;private bool _updatingScroll;
-    private string _scrollScope="";
     private readonly Canvas _canvas=new() { ClipToBounds=true,Background=null };
     private StackPanel _cards=new();
     private readonly DispatcherTimer _timer=new() {Interval=TimeSpan.FromMilliseconds(120)};
@@ -65,10 +60,6 @@ public sealed class QuestOverlayHost : IDisposable
             if(Browser.IsVisible && (!_browserRequested || !_global))Browser.Hide();
             KeyboardModeChanged?.Invoke();
         };
-        _scrollBar.Style=(Style)Browser.FindResource("QuestTrackerScrollStyle");
-        _scrollWindow.Content=_scrollBar;
-        _scrollBar.ValueChanged+=(_,e)=>{if(!_updatingScroll){_firstQuestIndex=(int)Math.Round(e.NewValue);_dirty=true;}};
-        _scrollBar.PreviewMouseWheel+=(_,e)=>{_scrollBar.Value=Math.Clamp(_scrollBar.Value-Math.Sign(e.Delta),0,_scrollBar.Maximum);e.Handled=true;};
         _text.Content=_canvas;_canvas.Children.Add(_cards);
         _workspace.Changed+=Changed;Options.PropertyChanged+=VisualChanged;
         _timer.Tick+=(_,_)=>Tick();_timer.Start();
@@ -125,7 +116,6 @@ public sealed class QuestOverlayHost : IDisposable
     private void Changed()
     {
         _dirty=true;
-        if(_scrollScope!=_workspace.ScopeCaption){_scrollScope=_workspace.ScopeCaption;_firstQuestIndex=0;}
         if(_choices is not null && !_workspace.Active.Any(r=>ReferenceEquals(r.Progress,_choiceEntry) && r.Progress.CurrentStep==_choiceStep))CloseChoices();
     }
     private void VisualChanged(object? sender,PropertyChangedEventArgs e)
@@ -168,9 +158,8 @@ public sealed class QuestOverlayHost : IDisposable
             .Concat(controls.Where(w=>w is DatabaseOverlayWindow or DatabaseDetailWindow).Select(w=>QuestWindowNative.Bounds(new WindowInteropHelper(w).Handle)))
             .Concat(Browser.IsVisible?[QuestWindowNative.Bounds(new WindowInteropHelper(Browser).Handle)]:[])
             .Where(r=>!r.IsEmpty).ToArray();
-        _canvas.Clip=OverlayOcclusion.CreateClip(new Size(_canvas.Width,_canvas.Height),excluded.Select(r=>
-            new Rect((r.X-_gamePixels.X)/_dpi,(r.Y-_gamePixels.Y)/_dpi,r.Width/_dpi,r.Height/_dpi)));
         if(!_text.IsVisible)_text.Show();QuestWindowNative.Place(_text,_gamePixels,promote);
+        _canvas.UpdateLayout();_canvas.Clip=QuestWindowNative.ExclusionClip(_canvas,new Size(_canvas.Width,_canvas.Height),excluded);
         var scale=Options.Scale*_dpi;
         foreach(var (window,y) in _actions)
         {
@@ -178,20 +167,11 @@ public sealed class QuestOverlayHost : IDisposable
             var inside=_gamePixels.Contains(rect);
             // Clip only the covered pixels. A wide transparent strip can intersect
             // the browser even when all its painted buttons are still to the left.
-            if(window.Content is FrameworkElement content)
-                content.Clip=OverlayOcclusion.CreateClip(new Size(Options.Width,24),excluded.Select(r=>
-                    new Rect((r.X-rect.X)/scale,(r.Y-rect.Y)/scale,r.Width/scale,r.Height/scale)));
             if(!inside || !Options.ShowButtons) {window.Hide();continue;}
             if(!window.IsVisible)window.Show();QuestWindowNative.Place(window,rect,promote);
+            if(window.Content is FrameworkElement content)
+            {content.UpdateLayout();content.Clip=QuestWindowNative.ExclusionClip(content,new Size(Options.Width,24),excluded);}
         }
-        if(_scrollBar.Maximum>0 && Options.ShowButtons)
-        {
-            var scrollRect=new Rect(_gamePixels.X+Options.X*_dpi+(Options.Width+3)*scale,_gamePixels.Y+(Options.Y+28*Options.Scale)*_dpi,16*scale,Math.Max(40,_scrollHeight)*scale);
-            _scrollBar.LayoutTransform=new ScaleTransform(Options.Scale,Options.Scale);
-            _scrollBar.Clip=OverlayOcclusion.CreateClip(new Size(16,Math.Max(40,_scrollHeight)),excluded.Select(r=>new Rect((r.X-scrollRect.X)/scale,(r.Y-scrollRect.Y)/scale,r.Width/scale,r.Height/scale)));
-            if(_gamePixels.Contains(scrollRect)){if(!_scrollWindow.IsVisible)_scrollWindow.Show();QuestWindowNative.Place(_scrollWindow,scrollRect,promote);}else _scrollWindow.Hide();
-        }
-        else _scrollWindow.Hide();
         if(_choices is not null)
         {
             if(!gameActive && !browserActive)CloseChoices();
@@ -244,11 +224,7 @@ public sealed class QuestOverlayHost : IDisposable
         _actions.Add((headerStrip,0));_cards.Children.Add(new Border {Height=28});
         var y=28d;var count=0;
         var visibleRows=_workspace.Active.Where(q=>q.Progress.IsVisibleInOverlay).ToList();
-        var available=Math.Max(40,(_gamePixels.Height/_dpi-Options.Y)/Options.Scale-32);
-        var maximumCardHeight=(Options.FontSize+3)*(1+Options.DescriptionLines+(Options.ShowCoordinates?2:0))+9+(Options.ShowButtons?24:0)+Options.CardGap;
-        var pageCapacity=Math.Clamp((int)Math.Floor(available/maximumCardHeight),1,Options.MaxTrackedQuests);
-        _firstQuestIndex=Math.Clamp(_firstQuestIndex,0,Math.Max(0,visibleRows.Count-pageCapacity));
-        foreach(var row in visibleRows.Skip(_firstQuestIndex))
+        foreach(var row in visibleRows)
         {
             if(count>=Options.MaxTrackedQuests)break;
             // Only rows that fit the client are exposed. The final More action opens the full list.
@@ -303,16 +279,8 @@ public sealed class QuestOverlayHost : IDisposable
             }
             _cards.Children.Add(new Border {Height=Options.CardGap});y+=textHeight+(Options.ShowButtons?24:0)+Options.CardGap;count++;
         }
-        _scrollHeight=Math.Min(available,maximumCardHeight*Options.MaxTrackedQuests);
         _canvas.Children.Remove(oldCards);_canvas.Children.Add(_cards);
         for(var i=_actionSlot;i<_actionPool.Count;i++)_actionPool[i].Hide();
-        _updatingScroll=true;
-        try
-        {
-            _scrollBar.Maximum=Math.Max(0,visibleRows.Count-pageCapacity);_scrollBar.ViewportSize=pageCapacity;
-            if(!_scrollBar.IsMouseCaptureWithin)_scrollBar.Value=Math.Min(_firstQuestIndex,_scrollBar.Maximum);
-        }
-        finally{_updatingScroll=false;}
         _dirty=false;
     }
     private TextBlock Label(string value,Brush color,bool bold=false)=>new()
@@ -353,17 +321,16 @@ public sealed class QuestOverlayHost : IDisposable
     }
     private void CloseChoices(){_choices?.Close();_choices=null;}
     private void HideTracker()
-    {EndDrag();_scrollWindow.Hide();_text.Hide();foreach(var a in _actions)a.Window.Hide();CloseChoices();}
+    {EndDrag();_text.Hide();foreach(var a in _actions)a.Window.Hide();CloseChoices();}
     private void HideSurfaces(){Browser.Hide();HideTracker();KeyboardModeChanged?.Invoke();}
     internal void RefreshNow()=>Tick();
     internal IReadOnlyList<QuestPassiveWindow> ActionWindows=>_actions.Select(a=>a.Window).ToList();
     internal QuestPassiveWindow TextWindow=>_text;
-    internal ScrollBar TrackerScrollBar=>_scrollBar;
     internal QuestPassiveWindow? TargetChooser=>_choices;
     public void Dispose()
     {
         if(_disposed)return;_disposed=true;_timer.Stop();EndDrag();_workspace.Changed-=Changed;Options.PropertyChanged-=VisualChanged;
-        CloseChoices();foreach(var window in _actionPool)window.Close();_actionPool.Clear();_actions.Clear();_scrollWindow.Close();_text.Close();
+        CloseChoices();foreach(var window in _actionPool)window.Close();_actionPool.Clear();_actions.Clear();_text.Close();
         Browser.ClosingPermanently=true;Browser.Close();KeyboardModeChanged?.Invoke();
     }
 }

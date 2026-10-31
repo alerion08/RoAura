@@ -100,6 +100,18 @@ internal static class QuestInputSmoke
                 var more=((StackPanel)moreStrip.Content).Children.OfType<Button>().Single(b=>Equals(b.Content,"More"));
                 Click(more.PointToScreen(new Point(more.ActualWidth/2,more.ActualHeight/2)));
                 await Until(()=>host.BrowserShowing && host.Browser.Page.CurrentStepInView,"More opens current instruction from Facts");
+                var oldBrowserWidth=workspace.Settings.QuestOverlay.BrowserWidth;var oldBrowserX=workspace.Settings.QuestOverlay.BrowserX;
+                workspace.Settings.QuestOverlay.BrowserWidth=760;workspace.Settings.QuestOverlay.BrowserX=100;
+                var transformedCanvas=(Canvas)host.TextWindow.Content;
+                transformedCanvas.RenderTransform=new System.Windows.Media.ScaleTransform(1.25,1.25);
+                host.RefreshNow();await Pause();host.RefreshNow();
+                var browserBounds=QuestWindowNative.Bounds(new WindowInteropHelper(host.Browser).Handle);
+                var inside=new Point(browserBounds.Left+4,browserBounds.Top+80);var outside=new Point(browserBounds.Left-12,browserBounds.Top+80);
+                if(transformedCanvas.Clip?.FillContains(transformedCanvas.PointFromScreen(inside))!=false ||
+                    (transformedCanvas.Clip?.FillContains(transformedCanvas.PointFromScreen(outside))??true)!=true)
+                    throw new InvalidOperationException("Tracker clip does not follow its actual WPF transform.");
+                transformedCanvas.RenderTransform=System.Windows.Media.Transform.Identity;
+                workspace.Settings.QuestOverlay.BrowserWidth=oldBrowserWidth;workspace.Settings.QuestOverlay.BrowserX=oldBrowserX;host.RefreshNow();
                 host.HideBrowser(true);await Pause();
                 foreach(var vk in new ushort[]{0x10,0x11,0x12}) {Key(vk,true);await Pause(50);Key(vk,false);await Pause(50);}
                 Key(0x41,true);Key(0x41,false);
@@ -157,21 +169,7 @@ internal static class QuestInputSmoke
                 workspace.Settings.QuestOverlay.MaxTrackedQuests=1;host.RefreshNow();
                 if(host.ActionWindows.Count(w=>((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"More")))!=1)
                     throw new InvalidOperationException("Tracker quest limit was not applied.");
-                if(host.TrackerScrollBar.Maximum<1)throw new InvalidOperationException("Tracker overflow has no scrollbar.");
-                await Pause();
-                var scrollbar=host.TrackerScrollBar;
-                var track=(Track)scrollbar.Template.FindName("PART_Track",scrollbar);
-                var thumb=track.Thumb;var originalThumbHeight=thumb.ActualHeight;var originalTrackHeight=scrollbar.ActualHeight;
-                var thumbCenter=thumb.PointToScreen(new Point(thumb.ActualWidth/2,thumb.ActualHeight/2));
-                SetCursorPos((int)thumbCenter.X,(int)thumbCenter.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});
-                await Pause(100);SetCursorPos((int)thumbCenter.X,(int)thumbCenter.Y+(int)Math.Max(60,track.ActualHeight));await Pause(180);
-                Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=4}}});
-                await Until(()=>scrollbar.Value>0.5,"native fixed-thumb scrollbar drag");host.RefreshNow();await Pause();
-                if(Math.Abs(thumb.ActualHeight-originalThumbHeight)>0.1 || Math.Abs(scrollbar.ActualHeight-originalTrackHeight)>0.1)
-                    throw new InvalidOperationException("Tracker thumb/track changed size while scrolling.");
-                if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("Tracker scrollbar stole focus.");
-                SaveDesktop(host.TextWindow,"tracker-scrolled-native");
-                host.TrackerScrollBar.Value=0;workspace.Settings.QuestOverlay.MaxTrackedQuests=oldLimit;host.RefreshNow();
+                workspace.Settings.QuestOverlay.MaxTrackedQuests=oldLimit;host.RefreshNow();
                 ((App)Application.Current).ToggleDatabase();
                 var database=Application.Current.Windows.OfType<DatabaseOverlayWindow>().Single();
                 await Until(()=>database.IsDatabaseOpen && database.IsVisible,"database priority open");

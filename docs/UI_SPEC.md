@@ -385,3 +385,25 @@ category, base level and stage count. RU wording is now этапов, EN steps.
 A generated edit of the exact selected screenshot is a styling reference only;
 shipped tags are WPF controls and are validated in actual app captures.
 Automated validation passed: 307 tests, eight ToC checks and Windows portable startup; real SpringRO/mixed-DPI acceptance remains open.
+
+## ROQuestie actual-visual clipping, whitespace waypoints and no scrollbar (2026-10-31)
+
+Owner supersedes scrolling: tracker shows at most the configured first 1–5 quests;
+all others remain in the browser. Scroll HWND, template, state and input path are
+removed. Pooled tracker surfaces remain to avoid destruction/recreation flicker.
+Tracker masks now convert physical control-window rectangles through each actual
+WPF visual's PointFromScreen (including its own DPI/layout/render transforms),
+instead of dividing them by the game HWND DPI. This fixes premature clipping when
+game and WPF scales differ. The native smoke includes a transformed visual mask
+regression with points just inside/outside the browser edge.
+Research head was checked: 48c9dd28b9c0986ae391f31939fc8961772fbdf7 only changes
+README/enrich.py/test_enrich.py, not the shipped schema-v5 SQLite. The integration
+contract is unchanged. The application supplements literal wiki locations at read
+time using that parser's qualified map+X/Y rule, accepting comma or whitespace.
+Map names are checked against sourced NPC/map identifiers or the parser's map-code
+and navigation-context rule; numeric prose and bare cells never get guessed maps.
+Source NPC map identifiers are a whitelist only, not NPC-position verification.
+Bounds, deduplication and original assurance remain; no script candidates/progress
+are promoted. The pinned catalog remains read-only and research is not modified.
+Focused tests cover niflheim/nif_in and rejection cases plus catalog immutability.
+Automated validation pending; real SpringRO/mixed-DPI acceptance remains open.
