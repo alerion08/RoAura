@@ -1,0 +1,413 @@
+{
+  "quest_id": "irowiki-classic:Hugel_Memory_Quest",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Complete preserved guide prose and pinned HTML; not human/server verification",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Manainne"
+    },
+    {
+      "type": "npc",
+      "name": "El Schatt"
+    },
+    {
+      "type": "npc",
+      "name": "Perfitz"
+    },
+    {
+      "type": "npc",
+      "name": "Kanainne"
+    },
+    {
+      "type": "map",
+      "name": "Hugel"
+    },
+    {
+      "type": "map",
+      "name": "Nifflheim"
+    },
+    {
+      "type": "item",
+      "name": "Old Blue Box",
+      "game_id": 603,
+      "id_source": "http://db.irowiki.org/classic/item-info/603/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Walk past the tree in Hugel (196 169). A dialogue will pop up saying \"For some reason you feel very warm, safe ....\"",
+      "instruction_sha256": "0cdfe344b2429e81a0afb7bf4f14dcc34c23bb8faa627ed38722e3dd0dcf6f12",
+      "goal": "trigger_dialogue",
+      "short_ru": "Пройдите мимо дерева в Hugel (196 169).",
+      "short_en": "Walk past the tree in Hugel (196 169).",
+      "full_ru": "Пройдите мимо дерева в Hugel (196 169). Появится реплика «For some reason you feel very warm, safe ....».",
+      "full_en": "Walk past the tree in Hugel (196 169). A dialogue will pop up saying \"For some reason you feel very warm, safe ....\"",
+      "protected_names": [
+        "Hugel"
+      ],
+      "locations": [
+        {
+          "entity": "Hugel",
+          "x": 196,
+          "y": 169,
+          "role": "trigger",
+          "known": false
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk",
+          "entity": "Hugel",
+          "condition": null
+        }
+      ],
+      "dialogues": [
+        {
+          "text": "For some reason you feel very warm, safe ....",
+          "options": []
+        }
+      ],
+      "step_id": "irowiki-classic:Hugel_Memory_Quest/step/0cdfe344b2429e81a0af/1"
+    },
+    "2": {
+      "original_instruction": "Talk to Manainne in Hugel (191 172) and find that she is sad because El Schatt wishes to cut down the Tree Of Memory.",
+      "instruction_sha256": "ac89ad63f2bab51f376ed35887a129de684e56a6c755f817fef80e585547a1d0",
+      "goal": "talk",
+      "short_ru": "Поговорите с Manainne в Hugel (191 172).",
+      "short_en": "Talk to Manainne in Hugel (191 172).",
+      "full_ru": "Поговорите с Manainne в Hugel (191 172). Она расстроена, потому что El Schatt собирается срубить Tree Of Memory.",
+      "full_en": "Talk to Manainne in Hugel (191 172) and find that she is sad because El Schatt wishes to cut down the Tree Of Memory.",
+      "protected_names": [
+        "Manainne",
+        "El Schatt",
+        "Hugel"
+      ],
+      "npcs": [
+        "Manainne",
+        {
+          "entity": "El Schatt",
+          "role": "mentioned"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Hugel",
+          "x": 191,
+          "y": 172,
+          "role": "npc",
+          "known": false
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Manainne",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Hugel_Memory_Quest/step/ac89ad63f2bab51f376e/1"
+    },
+    "3": {
+      "original_instruction": "Talk to El Schatt in Hugel (196 164) and learn that his father plans on developing the area.",
+      "instruction_sha256": "e6778c9fcf1bd0bb42bf28280db4531518f4f6c79f64371fa2a1c20f31342560",
+      "goal": "talk",
+      "short_ru": "Поговорите с El Schatt в Hugel (196 164).",
+      "short_en": "Talk to El Schatt in Hugel (196 164).",
+      "full_ru": "Поговорите с El Schatt в Hugel (196 164): вы узнаете, что его отец планирует застроить эту территорию.",
+      "full_en": "Talk to El Schatt in Hugel (196 164) and learn that his father plans on developing the area.",
+      "protected_names": [
+        "El Schatt",
+        "Hugel"
+      ],
+      "npcs": [
+        "El Schatt"
+      ],
+      "locations": [
+        {
+          "entity": "Hugel",
+          "x": 196,
+          "y": 164,
+          "role": "npc",
+          "known": false
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "El Schatt",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Hugel_Memory_Quest/step/e6778c9fcf1bd0bb42bf/1"
+    },
+    "4": {
+      "original_instruction": "Talk to Perfitz in Hugel (100 103) and he will explain that El Schatt has changed.",
+      "instruction_sha256": "414d5b23e21f266a7724aafbfe1a8939e6d4922715b08b782cd7923c759eb34c",
+      "goal": "talk",
+      "short_ru": "Поговорите с Perfitz в Hugel (100 103).",
+      "short_en": "Talk to Perfitz in Hugel (100 103).",
+      "full_ru": "Поговорите с Perfitz в Hugel (100 103). Он объяснит, что El Schatt изменился.",
+      "full_en": "Talk to Perfitz in Hugel (100 103) and he will explain that El Schatt has changed.",
+      "protected_names": [
+        "El Schatt",
+        "Perfitz",
+        "Hugel"
+      ],
+      "npcs": [
+        "Perfitz",
+        {
+          "entity": "El Schatt",
+          "role": "mentioned"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Hugel",
+          "x": 100,
+          "y": 103,
+          "role": "npc",
+          "known": false
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Perfitz",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Hugel_Memory_Quest/step/414d5b23e21f266a7724/1"
+    },
+    "5": {
+      "original_instruction": "Return to El Schatt. He will say that he will not change his mind on cutting down the tree.",
+      "instruction_sha256": "885baa3402f7aaa071d797486e32a82b78f11ac758094b642834f6e44b454f93",
+      "goal": "return",
+      "short_ru": "Вернитесь к El Schatt.",
+      "short_en": "Return to El Schatt.",
+      "full_ru": "Вернитесь к El Schatt. Он скажет, что не собирается менять решение и всё ещё намерен срубить дерево.",
+      "full_en": "Return to El Schatt. He will say that he will not change his mind on cutting down the tree.",
+      "protected_names": [
+        "El Schatt"
+      ],
+      "npcs": [
+        {
+          "entity": "El Schatt",
+          "role": "return"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return",
+          "entity": "El Schatt",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Hugel_Memory_Quest/step/885baa3402f7aaa071d7/1"
+    },
+    "6": {
+      "original_instruction": "Talk to Manainne and find out that her dead away sister used to date El Schatt.",
+      "instruction_sha256": "f3b99a2c81919a97e213048dcac417acdc3d001808597fa8d3d0e0436c2873b5",
+      "goal": "talk",
+      "short_ru": "Поговорите с Manainne о её умершей сестре.",
+      "short_en": "Talk to Manainne about her late sister.",
+      "full_ru": "Поговорите с Manainne: вы узнаете, что её умершая сестра встречалась с El Schatt.",
+      "full_en": "Talk to Manainne and find out that her dead away sister used to date El Schatt.",
+      "protected_names": [
+        "Manainne",
+        "El Schatt"
+      ],
+      "npcs": [
+        "Manainne",
+        {
+          "entity": "El Schatt",
+          "role": "mentioned"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Manainne",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Hugel_Memory_Quest/step/f3b99a2c81919a97e213/1"
+    },
+    "7": {
+      "original_instruction": "Go to Nifflheim and find the spirit of Kanainne in town (90 106). She wishes to use her sister's body to influence El Schatt. After you've finished speaking with her she teleports you back to Hugel.",
+      "instruction_sha256": "37772ac73575aba10e99a94ddce369a34bedf5e6fd12e90fe70dc36b8642eec7",
+      "goal": "talk_and_warp",
+      "short_ru": "Найдите дух Kanainne в Nifflheim (90 106); после разговора она перенесёт вас в Hugel.",
+      "short_en": "Find Kanainne in Nifflheim (90 106); after the conversation she warps you to Hugel.",
+      "full_ru": "Идите в Nifflheim и найдите в городе дух Kanainne (90 106). Она хочет использовать тело сестры, чтобы повлиять на El Schatt. После разговора она перенесёт вас обратно в Hugel.",
+      "full_en": "Go to Nifflheim and find the spirit of Kanainne in town (90 106). She wishes to use her sister's body to influence El Schatt. After you've finished speaking with her she teleports you back to Hugel.",
+      "protected_names": [
+        "El Schatt",
+        "Kanainne",
+        "Hugel",
+        "Nifflheim"
+      ],
+      "npcs": [
+        "Kanainne",
+        {
+          "entity": "El Schatt",
+          "role": "mentioned"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Nifflheim",
+          "x": 90,
+          "y": 106,
+          "role": "npc",
+          "known": false
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kanainne",
+          "condition": null
+        },
+        {
+          "operation": "warp",
+          "entity": "Hugel",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Hugel_Memory_Quest/step/37772ac73575aba10e99/1"
+    },
+    "8": {
+      "original_instruction": "Talk to Manainne many times until her sister possesses her body.",
+      "instruction_sha256": "a5dd98603b0772df635257c7b9f2efbc31b127de9545653aa604e63f446779aa",
+      "goal": "repeat_talk",
+      "short_ru": "Говорите с Manainne, пока в неё не вселится сестра.",
+      "short_en": "Talk to Manainne repeatedly until her sister possesses her.",
+      "full_ru": "Поговорите с Manainne несколько раз, пока её сестра не вселится в её тело.",
+      "full_en": "Talk to Manainne many times until her sister possesses her body.",
+      "protected_names": [
+        "Manainne"
+      ],
+      "npcs": [
+        "Manainne"
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Manainne",
+          "condition": "Repeat until possession."
+        }
+      ],
+      "step_id": "irowiki-classic:Hugel_Memory_Quest/step/a5dd98603b0772df6352/1"
+    },
+    "9": {
+      "original_instruction": "Using Manainne's body, Kanainne talks to El Schatt.",
+      "instruction_sha256": "59de2e3f554a62442dd3fe8b0fffa2c3cc2dd82a1bb50591bbcb80c5a7718d0a",
+      "goal": "observe_dialogue",
+      "short_ru": "Проследите за разговором Kanainne в теле Manainne с El Schatt.",
+      "short_en": "Observe Kanainne, in Manainne’s body, talking to El Schatt.",
+      "full_ru": "Используя тело Manainne, Kanainne разговаривает с El Schatt.",
+      "full_en": "Using Manainne's body, Kanainne talks to El Schatt.",
+      "protected_names": [
+        "Manainne",
+        "El Schatt",
+        "Kanainne"
+      ],
+      "npcs": [
+        {
+          "entity": "Manainne",
+          "role": "dialogue_participant"
+        },
+        {
+          "entity": "Kanainne",
+          "role": "dialogue_participant"
+        },
+        {
+          "entity": "El Schatt",
+          "role": "dialogue_participant"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "observe_dialogue",
+          "entity": null,
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Hugel_Memory_Quest/step/59de2e3f554a62442dd3/1"
+    },
+    "10": {
+      "original_instruction": "El Schatt finally realizes that Kanainne is talking to him and gives up cutting the trees down.",
+      "instruction_sha256": "7d1600cf8c29d9e1921b30bae5de8cbaef618d7c4cb0a25e1b0e44280d4af455",
+      "goal": "observe_outcome",
+      "short_ru": "Дождитесь, пока El Schatt откажется рубить деревья.",
+      "short_en": "Wait for El Schatt to give up cutting down the trees.",
+      "full_ru": "El Schatt наконец понимает, что с ним говорит Kanainne, и отказывается рубить деревья.",
+      "full_en": "El Schatt finally realizes that Kanainne is talking to him and gives up cutting the trees down.",
+      "protected_names": [
+        "El Schatt",
+        "Kanainne"
+      ],
+      "npcs": [
+        {
+          "entity": "El Schatt",
+          "role": "dialogue_participant"
+        },
+        {
+          "entity": "Kanainne",
+          "role": "dialogue_participant"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "observe_outcome",
+          "entity": null,
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Hugel_Memory_Quest/step/7d1600cf8c29d9e1921b/1"
+    },
+    "11": {
+      "original_instruction": "Rewarded with 50,000 Base EXP and an Old Blue Box .",
+      "instruction_sha256": "66d914ccfb3be2fc2380fffbbef51c423bfa7aed8b7d69b3b9d35167243c4765",
+      "goal": "receive_reward",
+      "short_ru": "Получите 50,000 Base EXP и Old Blue Box.",
+      "short_en": "Receive 50,000 Base EXP and an Old Blue Box.",
+      "full_ru": "Получите награду: 50,000 Base EXP и Old Blue Box.",
+      "full_en": "Rewarded with 50,000 Base EXP and an Old Blue Box .",
+      "protected_names": [
+        "Old Blue Box"
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "50000",
+          "entity": null,
+          "condition": null
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Blue Box",
+          "condition": null
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_reward",
+          "entity": null,
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Hugel_Memory_Quest/step/66d914ccfb3be2fc2380/1"
+    }
+  },
+  "reviews": [
+    {
+      "reason": "map_codes_unconfirmed",
+      "detail": "Guide uses Hugel/Nifflheim display names; exact map codes and server coordinates remain unconfirmed. No fabricated codes."
+    }
+  ],
+  "source_sha256": "fe9b07fbf6cc44d0243ea5921af2e92b57656aba5150bde30d34b849ac89132f",
+  "snapshot_sha256": "674185db542a431783b9f76e20177b7095528deaee863809823a93fd8afdfa09"
+}

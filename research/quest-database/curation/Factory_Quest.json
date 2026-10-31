@@ -1,0 +1,534 @@
+{
+  "quest_id": "irowiki-classic:Factory_Quest",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Complete preserved guide prose and pinned HTML; not human/server verification",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Zelmeto"
+    },
+    {
+      "type": "npc",
+      "name": "Liotzburg"
+    },
+    {
+      "type": "npc",
+      "name": "2nd Control Panel"
+    },
+    {
+      "type": "npc",
+      "name": "3rd Pressure Governor"
+    },
+    {
+      "type": "npc",
+      "name": "Main Control Panel"
+    },
+    {
+      "type": "npc",
+      "name": "Conveyor (Small)"
+    },
+    {
+      "type": "npc",
+      "name": "Pipe"
+    },
+    {
+      "type": "npc",
+      "name": "Conveyor (Large)"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch",
+      "map_code": "einbroch"
+    },
+    {
+      "type": "map",
+      "name": "einbroch",
+      "map_code": "einbroch"
+    },
+    {
+      "type": "map",
+      "name": "ein_in01",
+      "map_code": "ein_in01"
+    },
+    {
+      "type": "map",
+      "name": "Juperos"
+    },
+    {
+      "type": "map",
+      "name": "Biolabs"
+    },
+    {
+      "type": "item",
+      "name": "Flexible Tube",
+      "game_id": 7325,
+      "id_source": "http://db.irowiki.org/classic/item-info/7325/"
+    },
+    {
+      "type": "item",
+      "name": "Rusty Screw",
+      "game_id": 7317,
+      "id_source": "http://db.irowiki.org/classic/item-info/7317/"
+    },
+    {
+      "type": "item",
+      "name": "Used Iron Plate",
+      "game_id": 7319,
+      "id_source": "http://db.irowiki.org/classic/item-info/7319/"
+    },
+    {
+      "type": "monster",
+      "name": "Metaling"
+    },
+    {
+      "type": "monster",
+      "name": "Teddy Bear"
+    },
+    {
+      "type": "monster",
+      "name": "Old Stove"
+    },
+    {
+      "type": "monster",
+      "name": "Remover"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Inside the Einbroch Factory (the factory is located at the center bottom of the city Einbroch 179, 70), there is a friendly factory supervisor, Zelmeto ((ein_in01): 67, 242). He'll talks about the hardship and under staffing in the factory. After deciding to help him, he suggests inspecting parts of the factory.",
+      "instruction_sha256": "37400a7228f962ffa9d63a92f1eadfb0b5f2f7ac4ee2b7af4b7f6a72ac5f386e",
+      "goal": "talk",
+      "short_ru": "Найдите Zelmeto внутри фабрики Einbroch (ein_in01: 67, 242) и согласитесь помочь.",
+      "short_en": "Find Zelmeto inside the Einbroch Factory (ein_in01: 67, 242) and agree to help.",
+      "full_ru": "Войдите на фабрику Einbroch в нижней центральной части города (Einbroch 179, 70). Внутри находится дружелюбный начальник смены Zelmeto ((ein_in01): 67, 242). Он расскажет о тяжёлых условиях и нехватке работников. Согласитесь помочь: он предложит осмотреть части фабрики.",
+      "full_en": "Inside the Einbroch Factory (the factory is located at the center bottom of the city Einbroch 179, 70), there is a friendly factory supervisor, Zelmeto ((ein_in01): 67, 242). He'll talks about the hardship and under staffing in the factory. After deciding to help him, he suggests inspecting parts of the factory.",
+      "protected_names": [
+        "Zelmeto",
+        "Einbroch",
+        "ein_in01"
+      ],
+      "npcs": [
+        "Zelmeto"
+      ],
+      "locations": [
+        {
+          "entity": "Einbroch",
+          "x": 179,
+          "y": 70,
+          "role": "entrance",
+          "known": false
+        },
+        {
+          "entity": "ein_in01",
+          "x": 67,
+          "y": 242,
+          "role": "npc",
+          "known": true
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Zelmeto",
+          "condition": null
+        },
+        {
+          "operation": "agree_to_help",
+          "entity": null,
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Factory_Quest/step/37400a7228f962ffa9d6/1"
+    },
+    "2": {
+      "original_instruction": "He speaks of the parts that need examining. Check each one then return to him before checking the next. | 2nd Control Panel: Inside Einbroch (ein_in01): 48, 231 | 3rd Pressure Governor: Inside Einbroch (ein_in01): 107, 216 | Main Control Panel: Inside Einbroch (ein_in01): 61, 257 | Conveyor (Small): Inside Einbroch (ein_in01): 45, 196 | Pipe: Inside Einbroch (ein_in01): 100, 265 (to the left of these coordinates) | Conveyor (Large): Inside Einbroch (ein_in01): 95, 234",
+      "instruction_sha256": "2c349187f3f9f1311da04d20a931530e58337eed14add724bcca52b2e416f36d",
+      "goal": "inspect_and_return",
+      "short_ru": "Проверьте шесть частей фабрики в указанном порядке; после каждой возвращайтесь к Zelmeto.",
+      "short_en": "Inspect the six factory parts in order, returning to Zelmeto after each.",
+      "full_ru": "Он перечислит части, которые нужно осмотреть. Проверяйте их по одной и каждый раз возвращайтесь к нему перед следующей проверкой. Порядок: 2nd Control Panel — внутри Einbroch (ein_in01): 48, 231; 3rd Pressure Governor — внутри Einbroch (ein_in01): 107, 216; Main Control Panel — внутри Einbroch (ein_in01): 61, 257; Conveyor (Small) — внутри Einbroch (ein_in01): 45, 196; Pipe — внутри Einbroch (ein_in01): 100, 265 (слева от этой точки); Conveyor (Large) — внутри Einbroch (ein_in01): 95, 234.",
+      "full_en": "He speaks of the parts that need examining. Check each one then return to him before checking the next. | 2nd Control Panel: Inside Einbroch (ein_in01): 48, 231 | 3rd Pressure Governor: Inside Einbroch (ein_in01): 107, 216 | Main Control Panel: Inside Einbroch (ein_in01): 61, 257 | Conveyor (Small): Inside Einbroch (ein_in01): 45, 196 | Pipe: Inside Einbroch (ein_in01): 100, 265 (to the left of these coordinates) | Conveyor (Large): Inside Einbroch (ein_in01): 95, 234",
+      "protected_names": [
+        "2nd Control Panel",
+        "3rd Pressure Governor",
+        "Main Control Panel",
+        "Conveyor (Small)",
+        "Pipe",
+        "Conveyor (Large)",
+        "Einbroch",
+        "ein_in01"
+      ],
+      "npcs": [
+        {
+          "entity": "Zelmeto",
+          "role": "return",
+          "support_step": 1,
+          "evidence": "Inside the Einbroch Factory (the factory is located at the center bottom of the city Einbroch 179, 70), there is a friendly factory supervisor, Zelmeto ((ein_in01): 67, 242). He'll talks about the hardship and under staffing in the factory. After deciding to help him, he suggests inspecting parts of the factory."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "ein_in01",
+          "x": 48,
+          "y": 231,
+          "role": "inspection",
+          "known": true
+        },
+        {
+          "entity": "ein_in01",
+          "x": 107,
+          "y": 216,
+          "role": "inspection",
+          "known": true
+        },
+        {
+          "entity": "ein_in01",
+          "x": 61,
+          "y": 257,
+          "role": "inspection",
+          "known": true
+        },
+        {
+          "entity": "ein_in01",
+          "x": 45,
+          "y": 196,
+          "role": "inspection",
+          "known": true
+        },
+        {
+          "entity": "ein_in01",
+          "x": 100,
+          "y": 265,
+          "role": "inspection",
+          "known": true
+        },
+        {
+          "entity": "ein_in01",
+          "x": 95,
+          "y": 234,
+          "role": "inspection",
+          "known": true
+        }
+      ],
+      "actions": [
+        {
+          "operation": "inspect",
+          "entity": "2nd Control Panel",
+          "condition": null
+        },
+        {
+          "operation": "return",
+          "entity": "Zelmeto",
+          "condition": null,
+          "support_step": 1,
+          "evidence": "Inside the Einbroch Factory (the factory is located at the center bottom of the city Einbroch 179, 70), there is a friendly factory supervisor, Zelmeto ((ein_in01): 67, 242). He'll talks about the hardship and under staffing in the factory. After deciding to help him, he suggests inspecting parts of the factory."
+        },
+        {
+          "operation": "inspect",
+          "entity": "3rd Pressure Governor",
+          "condition": null
+        },
+        {
+          "operation": "return",
+          "entity": "Zelmeto",
+          "condition": null,
+          "support_step": 1,
+          "evidence": "Inside the Einbroch Factory (the factory is located at the center bottom of the city Einbroch 179, 70), there is a friendly factory supervisor, Zelmeto ((ein_in01): 67, 242). He'll talks about the hardship and under staffing in the factory. After deciding to help him, he suggests inspecting parts of the factory."
+        },
+        {
+          "operation": "inspect",
+          "entity": "Main Control Panel",
+          "condition": null
+        },
+        {
+          "operation": "return",
+          "entity": "Zelmeto",
+          "condition": null,
+          "support_step": 1,
+          "evidence": "Inside the Einbroch Factory (the factory is located at the center bottom of the city Einbroch 179, 70), there is a friendly factory supervisor, Zelmeto ((ein_in01): 67, 242). He'll talks about the hardship and under staffing in the factory. After deciding to help him, he suggests inspecting parts of the factory."
+        },
+        {
+          "operation": "inspect",
+          "entity": "Conveyor (Small)",
+          "condition": null
+        },
+        {
+          "operation": "return",
+          "entity": "Zelmeto",
+          "condition": null,
+          "support_step": 1,
+          "evidence": "Inside the Einbroch Factory (the factory is located at the center bottom of the city Einbroch 179, 70), there is a friendly factory supervisor, Zelmeto ((ein_in01): 67, 242). He'll talks about the hardship and under staffing in the factory. After deciding to help him, he suggests inspecting parts of the factory."
+        },
+        {
+          "operation": "inspect",
+          "entity": "Pipe",
+          "condition": null
+        },
+        {
+          "operation": "return",
+          "entity": "Zelmeto",
+          "condition": null,
+          "support_step": 1,
+          "evidence": "Inside the Einbroch Factory (the factory is located at the center bottom of the city Einbroch 179, 70), there is a friendly factory supervisor, Zelmeto ((ein_in01): 67, 242). He'll talks about the hardship and under staffing in the factory. After deciding to help him, he suggests inspecting parts of the factory."
+        },
+        {
+          "operation": "inspect",
+          "entity": "Conveyor (Large)",
+          "condition": null
+        },
+        {
+          "operation": "return",
+          "entity": "Zelmeto",
+          "condition": null,
+          "support_step": 1,
+          "evidence": "Inside the Einbroch Factory (the factory is located at the center bottom of the city Einbroch 179, 70), there is a friendly factory supervisor, Zelmeto ((ein_in01): 67, 242). He'll talks about the hardship and under staffing in the factory. After deciding to help him, he suggests inspecting parts of the factory."
+        }
+      ],
+      "step_id": "irowiki-classic:Factory_Quest/step/2c349187f3f9f1311da0/1"
+    },
+    "3": {
+      "original_instruction": "Zelmeto will talk to the manager and request that the parts be fixed. Head out the back entrance to the factory to find the big fat ugly Liotzburg ((einbroch): 132, 84). He is the factory manager, and reveals he's too stingy to use his money for the factory.",
+      "instruction_sha256": "e446b5b689cfbb776a1c9822490a43be3c51bc0567fbc89b0eec39989357b1a8",
+      "goal": "talk",
+      "short_ru": "Выйдите через задний выход и поговорите с Liotzburg (einbroch: 132, 84).",
+      "short_en": "Leave through the back entrance and talk to Liotzburg (einbroch: 132, 84).",
+      "full_ru": "Zelmeto поговорит с управляющим и попросит отремонтировать оборудование. Выйдите через задний выход фабрики и найдите Liotzburg ((einbroch): 132, 84). Источник описывает его как крупного, полного и некрасивого управляющего; он признаётся, что слишком скуп, чтобы тратить деньги на фабрику.",
+      "full_en": "Zelmeto will talk to the manager and request that the parts be fixed. Head out the back entrance to the factory to find the big fat ugly Liotzburg ((einbroch): 132, 84). He is the factory manager, and reveals he's too stingy to use his money for the factory.",
+      "protected_names": [
+        "Zelmeto",
+        "Liotzburg",
+        "einbroch"
+      ],
+      "npcs": [
+        {
+          "entity": "Zelmeto",
+          "role": "mentioned"
+        },
+        "Liotzburg"
+      ],
+      "locations": [
+        {
+          "entity": "einbroch",
+          "x": 132,
+          "y": 84,
+          "role": "npc",
+          "known": true
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Liotzburg",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Factory_Quest/step/e446b5b689cfbb776a1c/1"
+    },
+    "4": {
+      "original_instruction": "Go inside and find Zelmeto again. Zelmeto can fix the broken parts if he has 20 Flexible Tube (Metaling), 10 Rusty Screw (Juperos, Teddy Bear or Metaling) and 10 Used Iron Plate (Old Stove or Remover in Biolabs).",
+      "instruction_sha256": "9b40926997df62d6168bba94ee4dd407d3fc672bc0a5a277d2a8b6ab2a84d4ec",
+      "goal": "bring_materials",
+      "short_ru": "Вернитесь к Zelmeto: нужны 20 Flexible Tube, 10 Rusty Screw и 10 Used Iron Plate.",
+      "short_en": "Return to Zelmeto with 20 Flexible Tube, 10 Rusty Screw and 10 Used Iron Plate.",
+      "full_ru": "Вернитесь внутрь и снова найдите Zelmeto. Для ремонта ему нужны 20 Flexible Tube (Metaling), 10 Rusty Screw (Juperos, Teddy Bear или Metaling) и 10 Used Iron Plate (Old Stove или Remover в Biolabs).",
+      "full_en": "Go inside and find Zelmeto again. Zelmeto can fix the broken parts if he has 20 Flexible Tube (Metaling), 10 Rusty Screw (Juperos, Teddy Bear or Metaling) and 10 Used Iron Plate (Old Stove or Remover in Biolabs).",
+      "protected_names": [
+        "Zelmeto",
+        "Juperos",
+        "Biolabs",
+        "Flexible Tube",
+        "Rusty Screw",
+        "Used Iron Plate",
+        "Metaling",
+        "Teddy Bear",
+        "Old Stove",
+        "Remover"
+      ],
+      "npcs": [
+        "Zelmeto"
+      ],
+      "items": [
+        {
+          "entity": "Flexible Tube",
+          "operation": "bring",
+          "quantity": 20,
+          "required": 1
+        },
+        {
+          "entity": "Rusty Screw",
+          "operation": "bring",
+          "quantity": 10,
+          "required": 1
+        },
+        {
+          "entity": "Used Iron Plate",
+          "operation": "bring",
+          "quantity": 10,
+          "required": 1
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Metaling",
+          "operation": "loot_source",
+          "required": 0,
+          "condition": "Listed as a material source; no kill objective or count."
+        },
+        {
+          "entity": "Teddy Bear",
+          "operation": "loot_source",
+          "required": 0,
+          "condition": "Listed as a material source; no kill objective or count."
+        },
+        {
+          "entity": "Old Stove",
+          "operation": "loot_source",
+          "required": 0,
+          "condition": "Listed as a material source; no kill objective or count."
+        },
+        {
+          "entity": "Remover",
+          "operation": "loot_source",
+          "required": 0,
+          "condition": "Listed as a material source; no kill objective or count."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return",
+          "entity": "Zelmeto",
+          "condition": null
+        },
+        {
+          "operation": "collect",
+          "entity": "Flexible Tube",
+          "condition": null
+        },
+        {
+          "operation": "collect",
+          "entity": "Rusty Screw",
+          "condition": null
+        },
+        {
+          "operation": "collect",
+          "entity": "Used Iron Plate",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Factory_Quest/step/9b40926997df62d6168b/1"
+    },
+    "5": {
+      "original_instruction": "Give him the materials. After he fixes the part, he thanks the player and rewards them with some experience. | [Gained Experience] | Level 1-40 = 615 Exp | Level 41-50 = 3,075 Exp | Level 51-60 = 6,604 Exp | Level 61-70 = 18,508 Exp | Level 71-80 = 32,062 Exp | Level 81-90 = 76,026 Exp | Level 91-99 = 290,675 Exp",
+      "instruction_sha256": "09b92debed418ad8cd383776b59436ec7c0f611732704819428e6192724ba615",
+      "goal": "deliver_and_reward",
+      "short_ru": "Передайте материалы Zelmeto и получите Base EXP по уровню персонажа.",
+      "short_en": "Give Zelmeto the materials and receive level-dependent Base EXP.",
+      "full_ru": "Передайте ему материалы. После ремонта он поблагодарит вас и выдаст опыт. Получаемый опыт: уровень 1–40 = 615 Exp; уровень 41–50 = 3,075 Exp; уровень 51–60 = 6,604 Exp; уровень 61–70 = 18,508 Exp; уровень 71–80 = 32,062 Exp; уровень 81–90 = 76,026 Exp; уровень 91–99 = 290,675 Exp.",
+      "full_en": "Give him the materials. After he fixes the part, he thanks the player and rewards them with some experience. | [Gained Experience] | Level 1-40 = 615 Exp | Level 41-50 = 3,075 Exp | Level 51-60 = 6,604 Exp | Level 61-70 = 18,508 Exp | Level 71-80 = 32,062 Exp | Level 81-90 = 76,026 Exp | Level 91-99 = 290,675 Exp",
+      "protected_names": [],
+      "npcs": [
+        {
+          "entity": "Zelmeto",
+          "role": "deliver",
+          "support_step": 4,
+          "evidence": "Go inside and find Zelmeto again. Zelmeto can fix the broken parts if he has 20 Flexible Tube (Metaling), 10 Rusty Screw (Juperos, Teddy Bear or Metaling) and 10 Used Iron Plate (Old Stove or Remover in Biolabs)."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Flexible Tube",
+          "operation": "deliver",
+          "quantity": 20,
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Go inside and find Zelmeto again. Zelmeto can fix the broken parts if he has 20 Flexible Tube (Metaling), 10 Rusty Screw (Juperos, Teddy Bear or Metaling) and 10 Used Iron Plate (Old Stove or Remover in Biolabs)."
+        },
+        {
+          "entity": "Rusty Screw",
+          "operation": "deliver",
+          "quantity": 10,
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Go inside and find Zelmeto again. Zelmeto can fix the broken parts if he has 20 Flexible Tube (Metaling), 10 Rusty Screw (Juperos, Teddy Bear or Metaling) and 10 Used Iron Plate (Old Stove or Remover in Biolabs)."
+        },
+        {
+          "entity": "Used Iron Plate",
+          "operation": "deliver",
+          "quantity": 10,
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Go inside and find Zelmeto again. Zelmeto can fix the broken parts if he has 20 Flexible Tube (Metaling), 10 Rusty Screw (Juperos, Teddy Bear or Metaling) and 10 Used Iron Plate (Old Stove or Remover in Biolabs)."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "615",
+          "entity": null,
+          "condition": "Source step level range 1-40"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "3075",
+          "entity": null,
+          "condition": "Source step level range 41-50"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "6604",
+          "entity": null,
+          "condition": "Source step level range 51-60"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "18508",
+          "entity": null,
+          "condition": "Source step level range 61-70"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "32062",
+          "entity": null,
+          "condition": "Source step level range 71-80"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "76026",
+          "entity": null,
+          "condition": "Source step level range 81-90"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "290675",
+          "entity": null,
+          "condition": "Source step level range 91-99"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Zelmeto",
+          "condition": null,
+          "support_step": 4,
+          "evidence": "Go inside and find Zelmeto again. Zelmeto can fix the broken parts if he has 20 Flexible Tube (Metaling), 10 Rusty Screw (Juperos, Teddy Bear or Metaling) and 10 Used Iron Plate (Old Stove or Remover in Biolabs)."
+        },
+        {
+          "operation": "receive_reward",
+          "entity": null,
+          "condition": null
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "reward_range_conflict",
+          "detail": "Infobox uses level 1-41, step 5 uses 1-40. Retained step-specific values; boundary needs source review.",
+          "severity": "blocking"
+        }
+      ],
+      "step_id": "irowiki-classic:Factory_Quest/step/09b92debed418ad8cd38/1"
+    }
+  },
+  "reviews": [],
+  "source_sha256": "206dc5790684640681be65818c166b9f5150702cb25b7deac15f5c1b94ca0985",
+  "snapshot_sha256": "e1098f427ff83b5475f146becefc6e0db92fbecf2a9f56e06c65bd163698ee02"
+}

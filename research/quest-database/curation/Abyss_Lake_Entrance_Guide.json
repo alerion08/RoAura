@@ -1,0 +1,244 @@
+{
+  "quest_id": "irowiki-classic:Abyss_Lake_Entrance_Guide",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "8ec1ce6b1f45c277e7d717b14aeaf81ed85174846c49f2073e72c266e4dea55b",
+  "snapshot_sha256": "62335fb2f68f69d8db83a8de0784a9231cfb814d034609ee284ebdcbf42cd9fc",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Column",
+      "ref": "entrance_column"
+    },
+    {
+      "type": "npc",
+      "name": "Column",
+      "ref": "exit_column"
+    },
+    {
+      "type": "map",
+      "name": "Hugel Field 5"
+    },
+    {
+      "type": "map",
+      "name": "hu_fild05",
+      "map_code": "hu_fild05"
+    },
+    {
+      "type": "item",
+      "name": "Dragon Canine",
+      "game_id": 1035,
+      "id_source": "http://db.irowiki.org/classic/item-info/1035/"
+    },
+    {
+      "type": "item",
+      "name": "Dragon Scale",
+      "game_id": 1036,
+      "id_source": "http://db.irowiki.org/classic/item-info/1036/"
+    },
+    {
+      "type": "item",
+      "name": "Dragon Tail",
+      "game_id": 1037,
+      "id_source": "http://db.irowiki.org/classic/item-info/1037/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "On Hugel Field 5 talk to the Column ( hu_fild05 168, 303). Insert the Dragon Body Parts and you will be warped to the cave entrance which is on the island in the center of the map. Choosing the other option will cause you to eat the parts and lose 10% HP .",
+      "instruction_sha256": "1b84c6a5703dbb612f72b567a56f57afe422caca2ff5e9b86bfbd0de05ea18bc",
+      "step_id": "irowiki-classic:Abyss_Lake_Entrance_Guide/step/1b84c6a5703dbb612f72/1",
+      "goal": "deliver",
+      "short_ru": "У Column (hu_fild05 168, 303) вставьте Dragon Body Parts; другой вариант отнимает 10% HP.",
+      "short_en": "At Column (hu_fild05 168, 303), insert Dragon Body Parts; the other option costs 10% HP.",
+      "full_ru": "На Hugel Field 5 поговорите с Column (hu_fild05 168, 303). Вставьте Dragon Body Parts: вас перенесут ко входу в пещеру на острове в центре карты. Другой вариант заставит вас съесть эти части и потерять 10% HP.",
+      "full_en": "On Hugel Field 5 talk to the Column ( hu_fild05 168, 303). Insert the Dragon Body Parts and you will be warped to the cave entrance which is on the island in the center of the map. Choosing the other option will cause you to eat the parts and lose 10% HP .",
+      "npcs": [
+        {
+          "entity": "entrance_column",
+          "role": "talk"
+        }
+      ],
+      "mention_entities": {
+        "Column": "entrance_column"
+      },
+      "items": [
+        {
+          "entity": "Dragon Canine",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "The following items are required to open the entrance portal once: 1 Dragon Canine 1 Dragon Scale 1 Dragon Tail",
+          "condition": "Insert parts to open the portal; alternate option wastes them and costs HP."
+        },
+        {
+          "entity": "Dragon Scale",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "The following items are required to open the entrance portal once: 1 Dragon Canine 1 Dragon Scale 1 Dragon Tail",
+          "condition": "Insert parts to open the portal; alternate option wastes them and costs HP."
+        },
+        {
+          "entity": "Dragon Tail",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "The following items are required to open the entrance portal once: 1 Dragon Canine 1 Dragon Scale 1 Dragon Tail",
+          "condition": "Insert parts to open the portal; alternate option wastes them and costs HP."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "entrance_column"
+        },
+        {
+          "operation": "deliver"
+        },
+        {
+          "operation": "warp"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "menu_label_not_literal",
+          "detail": "Guide describes inserting versus eating parts but does not quote exact game menu labels; no invented correct-answer string."
+        }
+      ],
+      "protected_names": [
+        "Column",
+        "Column",
+        "Hugel Field 5",
+        "hu_fild05"
+      ],
+      "locations": [
+        {
+          "map": "hu_fild05",
+          "x": 168,
+          "y": 303,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "hu_fild05 168, 303"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "The entrance portal will only be open for 30 seconds. If you miss it you will have to bring more items and open the portal again.",
+      "instruction_sha256": "faab36c80d280c595e0050742e596dc927bad318705ac8e99da7b779a7631d7b",
+      "step_id": "irowiki-classic:Abyss_Lake_Entrance_Guide/step/faab36c80d280c595e00/1",
+      "goal": "enter",
+      "short_ru": "Войдите в портал за 30 секунд; иначе потребуются новые предметы.",
+      "short_en": "Enter within 30 seconds; otherwise bring another set of items.",
+      "full_ru": "Портал остаётся открытым только 30 секунд. Если не успеете, придётся принести новые предметы и открыть его снова.",
+      "full_en": "The entrance portal will only be open for 30 seconds. If you miss it you will have to bring more items and open the portal again.",
+      "requirements": [
+        {
+          "kind": "time_limit_seconds",
+          "amount": "30",
+          "condition": "Portal lifetime after activation."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter",
+          "condition": "Within 30 seconds of opening."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "When partying , most the party members can teleport to the island, while someone waits next to the column with the parts to activate the portal. (Note: the map can not be memoed )",
+      "instruction_sha256": "f3f07ac5d6ee847eb6d9ec19150ed5439be61f0b275694684feb7d31fff38fb9",
+      "step_id": "irowiki-classic:Abyss_Lake_Entrance_Guide/step/f3f07ac5d6ee847eb6d9/1",
+      "goal": "party_strategy",
+      "short_ru": "В группе оставьте одного участника с частями у колонны; остальные могут телепортироваться на остров.",
+      "short_en": "In a party, leave one member with the parts at the column; others can teleport to the island.",
+      "full_ru": "В группе большинство участников может телепортироваться на остров, пока один персонаж с частями ждёт у колонны и активирует портал. На этой карте нельзя сохранить точку memo.",
+      "full_en": "When partying , most the party members can teleport to the island, while someone waits next to the column with the parts to activate the portal. (Note: the map can not be memoed )",
+      "actions": [
+        {
+          "operation": "wait",
+          "condition": "Optional party strategy: one portal activator remains with the parts."
+        },
+        {
+          "operation": "teleport",
+          "condition": "Other party members may teleport; map cannot be memoed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "To leave the center island, talk to the Column on the left side of the entrance.",
+      "instruction_sha256": "5f3ce7a13eaf6d380de9de80b709f66e1ba05fb2636e88285664c5ed8744350f",
+      "step_id": "irowiki-classic:Abyss_Lake_Entrance_Guide/step/5f3ce7a13eaf6d380de9/1",
+      "goal": "leave",
+      "short_ru": "Для выхода с острова поговорите с Column слева от входа.",
+      "short_en": "To leave the island, talk to Column left of the entrance.",
+      "full_ru": "Чтобы покинуть центральный остров, поговорите с Column слева от входа.",
+      "full_en": "To leave the center island, talk to the Column on the left side of the entrance.",
+      "npcs": [
+        {
+          "entity": "exit_column",
+          "role": "talk"
+        }
+      ],
+      "mention_entities": {
+        "Column": "exit_column"
+      },
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "exit_column"
+        },
+        {
+          "operation": "leave"
+        }
+      ],
+      "protected_names": [
+        "Column",
+        "Column"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "same_name_distinct_npcs",
+      "detail": "The field entrance Column and the exit Column on the island are not merged; the exit has no proven coordinates."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item",
+        "entity": "Dragon Canine",
+        "amount": "1",
+        "source_section": "html_text",
+        "evidence": "The following items are required to open the entrance portal once: 1 Dragon Canine 1 Dragon Scale 1 Dragon Tail",
+        "condition": "One portal opening; repeat for each entry."
+      },
+      {
+        "kind": "item",
+        "entity": "Dragon Scale",
+        "amount": "1",
+        "source_section": "html_text",
+        "evidence": "The following items are required to open the entrance portal once: 1 Dragon Canine 1 Dragon Scale 1 Dragon Tail",
+        "condition": "One portal opening; repeat for each entry."
+      },
+      {
+        "kind": "item",
+        "entity": "Dragon Tail",
+        "amount": "1",
+        "source_section": "html_text",
+        "evidence": "The following items are required to open the entrance portal once: 1 Dragon Canine 1 Dragon Scale 1 Dragon Tail",
+        "condition": "One portal opening; repeat for each entry."
+      }
+    ]
+  }
+}

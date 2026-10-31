@@ -1,0 +1,158 @@
+{
+  "quest_id": "irowiki-classic:Dropped_Knife_Quest",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Complete preserved guide prose and pinned HTML; not human/server verification",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Han Ran Jiao"
+    },
+    {
+      "type": "map",
+      "name": "Kunlun"
+    },
+    {
+      "type": "map",
+      "name": "Gonryun"
+    },
+    {
+      "type": "item",
+      "name": "Knife",
+      "game_id": 1201,
+      "id_source": "http://db.irowiki.org/classic/item-info/1201/"
+    },
+    {
+      "type": "item",
+      "name": "Blue Potion",
+      "game_id": 505,
+      "id_source": "http://db.irowiki.org/classic/item-info/505/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Han Ran Jiao (237,226) in Kunlun a.k.a Gonryun; who has lost his knife left to him by his ancestors.",
+      "instruction_sha256": "2eb5a5b03c81bd090b0c7f2fafca7fed8bdd4dd2fd4e6b32de4a8558d263925a",
+      "goal": "talk",
+      "short_ru": "Поговорите с Han Ran Jiao (237,226) в Kunlun, также называемом Gonryun.",
+      "short_en": "Talk to Han Ran Jiao (237,226) in Kunlun, also known as Gonryun.",
+      "full_ru": "Поговорите с Han Ran Jiao (237,226) в Kunlun, также известном как Gonryun. Он потерял нож, доставшийся ему от предков.",
+      "full_en": "Talk to Han Ran Jiao (237,226) in Kunlun a.k.a Gonryun; who has lost his knife left to him by his ancestors.",
+      "protected_names": [
+        "Han Ran Jiao",
+        "Kunlun",
+        "Gonryun"
+      ],
+      "npcs": [
+        "Han Ran Jiao"
+      ],
+      "locations": [
+        {
+          "entity": "Kunlun",
+          "x": 237,
+          "y": 226,
+          "role": "npc",
+          "known": false
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Han Ran Jiao",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Dropped_Knife_Quest/step/2eb5a5b03c81bd090b0c/1"
+    },
+    "2": {
+      "original_instruction": "Go to the bushes (245,257) in Kunlun/Gonryun field. | Receive Knife",
+      "instruction_sha256": "012ad7f9d7a59e2cd3c041823b04d74a0ed68f9c922add8900fd31937dc94e2d",
+      "goal": "collect",
+      "short_ru": "Обыщите кусты (245,257) в поле Kunlun/Gonryun и получите Knife.",
+      "short_en": "Search the bushes (245,257) in Kunlun/Gonryun field to receive Knife.",
+      "full_ru": "Подойдите к кустам (245,257) в поле Kunlun/Gonryun. Получите Knife.",
+      "full_en": "Go to the bushes (245,257) in Kunlun/Gonryun field. | Receive Knife",
+      "protected_names": [
+        "Kunlun",
+        "Gonryun",
+        "Knife"
+      ],
+      "items": [
+        {
+          "entity": "Knife",
+          "operation": "collect",
+          "quantity": 1,
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Knife",
+          "condition": null
+        }
+      ],
+      "locations": [
+        {
+          "x": 245,
+          "y": 257,
+          "role": "target",
+          "known": false
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "field_map_unknown",
+          "detail": "Town names do not establish the field map code; coordinates intentionally have NULL map."
+        }
+      ],
+      "step_id": "irowiki-classic:Dropped_Knife_Quest/step/012ad7f9d7a59e2cd3c0/1"
+    },
+    "3": {
+      "original_instruction": "You can either: | Return the Knife Receive 2 Blue Potion | Refuse No Reward",
+      "instruction_sha256": "059f32f79bd406768613e85d56b1bd8887ad76bd9095e2fb0705f0a3f025f19f",
+      "goal": "branch",
+      "short_ru": "Верните Knife ради 2 Blue Potion или откажитесь без награды.",
+      "short_en": "Return the Knife for 2 Blue Potion, or refuse and receive no reward.",
+      "full_ru": "Выберите вариант: вернуть Knife и получить 2 Blue Potion либо отказаться и остаться без награды.",
+      "full_en": "You can either: | Return the Knife Receive 2 Blue Potion | Refuse No Reward",
+      "protected_names": [
+        "Knife",
+        "Blue Potion"
+      ],
+      "items": [
+        {
+          "entity": "Knife",
+          "operation": "deliver",
+          "quantity": 1,
+          "required": 0,
+          "condition": "Only if choosing to return the Knife."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "2",
+          "entity": "Blue Potion",
+          "condition": "Return the Knife"
+        },
+        {
+          "kind": "none",
+          "amount": "0",
+          "entity": null,
+          "condition": "Refuse"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_branch",
+          "entity": null,
+          "condition": "Return the Knife or refuse; guide wording is not verified exact menu text."
+        }
+      ],
+      "step_id": "irowiki-classic:Dropped_Knife_Quest/step/059f32f79bd406768613/1"
+    }
+  },
+  "reviews": [],
+  "source_sha256": "10de6a79a7a5a8f2f35829500f9ff80725b7ccb909481898744b7ea464d05791",
+  "snapshot_sha256": "3f390cda84307b21af079d183e16d8dc92d657cb638918bb757591c248c5d7ab"
+}

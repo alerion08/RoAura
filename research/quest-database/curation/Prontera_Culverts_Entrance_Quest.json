@@ -1,0 +1,192 @@
+{
+  "quest_id": "irowiki-classic:Prontera_Culverts_Entrance_Quest",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Complete preserved guide prose and pinned HTML; not human/server verification",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Recruiter"
+    },
+    {
+      "type": "npc",
+      "name": "Culvert Guardian"
+    },
+    {
+      "type": "map",
+      "name": "Prontera",
+      "map_code": "prontera"
+    },
+    {
+      "type": "map",
+      "name": "prontera",
+      "map_code": "prontera"
+    },
+    {
+      "type": "map",
+      "name": "prt_in",
+      "map_code": "prt_in"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Culverts"
+    },
+    {
+      "type": "item",
+      "name": "Red Potions",
+      "game_id": 501,
+      "id_source": "http://db.irowiki.org/classic/item-info/501/"
+    },
+    {
+      "type": "item",
+      "name": "Milk",
+      "game_id": 519,
+      "id_source": "http://db.irowiki.org/classic/item-info/519/"
+    },
+    {
+      "type": "item",
+      "name": "Orange Potion",
+      "game_id": 502,
+      "id_source": "http://db.irowiki.org/classic/item-info/502/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Go to the Knight Guild in Prontera (prontera 45, 346).",
+      "instruction_sha256": "2772a4be797532c9b392228ffc6fd1e28966255533116daf676787064193cf57",
+      "goal": "move",
+      "short_ru": "Идите в Knight Guild в Prontera (prontera 45, 346).",
+      "short_en": "Go to the Knight Guild in Prontera (prontera 45, 346).",
+      "full_ru": "Идите в Knight Guild в Prontera (prontera 45, 346).",
+      "full_en": "Go to the Knight Guild in Prontera (prontera 45, 346).",
+      "protected_names": [
+        "Prontera",
+        "prontera"
+      ],
+      "locations": [
+        {
+          "entity": "prontera",
+          "x": 45,
+          "y": 346,
+          "role": "entrance",
+          "known": true
+        }
+      ],
+      "actions": [
+        {
+          "operation": "move",
+          "entity": "prontera",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Prontera_Culverts_Entrance_Quest/step/2772a4be797532c9b392/1"
+    },
+    "2": {
+      "original_instruction": "Talk to the Recruiter (prt_in 88, 105), choose \"Volunteer.\" He'll warp you to outside the Culverts, and give you 3 Red Potions , 1 Milk , 1 Orange Potion . The Culvert Guardian will now let you enter the Prontera Culverts .",
+      "instruction_sha256": "fed278633841acae71ddcd9daf93e2d8eb941c2ab0e771bbc3a114e33264c4f1",
+      "goal": "choose_and_unlock",
+      "short_ru": "У Recruiter (prt_in 88, 105) выберите «Volunteer.»; получите припасы и доступ к Prontera Culverts.",
+      "short_en": "Choose “Volunteer.” with Recruiter (prt_in 88, 105) to receive supplies and access to Prontera Culverts.",
+      "full_ru": "Поговорите с Recruiter (prt_in 88, 105) и выберите «Volunteer.» Он перенесёт вас к входу в Culverts и выдаст 3 Red Potions, 1 Milk и 1 Orange Potion. Теперь Culvert Guardian пропустит вас в Prontera Culverts.",
+      "full_en": "Talk to the Recruiter (prt_in 88, 105), choose \"Volunteer.\" He'll warp you to outside the Culverts, and give you 3 Red Potions , 1 Milk , 1 Orange Potion . The Culvert Guardian will now let you enter the Prontera Culverts .",
+      "protected_names": [
+        "Recruiter",
+        "Culvert Guardian",
+        "Prontera",
+        "prt_in",
+        "Prontera Culverts",
+        "Red Potions",
+        "Milk",
+        "Orange Potion"
+      ],
+      "npcs": [
+        "Recruiter",
+        {
+          "entity": "Culvert Guardian",
+          "role": "entrance_guard"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prt_in",
+          "x": 88,
+          "y": 105,
+          "role": "npc",
+          "known": true
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Recruiter",
+          "options": [
+            {
+              "text": "Volunteer.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "3",
+          "entity": "Red Potions",
+          "condition": null
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Milk",
+          "condition": null
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Orange Potion",
+          "condition": null
+        },
+        {
+          "kind": "access",
+          "amount": null,
+          "entity": null,
+          "condition": "Prontera Culverts"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Recruiter",
+          "condition": null
+        },
+        {
+          "operation": "choose",
+          "entity": "Recruiter",
+          "condition": null
+        },
+        {
+          "operation": "warp",
+          "entity": null,
+          "condition": null
+        },
+        {
+          "operation": "receive_reward",
+          "entity": null,
+          "condition": null
+        },
+        {
+          "operation": "unlock_access",
+          "entity": "Prontera Culverts",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Prontera_Culverts_Entrance_Quest/step/fed278633841acae71dd/1"
+    }
+  },
+  "reviews": [
+    {
+      "reason": "dialogue_punctuation_unverified",
+      "detail": "Wiki quotes Volunteer. including punctuation; preserve exactly. Exact in-client spelling still needs verification."
+    }
+  ],
+  "source_sha256": "1b65a657cb4767fa8b528c72dcbfe7a2f868ae71c80a60a5539d46dc11a649fa",
+  "snapshot_sha256": "88651057aed02f36aa2617b04d5e7afb7ba78af88ffefb198853f1b2a1f88f14"
+}

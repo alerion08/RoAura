@@ -58,6 +58,8 @@ class GuideParserTests(unittest.TestCase):
         self.assertEqual(step_evidence("prontera 249 1320",known),[])
         self.assertEqual(step_evidence("249,132",known),[("bare_coord","249:132")])
         self.assertEqual(step_evidence("ra_in01 372 200",[]),[])
+        self.assertNotIn(("map_coord","hugel:191:172"),step_evidence("Hugel (191 172)",["hugel"]))
+        self.assertIn(("map_coord","hugel:191:172"),step_evidence("hugel (191 172)",["hugel"]))
 
     def test_mediawiki_table_wrapped_quest_guide(self):
         html = """<div id="mw-content-text"><div class="mw-parser-output">

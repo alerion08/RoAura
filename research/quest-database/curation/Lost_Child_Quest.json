@@ -1,0 +1,689 @@
+{
+  "quest_id": "irowiki-classic:Lost_Child_Quest",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "fc9e4a516b9713e65bfb2865794fc4860771868006cbc3a06596bedaf98c55a8",
+  "snapshot_sha256": "026e0a06d35cd5f81945cf6d7594ecdf33376adecee6207c7fe49b97fe1cb93d",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Vincent"
+    },
+    {
+      "type": "npc",
+      "name": "Logan"
+    },
+    {
+      "type": "npc",
+      "name": "Mr. Manson"
+    },
+    {
+      "type": "npc",
+      "name": "Jenny"
+    },
+    {
+      "type": "npc",
+      "name": "Suspicious Man"
+    },
+    {
+      "type": "npc",
+      "name": "Idle Merchant",
+      "ref": "merchant_138_73"
+    },
+    {
+      "type": "npc",
+      "name": "Idle Merchant",
+      "ref": "merchant_120_47"
+    },
+    {
+      "type": "npc",
+      "name": "Kid",
+      "ref": "phobe_kid",
+      "aliases": [
+        "Phobe"
+      ],
+      "identity": "irowiki-classic:npc:rachel:263:32:Kid"
+    },
+    {
+      "type": "npc",
+      "name": "Phoebe"
+    },
+    {
+      "type": "npc",
+      "name": "High Priest Zhed",
+      "aliases": [
+        "Sir Zhed"
+      ],
+      "identity": "irowiki-classic:npc:ra_temin:277:159:High Priest Zhed"
+    },
+    {
+      "type": "map",
+      "name": "Rachel"
+    },
+    {
+      "type": "map",
+      "name": "Ice Cave"
+    },
+    {
+      "type": "map",
+      "name": "rachel",
+      "map_code": "rachel"
+    },
+    {
+      "type": "map",
+      "name": "ra_in01",
+      "map_code": "ra_in01"
+    },
+    {
+      "type": "map",
+      "name": "ra_fild01",
+      "map_code": "ra_fild01"
+    },
+    {
+      "type": "map",
+      "name": "ra_temin",
+      "map_code": "ra_temin"
+    },
+    {
+      "type": "item",
+      "name": "Old Purple Box",
+      "game_id": 617,
+      "id_source": "http://db.irowiki.org/classic/item-info/617/"
+    },
+    {
+      "type": "npc",
+      "name": "Kid",
+      "ref": "pond_kid"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Vincent (ra_in01 384,246) on the second floor of the mansion in Rachel (rachel 100,240).",
+      "instruction_sha256": "37f36b2faf03628d6fc48ab53f7f10cd3c01a4e6af5115302f736c9ba6b37040",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/37f36b2faf03628d6fc4/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Vincent на втором этаже: ra_in01 384,246.",
+      "short_en": "Talk to Vincent on the second floor: ra_in01 384,246.",
+      "full_ru": "Поговорите с Vincent (ra_in01 384,246) на втором этаже особняка в Rachel (rachel 100,240).",
+      "full_en": "Talk to Vincent (ra_in01 384,246) on the second floor of the mansion in Rachel (rachel 100,240).",
+      "npcs": [
+        {
+          "entity": "Vincent",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Vincent"
+        }
+      ],
+      "protected_names": [
+        "Vincent",
+        "Rachel",
+        "rachel",
+        "ra_in01"
+      ],
+      "locations": [
+        {
+          "map": "ra_in01",
+          "x": 384,
+          "y": 246,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_in01 384,246"
+        },
+        {
+          "map": "rachel",
+          "x": 100,
+          "y": 240,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "rachel 100,240"
+        }
+      ],
+      "mention_entities": {
+        "Kid": "phobe_kid"
+      }
+    },
+    "2": {
+      "original_instruction": "Go outside, and ask Logan (rachel 114, 232) about Phoebe; he directs you to Mr. Manson inside the house.",
+      "instruction_sha256": "6a3bf6d30a539350a30c39a5bb940cdd9965b896f073c5f85b624ed652e2ec2c",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/6a3bf6d30a539350a30c/1",
+      "goal": "talk",
+      "short_ru": "Спросите Logan о Phoebe: rachel 114, 232.",
+      "short_en": "Ask Logan about Phoebe: rachel 114, 232.",
+      "full_ru": "Выйдите наружу и спросите Logan (rachel 114, 232) о Phoebe. Он направит вас к Mr. Manson в доме.",
+      "full_en": "Go outside, and ask Logan (rachel 114, 232) about Phoebe; he directs you to Mr. Manson inside the house.",
+      "npcs": [
+        {
+          "entity": "Logan",
+          "role": "talk"
+        },
+        {
+          "entity": "Mr. Manson",
+          "role": "mentioned"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Logan"
+        }
+      ],
+      "protected_names": [
+        "Logan",
+        "Mr. Manson",
+        "Phoebe",
+        "rachel"
+      ],
+      "locations": [
+        {
+          "map": "rachel",
+          "x": 114,
+          "y": 232,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "rachel 114, 232"
+        }
+      ],
+      "mention_entities": {
+        "Kid": "phobe_kid"
+      }
+    },
+    "3": {
+      "original_instruction": "Go back inside, and talk to Mr. Manson (ra_in01 372, 200). He explains what he thinks happened, and sends you to talk to Jenny.",
+      "instruction_sha256": "71b88b2d2bf48c34baa9c55c3704ae60a686d9576655689c23b359f64679e155",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/71b88b2d2bf48c34baa9/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Mr. Manson: ra_in01 372, 200.",
+      "short_en": "Talk to Mr. Manson: ra_in01 372, 200.",
+      "full_ru": "Вернитесь в дом и поговорите с Mr. Manson (ra_in01 372, 200). Он объяснит свою версию случившегося и направит вас к Jenny.",
+      "full_en": "Go back inside, and talk to Mr. Manson (ra_in01 372, 200). He explains what he thinks happened, and sends you to talk to Jenny.",
+      "npcs": [
+        {
+          "entity": "Mr. Manson",
+          "role": "talk"
+        },
+        {
+          "entity": "Jenny",
+          "role": "mentioned"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mr. Manson"
+        }
+      ],
+      "protected_names": [
+        "Mr. Manson",
+        "Jenny",
+        "ra_in01"
+      ],
+      "locations": [
+        {
+          "map": "ra_in01",
+          "x": 372,
+          "y": 200,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_in01 372, 200"
+        }
+      ],
+      "mention_entities": {
+        "Kid": "phobe_kid"
+      }
+    },
+    "4": {
+      "original_instruction": "Exit the house again, and talk to Jenny (rachel 48, 236). Jenny gives more information and suggests checking the market.",
+      "instruction_sha256": "49b489a5ecfe5dbd0c67f13d40c384ec75805835f535c471b8233d6105078005",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/49b489a5ecfe5dbd0c67/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Jenny: rachel 48, 236.",
+      "short_en": "Talk to Jenny: rachel 48, 236.",
+      "full_ru": "Снова выйдите из дома и поговорите с Jenny (rachel 48, 236). Она расскажет подробности и предложит поискать на рынке.",
+      "full_en": "Exit the house again, and talk to Jenny (rachel 48, 236). Jenny gives more information and suggests checking the market.",
+      "npcs": [
+        {
+          "entity": "Jenny",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Jenny"
+        }
+      ],
+      "protected_names": [
+        "Jenny",
+        "rachel"
+      ],
+      "locations": [
+        {
+          "map": "rachel",
+          "x": 48,
+          "y": 236,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "rachel 48, 236"
+        }
+      ],
+      "mention_entities": {
+        "Kid": "phobe_kid"
+      }
+    },
+    "5": {
+      "original_instruction": "Talk to the Idle Merchant (rachel 138, 73), who tells you he hasn't seen anyone and offers a rather disgusting \"mock vegetable!\"",
+      "instruction_sha256": "2a3e42f526b3e7ab2afa7071adc6f31640a2c36e2f37ebe803cdf52a86a1eb71",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/2a3e42f526b3e7ab2afa/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Idle Merchant: rachel 138, 73.",
+      "short_en": "Talk to Idle Merchant: rachel 138, 73.",
+      "full_ru": "Поговорите с Idle Merchant (rachel 138, 73). Он скажет, что никого не видел, и предложит весьма неприятный «mock vegetable!».",
+      "full_en": "Talk to the Idle Merchant (rachel 138, 73), who tells you he hasn't seen anyone and offers a rather disgusting \"mock vegetable!\"",
+      "npcs": [
+        {
+          "entity": "merchant_138_73",
+          "role": "talk"
+        }
+      ],
+      "mention_entities": {
+        "Idle Merchant": "merchant_138_73",
+        "Kid": "phobe_kid"
+      },
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "merchant_138_73"
+        }
+      ],
+      "protected_names": [
+        "Idle Merchant",
+        "Idle Merchant",
+        "rachel"
+      ],
+      "locations": [
+        {
+          "map": "rachel",
+          "x": 138,
+          "y": 73,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "rachel 138, 73"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Talk to the other Idle Merchant (rachel 120, 47), who tells you someone sent a message for you to come to the Ice Cave.",
+      "instruction_sha256": "7bc389cd681c01993ea529ff9365b2ac776893f5233b9688a39f056650c98664",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/7bc389cd681c01993ea5/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с другим Idle Merchant: rachel 120, 47.",
+      "short_en": "Talk to the other Idle Merchant: rachel 120, 47.",
+      "full_ru": "Поговорите с другим Idle Merchant (rachel 120, 47). Он передаст сообщение с просьбой прийти в Ice Cave.",
+      "full_en": "Talk to the other Idle Merchant (rachel 120, 47), who tells you someone sent a message for you to come to the Ice Cave.",
+      "npcs": [
+        {
+          "entity": "merchant_120_47",
+          "role": "talk"
+        }
+      ],
+      "mention_entities": {
+        "Idle Merchant": "merchant_120_47",
+        "Kid": "phobe_kid"
+      },
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "merchant_120_47"
+        }
+      ],
+      "protected_names": [
+        "Idle Merchant",
+        "Idle Merchant",
+        "Ice Cave",
+        "rachel"
+      ],
+      "locations": [
+        {
+          "map": "rachel",
+          "x": 120,
+          "y": 47,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "rachel 120, 47"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Head to the Ice Cave (1 map right, 3 maps up from Rachel ,) and talk to the Suspicious Man (ra_fild01 245, 325). He attempts to kill you (You lose half your HP), but fails. You both then realize Vincent set you up, and you go back to talk to him.",
+      "instruction_sha256": "b799069bb36a83c8d289d25a3d526b4a33bf8ca34747cd71c8d1cf569489001b",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/b799069bb36a83c8d289/1",
+      "goal": "talk_and_return",
+      "short_ru": "Поговорите с Suspicious Man (ra_fild01 245, 325); потеряете половину HP. Вернитесь к Vincent.",
+      "short_en": "Talk to Suspicious Man (ra_fild01 245, 325); lose half your HP. Return to Vincent.",
+      "full_ru": "Направляйтесь к Ice Cave: от Rachel на 1 карту вправо и на 3 карты вверх. Поговорите с Suspicious Man (ra_fild01 245, 325). Он попытается убить вас: вы потеряете половину HP, но выживете. Вы оба поймёте, что вас подставил Vincent; вернитесь поговорить с ним.",
+      "full_en": "Head to the Ice Cave (1 map right, 3 maps up from Rachel ,) and talk to the Suspicious Man (ra_fild01 245, 325). He attempts to kill you (You lose half your HP), but fails. You both then realize Vincent set you up, and you go back to talk to him.",
+      "npcs": [
+        {
+          "entity": "Suspicious Man",
+          "role": "talk"
+        },
+        {
+          "entity": "Vincent",
+          "role": "return"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Suspicious Man"
+        },
+        {
+          "operation": "return",
+          "entity": "Vincent"
+        }
+      ],
+      "protected_names": [
+        "Vincent",
+        "Suspicious Man",
+        "Rachel",
+        "Ice Cave",
+        "ra_fild01"
+      ],
+      "locations": [
+        {
+          "map": "ra_fild01",
+          "x": 245,
+          "y": 325,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_fild01 245, 325"
+        }
+      ],
+      "mention_entities": {
+        "Kid": "phobe_kid"
+      }
+    },
+    "8": {
+      "original_instruction": "Talk to Vincent, and he explains about his situation, and that Jenny is Phobe's mother, but he can't marry her since there's an inherent class difference in the city. You offer to find his son and the jewel that was stolen.",
+      "instruction_sha256": "8f3cf96cf5b018b0f2ce6883d8e3831bc1ecb266b309160890648981da192fea",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/8f3cf96cf5b018b0f2ce/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Vincent и согласитесь найти сына и драгоценность.",
+      "short_en": "Talk to Vincent and offer to find his son and the jewel.",
+      "full_ru": "Поговорите с Vincent. Он расскажет, что Jenny — мать Phobe, но он не может жениться на ней из-за классового неравенства в городе. Вы предложите найти его сына и украденную драгоценность.",
+      "full_en": "Talk to Vincent, and he explains about his situation, and that Jenny is Phobe's mother, but he can't marry her since there's an inherent class difference in the city. You offer to find his son and the jewel that was stolen.",
+      "npcs": [
+        {
+          "entity": "Vincent",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Vincent"
+        }
+      ],
+      "protected_names": [
+        "Vincent",
+        "Jenny"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kid": "phobe_kid"
+      }
+    },
+    "9": {
+      "original_instruction": "Talk to the Kid at (rachel 263, 32, the lower-right corner of the map, not the Kid right next to the pond) and you find out he's Phobe and took the jewel himself. You can't get him to come home, but you get the jewel.",
+      "instruction_sha256": "b5fb45be3698bb9e1c76641d552048726a2e5a9b9370f4cb176a9c3c15698075",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/b5fb45be3698bb9e1c76/1",
+      "goal": "receive_quest_object",
+      "short_ru": "Найдите Kid / Phobe в rachel 263, 32, не у пруда; получите драгоценность.",
+      "short_en": "Find Kid / Phobe at rachel 263, 32, not beside the pond; receive the jewel.",
+      "full_ru": "Поговорите с Kid в (rachel 263, 32), в нижнем правом углу карты, а не с Kid у пруда. Вы узнаете, что это Phobe и что драгоценность взял он сам. Уговорить его вернуться домой не получится, но драгоценность вы получите.",
+      "full_en": "Talk to the Kid at (rachel 263, 32, the lower-right corner of the map, not the Kid right next to the pond) and you find out he's Phobe and took the jewel himself. You can't get him to come home, but you get the jewel.",
+      "npcs": [
+        {
+          "entity": "phobe_kid",
+          "role": "talk"
+        },
+        {
+          "entity": "pond_kid",
+          "role": "avoid",
+          "condition": "Do not confuse the pond NPC with Phobe in the lower-right corner."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "phobe_kid"
+        },
+        {
+          "operation": "receive_quest_object",
+          "condition": "Stolen jewel; actual inventory item name/ID unknown."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_object",
+          "condition": "Jewel received from Phobe; no assumed inventory ID."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "same_label_other_npc",
+          "detail": "Second Kid mention is a negative warning about the pond NPC, not the target. Its mention is explicitly bound to the separate pond entity."
+        }
+      ],
+      "protected_names": [
+        "Kid",
+        "rachel"
+      ],
+      "locations": [
+        {
+          "map": "rachel",
+          "x": 263,
+          "y": 32,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "rachel 263, 32"
+        }
+      ],
+      "mention_entities": {
+        "Kid": "phobe_kid"
+      },
+      "mention_overrides": [
+        {
+          "field": "full_ru",
+          "surface": "Kid",
+          "occurrence": 2,
+          "entity": "pond_kid"
+        },
+        {
+          "field": "full_en",
+          "surface": "Kid",
+          "occurrence": 2,
+          "entity": "pond_kid"
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "Take the jewel back to Vincent, and he's very thankful and asks you to tell Jenny about Phobe.",
+      "instruction_sha256": "5498c256cc15bd5e99689891dc876cb6f80e8f466a5fea894f93c738036a8b07",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/5498c256cc15bd5e9968/1",
+      "goal": "deliver_quest_object",
+      "short_ru": "Отнесите драгоценность Vincent.",
+      "short_en": "Bring the jewel back to Vincent.",
+      "full_ru": "Отнесите драгоценность Vincent. Он поблагодарит вас и попросит рассказать Jenny о Phobe.",
+      "full_en": "Take the jewel back to Vincent, and he's very thankful and asks you to tell Jenny about Phobe.",
+      "npcs": [
+        {
+          "entity": "Vincent",
+          "role": "deliver"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Vincent",
+          "condition": "The jewel from step 9, exact item identity unspecified."
+        }
+      ],
+      "protected_names": [
+        "Vincent",
+        "Jenny"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kid": "phobe_kid"
+      }
+    },
+    "11": {
+      "original_instruction": "Talk to Jenny, and she's happy to hear you found him, and is okay with you knowing about their secret.",
+      "instruction_sha256": "f3cac6f9f3cb33e67c89605b2a1b02af4df69b4be5cd9151bab69f633db28e28",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/f3cac6f9f3cb33e67c89/1",
+      "goal": "talk",
+      "short_ru": "Сообщите Jenny, что нашли ребёнка.",
+      "short_en": "Tell Jenny you found the child.",
+      "full_ru": "Поговорите с Jenny. Она рада, что вы нашли его, и не возражает, что вы знаете их тайну.",
+      "full_en": "Talk to Jenny, and she's happy to hear you found him, and is okay with you knowing about their secret.",
+      "npcs": [
+        {
+          "entity": "Jenny",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Jenny"
+        }
+      ],
+      "protected_names": [
+        "Jenny"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kid": "phobe_kid"
+      }
+    },
+    "12": {
+      "original_instruction": "Go back and talk to Vincent, who rewards you with an Old Purple Box , and gives you a letter of recommendation to take to Sir Zhed, the high priest at the temple. | NOTE : If 10,000 donations for the sanctuary had already been made, players must complete steps 1 through 5 of the Rachel Sanctuary Quest .",
+      "instruction_sha256": "18a81eca6face1f1abe868e11d14977ff954a6274028027ca6b368d1a6d40ffa",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/18a81eca6face1f1abe8/1",
+      "goal": "receive_reward",
+      "short_ru": "Вернитесь к Vincent за Old Purple Box и письмом; при 10,000 пожертвований нужны этапы 1–5 Rachel Sanctuary Quest.",
+      "short_en": "Return to Vincent for Old Purple Box and a letter; after 10,000 donations, Rachel Sanctuary Quest steps 1–5 are required.",
+      "full_ru": "Вернитесь к Vincent. Он наградит вас Old Purple Box и выдаст рекомендательное письмо для Sir Zhed, верховного жреца в храме. Примечание: если для святилища уже внесены 10,000 пожертвований, нужно сначала завершить этапы с 1 по 5 Rachel Sanctuary Quest.",
+      "full_en": "Go back and talk to Vincent, who rewards you with an Old Purple Box , and gives you a letter of recommendation to take to Sir Zhed, the high priest at the temple. | NOTE : If 10,000 donations for the sanctuary had already been made, players must complete steps 1 through 5 of the Rachel Sanctuary Quest .",
+      "npcs": [
+        {
+          "entity": "Vincent",
+          "role": "return"
+        },
+        {
+          "entity": "Sir Zhed",
+          "role": "mentioned"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return",
+          "entity": "Vincent"
+        },
+        {
+          "operation": "receive_reward",
+          "entity": "Old Purple Box"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Purple Box"
+        },
+        {
+          "kind": "quest_document",
+          "condition": "Letter of recommendation for Sir Zhed; no asserted inventory ID."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "conditional_quest_steps",
+          "condition": "Rachel Sanctuary Quest steps 1 through 5 only if the server has already reached 10,000 donations."
+        }
+      ],
+      "protected_names": [
+        "Vincent",
+        "Rachel",
+        "Old Purple Box"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kid": "phobe_kid"
+      }
+    },
+    "13": {
+      "original_instruction": "Go into the temple, and find High Priest Zhed (ra_temin 277, 159) on the east side of the first floor, and give him your letter. You explain the situation, and he gives you some Base Experience.",
+      "instruction_sha256": "91d039804a0da6ccbf5f73a546bbabcd7037e64aa138807c7d22161650a89fce",
+      "step_id": "irowiki-classic:Lost_Child_Quest/step/91d039804a0da6ccbf5f/1",
+      "goal": "deliver_and_reward",
+      "short_ru": "Передайте письмо High Priest Zhed: ra_temin 277, 159.",
+      "short_en": "Deliver the letter to High Priest Zhed: ra_temin 277, 159.",
+      "full_ru": "Войдите в храм и найдите High Priest Zhed (ra_temin 277, 159) в восточной части первого этажа. Передайте ему письмо и объясните ситуацию; он даст вам Base Experience.",
+      "full_en": "Go into the temple, and find High Priest Zhed (ra_temin 277, 159) on the east side of the first floor, and give him your letter. You explain the situation, and he gives you some Base Experience.",
+      "npcs": [
+        {
+          "entity": "High Priest Zhed",
+          "role": "deliver"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "High Priest Zhed",
+          "condition": "Recommendation letter from Vincent."
+        },
+        {
+          "operation": "receive_reward"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "900000",
+          "source_section": "rewards",
+          "evidence": "Base Experience: 900,000",
+          "condition": "Quest total from header; final-step prose says Base Experience without a number."
+        }
+      ],
+      "protected_names": [
+        "High Priest Zhed",
+        "ra_temin"
+      ],
+      "locations": [
+        {
+          "map": "ra_temin",
+          "x": 277,
+          "y": 159,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temin 277, 159"
+        }
+      ],
+      "mention_entities": {
+        "Kid": "phobe_kid"
+      }
+    }
+  },
+  "reviews": [
+    {
+      "reason": "npc_spelling_conflict",
+      "detail": "Source uses Phoebe and Phobe. Phobe is explicitly identified as Kid, while Phoebe remains a separate uncertain spelling pending corroboration."
+    }
+  ]
+}

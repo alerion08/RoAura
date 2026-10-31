@@ -1,0 +1,591 @@
+{
+  "quest_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "da424e7313b8c003e1e1edc85d885b8e9fd5d2b658891da0031c64f514569571",
+  "snapshot_sha256": "7f682e4d39b045ed1636f3bb4b52c5f8978ab4deed8f0904f536d7bda282b47e",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Dusit"
+    },
+    {
+      "type": "npc",
+      "name": "Dustit"
+    },
+    {
+      "type": "npc",
+      "name": "Boonthon"
+    },
+    {
+      "type": "npc",
+      "name": "Boomthon"
+    },
+    {
+      "type": "map",
+      "name": "Ayothaya"
+    },
+    {
+      "type": "item",
+      "name": "Solid Husk",
+      "game_id": 7190,
+      "id_source": "http://db.irowiki.org/classic/item-info/7190/"
+    },
+    {
+      "type": "item",
+      "name": "Holy Water",
+      "game_id": 523,
+      "id_source": "http://db.irowiki.org/classic/item-info/523/"
+    },
+    {
+      "type": "item",
+      "name": "Needle Packet",
+      "game_id": 7213,
+      "id_source": "http://db.irowiki.org/classic/item-info/7213/"
+    },
+    {
+      "type": "item",
+      "name": "Spool",
+      "game_id": 7217,
+      "id_source": "http://db.irowiki.org/classic/item-info/7217/"
+    },
+    {
+      "type": "item",
+      "name": "Holy Threads",
+      "game_id": 7285,
+      "id_source": "http://db.irowiki.org/classic/item-info/7285/"
+    },
+    {
+      "type": "item",
+      "name": "Holier Threads",
+      "game_id": 7287,
+      "id_source": "http://db.irowiki.org/classic/item-info/7287/"
+    },
+    {
+      "type": "item",
+      "name": "Yggdrasil Leaf",
+      "game_id": 610,
+      "id_source": "http://db.irowiki.org/classic/item-info/610/"
+    },
+    {
+      "type": "item",
+      "name": "Old Blue Box",
+      "game_id": 603,
+      "id_source": "http://db.irowiki.org/classic/item-info/603/"
+    },
+    {
+      "type": "item",
+      "name": "Fly Wing",
+      "game_id": 601,
+      "id_source": "http://db.irowiki.org/classic/item-info/601/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In Ayothaya , find Dusit, he can be found at (82, 132) the far left beach area. He'll talk about a tiger and say \"Yes, you believe in man-eating tigers.\" He will then tell you to go to Boonthon.",
+      "instruction_sha256": "4424ace5aa3943cde0b41872b6119463f4fe1c99786cdeb3e50b5128ebbf1a67",
+      "step_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest/step/4424ace5aa3943cde0b4/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Dusit в Ayothaya (82, 132): «Yes, you believe in man-eating tigers.».",
+      "short_en": "Talk to Dusit in Ayothaya (82, 132): “Yes, you believe in man-eating tigers.”.",
+      "full_ru": "В Ayothaya найдите Dusit на пляже в дальней левой части города (82, 132). Он расскажет о тигре; ответьте «Yes, you believe in man-eating tigers.». Затем он направит вас к Boonthon.",
+      "full_en": "In Ayothaya , find Dusit, he can be found at (82, 132) the far left beach area. He'll talk about a tiger and say \"Yes, you believe in man-eating tigers.\" He will then tell you to go to Boonthon.",
+      "npcs": [
+        {
+          "entity": "Dusit",
+          "role": "talk"
+        },
+        {
+          "entity": "Boonthon",
+          "role": "mentioned"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Dusit"
+        },
+        {
+          "operation": "choose",
+          "entity": "Dusit"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Dusit",
+          "options": [
+            {
+              "text": "Yes, you believe in man-eating tigers.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Ayothaya",
+          "x": 82,
+          "y": 132,
+          "role": "npc",
+          "known": false
+        }
+      ],
+      "protected_names": [
+        "Dusit",
+        "Boonthon",
+        "Ayothaya"
+      ]
+    },
+    "2": {
+      "original_instruction": "Boonthon can be found inside the house at (65, 104). Just go south from Dustit and loop around to the left and up along the wooden walkways. She'll ask you for items to make a holy thread after you talk to her telling her you want to find the tiger. | 1 Solid Husk | 1 Holy Water | 1 Needle Packet | 1 Spool",
+      "instruction_sha256": "a3ef64c05edf49986b75850f9f9c6dcb545907d6be6e713bc7fb7b2dd9c889af",
+      "step_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest/step/a3ef64c05edf49986b75/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Boonthon (65, 104); подготовьте 1 Solid Husk, 1 Holy Water, 1 Needle Packet, 1 Spool.",
+      "short_en": "Talk to Boonthon (65, 104); prepare 1 Solid Husk, 1 Holy Water, 1 Needle Packet, 1 Spool.",
+      "full_ru": "Boonthon находится в доме (65, 104). От Dustit идите на юг, затем по деревянным дорожкам налево и вверх. Скажите ей, что хотите найти тигра: она попросит материалы для священной нити — 1 Solid Husk, 1 Holy Water, 1 Needle Packet и 1 Spool.",
+      "full_en": "Boonthon can be found inside the house at (65, 104). Just go south from Dustit and loop around to the left and up along the wooden walkways. She'll ask you for items to make a holy thread after you talk to her telling her you want to find the tiger. | 1 Solid Husk | 1 Holy Water | 1 Needle Packet | 1 Spool",
+      "npcs": [
+        {
+          "entity": "Boonthon",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Solid Husk",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Holy Water",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Needle Packet",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Spool",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Boonthon"
+        },
+        {
+          "operation": "collect"
+        }
+      ],
+      "protected_names": [
+        "Dustit",
+        "Boonthon",
+        "Solid Husk",
+        "Holy Water",
+        "Needle Packet",
+        "Spool"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 65,
+          "y": 104,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "65, 104"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Bring these and she'll give you the Holy Threads which allow you to go to level 1 of the dungeon.",
+      "instruction_sha256": "dfe35a949f5065c915d273d98c2266c2897488a4f482e6aee0deeec671a94fdd",
+      "step_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest/step/dfe35a949f5065c915d2/1",
+      "goal": "deliver",
+      "short_ru": "Принесите материалы Boonthon и получите Holy Threads для уровня 1.",
+      "short_en": "Bring the materials to Boonthon and receive Holy Threads for level 1.",
+      "full_ru": "Принесите запрошенные материалы: она выдаст Holy Threads, позволяющие попасть на уровень 1 подземелья.",
+      "full_en": "Bring these and she'll give you the Holy Threads which allow you to go to level 1 of the dungeon.",
+      "npcs": [
+        {
+          "entity": "Boonthon",
+          "role": "deliver",
+          "support_step": 2,
+          "evidence": "Boonthon can be found inside the house at (65, 104)."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Solid Husk",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 2,
+          "evidence": "1 Solid Husk"
+        },
+        {
+          "entity": "Holy Water",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 2,
+          "evidence": "1 Holy Water"
+        },
+        {
+          "entity": "Needle Packet",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 2,
+          "evidence": "1 Needle Packet"
+        },
+        {
+          "entity": "Spool",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 2,
+          "evidence": "1 Spool"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver"
+        },
+        {
+          "operation": "receive_reward",
+          "entity": "Holy Threads"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Holy Threads",
+          "condition": "Intermediate access item; level 1."
+        }
+      ],
+      "protected_names": [
+        "Holy Threads"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Go outside of her house and to the far east onto the field map. continue east to an NPC that asks you if you really want to go down there, (128, 197) say yes and you'll be moved to the bottom of the valley.",
+      "instruction_sha256": "09cab5424883c99d59b5eb11caee00cb420c02ce3a38bd4082743aae15f7d57c",
+      "step_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest/step/09cab5424883c99d59b5/1",
+      "goal": "move",
+      "short_ru": "Идите на восток к NPC (128, 197) и согласитесь спуститься.",
+      "short_en": "Go east to the NPC (128, 197) and agree to go down.",
+      "full_ru": "Выйдите из её дома и идите на восток, на полевую карту. Продолжайте идти на восток к NPC (128, 197). На вопрос, действительно ли вы хотите спуститься, ответьте утвердительно; вас перенесут на дно долины.",
+      "full_en": "Go outside of her house and to the far east onto the field map. continue east to an NPC that asks you if you really want to go down there, (128, 197) say yes and you'll be moved to the bottom of the valley.",
+      "actions": [
+        {
+          "operation": "move"
+        },
+        {
+          "operation": "choose",
+          "condition": "Affirmative response; exact game menu label not established."
+        },
+        {
+          "operation": "warp"
+        }
+      ],
+      "protected_names": [],
+      "locations": [
+        {
+          "map": null,
+          "x": 128,
+          "y": 197,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "128, 197"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Go to the temple, and go in.",
+      "instruction_sha256": "b53df0bc969e921cd55fffe509a8b0d43bcf105e7763fb3c3adbe03f918684b3",
+      "step_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest/step/b53df0bc969e921cd55f/1",
+      "goal": "enter",
+      "short_ru": "Войдите в храм.",
+      "short_en": "Enter the temple.",
+      "full_ru": "Подойдите к храму и войдите внутрь.",
+      "full_en": "Go to the temple, and go in.",
+      "actions": [
+        {
+          "operation": "enter"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Here you'll find the mapless maze. There's also a drop down pool, avoid walking into these, since they kill you if you fall down them, and you do lose EXP. You'll see 3 possible paths facing North and 3 to the West, the North facing one farthest to the West will cause a popup NPC dialogue to activate and start flashing crosses on the minimap.",
+      "instruction_sha256": "00f3db183e3155e239030421edfbb3ed07628e30308c41ced3dc0b6ca4759a3a",
+      "step_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest/step/00f3db183e3155e23903/1",
+      "goal": "trigger_dialogue",
+      "short_ru": "Запустите подсказку на самом западном северном пути; избегайте провалов.",
+      "short_en": "Trigger the hint on the westernmost north-facing path; avoid the pits.",
+      "full_ru": "Вы окажетесь в лабиринте без карты. Избегайте провалов: падение убивает персонажа и отнимает EXP. Перед вами 3 пути на север и 3 на запад. Самый западный из путей, направленных на север, запускает диалог NPC и мигающие кресты на миникарте.",
+      "full_en": "Here you'll find the mapless maze. There's also a drop down pool, avoid walking into these, since they kill you if you fall down them, and you do lose EXP. You'll see 3 possible paths facing North and 3 to the West, the North facing one farthest to the West will cause a popup NPC dialogue to activate and start flashing crosses on the minimap.",
+      "actions": [
+        {
+          "operation": "move",
+          "condition": "Westernmost north-facing path."
+        },
+        {
+          "operation": "trigger_dialogue"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "These are hidden panels along the way, you'll need to press them in order! | Note: Using a Fly Wing or Teleporting will cancel the crosses so you'd best have a good memory or reactivate them after each one you find. | Note2: If you Teleport around, it is possible that you land in a drop down pool! and then you'll lose experience. Map of Crosses (Approximate): Note: The dark zone in center is only a pool of water Once you activate all 6, return to Boomthon. She will make Holier Threads for you, and asks for these items: | 2 Needle Packet | 2 Holy Water | 2 Spool | 1 Yggdrasil Leaf",
+      "instruction_sha256": "5c952f9473f6cceee3d54ff34ad562a7483c29f58bee051c6a457033b219986a",
+      "step_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest/step/5c952f9473f6cceee3d5/1",
+      "goal": "activate_panels",
+      "short_ru": "Активируйте 6 панелей по порядку; вернитесь к Boomthon с 2 Needle Packet, 2 Holy Water, 2 Spool, 1 Yggdrasil Leaf.",
+      "short_en": "Activate 6 panels in order; return to Boomthon with 2 Needle Packet, 2 Holy Water, 2 Spool, 1 Yggdrasil Leaf.",
+      "full_ru": "По пути находятся скрытые панели; нажимайте их по порядку. Fly Wing или Teleport убирают кресты: запоминайте их расположение или снова включайте подсказку после каждой найденной панели. Примечание 2: Teleport может перенести вас в провал, что приведёт к потере опыта. На примерной карте крестов тёмная центральная область — лишь водоём. После активации всех 6 панелей вернитесь к Boomthon. Для изготовления Holier Threads она попросит 2 Needle Packet, 2 Holy Water, 2 Spool и 1 Yggdrasil Leaf.",
+      "full_en": "These are hidden panels along the way, you'll need to press them in order! | Note: Using a Fly Wing or Teleporting will cancel the crosses so you'd best have a good memory or reactivate them after each one you find. | Note2: If you Teleport around, it is possible that you land in a drop down pool! and then you'll lose experience. Map of Crosses (Approximate): Note: The dark zone in center is only a pool of water Once you activate all 6, return to Boomthon. She will make Holier Threads for you, and asks for these items: | 2 Needle Packet | 2 Holy Water | 2 Spool | 1 Yggdrasil Leaf",
+      "npcs": [
+        {
+          "entity": "Boomthon",
+          "role": "return"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Needle Packet",
+          "quantity": 2,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Holy Water",
+          "quantity": 2,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Spool",
+          "quantity": 2,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Yggdrasil Leaf",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "activate",
+          "condition": "All six panels in order; teleport resets displayed markers."
+        },
+        {
+          "operation": "return",
+          "entity": "Boomthon"
+        },
+        {
+          "operation": "bring"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "panel_route_image_unbound",
+          "detail": "The guide relies on an approximate image for the six-panel route. No licensed local step image or panel coordinates are established; do not claim a complete navigation route."
+        }
+      ],
+      "protected_names": [
+        "Boomthon",
+        "Holy Water",
+        "Needle Packet",
+        "Spool",
+        "Holier Threads",
+        "Yggdrasil Leaf",
+        "Fly Wing"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "After making the Holier Threads , you're able to return to the maze and access level 2!",
+      "instruction_sha256": "add24dff767ad56aec6ce24855b7c4f3f3991730f854dcc80c9feb72d8a1d3f8",
+      "step_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest/step/add24dff767ad56aec6c/1",
+      "goal": "enter",
+      "short_ru": "Получите Holier Threads и вернитесь в лабиринт для доступа на уровень 2.",
+      "short_en": "Obtain Holier Threads and return to the maze for level 2 access.",
+      "full_ru": "После изготовления Holier Threads можно вернуться в лабиринт и войти на уровень 2.",
+      "full_en": "After making the Holier Threads , you're able to return to the maze and access level 2!",
+      "actions": [
+        {
+          "operation": "receive_reward",
+          "entity": "Holier Threads"
+        },
+        {
+          "operation": "enter"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Holier Threads",
+          "condition": "Intermediate item after bringing the materials from step 7."
+        },
+        {
+          "kind": "access",
+          "condition": "Dungeon level 2 after obtaining Holier Threads."
+        }
+      ],
+      "protected_names": [
+        "Holier Threads"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Once you make it down to level 2, head for (268, 107). Talk to the npc tile to be given 1 Old Blue Box .",
+      "instruction_sha256": "2632374562f527a6b171d918a78e03e97bfd685223096ca739e24c8a0d810d5b",
+      "step_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest/step/2632374562f527a6b171/1",
+      "goal": "receive_reward",
+      "short_ru": "На уровне 2 взаимодействуйте с клеткой (268, 107) и получите 1 Old Blue Box.",
+      "short_en": "On level 2 interact with the tile at (268, 107) and receive 1 Old Blue Box.",
+      "full_ru": "На уровне 2 идите к (268, 107). Взаимодействуйте с клеткой NPC, чтобы получить 1 Old Blue Box.",
+      "full_en": "Once you make it down to level 2, head for (268, 107). Talk to the npc tile to be given 1 Old Blue Box .",
+      "actions": [
+        {
+          "operation": "move"
+        },
+        {
+          "operation": "interact"
+        },
+        {
+          "operation": "receive_reward",
+          "entity": "Old Blue Box"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Blue Box"
+        }
+      ],
+      "protected_names": [
+        "Old Blue Box"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 268,
+          "y": 107,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "268, 107"
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "After collecting the Old Blue Box , head back to Boomthon, you will be told that because of your adventurous spirit, you should keep it.",
+      "instruction_sha256": "61d09047bf68a1530adc74c0cbd787e98d7b8220e07d5fcd3bb9decf04a63e4b",
+      "step_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest/step/61d09047bf68a1530adc/1",
+      "goal": "return",
+      "short_ru": "Вернитесь к Boomthon; Old Blue Box остаётся у вас.",
+      "short_en": "Return to Boomthon; keep the Old Blue Box.",
+      "full_ru": "Получив Old Blue Box, вернитесь к Boomthon. Она скажет оставить коробку себе в награду за вашу тягу к приключениям.",
+      "full_en": "After collecting the Old Blue Box , head back to Boomthon, you will be told that because of your adventurous spirit, you should keep it.",
+      "npcs": [
+        {
+          "entity": "Boomthon",
+          "role": "return"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Old Blue Box",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Keep the already received box; not a delivery or a second reward."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return",
+          "entity": "Boomthon"
+        }
+      ],
+      "protected_names": [
+        "Boomthon",
+        "Old Blue Box"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "npc_spelling_conflict",
+      "detail": "The same guide alternates Dusit/Dustit and Boonthon/Boomthon. Literal spellings remain separate unconfirmed identities; no silent alias merge."
+    },
+    {
+      "reason": "variant_exclusion",
+      "detail": "The source explicitly says this guide is not for RESTART; server availability remains unknown."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "entity": "Spool",
+        "amount": "3",
+        "source_section": "requirements",
+        "evidence": "3 Spool",
+        "condition": "Quest total across the two crafting stages; not an extra delivery."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Solid Husk",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Solid Husk",
+        "condition": "Quest total across the two crafting stages; not an extra delivery."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Holy Water",
+        "amount": "3",
+        "source_section": "requirements",
+        "evidence": "3 Holy Water",
+        "condition": "Quest total across the two crafting stages; not an extra delivery."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Needle Packet",
+        "amount": "3",
+        "source_section": "requirements",
+        "evidence": "3 Needle Packet",
+        "condition": "Quest total across the two crafting stages; not an extra delivery."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Yggdrasil Leaf",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Yggdrasil Leaf",
+        "condition": "Quest total across the two crafting stages; not an extra delivery."
+      }
+    ]
+  }
+}

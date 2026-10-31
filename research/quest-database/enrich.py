@@ -104,10 +104,10 @@ def step_evidence(text,known_maps=()):
     silently becoming waypoints. Findings remain wiki hints, not verified NPCs.
     """
     result=set()
-    recognized={x.lower() for x in known_maps}
+    recognized=set(known_maps)
     named_matches=[]
     for m in MAP_COORD.finditer(text):
-        mapname=m.group(1).lower()
+        mapname=m.group(1)
         x=int(m.group(2));y=int(m.group(3))
         if x>400 or y>400:
             continue
@@ -198,14 +198,14 @@ def link_database(db):
             if not matches:continue
             steps=db.execute("SELECT step_no,instruction FROM wiki_steps WHERE page_id=?",(pid,)).fetchall()
             for step_no,instruction in steps:
-                positions={(m.group(1).lower(),int(m.group(2)),int(m.group(3)))
+                positions={(m.group(1),int(m.group(2)),int(m.group(3)))
                            for m in MAP_COORD.finditer(instruction)}
                 text=clean(instruction).casefold()
                 hits=[]
                 for linkscore,sid,_ in matches:
                     for nid,mapname,x,y,name in npcs.get(sid,[]):
                         short=clean(name.split("#")[0]).casefold()
-                        exact=(mapname.casefold(),x,y) in positions
+                        exact=(mapname,x,y) in positions
                         named=(len(short)>=5 and short not in GENERIC_NPC
                                and re.search(r"(?<![a-z])"+re.escape(short)+r"(?![a-z])",text))
                         if exact and named:hits.append((95,nid,"map_coord_and_npc_name"))

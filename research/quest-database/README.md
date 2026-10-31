@@ -4,6 +4,17 @@ Isolated **research branch**. No changes to the RoAura WPF application, settings
 
 > **Current scope decision — 2026-10-31:** [SEMANTIC_DATA_SPEC.md](./SEMANTIC_DATA_SPEC.md) is the approved next-phase requirement. Work **only on the quest database**, not on RoAura integration. Require **Russian and English short/full step descriptions**, preserving original in-game names (cities/maps/NPCs/items/monsters) without translation. Remove archived event-only quests from working datasets and usable catalog exports; older notes below about keeping archived events describe prior stages, not current requirements.
 
+## Current semantic implementation — 2026-10-31
+
+See [SEMANTIC_PROGRESS.md](./SEMANTIC_PROGRESS.md) for the implementation,
+reproduction commands and exact remaining work. `output/quest_semantic.sqlite`
+(schema 1, generator semantic-1.1.0) has 217 active catalog candidates and 2,753
+preserved steps. **76 steps in 12 guides** have all four RU/EN descriptions;
+**2,677 remain incomplete**. 59 historical events are excluded and 10 ambiguous
+records quarantined from both usable research projections and the core worklist.
+The full raw archive is retained. This is a partial database, with no RoAura
+integration or release. Historical metrics below describe earlier snapshots.
+
 ## Current ROQuestie scope — shared quests across Ragnarok Online
 
 **ROQuestie is server-neutral.** The main objective is a source-backed, nearly

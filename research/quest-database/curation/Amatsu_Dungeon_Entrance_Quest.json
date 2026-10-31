@@ -1,0 +1,407 @@
+{
+  "quest_id": "irowiki-classic:Amatsu_Dungeon_Entrance_Quest",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "b36cfaf82de1a939524b04e64cc65b4bd08710a9b6f0f134ecf0ba1ae2afa4af",
+  "snapshot_sha256": "bf2164a9368d34866f351ad9900754cb78c103d12b9767bdf52aa551b58ceea0",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Guard Soldiers"
+    },
+    {
+      "type": "npc",
+      "name": "Lord of Palace"
+    },
+    {
+      "type": "npc",
+      "name": "Kouji"
+    },
+    {
+      "type": "npc",
+      "name": "Kitsune Mask"
+    },
+    {
+      "type": "map",
+      "name": "Amatsu"
+    },
+    {
+      "type": "map",
+      "name": "amatsu",
+      "map_code": "amatsu"
+    },
+    {
+      "type": "map",
+      "name": "ama_in02",
+      "map_code": "ama_in02"
+    },
+    {
+      "type": "map",
+      "name": "ama_fild01"
+    },
+    {
+      "type": "map",
+      "name": "ama_in01",
+      "map_code": "ama_in01"
+    },
+    {
+      "type": "item",
+      "name": "Nine Tails",
+      "game_id": 1022,
+      "id_source": "http://db.irowiki.org/classic/item-info/1022/"
+    },
+    {
+      "type": "item",
+      "name": "Feudal Lord Permit",
+      "game_id": 7160,
+      "id_source": "http://db.irowiki.org/classic/item-info/7160/"
+    },
+    {
+      "type": "monster",
+      "name": "Nine Tails",
+      "ref": "nine_tails_creature"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Speak to the Guard Soldiers in Amatsu (amatsu 164, 174 and 171, 164). He will tell you not to enter the house. In there is the master's mother and she has been sick for several months.",
+      "instruction_sha256": "5c7e5ec2adfd853fd5ac0ef172ec31bccdc3f57a6690cf95eb672430849a5f76",
+      "step_id": "irowiki-classic:Amatsu_Dungeon_Entrance_Quest/step/5c7e5ec2adfd853fd5ac/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Guard Soldiers в Amatsu: amatsu 164, 174 и 171, 164.",
+      "short_en": "Talk to Guard Soldiers in Amatsu: amatsu 164, 174 and 171, 164.",
+      "full_ru": "Поговорите с Guard Soldiers в Amatsu (amatsu 164, 174 и 171, 164). Стражник скажет не входить в дом: там находится мать господина, которая болеет уже несколько месяцев.",
+      "full_en": "Speak to the Guard Soldiers in Amatsu (amatsu 164, 174 and 171, 164). He will tell you not to enter the house. In there is the master's mother and she has been sick for several months.",
+      "npcs": [
+        {
+          "entity": "Guard Soldiers",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Guard Soldiers"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "amatsu",
+          "x": 164,
+          "y": 174,
+          "role": "npc",
+          "known": true
+        },
+        {
+          "entity": "amatsu",
+          "x": 171,
+          "y": 164,
+          "role": "npc",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Guard Soldiers",
+        "Amatsu",
+        "amatsu"
+      ],
+      "mention_entities": {
+        "Nine Tails": "Nine Tails"
+      }
+    },
+    "2": {
+      "original_instruction": "Now, go to the castle (amatsu 85, 235) and find the Lord of Palace (ama_in02 200, 176) on the 4th floor. Tell him you heard his mother is sick. He will ask you to cure his mother.",
+      "instruction_sha256": "d7ebc7f746a537363c1bed6b2373a41825128e9a1794b61a1f217efd87933896",
+      "step_id": "irowiki-classic:Amatsu_Dungeon_Entrance_Quest/step/d7ebc7f746a537363c1b/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Lord of Palace на 4-м этаже: ama_in02 200, 176.",
+      "short_en": "Talk to Lord of Palace on the 4th floor: ama_in02 200, 176.",
+      "full_ru": "Идите в замок (amatsu 85, 235) и найдите Lord of Palace (ama_in02 200, 176) на 4-м этаже. Скажите, что слышали о болезни его матери. Он попросит вас вылечить её.",
+      "full_en": "Now, go to the castle (amatsu 85, 235) and find the Lord of Palace (ama_in02 200, 176) on the 4th floor. Tell him you heard his mother is sick. He will ask you to cure his mother.",
+      "npcs": [
+        {
+          "entity": "Lord of Palace",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "move",
+          "entity": "amatsu"
+        },
+        {
+          "operation": "talk",
+          "entity": "Lord of Palace"
+        }
+      ],
+      "protected_names": [
+        "Lord of Palace",
+        "amatsu",
+        "ama_in02"
+      ],
+      "locations": [
+        {
+          "map": "amatsu",
+          "x": 85,
+          "y": 235,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "amatsu 85, 235"
+        },
+        {
+          "map": "ama_in02",
+          "x": 200,
+          "y": 176,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ama_in02 200, 176"
+        }
+      ],
+      "mention_entities": {
+        "Nine Tails": "Nine Tails"
+      }
+    },
+    "3": {
+      "original_instruction": "After this, head back outside and go to a boy named Kouji near the walls (amatsu 189, 165). Speak to him twice.",
+      "instruction_sha256": "0eb3f65ccb6698586028eb0344ac92b6e75a17e7cb9f979248cde2e8e8564cf5",
+      "step_id": "irowiki-classic:Amatsu_Dungeon_Entrance_Quest/step/0eb3f65ccb6698586028/1",
+      "goal": "talk",
+      "short_ru": "Дважды поговорите с Kouji: amatsu 189, 165.",
+      "short_en": "Talk to Kouji twice: amatsu 189, 165.",
+      "full_ru": "Выйдите наружу и найдите мальчика Kouji у стен (amatsu 189, 165). Поговорите с ним дважды.",
+      "full_en": "After this, head back outside and go to a boy named Kouji near the walls (amatsu 189, 165). Speak to him twice.",
+      "npcs": [
+        {
+          "entity": "Kouji",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kouji",
+          "condition": "Twice."
+        }
+      ],
+      "protected_names": [
+        "Kouji",
+        "amatsu"
+      ],
+      "locations": [
+        {
+          "map": "amatsu",
+          "x": 189,
+          "y": 165,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "amatsu 189, 165"
+        }
+      ],
+      "mention_entities": {
+        "Nine Tails": "Nine Tails"
+      }
+    },
+    "4": {
+      "original_instruction": "Head north and go to the shrine (ama_fild01 174, 331).",
+      "instruction_sha256": "23a57be965b3506473d5a0bcd13b71ace38fea88afbb9892050b8e8bf6546317",
+      "step_id": "irowiki-classic:Amatsu_Dungeon_Entrance_Quest/step/23a57be965b3506473d5/1",
+      "goal": "move",
+      "short_ru": "Идите к святилищу: ama_fild01 174, 331.",
+      "short_en": "Go to the shrine: ama_fild01 174, 331.",
+      "full_ru": "Направляйтесь на север к святилищу (ama_fild01 174, 331).",
+      "full_en": "Head north and go to the shrine (ama_fild01 174, 331).",
+      "actions": [
+        {
+          "operation": "move",
+          "entity": "ama_fild01"
+        }
+      ],
+      "protected_names": [
+        "ama_fild01"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Nine Tails": "Nine Tails"
+      }
+    },
+    "5": {
+      "original_instruction": "Talk to the NPC named Kitsune Mask (ama_in01 179, 173). He'll teach you how to get rid of the ghost.",
+      "instruction_sha256": "37577c8936bb72bd011e30be970ad83abe136399ec71b24f20c8c5cf4215e0f3",
+      "step_id": "irowiki-classic:Amatsu_Dungeon_Entrance_Quest/step/37577c8936bb72bd011e/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Kitsune Mask: ama_in01 179, 173.",
+      "short_en": "Talk to Kitsune Mask: ama_in01 179, 173.",
+      "full_ru": "Поговорите с NPC Kitsune Mask (ama_in01 179, 173). Он научит вас избавляться от призрака.",
+      "full_en": "Talk to the NPC named Kitsune Mask (ama_in01 179, 173). He'll teach you how to get rid of the ghost.",
+      "npcs": [
+        {
+          "entity": "Kitsune Mask",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kitsune Mask"
+        }
+      ],
+      "protected_names": [
+        "Kitsune Mask",
+        "ama_in01"
+      ],
+      "locations": [
+        {
+          "map": "ama_in01",
+          "x": 179,
+          "y": 173,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ama_in01 179, 173"
+        }
+      ],
+      "mention_entities": {
+        "Nine Tails": "Nine Tails"
+      }
+    },
+    "6": {
+      "original_instruction": "Go into the house in step 1. Speak to her until the ghost leaves. If you fail to get rid of the ghost each time you talk to her then she will kick you out; just keep trying. When you succeed, you will see dead Nine Tails and get a Nine Tails .",
+      "instruction_sha256": "7142c37e784c317d7edaa333ed9f36f6189aca83b36f02bb351f96ca1afb54da",
+      "step_id": "irowiki-classic:Amatsu_Dungeon_Entrance_Quest/step/7142c37e784c317d7eda/1",
+      "goal": "repeat_talk",
+      "short_ru": "Говорите с женщиной в доме из этапа 1 до изгнания призрака; получите Nine Tails.",
+      "short_en": "Talk to the woman in the house from step 1 until the ghost leaves; receive Nine Tails.",
+      "full_ru": "Войдите в дом из этапа 1. Говорите с женщиной, пока призрак не уйдёт. При каждой неудачной попытке она выгоняет вас; возвращайтесь и пробуйте снова. При успехе вы увидите мёртвых Nine Tails и получите предмет Nine Tails.",
+      "full_en": "Go into the house in step 1. Speak to her until the ghost leaves. If you fail to get rid of the ghost each time you talk to her then she will kick you out; just keep trying. When you succeed, you will see dead Nine Tails and get a Nine Tails .",
+      "actions": [
+        {
+          "operation": "talk",
+          "condition": "Repeat until the ghost leaves; re-enter after failure."
+        },
+        {
+          "operation": "receive_reward",
+          "entity": "Nine Tails"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Nine Tails",
+          "condition": "Intermediate quest item after successful exorcism."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "monster_id_unknown",
+          "detail": "Nine Tails creature and inventory item are separate typed entities with per-occurrence mentions. The item has source-linked ID 1022; no Monster ID is asserted."
+        }
+      ],
+      "protected_names": [
+        "Nine Tails"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Nine Tails": "Nine Tails"
+      },
+      "mention_overrides": [
+        {
+          "field": "full_ru",
+          "surface": "Nine Tails",
+          "occurrence": 1,
+          "entity": "nine_tails_creature"
+        },
+        {
+          "field": "full_en",
+          "surface": "Nine Tails",
+          "occurrence": 1,
+          "entity": "nine_tails_creature"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "nine_tails_creature",
+          "operation": "mention",
+          "required": 0,
+          "condition": "Dead creatures shown after exorcism; not a kill requirement; Monster ID unconfirmed."
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Take that item back to the castle, and talk to the Lord of Palace again. He'll thank you for your work, and give you a Feudal Lord Permit to the dungeon. The dungeon is located on the 5th floor. Simply walk up the ladder you see as you enter the 4th floor, and speak to the NPC waiting there, and he'll let you in. | Note : Do NOT try to use another character's Feudal Lord Permit to access the dungeon before or after doing the quest for yourself. The guard at the dungeon entrance will realize that you are using a permit other than your own and take it. It doesn't matter if you borrow a friend's permit or put one of your alternate character's permits into storage--the guard will take it regardless. This will leave you and the other character permitless.",
+      "instruction_sha256": "7f72a03304748b85867fa9c8810b11b59e461de0c97b41debe99e9025f3c9711",
+      "step_id": "irowiki-classic:Amatsu_Dungeon_Entrance_Quest/step/7f72a03304748b85867f/1",
+      "goal": "deliver",
+      "short_ru": "Вернитесь к Lord of Palace с Nine Tails; используйте только собственный Feudal Lord Permit.",
+      "short_en": "Return to Lord of Palace with Nine Tails; use only your own Feudal Lord Permit.",
+      "full_ru": "Отнесите этот предмет обратно в замок и снова поговорите с Lord of Palace. Он поблагодарит вас и выдаст Feudal Lord Permit для подземелья. Подземелье находится на 5-м этаже: поднимитесь по лестнице, видимой при входе на 4-й этаж, и поговорите с ожидающим NPC. Примечание: НЕ используйте Feudal Lord Permit другого персонажа ни до, ни после собственного прохождения. Стражник распознаёт чужой пропуск и забирает его, даже если он взят у друга или передан через хранилище с другого вашего персонажа. В результате оба персонажа останутся без пропуска.",
+      "full_en": "Take that item back to the castle, and talk to the Lord of Palace again. He'll thank you for your work, and give you a Feudal Lord Permit to the dungeon. The dungeon is located on the 5th floor. Simply walk up the ladder you see as you enter the 4th floor, and speak to the NPC waiting there, and he'll let you in. | Note : Do NOT try to use another character's Feudal Lord Permit to access the dungeon before or after doing the quest for yourself. The guard at the dungeon entrance will realize that you are using a permit other than your own and take it. It doesn't matter if you borrow a friend's permit or put one of your alternate character's permits into storage--the guard will take it regardless. This will leave you and the other character permitless.",
+      "npcs": [
+        {
+          "entity": "Lord of Palace",
+          "role": "return"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Nine Tails",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "get a Nine Tails .",
+          "condition": "That item refers to the Nine Tails received in the previous step; consumption unspecified."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return",
+          "entity": "Lord of Palace"
+        },
+        {
+          "operation": "receive_reward",
+          "entity": "Feudal Lord Permit"
+        },
+        {
+          "operation": "enter",
+          "condition": "Use only the permit issued to this character."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Feudal Lord Permit"
+        },
+        {
+          "kind": "access",
+          "condition": "Amatsu Dungeon; character-specific permit required."
+        }
+      ],
+      "protected_names": [
+        "Lord of Palace",
+        "Feudal Lord Permit"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Nine Tails": "Nine Tails"
+      }
+    }
+  },
+  "reviews": [],
+  "quest_facts": {
+    "rewards": [
+      {
+        "kind": "base_exp",
+        "amount": "200000",
+        "source_section": "rewards",
+        "evidence": "Base Experience: 200,000"
+      },
+      {
+        "kind": "job_exp",
+        "amount": "120000",
+        "source_section": "rewards",
+        "evidence": "Job Experience: 120,000"
+      }
+    ]
+  }
+}

@@ -6,6 +6,12 @@ on:
     branches:
       - research/quest-database
     paths:
+      - research/quest-database/semantic.py
+      - research/quest-database/selection.py
+      - research/quest-database/test_semantic.py
+      - research/quest-database/migrations/**
+      - research/quest-database/curation/**
+      - research/quest-database/sources/wiki/**
       - research/quest-database/build.py
       - research/quest-database/enrich.py
       - research/quest-database/test_enrich.py
@@ -81,7 +87,7 @@ jobs:
       - name: Regression tests for wiki parser and script linking
         run: |
           cd research/quest-database
-          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py test_prerequisites.py test_baseline.py test_content.py test_name_links.py test_dependencies.py test_discovery.py test_dossiers.py test_adjudicate.py test_transitions.py test_gap_review.py
+          python -m unittest -v test_enrich.py test_graph.py test_reconcile.py test_state.py test_runtime.py test_augment.py test_quality.py test_audit.py test_triage.py test_prerequisites.py test_baseline.py test_content.py test_name_links.py test_dependencies.py test_discovery.py test_dossiers.py test_adjudicate.py test_transitions.py test_gap_review.py test_semantic.py
       - name: Rebuild research and runtime SQLite
         run: |
           if [ "${{ github.event.inputs.refresh_sources }}" = "true" ] || [ "${{ github.event.head_commit.message }}" = "research: perform one-time full NPC source refresh" ]; then
@@ -95,6 +101,9 @@ jobs:
         run: |
           python - <<'PY'
           import json
+          import sys
+          sys.path.insert(0,"research/quest-database")
+          from selection import active_page_ids
           import sqlite3
           from pathlib import Path
           p=Path("research/quest-database/output/quest_research.sqlite")
@@ -139,12 +148,29 @@ jobs:
           output=Path("research/quest-database/output/questie_catalog.sqlite")
           assert output.is_file() and output.stat().st_size>100000
           consumer=sqlite3.connect(output)
+          active=active_page_ids(con)
+          from semantic import validate, load_curations, ROOT
+          semantic=sqlite3.connect("research/quest-database/output/quest_semantic.sqlite")
+          assert validate(semantic)["integrity_check"]=="ok"
+          assert semantic.execute("PRAGMA user_version").fetchone()[0]==1
+          assert semantic.execute("SELECT count(*) FROM quests").fetchone()[0]==len(active)
+          curations=load_curations(ROOT/"curation")
+          localized=sum(len(q["steps"]) for q in curations.values())
+          semantic_report=json.loads((ROOT/"output/semantic_report.json").read_text())
+          assert semantic.execute("SELECT count(*) FROM ready_steps").fetchone()[0]==localized
+          assert semantic_report["fully_localized_steps"]==localized
+          assert semantic_report["curated_quests"]==len(curations)
+          assert semantic.execute("SELECT count(*) FROM quest_steps").fetchone()[0]==consumer.execute("SELECT count(*) FROM quest_steps").fetchone()[0]
+          assert {r[0] for r in semantic.execute("SELECT quest_id FROM quests")}=={r[0] for r in consumer.execute("SELECT quest_key FROM quests")}
+          semantic.close()
+          con.execute("CREATE TEMP TABLE active_pages(id INTEGER PRIMARY KEY)")
+          con.executemany("INSERT INTO active_pages VALUES(?)",((pid,) for pid in active))
           assert consumer.execute("PRAGMA user_version").fetchone()[0]==5
           verdicts=json.loads(Path("research/quest-database/output/source_adjudication.json").read_text(encoding="utf-8"))
           assert verdicts["summary"]["total"]==25
           assert len(verdicts["decisions"])==25
-          assert consumer.execute("SELECT count(*) FROM quest_source_decisions").fetchone()[0]==25
-          assert consumer.execute("SELECT count(*) FROM quest_source_supported").fetchone()[0]==verdicts["summary"].get("source_supported",0)
+          assert consumer.execute("SELECT count(*) FROM quest_source_decisions").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_source_decisions WHERE page_id IN active_pages").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quest_source_supported").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_source_decisions WHERE page_id IN active_pages AND decision='source_supported'").fetchone()[0]
           assert con.execute("SELECT count(*) FROM wiki_source_sequence_evidence").fetchone()[0]==verdicts["summary"]["source_sequence_rows"]
           assert all(not x["approved_for_automatic_gameplay"] and not x["source_code_execution_order_verified"] for x in verdicts["decisions"])
           transitions=json.loads(Path("research/quest-database/output/source_transition_audit.json").read_text(encoding="utf-8"))
@@ -162,19 +188,19 @@ jobs:
           assert all(not g["transition_verified"] and not g["safe_for_automatic_navigation"] and not g["item_requirements_proven"] for g in gaps["unsupported_transitions"])
           assert all(not t["full_quest_terminal_path_verified"] for t in gaps["terminal_state_reviews"])
           assert not gaps["safety"]["automatic_game_navigation_enabled"]
-          assert consumer.execute("SELECT count(*) FROM quest_content_categories").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
-          assert consumer.execute("SELECT count(*) FROM quest_content_signals").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_content_signals").fetchone()[0]
-          assert consumer.execute("SELECT count(*) FROM quest_dependency_paths").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_prerequisite_paths").fetchone()[0]
-          assert consumer.execute("SELECT count(*) FROM quest_step_locations").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_details WHERE kind IN ('map_coord','bare_coord')").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quest_content_categories").fetchone()[0]==len(active)
+          assert consumer.execute("SELECT count(*) FROM quest_content_signals").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_content_signals WHERE page_id IN active_pages").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quest_dependency_paths").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_prerequisite_paths WHERE page_id IN active_pages AND dependency_page_id IN active_pages").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quest_step_locations").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_details WHERE kind IN ('map_coord','bare_coord') AND page_id IN active_pages").fetchone()[0]
           assert consumer.execute("SELECT count(*) FROM quest_step_locations WHERE map IS NULL").fetchone()[0]>=0
-          assert consumer.execute("SELECT count(*) FROM quest_prerequisites").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_quest_prerequisite_links").fetchone()[0]
-          assert consumer.execute("SELECT count(*) FROM quest_prerequisite_text").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_quest_prerequisite_text").fetchone()[0]
-          assert consumer.execute("SELECT count(*) FROM quest_quality").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quest_prerequisites").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_quest_prerequisite_links WHERE page_id IN active_pages AND prerequisite_page_id IN active_pages").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quest_prerequisite_text").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_quest_prerequisite_text WHERE page_id IN active_pages").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quest_quality").fetchone()[0]==len(active)
           assert consumer.execute("SELECT count(*) FROM scripts WHERE variant_scope IN ('common','pre-re','renewal')").fetchone()[0]==scripts
           assert con.execute("SELECT count(*) FROM wiki_refresh_state").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
           assert consumer.execute("PRAGMA integrity_check").fetchone()[0]=="ok"
           assert not consumer.execute("PRAGMA foreign_key_check").fetchall()
-          assert consumer.execute("SELECT count(*) FROM quests").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_pages").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quests").fetchone()[0]==len(active)
           import json
           review_path=Path("research/quest-database/output/quest_review_queue.json")
           review=json.loads(review_path.read_text(encoding="utf-8"))
@@ -189,12 +215,12 @@ jobs:
           assert consumer.execute("SELECT count(*) FROM quest_id_candidates").fetchone()[0]>0
           core=json.loads(Path("research/quest-database/output/roquestie_core_worklist.json").read_text(encoding="utf-8"))
           assert core["product"]=="ROQuestie"
-          assert core["metrics"]["total_source_pages"]==review["metrics"]["indexed_pages"]
+          assert core["metrics"]["total_source_pages"]==len(active_page_ids(con))
           assert core["metrics"]["server_verified"]==0
-          assert core["metrics"]["total_source_pages"]==con.execute("SELECT count(*) FROM wiki_content_categories").fetchone()[0]
-          assert core["metrics"]["still_unsorted"]==con.execute("SELECT count(*) FROM wiki_content_categories WHERE category='unsorted_quest_candidate'").fetchone()[0]
+          assert core["metrics"]["total_source_pages"]==consumer.execute("SELECT count(*) FROM quests").fetchone()[0]
+          assert core["metrics"]["still_unsorted"]==consumer.execute("SELECT count(*) FROM quest_content_categories WHERE category='unsorted_quest_candidate'").fetchone()[0]
           assert all(not x["universal_availability_claim"] for x in core["quests"])
-          assert consumer.execute("SELECT count(*) FROM quest_steps").fetchone()[0]==con.execute("SELECT count(*) FROM wiki_steps").fetchone()[0]
+          assert consumer.execute("SELECT count(*) FROM quest_steps").fetchone()[0]==sum(con.execute("SELECT count(*) FROM wiki_steps WHERE page_id=?",(pid,)).fetchone()[0] for pid in active_page_ids(con))
           assert consumer.execute("SELECT count(*) FROM dialogue_options").fetchone()[0]==con.execute("SELECT count(*) FROM npc_flow_options").fetchone()[0]
           assert consumer.execute("SELECT count(*) FROM quest_state_facts").fetchone()[0]==con.execute("SELECT count(*) FROM npc_state_facts").fetchone()[0]
           missing=json.loads(Path("research/quest-database/output/missing_script_discovery.json").read_text(encoding="utf-8"))
@@ -231,6 +257,9 @@ jobs:
           path: |
             research/quest-database/output/quest_research.sqlite
             research/quest-database/output/quest_research.sqlite.gz
+            research/quest-database/output/quest_semantic.sqlite*
+            research/quest-database/output/semantic_*.json
+            research/quest-database/output/active_quests.json
             research/quest-database/output/coverage.json
             research/quest-database/output/questie_catalog.sqlite
             research/quest-database/output/questie_catalog.sqlite.gz
@@ -250,6 +279,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add research/quest-database/output/quest_research.sqlite research/quest-database/output/quest_research.sqlite.gz research/quest-database/output/coverage.json research/quest-database/output/questie_catalog.sqlite research/quest-database/output/questie_catalog.sqlite.gz research/quest-database/output/quest_review_queue.json research/quest-database/output/critical_quest_triage.json research/quest-database/output/roquestie_core_worklist.json research/quest-database/output/missing_script_discovery.json research/quest-database/output/unclassified_quest_review.json research/quest-database/output/npc_source_dossiers.json research/quest-database/output/source_adjudication.json research/quest-database/output/source_transition_audit.json research/quest-database/output/source_transition_gap_review.json
+          git add research/quest-database/output/quest_semantic.sqlite* research/quest-database/output/semantic_*.json research/quest-database/output/active_quests.json
           if git diff --cached --quiet; then
             echo "No database changes to publish."
             exit 0

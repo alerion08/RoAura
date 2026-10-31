@@ -1,0 +1,121 @@
+{
+  "quest_id": "irowiki-classic:Turtle_Island_Entrance_Quest",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "50fb4a36cb455e37c425f7341db2baa20b2212f1d7de4c7aa39f36a27af5b42b",
+  "snapshot_sha256": "11f5fa7caf5f1603feae02e059b60942e622862295ff3817d35166f2176cfddc",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Turtle Grampa"
+    },
+    {
+      "type": "map",
+      "name": "Alberta"
+    },
+    {
+      "type": "map",
+      "name": "Turtle Island"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Enter the inn in Alberta near (61, 233), then go into the room on the right.",
+      "instruction_sha256": "93580c77a37cfdff6a2734cec4770cbb07963c58c7845d76430957c6022c7f85",
+      "step_id": "irowiki-classic:Turtle_Island_Entrance_Quest/step/93580c77a37cfdff6a27/1",
+      "goal": "enter",
+      "short_ru": "Войдите в гостиницу Alberta (61, 233) и в комнату справа.",
+      "short_en": "Enter the Alberta inn at (61, 233), then the room on the right.",
+      "full_ru": "Войдите в гостиницу в Alberta около (61, 233), затем зайдите в комнату справа.",
+      "full_en": "Enter the inn in Alberta near (61, 233), then go into the room on the right.",
+      "actions": [
+        {
+          "operation": "enter",
+          "entity": "Alberta"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Alberta",
+          "x": 61,
+          "y": 233,
+          "role": "entrance",
+          "known": false
+        }
+      ],
+      "protected_names": [
+        "Alberta"
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk with ‘Turtle Grampa’ and choose “How can I get there?”. You can now travel to Turtle Island by talking to the sailor in Alberta located at (247, 122). Each trip costs 10,000 zeny .",
+      "instruction_sha256": "c6ed08089ab3189a5139200f2545f490c84dbb699daeee28362c225428535e2f",
+      "step_id": "irowiki-classic:Turtle_Island_Entrance_Quest/step/c6ed08089ab3189a5139/1",
+      "goal": "unlock_travel",
+      "short_ru": "Выберите у Turtle Grampa «How can I get there?»; моряк в Alberta (247, 122) возит на Turtle Island за 10,000 zeny.",
+      "short_en": "Choose “How can I get there?” with Turtle Grampa; the sailor in Alberta (247, 122) travels to Turtle Island for 10,000 zeny.",
+      "full_ru": "Поговорите с ‘Turtle Grampa’ и выберите «How can I get there?». После этого можно отправиться на Turtle Island, поговорив с моряком в Alberta (247, 122). Каждая поездка стоит 10,000 zeny.",
+      "full_en": "Talk with ‘Turtle Grampa’ and choose “How can I get there?”. You can now travel to Turtle Island by talking to the sailor in Alberta located at (247, 122). Each trip costs 10,000 zeny .",
+      "npcs": [
+        {
+          "entity": "Turtle Grampa",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Turtle Grampa",
+          "options": [
+            {
+              "text": "How can I get there?",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "zeny",
+          "amount": "10000",
+          "condition": "Per journey, not a quest reward or one-time unlock charge."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Turtle Grampa"
+        },
+        {
+          "operation": "choose",
+          "entity": "Turtle Grampa"
+        },
+        {
+          "operation": "travel",
+          "entity": "Turtle Island",
+          "condition": "10,000 zeny per journey via the sailor."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Alberta",
+          "x": 247,
+          "y": 122,
+          "role": "transport",
+          "known": false
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "access",
+          "condition": "Paid travel to Turtle Island unlocked."
+        }
+      ],
+      "protected_names": [
+        "Turtle Grampa",
+        "Alberta",
+        "Turtle Island"
+      ]
+    }
+  },
+  "reviews": []
+}

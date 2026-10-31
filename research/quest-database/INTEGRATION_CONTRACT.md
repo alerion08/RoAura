@@ -4,6 +4,48 @@
 
 **Objective:** a maximally complete, source-backed, versioned **ROQuestie** knowledge base for main Ragnarok Online quests across the wider RO ecosystem. The shared quest data are reusable, while Classic/Pre-Renewal/Renewal and optional individual-server differences are handled separately. A quest in the catalog is **not a guarantee that every server offers it**. This contract belongs to the standalone research work; it must not modify RoAura runtime code during collection.
 
+## Normalized semantic research export — schema 1 (current data phase)
+
+`output/quest_semantic.sqlite` is separate from the older research consumer
+catalog (`questie_catalog.sqlite`, schema 5). It is not integrated into RoAura.
+Check its own `PRAGMA user_version = 1`; see `migrations/001_semantic.sql` and
+[SEMANTIC_PROGRESS.md](./SEMANTIC_PROGRESS.md). Both active catalogs exclude
+archived/quarantined quest records; `quest_research.sqlite` is the raw audit archive.
+
+- Stable quest keys match the wiki URL. Uncurated step keys include original
+  instruction hash and duplicate occurrence. Curated `step_id` values are
+  explicitly pinned and must be preserved during approved source revisions.
+- `entities` plus `npcs`/`maps`/`items`/`monsters` provide typed IDs. Unknown game
+  IDs are NULL. Same spelling is not sufficient to merge NPC identities.
+- `step_descriptions` holds four independent fields. `description_mentions`
+  uses half-open Unicode code-point offsets `[start_offset, end_offset)` in
+  the indicated field, not UTF-16 offsets or byte indices. A future C# reader
+  must convert code points to UTF-16 indices before slicing. `surface` must
+  equal that exact substring. Never rediscover links with a UI keyword search.
+- Curation `ref` separates homonymous entities, `mention_entities` selects a
+  step's default identity, and `mention_overrides` selects one occurrence
+  by field/surface/1-based occurrence. Unresolved ambiguity fails closed.
+- `requirements.kind` distinguishes personal costs, total material summaries,
+  time limits and server-wide donation conditions. Do not add a quest total
+  to the per-step material rows: totals summarize the same obligations.
+- Intermediate quest items are recorded as rewards with conditions. Possess,
+  bring, deliver, consume and keep are not interchangeable. Quest-level and
+  stage rewards must not be blindly summed without reading their conditions.
+- `evidence` and `evidence_context` distinguish literal text, contextual
+  witnesses and confidence. `source_section` in curation may cite exact header
+  text or normalized text extracted from pinned HTML; the HTML bytes and hash
+  remain separately available. No server-verified evidence is created.
+- `step_edges.kind = source_order_only` is article order, not an executable
+  route/branch graph. Raw prerequisites do not establish AND/OR semantics.
+- `ready_steps` currently means **all four localized text fields exist**. It
+  is not a readiness claim for the quest, route, server or application.
+  Unfinished fields are NULL with blocking review rows; `complete=false` is
+  explicit in exports. All curated quests still carry partial review state.
+- A cache hit reuses the pinned extraction plan, not the whole SQLite file.
+  Rebuilding reconstructs and validates relational outputs deterministically.
+  A changed guide/HTML pin requires curation review; human-reviewed SQLite
+  rows cannot be silently overwritten by generation.
+
 ## Shared core and optional server compatibility
 
 ROQuestie is organized around stable quest identities, wiki walkthroughs,

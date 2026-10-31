@@ -1,0 +1,292 @@
+{
+  "quest_id": "irowiki-classic:Juice_Quest",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Complete preserved guide prose and pinned HTML; not human/server verification",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Morrison"
+    },
+    {
+      "type": "npc",
+      "name": "Butcher"
+    },
+    {
+      "type": "npc",
+      "name": "Marianne"
+    },
+    {
+      "type": "npc",
+      "name": "Marx Hansen"
+    },
+    {
+      "type": "map",
+      "name": "Prontera",
+      "map_code": "prontera"
+    },
+    {
+      "type": "map",
+      "name": "prontera",
+      "map_code": "prontera"
+    },
+    {
+      "type": "map",
+      "name": "Payon",
+      "map_code": "payon"
+    },
+    {
+      "type": "map",
+      "name": "payon",
+      "map_code": "payon"
+    },
+    {
+      "type": "item",
+      "name": "Meat",
+      "game_id": 517,
+      "id_source": "http://db.irowiki.org/classic/item-info/517/"
+    },
+    {
+      "type": "item",
+      "name": "Empty Potion Bottle",
+      "game_id": 1093,
+      "id_source": "http://db.irowiki.org/classic/item-info/1093/"
+    },
+    {
+      "type": "item",
+      "name": "Apples",
+      "game_id": 512,
+      "id_source": "http://db.irowiki.org/classic/item-info/512/"
+    },
+    {
+      "type": "item",
+      "name": "Bananas",
+      "game_id": 513,
+      "id_source": "http://db.irowiki.org/classic/item-info/513/"
+    },
+    {
+      "type": "item",
+      "name": "Carrots",
+      "game_id": 515,
+      "id_source": "http://db.irowiki.org/classic/item-info/515/"
+    },
+    {
+      "type": "item",
+      "name": "Grapes",
+      "game_id": 514,
+      "id_source": "http://db.irowiki.org/classic/item-info/514/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "With 1 Meat in your inventory, go to the second floor of the inn in east Prontera (prontera 204, 188) and talk with Morrison. Show him the meat, but decline to give it to him when he asks for it. Tip: You can buy Meat from the Butcher at (prontera 64, 125).",
+      "instruction_sha256": "1896c948904f5ecfc8e4d0b309eaf4c41733d19e5cf8533ee7bd03e0c03a8097",
+      "goal": "show_and_decline",
+      "short_ru": "Покажите Morrison 1 Meat на втором этаже гостиницы в Prontera (prontera 204, 188), но не отдавайте его.",
+      "short_en": "Show Morrison 1 Meat upstairs in the east Prontera inn (prontera 204, 188), but do not give it to him.",
+      "full_ru": "Имея в инвентаре 1 Meat, поднимитесь на второй этаж гостиницы в восточной части Prontera (prontera 204, 188) и поговорите с Morrison. Покажите ему мясо, но откажитесь отдавать его, когда он попросит. Подсказка: Meat можно купить у Butcher в точке (prontera 64, 125).",
+      "full_en": "With 1 Meat in your inventory, go to the second floor of the inn in east Prontera (prontera 204, 188) and talk with Morrison. Show him the meat, but decline to give it to him when he asks for it. Tip: You can buy Meat from the Butcher at (prontera 64, 125).",
+      "protected_names": [
+        "Morrison",
+        "Butcher",
+        "Prontera",
+        "prontera",
+        "Meat"
+      ],
+      "npcs": [
+        "Morrison",
+        {
+          "entity": "Butcher",
+          "role": "optional_vendor"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Meat",
+          "operation": "possess",
+          "quantity": 1,
+          "required": 1
+        },
+        {
+          "entity": "Meat",
+          "operation": "show",
+          "quantity": 1,
+          "required": 1
+        },
+        {
+          "entity": "Meat",
+          "operation": "decline",
+          "quantity": 1,
+          "required": 1
+        },
+        {
+          "entity": "Meat",
+          "operation": "buy",
+          "quantity": null,
+          "required": 0
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prontera",
+          "x": 204,
+          "y": 188,
+          "role": "entrance",
+          "known": true
+        },
+        {
+          "entity": "prontera",
+          "x": 64,
+          "y": 125,
+          "role": "vendor",
+          "known": true
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Morrison",
+          "condition": null
+        },
+        {
+          "operation": "show",
+          "entity": "Meat",
+          "condition": null
+        },
+        {
+          "operation": "decline",
+          "entity": "Meat",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Juice_Quest/step/1896c948904f5ecfc8e4/1"
+    },
+    "2": {
+      "original_instruction": "Talk with Marianne, who mentions hearing of someone in another town who produces fruit juice.",
+      "instruction_sha256": "9bddbeceae098b32e5e1143b03437a0f4559db42fc522c4b10a63d83fa8c1e5a",
+      "goal": "talk",
+      "short_ru": "Поговорите с Marianne о производителе сока.",
+      "short_en": "Talk to Marianne about the fruit juice maker.",
+      "full_ru": "Поговорите с Marianne: она расскажет, что слышала о человеке в другом городе, который производит фруктовый сок.",
+      "full_en": "Talk with Marianne, who mentions hearing of someone in another town who produces fruit juice.",
+      "protected_names": [
+        "Marianne"
+      ],
+      "npcs": [
+        "Marianne"
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Marianne",
+          "condition": null
+        }
+      ],
+      "step_id": "irowiki-classic:Juice_Quest/step/9bddbeceae098b32e5e1/1"
+    },
+    "3": {
+      "original_instruction": "Go to the fruit juice workshop in Payon , at (payon 155, 327), and talk with Marx Hansen, who offers to make fruit juice for you. To make a single bottle of fruit juice, he requires one piece of fruit, one Empty Potion Bottle , and 3 zeny. He can make juice from Apples , Bananas , Carrots , and Grapes .",
+      "instruction_sha256": "4fe0e9b00e9d506579ab2b3f59c73c8f6a32a47b5c16b38cf5e2959e06f882c4",
+      "goal": "unlock_service",
+      "short_ru": "Найдите Marx Hansen в Payon (payon 155, 327); для одной бутылки сока нужны фрукт, Empty Potion Bottle и 3 zeny.",
+      "short_en": "Meet Marx Hansen in Payon (payon 155, 327); one juice costs a fruit, an Empty Potion Bottle and 3 zeny.",
+      "full_ru": "Идите в мастерскую фруктового сока в Payon, в точку (payon 155, 327), и поговорите с Marx Hansen: он предложит изготовить для вас сок. Для одной бутылки ему нужны один фрукт, одна Empty Potion Bottle и 3 zeny. Он делает сок из Apples, Bananas, Carrots и Grapes.",
+      "full_en": "Go to the fruit juice workshop in Payon , at (payon 155, 327), and talk with Marx Hansen, who offers to make fruit juice for you. To make a single bottle of fruit juice, he requires one piece of fruit, one Empty Potion Bottle , and 3 zeny. He can make juice from Apples , Bananas , Carrots , and Grapes .",
+      "protected_names": [
+        "Marx Hansen",
+        "Payon",
+        "payon",
+        "Empty Potion Bottle",
+        "Apples",
+        "Bananas",
+        "Carrots",
+        "Grapes"
+      ],
+      "npcs": [
+        "Marx Hansen"
+      ],
+      "locations": [
+        {
+          "entity": "payon",
+          "x": 155,
+          "y": 327,
+          "role": "npc",
+          "known": true
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Marx Hansen",
+          "condition": null
+        },
+        {
+          "operation": "unlock_service",
+          "entity": null,
+          "condition": null
+        }
+      ],
+      "items": [
+        {
+          "entity": "Empty Potion Bottle",
+          "operation": "bring",
+          "quantity": 1,
+          "required": 0,
+          "condition": "Per optional bottle crafted after unlocking the service."
+        },
+        {
+          "entity": "Apples",
+          "operation": "bring",
+          "quantity": 1,
+          "required": 0,
+          "condition": "Choose one fruit type per optional bottle, not all four."
+        },
+        {
+          "entity": "Bananas",
+          "operation": "bring",
+          "quantity": 1,
+          "required": 0,
+          "condition": "Choose one fruit type per optional bottle, not all four."
+        },
+        {
+          "entity": "Carrots",
+          "operation": "bring",
+          "quantity": 1,
+          "required": 0,
+          "condition": "Choose one fruit type per optional bottle, not all four."
+        },
+        {
+          "entity": "Grapes",
+          "operation": "bring",
+          "quantity": 1,
+          "required": 0,
+          "condition": "Choose one fruit type per optional bottle, not all four."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "zeny",
+          "amount": "3",
+          "condition": "Per optional bottle crafted, not an unlock fee."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "service_unlock",
+          "amount": null,
+          "entity": null,
+          "condition": "Ability to make fruit juice"
+        }
+      ],
+      "step_id": "irowiki-classic:Juice_Quest/step/4fe0e9b00e9d506579ab/1"
+    }
+  },
+  "reviews": [
+    {
+      "reason": "requirement_conflict",
+      "detail": "Infobox says 1 Meat consumed; step 1 explicitly says show and decline. Kept possession/show/decline, no consumption assertion.",
+      "severity": "blocking"
+    }
+  ],
+  "source_sha256": "1f5178c77662f92111f28e194328808ca90d08112f90514edce822e1b7f854b0",
+  "snapshot_sha256": "ca22edddf7b72355ab34f9b79e58bbb21c16eaf88fc660d872627a3fb2b6b0b5"
+}

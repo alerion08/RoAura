@@ -1,0 +1,6 @@
+__pycache__/
+output/.semantic-cache/
+output/quest_semantic.build.sqlite
+output/quest_semantic.build.sqlite-journal
+output/.quest_*.sqlite.*
+output/.questie_catalog.sqlite.*

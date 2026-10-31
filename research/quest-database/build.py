@@ -495,6 +495,14 @@ def main():
         session.close()
         report["source_snapshot_utc"]=report["created_utc"]
         report["fetch_mode"]="fresh_upstream_requests"
+    # Derived literal hints must follow the current parser even in offline mode.
+    # Keep original guide text and any explicitly verified records unchanged.
+    known_maps={r[0] for r in db.execute("SELECT DISTINCT map FROM script_npcs WHERE map IS NOT NULL")}
+    with db:
+        db.execute("DELETE FROM wiki_details WHERE verified=0")
+        for pid,sn,instruction in db.execute("SELECT page_id,step_no,instruction FROM wiki_steps"):
+            for kind,value in step_evidence(instruction,known_maps):
+                db.execute("INSERT OR IGNORE INTO wiki_details VALUES(?,?,?,?,0)",(pid,sn,kind,value))
     report["linking"]=link_database(db)
     report["evidence_augmentation"]=augment_evidence(db)
     report["npc_name_links"]=link_npc_name_mentions(db)
@@ -553,11 +561,14 @@ def main():
     report["quality"]["critical_triage"]=critical["counts"]
     (target/"critical_quest_triage.json").write_text(
         json.dumps(critical,ensure_ascii=False,indent=2),encoding="utf-8")
-    core=assemble_core_worklist(review,db)
+    from selection import filter_worklist
+    core=filter_worklist(assemble_core_worklist(review,db),db)
     report["quality"]["core_quest_worklist"]=core["metrics"]
     (target/"roquestie_core_worklist.json").write_text(
         json.dumps(core,ensure_ascii=False,indent=2),encoding="utf-8")
     db.close()
+    from semantic import build as build_semantic
+    report["semantic_export"]=build_semantic(dst,target)
     report["questie_schema_version"]=report["runtime_export"]["schema_version"]
     (target/"coverage.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
     for payload in (dst,target/"questie_catalog.sqlite"):

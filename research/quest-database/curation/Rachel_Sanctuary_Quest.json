@@ -1,0 +1,731 @@
+{
+  "quest_id": "irowiki-classic:Rachel_Sanctuary_Quest",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "ba0a7f24be815c6126c0f861ccc89f7fe660d9345a2aed91dc87605ca598d267",
+  "snapshot_sha256": "654ff2f193aa8df5b9fad76195c22cc852e8cc19f9439735579f81b871433bc5",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Nemma",
+      "aliases": [
+        "Nema"
+      ],
+      "identity": "irowiki-classic:npc:ra_temple:116:174:Nemma"
+    },
+    {
+      "type": "npc",
+      "name": "Kid",
+      "identity": "irowiki-classic:npc:rachel:243:37:Kid"
+    },
+    {
+      "type": "npc",
+      "name": "Panno"
+    },
+    {
+      "type": "npc",
+      "name": "High Priest Zhed",
+      "aliases": [
+        "Zhed"
+      ],
+      "identity": "irowiki-classic:npc:ra_temin:277:159:High Priest Zhed"
+    },
+    {
+      "type": "npc",
+      "name": "Pope",
+      "aliases": [
+        "pope"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Rachel"
+    },
+    {
+      "type": "map",
+      "name": "Hugel"
+    },
+    {
+      "type": "map",
+      "name": "ra_temple",
+      "map_code": "ra_temple"
+    },
+    {
+      "type": "map",
+      "name": "rachel",
+      "map_code": "rachel"
+    },
+    {
+      "type": "map",
+      "name": "hugel",
+      "map_code": "hugel"
+    },
+    {
+      "type": "map",
+      "name": "ra_temin",
+      "map_code": "ra_temin"
+    },
+    {
+      "type": "map",
+      "name": "que_san04",
+      "map_code": "que_san04"
+    },
+    {
+      "type": "item",
+      "name": "Firecracker",
+      "aliases": [
+        "Firecrackers"
+      ],
+      "game_id": 12018,
+      "id_source": "http://db.irowiki.org/classic/item-info/12018/"
+    },
+    {
+      "type": "item",
+      "name": "Glacial Heart",
+      "game_id": 7561,
+      "id_source": "http://db.irowiki.org/classic/item-info/7561/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "If you haven't yet, talk to Nemma.( ra_temple 116,174) She'll complain about the locking mechanism on the Rachel gates.",
+      "instruction_sha256": "6b8bc540854433062d15c251a9b6ff0f58fd1596d9cdeaba04109fc74432bb57",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/6b8bc540854433062d15/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Nemma: ra_temple 116,174.",
+      "short_en": "Talk to Nemma: ra_temple 116,174.",
+      "full_ru": "Если ещё не сделали этого, поговорите с Nemma (ra_temple 116,174). Она пожалуется на запирающий механизм ворот Rachel.",
+      "full_en": "If you haven't yet, talk to Nemma.( ra_temple 116,174) She'll complain about the locking mechanism on the Rachel gates.",
+      "npcs": [
+        {
+          "entity": "Nemma",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Nemma"
+        }
+      ],
+      "protected_names": [
+        "Nemma",
+        "Rachel",
+        "ra_temple"
+      ],
+      "locations": [
+        {
+          "map": "ra_temple",
+          "x": 116,
+          "y": 174,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temple 116,174"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to the Kid down by the lake back in the main city ( rachel 243, 37). Tell him \"Yeah, I love them.\" He will then ramble a little bit about you not having any candy with you, then mention fighting priests. If no there is no option which says exactly \"Yeah, I love them\", then keep talking to him until that option appears. *If you select \"Yeah\", it will end the conversation and you will have to talk to him to try again*",
+      "instruction_sha256": "dccc38695d044e6782de43efc0743e941410da82db41dcfa24ee67850c0bf687",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/dccc38695d044e6782de/1",
+      "goal": "choose",
+      "short_ru": "У Kid (rachel 243, 37) выбирайте «Yeah, I love them», а не «Yeah»; при необходимости повторяйте разговор.",
+      "short_en": "With Kid (rachel 243, 37), choose “Yeah, I love them”, not “Yeah”; repeat the conversation if needed.",
+      "full_ru": "Поговорите с Kid у озера в городе (rachel 243, 37). Ответьте «Yeah, I love them.». Он расскажет, что у вас нет конфет, а затем упомянет дерущихся жрецов. Если точный вариант «Yeah, I love them» не появляется, повторяйте разговор до его появления. Выбор «Yeah» завершает разговор — придётся попробовать снова.",
+      "full_en": "Talk to the Kid down by the lake back in the main city ( rachel 243, 37). Tell him \"Yeah, I love them.\" He will then ramble a little bit about you not having any candy with you, then mention fighting priests. If no there is no option which says exactly \"Yeah, I love them\", then keep talking to him until that option appears. *If you select \"Yeah\", it will end the conversation and you will have to talk to him to try again*",
+      "npcs": [
+        {
+          "entity": "Kid",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kid",
+          "condition": "Repeat until the full answer appears."
+        },
+        {
+          "operation": "choose",
+          "entity": "Kid"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Kid",
+          "options": [
+            {
+              "text": "Yeah, I love them",
+              "correct": 1,
+              "condition": "Source has punctuation variants; full phrase required."
+            },
+            {
+              "text": "Yeah",
+              "correct": 0,
+              "condition": "Ends the conversation; retry."
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "Kid",
+        "rachel"
+      ],
+      "locations": [
+        {
+          "map": "rachel",
+          "x": 243,
+          "y": 37,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "rachel 243, 37"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Go back up to the temple. Walk up to the windows left of the statue to the left of Nemma ( ra_temple 67, 209). You'll be able to sneak in.",
+      "instruction_sha256": "22f8081362c1f6bff16517f718273ec134c4f6911fc0931b4a3d6c54cc328c6a",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/22f8081362c1f6bff165/1",
+      "goal": "enter",
+      "short_ru": "Проберитесь через окно храма: ra_temple 67, 209.",
+      "short_en": "Sneak in through the temple window: ra_temple 67, 209.",
+      "full_ru": "Вернитесь к храму. Подойдите к окнам слева от статуи, стоящей слева от Nemma (ra_temple 67, 209). Там можно пробраться внутрь.",
+      "full_en": "Go back up to the temple. Walk up to the windows left of the statue to the left of Nemma ( ra_temple 67, 209). You'll be able to sneak in.",
+      "actions": [
+        {
+          "operation": "enter",
+          "entity": "ra_temple"
+        }
+      ],
+      "protected_names": [
+        "Nemma",
+        "ra_temple"
+      ],
+      "locations": [
+        {
+          "map": "ra_temple",
+          "x": 67,
+          "y": 209,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temple 67, 209"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "You now need to investigate the locked down temple until you are able to push through the front gate. For the sake of these directions: | NORTH = Up and left, deeper towards the back of the temple. | EAST = Up and right | WEST = Down and left | SOUTH = Down and right, towards the front of the temple. Follow these directions (or the path shown): | Follow the red path | Blue dots show dialog locations | Once you're inside the locked down temple, head north down the hallway. You will get a popup along the way about some strange noises. | When you reach the end of the hallway, head east. You should get another popup about the noises. | When you reach a room with a woman's statue in it, continue through the southern exit of that room (through a gate). | Continue heading south until you hit a wall, then head east. | As you walk east along the front of the building along the benches, you should get a popup that says \"CRASH\" in red text. | Immeditely after you hear the \"CRASH\" turn left (north) into a small hallway with a staircase in it. Go up those stairs. | Once upstairs, head north and then east until you find a room with tiled checker flooring. Head towards the back of that room. Go through the portal behind the statue in that room. | Walk towards the gate, and a popup will tell you about the dark stains on the floor. Continue walking around over the bloodstains, investigating each time, until it tells you that you should leave before you become the next victim. | Backtrack along the red path until you reach the green path. | Head back to the staircase (southwest from the bloody room), and go back down the stairs. | Head just a bit to the east until you're back in the Atrium Hallway (stop when you see a statue against the back wall.) | Head south, towards the front of the building. After you get a popup, head further south until you reach the gate portal. When it gives you an option, try to \"Push\" or \"Kick\" it open. | You will find yourself back out front of the temple, and you will now be able to re-enter the temple through the front gate. The lights will be back on, and the NPCs will be back. But don't go back inside yet.",
+      "instruction_sha256": "2374a426b65826ab6b5f28dc48681fa759a3c04b93dd9d5d02c0fe25b140981f",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/2374a426b65826ab6b5f/1",
+      "goal": "investigate",
+      "short_ru": "Исследуйте следы крови, вернитесь к передним воротам и выберите «Push» или «Kick».",
+      "short_en": "Investigate the bloodstains, return to the front gate, and choose “Push” or “Kick”.",
+      "full_ru": "Исследуйте запертый храм, пока не сможете открыть передние ворота. Для этих указаний: NORTH — вверх и влево, в глубину храма; EAST — вверх и вправо; WEST — вниз и влево; SOUTH — вниз и вправо, к передней части. На схеме красная линия показывает путь, синие точки — места диалогов. Войдя, двигайтесь на север по коридору до сообщения о странных звуках. В конце поверните на восток: появится ещё одно сообщение. Из комнаты с женской статуей выйдите через южные ворота. Идите на юг до стены, затем на восток вдоль скамеек в передней части здания. После красного сообщения «CRASH» сразу поверните налево, на север, в коридор с лестницей и поднимитесь. Наверху идите на север, затем на восток, в комнату с шахматным полом; пройдите в её глубину и в портал за статуей. Подойдите к воротам и исследуйте тёмные пятна на полу, двигаясь по следам крови, пока не появится предупреждение уйти, чтобы не стать следующей жертвой. Вернитесь по красному пути к зелёному. Спуститесь по лестнице к юго-западу от комнаты со следами крови. Пройдите немного на восток до Atrium Hallway; остановитесь у статуи у дальней стены. Идите на юг к передней части храма. После сообщения продолжайте на юг к порталу ворот и выберите «Push» или «Kick». Вы окажетесь перед храмом; теперь передние ворота открыты, свет включён и NPC вернулись. Пока не заходите обратно.",
+      "full_en": "You now need to investigate the locked down temple until you are able to push through the front gate. For the sake of these directions: | NORTH = Up and left, deeper towards the back of the temple. | EAST = Up and right | WEST = Down and left | SOUTH = Down and right, towards the front of the temple. Follow these directions (or the path shown): | Follow the red path | Blue dots show dialog locations | Once you're inside the locked down temple, head north down the hallway. You will get a popup along the way about some strange noises. | When you reach the end of the hallway, head east. You should get another popup about the noises. | When you reach a room with a woman's statue in it, continue through the southern exit of that room (through a gate). | Continue heading south until you hit a wall, then head east. | As you walk east along the front of the building along the benches, you should get a popup that says \"CRASH\" in red text. | Immeditely after you hear the \"CRASH\" turn left (north) into a small hallway with a staircase in it. Go up those stairs. | Once upstairs, head north and then east until you find a room with tiled checker flooring. Head towards the back of that room. Go through the portal behind the statue in that room. | Walk towards the gate, and a popup will tell you about the dark stains on the floor. Continue walking around over the bloodstains, investigating each time, until it tells you that you should leave before you become the next victim. | Backtrack along the red path until you reach the green path. | Head back to the staircase (southwest from the bloody room), and go back down the stairs. | Head just a bit to the east until you're back in the Atrium Hallway (stop when you see a statue against the back wall.) | Head south, towards the front of the building. After you get a popup, head further south until you reach the gate portal. When it gives you an option, try to \"Push\" or \"Kick\" it open. | You will find yourself back out front of the temple, and you will now be able to re-enter the temple through the front gate. The lights will be back on, and the NPCs will be back. But don't go back inside yet.",
+      "actions": [
+        {
+          "operation": "investigate",
+          "condition": "Follow the complete route and inspect stains until the leave warning."
+        },
+        {
+          "operation": "choose",
+          "condition": "Push or Kick at the front gate."
+        },
+        {
+          "operation": "leave"
+        }
+      ],
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Push",
+              "correct": 1
+            },
+            {
+              "text": "Kick",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "route_image_not_bound",
+          "detail": "Text references a red/green route diagram. Complete textual directions are retained; optional image rights and binding are not yet verified."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Talk to Nemma now. If the donation target has been reached on your server, she will inform you that no more donations are needed.",
+      "instruction_sha256": "c33263273cc491c8d089af6cb433453381290c26550d87c4c38474320619fbe1",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/c33263273cc491c8d089/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Nemma о завершении серверного сбора пожертвований.",
+      "short_en": "Talk to Nemma about the server donation target.",
+      "full_ru": "Теперь поговорите с Nemma. Если сервер уже достиг цели по пожертвованиям, она сообщит, что новые пожертвования больше не нужны.",
+      "full_en": "Talk to Nemma now. If the donation target has been reached on your server, she will inform you that no more donations are needed.",
+      "npcs": [
+        {
+          "entity": "Nemma",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Nemma"
+        }
+      ],
+      "protected_names": [
+        "Nemma"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Now you can go inside the real sanctuary (again, if you went in before).",
+      "instruction_sha256": "7f890bfecb8e09792d9069b0652c50557a26e0e15110cea0a392e9350f93c5a5",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/7f890bfecb8e09792d90/1",
+      "goal": "enter",
+      "short_ru": "Войдите в святилище.",
+      "short_en": "Enter the sanctuary.",
+      "full_ru": "Теперь можно войти в настоящее святилище — повторно, если вы уже бывали там.",
+      "full_en": "Now you can go inside the real sanctuary (again, if you went in before).",
+      "actions": [
+        {
+          "operation": "enter"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Talk to Panno, choose the 3rd option of \"Hey, did you open the gate?\" and she'll tell you about the security. Talk to her again and she will tell you more about the gate and what she found out the last time it locked. (you won't be able to go on to 8 if you don't)",
+      "instruction_sha256": "c32bb297a1046884a0f711a92b31ffa2b7bb5ec657ddb0ce1aefa9f9cbb73595",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/c32bb297a1046884a0f7/1",
+      "goal": "repeat_talk",
+      "short_ru": "У Panno выберите 3-й вариант «Hey, did you open the gate?», затем поговорите ещё раз.",
+      "short_en": "With Panno choose the 3rd option “Hey, did you open the gate?”, then talk again.",
+      "full_ru": "Поговорите с Panno и выберите 3-й вариант «Hey, did you open the gate?». Она расскажет об охране. Поговорите снова, чтобы узнать больше о воротах и о том, что она обнаружила при предыдущем запирании. Без второго разговора перейти к этапу 8 нельзя.",
+      "full_en": "Talk to Panno, choose the 3rd option of \"Hey, did you open the gate?\" and she'll tell you about the security. Talk to her again and she will tell you more about the gate and what she found out the last time it locked. (you won't be able to go on to 8 if you don't)",
+      "npcs": [
+        {
+          "entity": "Panno",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Panno"
+        },
+        {
+          "operation": "choose",
+          "entity": "Panno"
+        },
+        {
+          "operation": "talk",
+          "entity": "Panno",
+          "condition": "Mandatory second conversation before step 8."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Panno",
+          "options": [
+            {
+              "text": "Hey, did you open the gate?",
+              "correct": 1,
+              "condition": "Third menu option in the source."
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "Panno"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Go back to Nemma outside the temple and give her the 20 Firecrackers :. Buy Firecrackers in Hugel 's Party Supplies Shop ( hugel 94, 103). | Gain 200,000 Base Experience .",
+      "instruction_sha256": "22cc9428e99dad030d33e0338ff77d192b11b462c548d419e411ff07f942c21b",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/22cc9428e99dad030d33/1",
+      "goal": "deliver",
+      "short_ru": "Отдайте Nemma 20 Firecrackers; купить их можно в Hugel (hugel 94, 103). Получите 200,000 Base Experience.",
+      "short_en": "Give Nemma 20 Firecrackers; buy them in Hugel (hugel 94, 103). Receive 200,000 Base Experience.",
+      "full_ru": "Вернитесь к Nemma снаружи храма и отдайте ей 20 Firecrackers. Их можно купить в Party Supplies Shop в Hugel (hugel 94, 103). Вы получите 200,000 Base Experience.",
+      "full_en": "Go back to Nemma outside the temple and give her the 20 Firecrackers :. Buy Firecrackers in Hugel 's Party Supplies Shop ( hugel 94, 103). | Gain 200,000 Base Experience .",
+      "npcs": [
+        {
+          "entity": "Nemma",
+          "role": "deliver"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Firecrackers",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Firecrackers",
+          "quantity": 20,
+          "operation": "buy",
+          "required": 0,
+          "condition": "Acquisition option if not already held; do not count as an additional required delivery."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "buy",
+          "entity": "Firecrackers",
+          "condition": "Optional acquisition in Hugel."
+        },
+        {
+          "operation": "deliver",
+          "entity": "Nemma"
+        },
+        {
+          "operation": "receive_reward"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "200000"
+        }
+      ],
+      "protected_names": [
+        "Nemma",
+        "Hugel",
+        "hugel",
+        "Firecracker"
+      ],
+      "locations": [
+        {
+          "map": "hugel",
+          "x": 94,
+          "y": 103,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "hugel 94, 103"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Talk to High Priest Zhed (ra_temin 277, 159). He'll tell you to take 40 Glacial Heart s to the Pope. | NOTE: If Zhed simply says \"May Freya be with you,\" then you have not completed the Lost Child Quest .",
+      "instruction_sha256": "9ae51b1c75950e8ce4e1f492ca863edea78f6626446f0fbc5dc78fc370e144c3",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/9ae51b1c75950e8ce4e1/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с High Priest Zhed (ra_temin 277, 159); подготовьте для Pope 40 Glacial Heart после Lost Child Quest.",
+      "short_en": "Talk to High Priest Zhed (ra_temin 277, 159); prepare 40 Glacial Heart for Pope after Lost Child Quest.",
+      "full_ru": "Поговорите с High Priest Zhed (ra_temin 277, 159). Он попросит отнести Pope 40 Glacial Heart. Если Zhed говорит только «May Freya be with you,», значит, Lost Child Quest ещё не завершён.",
+      "full_en": "Talk to High Priest Zhed (ra_temin 277, 159). He'll tell you to take 40 Glacial Heart s to the Pope. | NOTE: If Zhed simply says \"May Freya be with you,\" then you have not completed the Lost Child Quest .",
+      "npcs": [
+        {
+          "entity": "High Priest Zhed",
+          "role": "talk"
+        },
+        {
+          "entity": "Pope",
+          "role": "delivery_target"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Glacial Heart",
+          "quantity": 40,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "quest_completed",
+          "condition": "Lost Child Quest must be completed; the quoted Freya line signals the missing prerequisite."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Zhed"
+        },
+        {
+          "operation": "bring",
+          "entity": "Glacial Heart"
+        }
+      ],
+      "protected_names": [
+        "High Priest Zhed",
+        "Pope",
+        "ra_temin",
+        "Glacial Heart"
+      ],
+      "locations": [
+        {
+          "map": "ra_temin",
+          "x": 277,
+          "y": 159,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temin 277, 159"
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "Visit the pope (ra_temin 134, 134). There will be two popups that you can enter any text in and it will accept (she asks you about yourself.) Once she finishes she will inform you that Zhed wanted to talk to you.",
+      "instruction_sha256": "6ccac74b34fc90e8f56a7c3be32c478e9420c03b03ea62e2d25d6124ac76a956",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/6ccac74b34fc90e8f56a/1",
+      "goal": "input_text",
+      "short_ru": "Посетите pope (ra_temin 134, 134); в обоих окнах ввода допустим любой текст.",
+      "short_en": "Visit pope (ra_temin 134, 134); any text is accepted in both input prompts.",
+      "full_ru": "Посетите pope (ra_temin 134, 134). В двух окнах ввода можно написать любой текст — она спрашивает о вас. В конце она сообщит, что Zhed хочет поговорить с вами.",
+      "full_en": "Visit the pope (ra_temin 134, 134). There will be two popups that you can enter any text in and it will accept (she asks you about yourself.) Once she finishes she will inform you that Zhed wanted to talk to you.",
+      "npcs": [
+        {
+          "entity": "pope",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "pope"
+        },
+        {
+          "operation": "input_text",
+          "condition": "Any text in both prompts; no fixed correct string."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "delivery_occurrence_unspecified",
+          "detail": "Step 9 requests 40 Glacial Heart; step 10 omits the actual transfer. Do not invent a consumption event here."
+        }
+      ],
+      "protected_names": [
+        "ra_temin"
+      ],
+      "locations": [
+        {
+          "map": "ra_temin",
+          "x": 134,
+          "y": 134,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temin 134, 134"
+        }
+      ]
+    },
+    "11": {
+      "original_instruction": "After Zhed boots you from the room, go up to the left wall and eavesdrop on the conversation. A woman will then talk to you about Zhed and her relationship with him.",
+      "instruction_sha256": "b473d926ff8036901455a38837ddf51908f38f81746c2d369dce6bb5e9d1d6ce",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/b473d926ff8036901455/1",
+      "goal": "eavesdrop",
+      "short_ru": "После выхода из комнаты Zhed подслушайте разговор у левой стены.",
+      "short_en": "After leaving Zhed’s room, eavesdrop at the left wall.",
+      "full_ru": "После того как Zhed выведет вас из комнаты, подойдите к левой стене и подслушайте разговор. Затем женщина заговорит с вами о Zhed и своих отношениях с ним.",
+      "full_en": "After Zhed boots you from the room, go up to the left wall and eavesdrop on the conversation. A woman will then talk to you about Zhed and her relationship with him.",
+      "npcs": [
+        {
+          "entity": "Zhed",
+          "role": "mentioned"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "eavesdrop"
+        },
+        {
+          "operation": "talk",
+          "condition": "Unnamed woman; no guessed NPC identity."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Go back and talk to Zhed. He'll want to rest. After you finish, walk out of the room and pick up the key on the ground (chat prompt). You'll then be able to enter the Sanctuary.",
+      "instruction_sha256": "336bef2560991093e5cc831cb24f45958c6381b6ef261bae455c9c9dc6782e52",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/336bef2560991093e5cc/1",
+      "goal": "collect_quest_object",
+      "short_ru": "Поговорите с Zhed, выйдите и подберите ключ через подсказку.",
+      "short_en": "Talk to Zhed, leave, and pick up the key through the prompt.",
+      "full_ru": "Вернитесь к Zhed и поговорите с ним. Он захочет отдохнуть. Выйдите из комнаты и подберите ключ с земли через появившуюся подсказку. После этого можно входить в Sanctuary.",
+      "full_en": "Go back and talk to Zhed. He'll want to rest. After you finish, walk out of the room and pick up the key on the ground (chat prompt). You'll then be able to enter the Sanctuary.",
+      "npcs": [
+        {
+          "entity": "Zhed",
+          "role": "return"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Zhed"
+        },
+        {
+          "operation": "collect",
+          "condition": "Key in the ground prompt; no established inventory item ID."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "access",
+          "condition": "Sanctuary entry after picking up the key."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Enter the Sanctuary by going back upstairs to the \"bloody room\" behind the Chapel (ra_temin 29, 312).",
+      "instruction_sha256": "069f03cff2a689ceb5563c7f00a3340c311e4aa95c9def9e2123e4b2f71d2f6b",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/069f03cff2a689ceb556/1",
+      "goal": "enter",
+      "short_ru": "Войдите в Sanctuary через комнату за Chapel: ra_temin 29, 312.",
+      "short_en": "Enter Sanctuary through the room behind Chapel: ra_temin 29, 312.",
+      "full_ru": "Вернитесь наверх, в «bloody room» за Chapel (ra_temin 29, 312), и войдите в Sanctuary.",
+      "full_en": "Enter the Sanctuary by going back upstairs to the \"bloody room\" behind the Chapel (ra_temin 29, 312).",
+      "actions": [
+        {
+          "operation": "enter",
+          "entity": "ra_temin"
+        }
+      ],
+      "protected_names": [
+        "ra_temin"
+      ],
+      "locations": [
+        {
+          "map": "ra_temin",
+          "x": 29,
+          "y": 312,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temin 29, 312"
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "Go to the \"second level\" (really a \"quest\" level) of the dungeon, and walk north until you get the prompt to look at the water. Walk around up onto the metal edge (que_san04 119, 203), and the woman will hit you and you'll be sent back to Rachel .",
+      "instruction_sha256": "d29c7bdb630db85e01abdab4b3e433d0bc42b8079eb2761129272b51b8c20072",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/d29c7bdb630db85e01ab/1",
+      "goal": "trigger_warp",
+      "short_ru": "Осмотрите воду и подойдите к que_san04 119, 203; вас вернут в Rachel.",
+      "short_en": "Inspect the water and approach que_san04 119, 203; you will be sent to Rachel.",
+      "full_ru": "Перейдите на «второй уровень» подземелья — фактически это специальная квестовая локация. Идите на север до подсказки осмотреть воду, затем обойдите и поднимитесь на металлический край (que_san04 119, 203). Женщина ударит вас и вернёт в Rachel.",
+      "full_en": "Go to the \"second level\" (really a \"quest\" level) of the dungeon, and walk north until you get the prompt to look at the water. Walk around up onto the metal edge (que_san04 119, 203), and the woman will hit you and you'll be sent back to Rachel .",
+      "actions": [
+        {
+          "operation": "investigate"
+        },
+        {
+          "operation": "move",
+          "entity": "que_san04"
+        },
+        {
+          "operation": "warp",
+          "entity": "Rachel"
+        }
+      ],
+      "protected_names": [
+        "Rachel",
+        "que_san04"
+      ],
+      "locations": [
+        {
+          "map": "que_san04",
+          "x": 119,
+          "y": 203,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "que_san04 119, 203"
+        }
+      ]
+    },
+    "15": {
+      "original_instruction": "Go talk to Zhed and you'll receive experience. | Gain 900,000 Base Experience | Gain 600,000 Job Experience",
+      "instruction_sha256": "d77cf5a6118d9de99402c34b45ef7c0bfc0a0e307e50e701de716f73d5fdb45a",
+      "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/d77cf5a6118d9de99402/1",
+      "goal": "receive_reward",
+      "short_ru": "Поговорите с Zhed: награда 900,000 Base Experience и 600,000 Job Experience.",
+      "short_en": "Talk to Zhed: receive 900,000 Base Experience and 600,000 Job Experience.",
+      "full_ru": "Поговорите с Zhed и получите опыт: 900,000 Base Experience и 600,000 Job Experience.",
+      "full_en": "Go talk to Zhed and you'll receive experience. | Gain 900,000 Base Experience | Gain 600,000 Job Experience",
+      "npcs": [
+        {
+          "entity": "Zhed",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Zhed"
+        },
+        {
+          "operation": "receive_reward"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "900000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "600000"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "optional_lottery_not_fully_structured",
+      "detail": "Historical donation voucher lottery and its probabilities are preserved in rewards_original. They are not guaranteed quest rewards; not yet normalized into separate lottery rules."
+    },
+    {
+      "reason": "npc_spelling_conflict",
+      "detail": "Header Nema and walkthrough Nemma are contextually treated as the same donation NPC; spelling needs cross-source confirmation."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "server_donation_count",
+        "amount": "10000",
+        "source_section": "rewards",
+        "evidence": "Once 10,000 donations have been made, the sanctuary will be locked, and the quest can be started! This is per server, not per person.",
+        "condition": "Server-wide precondition, never a personal donation quota."
+      },
+      {
+        "kind": "server_donation_total_zeny",
+        "amount": "500000000",
+        "source_section": "rewards",
+        "evidence": "500,000,000 Zeny must be donated to the sanctuary for the server",
+        "condition": "Aggregate server total, not the player cost."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Firecracker",
+        "amount": "20",
+        "source_section": "requirements",
+        "evidence": "20 Firecracker",
+        "condition": "Quest total; delivery is recorded at step 8."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Glacial Heart",
+        "amount": "40",
+        "source_section": "requirements",
+        "evidence": "40 Glacial Heart",
+        "condition": "Quest total; delivery instruction is recorded at step 9."
+      }
+    ]
+  }
+}

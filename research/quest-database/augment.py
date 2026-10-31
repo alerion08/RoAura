@@ -46,7 +46,7 @@ def augment_evidence(db,max_new_per_page=8):
     for nid,sid,mapname,x,y,name in db.execute("SELECT id,source_id,map,x,y,name FROM script_npcs WHERE map IS NOT NULL"):
         record=(nid,sid,name)
         all_npcs[sid].append((nid,mapname,x,y,name))
-        by_pos[(mapname.casefold(),x,y)].append(record)
+        by_pos[(mapname,x,y)].append(record)
 
     existing={(pid,sid):(score,method) for pid,sid,score,method in db.execute(
         "SELECT page_id,source_id,score,method FROM wiki_script_links")}
@@ -70,7 +70,7 @@ def augment_evidence(db,max_new_per_page=8):
         for step,text in page_steps[pid]:
             seen=set()
             for m in MAP_COORD.finditer(text):
-                pos=(m.group(1).casefold(),int(m.group(2)),int(m.group(3)))
+                pos=(m.group(1),int(m.group(2)),int(m.group(3)))
                 if pos in seen:continue
                 seen.add(pos)
                 for nid,sid,name in by_pos.get(pos,()):

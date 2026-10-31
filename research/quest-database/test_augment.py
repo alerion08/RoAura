@@ -63,5 +63,18 @@ class AdditionalEvidenceTests(unittest.TestCase):
         self.assertEqual(db.execute("SELECT count(*) FROM wiki_script_links").fetchone()[0],before)
         self.assertFalse(db.execute("PRAGMA foreign_key_check").fetchall())
 
+    def test_display_town_name_is_not_a_map_code(self):
+        db=sqlite3.connect(':memory:');db.executescript(SCHEMA);ensure_enrichment_schema(db)
+        db.execute("INSERT INTO provenance(id,project,path,source_url,stored_at,raw_size,content_zlib) VALUES(1,'rathena','npc/quests/other.txt','source','2026',1,?)",(zlib.compress(b'// unrelated script'),))
+        db.execute("INSERT INTO script_npcs(id,source_id,ordinal,map,x,y,name) VALUES(1,1,1,'hugel',196,164,'El Schatt')")
+        db.execute("INSERT INTO wiki_pages(id,title,url,status) VALUES(1,'Memory Example','source','walkthrough_parsed')")
+        db.execute("INSERT INTO wiki_steps VALUES(1,1,'','Talk to El Schatt in Hugel (196 164).')")
+        augment_evidence(db)
+        self.assertEqual(db.execute('SELECT count(*) FROM wiki_script_links').fetchone()[0],0)
+        db.execute("UPDATE wiki_steps SET instruction='Talk to El Schatt in hugel (196 164).'")
+        augment_evidence(db)
+        self.assertEqual(db.execute('SELECT method FROM wiki_script_links').fetchone()[0],'npc_exact_position_and_name')
+        db.close()
+
 if __name__=="__main__":
     unittest.main()

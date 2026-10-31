@@ -365,6 +365,8 @@ def make_runtime(source,destination):
                """SELECT m.page_id,m.step_no,p.source_id,p.npc_ordinal,p.line_no,p.kind,
                m.option_no,m.review_state
                FROM wiki_answer_menu_matches m JOIN npc_flow_points p ON p.id=m.point_id""")))
+    from selection import filter_catalog
+    filter_catalog(out,source)
     integrity=out.execute("PRAGMA integrity_check").fetchone()[0]
     fk=out.execute("PRAGMA foreign_key_check").fetchall()
     if integrity!="ok" or fk:

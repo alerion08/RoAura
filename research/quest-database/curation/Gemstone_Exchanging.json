@@ -1,0 +1,148 @@
+{
+  "quest_id": "irowiki-classic:Gemstone_Exchanging",
+  "reviewer": "Codex source review, 2026-10-31",
+  "scope": "Complete preserved guide prose and pinned HTML; not human/server verification",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Jade"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "item",
+      "name": "Blue Gemstones",
+      "game_id": 717,
+      "id_source": "http://db.irowiki.org/classic/item-info/717/"
+    },
+    {
+      "type": "item",
+      "name": "Red Gemstone",
+      "game_id": 716,
+      "id_source": "http://db.irowiki.org/classic/item-info/716/"
+    },
+    {
+      "type": "item",
+      "name": "Red Gemstones",
+      "game_id": 716,
+      "id_source": "http://db.irowiki.org/classic/item-info/716/"
+    },
+    {
+      "type": "item",
+      "name": "Yellow Gemstone",
+      "game_id": 715,
+      "id_source": "http://db.irowiki.org/classic/item-info/715/"
+    },
+    {
+      "type": "item",
+      "name": "Yellow Gemstones",
+      "game_id": 715,
+      "id_source": "http://db.irowiki.org/classic/item-info/715/"
+    },
+    {
+      "type": "item",
+      "name": "Blue Gemstone",
+      "game_id": 717,
+      "id_source": "http://db.irowiki.org/classic/item-info/717/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Jade in Payon (173,238). He exchanges: | 2 Blue Gemstones for 1 Red Gemstone | 2 Red Gemstones for 1 Yellow Gemstone | 2 Yellow Gemstones for 1 Blue Gemstone",
+      "instruction_sha256": "170b17a061ae32da933c4f3714cf60bc7b0e06986090ed4b9ad9ff3f90ed1766",
+      "goal": "exchange",
+      "short_ru": "Поговорите с Jade в Payon (173,238): обмен 2 Blue Gemstones → 1 Red Gemstone, 2 Red Gemstones → 1 Yellow Gemstone или 2 Yellow Gemstones → 1 Blue Gemstone.",
+      "short_en": "Talk to Jade in Payon (173,238): exchange 2 Blue Gemstones for 1 Red Gemstone, 2 Red Gemstones for 1 Yellow Gemstone or 2 Yellow Gemstones for 1 Blue Gemstone.",
+      "full_ru": "Поговорите с Jade в Payon (173,238). Он предлагает обмены: 2 Blue Gemstones на 1 Red Gemstone; 2 Red Gemstones на 1 Yellow Gemstone; 2 Yellow Gemstones на 1 Blue Gemstone.",
+      "full_en": "Talk to Jade in Payon (173,238). He exchanges: | 2 Blue Gemstones for 1 Red Gemstone | 2 Red Gemstones for 1 Yellow Gemstone | 2 Yellow Gemstones for 1 Blue Gemstone",
+      "protected_names": [
+        "Jade",
+        "Payon",
+        "Blue Gemstones",
+        "Red Gemstone",
+        "Red Gemstones",
+        "Yellow Gemstone",
+        "Yellow Gemstones",
+        "Blue Gemstone"
+      ],
+      "npcs": [
+        "Jade"
+      ],
+      "locations": [
+        {
+          "entity": "Payon",
+          "x": 173,
+          "y": 238,
+          "role": "npc",
+          "known": false
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Jade",
+          "condition": null
+        },
+        {
+          "operation": "exchange",
+          "entity": null,
+          "condition": "Choose one recipe; these are alternatives, not cumulative requirements."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Blue Gemstones",
+          "operation": "deliver",
+          "quantity": 2,
+          "required": 0,
+          "condition": "Recipe 1"
+        },
+        {
+          "entity": "Red Gemstones",
+          "operation": "deliver",
+          "quantity": 2,
+          "required": 0,
+          "condition": "Recipe 2"
+        },
+        {
+          "entity": "Yellow Gemstones",
+          "operation": "deliver",
+          "quantity": 2,
+          "required": 0,
+          "condition": "Recipe 3"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Red Gemstone",
+          "condition": "Recipe 1"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Yellow Gemstone",
+          "condition": "Recipe 2"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Blue Gemstone",
+          "condition": "Recipe 3"
+        }
+      ],
+      "step_id": "irowiki-classic:Gemstone_Exchanging/step/170b17a061ae32da933c/1"
+    }
+  },
+  "reviews": [
+    {
+      "reason": "map_code_unconfirmed",
+      "detail": "Payon display name and coordinates come from this Classic guide; do not substitute old-Payon/server coordinates."
+    }
+  ],
+  "source_sha256": "be4b21823802ea8418df034ef375bb7bcd3862dd2fdb63d9f1e249bb24519297",
+  "snapshot_sha256": "81013d51f90b1ba88a03bd2daecf7a49cb7cbf0a90ae744c116b9d339544bd44"
+}
