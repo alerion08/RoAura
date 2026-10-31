@@ -384,4 +384,4 @@ Catalog metadata is three compact outlined light-navy tags with 3x1-DIP padding:
 category, base level and stage count. RU wording is now этапов, EN steps.
 A generated edit of the exact selected screenshot is a styling reference only;
 shipped tags are WPF controls and are validated in actual app captures.
-Automated validation pending; real SpringRO/mixed-DPI acceptance remains open.
+Automated validation passed: 307 tests, eight ToC checks and Windows portable startup; real SpringRO/mixed-DPI acceptance remains open.

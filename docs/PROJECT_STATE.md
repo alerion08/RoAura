@@ -1016,4 +1016,20 @@ Catalog metadata is three compact outlined light-navy tags with 3x1-DIP padding:
 category, base level and stage count. RU wording is now этапов, EN steps.
 A generated edit of the exact selected screenshot is a styling reference only;
 shipped tags are WPF controls and are validated in actual app captures.
-Automated validation pending; real SpringRO/mixed-DPI acceptance remains open.
+Automated validation passed: 307 tests, eight ToC checks and Windows portable startup; real SpringRO/mixed-DPI acceptance remains open.
+
+Stable tracker/catalog verification: [Actions #41177368036](https://github.com/alerion08/RoAura/actions/runs/41177368036)
+SUCCESS on `0dfceaa638fcb30fa96c8ce4c4be552737f076c8`: 307 tests,
+zero failed/skipped, eight ToC checks, resources/package validation and startup.
+Native smoke verifies identical action HWND after Next and actual mouse thumb drag:
+thumb/track dimensions remain constant and game focus stays unchanged. This improves
+the previous value-only scroll test. Archival exclusion tests preserve existing
+saved progress while keeping old events out of active/history/catalog presentation.
+RU catalog and scrolled native captures inspected: outlined compact tags and only
+the fixed blue thumb visible, with no filled track background.
+The user video was sampled and reviewed. Eliminating action HWND destruction
+addresses its visible rebuild blink; long-session SpringRO frame stability,
+protected/fullscreen behavior and mixed-DPI still require real-game acceptance.
+Artifact: [RoAura-development-78-0dfceaa](https://github.com/alerion08/RoAura/actions/runs/41177368036/artifacts/13033272615).
+Portable SHA256: `6a8f9a5fad8538be37b20f88825208ba9dfe6e378bb7a3bd4573ddd40a93015a`.
+No main/research write, product version bump, merge, tag or public release.
