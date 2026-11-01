@@ -4,11 +4,12 @@
 
 **Objective:** a maximally complete, source-backed, versioned **ROQuestie** knowledge base for main Ragnarok Online quests across the wider RO ecosystem. The shared quest data are reusable, while Classic/Pre-Renewal/Renewal and optional individual-server differences are handled separately. A quest in the catalog is **not a guarantee that every server offers it**. This contract belongs to the standalone research work; it must not modify RoAura runtime code during collection.
 
-## Normalized semantic research export — schema 1 (current data phase)
+## Normalized semantic research export — schema 2 (current data phase)
 
 `output/quest_semantic.sqlite` is separate from the older research consumer
 catalog (`questie_catalog.sqlite`, schema 5). It is not integrated into RoAura.
-Check its own `PRAGMA user_version = 1`; see `migrations/001_semantic.sql` and
+Check its own `PRAGMA user_version = 2`; migrations are `001_semantic.sql` then
+`002_step_branches.sql` under `migrations/`. See
 [SEMANTIC_PROGRESS.md](./SEMANTIC_PROGRESS.md). Both active catalogs exclude
 archived/quarantined quest records; `quest_research.sqlite` is the raw audit archive.
 
@@ -35,6 +36,26 @@ archived/quarantined quest records; `quest_research.sqlite` is the raw audit arc
   witnesses and confidence. `source_section` in curation may cite exact header
   text or normalized text extracted from pinned HTML; the HTML bytes and hash
   remain separately available. No server-verified evidence is created.
+- `step_branches.choice_group` groups mutually exclusive alternatives at a
+  step. `variant_scope` and `condition_text` explain when an alternative
+  applies; no branch is selected by default and no mechanism (random versus
+  player choice) is invented. `branch_descriptions` and `branch_mentions`
+  have the same locale and Unicode span rules as step descriptions.
+- Facts in `step_actions`, `step_items`, `step_monsters`, `requirements`,
+  `rewards` and `dialogues` carry nullable `branch_id`. NULL denotes common
+  step/quest context; a non-NULL value applies only to that branch. Filter by
+  branch before reading `action_order`; never execute or sum every alternative.
+  NPC/location relations remain a union of contextual step references.
+- `source_fragments` uses half-open Unicode offsets into the immutable
+  `quest_steps.original_instruction` of `origin_step_id`, independently of
+  `target_step_id`. A `partition_key` identifies a complete nonoverlapping
+  partition of that original step. Biolabs step 22's exit and alternate puzzle
+  are separated here; its original bytes, stable ID and audit text remain.
+  Branch fragments cite the actual source step, not their semantic target.
+- Apply `migrate_semantic(connection)` to upgrade a committed schema-1 export
+  without replacing human descriptions or IDs. Migration refuses an active
+  transaction and rolls back on error. Regeneration is a separate operation
+  and refuses human-reviewed step or branch rows until exported to curation.
 - `step_edges.kind = source_order_only` is article order, not an executable
   route/branch graph. Raw prerequisites do not establish AND/OR semantics.
 - `ready_steps` currently means **all four localized text fields exist**. It

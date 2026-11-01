@@ -59,6 +59,8 @@ def parse_guide(raw):
     metadata = info(root)
     numbered=[]
     narrative=[]
+    supplements=[]
+    order=[]
     section=""
     # MediaWiki quest templates often wrap the entire guide inside a table cell.
     # Descend through tables while skipping duplicate nested list descendants.
@@ -71,27 +73,45 @@ def parse_guide(raw):
         if child.name=="ol":
             for li in child.find_all("li",recursive=False):
                 value=clean(li.get_text(" ",strip=True))
-                if value: numbered.append(GuideStep(section,value,None,"ordered_list"))
+                if value:
+                    order.append(('numbered',len(numbered)))
+                    numbered.append(GuideStep(section,value,None,"ordered_list"))
             continue
         if child.name=="p":
             value=clean(child.get_text(" ",strip=True))
             if not value:continue
             m=STEP_START.match(value)
             if m:
+                order.append(('numbered',len(numbered)))
                 numbered.append(GuideStep(section,clean(m.group(2)),int(m.group(1)),"numbered"))
             else:
                 narrative.append((section,value))
-                if numbered and not value.lower().startswith(("retrieved from","see also")):
+                if numbered and not value.lower().startswith(("retrieved from","see also")) and numbered[-1].section==section:
                     last=numbered[-1]
                     numbered[-1]=GuideStep(last.section,clean(last.instruction+" "+value),last.source_number,last.kind)
+                elif numbered and not value.lower().startswith(("retrieved from","see also")):
+                    if supplements and supplements[-1].section==section:
+                        last=supplements[-1]
+                        supplements[-1]=GuideStep(section,clean(last.instruction+" "+value),None,"section_note")
+                    else:
+                        order.append(('supplement',len(supplements)))
+                        supplements.append(GuideStep(section,value,None,"section_note"))
         if child.name=="ul" and numbered:
             bullets=[clean(li.get_text(" ",strip=True)) for li in child.find_all("li",recursive=False)]
             bullets=[x for x in bullets if x]
             if bullets:
-                last=numbered[-1]
-                numbered[-1]=GuideStep(last.section,clean(last.instruction+" | "+" | ".join(bullets)),last.source_number,last.kind)
+                if numbered[-1].section==section:
+                    last=numbered[-1]
+                    numbered[-1]=GuideStep(last.section,clean(last.instruction+" | "+" | ".join(bullets)),last.source_number,last.kind)
+                elif supplements and supplements[-1].section==section:
+                    last=supplements[-1]
+                    supplements[-1]=GuideStep(section,clean(last.instruction+" | "+" | ".join(bullets)),None,"section_note")
+                else:
+                    order.append(('supplement',len(supplements)))
+                    supplements.append(GuideStep(section," | ".join(bullets),None,"section_note"))
     if numbered:
-        return numbered,{"mode":"numbered","numbered":len(numbered),"narrative":0},metadata
+        ordered=[(numbered if kind=='numbered' else supplements)[index] for kind,index in order]
+        return ordered,{"mode":"numbered","numbered":len(numbered),"narrative":len(supplements),"section_notes":len(supplements)},metadata
     prose=[GuideStep(sec,txt,None,"narrative") for sec,txt in narrative
            if len(txt)>30 and not txt.lower().startswith(("this page","retrieved from","see also"))]
     return prose,{"mode":"narrative" if prose else "empty","numbered":0,"narrative":len(prose)},metadata

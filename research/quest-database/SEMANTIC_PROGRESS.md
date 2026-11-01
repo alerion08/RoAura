@@ -1,4 +1,4 @@
-# Semantic database progress — 2026-10-31
+# Semantic database progress — 2026-11-01
 
 Status: **partial research dataset, not ready for application integration**.
 Scope: database, sources, parsers, curations, exports and research CI only.
@@ -14,11 +14,12 @@ that an event is permanently retired. The active catalog still contains
 reference pages and unreviewed candidates; 217 is not a count of independently
 verified permanent quests.
 
-The normalized `output/quest_semantic.sqlite` uses semantic schema **1** and
-generator **semantic-1.1.0**. All four description fields are populated for
-**76 steps across 12 curated guides**, up from the previous uncommitted
-6-guide/25-step checkpoint. **2,677 steps in 205 remaining catalog entries
-still lack complete localization/context analysis.** `complete` remains false.
+The normalized `output/quest_semantic.sqlite` uses semantic schema **2** and
+generator **semantic-2.0.0**. All four description fields are populated for
+**166 steps across 17 curated guides**, up from the previous 12-guide/76-step
+checkpoint. **7 conditional branches** also have independent RU/EN short and
+full descriptions. **2,587 steps in 200 remaining catalog entries still lack
+complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
 | --- | ---: | --- |
@@ -34,6 +35,11 @@ still lack complete localization/context analysis.** `complete` remains false.
 | Abyss Lake Entrance Guide | 4 | Materials omitted by old extractor; timed portal; separate Columns |
 | Lost Child Quest | 13 | Two Idle Merchants; target Kid versus pond Kid; conditional prerequisite |
 | Rachel Sanctuary Quest | 15 | Server donation target; two EXP installments; exact/wrong answers |
+| Biolabs Entrance Quest | 22 | Alternate puzzle relocated from exit prose; player-specific codes; uncertain shape mapping |
+| Veins Siblings Quest | 20 | Random material consumption; Steel is not consumed; contextual NPCs |
+| Nameless Island Entrance Quest | 20 | House-only death penalty exception; prerequisite gate; EXP installments |
+| Thor Volcano Base Quest | 22 | Literal oath; five mutually exclusive item rewards; unknown quiver quantities |
+| Thor Volcano Level 2 Access Quest | 6 | Optional iRO/premium shortcut; reusable warp versus one-time quest |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -41,6 +47,25 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Additive schema migration 1 → 2 preserves existing IDs, facts and human
+  descriptions; failed migration rolls back schema and version changes.
+- `step_branches`, `branch_descriptions` and `branch_mentions` retain branch
+  conditions, source scope, four localized fields and typed spans. Actions,
+  items, monsters, requirements, rewards and dialogues have optional branch IDs.
+  A choice group denotes alternatives, not sequential instructions or a
+  default selection. Unqualified NPC/location links remain step context.
+- `source_fragments` maps immutable source ranges to their semantic target.
+  Biolabs original step 22 is partitioned without gaps or overlaps: the exit
+  remains step 22, the non-iRO two-digit puzzle belongs to a branch at step 16.
+  Example numbers never become universal correct answers. Source order remains
+  article order, not executable gameplay flow.
+- Future HTML extraction preserves notes after new headings as `section_note`
+  records in document order instead of appending them to the preceding step.
+  This does not rewrite the original 3,420 archived rows.
+- Five additional pinned HTML pages are now covered by curation (Biolabs was
+  already captured; four new snapshots were added). iRO/premium category
+  evidence for the Thor shortcut does not establish availability elsewhere.
 
 - Normalized entities, locations, actions, items, monsters, requirements,
   rewards, dialogues/options, evidence, review queue and description spans.
@@ -54,8 +79,9 @@ verification; there are zero server-verified records.
   numeric and entity-presence parity is checked for short and full pairs.
 - Same-spelling NPCs have separate explicit curation references. Per-occurrence
   span overrides distinguish a monster from an item and a target from an NPC
-  the player should avoid. High Priest Zhed is shared across the two Rachel
-  guides with source-qualified identity; different NPCs are never merged just
+  the player should avoid. High Priest Zhed is shared across the Rachel, Nameless Island and Thor
+  guides with source-qualified identity; Karyn is shared across the two Veins
+  story appearances; different NPCs are never merged just
   because their display names match.
 - Source-section facts retain evidence from requirements, rewards or original
   HTML. Abyss Lake's three materials come from the pinned article introduction,
@@ -89,7 +115,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **83 tests passed**; complete offline enrichment passed;
+Validated locally: **94 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -98,28 +124,27 @@ step text equal the previous committed archive (939 / 286 / 3,420).
 The regression suite includes repeated-build byte identity/cache reuse,
 unchanged original rows, event selection, context witnesses, original names,
 exact answers, source pinning, failed-build preservation, homonyms, source HTML
-requirements, per-trip cost, server-wide donations and split reward totals.
+requirements, per-trip cost, server-wide donations, split reward totals, lossless source
+partitions, branch corruption, additive/failed migrations, human-reviewed
+branch protection, optional rewards and repeatability/death-penalty scope.
 
 ## Next work, in order
 
-1. Review the remaining 205 catalog candidates, separating reference pages,
+1. Review the remaining 200 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
-2. **Biolabs Entrance Quest** is a concrete parser/context problem: the old
-   extractor appended the alternate-server barrel puzzle after the exit text
-   in step 22. That text must be attached to the puzzle branch around step 16,
-   while preserving the original extraction and variant evidence. Original
-   HTML has been captured, but this guide is not counted as curated.
-3. Continue larger access/story chains (Nameless Island, Veins, Thor Volcano,
-   Kiel Hyre), with source-backed item roles, dialogue choices and prerequisites.
-4. Resolve source spelling conflicts (Boonthon/Boomthon, Dusit/Dustit,
-   Phoebe/Phobe, Nema/Nemma); do not silently invent canonical names/IDs.
-5. Normalize optional donation lottery rules separately from guaranteed
-   Rachel quest rewards. Review image permissions and attach sourced route
-   diagrams for Ayothaya/Rachel; image absence is allowed, fabricated images
-   are not.
-6. Review the 10 quarantined event statuses and remaining metadata/variant
-   conflicts. Add tested migrations when the already-versioned schema evolves.
+2. Continue larger access/story chains: Kiel Hyre and Curse of Gaebolg are
+   next candidates. Nameless Island prerequisites still include an uncurated
+   Curse of Gaebolg guide; no complete prerequisite graph is claimed.
+3. Resolve source spelling conflicts (Boonthon/Boomthon, Dusit/Dustit,
+   Phoebe/Phobe, Nema/Nemma, Jackknif e/Jackknife, Laboratory Pass/Permit).
+   Biolabs shape-menu/input mapping and the single-digit Yellow Key receipt
+   remain review items, not silently invented facts.
+4. Normalize optional donation lottery rules separately from guaranteed
+   Rachel rewards. Review image permissions and attach sourced route diagrams
+   for Ayothaya/Rachel; no images are fabricated or automatically licensed.
+5. Review the 10 quarantined event statuses and remaining metadata/variant
+   conflicts. Keep source applicability distinct from server verification.
 
 No in-game check was performed. No quest is promised to work on SpringRO or
 any other server solely because it appears in wiki/emulator sources.

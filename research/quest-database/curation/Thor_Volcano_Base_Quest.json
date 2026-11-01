@@ -1,0 +1,1121 @@
+{
+  "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "1f53e454a0118e72bba8135db583903a4f41322207cfcc27d768bb669aef20d8",
+  "snapshot_sha256": "d24c8c1a99fca1a99d22657c3e0b7d1c1a3aa322b45c292e7f5bbd3672c0a9ae",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "High Priest Zhed",
+      "identity": "irowiki-classic:npc:ra_temin:277:159:High Priest Zhed",
+      "aliases": [
+        "Zhed"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Lamir"
+    },
+    {
+      "type": "npc",
+      "name": "Karlum"
+    },
+    {
+      "type": "npc",
+      "name": "blue vase"
+    },
+    {
+      "type": "npc",
+      "name": "Geologist"
+    },
+    {
+      "type": "npc",
+      "name": "Hot Magma"
+    },
+    {
+      "type": "npc",
+      "name": "Sahedi"
+    },
+    {
+      "type": "npc",
+      "name": "Colonel Vito"
+    },
+    {
+      "type": "npc",
+      "name": "Control Panel"
+    },
+    {
+      "type": "item",
+      "name": "File Folder",
+      "game_id": 7342,
+      "id_source": "http://db.irowiki.org/classic/item-info/7342/"
+    },
+    {
+      "type": "item",
+      "name": "Note of Geologist",
+      "game_id": 7705,
+      "id_source": "http://db.irowiki.org/classic/item-info/7705/"
+    },
+    {
+      "type": "item",
+      "name": "Broken Thermometer",
+      "game_id": 7704,
+      "id_source": "http://db.irowiki.org/classic/item-info/7704/"
+    },
+    {
+      "type": "item",
+      "name": "Giggling Boxes",
+      "game_id": 12027,
+      "id_source": "http://db.irowiki.org/classic/item-info/12027/"
+    },
+    {
+      "type": "item",
+      "name": "Bloody Branch",
+      "game_id": 12103,
+      "id_source": "http://db.irowiki.org/classic/item-info/12103/"
+    },
+    {
+      "type": "item",
+      "name": "Soft Apron",
+      "game_id": 661,
+      "id_source": "http://db.irowiki.org/classic/item-info/661/"
+    },
+    {
+      "type": "item",
+      "name": "Steel Arrow Quiver",
+      "game_id": 12006,
+      "id_source": "http://db.irowiki.org/classic/item-info/12006/"
+    },
+    {
+      "type": "item",
+      "name": "Random Quiver",
+      "game_id": 12104,
+      "id_source": "http://db.irowiki.org/classic/item-info/12104/"
+    },
+    {
+      "type": "map",
+      "name": "Rachel"
+    },
+    {
+      "type": "map",
+      "name": "ra_temin",
+      "map_code": "ra_temin"
+    },
+    {
+      "type": "map",
+      "name": "Veins"
+    },
+    {
+      "type": "map",
+      "name": "veins",
+      "map_code": "veins"
+    },
+    {
+      "type": "map",
+      "name": "ve_in",
+      "map_code": "ve_in"
+    },
+    {
+      "type": "map",
+      "name": "Base Camp"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to High Priest Zhed inside Rachel Sanctuary (ra_temin 277, 159), he will ask you who created Ymir's Heart (the answer is Varmunt, but you don't have to type it in to pass this part, unsure what effect typing Varmunt in has).",
+      "instruction_sha256": "dff46573d3a0267c39d8ee8094715fcad79707d0ea3e7817c4cafd9a9d8bd4a7",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/dff46573d3a0267c39d8/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с High Priest Zhed: ra_temin 277, 159; ввод Varmunt необязателен.",
+      "short_en": "Talk to High Priest Zhed: ra_temin 277, 159; typing Varmunt is optional.",
+      "full_ru": "Поговорите с High Priest Zhed в святилище Rachel (ra_temin 277, 159). Он спросит о создателе Ymir's Heart. Ответ — Varmunt, однако для прохождения этой части вводить его необязательно; источник не знает, на что влияет такой ввод.",
+      "full_en": "Talk to High Priest Zhed inside Rachel Sanctuary (ra_temin 277, 159), he will ask you who created Ymir's Heart (the answer is Varmunt, but you don't have to type it in to pass this part, unsure what effect typing Varmunt in has).",
+      "npcs": [
+        {
+          "entity": "High Priest Zhed",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Zhed"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "High Priest Zhed",
+          "options": [
+            {
+              "text": "Varmunt",
+              "correct": null,
+              "operation": "type",
+              "condition": "Optional answer; source explicitly says its effect is unknown."
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "High Priest Zhed",
+        "Rachel",
+        "ra_temin"
+      ],
+      "locations": [
+        {
+          "map": "ra_temin",
+          "x": 277,
+          "y": 159,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temin 277, 159"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to the Female Follower (Lamir) on the far left side of the sanctuary temple, next to a bookshelf. (ra_temin 40 124)",
+      "instruction_sha256": "e267f973a3323f25cf2a61f288b617a3cd874aff5794131663564d7e7b841d06",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/e267f973a3323f25cf2a/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Lamir: ra_temin 40 124.",
+      "short_en": "Talk to Lamir: ra_temin 40 124.",
+      "full_ru": "Поговорите с Female Follower (Lamir) у книжной полки в дальней левой части храма (ra_temin 40 124).",
+      "full_en": "Talk to the Female Follower (Lamir) on the far left side of the sanctuary temple, next to a bookshelf. (ra_temin 40 124)",
+      "npcs": [
+        {
+          "entity": "Lamir",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lamir"
+        }
+      ],
+      "protected_names": [
+        "Lamir",
+        "ra_temin"
+      ],
+      "locations": [
+        {
+          "map": "ra_temin",
+          "x": 40,
+          "y": 124,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temin 40 124"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to the Guard, Karlum (ra_temin 87 133) on the right side of the door; when prompted, type in \"Lamir\".",
+      "instruction_sha256": "25d1863278777f662383fea97c35cf25e79bc11a17fc687340d0c436467c474d",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/25d1863278777f662383/1",
+      "goal": "type_answer",
+      "short_ru": "У Karlum (ra_temin 87 133) введите «Lamir».",
+      "short_en": "At Karlum (ra_temin 87 133), type “Lamir”.",
+      "full_ru": "Поговорите со стражником Karlum (ra_temin 87 133) справа от двери. При запросе введите «Lamir».",
+      "full_en": "Talk to the Guard, Karlum (ra_temin 87 133) on the right side of the door; when prompted, type in \"Lamir\".",
+      "npcs": [
+        {
+          "entity": "Karlum",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Karlum"
+        },
+        {
+          "operation": "type_answer"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Karlum",
+          "options": [
+            {
+              "text": "Lamir",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "Lamir",
+        "Karlum",
+        "ra_temin"
+      ],
+      "locations": [
+        {
+          "map": "ra_temin",
+          "x": 87,
+          "y": 133,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temin 87 133"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Down the hall to the right, break the blue vase (ra_temin 115 140) in the corner to attract the attention of the second guard.",
+      "instruction_sha256": "4f043793a9b4bf7ce0d51ea25c5667358dbfca76909e188dd54fe77db9eb4bd0",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/4f043793a9b4bf7ce0d5/1",
+      "goal": "interact",
+      "short_ru": "Разбейте blue vase: ra_temin 115 140.",
+      "short_en": "Break the blue vase: ra_temin 115 140.",
+      "full_ru": "В конце коридора справа разбейте blue vase в углу (ra_temin 115 140), чтобы отвлечь второго стражника.",
+      "full_en": "Down the hall to the right, break the blue vase (ra_temin 115 140) in the corner to attract the attention of the second guard.",
+      "actions": [
+        {
+          "operation": "break",
+          "entity": "blue vase"
+        }
+      ],
+      "protected_names": [
+        "blue vase",
+        "ra_temin"
+      ],
+      "locations": [
+        {
+          "map": "ra_temin",
+          "x": 115,
+          "y": 140,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temin 115 140"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Enter the now unguarded room, and obtain the File Folder from one the drawers. Escape via the ladder.",
+      "instruction_sha256": "0be0087c99569d8c0344ca8bc5511e208115bc9cbfc03135b08f3b26fffb6083",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/0be0087c99569d8c0344/1",
+      "goal": "collect",
+      "short_ru": "Возьмите File Folder из ящика в комнате и уйдите по лестнице.",
+      "short_en": "Take File Folder from a drawer in the room and escape via the ladder.",
+      "full_ru": "Войдите в комнату, оставшуюся без охраны, и возьмите File Folder из одного из ящиков. Уйдите по лестнице.",
+      "full_en": "Enter the now unguarded room, and obtain the File Folder from one the drawers. Escape via the ladder.",
+      "items": [
+        {
+          "entity": "File Folder",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "collect",
+          "entity": "File Folder"
+        },
+        {
+          "operation": "leave"
+        }
+      ],
+      "protected_names": [
+        "File Folder"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Go back to Zhed and tell him what you found.",
+      "instruction_sha256": "1db306bc278c84a3051a38035f320e33356ca78e0361de22bbf60e6b4e69ae6c",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/1db306bc278c84a3051a/1",
+      "goal": "return",
+      "short_ru": "Доложите Zhed о находке.",
+      "short_en": "Report your findings to Zhed.",
+      "full_ru": "Вернитесь к Zhed и расскажите о находке.",
+      "full_en": "Go back to Zhed and tell him what you found.",
+      "npcs": [
+        {
+          "entity": "High Priest Zhed",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Zhed"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Go to Veins, and enter the building (veins 151,176). Go upstairs and look around, but you can't find the Geologist.",
+      "instruction_sha256": "53fef6e6143397cfc4028e1c093214d7d3bb6dc74bf5f331bb062f8131f06f1e",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/53fef6e6143397cfc402/1",
+      "goal": "investigate",
+      "short_ru": "Осмотрите верхний этаж здания: veins 151,176; Geologist отсутствует.",
+      "short_en": "Search upstairs in the building: veins 151,176; Geologist is absent.",
+      "full_ru": "В Veins войдите в здание (veins 151,176). Поднимитесь наверх и осмотритесь: Geologist там нет.",
+      "full_en": "Go to Veins, and enter the building (veins 151,176). Go upstairs and look around, but you can't find the Geologist.",
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "investigate"
+        }
+      ],
+      "protected_names": [
+        "Geologist",
+        "Veins",
+        "veins"
+      ],
+      "locations": [
+        {
+          "map": "veins",
+          "x": 151,
+          "y": 176,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "veins 151,176"
+        }
+      ]
+    },
+    "8": {
+      "original_instruction": "Go to the tavern(veins 153,217), and find the Geologist in the midst of some highly intellectual discussion with his cohorts. Agree to help him, and he makes you his new assistant and gives you Note of Geologist which reads: 1WN, 2ES, 2EC.",
+      "instruction_sha256": "052b0b8e31756ed1f32fa513462b9d6f1bd6a07ef879e90e5e220c2d3bb00d10",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/052b0b8e31756ed1f32f/1",
+      "goal": "talk",
+      "short_ru": "Согласитесь помочь Geologist в таверне veins 153,217; получите Note of Geologist.",
+      "short_en": "Agree to help Geologist in the tavern veins 153,217; receive Note of Geologist.",
+      "full_ru": "В таверне (veins 153,217) найдите Geologist, обсуждающего что-то с товарищами. Согласитесь помочь: он назначит вас помощником и выдаст Note of Geologist с записью 1WN, 2ES, 2EC.",
+      "full_en": "Go to the tavern(veins 153,217), and find the Geologist in the midst of some highly intellectual discussion with his cohorts. Agree to help him, and he makes you his new assistant and gives you Note of Geologist which reads: 1WN, 2ES, 2EC.",
+      "npcs": [
+        {
+          "entity": "Geologist",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Geologist"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Note of Geologist"
+        }
+      ],
+      "protected_names": [
+        "Geologist",
+        "Note of Geologist",
+        "veins"
+      ],
+      "locations": [
+        {
+          "map": "veins",
+          "x": 153,
+          "y": 217,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "veins 153,217"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Return to his room, click the bookshelf for another File Folder (ve_in 280,212) and the wall closet for the Broken Thermometer (ve_in 277,229).",
+      "instruction_sha256": "abd069db5d0b37bdf54373454ce0ec3386a5cc6f79cc587106c5bd21447fbe98",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/abd069db5d0b37bdf543/1",
+      "goal": "collect",
+      "short_ru": "Возьмите File Folder: ve_in 280,212, и Broken Thermometer: ve_in 277,229.",
+      "short_en": "Collect File Folder: ve_in 280,212, and Broken Thermometer: ve_in 277,229.",
+      "full_ru": "Вернитесь в его комнату. Нажмите книжную полку (ve_in 280,212), чтобы получить ещё один File Folder, и настенный шкаф (ve_in 277,229), чтобы получить Broken Thermometer.",
+      "full_en": "Return to his room, click the bookshelf for another File Folder (ve_in 280,212) and the wall closet for the Broken Thermometer (ve_in 277,229).",
+      "items": [
+        {
+          "entity": "File Folder",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        },
+        {
+          "entity": "Broken Thermometer",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "File Folder"
+        },
+        {
+          "operation": "collect",
+          "entity": "Broken Thermometer"
+        }
+      ],
+      "protected_names": [
+        "File Folder",
+        "Broken Thermometer",
+        "ve_in"
+      ],
+      "locations": [
+        {
+          "map": "ve_in",
+          "x": 280,
+          "y": 212,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ve_in 280,212"
+        },
+        {
+          "map": "ve_in",
+          "x": 277,
+          "y": 229,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ve_in 277,229"
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "Go to Volcano Thor Level 1, and click on the Hot Magma at (37, 234) (you can get to it from pretty close to the entrance).",
+      "instruction_sha256": "fe600f73a897183818b9b82d500508105023666ac117ee1991cd9dc899fc8362",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/fe600f73a897183818b9/1",
+      "goal": "interact",
+      "short_ru": "Нажмите Hot Magma на уровне 1 Thor: (37, 234).",
+      "short_en": "Click Hot Magma on Thor level 1: (37, 234).",
+      "full_ru": "На Volcano Thor Level 1 нажмите Hot Magma (37, 234). Подойти можно с небольшого расстояния от входа.",
+      "full_en": "Go to Volcano Thor Level 1, and click on the Hot Magma at (37, 234) (you can get to it from pretty close to the entrance).",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Hot Magma"
+        }
+      ],
+      "protected_names": [
+        "Hot Magma"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 37,
+          "y": 234,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "37, 234"
+        }
+      ]
+    },
+    "11": {
+      "original_instruction": "Go to Level 2, and click on the spots at (165, 37) and (170, 100).",
+      "instruction_sha256": "da1a83520d88a0e142811e2e919a0a96b31c33417abd77ecb7e08a94bf304bb2",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/da1a83520d88a0e14281/1",
+      "goal": "interact",
+      "short_ru": "На уровне 2 посетите точки (165, 37) и (170, 100).",
+      "short_en": "On level 2, visit points (165, 37) and (170, 100).",
+      "full_ru": "На Level 2 нажмите точки (165, 37) и (170, 100).",
+      "full_en": "Go to Level 2, and click on the spots at (165, 37) and (170, 100).",
+      "actions": [
+        {
+          "operation": "interact",
+          "condition": "Both points on Thor level two."
+        }
+      ],
+      "protected_names": [],
+      "locations": [
+        {
+          "map": null,
+          "x": 165,
+          "y": 37,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "165, 37"
+        },
+        {
+          "map": null,
+          "x": 170,
+          "y": 100,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "170, 100"
+        }
+      ]
+    },
+    "12": {
+      "original_instruction": "Still on Thor's Level 2, enter the portal at (143, 78) and walk through the map until you reach the guards at the end. Talk to them, and they'll warp you to the Base Camp.",
+      "instruction_sha256": "ae60cad5f3f54b12c940c7a34fbbf1ad1ea9cb90bda2b6feb7fdc3cd4f41f5de",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/ae60cad5f3f54b12c940/1",
+      "goal": "travel",
+      "short_ru": "На уровне 2 войдите в портал (143, 78); стражники отправят в Base Camp.",
+      "short_en": "On level 2 enter portal (143, 78); the guards send you to Base Camp.",
+      "full_ru": "Оставаясь на Thor Level 2, войдите в портал (143, 78) и пройдите карту до стражников в конце. Поговорите с ними: они перенесут вас в Base Camp.",
+      "full_en": "Still on Thor's Level 2, enter the portal at (143, 78) and walk through the map until you reach the guards at the end. Talk to them, and they'll warp you to the Base Camp.",
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "talk"
+        },
+        {
+          "operation": "warp",
+          "entity": "Base Camp"
+        }
+      ],
+      "protected_names": [
+        "Base Camp"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 143,
+          "y": 78,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "143, 78"
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Walk south and talk to Sahedi at (250, 104), and agree to inspect the camp for signs of impending doom.",
+      "instruction_sha256": "38143b98bf824e9b6538315a6c8f40de6034afd98311704903510b0a0080f217",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/38143b98bf824e9b6538/1",
+      "goal": "talk",
+      "short_ru": "У Sahedi (250, 104) согласитесь осмотреть лагерь.",
+      "short_en": "At Sahedi (250, 104), agree to inspect the camp.",
+      "full_ru": "Идите на юг к Sahedi (250, 104) и согласитесь осмотреть лагерь на признаки надвигающейся беды.",
+      "full_en": "Walk south and talk to Sahedi at (250, 104), and agree to inspect the camp for signs of impending doom.",
+      "npcs": [
+        {
+          "entity": "Sahedi",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Sahedi"
+        }
+      ],
+      "protected_names": [
+        "Sahedi"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 250,
+          "y": 104,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "250, 104"
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "Walk to Colonel Vito(194 220) where you'll be drafted into the anti Rune-Midgard army. (You'll be teleported to the training room to the south part of the map.) | (Be careful when walking around! If you walk when the dialog pops up, you can be disconnected. The map does not allow you to relog there, and you will end up back at your save point).",
+      "instruction_sha256": "8d049c91bcff9b035cab7f15a1f3acd66f32ea1d54fce78f5b2d2accf7f12080",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/8d049c91bcff9b035cab/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Colonel Vito (194 220); остановитесь при появлении диалога.",
+      "short_en": "Talk to Colonel Vito (194 220); stop moving when dialogue appears.",
+      "full_ru": "Идите к Colonel Vito (194 220): вас зачислят в армию против Rune-Midgard и перенесут в тренировочную комнату на юге карты. Осторожно: движение при появлении диалога может вызвать отключение. На этой карте нельзя восстановить вход после переподключения, и вы окажетесь на точке сохранения.",
+      "full_en": "Walk to Colonel Vito(194 220) where you'll be drafted into the anti Rune-Midgard army. (You'll be teleported to the training room to the south part of the map.) | (Be careful when walking around! If you walk when the dialog pops up, you can be disconnected. The map does not allow you to relog there, and you will end up back at your save point).",
+      "npcs": [
+        {
+          "entity": "Colonel Vito",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Colonel Vito"
+        },
+        {
+          "operation": "warp"
+        }
+      ],
+      "protected_names": [
+        "Colonel Vito"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "You'll be asked to give an oath to Colonel Vito, choose Freya then reply to him with the following: | as a devoted servant of Goddess Freya | I pledge my honor to overthrow our mortal enemy | I will show no mercy | I shall devote my entire life | Down with the Rune-Midgarts Kingdom! Once you complete the oath, speak to him again and he'll send you yo investigate some pipes.",
+      "instruction_sha256": "1cd1fb9f0a448c2423d17c7353efdd5d65224a290ae4b629c4fe7e1d55f45c04",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/1cd1fb9f0a448c2423d1/1",
+      "goal": "type_answer",
+      "short_ru": "У Colonel Vito выберите Freya и повторите приведённую присягу дословно.",
+      "short_en": "At Colonel Vito, choose Freya and repeat the listed oath exactly.",
+      "full_ru": "Для присяги Colonel Vito выберите Freya, затем ответьте по порядку: as a devoted servant of Goddess Freya | I pledge my honor to overthrow our mortal enemy | I will show no mercy | I shall devote my entire life | Down with the Rune-Midgarts Kingdom! После присяги снова поговорите с ним: он направит проверить трубы.",
+      "full_en": "You'll be asked to give an oath to Colonel Vito, choose Freya then reply to him with the following: | as a devoted servant of Goddess Freya | I pledge my honor to overthrow our mortal enemy | I will show no mercy | I shall devote my entire life | Down with the Rune-Midgarts Kingdom! Once you complete the oath, speak to him again and he'll send you yo investigate some pipes.",
+      "npcs": [
+        {
+          "entity": "Colonel Vito",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose"
+        },
+        {
+          "operation": "type_answer"
+        },
+        {
+          "operation": "talk",
+          "entity": "Colonel Vito"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Colonel Vito",
+          "options": [
+            {
+              "text": "Freya",
+              "correct": 1
+            },
+            {
+              "text": "as a devoted servant of Goddess Freya",
+              "correct": 1,
+              "operation": "type"
+            },
+            {
+              "text": "I pledge my honor to overthrow our mortal enemy",
+              "correct": 1,
+              "operation": "type"
+            },
+            {
+              "text": "I will show no mercy",
+              "correct": 1,
+              "operation": "type"
+            },
+            {
+              "text": "I shall devote my entire life",
+              "correct": 1,
+              "operation": "type"
+            },
+            {
+              "text": "Down with the Rune-Midgarts Kingdom!",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "Colonel Vito"
+      ],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "Walk to (109, 167) and click on the Control Panel there. Go back to Colonel Vito and inform him about its status.",
+      "instruction_sha256": "3c917d1816d4d6b83d89d94816381aa6e7d08c775a6599e0fbfde9265bb19434",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/3c917d1816d4d6b83d89/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Control Panel (109, 167) и доложите Colonel Vito.",
+      "short_en": "Inspect Control Panel (109, 167) and report to Colonel Vito.",
+      "full_ru": "Идите к (109, 167) и нажмите Control Panel. Вернитесь к Colonel Vito и сообщите о его состоянии.",
+      "full_en": "Walk to (109, 167) and click on the Control Panel there. Go back to Colonel Vito and inform him about its status.",
+      "npcs": [
+        {
+          "entity": "Colonel Vito",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Control Panel"
+        },
+        {
+          "operation": "talk",
+          "entity": "Colonel Vito"
+        }
+      ],
+      "protected_names": [
+        "Colonel Vito",
+        "Control Panel"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 109,
+          "y": 167,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "109, 167"
+        }
+      ]
+    },
+    "17": {
+      "original_instruction": "Talk to Colonel Vito again, and he has you undergo more training by hitting a dummy. Click the dummy at (156, 65) to attack it.",
+      "instruction_sha256": "6294c324adae5bab6e96384a5211d7a854573e164e14dd9a138ab3571b9217d5",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/6294c324adae5bab6e96/1",
+      "goal": "interact",
+      "short_ru": "После разговора с Colonel Vito нажмите манекен (156, 65).",
+      "short_en": "After talking to Colonel Vito, click the dummy (156, 65).",
+      "full_ru": "Снова поговорите с Colonel Vito: он назначит тренировку с манекеном. Нажмите манекен (156, 65), чтобы ударить его.",
+      "full_en": "Talk to Colonel Vito again, and he has you undergo more training by hitting a dummy. Click the dummy at (156, 65) to attack it.",
+      "npcs": [
+        {
+          "entity": "Colonel Vito",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Colonel Vito"
+        },
+        {
+          "operation": "interact",
+          "condition": "Click the training dummy; not an asserted monster kill."
+        }
+      ],
+      "protected_names": [
+        "Colonel Vito"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 156,
+          "y": 65,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "156, 65"
+        }
+      ]
+    },
+    "18": {
+      "original_instruction": "Walk to (172, 132) (be careful to not walk over cell and get disconnected) and (148, 310) and read the dialogue that pops up there.",
+      "instruction_sha256": "003adceb53d70b9b6ebfe6284a5cd85e598ddcc2c17c516bd74447685c09df4e",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/003adceb53d70b9b6ebf/1",
+      "goal": "trigger_dialogue",
+      "short_ru": "Остановитесь у (172, 132) и (148, 310), прочитайте диалоги.",
+      "short_en": "Stop at (172, 132) and (148, 310), then read the dialogues.",
+      "full_ru": "Идите к (172, 132), не пробегая клетку, чтобы избежать отключения, затем к (148, 310). Прочитайте появляющиеся диалоги.",
+      "full_en": "Walk to (172, 132) (be careful to not walk over cell and get disconnected) and (148, 310) and read the dialogue that pops up there.",
+      "actions": [
+        {
+          "operation": "trigger_dialogue",
+          "condition": "Both points; avoid walking over the first trigger during dialogue."
+        }
+      ],
+      "protected_names": [],
+      "locations": [
+        {
+          "map": null,
+          "x": 172,
+          "y": 132,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "172, 132"
+        },
+        {
+          "map": null,
+          "x": 148,
+          "y": 310,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "148, 310"
+        }
+      ]
+    },
+    "19": {
+      "original_instruction": "Go back to Sahedi (250, 104), and he gives you a File Folder to take back to the Geologist.",
+      "instruction_sha256": "9f0a1725a67b60b9862294936cffde33841f783c92c75dd898824ac218651f60",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/9f0a1725a67b60b98622/1",
+      "goal": "collect",
+      "short_ru": "Получите File Folder у Sahedi (250, 104) для Geologist.",
+      "short_en": "Get File Folder from Sahedi (250, 104) for Geologist.",
+      "full_ru": "Вернитесь к Sahedi (250, 104). Он выдаст File Folder для передачи Geologist.",
+      "full_en": "Go back to Sahedi (250, 104), and he gives you a File Folder to take back to the Geologist.",
+      "npcs": [
+        {
+          "entity": "Sahedi",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "File Folder",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Sahedi"
+        },
+        {
+          "operation": "collect",
+          "entity": "File Folder"
+        }
+      ],
+      "protected_names": [
+        "Geologist",
+        "Sahedi",
+        "File Folder"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 250,
+          "y": 104,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "250, 104"
+        }
+      ]
+    },
+    "20": {
+      "original_instruction": "In Veins (the pub), give the Geologist the File Folder .",
+      "instruction_sha256": "d8ea952cf4a8ed390abede6ecad2e425b97063acb768a424a8136a7152d838d2",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/d8ea952cf4a8ed390abe/1",
+      "goal": "deliver",
+      "short_ru": "Передайте File Folder Geologist в пабе Veins.",
+      "short_en": "Give File Folder to Geologist in the Veins pub.",
+      "full_ru": "В пабе Veins передайте File Folder Geologist.",
+      "full_en": "In Veins (the pub), give the Geologist the File Folder .",
+      "npcs": [
+        {
+          "entity": "Geologist",
+          "role": "deliver"
+        }
+      ],
+      "items": [
+        {
+          "entity": "File Folder",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "File Folder"
+        }
+      ],
+      "protected_names": [
+        "Geologist",
+        "File Folder",
+        "Veins"
+      ],
+      "locations": []
+    },
+    "21": {
+      "original_instruction": "Go back to the Geologist's office, and click on the bookshelf (281, 214) | Obtain: 800,000 Base Experience, 5 Giggling Boxes -OR- 1 Bloody Branch -OR- 1 Soft Apron -OR- Steel Arrow Quiver -OR- Random Quiver",
+      "instruction_sha256": "348a12fc55eabb7ce79c887f85bd1cc3ddebc1c78ae7ee4d635eaf540599f714",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/348a12fc55eabb7ce79c/1",
+      "goal": "receive_reward",
+      "short_ru": "Нажмите полку (281, 214) в кабинете Geologist: 800,000 Base Experience и одна альтернативная награда.",
+      "short_en": "Click the office bookshelf (281, 214) of Geologist: 800,000 Base Experience and one alternative reward.",
+      "full_ru": "Вернитесь в кабинет Geologist и нажмите книжную полку (281, 214). Получите 800,000 Base Experience и один из вариантов: 5 Giggling Boxes ИЛИ 1 Bloody Branch ИЛИ 1 Soft Apron ИЛИ Steel Arrow Quiver ИЛИ Random Quiver.",
+      "full_en": "Go back to the Geologist's office, and click on the bookshelf (281, 214) | Obtain: 800,000 Base Experience, 5 Giggling Boxes -OR- 1 Bloody Branch -OR- 1 Soft Apron -OR- Steel Arrow Quiver -OR- Random Quiver",
+      "actions": [
+        {
+          "operation": "interact",
+          "condition": "Bookshelf in the Geologist office."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "800000"
+        }
+      ],
+      "protected_names": [
+        "Geologist",
+        "Giggling Boxes",
+        "Bloody Branch",
+        "Soft Apron",
+        "Steel Arrow Quiver",
+        "Random Quiver"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 281,
+          "y": 214,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "281, 214"
+        }
+      ],
+      "branches": [
+        {
+          "key": "giggling_boxes",
+          "choice_group": "office_item_reward",
+          "variant_scope": "Source lists mutually exclusive item rewards; selection mechanism unverified",
+          "condition": "One listed item alternative, not all rewards together; quantity is unknown when not stated.",
+          "section": "",
+          "source_step": 21,
+          "original_instruction": "5 Giggling Boxes",
+          "instruction_sha256": "5741e080627b9fdfbc5acc3511e34639dbe6fcc34b4768434749c362081c0b8c",
+          "short_ru": "Возможная награда: 5 Giggling Boxes.",
+          "short_en": "Possible reward: 5 Giggling Boxes.",
+          "full_ru": "5 Giggling Boxes",
+          "full_en": "5 Giggling Boxes",
+          "protected_names": [
+            "Giggling Boxes"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "5",
+              "entity": "Giggling Boxes",
+              "condition": "One OR alternative; omitted quantity remains unknown."
+            }
+          ]
+        },
+        {
+          "key": "bloody_branch",
+          "choice_group": "office_item_reward",
+          "variant_scope": "Source lists mutually exclusive item rewards; selection mechanism unverified",
+          "condition": "One listed item alternative, not all rewards together; quantity is unknown when not stated.",
+          "section": "",
+          "source_step": 21,
+          "original_instruction": "1 Bloody Branch",
+          "instruction_sha256": "916b6600bf656cdc066e00fb40c7b886e51939ee56806da859c2a06494c77759",
+          "short_ru": "Возможная награда: 1 Bloody Branch.",
+          "short_en": "Possible reward: 1 Bloody Branch.",
+          "full_ru": "1 Bloody Branch",
+          "full_en": "1 Bloody Branch",
+          "protected_names": [
+            "Bloody Branch"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Bloody Branch",
+              "condition": "One OR alternative; omitted quantity remains unknown."
+            }
+          ]
+        },
+        {
+          "key": "soft_apron",
+          "choice_group": "office_item_reward",
+          "variant_scope": "Source lists mutually exclusive item rewards; selection mechanism unverified",
+          "condition": "One listed item alternative, not all rewards together; quantity is unknown when not stated.",
+          "section": "",
+          "source_step": 21,
+          "original_instruction": "1 Soft Apron",
+          "instruction_sha256": "8ee3390e873f8917ef467549ac08b0429ca66906045de16951185eb1bfd1117c",
+          "short_ru": "Возможная награда: 1 Soft Apron.",
+          "short_en": "Possible reward: 1 Soft Apron.",
+          "full_ru": "1 Soft Apron",
+          "full_en": "1 Soft Apron",
+          "protected_names": [
+            "Soft Apron"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Soft Apron",
+              "condition": "One OR alternative; omitted quantity remains unknown."
+            }
+          ]
+        },
+        {
+          "key": "steel_arrow_quiver",
+          "choice_group": "office_item_reward",
+          "variant_scope": "Source lists mutually exclusive item rewards; selection mechanism unverified",
+          "condition": "One listed item alternative, not all rewards together; quantity is unknown when not stated.",
+          "section": "",
+          "source_step": 21,
+          "original_instruction": "Steel Arrow Quiver",
+          "instruction_sha256": "872a5956641ce9786be8f7d4b58cccc8d3bb0ada8c69319cc07ad0c869d7b759",
+          "short_ru": "Возможная награда: Steel Arrow Quiver.",
+          "short_en": "Possible reward: Steel Arrow Quiver.",
+          "full_ru": "Steel Arrow Quiver",
+          "full_en": "Steel Arrow Quiver",
+          "protected_names": [
+            "Steel Arrow Quiver"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "entity": "Steel Arrow Quiver",
+              "condition": "One OR alternative; omitted quantity remains unknown."
+            }
+          ]
+        },
+        {
+          "key": "random_quiver",
+          "choice_group": "office_item_reward",
+          "variant_scope": "Source lists mutually exclusive item rewards; selection mechanism unverified",
+          "condition": "One listed item alternative, not all rewards together; quantity is unknown when not stated.",
+          "section": "",
+          "source_step": 21,
+          "original_instruction": "Random Quiver",
+          "instruction_sha256": "ccb696329427c37c7e9df49f349a0a519b129b1642340a5e387e9b6b816320e4",
+          "short_ru": "Возможная награда: Random Quiver.",
+          "short_en": "Possible reward: Random Quiver.",
+          "full_ru": "Random Quiver",
+          "full_en": "Random Quiver",
+          "protected_names": [
+            "Random Quiver"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "entity": "Random Quiver",
+              "condition": "One OR alternative; omitted quantity remains unknown."
+            }
+          ]
+        }
+      ]
+    },
+    "22": {
+      "original_instruction": "Go back to Zhed, and tell him what happened. | Obtain 200,000 Base Experience",
+      "instruction_sha256": "fca05e744a0443e41bff77ab143f83de6bde8e3c16d4613c1a272d37733d5072",
+      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/fca05e744a0443e41bff/1",
+      "goal": "receive_reward",
+      "short_ru": "Доложите Zhed и получите 200,000 Base Experience.",
+      "short_en": "Report to Zhed and receive 200,000 Base Experience.",
+      "full_ru": "Вернитесь к Zhed и расскажите о случившемся. Получите 200,000 Base Experience.",
+      "full_en": "Go back to Zhed, and tell him what happened. | Obtain 200,000 Base Experience",
+      "npcs": [
+        {
+          "entity": "High Priest Zhed",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Zhed"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "200000"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "reward_alternatives_not_additive",
+      "detail": "Five OR item alternatives belong to one choice group. The source does not establish player choice versus random selection, or quantities for the two quiver alternatives."
+    },
+    {
+      "reason": "unqualified_camp_map",
+      "detail": "Camp and training coordinates have no proven map code in this guide; no code is inferred from similarly named emulator NPCs."
+    }
+  ]
+}

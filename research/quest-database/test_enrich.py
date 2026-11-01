@@ -6,6 +6,33 @@ from enrich import parse_guide, step_evidence, script_score, link_database, ensu
 
 
 class GuideParserTests(unittest.TestCase):
+    def test_new_section_notes_do_not_attach_to_previous_step(self):
+        raw='''<div class="mw-parser-output"><h2>Quest</h2>
+        <p>1. Open the door.</p><p>2. Leave the laboratory.</p>
+        <h2>Variations</h2><p>Use your own wall code.</p>
+        <ul><li>Sort the digits.</li><li>Enter them separately.</li></ul>
+        <h2>Afterwards</h2><p>3. Return to town.</p></div>'''
+        steps,quality,_=parse_guide(raw)
+        self.assertEqual(steps[1].instruction,'Leave the laboratory.')
+        self.assertEqual(steps[2].kind,'section_note')
+        self.assertEqual(steps[2].section,'Variations')
+        self.assertIn('Sort the digits.',steps[2].instruction)
+        self.assertEqual(steps[3].instruction,'Return to town.')
+        self.assertEqual(quality['numbered'],3)
+        self.assertEqual(quality['section_notes'],1)
+
+    def test_pinned_biolabs_alternate_puzzle_is_a_separate_section(self):
+        from selection import snapshots
+        steps,quality,_=parse_guide(snapshots()['Biolabs_Entrance_Quest']['html'])
+        self.assertEqual(quality['numbered'],22)
+        self.assertEqual(quality['section_notes'],1)
+        exit_step=next(s for s in steps if s.source_number==22)
+        self.assertIn('Sewer Pipe',exit_step.instruction)
+        self.assertNotIn('Examine the Barrel again',exit_step.instruction)
+        alternate=steps[-1]
+        self.assertEqual(alternate.section,'Step 16 on non-iRO servers')
+        self.assertIn('53 86 49 34 18 21 77 92 65',alternate.instruction)
+
     def test_nested_switch_select_is_indexed(self):
         from build import COMMAND
         sample='    switch(select("Join the Event:Event Information:Cancel")) {'

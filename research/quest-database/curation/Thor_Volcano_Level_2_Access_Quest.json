@@ -1,0 +1,324 @@
+{
+  "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "ab978d933079549a65c6a83991a9af7164197eb96d367f63538236de045e64df",
+  "snapshot_sha256": "6a7020c7bd5d08f6e4afd94fe539bf38ed9007fdc6373c088552385cdf41ea8e",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Survey Leader"
+    },
+    {
+      "type": "npc",
+      "name": "Surveyor Peter"
+    },
+    {
+      "type": "npc",
+      "name": "Surveyor Bob"
+    },
+    {
+      "type": "item",
+      "name": "Ice Cubic",
+      "game_id": 7066,
+      "id_source": "http://db.irowiki.org/classic/item-info/7066/"
+    },
+    {
+      "type": "item",
+      "name": "Ice Cream",
+      "game_id": 536,
+      "id_source": "http://db.irowiki.org/classic/item-info/536/"
+    },
+    {
+      "type": "item",
+      "name": "TPS Report"
+    },
+    {
+      "type": "map",
+      "name": "juno"
+    },
+    {
+      "type": "map",
+      "name": "Nogg Road"
+    },
+    {
+      "type": "map",
+      "name": "Magma Dungeon"
+    },
+    {
+      "type": "map",
+      "name": "mag_dun02"
+    },
+    {
+      "type": "map",
+      "name": "Thor Volcano 2"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Speak to Survey Leader (juno 176, 186), and bring him 20 Ice Cubic and 5 Ice Cream . The Survey Leader asks you to collect a TPS Report from a team in Nogg Road.",
+      "instruction_sha256": "9e6b145a867a34c15f6073d9df83233058aa045e0bfbf3e5f98a9b26edc03ebf",
+      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/9e6b145a867a34c15f60/1",
+      "goal": "deliver",
+      "short_ru": "Принесите Survey Leader: 20 Ice Cubic и 5 Ice Cream, juno 176, 186.",
+      "short_en": "Bring Survey Leader: 20 Ice Cubic and 5 Ice Cream, juno 176, 186.",
+      "full_ru": "Поговорите с Survey Leader (juno 176, 186) и принесите 20 Ice Cubic и 5 Ice Cream. Survey Leader попросит забрать TPS Report у команды в Nogg Road.",
+      "full_en": "Speak to Survey Leader (juno 176, 186), and bring him 20 Ice Cubic and 5 Ice Cream . The Survey Leader asks you to collect a TPS Report from a team in Nogg Road.",
+      "npcs": [
+        {
+          "entity": "Survey Leader",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Ice Cubic",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Ice Cream",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Survey Leader"
+        },
+        {
+          "operation": "deliver"
+        }
+      ],
+      "protected_names": [
+        "Survey Leader",
+        "Ice Cubic",
+        "Ice Cream",
+        "TPS Report",
+        "juno",
+        "Nogg Road"
+      ],
+      "locations": []
+    },
+    "2": {
+      "original_instruction": "On level 2 of Magma Dungeon , speak to Surveyor Peter (mag_dun02 247, 62), he didn't feel like doing his TPS Report.",
+      "instruction_sha256": "77d4637e3dea55a7f38f47894c2529a285c6e1027964cca4dfc3b26013c87dc4",
+      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/77d4637e3dea55a7f38f/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Surveyor Peter: mag_dun02 247, 62.",
+      "short_en": "Talk to Surveyor Peter: mag_dun02 247, 62.",
+      "full_ru": "На уровне 2 Magma Dungeon поговорите с Surveyor Peter (mag_dun02 247, 62): он не захотел делать TPS Report.",
+      "full_en": "On level 2 of Magma Dungeon , speak to Surveyor Peter (mag_dun02 247, 62), he didn't feel like doing his TPS Report.",
+      "npcs": [
+        {
+          "entity": "Surveyor Peter",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Surveyor Peter"
+        }
+      ],
+      "protected_names": [
+        "Surveyor Peter",
+        "TPS Report",
+        "Magma Dungeon",
+        "mag_dun02"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Speak to Surveyor Bob to collect a completed TPS Report.",
+      "instruction_sha256": "593bc4d51efc66ebb615af83cec4bf0d7d5176b713a4b7801d56838e08a1c627",
+      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/593bc4d51efc66ebb615/1",
+      "goal": "collect",
+      "short_ru": "Заберите TPS Report у Surveyor Bob.",
+      "short_en": "Collect TPS Report from Surveyor Bob.",
+      "full_ru": "Поговорите с Surveyor Bob и заберите готовый TPS Report.",
+      "full_en": "Speak to Surveyor Bob to collect a completed TPS Report.",
+      "npcs": [
+        {
+          "entity": "Surveyor Bob",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "TPS Report",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Surveyor Bob"
+        },
+        {
+          "operation": "collect",
+          "entity": "TPS Report"
+        }
+      ],
+      "protected_names": [
+        "Surveyor Bob",
+        "TPS Report"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Return to Survey Leader with the completed TPS Report. Survey Leader asks you to investigate the Lava Tubes in Nogg Road.",
+      "instruction_sha256": "8eb66bb3b4852d3a5e8d8aeb5648d14b69b8aef080d72937853d9f6829a8a402",
+      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/8eb66bb3b4852d3a5e8d/1",
+      "goal": "deliver",
+      "short_ru": "Отнесите TPS Report Survey Leader и получите задание исследовать Lava Tubes.",
+      "short_en": "Take TPS Report to Survey Leader and receive the Lava Tubes investigation.",
+      "full_ru": "Вернитесь к Survey Leader с готовым TPS Report. Survey Leader попросит исследовать Lava Tubes в Nogg Road.",
+      "full_en": "Return to Survey Leader with the completed TPS Report. Survey Leader asks you to investigate the Lava Tubes in Nogg Road.",
+      "npcs": [
+        {
+          "entity": "Survey Leader",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "TPS Report",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Survey Leader"
+        }
+      ],
+      "protected_names": [
+        "Survey Leader",
+        "TPS Report",
+        "Nogg Road"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Walk directly over the cell at (mag_dun02 244, 75) to be warped to one of several locations on Thor Volcano 2 .",
+      "instruction_sha256": "e976d980b00b5b28c13e3f92d5d2d6362600aa3a3640ca927faf1537af40be2a",
+      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/e976d980b00b5b28c13e/1",
+      "goal": "warp",
+      "short_ru": "Наступите на mag_dun02 244, 75 для переноса на Thor Volcano 2.",
+      "short_en": "Step on mag_dun02 244, 75 to warp to Thor Volcano 2.",
+      "full_ru": "Пройдите точно по клетке (mag_dun02 244, 75), чтобы перенестись в одну из нескольких точек Thor Volcano 2.",
+      "full_en": "Walk directly over the cell at (mag_dun02 244, 75) to be warped to one of several locations on Thor Volcano 2 .",
+      "actions": [
+        {
+          "operation": "warp",
+          "condition": "Walk directly over the cell; destination is one of several Thor Volcano 2 locations."
+        }
+      ],
+      "protected_names": [
+        "mag_dun02",
+        "Thor Volcano 2"
+      ],
+      "locations": [
+        {
+          "map": "mag_dun02",
+          "x": 244,
+          "y": 75,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "mag_dun02 244, 75"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Return to the Survey Leader and receive some EXP. | 100,000 Base EXP / 75,000 Job EXP | Note: After completing the quest you can return to (mag_dun02 244, 75) and be warped to Thor Volcano 2 as many times as you want. The quest itself is not repeatable.",
+      "instruction_sha256": "819595218037e12443c64eba9f125a838012e5fb8cd5ec20f927c3afbf40526d",
+      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/819595218037e12443c6/1",
+      "goal": "receive_reward",
+      "short_ru": "Вернитесь к Survey Leader: 100,000 Base EXP / 75,000 Job EXP; повторяется только перенос.",
+      "short_en": "Return to Survey Leader: 100,000 Base EXP / 75,000 Job EXP; only the warp is repeatable.",
+      "full_ru": "Вернитесь к Survey Leader за опытом: 100,000 Base EXP / 75,000 Job EXP. Примечание: после завершения можно снова приходить к (mag_dun02 244, 75) и переноситься на Thor Volcano 2 сколько угодно раз. Сам квест повторить нельзя.",
+      "full_en": "Return to the Survey Leader and receive some EXP. | 100,000 Base EXP / 75,000 Job EXP | Note: After completing the quest you can return to (mag_dun02 244, 75) and be warped to Thor Volcano 2 as many times as you want. The quest itself is not repeatable.",
+      "npcs": [
+        {
+          "entity": "Survey Leader",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Survey Leader"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "100000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "75000"
+        },
+        {
+          "kind": "access",
+          "condition": "Repeatable warp from mag_dun02 244,75; quest and experience rewards are not repeatable."
+        }
+      ],
+      "protected_names": [
+        "Survey Leader",
+        "mag_dun02",
+        "Thor Volcano 2"
+      ],
+      "locations": [
+        {
+          "map": "mag_dun02",
+          "x": 244,
+          "y": 75,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "mag_dun02 244, 75"
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "iRO_premium_source_scope",
+      "detail": "Pinned page categories are IRO Only Events & Features and Premium Server Events & Features. This optional shortcut is not required for ordinary Thor floor-two access and is not asserted available on other servers."
+    },
+    {
+      "reason": "literal_map_spelling",
+      "detail": "The source spells Survey Leader location juno. Preserve it; do not silently substitute yuno or assert a validated map code."
+    },
+    {
+      "reason": "repeatability_scope",
+      "detail": "Warp reuse is unlimited after completion, but the quest and EXP rewards cannot be repeated."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "20",
+        "source_section": "requirements",
+        "evidence": "20 Ice Cubic",
+        "entity": "Ice Cubic"
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Ice Cream",
+        "entity": "Ice Cream"
+      }
+    ]
+  }
+}

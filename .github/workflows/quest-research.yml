@@ -152,7 +152,7 @@ jobs:
           from semantic import validate, load_curations, ROOT
           semantic=sqlite3.connect("research/quest-database/output/quest_semantic.sqlite")
           assert validate(semantic)["integrity_check"]=="ok"
-          assert semantic.execute("PRAGMA user_version").fetchone()[0]==1
+          assert semantic.execute("PRAGMA user_version").fetchone()[0]==2
           assert semantic.execute("SELECT count(*) FROM quests").fetchone()[0]==len(active)
           curations=load_curations(ROOT/"curation")
           localized=sum(len(q["steps"]) for q in curations.values())
@@ -160,6 +160,9 @@ jobs:
           assert semantic.execute("SELECT count(*) FROM ready_steps").fetchone()[0]==localized
           assert semantic_report["fully_localized_steps"]==localized
           assert semantic_report["curated_quests"]==len(curations)
+          branches=sum(len(s.get("branches",[])) for q in curations.values() for s in q["steps"].values())
+          assert semantic_report["fully_localized_branches"]==branches
+          assert semantic.execute("SELECT count(*) FROM branch_descriptions").fetchone()[0]==branches
           assert semantic.execute("SELECT count(*) FROM quest_steps").fetchone()[0]==consumer.execute("SELECT count(*) FROM quest_steps").fetchone()[0]
           assert {r[0] for r in semantic.execute("SELECT quest_id FROM quests")}=={r[0] for r in consumer.execute("SELECT quest_key FROM quests")}
           semantic.close()

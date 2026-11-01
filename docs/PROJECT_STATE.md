@@ -6,19 +6,23 @@ Authoritative database-phase specification: `research/quest-database/SEMANTIC_DA
 **Active work is the database ONLY**: exclude archived/retired event quests from active quest catalogs; normalize NPCs, map locations, items, monsters, dialogue/answers, rewards, stage descriptions and optional sourced images; analyze each quest/stage in context; produce independent **RU and EN short and full step descriptions**. **Never translate in-game names of cities/maps, NPCs, items or monsters** (nor exact dialogue answers); use typed entity references for future formatting. Preserve original source text, provenance and uncertainty.
 **RoAura app / UI / overlay / runtime / release integration is deferred until user explicitly requests it**; do not treat previous plans as present authorization. The present entry supersedes older historical project references to ROQuestie integration. See linked specification for acceptance criteria and exclusions.
 
-### Database implementation checkpoint — 2026-10-31
+### Database implementation checkpoint — 2026-11-01
 
-Branch `research/quest-database`: normalized semantic SQLite schema 1 and
+Branch `research/quest-database`: normalized semantic SQLite schema 2 and
 source-pinned curation are implemented. Active selection retains 217 catalog
 candidates / 2,753 original rows; 59 historical events are excluded, 10 ambiguous
-records quarantined. All four RU/EN fields exist for 76 steps in 12 curated
-guides; **2,677 steps / 205 remaining catalog entries still need processing**.
-Local validation: 83 regression tests, full offline rebuild and research CI
+records quarantined. All four RU/EN fields exist for 166 steps in 17 curated
+guides and 7 conditional branches; **2,587 steps / 200 remaining catalog entries
+still need processing**. Biolabs alternate puzzle is correctly attached to
+step 16 with a lossless partition of the original mixed step 22. Veins, Nameless
+Island and Thor chains now distinguish conditional costs, combat, reward
+alternatives, source scope and repeatable access from one-time quests.
+Local validation: 94 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
-for commands, known conflicts and the next concrete parser issue (Biolabs
-alternate puzzle merged into its exit step). Application integration remains
-deferred. Continue database work without reconstructing this checkpoint from chats.
+for commands, known conflicts and next chains (Kiel Hyre / Curse of Gaebolg).
+Application integration remains deferred. Continue database work without
+reconstructing this checkpoint from chats.
 
 ## Release correction: 3.1.1 (2026-10-29)
 

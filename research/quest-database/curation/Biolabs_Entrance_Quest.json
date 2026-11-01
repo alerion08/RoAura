@@ -1,0 +1,1085 @@
+{
+  "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "f8cc812ec6fce86a7d0a699f11bd853e004953031e39b9badd9628e49837b4de",
+  "snapshot_sha256": "cdbcd07183943ab9ac2f05b9dfbc11eccb77246f3a73d2e1d158af05d72f80f5",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Fishbone"
+    },
+    {
+      "type": "npc",
+      "name": "Bed"
+    },
+    {
+      "type": "npc",
+      "name": "Desk"
+    },
+    {
+      "type": "npc",
+      "name": "Goblet"
+    },
+    {
+      "type": "npc",
+      "name": "Chemicals"
+    },
+    {
+      "type": "npc",
+      "name": "Cabinet"
+    },
+    {
+      "type": "npc",
+      "name": "Bundles of Files"
+    },
+    {
+      "type": "npc",
+      "name": "Drawer"
+    },
+    {
+      "type": "npc",
+      "name": "Painting"
+    },
+    {
+      "type": "npc",
+      "name": "Chest"
+    },
+    {
+      "type": "npc",
+      "name": "Barrel"
+    },
+    {
+      "type": "npc",
+      "name": "Power Generator"
+    },
+    {
+      "type": "npc",
+      "name": "Status Light"
+    },
+    {
+      "type": "npc",
+      "name": "Experiment Tube"
+    },
+    {
+      "type": "npc",
+      "name": "Box"
+    },
+    {
+      "type": "npc",
+      "name": "Sewer Pipe"
+    },
+    {
+      "type": "item",
+      "name": "Jellopy",
+      "game_id": 909,
+      "id_source": "http://db.irowiki.org/classic/item-info/909/"
+    },
+    {
+      "type": "item",
+      "name": "Short Stick"
+    },
+    {
+      "type": "item",
+      "name": "Long Stick"
+    },
+    {
+      "type": "item",
+      "name": "Cube"
+    },
+    {
+      "type": "item",
+      "name": "Rusty Key"
+    },
+    {
+      "type": "item",
+      "name": "Green Key"
+    },
+    {
+      "type": "item",
+      "name": "Polygon"
+    },
+    {
+      "type": "item",
+      "name": "Red Key"
+    },
+    {
+      "type": "item",
+      "name": "Jackknife"
+    },
+    {
+      "type": "item",
+      "name": "Jackknif e"
+    },
+    {
+      "type": "item",
+      "name": "Axe"
+    },
+    {
+      "type": "item",
+      "name": "Yellow Key"
+    },
+    {
+      "type": "item",
+      "name": "Black Key"
+    },
+    {
+      "type": "item",
+      "name": "Oval"
+    },
+    {
+      "type": "item",
+      "name": "Laboratory Permit"
+    },
+    {
+      "type": "item",
+      "name": "Laboratory Pass",
+      "game_id": 2657,
+      "id_source": "http://db.irowiki.org/classic/item-info/2657/"
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lighthalzen",
+      "map_code": "lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "Underwater Tunnel"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Proceed to the 3 o'clock direction of Lighthalzen . There, you'll see a guard who stops you from moving into the slum area. Fear not, just talk to him continuously and you'll eventually make it into the slums. | Note: To access the slum, either wait for any alert to cease (Mobsters in town are all killed (yellow text)), or do the Friendship Quest .",
+      "instruction_sha256": "d43cbc63f4e31e1153eee7661a35f31edb602138fcce2175da0db561bd407159",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/d43cbc63f4e31e1153ee/1",
+      "goal": "repeat_talk",
+      "short_ru": "В восточной части Lighthalzen говорите со стражником до прохода в трущобы.",
+      "short_en": "In eastern Lighthalzen, keep talking to the guard until admitted to the slums.",
+      "full_ru": "Идите на восток, в направлении 3 часов, в Lighthalzen. Стражник не пускает в трущобы: говорите с ним многократно, пока он не пропустит. Примечание: дождитесь окончания тревоги, когда все Mobsters в городе убиты (жёлтое сообщение), либо выполните Friendship Quest.",
+      "full_en": "Proceed to the 3 o'clock direction of Lighthalzen . There, you'll see a guard who stops you from moving into the slum area. Fear not, just talk to him continuously and you'll eventually make it into the slums. | Note: To access the slum, either wait for any alert to cease (Mobsters in town are all killed (yellow text)), or do the Friendship Quest .",
+      "actions": [
+        {
+          "operation": "talk",
+          "condition": "Repeat; access requires the alert to end or Friendship Quest."
+        }
+      ],
+      "protected_names": [
+        "Lighthalzen"
+      ],
+      "locations": []
+    },
+    "2": {
+      "original_instruction": "Proceed on and meet Fishbone (340,224). Talk to him continuously to find out that he's actually an ex-researcher.",
+      "instruction_sha256": "2cb2eb410e0889fdffd7bb2637aa383cda56964fd518cf8bd0ab676a82b5431d",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/2cb2eb410e0889fdffd7/1",
+      "goal": "repeat_talk",
+      "short_ru": "Многократно поговорите с Fishbone (340,224).",
+      "short_en": "Keep talking to Fishbone (340,224).",
+      "full_ru": "Найдите Fishbone (340,224). Говорите с ним многократно, чтобы узнать, что он бывший исследователь.",
+      "full_en": "Proceed on and meet Fishbone (340,224). Talk to him continuously to find out that he's actually an ex-researcher.",
+      "npcs": [
+        {
+          "entity": "Fishbone",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Fishbone",
+          "condition": "Repeat until he reveals his past."
+        }
+      ],
+      "protected_names": [
+        "Fishbone"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 340,
+          "y": 224,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "340,224"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to him again and again, you'll be pleading with him till he eventually asks for an offer of 20 Jellopy for an exchange of information.",
+      "instruction_sha256": "7ce9231d218d5cf4c12ec28bfd6cbb03003c681e8be8c25e843cdd86fbaada43",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/7ce9231d218d5cf4c12e/1",
+      "goal": "repeat_talk",
+      "short_ru": "Добейтесь просьбы Fishbone принести 20 Jellopy.",
+      "short_en": "Keep talking to Fishbone until he asks for 20 Jellopy.",
+      "full_ru": "Продолжайте разговаривать и упрашивать его, пока он не попросит 20 Jellopy в обмен на информацию.",
+      "full_en": "Talk to him again and again, you'll be pleading with him till he eventually asks for an offer of 20 Jellopy for an exchange of information.",
+      "npcs": [
+        {
+          "entity": "Fishbone",
+          "role": "talk",
+          "support_step": 2,
+          "evidence": "Proceed on and meet Fishbone (340,224). Talk to him continuously to find out that he's actually an ex-researcher."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Jellopy",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Fishbone"
+        },
+        {
+          "operation": "bring",
+          "entity": "Jellopy"
+        }
+      ],
+      "protected_names": [
+        "Jellopy"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Once you've passed him the Jellopies, ask him to send you to the maze. | This is a map of the cuberoom maze (unless its changed). The portals marked R moves you to a random one of the three green marked rooms. You'll actually start in one of those 3 rooms too. To make it slightly more random, the exit portal doesn't always actually take you out of the maze, you may have to work your way back again.",
+      "instruction_sha256": "6f8e0d39a5cd06c11b86080772035b5c3528d931d559914fed0fe35908d10495",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/6f8e0d39a5cd06c11b86/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Jellopy Fishbone и попросите отправить вас в лабиринт.",
+      "short_en": "Give Jellopy to Fishbone and ask to enter the maze.",
+      "full_ru": "Передав ему Jellopies, попросите отправить вас в лабиринт. На приведённой карте cuberoom (если она не изменилась) порталы R переносят в случайную из трёх зелёных комнат. Начинаете вы также в одной из этих 3 комнат. Выходной портал иногда не выводит из лабиринта, и путь приходится проходить снова.",
+      "full_en": "Once you've passed him the Jellopies, ask him to send you to the maze. | This is a map of the cuberoom maze (unless its changed). The portals marked R moves you to a random one of the three green marked rooms. You'll actually start in one of those 3 rooms too. To make it slightly more random, the exit portal doesn't always actually take you out of the maze, you may have to work your way back again.",
+      "npcs": [
+        {
+          "entity": "Fishbone",
+          "role": "deliver",
+          "support_step": 2,
+          "evidence": "Proceed on and meet Fishbone (340,224). Talk to him continuously to find out that he's actually an ex-researcher."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Jellopy",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Talk to him again and again, you'll be pleading with him till he eventually asks for an offer of 20 Jellopy for an exchange of information."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Jellopy"
+        },
+        {
+          "operation": "warp"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "maze_image_unbound",
+          "detail": "Source refers to an unbound map image. Routes are retained as text; no complete graphical route is claimed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Type /where in there, until you get to a room with any of these coordinates: [67,193] go to direction 12, 3, 9, 12, 9 (o'clock), or [66,136] go to direction 3, 12, 6, 6, 9 (o'clock), or [67,74] go to direction 6, 3, 9, 6, 9 (o'clock). You'll be sent to a room with documents all over. | However, sometimes when it is bugged and you don't get to the next room but just remain in maze, just repeat this step. Second time will be successful. [123,18] is the last room where you go to 9 o'clock direction as shown on the picture.",
+      "instruction_sha256": "5a03ad44707e59aa57bf1af618e66c9687e587064d69b9c55c91b4eec88f68bc",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/5a03ad44707e59aa57bf/1",
+      "goal": "navigate",
+      "short_ru": "Проверьте /where и следуйте маршруту для своей комнаты; при сбое повторите путь.",
+      "short_en": "Check /where and follow the route for your room; repeat if the exit fails.",
+      "full_ru": "Введите /where. Для комнаты [67,193] идите по направлениям часов 12, 3, 9, 12, 9; для [66,136] — 3, 12, 6, 6, 9; для [67,74] — 6, 3, 9, 6, 9. Вы попадёте в комнату с документами. Если из-за ошибки вы остались в лабиринте, повторите этап: источник утверждает, что вторая попытка успешна. [123,18] — последняя комната; выход из неё находится в направлении 9 часов, как на рисунке.",
+      "full_en": "Type /where in there, until you get to a room with any of these coordinates: [67,193] go to direction 12, 3, 9, 12, 9 (o'clock), or [66,136] go to direction 3, 12, 6, 6, 9 (o'clock), or [67,74] go to direction 6, 3, 9, 6, 9 (o'clock). You'll be sent to a room with documents all over. | However, sometimes when it is bugged and you don't get to the next room but just remain in maze, just repeat this step. Second time will be successful. [123,18] is the last room where you go to 9 o'clock direction as shown on the picture.",
+      "actions": [
+        {
+          "operation": "navigate",
+          "condition": "Select the route by /where coordinates; no universal start room."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "maze_map_unknown",
+          "detail": "Room coordinates are literal but the map code and server-specific portal behavior are unverified."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Examine the Bed, you'll get a Short Stick if you checked under the bed.",
+      "instruction_sha256": "7345f622212ab5c2ac9fbd10b00271f813476609c31edd1100fd0beaa21a64d5",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/7345f622212ab5c2ac9f/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Bed снизу и возьмите Short Stick.",
+      "short_en": "Look under the Bed and take the Short Stick.",
+      "full_ru": "Осмотрите Bed и загляните под кровать, чтобы получить Short Stick.",
+      "full_en": "Examine the Bed, you'll get a Short Stick if you checked under the bed.",
+      "npcs": [
+        {
+          "entity": "Bed",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Bed"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "puzzle_item",
+          "amount": "1",
+          "entity": "Short Stick"
+        }
+      ],
+      "protected_names": [
+        "Bed",
+        "Short Stick"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Examine the Desk (under the Desk), you'll get another Short Stick . The two rods will become a Long Stick automatically. Use the Long Stick on the Bed (under the Bed) and obtain a Cube .",
+      "instruction_sha256": "ef8aa1c059b0c5f197ada1cc7f68a57d4b832147c455aaed4d71fc82b5d83b7e",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/ef8aa1c059b0c5f197ad/1",
+      "goal": "interact",
+      "short_ru": "Найдите Short Stick под Desk; примените Long Stick под Bed и получите Cube.",
+      "short_en": "Find Short Stick under the Desk; use Long Stick under the Bed to obtain Cube.",
+      "full_ru": "Осмотрите Desk снизу, чтобы получить ещё один Short Stick. Два прута автоматически превратятся в Long Stick. Примените Long Stick под Bed и получите Cube.",
+      "full_en": "Examine the Desk (under the Desk), you'll get another Short Stick . The two rods will become a Long Stick automatically. Use the Long Stick on the Bed (under the Bed) and obtain a Cube .",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Desk"
+        },
+        {
+          "operation": "combine",
+          "entity": "Long Stick"
+        },
+        {
+          "operation": "use",
+          "entity": "Long Stick"
+        },
+        {
+          "operation": "interact",
+          "entity": "Bed"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "puzzle_item",
+          "amount": "1",
+          "entity": "Cube"
+        }
+      ],
+      "protected_names": [
+        "Bed",
+        "Desk",
+        "Short Stick",
+        "Long Stick",
+        "Cube"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Examine the Goblet on the table beside the bookshelf. Check its contents, you'll obtain a Rusty Key .",
+      "instruction_sha256": "747f52ab8575e93acf4ad5dca40dfd2de1db59cdbca2c75c11875cd29eea4034",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/747f52ab8575e93acf4a/1",
+      "goal": "interact",
+      "short_ru": "Проверьте содержимое Goblet и получите Rusty Key.",
+      "short_en": "Check the Goblet contents to obtain Rusty Key.",
+      "full_ru": "Осмотрите Goblet на столе рядом с книжной полкой. Проверьте содержимое, чтобы получить Rusty Key.",
+      "full_en": "Examine the Goblet on the table beside the bookshelf. Check its contents, you'll obtain a Rusty Key .",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Goblet"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "puzzle_item",
+          "amount": "1",
+          "entity": "Rusty Key"
+        }
+      ],
+      "protected_names": [
+        "Goblet",
+        "Rusty Key"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Move towards the wall at the desk. You'll see a cabinet of Chemicals. Examine it and type in Rusty Key and you'll get a Green Key .",
+      "instruction_sha256": "f57ceec42d7da0ca2a6cd7941d3a2fbe6d7f45eda4b47dca58985855dd496fa2",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/f57ceec42d7da0ca2a6c/1",
+      "goal": "type_answer",
+      "short_ru": "У Chemicals введите «Rusty Key» и получите Green Key.",
+      "short_en": "At Chemicals, type “Rusty Key” to obtain Green Key.",
+      "full_ru": "У стены рядом со столом найдите шкаф Chemicals. Осмотрите его и введите Rusty Key, чтобы получить Green Key.",
+      "full_en": "Move towards the wall at the desk. You'll see a cabinet of Chemicals. Examine it and type in Rusty Key and you'll get a Green Key .",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Chemicals"
+        },
+        {
+          "operation": "type_answer"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Chemicals",
+          "options": [
+            {
+              "text": "Rusty Key",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "puzzle_item",
+          "amount": "1",
+          "entity": "Green Key"
+        }
+      ],
+      "protected_names": [
+        "Chemicals",
+        "Rusty Key",
+        "Green Key"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Move to the Cabinet on the right of the room. Examine it and type in Green Key . You'll obtain a Polygon .",
+      "instruction_sha256": "94b2500a0daeb50c8b04545a7d72c750d1d2ff22bb27191c488d06c1cafa9084",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/94b2500a0daeb50c8b04/1",
+      "goal": "type_answer",
+      "short_ru": "У Cabinet введите «Green Key» и получите Polygon.",
+      "short_en": "At Cabinet, type “Green Key” to obtain Polygon.",
+      "full_ru": "Подойдите к Cabinet справа в комнате. Осмотрите его и введите Green Key, чтобы получить Polygon.",
+      "full_en": "Move to the Cabinet on the right of the room. Examine it and type in Green Key . You'll obtain a Polygon .",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Cabinet"
+        },
+        {
+          "operation": "type_answer"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Cabinet",
+          "options": [
+            {
+              "text": "Green Key",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "puzzle_item",
+          "amount": "1",
+          "entity": "Polygon"
+        }
+      ],
+      "protected_names": [
+        "Cabinet",
+        "Green Key",
+        "Polygon"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Next, examine the Bundles of Files on the ground. You'll obtain a Red Key .",
+      "instruction_sha256": "1c9a33e1b9b44c49fcb13fcb22b959566497d00ad8612e4fda97a4c2d3064286",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/1c9a33e1b9b44c49fcb1/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Bundles of Files и получите Red Key.",
+      "short_en": "Inspect Bundles of Files to obtain Red Key.",
+      "full_ru": "Осмотрите Bundles of Files на полу, чтобы получить Red Key.",
+      "full_en": "Next, examine the Bundles of Files on the ground. You'll obtain a Red Key .",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Bundles of Files"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "puzzle_item",
+          "amount": "1",
+          "entity": "Red Key"
+        }
+      ],
+      "protected_names": [
+        "Bundles of Files",
+        "Red Key"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Examine the Drawer next to the Bed and type in Red Key , you'll obtain a Jackknif e.",
+      "instruction_sha256": "0e94353e7c96da113355b8430672aeae8036f8220ead9f1626a912a584814029",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/0e94353e7c96da113355/1",
+      "goal": "type_answer",
+      "short_ru": "У Drawer введите «Red Key»; в источнике награда названа Jackknif e.",
+      "short_en": "At Drawer, type “Red Key”; the source names the reward Jackknif e.",
+      "full_ru": "Осмотрите Drawer рядом с Bed и введите Red Key. Вы получите Jackknif e (написание источника).",
+      "full_en": "Examine the Drawer next to the Bed and type in Red Key , you'll obtain a Jackknif e.",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Drawer"
+        },
+        {
+          "operation": "type_answer"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Drawer",
+          "options": [
+            {
+              "text": "Red Key",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "puzzle_item",
+          "amount": "1",
+          "entity": "Jackknif e"
+        }
+      ],
+      "protected_names": [
+        "Bed",
+        "Drawer",
+        "Red Key",
+        "Jackknif e"
+      ],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Examine the Painting above the Desk. You'll select the option to move it. Type in Jackknife . You'll obtain a set of numbers. Write these down or take a screenshot.",
+      "instruction_sha256": "9d2b144704fb9fcad433bbe9139c118b2e81e30e8fce43973e33ab087d9a2eff",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/9d2b144704fb9fcad433/1",
+      "goal": "type_answer",
+      "short_ru": "У Painting введите «Jackknife» и сохраните показанные числа.",
+      "short_en": "At Painting, type “Jackknife” and save the displayed numbers.",
+      "full_ru": "Осмотрите Painting над Desk. Выберите действие, перемещающее картину, и введите Jackknife. Полученные числа запишите или сохраните снимком экрана.",
+      "full_en": "Examine the Painting above the Desk. You'll select the option to move it. Type in Jackknife . You'll obtain a set of numbers. Write these down or take a screenshot.",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Painting"
+        },
+        {
+          "operation": "type_answer"
+        },
+        {
+          "operation": "record_code"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Painting",
+          "options": [
+            {
+              "text": "Jackknife",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "Desk",
+        "Painting",
+        "Jackknife"
+      ],
+      "locations": []
+    },
+    "14": {
+      "original_instruction": "Now, move on the the right hand corner of the room to find a Chest. Take the Axe in it.",
+      "instruction_sha256": "13e329255369859d2645609e2fd667daf4c9ba4fb7da74ea4624693f225f0758",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/13e329255369859d2645/1",
+      "goal": "interact",
+      "short_ru": "Возьмите Axe из Chest в правом углу.",
+      "short_en": "Take Axe from the Chest in the right corner.",
+      "full_ru": "В правом углу комнаты найдите Chest и возьмите из него Axe.",
+      "full_en": "Now, move on the the right hand corner of the room to find a Chest. Take the Axe in it.",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Chest"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "puzzle_item",
+          "amount": "1",
+          "entity": "Axe"
+        }
+      ],
+      "protected_names": [
+        "Chest",
+        "Axe"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "Move to the Barrel and examine it. Type in Axe .",
+      "instruction_sha256": "f140dba0e1c2a6713cf33a0c3401dbcfe91bb670f2b7f11bdfc8435993b6f923",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/f140dba0e1c2a6713cf3/1",
+      "goal": "type_answer",
+      "short_ru": "У Barrel введите «Axe».",
+      "short_en": "At Barrel, type “Axe”.",
+      "full_ru": "Подойдите к Barrel, осмотрите его и введите Axe.",
+      "full_en": "Move to the Barrel and examine it. Type in Axe .",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Barrel"
+        },
+        {
+          "operation": "type_answer"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Barrel",
+          "options": [
+            {
+              "text": "Axe",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "Barrel",
+        "Axe"
+      ],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "Examine the Barrel again. It asks for 9 numbers. (4 9 3 7 6 2 8 6 6) On iRO servers enter the 9 single digit numbers from step 13 one at a time, in the order they appeared on the wall. | Note: On other servers this puzzle is different. See Variations if the code obtained in step 13 consisted of 9 different 2 digit numbers. Also, note that even if your server has the 9 single digit numbers version just like iRO, the numbers might not be the same as the numbers for iRO listed above.",
+      "instruction_sha256": "e5ceb05e9e57e5cd3f2b6ee735b51465171bcd7c23ba1b84f70a329ae7b2ea0e",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/e5ceb05e9e57e5cd3f2b/1",
+      "goal": "solve_puzzle",
+      "short_ru": "У Barrel используйте собственный код со стены; выберите вариант по формату чисел.",
+      "short_en": "At Barrel, use your own wall code; choose the variant matching its number format.",
+      "full_ru": "Снова осмотрите Barrel: он запрашивает 9 чисел. Источник приводит (4 9 3 7 6 2 8 6 6). На серверах iRO вводите 9 однозначных чисел из этапа 13 по одному в порядке на стене. Примечание: на других серверах головоломка отличается. См. Variations, если в этапе 13 вы получили 9 разных 2-значных чисел. Даже при варианте с 9 однозначными числами, как на iRO, ваш код может отличаться от указанного примера iRO.",
+      "full_en": "Examine the Barrel again. It asks for 9 numbers. (4 9 3 7 6 2 8 6 6) On iRO servers enter the 9 single digit numbers from step 13 one at a time, in the order they appeared on the wall. | Note: On other servers this puzzle is different. See Variations if the code obtained in step 13 consisted of 9 different 2 digit numbers. Also, note that even if your server has the 9 single digit numbers version just like iRO, the numbers might not be the same as the numbers for iRO listed above.",
+      "npcs": [
+        {
+          "entity": "Barrel",
+          "role": "interact"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "server_variant_requires_selection",
+          "detail": "Single-digit iRO and non-iRO two-digit algorithms are alternatives, never sequential or automatically selected. Listed codes are examples, not universal answers."
+        }
+      ],
+      "protected_names": [
+        "Barrel"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "single_digit_wall_code",
+          "choice_group": "wall_code",
+          "variant_scope": "iRO single-digit format in the source; server applicability unverified",
+          "condition": "Use only when the wall displays single-digit numbers; use your own numbers in displayed order.",
+          "section": "Quest",
+          "source_step": 16,
+          "original_instruction": "Examine the Barrel again. It asks for 9 numbers. (4 9 3 7 6 2 8 6 6) On iRO servers enter the 9 single digit numbers from step 13 one at a time, in the order they appeared on the wall. | Note: On other servers this puzzle is different. See Variations if the code obtained in step 13 consisted of 9 different 2 digit numbers. Also, note that even if your server has the 9 single digit numbers version just like iRO, the numbers might not be the same as the numbers for iRO listed above.",
+          "instruction_sha256": "e5ceb05e9e57e5cd3f2b6ee735b51465171bcd7c23ba1b84f70a329ae7b2ea0e",
+          "short_ru": "Введите собственные однозначные числа у Barrel в порядке со стены.",
+          "short_en": "At Barrel, enter your own single-digit wall numbers in their displayed order.",
+          "full_ru": "Снова осмотрите Barrel: он запрашивает 9 чисел. Источник приводит (4 9 3 7 6 2 8 6 6). На серверах iRO вводите 9 однозначных чисел из этапа 13 по одному в порядке на стене. Примечание: на других серверах головоломка отличается. См. Variations, если в этапе 13 вы получили 9 разных 2-значных чисел. Даже при варианте с 9 однозначными числами, как на iRO, ваш код может отличаться от указанного примера iRO.",
+          "full_en": "Examine the Barrel again. It asks for 9 numbers. (4 9 3 7 6 2 8 6 6) On iRO servers enter the 9 single digit numbers from step 13 one at a time, in the order they appeared on the wall. | Note: On other servers this puzzle is different. See Variations if the code obtained in step 13 consisted of 9 different 2 digit numbers. Also, note that even if your server has the 9 single digit numbers version just like iRO, the numbers might not be the same as the numbers for iRO listed above.",
+          "protected_names": [
+            "Barrel"
+          ],
+          "actions": [
+            {
+              "operation": "type_answer",
+              "entity": "Barrel",
+              "condition": "Enter the player-specific wall digits one at a time, preserving their order."
+            }
+          ]
+        },
+        {
+          "key": "two_digit_wall_code",
+          "choice_group": "wall_code",
+          "variant_scope": "Non-iRO two-digit format in the source; server applicability unverified",
+          "condition": "Use only when the wall displays two-digit numbers with second digits ordering the sequence.",
+          "section": "Variations / Step 16 on non-iRO servers",
+          "source_step": 22,
+          "original_instruction": "Examine the Barrel again. It asks for 9 numbers. The key to this puzzle are the numbers you obtained in step 13. Take the second digit of each number and arrange them in order from 1-9. The code will be the each of the first digits. Example: Code on the wall: 53 86 49 34 18 21 77 92 65 Numbers in Order by second digit: 21 92 53 34 65 86 77 18 49 Code to unlock the box: 2 9 5 3 6 8 7 1 4 Type in the numbers you got (Remember everyones code will be different. Only use the numbers you got from the picture on the wall.), one at a time. You'll then obtain a Yellow Key .",
+          "instruction_sha256": "10c7ee27c93a6c8d476ff291a50b21280cde38e0ad0a896da04d04fcf007f3d4",
+          "short_ru": "У Barrel отсортируйте свои двузначные числа по второй цифре и введите первые цифры.",
+          "short_en": "At Barrel, sort your own two-digit numbers by second digit and enter the first digits.",
+          "full_ru": "Снова осмотрите Barrel: он запрашивает 9 чисел. Используйте числа, полученные в этапе 13. Расположите их по второй цифре от 1 до 9; код составляют первые цифры. Пример: на стене 53 86 49 34 18 21 77 92 65; порядок по второй цифре — 21 92 53 34 65 86 77 18 49; код — 2 9 5 3 6 8 7 1 4. Вводите свои числа по одному: код у каждого игрока отличается, используйте только числа с собственной картины. Затем вы получите Yellow Key.",
+          "full_en": "Examine the Barrel again. It asks for 9 numbers. The key to this puzzle are the numbers you obtained in step 13. Take the second digit of each number and arrange them in order from 1-9. The code will be the each of the first digits. Example: Code on the wall: 53 86 49 34 18 21 77 92 65 Numbers in Order by second digit: 21 92 53 34 65 86 77 18 49 Code to unlock the box: 2 9 5 3 6 8 7 1 4 Type in the numbers you got (Remember everyones code will be different. Only use the numbers you got from the picture on the wall.), one at a time. You'll then obtain a Yellow Key .",
+          "protected_names": [
+            "Barrel",
+            "Yellow Key"
+          ],
+          "actions": [
+            {
+              "operation": "type_answer",
+              "entity": "Barrel",
+              "condition": "Sort player-specific numbers by their second digit; enter their first digits in that order."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "puzzle_item",
+              "amount": "1",
+              "entity": "Yellow Key"
+            }
+          ]
+        }
+      ]
+    },
+    "17": {
+      "original_instruction": "Now, examine the Power Generator. Type in Yellow Key .",
+      "instruction_sha256": "8ccb39a44ca04ba4079b1d348727cfdc1675cc27974bff257151a32d24014099",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/8ccb39a44ca04ba4079b/1",
+      "goal": "type_answer",
+      "short_ru": "У Power Generator введите «Yellow Key».",
+      "short_en": "At Power Generator, type “Yellow Key”.",
+      "full_ru": "Осмотрите Power Generator и введите Yellow Key.",
+      "full_en": "Now, examine the Power Generator. Type in Yellow Key .",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Power Generator"
+        },
+        {
+          "operation": "type_answer"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Power Generator",
+          "options": [
+            {
+              "text": "Yellow Key",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "Power Generator",
+        "Yellow Key"
+      ],
+      "locations": []
+    },
+    "18": {
+      "original_instruction": "Then, move to the Status Light beside the Bed. Break it and you'll obtain a Black Key .",
+      "instruction_sha256": "45554852ebcedf683a38d17d3340815686f65a627d4f3e19fe4456cfd8d7c69e",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/45554852ebcedf683a38/1",
+      "goal": "interact",
+      "short_ru": "Разбейте Status Light возле Bed и получите Black Key.",
+      "short_en": "Break the Status Light beside the Bed to obtain Black Key.",
+      "full_ru": "Подойдите к Status Light рядом с Bed. Разбейте его, чтобы получить Black Key.",
+      "full_en": "Then, move to the Status Light beside the Bed. Break it and you'll obtain a Black Key .",
+      "actions": [
+        {
+          "operation": "break",
+          "entity": "Status Light"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "puzzle_item",
+          "amount": "1",
+          "entity": "Black Key"
+        }
+      ],
+      "protected_names": [
+        "Bed",
+        "Status Light",
+        "Black Key"
+      ],
+      "locations": []
+    },
+    "19": {
+      "original_instruction": "Examine the huge Experiment Tube on the left hand side of the room and type in Black Key. you'll get an Oval .",
+      "instruction_sha256": "f43279c9c2046e627f804ed84227cc696f401f9bf6aa80449e1fd45571b5aca8",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/f43279c9c2046e627f80/1",
+      "goal": "type_answer",
+      "short_ru": "У Experiment Tube введите «Black Key» и получите Oval.",
+      "short_en": "At Experiment Tube, type “Black Key” to obtain Oval.",
+      "full_ru": "Осмотрите большой Experiment Tube слева в комнате и введите Black Key, чтобы получить Oval.",
+      "full_en": "Examine the huge Experiment Tube on the left hand side of the room and type in Black Key. you'll get an Oval .",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Experiment Tube"
+        },
+        {
+          "operation": "type_answer"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Experiment Tube",
+          "options": [
+            {
+              "text": "Black Key",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "puzzle_item",
+          "amount": "1",
+          "entity": "Oval"
+        }
+      ],
+      "protected_names": [
+        "Experiment Tube",
+        "Black Key",
+        "Oval"
+      ],
+      "locations": []
+    },
+    "20": {
+      "original_instruction": "Go to the Box beside the Cabinet. Examine it and you'll have these 3 options: | Oval Shape | Polygon Shape | Square Shape For each of the following shapes, type in: | Oval | Cube | Polygon",
+      "instruction_sha256": "66e01172e5c69b6cb597766c6d17c69603d62d7b8de39c4e973472adec301940",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/66e01172e5c69b6cb597/1",
+      "goal": "solve_puzzle",
+      "short_ru": "У Box сопоставьте варианты фигур; соответствие ответов в источнике требует проверки.",
+      "short_en": "At Box, match the shape options; the source answer mapping needs verification.",
+      "full_ru": "Осмотрите Box рядом с Cabinet. Доступны 3 варианта: Oval Shape, Polygon Shape, Square Shape. Источник далее перечисляет вводимые фигуры: Oval, Cube, Polygon.",
+      "full_en": "Go to the Box beside the Cabinet. Examine it and you'll have these 3 options: | Oval Shape | Polygon Shape | Square Shape For each of the following shapes, type in: | Oval | Cube | Polygon",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Box"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Box",
+          "options": [
+            {
+              "text": "Oval Shape",
+              "correct": null,
+              "condition": "Source lists options and inputs separately; pairing is not asserted."
+            },
+            {
+              "text": "Polygon Shape",
+              "correct": null,
+              "condition": "Source lists options and inputs separately; pairing is not asserted."
+            },
+            {
+              "text": "Square Shape",
+              "correct": null,
+              "condition": "Source lists options and inputs separately; pairing is not asserted."
+            },
+            {
+              "text": "Oval",
+              "correct": null,
+              "operation": "type",
+              "condition": "Unpaired input listed by the source."
+            },
+            {
+              "text": "Cube",
+              "correct": null,
+              "operation": "type",
+              "condition": "Unpaired input listed by the source."
+            },
+            {
+              "text": "Polygon",
+              "correct": null,
+              "operation": "type",
+              "condition": "Unpaired input listed by the source."
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "shape_answer_mapping_ambiguous",
+          "detail": "Menu order Oval/Polygon/Square differs from input list Oval/Cube/Polygon. Do not zip them into asserted correct answers."
+        }
+      ],
+      "protected_names": [
+        "Cabinet",
+        "Box",
+        "Cube",
+        "Polygon",
+        "Oval"
+      ],
+      "locations": []
+    },
+    "21": {
+      "original_instruction": "After typing those in, examine the Box again. You'll eventually get a Laboratory Permit!",
+      "instruction_sha256": "9ea1e9c5fb27a06dc1a149c9865cf87a31695ee00c2173e4626ab4d65ebd7ac0",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/9ea1e9c5fb27a06dc1a1/1",
+      "goal": "interact",
+      "short_ru": "Снова осмотрите Box и получите Laboratory Permit.",
+      "short_en": "Inspect Box again to obtain Laboratory Permit.",
+      "full_ru": "После ввода фигур снова осмотрите Box, чтобы получить Laboratory Permit.",
+      "full_en": "After typing those in, examine the Box again. You'll eventually get a Laboratory Permit!",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Box"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "puzzle_item",
+          "amount": "1",
+          "entity": "Laboratory Permit"
+        }
+      ],
+      "protected_names": [
+        "Box",
+        "Laboratory Permit"
+      ],
+      "locations": []
+    },
+    "22": {
+      "original_instruction": "Go back to the Experiment Tube, and examine it again. Type in Laboratory Permit. | You'll get 2 options. Choose the go down option. And there you are, walk up straight and go through the portal. After you've get out, you'll find yourself beside the Underwater Tunnel. Hence, the very next time you want to ever meet the doppels again, just go down from the Sewer Pipe (lighthalzen 311,302) and walk up straight. You'll eventually reach the lower parts of the sewers. Examine the Barrel again. It asks for 9 numbers. The key to this puzzle are the numbers you obtained in step 13. Take the second digit of each number and arrange them in order from 1-9. The code will be the each of the first digits. Example: Code on the wall: 53 86 49 34 18 21 77 92 65 Numbers in Order by second digit: 21 92 53 34 65 86 77 18 49 Code to unlock the box: 2 9 5 3 6 8 7 1 4 Type in the numbers you got (Remember everyones code will be different. Only use the numbers you got from the picture on the wall.), one at a time. You'll then obtain a Yellow Key .",
+      "instruction_sha256": "879a2fc73855d90181c3d56ed776753ae270ddb941df44ca29c8b842f5c640a7",
+      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/879a2fc73855d90181c3/1",
+      "goal": "unlock_access",
+      "short_ru": "У Experiment Tube введите «Laboratory Permit» и спуститесь; повторный вход — Sewer Pipe, lighthalzen 311,302.",
+      "short_en": "At Experiment Tube, type “Laboratory Permit” and descend; re-enter via Sewer Pipe, lighthalzen 311,302.",
+      "full_ru": "Вернитесь к Experiment Tube, осмотрите его и введите Laboratory Permit. Из 2 вариантов выберите спуск вниз. Идите прямо через портал: снаружи вы окажетесь рядом с Underwater Tunnel. Для последующих посещений спускайтесь через Sewer Pipe (lighthalzen 311,302) и идите прямо к нижней части канализации.",
+      "full_en": "Go back to the Experiment Tube, and examine it again. Type in Laboratory Permit. | You'll get 2 options. Choose the go down option. And there you are, walk up straight and go through the portal. After you've get out, you'll find yourself beside the Underwater Tunnel. Hence, the very next time you want to ever meet the doppels again, just go down from the Sewer Pipe (lighthalzen 311,302) and walk up straight. You'll eventually reach the lower parts of the sewers.",
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Experiment Tube",
+          "evidence": "Go back to the Experiment Tube, and examine it again. Type in Laboratory Permit. | You'll get 2 options. Choose the go down option. And there you are, walk up straight and go through the portal. After you've get out, you'll find yourself beside the Underwater Tunnel. Hence, the very next time you want to ever meet the doppels again, just go down from the Sewer Pipe (lighthalzen 311,302) and walk up straight. You'll eventually reach the lower parts of the sewers."
+        },
+        {
+          "operation": "type_answer",
+          "evidence": "Go back to the Experiment Tube, and examine it again. Type in Laboratory Permit. | You'll get 2 options. Choose the go down option. And there you are, walk up straight and go through the portal. After you've get out, you'll find yourself beside the Underwater Tunnel. Hence, the very next time you want to ever meet the doppels again, just go down from the Sewer Pipe (lighthalzen 311,302) and walk up straight. You'll eventually reach the lower parts of the sewers."
+        },
+        {
+          "operation": "leave",
+          "evidence": "Go back to the Experiment Tube, and examine it again. Type in Laboratory Permit. | You'll get 2 options. Choose the go down option. And there you are, walk up straight and go through the portal. After you've get out, you'll find yourself beside the Underwater Tunnel. Hence, the very next time you want to ever meet the doppels again, just go down from the Sewer Pipe (lighthalzen 311,302) and walk up straight. You'll eventually reach the lower parts of the sewers."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Experiment Tube",
+          "options": [
+            {
+              "text": "Laboratory Permit",
+              "correct": 1,
+              "operation": "type"
+            }
+          ],
+          "evidence": "Go back to the Experiment Tube, and examine it again. Type in Laboratory Permit. | You'll get 2 options. Choose the go down option. And there you are, walk up straight and go through the portal. After you've get out, you'll find yourself beside the Underwater Tunnel. Hence, the very next time you want to ever meet the doppels again, just go down from the Sewer Pipe (lighthalzen 311,302) and walk up straight. You'll eventually reach the lower parts of the sewers."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "access",
+          "condition": "Biolabs via Sewer Pipe after escaping the laboratory.",
+          "evidence": "Go back to the Experiment Tube, and examine it again. Type in Laboratory Permit. | You'll get 2 options. Choose the go down option. And there you are, walk up straight and go through the portal. After you've get out, you'll find yourself beside the Underwater Tunnel. Hence, the very next time you want to ever meet the doppels again, just go down from the Sewer Pipe (lighthalzen 311,302) and walk up straight. You'll eventually reach the lower parts of the sewers."
+        }
+      ],
+      "protected_names": [
+        "Experiment Tube",
+        "Sewer Pipe",
+        "Laboratory Permit",
+        "lighthalzen",
+        "Underwater Tunnel"
+      ],
+      "locations": [
+        {
+          "map": "lighthalzen",
+          "x": 311,
+          "y": 302,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lighthalzen 311,302"
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "source_name_discrepancies",
+      "detail": "Jackknif e versus Jackknife and Laboratory Pass versus Laboratory Permit are retained separately. The wiki links Laboratory Pass to item 2657; it does not prove that the walkthrough Permit has that ID."
+    },
+    {
+      "reason": "single_digit_key_receipt_omitted",
+      "detail": "The single-digit instruction does not explicitly grant Yellow Key; the later generator needs it. No invented receipt is inserted into that branch."
+    }
+  ],
+  "source_partitions": [
+    {
+      "source_step": 22,
+      "segments": [
+        {
+          "target_step": 22,
+          "start": 0,
+          "end": 467,
+          "section": "Quest"
+        },
+        {
+          "target_step": 16,
+          "branch_key": "two_digit_wall_code",
+          "start": 467,
+          "end": 1038,
+          "section": "Variations / Step 16 on non-iRO servers"
+        }
+      ]
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "20",
+        "source_section": "requirements",
+        "evidence": "20 Jellopy",
+        "entity": "Jellopy"
+      }
+    ]
+  }
+}

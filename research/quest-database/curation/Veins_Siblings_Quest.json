@@ -1,0 +1,953 @@
+{
+  "quest_id": "irowiki-classic:Veins_Siblings_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "fcd201cf09368722c860f1277e44467b716c7ec6934f91aab8c377b2003639e5",
+  "snapshot_sha256": "6df752d4b467b4e66bbe95290ee5efee200f8c30960f244c925dd15e9ac28edb",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Karyn",
+      "identity": "irowiki-classic:npc:veins:327:185:Karyn"
+    },
+    {
+      "type": "npc",
+      "name": "Little Curdie"
+    },
+    {
+      "type": "npc",
+      "name": "Young Town Native"
+    },
+    {
+      "type": "npc",
+      "name": "Lockenlock"
+    },
+    {
+      "type": "npc",
+      "name": "Organic Soap Maker Ivory"
+    },
+    {
+      "type": "npc",
+      "name": "camel farmer"
+    },
+    {
+      "type": "npc",
+      "name": "Silky Camel"
+    },
+    {
+      "type": "item",
+      "name": "Green Herb",
+      "game_id": 511,
+      "id_source": "http://db.irowiki.org/classic/item-info/511/"
+    },
+    {
+      "type": "item",
+      "name": "Monster's Feed",
+      "game_id": 528,
+      "id_source": "http://db.irowiki.org/classic/item-info/528/"
+    },
+    {
+      "type": "item",
+      "name": "Unripe Apple",
+      "game_id": 619,
+      "id_source": "http://db.irowiki.org/classic/item-info/619/"
+    },
+    {
+      "type": "item",
+      "name": "Yellow Potion",
+      "game_id": 503,
+      "id_source": "http://db.irowiki.org/classic/item-info/503/"
+    },
+    {
+      "type": "item",
+      "name": "Milk",
+      "game_id": 519,
+      "id_source": "http://db.irowiki.org/classic/item-info/519/"
+    },
+    {
+      "type": "item",
+      "name": "Jellopy",
+      "game_id": 909,
+      "id_source": "http://db.irowiki.org/classic/item-info/909/"
+    },
+    {
+      "type": "item",
+      "name": "Empty Bottle",
+      "aliases": [
+        "Empty Bottles"
+      ],
+      "game_id": 713,
+      "id_source": "http://db.irowiki.org/classic/item-info/713/"
+    },
+    {
+      "type": "item",
+      "name": "Steel",
+      "game_id": 999,
+      "id_source": "http://db.irowiki.org/classic/item-info/999/"
+    },
+    {
+      "type": "item",
+      "name": "Old Purple Box",
+      "game_id": 617,
+      "id_source": "http://db.irowiki.org/classic/item-info/617/"
+    },
+    {
+      "type": "item",
+      "name": "potato"
+    },
+    {
+      "type": "map",
+      "name": "Veins"
+    },
+    {
+      "type": "map",
+      "name": "veins",
+      "map_code": "veins"
+    },
+    {
+      "type": "map",
+      "name": "que_thor",
+      "map_code": "que_thor"
+    },
+    {
+      "type": "map",
+      "name": "ve_fild07",
+      "map_code": "ve_fild07"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to the Kid, Karyn in Veins ( veins 327, 185), who says he's looking for his sister.",
+      "instruction_sha256": "3122838f5e262675bb0a1e089a8c777552cde93410adfdd74ac1452477f4ed22",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/3122838f5e262675bb0a/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Karyn: veins 327, 185.",
+      "short_en": "Talk to Karyn: veins 327, 185.",
+      "full_ru": "Поговорите с мальчиком Karyn в Veins (veins 327, 185): он ищет сестру.",
+      "full_en": "Talk to the Kid, Karyn in Veins ( veins 327, 185), who says he's looking for his sister.",
+      "npcs": [
+        {
+          "entity": "Karyn",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Karyn"
+        }
+      ],
+      "protected_names": [
+        "Karyn",
+        "Veins",
+        "veins"
+      ],
+      "locations": [
+        {
+          "map": "veins",
+          "x": 327,
+          "y": 185,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "veins 327, 185"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Go to Volcano Thor Thor level 2 , and go to (144, 78), and enter the portal there. Head down the path until you come to a room at the end with a girl (Little Curdie (que_thor 32,64)) in the corner.",
+      "instruction_sha256": "a95278d13dd10e0b47c73f241b5714b61ccf5574e4378487958799bd4dc9ae87",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/a95278d13dd10e0b47c7/1",
+      "goal": "move",
+      "short_ru": "Найдите Little Curdie: que_thor 32,64, через портал (144, 78) на уровне 2 Thor.",
+      "short_en": "Find Little Curdie: que_thor 32,64, via portal (144, 78) on Thor level 2.",
+      "full_ru": "На Volcano Thor Thor level 2 войдите в портал (144, 78). Идите по тропе до комнаты в конце: в углу находится девочка Little Curdie (que_thor 32,64).",
+      "full_en": "Go to Volcano Thor Thor level 2 , and go to (144, 78), and enter the portal there. Head down the path until you come to a room at the end with a girl (Little Curdie (que_thor 32,64)) in the corner.",
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "move"
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Little Curdie",
+          "role": "find"
+        }
+      ],
+      "protected_names": [
+        "Little Curdie",
+        "que_thor"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 144,
+          "y": 78,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "144, 78"
+        },
+        {
+          "map": "que_thor",
+          "x": 32,
+          "y": 64,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "que_thor 32,64"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to the girl, who reveals herself as Karyn's sister. You agree to return to town and seek the help of a locksmith.",
+      "instruction_sha256": "914ad8a47a9f36e6a36934235caf5a8914d241742dbe64b9e49328093495ac2f",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/914ad8a47a9f36e6a369/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Little Curdie и вернитесь в город за помощью.",
+      "short_en": "Talk to Little Curdie and return to town for help.",
+      "full_ru": "Поговорите с девочкой: это сестра Karyn. Вы согласитесь вернуться в город за помощью слесаря.",
+      "full_en": "Talk to the girl, who reveals herself as Karyn's sister. You agree to return to town and seek the help of a locksmith.",
+      "npcs": [
+        {
+          "entity": "Little Curdie",
+          "role": "talk",
+          "support_step": 2,
+          "evidence": "Go to Volcano Thor Thor level 2 , and go to (144, 78), and enter the portal there. Head down the path until you come to a room at the end with a girl (Little Curdie (que_thor 32,64)) in the corner."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Little Curdie"
+        },
+        {
+          "operation": "return"
+        }
+      ],
+      "protected_names": [
+        "Karyn"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Return to Karyn.",
+      "instruction_sha256": "cd63ad0d8a9a6eeaa1621cc4fce404ecd1921d8bf93091c49aa4042934558979",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/cd63ad0d8a9a6eeaa162/1",
+      "goal": "return",
+      "short_ru": "Вернитесь к Karyn.",
+      "short_en": "Return to Karyn.",
+      "full_ru": "Вернитесь к Karyn.",
+      "full_en": "Return to Karyn.",
+      "npcs": [
+        {
+          "entity": "Karyn",
+          "role": "return"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return",
+          "entity": "Karyn"
+        }
+      ],
+      "protected_names": [
+        "Karyn"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "After that talk to the Young Town Native (221, 120).",
+      "instruction_sha256": "15df651940390ead8454b84776c6999e5b2038882b87fd81ba92a801d474a04a",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/15df651940390ead8454/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Young Town Native (221, 120).",
+      "short_en": "Talk to Young Town Native (221, 120).",
+      "full_ru": "После этого поговорите с Young Town Native (221, 120).",
+      "full_en": "After that talk to the Young Town Native (221, 120).",
+      "npcs": [
+        {
+          "entity": "Young Town Native",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Young Town Native"
+        }
+      ],
+      "protected_names": [
+        "Young Town Native"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 221,
+          "y": 120,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "221, 120"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Talk to Lockenlock (veins 181, 166), bring him a Yellow Potion . He says he needs you to make a special soap to create a mold for the key.",
+      "instruction_sha256": "eb1d889f2b938129cadf4dd83a7ee927196c5159330d0fc330458e8711d282de",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/eb1d889f2b938129cadf/1",
+      "goal": "deliver",
+      "short_ru": "Принесите Yellow Potion Lockenlock: veins 181, 166.",
+      "short_en": "Bring Yellow Potion to Lockenlock: veins 181, 166.",
+      "full_ru": "Поговорите с Lockenlock (veins 181, 166) и принесите Yellow Potion. Он попросит изготовить особое мыло для слепка ключа.",
+      "full_en": "Talk to Lockenlock (veins 181, 166), bring him a Yellow Potion . He says he needs you to make a special soap to create a mold for the key.",
+      "npcs": [
+        {
+          "entity": "Lockenlock",
+          "role": "deliver"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Yellow Potion",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lockenlock"
+        },
+        {
+          "operation": "deliver",
+          "entity": "Yellow Potion"
+        }
+      ],
+      "protected_names": [
+        "Lockenlock",
+        "Yellow Potion",
+        "veins"
+      ],
+      "locations": [
+        {
+          "map": "veins",
+          "x": 181,
+          "y": 166,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "veins 181, 166"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Talk to Organic Soap Maker Ivory (veins 227,127), who asks you to bring some ingredients to make the soap (but she wont take the items off you yet): | 10 Milk | 100 Green Herb | 50 Jellopy | 5 Empty Bottle",
+      "instruction_sha256": "b0e21c17cde6e5dc1717b7f9ac1c5df4ceaf75a96d06dee25576c9d203f1e43b",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b0e21c17cde6e5dc1717/1",
+      "goal": "bring",
+      "short_ru": "Покажите Organic Soap Maker Ivory: 10 Milk, 100 Green Herb, 50 Jellopy, 5 Empty Bottle.",
+      "short_en": "Show Organic Soap Maker Ivory: 10 Milk, 100 Green Herb, 50 Jellopy, 5 Empty Bottle.",
+      "full_ru": "Поговорите с Organic Soap Maker Ivory (veins 227,127). Для мыла нужны 10 Milk, 100 Green Herb, 50 Jellopy и 5 Empty Bottle; на этом этапе она ещё не забирает предметы.",
+      "full_en": "Talk to Organic Soap Maker Ivory (veins 227,127), who asks you to bring some ingredients to make the soap (but she wont take the items off you yet): | 10 Milk | 100 Green Herb | 50 Jellopy | 5 Empty Bottle",
+      "npcs": [
+        {
+          "entity": "Organic Soap Maker Ivory",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Milk",
+          "quantity": 10,
+          "operation": "possess",
+          "required": 1,
+          "condition": "She does not take these items yet; first set for later camel attempts."
+        },
+        {
+          "entity": "Green Herb",
+          "quantity": 100,
+          "operation": "possess",
+          "required": 1,
+          "condition": "She does not take these items yet; first set for later camel attempts."
+        },
+        {
+          "entity": "Jellopy",
+          "quantity": 50,
+          "operation": "possess",
+          "required": 1,
+          "condition": "She does not take these items yet; first set for later camel attempts."
+        },
+        {
+          "entity": "Empty Bottle",
+          "quantity": 5,
+          "operation": "possess",
+          "required": 1,
+          "condition": "She does not take these items yet; first set for later camel attempts."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Organic Soap Maker Ivory"
+        }
+      ],
+      "protected_names": [
+        "Organic Soap Maker Ivory",
+        "Green Herb",
+        "Milk",
+        "Jellopy",
+        "Empty Bottle",
+        "veins"
+      ],
+      "locations": [
+        {
+          "map": "veins",
+          "x": 227,
+          "y": 127,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "veins 227,127"
+        }
+      ]
+    },
+    "8": {
+      "original_instruction": "After bringing her the ingredients, she says she also needs something from the camel farmer in the south part of town.",
+      "instruction_sha256": "2c4e8e53ac240d8aa352f50a782a4eb72dd9ac6c031108fc60b6274b2a47b07f",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/2c4e8e53ac240d8aa352/1",
+      "goal": "talk",
+      "short_ru": "С ингредиентами поговорите с Organic Soap Maker Ivory и отправляйтесь к фермеру.",
+      "short_en": "Talk to Organic Soap Maker Ivory with the ingredients, then visit the farmer.",
+      "full_ru": "Когда вы принесёте ингредиенты, она скажет, что нужно ещё кое-что от camel farmer на юге города.",
+      "full_en": "After bringing her the ingredients, she says she also needs something from the camel farmer in the south part of town.",
+      "npcs": [
+        {
+          "entity": "Organic Soap Maker Ivory",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "Talk to Organic Soap Maker Ivory (veins 227,127), who asks you to bring some ingredients to make the soap (but she wont take the items off you yet): | 10 Milk | 100 Green Herb | 50 Jellopy | 5 Empty Bottle"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Organic Soap Maker Ivory"
+        }
+      ],
+      "protected_names": [
+        "camel farmer"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Talk to the camel farmer (veins 115, 59) in the bottom left, who says the soap is made with camel dung. You need to bring some more items in order to get the camels to poop for you to collect the droppings. | 5 Monster's Feed | 1 Unripe Apple | 1 Empty Bottle | 1 Yellow Potion",
+      "instruction_sha256": "4576c519e4fa95006bdf075ed8ed73160f5439998a3cc151f022bc3a0af5a0ef",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/4576c519e4fa95006bdf/1",
+      "goal": "bring",
+      "short_ru": "Принесите camel farmer: 5 Monster's Feed, 1 Unripe Apple, 1 Empty Bottle, 1 Yellow Potion.",
+      "short_en": "Bring camel farmer: 5 Monster's Feed, 1 Unripe Apple, 1 Empty Bottle, 1 Yellow Potion.",
+      "full_ru": "Поговорите с camel farmer (veins 115, 59) на юго-западе города: для мыла нужен верблюжий помёт. Чтобы накормить верблюдов и собрать помёт, принесите 5 Monster's Feed, 1 Unripe Apple, 1 Empty Bottle и 1 Yellow Potion.",
+      "full_en": "Talk to the camel farmer (veins 115, 59) in the bottom left, who says the soap is made with camel dung. You need to bring some more items in order to get the camels to poop for you to collect the droppings. | 5 Monster's Feed | 1 Unripe Apple | 1 Empty Bottle | 1 Yellow Potion",
+      "npcs": [
+        {
+          "entity": "camel farmer",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Monster's Feed",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Unripe Apple",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Empty Bottle",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Yellow Potion",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "camel farmer"
+        },
+        {
+          "operation": "bring"
+        }
+      ],
+      "protected_names": [
+        "camel farmer",
+        "Monster's Feed",
+        "Unripe Apple",
+        "Yellow Potion",
+        "Empty Bottle",
+        "veins"
+      ],
+      "locations": [
+        {
+          "map": "veins",
+          "x": 115,
+          "y": 59,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "veins 115, 59"
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "After bringing the items, talk to the camel farmer again. He tells you to go to the camels and feed them the concoction. Head up north (veins 7x, 22x) and find the 6 camels there. Talk to them all, but none of them are the right one.",
+      "instruction_sha256": "3a9631b67e70d4d7916af044c2c00227551e2a931fdddb19d6da0ecf2d7fa3e1",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/3a9631b67e70d4d7916a/1",
+      "goal": "investigate",
+      "short_ru": "Поговорите с camel farmer, затем проверьте 6 верблюдов на севере veins.",
+      "short_en": "Talk to camel farmer, then check the 6 camels in northern veins.",
+      "full_ru": "Принеся предметы, снова поговорите с camel farmer. Он отправит кормить верблюдов смесью. На севере (veins 7x, 22x) найдите 6 верблюдов и поговорите со всеми: ни один не окажется нужным.",
+      "full_en": "After bringing the items, talk to the camel farmer again. He tells you to go to the camels and feed them the concoction. Head up north (veins 7x, 22x) and find the 6 camels there. Talk to them all, but none of them are the right one.",
+      "npcs": [
+        {
+          "entity": "camel farmer",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "camel farmer"
+        },
+        {
+          "operation": "talk",
+          "condition": "All six camels; approximate area veins 7x, 22x is not an exact coordinate."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "approximate_coordinates",
+          "detail": "veins 7x, 22x is an approximate area, not an integer waypoint."
+        }
+      ],
+      "protected_names": [
+        "camel farmer",
+        "veins"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Go back to the farmer and explain about not finding the right camel. He replies that his Silky Camel is lost, and you need to find it in order to collect the droppings.",
+      "instruction_sha256": "b496b450e36528d9c2eaba246d3ba51a73be2b5fcb42a4e4a6ecbcf3897bff35",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b496b450e36528d9c2ea/1",
+      "goal": "return",
+      "short_ru": "Вернитесь к фермеру и узнайте о пропаже Silky Camel.",
+      "short_en": "Return to the farmer and learn that Silky Camel is missing.",
+      "full_ru": "Вернитесь к фермеру и сообщите, что нужного верблюда нет. Он скажет, что его Silky Camel потерялся: найдите его для сбора помёта.",
+      "full_en": "Go back to the farmer and explain about not finding the right camel. He replies that his Silky Camel is lost, and you need to find it in order to collect the droppings.",
+      "npcs": [
+        {
+          "entity": "camel farmer",
+          "role": "talk",
+          "support_step": 9,
+          "evidence": "Talk to the camel farmer (veins 115, 59) in the bottom left, who says the soap is made with camel dung. You need to bring some more items in order to get the camels to poop for you to collect the droppings. | 5 Monster's Feed | 1 Unripe Apple | 1 Empty Bottle | 1 Yellow Potion"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "camel farmer"
+        }
+      ],
+      "protected_names": [
+        "Silky Camel"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Go one map below town (ve_fild07 235, 42) where you find the Silky Camel with an injured leg.",
+      "instruction_sha256": "5c1aa3124845137a1d6d40e71aa20be8decb80d98f47664603d585fc9f584299",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/5c1aa3124845137a1d6d/1",
+      "goal": "move",
+      "short_ru": "Найдите Silky Camel: ve_fild07 235, 42.",
+      "short_en": "Find Silky Camel: ve_fild07 235, 42.",
+      "full_ru": "На карте южнее города (ve_fild07 235, 42) найдите Silky Camel с повреждённой ногой.",
+      "full_en": "Go one map below town (ve_fild07 235, 42) where you find the Silky Camel with an injured leg.",
+      "npcs": [
+        {
+          "entity": "Silky Camel",
+          "role": "find"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "move"
+        },
+        {
+          "operation": "interact",
+          "entity": "Silky Camel"
+        }
+      ],
+      "protected_names": [
+        "Silky Camel",
+        "ve_fild07"
+      ],
+      "locations": [
+        {
+          "map": "ve_fild07",
+          "x": 235,
+          "y": 42,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ve_fild07 235, 42"
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Talk to the camel, and start collecting the droppings. With the ingredients you collected (the Green Herb, Milk, Jellopy, etc set) you have 5 chances to collect a dropping. If you fail to get a dropping you'll receive a potato. Once you run out of tries, you have to collect enough ingredients (First Set, under the Soap Maker) to try again. Keep doing so until you have the 5 droppings. | Note: It's safe to say this may take more than 10 tries or over 1K Green Herbs and 500 Jellopy. | No more than 5 Empty Bottles will be used.",
+      "instruction_sha256": "04602166900858bc5f9cfb4acf344bb5fc96b9b71cc10a7769a2858b2c0164fb",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/04602166900858bc5f9c/1",
+      "goal": "repeat_collect",
+      "short_ru": "Соберите 5 порций помёта у Silky Camel; при неудачах пополняйте первый набор ингредиентов.",
+      "short_en": "Collect 5 droppings from Silky Camel; replenish the first ingredient set after failed attempts.",
+      "full_ru": "Поговорите с верблюдом и собирайте помёт. Первый набор ингредиентов (Green Herb, Milk, Jellopy и прочие) даёт 5 попыток; при неудаче вы получите potato. Когда попытки закончатся, соберите ещё один первый набор из списка Soap Maker. Повторяйте до получения 5 порций помёта. Примечание: может потребоваться более 10 попыток или свыше 1K Green Herbs и 500 Jellopy. Используется не более 5 Empty Bottles.",
+      "full_en": "Talk to the camel, and start collecting the droppings. With the ingredients you collected (the Green Herb, Milk, Jellopy, etc set) you have 5 chances to collect a dropping. If you fail to get a dropping you'll receive a potato. Once you run out of tries, you have to collect enough ingredients (First Set, under the Soap Maker) to try again. Keep doing so until you have the 5 droppings. | Note: It's safe to say this may take more than 10 tries or over 1K Green Herbs and 500 Jellopy. | No more than 5 Empty Bottles will be used.",
+      "npcs": [
+        {
+          "entity": "Silky Camel",
+          "role": "interact",
+          "support_step": 12,
+          "evidence": "Go one map below town (ve_fild07 235, 42) where you find the Silky Camel with an injured leg."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "condition": "Repeat until five droppings; failure yields a potato. Each first ingredient set provides five attempts."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "collection_goal",
+          "amount": "5",
+          "condition": "Successful droppings, not the number of attempts."
+        },
+        {
+          "kind": "attempts_per_first_set",
+          "amount": "5",
+          "condition": "First ingredient set; success is random."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "random_material_total",
+          "detail": "Green Herb, Milk and Jellopy totals are variable. 10 attempts, 1K herbs and 500 Jellopy are examples, not fixed totals; no more than five bottles for this stage."
+        }
+      ],
+      "protected_names": [
+        "Green Herb",
+        "Milk",
+        "Jellopy",
+        "Empty Bottle",
+        "potato"
+      ],
+      "locations": []
+    },
+    "14": {
+      "original_instruction": "Head back to the farmer, and inform him of the whereabouts of his camel. He thanks you, and gives you an Old Purple Box .",
+      "instruction_sha256": "b590b2089b4f5cec6103a1fcef925f8ebb4a332fa938536063066087a8473630",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b590b2089b4f5cec6103/1",
+      "goal": "receive_reward",
+      "short_ru": "Сообщите фермеру о верблюде и получите Old Purple Box.",
+      "short_en": "Tell the farmer where the camel is and receive Old Purple Box.",
+      "full_ru": "Вернитесь к фермеру и сообщите, где его верблюд. Он поблагодарит вас и выдаст Old Purple Box.",
+      "full_en": "Head back to the farmer, and inform him of the whereabouts of his camel. He thanks you, and gives you an Old Purple Box .",
+      "npcs": [
+        {
+          "entity": "camel farmer",
+          "role": "talk",
+          "support_step": 9,
+          "evidence": "Talk to the camel farmer (veins 115, 59) in the bottom left, who says the soap is made with camel dung. You need to bring some more items in order to get the camels to poop for you to collect the droppings. | 5 Monster's Feed | 1 Unripe Apple | 1 Empty Bottle | 1 Yellow Potion"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "camel farmer"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Purple Box"
+        }
+      ],
+      "protected_names": [
+        "Old Purple Box"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "Talk to the soap lady again, who can now make the soap for you.",
+      "instruction_sha256": "681dd0660a234a7636579290f074b01e628cf593f0d3f9ff55f2739d57f9875e",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/681dd0660a234a763657/1",
+      "goal": "interact",
+      "short_ru": "Вернитесь к Organic Soap Maker Ivory за мылом.",
+      "short_en": "Return to Organic Soap Maker Ivory for soap.",
+      "full_ru": "Снова поговорите с изготовительницей мыла: теперь она может сделать мыло.",
+      "full_en": "Talk to the soap lady again, who can now make the soap for you.",
+      "npcs": [
+        {
+          "entity": "Organic Soap Maker Ivory",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "Talk to Organic Soap Maker Ivory (veins 227,127), who asks you to bring some ingredients to make the soap (but she wont take the items off you yet): | 10 Milk | 100 Green Herb | 50 Jellopy | 5 Empty Bottle"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Organic Soap Maker Ivory"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "Take the soap to the locksmith, he needs a mold to make the key from.",
+      "instruction_sha256": "3915de9a08f6c848dd6ed1ff6f99e5a4e5d1690568aa8ab200dba0745b764911",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/3915de9a08f6c848dd6e/1",
+      "goal": "deliver",
+      "short_ru": "Отнесите мыло Lockenlock и узнайте о слепке.",
+      "short_en": "Take the soap to Lockenlock and ask about the mold.",
+      "full_ru": "Отнесите мыло слесарю: для изготовления ключа ему нужен слепок.",
+      "full_en": "Take the soap to the locksmith, he needs a mold to make the key from.",
+      "npcs": [
+        {
+          "entity": "Lockenlock",
+          "role": "talk",
+          "support_step": 6,
+          "evidence": "Talk to Lockenlock (veins 181, 166), bring him a Yellow Potion . He says he needs you to make a special soap to create a mold for the key."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lockenlock"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "17": {
+      "original_instruction": "Go back to the little girl in the volcano and pour the soap into the lock to make a copy of the key.",
+      "instruction_sha256": "8bb07b191c2fe5376473e0c5fc7cda6aa6ac5426b06210c194b813433165131c",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/8bb07b191c2fe5376473/1",
+      "goal": "interact",
+      "short_ru": "У Little Curdie залейте мыло в замок для слепка ключа.",
+      "short_en": "At Little Curdie, pour the soap into the lock to make a key mold.",
+      "full_ru": "Вернитесь к девочке в вулкане и залейте мыло в замок, чтобы получить слепок ключа.",
+      "full_en": "Go back to the little girl in the volcano and pour the soap into the lock to make a copy of the key.",
+      "npcs": [
+        {
+          "entity": "Little Curdie",
+          "role": "find",
+          "support_step": 2,
+          "evidence": "Go to Volcano Thor Thor level 2 , and go to (144, 78), and enter the portal there. Head down the path until you come to a room at the end with a girl (Little Curdie (que_thor 32,64)) in the corner."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "condition": "Pour soap into the lock to make the key mold."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "18": {
+      "original_instruction": "Take the copy of the key to the Locksmith. He will ask you to bring him 1 Steel to make the key. After bringing him the steel(it will not be consumed), he demands to know why you need the key. After explaining about the locked up little girl, he gives you the master key to the locks.",
+      "instruction_sha256": "42670e8fd6951c66794ae1963db172f337f3947e932fac0e9943db59bd261913",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/42670e8fd6951c66794a/1",
+      "goal": "bring",
+      "short_ru": "Принесите слепок и 1 Steel Lockenlock; Steel не расходуется.",
+      "short_en": "Bring the mold and 1 Steel to Lockenlock; Steel is not consumed.",
+      "full_ru": "Отнесите слепок ключа Locksmith. Он попросит 1 Steel для изготовления ключа. Принесённая сталь не расходуется. Объясните, что ключ нужен для запертой девочки: он выдаст универсальный ключ к замкам.",
+      "full_en": "Take the copy of the key to the Locksmith. He will ask you to bring him 1 Steel to make the key. After bringing him the steel(it will not be consumed), he demands to know why you need the key. After explaining about the locked up little girl, he gives you the master key to the locks.",
+      "npcs": [
+        {
+          "entity": "Lockenlock",
+          "role": "talk",
+          "support_step": 6,
+          "evidence": "Talk to Lockenlock (veins 181, 166), bring him a Yellow Potion . He says he needs you to make a special soap to create a mold for the key."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Steel",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Explicitly not consumed; show it to the locksmith."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lockenlock"
+        },
+        {
+          "operation": "receive_reward"
+        }
+      ],
+      "protected_names": [
+        "Steel"
+      ],
+      "locations": []
+    },
+    "19": {
+      "original_instruction": "Return to the little girl in the volcano, and free her.",
+      "instruction_sha256": "d709246c2a70da4ee3644227961c0df13271df26b63b90f98b00bfb95a399774",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/d709246c2a70da4ee364/1",
+      "goal": "interact",
+      "short_ru": "Вернитесь к Little Curdie и освободите её.",
+      "short_en": "Return to Little Curdie and free her.",
+      "full_ru": "Вернитесь к девочке в вулкане и освободите её.",
+      "full_en": "Return to the little girl in the volcano, and free her.",
+      "npcs": [
+        {
+          "entity": "Little Curdie",
+          "role": "interact",
+          "support_step": 2,
+          "evidence": "Go to Volcano Thor Thor level 2 , and go to (144, 78), and enter the portal there. Head down the path until you come to a room at the end with a girl (Little Curdie (que_thor 32,64)) in the corner."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "free",
+          "entity": "Little Curdie"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "20": {
+      "original_instruction": "Talk to the Karyn again, who thanks you and gives you some experience.",
+      "instruction_sha256": "b020b977368c46d3207ca20be57408b1685765d9a0046b61670e57e47bd2ab53",
+      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b020b977368c46d3207c/1",
+      "goal": "receive_reward",
+      "short_ru": "Вернитесь к Karyn за наградой опытом.",
+      "short_en": "Return to Karyn for the experience reward.",
+      "full_ru": "Снова поговорите с Karyn: он поблагодарит вас и выдаст опыт.",
+      "full_en": "Talk to the Karyn again, who thanks you and gives you some experience.",
+      "npcs": [
+        {
+          "entity": "Karyn",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Karyn"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "1000000",
+          "source_section": "rewards",
+          "evidence": "Base Experience: 1,000,000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "700000",
+          "source_section": "rewards",
+          "evidence": "Job Experience: 700,000"
+        }
+      ],
+      "protected_names": [
+        "Karyn"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "party_and_dungeon_warning",
+      "detail": "Source recommends party preparation for repeated Thor floor-two visits; Hiding/Cloaking do not protect against all Boss Protocol or Demon enemies."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_minimum",
+        "amount": "100",
+        "source_section": "requirements",
+        "evidence": "100+ Green Herb",
+        "entity": "Green Herb",
+        "condition": "Lower bound only; failed camel attempts require additional supplies."
+      },
+      {
+        "kind": "item_consumed_minimum",
+        "amount": "10",
+        "source_section": "requirements",
+        "evidence": "10+ Milk",
+        "entity": "Milk",
+        "condition": "Lower bound only; failed camel attempts require additional supplies."
+      },
+      {
+        "kind": "item_consumed_minimum",
+        "amount": "50",
+        "source_section": "requirements",
+        "evidence": "50+ Jellopy",
+        "entity": "Jellopy",
+        "condition": "Lower bound only; failed camel attempts require additional supplies."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Monster's Feed",
+        "entity": "Monster's Feed"
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Unripe Apple",
+        "entity": "Unripe Apple"
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "2",
+        "source_section": "requirements",
+        "evidence": "2 Yellow Potion",
+        "entity": "Yellow Potion"
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "6",
+        "source_section": "requirements",
+        "evidence": "6 Empty Bottle",
+        "entity": "Empty Bottle"
+      },
+      {
+        "kind": "item_not_consumed",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "Item(s) (Not Consumed): 1 Steel",
+        "entity": "Steel"
+      }
+    ]
+  }
+}

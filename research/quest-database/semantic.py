@@ -16,8 +16,10 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-1.1.0'
+VERSION = 'semantic-2.0.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
+BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
+SCHEMA_VERSION = 2
 FIELDS = ('short_ru','short_en','full_ru','full_en')
 MAP_COORD = re.compile(r'\b([a-zA-Z][a-zA-Z0-9_]{2,24})\s*(?:\)\)?\s*:\s*|[, ]?\s*\(?\s*)(\d{1,3})\s*(?:,\s*|\s+)(\d{1,3})(?!\d)')
 BARE_COORD = re.compile(r'(?<![\d,])\b(\d{1,3})\s*,\s*(\d{1,3})(?![\d,])')
@@ -192,7 +194,7 @@ def mention_entities(w, entities, surfaces, entry):
     return result
 
 
-def descriptions(w,step,curated,entities,ev,refs=None):
+def descriptions(w,step,curated,entities,ev,refs=None,branch_id=None):
     text=step['instruction']
     if curated:
         if curated['instruction_sha256']!=sha(text):
@@ -221,7 +223,8 @@ def descriptions(w,step,curated,entities,ev,refs=None):
         values={'short_ru':None,'short_en':None,'full_ru':None,'full_en':text}
         state='pending_translation_and_semantic_review';editor=None
         w.review('localization_missing','Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.',ev,'blocking')
-    w.add('step_descriptions',step_id=w.sid,**values,generation_version=VERSION,review_state=state,
+    owner={'branch_id':branch_id} if branch_id else {'step_id':w.sid}
+    w.add('branch_descriptions' if branch_id else 'step_descriptions',**owner,**values,generation_version=VERSION,review_state=state,
           source_instruction_sha256=sha(text),editor=editor)
     overrides={}
     for rule in (curated or {}).get('mention_overrides',[]):
@@ -243,8 +246,8 @@ def descriptions(w,step,curated,entities,ev,refs=None):
                 key=(field,name,occurrence)
                 target=overrides.get(key,(eid,kind,eev))
                 if key in overrides:used_overrides.add(key)
-                w.add('description_mentions',mention_id=stable('mention',w.sid,field,*m.span()),
-                      step_id=w.sid,field=field,start_offset=m.start(),end_offset=m.end(),
+                w.add('branch_mentions' if branch_id else 'description_mentions',mention_id=stable('mention',branch_id or w.sid,field,*m.span()),
+                      **owner,field=field,start_offset=m.start(),end_offset=m.end(),
                       entity_id=target[0],entity_type=target[1],surface=m[0],evidence_id=target[2])
         if curated and field=='full_ru':
             for name in curated.get('protected_names',[]):
@@ -252,7 +255,8 @@ def descriptions(w,step,curated,entities,ev,refs=None):
     if set(overrides)!=used_overrides:raise ValueError('Unused mention override; text changed')
 
 
-def curated_facts(w,entry,entities,ev,source_sections=None,html_source=None):
+def curated_facts(w,entry,entities,ev,source_sections=None,html_source=None,branch_id=None,evidence_step_id=None):
+    scope=branch_id or w.sid or w.qid
     def evidence_for(f):
         section=f.get('source_section')
         if section:
@@ -271,38 +275,39 @@ def curated_facts(w,entry,entities,ev,source_sections=None,html_source=None):
             w.add('evidence_context',evidence_id=e,supporting_id=supporting)
             return e
         if snippet not in entry['original_instruction']:raise ValueError('Nonliteral curated evidence '+snippet)
-        return w.evidence(snippet,method='curated_literal')
+        return w.evidence(snippet,method='curated_literal',step=evidence_step_id)
     def entity(name):
         if name not in entities:raise ValueError('Unknown curated entity '+name)
         return entities[name][0]
+    action_offset=w.db.execute('SELECT coalesce(max(action_order),0) FROM step_actions WHERE step_id=?',(w.sid,)).fetchone()[0]
     for i,f in enumerate(entry.get('actions',[]),1):
-        w.add('step_actions',action_id=stable('action',w.sid,i),step_id=w.sid,action_order=i,
+        w.add('step_actions',action_id=stable('action',scope,i),step_id=w.sid,action_order=action_offset+i,branch_id=branch_id,
               operation=f['operation'],entity_id=entity(f['entity']) if f.get('entity') else None,
               condition_text=f.get('condition'),evidence_id=evidence_for(f))
     for f in entry.get('npcs',[]):
         if isinstance(f,str):f={'entity':f,'role':'talk'}
         w.add('step_npcs',step_id=w.sid,npc_id=entity(f['entity']),role=f['role'],evidence_id=evidence_for(f))
     for i,f in enumerate(entry.get('items',[])):
-        w.add('step_items',fact_id=stable('item_fact',w.sid,i),step_id=w.sid,item_id=entity(f['entity']),
+        w.add('step_items',fact_id=stable('item_fact',scope,i),step_id=w.sid,item_id=entity(f['entity']),branch_id=branch_id,
               operation=f['operation'],quantity=f.get('quantity'),required=f.get('required'),
               condition_text=f.get('condition'),evidence_id=evidence_for(f))
     for i,f in enumerate(entry.get('monsters',[])):
-        w.add('step_monsters',fact_id=stable('monster_fact',w.sid,i),step_id=w.sid,monster_id=entity(f['entity']),
+        w.add('step_monsters',fact_id=stable('monster_fact',scope,i),step_id=w.sid,monster_id=entity(f['entity']),branch_id=branch_id,
               operation=f['operation'],quantity=f.get('quantity'),required=f.get('required'),
               condition_text=f.get('condition'),evidence_id=evidence_for(f))
     for i,f in enumerate(entry.get('requirements',[])):
-        w.add('requirements',requirement_id=stable('requirement',w.sid or w.qid,i),quest_id=w.qid,step_id=w.sid,
+        w.add('requirements',requirement_id=stable('requirement',scope,i),quest_id=w.qid,step_id=w.sid,branch_id=branch_id,
               kind=f['kind'],entity_id=entity(f['entity']) if f.get('entity') else None,amount=f.get('amount'),
               condition_text=f.get('condition'),evidence_id=evidence_for(f))
     for i,f in enumerate(entry.get('rewards',[])):
-        rid=stable('reward',w.sid or w.qid,i)
-        w.add('rewards',reward_id=rid,quest_id=w.qid,kind=f['kind'],item_id=entity(f['entity']) if f.get('entity') else None,
+        rid=stable('reward',scope,i)
+        w.add('rewards',reward_id=rid,quest_id=w.qid,kind=f['kind'],item_id=entity(f['entity']) if f.get('entity') else None,branch_id=branch_id,
               amount=f.get('amount'),condition_text=f.get('condition'),evidence_id=evidence_for(f))
         if w.sid:w.add('step_rewards',step_id=w.sid,reward_id=rid)
     for i,f in enumerate(entry.get('dialogues',[]),1):
-        e=evidence_for(f);did=stable('dialogue',w.sid,i)
+        e=evidence_for(f);did=stable('dialogue',scope,i)
         w.add('dialogues',dialogue_id=did,npc_id=entity(f['npc']) if f.get('npc') else None,
-              original_text=f.get('text'),evidence_id=e)
+              original_text=f.get('text'),evidence_id=e,branch_id=branch_id)
         w.add('step_dialogues',step_id=w.sid,dialogue_id=did,dialogue_order=i)
         for j,o in enumerate(f.get('options',[]),1):
             if o['text'] not in entry['original_instruction']:raise ValueError('Invented dialogue text')
@@ -313,6 +318,62 @@ def curated_facts(w,entry,entities,ev,source_sections=None,html_source=None):
         e=evidence_for(f)
         w.location(f,e,f['role'],entity(f['entity']) if f.get('entity') else None)
     for f in entry.get('reviews',[]):w.review(f['reason'],f['detail'],ev,f.get('severity','warning'))
+
+
+def contextual_branches(w,curation,entities,surfaces,source_sections,html_source):
+    rows={r['step_order']:dict(r) for r in w.db.execute('SELECT * FROM quest_steps WHERE quest_id=?',(w.qid,))}
+    branch_ids={}
+    def fragment(origin,target,start,end,section,branch=None,partition=None):
+        text=rows[origin]['original_instruction']
+        if not 0<=start<end<=len(text):raise ValueError('Invalid source fragment range')
+        ev=w.evidence(text[start:end],method='source_section_fragment',step=rows[origin]['step_id'])
+        fid=stable('fragment',rows[origin]['step_id'],rows[target]['step_id'],start,end,branch)
+        w.add('source_fragments',fragment_id=fid,origin_step_id=rows[origin]['step_id'],target_step_id=rows[target]['step_id'],
+              branch_id=branch,section=section,role='branch' if branch else 'primary',start_offset=start,end_offset=end,
+              original_text=text[start:end],evidence_id=ev,partition_key=partition)
+        if partition:w.db.execute('UPDATE source_fragments SET partition_key=? WHERE fragment_id=?',(partition,fid))
+        return ev
+    for n,entry in curation['steps'].items():
+        target=int(n);w.sid=rows[target]['step_id']
+        for b in entry.get('branches',[]):
+            key=(target,b['key'])
+            if key in branch_ids:raise ValueError('Duplicate branch key')
+            origin=b.get('source_step',target)
+            if origin not in rows:raise ValueError('Unknown branch source step')
+            original=rows[origin]['original_instruction'];snippet=b['original_instruction']
+            start=b.get('source_start',original.find(snippet));end=start+len(snippet)
+            if start<0 or original[start:end]!=snippet:raise ValueError('Branch fragment is not literal source')
+            if not b.get('condition') or not b.get('variant_scope'):raise ValueError('Branch condition/scope required')
+            ev=w.evidence(snippet,method='source_branch_instruction',step=rows[origin]['step_id'])
+            bid=stable('branch',w.sid,b['key']);branch_ids[key]=bid
+            w.add('step_branches',branch_id=bid,step_id=w.sid,branch_key=b['key'],choice_group=b['choice_group'],
+                  variant_scope=b['variant_scope'],condition_text=b['condition'],evidence_id=ev)
+            fragment(origin,target,start,end,b['section'],bid)
+            selected=mention_entities(w,entities,surfaces,b)
+            descriptions(w,{'instruction':snippet},b,selected,ev,entities,branch_id=bid)
+            curated_facts(w,b,entities,ev,source_sections,html_source,branch_id=bid,evidence_step_id=rows[origin]['step_id'])
+    for part in curation.get('source_partitions',[]):
+        origin=part['source_step']
+        if origin not in rows:raise ValueError('Unknown partition source step')
+        for seg in part['segments']:
+            target=seg['target_step']
+            if target not in rows:raise ValueError('Unknown partition target step')
+            key=(target,seg.get('branch_key'))
+            if seg.get('branch_key') and key not in branch_ids:raise ValueError('Unknown partition branch')
+            w.sid=rows[target]['step_id']
+            fragment(origin,target,seg['start'],seg['end'],seg['section'],branch_ids.get(key),rows[origin]['step_id'])
+
+
+def migrate_semantic(db):
+    """Upgrade an existing v1 research export without rewriting its content."""
+    version=db.execute('PRAGMA user_version').fetchone()[0]
+    if version==1:
+        if db.in_transaction:raise ValueError('Commit pending changes before semantic migration')
+        try:db.executescript('BEGIN;\n'+BRANCH_SCHEMA.read_text()+'\nCOMMIT;')
+        except Exception:
+            db.rollback()
+            raise
+    elif version!=SCHEMA_VERSION:raise ValueError('Unsupported semantic schema version '+str(version))
 
 
 def validate(db):
@@ -335,6 +396,53 @@ def validate(db):
         if Counter(re.findall(r'\d+',ru))!=Counter(re.findall(r'\d+',en)):errors.append('numeric_locale_parity')
         if not all((short_ru,short_en,ru,en)):errors.append('partial_curated_description')
         elif Counter(re.findall(r'\d+',short_ru))!=Counter(re.findall(r'\d+',short_en)):errors.append('short_numeric_locale_parity')
+    if db.execute('PRAGMA user_version').fetchone()[0]>=2:
+        if db.execute('SELECT count(*) FROM step_branches b LEFT JOIN branch_descriptions d USING(branch_id) WHERE d.branch_id IS NULL').fetchone()[0]:errors.append('branch_description_missing')
+        if db.execute('SELECT 1 FROM step_branches b LEFT JOIN source_fragments f USING(branch_id) WHERE f.fragment_id IS NULL LIMIT 1').fetchone():errors.append('branch_source_missing')
+        if db.execute('''SELECT 1 FROM step_branches b JOIN evidence e USING(evidence_id)
+          LEFT JOIN source_fragments f ON f.branch_id=b.branch_id AND f.original_text=e.snippet
+          AND f.origin_step_id=e.step_id WHERE f.fragment_id IS NULL LIMIT 1''').fetchone():errors.append('branch_evidence_mismatch')
+        if db.execute('''SELECT 1 FROM step_branches b JOIN evidence e USING(evidence_id)
+          JOIN quest_steps s ON s.step_id=b.step_id WHERE e.quest_id<>s.quest_id LIMIT 1''').fetchone():errors.append('branch_evidence_wrong_quest')
+        for row in db.execute('SELECT d.short_ru,d.short_en,d.full_ru,d.full_en,d.source_instruction_sha256,e.snippet FROM branch_descriptions d JOIN step_branches b USING(branch_id) JOIN evidence e USING(evidence_id)'):
+            sr,se,fr,fe,digest,snippet=row
+            if digest!=sha(snippet):errors.append('branch_source_hash')
+            if Counter(re.findall(r'\d+',sr))!=Counter(re.findall(r'\d+',se)) or Counter(re.findall(r'\d+',fr))!=Counter(re.findall(r'\d+',fe)):errors.append('branch_numeric_locale_parity')
+        previous={}
+        for row in db.execute('SELECT m.branch_id,m.field,m.start_offset,m.end_offset,m.surface,d.short_ru,d.short_en,d.full_ru,d.full_en FROM branch_mentions m JOIN branch_descriptions d USING(branch_id) ORDER BY m.branch_id,m.field,m.start_offset'):
+            bid,field,start,end,surface,*values=row;key=(bid,field)
+            if values[FIELDS.index(field)][start:end]!=surface:errors.append('invalid_branch_mention_span')
+            if start<previous.get(key,0):errors.append('overlapping_branch_mentions')
+            previous[key]=end
+        partitions={}
+        fragments=db.execute('''SELECT f.*,s.original_instruction AS source_text,s.quest_id AS origin_quest,
+          t.quest_id AS target_quest,b.step_id AS branch_step,e.step_id AS evidence_step,e.snippet AS evidence_text
+          FROM source_fragments f JOIN quest_steps s ON s.step_id=f.origin_step_id
+          JOIN quest_steps t ON t.step_id=f.target_step_id LEFT JOIN step_branches b USING(branch_id)
+          JOIN evidence e ON e.evidence_id=f.evidence_id''')
+        names=[d[0] for d in fragments.description]
+        for row in fragments:
+            f=dict(zip(names,row))
+            if not 0<=f['start_offset']<f['end_offset']<=len(f['source_text']) or f['source_text'][f['start_offset']:f['end_offset']]!=f['original_text']:errors.append('source_fragment_mismatch')
+            if f['origin_quest']!=f['target_quest'] or (f['branch_id'] and f['branch_step']!=f['target_step_id']):errors.append('fragment_target_mismatch')
+            if f['evidence_step']!=f['origin_step_id'] or f['evidence_text']!=f['original_text']:errors.append('fragment_evidence_mismatch')
+            if f['partition_key']:
+                if f['partition_key']!=f['origin_step_id']:errors.append('source_partition_wrong_origin')
+                partitions.setdefault(f['partition_key'],[]).append(f)
+        for parts in partitions.values():
+            position=0
+            for f in sorted(parts,key=lambda x:x['start_offset']):
+                if f['start_offset']!=position:errors.append('source_partition_gap_or_overlap')
+                position=f['end_offset']
+            if position!=len(parts[0]['source_text']):errors.append('source_partition_incomplete')
+        for sid,text in db.execute('''SELECT s.step_id,d.full_en FROM quest_steps s JOIN step_descriptions d USING(step_id)
+          WHERE d.full_en<>s.original_instruction'''):
+            primary=[r[0].strip() for r in db.execute("SELECT original_text FROM source_fragments WHERE target_step_id=? AND role='primary' AND partition_key IS NOT NULL ORDER BY start_offset",(sid,))]
+            if not primary or ' '.join(primary)!=text:errors.append('edited_description_without_partition')
+        for table in ('step_actions','step_items','step_monsters','requirements'):
+            if db.execute(f'SELECT 1 FROM {table} f JOIN step_branches b USING(branch_id) WHERE f.step_id IS NULL OR f.step_id<>b.step_id LIMIT 1').fetchone():errors.append('branch_fact_wrong_step')
+        if db.execute('SELECT 1 FROM rewards r JOIN step_branches b USING(branch_id) LEFT JOIN step_rewards s ON s.reward_id=r.reward_id AND s.step_id=b.step_id WHERE s.reward_id IS NULL LIMIT 1').fetchone():errors.append('branch_reward_wrong_step')
+        if db.execute('SELECT 1 FROM dialogues d JOIN step_branches b USING(branch_id) LEFT JOIN step_dialogues s ON s.dialogue_id=d.dialogue_id AND s.step_id=b.step_id WHERE s.dialogue_id IS NULL LIMIT 1').fetchone():errors.append('branch_dialogue_wrong_step')
     if integrity!='ok' or foreign or errors:raise ValueError(f'Invalid semantic DB: {integrity}, FK={foreign}, errors={errors}')
     return {'integrity_check':integrity,'foreign_key_violations':len(foreign),'invalid_mentions':len(errors)}
 
@@ -361,13 +469,15 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         try:
             if previous_db.execute("SELECT count(*) FROM step_descriptions WHERE review_state='human_reviewed'").fetchone()[0]:
                 raise ValueError('Human-reviewed database rows must be exported to pinned curation before rebuilding; refusing overwrite.')
+            if previous_db.execute('PRAGMA user_version').fetchone()[0]>=2 and previous_db.execute("SELECT count(*) FROM branch_descriptions WHERE review_state='human_reviewed'").fetchone()[0]:
+                raise ValueError('Human-reviewed branch rows must be exported to pinned curation before rebuilding; refusing overwrite.')
         finally:
             previous_db.close()
     if temp.exists():temp.unlink()
-    db=resources.enter_context(closing(sqlite3.connect(temp)));db.row_factory=sqlite3.Row;db.executescript(SCHEMA.read_text());w=Writer(db)
+    db=resources.enter_context(closing(sqlite3.connect(temp)));db.row_factory=sqlite3.Row;db.executescript(SCHEMA.read_text());migrate_semantic(db);w=Writer(db)
     w.add('variants',variant_id='irowiki-classic',game_variant='Classic',assurance='source_scope_not_server_verified')
     known={r[0] for r in source.execute('SELECT DISTINCT map FROM script_npcs WHERE map IS NOT NULL')}
-    code_hash=sha(Path(__file__).read_bytes()+SCHEMA.read_bytes())
+    code_hash=sha(Path(__file__).read_bytes()+SCHEMA.read_bytes()+BRANCH_SCHEMA.read_bytes())
     cache_hits=0;plans=[]
     for pid,selection in active.items():
         page=dict(source.execute('SELECT * FROM wiki_pages WHERE id=?',(pid,)).fetchone())
@@ -471,6 +581,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
                 if not curated:w.location(p,pe)
             descriptions(w,step,curated,step_entities,ev,entities)
         if curation:
+            contextual_branches(w,curation,entities,surfaces,source_sections,html_source)
             w.sid=None
             for issue in curation.get('reviews',[]):w.review(issue['reason'],issue['detail'],page_ev,issue.get('severity','warning'))
     w.qid=None;w.sid=None
@@ -481,16 +592,17 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         if row[1] in active:w.add('quest_relations',quest_id=w.qid,related_id=active[row[1]]['quest_id'],kind='prerequisite_boolean_unspecified',evidence_id=ev)
         else:w.review('prerequisite_not_in_active_catalog','Referenced prerequisite excluded/quarantined; no orphan relation created.',ev,'blocking')
     data_version=sha(json.dumps([x[2] for x in plans]+list(decisions.values()),sort_keys=True))
-    w.add('metadata',key='schema_version',value='1');w.add('metadata',key='data_version',value=data_version)
+    w.add('metadata',key='schema_version',value=str(SCHEMA_VERSION));w.add('metadata',key='data_version',value=data_version)
     w.add('metadata',key='generator_version',value=VERSION);w.add('metadata',key='completion',value='partial; inspect semantic_report.json')
     checks=validate(db)
     tables=[r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")]
     counts={t:db.execute('SELECT count(*) FROM '+t).fetchone()[0] for t in tables}
     localized=db.execute('SELECT count(*) FROM ready_steps').fetchone()[0]
     status_counts=dict(db.execute('SELECT status,count(*) FROM evidence GROUP BY status'))
-    report={'schema_version':1,'data_version':data_version,'generator_version':VERSION,'complete':False,
+    report={'schema_version':SCHEMA_VERSION,'data_version':data_version,'generator_version':VERSION,'complete':False,
         'source_pages':len(decisions),'selection_counts':dict(Counter(r['state'] for r in decisions.values())),
         'curated_quests':len(curations),'pending_quests':counts['quests']-len(curations),
+        'fully_localized_branches':counts['branch_descriptions'],
         'counts':counts,'fully_localized_steps':localized,'not_fully_localized_steps':counts['quest_steps']-localized,
         'localized_fields':{f:db.execute(f'SELECT count(*) FROM step_descriptions WHERE {f} IS NOT NULL').fetchone()[0] for f in FIELDS},
         'evidence_status_counts':status_counts,'checks':checks,'server_verified':0,
@@ -508,6 +620,10 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
             sid=r['step_id']
             for table in ('step_npcs','step_locations','step_items','step_monsters','step_dialogues','step_rewards','step_actions','description_mentions'):
                 r[table]=[dict(x) for x in db.execute('SELECT * FROM '+table+' WHERE step_id=?',(sid,))]
+            r['branches']=[dict(x) for x in db.execute('SELECT b.*,d.short_ru,d.short_en,d.full_ru,d.full_en FROM step_branches b JOIN branch_descriptions d USING(branch_id) WHERE b.step_id=? ORDER BY b.branch_key',(sid,))]
+            for b in r['branches']:
+                b['mentions']=[dict(x) for x in db.execute('SELECT * FROM branch_mentions WHERE branch_id=? ORDER BY field,start_offset',(b['branch_id'],))]
+            r['source_fragments']=[dict(x) for x in db.execute('SELECT * FROM source_fragments WHERE target_step_id=? ORDER BY origin_step_id,start_offset',(sid,))]
             record['steps'].append(r)
         record['entities']=[dict(x) for x in db.execute('SELECT DISTINCT e.* FROM entities e JOIN entity_evidence l USING(entity_id) JOIN evidence v ON v.evidence_id=l.evidence_id WHERE v.quest_id=?',(qid,))]
         record['rewards']=[dict(x) for x in db.execute('SELECT * FROM rewards WHERE quest_id=?',(qid,))]

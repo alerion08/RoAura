@@ -1,0 +1,919 @@
+{
+  "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "6a130d3f29a64c086fe01d5ac1e9bfc3ceba17294adfd292e943d1f679e29152",
+  "snapshot_sha256": "0495991f6d5c194b247259ef1810c7d67e562729ba3203bac3c50b3a8c2da613",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Agent"
+    },
+    {
+      "type": "npc",
+      "name": "Father Bamph"
+    },
+    {
+      "type": "npc",
+      "name": "Larjes"
+    },
+    {
+      "type": "npc",
+      "name": "Ordinary Man"
+    },
+    {
+      "type": "npc",
+      "name": "Waiter"
+    },
+    {
+      "type": "npc",
+      "name": "Al Hamad"
+    },
+    {
+      "type": "npc",
+      "name": "High Priest Zhed",
+      "identity": "irowiki-classic:npc:ra_temin:277:159:High Priest Zhed"
+    },
+    {
+      "type": "npc",
+      "name": "High Priest Niren"
+    },
+    {
+      "type": "npc",
+      "name": "Drunkard"
+    },
+    {
+      "type": "npc",
+      "name": "Karyn",
+      "identity": "irowiki-classic:npc:veins:327:185:Karyn"
+    },
+    {
+      "type": "npc",
+      "name": "Dead Crow"
+    },
+    {
+      "type": "npc",
+      "name": "Books"
+    },
+    {
+      "type": "npc",
+      "name": "Man"
+    },
+    {
+      "type": "item",
+      "name": "Assorted Seafood",
+      "game_id": 12052,
+      "id_source": "http://db.irowiki.org/classic/item-info/12052/"
+    },
+    {
+      "type": "item",
+      "name": "Token of King"
+    },
+    {
+      "type": "monster",
+      "name": "Zombie Slaughter"
+    },
+    {
+      "type": "monster",
+      "name": "King's Corpse",
+      "game_id": 1875,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1875/"
+    },
+    {
+      "type": "map",
+      "name": "International Airship"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Comodo Casino"
+    },
+    {
+      "type": "map",
+      "name": "comodo",
+      "map_code": "comodo"
+    },
+    {
+      "type": "map",
+      "name": "cmd_in02",
+      "map_code": "cmd_in02"
+    },
+    {
+      "type": "map",
+      "name": "Rachel"
+    },
+    {
+      "type": "map",
+      "name": "rachel",
+      "map_code": "rachel"
+    },
+    {
+      "type": "map",
+      "name": "ra_in01",
+      "map_code": "ra_in01"
+    },
+    {
+      "type": "map",
+      "name": "Veins"
+    },
+    {
+      "type": "map",
+      "name": "veins",
+      "map_code": "veins"
+    },
+    {
+      "type": "map",
+      "name": "ra_temple",
+      "map_code": "ra_temple"
+    },
+    {
+      "type": "map",
+      "name": "ve_fild07",
+      "map_code": "ve_fild07"
+    },
+    {
+      "type": "map",
+      "name": "Nameless Island"
+    },
+    {
+      "type": "map",
+      "name": "nameless_i",
+      "map_code": "nameless_i"
+    },
+    {
+      "type": "map",
+      "name": "nameless_n",
+      "map_code": "nameless_n"
+    },
+    {
+      "type": "map",
+      "name": "abbey01"
+    },
+    {
+      "type": "map",
+      "name": "abbey02",
+      "map_code": "abbey02"
+    },
+    {
+      "type": "map",
+      "name": "abbey03",
+      "map_code": "abbey03"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to the Agent on the lower level of the International Airship . He tells you to go visit Father Bamph in the Prontera Church.",
+      "instruction_sha256": "e29600696df505a4f82d252e783c13c20278e5601f37f1471930a0d1e88cea92",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/e29600696df505a4f82d/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Agent на нижнем уровне International Airship.",
+      "short_en": "Talk to Agent on the lower level of International Airship.",
+      "full_ru": "Поговорите с Agent на нижнем уровне International Airship. Он направит вас к Father Bamph в церкви Prontera.",
+      "full_en": "Talk to the Agent on the lower level of the International Airship . He tells you to go visit Father Bamph in the Prontera Church.",
+      "npcs": [
+        {
+          "entity": "Agent",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Agent"
+        }
+      ],
+      "protected_names": [
+        "Agent",
+        "Father Bamph",
+        "International Airship",
+        "Prontera"
+      ],
+      "locations": []
+    },
+    "2": {
+      "original_instruction": "Meet with Father Bamph in Prontera. He tells you to meet with a contact in the Comodo Casino by the name of Larjes concerning a missing Midgard official.",
+      "instruction_sha256": "6cad8a3a2e8ffe03ae0efed954c4c75b2a702ba35c7ca24df493fc8567f8f323",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/6cad8a3a2e8ffe03ae0e/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Father Bamph в Prontera о встрече с Larjes.",
+      "short_en": "Talk to Father Bamph in Prontera about meeting Larjes.",
+      "full_ru": "Найдите Father Bamph в Prontera. Он отправит вас к контакту по имени Larjes в Comodo Casino по делу пропавшего чиновника Midgard.",
+      "full_en": "Meet with Father Bamph in Prontera. He tells you to meet with a contact in the Comodo Casino by the name of Larjes concerning a missing Midgard official.",
+      "npcs": [
+        {
+          "entity": "Father Bamph",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Father Bamph"
+        }
+      ],
+      "protected_names": [
+        "Father Bamph",
+        "Larjes",
+        "Prontera",
+        "Comodo Casino"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "On the first floor (lower level) of the Comodo Casino (comodo 140, 115) you'll see an \"Ordinary Man\" (cmd_in02 174, 89). After talking to him he will pull you aside to talk. Talk to him once more, and he'll ask you to return to Father Bamph.",
+      "instruction_sha256": "ee8ad0ac678fc445581c4c03690e62fb92fd00bda2e6bd0866d31bf36784b778",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/ee8ad0ac678fc445581c/1",
+      "goal": "talk",
+      "short_ru": "Дважды поговорите с Ordinary Man: cmd_in02 174, 89.",
+      "short_en": "Talk to Ordinary Man twice: cmd_in02 174, 89.",
+      "full_ru": "На первом, нижнем этаже Comodo Casino (comodo 140, 115) найдите «Ordinary Man» (cmd_in02 174, 89). После разговора он отведёт вас в сторону. Поговорите ещё раз: он попросит вернуться к Father Bamph.",
+      "full_en": "On the first floor (lower level) of the Comodo Casino (comodo 140, 115) you'll see an \"Ordinary Man\" (cmd_in02 174, 89). After talking to him he will pull you aside to talk. Talk to him once more, and he'll ask you to return to Father Bamph.",
+      "npcs": [
+        {
+          "entity": "Ordinary Man",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ordinary Man",
+          "condition": "Talk again after he pulls you aside."
+        }
+      ],
+      "protected_names": [
+        "Father Bamph",
+        "Ordinary Man",
+        "Man",
+        "Comodo Casino",
+        "comodo",
+        "cmd_in02"
+      ],
+      "locations": [
+        {
+          "map": "comodo",
+          "x": 140,
+          "y": 115,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "comodo 140, 115"
+        },
+        {
+          "map": "cmd_in02",
+          "x": 174,
+          "y": 89,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "cmd_in02 174, 89"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Return to Father Bamph. Keep talking to him until he makes up his mind about what to do. He ask for your help, and send you to Rachel to investigate.",
+      "instruction_sha256": "ee14c2b7f939464d0be81e3f017e0391a411c97cfc053ee1d03a5ee17eda9f40",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/ee14c2b7f939464d0be8/1",
+      "goal": "repeat_talk",
+      "short_ru": "Говорите с Father Bamph до направления в Rachel.",
+      "short_en": "Keep talking to Father Bamph until sent to Rachel.",
+      "full_ru": "Вернитесь к Father Bamph. Продолжайте говорить с ним, пока он не решит, что делать. Он попросит помощи и отправит расследовать в Rachel.",
+      "full_en": "Return to Father Bamph. Keep talking to him until he makes up his mind about what to do. He ask for your help, and send you to Rachel to investigate.",
+      "npcs": [
+        {
+          "entity": "Father Bamph",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Father Bamph",
+          "condition": "Repeat until sent to Rachel."
+        }
+      ],
+      "protected_names": [
+        "Father Bamph",
+        "Rachel"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "In the Rachel Inn (rachel 115, 147), talk to the Waiter (ra_in01 308, 59) and tell him you wish to order. You will overhear a conversation concerning a famous \"fish\" caught near Veins . After the conversation you will spend 3000 Zeny (if you have it) and obtain 4 Assorted Seafood .",
+      "instruction_sha256": "4f9f5083062504d5547056ce5f5de87c9cd3436205d1184ffd7350de0473808d",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/4f9f5083062504d55470/1",
+      "goal": "order",
+      "short_ru": "Закажите еду у Waiter: ra_in01 308, 59; стоимость 3000 Zeny при наличии, награда 4 Assorted Seafood.",
+      "short_en": "Order from Waiter: ra_in01 308, 59; cost 3000 Zeny if held, reward 4 Assorted Seafood.",
+      "full_ru": "В гостинице Rachel (rachel 115, 147) поговорите с Waiter (ra_in01 308, 59) и скажите, что хотите заказать еду. Вы услышите разговор о знаменитой «рыбе», пойманной рядом с Veins. После разговора вы потратите 3000 Zeny, если они у вас есть, и получите 4 Assorted Seafood.",
+      "full_en": "In the Rachel Inn (rachel 115, 147), talk to the Waiter (ra_in01 308, 59) and tell him you wish to order. You will overhear a conversation concerning a famous \"fish\" caught near Veins . After the conversation you will spend 3000 Zeny (if you have it) and obtain 4 Assorted Seafood .",
+      "npcs": [
+        {
+          "entity": "Waiter",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Waiter"
+        },
+        {
+          "operation": "order"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "zeny",
+          "amount": "3000",
+          "condition": "Walkthrough says if you have it; header lists a cost without that qualifier."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "4",
+          "entity": "Assorted Seafood"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "cost_condition_conflict",
+          "detail": "Header lists 3000 Zeny; walkthrough says payment occurs if held. Do not enforce an unconditional balance gate without server verification."
+        }
+      ],
+      "protected_names": [
+        "Waiter",
+        "Assorted Seafood",
+        "Rachel",
+        "rachel",
+        "ra_in01",
+        "Veins"
+      ],
+      "locations": [
+        {
+          "map": "rachel",
+          "x": 115,
+          "y": 147,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "rachel 115, 147"
+        },
+        {
+          "map": "ra_in01",
+          "x": 308,
+          "y": 59,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_in01 308, 59"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Proceed to Veins and in a building on the left end of the city (veins 86, 170), talk to the Magistrate by the name of Al Hamad. Ask him if he's in trouble. When he gives you the brushoff, talk to the guard by the door, and then come back and question Al Hamad further. He will tell you that you need a written order from a high ranking official in order to divulge information.",
+      "instruction_sha256": "965ef9522a38b6cafc6d5fda96919031445d3f32e7a94ca8df228f5ccbebf93f",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/965ef9522a38b6cafc6d/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Al Hamad, со стражником у двери и снова с Al Hamad.",
+      "short_en": "Talk to Al Hamad, the door guard, then Al Hamad again.",
+      "full_ru": "В Veins войдите в здание на западе (veins 86, 170) и поговорите с Magistrate по имени Al Hamad. Спросите о неприятностях. После отказа поговорите со стражником у двери и снова расспросите Al Hamad. Для раскрытия сведений ему нужен письменный приказ высокопоставленного лица.",
+      "full_en": "Proceed to Veins and in a building on the left end of the city (veins 86, 170), talk to the Magistrate by the name of Al Hamad. Ask him if he's in trouble. When he gives you the brushoff, talk to the guard by the door, and then come back and question Al Hamad further. He will tell you that you need a written order from a high ranking official in order to divulge information.",
+      "npcs": [
+        {
+          "entity": "Al Hamad",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Al Hamad"
+        },
+        {
+          "operation": "talk",
+          "condition": "Door guard after the initial refusal."
+        },
+        {
+          "operation": "talk",
+          "entity": "Al Hamad"
+        }
+      ],
+      "protected_names": [
+        "Al Hamad",
+        "Veins",
+        "veins"
+      ],
+      "locations": [
+        {
+          "map": "veins",
+          "x": 86,
+          "y": 170,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "veins 86, 170"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Go to High Priest Zhed in the Rachel Sanctuary. Note that you must have completed the Veins Siblings Quest in order to advance further.",
+      "instruction_sha256": "87a96f2f9f9bcd44dafefbe8039e10c84f452075776ec676768c85f6a5f5afbf",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/87a96f2f9f9bcd44dafe/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с High Priest Zhed после завершения Veins Siblings Quest.",
+      "short_en": "Talk to High Priest Zhed after completing Veins Siblings Quest.",
+      "full_ru": "Идите к High Priest Zhed в святилище Rachel. Для дальнейшего продвижения необходимо завершить Veins Siblings Quest.",
+      "full_en": "Go to High Priest Zhed in the Rachel Sanctuary. Note that you must have completed the Veins Siblings Quest in order to advance further.",
+      "npcs": [
+        {
+          "entity": "High Priest Zhed",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Zhed"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "quest_completed",
+          "amount": "Veins Siblings Quest"
+        }
+      ],
+      "protected_names": [
+        "High Priest Zhed",
+        "Rachel",
+        "Veins"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Outside of the sanctuary, you'll need to talk to the High Priest Niren (ra_temple 165, 57), and inquire about the smugglers. She will send you back to the Magistrate.",
+      "instruction_sha256": "1d9dd1cb76575c466c104d9ff3a507f6f4695161e79a2654bf11a4dd5afe4437",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/1d9dd1cb76575c466c10/1",
+      "goal": "talk",
+      "short_ru": "Спросите High Priest Niren о контрабандистах: ra_temple 165, 57.",
+      "short_en": "Ask High Priest Niren about smugglers: ra_temple 165, 57.",
+      "full_ru": "Снаружи святилища поговорите с High Priest Niren (ra_temple 165, 57) и спросите о контрабандистах. Она отправит вас обратно к Magistrate.",
+      "full_en": "Outside of the sanctuary, you'll need to talk to the High Priest Niren (ra_temple 165, 57), and inquire about the smugglers. She will send you back to the Magistrate.",
+      "npcs": [
+        {
+          "entity": "High Priest Niren",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Niren"
+        }
+      ],
+      "protected_names": [
+        "High Priest Niren",
+        "ra_temple"
+      ],
+      "locations": [
+        {
+          "map": "ra_temple",
+          "x": 165,
+          "y": 57,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temple 165, 57"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Return to the Magistrate. He will provide you with some more information regarding the smugglers.",
+      "instruction_sha256": "f5c42a63f13690269d84edf4c5210c1d32c30fc9307d991e317f91db20650b96",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/f5c42a63f13690269d84/1",
+      "goal": "return",
+      "short_ru": "Вернитесь к Al Hamad за сведениями о контрабандистах.",
+      "short_en": "Return to Al Hamad for information about the smugglers.",
+      "full_ru": "Вернитесь к Magistrate: он сообщит дополнительные сведения о контрабандистах.",
+      "full_en": "Return to the Magistrate. He will provide you with some more information regarding the smugglers.",
+      "npcs": [
+        {
+          "entity": "Al Hamad",
+          "role": "talk",
+          "support_step": 6,
+          "evidence": "Proceed to Veins and in a building on the left end of the city (veins 86, 170), talk to the Magistrate by the name of Al Hamad. Ask him if he's in trouble. When he gives you the brushoff, talk to the guard by the door, and then come back and question Al Hamad further. He will tell you that you need a written order from a high ranking official in order to divulge information."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Al Hamad"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Go to the Veins tavern (veins 149, 217) and speak to the first Drunkard. He babbles about his fishing boat.",
+      "instruction_sha256": "2d7bff4cdd58ce76c8be4642a302e92c9137349afaca4f689a74dfef81b3f928",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/2d7bff4cdd58ce76c8be/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с первым Drunkard: таверна veins 149, 217.",
+      "short_en": "Talk to the first Drunkard: tavern at veins 149, 217.",
+      "full_ru": "В таверне Veins (veins 149, 217) поговорите с первым Drunkard: он рассказывает о своей рыбацкой лодке.",
+      "full_en": "Go to the Veins tavern (veins 149, 217) and speak to the first Drunkard. He babbles about his fishing boat.",
+      "npcs": [
+        {
+          "entity": "Drunkard",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Drunkard"
+        }
+      ],
+      "protected_names": [
+        "Drunkard",
+        "Veins",
+        "veins"
+      ],
+      "locations": [
+        {
+          "map": "veins",
+          "x": 149,
+          "y": 217,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "veins 149, 217"
+        }
+      ]
+    },
+    "11": {
+      "original_instruction": "Talk to his son, Karyn (veins 327, 185), who you helped during the Veins Siblings Quest . He'll let you use his father's boat to access the monastery.",
+      "instruction_sha256": "c752cb8bec3abfc664a7b1267afe07368e4eb92eeef1f6baa41488c96313cf5f",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/c752cb8bec3abfc664a7/1",
+      "goal": "talk",
+      "short_ru": "Получите у Karyn разрешение на лодку: veins 327, 185.",
+      "short_en": "Get boat permission from Karyn: veins 327, 185.",
+      "full_ru": "Поговорите с его сыном Karyn (veins 327, 185), которому помогали в Veins Siblings Quest. Он разрешит воспользоваться отцовской лодкой для поездки к монастырю.",
+      "full_en": "Talk to his son, Karyn (veins 327, 185), who you helped during the Veins Siblings Quest . He'll let you use his father's boat to access the monastery.",
+      "npcs": [
+        {
+          "entity": "Karyn",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Karyn"
+        }
+      ],
+      "protected_names": [
+        "Karyn",
+        "Veins",
+        "veins"
+      ],
+      "locations": [
+        {
+          "map": "veins",
+          "x": 327,
+          "y": 185,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "veins 327, 185"
+        }
+      ]
+    },
+    "12": {
+      "original_instruction": "South of Veins you'll find a boat. (ve_fild07 128, 131) When you investigate it, you'll be greeted by Larjes. Talk to Larjes or use the boat to go to the Nameless Island.",
+      "instruction_sha256": "f5fd5ab762872e9998c44b860cf1e59d080e672011100e8aebdcf92ec158e3b2",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/f5fd5ab762872e9998c4/1",
+      "goal": "travel",
+      "short_ru": "У лодки ve_fild07 128, 131 поговорите с Larjes или используйте лодку.",
+      "short_en": "At the boat ve_fild07 128, 131, talk to Larjes or use the boat.",
+      "full_ru": "Южнее Veins найдите лодку (ve_fild07 128, 131). При осмотре вас встретит Larjes. Поговорите с Larjes или воспользуйтесь лодкой для поездки на Nameless Island.",
+      "full_en": "South of Veins you'll find a boat. (ve_fild07 128, 131) When you investigate it, you'll be greeted by Larjes. Talk to Larjes or use the boat to go to the Nameless Island.",
+      "npcs": [
+        {
+          "entity": "Larjes",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "travel",
+          "condition": "Either talk to Larjes or use the boat."
+        }
+      ],
+      "protected_names": [
+        "Larjes",
+        "Veins",
+        "ve_fild07",
+        "Nameless Island"
+      ],
+      "locations": [
+        {
+          "map": "ve_fild07",
+          "x": 128,
+          "y": 131,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ve_fild07 128, 131"
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "You'll need to investigate the island. There are triggers just west of the docks and inside a house near the top center, but these are not required. To continue, click on the Dead Crow (nameless_i 125,205) and investigate it.",
+      "instruction_sha256": "af5cef6a5b3636654a1456c3b52997c0bf070156bfc07416a5d4cb29c23e2dd9",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/af5cef6a5b3636654a14/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Dead Crow: nameless_i 125,205.",
+      "short_en": "Investigate Dead Crow: nameless_i 125,205.",
+      "full_ru": "Исследуйте остров. События западнее причала и в доме около верхней центральной части необязательны. Для продолжения нажмите Dead Crow (nameless_i 125,205) и осмотрите его.",
+      "full_en": "You'll need to investigate the island. There are triggers just west of the docks and inside a house near the top center, but these are not required. To continue, click on the Dead Crow (nameless_i 125,205) and investigate it.",
+      "npcs": [
+        {
+          "entity": "Dead Crow",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Dead Crow"
+        }
+      ],
+      "protected_names": [
+        "Dead Crow",
+        "nameless_i"
+      ],
+      "locations": [
+        {
+          "map": "nameless_i",
+          "x": 125,
+          "y": 205,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "nameless_i 125,205"
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "Once you wake up, you'll find yourself inside a house with Larjes. When you attempt to leave the house, you'll be attacked by a Zombie Slaughter. The monster must be killed before the house can be exited. There is no death penalty if you die at this encounter. After you leave the house, you will be able to freely enter and leave Nameless Island night map. | Note: Once you leave the house, you will be on the Nameless Island (Night) map, where there are numerous aggressive monsters. You will lose experience if you die here. | If you die inside the house while trying to kill the Zombie Slaughter, you will respawn. If this happens, just go back to Nameless Island and enter the first house on the north path. Be cautious because when you enter the Zombie Slaughter will attack you without warning this time.",
+      "instruction_sha256": "0a6e129a56b0a84ead69747b2cac5efc5bc5ce003506e56293472fcc388c2e39",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/0a6e129a56b0a84ead69/1",
+      "goal": "kill",
+      "short_ru": "Убейте Zombie Slaughter в доме; штрафа за смерть внутри нет, снаружи он действует.",
+      "short_en": "Kill Zombie Slaughter inside the house; death has no penalty inside, but does outside.",
+      "full_ru": "Очнувшись, вы окажетесь в доме с Larjes. При попытке выйти нападёт Zombie Slaughter: убейте его, чтобы выйти. В этом бою внутри дома штрафа за смерть нет. После выхода станет доступно свободное посещение ночной карты Nameless Island. Примечание: снаружи, на Nameless Island (Night), много агрессивных монстров и за смерть теряется опыт. При смерти от Zombie Slaughter внутри дома вы возродитесь; вернитесь на Nameless Island и войдите в первый дом на северной тропе. При повторном входе Zombie Slaughter нападёт сразу.",
+      "full_en": "Once you wake up, you'll find yourself inside a house with Larjes. When you attempt to leave the house, you'll be attacked by a Zombie Slaughter. The monster must be killed before the house can be exited. There is no death penalty if you die at this encounter. After you leave the house, you will be able to freely enter and leave Nameless Island night map. | Note: Once you leave the house, you will be on the Nameless Island (Night) map, where there are numerous aggressive monsters. You will lose experience if you die here. | If you die inside the house while trying to kill the Zombie Slaughter, you will respawn. If this happens, just go back to Nameless Island and enter the first house on the north path. Be cautious because when you enter the Zombie Slaughter will attack you without warning this time.",
+      "monsters": [
+        {
+          "entity": "Zombie Slaughter",
+          "operation": "kill",
+          "quantity": 1,
+          "required": 1,
+          "condition": "Must die before leaving this house; no death penalty applies only to this encounter."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill",
+          "entity": "Zombie Slaughter"
+        },
+        {
+          "operation": "leave"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "access",
+          "condition": "Nameless Island night map after leaving the house."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "death_penalty_scope",
+          "detail": "No-penalty exception applies only inside the encounter house. The night map outside has normal experience loss."
+        }
+      ],
+      "protected_names": [
+        "Larjes",
+        "Zombie Slaughter",
+        "Nameless Island"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "Following up with your investigation, you will have to make your way to floor 2 of the Monastery and investigate the Books on a desk in Hibram's quarters (abbey02 223,68).",
+      "instruction_sha256": "336a603891093a3b5543692dc711bc80f054a1a47873e59df255dd68a4825bd2",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/336a603891093a3b5543/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Books: abbey02 223,68, этаж 2 Monastery.",
+      "short_en": "Inspect Books: abbey02 223,68, Monastery floor 2.",
+      "full_ru": "Продолжая расследование, дойдите до этажа 2 Monastery и осмотрите Books на столе в комнате Hibram (abbey02 223,68).",
+      "full_en": "Following up with your investigation, you will have to make your way to floor 2 of the Monastery and investigate the Books on a desk in Hibram's quarters (abbey02 223,68).",
+      "npcs": [
+        {
+          "entity": "Books",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Books"
+        }
+      ],
+      "protected_names": [
+        "Books",
+        "abbey02"
+      ],
+      "locations": [
+        {
+          "map": "abbey02",
+          "x": 223,
+          "y": 68,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "abbey02 223,68"
+        }
+      ]
+    },
+    "16": {
+      "original_instruction": "Continue to floor 3 of the Monastery. In the top right most corner of the map in a prison cell you will find a Man collapsed on the ground. When you investigate the body, you will be attacked by the King's Corpse . This battle is fairly easy, if you can kill the regular monsters in the monestary you should be able to kill him.",
+      "instruction_sha256": "1420d4cdc38a5a966efd21d3f14f9d00710c06fcfac6f3bd8debeb3a7f405d33",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/1420d4cdc38a5a966efd/1",
+      "goal": "kill",
+      "short_ru": "Осмотрите Man на этаже 3 Monastery и победите King's Corpse.",
+      "short_en": "Inspect Man on Monastery floor 3 and defeat King's Corpse.",
+      "full_ru": "Поднимитесь на этаж 3 Monastery. В тюремной камере в самом верхнем правом углу найдите Man, лежащего на земле. Осмотрите тело: нападёт King's Corpse. По оценке источника, если вы справляетесь с обычными монстрами монастыря, этот бой также должен быть посилен.",
+      "full_en": "Continue to floor 3 of the Monastery. In the top right most corner of the map in a prison cell you will find a Man collapsed on the ground. When you investigate the body, you will be attacked by the King's Corpse . This battle is fairly easy, if you can kill the regular monsters in the monestary you should be able to kill him.",
+      "npcs": [
+        {
+          "entity": "Man",
+          "role": "interact"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "King's Corpse",
+          "operation": "kill",
+          "quantity": 1,
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Man"
+        },
+        {
+          "operation": "kill",
+          "entity": "King's Corpse"
+        }
+      ],
+      "protected_names": [
+        "Man",
+        "King's Corpse"
+      ],
+      "locations": []
+    },
+    "17": {
+      "original_instruction": "Once killed, you can retreive the Token of King from the body.",
+      "instruction_sha256": "b0c50109b627d1050a9f63c8c12db02277c42ed84e2466b0ceb4880c08a8d5e8",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/b0c50109b627d1050a9f/1",
+      "goal": "collect",
+      "short_ru": "Заберите Token of King с тела.",
+      "short_en": "Retrieve Token of King from the body.",
+      "full_ru": "После убийства заберите Token of King с тела.",
+      "full_en": "Once killed, you can retreive the Token of King from the body.",
+      "items": [
+        {
+          "entity": "Token of King",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Token of King"
+        }
+      ],
+      "protected_names": [
+        "Token of King"
+      ],
+      "locations": []
+    },
+    "18": {
+      "original_instruction": "Return to Larjes at the docks on Nameless Island, and give him the Token of King. You will be rewarded with 1,000,000 Base Experience.",
+      "instruction_sha256": "918271ea44b78ebe9fcf31a5db19da2e962b99ec4862ddac551f25691062b6ce",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/918271ea44b78ebe9fcf/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Token of King Larjes на причале; получите 1,000,000 Base Experience.",
+      "short_en": "Give Token of King to Larjes at the docks; receive 1,000,000 Base Experience.",
+      "full_ru": "Вернитесь к Larjes на причале Nameless Island и передайте Token of King. Награда — 1,000,000 Base Experience.",
+      "full_en": "Return to Larjes at the docks on Nameless Island, and give him the Token of King. You will be rewarded with 1,000,000 Base Experience.",
+      "npcs": [
+        {
+          "entity": "Larjes",
+          "role": "deliver"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Token of King",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Token of King"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "1000000"
+        }
+      ],
+      "protected_names": [
+        "Larjes",
+        "Token of King",
+        "Nameless Island"
+      ],
+      "locations": []
+    },
+    "19": {
+      "original_instruction": "Visit Father Bamph in Prontera again, and report your findings to him.",
+      "instruction_sha256": "e0e7dfe86131416090ebcb6f5f1f2aef694e1339507a3175f2a06d402a83c2cc",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/e0e7dfe86131416090eb/1",
+      "goal": "talk",
+      "short_ru": "Доложите Father Bamph в Prontera.",
+      "short_en": "Report to Father Bamph in Prontera.",
+      "full_ru": "Снова посетите Father Bamph в Prontera и доложите о находках.",
+      "full_en": "Visit Father Bamph in Prontera again, and report your findings to him.",
+      "npcs": [
+        {
+          "entity": "Father Bamph",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Father Bamph"
+        }
+      ],
+      "protected_names": [
+        "Father Bamph",
+        "Prontera"
+      ],
+      "locations": []
+    },
+    "20": {
+      "original_instruction": "Return to High Priest Niren. You will be rewarded with 500,000 Base Experience.",
+      "instruction_sha256": "0d460a03b8cfa76b492f6c3e6691352f234265d33a6a120a47ee053485caa895",
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/0d460a03b8cfa76b492f/1",
+      "goal": "receive_reward",
+      "short_ru": "Вернитесь к High Priest Niren за 500,000 Base Experience.",
+      "short_en": "Return to High Priest Niren for 500,000 Base Experience.",
+      "full_ru": "Вернитесь к High Priest Niren. Награда — 500,000 Base Experience.",
+      "full_en": "Return to High Priest Niren. You will be rewarded with 500,000 Base Experience.",
+      "npcs": [
+        {
+          "entity": "High Priest Niren",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Niren"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "500000"
+        }
+      ],
+      "protected_names": [
+        "High Priest Niren"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "contact_alias_unconfirmed",
+      "detail": "Ordinary Man is the casino contact in context, but a shared entity ID with later Larjes appearances is withheld pending explicit identity evidence."
+    }
+  ]
+}
