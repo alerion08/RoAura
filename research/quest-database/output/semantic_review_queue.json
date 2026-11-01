@@ -24806,38 +24806,38 @@
       "step_id": null
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Five players total equals the header four other players plus the questing player. Participation, not winning, unlocks Eukran; no party size, victory requirement or extra game is invented.",
       "evidence_id": "ev:69467aa24be146b92f4e33fc",
       "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:4ce6210751572a81815f2de3",
+      "reason": "bingo_participation_not_victory",
+      "review_id": "review:5800d8f3879d1fe55cdde639",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Airship Captain uses the shared Classic domestic-airship identity at airplane 236,163, already source-qualified as Ferlock in two other guides. The new descriptions preserve their own literal Airship Captain label.",
       "evidence_id": "ev:69467aa24be146b92f4e33fc",
       "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:a35cd6e9824749982cb70b02",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:3cb3f370dad9fb9eb89d97a2",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:97aafbadefa6b0abe42dd9ac",
+      "reason": "captain_identity_by_pinned_location",
+      "review_id": "review:34477bd11fa892fe0674e8cf",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:b30349d9285c7681f44f0957",
+      "detail": "Remedy retains a source-qualified unknown-ID identity and NULL quantity. Its transfer is known, not a numerical inventory count. Exact final EXP comes once from the header.",
+      "evidence_id": "ev:69467aa24be146b92f4e33fc",
       "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:c7f8452ca09dc961997dd1ef",
+      "reason": "remedy_inventory_unknown",
+      "review_id": "review:92240278c6921acf05040e8b",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "The young man in stage 8 is explicitly identified as Thierry at 9. His map inherits odin_tem01 from the same source scene with context evidence. The generic stranger is not silently made a separately named or game-ID-verified NPC.",
+      "evidence_id": "ev:69467aa24be146b92f4e33fc",
+      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
+      "reason": "scene_context_not_generic_actor_merge",
+      "review_id": "review:aa9da74c3e4fb10061d5c935",
       "severity": "warning",
       "step_id": null
     },
@@ -24851,229 +24851,22 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d6f8606d0bcbcd862fabd446",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:500d5722a5a23286897d0246",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/0bf9c7e2ac6968dc9d34/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d6f8606d0bcbcd862fabd446",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3b23659c247bd63613664fa1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/0bf9c7e2ac6968dc9d34/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e57100450acda2a76138b39c",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ef4c0bbc16576ff5af136c9c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/186d65cc6212068e2699/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e57100450acda2a76138b39c",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5f43948219848a5ee30afdae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/186d65cc6212068e2699/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:17f0106fad7ea49d31debc22",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9d543f4e8aa0db3ea2b2563f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/2860e602b997d93577ee/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:17f0106fad7ea49d31debc22",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2779338036b249f034820865",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/2860e602b997d93577ee/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1e9d75f38f27c5f1b821384a",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:539494e25c1c58b6c00aa3cf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/31e6ba236522c6660e48/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1e9d75f38f27c5f1b821384a",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5d9ca91cade0f8f2dd614610",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/31e6ba236522c6660e48/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:dcdcf9bf6c709249ed247e9b",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0d4c4a2e98c233806e78f41d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/38ab41ec9d8121c03748/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:dcdcf9bf6c709249ed247e9b",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:af1637e092b7edf6de337216",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/38ab41ec9d8121c03748/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:36bcaa922c7393821a2203af",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9171a4dba073f71cdab36c0f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/612e831cd0b43375886e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:36bcaa922c7393821a2203af",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bc8881d295a05267e1226efd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/612e831cd0b43375886e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e9a1439005a566c835009efb",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:63ce8b68a1b33029228c26ed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/70e1dda7cd6110ebb3f7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e9a1439005a566c835009efb",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:11753d3d4b92aba361b079c1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/70e1dda7cd6110ebb3f7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:23de19f4365e3f401a8e4cec",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5d257e488cef5c9275ff42dc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/80b06517ea529158d7cf/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:23de19f4365e3f401a8e4cec",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0908671f3bece04d601d5800",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/80b06517ea529158d7cf/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7623d8972dc2ef0577c5fb8c",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1f6d6e23ea37473486f84345",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/846b5519683b68929f5d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7623d8972dc2ef0577c5fb8c",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e263c1789ade406e16df451b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/846b5519683b68929f5d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f54b13fdb8913166233741c3",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9398dad48ad79a9b54a733c2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/9bf19d7052e5b5a573c8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f54b13fdb8913166233741c3",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:cab126f2220e4b1912b8460d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/9bf19d7052e5b5a573c8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "Source gives Hugel context and bare 57,207. No literal map code is supplied at this point, so no hugel map code is invented.",
       "evidence_id": "ev:c3b08d58edbd1d107fcc4b15",
       "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c4597664a61e4745fedb9ef1",
-      "severity": "blocking",
+      "reason": "bingo_house_map_unqualified",
+      "review_id": "review:bf5b857f71d33cdeb2307686",
+      "severity": "warning",
       "step_id": "irowiki-classic:Juno_Remedy_Quest/step/c2637f7397aadfdce4b7/1"
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:e96dd9da003411e43db9b0f2",
+      "evidence_id": "ev:46199392aeba575ae79de9e1",
       "quest_id": "irowiki-classic:Juno_Remedy_Quest",
       "reason": "map_unknown",
       "review_id": "review:373c8305ed1057f53be563e7",
       "severity": "warning",
       "step_id": "irowiki-classic:Juno_Remedy_Quest/step/c2637f7397aadfdce4b7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c3b08d58edbd1d107fcc4b15",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c323941ea7b82dcf489a7f0f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/c2637f7397aadfdce4b7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b5403f26c5af083a1d815679",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b6d904c06de4e747235cb396",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/d872e2a98ca2d7952a89/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b5403f26c5af083a1d815679",
-      "quest_id": "irowiki-classic:Juno_Remedy_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:736c3b563464071d4408f9dd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/d872e2a98ca2d7952a89/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -27812,38 +27605,29 @@
       "step_id": "irowiki-classic:Lost_Child_Quest/step/b5fb45be3698bb9e1c76/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Stages 5 and 6 require the player's own character name. No literal placeholder or invented name is a correct copyable dialogue option. Klitzer at stage 7 is the separate literal answer.",
       "evidence_id": "ev:db9d9a5c981833c6a5ca3e54",
       "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:0b2d099d649dbaddeaac1b7c",
+      "reason": "character_name_is_dynamic_answer",
+      "review_id": "review:28ee33df40e7a0cd28459f83",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Satra consumes 40 Coal total, split into four 10-Coal deliveries. Header, total and batch metadata summarize the same cost. Buying and giving Tuxedo are two operations on one suit; Flower is requested, not explicitly granted.",
       "evidence_id": "ev:db9d9a5c981833c6a5ca3e54",
       "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:46440967c88e7aff3ce7871f",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:5791e6cb43f062f8d4a4708a",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:67cb18275cae6ccbc89c9745",
+      "reason": "four_batches_one_material_total",
+      "review_id": "review:14394bd7784ff73ac68943c8",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:7e346ae5579f0edcde5d75ab",
+      "detail": "Level 4 Weapon Ore is a random reward category. Its specific item, quantity and probabilities are unknown; no named ore or game ID is invented.",
+      "evidence_id": "ev:db9d9a5c981833c6a5ca3e54",
       "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:f42840710becd1226dcf2a95",
+      "reason": "random_ore_category_not_named_item",
+      "review_id": "review:5f7348b9d1d6c0a19e641d3b",
       "severity": "warning",
       "step_id": null
     },
@@ -27857,184 +27641,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e985972feff95a80b350b40f",
+      "detail": "Stages 4 and 9 each pay one of six level-band amounts. Header totals match twice those amounts; they are not additional grants. Do not impose unchanged player level between the two stages.",
+      "evidence_id": "ev:db9d9a5c981833c6a5ca3e54",
       "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f32658410dbe0a0cfe11f08b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/1097885a981829d7b074/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e985972feff95a80b350b40f",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2cb03b45184f102a22cdea8e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/1097885a981829d7b074/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6f5d6495a006989f7466c50f",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d675c80d2c547f88d4748778",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/1aeda83affe3e1a4afaa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6f5d6495a006989f7466c50f",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:cdb3acfca2ba96f96e32c9e2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/1aeda83affe3e1a4afaa/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:6f5d6495a006989f7466c50f",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:158bb7ac8b07bc6a03a44fae",
+      "reason": "two_independent_level_installments",
+      "review_id": "review:8e13ebb6614be0bf8f5ffd42",
       "severity": "warning",
-      "step_id": "irowiki-classic:Lovers_Quest/step/1aeda83affe3e1a4afaa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d7473869db9632ae7e289aa7",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2f8c1671770600ae6a2d7930",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/1ff24107ccf2d11d32b9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d7473869db9632ae7e289aa7",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:66e8be02cc32f9cdf8952788",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/1ff24107ccf2d11d32b9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1340caedfdd02f2935143779",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0313b5b34ca81fb6b1e08800",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/219ef5f158f25db2db57/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1340caedfdd02f2935143779",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:90d8bac88b0ead1948b06a98",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/219ef5f158f25db2db57/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:bb34928af25164205994e60a",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b7ec383339dbcd25a77bcfd0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/5e780e7e651861dc4637/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:bb34928af25164205994e60a",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4b19ba779b98bf60c0239aa0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/5e780e7e651861dc4637/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5f2e845682449631eb4b9cfd",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c0f46df01aee401e4978ba21",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/7daf31df45bef81de9f9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5f2e845682449631eb4b9cfd",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e2cb8777a061b6753233c55f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/7daf31df45bef81de9f9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e2d4defba139205a5e402076",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:50ac21bbce7ca7c583683867",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/c2313cc3f5619c8279ea/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e2d4defba139205a5e402076",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7d68103f621cc4be64014c21",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/c2313cc3f5619c8279ea/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:e2d4defba139205a5e402076",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:d4b2ef1c48f224e5db572201",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Lovers_Quest/step/c2313cc3f5619c8279ea/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5a18b43ab88b7e9767ff6fee",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7e0dd8cd2710a9f667b6cb5b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/f55fec0fea437bbdb6c7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5a18b43ab88b7e9767ff6fee",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e90725acd562d18c7d0f7f5a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/f55fec0fea437bbdb6c7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d761b07147797b48deb50869",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5441a5f57879dcf04de62be5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/fefb0f75a726aff62c07/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d761b07147797b48deb50869",
-      "quest_id": "irowiki-classic:Lovers_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:eb26a30269dfe7c4a4370e2e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Lovers_Quest/step/fefb0f75a726aff62c07/1"
+      "step_id": null
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -41168,38 +40781,29 @@
       "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/f254dedd75b7d6af2bca/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Kazien and Kaizen spellings both occur. Preserve the two literal labels without silently creating a universal game-name alias; Young Man is explicitly identified as Kazien in stage 2.",
       "evidence_id": "ev:9a58ea5fe35e153ef11d6f12",
       "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "original_html_missing",
-      "review_id": "review:60b9874fe1122a99a3ae5b81",
+      "reason": "kazien_kaizen_source_spelling",
+      "review_id": "review:d76706d272c63193373d92d5",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Failure retry wait is unspecified. The separate 5–10-minute wait is source troubleshooting advice for missing Lyozien, not a mission cooldown or guaranteed respawn interval. GM/official support advice is source-specific.",
       "evidence_id": "ev:9a58ea5fe35e153ef11d6f12",
       "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:7f9ff2d3ba2c53a90554af46",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:699fbdbf91528367d5350432",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:a5b97fd996c94672e04a34ed",
+      "reason": "retry_and_missing_npc_timers_distinct",
+      "review_id": "review:3ccc26e1a62ad20bb4c43c4a",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:be984638dedb2e5d30524914",
+      "detail": "Three Base EXP grants sum to the 1400000 header; the White Potion header is not an extra grant. The final flashback at stage 17 follows the last payout and is the stated completion trigger.",
+      "evidence_id": "ev:9a58ea5fe35e153ef11d6f12",
       "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:8fcc0cf5f6ea5cac0643126d",
+      "reason": "rewards_not_terminal_trigger",
+      "review_id": "review:4f2ce9867d2082c3f0fcbf4e",
       "severity": "warning",
       "step_id": null
     },
@@ -41213,328 +40817,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0a057663e90f74014ceae86f",
+      "detail": "Base level 70 gates obtaining work, while Old Man can add the quest-log entry earlier. Header level is not an executable acceptance rule.",
+      "evidence_id": "ev:9a58ea5fe35e153ef11d6f12",
       "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:a97de693ee496247e41eb7b3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/0569458b056f3ecd1f9e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0a057663e90f74014ceae86f",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:42e395125e58be9d668ae66e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/0569458b056f3ecd1f9e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a2f941ee90181363e2f6a4d5",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:12d1bab1477662bddfc6256c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/2489a79794b2f5acd134/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a2f941ee90181363e2f6a4d5",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:151b8d622a876ecadeaf217d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/2489a79794b2f5acd134/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:a2f941ee90181363e2f6a4d5",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:fa15ba82b2e0d422e3e5bc1a",
+      "reason": "work_gate_not_quest_log_gate",
+      "review_id": "review:b9fafab4652041c7193d1505",
       "severity": "warning",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/2489a79794b2f5acd134/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ab5233e7adc486fe4aab25e4",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:8ce6f3bec6cc91b6baa2edb3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/3cc0e7985043ac3ebb36/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ab5233e7adc486fe4aab25e4",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b74b6515c0d636fff1cf7b03",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/3cc0e7985043ac3ebb36/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:23c67ba057a5c52f4c770950",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:6c5158a5d0842a5e5709b59e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/3d44237ee8300a1c2cf0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:23c67ba057a5c52f4c770950",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6df11c897d0bb1d03d428669",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/3d44237ee8300a1c2cf0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:33581877e06d4eb93d343e5c",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:12f58b87af9b35c7d4b20cf0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/4473843e336db469cd2d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:33581877e06d4eb93d343e5c",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:52283615cf93ba190e5e23c0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/4473843e336db469cd2d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0604ca073d3bf75f48b61ddd",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:de4cd16d42a2d9c508e1aa91",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/468e02ca4b597f712daa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0604ca073d3bf75f48b61ddd",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:75ec2c6bd70a7413431da0a5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/468e02ca4b597f712daa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5846259ed337b5801d33f0a1",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:3455f94846e8f0c530073b82",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/592169b1ef7e9128aabc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5846259ed337b5801d33f0a1",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f05eb9de470964a968624982",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/592169b1ef7e9128aabc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0f559572ec5bf5f12dada68c",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:41a79697c2f96f53695524b4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/6d3a7b92e93767b6344a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0f559572ec5bf5f12dada68c",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ec5bab6b28f220376a52baad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/6d3a7b92e93767b6344a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:41fc2ecda14fb2c9512c9eeb",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:1b8925a8effd1ad78114e48f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/a525ab0439f332093efc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:41fc2ecda14fb2c9512c9eeb",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3c90f7c97ff83da60fc87a73",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/a525ab0439f332093efc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:408b9684000b6fd0c3df524b",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:1c51b3ae60177ab0945d8cab",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/a7de809a6a14979548ad/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:408b9684000b6fd0c3df524b",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:08864d39c831cfc116741c75",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/a7de809a6a14979548ad/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:89a76d0abe4d4e640f2eba87",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:f96262d2cce091a4ebffd9fc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/a954d235f2b6569ae4d5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:89a76d0abe4d4e640f2eba87",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9c37540c668dbc68a96b4f41",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/a954d235f2b6569ae4d5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:cbacd3cb0997ff8ee50aca48",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:278a6b1904c4cc0f1625ffb4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/aba4d9975cef4b58729a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:cbacd3cb0997ff8ee50aca48",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fed8fd1ae5f05db3b6f676fb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/aba4d9975cef4b58729a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:53941cc10432d0c2394ae6b1",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:e623a82298054659c80113c8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/b2a41938896d9dbbdad9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:53941cc10432d0c2394ae6b1",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7e587fbd7f32d88996be4123",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/b2a41938896d9dbbdad9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f58aaffe80349712a40f9f2f",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:e5d69acd496db272e37dc90a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e257c57927e946774082/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f58aaffe80349712a40f9f2f",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d891988f00dda44e343b9bed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e257c57927e946774082/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3fc71924e9540de4b731f340",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:11f8e7af9e28a23ca8c90fae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e6622b9aad2f033b53a1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3fc71924e9540de4b731f340",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:64ce6a5bf3b1a3299b4b4271",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e6622b9aad2f033b53a1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:40867c79373fc528a6e6fbf9",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:9cfc8f028d27f967a1ca9c37",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e66c82979af367883198/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:40867c79373fc528a6e6fbf9",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:65a51011cfb2f75b966887d2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e66c82979af367883198/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b6053303d9b03ba8c5eb23cb",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "localization_missing",
-      "review_id": "review:14baf76840b73e2080c30d59",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e6900777ba3607bf5c79/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b6053303d9b03ba8c5eb23cb",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:75faaa2e2ca41eab64dadf11",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e6900777ba3607bf5c79/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:b6053303d9b03ba8c5eb23cb",
-      "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:7a0f35cb038bc7cce0e3aaa9",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e6900777ba3607bf5c79/1"
+      "step_id": null
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
