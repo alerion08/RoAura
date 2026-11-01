@@ -16,7 +16,7 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-5.1.0'
+VERSION = 'semantic-5.2.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
@@ -434,7 +434,7 @@ def curated_relations(w,curation):
             w.add('quest_relations',quest_id=w.qid,related_id=relation['related_quest_id'],kind=relation['kind'],evidence_id=ev)
             continue
         step=w.db.execute('SELECT step_id,original_instruction FROM quest_steps WHERE quest_id=? AND step_order=?',(w.qid,relation['source_step'])).fetchone()
-        if relation['kind'] not in ('source_concurrency_constraint','extra_stage_required_for_prerequisite','stage_required_to_start') or not target or not step:
+        if relation['kind'] not in ('source_concurrency_constraint','extra_stage_required_for_prerequisite','stage_required_to_start','completion_required_at_step') or not target or not step:
             raise ValueError('Invalid curated quest relation')
         snippet=relation.get('evidence',step[1])
         if snippet not in step[1] or target[0] not in snippet:raise ValueError('Unproven curated quest relation')
@@ -608,7 +608,7 @@ def validate(db):
       AND support.step_id=edge.to_step AND support.snippet=b.original_instruction)) LIMIT 1''').fetchone():errors.append('invalid_action_reuse_target')
     if db.execute('''SELECT 1 FROM quest_relations r JOIN evidence e USING(evidence_id) LEFT JOIN quest_steps s ON s.step_id=e.step_id
       JOIN quests target ON target.quest_id=r.related_id
-      WHERE r.kind IN ('source_concurrency_constraint','extra_stage_required_for_prerequisite','stage_required_to_start')
+      WHERE r.kind IN ('source_concurrency_constraint','extra_stage_required_for_prerequisite','stage_required_to_start','completion_required_at_step')
       AND (e.method<>'curated_quest_relation' OR e.quest_id IS NOT r.quest_id OR s.quest_id IS NOT r.quest_id
       OR instr(s.original_instruction,e.snippet)=0 OR instr(e.snippet,target.original_name)=0) LIMIT 1''').fetchone():errors.append('invalid_curated_quest_relation')
     for owner,kind,related,eid in db.execute("SELECT quest_id,kind,related_id,evidence_id FROM quest_relations WHERE kind='mandatory_prerequisite'"):

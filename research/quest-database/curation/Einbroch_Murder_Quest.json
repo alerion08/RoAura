@@ -1,0 +1,732 @@
+{
+  "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "9569ed8f10b1be279261f9d6f6b1e15081508c1668334353c923302a298d5155",
+  "snapshot_sha256": "06df70c53b3bd4a9a4518b4c74dab44e5884010d04e0838e6c906a8c7498dd31",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Young Man",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Buender Hikeman",
+      "aliases": [
+        "Hikeman"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Shinokas",
+      "aliases": [
+        "Sick Old Man"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "maid",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "father",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Zelmeto",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Unknown Stuff",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Apple Merchant",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "scientist",
+      "ref": "lab_scientist"
+    },
+    {
+      "type": "npc",
+      "name": "Drunken Old Man",
+      "aliases": [
+        "scientist"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Einbech"
+    },
+    {
+      "type": "map",
+      "name": "einbech",
+      "map_code": "einbech"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch"
+    },
+    {
+      "type": "map",
+      "name": "einbroch",
+      "map_code": "einbroch"
+    },
+    {
+      "type": "map",
+      "name": "ein_in01",
+      "map_code": "ein_in01"
+    },
+    {
+      "type": "map",
+      "name": "ein_in",
+      "map_code": "ein_in"
+    },
+    {
+      "type": "map",
+      "name": "airplane",
+      "map_code": "airplane"
+    },
+    {
+      "type": "map",
+      "name": "Laboratory"
+    },
+    {
+      "type": "map",
+      "name": "Kappelthaine Manor"
+    },
+    {
+      "type": "item",
+      "name": "apples"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Go to Einbech . When you step off the train there is a Young Man (einbech 58 209) who talks about depressed guy in pub. Go talk to Buender Hikeman behind the tavern (einbech 164 102). He will mistake you for a killer. Talk to him again, and ask him how he escaped. He'll rant and pass out.",
+      "instruction_sha256": "1adb2c4996a2bd7f3c00dee9391f77d7d055938e7a3b80202edfad891de67e58",
+      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/1adb2c4996a2bd7f3c00/1",
+      "goal": "talk",
+      "short_ru": "В Einbech поговорите с Young Man (58 209), затем с Buender Hikeman (164 102).",
+      "short_en": "In Einbech, talk to Young Man (58 209), then Buender Hikeman (164 102).",
+      "full_ru": "Идите в Einbech. У станции Young Man (einbech 58 209) расскажет о подавленном человеке в пабе. Поговорите с Buender Hikeman за таверной (einbech 164 102). Он примет вас за убийцу. Поговорите снова и спросите, как он спасся; он начнёт бредить и потеряет сознание.",
+      "full_en": "Go to Einbech . When you step off the train there is a Young Man (einbech 58 209) who talks about depressed guy in pub. Go talk to Buender Hikeman behind the tavern (einbech 164 102). He will mistake you for a killer. Talk to him again, and ask him how he escaped. He'll rant and pass out.",
+      "npcs": [
+        {
+          "entity": "Young Man",
+          "role": "talk"
+        },
+        {
+          "entity": "Buender Hikeman",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "einbech",
+          "x": 58,
+          "y": 209,
+          "role": "npc",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "einbech",
+          "x": 164,
+          "y": 102,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Young Man"
+        },
+        {
+          "operation": "talk",
+          "entity": "Buender Hikeman"
+        }
+      ],
+      "protected_names": [
+        "Young Man",
+        "Buender Hikeman",
+        "Einbech",
+        "einbech"
+      ]
+    },
+    "2": {
+      "original_instruction": "Now head to Einbroch . At the second floor of the Hotel (einbroch 252 200), in the south eastern room there is a Sick Old Man - Shinokas (ein_in01 231, 161) in bed. Ask him if he always lived in Einbroch and you'll find out he is hiding something. Keep badgering him about the mine collapse and eventually you'll get the option to ask about Hikeman. He will slip up and reveal he really was part of that incident. Talk to him again and he asks you to search the Kappelthaine Manor (einbroch 126 229) for more information about the ore. Talk to the maid there and she denies any ore. | Note: To talk to NPCs in the Kappelthaine Manor, immediately move into the south room upon entering. The father will kick you out of the house if you go near him, so you have to talk to the three NPCs in the room (two are for another quest) through the walls.",
+      "instruction_sha256": "60fcc0093e01dcbd71e0ffa091730c4105f3fe074aca8e781ecfba129a2327d4",
+      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/60fcc0093e01dcbd71e0/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Shinokas (ein_in01 231, 161), затем maid в Kappelthaine Manor; избегайте father.",
+      "short_en": "Question Shinokas (ein_in01 231, 161), then the maid in Kappelthaine Manor; avoid the father.",
+      "full_ru": "Идите в Einbroch. На втором этаже Hotel (einbroch 252 200), в юго-восточной комнате, лежит Sick Old Man — Shinokas (ein_in01 231, 161). Спросите, всегда ли он жил в Einbroch. Продолжайте расспрашивать об обрушении шахты, затем о Hikeman. Снова поговорите с ним: он направит в Kappelthaine Manor (einbroch 126 229) узнать о руде. Поговорите с maid; она всё отрицает. Примечание: сразу после входа в Kappelthaine Manor идите в южную комнату. father выгонит вас, если подойти к нему. С тремя NPCs в комнате говорите через стены; два из них относятся к другому квесту.",
+      "full_en": "Now head to Einbroch . At the second floor of the Hotel (einbroch 252 200), in the south eastern room there is a Sick Old Man - Shinokas (ein_in01 231, 161) in bed. Ask him if he always lived in Einbroch and you'll find out he is hiding something. Keep badgering him about the mine collapse and eventually you'll get the option to ask about Hikeman. He will slip up and reveal he really was part of that incident. Talk to him again and he asks you to search the Kappelthaine Manor (einbroch 126 229) for more information about the ore. Talk to the maid there and she denies any ore. | Note: To talk to NPCs in the Kappelthaine Manor, immediately move into the south room upon entering. The father will kick you out of the house if you go near him, so you have to talk to the three NPCs in the room (two are for another quest) through the walls.",
+      "npcs": [
+        {
+          "entity": "Shinokas",
+          "role": "talk"
+        },
+        {
+          "entity": "maid",
+          "role": "talk"
+        },
+        {
+          "entity": "father",
+          "role": "avoid"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "einbroch",
+          "x": 252,
+          "y": 200,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "ein_in01",
+          "x": 231,
+          "y": 161,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        },
+        {
+          "entity": "einbroch",
+          "x": 126,
+          "y": 229,
+          "role": "entrance",
+          "known": true,
+          "order": 3
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Shinokas"
+        },
+        {
+          "operation": "enter",
+          "condition": "Immediately move south and avoid the father; speak through walls."
+        },
+        {
+          "operation": "talk",
+          "entity": "maid"
+        }
+      ],
+      "protected_names": [
+        "Shinokas",
+        "maid",
+        "father",
+        "Einbroch",
+        "einbroch",
+        "ein_in01",
+        "ein_in",
+        "Kappelthaine Manor"
+      ]
+    },
+    "3": {
+      "original_instruction": "Return to Shinokas and he'll ask you to search the factory next. Talk to Zelmeto (ein_in 67, 247) (and finish the Einbroch Factory Maintenance quest up to the part where one must hand him spare parts if you haven't already) in the factory and return to Shinokas. He gives you the option of where you think it may be hidden.",
+      "instruction_sha256": "135d6ab6b0ce28128d0d5afa7e95fddd193739a52fac1173521b742f82599924",
+      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/135d6ab6b0ce28128d0d/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Zelmeto (ein_in 67, 247), выполнив этап запасных частей фабрики; вернитесь к Shinokas.",
+      "short_en": "Talk to Zelmeto (ein_in 67, 247) after the factory spare-parts stage; return to Shinokas.",
+      "full_ru": "Вернитесь к Shinokas. Он попросит осмотреть фабрику. Поговорите с Zelmeto (ein_in 67, 247); если нужно, доведите Einbroch Factory Maintenance до передачи запасных частей. Вернитесь к Shinokas и выберите, где может находиться руда.",
+      "full_en": "Return to Shinokas and he'll ask you to search the factory next. Talk to Zelmeto (ein_in 67, 247) (and finish the Einbroch Factory Maintenance quest up to the part where one must hand him spare parts if you haven't already) in the factory and return to Shinokas. He gives you the option of where you think it may be hidden.",
+      "npcs": [
+        {
+          "entity": "Shinokas",
+          "role": "talk"
+        },
+        {
+          "entity": "Zelmeto",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "factory_spare_parts_progress",
+          "condition": "Source requires Factory progress through handing over spare parts; do not infer a different map or an additional material set."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Shinokas"
+        },
+        {
+          "operation": "talk",
+          "entity": "Zelmeto"
+        },
+        {
+          "operation": "talk",
+          "entity": "Shinokas"
+        }
+      ],
+      "protected_names": [
+        "Shinokas",
+        "Zelmeto",
+        "Einbroch",
+        "ein_in"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "If you pick Laboratory (Southwest Einbroch - einbroch 53, 51), you have to 'sneak in'. The door at the laboratory will now request a password...you have to type in the nonesense that it tells you. OR you can just copy/paste the correct combination in. Following is the full list of pairings(one is used twice): | burrdingdingdilidingdingphoohudaambandoorabambarambambamburanbamding | burapaphurarlandreamduranbatuhiwooikabamturubamdingding | belief love luck grimace sweat rush folktale rodimus optimus burnblebe | LiGhTsPeEd RiGhT SPEed leFT TURn RiGhT BuRn OrIGInAL GaNgSteR SmACk | You give me no choice. I guess it's time for me to reveal my secret... | fReeDoM eCstAcy JoUrnaLiSm ArMpit DisCoverY hEaDaChE MoonbeAmS jUsTiCE | Coboman no chikara-yumei na chikara-daiookii na chikara da ze! COBO ON | hfjdkeldjshfjdjeiskdlefvbd | I'm the King of all Weirdos! Now you know of my true power. Obey~! | uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH | By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE! | uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH | ...silence. quiet benevolence... soul mate... wonder. enigma... cloud. | opeN,Open!op3n.openOpen0p3nOpEn0pen`open'0Pen open?open!111OPENSESAME",
+      "instruction_sha256": "cc192d99f0d00c61da8929fdb6f2786ddb51eb116b7f98ba42780caa32d4b5c1",
+      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/cc192d99f0d00c61da89/1",
+      "goal": "dialogue",
+      "short_ru": "У Laboratory (einbroch 53, 51) введите ответ, соответствующий показанной строке.",
+      "short_en": "At Laboratory (einbroch 53, 51), enter the answer matching the displayed prompt.",
+      "full_ru": "Выбрав Laboratory на юго-западе Einbroch (einbroch 53, 51), проникните внутрь через проверку пароля. Введите требуемую строку или вставьте соответствующий ответ из списка пар. Один ответ используется дважды. burrdingdingdilidingdingphoohudaambandoorabambarambambamburanbamding | burapaphurarlandreamduranbatuhiwooikabamturubamdingding | belief love luck grimace sweat rush folktale rodimus optimus burnblebe | LiGhTsPeEd RiGhT SPEed leFT TURn RiGhT BuRn OrIGInAL GaNgSteR SmACk | You give me no choice. I guess it's time for me to reveal my secret... | fReeDoM eCstAcy JoUrnaLiSm ArMpit DisCoverY hEaDaChE MoonbeAmS jUsTiCE | Coboman no chikara-yumei na chikara-daiookii na chikara da ze! COBO ON | hfjdkeldjshfjdjeiskdlefvbd | I'm the King of all Weirdos! Now you know of my true power. Obey~! | uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH | By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE! | uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH | ...silence. quiet benevolence... soul mate... wonder. enigma... cloud. | opeN,Open!op3n.openOpen0p3nOpEn0pen`open'0Pen open?open!111OPENSESAME",
+      "full_en": "If you pick Laboratory (Southwest Einbroch - einbroch 53, 51), you have to 'sneak in'. The door at the laboratory will now request a password...you have to type in the nonesense that it tells you. OR you can just copy/paste the correct combination in. Following is the full list of pairings(one is used twice): | burrdingdingdilidingdingphoohudaambandoorabambarambambamburanbamding | burapaphurarlandreamduranbatuhiwooikabamturubamdingding | belief love luck grimace sweat rush folktale rodimus optimus burnblebe | LiGhTsPeEd RiGhT SPEed leFT TURn RiGhT BuRn OrIGInAL GaNgSteR SmACk | You give me no choice. I guess it's time for me to reveal my secret... | fReeDoM eCstAcy JoUrnaLiSm ArMpit DisCoverY hEaDaChE MoonbeAmS jUsTiCE | Coboman no chikara-yumei na chikara-daiookii na chikara da ze! COBO ON | hfjdkeldjshfjdjeiskdlefvbd | I'm the King of all Weirdos! Now you know of my true power. Obey~! | uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH | By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE! | uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH | ...silence. quiet benevolence... soul mate... wonder. enigma... cloud. | opeN,Open!op3n.openOpen0p3nOpEn0pen`open'0Pen open?open!111OPENSESAME",
+      "actions": [
+        {
+          "operation": "enter"
+        }
+      ],
+      "protected_names": [
+        "Einbroch",
+        "einbroch",
+        "Laboratory"
+      ],
+      "locations": [
+        {
+          "map": "einbroch",
+          "x": 53,
+          "y": 51,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "einbroch 53, 51"
+        }
+      ],
+      "dialogues": [
+        {
+          "text": "burrdingdingdilidingdingphoohudaambandoorabambarambambamburanbamding",
+          "evidence": "burrdingdingdilidingdingphoohudaambandoorabambarambambamburanbamding | burapaphurarlandreamduranbatuhiwooikabamturubamdingding",
+          "options": [
+            {
+              "text": "burapaphurarlandreamduranbatuhiwooikabamturubamdingding",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Only for this exact displayed prompt; case and punctuation are significant."
+            }
+          ]
+        },
+        {
+          "text": "belief love luck grimace sweat rush folktale rodimus optimus burnblebe",
+          "evidence": "belief love luck grimace sweat rush folktale rodimus optimus burnblebe | LiGhTsPeEd RiGhT SPEed leFT TURn RiGhT BuRn OrIGInAL GaNgSteR SmACk",
+          "options": [
+            {
+              "text": "LiGhTsPeEd RiGhT SPEed leFT TURn RiGhT BuRn OrIGInAL GaNgSteR SmACk",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Only for this exact displayed prompt; case and punctuation are significant."
+            }
+          ]
+        },
+        {
+          "text": "You give me no choice. I guess it's time for me to reveal my secret...",
+          "evidence": "You give me no choice. I guess it's time for me to reveal my secret... | fReeDoM eCstAcy JoUrnaLiSm ArMpit DisCoverY hEaDaChE MoonbeAmS jUsTiCE",
+          "options": [
+            {
+              "text": "fReeDoM eCstAcy JoUrnaLiSm ArMpit DisCoverY hEaDaChE MoonbeAmS jUsTiCE",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Only for this exact displayed prompt; case and punctuation are significant."
+            }
+          ]
+        },
+        {
+          "text": "Coboman no chikara-yumei na chikara-daiookii na chikara da ze! COBO ON",
+          "evidence": "Coboman no chikara-yumei na chikara-daiookii na chikara da ze! COBO ON | hfjdkeldjshfjdjeiskdlefvbd",
+          "options": [
+            {
+              "text": "hfjdkeldjshfjdjeiskdlefvbd",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Only for this exact displayed prompt; case and punctuation are significant."
+            }
+          ]
+        },
+        {
+          "text": "I'm the King of all Weirdos! Now you know of my true power. Obey~!",
+          "evidence": "I'm the King of all Weirdos! Now you know of my true power. Obey~! | uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH",
+          "options": [
+            {
+              "text": "uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Only for this exact displayed prompt; case and punctuation are significant."
+            }
+          ]
+        },
+        {
+          "text": "By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE!",
+          "evidence": "By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE! | uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH",
+          "options": [
+            {
+              "text": "uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Only for this exact displayed prompt; case and punctuation are significant."
+            }
+          ]
+        },
+        {
+          "text": "...silence. quiet benevolence... soul mate... wonder. enigma... cloud.",
+          "evidence": "...silence. quiet benevolence... soul mate... wonder. enigma... cloud. | opeN,Open!op3n.openOpen0p3nOpEn0pen`open'0Pen open?open!111OPENSESAME",
+          "options": [
+            {
+              "text": "opeN,Open!op3n.openOpen0p3nOpEn0pen`open'0Pen open?open!111OPENSESAME",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Only for this exact displayed prompt; case and punctuation are significant."
+            }
+          ]
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Talk to the scientist inside, and he will tell you the head of the lab is on the airship flirting with some lady. While here, click on the small \"Unknown Stuff\" in the middle of the room at the center of the machine.",
+      "instruction_sha256": "e7e9e6104c6d7e83035b4d27d914a490a0d024870172f18f278af12a8d6658c7",
+      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/e7e9e6104c6d7e83035b/1",
+      "goal": "investigate",
+      "short_ru": "Поговорите с scientist и нажмите Unknown Stuff в центре машины.",
+      "short_en": "Talk to the scientist and click Unknown Stuff in the machine’s center.",
+      "full_ru": "Поговорите с scientist внутри. Он скажет, что руководитель лаборатории находится на airship и флиртует с женщиной. Нажмите Unknown Stuff в центре машины посреди комнаты.",
+      "full_en": "Talk to the scientist inside, and he will tell you the head of the lab is on the airship flirting with some lady. While here, click on the small \"Unknown Stuff\" in the middle of the room at the center of the machine.",
+      "npcs": [
+        {
+          "entity": "lab_scientist",
+          "role": "talk"
+        },
+        {
+          "entity": "Unknown Stuff",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "lab_scientist"
+        },
+        {
+          "operation": "interact",
+          "entity": "Unknown Stuff"
+        }
+      ],
+      "mention_entities": {
+        "scientist": "lab_scientist"
+      },
+      "protected_names": [
+        "Unknown Stuff",
+        "scientist"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Take the airship and go downstairs (airplane 34 77). The scientist (Drunken Old Man) is throwing dice and losing badly. Talk to the Apple Merchant, buy 100 apples, then talk to the scientist. He'll use them to gamble another round and lose even more. The key here is his swearing his luck on Ymir's Heart. Keep giving him apples and eventually he will win, and tell you about Ymir's Heart.",
+      "instruction_sha256": "175efe6a06d7b1f313f3977c0a40d212bc975037a60934f83d290d46f45023e9",
+      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/175efe6a06d7b1f313f3/1",
+      "goal": "repeat_exchange",
+      "short_ru": "Купите у Apple Merchant 100 apples; повторяйте разговоры и передачи Drunken Old Man (airplane 34 77) до победы.",
+      "short_en": "Buy 100 apples from Apple Merchant; repeat talks and handovers to Drunken Old Man (airplane 34 77) until he wins.",
+      "full_ru": "Сядьте на airship и спуститесь вниз (airplane 34 77). scientist (Drunken Old Man) проигрывает в кости. У Apple Merchant купите 100 apples, затем поговорите с scientist: он использует их для новой ставки и снова проиграет. Важна его клятва удачей на Ymir's Heart. Продолжайте давать apples, пока он не выиграет и не расскажет о Ymir's Heart.",
+      "full_en": "Take the airship and go downstairs (airplane 34 77). The scientist (Drunken Old Man) is throwing dice and losing badly. Talk to the Apple Merchant, buy 100 apples, then talk to the scientist. He'll use them to gamble another round and lose even more. The key here is his swearing his luck on Ymir's Heart. Keep giving him apples and eventually he will win, and tell you about Ymir's Heart.",
+      "npcs": [
+        {
+          "entity": "Drunken Old Man",
+          "role": "talk"
+        },
+        {
+          "entity": "Apple Merchant",
+          "role": "merchant"
+        }
+      ],
+      "items": [
+        {
+          "entity": "apples",
+          "quantity": 100,
+          "operation": "buy",
+          "required": 1,
+          "condition": "Initial purchase explicitly stated; not a proven total for all gambling attempts."
+        },
+        {
+          "entity": "apples",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Repeat until he wins; per-handover quantity and total consumption are unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "buy",
+          "entity": "apples"
+        },
+        {
+          "operation": "talk",
+          "entity": "Drunken Old Man"
+        },
+        {
+          "operation": "deliver",
+          "entity": "apples",
+          "condition": "Repeat gambling dialogue until success."
+        }
+      ],
+      "mention_entities": {
+        "scientist": "scientist"
+      },
+      "protected_names": [
+        "Apple Merchant",
+        "scientist",
+        "Drunken Old Man",
+        "airplane",
+        "apples"
+      ],
+      "locations": [
+        {
+          "map": "airplane",
+          "x": 34,
+          "y": 77,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "airplane 34 77"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Return to Shinokas, tell him about Ymir's Heart in the dialog that appears, and he'll die telling you of his regret.",
+      "instruction_sha256": "b21c4187db4a8bdf040d8c71e85fa51ac9ab10784c16c16f62e33d26bebb3471",
+      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/b21c4187db4a8bdf040d/1",
+      "goal": "talk",
+      "short_ru": "Расскажите Shinokas о Ymir's Heart.",
+      "short_en": "Tell Shinokas about Ymir's Heart.",
+      "full_ru": "Вернитесь к Shinokas и выберите в появившемся диалоге тему Ymir's Heart. Он умрёт, выразив сожаление.",
+      "full_en": "Return to Shinokas, tell him about Ymir's Heart in the dialog that appears, and he'll die telling you of his regret.",
+      "npcs": [
+        {
+          "entity": "Shinokas",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Shinokas"
+        }
+      ],
+      "protected_names": [
+        "Shinokas"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Go back to Einbech and inform Hikeman of Shinokas's death for some EXP . | Experience amounts received: | Level 01-69 = 100,000 Base EXP /80,000 Job EXP | Level 70-79 = 300,000 Base EXP /100,000 Job EXP | Level 80-89 = 500,000 Base EXP /300,000 Job EXP | Level 90-99 = 700,000 Base EXP /500,000 Job EXP",
+      "instruction_sha256": "d4b5565d90d95eb68bac56f2c9d78a2434e86b4bbf5a6a4e63e03e5c0a9cda73",
+      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/d4b5565d90d95eb68bac/1",
+      "goal": "receive_reward",
+      "short_ru": "Сообщите Hikeman о смерти Shinokas в Einbech; награда зависит от уровня.",
+      "short_en": "Tell Hikeman of Shinokas’s death in Einbech; rewards depend on level.",
+      "full_ru": "Вернитесь в Einbech и сообщите Hikeman о смерти Shinokas, чтобы получить EXP. Размеры полученного опыта:",
+      "full_en": "Go back to Einbech and inform Hikeman of Shinokas's death for some EXP . | Experience amounts received:",
+      "npcs": [
+        {
+          "entity": "Buender Hikeman",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Buender Hikeman"
+        }
+      ],
+      "protected_names": [
+        "Shinokas",
+        "Einbech"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "level_01_69",
+          "choice_group": "reward_level_band",
+          "variant_scope": "Source level band; server applicability unverified",
+          "condition": "Choose only the player’s source-described level band.",
+          "section": "",
+          "source_step": 8,
+          "original_instruction": " | Level 01-69 = 100,000 Base EXP /80,000 Job EXP",
+          "instruction_sha256": "0c0e174dfbec74e8dbacf67cbc0bd719469a65c5dd7867697e5764969d1fdfdc",
+          "short_ru": "Уровень 01-69: 100,000 Base EXP /80,000 Job EXP.",
+          "short_en": "Level 01-69: 100,000 Base EXP /80,000 Job EXP.",
+          "full_ru": "Уровень 01-69: 100,000 Base EXP /80,000 Job EXP.",
+          "full_en": " | Level 01-69 = 100,000 Base EXP /80,000 Job EXP",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "100000"
+            },
+            {
+              "kind": "job_exp",
+              "amount": "80000"
+            }
+          ]
+        },
+        {
+          "key": "level_70_79",
+          "choice_group": "reward_level_band",
+          "variant_scope": "Source level band; server applicability unverified",
+          "condition": "Choose only the player’s source-described level band.",
+          "section": "",
+          "source_step": 8,
+          "original_instruction": " | Level 70-79 = 300,000 Base EXP /100,000 Job EXP",
+          "instruction_sha256": "682f4cb39eabd8ba63a1d20897d0041c058bd44d45845e46a06346a708c22ef6",
+          "short_ru": "Уровень 70-79: 300,000 Base EXP /100,000 Job EXP.",
+          "short_en": "Level 70-79: 300,000 Base EXP /100,000 Job EXP.",
+          "full_ru": "Уровень 70-79: 300,000 Base EXP /100,000 Job EXP.",
+          "full_en": " | Level 70-79 = 300,000 Base EXP /100,000 Job EXP",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "300000"
+            },
+            {
+              "kind": "job_exp",
+              "amount": "100000"
+            }
+          ]
+        },
+        {
+          "key": "level_80_89",
+          "choice_group": "reward_level_band",
+          "variant_scope": "Source level band; server applicability unverified",
+          "condition": "Choose only the player’s source-described level band.",
+          "section": "",
+          "source_step": 8,
+          "original_instruction": " | Level 80-89 = 500,000 Base EXP /300,000 Job EXP",
+          "instruction_sha256": "5a9de8e83be9472e5d569a2c20fa19b43ca8139a6748214ac5fb75ce9ceb29a3",
+          "short_ru": "Уровень 80-89: 500,000 Base EXP /300,000 Job EXP.",
+          "short_en": "Level 80-89: 500,000 Base EXP /300,000 Job EXP.",
+          "full_ru": "Уровень 80-89: 500,000 Base EXP /300,000 Job EXP.",
+          "full_en": " | Level 80-89 = 500,000 Base EXP /300,000 Job EXP",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "500000"
+            },
+            {
+              "kind": "job_exp",
+              "amount": "300000"
+            }
+          ]
+        },
+        {
+          "key": "level_90_99",
+          "choice_group": "reward_level_band",
+          "variant_scope": "Source level band; server applicability unverified",
+          "condition": "Choose only the player’s source-described level band.",
+          "section": "",
+          "source_step": 8,
+          "original_instruction": " | Level 90-99 = 700,000 Base EXP /500,000 Job EXP",
+          "instruction_sha256": "e19e125b21ae7027252ba8d0faadf52a6061f0ef50849f5f97d812689371d446",
+          "short_ru": "Уровень 90-99: 700,000 Base EXP /500,000 Job EXP.",
+          "short_en": "Level 90-99: 700,000 Base EXP /500,000 Job EXP.",
+          "full_ru": "Уровень 90-99: 700,000 Base EXP /500,000 Job EXP.",
+          "full_en": " | Level 90-99 = 700,000 Base EXP /500,000 Job EXP",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "700000"
+            },
+            {
+              "kind": "job_exp",
+              "amount": "500000"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "password_pairs_case_sensitive",
+      "detail": "Seven literal prompt/answer pairs are retained. Two different prompts intentionally share the same answer; they are not duplicate instructions to perform twice."
+    },
+    {
+      "reason": "apple_repeat_total_unknown",
+      "detail": "Initial purchase is 100 apples, followed by an unspecified number of repeated handovers. Do not assert exactly 100 consumed or infer a gamble probability."
+    },
+    {
+      "reason": "zelmeto_location_conflict",
+      "detail": "This source prints ein_in 67,247; Factory Quest prints ein_in01 67,242. Keep source spellings/points and separate source identities pending corroboration."
+    },
+    {
+      "reason": "reward_header_not_extra_grant",
+      "detail": "Four exclusive level bands provide the final EXP; header totals do not add further rewards. No outside-range reward is inferred."
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:Factory_Quest",
+      "kind": "mandatory_prerequisite"
+    }
+  ],
+  "source_partitions": [
+    {
+      "source_step": 8,
+      "segments": [
+        {
+          "target_step": 8,
+          "start": 0,
+          "end": 103,
+          "section": "Reward introduction"
+        },
+        {
+          "target_step": 8,
+          "branch_key": "level_01_69",
+          "start": 103,
+          "end": 152,
+          "section": "Level 01-69"
+        },
+        {
+          "target_step": 8,
+          "branch_key": "level_70_79",
+          "start": 152,
+          "end": 202,
+          "section": "Level 70-79"
+        },
+        {
+          "target_step": 8,
+          "branch_key": "level_80_89",
+          "start": 202,
+          "end": 252,
+          "section": "Level 80-89"
+        },
+        {
+          "target_step": 8,
+          "branch_key": "level_90_99",
+          "start": 252,
+          "end": 302,
+          "section": "Level 90-99"
+        }
+      ]
+    }
+  ]
+}

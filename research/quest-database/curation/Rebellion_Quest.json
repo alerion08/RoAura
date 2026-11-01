@@ -1,0 +1,1289 @@
+{
+  "quest_id": "irowiki-classic:Rebellion_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "03b8a68fadf392e94238a21a5a8e62cf586b9f4f629d9dbeae5e9ad876379390",
+  "snapshot_sha256": "014bf8641a54cd5800e8685207e744f46a5bfc242495fdbe53a88c0efd7e675f",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Shede",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Herico",
+      "aliases": [
+        "Mr. Herico"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Enquro Carson",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Wintzil Trony",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Book",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Stack of Files",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Unethical Machine",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "president",
+      "aliases": []
+    },
+    {
+      "type": "map",
+      "name": "Hugel"
+    },
+    {
+      "type": "map",
+      "name": "hugel",
+      "map_code": "hugel"
+    },
+    {
+      "type": "map",
+      "name": "hu_fild06",
+      "map_code": "hu_fild06"
+    },
+    {
+      "type": "map",
+      "name": "hu_in01",
+      "map_code": "hu_in01"
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "morroc_in",
+      "map_code": "morroc_in"
+    },
+    {
+      "type": "map",
+      "name": "lhz_in01",
+      "map_code": "lhz_in01"
+    },
+    {
+      "type": "map",
+      "name": "Einbech"
+    },
+    {
+      "type": "map",
+      "name": "einbech",
+      "map_code": "einbech"
+    },
+    {
+      "type": "map",
+      "name": "lhz_dun02",
+      "map_code": "lhz_dun02"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "yuno",
+      "map_code": "yuno"
+    },
+    {
+      "type": "item",
+      "name": "Clam Fleshes"
+    },
+    {
+      "type": "item",
+      "name": "Mok Mushrooms"
+    },
+    {
+      "type": "item",
+      "name": "Mok Shells"
+    },
+    {
+      "type": "item",
+      "name": "Tropical Sograt",
+      "game_id": 12112,
+      "id_source": "http://db.irowiki.org/classic/item-info/12112/"
+    },
+    {
+      "type": "item",
+      "name": "Vermilion on the Beach",
+      "game_id": 12113,
+      "id_source": "http://db.irowiki.org/classic/item-info/12113/"
+    },
+    {
+      "type": "item",
+      "name": "Marine Sphere Bottle",
+      "game_id": 7138,
+      "id_source": "http://db.irowiki.org/classic/item-info/7138/"
+    },
+    {
+      "type": "item",
+      "name": "Geek Glasses",
+      "game_id": 2243,
+      "id_source": "http://db.irowiki.org/classic/item-info/2243/"
+    },
+    {
+      "type": "item",
+      "name": "Grampa Beard",
+      "game_id": 2241,
+      "id_source": "http://db.irowiki.org/classic/item-info/2241/"
+    },
+    {
+      "type": "item",
+      "name": "File Folder"
+    },
+    {
+      "type": "item",
+      "name": "Handcuffs",
+      "game_id": 7345,
+      "id_source": "http://db.irowiki.org/classic/item-info/7345/"
+    },
+    {
+      "type": "item",
+      "name": "Level 4 Food Item"
+    },
+    {
+      "type": "item",
+      "name": "Old Purple Box",
+      "game_id": 617,
+      "id_source": "http://db.irowiki.org/classic/item-info/617/"
+    },
+    {
+      "type": "monster",
+      "name": "Thief Bugs"
+    },
+    {
+      "type": "monster",
+      "name": "Remover"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Shede in Hugel courtyard (70,137). She will ask you for a random set of items. | 5 Clam Fleshes: You'll find these clams to the right of the airship in Hugel ( hugel 216,158). | 5 Mok Mushrooms: You'll find the mushrooms located just outside of the city of Hugel ( hu_fild06 169,359). | 5 Mok Shells: Find the Thief Bugs hiding in the bushes just outside of the city of Hugel ( hu_fild06 218,373).",
+      "instruction_sha256": "8bb943a617c9b538c494a7fbdb18e21fce171905d0de78aaa2d36c1a90d37d8d",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/8bb943a617c9b538c494/1",
+      "goal": "random_material_request",
+      "short_ru": "У Shede в Hugel (70,137) узнайте, какой случайный набор нужен.",
+      "short_en": "Ask Shede in Hugel (70,137) which random material set is needed.",
+      "full_ru": "Поговорите с Shede во дворе Hugel (70,137). Она попросит случайный набор предметов.",
+      "full_en": "Talk to Shede in Hugel courtyard (70,137). She will ask you for a random set of items.",
+      "npcs": [
+        {
+          "entity": "Shede",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Hugel",
+          "x": 70,
+          "y": 137,
+          "role": "npc",
+          "known": false,
+          "condition": "Literal display town; no automatic lowercase map-code substitution."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Shede"
+        }
+      ],
+      "protected_names": [
+        "Shede",
+        "Hugel"
+      ],
+      "branches": [
+        {
+          "key": "clams",
+          "choice_group": "random_material_set",
+          "variant_scope": "Source random Shede request; server applicability unverified",
+          "condition": "Only the source-selected random material set is required.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": " | 5 Clam Fleshes: You'll find these clams to the right of the airship in Hugel ( hugel 216,158).",
+          "instruction_sha256": "2005107be09bb4a5bfae329fe90e5b04d6ba62267cc5a3800c0fb444a0be5cb4",
+          "short_ru": "Соберите 5 Clam Fleshes: hugel 216,158.",
+          "short_en": "Collect 5 Clam Fleshes at hugel 216,158.",
+          "full_ru": "5 Clam Fleshes: найдите моллюсков справа от airship в Hugel (hugel 216,158).",
+          "full_en": " | 5 Clam Fleshes: You'll find these clams to the right of the airship in Hugel ( hugel 216,158).",
+          "protected_names": [
+            "Hugel",
+            "hugel",
+            "Clam Fleshes"
+          ],
+          "items": [
+            {
+              "entity": "Clam Fleshes",
+              "quantity": 5,
+              "operation": "collect",
+              "required": 1,
+              "condition": "Only this randomly requested set; never all three sets together."
+            }
+          ],
+          "locations": [
+            {
+              "entity": "hugel",
+              "x": 216,
+              "y": 158,
+              "role": "material_source",
+              "known": true,
+              "condition": "Only this source request branch."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "collect",
+              "entity": "Clam Fleshes"
+            }
+          ]
+        },
+        {
+          "key": "mushrooms",
+          "choice_group": "random_material_set",
+          "variant_scope": "Source random Shede request; server applicability unverified",
+          "condition": "Only the source-selected random material set is required.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": " | 5 Mok Mushrooms: You'll find the mushrooms located just outside of the city of Hugel ( hu_fild06 169,359).",
+          "instruction_sha256": "cdab13d98522cdc6316647f8c911b5545032cbe00f1e38561d1ca298a39372be",
+          "short_ru": "Соберите 5 Mok Mushrooms: hu_fild06 169,359.",
+          "short_en": "Collect 5 Mok Mushrooms at hu_fild06 169,359.",
+          "full_ru": "5 Mok Mushrooms: найдите грибы снаружи Hugel (hu_fild06 169,359).",
+          "full_en": " | 5 Mok Mushrooms: You'll find the mushrooms located just outside of the city of Hugel ( hu_fild06 169,359).",
+          "protected_names": [
+            "Hugel",
+            "hu_fild06",
+            "Mok Mushrooms"
+          ],
+          "items": [
+            {
+              "entity": "Mok Mushrooms",
+              "quantity": 5,
+              "operation": "collect",
+              "required": 1,
+              "condition": "Only this randomly requested set; never all three sets together."
+            }
+          ],
+          "locations": [
+            {
+              "entity": "hu_fild06",
+              "x": 169,
+              "y": 359,
+              "role": "material_source",
+              "known": true,
+              "condition": "Only this source request branch."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "collect",
+              "entity": "Mok Mushrooms"
+            }
+          ]
+        },
+        {
+          "key": "shells",
+          "choice_group": "random_material_set",
+          "variant_scope": "Source random Shede request; server applicability unverified",
+          "condition": "Only the source-selected random material set is required.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": " | 5 Mok Shells: Find the Thief Bugs hiding in the bushes just outside of the city of Hugel ( hu_fild06 218,373).",
+          "instruction_sha256": "2d8fcfa664165725dbb570ebf5e193bfdb3cb26711efc6245fef449b3e42c314",
+          "short_ru": "Соберите 5 Mok Shells: hu_fild06 218,373.",
+          "short_en": "Collect 5 Mok Shells at hu_fild06 218,373.",
+          "full_ru": "5 Mok Shells: найдите Thief Bugs в кустах снаружи Hugel (hu_fild06 218,373).",
+          "full_en": " | 5 Mok Shells: Find the Thief Bugs hiding in the bushes just outside of the city of Hugel ( hu_fild06 218,373).",
+          "protected_names": [
+            "Hugel",
+            "hu_fild06",
+            "Mok Shells",
+            "Thief Bugs"
+          ],
+          "items": [
+            {
+              "entity": "Mok Shells",
+              "quantity": 5,
+              "operation": "collect",
+              "required": 1,
+              "condition": "Only this randomly requested set; never all three sets together."
+            }
+          ],
+          "locations": [
+            {
+              "entity": "hu_fild06",
+              "x": 218,
+              "y": 373,
+              "role": "material_source",
+              "known": true,
+              "condition": "Only this source request branch."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "collect",
+              "entity": "Mok Shells"
+            }
+          ],
+          "monsters": [
+            {
+              "entity": "Thief Bugs",
+              "operation": "loot_source",
+              "quantity": null,
+              "required": 0,
+              "condition": "Source says find them hiding in bushes; no fixed kill count is stated."
+            }
+          ]
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Shede tells you to find Mr. Herico in the Hugel Inn ( hugel 104,77).",
+      "instruction_sha256": "ed9a8ad877a8e789159f7cbc900756c60b62e490d518007d2b1de738b223bee1",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/ed9a8ad877a8e789159f/1",
+      "goal": "talk",
+      "short_ru": "По поручению Shede идите к Mr. Herico в Hugel Inn: hugel 104,77.",
+      "short_en": "Follow Shede’s referral to Mr. Herico at the Hugel Inn: hugel 104,77.",
+      "full_ru": "Shede направит к Mr. Herico в Hugel Inn (hugel 104,77).",
+      "full_en": "Shede tells you to find Mr. Herico in the Hugel Inn ( hugel 104,77).",
+      "npcs": [
+        {
+          "entity": "Shede",
+          "role": "talk"
+        },
+        {
+          "entity": "Herico",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Shede"
+        }
+      ],
+      "protected_names": [
+        "Shede",
+        "Herico",
+        "Hugel",
+        "hugel"
+      ],
+      "locations": [
+        {
+          "map": "hugel",
+          "x": 104,
+          "y": 77,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "hugel 104,77"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Find Herico upstairs in the room next to the stairs (hu_in01 255, 40). Talk to him, and he talks about Hugel before asking you to find information about the Airship and Odin's Temple for him.",
+      "instruction_sha256": "a31f10c74930a180ebb74a0006d85b77991c7cbf81ad4ea2afed8f1ef65a5aa8",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/a31f10c74930a180ebb7/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Herico: hu_in01 255, 40.",
+      "short_en": "Talk to Herico: hu_in01 255, 40.",
+      "full_ru": "Найдите Herico наверху, в комнате рядом с лестницей (hu_in01 255, 40). Он расскажет о Hugel и попросит сведения об Airship и Odin's Temple.",
+      "full_en": "Find Herico upstairs in the room next to the stairs (hu_in01 255, 40). Talk to him, and he talks about Hugel before asking you to find information about the Airship and Odin's Temple for him.",
+      "npcs": [
+        {
+          "entity": "Herico",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Herico"
+        }
+      ],
+      "protected_names": [
+        "Herico",
+        "Hugel",
+        "hu_in01"
+      ],
+      "locations": [
+        {
+          "map": "hu_in01",
+          "x": 255,
+          "y": 40,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "hu_in01 255, 40"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "If You've completed the four listed quests, you can continue.",
+      "instruction_sha256": "940ab50fe1fe755f21847f0578db8105cec43857c5da7b72f6af48d7a181e71c",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/940ab50fe1fe755f2184/1",
+      "goal": "prerequisite_gate",
+      "short_ru": "Перед продолжением завершите все четыре квеста из списка условий.",
+      "short_en": "Complete all four listed prerequisite quests before continuing.",
+      "full_ru": "Продолжить можно после завершения всех четырёх перечисленных квестов.",
+      "full_en": "If You've completed the four listed quests, you can continue.",
+      "requirements": [
+        {
+          "kind": "all_header_prerequisites_completed",
+          "amount": "4",
+          "condition": "Completion of all four source-header quests is explicitly required at this stage."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "check_prerequisites"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Talk to Herico again, and he tells you his story. He then asks you to find a Reporter in Lighthalzen.",
+      "instruction_sha256": "e45fc2b5bd9195e0ffff8ba23a044d9a7c085cd6eeeaca0a474086c6fb399e8e",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/e45fc2b5bd9195e0ffff/1",
+      "goal": "talk",
+      "short_ru": "Получите у Herico поручение найти Reporter в Lighthalzen.",
+      "short_en": "Get Herico’s request to find a Reporter in Lighthalzen.",
+      "full_ru": "Снова поговорите с Herico. Он расскажет свою историю и попросит найти Reporter в Lighthalzen.",
+      "full_en": "Talk to Herico again, and he tells you his story. He then asks you to find a Reporter in Lighthalzen.",
+      "npcs": [
+        {
+          "entity": "Herico",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Herico"
+        }
+      ],
+      "protected_names": [
+        "Herico",
+        "Lighthalzen"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "From exiting the airport, head west to the left side of the map. Enter the house at (52, 87), and talk to Enquro Carson. He says he'll tell you the location of the reporter if you bring him the two drinks from the Private Pub in Morroc .",
+      "instruction_sha256": "d0fd41a039013b81bce5d687a02203851dd7ace25776fe06cb4cf044828c9dcd",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/d0fd41a039013b81bce5/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Enquro Carson в доме у (52, 87); узнайте о напитках из Morroc.",
+      "short_en": "Talk to Enquro Carson in the house at (52, 87); ask about the drinks from Morroc.",
+      "full_ru": "Выйдя из аэропорта, идите на запад, в левую часть карты. Войдите в дом у (52, 87) и поговорите с Enquro Carson. За сведения о репортёре он попросит два напитка из Private Pub в Morroc.",
+      "full_en": "From exiting the airport, head west to the left side of the map. Enter the house at (52, 87), and talk to Enquro Carson. He says he'll tell you the location of the reporter if you bring him the two drinks from the Private Pub in Morroc .",
+      "npcs": [
+        {
+          "entity": "Enquro Carson",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Lighthalzen",
+          "x": 52,
+          "y": 87,
+          "role": "entrance",
+          "known": false,
+          "support_step": 5,
+          "evidence": "Talk to Herico again, and he tells you his story. He then asks you to find a Reporter in Lighthalzen.",
+          "condition": "Town inferred from the previous task; retain display spelling, not an invented map code."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Enquro Carson"
+        }
+      ],
+      "protected_names": [
+        "Enquro Carson",
+        "Morroc"
+      ]
+    },
+    "7": {
+      "original_instruction": "Bring him a Tropical Sograt and Vermilion on the Beach , and he'll tell you to find Wintzil Trony in Hugel. | Each drink is 1,000z a piece; unless you're an assassin, then they are 800z a piece. (You can buy it at morroc_in(165,76). (Inside the building at Morroc (55,259)).",
+      "instruction_sha256": "2c59f3c7c714d32aa24cf0ca3252ba8167a0349b2b7112fe066b3f1876846d72",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/2c59f3c7c714d32aa24c/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Tropical Sograt и Vermilion on the Beach; обычная цена каждого — 1,000z, для assassin — 800z.",
+      "short_en": "Deliver Tropical Sograt and Vermilion on the Beach; each normally costs 1,000z, or 800z for an assassin.",
+      "full_ru": "Принесите Tropical Sograt и Vermilion on the Beach. Он направит к Wintzil Trony в Hugel. Каждый напиток стоит 1,000z, а для assassin — 800z. Купить можно у morroc_in(165,76), внутри здания Morroc (55,259).",
+      "full_en": "Bring him a Tropical Sograt and Vermilion on the Beach , and he'll tell you to find Wintzil Trony in Hugel. | Each drink is 1,000z a piece; unless you're an assassin, then they are 800z a piece. (You can buy it at morroc_in(165,76). (Inside the building at Morroc (55,259)).",
+      "npcs": [
+        {
+          "entity": "Enquro Carson",
+          "role": "talk",
+          "support_step": 6,
+          "evidence": "From exiting the airport, head west to the left side of the map. Enter the house at (52, 87), and talk to Enquro Carson. He says he'll tell you the location of the reporter if you bring him the two drinks from the Private Pub in Morroc ."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Tropical Sograt",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Vermilion on the Beach",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Morroc",
+          "x": 55,
+          "y": 259,
+          "role": "entrance",
+          "known": false,
+          "order": 1
+        },
+        {
+          "entity": "morroc_in",
+          "x": 165,
+          "y": 76,
+          "role": "merchant",
+          "known": false,
+          "order": 2
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Enquro Carson"
+        }
+      ],
+      "protected_names": [
+        "Wintzil Trony",
+        "Hugel",
+        "Morroc",
+        "morroc_in",
+        "Tropical Sograt",
+        "Vermilion on the Beach"
+      ],
+      "branches": [
+        {
+          "key": "normal_price",
+          "choice_group": "drink_purchase_price",
+          "variant_scope": "Source class-dependent purchase price",
+          "condition": "Source normal price outside its assassin exception.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Bring him a Tropical Sograt and Vermilion on the Beach , and he'll tell you to find Wintzil Trony in Hugel. | Each drink is 1,000z a piece; unless you're an assassin, then they are 800z a piece. (You can buy it at morroc_in(165,76). (Inside the building at Morroc (55,259)).",
+          "instruction_sha256": "2c59f3c7c714d32aa24cf0ca3252ba8167a0349b2b7112fe066b3f1876846d72",
+          "short_ru": "Цена каждого напитка — 1,000z.",
+          "short_en": "Each drink costs 1,000z.",
+          "full_ru": "Принесите Tropical Sograt и Vermilion on the Beach. Он направит к Wintzil Trony в Hugel. Каждый напиток стоит 1,000z, а для assassin — 800z. Купить можно у morroc_in(165,76), внутри здания Morroc (55,259).",
+          "full_en": "Bring him a Tropical Sograt and Vermilion on the Beach , and he'll tell you to find Wintzil Trony in Hugel. | Each drink is 1,000z a piece; unless you're an assassin, then they are 800z a piece. (You can buy it at morroc_in(165,76). (Inside the building at Morroc (55,259)).",
+          "protected_names": [
+            "Wintzil Trony",
+            "Hugel",
+            "Morroc",
+            "morroc_in",
+            "Tropical Sograt",
+            "Vermilion on the Beach"
+          ],
+          "requirements": [
+            {
+              "kind": "zeny_per_drink",
+              "amount": "1000",
+              "condition": "Per selected purchase price, not an extra source-header cost."
+            }
+          ],
+          "items": [
+            {
+              "entity": "Tropical Sograt",
+              "quantity": 1,
+              "operation": "buy",
+              "required": 0,
+              "condition": "Only if purchasing rather than already owning the drink."
+            },
+            {
+              "entity": "Vermilion on the Beach",
+              "quantity": 1,
+              "operation": "buy",
+              "required": 0,
+              "condition": "Only if purchasing rather than already owning the drink."
+            }
+          ]
+        },
+        {
+          "key": "assassin_price",
+          "choice_group": "drink_purchase_price",
+          "variant_scope": "Source class-dependent purchase price",
+          "condition": "Source assassin exception; no other class inheritance is inferred.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Bring him a Tropical Sograt and Vermilion on the Beach , and he'll tell you to find Wintzil Trony in Hugel. | Each drink is 1,000z a piece; unless you're an assassin, then they are 800z a piece. (You can buy it at morroc_in(165,76). (Inside the building at Morroc (55,259)).",
+          "instruction_sha256": "2c59f3c7c714d32aa24cf0ca3252ba8167a0349b2b7112fe066b3f1876846d72",
+          "short_ru": "Цена каждого напитка — 800z.",
+          "short_en": "Each drink costs 800z.",
+          "full_ru": "Принесите Tropical Sograt и Vermilion on the Beach. Он направит к Wintzil Trony в Hugel. Каждый напиток стоит 1,000z, а для assassin — 800z. Купить можно у morroc_in(165,76), внутри здания Morroc (55,259).",
+          "full_en": "Bring him a Tropical Sograt and Vermilion on the Beach , and he'll tell you to find Wintzil Trony in Hugel. | Each drink is 1,000z a piece; unless you're an assassin, then they are 800z a piece. (You can buy it at morroc_in(165,76). (Inside the building at Morroc (55,259)).",
+          "protected_names": [
+            "Wintzil Trony",
+            "Hugel",
+            "Morroc",
+            "morroc_in",
+            "Tropical Sograt",
+            "Vermilion on the Beach"
+          ],
+          "requirements": [
+            {
+              "kind": "zeny_per_drink",
+              "amount": "800",
+              "condition": "Per selected purchase price, not an extra source-header cost."
+            }
+          ],
+          "items": [
+            {
+              "entity": "Tropical Sograt",
+              "quantity": 1,
+              "operation": "buy",
+              "required": 0,
+              "condition": "Only if purchasing rather than already owning the drink."
+            },
+            {
+              "entity": "Vermilion on the Beach",
+              "quantity": 1,
+              "operation": "buy",
+              "required": 0,
+              "condition": "Only if purchasing rather than already owning the drink."
+            }
+          ]
+        }
+      ]
+    },
+    "8": {
+      "original_instruction": "Go to the house in Hugel near the top (hugel 150, 216) and talk to the little girl. She tells you her name is Wintzil Trony, and tells you you can find a picture of her father in a bookshelf.",
+      "instruction_sha256": "8701320318602bf021222c0719400526bd0b513e635f8ff63b1ea02d1ae69cef",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/8701320318602bf02122/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Wintzil Trony: hugel 150, 216.",
+      "short_en": "Question Wintzil Trony: hugel 150, 216.",
+      "full_ru": "Войдите в дом на севере Hugel (hugel 150, 216). Девочка представится как Wintzil Trony и скажет, что фото отца находится в книжном шкафу.",
+      "full_en": "Go to the house in Hugel near the top (hugel 150, 216) and talk to the little girl. She tells you her name is Wintzil Trony, and tells you you can find a picture of her father in a bookshelf.",
+      "npcs": [
+        {
+          "entity": "Wintzil Trony",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Wintzil Trony"
+        }
+      ],
+      "protected_names": [
+        "Wintzil Trony",
+        "Hugel",
+        "hugel"
+      ],
+      "locations": [
+        {
+          "map": "hugel",
+          "x": 150,
+          "y": 216,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "hugel 150, 216"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Go upstairs and click on the Book in the bookshelf, and go through the journal.",
+      "instruction_sha256": "5cd4226d1ba631eda778bc6fecc3c9f787d802e3699132896d6931d83cbdc832",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/5cd4226d1ba631eda778/1",
+      "goal": "investigate",
+      "short_ru": "Наверху нажмите Book и прочитайте дневник.",
+      "short_en": "Upstairs, click the Book and read the journal.",
+      "full_ru": "Поднимитесь наверх, нажмите Book в книжном шкафу и прочитайте дневник.",
+      "full_en": "Go upstairs and click on the Book in the bookshelf, and go through the journal.",
+      "npcs": [
+        {
+          "entity": "Book",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Book"
+        }
+      ],
+      "protected_names": [
+        "Book"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Head back to Herico and explain what happened. He asks you to join him in bringing down Rekenber. Accept, and he asks you to go to Lighthalzen to steal a Master Copy of their research.",
+      "instruction_sha256": "3a976a775e7eab068d518cc208488968a112d4b1b540ac3d8c54163b8c24787b",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/3a976a775e7eab068d51/1",
+      "goal": "talk",
+      "short_ru": "Согласитесь помочь Herico и получите задание на Master Copy в Lighthalzen.",
+      "short_en": "Agree to help Herico and accept the Master Copy task in Lighthalzen.",
+      "full_ru": "Вернитесь к Herico и расскажите о случившемся. Согласитесь помочь свергнуть Rekenber. Он попросит украсть Master Copy исследований в Lighthalzen.",
+      "full_en": "Head back to Herico and explain what happened. He asks you to join him in bringing down Rekenber. Accept, and he asks you to go to Lighthalzen to steal a Master Copy of their research.",
+      "npcs": [
+        {
+          "entity": "Herico",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Herico"
+        },
+        {
+          "operation": "accept"
+        }
+      ],
+      "protected_names": [
+        "Herico",
+        "Lighthalzen"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Head to Rekenber HQ in Lighthalzen, and go down to the research levels used by Regenschirm. (Don't forget to wear the Geek Glasses and Grampa Beard !).",
+      "instruction_sha256": "3bc622955c59acb7e568e4f43b462deb9c46325e54707b349a301b0fc5a9d039",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/3bc622955c59acb7e568/1",
+      "goal": "enter",
+      "short_ru": "Войдите в лаборатории Rekenber HQ, надев Geek Glasses и Grampa Beard.",
+      "short_en": "Enter the Rekenber HQ labs wearing Geek Glasses and Grampa Beard.",
+      "full_ru": "В Rekenber HQ в Lighthalzen спуститесь на исследовательские этажи Regenschirm. Не забудьте надеть Geek Glasses и Grampa Beard.",
+      "full_en": "Head to Rekenber HQ in Lighthalzen, and go down to the research levels used by Regenschirm. (Don't forget to wear the Geek Glasses and Grampa Beard !).",
+      "items": [
+        {
+          "entity": "Geek Glasses",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Equipped disguise; not consumed."
+        },
+        {
+          "entity": "Grampa Beard",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Equipped disguise; not consumed."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "equipped_item",
+          "entity": "Geek Glasses",
+          "amount": "1"
+        },
+        {
+          "kind": "equipped_item",
+          "entity": "Grampa Beard",
+          "amount": "1"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "equip",
+          "entity": "Geek Glasses"
+        },
+        {
+          "operation": "equip",
+          "entity": "Grampa Beard"
+        },
+        {
+          "operation": "enter"
+        }
+      ],
+      "protected_names": [
+        "Lighthalzen",
+        "Geek Glasses",
+        "Grampa Beard"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Go to the far room across from the portal, find Stack of Files on one of the tables next to (lhz_in01 213, 130). Pick out a File Folder of research and an intruder alert will sound; two Remover will spawn. Kill them, and head back to Herico in Hugel .",
+      "instruction_sha256": "eef468d2e4ae6ce95185e86759b4b85cf6a596c1dca1123e2c1606f52140cd68",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/eef468d2e4ae6ce95185/1",
+      "goal": "collect",
+      "short_ru": "Возьмите File Folder у Stack of Files (lhz_in01 213, 130), убейте двух Remover и вернитесь к Herico.",
+      "short_en": "Take File Folder from Stack of Files (lhz_in01 213, 130), kill two Remover and return to Herico.",
+      "full_ru": "В дальней комнате напротив портала найдите Stack of Files на столе у lhz_in01 213, 130. Возьмите File Folder исследований: сработает тревога, появятся два Remover. Убейте их и вернитесь к Herico в Hugel.",
+      "full_en": "Go to the far room across from the portal, find Stack of Files on one of the tables next to (lhz_in01 213, 130). Pick out a File Folder of research and an intruder alert will sound; two Remover will spawn. Kill them, and head back to Herico in Hugel .",
+      "npcs": [
+        {
+          "entity": "Stack of Files",
+          "role": "interact"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "File Folder",
+          "condition": "Research folder source role; inventory ID and equivalence to the later President folder are unproven."
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Remover",
+          "operation": "kill",
+          "quantity": 2,
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Stack of Files"
+        },
+        {
+          "operation": "kill",
+          "entity": "Remover"
+        }
+      ],
+      "protected_names": [
+        "Herico",
+        "Stack of Files",
+        "Hugel",
+        "lhz_in01",
+        "File Folder",
+        "Remover"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 213,
+          "y": 130,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01 213, 130"
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Herico tells you to find a Marine Sphere Bottle to help destroy level 2 of Biolabs. Go to Einbech (einbech 208, 123) and buy a Marine Sphere Bottle from him. If you already have a Marine Sphere Bottle, go to step 14.",
+      "instruction_sha256": "205e93fdc75b96181cdae865ed2e7769f7066c4801668289e6417336d2c76353",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/205e93fdc75b96181cda/1",
+      "goal": "prepare",
+      "short_ru": "Подготовьте Marine Sphere Bottle; если её нет, купите в Einbech (einbech 208, 123).",
+      "short_en": "Prepare Marine Sphere Bottle; if missing, buy it in Einbech (einbech 208, 123).",
+      "full_ru": "Herico попросит Marine Sphere Bottle для уничтожения level 2 Biolabs. Отправляйтесь в Einbech (einbech 208, 123) и купите Marine Sphere Bottle у указанного там продавца. Если Marine Sphere Bottle уже есть, переходите к этапу 14.",
+      "full_en": "Herico tells you to find a Marine Sphere Bottle to help destroy level 2 of Biolabs. Go to Einbech (einbech 208, 123) and buy a Marine Sphere Bottle from him. If you already have a Marine Sphere Bottle, go to step 14.",
+      "npcs": [
+        {
+          "entity": "Herico",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Marine Sphere Bottle",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1
+        },
+        {
+          "entity": "Marine Sphere Bottle",
+          "quantity": 1,
+          "operation": "buy",
+          "required": 0,
+          "condition": "Skip purchase if already held; seller name and bottle price are not supplied."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Herico"
+        },
+        {
+          "operation": "buy",
+          "entity": "Marine Sphere Bottle",
+          "condition": "Only if not already held; no assumed price."
+        }
+      ],
+      "protected_names": [
+        "Herico",
+        "Einbech",
+        "einbech",
+        "Marine Sphere Bottle"
+      ],
+      "locations": [
+        {
+          "map": "einbech",
+          "x": 208,
+          "y": 123,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "einbech 208, 123"
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "Go Biolabs Level 2 ( lhz_dun02 247, 226) and destroy the Unethical Machine.",
+      "instruction_sha256": "c383a28ff4a202950462d2160ae098b5953aa5a4d73376d4afa1f54b81753067",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/c383a28ff4a202950462/1",
+      "goal": "destroy",
+      "short_ru": "Уничтожьте Unethical Machine: lhz_dun02 247, 226.",
+      "short_en": "Destroy Unethical Machine: lhz_dun02 247, 226.",
+      "full_ru": "Идите на Biolabs Level 2 (lhz_dun02 247, 226) и уничтожьте Unethical Machine.",
+      "full_en": "Go Biolabs Level 2 ( lhz_dun02 247, 226) and destroy the Unethical Machine.",
+      "npcs": [
+        {
+          "entity": "Unethical Machine",
+          "role": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Marine Sphere Bottle",
+          "quantity": 1,
+          "operation": "consume",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Marine Sphere Bottle",
+          "condition": "Header consumed item; instrument for the machine task requested in the preceding step."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "destroy",
+          "entity": "Unethical Machine"
+        }
+      ],
+      "protected_names": [
+        "Unethical Machine",
+        "lhz_dun02"
+      ],
+      "locations": [
+        {
+          "map": "lhz_dun02",
+          "x": 247,
+          "y": 226,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_dun02 247, 226"
+        }
+      ]
+    },
+    "15": {
+      "original_instruction": "Head back to Herico in Hugel, and he asks who could help with his plans. Tell him \"President\" and he gives you a File Folder to give to him. | You can now exchange 100 Handcuffs for any Level 4 Food Item from Herico.",
+      "instruction_sha256": "a864eb5015d1a3a5b2c8439f19bdfa3f381383fba04aeca4e99b7bc351d34600",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/a864eb5015d1a3a5b2c8/1",
+      "goal": "receive_item",
+      "short_ru": "Ответьте Herico «President» и получите File Folder.",
+      "short_en": "Tell Herico “President” and receive File Folder.",
+      "full_ru": "Вернитесь к Herico в Hugel. На вопрос о возможном помощнике ответьте President. Он даст File Folder для него.",
+      "full_en": "Head back to Herico in Hugel, and he asks who could help with his plans. Tell him \"President\" and he gives you a File Folder to give to him.",
+      "npcs": [
+        {
+          "entity": "Herico",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Herico",
+          "options": [
+            {
+              "text": "President",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "File Folder",
+          "condition": "Folder intended for the president; not a second grant of the earlier research document."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Herico"
+        }
+      ],
+      "protected_names": [
+        "Herico",
+        "Hugel",
+        "File Folder"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "food_exchange",
+          "choice_group": "optional_food_exchange",
+          "variant_scope": "Source repeatable exchange unlocked at stage 15",
+          "condition": "Optional repeatable activity unlocked now, not a prerequisite of final delivery.",
+          "section": "",
+          "source_step": 15,
+          "original_instruction": " | You can now exchange 100 Handcuffs for any Level 4 Food Item from Herico.",
+          "instruction_sha256": "8c95756fd5535f9f23be6dcd0be2d5a64d37742b366e2d6904b18a70e9f254ea",
+          "short_ru": "Дополнительно у Herico: 100 Handcuffs → Level 4 Food Item.",
+          "short_en": "Optional at Herico: 100 Handcuffs → Level 4 Food Item.",
+          "full_ru": "Теперь у Herico можно обменивать 100 Handcuffs на любой Level 4 Food Item.",
+          "full_en": " | You can now exchange 100 Handcuffs for any Level 4 Food Item from Herico.",
+          "protected_names": [
+            "Herico",
+            "Handcuffs",
+            "Level 4 Food Item"
+          ],
+          "npcs": [
+            {
+              "entity": "Herico",
+              "role": "optional_exchange"
+            }
+          ],
+          "items": [
+            {
+              "entity": "Handcuffs",
+              "quantity": 100,
+              "operation": "deliver",
+              "required": 0,
+              "condition": "Per optional repeatable exchange; never a main-quest requirement."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Level 4 Food Item",
+              "condition": "One chosen unspecified food per exchange; no exact item list or ID is supplied."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "exchange",
+              "entity": "Handcuffs"
+            }
+          ]
+        }
+      ]
+    },
+    "16": {
+      "original_instruction": "Go to Juno and visit the president's office (yuno 157, 317) and give him the File. He reaffirms his commitment to ridding the world of Rekenber, and gives you an Old Purple Box along with some base experience. | Receive 2,000,000 Base Experience",
+      "instruction_sha256": "b8132da184a37ccbde631eed65a190ec4b2188475101613008ac424f5d756593",
+      "step_id": "irowiki-classic:Rebellion_Quest/step/b8132da184a37ccbde63/1",
+      "goal": "receive_reward",
+      "short_ru": "Передайте File president: yuno 157, 317; получите Old Purple Box и 2,000,000 Base Experience.",
+      "short_en": "Give the File to the president: yuno 157, 317; receive Old Purple Box and 2,000,000 Base Experience.",
+      "full_ru": "Идите в Juno, в офис president (yuno 157, 317), и передайте File. Он подтвердит намерение избавить мир от Rekenber и даст Old Purple Box и опыт. Получите 2,000,000 Base Experience.",
+      "full_en": "Go to Juno and visit the president's office (yuno 157, 317) and give him the File. He reaffirms his commitment to ridding the world of Rekenber, and gives you an Old Purple Box along with some base experience. | Receive 2,000,000 Base Experience",
+      "npcs": [
+        {
+          "entity": "president",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "File Folder",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 15,
+          "evidence": "Head back to Herico in Hugel, and he asks who could help with his plans. Tell him \"President\" and he gives you a File Folder to give to him. | You can now exchange 100 Handcuffs for any Level 4 Food Item from Herico."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Purple Box"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "2000000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "president"
+        }
+      ],
+      "protected_names": [
+        "president",
+        "Juno",
+        "yuno",
+        "Old Purple Box"
+      ],
+      "locations": [
+        {
+          "map": "yuno",
+          "x": 157,
+          "y": 317,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno 157, 317"
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "random_material_sets_not_cumulative",
+      "detail": "Shede requests one random set of five; no player must gather all fifteen listed materials."
+    },
+    {
+      "reason": "zeny_summary_not_extra_cost",
+      "detail": "Header 3000 is only a source summary. Drinks cost 1000 each or 800 for the source assassin exception; bottle cost is unstated. Do not infer a 1000 bottle price or charge header and step prices together."
+    },
+    {
+      "reason": "unnamed_bottle_seller",
+      "detail": "The Einbech seller is unnamed; the source pronoun does not prove Herico is physically present at the selling point."
+    },
+    {
+      "reason": "document_roles_unverified",
+      "detail": "File Folder labels are source story roles with unknown IDs. Separate grants do not prove that the research copy and later presidential document are the same physical inventory copy."
+    },
+    {
+      "reason": "repeatable_unlock_before_final_delivery",
+      "detail": "The 100-Handcuff recipe unlocks at source step 15, before final presidential delivery at 16. It is optional and repeatable, not an additional main cost."
+    }
+  ],
+  "prerequisite_clauses": [
+    {
+      "related_quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
+      "kind": "required_quest",
+      "evidence": "Biolabs Entrance Quest"
+    },
+    {
+      "related_quest_id": "irowiki-classic:President_Quest",
+      "kind": "required_quest",
+      "evidence": "President Quest"
+    },
+    {
+      "related_quest_id": "irowiki-classic:Cursed_Spirit_Quest",
+      "kind": "required_quest",
+      "evidence": "Cursed Spirit Quest"
+    },
+    {
+      "related_quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
+      "kind": "required_quest",
+      "evidence": "Odin's Temple Excavation Quest"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Tropical Sograt",
+        "entity": "Tropical Sograt",
+        "condition": "Main source total, not a second per-step material obligation."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Vermilion on the Beach",
+        "entity": "Vermilion on the Beach",
+        "condition": "Main source total, not a second per-step material obligation."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Marine Sphere Bottle",
+        "entity": "Marine Sphere Bottle",
+        "condition": "Main source total, not a second per-step material obligation."
+      },
+      {
+        "kind": "source_zeny_summary",
+        "amount": "3000",
+        "source_section": "requirements",
+        "evidence": "Zeny: 3,000",
+        "condition": "Header summary only. Drink costs vary by class and the bottle price is unstated; do not charge another 3000 or infer a missing bottle price."
+      }
+    ]
+  },
+  "source_partitions": [
+    {
+      "source_step": 1,
+      "segments": [
+        {
+          "target_step": 1,
+          "start": 0,
+          "end": 86,
+          "section": "Random request introduction"
+        },
+        {
+          "target_step": 1,
+          "branch_key": "clams",
+          "start": 86,
+          "end": 183,
+          "section": "Random set clams"
+        },
+        {
+          "target_step": 1,
+          "branch_key": "mushrooms",
+          "start": 183,
+          "end": 292,
+          "section": "Random set mushrooms"
+        },
+        {
+          "target_step": 1,
+          "branch_key": "shells",
+          "start": 292,
+          "end": 405,
+          "section": "Random set shells"
+        }
+      ]
+    },
+    {
+      "source_step": 15,
+      "segments": [
+        {
+          "target_step": 15,
+          "start": 0,
+          "end": 140,
+          "section": "Main document task"
+        },
+        {
+          "target_step": 15,
+          "branch_key": "food_exchange",
+          "start": 140,
+          "end": 216,
+          "section": "Unlocked repeatable food exchange"
+        }
+      ]
+    }
+  ]
+}

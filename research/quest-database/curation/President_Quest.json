@@ -1,0 +1,1829 @@
+{
+  "quest_id": "irowiki-classic:President_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "0a95cb1a9b972fbb3e79de7c05cd9f776fd1545d1671cda2775de2bc7106dbed",
+  "snapshot_sha256": "b1dfee5320de1a586484855894047e8098ebe986d1189587b76b7887946e5edb",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Ghalstein",
+      "aliases": [
+        "Ordinary Man"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Gushaar",
+      "aliases": [
+        "Dismayed Man"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "President Karl Weierstrass",
+      "aliases": [
+        "President Karl",
+        "President"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Secretary Hes O'Neil",
+      "aliases": [
+        "Hes O'Neil",
+        "O'Neil"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Keshnaar",
+      "aliases": [
+        "Fine Gentleman"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Venice",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Benith",
+      "aliases": [
+        "Kafra Employee"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Jargeah",
+      "aliases": [
+        "A Wounded Man"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Shinokas",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Esuna",
+      "aliases": [
+        "A Mystery Woman"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Lestin",
+      "aliases": [
+        "Researcher"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "File Search Engine",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Kurelle",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Guard",
+      "ref": "office_guard",
+      "identity": "irowiki-classic:npc:yuno_pre:95:71:Guard"
+    },
+    {
+      "type": "npc",
+      "name": "Guard",
+      "ref": "hq_guard",
+      "identity": "irowiki-classic:npc:lhz_in01:35:226:Guard"
+    },
+    {
+      "type": "npc",
+      "name": "guards",
+      "ref": "document_guards"
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lighthalzen",
+      "map_code": "lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "yuno_fild04",
+      "map_code": "yuno_fild04"
+    },
+    {
+      "type": "map",
+      "name": "yuno_pre",
+      "map_code": "yuno_pre"
+    },
+    {
+      "type": "map",
+      "name": "Aldebran"
+    },
+    {
+      "type": "map",
+      "name": "aldeba_in",
+      "map_code": "aldeba_in"
+    },
+    {
+      "type": "map",
+      "name": "Grim Reaper's Valley"
+    },
+    {
+      "type": "map",
+      "name": "lhz_fild02",
+      "map_code": "lhz_fild02"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch"
+    },
+    {
+      "type": "map",
+      "name": "lhz_fild01",
+      "map_code": "lhz_fild01"
+    },
+    {
+      "type": "map",
+      "name": "lhz_in01",
+      "map_code": "lhz_in01"
+    },
+    {
+      "type": "item",
+      "name": "Research Charts",
+      "game_id": 7347,
+      "id_source": "http://db.irowiki.org/classic/item-info/7347/"
+    },
+    {
+      "type": "item",
+      "name": "Handcuffs",
+      "game_id": 7345,
+      "id_source": "http://db.irowiki.org/classic/item-info/7345/"
+    },
+    {
+      "type": "item",
+      "name": "Ymir's Heart Piece",
+      "game_id": 7346,
+      "id_source": "http://db.irowiki.org/classic/item-info/7346/"
+    },
+    {
+      "type": "item",
+      "name": "Grandpa Beard",
+      "game_id": 2241,
+      "id_source": "http://db.irowiki.org/classic/item-info/2241/"
+    },
+    {
+      "type": "item",
+      "name": "Geek Glasses",
+      "game_id": 2243,
+      "id_source": "http://db.irowiki.org/classic/item-info/2243/"
+    },
+    {
+      "type": "item",
+      "name": "Membership Card"
+    },
+    {
+      "type": "item",
+      "name": "File Folder"
+    },
+    {
+      "type": "item",
+      "name": "Sealed File Folder"
+    },
+    {
+      "type": "item",
+      "name": "Archive Permit"
+    },
+    {
+      "type": "item",
+      "name": "Shinokas Case File"
+    },
+    {
+      "type": "item",
+      "name": "Old Purple Box",
+      "game_id": 617,
+      "id_source": "http://db.irowiki.org/classic/item-info/617/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "On a visit to Lighthalzen , you stumble across an Ordinary Man, Ghalstein (lighthalzen 179 170) and greet him.",
+      "instruction_sha256": "317a7711d0392f5b82bbcd2900f9779f23d78518a0e1737750617f2eb2781c40",
+      "step_id": "irowiki-classic:President_Quest/step/317a7711d0392f5b82bb/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Ghalstein: lighthalzen 179 170.",
+      "short_en": "Talk to Ghalstein: lighthalzen 179 170.",
+      "full_ru": "Во время визита в Lighthalzen поговорите с Ordinary Man, Ghalstein (lighthalzen 179 170).",
+      "full_en": "On a visit to Lighthalzen , you stumble across an Ordinary Man, Ghalstein (lighthalzen 179 170) and greet him.",
+      "npcs": [
+        {
+          "entity": "Ghalstein",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ghalstein"
+        }
+      ],
+      "protected_names": [
+        "Ghalstein",
+        "Lighthalzen",
+        "lighthalzen"
+      ],
+      "locations": [
+        {
+          "map": "lighthalzen",
+          "x": 179,
+          "y": 170,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lighthalzen 179 170"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Walk close to the wall surrounding the upper left area, suddenly you overhear a conversation. You can't quite hear what they're talking about, but you hear a familiar sound... it's Ghalstein.",
+      "instruction_sha256": "627a9aad9f538227df0019ed86299c912008f547afa6ff9dd68bf365fde8bd63",
+      "step_id": "irowiki-classic:President_Quest/step/627a9aad9f538227df00/1",
+      "goal": "overhear",
+      "short_ru": "У стены верхней левой области подслушайте голос Ghalstein.",
+      "short_en": "Near the upper-left area’s wall, overhear Ghalstein’s voice.",
+      "full_ru": "Подойдите к стене вокруг верхней левой области. Вы подслушаете разговор и узнаете голос Ghalstein.",
+      "full_en": "Walk close to the wall surrounding the upper left area, suddenly you overhear a conversation. You can't quite hear what they're talking about, but you hear a familiar sound... it's Ghalstein.",
+      "npcs": [
+        {
+          "entity": "Ghalstein",
+          "role": "overhear"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "overhear",
+          "entity": "Ghalstein"
+        }
+      ],
+      "protected_names": [
+        "Ghalstein"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Next go talk to Ghalstein again and ask about what you just overheard, and confirm it was his voice. After trying to get it out of him, he finally admits that it was him on and he asks you to give him time to consider telling the truth.",
+      "instruction_sha256": "fafb7c19da22cf35a4f843907c2fd7fa02a330756b1fcfb9836da4172c165a21",
+      "step_id": "irowiki-classic:President_Quest/step/fafb7c19da22cf35a4f8/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Ghalstein о подслушанном разговоре.",
+      "short_en": "Question Ghalstein about the overheard conversation.",
+      "full_ru": "Снова поговорите с Ghalstein и спросите о подслушанном разговоре. Убедите его признать свой голос; он попросит время, чтобы решить, рассказывать ли правду.",
+      "full_en": "Next go talk to Ghalstein again and ask about what you just overheard, and confirm it was his voice. After trying to get it out of him, he finally admits that it was him on and he asks you to give him time to consider telling the truth.",
+      "npcs": [
+        {
+          "entity": "Ghalstein",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ghalstein"
+        }
+      ],
+      "protected_names": [
+        "Ghalstein"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "He then tells you he belongs to a secret group that's fighting an underground war with someone and asks you to help them. Agree to help him. He proposes a restriction on you by making you swallow a red pill which will undoubtedly make sure you stay truthful to the cause. He assure that he'll give the antidote once you complete his mission.",
+      "instruction_sha256": "3978ca2ddd715a209440da1e93788cdd2822b03a7358d0acf3cc7628a76d8e73",
+      "step_id": "irowiki-classic:President_Quest/step/3978ca2ddd715a209440/1",
+      "goal": "accept",
+      "short_ru": "Согласитесь помочь и примите красную пилюлю по ходу диалога.",
+      "short_en": "Agree to help and take the red pill during the dialogue.",
+      "full_ru": "Он расскажет о тайной группе, ведущей подпольную войну, и попросит помощи. Согласитесь. Для гарантии верности он заставит проглотить красную пилюлю и обещает противоядие после задания.",
+      "full_en": "He then tells you he belongs to a secret group that's fighting an underground war with someone and asks you to help them. Agree to help him. He proposes a restriction on you by making you swallow a red pill which will undoubtedly make sure you stay truthful to the cause. He assure that he'll give the antidote once you complete his mission.",
+      "npcs": [
+        {
+          "entity": "Ghalstein",
+          "role": "talk",
+          "support_step": 3,
+          "evidence": "Next go talk to Ghalstein again and ask about what you just overheard, and confirm it was his voice. After trying to get it out of him, he finally admits that it was him on and he asks you to give him time to consider telling the truth."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "accept"
+        },
+        {
+          "operation": "take_story_pill",
+          "condition": "Narrative action; exact menu text, inventory name and ID are not stated."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Ghalstein wants you to investigate on Rekenber Headquarters because lately strange creatures have been seen under the basement. He asks for you to collect all related biological exhibits, plus the most important thing and he assure you that you'll know that important thing when I see it (Ymir's Heart Piece). He also tells you that lately people are missing in the slum area and it probably has to do with the Rekenber Corporation as well.",
+      "instruction_sha256": "4428e8a12f0cf22bf15b2343f81f090ec4b9db66243dd006f3b420818f7ed249",
+      "step_id": "irowiki-classic:President_Quest/step/4428e8a12f0cf22bf15b/1",
+      "goal": "talk",
+      "short_ru": "Получите у Ghalstein задание на образцы и Ymir's Heart Piece.",
+      "short_en": "Get Ghalstein’s task to collect biological exhibits and Ymir's Heart Piece.",
+      "full_ru": "Ghalstein попросит исследовать Rekenber Headquarters: в подвале видели странных существ. Соберите биологические образцы и главное — Ymir's Heart Piece. Он также расскажет об исчезновениях в трущобах, возможно связанных с Rekenber Corporation.",
+      "full_en": "Ghalstein wants you to investigate on Rekenber Headquarters because lately strange creatures have been seen under the basement. He asks for you to collect all related biological exhibits, plus the most important thing and he assure you that you'll know that important thing when I see it (Ymir's Heart Piece). He also tells you that lately people are missing in the slum area and it probably has to do with the Rekenber Corporation as well.",
+      "npcs": [
+        {
+          "entity": "Ghalstein",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ghalstein"
+        }
+      ],
+      "protected_names": [
+        "Ghalstein",
+        "Ymir's Heart Piece"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Those that did the Biolabs Entrance Quest can go to Level 2 and Level 3 of the Biolabs Dungeon through the Underwater Tunnel. | Collect 10 Research Charts , 10 Handcuffs and a Ymir's Heart Piece (Top right corner of Level 2)",
+      "instruction_sha256": "5e12fa0a774e35379c4cda01030f250cd61294ecf97cbe76648da584867bda48",
+      "step_id": "irowiki-classic:President_Quest/step/5e12fa0a774e35379c4c/1",
+      "goal": "collect",
+      "short_ru": "Соберите 10 Research Charts, 10 Handcuffs и Ymir's Heart Piece в Biolabs.",
+      "short_en": "Collect 10 Research Charts, 10 Handcuffs and Ymir's Heart Piece in Biolabs.",
+      "full_ru": "После Biolabs Entrance Quest можно пройти в Level 2 и Level 3 Biolabs Dungeon через Underwater Tunnel. Соберите 10 Research Charts, 10 Handcuffs и Ymir's Heart Piece в правом верхнем углу Level 2.",
+      "full_en": "Those that did the Biolabs Entrance Quest can go to Level 2 and Level 3 of the Biolabs Dungeon through the Underwater Tunnel. | Collect 10 Research Charts , 10 Handcuffs and a Ymir's Heart Piece (Top right corner of Level 2)",
+      "items": [
+        {
+          "entity": "Research Charts",
+          "quantity": 10,
+          "operation": "collect",
+          "required": 1
+        },
+        {
+          "entity": "Handcuffs",
+          "quantity": 10,
+          "operation": "collect",
+          "required": 1
+        },
+        {
+          "entity": "Ymir's Heart Piece",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Research Charts"
+        },
+        {
+          "operation": "collect",
+          "entity": "Handcuffs"
+        },
+        {
+          "operation": "collect",
+          "entity": "Ymir's Heart Piece"
+        }
+      ],
+      "protected_names": [
+        "Research Charts",
+        "Handcuffs",
+        "Ymir's Heart Piece"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "After gathering the items needed, talk to Ghalstein. He asks you to meet Gushaar for the next mission somewhere around Juno . | Obtain Membership Card",
+      "instruction_sha256": "dce05e671e7b38c0389663c0c4f6a9dad260c2f4c1f4654d6f719608954024fa",
+      "step_id": "irowiki-classic:President_Quest/step/dce05e671e7b38c03896/1",
+      "goal": "deliver",
+      "short_ru": "Передайте материалы Ghalstein; получите Membership Card и направление к Gushaar.",
+      "short_en": "Give Ghalstein the materials; receive Membership Card and a referral to Gushaar.",
+      "full_ru": "Собрав материалы, поговорите с Ghalstein. Он направит к Gushaar около Juno для следующего задания. Получите Membership Card.",
+      "full_en": "After gathering the items needed, talk to Ghalstein. He asks you to meet Gushaar for the next mission somewhere around Juno . | Obtain Membership Card",
+      "npcs": [
+        {
+          "entity": "Ghalstein",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Research Charts",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Those that did the Biolabs Entrance Quest can go to Level 2 and Level 3 of the Biolabs Dungeon through the Underwater Tunnel. | Collect 10 Research Charts , 10 Handcuffs and a Ymir's Heart Piece (Top right corner of Level 2)"
+        },
+        {
+          "entity": "Handcuffs",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Those that did the Biolabs Entrance Quest can go to Level 2 and Level 3 of the Biolabs Dungeon through the Underwater Tunnel. | Collect 10 Research Charts , 10 Handcuffs and a Ymir's Heart Piece (Top right corner of Level 2)"
+        },
+        {
+          "entity": "Ymir's Heart Piece",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Those that did the Biolabs Entrance Quest can go to Level 2 and Level 3 of the Biolabs Dungeon through the Underwater Tunnel. | Collect 10 Research Charts , 10 Handcuffs and a Ymir's Heart Piece (Top right corner of Level 2)"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Membership Card"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ghalstein"
+        }
+      ],
+      "protected_names": [
+        "Ghalstein",
+        "Gushaar",
+        "Juno",
+        "Membership Card"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Looking somewhere around Juno, you found a Dismayed Man, Gushaar (yuno_fild04 165 245). You tell him you've been sent by Ghalstein and he asks you to chose red pill and blue pill. Since Ghalstein previously gave you red pill, choose the red pill. Then he asks if you have something to show him. Say yes, and show him the Membership Card.",
+      "instruction_sha256": "a5584931519c7c6f7ace3f15b61ccb78f60a3904337a89308aa000a745b8c934",
+      "step_id": "irowiki-classic:President_Quest/step/a5584931519c7c6f7ace/1",
+      "goal": "talk",
+      "short_ru": "У Gushaar (yuno_fild04 165 245) выберите красную пилюлю и покажите Membership Card.",
+      "short_en": "At Gushaar (yuno_fild04 165 245), choose the red pill and show Membership Card.",
+      "full_ru": "Около Juno найдите Dismayed Man, Gushaar (yuno_fild04 165 245). Скажите, что вас послал Ghalstein. На вопрос о красной или синей пилюле выберите красную. Затем подтвердите, что есть что показать, и покажите Membership Card.",
+      "full_en": "Looking somewhere around Juno, you found a Dismayed Man, Gushaar (yuno_fild04 165 245). You tell him you've been sent by Ghalstein and he asks you to chose red pill and blue pill. Since Ghalstein previously gave you red pill, choose the red pill. Then he asks if you have something to show him. Say yes, and show him the Membership Card.",
+      "npcs": [
+        {
+          "entity": "Gushaar",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Membership Card",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Gushaar"
+        },
+        {
+          "operation": "choose_red_pill",
+          "condition": "Source paraphrases the choice; no exact quoted menu label is established."
+        },
+        {
+          "operation": "show",
+          "entity": "Membership Card"
+        }
+      ],
+      "protected_names": [
+        "Ghalstein",
+        "Gushaar",
+        "Juno",
+        "yuno_fild04",
+        "Membership Card"
+      ],
+      "locations": [
+        {
+          "map": "yuno_fild04",
+          "x": 165,
+          "y": 245,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_fild04 165 245"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "After that he tells you his country, Schwarzwald is controled by the evil Rekenber Corporation. You learn that they have organized a resistance called Wing Of Secret with the help of the President Karl Weierstrass to free the Schwarzwald Republic from the control of Rekenber. He asks you to meet the President at an appointed time. * Between 8 PM to 11 PM or 11 AM to 2 PM talk to the President's secretary. For iRO, the times listed are in Pacific Time.",
+      "instruction_sha256": "256568a31d0c44e3201faa548228d83a2d621f2f5c739ab275f47f46ac499369",
+      "step_id": "irowiki-classic:President_Quest/step/256568a31d0c44e3201f/1",
+      "goal": "appointment",
+      "short_ru": "Посетите секретаря President: 8 PM–11 PM или 11 AM–2 PM; на iRO — Pacific Time.",
+      "short_en": "Visit the President’s secretary: 8 PM–11 PM or 11 AM–2 PM; iRO uses Pacific Time.",
+      "full_ru": "Он расскажет, что Schwarzwald контролирует Rekenber Corporation, а сопротивление Wing Of Secret поддерживает President Karl Weierstrass. Встретьтесь с President в назначенное время: между 8 PM и 11 PM или между 11 AM и 2 PM поговорите с его секретарём. Для iRO указано Pacific Time.",
+      "full_en": "After that he tells you his country, Schwarzwald is controled by the evil Rekenber Corporation. You learn that they have organized a resistance called Wing Of Secret with the help of the President Karl Weierstrass to free the Schwarzwald Republic from the control of Rekenber. He asks you to meet the President at an appointed time. * Between 8 PM to 11 PM or 11 AM to 2 PM talk to the President's secretary. For iRO, the times listed are in Pacific Time.",
+      "npcs": [
+        {
+          "entity": "Gushaar",
+          "role": "talk",
+          "support_step": 8,
+          "evidence": "Looking somewhere around Juno, you found a Dismayed Man, Gushaar (yuno_fild04 165 245). You tell him you've been sent by Ghalstein and he asks you to chose red pill and blue pill. Since Ghalstein previously gave you red pill, choose the red pill. Then he asks if you have something to show him. Say yes, and show him the Membership Card."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "appointment_window",
+          "amount": "8 PM to 11 PM",
+          "condition": "Alternative window; Pacific Time applies to iRO only."
+        },
+        {
+          "kind": "appointment_window",
+          "amount": "11 AM to 2 PM",
+          "condition": "Alternative window; not an additional waiting duration."
+        },
+        {
+          "kind": "source_timezone",
+          "amount": "Pacific Time",
+          "condition": "Source explicitly limits this timezone to iRO."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Gushaar"
+        }
+      ],
+      "protected_names": [
+        "President Karl Weierstrass"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "At the President of the Schwarzwald Republic's Office (building in north Juno 157, 319), meet Secretary Hes O'Neil (yuno_pre 69 20) O'Neil tells you the President is waiting.",
+      "instruction_sha256": "5872db3e47d279a59c9fbef092384d016796435a7b68ac10bea873ed4aebd428",
+      "step_id": "irowiki-classic:President_Quest/step/5872db3e47d279a59c9f/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Secretary Hes O'Neil: yuno_pre 69 20.",
+      "short_en": "Talk to Secretary Hes O'Neil: yuno_pre 69 20.",
+      "full_ru": "В офисе президента Schwarzwald Republic, в здании на севере Juno (157, 319), найдите Secretary Hes O'Neil (yuno_pre 69 20). O'Neil сообщит, что President ждёт.",
+      "full_en": "At the President of the Schwarzwald Republic's Office (building in north Juno 157, 319), meet Secretary Hes O'Neil (yuno_pre 69 20) O'Neil tells you the President is waiting.",
+      "npcs": [
+        {
+          "entity": "Secretary Hes O'Neil",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Juno",
+          "x": 157,
+          "y": 319,
+          "role": "entrance",
+          "known": false,
+          "order": 1
+        },
+        {
+          "entity": "yuno_pre",
+          "x": 69,
+          "y": 20,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Secretary Hes O'Neil"
+        }
+      ],
+      "protected_names": [
+        "Secretary Hes O'Neil",
+        "Juno",
+        "yuno_pre"
+      ]
+    },
+    "11": {
+      "original_instruction": "Talk to the Guard (yuno_pre 95 71) outside the President's office you find out he still meeting with another guest. | You may have to talk to the guard many times to continue",
+      "instruction_sha256": "c2fabc262d5d1ef6a16f9234c5456d022ccf5dbf69e1be95c25961e106537ede",
+      "step_id": "irowiki-classic:President_Quest/step/c2fabc262d5d1ef6a16f/1",
+      "goal": "talk",
+      "short_ru": "Повторяйте разговор с Guard: yuno_pre 95 71, пока встреча не закончится.",
+      "short_en": "Repeat talks with Guard at yuno_pre 95 71 until the meeting ends.",
+      "full_ru": "У Guard (yuno_pre 95 71) перед кабинетом President узнайте, что тот ещё принимает гостя. Возможно, понадобится поговорить со стражником много раз.",
+      "full_en": "Talk to the Guard (yuno_pre 95 71) outside the President's office you find out he still meeting with another guest. | You may have to talk to the guard many times to continue",
+      "npcs": [
+        {
+          "entity": "office_guard",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "office_guard",
+          "condition": "Repeat until the source event advances; count unknown."
+        }
+      ],
+      "mention_entities": {
+        "Guard": "office_guard"
+      },
+      "protected_names": [
+        "Guard",
+        "Guard",
+        "yuno_pre"
+      ],
+      "locations": [
+        {
+          "map": "yuno_pre",
+          "x": 95,
+          "y": 71,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_pre 95 71"
+        }
+      ]
+    },
+    "12": {
+      "original_instruction": "Finally, a Fine Gentleman comes out of the room; it's Keshnaar. He's the President's guest the Guard talked about!",
+      "instruction_sha256": "b8f6b051769ad6d39cd7d43fb02a1d91f44fb5b9739e4d7a9a57607b45b0bd1d",
+      "step_id": "irowiki-classic:President_Quest/step/b8f6b051769ad6d39cd7/1",
+      "goal": "wait_event",
+      "short_ru": "Дождитесь выхода Keshnaar, гостя President.",
+      "short_en": "Wait for Keshnaar, the President’s guest, to leave.",
+      "full_ru": "Из комнаты выйдет Fine Gentleman — Keshnaar, гость President, о котором говорил Guard.",
+      "full_en": "Finally, a Fine Gentleman comes out of the room; it's Keshnaar. He's the President's guest the Guard talked about!",
+      "npcs": [
+        {
+          "entity": "Keshnaar",
+          "role": "appears"
+        },
+        {
+          "entity": "office_guard",
+          "role": "context",
+          "support_step": 11,
+          "evidence": "Talk to the Guard (yuno_pre 95 71) outside the President's office you find out he still meeting with another guest. | You may have to talk to the guard many times to continue"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "wait_event"
+        }
+      ],
+      "mention_entities": {
+        "Guard": "office_guard"
+      },
+      "protected_names": [
+        "Keshnaar",
+        "Guard",
+        "Guard"
+      ],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "After Keshnaar leaves, ask the Guard about him and you learn that Keshnaar works for Rekenber and is responsible for consulting with the government. You are let into the office.",
+      "instruction_sha256": "078aff28a1cde2048b7c2213fb9efbaad4492e1f5a4ff9a693bcde0f2f708bf6",
+      "step_id": "irowiki-classic:President_Quest/step/078aff28a1cde2048b7c/1",
+      "goal": "enter",
+      "short_ru": "После ухода Keshnaar поговорите с Guard и войдите в кабинет.",
+      "short_en": "After Keshnaar leaves, talk to Guard and enter the office.",
+      "full_ru": "После ухода Keshnaar спросите Guard о нём. Вы узнаете, что Keshnaar работает на Rekenber и консультирует правительство. Вас пропустят в кабинет.",
+      "full_en": "After Keshnaar leaves, ask the Guard about him and you learn that Keshnaar works for Rekenber and is responsible for consulting with the government. You are let into the office.",
+      "npcs": [
+        {
+          "entity": "office_guard",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "office_guard"
+        },
+        {
+          "operation": "enter"
+        }
+      ],
+      "mention_entities": {
+        "Guard": "office_guard"
+      },
+      "protected_names": [
+        "Keshnaar",
+        "Guard",
+        "Guard"
+      ],
+      "locations": []
+    },
+    "14": {
+      "original_instruction": "President Karl (yuno_pre 69 79) is a busy man. So he gives you a few questions to ask him. After he briefs you about it, ask about your mission.",
+      "instruction_sha256": "afa384cbf4952be9f010ae2c5e57cde17ecf1616b67744982e16890503991d8e",
+      "step_id": "irowiki-classic:President_Quest/step/afa384cbf4952be9f010/1",
+      "goal": "talk",
+      "short_ru": "Спросите President Karl о задании: yuno_pre 69 79.",
+      "short_en": "Ask President Karl about the mission: yuno_pre 69 79.",
+      "full_ru": "Поговорите с President Karl (yuno_pre 69 79). Задайте предложенные вопросы, выслушайте объяснения и спросите о задании.",
+      "full_en": "President Karl (yuno_pre 69 79) is a busy man. So he gives you a few questions to ask him. After he briefs you about it, ask about your mission.",
+      "npcs": [
+        {
+          "entity": "President Karl Weierstrass",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "President Karl Weierstrass"
+        }
+      ],
+      "protected_names": [
+        "yuno_pre"
+      ],
+      "locations": [
+        {
+          "map": "yuno_pre",
+          "x": 69,
+          "y": 79,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_pre 69 79"
+        }
+      ]
+    },
+    "15": {
+      "original_instruction": "Your first mission from the President is to go to the Aldebran Kafra Headquarters and meet someone called Venice. Before you leave he wants you to pass a file to his Secretary Hes O'Neil. | Obtain File Folder",
+      "instruction_sha256": "45050e8e69e65a9c3a44e17d8d594a078f62268bdae7329f4002bfde5d52973f",
+      "step_id": "irowiki-classic:President_Quest/step/45050e8e69e65a9c3a44/1",
+      "goal": "receive_item",
+      "short_ru": "Получите у President File Folder для Secretary Hes O'Neil, затем направляйтесь к Venice.",
+      "short_en": "Receive File Folder from the President for Secretary Hes O'Neil, then head toward Venice.",
+      "full_ru": "President направит в Aldebran Kafra Headquarters к человеку по имени Venice. Перед уходом он попросит передать файл Secretary Hes O'Neil. Получите File Folder.",
+      "full_en": "Your first mission from the President is to go to the Aldebran Kafra Headquarters and meet someone called Venice. Before you leave he wants you to pass a file to his Secretary Hes O'Neil. | Obtain File Folder",
+      "npcs": [
+        {
+          "entity": "President Karl Weierstrass",
+          "role": "talk"
+        },
+        {
+          "entity": "Venice",
+          "role": "unresolved_next_contact"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "File Folder"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "President Karl Weierstrass"
+        }
+      ],
+      "protected_names": [
+        "Secretary Hes O'Neil",
+        "Venice",
+        "Aldebran",
+        "File Folder"
+      ],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "As you walk out of the room, you hear someone talking by the window, before the sound fades away.",
+      "instruction_sha256": "bb768ba1f0bc159f94cc41853d3e17b31f2fd2534ec555cd6ced962b424067c9",
+      "step_id": "irowiki-classic:President_Quest/step/bb768ba1f0bc159f94cc/1",
+      "goal": "overhear",
+      "short_ru": "При выходе из комнаты подслушайте разговор у окна.",
+      "short_en": "While leaving the room, overhear the conversation by the window.",
+      "full_ru": "Выходя из комнаты, вы услышите разговор у окна, который вскоре затихнет.",
+      "full_en": "As you walk out of the room, you hear someone talking by the window, before the sound fades away.",
+      "actions": [
+        {
+          "operation": "overhear"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "17": {
+      "original_instruction": "Give the File to Hes O'Neil.",
+      "instruction_sha256": "37ea985af77547d6c5bbf99257fcec9b4653722bb2d6dfeb68d397a29fa79caa",
+      "step_id": "irowiki-classic:President_Quest/step/37ea985af77547d6c5bb/1",
+      "goal": "deliver",
+      "short_ru": "Передайте File Hes O'Neil.",
+      "short_en": "Give the File to Hes O'Neil.",
+      "full_ru": "Передайте File Hes O'Neil.",
+      "full_en": "Give the File to Hes O'Neil.",
+      "npcs": [
+        {
+          "entity": "Secretary Hes O'Neil",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "File Folder",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 15,
+          "evidence": "Your first mission from the President is to go to the Aldebran Kafra Headquarters and meet someone called Venice. Before you leave he wants you to pass a file to his Secretary Hes O'Neil. | Obtain File Folder"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Secretary Hes O'Neil"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "18": {
+      "original_instruction": "Find the Kafra Employee, Benith (aldeba_in 155 240) and she explains about voting rights for Kafra Service & Cool Event Corp.",
+      "instruction_sha256": "7f2235d4255e73495f55ab469d082a8e038c45cbe595950fe289ba7a76f08ce0",
+      "step_id": "irowiki-classic:President_Quest/step/7f2235d4255e73495f55/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Benith: aldeba_in 155 240.",
+      "short_en": "Talk to Benith: aldeba_in 155 240.",
+      "full_ru": "Найдите Kafra Employee, Benith (aldeba_in 155 240). Она объяснит право голоса за Kafra Service & Cool Event Corp.",
+      "full_en": "Find the Kafra Employee, Benith (aldeba_in 155 240) and she explains about voting rights for Kafra Service & Cool Event Corp.",
+      "npcs": [
+        {
+          "entity": "Benith",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Benith"
+        }
+      ],
+      "protected_names": [
+        "Benith",
+        "aldeba_in"
+      ],
+      "locations": [
+        {
+          "map": "aldeba_in",
+          "x": 155,
+          "y": 240,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "aldeba_in 155 240"
+        }
+      ]
+    },
+    "19": {
+      "original_instruction": "After she's done, ask \"are you Benith..?\" and the let her see the Membership Card. She tells you she's a member of Wind of Secret as well. She explains one of the agent is stuck & is hiding at Grim Reaper's Valley and needs to be rescued. His name is Jargeah.",
+      "instruction_sha256": "18feec9df6be828669eb1a33ff0c37b7f3c8f16dd213a0c3389f707145d60219",
+      "step_id": "irowiki-classic:President_Quest/step/18feec9df6be828669eb/1",
+      "goal": "talk",
+      "short_ru": "Спросите Benith «are you Benith..?» и покажите Membership Card.",
+      "short_en": "Ask Benith “are you Benith..?” and show Membership Card.",
+      "full_ru": "После объяснений спросите «are you Benith..?» и покажите Membership Card. Она расскажет о Wind of Secret и агенте Jargeah, который прячется в Grim Reaper's Valley и нуждается в спасении.",
+      "full_en": "After she's done, ask \"are you Benith..?\" and the let her see the Membership Card. She tells you she's a member of Wind of Secret as well. She explains one of the agent is stuck & is hiding at Grim Reaper's Valley and needs to be rescued. His name is Jargeah.",
+      "npcs": [
+        {
+          "entity": "Benith",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Membership Card",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Benith",
+          "options": [
+            {
+              "text": "are you Benith..?",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Benith"
+        },
+        {
+          "operation": "show",
+          "entity": "Membership Card"
+        }
+      ],
+      "protected_names": [
+        "Benith",
+        "Jargeah",
+        "Grim Reaper's Valley",
+        "Membership Card"
+      ],
+      "locations": []
+    },
+    "20": {
+      "original_instruction": "After a long search, I spot A Wounded Man, Jargeah (lhz_fild02 228 214). He asks who you are, so type in Kafra Corporation. He gives you a file and asks you to pass it to Benith and leave him here. | Obtain Sealed File Folder",
+      "instruction_sha256": "114d7630d6f4bf31be518e43bb488885557e16cace85ef701486d47f0cba9d78",
+      "step_id": "irowiki-classic:President_Quest/step/114d7630d6f4bf31be51/1",
+      "goal": "receive_item",
+      "short_ru": "У Jargeah (lhz_fild02 228 214) введите Kafra Corporation; получите Sealed File Folder.",
+      "short_en": "At Jargeah (lhz_fild02 228 214), enter Kafra Corporation; receive Sealed File Folder.",
+      "full_ru": "Найдите A Wounded Man, Jargeah (lhz_fild02 228 214). На вопрос, кто вы, введите Kafra Corporation. Он даст файл для Benith и попросит уйти, оставив его здесь. Получите Sealed File Folder.",
+      "full_en": "After a long search, I spot A Wounded Man, Jargeah (lhz_fild02 228 214). He asks who you are, so type in Kafra Corporation. He gives you a file and asks you to pass it to Benith and leave him here. | Obtain Sealed File Folder",
+      "npcs": [
+        {
+          "entity": "Jargeah",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Jargeah",
+          "options": [
+            {
+              "text": "Kafra Corporation",
+              "correct": 1,
+              "operation": "enter_text"
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Sealed File Folder"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Jargeah"
+        }
+      ],
+      "protected_names": [
+        "Benith",
+        "Jargeah",
+        "lhz_fild02",
+        "File Folder",
+        "Sealed File Folder"
+      ],
+      "locations": [
+        {
+          "map": "lhz_fild02",
+          "x": 228,
+          "y": 214,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_fild02 228 214"
+        }
+      ]
+    },
+    "21": {
+      "original_instruction": "Pass the file to Benith, then she asks about Jargeah. Afterwards, she passes back the file and asks you to hand it over to the President.",
+      "instruction_sha256": "3a711f2643863e208973ed2f05105384be91f60f46603bb4746f8f4ea996af06",
+      "step_id": "irowiki-classic:President_Quest/step/3a711f2643863e208973/1",
+      "goal": "deliver",
+      "short_ru": "Покажите файл Benith, затем несите его President.",
+      "short_en": "Show the file to Benith, then carry it to the President.",
+      "full_ru": "Передайте файл Benith и расскажите о Jargeah. Она вернёт файл и попросит отнести его President.",
+      "full_en": "Pass the file to Benith, then she asks about Jargeah. Afterwards, she passes back the file and asks you to hand it over to the President.",
+      "npcs": [
+        {
+          "entity": "Benith",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Sealed File Folder",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "support_step": 20,
+          "evidence": "After a long search, I spot A Wounded Man, Jargeah (lhz_fild02 228 214). He asks who you are, so type in Kafra Corporation. He gives you a file and asks you to pass it to Benith and leave him here. | Obtain Sealed File Folder",
+          "condition": "The same file is returned for onward delivery, not a second independent grant."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Benith"
+        }
+      ],
+      "protected_names": [
+        "Benith",
+        "Jargeah"
+      ],
+      "locations": []
+    },
+    "22": {
+      "original_instruction": "From the file, the President learns that one of the enterprise researchers caried the secret and is hiding in a secret place. His name is Shinokas, and is in Einbroch. My next mission will be find that person. (You may need to wait a few minutes in the room to talk to the President again and be asked about Shinokas) | To continue, you must have completed the Einbroch Murder Quest .",
+      "instruction_sha256": "94318bed09785e79fccc3f45b000374b3da4811fc83d37ed9d59264fb4466009",
+      "step_id": "irowiki-classic:President_Quest/step/94318bed09785e79fccc/1",
+      "goal": "talk",
+      "short_ru": "Доложите President о файле; для продолжения завершите Einbroch Murder Quest.",
+      "short_en": "Report to the President about the file; complete Einbroch Murder Quest to continue.",
+      "full_ru": "Из файла President узнает об исследователе Shinokas, скрывающемся в Einbroch. Он поручит найти его; возможно, потребуется несколько минут ждать в комнате и снова говорить с President. Для продолжения нужно завершить Einbroch Murder Quest.",
+      "full_en": "From the file, the President learns that one of the enterprise researchers caried the secret and is hiding in a secret place. His name is Shinokas, and is in Einbroch. My next mission will be find that person. (You may need to wait a few minutes in the room to talk to the President again and be asked about Shinokas) | To continue, you must have completed the Einbroch Murder Quest .",
+      "npcs": [
+        {
+          "entity": "President Karl Weierstrass",
+          "role": "talk"
+        },
+        {
+          "entity": "Shinokas",
+          "role": "story_actor"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "completed_quest_at_step",
+          "amount": "Einbroch Murder Quest",
+          "condition": "Completion gate is stated here; no arbitrary earlier start flag is inferred."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "President Karl Weierstrass"
+        }
+      ],
+      "protected_names": [
+        "Shinokas",
+        "Einbroch"
+      ],
+      "locations": []
+    },
+    "23": {
+      "original_instruction": "When you tell the President about Shinokas, the guard interrupts your conversation and says Hes O'Neil has an urgent matter to see him about. O'Neil passes a pack of documents to President.",
+      "instruction_sha256": "281304b468cf70e4b6d3beec41d43ea2029573f5b3d99b765fbecf8f18e14254",
+      "step_id": "irowiki-classic:President_Quest/step/281304b468cf70e4b6d3/1",
+      "goal": "talk",
+      "short_ru": "Расскажите President о Shinokas и дождитесь документов от Hes O'Neil.",
+      "short_en": "Tell the President about Shinokas and wait for documents from Hes O'Neil.",
+      "full_ru": "Когда вы расскажете President о Shinokas, стражник прервёт разговор: Hes O'Neil нужно срочно увидеть President. O'Neil передаст документы.",
+      "full_en": "When you tell the President about Shinokas, the guard interrupts your conversation and says Hes O'Neil has an urgent matter to see him about. O'Neil passes a pack of documents to President.",
+      "npcs": [
+        {
+          "entity": "President Karl Weierstrass",
+          "role": "talk"
+        },
+        {
+          "entity": "Secretary Hes O'Neil",
+          "role": "story_actor"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "President Karl Weierstrass"
+        }
+      ],
+      "protected_names": [
+        "Shinokas"
+      ],
+      "locations": []
+    },
+    "24": {
+      "original_instruction": "After President examines the documents, (You may have to click many times), he tells you a secret file about Shinokas is hiding in the store room of Rekenber Headquarters. You are ordered to go somewhere around Lighthalzen to wait for the Kafra Service to contact you.",
+      "instruction_sha256": "50930e42ec525117cd42b6f2aa393c110522ff0525ce1f3203f4dd3f84098697",
+      "step_id": "irowiki-classic:President_Quest/step/50930e42ec525117cd42/1",
+      "goal": "talk",
+      "short_ru": "У President получите задание на файл Shinokas; идите к Lighthalzen.",
+      "short_en": "Get the President’s task for the Shinokas file; go toward Lighthalzen.",
+      "full_ru": "После изучения документов, возможно требующего повторных нажатий, President скажет о тайном файле Shinokas в хранилище Rekenber Headquarters. Идите в район Lighthalzen и ждите связи Kafra Service.",
+      "full_en": "After President examines the documents, (You may have to click many times), he tells you a secret file about Shinokas is hiding in the store room of Rekenber Headquarters. You are ordered to go somewhere around Lighthalzen to wait for the Kafra Service to contact you.",
+      "npcs": [
+        {
+          "entity": "President Karl Weierstrass",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "President Karl Weierstrass",
+          "condition": "Repeat clicks if needed; no fixed count."
+        }
+      ],
+      "protected_names": [
+        "Shinokas",
+        "Lighthalzen"
+      ],
+      "locations": []
+    },
+    "25": {
+      "original_instruction": "North of Lighthalzen, A Mystery Woman, Esuna appears (lhz_fild01 66 219). She gives you a short briefing on how to infiltrate the corporation and steal the information. Esuna informs you to make contact with a secret agent, Lestin inside the headquarters and obtain a pass from him to disarm the security system. | You should have on a Grandpa Beard and Geek Glasses to gain access to the labs",
+      "instruction_sha256": "31486289512fac59450432882ba27dd9ccf094ff957359abf36582019011f794",
+      "step_id": "irowiki-classic:President_Quest/step/31486289512fac594504/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Esuna (lhz_fild01 66 219); наденьте Grandpa Beard и Geek Glasses.",
+      "short_en": "Talk to Esuna (lhz_fild01 66 219); equip Grandpa Beard and Geek Glasses.",
+      "full_ru": "К северу от Lighthalzen появится A Mystery Woman, Esuna (lhz_fild01 66 219). Она объяснит проникновение и направит к агенту Lestin за пропуском, отключающим охрану. Для доступа в лаборатории наденьте Grandpa Beard и Geek Glasses.",
+      "full_en": "North of Lighthalzen, A Mystery Woman, Esuna appears (lhz_fild01 66 219). She gives you a short briefing on how to infiltrate the corporation and steal the information. Esuna informs you to make contact with a secret agent, Lestin inside the headquarters and obtain a pass from him to disarm the security system. | You should have on a Grandpa Beard and Geek Glasses to gain access to the labs",
+      "npcs": [
+        {
+          "entity": "Esuna",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Grandpa Beard",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Equip for laboratory access; not consumed."
+        },
+        {
+          "entity": "Geek Glasses",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Equip for laboratory access; not consumed."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "equipped_item",
+          "entity": "Grandpa Beard",
+          "amount": "1"
+        },
+        {
+          "kind": "equipped_item",
+          "entity": "Geek Glasses",
+          "amount": "1"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Esuna"
+        },
+        {
+          "operation": "equip",
+          "entity": "Grandpa Beard"
+        },
+        {
+          "operation": "equip",
+          "entity": "Geek Glasses"
+        }
+      ],
+      "protected_names": [
+        "Esuna",
+        "Lestin",
+        "Lighthalzen",
+        "lhz_fild01",
+        "Grandpa Beard",
+        "Geek Glasses"
+      ],
+      "locations": [
+        {
+          "map": "lhz_fild01",
+          "x": 66,
+          "y": 219,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_fild01 66 219"
+        }
+      ]
+    },
+    "26": {
+      "original_instruction": "Go back to Lighthalzen, and enter the Rekenber Headquarters. Go past the Guard (lhz_in01 35 226).",
+      "instruction_sha256": "4aaa56f6c051af7b6913de567b5e869d841bd2d9b4044f72936af09e7bb51c77",
+      "step_id": "irowiki-classic:President_Quest/step/4aaa56f6c051af7b6913/1",
+      "goal": "enter",
+      "short_ru": "Пройдите Guard в Rekenber Headquarters: lhz_in01 35 226.",
+      "short_en": "Pass the Guard in Rekenber Headquarters: lhz_in01 35 226.",
+      "full_ru": "Вернитесь в Lighthalzen и войдите в Rekenber Headquarters. Пройдите мимо Guard (lhz_in01 35 226).",
+      "full_en": "Go back to Lighthalzen, and enter the Rekenber Headquarters. Go past the Guard (lhz_in01 35 226).",
+      "npcs": [
+        {
+          "entity": "hq_guard",
+          "role": "pass"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        }
+      ],
+      "mention_entities": {
+        "Guard": "hq_guard"
+      },
+      "protected_names": [
+        "Guard",
+        "Guard",
+        "Lighthalzen",
+        "lhz_in01"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 35,
+          "y": 226,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01 35 226"
+        }
+      ]
+    },
+    "27": {
+      "original_instruction": "Go to the upper room in the research lab. He is Researcher, Lestin (lhz_in01 285 169). He tells you the location for the file is heavily guarded and the entry pass from him can last for 3 minutes. | Obtain Archive Permit",
+      "instruction_sha256": "ed75a7a5ec424a3152e86376e5b677578e23850a7d7b99883d3f6b6bd07678b4",
+      "step_id": "irowiki-classic:President_Quest/step/ed75a7a5ec424a3152e8/1",
+      "goal": "receive_item",
+      "short_ru": "Получите Archive Permit у Lestin (lhz_in01 285 169); действие — 3 минуты.",
+      "short_en": "Receive Archive Permit from Lestin (lhz_in01 285 169); validity is 3 minutes.",
+      "full_ru": "В верхней комнате лаборатории найдите Researcher, Lestin (lhz_in01 285 169). Он расскажет об охраняемом файле и пропуске, действующем 3 минуты. Получите Archive Permit.",
+      "full_en": "Go to the upper room in the research lab. He is Researcher, Lestin (lhz_in01 285 169). He tells you the location for the file is heavily guarded and the entry pass from him can last for 3 minutes. | Obtain Archive Permit",
+      "npcs": [
+        {
+          "entity": "Lestin",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Archive Permit"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "infiltration_time_limit_minutes",
+          "amount": "3",
+          "condition": "Same three-minute intrusion window described again at the door; do not add to six minutes."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lestin"
+        }
+      ],
+      "protected_names": [
+        "Lestin",
+        "lhz_in01",
+        "Archive Permit"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 285,
+          "y": 169,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01 285 169"
+        }
+      ]
+    },
+    "28": {
+      "original_instruction": "To get to the Document Room, return back outside from where you had to wear the Geek Glasses and Grandpa Beard to enter. Walk past the two female guides and there should be a portal north of them. In the new room, continue walking to the right, past another portal, until you see two guards guarding a room (around lhz_in01 177,29). When you arrive at the corner of the Document Room, wait patiently until both guards leave their post by walking near the (183,29) cell. When prompted, enter the pin number 738495 to enter the room. Then start your infiltrating, slide in the card and input the number on the card and enter the door. (3 minutes before you are spotted)",
+      "instruction_sha256": "a460e62de76da70f271b696e1af2e60b69c938349ae6897ed9850f9476b0c08a",
+      "step_id": "irowiki-classic:President_Quest/step/a460e62de76da70f271b/1",
+      "goal": "infiltrate",
+      "short_ru": "У Document Room дождитесь ухода guards; введите 738495, затем номер с карты. Лимит — 3 минуты.",
+      "short_en": "At Document Room, wait for the guards to leave; enter 738495, then the number on the card. Limit: 3 minutes.",
+      "full_ru": "Чтобы попасть в Document Room, выйдите из области, куда входили в Geek Glasses и Grandpa Beard. Пройдите двух проводниц и портал к северу, затем вправо мимо другого портала к двум guards у lhz_in01 177,29. Подойдите к (183,29) и дождитесь, когда оба стражника покинут пост. По запросу введите pin 738495. Затем вставьте карту, введите указанный на ней номер и войдите. До обнаружения есть 3 минуты.",
+      "full_en": "To get to the Document Room, return back outside from where you had to wear the Geek Glasses and Grandpa Beard to enter. Walk past the two female guides and there should be a portal north of them. In the new room, continue walking to the right, past another portal, until you see two guards guarding a room (around lhz_in01 177,29). When you arrive at the corner of the Document Room, wait patiently until both guards leave their post by walking near the (183,29) cell. When prompted, enter the pin number 738495 to enter the room. Then start your infiltrating, slide in the card and input the number on the card and enter the door. (3 minutes before you are spotted)",
+      "npcs": [
+        {
+          "entity": "document_guards",
+          "role": "wait_until_absent"
+        }
+      ],
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "738495",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Initial prompted PIN only; the subsequent card number is not supplied by the source."
+            }
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_card_number",
+          "amount": null,
+          "condition": "Read the number on the card; do not substitute the initial PIN for this second input."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "wait_for_guards"
+        },
+        {
+          "operation": "enter_pin"
+        },
+        {
+          "operation": "use_card"
+        },
+        {
+          "operation": "enter_card_number"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "lhz_in01",
+          "x": 177,
+          "y": 29,
+          "role": "room_approach",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "lhz_in01",
+          "x": 183,
+          "y": 29,
+          "role": "guard_trigger",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "guards",
+        "lhz_in01",
+        "Grandpa Beard",
+        "Geek Glasses"
+      ]
+    },
+    "29": {
+      "original_instruction": "Type in Shinokas at the File Search Engine and find the relevant information is kept in area 1-5. | NOTE: The File Search Engine is Case Sensitive, so type 'shinokas' at the Input Box. This was tested on iRO.",
+      "instruction_sha256": "e5d56eb93072d7dfc9143c8f8c4e6c9eda16c8936510c10664a8313f1d793a4b",
+      "step_id": "irowiki-classic:President_Quest/step/e5d56eb93072d7dfc914/1",
+      "goal": "branch_choice",
+      "short_ru": "Выберите соответствующий серверу регистр поискового запроса.",
+      "short_en": "Choose the search-input capitalization appropriate to the source server variant.",
+      "full_ru": "В File Search Engine введите Shinokas и найдите сведения в области 1-5. Примечание: File Search Engine учитывает регистр; в поле Input Box введите shinokas. Этот вариант проверен автором источника на iRO.",
+      "full_en": "Type in Shinokas at the File Search Engine and find the relevant information is kept in area 1-5. | NOTE: The File Search Engine is Case Sensitive, so type 'shinokas' at the Input Box. This was tested on iRO.",
+      "locations": [],
+      "protected_names": [
+        "Shinokas",
+        "File Search Engine"
+      ],
+      "branches": [
+        {
+          "key": "source_search",
+          "choice_group": "file_search_case",
+          "variant_scope": "Source main instruction; applicability unverified",
+          "condition": "Source main instruction; explicit iRO note overrides its capitalization.",
+          "section": "",
+          "source_step": 29,
+          "original_instruction": "Type in Shinokas at the File Search Engine and find the relevant information is kept in area 1-5.",
+          "instruction_sha256": "1ce5709d7f3d5e5bc699af4dcee03ca8a74d9986eb06575b4ebfa64d97174032",
+          "short_ru": "Введите Shinokas в File Search Engine; найдите область 1-5.",
+          "short_en": "Enter Shinokas in File Search Engine; find area 1-5.",
+          "full_ru": "Введите Shinokas в File Search Engine; нужная информация находится в области 1-5.",
+          "full_en": "Type in Shinokas at the File Search Engine and find the relevant information is kept in area 1-5.",
+          "protected_names": [
+            "Shinokas",
+            "File Search Engine"
+          ],
+          "dialogues": [
+            {
+              "npc": "File Search Engine",
+              "options": [
+                {
+                  "text": "Shinokas",
+                  "correct": 1,
+                  "operation": "enter_text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "iro_search",
+          "choice_group": "file_search_case",
+          "variant_scope": "Explicit source iRO tested note",
+          "condition": "Case-sensitive iRO note; use lowercase shinokas.",
+          "section": "",
+          "source_step": 29,
+          "original_instruction": " | NOTE: The File Search Engine is Case Sensitive, so type 'shinokas' at the Input Box. This was tested on iRO.",
+          "instruction_sha256": "de8981913f6e61d1b2c00f385f414c7e615bbc85285958bceb5eddf29ccb78ed",
+          "short_ru": "На iRO введите shinokas в File Search Engine с учётом регистра.",
+          "short_en": "On iRO, enter lowercase shinokas in File Search Engine.",
+          "full_ru": "Примечание: File Search Engine учитывает регистр. В поле Input Box введите shinokas; этот вариант проверен автором источника на iRO.",
+          "full_en": " | NOTE: The File Search Engine is Case Sensitive, so type 'shinokas' at the Input Box. This was tested on iRO.",
+          "protected_names": [
+            "File Search Engine"
+          ],
+          "dialogues": [
+            {
+              "npc": "File Search Engine",
+              "options": [
+                {
+                  "text": "shinokas",
+                  "correct": 1,
+                  "operation": "enter_text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "30": {
+      "original_instruction": "Find the document at area 1-5, it's about Heart of Ymir again. It seems like the information you're looking for. | Obtain Shinokas Case File",
+      "instruction_sha256": "ff9918d4bba4df5c6a2eb189fa4cfb7aa9611fc18f121b2a4bf8f544588e1aa2",
+      "step_id": "irowiki-classic:President_Quest/step/ff9918d4bba4df5c6a2e/1",
+      "goal": "collect",
+      "short_ru": "Заберите Shinokas Case File в области 1-5.",
+      "short_en": "Collect Shinokas Case File in area 1-5.",
+      "full_ru": "Найдите документ в области 1-5 о Heart of Ymir. Это нужные сведения. Получите Shinokas Case File.",
+      "full_en": "Find the document at area 1-5, it's about Heart of Ymir again. It seems like the information you're looking for. | Obtain Shinokas Case File",
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Shinokas Case File"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Shinokas Case File"
+        }
+      ],
+      "protected_names": [
+        "Shinokas",
+        "Shinokas Case File"
+      ],
+      "locations": []
+    },
+    "31": {
+      "original_instruction": "Return the Archive Permit to Lestin and head back to Esuna.",
+      "instruction_sha256": "5f5cf8f53c312c4a11e4fe1a0abd54a3930eb03429b6a3006ff6868d709acdbd",
+      "step_id": "irowiki-classic:President_Quest/step/5f5cf8f53c312c4a11e4/1",
+      "goal": "deliver",
+      "short_ru": "Верните Archive Permit Lestin и идите к Esuna.",
+      "short_en": "Return Archive Permit to Lestin and go to Esuna.",
+      "full_ru": "Верните Archive Permit Lestin и отправляйтесь к Esuna.",
+      "full_en": "Return the Archive Permit to Lestin and head back to Esuna.",
+      "npcs": [
+        {
+          "entity": "Lestin",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Archive Permit",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lestin"
+        }
+      ],
+      "protected_names": [
+        "Esuna",
+        "Lestin",
+        "Archive Permit"
+      ],
+      "locations": []
+    },
+    "32": {
+      "original_instruction": "Bring the document to Esuna. She adds some files and reorganizes them, then tell you to hand it over to the President.",
+      "instruction_sha256": "54619d0c5109e42867765d93bc74454b5fb8ac3202ab8911027c267a67531f42",
+      "step_id": "irowiki-classic:President_Quest/step/54619d0c5109e4286776/1",
+      "goal": "deliver",
+      "short_ru": "Покажите документ Esuna и несите его President.",
+      "short_en": "Show the document to Esuna and carry it to the President.",
+      "full_ru": "Принесите документ Esuna. Она добавит материалы, переупорядочит их и попросит передать President.",
+      "full_en": "Bring the document to Esuna. She adds some files and reorganizes them, then tell you to hand it over to the President.",
+      "npcs": [
+        {
+          "entity": "Esuna",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Shinokas Case File",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "support_step": 30,
+          "evidence": "Find the document at area 1-5, it's about Heart of Ymir again. It seems like the information you're looking for. | Obtain Shinokas Case File",
+          "condition": "The document is reorganized for onward delivery; no independent second copy is established."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Esuna"
+        }
+      ],
+      "protected_names": [
+        "Esuna"
+      ],
+      "locations": []
+    },
+    "33": {
+      "original_instruction": "When President finds out about the death of Shinokas, he says it's not important but the most important thing is what Rekenber is going to do with Ymir's Heart Fragments. He then asks you to run back to Esuna because she might have new information.",
+      "instruction_sha256": "03727ad3425baed3b900caa9191f95d65a8d20178b9023acf4f3e6d7a2e99bb6",
+      "step_id": "irowiki-classic:President_Quest/step/03727ad3425baed3b900/1",
+      "goal": "talk",
+      "short_ru": "Расскажите President о Shinokas и вернитесь к Esuna.",
+      "short_en": "Tell the President about Shinokas and return to Esuna.",
+      "full_ru": "President узнает о смерти Shinokas, но важнее для него планы Rekenber относительно Ymir's Heart Fragments. Он попросит вернуться к Esuna за новостями.",
+      "full_en": "When President finds out about the death of Shinokas, he says it's not important but the most important thing is what Rekenber is going to do with Ymir's Heart Fragments. He then asks you to run back to Esuna because she might have new information.",
+      "npcs": [
+        {
+          "entity": "President Karl Weierstrass",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "President Karl Weierstrass"
+        }
+      ],
+      "protected_names": [
+        "Shinokas",
+        "Esuna"
+      ],
+      "locations": []
+    },
+    "34": {
+      "original_instruction": "Meet Esuna again. She's very depressed because of the recent losses in her group and they plan to withdraw from Wind Of Secret. She later gives you the file. | Obtain Sealed File Folder",
+      "instruction_sha256": "65e2d1af12e05dcd68cc78d2b9219603f4e144fa7225457a77ddc3d89d6bcd33",
+      "step_id": "irowiki-classic:President_Quest/step/65e2d1af12e05dcd68cc/1",
+      "goal": "receive_item",
+      "short_ru": "Получите Sealed File Folder у Esuna.",
+      "short_en": "Receive Sealed File Folder from Esuna.",
+      "full_ru": "Снова встретьтесь с Esuna. Из-за потерь её группа намерена выйти из Wind Of Secret. Она даст файл. Получите Sealed File Folder.",
+      "full_en": "Meet Esuna again. She's very depressed because of the recent losses in her group and they plan to withdraw from Wind Of Secret. She later gives you the file. | Obtain Sealed File Folder",
+      "npcs": [
+        {
+          "entity": "Esuna",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Sealed File Folder",
+          "condition": "Later distinct source grant, not duplicated from the earlier Jargeah handover."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Esuna"
+        }
+      ],
+      "protected_names": [
+        "Esuna",
+        "File Folder",
+        "Sealed File Folder"
+      ],
+      "locations": []
+    },
+    "35": {
+      "original_instruction": "Tell the President of Esuna & her member's plans of withdrawing after passing him the document. He's puzzled and ask you to find out the reason from Esuna.",
+      "instruction_sha256": "f43fc6f7c366eab781cd75ceb1d04cba45def1882adc4fe4f1afc0ad063cd82c",
+      "step_id": "irowiki-classic:President_Quest/step/f43fc6f7c366eab781cd/1",
+      "goal": "deliver",
+      "short_ru": "Передайте документ President и узнайте у Esuna причину ухода.",
+      "short_en": "Give the document to the President and ask Esuna why the group is leaving.",
+      "full_ru": "Передайте документ President и расскажите о выходе группы Esuna. Он попросит узнать у неё причину.",
+      "full_en": "Tell the President of Esuna & her member's plans of withdrawing after passing him the document. He's puzzled and ask you to find out the reason from Esuna.",
+      "npcs": [
+        {
+          "entity": "President Karl Weierstrass",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Sealed File Folder",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 34,
+          "evidence": "Meet Esuna again. She's very depressed because of the recent losses in her group and they plan to withdraw from Wind Of Secret. She later gives you the file. | Obtain Sealed File Folder"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "President Karl Weierstrass"
+        }
+      ],
+      "protected_names": [
+        "Esuna"
+      ],
+      "locations": []
+    },
+    "36": {
+      "original_instruction": "Esuna tells you that she believes there is a spy in the movement and President's trusted aide, Kurelle is the most suspicious. Later they infiltrated his residence and find the evidence that relates him to Rekenber. Her headquarters orders them to hold any actions that correlated with the President.",
+      "instruction_sha256": "9e66752ab7aba8a74c435bce8007c0356267026668fd86edc03258dc0b140c31",
+      "step_id": "irowiki-classic:President_Quest/step/9e66752ab7aba8a74c43/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Esuna о подозрениях против Kurelle и связях с President.",
+      "short_en": "Ask Esuna about suspicions against Kurelle and links to the President.",
+      "full_ru": "Esuna расскажет о шпионе: подозрение пало на доверенного помощника President, Kurelle. После проникновения в его дом найдены связи с Rekenber. Её руководство приказало приостановить действия, связанные с President.",
+      "full_en": "Esuna tells you that she believes there is a spy in the movement and President's trusted aide, Kurelle is the most suspicious. Later they infiltrated his residence and find the evidence that relates him to Rekenber. Her headquarters orders them to hold any actions that correlated with the President.",
+      "npcs": [
+        {
+          "entity": "Esuna",
+          "role": "talk"
+        },
+        {
+          "entity": "Kurelle",
+          "role": "story_actor"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Esuna"
+        }
+      ],
+      "protected_names": [
+        "Esuna",
+        "Kurelle"
+      ],
+      "locations": []
+    },
+    "37": {
+      "original_instruction": "Rush back to President and tell him everything you heard from Esuna. He's stunned and after all, he's been played by the Corportation and betrayed by his trusted aide. He orders his secretary to invite Kurelle into the room. The President starts to question Kurelle. At first he act as if he doesn't know what the President is talking about, but he confesses and tell him everything about his ambitious and the Corporation.",
+      "instruction_sha256": "4378af8ba8f063e9331a1ab502dc25e2a3133476d7d63964e11783297942601d",
+      "step_id": "irowiki-classic:President_Quest/step/4378af8ba8f063e9331a/1",
+      "goal": "talk",
+      "short_ru": "Расскажите President сведения Esuna и выслушайте признание Kurelle.",
+      "short_en": "Tell the President Esuna’s information and hear Kurelle’s confession.",
+      "full_ru": "Вернитесь к President и передайте всё от Esuna. Он поймёт, что Corporation использовала его, и прикажет пригласить Kurelle. После отрицаний Kurelle признается в своих замыслах и связи с Corporation.",
+      "full_en": "Rush back to President and tell him everything you heard from Esuna. He's stunned and after all, he's been played by the Corportation and betrayed by his trusted aide. He orders his secretary to invite Kurelle into the room. The President starts to question Kurelle. At first he act as if he doesn't know what the President is talking about, but he confesses and tell him everything about his ambitious and the Corporation.",
+      "npcs": [
+        {
+          "entity": "President Karl Weierstrass",
+          "role": "talk"
+        },
+        {
+          "entity": "Kurelle",
+          "role": "story_actor"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "President Karl Weierstrass"
+        }
+      ],
+      "protected_names": [
+        "Esuna",
+        "Kurelle"
+      ],
+      "locations": []
+    },
+    "38": {
+      "original_instruction": "Go back to Lighthalzen and tell everything to Ghalstein. It's a blow for Ghalstein after he hears it. He later gives you the antidode and apologizes for involving you in such a mess. | Obtain 1 Old Purple Box and 1,800,000 Base EXP * This quest is not required on iRO in order to vote in the Kafra/Cool Event Corp. Elections.",
+      "instruction_sha256": "4475d503dfe87e1e31ca1752979e28484c44b3e5832b87cba5ad2d22abe84ccf",
+      "step_id": "irowiki-classic:President_Quest/step/4475d503dfe87e1e31ca/1",
+      "goal": "receive_reward",
+      "short_ru": "Доложите Ghalstein: 1 Old Purple Box и 1,800,000 Base EXP.",
+      "short_en": "Report to Ghalstein: 1 Old Purple Box and 1,800,000 Base EXP.",
+      "full_ru": "Вернитесь в Lighthalzen и расскажите обо всём Ghalstein. Он даст противоядие и извинится. Получите 1 Old Purple Box и 1,800,000 Base EXP. На iRO этот квест не требуется для голосования на Kafra/Cool Event Corp. Elections.",
+      "full_en": "Go back to Lighthalzen and tell everything to Ghalstein. It's a blow for Ghalstein after he hears it. He later gives you the antidode and apologizes for involving you in such a mess. | Obtain 1 Old Purple Box and 1,800,000 Base EXP * This quest is not required on iRO in order to vote in the Kafra/Cool Event Corp. Elections.",
+      "npcs": [
+        {
+          "entity": "Ghalstein",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Purple Box"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "1800000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ghalstein"
+        }
+      ],
+      "protected_names": [
+        "Ghalstein",
+        "Lighthalzen",
+        "Old Purple Box"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "source_search_capitalization_conflict",
+      "detail": "Main instruction says Shinokas; explicit iRO tested note says case-sensitive lowercase shinokas. Separate branches preserve both, with the iRO note controlling that variant."
+    },
+    {
+      "reason": "appointment_timezone_scope",
+      "detail": "Two alternative appointment windows are source text. Pacific Time is stated only for iRO; no host-local conversion, DST rule or universal server timezone is inferred."
+    },
+    {
+      "reason": "pin_and_card_number_different",
+      "detail": "738495 is the first prompted PIN. The later card number is unspecified; the two inputs must not be conflated. The three-minute descriptions refer to the same intrusion window."
+    },
+    {
+      "reason": "source_name_conflicts",
+      "detail": "Venice and Benith, and Wing Of Secret/Wind of Secret, retain literal source wording without an invented identity or spelling correction."
+    },
+    {
+      "reason": "completion_gate_at_step",
+      "detail": "Einbroch Murder completion is explicitly required at source step 22; no arbitrary earlier executable start flag is asserted from the header."
+    }
+  ],
+  "prerequisite_clauses": [
+    {
+      "related_quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
+      "kind": "required_quest",
+      "evidence": "Biolabs Entrance Quest"
+    },
+    {
+      "related_quest_id": "irowiki-classic:Einbroch_Murder_Quest",
+      "kind": "required_quest",
+      "evidence": "Einbroch Murder Quest"
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:Einbroch_Murder_Quest",
+      "kind": "completion_required_at_step",
+      "source_step": 22
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "source_section": "requirements",
+        "evidence": "10 Research Charts",
+        "entity": "Research Charts",
+        "condition": "Summary of the same main material set, not an extra turn-in."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "source_section": "requirements",
+        "evidence": "10 Handcuffs",
+        "entity": "Handcuffs",
+        "condition": "Summary of the same main material set, not an extra turn-in."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Ymir's Heart Piece",
+        "entity": "Ymir's Heart Piece",
+        "condition": "Summary of the same main material set, not an extra turn-in."
+      }
+    ]
+  }
+}

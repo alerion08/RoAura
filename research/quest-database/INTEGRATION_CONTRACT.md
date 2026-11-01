@@ -127,6 +127,16 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   Tribes stage 7 permits starting Guardian, while the rest of Two Tribes is
   separate. Do not replace this condition with full quest completion. This
   remains source logic rather than a verified runtime flag evaluator.
+- `completion_required_at_step` links the owning quest to a prerequisite
+  whose completion is explicitly required at the evidence step in the owner.
+  President → Einbroch Murder cites President stage 22. This is distinct from
+  requiring completion before accepting the owning quest. It uses the same
+  literal-step evidence checks as other curated contextual relations.
+- `source_zeny_summary` is a preserved header summary, not an additional
+  payment. Class-conditional `zeny_per_drink` values and optional purchase
+  facts must be interpreted with their branch conditions. Unknown bottle
+  prices and repeat-attempt totals must not be filled by subtracting from
+  summary amounts. Repeatable exchange branches do not add main quest costs.
 - `ready_steps` currently means **all four localized text fields exist**. It
   is not a readiness claim for the quest, route, server or application.
   Unfinished fields are NULL with blocking review rows; `complete=false` is

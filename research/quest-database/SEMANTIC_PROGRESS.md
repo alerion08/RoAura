@@ -16,11 +16,11 @@ reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
-generator **semantic-5.1.0**. All four description fields are populated for
-**473 steps across 32 curated guides**, up from the previous 28-guide/420-step
-checkpoint. **29 conditional branches** also have independent RU/EN short and
+generator **semantic-5.2.0**. All four description fields are populated for
+**535 steps across 35 curated guides**, up from the previous 32-guide/473-step
+checkpoint. **41 conditional branches** also have independent RU/EN short and
 full descriptions. Six quest routes represent two exclusive expedition paths
-and four conditional/optional activities. **2,277 steps in 184 remaining catalog entries still lack
+and four conditional/optional activities. **2,215 steps in 181 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -57,6 +57,9 @@ complete localization/context analysis.** `complete` remains false.
 | Ring of the Wise King | 14 | Started Report requirement; exact source/non-iRO language inputs; separate Gem actors; one-hour wait |
 | Two Tribes | 25 | Equipped ring spelling; three granted plus three gathered berries; all-held removal warning; Guardian start milestone |
 | Guardian of Yggdrasil | 10 | Finished versus started prerequisites; independent tribe choices; exclusive rewards; source map typo and iRO warning |
+| Einbroch Murder Quest | 8 | Seven exact password pairs; unknown apple total; four exclusive EXP bands; conflicting factory map |
+| President Quest | 38 | Step-22 completion gate; Pacific-time appointments; distinct guards; PIN versus card number; source/iRO search case |
+| Rebellion Quest | 16 | Random material set; class-dependent drink prices; unnamed bottle seller; optional food exchange before final delivery |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -64,6 +67,31 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Three connected Schwartzvald guides preserve all 62 original stages and
+  add twelve localized branches. `completion_required_at_step` links President
+  stage 22 to Einbroch Murder completion. The general prerequisite header
+  does not invent an earlier executable completion gate. Rebellion explicitly
+  requires all four header quests completed at its own stage 4.
+- Einbroch retains seven literal challenge/answer pairs with exact case and
+  punctuation. Two different challenges share one answer. The initial 100
+  apples purchase is distinct from repeated handovers with unknown total.
+  Four level reward bands are exclusive, not cumulative grants. The lab
+  scientist and Drunken Old Man are distinct actors despite a shared surface.
+- President has two source appointment windows; Pacific Time applies only to
+  the source iRO variant. No timezone conversion or DST rule is invented.
+  The initial PIN 738495 is distinct from the unspecified number on the card;
+  repeated three-minute descriptions are one intrusion window. Main search
+  text Shinokas and the explicit iRO lowercase shinokas note are separate
+  branches. Disguise items are equipped/retained rather than consumed.
+- Rebellion uses one random five-item set. Drinks have source normal/assassin
+  prices of 1000/800 each; the 3000 header summary is not another charge,
+  and does not prove a bottle price. An owned Marine Sphere Bottle avoids
+  buying another. Two Remover are required, with no guessed monster ID.
+- The repeatable 100-Handcuff food exchange unlocks at Rebellion stage 15,
+  before final document delivery at 16. It has its own optional branch, not
+  a main material cost or a guaranteed named food. Source NPC/item/map
+  spelling conflicts and unspecified IDs remain review items.
 
 - Four connected New World guides preserve all 53 source stages and add eight
   localized branches. `prerequisite_clauses` adds reviewed header components
@@ -256,7 +284,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **135 tests passed**; complete offline enrichment passed;
+Validated locally: **142 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -280,11 +308,14 @@ threshold group corruption and migration rollback, source-default/iRO scouting
 variants, distinct volumes, optional wrap-up and postquest food recipes. New
 checks cover phase-qualified prerequisites, exact language inputs, distinct
 gem actors, all-held berry loss, independent tribe choices and source map
-spelling conflicts.
+spelling conflicts. Additional checks cover literal password pairs, gambling
+retry totals, source appointment windows, stage-specific completion gates,
+case-sensitive file search, random requests, drink prices and early exchange
+unlock.
 
 ## Next work, in order
 
-1. Review the remaining 184 catalog candidates, separating reference pages,
+1. Review the remaining 181 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

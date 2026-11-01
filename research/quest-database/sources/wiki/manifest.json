@@ -1565,5 +1565,98 @@
       "https://irowiki.org/classic/Template:Monster",
       "https://irowiki.org/classic/Two_Tribes"
     ]
+  },
+  "Einbroch_Murder_Quest": {
+    "url": "https://irowiki.org/classic/Einbroch_Murder_Quest",
+    "sha256": "06df70c53b3bd4a9a4518b4c74dab44e5884010d04e0838e6c906a8c7498dd31",
+    "path": "06df70c53b3bd4a9a4518b4c74dab44e5884010d04e0838e6c906a8c7498dd31.html.gz",
+    "title": "Einbroch Murder Quest",
+    "categories": [
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 1~99 Quests",
+      "Quests",
+      "Einbroch Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T16:33:16Z",
+    "page_links": [
+      "https://irowiki.org/classic/Airship",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/EXP",
+      "https://irowiki.org/classic/Einbech",
+      "https://irowiki.org/classic/Einbroch",
+      "https://irowiki.org/classic/Factory_Quest",
+      "https://irowiki.org/classic/File:Airship_Drunken_Oldman.jpg",
+      "https://irowiki.org/classic/File:Ein_Lab_Scientist.jpg",
+      "https://irowiki.org/classic/File:Ein_Young_Man.jpg",
+      "https://irowiki.org/classic/File:Hikeman.jpg",
+      "https://irowiki.org/classic/File:Kappelthaine.jpg",
+      "https://irowiki.org/classic/File:Shinokas.jpg",
+      "https://irowiki.org/classic/Job_EXP",
+      "https://irowiki.org/classic/NPC"
+    ]
+  },
+  "President_Quest": {
+    "url": "https://irowiki.org/classic/President_Quest",
+    "sha256": "b1dfee5320de1a586484855894047e8098ebe986d1189587b76b7887946e5edb",
+    "path": "b1dfee5320de1a586484855894047e8098ebe986d1189587b76b7887946e5edb.html.gz",
+    "title": "President Quest",
+    "categories": [
+      "Articles Needing Interwiki Links",
+      "Quest Window Quests",
+      "Base Experience Reward",
+      "Level 60~99 Quests",
+      "Quests",
+      "Lighthalzen Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T16:33:18Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/2241/",
+      "http://db.irowiki.org/classic/item-info/2243/",
+      "http://db.irowiki.org/classic/item-info/617/",
+      "http://db.irowiki.org/classic/item-info/7345/",
+      "http://db.irowiki.org/classic/item-info/7346/",
+      "http://db.irowiki.org/classic/item-info/7347/",
+      "https://irowiki.org/classic/Biolabs_Entrance_Quest",
+      "https://irowiki.org/classic/Einbroch_Murder_Quest",
+      "https://irowiki.org/classic/Juno",
+      "https://irowiki.org/classic/Kafra",
+      "https://irowiki.org/classic/Lighthalzen"
+    ]
+  },
+  "Rebellion_Quest": {
+    "url": "https://irowiki.org/classic/Rebellion_Quest",
+    "sha256": "014bf8641a54cd5800e8685207e744f46a5bfc242495fdbe53a88c0efd7e675f",
+    "path": "014bf8641a54cd5800e8685207e744f46a5bfc242495fdbe53a88c0efd7e675f.html.gz",
+    "title": "Rebellion Quest",
+    "categories": [
+      "Base Experience Reward",
+      "Level 1~99 Quests",
+      "Quests",
+      "Hugel Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T16:33:19Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/12112/",
+      "http://db.irowiki.org/classic/item-info/12113/",
+      "http://db.irowiki.org/classic/item-info/2241/",
+      "http://db.irowiki.org/classic/item-info/2243/",
+      "http://db.irowiki.org/classic/item-info/617/",
+      "http://db.irowiki.org/classic/item-info/7138/",
+      "http://db.irowiki.org/classic/item-info/7345/",
+      "http://db.irowiki.org/classic/map-info/hu_fild06/",
+      "http://db.irowiki.org/classic/map-info/hugel/",
+      "http://db.irowiki.org/classic/map-info/lhz_dun02/",
+      "https://irowiki.org/classic/Base_Experience",
+      "https://irowiki.org/classic/Biolabs_Entrance_Quest",
+      "https://irowiki.org/classic/Cursed_Spirit_Quest",
+      "https://irowiki.org/classic/Hugel",
+      "https://irowiki.org/classic/Morroc",
+      "https://irowiki.org/classic/Odin%27s_Temple_Excavation_Quest",
+      "https://irowiki.org/classic/President_Quest"
+    ]
   }
 }
