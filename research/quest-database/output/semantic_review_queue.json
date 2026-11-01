@@ -40367,38 +40367,20 @@
       "step_id": null
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Crystal/report/Journal/journal and scroll labels lack database links; IDs remain unknown. The late journal is not asserted identical to the earlier Journal. Tracking number is narrative information, not a proven inventory item or invented exact answer.",
       "evidence_id": "ev:ea40dc28671fa9544ec4e29b",
       "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "original_html_missing",
-      "review_id": "review:a2514eafc84fa8ae92f9c474",
+      "reason": "generic_source_item_labels",
+      "review_id": "review:e00fe0eecfae2182c131bbe7",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Main EXP totals are 200000+1200000 base and 10000+200000 job. Header totals do not create another reward. Optional wrap-up is separate.",
       "evidence_id": "ev:ea40dc28671fa9544ec4e29b",
       "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:55891cc311fd623ad1dcfb35",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:951b3b1bbc4f5b7443732062",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:14f8217ac52caf7b3ac32603",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:705ba765be694525cdc895b8",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:c8ed91f03c0525302ebb5bc3",
+      "reason": "reward_header_not_extra_grant",
+      "review_id": "review:550f59209bcf26cd37e09e62",
       "severity": "warning",
       "step_id": null
     },
@@ -40412,472 +40394,22 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ce093b8d9281b1f9c3b0bec1",
+      "detail": "The source narrates delivering Crystal at step 7, touching it at step 8 and dropping it at step 21; exact inventory state transitions are not established.",
+      "evidence_id": "ev:ea40dc28671fa9544ec4e29b",
       "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:f6999c063a00e5e734d57f6c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/03f468f8f6bf6a775040/1"
+      "reason": "source_narrative_crystal_ownership",
+      "review_id": "review:88d5e05f99b89cb8d4081780",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ce093b8d9281b1f9c3b0bec1",
+      "detail": "Dandelion Members count and battle time limit are unspecified; no species ID, quantity or timer is invented.",
+      "evidence_id": "ev:ea40dc28671fa9544ec4e29b",
       "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e9a452255b5d8264dec3c01d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/03f468f8f6bf6a775040/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c2c37ea3540e8747b7100bf7",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:2ab28842ded043ecf0ddebb8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/124442928604ce6de5aa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c2c37ea3540e8747b7100bf7",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d08b0a8d016d23272f3093bd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/124442928604ce6de5aa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9dcfe8e33f6abfa9717f7fd6",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:2a947825c3c3dda6596f1727",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/1612c3b40915185e2f23/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9dcfe8e33f6abfa9717f7fd6",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:aeace8a0ac4ccd49592f7dcb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/1612c3b40915185e2f23/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:47d2d6c4d355ddc21b75efdd",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:ed3eadb84dbdad124ea1b34e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/1dd5d5ff214c4b172f14/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:47d2d6c4d355ddc21b75efdd",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a05b7a27bf44497c4e2cd94e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/1dd5d5ff214c4b172f14/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6b5d29c7088764d643f60eef",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:f9b26f283f21fafb74bda4c1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/442c6fc52000d1b1b3fa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6b5d29c7088764d643f60eef",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:02218b5f6985ba9bf40930d0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/442c6fc52000d1b1b3fa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:020e7e689fc1a312941b0431",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:565b920b9bb63b1fbbe854c1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/4a17bf63a4a9b83a84ac/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:020e7e689fc1a312941b0431",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:42c06433a55f552f0cc946db",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/4a17bf63a4a9b83a84ac/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a835909c31c1fb1accf9a7cb",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:26a2afd9e715320a1c61cb02",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/514c3a6b22de1e3f9a11/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a835909c31c1fb1accf9a7cb",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a91b88e2e978c6f5586619cb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/514c3a6b22de1e3f9a11/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:23abed4b53f266bbe34cd574",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:5512380d4dcfe36198d89084",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/589c2d5d107d2f6db704/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:23abed4b53f266bbe34cd574",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4cbd9b8785b834fab934f8a3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/589c2d5d107d2f6db704/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0bbd72595e7f8cdf797f5db4",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:a93a7d97afb9ec801a23683a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/5bba9912098c1e0f8d8e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0bbd72595e7f8cdf797f5db4",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0f12cd22bb522883d005509a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/5bba9912098c1e0f8d8e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c501c65a31442130c6eb6ba3",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:1fa5c867045b0bcd613734bb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/5e0bc04a375ef6cd0496/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c501c65a31442130c6eb6ba3",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ece389d0323f8da2cdafe1b6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/5e0bc04a375ef6cd0496/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:766c03ae969e85903c8e34e9",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:7a1c89c80b78731b2ffc8f24",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/6f5c82a2380a70589a59/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:766c03ae969e85903c8e34e9",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e8fa7183b90e9f8ef06f01ac",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/6f5c82a2380a70589a59/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:22918e92c8962a14ca0c0e30",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:ec1a868972de1d498a2aa1fd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/7159149f0774509d16c0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:22918e92c8962a14ca0c0e30",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:34ac301680ffc1fbc4ff8389",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/7159149f0774509d16c0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2a9fc3e1af45ea2295cd2592",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:df2cb3b1001c852fd8ae980e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/770648629a6ae2bf3072/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2a9fc3e1af45ea2295cd2592",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:edeab336ea5e83754d954ba1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/770648629a6ae2bf3072/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:744e8dc36ed91f79044ed02d",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:6a8190388b357cdbd54cf8d5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/7a123e8a7d725cdb6656/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:744e8dc36ed91f79044ed02d",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9d1f46b33734412b177ab120",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/7a123e8a7d725cdb6656/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:455c10b26d698959de8203f5",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:0517ece34a5e0d85a4e3a9ae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/7d1f0810f70d7f848afa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:455c10b26d698959de8203f5",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:91959e9e83f1245025114f65",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/7d1f0810f70d7f848afa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:43c7c5aa0b3e01883ea7149d",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:e8b869e956ee1a03347d92f5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/805a7fda8cdbfa7e0d58/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:43c7c5aa0b3e01883ea7149d",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7d405d13da8b52ab135c198c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/805a7fda8cdbfa7e0d58/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ba4ff068c12924bdb124e8b1",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:9fdeba9331e47d508fb76992",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/92865ca6551ed88ba71a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ba4ff068c12924bdb124e8b1",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a8818c3ba276770236c03f2d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/92865ca6551ed88ba71a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:71ec0e853a1eaf2797278145",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:c6d498819381b37241010550",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/96d54d532dd06e62ddf4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:71ec0e853a1eaf2797278145",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e1cc33db070f5ef48e45e3eb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/96d54d532dd06e62ddf4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d1cb7152ea1cd684b9bf56a5",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:eab4701beb06914112e10f0b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/a026e4f4f54d100cc41a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d1cb7152ea1cd684b9bf56a5",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9bc75835f2083e006b04e4fb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/a026e4f4f54d100cc41a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c1d7778bc4dff9968d917bfd",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:4f2f84becdf525b5ed1b3d88",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/a12e66591663a8eb5fa1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c1d7778bc4dff9968d917bfd",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:29bd03efbc395e9e113861e5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/a12e66591663a8eb5fa1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:10ae0c5dac4a1783ba77fc19",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:71c6cddfff6df504070158dd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/bde0a32559eb4baf6919/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:10ae0c5dac4a1783ba77fc19",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:20f4f740a1d21e055b4e917d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/bde0a32559eb4baf6919/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:159c1c2f78fd00e18cc068b0",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:bd31e25ab48f7702542d4418",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/c1bbf9e801f73792cd2d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:159c1c2f78fd00e18cc068b0",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6f4469d519f14859844b53db",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/c1bbf9e801f73792cd2d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:65a45ec8a178d2da2e83a044",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:a483023d59345a6ac1e5669d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/cb0077bf43dc50446ab7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:65a45ec8a178d2da2e83a044",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c9bb8dcc6275f9b8b3d70338",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/cb0077bf43dc50446ab7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9cf7d2d5fcdfde7a23ad0dd7",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:179388e58e203caffa96318f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/e1d19e3ab0e3de758476/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9cf7d2d5fcdfde7a23ad0dd7",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9b3aab686e4410fbfc33504d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/e1d19e3ab0e3de758476/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ada548d62387f4c072ba871d",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:2a6c5c8510be6d1ee50ee916",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/ea554b5a16581a653c00/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ada548d62387f4c072ba871d",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:83629ed54bdf7239efae3c71",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/ea554b5a16581a653c00/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fb45a221f05c80d671a7538d",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "localization_missing",
-      "review_id": "review:fba510551a15119f27fe300a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/ff79079823a8e95f2ff8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fb45a221f05c80d671a7538d",
-      "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7c0c3689a3fd9743d85fff5d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/ff79079823a8e95f2ff8/1"
+      "reason": "unknown_timed_battle",
+      "review_id": "review:123e145a32f0ec4578c4adbf",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Header Nema and walkthrough Nemma are contextually treated as the same donation NPC; spelling needs cross-source confirmation.",
@@ -41654,38 +41186,20 @@
       "step_id": "irowiki-classic:Repeatable_EXP_Quests/step/e647a740a4426ec66191/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Pinned article has no database links. Generic document/pages/volumes/report labels and First Aid Kit have unknown game IDs here; delivery-copy counts and exact restoration probabilities are not invented.",
       "evidence_id": "ev:18b7f754e080e98cba034c4f",
       "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "original_html_missing",
-      "review_id": "review:576ef8cd084336211fc867f9",
+      "reason": "missing_database_links",
+      "review_id": "review:95233c40e9679675b412693c",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Legacy reward metadata includes walkthrough prose. Only explicit step grants are emitted; no extra header reward is added.",
       "evidence_id": "ev:18b7f754e080e98cba034c4f",
       "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:b45873031f76602bca81755b",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:32127ae916a97ce8a69db115",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:31f983d3c60472e3aebb7b06",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:e083883243e577047cb6afea",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:f393d2e0f66095b5878eb0cf",
+      "reason": "reward_metadata_contains_walkthrough",
+      "review_id": "review:e3971353a84ae3f3deac4559",
       "severity": "warning",
       "step_id": null
     },
@@ -41699,247 +41213,22 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:81b0e201e95905907f120fc4",
+      "detail": "Scout interval and failed-page loss have separate source-default and iRO branches. Ten pages per attempt does not guarantee success or a forty-page total. Completed volumes must be distinct.",
+      "evidence_id": "ev:18b7f754e080e98cba034c4f",
       "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:e807ddf9ce338e75899e98b6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/10ea5a5d6c54f0f3fae9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:81b0e201e95905907f120fc4",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e4ed5fc7d9760aee625d939f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/10ea5a5d6c54f0f3fae9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:48a55f1db3731959354a0b9f",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:75d6fd2c609cb93112df7dc1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/135ef6f99add7537d40a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:48a55f1db3731959354a0b9f",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e95f9b00ef991acb0479a491",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/135ef6f99add7537d40a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8f946e4436a31556000f6ccb",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:044bc400e861d0516ea63fd2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/165b8ecbc5c70620f469/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8f946e4436a31556000f6ccb",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9f350df23fb4f4eb5411f58b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/165b8ecbc5c70620f469/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b410ca50c27a842cc9555361",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:ddc90b5dff702d07e44745b0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/165fc8ae9e04ad27dcaa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b410ca50c27a842cc9555361",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c3b54f158f3c1521fff07183",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/165fc8ae9e04ad27dcaa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:91ff078b9db66bc0968bc2a4",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:20b2fbf0ba90a5829a6f32e7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/1de918e6f00273825235/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:91ff078b9db66bc0968bc2a4",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0197ca25f8e99cda528e4648",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/1de918e6f00273825235/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:330a749502047a52a970502c",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:64ab223030dadf88a4571bbd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/2b4e0b3cb0fde5864873/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:330a749502047a52a970502c",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f7bf488cf5b10b235b46a942",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/2b4e0b3cb0fde5864873/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7fb7a5f5e9f85778c525f78a",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:494b7be8abac5025f27fc2e7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/2d1f5bae84cdb0171727/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7fb7a5f5e9f85778c525f78a",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ab13713769e0063a117ee022",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/2d1f5bae84cdb0171727/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:149e1febecc7bd349794d284",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:95f6d440deda38953c9f9b07",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/2f8b07d8400e7633b022/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:149e1febecc7bd349794d284",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:975ed801f57190cbcdba556e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/2f8b07d8400e7633b022/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:149e1febecc7bd349794d284",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:26b8b0c71ffbc88ae89871f4",
+      "reason": "source_variant_report_restore",
+      "review_id": "review:002149df294d14ac29b24c2f",
       "severity": "warning",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/2f8b07d8400e7633b022/1"
+      "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "The source uses one collective Expedition Scout label for four alternative actors; the textual collective span links a separate collective label, not an arbitrarily selected individual. Read step_npcs and alternative_scout locations for the full set.",
       "evidence_id": "ev:9de330a66efdc7dec0bf57d8",
       "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:046e7d5a126c2522ee873eb4",
-      "severity": "blocking",
+      "reason": "alternative_scout_mentions",
+      "review_id": "review:6c4ead97110468531517fabf",
+      "severity": "warning",
       "step_id": "irowiki-classic:Report_from_the_New_World/step/834b71b9806092fe451f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9de330a66efdc7dec0bf57d8",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1b76e21c25dad377454fcb38",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/834b71b9806092fe451f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:84a40ffce0fae2bb5ea4540f",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:31e955b3ebadb220e47d66ff",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/a33c859201e1a19e7932/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:84a40ffce0fae2bb5ea4540f",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:39c3e4f4b4b68fcd6b8bb6b9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/a33c859201e1a19e7932/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8902030fe264c069ea62c757",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:178f486b7fab63c8d5cfd8d2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/ac71a9e874dfb74f60b3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8902030fe264c069ea62c757",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:edc031c3380791e7d56ca748",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/ac71a9e874dfb74f60b3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:88ce1ba59a6e969de5e1b4df",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:be1f47aca9930e84d4b7f69b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/df89f70d4aaf929a40ec/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:88ce1ba59a6e969de5e1b4df",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e9d1069699b781a25f2582ef",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/df89f70d4aaf929a40ec/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8d61d79d3b177e3c4562ac74",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:89b53b54a573e128a3e8ce66",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/e705249094ebad224520/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8d61d79d3b177e3c4562ac74",
-      "quest_id": "irowiki-classic:Report_from_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:70835201dfb2572b19e75088",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Report_from_the_New_World/step/e705249094ebad224520/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -54191,38 +53480,29 @@
       "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "The old final step includes a separate Turn-in Follow-up Quests section. Its three repeatable exchanges are branch-scoped optional recipes per transaction; all main completion grants remain common. No follow-up materials are main requirements.",
       "evidence_id": "ev:5c5eb4ac1f096b51260ad531",
       "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "original_html_missing",
-      "review_id": "review:bc9c458cbd6afc806d1c8c9c",
+      "reason": "followup_exchanges_not_main_requirements",
+      "review_id": "review:92c8c494e869e5ef5774678e",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Meeting Invitation is presented to Hue then Hansenne; no second copy or destruction at the first signature is established. Rune Midgard report is a generic label without proven inventory ID or identity with Neat Report.",
       "evidence_id": "ev:5c5eb4ac1f096b51260ad531",
       "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:88841bd74ab723aa9f38ae19",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:173e1bd353b181801c6747fd",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:7ddaf9eb07123c5a1a067c33",
+      "reason": "generic_source_document_labels",
+      "review_id": "review:921182f91b89eb8d8132d1d1",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:3235e4fbb42e1125e218c93e",
+      "detail": "One of each main food reward and First Aid Kit is already granted in steps 18–21. Header totals do not add duplicate grants; repeatable recipes have independent conditions.",
+      "evidence_id": "ev:5c5eb4ac1f096b51260ad531",
       "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:2578e032921d9d1ccc861f21",
+      "reason": "reward_header_not_extra_grant",
+      "review_id": "review:892591910d9c0a979a7f9753",
       "severity": "warning",
       "step_id": null
     },
@@ -54236,382 +53516,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1b907dd835fb3d5a0c25a631",
+      "detail": "Source links Thief Bugs to monster 1051 and requires killing all spawned bugs, but does not give a quantity.",
+      "evidence_id": "ev:5c5eb4ac1f096b51260ad531",
       "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:4f63fac0285423b66a81d327",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/0d35e39a21eba4540f12/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1b907dd835fb3d5a0c25a631",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:68087fe6f488a95f6ede5db2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/0d35e39a21eba4540f12/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f193722113bd8b9ba249957c",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:01e65de874ea6e959375f738",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/12beb464355ee8639ca9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f193722113bd8b9ba249957c",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3491d2f50ec98774b58f4509",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/12beb464355ee8639ca9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2e07729fb6b5250a4714bd18",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:6c2f92619e68fa9fa7220f10",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/19ca578ceb4ba5dc897c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2e07729fb6b5250a4714bd18",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:520fc6f72852586b65ab05ca",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/19ca578ceb4ba5dc897c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:11509b84625577ae344d1945",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:3bc9d64d3f4beb676025cadd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/23916a3bbd76a14cc2ba/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:11509b84625577ae344d1945",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:798cd6cb49980ecfde91ef8a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/23916a3bbd76a14cc2ba/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:da655f3bb692876ff3e9b8ba",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:b00a0054991757281ff2c6cc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/34975a5e2c1a4f9d9dc4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:da655f3bb692876ff3e9b8ba",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d1931bf686321081e5f8d9c1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/34975a5e2c1a4f9d9dc4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a484b7343be4dbea4494e153",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:ae668f4026ee8bdd20c56ea3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/368ffaaa45ebac32afdf/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a484b7343be4dbea4494e153",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:eafdf985a40aca72c07c37f5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/368ffaaa45ebac32afdf/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:37f72d7533957ffb6400b943",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:f1b15a4c41a7a3ae96ebd772",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/3f6072e746ddeab75a03/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:37f72d7533957ffb6400b943",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ab564ffed0ce9c967f56f0a4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/3f6072e746ddeab75a03/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4ba2077b50b367aa2e64187e",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:71660845869809fe5e7a28d6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/49223c977d1d5b991d47/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4ba2077b50b367aa2e64187e",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:372a50c072d1e16e73af02ec",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/49223c977d1d5b991d47/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7446d1bb163cfdb41224e7bd",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:a23b1cc7fefc7d821d4a154e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/49dfccdc0b334aa72efb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7446d1bb163cfdb41224e7bd",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:34a8bdad543944b3212c3ff1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/49dfccdc0b334aa72efb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f92f44d66ae442dfe36f1e98",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:5a7a7933ab1a22e427d8cb72",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/4edd34ef9cc0bd58ab5f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f92f44d66ae442dfe36f1e98",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:91efe3ac8f4998b14ed2a97e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/4edd34ef9cc0bd58ab5f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:72bcb22118bc489dc965c3fa",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:566c933ae48fac37eef6594b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/5ab75da3c8a680a3ed84/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:72bcb22118bc489dc965c3fa",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1b5e72212522bfb230c552d1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/5ab75da3c8a680a3ed84/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c2f90698b25c217ccf2375d3",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:48dcc37608d94b705a59636d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/94c0c1fab1a0e226e281/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c2f90698b25c217ccf2375d3",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d97bdb53ab8ae878d68b7e70",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/94c0c1fab1a0e226e281/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:df79885dc04b06419f4f91fc",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:e06569889267bd05ee3295f9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/95c600d88248a252c0cd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:df79885dc04b06419f4f91fc",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:870655e6ed836778f185cce0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/95c600d88248a252c0cd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d8943b0534227fe25be84f5b",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:546e5b5fa6161676d966fb87",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/976e57e4cc742bfa64e3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d8943b0534227fe25be84f5b",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b11c82974d62393c31403291",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/976e57e4cc742bfa64e3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5621317b66b4336658d7375e",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:5c91f19aca88ee5f1ed55c78",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/9ba7deda1aaaaa5f0b8d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5621317b66b4336658d7375e",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:186ee313be345da1e4e82e1a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/9ba7deda1aaaaa5f0b8d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ab50bd26e4e301a8f02261c2",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:5e21b7c2cf0c25be47ca055b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/aeed9689cbf6206aae2c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ab50bd26e4e301a8f02261c2",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6ab80c346bf7ca3080b6e2b7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/aeed9689cbf6206aae2c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f49ede375ac410d1b229a819",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:9a76fade1c25a2c232e8a655",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/d6e9e9ca4f9ddb82c459/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f49ede375ac410d1b229a819",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3dc92ca38517bbb3bccbf6d1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/d6e9e9ca4f9ddb82c459/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b5f4dfeab29affc6d2a13bce",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:73821e7c5ef631d45e0d5d78",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/ef6b41db9474a75a5b25/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b5f4dfeab29affc6d2a13bce",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d5fe8642db32bfd59f2e8315",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/ef6b41db9474a75a5b25/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:514090dbb549b1094295255d",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:94819134b3c6eff970797f60",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/f9afd120b0e0b5ea5e16/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:514090dbb549b1094295255d",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ec999ae88d6435705c6fd1ed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/f9afd120b0e0b5ea5e16/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6bf500a6698ca0ccb9f565b6",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:26b8b1e6c0fd8dfc6a6d8239",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/fcec6802829c12cc85c9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6bf500a6698ca0ccb9f565b6",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9f50e6e52ccb2390315b98cd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/fcec6802829c12cc85c9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f5ab855d5a91ae9348fb1b2d",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "localization_missing",
-      "review_id": "review:586e7214e83f95b86a88346c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/fec7c4726ba4a48607f1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f5ab855d5a91ae9348fb1b2d",
-      "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:378458604f4b913b40010962",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/fec7c4726ba4a48607f1/1"
+      "reason": "unknown_thief_bug_count",
+      "review_id": "review:f96468936f948600f1c5d74c",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
