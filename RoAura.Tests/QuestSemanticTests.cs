@@ -58,6 +58,8 @@ public sealed class QuestSemanticTests
   Assert.True(File.Exists(path),"Pinned semantic fixture must be installed by CI.");
   var hash=SHA256.HashData(File.ReadAllBytes(path));var result=await new QuestSemanticService(path).LoadAsync();
   Assert.NotEmpty(result.Quests);var ayothaya=result.Quests["irowiki-classic:Ayothaya_Dungeon_Entrance_Quest"];
+  var cursed=result.Quests["irowiki-classic:Cursed_Spirit_Quest"].Steps.Single(s=>s.Order==2);
+  Assert.Equal(11,SemanticCoordinates.All(cursed).Count);
   Assert.Equal(10,ayothaya.Steps.Count);Assert.Contains("partial",ayothaya.Review);Assert.Equal("unknown",ayothaya.Availability);
   Assert.All(result.Quests.Values.SelectMany(q=>q.Steps),s=>Assert.All(new[]{s.ShortRu,s.ShortEn,s.FullRu,s.FullEn},v=>Assert.False(string.IsNullOrWhiteSpace(v))));
   foreach(var step in result.Quests.Values.SelectMany(q=>q.Steps))

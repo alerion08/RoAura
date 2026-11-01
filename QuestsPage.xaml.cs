@@ -173,9 +173,19 @@ public partial class QuestsPage : UserControl
                 workspace.Settings.Language=language;LocalizationService.ApplyLanguage(language);workspace.RefreshLanguage();
                 CatalogDetails.ShowCurrentStep();UpdateLayout();
                 await SaveSnapshot(output,language+"-ayothaya-semantic",1);
+                CatalogDetails.ShowFacts();
+                await SaveSnapshot(output,language+"-ayothaya-facts",1);
             }
             workspace.ToggleTracking(ayothaya);workspace.SelectedGuide=restore;CatalogDetails.ShowCurrentStep();
         }
+        foreach(var (key,number,name) in new[]{("irowiki-classic:Cursed_Spirit_Quest",2,"cursed-coordinates"),("irowiki-classic:Biolabs_Entrance_Quest",20,"biolabs-answers")})
+        {
+            if(workspace.Catalog?.Guides.GetValueOrDefault(key) is not {} example)continue;
+            ShowGuide(example);workspace.ToggleTracking(example);workspace.SelectStep(number);CatalogDetails.ShowCurrentStep();UpdateLayout();
+            await SaveSnapshot(output,name,1);
+            workspace.ToggleTracking(example);
+        }
+        workspace.SelectedGuide=restore;CatalogDetails.ShowCurrentStep();
         await workspace.FlushAsync();
     }
     private async Task SaveSnapshot(string directory, string name, double scale)
