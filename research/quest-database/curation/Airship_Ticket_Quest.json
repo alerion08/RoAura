@@ -1,0 +1,508 @@
+{
+  "quest_id": "irowiki-classic:Airship_Ticket_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "ce580832e8d592681adc4f3ddc037a261a210ea69679ce36ba7762bcc53fe3f9",
+  "snapshot_sha256": "c6c129c4125e3a4c392f6e4cf4daaac63e01f986552e33693d9c3a92ea01c198",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Kain Himere",
+      "aliases": [
+        "Kain"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Defra",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Elle",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Tarsha Cherno",
+      "aliases": [
+        "Tarsha"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "husband",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Unidentified Machine",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Mirror",
+      "aliases": []
+    },
+    {
+      "type": "map",
+      "name": "airplane",
+      "map_code": "airplane"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch"
+    },
+    {
+      "type": "map",
+      "name": "einbroch",
+      "map_code": "einbroch"
+    },
+    {
+      "type": "map",
+      "name": "Einbech"
+    },
+    {
+      "type": "map",
+      "name": "einbech",
+      "map_code": "einbech"
+    },
+    {
+      "type": "item",
+      "name": "package"
+    },
+    {
+      "type": "item",
+      "name": "Journal"
+    },
+    {
+      "type": "item",
+      "name": "Doodled Note"
+    },
+    {
+      "type": "item",
+      "name": "Free Ticket for Flyship",
+      "game_id": 7311,
+      "id_source": "http://db.irowiki.org/classic/item-info/7311/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Kain Himere (airplane 50 61) on the Airship to Einbroch . (He's on the lower deck near the gambling tables). Talk to him 3x until he starts crying. Then choose \"What's wrong?\" and \"I have time for a long story.\" He will tell you a story about his daughter that was lost, then give you a package to deliver to Defra at the Einbroch Hotel.",
+      "instruction_sha256": "0f16ad1fffb7fc7c9129c2748c1307f30aae17d25cbb87d64fd7b51a8c84aec9",
+      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/0f16ad1fffb7fc7c9129/1",
+      "goal": "talk",
+      "short_ru": "У Kain Himere (airplane 50 61) поговорите 3x; выберите What's wrong? и I have time for a long story.",
+      "short_en": "At Kain Himere (airplane 50 61), talk 3x; choose What's wrong? and I have time for a long story.",
+      "full_ru": "На Airship в Einbroch, под палубой у игровых столов, найдите Kain Himere (airplane 50 61). Поговорите 3x, пока он не заплачет. Выберите «What's wrong?» и «I have time for a long story.». После истории о пропавшей дочери получите package для Defra в Einbroch Hotel.",
+      "full_en": "Talk to Kain Himere (airplane 50 61) on the Airship to Einbroch . (He's on the lower deck near the gambling tables). Talk to him 3x until he starts crying. Then choose \"What's wrong?\" and \"I have time for a long story.\" He will tell you a story about his daughter that was lost, then give you a package to deliver to Defra at the Einbroch Hotel.",
+      "npcs": [
+        {
+          "entity": "Kain Himere",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "initial_dialogue_repetitions",
+          "amount": "3"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Kain Himere",
+          "options": [
+            {
+              "text": "What's wrong?",
+              "correct": 1
+            },
+            {
+              "text": "I have time for a long story.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "package",
+          "condition": "Generic source label with unknown inventory ID; returnable if undeliverable."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kain Himere"
+        }
+      ],
+      "protected_names": [
+        "Kain Himere",
+        "Defra",
+        "airplane",
+        "Einbroch",
+        "package"
+      ],
+      "locations": [
+        {
+          "map": "airplane",
+          "x": 50,
+          "y": 61,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "airplane 50 61"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Go to the Einbroch Hotel (252 200) and talk to the front desk NPC. He will tell you that Defra is in Room #201. Go upstairs and into the upper left portal. There will be a little girl named Elle next to the correct portal. When you walk near her she will sing a song. Talk to her and choose \"what are you singing?\". She'll tell you to visit her mother Tarsha Cherno in a house behind the hotel.",
+      "instruction_sha256": "08785e3aa5a2235dae0a5d6062a3e2af1d82bc57d4050cda80fc308fec626fdf",
+      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/08785e3aa5a2235dae0a/1",
+      "goal": "talk",
+      "short_ru": "Найдите Elle у Room #201 в Einbroch Hotel (252 200); спросите what are you singing?",
+      "short_en": "Find Elle by Room #201 in Einbroch Hotel (252 200); ask what are you singing?",
+      "full_ru": "В Einbroch Hotel (252 200) спросите сотрудника стойки о Defra. Вам назовут Room #201. Поднимитесь и идите в верхний левый портал. У нужного входа стоит Elle; приблизившись, услышите песню. Спросите «what are you singing?». Она направит к матери Tarsha Cherno в дом за отелем.",
+      "full_en": "Go to the Einbroch Hotel (252 200) and talk to the front desk NPC. He will tell you that Defra is in Room #201. Go upstairs and into the upper left portal. There will be a little girl named Elle next to the correct portal. When you walk near her she will sing a song. Talk to her and choose \"what are you singing?\". She'll tell you to visit her mother Tarsha Cherno in a house behind the hotel.",
+      "npcs": [
+        {
+          "entity": "Elle",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Einbroch",
+          "x": 252,
+          "y": 200,
+          "role": "entrance",
+          "known": false,
+          "condition": "Literal town display name; original step lacks a verified map code."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Elle",
+          "options": [
+            {
+              "text": "what are you singing?",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "ask_front_desk"
+        },
+        {
+          "operation": "talk",
+          "entity": "Elle"
+        }
+      ],
+      "protected_names": [
+        "Defra",
+        "Elle",
+        "Tarsha Cherno",
+        "Einbroch"
+      ]
+    },
+    "3": {
+      "original_instruction": "Go into the portal into Defra's room. That is his room, but he's not there. You will get a dialog about how he's not there, but maybe you could try and help the little girl (you're talking to yourself).",
+      "instruction_sha256": "1a36e4211b13204d636dd906384e2c1defaf99eddc5712f0adae95cd7de95a3b",
+      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/1a36e4211b13204d636d/1",
+      "goal": "investigate",
+      "short_ru": "Осмотрите пустую комнату Defra.",
+      "short_en": "Inspect Defra’s empty room.",
+      "full_ru": "Войдите в комнату Defra через портал. Его там нет; появится внутренний диалог о том, что можно помочь девочке.",
+      "full_en": "Go into the portal into Defra's room. That is his room, but he's not there. You will get a dialog about how he's not there, but maybe you could try and help the little girl (you're talking to yourself).",
+      "npcs": [
+        {
+          "entity": "Defra",
+          "role": "absent_target"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "investigate"
+        }
+      ],
+      "protected_names": [
+        "Defra"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Walk outside behind to hotel to the northeast (einbroch 276 233) and enter the house there. Talk to Tarsha Cherno and her husband. They will tell you to look around the house. Look beside Tarsha for \"Unidentified Machine\" and \"Mirror\". When you look at the Mirror, you will see reflected a scar on Tarsha. Talk to her and ask her about the scar and follow the story about her father being lost.",
+      "instruction_sha256": "599c732ccd03e616e5c617927c735b1a2940b04b87a8269a6baf2b16844ebdda",
+      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/599c732ccd03e616e5c6/1",
+      "goal": "talk",
+      "short_ru": "У Tarsha Cherno (einbroch 276 233) осмотрите Unidentified Machine и Mirror, спросите о шраме.",
+      "short_en": "At Tarsha Cherno (einbroch 276 233), inspect Unidentified Machine and Mirror and ask about the scar.",
+      "full_ru": "Идите за отель на северо-восток (einbroch 276 233) и войдите в дом. Поговорите с Tarsha Cherno и её husband. Осмотрите Unidentified Machine и Mirror рядом с Tarsha. В Mirror будет виден её шрам. Расспросите о нём и о пропавшем отце.",
+      "full_en": "Walk outside behind to hotel to the northeast (einbroch 276 233) and enter the house there. Talk to Tarsha Cherno and her husband. They will tell you to look around the house. Look beside Tarsha for \"Unidentified Machine\" and \"Mirror\". When you look at the Mirror, you will see reflected a scar on Tarsha. Talk to her and ask her about the scar and follow the story about her father being lost.",
+      "npcs": [
+        {
+          "entity": "Tarsha Cherno",
+          "role": "talk"
+        },
+        {
+          "entity": "husband",
+          "role": "talk"
+        },
+        {
+          "entity": "Unidentified Machine",
+          "role": "interact"
+        },
+        {
+          "entity": "Mirror",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Tarsha Cherno"
+        },
+        {
+          "operation": "talk",
+          "entity": "husband"
+        },
+        {
+          "operation": "interact",
+          "entity": "Unidentified Machine"
+        },
+        {
+          "operation": "interact",
+          "entity": "Mirror"
+        }
+      ],
+      "protected_names": [
+        "Tarsha Cherno",
+        "husband",
+        "Unidentified Machine",
+        "Mirror",
+        "einbroch"
+      ],
+      "locations": [
+        {
+          "map": "einbroch",
+          "x": 276,
+          "y": 233,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "einbroch 276 233"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Go back to the airship and talk to Kain. He will take back the package since it was undeliverable, then choose \"mention Miner's Song.\" He will go through a story and ask you to find a Journal to prove that he's Tarsha's father.",
+      "instruction_sha256": "10029885fa9c7731019a3c1e75dbcf26b9ae847b08faf86f696d00ca2b7a6f6b",
+      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/10029885fa9c7731019a/1",
+      "goal": "talk",
+      "short_ru": "Верните Kain package и выберите mention Miner's Song.; найдите Journal.",
+      "short_en": "Return the package to Kain and choose mention Miner's Song.; find the Journal.",
+      "full_ru": "Вернитесь на дирижабль к Kain. Он заберёт package, который не удалось доставить. Выберите «mention Miner's Song.». Он расскажет историю и попросит найти Journal, доказывающий, что он отец Tarsha.",
+      "full_en": "Go back to the airship and talk to Kain. He will take back the package since it was undeliverable, then choose \"mention Miner's Song.\" He will go through a story and ask you to find a Journal to prove that he's Tarsha's father.",
+      "npcs": [
+        {
+          "entity": "Kain Himere",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "package",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Return undeliverable package to sender; not a successful delivery to Defra."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Kain Himere",
+          "options": [
+            {
+              "text": "mention Miner's Song.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kain Himere"
+        }
+      ],
+      "protected_names": [
+        "package",
+        "Journal"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Go to Einbech town near the south portal. To the west of the portal is a small area with 2 old ladies standing there (einbech 47 107) . Click on trees around there that have a \"...\" and eventually you will dig up the journal. Read it through, then return to Tarsha.",
+      "instruction_sha256": "a4d9dd321e9651812fab7473a6bd1ed72229a3de0a8445ba71a911aff1bf19f4",
+      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/a4d9dd321e9651812fab/1",
+      "goal": "search",
+      "short_ru": "Осмотрите деревья с ... у einbech 47 107; найдите дневник и вернитесь к Tarsha.",
+      "short_en": "Search trees marked ... at einbech 47 107; find the journal and return to Tarsha.",
+      "full_ru": "В Einbech около южного портала, к западу, найдите место с 2 пожилыми женщинами (einbech 47 107). Нажимайте деревья с меткой «...», пока не выкопаете дневник. Прочтите его и вернитесь к Tarsha.",
+      "full_en": "Go to Einbech town near the south portal. To the west of the portal is a small area with 2 old ladies standing there (einbech 47 107) . Click on trees around there that have a \"...\" and eventually you will dig up the journal. Read it through, then return to Tarsha.",
+      "items": [
+        {
+          "entity": "Journal",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "Go back to the airship and talk to Kain. He will take back the package since it was undeliverable, then choose \"mention Miner's Song.\" He will go through a story and ask you to find a Journal to prove that he's Tarsha's father."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "search_trees",
+          "condition": "Repeat until the journal is found; attempt count unknown."
+        }
+      ],
+      "protected_names": [
+        "Einbech",
+        "einbech"
+      ],
+      "locations": [
+        {
+          "map": "einbech",
+          "x": 47,
+          "y": 107,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "einbech 47 107"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Return to Tarsha, and choose \"check her hands\". Tarsha will be happy to hear her father is alright, and offer you Free Item Repair service. Then she will send you back to talk to Elle (the child in the hotel), and Elle will give you a Doodled Note to give to Kain.",
+      "instruction_sha256": "12517df0a18ccd51dd831fab1e9a6714d94e685cebd58a640357052746b3a943",
+      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/12517df0a18ccd51dd83/1",
+      "goal": "service_unlock",
+      "short_ru": "У Tarsha выберите check her hands, затем получите Doodled Note у Elle для Kain.",
+      "short_en": "At Tarsha choose check her hands, then receive Doodled Note from Elle for Kain.",
+      "full_ru": "Вернитесь к Tarsha и выберите «check her hands». Узнав об отце, она откроет Free Item Repair service. Затем поговорите с Elle в отеле: она даст Doodled Note для Kain.",
+      "full_en": "Return to Tarsha, and choose \"check her hands\". Tarsha will be happy to hear her father is alright, and offer you Free Item Repair service. Then she will send you back to talk to Elle (the child in the hotel), and Elle will give you a Doodled Note to give to Kain.",
+      "npcs": [
+        {
+          "entity": "Tarsha Cherno",
+          "role": "talk"
+        },
+        {
+          "entity": "Elle",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Tarsha Cherno",
+          "options": [
+            {
+              "text": "check her hands",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "service_unlock",
+          "condition": "Free Item Repair service offered by Tarsha; no separate guaranteed repair item is stated."
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Doodled Note"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Tarsha Cherno"
+        },
+        {
+          "operation": "talk",
+          "entity": "Elle"
+        }
+      ],
+      "protected_names": [
+        "Elle",
+        "Doodled Note"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Return to Kain in the airship and he will give you 4 Free Ticket for Flyship .",
+      "instruction_sha256": "4a21be33846e9d7d5c9885d1aa3520faa8dc728e2f2e4fec0b62c05c1336545b",
+      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/4a21be33846e9d7d5c98/1",
+      "goal": "receive_reward",
+      "short_ru": "Вернитесь к Kain за 4 Free Ticket for Flyship.",
+      "short_en": "Return to Kain for 4 Free Ticket for Flyship.",
+      "full_ru": "Вернитесь к Kain на дирижабле. Получите 4 Free Ticket for Flyship.",
+      "full_en": "Return to Kain in the airship and he will give you 4 Free Ticket for Flyship .",
+      "npcs": [
+        {
+          "entity": "Kain Himere",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Doodled Note",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "support_step": 7,
+          "evidence": "Return to Tarsha, and choose \"check her hands\". Tarsha will be happy to hear her father is alright, and offer you Free Item Repair service. Then she will send you back to talk to Elle (the child in the hotel), and Elle will give you a Doodled Note to give to Kain.",
+          "condition": "Note is intended for Kain; exact removal from inventory is not stated."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "4",
+          "entity": "Free Ticket for Flyship"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kain Himere"
+        }
+      ],
+      "protected_names": [
+        "Free Ticket for Flyship"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "undelivered_package_returned",
+      "detail": "Defra is absent, and Kain takes back the package. Do not create a successful delivery to the absent recipient."
+    },
+    {
+      "reason": "service_and_item_rewards_distinct",
+      "detail": "Free Item Repair is a service unlock, not a reward item. Four Free Ticket for Flyship are granted only once, at the final stage."
+    },
+    {
+      "reason": "unnamed_front_desk",
+      "detail": "The hotel front-desk actor is unnamed; its source role is preserved without inventing an in-game NPC name or ID."
+    },
+    {
+      "reason": "generic_journal_and_note_ids",
+      "detail": "Package, Journal and Doodled Note lack local database links. No ordinary item IDs or unproven identity with other quests’ journals is assigned."
+    }
+  ]
+}

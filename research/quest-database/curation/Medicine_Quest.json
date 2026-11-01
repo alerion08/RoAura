@@ -1,0 +1,454 @@
+{
+  "quest_id": "irowiki-classic:Medicine_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "dc53167315df02bee39c3d66d0896105ac4d5fcb8ce2304ab8c29b2858145a40",
+  "snapshot_sha256": "a8608e74ef8c305f7d2b3a02fa6ae41802822711e07d4b996675eeafb5ab4de8",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Allen Schuwell",
+      "aliases": [
+        "Allen"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Postell Schuwell",
+      "aliases": [
+        "Postell"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Hugel"
+    },
+    {
+      "type": "map",
+      "name": "hugel",
+      "map_code": "hugel"
+    },
+    {
+      "type": "map",
+      "name": "hu_fild06",
+      "map_code": "hu_fild06"
+    },
+    {
+      "type": "map",
+      "name": "hu_in01",
+      "map_code": "hu_in01"
+    },
+    {
+      "type": "map",
+      "name": "hu_in",
+      "map_code": "hu_in"
+    },
+    {
+      "type": "item",
+      "name": "White Potion",
+      "game_id": 504,
+      "id_source": "http://db.irowiki.org/classic/item-info/504/"
+    },
+    {
+      "type": "item",
+      "name": "Old Blue Box",
+      "game_id": 603,
+      "id_source": "http://db.irowiki.org/classic/item-info/603/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Go to the house in Hugel (hugel 153 153)[take a left after you exit the airship , there should be a bridge directly in front] and proceed to the second floor. Speak to Allen Schuwell (hu_in01 387 245) and he shall be talking about his son and lack of medication. He will request to demand his son to go get medicine for him. (Memorizing the name of the medicine is not required)",
+      "instruction_sha256": "2ed3c23a5b1a99615c77a4cf2b46e9f50955c31681a8e6f4a07877b17f24cf4a",
+      "step_id": "irowiki-classic:Medicine_Quest/step/2ed3c23a5b1a99615c77/1",
+      "goal": "talk",
+      "short_ru": "Найдите Allen Schuwell: hugel 153 153 → hu_in01 387 245.",
+      "short_en": "Find Allen Schuwell: hugel 153 153 → hu_in01 387 245.",
+      "full_ru": "Войдите в дом Hugel (hugel 153 153): выйдя из airship, поверните налево перед мостом. На втором этаже поговорите с Allen Schuwell (hu_in01 387 245). Он жалуется на отсутствие сына и лекарств и попросит отправить сына за лекарством. Название лекарства запоминать не требуется.",
+      "full_en": "Go to the house in Hugel (hugel 153 153)[take a left after you exit the airship , there should be a bridge directly in front] and proceed to the second floor. Speak to Allen Schuwell (hu_in01 387 245) and he shall be talking about his son and lack of medication. He will request to demand his son to go get medicine for him. (Memorizing the name of the medicine is not required)",
+      "npcs": [
+        {
+          "entity": "Allen Schuwell",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "hugel",
+          "x": 153,
+          "y": 153,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "hu_in01",
+          "x": 387,
+          "y": 245,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Allen Schuwell"
+        }
+      ],
+      "protected_names": [
+        "Allen Schuwell",
+        "Hugel",
+        "hugel",
+        "hu_in01",
+        "hu_in"
+      ]
+    },
+    "2": {
+      "original_instruction": "Postell Schuwell in the map south of Hugel (hu_fild06 34 123)[at the West portal] will then go get the medicine once he is told that his father needs him. However, he requests that his father be watched over during his absence.",
+      "instruction_sha256": "263d0ab0c195471d147a819b902d70fe32fa65b99245cc14ab00fcbde975a812",
+      "step_id": "irowiki-classic:Medicine_Quest/step/263d0ab0c195471d147a/1",
+      "goal": "talk",
+      "short_ru": "Отправьте Postell Schuwell за лекарством: hu_fild06 34 123.",
+      "short_en": "Send Postell Schuwell for medicine: hu_fild06 34 123.",
+      "full_ru": "Поговорите с Postell Schuwell к югу от Hugel, у западного портала (hu_fild06 34 123). Узнав о состоянии отца, он уйдёт за лекарством и попросит присмотреть за ним.",
+      "full_en": "Postell Schuwell in the map south of Hugel (hu_fild06 34 123)[at the West portal] will then go get the medicine once he is told that his father needs him. However, he requests that his father be watched over during his absence.",
+      "npcs": [
+        {
+          "entity": "Postell Schuwell",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Postell Schuwell"
+        }
+      ],
+      "protected_names": [
+        "Postell Schuwell",
+        "Hugel",
+        "hu_fild06"
+      ],
+      "locations": [
+        {
+          "map": "hu_fild06",
+          "x": 34,
+          "y": 123,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "hu_fild06 34 123"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Return to Allen and he shall complain some more about his pains. He will then request a White Potion . After receiving the White Potion , he will request that you remain by his side until Postell returns.",
+      "instruction_sha256": "8f3aaec155e722f28b8ac1f2618d043aee423071c91d74743575645df0770bd2",
+      "step_id": "irowiki-classic:Medicine_Quest/step/8f3aaec155e722f28b8a/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Allen White Potion и останьтесь рядом до возвращения Postell.",
+      "short_en": "Give Allen White Potion and stay nearby until Postell returns.",
+      "full_ru": "Вернитесь к Allen. Он попросит White Potion. Передайте её и оставайтесь рядом, пока Postell не вернётся.",
+      "full_en": "Return to Allen and he shall complain some more about his pains. He will then request a White Potion . After receiving the White Potion , he will request that you remain by his side until Postell returns.",
+      "npcs": [
+        {
+          "entity": "Allen Schuwell",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "White Potion",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Single explicit potion from the consumed-item header; later story medicines are not extra White Potion charges."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Allen Schuwell"
+        }
+      ],
+      "protected_names": [
+        "White Potion"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Speak to Allen again and he will talk about having another attack and request that you look for his medicine drawer.",
+      "instruction_sha256": "ac7721ebb08380d33a2547a9d867c3aac606ccec0f9b47b1029d19d4549b3fac",
+      "step_id": "irowiki-classic:Medicine_Quest/step/ac7721ebb08380d33a25/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Allen и найдите ящик с лекарствами.",
+      "short_en": "Talk to Allen and find the medicine drawer.",
+      "full_ru": "Снова поговорите с Allen. При новом приступе он попросит найти ящик с лекарствами.",
+      "full_en": "Speak to Allen again and he will talk about having another attack and request that you look for his medicine drawer.",
+      "npcs": [
+        {
+          "entity": "Allen Schuwell",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Allen Schuwell"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Step on tile to the left of you at the drawer with the axe and pick (hu_in 372 254).",
+      "instruction_sha256": "4562913fec043cca775df5958d4621de3e3daaef5a7e631eaf1954f7df281fe3",
+      "step_id": "irowiki-classic:Medicine_Quest/step/4562913fec043cca775d/1",
+      "goal": "proximity_trigger",
+      "short_ru": "Встаньте у ящика: hu_in 372 254.",
+      "short_en": "Stand at the drawer: hu_in 372 254.",
+      "full_ru": "Встаньте на клетку слева, у ящика с топором и киркой (hu_in 372 254).",
+      "full_en": "Step on tile to the left of you at the drawer with the axe and pick (hu_in 372 254).",
+      "actions": [
+        {
+          "operation": "walk_trigger"
+        }
+      ],
+      "protected_names": [
+        "hu_in"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Return to Allen and go next to him and he'll ask for his medicine (Do not click on him).",
+      "instruction_sha256": "f61b0931c39b5cc0b4218c692bd546f6a19ec5d5e7ca69324705bf6f06c87549",
+      "step_id": "irowiki-classic:Medicine_Quest/step/f61b0931c39b5cc0b421/1",
+      "goal": "proximity_trigger",
+      "short_ru": "Подойдите к Allen без нажатия на NPC.",
+      "short_en": "Approach Allen without clicking the NPC.",
+      "full_ru": "Вернитесь к Allen и встаньте рядом: он попросит лекарство. Не нажимайте на него.",
+      "full_en": "Return to Allen and go next to him and he'll ask for his medicine (Do not click on him).",
+      "npcs": [
+        {
+          "entity": "Allen Schuwell",
+          "role": "proximity_trigger"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "approach",
+          "entity": "Allen Schuwell",
+          "condition": "Do not click; proximity advances this source stage."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Stand on the tile by the drawer again. A dialog about medicines in the drawer should appear.",
+      "instruction_sha256": "5e063211ec9c9891e7609f27545b20379c0612124216c85ce111d034a22b8248",
+      "step_id": "irowiki-classic:Medicine_Quest/step/5e063211ec9c9891e760/1",
+      "goal": "proximity_trigger",
+      "short_ru": "Снова встаньте у ящика для диалога о лекарствах.",
+      "short_en": "Stand at the drawer again to trigger the medicine dialogue.",
+      "full_ru": "Снова встаньте на клетку у ящика. Должен появиться диалог о лекарствах внутри.",
+      "full_en": "Stand on the tile by the drawer again. A dialog about medicines in the drawer should appear.",
+      "locations": [
+        {
+          "entity": "hu_in",
+          "x": 372,
+          "y": 254,
+          "role": "drawer_trigger",
+          "known": false,
+          "support_step": 5,
+          "evidence": "Step on tile to the left of you at the drawer with the axe and pick (hu_in 372 254).",
+          "condition": "Same source drawer tile, retaining the unconfirmed map spelling."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk_trigger"
+        }
+      ],
+      "protected_names": []
+    },
+    "8": {
+      "original_instruction": "Repeat 6 and 7 two more times and give Allen his medicine. You must reach the drawer before the flash appears, otherwise you need to repeat 6 & 7 until you get the medicine.",
+      "instruction_sha256": "e96320a83fa1211786572db195411236902fb87f206f67c7a448bf89f6e9f523",
+      "step_id": "irowiki-classic:Medicine_Quest/step/e96320a83fa121178657/1",
+      "goal": "repeat_sequence",
+      "short_ru": "Повторяйте этапы 6 и 7; успейте к ящику до вспышки и дайте Allen лекарство.",
+      "short_en": "Repeat steps 6 and 7; reach the drawer before the flash and give Allen the medicine.",
+      "full_ru": "Повторите этапы 6 и 7 ещё два раза и дайте Allen лекарство. Нужно добраться до ящика до появления вспышки; иначе повторяйте 6 и 7, пока не получите лекарство.",
+      "full_en": "Repeat 6 and 7 two more times and give Allen his medicine. You must reach the drawer before the flash appears, otherwise you need to repeat 6 & 7 until you get the medicine.",
+      "npcs": [
+        {
+          "entity": "Allen Schuwell",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "additional_sequence_repetitions",
+          "amount": "2",
+          "condition": "Two more cycles after the initial approach/drawer sequence; failures can require further attempts."
+        },
+        {
+          "kind": "drawer_flash_deadline",
+          "amount": null,
+          "condition": "Reach the drawer before the flash; exact time is not supplied."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "give_story_medicine",
+          "condition": "No named inventory item or per-cycle quantity is stated."
+        }
+      ],
+      "action_reuse": [
+        {
+          "source_step": 6,
+          "condition": "Repeat the paired steps 6 and 7 two more times, with extra attempts if the flash deadline is missed."
+        },
+        {
+          "source_step": 7,
+          "condition": "Repeat the paired steps 6 and 7 two more times, with extra attempts if the flash deadline is missed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Speak to Allen a few more times (one of which requires standing near Allen). He will request for CPR and another dose of medicine. Repeat step 8. This time, a dialog about the Renkenbar experiments and side effects should appear.",
+      "instruction_sha256": "7b74b500b8abb11ee2e523245483b52ffbaf1af12164cd4c5a084c637cecaf2b",
+      "step_id": "irowiki-classic:Medicine_Quest/step/7b74b500b8abb11ee2e5/1",
+      "goal": "repeat_sequence",
+      "short_ru": "Выполните просьбы Allen о CPR и повторите этап 8 до диалога о Renkenbar.",
+      "short_en": "Follow Allen’s CPR request and repeat step 8 until the Renkenbar dialogue.",
+      "full_ru": "Поговорите с Allen ещё несколько раз; один разговор требует встать рядом. Он попросит CPR и ещё лекарство. Повторите этап 8. Должен появиться диалог об экспериментах Renkenbar и побочных эффектах.",
+      "full_en": "Speak to Allen a few more times (one of which requires standing near Allen). He will request for CPR and another dose of medicine. Repeat step 8. This time, a dialog about the Renkenbar experiments and side effects should appear.",
+      "npcs": [
+        {
+          "entity": "Allen Schuwell",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Allen Schuwell"
+        },
+        {
+          "operation": "story_cpr"
+        }
+      ],
+      "action_reuse": {
+        "source_step": 8,
+        "condition": "Repeat source step 8 for the additional medicine request; inventory consumption remains unspecified."
+      },
+      "protected_names": [],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Repeat step 9 a few times (the number of times is random).",
+      "instruction_sha256": "7c2911aee6cff53e53e798f2e87216c8ac88ed899773aaa38a44b5911548b099",
+      "step_id": "irowiki-classic:Medicine_Quest/step/7c2911aee6cff53e53e7/1",
+      "goal": "repeat_sequence",
+      "short_ru": "Повторяйте этап 9; число повторений случайно.",
+      "short_en": "Repeat step 9; the number of repetitions is random.",
+      "full_ru": "Повторите этап 9 несколько раз. Число повторений случайно.",
+      "full_en": "Repeat step 9 a few times (the number of times is random).",
+      "requirements": [
+        {
+          "kind": "random_repetitions",
+          "amount": null
+        }
+      ],
+      "actions": [
+        {
+          "operation": "repeat_sequence"
+        }
+      ],
+      "action_reuse": {
+        "source_step": 9,
+        "condition": "Repeat until the random source progression advances; no fixed count is known."
+      },
+      "protected_names": [],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "After a certain point, Allen will complain about his pain instead of requesting CPR and Postell shall appear. Postell apparently got the wrong medicine and will then leave again. Allen will then tell you to return to the medicine drawer.",
+      "instruction_sha256": "1f0b5e1e18c87062fde6851f70165ad6eb929df50d6583753e5345513ffc44df",
+      "step_id": "irowiki-classic:Medicine_Quest/step/1f0b5e1e18c87062fde6/1",
+      "goal": "story_trigger",
+      "short_ru": "Дождитесь появления Postell, затем по просьбе Allen вернитесь к ящику.",
+      "short_en": "Wait for Postell to appear, then return to the drawer at Allen’s request.",
+      "full_ru": "В какой-то момент Allen пожалуется на боль вместо просьбы о CPR, и появится Postell. Он принесёт неверное лекарство и снова уйдёт. Allen направит обратно к ящику.",
+      "full_en": "After a certain point, Allen will complain about his pain instead of requesting CPR and Postell shall appear. Postell apparently got the wrong medicine and will then leave again. Allen will then tell you to return to the medicine drawer.",
+      "npcs": [
+        {
+          "entity": "Allen Schuwell",
+          "role": "talk"
+        },
+        {
+          "entity": "Postell Schuwell",
+          "role": "appears"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "wait_event"
+        },
+        {
+          "operation": "return_to_drawer"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Receive 50,000 Base EXP and an Old Blue Box .",
+      "instruction_sha256": "25237bac1d64b42ec8e462486ae75f408d8e98b88a7b5c404ac9a538914cfc5a",
+      "step_id": "irowiki-classic:Medicine_Quest/step/25237bac1d64b42ec8e4/1",
+      "goal": "receive_reward",
+      "short_ru": "Получите 50,000 Base EXP и Old Blue Box.",
+      "short_en": "Receive 50,000 Base EXP and Old Blue Box.",
+      "full_ru": "Получите 50,000 Base EXP и Old Blue Box.",
+      "full_en": "Receive 50,000 Base EXP and an Old Blue Box .",
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "50000"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Blue Box"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_reward"
+        }
+      ],
+      "protected_names": [
+        "Old Blue Box"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "medicine_repeats_not_extra_potions",
+      "detail": "Only the initial White Potion is an identified consumed item. Subsequent medicine/CPR cycles are story actions with unknown inventory quantities; do not multiply White Potion by retries."
+    },
+    {
+      "reason": "medicine_proximity_not_click",
+      "detail": "Step 6 explicitly says not to click Allen. Repeated approach/drawer sequence and flash deadline have no invented timer or fixed total repetition count."
+    },
+    {
+      "reason": "drawer_map_source_conflict",
+      "detail": "Allen is hu_in01 387,245; the drawer is printed hu_in 372,254. Preserve the source code discrepancy rather than silently replacing it."
+    }
+  ]
+}

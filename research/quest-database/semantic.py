@@ -16,7 +16,7 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-5.2.0'
+VERSION = 'semantic-5.3.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
@@ -323,7 +323,9 @@ def curated_facts(w,entry,entities,ev,source_sections=None,html_source=None,bran
         e=evidence_for(f)
         w.location(f,e,f['role'],entity(f['entity']) if f.get('entity') else None)
     reuse=entry.get('action_reuse')
-    if reuse:
+    references=reuse if isinstance(reuse,list) else [reuse] if reuse else []
+    if len({x['source_step'] for x in references})!=len(references):raise ValueError('Duplicate action reuse target')
+    for reuse in references:
         target=w.db.execute('SELECT step_id,step_order,original_instruction FROM quest_steps WHERE quest_id=? AND step_order=?',(w.qid,reuse['source_step'])).fetchone()
         current=w.db.execute('SELECT step_order FROM quest_steps WHERE step_id=?',(w.sid,)).fetchone()[0]
         if target is None or target[1]>=current:raise ValueError('Action reuse requires an earlier step in the same quest')

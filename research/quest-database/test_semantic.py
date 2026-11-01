@@ -193,17 +193,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],535)
-        self.assertEqual(self.report['not_fully_localized_steps'],2215)
+        self.assertEqual(self.report['fully_localized_steps'],584)
+        self.assertEqual(self.report['not_fully_localized_steps'],2166)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],535)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],584)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,2215)
-        self.assertEqual(self.report['fully_localized_branches'],41)
-        self.assertEqual(self.report['curated_quests'],35)
-        self.assertEqual(self.report['pending_quests'],181)
-        self.assertEqual(self.report['quest_routes'],6)
-        self.assertEqual(self.report['action_reuse_links'],1)
+        self.assertEqual(missing,2166)
+        self.assertEqual(self.report['fully_localized_branches'],47)
+        self.assertEqual(self.report['curated_quests'],40)
+        self.assertEqual(self.report['pending_quests'],176)
+        self.assertEqual(self.report['quest_routes'],7)
+        self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_new_world_staff_identity_and_source_availability(self):
         q='irowiki-classic:Onward_to_the_New_World_Quest'
@@ -279,7 +279,7 @@ class RealCorpusTests(unittest.TestCase):
     def test_new_world_relations_keep_literal_step_evidence_and_shared_identity(self):
         rows=[tuple(r) for r in self.db.execute('''SELECT r.quest_id,r.related_id,r.kind,s.step_order FROM quest_relations r
           JOIN evidence e USING(evidence_id) LEFT JOIN quest_steps s ON s.step_id=e.step_id
-          WHERE e.method IN ('curated_quest_relation','curated_single_prerequisite') AND r.quest_id NOT IN ('irowiki-classic:Finding_a_Fairy','irowiki-classic:Two_Tribes','irowiki-classic:Einbroch_Murder_Quest','irowiki-classic:President_Quest') ORDER BY r.quest_id,r.kind''')]
+          WHERE e.method IN ('curated_quest_relation','curated_single_prerequisite') AND r.quest_id NOT IN ('irowiki-classic:Finding_a_Fairy','irowiki-classic:Two_Tribes','irowiki-classic:Einbroch_Murder_Quest','irowiki-classic:President_Quest','irowiki-classic:Heart_Fragment_Quest') ORDER BY r.quest_id,r.kind''')]
         prefix='irowiki-classic:'
         self.assertEqual(rows,[(prefix+'Attitude_to_the_New_World',prefix+'Report_from_the_New_World','extra_stage_required_for_prerequisite',16),
           (prefix+'Attitude_to_the_New_World',prefix+'Onward_to_the_New_World_Quest','mandatory_prerequisite',None),
@@ -295,7 +295,7 @@ class RealCorpusTests(unittest.TestCase):
 
     def test_action_reuse_and_curated_relation_corruption_fail_closed(self):
         cases=[
-          ("UPDATE step_edges SET to_step=(SELECT step_id FROM quest_steps WHERE quest_id='irowiki-classic:New_Surroundings' AND step_order=8) WHERE kind='repeat_actions_from'",'invalid_action_reuse_target'),
+          ("UPDATE step_edges SET to_step=(SELECT step_id FROM quest_steps WHERE quest_id='irowiki-classic:New_Surroundings' AND step_order=8) WHERE kind='repeat_actions_from' AND from_step=(SELECT step_id FROM quest_steps WHERE quest_id='irowiki-classic:New_Surroundings' AND step_order=10)",'invalid_action_reuse_target'),
           ("UPDATE quest_relations SET related_id='irowiki-classic:Juice_Quest' WHERE kind='extra_stage_required_for_prerequisite'",'invalid_curated_quest_relation'),
           ("UPDATE evidence SET method='source_literal' WHERE method='curated_quest_relation'",'invalid_curated_quest_relation'),
           ("UPDATE quest_relations SET related_id='irowiki-classic:Juice_Quest' WHERE kind='mandatory_prerequisite'",'invalid_mandatory_prerequisite'),
@@ -595,6 +595,100 @@ class RealCorpusTests(unittest.TestCase):
         data['steps']['29']['branches'][1]['dialogues'][0]['options'][0]['text']='SHINOKAS';path.write_text(json.dumps(data))
         before=(self.out/'quest_semantic.sqlite').read_bytes()
         with self.assertRaisesRegex(ValueError,'exact dialogue answer'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual(before,(self.out/'quest_semantic.sqlite').read_bytes())
+
+    def test_airship_attack_is_optional_and_four_minutes_is_not_spawn_rate(self):
+        q='irowiki-classic:How_the_Airship_Works_Quest'
+        route=self.db.execute('''SELECT r.kind,s.step_order FROM quest_routes r JOIN step_routes m USING(route_id)
+          JOIN quest_steps s USING(step_id) WHERE r.quest_id=?''',(q,)).fetchone()
+        self.assertEqual(tuple(route),('optional',4))
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='attack_cleanup_minutes'",(q,)).fetchone()[0],'4')
+        self.assertIsNone(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='attack_spawn_interval'",(q,)).fetchone()[0])
+        materials=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=5 ORDER BY x.game_id''',(q,))]
+        self.assertEqual(materials,[(576,2),(7340,2)])
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='base_exp'",(q,)).fetchone()[0],'200000')
+
+    def test_heart_gate_potion_installments_and_shared_ferlock(self):
+        q='irowiki-classic:Heart_Fragment_Quest'
+        gate=self.db.execute('''SELECT s.step_order FROM quest_relations r JOIN evidence e USING(evidence_id)
+          JOIN quest_steps s ON s.step_id=e.step_id WHERE r.quest_id=? AND r.kind='completion_required_at_step' ''',(q,)).fetchone()[0]
+        self.assertEqual(gate,2)
+        potions=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,r.amount FROM rewards r JOIN items x ON x.entity_id=r.item_id
+          JOIN step_rewards sr USING(reward_id) JOIN quest_steps s ON s.step_id=sr.step_id WHERE r.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(potions,[(2,501,'1'),(4,501,'1')])
+        ids={r[0] for r in self.db.execute('''SELECT n.npc_id FROM step_npcs n JOIN entities e ON e.entity_id=n.npc_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id IN (?,?) AND e.original_name='Ferlock' ''',(q,'irowiki-classic:How_the_Airship_Works_Quest'))}
+        self.assertEqual(len(ids),1)
+
+    def test_heart_partial_passwords_and_random_code_are_not_fixed_answers(self):
+        q='irowiki-classic:Heart_Fragment_Quest'
+        choices=[tuple(r) for r in self.db.execute('''SELECT o.exact_text,o.correct FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=6 ORDER BY o.option_order''',(q,))]
+        self.assertEqual(len(choices),12);self.assertTrue(all(x[1] is None for x in choices))
+        self.assertIn(('hfjdkeldjsieldjshfjdjeiskdlefvbd',None),choices)
+        self.assertIn(('fReeDoM eCstAcy JoUrnaLiSm ArMpIt DisCoverY hEaDaChE MoonbeAmS jUsTiCE',None),choices)
+        rules=dict(self.db.execute("SELECT kind,amount FROM requirements WHERE quest_id=? AND kind LIKE 'code_%'",(q,)))
+        self.assertEqual(rules,{'code_attempt_limit':'5','code_digit_count':'3','code_digit_range':'1-9','code_digits_distinct':'true'})
+        self.assertEqual(self.db.execute('''SELECT count(*) FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=7''',(q,)).fetchone()[0],0)
+
+    def test_ticket_package_returns_to_sender_and_repair_is_a_service(self):
+        q='irowiki-classic:Airship_Ticket_Quest'
+        absent=self.db.execute('''SELECT n.role FROM step_npcs n JOIN entities e ON e.entity_id=n.npc_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=3 AND e.original_name='Defra' ''',(q,)).fetchone()[0]
+        self.assertEqual(absent,'absent_target')
+        recipient=self.db.execute('''SELECT e.original_name FROM step_npcs n JOIN entities e ON e.entity_id=n.npc_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=5''',(q,)).fetchone()[0]
+        self.assertEqual(recipient,'Kain Himere')
+        reward=self.db.execute('''SELECT x.game_id,r.amount FROM rewards r JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? AND x.game_id=7311''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in reward],[(7311,'4')])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM rewards WHERE quest_id=? AND kind='service_unlock'",(q,)).fetchone()[0],1)
+
+    def test_medicine_reuses_two_steps_without_multiplying_potions(self):
+        q='irowiki-classic:Medicine_Quest'
+        repeats=[tuple(r) for r in self.db.execute('''SELECT a.step_order,b.step_order FROM step_edges e JOIN quest_steps a ON a.step_id=e.from_step
+          JOIN quest_steps b ON b.step_id=e.to_step WHERE a.quest_id=? AND e.kind='repeat_actions_from' ORDER BY a.step_order,b.step_order''',(q,))]
+        self.assertEqual(repeats,[(8,6),(8,7),(9,8),(10,9)])
+        potions=[tuple(r) for r in self.db.execute('''SELECT s.step_order,i.operation,i.quantity FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND x.game_id=504''',(q,))]
+        self.assertEqual(potions,[(3,'deliver',1)])
+        actions=[r[0] for r in self.db.execute('''SELECT a.operation FROM step_actions a JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=6''',(q,))]
+        self.assertEqual(actions,['approach'])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM rewards WHERE quest_id=? AND kind='base_exp'",(q,)).fetchone()[0],1)
+
+    def test_friendship_exact_message_is_linked_to_delivery_step(self):
+        q='irowiki-classic:Friendship_Quest'
+        message=[r[0] for r in self.db.execute('''SELECT o.exact_text FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=5 ORDER BY d.dialogue_order,o.option_order''',(q,))]
+        self.assertEqual(message,['Hopeless bastard!',"You're still a stubborn jerk!",'You owe me at least 3 lunches!','Not to mention an apology!','But who cares what you think?!',"I'm so goddamn happy without you!"])
+        rows=self.db.execute('SELECT step_order,original_instruction,full_en FROM localized_steps WHERE quest_id=? AND step_order IN (4,5) ORDER BY step_order',(q,)).fetchall()
+        self.assertIn(message[0],rows[0][1]);self.assertNotIn(message[0],rows[0][2]);self.assertIn(message[0],rows[1][2])
+        self.assertEqual(self.db.execute('''SELECT count(*) FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=6''',(q,)).fetchone()[0],0)
+        self.assertIsNotNone(self.db.execute("SELECT 1 FROM review_queue WHERE quest_id=? AND reason='maku_return_reply_unknown'",(q,)).fetchone())
+
+    def test_friendship_overlap_and_two_reward_installments_remain_explicit(self):
+        q='irowiki-classic:Friendship_Quest'
+        grants=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount FROM rewards r JOIN step_branches b USING(branch_id)
+          JOIN quest_steps s ON s.step_id=b.step_id WHERE r.quest_id=? ORDER BY s.step_order,b.branch_key''',(q,))]
+        self.assertEqual(grants,[(n,v) for n in [12,14] for v in ['200000','400000','700000']])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM rewards WHERE quest_id=? AND kind='base_exp' AND branch_id IS NULL",(q,)).fetchone()[0],0)
+        self.assertIsNotNone(self.db.execute("SELECT 1 FROM review_queue WHERE quest_id=? AND reason='source_level_75_overlap'",(q,)).fetchone())
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='scripted_hp_loss_percent'",(q,)).fetchone()[0],'50')
+
+    def test_multiple_reuse_targets_reject_duplicates_and_wrong_witness(self):
+        q='irowiki-classic:Medicine_Quest'
+        with contextlib.closing(sqlite3.connect(':memory:')) as db:
+            self.db.backup(db);db.execute('''UPDATE step_edges SET to_step=(SELECT step_id FROM quest_steps WHERE quest_id=? AND step_order=5)
+              WHERE kind='repeat_actions_from' AND from_step=(SELECT step_id FROM quest_steps WHERE quest_id=? AND step_order=8)
+              AND to_step=(SELECT step_id FROM quest_steps WHERE quest_id=? AND step_order=7)''',(q,q,q))
+            with self.assertRaisesRegex(ValueError,'invalid_action_reuse_target'):validate(db)
+        folder=self.out/'invalid-multiple-reuse';shutil.copytree(ROOT/'curation',folder)
+        path=folder/'Medicine_Quest.json';data=json.loads(path.read_text());data['steps']['8']['action_reuse'].append(dict(data['steps']['8']['action_reuse'][0]));path.write_text(json.dumps(data))
+        before=(self.out/'quest_semantic.sqlite').read_bytes()
+        with self.assertRaisesRegex(ValueError,'Duplicate action reuse target'):build(self.source,self.out,curation_dir=folder)
         self.assertEqual(before,(self.out/'quest_semantic.sqlite').read_bytes())
 
     def test_reference_index_is_excluded_with_pinned_evidence(self):

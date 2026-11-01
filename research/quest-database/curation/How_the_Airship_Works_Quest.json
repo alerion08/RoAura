@@ -1,0 +1,441 @@
+{
+  "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "940d5987e7511dade5b35892a64de862829c0a27c56c2dd05c30791c09f15111",
+  "snapshot_sha256": "7d09dc31016bb4ff8f6fd3dfa3dc61127ad797e5f28215a127899ae014e73b26",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Tarlock"
+    },
+    {
+      "type": "npc",
+      "name": "Ferlock",
+      "identity": "irowiki-classic:npc:airplane:236:163:Ferlock"
+    },
+    {
+      "type": "map",
+      "name": "Izlude"
+    },
+    {
+      "type": "map",
+      "name": "Rachel"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch"
+    },
+    {
+      "type": "map",
+      "name": "Hugel"
+    },
+    {
+      "type": "map",
+      "name": "airplane_01",
+      "map_code": "airplane_01"
+    },
+    {
+      "type": "map",
+      "name": "airplane",
+      "map_code": "airplane"
+    },
+    {
+      "type": "item",
+      "name": "Prickly Fruit",
+      "game_id": 576,
+      "id_source": "http://db.irowiki.org/classic/item-info/576/"
+    },
+    {
+      "type": "item",
+      "name": "Will of the Darkness",
+      "game_id": 7340,
+      "id_source": "http://db.irowiki.org/classic/item-info/7340/"
+    },
+    {
+      "type": "item",
+      "name": "Tarlock's Letter",
+      "aliases": [
+        "Tarlock's letter"
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Captain's reply"
+    },
+    {
+      "type": "monster",
+      "name": "Gremlin"
+    },
+    {
+      "type": "monster",
+      "name": "Beholder"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Board the International route airship ( Izlude to Rachel to Juno ) (use a Kafra Warp to Izlude, or take the International Boarding route at the Juno airport).",
+      "instruction_sha256": "e395edcdae4b4ce237c408ecb3bec3166253f6a90d56be2ab602db61f55dba62",
+      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/e395edcdae4b4ce237c4/1",
+      "goal": "travel",
+      "short_ru": "Сядьте на International route airship: Izlude → Rachel → Juno.",
+      "short_en": "Board the International route airship: Izlude → Rachel → Juno.",
+      "full_ru": "Сядьте на International route airship: Izlude → Rachel → Juno. Можно воспользоваться Kafra Warp в Izlude или International Boarding route в аэропорту Juno.",
+      "full_en": "Board the International route airship ( Izlude to Rachel to Juno ) (use a Kafra Warp to Izlude, or take the International Boarding route at the Juno airport).",
+      "actions": [
+        {
+          "operation": "board_international_airship"
+        }
+      ],
+      "protected_names": [
+        "Izlude",
+        "Rachel",
+        "Juno"
+      ],
+      "locations": []
+    },
+    "2": {
+      "original_instruction": "Talk to the Captain, Tarlock (airplane_01 238 154) and ask \"How does the airship fly?\" Pester him once more. Tarlock will ask if you really want to know, answer yes. Then he says it's top secret and only tells you if you help him. He then says he has a brother who also is an Airship Captain, Ferlock. Because they work in different airships, Tarlock asks you to deliver a letter to him and get his brother's reply. You receive Tarlock's Letter.",
+      "instruction_sha256": "35be2af9cda30c1bdb41d477169c964754ba13d5e08263931c545e4b65d9fc9b",
+      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/35be2af9cda30c1bdb41/1",
+      "goal": "talk",
+      "short_ru": "Спросите Tarlock (airplane_01 238 154) «How does the airship fly?»; получите Tarlock's Letter.",
+      "short_en": "Ask Tarlock (airplane_01 238 154) “How does the airship fly?”; receive Tarlock's Letter.",
+      "full_ru": "Поговорите с капитаном Tarlock (airplane_01 238 154) и спросите «How does the airship fly?». Расспросите снова и подтвердите желание узнать. Он предложит помощь в обмен на секрет: доставить письмо брату Ferlock, капитану другого дирижабля, и принести ответ. Получите Tarlock's Letter.",
+      "full_en": "Talk to the Captain, Tarlock (airplane_01 238 154) and ask \"How does the airship fly?\" Pester him once more. Tarlock will ask if you really want to know, answer yes. Then he says it's top secret and only tells you if you help him. He then says he has a brother who also is an Airship Captain, Ferlock. Because they work in different airships, Tarlock asks you to deliver a letter to him and get his brother's reply. You receive Tarlock's Letter.",
+      "npcs": [
+        {
+          "entity": "Tarlock",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Tarlock",
+          "options": [
+            {
+              "text": "How does the airship fly?",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Tarlock's Letter"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Tarlock"
+        }
+      ],
+      "protected_names": [
+        "Tarlock",
+        "Ferlock",
+        "airplane_01",
+        "airplane",
+        "Tarlock's Letter"
+      ],
+      "locations": [
+        {
+          "map": "airplane_01",
+          "x": 238,
+          "y": 154,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "airplane_01 238 154"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Board the Domestic route airship (from Juno to Lighthalzen to Einbroch to Hugel ) and find Air Ship Captain, Ferlock (airplane 236 163) (you can switch between the two routes at the Juno airport without having to pay the boarding fee a second time). After you give him Tarlock's letter he tells you his brother has borrowed something from him and apparently has lost it. Ferlock shows you the letter that says \"The one who brought you the letter will find it for me. Don't reply to me if he refuses to do so\". Ferlock tells you those items were 2 Will of the Darkness and 2 Prickly Fruit and the monsters that drop it can be found on Tarlock's Airship. | Note: If you already have the required items in your inventory, you can skip step 4 and proceed straight to step 5.",
+      "instruction_sha256": "3ac992692104e09c121b4434386dda3b8325c5f8af7fdfedea2bebe1083ef3d2",
+      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/3ac992692104e09c121b/1",
+      "goal": "talk",
+      "short_ru": "Передайте Ferlock (airplane 236 163) Tarlock's letter; подготовьте 2 Will of the Darkness и 2 Prickly Fruit.",
+      "short_en": "Give Ferlock (airplane 236 163) Tarlock's letter; prepare 2 Will of the Darkness and 2 Prickly Fruit.",
+      "full_ru": "Сядьте на Domestic route airship: Juno → Lighthalzen → Einbroch → Hugel. Найдите Air Ship Captain, Ferlock (airplane 236 163). Между маршрутами можно пересесть в Juno без повторной платы. Передайте Tarlock's letter. Из письма следует: «The one who brought you the letter will find it for me. Don't reply to me if he refuses to do so». Ferlock попросит 2 Will of the Darkness и 2 Prickly Fruit с монстров на дирижабле Tarlock. Если предметы уже есть, пропустите этап 4 и переходите сразу к этапу 5.",
+      "full_en": "Board the Domestic route airship (from Juno to Lighthalzen to Einbroch to Hugel ) and find Air Ship Captain, Ferlock (airplane 236 163) (you can switch between the two routes at the Juno airport without having to pay the boarding fee a second time). After you give him Tarlock's letter he tells you his brother has borrowed something from him and apparently has lost it. Ferlock shows you the letter that says \"The one who brought you the letter will find it for me. Don't reply to me if he refuses to do so\". Ferlock tells you those items were 2 Will of the Darkness and 2 Prickly Fruit and the monsters that drop it can be found on Tarlock's Airship. | Note: If you already have the required items in your inventory, you can skip step 4 and proceed straight to step 5.",
+      "npcs": [
+        {
+          "entity": "Ferlock",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Tarlock's Letter",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Will of the Darkness",
+          "quantity": 2,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Prickly Fruit",
+          "quantity": 2,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "route_transfer_fee",
+          "amount": "0",
+          "condition": "Source says switching between these routes at Juno does not require paying a second boarding fee; not all travel is free."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ferlock"
+        }
+      ],
+      "protected_names": [
+        "Tarlock",
+        "Ferlock",
+        "Juno",
+        "Lighthalzen",
+        "Einbroch",
+        "Hugel",
+        "airplane",
+        "Prickly Fruit",
+        "Will of the Darkness"
+      ],
+      "locations": [
+        {
+          "map": "airplane",
+          "x": 236,
+          "y": 163,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "airplane 236 163"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Go back to International route airship ( Izlude / Juno / Rachel ) and wait patiently on the deck. Eventually, you will hear an announcement. | Note: This happens at a random rate and if you are unlucky, there is a chance that it might not happen for days. After this announcement, half of the mobs are killed by Captain Tarlock and will drop nothing. You should try to kill the monsters as fast as possible. | After 4 minutes, another announcement is made. If you don't clear the monsters by that time, they will die (With no items). Gremlin and Beholder can also be found in Rachel Sanctuary dungeons after completing the Rachel Sanctuary Quest .",
+      "instruction_sha256": "9bb1ebf9e7796dd034ed325b9a9d8b88e0f46cbc445e92ac776d26910244feac",
+      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/9bb1ebf9e7796dd034ed/1",
+      "goal": "optional_material_hunt",
+      "short_ru": "При необходимости добудьте материалы в случайном нападении; через 4 минуты оставшиеся монстры исчезнут без добычи.",
+      "short_en": "If needed, obtain materials during a random attack; after 4 minutes surviving monsters disappear without drops.",
+      "full_ru": "Вернитесь на International route airship (Izlude / Juno / Rachel) и ждите объявления на палубе. Событие происходит случайно; при неудаче его можно ждать днями. После объявления Captain Tarlock уничтожает половину монстров без добычи: старайтесь убивать быстрее. Через 4 минуты будет новое объявление; оставшиеся монстры погибнут без предметов. Gremlin и Beholder также встречаются в Rachel Sanctuary dungeons после Rachel Sanctuary Quest.",
+      "full_en": "Go back to International route airship ( Izlude / Juno / Rachel ) and wait patiently on the deck. Eventually, you will hear an announcement. | Note: This happens at a random rate and if you are unlucky, there is a chance that it might not happen for days. After this announcement, half of the mobs are killed by Captain Tarlock and will drop nothing. You should try to kill the monsters as fast as possible. | After 4 minutes, another announcement is made. If you don't clear the monsters by that time, they will die (With no items). Gremlin and Beholder can also be found in Rachel Sanctuary dungeons after completing the Rachel Sanctuary Quest .",
+      "monsters": [
+        {
+          "entity": "Gremlin",
+          "operation": "loot_source",
+          "required": 0,
+          "quantity": null,
+          "condition": "Optional material source, also available in Rachel Sanctuary; no fixed kills or per-species drop allocation established."
+        },
+        {
+          "entity": "Beholder",
+          "operation": "loot_source",
+          "required": 0,
+          "quantity": null,
+          "condition": "Optional material source, also available in Rachel Sanctuary; no fixed kills or per-species drop allocation established."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "attack_cleanup_minutes",
+          "amount": "4",
+          "condition": "Timer after the attack starts, not a guaranteed spawn interval."
+        },
+        {
+          "kind": "attack_spawn_interval",
+          "amount": null,
+          "condition": "Random trigger; source says a wait of days is possible."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "wait_random_attack"
+        },
+        {
+          "operation": "obtain_materials",
+          "condition": "Skip if already holding the materials; alternative sources may be used."
+        }
+      ],
+      "protected_names": [
+        "Tarlock",
+        "Izlude",
+        "Rachel",
+        "Juno",
+        "Gremlin",
+        "Beholder"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "After collecting the items, go back to the Domestic route Airship ( Juno / Lighthalzen / Einbroch / Hugel ) to find Ferlock and Give him the items. He gives you Captain's reply.",
+      "instruction_sha256": "4ef055bc00739650845bf7af3baffd1f27f83e84e2791a9bb7c5af50b8fd3fff",
+      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/4ef055bc00739650845b/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Ferlock материалы и получите Captain's reply.",
+      "short_en": "Give Ferlock the materials and receive Captain's reply.",
+      "full_ru": "После сбора материалов вернитесь к Ferlock на Domestic route Airship (Juno / Lighthalzen / Einbroch / Hugel). Передайте предметы и получите Captain's reply.",
+      "full_en": "After collecting the items, go back to the Domestic route Airship ( Juno / Lighthalzen / Einbroch / Hugel ) to find Ferlock and Give him the items. He gives you Captain's reply.",
+      "npcs": [
+        {
+          "entity": "Ferlock",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Will of the Darkness",
+          "quantity": 2,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Board the Domestic route airship (from Juno to Lighthalzen to Einbroch to Hugel ) and find Air Ship Captain, Ferlock (airplane 236 163) (you can switch between the two routes at the Juno airport without having to pay the boarding fee a second time). After you give him Tarlock's letter he tells you his brother has borrowed something from him and apparently has lost it. Ferlock shows you the letter that says \"The one who brought you the letter will find it for me. Don't reply to me if he refuses to do so\". Ferlock tells you those items were 2 Will of the Darkness and 2 Prickly Fruit and the monsters that drop it can be found on Tarlock's Airship. | Note: If you already have the required items in your inventory, you can skip step 4 and proceed straight to step 5."
+        },
+        {
+          "entity": "Prickly Fruit",
+          "quantity": 2,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Board the Domestic route airship (from Juno to Lighthalzen to Einbroch to Hugel ) and find Air Ship Captain, Ferlock (airplane 236 163) (you can switch between the two routes at the Juno airport without having to pay the boarding fee a second time). After you give him Tarlock's letter he tells you his brother has borrowed something from him and apparently has lost it. Ferlock shows you the letter that says \"The one who brought you the letter will find it for me. Don't reply to me if he refuses to do so\". Ferlock tells you those items were 2 Will of the Darkness and 2 Prickly Fruit and the monsters that drop it can be found on Tarlock's Airship. | Note: If you already have the required items in your inventory, you can skip step 4 and proceed straight to step 5."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Captain's reply"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ferlock"
+        }
+      ],
+      "protected_names": [
+        "Ferlock",
+        "Juno",
+        "Lighthalzen",
+        "Einbroch",
+        "Hugel",
+        "Captain's reply"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "At the International route Airship ( Izlude / Juno / Rachel ), give the letter to Tarlock. Talk to him until he finishes reading the letter. He finally gives up his secrets about the airship.",
+      "instruction_sha256": "e67436b199a63f5958327463be04b7ee374a07377cb9bd1eaf951686da3c5b9e",
+      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/e67436b199a63f595832/1",
+      "goal": "complete",
+      "short_ru": "Передайте ответ Tarlock на International route Airship и выслушайте объяснение.",
+      "short_en": "Deliver the reply to Tarlock on the International route Airship and hear the explanation.",
+      "full_ru": "На International route Airship (Izlude / Juno / Rachel) передайте письмо Tarlock. Говорите с ним, пока он не дочитает ответ. Он раскроет секрет дирижабля.",
+      "full_en": "At the International route Airship ( Izlude / Juno / Rachel ), give the letter to Tarlock. Talk to him until he finishes reading the letter. He finally gives up his secrets about the airship.",
+      "npcs": [
+        {
+          "entity": "Tarlock",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Captain's reply",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "After collecting the items, go back to the Domestic route Airship ( Juno / Lighthalzen / Einbroch / Hugel ) to find Ferlock and Give him the items. He gives you Captain's reply."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "200000",
+          "source_section": "rewards",
+          "evidence": "Base Experience: 200,000",
+          "condition": "Final reward amount from the header, not an extra installment."
+        },
+        {
+          "kind": "job_exp",
+          "amount": "10000",
+          "source_section": "rewards",
+          "evidence": "Job Experience: 10,000",
+          "condition": "Final reward amount from the header."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Tarlock"
+        }
+      ],
+      "protected_names": [
+        "Tarlock",
+        "Izlude",
+        "Rachel",
+        "Juno"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "random_attack_not_guaranteed_timer",
+      "detail": "The random attack can take days to occur. Four minutes is cleanup after it starts, not the spawn interval. Materials may already be held or obtained through accessible Rachel Sanctuary."
+    },
+    {
+      "reason": "drop_and_letter_ids_unknown",
+      "detail": "Only the two material IDs are locally source-linked. Letters and monster IDs remain unknown; per-monster item drops are not guessed."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "2",
+        "source_section": "requirements",
+        "evidence": "2 Prickly Fruit",
+        "entity": "Prickly Fruit",
+        "condition": "Same material set requested then delivered, not an additional turn-in."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "2",
+        "source_section": "requirements",
+        "evidence": "2 Will of the Darkness",
+        "entity": "Will of the Darkness",
+        "condition": "Same material set requested then delivered, not an additional turn-in."
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "airship_attack_materials",
+      "kind": "optional",
+      "condition": "Only if obtaining missing materials through a random airship attack. Already-held items skip this stage; Rachel Sanctuary is another source if accessible.",
+      "source_step": 4,
+      "steps": [
+        4
+      ]
+    }
+  ]
+}

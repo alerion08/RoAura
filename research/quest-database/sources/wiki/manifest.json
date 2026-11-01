@@ -1658,5 +1658,132 @@
       "https://irowiki.org/classic/Odin%27s_Temple_Excavation_Quest",
       "https://irowiki.org/classic/President_Quest"
     ]
+  },
+  "How_the_Airship_Works_Quest": {
+    "url": "https://irowiki.org/classic/How_the_Airship_Works_Quest",
+    "sha256": "7d09dc31016bb4ff8f6fd3dfa3dc61127ad797e5f28215a127899ae014e73b26",
+    "path": "7d09dc31016bb4ff8f6fd3dfa3dc61127ad797e5f28215a127899ae014e73b26.html.gz",
+    "title": "How the Airship Works Quest",
+    "categories": [
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 60~99 Quests",
+      "Quests",
+      "Lighthalzen Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T17:39:23Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/576/",
+      "http://db.irowiki.org/classic/item-info/7340/",
+      "https://irowiki.org/classic/Airship",
+      "https://irowiki.org/classic/Einbroch",
+      "https://irowiki.org/classic/Hugel",
+      "https://irowiki.org/classic/Izlude",
+      "https://irowiki.org/classic/Juno",
+      "https://irowiki.org/classic/Kafra",
+      "https://irowiki.org/classic/Lighthalzen",
+      "https://irowiki.org/classic/Rachel",
+      "https://irowiki.org/classic/Rachel_Sanctuary_Quest"
+    ]
+  },
+  "Heart_Fragment_Quest": {
+    "url": "https://irowiki.org/classic/Heart_Fragment_Quest",
+    "sha256": "dab45b8150042645a654eeb9b63a088ffb006115ea43cedd86c9a2125c0bae0a",
+    "path": "dab45b8150042645a654eeb9b63a088ffb006115ea43cedd86c9a2125c0bae0a.html.gz",
+    "title": "Heart Fragment Quest",
+    "categories": [
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 60~99 Quests",
+      "Quests",
+      "Noghalt Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T17:39:24Z",
+    "page_links": [
+      "http://choobs.org/number.php",
+      "http://db.irowiki.org/classic/item-info/501/",
+      "https://irowiki.org/classic/Einbroch",
+      "https://irowiki.org/classic/How_the_Airship_Works_Quest",
+      "https://irowiki.org/classic/Juno"
+    ]
+  },
+  "Airship_Ticket_Quest": {
+    "url": "https://irowiki.org/classic/Airship_Ticket_Quest",
+    "sha256": "c6c129c4125e3a4c392f6e4cf4daaac63e01f986552e33693d9c3a92ea01c198",
+    "path": "c6c129c4125e3a4c392f6e4cf4daaac63e01f986552e33693d9c3a92ea01c198.html.gz",
+    "title": "Airship Ticket Quest",
+    "categories": [
+      "Level 1~99 Quests",
+      "Einbroch Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T17:39:25Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/7311/",
+      "https://irowiki.org/classic/Airship",
+      "https://irowiki.org/classic/Einbech",
+      "https://irowiki.org/classic/Einbroch"
+    ]
+  },
+  "Medicine_Quest": {
+    "url": "https://irowiki.org/classic/Medicine_Quest",
+    "sha256": "a8608e74ef8c305f7d2b3a02fa6ae41802822711e07d4b996675eeafb5ab4de8",
+    "path": "a8608e74ef8c305f7d2b3a02fa6ae41802822711e07d4b996675eeafb5ab4de8.html.gz",
+    "title": "Medicine Quest",
+    "categories": [
+      "Quest Window Quests",
+      "Base Experience Reward",
+      "Level 50~99 Quests",
+      "Quests",
+      "Hugel Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T17:39:27Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/504/",
+      "http://db.irowiki.org/classic/item-info/603/",
+      "https://irowiki.org/classic/Airship",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/Hugel"
+    ]
+  },
+  "Friendship_Quest": {
+    "url": "https://irowiki.org/classic/Friendship_Quest",
+    "sha256": "66ec5f2e75de05689e54bdd792db03e95e2f83ca8c89405cb067c22632e93317",
+    "path": "66ec5f2e75de05689e54bdd792db03e95e2f83ca8c89405cb067c22632e93317.html.gz",
+    "title": "Friendship Quest",
+    "categories": [
+      "Quest Window Quests",
+      "Base Experience Reward",
+      "Level 50~99 Quests",
+      "Quests",
+      "Lighthalzen Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T17:39:28Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/1201/",
+      "http://db.irowiki.org/classic/item-info/7350/",
+      "http://db.irowiki.org/classic/item-info/7351/",
+      "http://db.irowiki.org/classic/map-info/lighthalzen/",
+      "http://db.irowiki.org/classic/map-info/yuno/",
+      "https://irowiki.org/classic/Base_Level",
+      "https://irowiki.org/classic/EXP",
+      "https://irowiki.org/classic/File:Benkaistein.jpg",
+      "https://irowiki.org/classic/File:Book.jpg",
+      "https://irowiki.org/classic/File:Digotz.jpg",
+      "https://irowiki.org/classic/File:FriendDiary.jpg",
+      "https://irowiki.org/classic/File:Maku.jpg",
+      "https://irowiki.org/classic/File:Pass.jpg",
+      "https://irowiki.org/classic/File:Student.jpg",
+      "https://irowiki.org/classic/HP",
+      "https://irowiki.org/classic/Juno",
+      "https://irowiki.org/classic/Lighthalzen",
+      "https://irowiki.org/classic/NPC"
+    ]
   }
 }

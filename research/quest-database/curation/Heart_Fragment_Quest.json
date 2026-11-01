@@ -1,0 +1,555 @@
+{
+  "quest_id": "irowiki-classic:Heart_Fragment_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "fcebad977600d3586c3ea8a14be3d32dc765a2efab7ab9ef90abafe2f2d52b4a",
+  "snapshot_sha256": "dab45b8150042645a654eeb9b63a088ffb006115ea43cedd86c9a2125c0bae0a",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Hallen"
+    },
+    {
+      "type": "npc",
+      "name": "Kaci"
+    },
+    {
+      "type": "npc",
+      "name": "Great sage"
+    },
+    {
+      "type": "npc",
+      "name": "Drunken man",
+      "aliases": [
+        "Einbroch Lab Director"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Ferlock",
+      "identity": "irowiki-classic:npc:airplane:236:163:Ferlock"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "airplane",
+      "map_code": "airplane"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch Laboratory"
+    },
+    {
+      "type": "map",
+      "name": "einbroch",
+      "map_code": "einbroch"
+    },
+    {
+      "type": "map",
+      "name": "ein_in01",
+      "map_code": "ein_in01"
+    },
+    {
+      "type": "map",
+      "name": "Thanatos Tower"
+    },
+    {
+      "type": "item",
+      "name": "Red Potion",
+      "aliases": [
+        "Red Potions"
+      ],
+      "game_id": 501,
+      "id_source": "http://db.irowiki.org/classic/item-info/501/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Hallen on the Juno (or any Domestic flight) Airship (airplane 236 63). Ask him what he's doing, then talk to him a second time. He asks you to deliver a letter to his cousin Kaci (airplane 36 70), which can be found near the gaming tables under deck. Talk to Kaci again, selecting all of the options, then talk to Hallen. Agree that helping other people is good.",
+      "instruction_sha256": "049a4ab59f0d6a226dd1fa307b7485b5d51383a68e026e5db69ef529cd5421e7",
+      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/049a4ab59f0d6a226dd1/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Hallen (airplane 236 63), затем с Kaci (airplane 36 70) и снова с Hallen.",
+      "short_en": "Talk to Hallen (airplane 236 63), then Kaci (airplane 36 70), then Hallen again.",
+      "full_ru": "На Juno или любом Domestic flight Airship поговорите с Hallen (airplane 236 63). Спросите о занятии и поговорите второй раз. Он попросит передать письмо кузине Kaci (airplane 36 70) у игровых столов под палубой. Поговорите с Kaci ещё раз, выберите все варианты, затем вернитесь к Hallen и согласитесь, что помогать людям хорошо.",
+      "full_en": "Talk to Hallen on the Juno (or any Domestic flight) Airship (airplane 236 63). Ask him what he's doing, then talk to him a second time. He asks you to deliver a letter to his cousin Kaci (airplane 36 70), which can be found near the gaming tables under deck. Talk to Kaci again, selecting all of the options, then talk to Hallen. Agree that helping other people is good.",
+      "npcs": [
+        {
+          "entity": "Hallen",
+          "role": "talk"
+        },
+        {
+          "entity": "Kaci",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "airplane",
+          "x": 236,
+          "y": 63,
+          "role": "npc",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "airplane",
+          "x": 36,
+          "y": 70,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hallen"
+        },
+        {
+          "operation": "talk",
+          "entity": "Kaci",
+          "condition": "Select all source-described options; literal labels and their count are unknown."
+        },
+        {
+          "operation": "talk",
+          "entity": "Hallen"
+        }
+      ],
+      "protected_names": [
+        "Hallen",
+        "Kaci",
+        "Juno",
+        "airplane"
+      ]
+    },
+    "2": {
+      "original_instruction": "If you have completed the How the Airship Works Quest , Hallen will thank you for your help. | Obtain 1 Red Potion",
+      "instruction_sha256": "bdc0f8ee04b9f65622b4b905ce82f58ae87b34f68e20da970df7fd61eaf63101",
+      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/bdc0f8ee04b9f65622b4/1",
+      "goal": "receive_reward",
+      "short_ru": "После How the Airship Works Quest получите у Hallen 1 Red Potion.",
+      "short_en": "After How the Airship Works Quest, receive 1 Red Potion from Hallen.",
+      "full_ru": "Если How the Airship Works Quest завершён, Hallen поблагодарит за помощь. Получите 1 Red Potion.",
+      "full_en": "If you have completed the How the Airship Works Quest , Hallen will thank you for your help. | Obtain 1 Red Potion",
+      "npcs": [
+        {
+          "entity": "Hallen",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "completed_quest_at_step",
+          "amount": "How the Airship Works Quest"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Red Potion"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hallen"
+        }
+      ],
+      "protected_names": [
+        "Hallen",
+        "Red Potion"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Talk to Hallen some more, and he'll talk about wanting to be an inventor, and about the Great sage. Finally he'll talk about his curiosity on how the airship operates, and he will ask you to gather information from the captain.",
+      "instruction_sha256": "01f944d819ccecd5ce503bf4d1e77b1e0b5fbd05c42b6f8e0e1adb72691bc38c",
+      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/01f944d819ccecd5ce50/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Hallen об изобретениях и устройстве дирижабля.",
+      "short_en": "Question Hallen about inventions and how the airship works.",
+      "full_ru": "Продолжайте говорить с Hallen об изобретениях и Great sage. Затем он заинтересуется устройством дирижабля и попросит узнать сведения у капитана.",
+      "full_en": "Talk to Hallen some more, and he'll talk about wanting to be an inventor, and about the Great sage. Finally he'll talk about his curiosity on how the airship operates, and he will ask you to gather information from the captain.",
+      "npcs": [
+        {
+          "entity": "Hallen",
+          "role": "talk"
+        },
+        {
+          "entity": "Great sage",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hallen"
+        }
+      ],
+      "protected_names": [
+        "Hallen",
+        "Great sage"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Talk to Hallen again and he will mention he heard the words \"Heart of Ymir\" from a Drunken man and ask you to find Kaci for more information. | Obtain 1 Red Potion",
+      "instruction_sha256": "0ed589f5e20a788d7e2f3ea8da10926c91c9dbd3064efda49c62c0c345c73cb0",
+      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/0ed589f5e20a788d7e2f/1",
+      "goal": "receive_reward",
+      "short_ru": "Поговорите с Hallen о Heart of Ymir; получите 1 Red Potion и направление к Kaci.",
+      "short_en": "Talk to Hallen about the Heart of Ymir; receive 1 Red Potion and a referral to Kaci.",
+      "full_ru": "Поговорите с Hallen снова. Он упомянет слова Heart of Ymir от Drunken man и направит к Kaci за сведениями. Получите 1 Red Potion.",
+      "full_en": "Talk to Hallen again and he will mention he heard the words \"Heart of Ymir\" from a Drunken man and ask you to find Kaci for more information. | Obtain 1 Red Potion",
+      "npcs": [
+        {
+          "entity": "Hallen",
+          "role": "talk"
+        },
+        {
+          "entity": "Drunken man",
+          "role": "story_reference"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Red Potion"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hallen"
+        }
+      ],
+      "protected_names": [
+        "Hallen",
+        "Kaci",
+        "Drunken man",
+        "Red Potion"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Ask Kaci about the Drunken man. She will tell you he is the Einbroch Lab Director.",
+      "instruction_sha256": "99e5e4849a28447b2affa5cbc6f15b047b3412f8f68b986cf9ef0ab170af2dcf",
+      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/99e5e4849a28447b2aff/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Kaci о Drunken man.",
+      "short_en": "Ask Kaci about the Drunken man.",
+      "full_ru": "Спросите Kaci о Drunken man. Она скажет, что он — Einbroch Lab Director.",
+      "full_en": "Ask Kaci about the Drunken man. She will tell you he is the Einbroch Lab Director.",
+      "npcs": [
+        {
+          "entity": "Kaci",
+          "role": "talk"
+        },
+        {
+          "entity": "Drunken man",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kaci"
+        }
+      ],
+      "protected_names": [
+        "Kaci",
+        "Drunken man"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Go to the Einbroch Laboratory (einbroch 54 52) to investigate. To enter the lab, you must enter a pair of randomly chosen passwords within 60 seconds. If you enter the first password incorrectly you won't be told of your failure until after entering the second password. A partial list of passwords: | You give me no choice. I guess it's time for me to reveal my secret... | fReeDoM eCstAcy JoUrnaLiSm ArMpIt DisCoverY hEaDaChE MoonbeAmS jUsTiCE | Coboman no chikara-yumei na chikara-daiookii na chikara da ze! COBO ON | hfjdkeldjsieldjshfjdjeiskdlefvbd | ...silence. quiet benevolence...soul mate...wonder. enigma...cloud. | opeN,Open!op3n.openOpen0p3nOpEn0pen`open'0Pen open?open!111OPENSESAME | By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE! | uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH | I'm the King of All Weirdos! Now you know of my true power. Obey~! | belief love luck grimace sweat rush folktale rodimus optimus bumblebee | LiGhTsPeEd RiGhT SPEed LeFT TURn RiGhT BuRn OriGInAL GaNgSteR SmACk | burapaphurarlandreamduranbatuhiwooikabamturubamdingding",
+      "instruction_sha256": "7eee7accf41a014fcd2fc15595d76900afaf5265835ab63c885e3e9be8a5346d",
+      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/7eee7accf41a014fcd2f/1",
+      "goal": "dialogue",
+      "short_ru": "У Einbroch Laboratory (einbroch 54 52) введите пару случайных паролей за 60 секунд.",
+      "short_en": "At Einbroch Laboratory (einbroch 54 52), enter the random password pair within 60 seconds.",
+      "full_ru": "Исследуйте Einbroch Laboratory (einbroch 54 52). Для входа нужно ввести пару случайно выбранных паролей за 60 секунд. Ошибка в первом обнаружится лишь после второго. Ниже неполный список паролей: You give me no choice. I guess it's time for me to reveal my secret... | fReeDoM eCstAcy JoUrnaLiSm ArMpIt DisCoverY hEaDaChE MoonbeAmS jUsTiCE | Coboman no chikara-yumei na chikara-daiookii na chikara da ze! COBO ON | hfjdkeldjsieldjshfjdjeiskdlefvbd | ...silence. quiet benevolence...soul mate...wonder. enigma...cloud. | opeN,Open!op3n.openOpen0p3nOpEn0pen`open'0Pen open?open!111OPENSESAME | By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE! | uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH | I'm the King of All Weirdos! Now you know of my true power. Obey~! | belief love luck grimace sweat rush folktale rodimus optimus bumblebee | LiGhTsPeEd RiGhT SPEed LeFT TURn RiGhT BuRn OriGInAL GaNgSteR SmACk | burapaphurarlandreamduranbatuhiwooikabamturubamdingding",
+      "full_en": "Go to the Einbroch Laboratory (einbroch 54 52) to investigate. To enter the lab, you must enter a pair of randomly chosen passwords within 60 seconds. If you enter the first password incorrectly you won't be told of your failure until after entering the second password. A partial list of passwords: | You give me no choice. I guess it's time for me to reveal my secret... | fReeDoM eCstAcy JoUrnaLiSm ArMpIt DisCoverY hEaDaChE MoonbeAmS jUsTiCE | Coboman no chikara-yumei na chikara-daiookii na chikara da ze! COBO ON | hfjdkeldjsieldjshfjdjeiskdlefvbd | ...silence. quiet benevolence...soul mate...wonder. enigma...cloud. | opeN,Open!op3n.openOpen0p3nOpEn0pen`open'0Pen open?open!111OPENSESAME | By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE! | uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH | I'm the King of All Weirdos! Now you know of my true power. Obey~! | belief love luck grimace sweat rush folktale rodimus optimus bumblebee | LiGhTsPeEd RiGhT SPEed LeFT TURn RiGhT BuRn OriGInAL GaNgSteR SmACk | burapaphurarlandreamduranbatuhiwooikabamturubamdingding",
+      "requirements": [
+        {
+          "kind": "password_time_limit_seconds",
+          "amount": "60"
+        },
+        {
+          "kind": "password_entries",
+          "amount": "2",
+          "condition": "Source asks for a random pair; its partial list does not establish challenge/answer mapping."
+        }
+      ],
+      "dialogues": [
+        {
+          "text": "A partial list of passwords:",
+          "options": [
+            {
+              "text": "You give me no choice. I guess it's time for me to reveal my secret...",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            },
+            {
+              "text": "fReeDoM eCstAcy JoUrnaLiSm ArMpIt DisCoverY hEaDaChE MoonbeAmS jUsTiCE",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            },
+            {
+              "text": "Coboman no chikara-yumei na chikara-daiookii na chikara da ze! COBO ON",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            },
+            {
+              "text": "hfjdkeldjsieldjshfjdjeiskdlefvbd",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            },
+            {
+              "text": "...silence. quiet benevolence...soul mate...wonder. enigma...cloud.",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            },
+            {
+              "text": "opeN,Open!op3n.openOpen0p3nOpEn0pen`open'0Pen open?open!111OPENSESAME",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            },
+            {
+              "text": "By the power of p-po-poi-po-poi-poin-poing GOD-POING. I NEVER LOSE!",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            },
+            {
+              "text": "uNflAPPaBLe LoVaBLe SeCreTs AnD BoWLiNg aGaINST tHe KarMA of YoUtH",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            },
+            {
+              "text": "I'm the King of All Weirdos! Now you know of my true power. Obey~!",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            },
+            {
+              "text": "belief love luck grimace sweat rush folktale rodimus optimus bumblebee",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            },
+            {
+              "text": "LiGhTsPeEd RiGhT SPEed LeFT TURn RiGhT BuRn OriGInAL GaNgSteR SmACk",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            },
+            {
+              "text": "burapaphurarlandreamduranbatuhiwooikabamturubamdingding",
+              "correct": null,
+              "operation": "enter_text",
+              "condition": "Literal source candidate only; follow the currently displayed random prompt. List order is not an input sequence."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_password_pair"
+        }
+      ],
+      "protected_names": [
+        "Einbroch Laboratory",
+        "einbroch"
+      ],
+      "locations": [
+        {
+          "map": "einbroch",
+          "x": 54,
+          "y": 52,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "einbroch 54 52"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "At (ein_in01 264 16), walk around to get the password checker (Dialogue Box activates when you walk over a certain spot) to decode the password and get the information. Step over to the machine at (ein_in01 261 35) to start decoding. The code is of the same kind as the one you need to get the yellow Key for Thanatos Tower; you have five tries to enter the correct three digit code (numbers 1-9) where every digit is different. Note: if you'd like help finding the number, try this site .",
+      "instruction_sha256": "890f50815735e4c4f5797acc515872d0aef78404ace325cfb07963677309b211",
+      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/890f50815735e4c4f579/1",
+      "goal": "solve_random_code",
+      "short_ru": "Активируйте проверку у ein_in01 264 16 и машину у ein_in01 261 35; угадайте код из разных цифр 1-9.",
+      "short_en": "Trigger the checker at ein_in01 264 16 and the machine at ein_in01 261 35; solve the code using distinct digits 1-9.",
+      "full_ru": "У ein_in01 264 16 пройдите по точке, вызывающей password checker, чтобы узнать сведения. Подойдите к машине (ein_in01 261 35) для расшифровки. Код похож на код для yellow Key в Thanatos Tower: есть пять попыток угадать трёхзначный код из цифр 1-9 без повторов. Примечание: источник предлагает внешний сайт помощи; универсальный готовый код не указан.",
+      "full_en": "At (ein_in01 264 16), walk around to get the password checker (Dialogue Box activates when you walk over a certain spot) to decode the password and get the information. Step over to the machine at (ein_in01 261 35) to start decoding. The code is of the same kind as the one you need to get the yellow Key for Thanatos Tower; you have five tries to enter the correct three digit code (numbers 1-9) where every digit is different. Note: if you'd like help finding the number, try this site .",
+      "locations": [
+        {
+          "entity": "ein_in01",
+          "x": 264,
+          "y": 16,
+          "role": "trigger",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "ein_in01",
+          "x": 261,
+          "y": 35,
+          "role": "machine",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "code_attempt_limit",
+          "amount": "5"
+        },
+        {
+          "kind": "code_digit_count",
+          "amount": "3"
+        },
+        {
+          "kind": "code_digit_range",
+          "amount": "1-9"
+        },
+        {
+          "kind": "code_digits_distinct",
+          "amount": "true"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk_trigger"
+        },
+        {
+          "operation": "solve_code"
+        }
+      ],
+      "protected_names": [
+        "ein_in01",
+        "Thanatos Tower"
+      ]
+    },
+    "8": {
+      "original_instruction": "When you find the information, Ferlock will appear. He will ask you to leave and meet him at the airship.",
+      "instruction_sha256": "dfe42421d14577179cd74275a81c552a7b1bbb2d4f438e96437a3cd7d0b244a0",
+      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/dfe42421d14577179cd7/1",
+      "goal": "talk",
+      "short_ru": "Выслушайте Ferlock и вернитесь на дирижабль.",
+      "short_en": "Hear Ferlock and return to the airship.",
+      "full_ru": "Получив сведения, вы встретите Ferlock. Он попросит уйти и встретиться на дирижабле.",
+      "full_en": "When you find the information, Ferlock will appear. He will ask you to leave and meet him at the airship.",
+      "npcs": [
+        {
+          "entity": "Ferlock",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ferlock"
+        }
+      ],
+      "protected_names": [
+        "Ferlock"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Proceed to (airplane 236 163), show your suspicions about the Heart of Ymir to Ferlock. He will tell you that there might be someone behind all the attacks of the airship. He will inform you when he has more information.",
+      "instruction_sha256": "7854cec2e5c34bee3e5fc2c17388ce3a231bc358bec253c4a0e51d2ec89765f5",
+      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/7854cec2e5c34bee3e5f/1",
+      "goal": "complete",
+      "short_ru": "Поговорите с Ferlock о Heart of Ymir: airplane 236 163.",
+      "short_en": "Talk to Ferlock about the Heart of Ymir: airplane 236 163.",
+      "full_ru": "Идите к airplane 236 163 и поделитесь с Ferlock подозрениями о Heart of Ymir. Он предположит, что за нападениями на дирижабль кто-то стоит, и обещает сообщить новые сведения.",
+      "full_en": "Proceed to (airplane 236 163), show your suspicions about the Heart of Ymir to Ferlock. He will tell you that there might be someone behind all the attacks of the airship. He will inform you when he has more information.",
+      "npcs": [
+        {
+          "entity": "Ferlock",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "700000",
+          "source_section": "rewards",
+          "evidence": "Base Experience: 700,000",
+          "condition": "Final exact reward from header; narrative does not state a separate amount."
+        },
+        {
+          "kind": "job_exp",
+          "amount": "400000",
+          "source_section": "rewards",
+          "evidence": "Job Experience: 400,000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ferlock"
+        }
+      ],
+      "protected_names": [
+        "Ferlock",
+        "airplane"
+      ],
+      "locations": [
+        {
+          "map": "airplane",
+          "x": 236,
+          "y": 163,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "airplane 236 163"
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "story_reference_ids_unknown",
+      "detail": "Great sage and Drunken man/Einbroch Lab Director are source story references, not active talk objectives or verified identities shared with another guide."
+    },
+    {
+      "reason": "partial_password_list_not_mapping",
+      "detail": "The source gives a partial unordered password list, not a proven prompt/answer table. Case and spelling differ from Einbroch Murder and remain literal; no cross-guide replacements or guaranteed correct mapping are inferred."
+    },
+    {
+      "reason": "random_code_not_fixed_answer",
+      "detail": "The five-attempt three-digit code uses distinct digits 1–9; no specific code, solver result or invented correct answer is stored."
+    },
+    {
+      "reason": "reward_header_not_extra_grant",
+      "detail": "Two Red Potion grants total the header two. Final EXP comes once from the header; no extra header potion or EXP installment."
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
+      "kind": "mandatory_prerequisite"
+    },
+    {
+      "related_quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
+      "kind": "completion_required_at_step",
+      "source_step": 2
+    }
+  ]
+}

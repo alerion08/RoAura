@@ -1,0 +1,990 @@
+{
+  "quest_id": "irowiki-classic:Friendship_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "0ebb8733c978464b29d21d35d516840eb5ed268672169f04b0a7c44ee39863e8",
+  "snapshot_sha256": "66ec5f2e75de05689e54bdd792db03e95e2f83ca8c89405cb067c22632e93317",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Maku",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Digotz",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Benkaistein",
+      "aliases": [
+        "Passionate Student"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Student",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "guard",
+      "aliases": []
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lighthalzen",
+      "map_code": "lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lhz_in02",
+      "map_code": "lhz_in02"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "yuno",
+      "map_code": "yuno"
+    },
+    {
+      "type": "map",
+      "name": "yuno_in04",
+      "map_code": "yuno_in04"
+    },
+    {
+      "type": "item",
+      "name": "Friend's Diary",
+      "game_id": 7351,
+      "id_source": "http://db.irowiki.org/classic/item-info/7351/"
+    },
+    {
+      "type": "item",
+      "name": "Knife",
+      "game_id": 1201,
+      "id_source": "http://db.irowiki.org/classic/item-info/1201/"
+    },
+    {
+      "type": "item",
+      "name": "Pass",
+      "game_id": 7350,
+      "id_source": "http://db.irowiki.org/classic/item-info/7350/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Find Maku ( lighthalzen 337, 232) and talk to him. To get to the \"slums\" you need to talk to the guard at (lighthalzen 267, 200) repeatedly, you'll eventually get through. He'll ask you to go to the place where wealthy people live.",
+      "instruction_sha256": "c04cc9854651987b02414303f23614c078376134b53341bdd736d6cd3d3ce69f",
+      "step_id": "irowiki-classic:Friendship_Quest/step/c04cc9854651987b0241/1",
+      "goal": "talk",
+      "short_ru": "Через guard (lighthalzen 267, 200) пройдите к Maku (lighthalzen 337, 232).",
+      "short_en": "Go past the guard (lighthalzen 267, 200) to reach Maku (lighthalzen 337, 232).",
+      "full_ru": "Найдите Maku (lighthalzen 337, 232). Для прохода в slums повторяйте разговор с guard (lighthalzen 267, 200), пока он не пропустит. Maku попросит посетить район богатых.",
+      "full_en": "Find Maku ( lighthalzen 337, 232) and talk to him. To get to the \"slums\" you need to talk to the guard at (lighthalzen 267, 200) repeatedly, you'll eventually get through. He'll ask you to go to the place where wealthy people live.",
+      "npcs": [
+        {
+          "entity": "guard",
+          "role": "gatekeeper"
+        },
+        {
+          "entity": "Maku",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "lighthalzen",
+          "x": 267,
+          "y": 200,
+          "role": "gatekeeper",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "lighthalzen",
+          "x": 337,
+          "y": 232,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "guard",
+          "condition": "Repeat until allowed through; count unknown."
+        },
+        {
+          "operation": "talk",
+          "entity": "Maku"
+        }
+      ],
+      "protected_names": [
+        "Maku",
+        "guard",
+        "lighthalzen"
+      ]
+    },
+    "2": {
+      "original_instruction": "Go inside the Hotel ( lighthalzen 158, 131) and walk upstairs. In the 1st room on your left (lhz_in02 237, 200) (walk down) resides Digotz (lhz_in02 201, 210). Talk to him and you'll notice he talks like Maku as well.",
+      "instruction_sha256": "16f48597d91118575ccbd4a0cc179922760621dfb54b185f8c3b52fbb88968e4",
+      "step_id": "irowiki-classic:Friendship_Quest/step/16f48597d91118575ccb/1",
+      "goal": "talk",
+      "short_ru": "Найдите Digotz: lighthalzen 158, 131 → lhz_in02 237, 200 → lhz_in02 201, 210.",
+      "short_en": "Find Digotz: lighthalzen 158, 131 → lhz_in02 237, 200 → lhz_in02 201, 210.",
+      "full_ru": "Войдите в Hotel (lighthalzen 158, 131) и поднимитесь. В 1-й комнате слева (lhz_in02 237, 200), пройдя вниз, найдите Digotz (lhz_in02 201, 210). Его манера речи похожа на Maku.",
+      "full_en": "Go inside the Hotel ( lighthalzen 158, 131) and walk upstairs. In the 1st room on your left (lhz_in02 237, 200) (walk down) resides Digotz (lhz_in02 201, 210). Talk to him and you'll notice he talks like Maku as well.",
+      "npcs": [
+        {
+          "entity": "Digotz",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "lighthalzen",
+          "x": 158,
+          "y": 131,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "lhz_in02",
+          "x": 237,
+          "y": 200,
+          "role": "waypoint",
+          "known": true,
+          "order": 2
+        },
+        {
+          "entity": "lhz_in02",
+          "x": 201,
+          "y": 210,
+          "role": "npc",
+          "known": true,
+          "order": 3
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Digotz"
+        }
+      ],
+      "protected_names": [
+        "Maku",
+        "Digotz",
+        "lighthalzen",
+        "lhz_in02"
+      ]
+    },
+    "3": {
+      "original_instruction": "Return to talk to Maku again. He'll talk about their past.",
+      "instruction_sha256": "03de4cab753b9ff60f28b66872ebda941f31ab42629e14b0484c54a510e9e748",
+      "step_id": "irowiki-classic:Friendship_Quest/step/03de4cab753b9ff60f28/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Maku об их прошлом.",
+      "short_en": "Ask Maku about their past.",
+      "full_ru": "Вернитесь к Maku и расспросите об их прошлом.",
+      "full_en": "Return to talk to Maku again. He'll talk about their past.",
+      "npcs": [
+        {
+          "entity": "Maku",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Maku"
+        }
+      ],
+      "protected_names": [
+        "Maku"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "After that, go find Digotz. He'll curse Maku. Take down the words that Digotz wants you to relay to Maku. It is case sensitive, word for word and punctuations! Hopeless bastard! You're still a stubborn jerk! You owe me at least 3 lunches! Not to mention an apology! But who cares what you think?! I'm so goddamn happy without you!",
+      "instruction_sha256": "ed8504debacc334a9260bdb5de94b0daed08b7c85d43bef83bd0abfac175b8fa",
+      "step_id": "irowiki-classic:Friendship_Quest/step/ed8504debacc334a9260/1",
+      "goal": "record_message",
+      "short_ru": "Запишите у Digotz точное сообщение для Maku.",
+      "short_en": "Record Digotz’s exact message for Maku.",
+      "full_ru": "Найдите Digotz. Он выругает Maku. Запишите слова для передачи: нужно точно сохранить регистр, слова и пунктуацию.",
+      "full_en": "After that, go find Digotz. He'll curse Maku. Take down the words that Digotz wants you to relay to Maku. It is case sensitive, word for word and punctuations!",
+      "npcs": [
+        {
+          "entity": "Digotz",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Digotz"
+        }
+      ],
+      "protected_names": [
+        "Maku",
+        "Digotz"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Return to Maku and pass along Digotz's words, one line at a time. Maku almost breaks down after hearing it. Talk to Maku again and you'll lose 50% HP . Try to calm him down. He'll tell you about his other friend Benkaistein.",
+      "instruction_sha256": "fadc5d26436e8d96c09ec3e9a9629e56c03320c9d098d1a7a58ad98ea63dfc8d",
+      "step_id": "irowiki-classic:Friendship_Quest/step/fadc5d26436e8d96c09e/1",
+      "goal": "relay_message",
+      "short_ru": "Передайте Maku сообщение Digotz по строкам; затем вы потеряете 50% HP.",
+      "short_en": "Relay Digotz’s message to Maku one line at a time; afterwards you lose 50% HP.",
+      "full_ru": "Вернитесь к Maku и передайте слова Digotz по одной строке. Поговорите снова: вы потеряете 50% HP. Успокойте его; он расскажет о друге Benkaistein. Точные строки: Hopeless bastard! You're still a stubborn jerk! You owe me at least 3 lunches! Not to mention an apology! But who cares what you think?! I'm so goddamn happy without you!",
+      "full_en": "Return to Maku and pass along Digotz's words, one line at a time. Maku almost breaks down after hearing it. Talk to Maku again and you'll lose 50% HP . Try to calm him down. He'll tell you about his other friend Benkaistein. Hopeless bastard! You're still a stubborn jerk! You owe me at least 3 lunches! Not to mention an apology! But who cares what you think?! I'm so goddamn happy without you!",
+      "npcs": [
+        {
+          "entity": "Maku",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "scripted_hp_loss_percent",
+          "amount": "50",
+          "condition": "Source describes HP loss after dialogue, not a minimum HP requirement."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Maku",
+          "source_section": "html_text",
+          "evidence": "Hopeless bastard!",
+          "options": [
+            {
+              "text": "Hopeless bastard!",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Relay the six source lines in order, one line at a time."
+            }
+          ]
+        },
+        {
+          "npc": "Maku",
+          "source_section": "html_text",
+          "evidence": "You're still a stubborn jerk!",
+          "options": [
+            {
+              "text": "You're still a stubborn jerk!",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Relay the six source lines in order, one line at a time."
+            }
+          ]
+        },
+        {
+          "npc": "Maku",
+          "source_section": "html_text",
+          "evidence": "You owe me at least 3 lunches!",
+          "options": [
+            {
+              "text": "You owe me at least 3 lunches!",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Relay the six source lines in order, one line at a time."
+            }
+          ]
+        },
+        {
+          "npc": "Maku",
+          "source_section": "html_text",
+          "evidence": "Not to mention an apology!",
+          "options": [
+            {
+              "text": "Not to mention an apology!",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Relay the six source lines in order, one line at a time."
+            }
+          ]
+        },
+        {
+          "npc": "Maku",
+          "source_section": "html_text",
+          "evidence": "But who cares what you think?!",
+          "options": [
+            {
+              "text": "But who cares what you think?!",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Relay the six source lines in order, one line at a time."
+            }
+          ]
+        },
+        {
+          "npc": "Maku",
+          "source_section": "html_text",
+          "evidence": "I'm so goddamn happy without you!",
+          "options": [
+            {
+              "text": "I'm so goddamn happy without you!",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Relay the six source lines in order, one line at a time."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Maku"
+        },
+        {
+          "operation": "relay_source_message"
+        }
+      ],
+      "protected_names": [
+        "Maku",
+        "Digotz",
+        "Benkaistein"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Go back to the Hotel and tell Digotz you have a message for him and tell him exactly what Maku mentioned. He'll mention Benkaistein as well. From listening to both of them, Benkaistein seems to like to read books. So you need to head to the Juno Library.",
+      "instruction_sha256": "80cc340fce5a35c92c7eeace7d05de356163731f0569884c295d53d5c349993a",
+      "step_id": "irowiki-classic:Friendship_Quest/step/80cc340fce5a35c92c7e/1",
+      "goal": "talk",
+      "short_ru": "Передайте Digotz ответ Maku из игрового диалога; ищите Benkaistein в Juno Library.",
+      "short_en": "Give Digotz Maku’s reply from the game dialogue; look for Benkaistein in Juno Library.",
+      "full_ru": "В Hotel скажите Digotz, что принесли сообщение, и передайте точно те слова, которые произнёс Maku. Digotz также упомянет Benkaistein. Он любит читать, поэтому идите в Juno Library.",
+      "full_en": "Go back to the Hotel and tell Digotz you have a message for him and tell him exactly what Maku mentioned. He'll mention Benkaistein as well. From listening to both of them, Benkaistein seems to like to read books. So you need to head to the Juno Library.",
+      "npcs": [
+        {
+          "entity": "Digotz",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_reply_text_unknown",
+          "amount": null,
+          "condition": "Maku’s literal reply is not printed in the guide. Do not reuse Digotz’s outgoing message as this return answer."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Digotz"
+        },
+        {
+          "operation": "relay_live_reply"
+        }
+      ],
+      "protected_names": [
+        "Maku",
+        "Digotz",
+        "Benkaistein",
+        "Juno"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "In the Juno Library ( yuno 340, 203) you need to find Student (yuno_in04 107 14) in the room to your south when you enter second hall of the library, and ask for Benkaistein. Student will tell you he's in the north side/opposite room.",
+      "instruction_sha256": "cbe33217056b27802c5215a9f01ab7342ef5d4fa11a12f9a6bdcec2140debfe6",
+      "step_id": "irowiki-classic:Friendship_Quest/step/cbe33217056b27802c52/1",
+      "goal": "talk",
+      "short_ru": "Спросите Student о Benkaistein: yuno 340, 203 → yuno_in04 107 14.",
+      "short_en": "Ask Student about Benkaistein: yuno 340, 203 → yuno_in04 107 14.",
+      "full_ru": "В Juno Library (yuno 340, 203) найдите Student (yuno_in04 107 14) в южной комнате второго зала и спросите о Benkaistein. Он направит в северную комнату напротив.",
+      "full_en": "In the Juno Library ( yuno 340, 203) you need to find Student (yuno_in04 107 14) in the room to your south when you enter second hall of the library, and ask for Benkaistein. Student will tell you he's in the north side/opposite room.",
+      "npcs": [
+        {
+          "entity": "Student",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "yuno",
+          "x": 340,
+          "y": 203,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "yuno_in04",
+          "x": 107,
+          "y": 14,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Student"
+        }
+      ],
+      "protected_names": [
+        "Benkaistein",
+        "Student",
+        "Juno",
+        "yuno",
+        "yuno_in04"
+      ]
+    },
+    "8": {
+      "original_instruction": "Talk to Benkaistein ( NPC is named \"Passionate Student\" at yuno_in04 96, 106) about Maku and Digotz. He says he'll help to resolve their issue but is busy. He'll trying to find a book that will help resolve the miss-understanding. So you help him out.",
+      "instruction_sha256": "5e552bf524c243b78e26a54880174205891ede302aa46f77400e196eb582c418",
+      "step_id": "irowiki-classic:Friendship_Quest/step/5e552bf524c243b78e26/1",
+      "goal": "talk",
+      "short_ru": "Помогите Benkaistein (Passionate Student): yuno_in04 96, 106.",
+      "short_en": "Help Benkaistein (Passionate Student): yuno_in04 96, 106.",
+      "full_ru": "Поговорите с Benkaistein, NPC по имени Passionate Student (yuno_in04 96, 106), о Maku и Digotz. Он хочет помочь, но занят поиском книги, способной исправить недоразумение. Помогите ему.",
+      "full_en": "Talk to Benkaistein ( NPC is named \"Passionate Student\" at yuno_in04 96, 106) about Maku and Digotz. He says he'll help to resolve their issue but is busy. He'll trying to find a book that will help resolve the miss-understanding. So you help him out.",
+      "npcs": [
+        {
+          "entity": "Benkaistein",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Benkaistein"
+        }
+      ],
+      "protected_names": [
+        "Maku",
+        "Digotz",
+        "Benkaistein",
+        "Student",
+        "yuno",
+        "yuno_in04",
+        "Pass"
+      ],
+      "locations": [
+        {
+          "map": "yuno_in04",
+          "x": 96,
+          "y": 106,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_in04 96, 106"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "The book is at (yuno_in04 167, 115) on the table. You'll obtain Friend's Diary .",
+      "instruction_sha256": "66007529ed41259bf7c8e9cd4f5597e254097a6c0a4256688f82b58f01661d21",
+      "step_id": "irowiki-classic:Friendship_Quest/step/66007529ed41259bf7c8/1",
+      "goal": "collect",
+      "short_ru": "Заберите Friend's Diary: yuno_in04 167, 115.",
+      "short_en": "Collect Friend's Diary: yuno_in04 167, 115.",
+      "full_ru": "Найдите книгу на столе у yuno_in04 167, 115. Получите Friend's Diary.",
+      "full_en": "The book is at (yuno_in04 167, 115) on the table. You'll obtain Friend's Diary .",
+      "items": [
+        {
+          "entity": "Friend's Diary",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Friend's Diary"
+        }
+      ],
+      "protected_names": [
+        "yuno",
+        "yuno_in04",
+        "Friend's Diary"
+      ],
+      "locations": [
+        {
+          "map": "yuno_in04",
+          "x": 167,
+          "y": 115,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_in04 167, 115"
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "Tell Benkaistein you found his diary. He'll tell you to show this diary to both of them .",
+      "instruction_sha256": "7022397fda092494e65abb6a11f917209278b09a63390aae6b485539c0e88430",
+      "step_id": "irowiki-classic:Friendship_Quest/step/7022397fda092494e65a/1",
+      "goal": "talk",
+      "short_ru": "Получите у Benkaistein поручение показать дневник обоим.",
+      "short_en": "Get Benkaistein’s request to show the diary to both friends.",
+      "full_ru": "Скажите Benkaistein, что нашли дневник. Он попросит показать его обоим друзьям.",
+      "full_en": "Tell Benkaistein you found his diary. He'll tell you to show this diary to both of them .",
+      "npcs": [
+        {
+          "entity": "Benkaistein",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Benkaistein"
+        }
+      ],
+      "protected_names": [
+        "Benkaistein"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Head back to Lighthalzen 's Hotel and find Digotz, then show him the diary. Digotz wishes to visit Maku.",
+      "instruction_sha256": "3e94a1754ef5559d00fd1c79e901a537cafe1b25bd8f9040cc8f1944bd5bc4aa",
+      "step_id": "irowiki-classic:Friendship_Quest/step/3e94a1754ef5559d00fd/1",
+      "goal": "talk",
+      "short_ru": "Покажите дневник Digotz в Hotel Lighthalzen.",
+      "short_en": "Show the diary to Digotz at the Lighthalzen Hotel.",
+      "full_ru": "Вернитесь в Hotel Lighthalzen к Digotz и покажите дневник. Он захочет посетить Maku.",
+      "full_en": "Head back to Lighthalzen 's Hotel and find Digotz, then show him the diary. Digotz wishes to visit Maku.",
+      "npcs": [
+        {
+          "entity": "Digotz",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Friend's Diary",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "support_step": 9,
+          "evidence": "The book is at (yuno_in04 167, 115) on the table. You'll obtain Friend's Diary .",
+          "condition": "Show the same diary, not a consumable handover."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Digotz"
+        }
+      ],
+      "protected_names": [
+        "Maku",
+        "Digotz",
+        "Lighthalzen"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Then go show the diary to Maku. You'll get some experience depending on your base level. | [Gained Experience] | Level 50-75 = 200,000 EXP | Level 75-90 = 400,000 EXP | Level 91-99 = 700,000 EXP",
+      "instruction_sha256": "3d16f289c5ef50d3d23d90df010a88deb84fc8c049c192f40cc3ef0c4a263616",
+      "step_id": "irowiki-classic:Friendship_Quest/step/3d16f289c5ef50d3d23d/1",
+      "goal": "receive_reward",
+      "short_ru": "Покажите дневник Maku; получите первый зависящий от уровня EXP.",
+      "short_en": "Show the diary to Maku; receive the first level-based EXP installment.",
+      "full_ru": "Покажите дневник Maku. Получите опыт в зависимости от base level. Полученный опыт:",
+      "full_en": "Then go show the diary to Maku. You'll get some experience depending on your base level. | [Gained Experience]",
+      "npcs": [
+        {
+          "entity": "Maku",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Maku"
+        }
+      ],
+      "protected_names": [
+        "Maku"
+      ],
+      "locations": [],
+      "items": [
+        {
+          "entity": "Friend's Diary",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "support_step": 9,
+          "evidence": "The book is at (yuno_in04 167, 115) on the table. You'll obtain Friend's Diary ."
+        }
+      ],
+      "branches": [
+        {
+          "key": "level_50_75",
+          "choice_group": "installment_level_band",
+          "variant_scope": "Literal source band; level 75 overlap unresolved",
+          "condition": "Use the band for this installment; the source overlaps at level 75, so do not choose automatically there.",
+          "section": "",
+          "source_step": 12,
+          "original_instruction": " | Level 50-75 = 200,000 EXP",
+          "instruction_sha256": "cb8b05774fe2a2a31bcb55b2d3cf480d2e6c3b190cec6cdc72fe80ecada0bd61",
+          "short_ru": "Уровень 50-75: 200,000 EXP.",
+          "short_en": "Level 50-75: 200,000 EXP.",
+          "full_ru": "Уровень 50-75: 200,000 EXP.",
+          "full_en": " | Level 50-75 = 200,000 EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "source_level_band",
+              "amount": "50-75"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "200000",
+              "condition": "One installment, not the whole header total."
+            }
+          ]
+        },
+        {
+          "key": "level_75_90",
+          "choice_group": "installment_level_band",
+          "variant_scope": "Literal source band; level 75 overlap unresolved",
+          "condition": "Use the band for this installment; the source overlaps at level 75, so do not choose automatically there.",
+          "section": "",
+          "source_step": 12,
+          "original_instruction": " | Level 75-90 = 400,000 EXP",
+          "instruction_sha256": "d624351b011fba9ae1525663a0f98740b0cc2d47d21721f9fdac84a0e21f0494",
+          "short_ru": "Уровень 75-90: 400,000 EXP.",
+          "short_en": "Level 75-90: 400,000 EXP.",
+          "full_ru": "Уровень 75-90: 400,000 EXP.",
+          "full_en": " | Level 75-90 = 400,000 EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "source_level_band",
+              "amount": "75-90"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "400000",
+              "condition": "One installment, not the whole header total."
+            }
+          ]
+        },
+        {
+          "key": "level_91_99",
+          "choice_group": "installment_level_band",
+          "variant_scope": "Literal source band; level 75 overlap unresolved",
+          "condition": "Use the band for this installment; the source overlaps at level 75, so do not choose automatically there.",
+          "section": "",
+          "source_step": 12,
+          "original_instruction": " | Level 91-99 = 700,000 EXP",
+          "instruction_sha256": "4c2494305f33b58193eb998dfe17a19074db63d56ca0ad34356951510682fd0f",
+          "short_ru": "Уровень 91-99: 700,000 EXP.",
+          "short_en": "Level 91-99: 700,000 EXP.",
+          "full_ru": "Уровень 91-99: 700,000 EXP.",
+          "full_en": " | Level 91-99 = 700,000 EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "source_level_band",
+              "amount": "91-99"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "700000",
+              "condition": "One installment, not the whole header total."
+            }
+          ]
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "Finally, go back to Juno and tell Benkaistein you did what he asked. You'll get some EXP depending on your Base Level and a Pass . | [Gained Experience] | Level 50-75 = 200,000 EXP | Level 75-90 = 400,000 EXP | Level 91-99 = 700,000 EXP | The Pass allows you access to the Lighthalzen Slums regardless of there being an alert or not.",
+      "instruction_sha256": "3cb5a4bfe79241a6a60aac195c97190cbbe7d64254ac1afa3ff99cf0c3e346a4",
+      "step_id": "irowiki-classic:Friendship_Quest/step/3cb5a4bfe79241a6a60a/1",
+      "goal": "receive_reward",
+      "short_ru": "Доложите Benkaistein в Juno; получите второй EXP и Pass.",
+      "short_en": "Report to Benkaistein in Juno; receive the second EXP installment and Pass.",
+      "full_ru": "Вернитесь в Juno к Benkaistein. Получите зависящий от Base Level EXP и Pass. Pass даёт доступ в Lighthalzen Slums даже во время тревоги. Полученный опыт:",
+      "full_en": "Finally, go back to Juno and tell Benkaistein you did what he asked. You'll get some EXP depending on your Base Level and a Pass . | [Gained Experience] | The Pass allows you access to the Lighthalzen Slums regardless of there being an alert or not.",
+      "npcs": [
+        {
+          "entity": "Benkaistein",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Benkaistein"
+        }
+      ],
+      "protected_names": [
+        "Benkaistein",
+        "Lighthalzen",
+        "Juno",
+        "Pass"
+      ],
+      "locations": [],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Pass"
+        }
+      ],
+      "branches": [
+        {
+          "key": "level_50_75",
+          "choice_group": "installment_level_band",
+          "variant_scope": "Literal source band; level 75 overlap unresolved",
+          "condition": "Use the band for this installment; the source overlaps at level 75, so do not choose automatically there.",
+          "section": "",
+          "source_step": 14,
+          "original_instruction": " | Level 50-75 = 200,000 EXP",
+          "instruction_sha256": "cb8b05774fe2a2a31bcb55b2d3cf480d2e6c3b190cec6cdc72fe80ecada0bd61",
+          "short_ru": "Уровень 50-75: 200,000 EXP.",
+          "short_en": "Level 50-75: 200,000 EXP.",
+          "full_ru": "Уровень 50-75: 200,000 EXP.",
+          "full_en": " | Level 50-75 = 200,000 EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "source_level_band",
+              "amount": "50-75"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "200000",
+              "condition": "One installment, not the whole header total."
+            }
+          ]
+        },
+        {
+          "key": "level_75_90",
+          "choice_group": "installment_level_band",
+          "variant_scope": "Literal source band; level 75 overlap unresolved",
+          "condition": "Use the band for this installment; the source overlaps at level 75, so do not choose automatically there.",
+          "section": "",
+          "source_step": 14,
+          "original_instruction": " | Level 75-90 = 400,000 EXP",
+          "instruction_sha256": "d624351b011fba9ae1525663a0f98740b0cc2d47d21721f9fdac84a0e21f0494",
+          "short_ru": "Уровень 75-90: 400,000 EXP.",
+          "short_en": "Level 75-90: 400,000 EXP.",
+          "full_ru": "Уровень 75-90: 400,000 EXP.",
+          "full_en": " | Level 75-90 = 400,000 EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "source_level_band",
+              "amount": "75-90"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "400000",
+              "condition": "One installment, not the whole header total."
+            }
+          ]
+        },
+        {
+          "key": "level_91_99",
+          "choice_group": "installment_level_band",
+          "variant_scope": "Literal source band; level 75 overlap unresolved",
+          "condition": "Use the band for this installment; the source overlaps at level 75, so do not choose automatically there.",
+          "section": "",
+          "source_step": 14,
+          "original_instruction": " | Level 91-99 = 700,000 EXP",
+          "instruction_sha256": "4c2494305f33b58193eb998dfe17a19074db63d56ca0ad34356951510682fd0f",
+          "short_ru": "Уровень 91-99: 700,000 EXP.",
+          "short_en": "Level 91-99: 700,000 EXP.",
+          "full_ru": "Уровень 91-99: 700,000 EXP.",
+          "full_en": " | Level 91-99 = 700,000 EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "source_level_band",
+              "amount": "91-99"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "700000",
+              "condition": "One installment, not the whole header total."
+            }
+          ]
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Go back and visit Digotz. Unfortunately he gets ambushed and killed, you will then pull out the dagger that killed him. You'll obtain Knife and it's over with both Digotz and Maku.",
+      "instruction_sha256": "8e1d53963aab67995ac44d0f856b35170ac49ebb0696a803b70ea7a5effe6bea",
+      "step_id": "irowiki-classic:Friendship_Quest/step/8e1d53963aab67995ac4/1",
+      "goal": "story_event",
+      "short_ru": "Вернитесь к Digotz и получите Knife после нападения.",
+      "short_en": "Return to Digotz and receive Knife after the attack.",
+      "full_ru": "Вернитесь к Digotz. Его убьют в засаде, и вы извлечёте убивший его кинжал. Получите Knife; история Digotz и Maku завершится.",
+      "full_en": "Go back and visit Digotz. Unfortunately he gets ambushed and killed, you will then pull out the dagger that killed him. You'll obtain Knife and it's over with both Digotz and Maku.",
+      "npcs": [
+        {
+          "entity": "Digotz",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Knife"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "story_event"
+        }
+      ],
+      "protected_names": [
+        "Maku",
+        "Digotz",
+        "Knife"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "source_level_75_overlap",
+      "detail": "Both source installments list 50–75 and 75–90, overlapping at 75. Preserve the ambiguity; do not silently change a bound or grant both branches."
+    },
+    {
+      "reason": "two_exp_installments_not_header_bonus",
+      "detail": "Each installment grants 200000/400000/700000. Header 400000/800000/1400000 summarizes both at unchanged level, not a third grant or a forced same-level condition."
+    },
+    {
+      "reason": "relay_message_source_relocation",
+      "detail": "Exact Digotz lines originate in archived step 4 but must be entered at step 5. Lossless source partitions preserve both original instructions and map the quoted text to the delivery step."
+    },
+    {
+      "reason": "maku_return_reply_unknown",
+      "detail": "The source does not quote Maku’s return message at step 6. No exact input is invented or copied from Digotz’s outgoing six lines."
+    }
+  ],
+  "source_partitions": [
+    {
+      "source_step": 4,
+      "segments": [
+        {
+          "target_step": 4,
+          "start": 0,
+          "end": 160,
+          "section": "Message collection"
+        },
+        {
+          "target_step": 5,
+          "start": 160,
+          "end": 330,
+          "section": "Literal message relayed at step 5"
+        }
+      ]
+    },
+    {
+      "source_step": 5,
+      "segments": [
+        {
+          "target_step": 5,
+          "start": 0,
+          "end": 224,
+          "section": "Message delivery and HP event"
+        }
+      ]
+    },
+    {
+      "source_step": 12,
+      "segments": [
+        {
+          "target_step": 12,
+          "start": 0,
+          "end": 110,
+          "section": "Reward introduction"
+        },
+        {
+          "target_step": 12,
+          "branch_key": "level_50_75",
+          "start": 110,
+          "end": 138,
+          "section": "Level 50-75"
+        },
+        {
+          "target_step": 12,
+          "branch_key": "level_75_90",
+          "start": 138,
+          "end": 166,
+          "section": "Level 75-90"
+        },
+        {
+          "target_step": 12,
+          "branch_key": "level_91_99",
+          "start": 166,
+          "end": 194,
+          "section": "Level 91-99"
+        }
+      ]
+    },
+    {
+      "source_step": 14,
+      "segments": [
+        {
+          "target_step": 14,
+          "start": 0,
+          "end": 152,
+          "section": "Reward introduction"
+        },
+        {
+          "target_step": 14,
+          "branch_key": "level_50_75",
+          "start": 152,
+          "end": 180,
+          "section": "Level 50-75"
+        },
+        {
+          "target_step": 14,
+          "branch_key": "level_75_90",
+          "start": 180,
+          "end": 208,
+          "section": "Level 75-90"
+        },
+        {
+          "target_step": 14,
+          "branch_key": "level_91_99",
+          "start": 208,
+          "end": 236,
+          "section": "Level 91-99"
+        },
+        {
+          "target_step": 14,
+          "start": 236,
+          "end": 333,
+          "section": "Pass access explanation"
+        }
+      ]
+    }
+  ]
+}

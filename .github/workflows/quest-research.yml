@@ -176,7 +176,7 @@ jobs:
           assert semantic.execute("SELECT count(*) FROM quest_prerequisite_members").fetchone()[0]==members
           assert semantic_report["quest_routes"]==routes
           assert semantic.execute("SELECT count(*) FROM quest_routes").fetchone()[0]==routes
-          reuse=sum(bool(s.get("action_reuse")) for q in curations.values() for s in q["steps"].values())
+          reuse=sum(len(s["action_reuse"]) if isinstance(s.get("action_reuse"),list) else bool(s.get("action_reuse")) for q in curations.values() for s in q["steps"].values())
           assert semantic_report["action_reuse_links"]==reuse
           assert semantic.execute("SELECT count(*) FROM step_edges WHERE kind='repeat_actions_from'").fetchone()[0]==reuse
           relations=sum(len(q.get("relations",[])) for q in curations.values())

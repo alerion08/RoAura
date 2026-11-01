@@ -16,11 +16,11 @@ reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
-generator **semantic-5.2.0**. All four description fields are populated for
-**535 steps across 35 curated guides**, up from the previous 32-guide/473-step
-checkpoint. **41 conditional branches** also have independent RU/EN short and
-full descriptions. Six quest routes represent two exclusive expedition paths
-and four conditional/optional activities. **2,215 steps in 181 remaining catalog entries still lack
+generator **semantic-5.3.0**. All four description fields are populated for
+**584 steps across 40 curated guides**, up from the previous 35-guide/535-step
+checkpoint. **47 conditional branches** also have independent RU/EN short and
+full descriptions. Seven quest routes represent two exclusive expedition paths
+and five conditional/optional activities. **2,166 steps in 176 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -60,6 +60,11 @@ complete localization/context analysis.** `complete` remains false.
 | Einbroch Murder Quest | 8 | Seven exact password pairs; unknown apple total; four exclusive EXP bands; conflicting factory map |
 | President Quest | 38 | Step-22 completion gate; Pacific-time appointments; distinct guards; PIN versus card number; source/iRO search case |
 | Rebellion Quest | 16 | Random material set; class-dependent drink prices; unnamed bottle seller; optional food exchange before final delivery |
+| How the Airship Works Quest | 6 | International/domestic routes; optional random attack; cleanup timer versus spawn interval |
+| Heart Fragment Quest | 9 | Completion gate; potion installments; partial password candidates; random distinct-digit code |
+| Airship Ticket Quest | 8 | Undeliverable package returned; exact choices; repair service versus final tickets |
+| Medicine Quest | 12 | Proximity triggers; multi-step repetitions; one White Potion; unknown later medicine quantities |
+| Friendship Quest | 14 | Exact six-line relay at its delivery step; unknown return message; two EXP installments; overlapping level 75 bands |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -67,6 +72,32 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Five regional/airship guides preserve all 49 original stages and add six
+  localized reward branches. International and domestic routes retain their
+  distinct captains; Ferlock is shared between two guides by the same source
+  map/coordinates. The airship attack is an optional material source: four
+  minutes is its cleanup timer, while spawning is random and may take days.
+- Heart Fragment requires How the Airship Works completion at stage 2. Two
+  potion grants sum to the header two. Its partial password list retains
+  twelve candidates with unknown correctness/mapping; strings differ from
+  Einbroch Murder and are never substituted. The five-attempt three-digit
+  puzzle uses distinct digits 1–9, with no invented fixed solution.
+- Ticket returns an undeliverable package to Kain, rather than delivering to
+  absent Defra. Free Item Repair is a service unlock; four tickets are one
+  final item grant. Unknown journals, notes and unnamed contacts remain explicit.
+- `action_reuse` accepts a legacy single reference or a list of distinct
+  earlier steps. Medicine stage 8 reuses both 6 and 7; later stages reuse
+  their preceding sequence. These are explanatory links, not executable
+  progression loops. Duplicate, future or unsupported targets fail closed.
+  Proximity is distinct from clicking; later medicine/CPR repetitions do not
+  multiply the sole known White Potion cost or invent a flash timer.
+- Friendship's six exact Digotz lines move from source step 4 to delivery
+  descriptions/options at step 5 using lossless cross-step primary fragments.
+  Both original instructions and stable IDs remain unchanged. Maku's return
+  answer is not quoted by the source and remains unknown. Two EXP installments
+  retain the source overlap at level 75; no bound is silently corrected and
+  no header bonus or enforced same-level completion is invented.
 
 - Three connected Schwartzvald guides preserve all 62 original stages and
   add twelve localized branches. `completion_required_at_step` links President
@@ -284,7 +315,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **142 tests passed**; complete offline enrichment passed;
+Validated locally: **150 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -311,11 +342,13 @@ gem actors, all-held berry loss, independent tribe choices and source map
 spelling conflicts. Additional checks cover literal password pairs, gambling
 retry totals, source appointment windows, stage-specific completion gates,
 case-sensitive file search, random requests, drink prices and early exchange
-unlock.
+unlock. New checks cover random airship timing, shared captain identity,
+partial password candidates, returned packages, multi-target action reuse,
+proximity actions, cross-step message provenance and overlapping EXP bands.
 
 ## Next work, in order
 
-1. Review the remaining 181 catalog candidates, separating reference pages,
+1. Review the remaining 176 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

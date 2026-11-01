@@ -137,6 +137,20 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   facts must be interpreted with their branch conditions. Unknown bottle
   prices and repeat-attempt totals must not be filled by subtracting from
   summary amounts. Repeatable exchange branches do not add main quest costs.
+- One stage may have multiple `repeat_actions_from` references. Curation
+  `action_reuse` accepts a single object or a list with distinct earlier
+  source steps. Read all corresponding edges and their evidence contexts;
+  do not turn them into executable progression or multiply inventory costs.
+  Medicine 8 reuses both 6 and 7, with further retries of unknown quantity.
+- Source primary fragments can relocate quoted instructions between stages
+  in one quest while retaining the original rows. Friendship source 4 holds
+  the message actually entered at 5; its six dialogue options cite pinned
+  HTML and the source fragments map the same literals. An unknown return
+  message is not filled by copying outgoing text.
+- NULL `dialogue_options.correct` denotes an unverified candidate, not a
+  guaranteed answer or a sequence to enter in full. Heart Fragment's partial
+  list and random code require live prompts. Overlapping source reward bands
+  (Friendship at 75) remain review issues rather than automatically resolved.
 - `ready_steps` currently means **all four localized text fields exist**. It
   is not a readiness claim for the quest, route, server or application.
   Unfinished fields are NULL with blocking review rows; `complete=false` is

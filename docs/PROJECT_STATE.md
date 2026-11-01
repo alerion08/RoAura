@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 535 steps in 35 curated guides and
-41 conditional branches. One source addition supplements full descriptions;
-**2,215 steps / 181 remaining catalog entries still need processing**. Six quest routes preserve Odin's
+is excluded. All four RU/EN fields exist for 584 steps in 40 curated guides and
+47 conditional branches. One source addition supplements full descriptions;
+**2,166 steps / 176 remaining catalog entries still need processing**. Seven quest routes preserve Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -29,8 +29,12 @@ variants, all-held berry loss and alternative tribe rewards are preserved.
 Einbroch Murder, President and Rebellion are curated; source passwords,
 level rewards, step-22 completion gate, time/search variants, random material
 sets and optional repeatable food exchange are separately addressable.
+Airship Works, Heart Fragment, Airship Ticket, Medicine and Friendship are
+curated. Random attack timing, partial password candidates, returned package,
+proximity/repetition links and exact relay text retain source evidence.
+Friendship's level-75 reward overlap remains an explicit review issue.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 142 regression tests, full offline rebuild and research CI
+Local validation: 150 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration
