@@ -468,6 +468,19 @@ Feature CI provisions SHA-pinned read-only semantic/legacy fixtures and notices.
 Acceptance: readiness 0/1/10/9-of-10, whitespace/NULL, cross-quest membership,
 duplicate IDs, newly ready membership, partial source review, Unicode spans,
 SQLite immutability; native More/current, copy toast (coordinates retain caption),
-focus/input, F9, database priority and snapshots. Windows validation pending.
+focus/input, F9, database priority and snapshots.
+Windows validation SUCCESS on `826a2b2ef842f6fe3086efabb484fb0ac3d022bb`:
+[run 41320367177](https://github.com/alerion08/RoAura/actions/runs/41320367177),
+329 tests, zero failed/skipped, eight ToC checks, startup/native input smoke and
+clean portable/resource validation. Actual pinned semantic spans and all 28 legacy
+stage mappings pass. Native smoke additionally verifies reading versus current,
+right-tab retention and standalone newly-ready content without legacy progress.
+RU/EN Ayothaya step-2 snapshots use the actual semantic source, not the HTML data.
+All implementation iterations passed Windows CI; visual QA corrected the ready
+selector caption, asynchronous snapshot/loading race, checkbox/segment states.
+[Development artifact 85](https://github.com/alerion08/RoAura/actions/runs/41320367177/artifacts/13088629427).
+Portable SHA256: `d014ac9e39ebe782ea8a256f88b0cbffd2779ecf1023512bbb055ed4b665fcca`.
+Actual game/mixed-DPI/narrow-layout acceptance remains manual, not release-ready.
+
 Manual acceptance: real SpringRO mixed-DPI, narrow layout, long/conditional quests,
 RU/EN/selected/current/completed/profile isolation, live database replacement.
