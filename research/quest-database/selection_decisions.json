@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "decisions": [
+    {
+      "quest_id": "irowiki-classic:Access_Quests",
+      "state": "excluded_reference",
+      "reason": "source_confirmed_reference_index",
+      "source_content_sha": "10dfc8433f5536c8bd46567d736a806f151b6f36554e34a0c86dd16ef4aa4949",
+      "snapshot_sha256": "40d515ad2dbe928207678c1e0ad837d8e997acce8eb3b1b4ebc75589b739c24a",
+      "evidence_text": "The following table lists which areas or dungeons require a quest to access them, along with selected quest requirements and at which step permanent access to said area is granted.",
+      "reviewed_at": "2026-11-01",
+      "reviewer": "Codex source review; not human/server verification"
+    }
+  ]
+}

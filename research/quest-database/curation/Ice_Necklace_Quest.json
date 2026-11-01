@@ -1,0 +1,539 @@
+{
+  "quest_id": "irowiki-classic:Ice_Necklace_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "c1256d13d730753e3a6322e28c8fd559de2a615241535d0c1e15e28e9ed7371f",
+  "snapshot_sha256": "e176432f9e0b8e607a8ea86b2c7ee5aeb1f623642bbe2bdcde4b504e63ff3a2a",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Urstia",
+      "aliases": [
+        "Sincere Follower"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Maheo"
+    },
+    {
+      "type": "npc",
+      "name": "Hamion"
+    },
+    {
+      "type": "npc",
+      "name": "Mohadin"
+    },
+    {
+      "type": "item",
+      "name": "Ashy Necklace",
+      "game_id": 7572,
+      "id_source": "http://db.irowiki.org/classic/item-info/7572/"
+    },
+    {
+      "type": "item",
+      "name": "Rough Wind",
+      "game_id": 996,
+      "id_source": "http://db.irowiki.org/classic/item-info/996/"
+    },
+    {
+      "type": "item",
+      "name": "Hammer",
+      "game_id": 1354,
+      "id_source": "http://db.irowiki.org/classic/item-info/1354/"
+    },
+    {
+      "type": "item",
+      "name": "Blank Scroll",
+      "game_id": 7433,
+      "id_source": "http://db.irowiki.org/classic/item-info/7433/"
+    },
+    {
+      "type": "item",
+      "name": "Wind Hammer",
+      "game_id": 7569,
+      "id_source": "http://db.irowiki.org/classic/item-info/7569/"
+    },
+    {
+      "type": "item",
+      "name": "Urstia's Necklace"
+    },
+    {
+      "type": "item",
+      "name": "Sparkling Necklace"
+    },
+    {
+      "type": "item",
+      "name": "Freezing Snow Powder",
+      "game_id": 7574,
+      "id_source": "http://db.irowiki.org/classic/item-info/7574/"
+    },
+    {
+      "type": "item",
+      "name": "Glacial Hearts"
+    },
+    {
+      "type": "monster",
+      "name": "Ktullanux",
+      "game_id": 1779,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1779/"
+    },
+    {
+      "type": "map",
+      "name": "Rachel"
+    },
+    {
+      "type": "map",
+      "name": "rachel",
+      "map_code": "rachel"
+    },
+    {
+      "type": "map",
+      "name": "ice_dun02",
+      "map_code": "ice_dun02"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "yuno",
+      "map_code": "yuno"
+    },
+    {
+      "type": "map",
+      "name": "Ice Dungeon Level 2",
+      "map_code": "ice_dun02",
+      "game_id": "ice_dun02"
+    },
+    {
+      "type": "map",
+      "name": "Ice Dungeon Level 3",
+      "map_code": "ice_dun03",
+      "game_id": "ice_dun03"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In Rachel (157, 183 rachel), find the Sincere Follower, Urstia. Talk to her and agree to help her. She gives the player an Ashy Necklace .",
+      "instruction_sha256": "b62f2ddef08cf63a3eea6ffa603661f15e70e3a365f0791e90b686cc8c3a2b3d",
+      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/b62f2ddef08cf63a3eea/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Urstia: rachel 157, 183, и получите Ashy Necklace.",
+      "short_en": "Talk to Urstia: rachel 157, 183, and receive Ashy Necklace.",
+      "full_ru": "В Rachel (157, 183 rachel) найдите Sincere Follower, Urstia. Поговорите и согласитесь помочь. Она выдаст Ashy Necklace.",
+      "full_en": "In Rachel (157, 183 rachel), find the Sincere Follower, Urstia. Talk to her and agree to help her. She gives the player an Ashy Necklace .",
+      "npcs": [
+        {
+          "entity": "Urstia",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Urstia"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "rachel",
+          "x": 157,
+          "y": 183,
+          "role": "npc",
+          "known": true
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Ashy Necklace"
+        }
+      ],
+      "protected_names": [
+        "Urstia",
+        "Ashy Necklace",
+        "Rachel",
+        "rachel"
+      ]
+    },
+    "2": {
+      "original_instruction": "On Ice Dungeon Level 2 , find Maheo frozen in ice (ice_dun02 120, 105). He tells an embarrassing story, and asks that the player get his master to help free him.",
+      "instruction_sha256": "219aab1eb7a48f37b6d7161064ecc2d6bbb5fbbdf66f2756a2f14dd268ed9474",
+      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/219aab1eb7a48f37b6d7/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Maheo: ice_dun02 120, 105.",
+      "short_en": "Talk to Maheo: ice_dun02 120, 105.",
+      "full_ru": "На Ice Dungeon Level 2 найдите Maheo, замёрзшего во льду (ice_dun02 120, 105). Он расскажет неловкую историю и попросит обратиться к его учителю за помощью.",
+      "full_en": "On Ice Dungeon Level 2 , find Maheo frozen in ice (ice_dun02 120, 105). He tells an embarrassing story, and asks that the player get his master to help free him.",
+      "npcs": [
+        {
+          "entity": "Maheo",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Maheo"
+        }
+      ],
+      "protected_names": [
+        "Maheo",
+        "ice_dun02",
+        "Ice Dungeon Level 2"
+      ],
+      "locations": [
+        {
+          "map": "ice_dun02",
+          "x": 120,
+          "y": 105,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ice_dun02 120, 105"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Go back to the city of Rachel, and near the top of the lake in the bottom right you will find Hamion (264, 98). He will ask that you bring him 5 Rough Wind , 1 Hammer , and 1 Blank Scroll . (Hammer [2]s are available in Rachel's weapon shop (42, 111), and Blank Scrolls can be bought in the Magical Academy in Juno (yuno 323, 282)). When you bring him these items, he will give you a Wind Hammer",
+      "instruction_sha256": "7b2368f995123c404ddeb24b7031a0a14d7d561181bda67b0f54f91ad61d6cd6",
+      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/7b2368f995123c404dde/1",
+      "goal": "deliver",
+      "short_ru": "Принесите Hamion (264, 98): 5 Rough Wind, 1 Hammer, 1 Blank Scroll.",
+      "short_en": "Bring Hamion (264, 98): 5 Rough Wind, 1 Hammer, 1 Blank Scroll.",
+      "full_ru": "Вернитесь в Rachel. У северного края озера в юго-восточной части города найдите Hamion (264, 98). Принесите 5 Rough Wind, 1 Hammer и 1 Blank Scroll. Hammer [2]s продаются в оружейном магазине Rachel (42, 111); Blank Scrolls — в Magical Academy в Juno (yuno 323, 282). Передав предметы, получите Wind Hammer.",
+      "full_en": "Go back to the city of Rachel, and near the top of the lake in the bottom right you will find Hamion (264, 98). He will ask that you bring him 5 Rough Wind , 1 Hammer , and 1 Blank Scroll . (Hammer [2]s are available in Rachel's weapon shop (42, 111), and Blank Scrolls can be bought in the Magical Academy in Juno (yuno 323, 282)). When you bring him these items, he will give you a Wind Hammer",
+      "npcs": [
+        {
+          "entity": "Hamion",
+          "role": "deliver"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hamion"
+        },
+        {
+          "operation": "deliver"
+        },
+        {
+          "operation": "receive_reward",
+          "entity": "Wind Hammer"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rough Wind",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Hammer",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Blank Scroll",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Rachel",
+          "x": 264,
+          "y": 98,
+          "role": "npc",
+          "known": false
+        },
+        {
+          "entity": "Rachel",
+          "x": 42,
+          "y": 111,
+          "role": "shop",
+          "known": false
+        },
+        {
+          "entity": "yuno",
+          "x": 323,
+          "y": 282,
+          "role": "shop",
+          "known": true
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Wind Hammer"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "weapon_slots_not_quantity",
+          "detail": "Hammer [2] means the source weapon slot notation; required quantity is one Hammer, linked item 1354, not two hammers."
+        }
+      ],
+      "protected_names": [
+        "Hamion",
+        "Rough Wind",
+        "Hammer",
+        "Blank Scroll",
+        "Wind Hammer",
+        "Rachel",
+        "Juno",
+        "yuno"
+      ]
+    },
+    "4": {
+      "original_instruction": "Return to Maheo and use the hammer to smash the ice. He will reward you by restoring Urstia's Necklace to a Sparkling Necklace. You will also receive 4 Freezing Snow Powder",
+      "instruction_sha256": "9069c95377c60b603e7b5b51d55d8d64c1855fbee84248495c9e4b32a2c5f140",
+      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/9069c95377c60b603e7b/1",
+      "goal": "use_item",
+      "short_ru": "Освободите Maheo молотом; получите Sparkling Necklace и 4 Freezing Snow Powder.",
+      "short_en": "Free Maheo using the hammer; receive Sparkling Necklace and 4 Freezing Snow Powder.",
+      "full_ru": "Вернитесь к Maheo и разбейте лёд молотом. В награду он восстановит Urstia's Necklace до Sparkling Necklace. Также вы получите 4 Freezing Snow Powder.",
+      "full_en": "Return to Maheo and use the hammer to smash the ice. He will reward you by restoring Urstia's Necklace to a Sparkling Necklace. You will also receive 4 Freezing Snow Powder",
+      "npcs": [
+        {
+          "entity": "Maheo",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Wind Hammer",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Go back to the city of Rachel, and near the top of the lake in the bottom right you will find Hamion (264, 98). He will ask that you bring him 5 Rough Wind , 1 Hammer , and 1 Blank Scroll . (Hammer [2]s are available in Rachel's weapon shop (42, 111), and Blank Scrolls can be bought in the Magical Academy in Juno (yuno 323, 282)). When you bring him these items, he will give you a Wind Hammer"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "use",
+          "entity": "Wind Hammer"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Sparkling Necklace"
+        },
+        {
+          "kind": "item",
+          "amount": "4",
+          "entity": "Freezing Snow Powder"
+        }
+      ],
+      "protected_names": [
+        "Urstia",
+        "Maheo",
+        "Urstia's Necklace",
+        "Sparkling Necklace",
+        "Freezing Snow Powder"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Return to Urstia to receive 700,000 Base Experience.",
+      "instruction_sha256": "08f255a6fa3bd961ab6aff0161fe0f4e3f87b458d4bbd1496d6e1e40628881b4",
+      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/08f255a6fa3bd961ab6a/1",
+      "goal": "receive_reward",
+      "short_ru": "Вернитесь к Urstia за 700,000 Base Experience.",
+      "short_en": "Return to Urstia for 700,000 Base Experience.",
+      "full_ru": "Вернитесь к Urstia за 700,000 Base Experience.",
+      "full_en": "Return to Urstia to receive 700,000 Base Experience.",
+      "npcs": [
+        {
+          "entity": "Urstia",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Urstia"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "700000"
+        }
+      ],
+      "protected_names": [
+        "Urstia"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "(Optional) Using the 4 Freezing Snow Powder you can put out the 4 sacred fires that surround the seal at the center of Ice Dungeon Level 3 . Once put out, the boss monster Ktullanux will appear.",
+      "instruction_sha256": "0e8547d98209132a238e5a5d250fb8572d8dab088bd7fda0a2409c8dd180682e",
+      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/0e8547d98209132a238e/1",
+      "goal": "optional_summon",
+      "short_ru": "Необязательно: погасите 4 огня с помощью 4 Freezing Snow Powder и призовите Ktullanux.",
+      "short_en": "Optional: extinguish 4 fires with 4 Freezing Snow Powder to summon Ktullanux.",
+      "full_ru": "Необязательно: используйте 4 Freezing Snow Powder, чтобы погасить 4 священных огня вокруг печати в центре Ice Dungeon Level 3. После этого появится босс Ktullanux.",
+      "full_en": "(Optional) Using the 4 Freezing Snow Powder you can put out the 4 sacred fires that surround the seal at the center of Ice Dungeon Level 3 . Once put out, the boss monster Ktullanux will appear.",
+      "items": [
+        {
+          "entity": "Freezing Snow Powder",
+          "quantity": 4,
+          "operation": "use",
+          "required": 0,
+          "condition": "Only for the optional boss summon; not needed for quest completion."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "use",
+          "entity": "Freezing Snow Powder",
+          "condition": "Extinguish all four sacred fires."
+        },
+        {
+          "operation": "summon",
+          "entity": "Ktullanux"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Ktullanux",
+          "operation": "mention",
+          "required": 0,
+          "condition": "Optional summoned boss; killing it is not a quest requirement."
+        }
+      ],
+      "protected_names": [
+        "Freezing Snow Powder",
+        "Ktullanux",
+        "Ice Dungeon Level 3"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Once you have completed steps 1-5 (Not necessary to fight Ktullanux) you can sell Glacial Hearts to Mohadin in Rachel (rachel 113, 97) for 375 Zeny apiece.",
+      "instruction_sha256": "37ed2761c18ff03ec818ad6605126ca6953f0b9ea3e7ae47d8a5e685182a0d26",
+      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/37ed2761c18ff03ec818/1",
+      "goal": "optional_sale",
+      "short_ru": "После этапов 1-5 Mohadin (rachel 113, 97) покупает Glacial Hearts по 375 Zeny за штуку.",
+      "short_en": "After steps 1-5, Mohadin (rachel 113, 97) buys Glacial Hearts for 375 Zeny each.",
+      "full_ru": "После завершения этапов 1-5 можно продавать Glacial Hearts Mohadin в Rachel (rachel 113, 97) по 375 Zeny за штуку. Сражаться с Ktullanux для этого не требуется.",
+      "full_en": "Once you have completed steps 1-5 (Not necessary to fight Ktullanux) you can sell Glacial Hearts to Mohadin in Rachel (rachel 113, 97) for 375 Zeny apiece.",
+      "npcs": [
+        {
+          "entity": "Mohadin",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Glacial Hearts",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 0,
+          "condition": "Optional sale; quantity is the number sold, not a fixed quest delivery."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "sell",
+          "entity": "Glacial Hearts"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "completed_source_steps",
+          "amount": "1-5",
+          "condition": "Ktullanux fight is not required."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "zeny_per_item",
+          "amount": "375",
+          "condition": "Per Glacial Hearts sold to Mohadin; not a quest-completion grant."
+        }
+      ],
+      "protected_names": [
+        "Mohadin",
+        "Glacial Hearts",
+        "Ktullanux",
+        "Rachel",
+        "rachel"
+      ],
+      "locations": [
+        {
+          "map": "rachel",
+          "x": 113,
+          "y": 97,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "rachel 113, 97"
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "necklace_id_scope",
+      "detail": "Ashy Necklace has linked item ID 7572. The source does not link Sparkling Necklace or the narrative Urstia's Necklace label to verified IDs; no ID is guessed."
+    }
+  ],
+  "routes": [
+    {
+      "key": "optional_ktullanux",
+      "kind": "optional",
+      "condition": "Optional summon after obtaining the powder; not required for main EXP or merchant unlock.",
+      "source_step": 6,
+      "steps": [
+        6
+      ]
+    },
+    {
+      "key": "postquest_sale",
+      "kind": "optional",
+      "condition": "Optional sales after completing steps 1-5; independent of the boss fight.",
+      "source_step": 7,
+      "steps": [
+        7
+      ]
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Rough Wind",
+        "entity": "Rough Wind",
+        "condition": "Main quest total; optional powder use is separate."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Hammer",
+        "entity": "Hammer",
+        "condition": "Main quest total; optional powder use is separate."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Blank Scroll",
+        "entity": "Blank Scroll",
+        "condition": "Main quest total; optional powder use is separate."
+      }
+    ]
+  }
+}

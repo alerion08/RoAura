@@ -58,6 +58,11 @@ def source_membership(data):
 def select_pages(source, data=None):
     data = snapshots() if data is None else data
     temporary, archived, current = source_membership(data)
+    ledger=ROOT/'selection_decisions.json'
+    reviews={}
+    for review in json.loads(ledger.read_text())['decisions'] if ledger.exists() else []:
+        if review['quest_id'] in reviews:raise ValueError('Duplicate selection review')
+        reviews[review['quest_id']]=review
     result = {}
     for pid, title, url, sha in source.execute('SELECT id,title,url,content_sha FROM wiki_pages ORDER BY id'):
         key = quest_key(url)
@@ -74,6 +79,15 @@ def select_pages(source, data=None):
         elif key in temporary or SUSPECT.search(title):
             state, reason = 'quarantined', 'archival_status_requires_review_not_title_based_deletion'
             proof = temporary.get(key) or archived.get(key)
+        review=reviews.get(key)
+        if review:
+            proof=data.get(key.split(':',1)[1])
+            if sha!=review['source_content_sha'] or not proof or proof['sha256']!=review['snapshot_sha256']:
+                raise ValueError('Selection review source changed; re-review required: '+key)
+            area=BeautifulSoup(proof['html'],'html.parser').select_one('.mw-parser-output')
+            if not area or review['evidence_text'] not in area.get_text(' ',strip=True):raise ValueError('Nonliteral selection review evidence')
+            if review['state']!='excluded_reference':raise ValueError('Unsupported selection review state')
+            state,reason=review['state'],review['reason']
         result[pid] = {'quest_id':key, 'title':title, 'source_url':url, 'source_content_sha':sha,
             'state':state, 'reason':reason, 'as_of':AS_OF.isoformat(),
             'evidence_url':proof['url'] if proof else url,
@@ -81,6 +95,9 @@ def select_pages(source, data=None):
             'evidence_text':title + (' | Temporary Event Quests' if key in temporary else
                 ' | iRO Event Quests & Guides' if key in archived else
                 ' | Current Quests' if key in current else '')}
+        if review:
+            result[pid]['evidence_text']=review['evidence_text']
+            result[pid]['decision_reviewed_at']=review['reviewed_at']
     return result
 
 
@@ -107,7 +124,7 @@ def filter_catalog(catalog, source):
                 if column in cols:
                     catalog.execute(f'DELETE FROM {table} WHERE {column} NOT IN (SELECT quest_key FROM active_quest_keys)')
         catalog.execute('DROP TABLE active_quest_keys')
-        catalog.execute("INSERT OR REPLACE INTO metadata VALUES('selection_policy','semantic active selection; archived and uncertain events excluded')")
+        catalog.execute("INSERT OR REPLACE INTO metadata VALUES('selection_policy','semantic active selection; archived/uncertain events and reviewed reference indexes excluded')")
         catalog.execute("INSERT OR REPLACE INTO metadata VALUES('script_tables_scope','provenance archive only; unrelated source code is not an active quest')")
     catalog.execute('PRAGMA foreign_keys=ON')
     violations=catalog.execute('PRAGMA foreign_key_check').fetchall()

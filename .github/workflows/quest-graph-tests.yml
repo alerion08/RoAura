@@ -5,6 +5,7 @@ on:
     paths:
       - research/quest-database/semantic.py
       - research/quest-database/selection.py
+      - research/quest-database/selection_decisions.json
       - research/quest-database/test_semantic.py
       - research/quest-database/migrations/**
       - research/quest-database/curation/**

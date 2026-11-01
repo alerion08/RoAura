@@ -16,11 +16,12 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-3.0.0'
+VERSION = 'semantic-4.0.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
-SCHEMA_VERSION = 3
+ROUTE_SCHEMA = ROOT/'migrations/004_quest_routes.sql'
+SCHEMA_VERSION = 4
 FIELDS = ('short_ru','short_en','full_ru','full_en')
 MAP_COORD = re.compile(r'\b([a-zA-Z][a-zA-Z0-9_]{2,24})\s*(?:\)\)?\s*:\s*|[, ]?\s*\(?\s*)(\d{1,3})\s*(?:,\s*|\s+)(\d{1,3})(?!\d)')
 BARE_COORD = re.compile(r'(?<![\d,])\b(\d{1,3})\s*,\s*(\d{1,3})(?![\d,])')
@@ -133,7 +134,8 @@ class Writer:
             map_id=self.entity('map',point['map'],ev,map_code=point['map'],known=point.get('known',False))
         lid=stable('location',map_id or self.sid,point['x'],point['y'])
         self.add('locations',location_id=lid,map_id=map_id,x=point['x'],y=point['y'],evidence_id=ev)
-        self.add('step_locations',step_id=self.sid,location_id=lid,role=role,evidence_id=ev)
+        self.add('step_locations',step_id=self.sid,location_id=lid,role=role,evidence_id=ev,
+                 location_order=point.get('order'),condition_text=point.get('condition'))
         if not map_id:self.review('map_unknown','Coordinate pair has no established map code; not navigable.',ev)
         elif not point.get('known',False):self.review('map_not_reference_known','Map spelling has not been matched to a pinned reference map.',ev)
         return lid
@@ -381,12 +383,41 @@ def source_additions(w,entry,source_sections,html_source):
               text_ru=a['text_ru'],text_en=text,evidence_id=ev)
 
 
+def quest_routes(w,curation,source_sections,html_source):
+    rows={r['step_order']:dict(r) for r in w.db.execute('SELECT * FROM quest_steps WHERE quest_id=?',(w.qid,))}
+    seen=set()
+    for route in curation.get('routes',[]):
+        key=route['key'];members=route['steps'];heading=route.get('source_heading')
+        kind=route['kind'];group=route.get('choice_group')
+        if not route.get('condition') or kind not in ('alternative','optional') or (kind=='alternative' and not group) or (kind=='optional' and group is not None):raise ValueError('Invalid quest route kind/condition')
+        if key in seen or not members or len(set(members))!=len(members):raise ValueError('Invalid duplicate/empty quest route')
+        seen.add(key)
+        if members!=sorted(members) or any(n not in rows for n in members):raise ValueError('Invalid quest route step order')
+        if heading:
+            if not html_source or heading not in source_sections['html_text']:raise ValueError('Nonliteral route heading')
+            if any(rows[n]['section']!=heading for n in members):raise ValueError('Route membership contradicts source heading')
+            ev=w.evidence(heading,method='source_route_heading',source=html_source)
+        else:
+            n=route['source_step']
+            if members!=[n]:raise ValueError('Optional route needs its own source step')
+            ev=w.evidence(rows[n]['original_instruction'],method='source_optional_activity',step=rows[n]['step_id'])
+        rid=stable('route',w.qid,key)
+        w.add('quest_routes',route_id=rid,quest_id=w.qid,route_key=key,kind=route['kind'],
+              choice_group=route.get('choice_group'),condition_text=route['condition'],evidence_id=ev)
+        for i,n in enumerate(members,1):
+            sid=rows[n]['step_id']
+            witness=w.evidence(rows[n]['original_instruction'],method='source_route_membership',status='context_inferred',
+                               step=sid,note=route['condition'])
+            w.add('evidence_context',evidence_id=witness,supporting_id=ev)
+            w.add('step_routes',step_id=sid,route_id=rid,route_order=i,evidence_id=witness)
+
+
 def migrate_semantic(db):
     """Upgrade a committed research export without rewriting existing content."""
     version=db.execute('PRAGMA user_version').fetchone()[0]
-    if version in (1,2):
+    if version in (1,2,3):
         if db.in_transaction:raise ValueError('Commit pending changes before semantic migration')
-        migrations=([BRANCH_SCHEMA] if version==1 else [])+[ADDITION_SCHEMA]
+        migrations=([BRANCH_SCHEMA] if version==1 else [])+([ADDITION_SCHEMA] if version<=2 else [])+[ROUTE_SCHEMA]
         try:db.executescript('BEGIN;\n'+'\n'.join(p.read_text() for p in migrations)+'\nCOMMIT;')
         except Exception:
             db.rollback()
@@ -476,6 +507,14 @@ def validate(db):
             if sid!=source_sid or quest!=source_quest:errors.append('source_addition_wrong_step')
             if ru not in (full_ru or '') or en not in (full_en or ''):errors.append('source_addition_missing_from_description')
             if Counter(re.findall(r'\d+',ru))!=Counter(re.findall(r'\d+',en)):errors.append('source_addition_numeric_parity')
+    if db.execute('PRAGMA user_version').fetchone()[0]>=4:
+        if db.execute('''SELECT 1 FROM step_routes m JOIN quest_routes r USING(route_id) JOIN quest_steps s USING(step_id)
+          JOIN evidence e ON e.evidence_id=m.evidence_id
+          WHERE s.quest_id IS NOT r.quest_id OR e.quest_id IS NOT r.quest_id OR e.step_id IS NOT m.step_id LIMIT 1''').fetchone():errors.append('route_membership_wrong_quest_or_step')
+        if db.execute('''SELECT 1 FROM quest_routes r JOIN evidence e USING(evidence_id)
+          LEFT JOIN step_routes m USING(route_id) WHERE e.quest_id IS NOT r.quest_id OR m.route_id IS NULL LIMIT 1''').fetchone():errors.append('route_evidence_or_members_missing')
+        if db.execute('''SELECT route_id FROM step_routes GROUP BY route_id
+          HAVING min(route_order)<>1 OR max(route_order)<>count(*) LIMIT 1''').fetchone():errors.append('route_order_gap')
     if integrity!='ok' or foreign or errors:raise ValueError(f'Invalid semantic DB: {integrity}, FK={foreign}, errors={errors}')
     return {'integrity_check':integrity,'foreign_key_violations':len(foreign),'invalid_mentions':len(errors)}
 
@@ -506,13 +545,15 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
                 raise ValueError('Human-reviewed branch rows must be exported to pinned curation before rebuilding; refusing overwrite.')
             if previous_db.execute('PRAGMA user_version').fetchone()[0]>=3 and previous_db.execute("SELECT count(*) FROM step_source_additions WHERE review_state='human_reviewed'").fetchone()[0]:
                 raise ValueError('Human-reviewed source additions must be exported to pinned curation before rebuilding; refusing overwrite.')
+            if previous_db.execute('PRAGMA user_version').fetchone()[0]>=4 and previous_db.execute("SELECT count(*) FROM quest_routes WHERE review_state='human_reviewed'").fetchone()[0]:
+                raise ValueError('Human-reviewed quest routes must be exported to pinned curation before rebuilding; refusing overwrite.')
         finally:
             previous_db.close()
     if temp.exists():temp.unlink()
     db=resources.enter_context(closing(sqlite3.connect(temp)));db.row_factory=sqlite3.Row;db.executescript(SCHEMA.read_text());migrate_semantic(db);w=Writer(db)
     w.add('variants',variant_id='irowiki-classic',game_variant='Classic',assurance='source_scope_not_server_verified')
     known={r[0] for r in source.execute('SELECT DISTINCT map FROM script_npcs WHERE map IS NOT NULL')}
-    code_hash=sha(Path(__file__).read_bytes()+SCHEMA.read_bytes()+BRANCH_SCHEMA.read_bytes()+ADDITION_SCHEMA.read_bytes())
+    code_hash=sha(Path(__file__).read_bytes()+SCHEMA.read_bytes()+BRANCH_SCHEMA.read_bytes()+ADDITION_SCHEMA.read_bytes()+ROUTE_SCHEMA.read_bytes())
     cache_hits=0;plans=[]
     for pid,selection in active.items():
         page=dict(source.execute('SELECT * FROM wiki_pages WHERE id=?',(pid,)).fetchone())
@@ -619,6 +660,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         if curation:
             contextual_branches(w,curation,entities,surfaces,source_sections,html_source)
             w.sid=None
+            quest_routes(w,curation,source_sections,html_source)
             for issue in curation.get('reviews',[]):w.review(issue['reason'],issue['detail'],page_ev,issue.get('severity','warning'))
     w.qid=None;w.sid=None
     for row in source.execute('SELECT page_id,prerequisite_page_id,matched_title FROM wiki_quest_prerequisite_links'):
@@ -640,6 +682,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         'curated_quests':len(curations),'pending_quests':counts['quests']-len(curations),
         'fully_localized_branches':counts['branch_descriptions'],
         'source_additions':counts['step_source_additions'],
+        'quest_routes':counts['quest_routes'],
         'counts':counts,'fully_localized_steps':localized,'not_fully_localized_steps':counts['quest_steps']-localized,
         'localized_fields':{f:db.execute(f'SELECT count(*) FROM step_descriptions WHERE {f} IS NOT NULL').fetchone()[0] for f in FIELDS},
         'evidence_status_counts':status_counts,'checks':checks,'server_verified':0,
@@ -662,6 +705,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
                 b['mentions']=[dict(x) for x in db.execute('SELECT * FROM branch_mentions WHERE branch_id=? ORDER BY field,start_offset',(b['branch_id'],))]
             r['source_fragments']=[dict(x) for x in db.execute('SELECT * FROM source_fragments WHERE target_step_id=? ORDER BY origin_step_id,start_offset',(sid,))]
             r['source_additions']=[dict(x) for x in db.execute('SELECT * FROM step_source_additions WHERE step_id=? ORDER BY addition_order',(sid,))]
+            r['routes']=[dict(x) for x in db.execute('SELECT m.*,r.route_key,r.kind,r.choice_group,r.condition_text FROM step_routes m JOIN quest_routes r USING(route_id) WHERE m.step_id=? ORDER BY r.route_key',(sid,))]
             record['steps'].append(r)
         record['entities']=[dict(x) for x in db.execute('SELECT DISTINCT e.* FROM entities e JOIN entity_evidence l USING(entity_id) JOIN evidence v ON v.evidence_id=l.evidence_id WHERE v.quest_id=?',(qid,))]
         record['rewards']=[dict(x) for x in db.execute('SELECT * FROM rewards WHERE quest_id=?',(qid,))]

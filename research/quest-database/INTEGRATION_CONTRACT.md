@@ -4,14 +4,15 @@
 
 **Objective:** a maximally complete, source-backed, versioned **ROQuestie** knowledge base for main Ragnarok Online quests across the wider RO ecosystem. The shared quest data are reusable, while Classic/Pre-Renewal/Renewal and optional individual-server differences are handled separately. A quest in the catalog is **not a guarantee that every server offers it**. This contract belongs to the standalone research work; it must not modify RoAura runtime code during collection.
 
-## Normalized semantic research export — schema 3 (current data phase)
+## Normalized semantic research export — schema 4 (current data phase)
 
 `output/quest_semantic.sqlite` is separate from the older research consumer
 catalog (`questie_catalog.sqlite`, schema 5). It is not integrated into RoAura.
-Check its own `PRAGMA user_version = 3`; apply migrations `001_semantic.sql`,
-`002_step_branches.sql`, then `003_source_additions.sql` under `migrations/`. See
+Check its own `PRAGMA user_version = 4`; apply migrations `001_semantic.sql`,
+`002_step_branches.sql`, `003_source_additions.sql`, then `004_quest_routes.sql`
+under `migrations/`. See
 [SEMANTIC_PROGRESS.md](./SEMANTIC_PROGRESS.md). Both active catalogs exclude
-archived/quarantined quest records; `quest_research.sqlite` is the raw audit archive.
+archived/quarantined quest records and source-reviewed reference indexes; `quest_research.sqlite` is the raw audit archive.
 
 - Stable quest keys match the wiki URL. Uncurated step keys include original
   instruction hash and duplicate occurrence. Curated `step_id` values are
@@ -36,6 +37,25 @@ archived/quarantined quest records; `quest_research.sqlite` is the raw audit arc
   witnesses and confidence. `source_section` in curation may cite exact header
   text or normalized text extracted from pinned HTML; the HTML bytes and hash
   remain separately available. No server-verified evidence is created.
+- `quest_routes` and `step_routes` describe conditional groups spanning
+  multiple preserved source steps. `kind=alternative` requires a choice group
+  scoped to that quest; select one route in the group. `kind=optional` has no
+  choice group and describes an independent activity. Unassigned steps are
+  shared. Route membership conditions apply to all step facts, including
+  materials and rewards; do not sum mutually exclusive deliveries/grants.
+  `route_order` orders members within a route. These relations supplement
+  source order but do not claim a complete executable gameplay graph.
+- `step_locations.location_order` is a reviewed visit sequence when present,
+  not an ordering inferred automatically from every textual occurrence.
+  NULL means no established sequence. `condition_text` identifies alternative
+  trigger spots, one-time activations and similar constraints. A building
+  entrance may need to precede an interior trigger even if the article prints
+  the interior coordinates first. Map/point verification remains separate.
+- `selection_decisions.json` contains pinned source reviews for nonquest pages.
+  A reference exclusion needs both the archived content hash and pinned HTML
+  plus a literal witness; changed or missing evidence fails the build. The
+  original source remains in the raw archive and selection audit, with no
+  dangling associations in active projections.
 - `step_branches.choice_group` groups mutually exclusive alternatives at a
   step. `variant_scope` and `condition_text` explain when an alternative
   applies; no branch is selected by default and no mechanism (random versus
@@ -59,10 +79,10 @@ archived/quarantined quest records; `quest_research.sqlite` is the raw audit arc
   full RU contains their translations. Existing entity spans use final displayed
   descriptions. Additions are not new steps and are not alternative branches.
   The source fragment must occur in pinned HTML; never invent missing instructions.
-- Apply `migrate_semantic(connection)` to upgrade a committed schema-1 or schema-2 export
+- Apply `migrate_semantic(connection)` to upgrade a committed schema-1, schema-2 or schema-3 export
   without replacing human descriptions or IDs. Migration refuses an active
   transaction and rolls back on error. Regeneration is a separate operation
-  and refuses human-reviewed step, branch or source-addition rows until exported
+  and refuses human-reviewed step, branch, source-addition or quest-route rows until exported
   to curation.
 - `step_edges.kind = source_order_only` is article order, not an executable
   route/branch graph. Raw prerequisites do not establish AND/OR semantics.

@@ -7,18 +7,20 @@ No WPF/application/overlay/settings/release files or `main` changed.
 ## Verified data scope
 
 The original archive retains 939 NPC scripts, 286 wiki records and 3,420
-extracted rows. Active selection retains **217 catalog candidates and 2,753
+extracted rows. Active selection retains **216 catalog candidates and 2,750
 original rows**; 59 source-confirmed historical event records are excluded
-and 10 ambiguous event records are quarantined. Quarantine is not a claim
+and 10 ambiguous event records are quarantined. One source-confirmed reference
+index (`Access Quests`, 3 extracted notes) is excluded from active catalogs. Quarantine is not a claim
 that an event is permanently retired. The active catalog still contains
-reference pages and unreviewed candidates; 217 is not a count of independently
+reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
-The normalized `output/quest_semantic.sqlite` uses semantic schema **3** and
-generator **semantic-3.0.0**. All four description fields are populated for
-**255 steps across 19 curated guides**, up from the previous 17-guide/166-step
-checkpoint. **10 conditional branches** also have independent RU/EN short and
-full descriptions. **2,498 steps in 198 remaining catalog entries still lack
+The normalized `output/quest_semantic.sqlite` uses semantic schema **4** and
+generator **semantic-4.0.0**. All four description fields are populated for
+**305 steps across 22 curated guides**, up from the previous 19-guide/255-step
+checkpoint. **14 conditional branches** also have independent RU/EN short and
+full descriptions. Four quest routes represent two exclusive expedition paths
+and two independent optional activities. **2,445 steps in 194 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -42,6 +44,9 @@ complete localization/context analysis.** `complete` remains false.
 | Thor Volcano Level 2 Access Quest | 6 | Optional iRO/premium shortcut; reusable warp versus one-time quest |
 | Curse of Gaebolg | 14 | Three final routes; EXP forfeiture order; exact rhyme; lossless source split |
 | Kiel Hyre Quest | 75 | Restored sword puzzle; optional advance cards; retry costs; ambiguous keys; approximate rewards |
+| Ice Necklace Quest | 7 | Optional summon and sales; weapon slots are not counts; merchant unlock without boss kill |
+| Cursed Spirit Quest | 22 | Ordered triggers; separate Representatives; disguise not consumed; four level reward bands |
+| Odin's Temple Excavation Quest | 21 | Exclusive Alex/Laura paths; one material set/box; alternative warp points |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -49,6 +54,30 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Additive schema migration 3 → 4 introduces `quest_routes` and `step_routes`
+  for alternatives that span several archived steps and independent optional
+  activities. Odin source steps 4–7 (Alex) and 8–12 (Laura) belong to one
+  exclusive choice group; step 13 onward is shared. Their rune deliveries
+  and boxes must not be added together for one completion.
+- Ice Necklace's optional Ktullanux summon and postquest Glacial Hearts sales
+  are independent activities, not compulsory steps before the main reward.
+  Hammer [2] is slot notation for one linked weapon. Merchant unlock depends
+  on steps 1–5, not a boss kill; 375 Zeny is a per-item sale rate.
+- Cursed Spirit's EXP uses four exclusive level-band branches. Disguise gear
+  is worn and retained; Handcuffs remain held until the evidence stage. The
+  exact removal stage is unknown despite the consumed-item header.
+- `step_locations.location_order` and `condition_text` distinguish a reviewed
+  visit sequence from alternative triggers. Cursed Spirit's building entrance
+  precedes its interior trigger; Odin's five possible warp points have no
+  compulsory order. Older/unreviewed order values remain NULL.
+- `selection_decisions.json` records a source-pinned review of Access Quests:
+  its own introduction says it is a reference table. This removes one index
+  and three notes from both usable catalogs and the worklist, while retaining
+  archive rows and HTML. Changed source hashes or missing proof fail closed;
+  similarly titled quests are not automatically excluded.
+- Tested migrations preserve human descriptions, source additions and location
+  rows. Human-reviewed routes are protected from silent regeneration.
 
 - Additive schema migration 2 → 3 introduces `step_source_additions`. These
   records attach literal text from pinned HTML and its Russian translation
@@ -143,7 +172,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **103 tests passed**; complete offline enrichment passed;
+Validated locally: **112 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -156,11 +185,14 @@ requirements, per-trip cost, server-wide donations, split reward totals, lossles
 partitions, branch corruption, additive/failed migrations, human-reviewed
 branch protection, optional rewards and repeatability/death-penalty scope,
 source additions, sword order, Gaebolg route rewards, keycard retry quantities
-and NPC/combat homonyms. Both schema-1 and schema-2 migration paths are tested.
+and NPC/combat homonyms. Schema-1, schema-2 and schema-3 migration paths are tested, including rollback
+and preserved human additions/locations. Additional checks cover reference-index
+selection pins, route membership, optional activities, level rewards and location
+order versus alternative points.
 
 ## Next work, in order
 
-1. Review the remaining 198 catalog candidates, separating reference pages,
+1. Review the remaining 194 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining access/story chains and audit structured entity coverage

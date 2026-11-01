@@ -8,7 +8,7 @@ import tempfile
 import unittest
 
 from selection import quest_key, select_pages, filter_catalog, snapshots
-from semantic import build, coordinates, resolve_context, item_operation, validate, sha, ROOT, SCHEMA, BRANCH_SCHEMA, migrate_semantic
+from semantic import build, coordinates, resolve_context, item_operation, validate, sha, ROOT, SCHEMA, BRANCH_SCHEMA, ADDITION_SCHEMA, migrate_semantic
 
 
 class ParsingTests(unittest.TestCase):
@@ -79,7 +79,7 @@ class MigrationTests(unittest.TestCase):
         db=self.seed()
         before={table:db.execute('SELECT * FROM '+table).fetchall() for table in ('quests','quest_steps','step_descriptions','evidence')}
         migrate_semantic(db);migrate_semantic(db)
-        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],3)
+        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],4)
         for table,rows in before.items():self.assertEqual(db.execute('SELECT * FROM '+table).fetchall(),rows)
         action=db.execute('SELECT * FROM step_actions').fetchone()
         self.assertEqual(action,('action','s',1,'talk',None,None,'ev',None))
@@ -101,7 +101,7 @@ class MigrationTests(unittest.TestCase):
         db.commit()
         before=db.execute('SELECT * FROM branch_descriptions').fetchall()
         migrate_semantic(db)
-        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],3)
+        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],4)
         self.assertEqual(db.execute('SELECT * FROM branch_descriptions').fetchall(),before)
         self.assertEqual(db.execute('SELECT count(*) FROM step_source_additions').fetchone()[0],0)
 
@@ -112,6 +112,26 @@ class MigrationTests(unittest.TestCase):
         with self.assertRaises(sqlite3.OperationalError):migrate_semantic(db)
         self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],2)
         self.assertEqual(db.execute('SELECT * FROM step_descriptions').fetchall(),before)
+        self.assertFalse(db.in_transaction)
+
+    def test_schema_three_migration_preserves_additions_and_locations(self):
+        db=self.seed();db.executescript(BRANCH_SCHEMA.read_text()+ADDITION_SCHEMA.read_text())
+        db.execute("INSERT INTO step_source_additions VALUES('a','s',1,'Ручной фрагмент','Manual fragment','ev','human_reviewed')")
+        db.execute("INSERT INTO locations VALUES('p',NULL,1,2,'ev',0)")
+        db.execute("INSERT INTO step_locations VALUES('s','p','return','ev')");db.commit()
+        before=db.execute('SELECT * FROM step_source_additions').fetchall()
+        migrate_semantic(db)
+        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],4)
+        self.assertEqual(db.execute('SELECT * FROM step_source_additions').fetchall(),before)
+        self.assertEqual(db.execute('SELECT * FROM step_locations').fetchone(),('s','p','return','ev',None,None))
+
+    def test_failed_route_migration_rolls_back_to_three(self):
+        db=self.seed();db.executescript(BRANCH_SCHEMA.read_text()+ADDITION_SCHEMA.read_text())
+        db.execute('CREATE TABLE step_routes(blocker TEXT)')
+        with self.assertRaises(sqlite3.OperationalError):migrate_semantic(db)
+        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],3)
+        self.assertIsNone(db.execute("SELECT name FROM sqlite_master WHERE name='quest_routes'").fetchone())
+        self.assertEqual(len(db.execute('PRAGMA table_info(step_locations)').fetchall()),4)
         self.assertFalse(db.in_transaction)
 
 
@@ -151,15 +171,112 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],255)
-        self.assertEqual(self.report['not_fully_localized_steps'],2498)
+        self.assertEqual(self.report['fully_localized_steps'],305)
+        self.assertEqual(self.report['not_fully_localized_steps'],2445)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],255)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],305)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,2498)
-        self.assertEqual(self.report['fully_localized_branches'],10)
-        self.assertEqual(self.report['curated_quests'],19)
-        self.assertEqual(self.report['pending_quests'],198)
+        self.assertEqual(missing,2445)
+        self.assertEqual(self.report['fully_localized_branches'],14)
+        self.assertEqual(self.report['curated_quests'],22)
+        self.assertEqual(self.report['pending_quests'],194)
+        self.assertEqual(self.report['quest_routes'],4)
+
+    def test_reference_index_is_excluded_with_pinned_evidence(self):
+        key='irowiki-classic:Access_Quests'
+        self.assertIsNone(self.db.execute('SELECT 1 FROM quests WHERE quest_id=?',(key,)).fetchone())
+        with contextlib.closing(sqlite3.connect(self.source)) as source:
+            original=source.execute("SELECT p.id,count(*) FROM wiki_pages p JOIN wiki_steps s ON s.page_id=p.id WHERE p.title='Access Quests' GROUP BY p.id").fetchone()
+            self.assertEqual(original[1],3)
+            data=snapshots();result=select_pages(source,data)[original[0]]
+            self.assertEqual(result['state'],'excluded_reference')
+            self.assertIn('following table lists',result['evidence_text'])
+            data['Access_Quests']=dict(data['Access_Quests'],sha256='stale')
+            with self.assertRaisesRegex(ValueError,'Selection review source changed'):select_pages(source,data)
+
+    def test_odin_alternative_routes_do_not_double_deliveries_or_boxes(self):
+        q="irowiki-classic:Odin's_Temple_Excavation_Quest"
+        routes=self.db.execute('SELECT route_id,route_key,kind,choice_group FROM quest_routes WHERE quest_id=? ORDER BY route_key',(q,)).fetchall()
+        self.assertEqual([(r[1],r[2],r[3]) for r in routes],[('alex','alternative','initial_expedition'),('laura','alternative','initial_expedition')])
+        for route,expected in zip(routes,[[4,5,6,7],[8,9,10,11,12]]):
+            steps=[r[0] for r in self.db.execute('SELECT s.step_order FROM step_routes m JOIN quest_steps s USING(step_id) WHERE m.route_id=? ORDER BY m.route_order',(route[0],))]
+            self.assertEqual(steps,expected)
+            delivered=self.db.execute("SELECT sum(i.quantity) FROM step_items i JOIN step_routes m USING(step_id) WHERE m.route_id=? AND i.operation='deliver'",(route[0],)).fetchone()[0]
+            self.assertEqual(delivered,5)
+            boxes=self.db.execute('''SELECT r.amount FROM rewards r JOIN step_rewards sr USING(reward_id)
+              JOIN step_routes m ON m.step_id=sr.step_id JOIN entities e ON e.entity_id=r.item_id
+              WHERE m.route_id=? AND e.original_name='Old Blue Box' ''',(route[0],)).fetchall()
+            self.assertEqual([r[0] for r in boxes],['1'])
+        self.assertEqual(self.db.execute('''SELECT count(*) FROM step_routes m JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order>=13''',(q,)).fetchone()[0],0)
+
+    def test_ice_optional_summon_sale_and_weapon_slots(self):
+        q='irowiki-classic:Ice_Necklace_Quest'
+        optional=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.kind,r.choice_group FROM quest_routes r
+          JOIN step_routes m USING(route_id) JOIN quest_steps s USING(step_id) WHERE r.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(optional,[(6,'optional',None),(7,'optional',None)])
+        hammer=self.db.execute('''SELECT i.quantity,e.original_name FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN entities e ON e.entity_id=x.entity_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND x.game_id=1354''',(q,)).fetchone()
+        self.assertEqual(tuple(hammer),(1,'Hammer'))
+        boss=self.db.execute('''SELECT m.operation,m.required,x.game_id FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,)).fetchone()
+        self.assertEqual(tuple(boss),('mention',0,1779))
+        self.assertEqual(self.db.execute("SELECT count(*) FROM rewards WHERE quest_id=? AND kind='base_exp'",(q,)).fetchone()[0],1)
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='zeny_per_item'",(q,)).fetchone()[0],'375')
+
+    def test_cursed_rewards_are_four_level_bands(self):
+        q='irowiki-classic:Cursed_Spirit_Quest'
+        bands=self.db.execute('''SELECT b.branch_key,r.kind,r.amount FROM rewards r JOIN step_branches b USING(branch_id)
+          WHERE r.quest_id=? ORDER BY b.branch_key,r.kind''',(q,)).fetchall()
+        expected=[]
+        for key,base,job in [('level_60_69','800000','300000'),('level_70_79','1000000','500000'),('level_80_89','1500000','800000'),('level_90_99','2000000','1000000')]:
+            expected.extend([(key,'base_exp',base),(key,'job_exp',job)])
+        self.assertEqual([tuple(r) for r in bands],expected)
+        self.assertEqual(self.db.execute("SELECT count(*) FROM rewards WHERE quest_id=? AND kind IN ('base_exp','job_exp') AND branch_id IS NULL",(q,)).fetchone()[0],0)
+
+    def test_ordered_triggers_alternative_points_and_disguise(self):
+        q='irowiki-classic:Cursed_Spirit_Quest'
+        route=self.db.execute('''SELECT m.map_code,l.x,l.y,sl.role FROM step_locations sl JOIN locations l USING(location_id)
+          JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=3 ORDER BY sl.location_order''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in route],[('lighthalzen',344,278,'trigger'),('lighthalzen',344,229,'entrance'),('lhz_in03',178,22,'trigger'),('lighthalzen',295,227,'trigger'),('lighthalzen',364,315,'trigger')])
+        points=self.db.execute('''SELECT sl.location_order,sl.condition_text FROM step_locations sl JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=16''',("irowiki-classic:Odin's_Temple_Excavation_Quest",)).fetchall()
+        self.assertEqual(len(points),5);self.assertTrue(all(r[0] is None and 'Alternative trigger' in r[1] for r in points))
+        disguise=self.db.execute('''SELECT e.original_name,i.operation,i.quantity,i.condition_text FROM step_items i
+          JOIN entities e ON e.entity_id=i.item_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=10 ORDER BY e.original_name''',(q,)).fetchall()
+        self.assertEqual([(r[0],r[1],r[2]) for r in disguise],[('Geek Glasses','use',1),('Grandpa Beard','use',1)])
+        self.assertTrue(all('not consumed' in r[3] for r in disguise))
+        reps=self.db.execute('''SELECT DISTINCT m.entity_id FROM description_mentions m JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND m.surface='Representative' AND m.field='full_en' ''',(q,)).fetchall()
+        self.assertEqual(len(reps),2)
+
+    def test_route_corruption_and_wrong_source_heading_are_rejected(self):
+        cases=[
+          ("UPDATE step_routes SET step_id=(SELECT step_id FROM quest_steps WHERE quest_id='irowiki-classic:Biolabs_Entrance_Quest' AND step_order=22) WHERE (step_id,route_id)=(SELECT step_id,route_id FROM step_routes LIMIT 1)",'route_membership_wrong_quest_or_step'),
+          ("UPDATE evidence SET step_id=NULL WHERE method='source_route_membership'",'route_membership_wrong_quest_or_step'),
+          ("UPDATE step_routes SET route_order=route_order+20",'route_order_gap'),
+        ]
+        for sql,error in cases:
+            with self.subTest(error=error),contextlib.closing(sqlite3.connect(':memory:')) as db:
+                self.db.backup(db);db.execute(sql)
+                with self.assertRaisesRegex(ValueError,error):validate(db)
+        folder=self.out/'invalid-route';shutil.copytree(ROOT/'curation',folder)
+        path=folder/"Odin's_Temple_Excavation_Quest.json";data=json.loads(path.read_text())
+        data['routes'][0]['steps'].append(13);path.write_text(json.dumps(data))
+        before=(self.out/'quest_semantic.sqlite').read_bytes()
+        with self.assertRaisesRegex(ValueError,'Route membership contradicts source heading'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual(before,(self.out/'quest_semantic.sqlite').read_bytes())
+
+    def test_human_reviewed_routes_cannot_be_silently_replaced(self):
+        folder=self.out/'human-route';folder.mkdir()
+        target=folder/'quest_semantic.sqlite';shutil.copyfile(self.out/'quest_semantic.sqlite',target)
+        with contextlib.closing(sqlite3.connect(target)) as db:
+            db.execute("UPDATE quest_routes SET review_state='human_reviewed'");db.commit()
+        before=target.read_bytes()
+        with self.assertRaisesRegex(ValueError,'Human-reviewed quest routes'):build(self.source,folder)
+        self.assertEqual(before,target.read_bytes())
 
     def test_biolabs_alternatives_preserve_original_but_not_exit_instruction(self):
         q='irowiki-classic:Biolabs_Entrance_Quest'
@@ -343,7 +460,7 @@ class RealCorpusTests(unittest.TestCase):
         before=(self.out/'quest_semantic.sqlite').read_bytes();report=(self.out/'semantic_report.json').read_bytes()
         stream=io.StringIO()
         with contextlib.redirect_stdout(stream):build(self.source,self.out)
-        self.assertIn('"cache_hits": 217',stream.getvalue())
+        self.assertIn('"cache_hits": 216',stream.getvalue())
         self.assertEqual(before,(self.out/'quest_semantic.sqlite').read_bytes())
         self.assertEqual(report,(self.out/'semantic_report.json').read_bytes())
 
@@ -386,10 +503,11 @@ class RealCorpusTests(unittest.TestCase):
           CREATE TABLE quests(quest_key TEXT PRIMARY KEY);
           CREATE TABLE steps(quest_key TEXT REFERENCES quests,step_no INTEGER);
           CREATE TABLE deps(quest_key TEXT REFERENCES quests,prerequisite_key TEXT REFERENCES quests);''')
-        keep='irowiki-classic:Juice_Quest';remove='irowiki-classic:2013_Easter_Event'
-        out.executemany('INSERT INTO quests VALUES(?)',[(keep,),(remove,)])
-        out.executemany('INSERT INTO steps VALUES(?,1)',[(keep,),(remove,)])
+        keep='irowiki-classic:Juice_Quest';remove='irowiki-classic:2013_Easter_Event';reference='irowiki-classic:Access_Quests'
+        out.executemany('INSERT INTO quests VALUES(?)',[(keep,),(remove,),(reference,)])
+        out.executemany('INSERT INTO steps VALUES(?,1)',[(keep,),(remove,),(reference,)])
         out.execute('INSERT INTO deps VALUES(?,?)',(keep,remove))
+        out.execute('INSERT INTO deps VALUES(?,?)',(keep,reference))
         filter_catalog(out,source)
         self.assertEqual(out.execute('SELECT * FROM quests').fetchall(),[(keep,)])
         self.assertEqual(out.execute('SELECT * FROM steps').fetchall(),[(keep,1)])

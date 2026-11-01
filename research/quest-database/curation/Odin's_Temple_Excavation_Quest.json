@@ -1,0 +1,807 @@
+{
+  "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "4ce6b6a27853f39c816f0d2fa25f155eff1ea05535602473e971af8bff5f3427",
+  "snapshot_sha256": "3d10f24b57265a09c7a06a9d94afc17f73a7b2c59283e5a58a01ec1963b3e3a5",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Laura"
+    },
+    {
+      "type": "npc",
+      "name": "Alex"
+    },
+    {
+      "type": "npc",
+      "name": "Ashe"
+    },
+    {
+      "type": "item",
+      "name": "Rune of Darkness",
+      "game_id": 7511,
+      "id_source": "http://db.irowiki.org/classic/item-info/7511/"
+    },
+    {
+      "type": "item",
+      "name": "Old Blue Box",
+      "game_id": 603,
+      "id_source": "http://db.irowiki.org/classic/item-info/603/"
+    },
+    {
+      "type": "map",
+      "name": "Hugel"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "hu_in01",
+      "map_code": "hu_in01"
+    },
+    {
+      "type": "map",
+      "name": "odin_tem03",
+      "map_code": "odin_tem03"
+    },
+    {
+      "type": "map",
+      "name": "Underground Shrine"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to the signboard in the middle of Hugel advertising an expedition to Odin's Shrine/Temple (91, 152).",
+      "instruction_sha256": "a3937879477d32a65473210cd5f57d3c52b7019d0d848e3e4019b42b99c234b5",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/a3937879477d32a65473/1",
+      "goal": "interact",
+      "short_ru": "Прочитайте указатель экспедиции в Hugel (91, 152).",
+      "short_en": "Read the expedition signboard in Hugel (91, 152).",
+      "full_ru": "В центре Hugel поговорите с указателем, рекламирующим экспедицию в Odin's Shrine/Temple (91, 152).",
+      "full_en": "Talk to the signboard in the middle of Hugel advertising an expedition to Odin's Shrine/Temple (91, 152).",
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Hugel",
+          "x": 91,
+          "y": 152,
+          "role": "signboard",
+          "known": false
+        }
+      ],
+      "protected_names": [
+        "Hugel"
+      ]
+    },
+    "2": {
+      "original_instruction": "Find the house in the southwest area of town, and go in (52,95)",
+      "instruction_sha256": "1e4cace29984144aae4fc7182176a1844f396eb1cbbcba62313f1db19bc87a80",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/1e4cace29984144aae4f/1",
+      "goal": "enter",
+      "short_ru": "Войдите в дом на юго-западе: (52,95).",
+      "short_en": "Enter the southwestern house: (52,95).",
+      "full_ru": "Найдите дом на юго-западе города и войдите (52,95).",
+      "full_en": "Find the house in the southwest area of town, and go in (52,95)",
+      "actions": [
+        {
+          "operation": "enter"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Hugel",
+          "x": 52,
+          "y": 95,
+          "role": "entrance",
+          "known": false
+        }
+      ],
+      "protected_names": []
+    },
+    "3": {
+      "original_instruction": "Talk to either Laura in the room to the right (13,11) or Alex in the room to the left (18, 160) to join them.",
+      "instruction_sha256": "5a623e213c605b5a4365bfd5ecf1ccb4e3b4006f546277659e7ab2b63205c8c9",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/5a623e213c605b5a4365/1",
+      "goal": "route_choice",
+      "short_ru": "Выберите путь Laura (13,11) или Alex (18, 160).",
+      "short_en": "Choose the Laura route (13,11) or Alex route (18, 160).",
+      "full_ru": "Поговорите либо с Laura в комнате справа (13,11), либо с Alex в комнате слева (18, 160), чтобы присоединиться к экспедиции.",
+      "full_en": "Talk to either Laura in the room to the right (13,11) or Alex in the room to the left (18, 160) to join them.",
+      "npcs": [
+        {
+          "entity": "Laura",
+          "role": "talk"
+        },
+        {
+          "entity": "Alex",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose",
+          "condition": "Choose one initial expedition route, not both sequentially."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "initial_npc_coordinate_discrepancy",
+          "detail": "This introduction locates Laura at (13,11); her route later gives hu_in01 (14,11). Preserve both literal coordinates without silently merging their exact positions."
+        }
+      ],
+      "protected_names": [
+        "Laura",
+        "Alex"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 13,
+          "y": 11,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "13,11"
+        },
+        {
+          "map": null,
+          "x": 18,
+          "y": 160,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "18, 160"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Talk to Alex in the room to the north, who asks you to look around the Shrine first before she hires you.",
+      "instruction_sha256": "9843adcc63c045283225d79e700b3e096ff99d47e791088c32d41157ccc8017a",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/9843adcc63c045283225/1",
+      "goal": "talk",
+      "short_ru": "Путь Alex: поговорите с Alex перед осмотром Shrine.",
+      "short_en": "Alex route: talk to Alex before inspecting the Shrine.",
+      "full_ru": "Поговорите с Alex в северной комнате: прежде чем нанять вас, она попросит осмотреть Shrine.",
+      "full_en": "Talk to Alex in the room to the north, who asks you to look around the Shrine first before she hires you.",
+      "npcs": [
+        {
+          "entity": "Alex",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Alex"
+        }
+      ],
+      "protected_names": [
+        "Alex"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Go to the boatman (209,109) and take the boat to Odin's Temple/Shrine (Costs 800z).",
+      "instruction_sha256": "49c3a5497abbc4aa73ac2b284cb6e1c3266c14cbaa661d7ef2b09806135b1426",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/49c3a5497abbc4aa73ac/1",
+      "goal": "travel",
+      "short_ru": "Отправляйтесь на Shrine от лодочника (209,109); стоимость — 800z.",
+      "short_en": "Travel to the Shrine from the boatman (209,109); fare is 800z.",
+      "full_ru": "Поговорите с лодочником (209,109) и отправляйтесь в Odin's Temple/Shrine. Поездка стоит 800z.",
+      "full_en": "Go to the boatman (209,109) and take the boat to Odin's Temple/Shrine (Costs 800z).",
+      "actions": [
+        {
+          "operation": "travel"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Hugel",
+          "x": 209,
+          "y": 109,
+          "role": "boat",
+          "known": false
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "zeny_per_trip",
+          "amount": "800",
+          "condition": "This outbound journey; do not add the header total as an extra charge."
+        }
+      ],
+      "protected_names": []
+    },
+    "6": {
+      "original_instruction": "Go back to Hugel and talk to Alex again. She'll ask you once more if you want to join. Accept, and she'll ask you to bring 5 Rune of Darkness from the Shrine.",
+      "instruction_sha256": "4e00c6c9ec9580098ef60cb3995e3729cb810fcd91dd9e1c04f5dd0c019c38f6",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/4e00c6c9ec9580098ef6/1",
+      "goal": "bring",
+      "short_ru": "Путь Alex: вернитесь к Alex и подготовьте 5 Rune of Darkness.",
+      "short_en": "Alex route: return to Alex and prepare 5 Rune of Darkness.",
+      "full_ru": "Вернитесь в Hugel и снова поговорите с Alex. Согласитесь присоединиться: она попросит 5 Rune of Darkness из Shrine.",
+      "full_en": "Go back to Hugel and talk to Alex again. She'll ask you once more if you want to join. Accept, and she'll ask you to bring 5 Rune of Darkness from the Shrine.",
+      "npcs": [
+        {
+          "entity": "Alex",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Alex"
+        },
+        {
+          "operation": "bring",
+          "entity": "Rune of Darkness"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rune of Darkness",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "protected_names": [
+        "Alex",
+        "Rune of Darkness",
+        "Hugel"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Bring them back to her, and she'll thank you and give you an Old Blue Box . | Note: If you choose to use Runes collected beforehand, you'll still need to make a trip back to the Temple for her to accept them.",
+      "instruction_sha256": "a41cedf31b12cd417ffa2ef165f24a5cd7cb7ae9d376c0cece5b0439075377b7",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/a41cedf31b12cd417ffa/1",
+      "goal": "deliver",
+      "short_ru": "Путь Alex: посетите Temple и передайте 5 Rune of Darkness; получите Old Blue Box.",
+      "short_en": "Alex route: visit the Temple and deliver 5 Rune of Darkness; receive Old Blue Box.",
+      "full_ru": "Принесите их ей: она поблагодарит и выдаст Old Blue Box. Примечание: даже если Runes собраны заранее, для их приёма всё равно необходимо вернуться в Temple.",
+      "full_en": "Bring them back to her, and she'll thank you and give you an Old Blue Box . | Note: If you choose to use Runes collected beforehand, you'll still need to make a trip back to the Temple for her to accept them.",
+      "npcs": [
+        {
+          "entity": "Alex",
+          "role": "deliver",
+          "support_step": 6,
+          "evidence": "Go back to Hugel and talk to Alex again. She'll ask you once more if you want to join. Accept, and she'll ask you to bring 5 Rune of Darkness from the Shrine."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rune of Darkness",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Go back to Hugel and talk to Alex again. She'll ask you once more if you want to join. Accept, and she'll ask you to bring 5 Rune of Darkness from the Shrine."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Rune of Darkness"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Blue Box",
+          "condition": "Alex initial route only; alternative to Laura's box, not an additional second box."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "visit_required",
+          "condition": "Temple visit still required even when carrying previously collected Runes."
+        }
+      ],
+      "protected_names": [
+        "Old Blue Box"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Talk to Laura in the room to the south (hu_in01 14 11), she will ask you to check Odin's Temple.",
+      "instruction_sha256": "b3fe83ebafda2bbc019bb7f4b28d7a7bab9a81c0a9e0d95a4dcfc0b68d1169ec",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/b3fe83ebafda2bbc019b/1",
+      "goal": "talk",
+      "short_ru": "Путь Laura: поговорите с Laura, hu_in01 14 11.",
+      "short_en": "Laura route: talk to Laura, hu_in01 14 11.",
+      "full_ru": "Поговорите с Laura в южной комнате (hu_in01 14 11): она попросит осмотреть Odin's Temple.",
+      "full_en": "Talk to Laura in the room to the south (hu_in01 14 11), she will ask you to check Odin's Temple.",
+      "npcs": [
+        {
+          "entity": "Laura",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Laura"
+        }
+      ],
+      "protected_names": [
+        "Laura",
+        "hu_in01"
+      ],
+      "locations": [
+        {
+          "map": "hu_in01",
+          "x": 14,
+          "y": 11,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "hu_in01 14 11"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Talk to the boatman in Hugel (209 109), and go to Odin's Temple.",
+      "instruction_sha256": "ca0eb33675df1930b28cba1cf7be762917bb6f71ad4e23c4e3a5dc4f354f88e8",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/ca0eb33675df1930b28c/1",
+      "goal": "travel",
+      "short_ru": "Путь Laura: отправляйтесь в Temple от лодочника Hugel (209 109).",
+      "short_en": "Laura route: travel to the Temple from the Hugel boatman (209 109).",
+      "full_ru": "Поговорите с лодочником в Hugel (209 109) и отправляйтесь в Odin's Temple.",
+      "full_en": "Talk to the boatman in Hugel (209 109), and go to Odin's Temple.",
+      "actions": [
+        {
+          "operation": "travel"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "Hugel",
+          "x": 209,
+          "y": 109,
+          "role": "boat",
+          "known": false
+        }
+      ],
+      "protected_names": [
+        "Hugel"
+      ]
+    },
+    "10": {
+      "original_instruction": "Talk to Laura again, and she will ask you to collect 5 Rune of Darkness .",
+      "instruction_sha256": "2b1af2ef51406154cc9f35ed0561ea10f7b5da3909a1c9cbe7abfc1e177146e1",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/2b1af2ef51406154cc9f/1",
+      "goal": "collect",
+      "short_ru": "Путь Laura: получите у Laura поручение собрать 5 Rune of Darkness.",
+      "short_en": "Laura route: get the task to collect 5 Rune of Darkness from Laura.",
+      "full_ru": "Снова поговорите с Laura. Она попросит собрать 5 Rune of Darkness.",
+      "full_en": "Talk to Laura again, and she will ask you to collect 5 Rune of Darkness .",
+      "npcs": [
+        {
+          "entity": "Laura",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rune of Darkness",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Laura"
+        }
+      ],
+      "protected_names": [
+        "Laura",
+        "Rune of Darkness"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Proceed to Odin's Temple to collect the required items. | Note: If you choose to use Runes collected beforehand, you'll still need to make a trip back to the Temple for her to accept them.",
+      "instruction_sha256": "374bf3d5bf33290232da71c249dc02360132d70b72d8dfc446f67579e1510e68",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/374bf3d5bf33290232da/1",
+      "goal": "travel",
+      "short_ru": "Путь Laura: посетите Temple даже при наличии заранее собранных предметов.",
+      "short_en": "Laura route: visit the Temple even if you already have the items.",
+      "full_ru": "Отправляйтесь в Odin's Temple за нужными предметами. Примечание: даже если Runes собраны заранее, всё равно нужно вернуться в Temple, чтобы она их приняла.",
+      "full_en": "Proceed to Odin's Temple to collect the required items. | Note: If you choose to use Runes collected beforehand, you'll still need to make a trip back to the Temple for her to accept them.",
+      "actions": [
+        {
+          "operation": "travel",
+          "condition": "Required visit even with previously collected Runes."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Return to Laura and she will reward player with 1 Old Blue Box .",
+      "instruction_sha256": "67bbc3d664b8af08b5bd3c91475ac0bd341aeb8e055dc3bcd9b6719ebbe45a2b",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/67bbc3d664b8af08b5bd/1",
+      "goal": "deliver",
+      "short_ru": "Путь Laura: вернитесь к Laura за 1 Old Blue Box.",
+      "short_en": "Laura route: return to Laura for 1 Old Blue Box.",
+      "full_ru": "Вернитесь к Laura: она выдаст 1 Old Blue Box.",
+      "full_en": "Return to Laura and she will reward player with 1 Old Blue Box .",
+      "npcs": [
+        {
+          "entity": "Laura",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rune of Darkness",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 10,
+          "evidence": "Talk to Laura again, and she will ask you to collect 5 Rune of Darkness .",
+          "condition": "Complete the collection/visit requested in steps 10-11."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return",
+          "entity": "Laura"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Blue Box",
+          "condition": "Laura initial route only; alternative to Alex's box."
+        }
+      ],
+      "protected_names": [
+        "Laura",
+        "Old Blue Box"
+      ],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Talk to Laura in the next room, and she'll ask you to spy on Alex in order to find out what they discovered.",
+      "instruction_sha256": "f6cc68840a1acec27010ebf2b3e7c8f6755ba8659298b87ad9d554b5d8748534",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/f6cc68840a1acec27010/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Laura о наблюдении за Alex.",
+      "short_en": "Talk to Laura about watching Alex.",
+      "full_ru": "Поговорите с Laura в соседней комнате: она попросит подслушать Alex, чтобы узнать о её находках.",
+      "full_en": "Talk to Laura in the next room, and she'll ask you to spy on Alex in order to find out what they discovered.",
+      "npcs": [
+        {
+          "entity": "Laura",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Laura"
+        }
+      ],
+      "protected_names": [
+        "Laura",
+        "Alex"
+      ],
+      "locations": []
+    },
+    "14": {
+      "original_instruction": "Walk over to the portal to the room Alex is in and listen in to their conversation. They discuss the Heart of Ymir as well as Shinokas from the Einbroch Murder Quest and something called \"Giantes.\"",
+      "instruction_sha256": "b0e529104aee31a0048f9b72f0292cba54621aa12948cd4a79151a22ca28cd83",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/b0e529104aee31a0048f/1",
+      "goal": "trigger_dialogue",
+      "short_ru": "Подслушайте разговор у портала комнаты Alex.",
+      "short_en": "Overhear the conversation at the portal to the room of Alex.",
+      "full_ru": "Подойдите к порталу комнаты Alex и подслушайте разговор. Обсуждаются Heart of Ymir, Shinokas из Einbroch Murder Quest и нечто под названием «Giantes.».",
+      "full_en": "Walk over to the portal to the room Alex is in and listen in to their conversation. They discuss the Heart of Ymir as well as Shinokas from the Einbroch Murder Quest and something called \"Giantes.\"",
+      "actions": [
+        {
+          "operation": "trigger_dialogue"
+        }
+      ],
+      "protected_names": [
+        "Alex"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "Laura asks you to go to the Shrine once more and visit the third map to see if you can find out what's going on.",
+      "instruction_sha256": "af8486c084d863f86c3c015ad18852d5f4f583fc77084fa227b39773ff6d3624",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/af8486c084d863f86c3c/1",
+      "goal": "talk",
+      "short_ru": "Получите у Laura поручение проверить третью карту Shrine.",
+      "short_en": "Get the task from Laura to inspect the third Shrine map.",
+      "full_ru": "Laura попросит снова посетить Shrine, теперь третью карту, чтобы выяснить, что происходит.",
+      "full_en": "Laura asks you to go to the Shrine once more and visit the third map to see if you can find out what's going on.",
+      "npcs": [
+        {
+          "entity": "Laura",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Laura"
+        }
+      ],
+      "protected_names": [
+        "Laura"
+      ],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "Go to the third map ( odin_tem03 ) of the Shrine, and visit the following locations (one of the warps will work, but you may not need to visit them all): | (288,271) | (266,302) | (321,263) | (179,275) | (283,241) One of them will warp you to an Underground Shrine. Walk down the path and you find some ruins. Walk around, and windows will pop up telling you you've walked past some object. Choose \"Explore\" until you find one that works, and a hammer will whack you on the head. When you come to, you'll find the ruins have vanished. Walk back up, and you'll be warped back to the island (But not necessarily the place you got warped from).",
+      "instruction_sha256": "f2f0afe46bba96a9b5515efab70e9b168f37069ce09351e181b989d1679a71c3",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/f2f0afe46bba96a9b551/1",
+      "goal": "investigate",
+      "short_ru": "На odin_tem03 найдите работающую точку переноса, затем выбирайте «Explore» у руин.",
+      "short_en": "On odin_tem03, find a working warp point, then choose “Explore” at the ruins.",
+      "full_ru": "На третьей карте Shrine (odin_tem03) проверьте точки (288,271), (266,302), (321,263), (179,275), (283,241). Сработает одна из них; посещать все необязательно. Вас перенесёт в Underground Shrine. Пройдите вниз к руинам и перемещайтесь рядом с объектами, вызывая окна диалогов. Выбирайте «Explore», пока не сработает подходящий объект: вас ударит молот. Очнувшись, вы обнаружите, что руины исчезли. Поднимитесь обратно: вас перенесёт на остров, возможно в другую точку.",
+      "full_en": "Go to the third map ( odin_tem03 ) of the Shrine, and visit the following locations (one of the warps will work, but you may not need to visit them all): | (288,271) | (266,302) | (321,263) | (179,275) | (283,241) One of them will warp you to an Underground Shrine. Walk down the path and you find some ruins. Walk around, and windows will pop up telling you you've walked past some object. Choose \"Explore\" until you find one that works, and a hammer will whack you on the head. When you come to, you'll find the ruins have vanished. Walk back up, and you'll be warped back to the island (But not necessarily the place you got warped from).",
+      "actions": [
+        {
+          "operation": "move",
+          "condition": "Any one working trigger, not all five in a required sequence."
+        },
+        {
+          "operation": "choose",
+          "condition": "Repeat Explore until the correct object activates."
+        },
+        {
+          "operation": "return"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "odin_tem03",
+          "x": 288,
+          "y": 271,
+          "role": "candidate_entrance",
+          "known": true,
+          "condition": "Alternative trigger; stop checking the others once warped."
+        },
+        {
+          "entity": "odin_tem03",
+          "x": 266,
+          "y": 302,
+          "role": "candidate_entrance",
+          "known": true,
+          "condition": "Alternative trigger; stop checking the others once warped."
+        },
+        {
+          "entity": "odin_tem03",
+          "x": 321,
+          "y": 263,
+          "role": "candidate_entrance",
+          "known": true,
+          "condition": "Alternative trigger; stop checking the others once warped."
+        },
+        {
+          "entity": "odin_tem03",
+          "x": 179,
+          "y": 275,
+          "role": "candidate_entrance",
+          "known": true,
+          "condition": "Alternative trigger; stop checking the others once warped."
+        },
+        {
+          "entity": "odin_tem03",
+          "x": 283,
+          "y": 241,
+          "role": "candidate_entrance",
+          "known": true,
+          "condition": "Alternative trigger; stop checking the others once warped."
+        }
+      ],
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Explore",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "odin_tem03",
+        "Underground Shrine"
+      ]
+    },
+    "17": {
+      "original_instruction": "Head back to the Excavation HQ, and you find Alex and Laura arguing.",
+      "instruction_sha256": "ec3bdbc3983da375e3895d3e04b2553ec3d57c7f25f87f4d970181a43d7a7533",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/ec3bdbc3983da375e389/1",
+      "goal": "return",
+      "short_ru": "Вернитесь в Excavation HQ к Alex и Laura.",
+      "short_en": "Return to Excavation HQ, where Alex and Laura are arguing.",
+      "full_ru": "Вернитесь в Excavation HQ: Alex и Laura спорят.",
+      "full_en": "Head back to the Excavation HQ, and you find Alex and Laura arguing.",
+      "actions": [
+        {
+          "operation": "return"
+        }
+      ],
+      "protected_names": [
+        "Laura",
+        "Alex"
+      ],
+      "locations": []
+    },
+    "18": {
+      "original_instruction": "Walk back out, and just before the portal to exit, Ashe asks you to carry a file folder to Morroc .",
+      "instruction_sha256": "c73a7eec1e018bd80747d55be30bb9bc02c2b4116cec250b92f4ea7fc99d4853",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/c73a7eec1e018bd80747/1",
+      "goal": "talk",
+      "short_ru": "Получите у Ashe папку для доставки в Morroc.",
+      "short_en": "Get a file folder from Ashe for delivery to Morroc.",
+      "full_ru": "Выходите наружу: перед порталом на выход Ashe попросит отнести папку в Morroc.",
+      "full_en": "Walk back out, and just before the portal to exit, Ashe asks you to carry a file folder to Morroc .",
+      "npcs": [
+        {
+          "entity": "Ashe",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ashe"
+        },
+        {
+          "operation": "collect",
+          "condition": "File folder; source gives no verified item ID or exact inventory name."
+        }
+      ],
+      "protected_names": [
+        "Ashe",
+        "Morroc"
+      ],
+      "locations": []
+    },
+    "19": {
+      "original_instruction": "Head to the map below Morroc just south of the city. Walk up to the portal leading to Morroc , and you'll trigger a dialog box (around 161, 365).",
+      "instruction_sha256": "9ca7acf81ce415373fac6d83aa5307874927684221965db6aff89d62c994e676",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/9ca7acf81ce415373fac/1",
+      "goal": "trigger_dialogue",
+      "short_ru": "На карте южнее Morroc подойдите к порталу около (161, 365).",
+      "short_en": "On the map south of Morroc, approach the portal around (161, 365).",
+      "full_ru": "На карте южнее Morroc подойдите к порталу обратно в Morroc. Около (161, 365) запустится диалог.",
+      "full_en": "Head to the map below Morroc just south of the city. Walk up to the portal leading to Morroc , and you'll trigger a dialog box (around 161, 365).",
+      "actions": [
+        {
+          "operation": "trigger_dialogue"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "unqualified_trigger_map",
+          "detail": "The source describes the map south of Morroc without a map code. Do not infer moc_fildXX from a current or private-server map layout."
+        }
+      ],
+      "protected_names": [
+        "Morroc"
+      ],
+      "locations": []
+    },
+    "20": {
+      "original_instruction": "You drop the file, and can ask the entity about one person. If you ask about Laura however, you'll also be told about Ashe. | Receive ~700,000 Base Experience .",
+      "instruction_sha256": "b442676d93c51b3cfb3a1d8ed659a7ca6b03e60e08e3f5f7dd843d0eb855595f",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/b442676d93c51b3cfb3a/1",
+      "goal": "receive_reward",
+      "short_ru": "Завершите разговор; получите примерно 700,000 Base Experience.",
+      "short_en": "Finish the conversation; receive roughly 700,000 Base Experience.",
+      "full_ru": "Вы уроните папку и сможете спросить сущность об одном человеке. При вопросе о Laura вы также узнаете об Ashe. Награда — примерно 700,000 Base Experience.",
+      "full_en": "You drop the file, and can ask the entity about one person. If you ask about Laura however, you'll also be told about Ashe. | Receive ~700,000 Base Experience .",
+      "actions": [
+        {
+          "operation": "talk",
+          "condition": "Ask about one person; asking about Laura also reveals information about Ashe."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "700000",
+          "condition": "Approximate amount per walkthrough, although the header states 700000 without that qualifier."
+        }
+      ],
+      "protected_names": [
+        "Laura",
+        "Ashe"
+      ],
+      "locations": []
+    },
+    "21": {
+      "original_instruction": "When you return to the Excavation HQ in Hugel , you find everything is gone.",
+      "instruction_sha256": "3355d5138a1b8b11be9b210a144b805e9f990608193b09b18abd7ced52eb118c",
+      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/3355d5138a1b8b11be9b/1",
+      "goal": "return",
+      "short_ru": "Вернитесь в Excavation HQ в Hugel.",
+      "short_en": "Return to Excavation HQ in Hugel.",
+      "full_ru": "Вернувшись в Excavation HQ в Hugel, вы обнаружите, что всё исчезло.",
+      "full_en": "When you return to the Excavation HQ in Hugel , you find everything is gone.",
+      "actions": [
+        {
+          "operation": "return"
+        }
+      ],
+      "protected_names": [
+        "Hugel"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "alternative_paths_not_cumulative",
+      "detail": "Pinned headings Alex Path, Laura Path and Continuing from Either Path establish two alternatives. Do not deliver two sets of runes or grant both boxes for one completion."
+    },
+    {
+      "reason": "source_order_not_route_execution",
+      "detail": "Original source steps 4-7 and 8-12 are alternatives; source-order edges are not executable transitions. Follow quest_routes/step_routes, then shared step 13."
+    }
+  ],
+  "routes": [
+    {
+      "key": "alex",
+      "kind": "alternative",
+      "choice_group": "initial_expedition",
+      "condition": "Choose Alex at the initial expedition signup. After this path, continue at source step 13.",
+      "source_heading": "Alex Path",
+      "steps": [
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "key": "laura",
+      "kind": "alternative",
+      "choice_group": "initial_expedition",
+      "condition": "Choose Laura at the initial expedition signup. After this path, continue at source step 13.",
+      "source_heading": "Laura Path",
+      "steps": [
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Rune of Darkness",
+        "entity": "Rune of Darkness",
+        "condition": "One chosen initial path; not five for each path."
+      },
+      {
+        "kind": "zeny_total",
+        "amount": "2400",
+        "source_section": "requirements",
+        "evidence": "Zeny: 2,400",
+        "condition": "Header total, not an additional fee to add to individual boat trips."
+      }
+    ]
+  }
+}

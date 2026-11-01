@@ -1,0 +1,1402 @@
+{
+  "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "c2f11c842f9914c403f6be3e2a02910bc01f1f66fb036e69a9c7bb6875d618f8",
+  "snapshot_sha256": "d881cf4652bfc33fb7c8506a1e809221982e47993ee337a053037054983a87b9",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Elder"
+    },
+    {
+      "type": "npc",
+      "name": "Rekenber Guard"
+    },
+    {
+      "type": "npc",
+      "name": "Doctor Varmunt"
+    },
+    {
+      "type": "npc",
+      "name": "Mad Scientist"
+    },
+    {
+      "type": "npc",
+      "name": "Scientist"
+    },
+    {
+      "type": "npc",
+      "name": "Guidebook"
+    },
+    {
+      "type": "npc",
+      "name": "Flower Girl"
+    },
+    {
+      "type": "npc",
+      "name": "Crippled Girl"
+    },
+    {
+      "type": "npc",
+      "name": "Representative",
+      "ref": "entrance_representative"
+    },
+    {
+      "type": "npc",
+      "name": "Representative",
+      "ref": "library_representative"
+    },
+    {
+      "type": "npc",
+      "name": "Secretary Slierre",
+      "aliases": [
+        "Slierre"
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Handcuffs",
+      "game_id": 7345,
+      "id_source": "http://db.irowiki.org/classic/item-info/7345/"
+    },
+    {
+      "type": "item",
+      "name": "Glass Bead",
+      "game_id": 746,
+      "id_source": "http://db.irowiki.org/classic/item-info/746/"
+    },
+    {
+      "type": "item",
+      "name": "Bouquet",
+      "game_id": 744,
+      "id_source": "http://db.irowiki.org/classic/item-info/744/"
+    },
+    {
+      "type": "item",
+      "name": "Holy Water",
+      "game_id": 523,
+      "id_source": "http://db.irowiki.org/classic/item-info/523/"
+    },
+    {
+      "type": "item",
+      "name": "Geek Glasses",
+      "game_id": 2243,
+      "id_source": "http://db.irowiki.org/classic/item-info/2243/"
+    },
+    {
+      "type": "item",
+      "name": "Pendant",
+      "aliases": [
+        "pendant"
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Old Blue Box",
+      "game_id": 603,
+      "id_source": "http://db.irowiki.org/classic/item-info/603/"
+    },
+    {
+      "type": "item",
+      "name": "Speed Potions",
+      "game_id": 12016,
+      "id_source": "http://db.irowiki.org/classic/item-info/12016/"
+    },
+    {
+      "type": "item",
+      "name": "Grandpa Beard",
+      "aliases": [
+        "Grandpa's Beard"
+      ],
+      "game_id": 2241,
+      "id_source": "http://db.irowiki.org/classic/item-info/2241/"
+    },
+    {
+      "type": "monster",
+      "name": "Merman",
+      "game_id": 1264,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1264/"
+    },
+    {
+      "type": "monster",
+      "name": "Peco Peco"
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lighthalzen",
+      "map_code": "lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lhz_dun01"
+    },
+    {
+      "type": "map",
+      "name": "lhz_dun02",
+      "map_code": "lhz_dun02"
+    },
+    {
+      "type": "map",
+      "name": "lhz_dun03"
+    },
+    {
+      "type": "map",
+      "name": "lhz_in01",
+      "map_code": "lhz_in01"
+    },
+    {
+      "type": "map",
+      "name": "lhz_in03",
+      "map_code": "lhz_in03"
+    },
+    {
+      "type": "map",
+      "name": "lhz_que01",
+      "map_code": "lhz_que01"
+    },
+    {
+      "type": "map",
+      "name": "Rekenber Headquarters"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "To complete this quest you will have to have completed the Entrance Quest to Biolabs. Once you have access then you will need to find a pair of Handcuffs (Only need 1). File:Handcuffs.jpg",
+      "instruction_sha256": "614b7510de3171a219864b74bfc5f6a3ccd0ee1a0fcd8cb664da761ce91b6894",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/614b7510de3171a21986/1",
+      "goal": "collect",
+      "short_ru": "Завершите Biolabs Entrance Quest и подготовьте 1 Handcuffs.",
+      "short_en": "Complete Biolabs Entrance Quest and prepare 1 Handcuffs.",
+      "full_ru": "Для начала завершите Entrance Quest to Biolabs. Получив доступ, найдите Handcuffs — достаточно 1. File:Handcuffs.jpg",
+      "full_en": "To complete this quest you will have to have completed the Entrance Quest to Biolabs. Once you have access then you will need to find a pair of Handcuffs (Only need 1). File:Handcuffs.jpg",
+      "items": [
+        {
+          "entity": "Handcuffs",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Handcuffs"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "quest_completed",
+          "amount": "Biolabs Entrance Quest"
+        }
+      ],
+      "protected_names": [
+        "Handcuffs"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "2": {
+      "original_instruction": "There are a few trigger spots that will start this quest for you. The following locations are areas that will trigger a dialog pop-up box if you are holding the Handcuffs: File:Cursetrigger.jpg | ( lhz_dun01 147 106) | ( lhz_dun01 239 135) | ( lhz_dun01 66 213) | ( lhz_dun01 225 198) | ( lhz_dun02 244 229) | ( lhz_dun02 60 298) | ( lhz_dun02 267 278) | ( lhz_dun02 94 199) | ( lhz_dun03 244 51) | ( lhz_dun03 123 191) | ( lhz_dun03 74 140) Clear one of the above areas of monsters, and get the dialog pop-up to continue to the next step.",
+      "instruction_sha256": "929ac8c1cee6ea6d322e96520f18eb245280e821cc4cf53efdff38970857a4de",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/929ac8c1cee6ea6d322e/1",
+      "goal": "trigger_dialogue",
+      "short_ru": "С Handcuffs активируйте одну из указанных точек; перед этим уберите монстров поблизости.",
+      "short_en": "With Handcuffs, activate one listed trigger after clearing nearby monsters.",
+      "full_ru": "С Handcuffs в инвентаре найдите одну из зон, запускающих диалог. File:Cursetrigger.jpg | (lhz_dun01 147 106) | (lhz_dun01 239 135) | (lhz_dun01 66 213) | (lhz_dun01 225 198) | (lhz_dun02 244 229) | (lhz_dun02 60 298) | (lhz_dun02 267 278) | (lhz_dun02 94 199) | (lhz_dun03 244 51) | (lhz_dun03 123 191) | (lhz_dun03 74 140). Очистите одну такую зону от монстров и вызовите окно диалога для продолжения.",
+      "full_en": "There are a few trigger spots that will start this quest for you. The following locations are areas that will trigger a dialog pop-up box if you are holding the Handcuffs: File:Cursetrigger.jpg | ( lhz_dun01 147 106) | ( lhz_dun01 239 135) | ( lhz_dun01 66 213) | ( lhz_dun01 225 198) | ( lhz_dun02 244 229) | ( lhz_dun02 60 298) | ( lhz_dun02 267 278) | ( lhz_dun02 94 199) | ( lhz_dun03 244 51) | ( lhz_dun03 123 191) | ( lhz_dun03 74 140) Clear one of the above areas of monsters, and get the dialog pop-up to continue to the next step.",
+      "items": [
+        {
+          "entity": "Handcuffs",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill",
+          "condition": "Clear one chosen trigger area; species and count are not stated."
+        },
+        {
+          "operation": "trigger_dialogue",
+          "condition": "Any one listed area, not all eleven."
+        }
+      ],
+      "locations": [
+        {
+          "map": "lhz_dun02",
+          "x": 244,
+          "y": 229,
+          "known": true,
+          "role": "candidate_trigger",
+          "evidence": "lhz_dun02 244 229",
+          "condition": "Any one trigger with Handcuffs held; clear nearby monsters before activating."
+        },
+        {
+          "map": "lhz_dun02",
+          "x": 60,
+          "y": 298,
+          "known": true,
+          "role": "candidate_trigger",
+          "evidence": "lhz_dun02 60 298",
+          "condition": "Any one trigger with Handcuffs held; clear nearby monsters before activating."
+        },
+        {
+          "map": "lhz_dun02",
+          "x": 267,
+          "y": 278,
+          "known": true,
+          "role": "candidate_trigger",
+          "evidence": "lhz_dun02 267 278",
+          "condition": "Any one trigger with Handcuffs held; clear nearby monsters before activating."
+        },
+        {
+          "map": "lhz_dun02",
+          "x": 94,
+          "y": 199,
+          "known": true,
+          "role": "candidate_trigger",
+          "evidence": "lhz_dun02 94 199",
+          "condition": "Any one trigger with Handcuffs held; clear nearby monsters before activating."
+        }
+      ],
+      "protected_names": [
+        "Handcuffs",
+        "lhz_dun01",
+        "lhz_dun02",
+        "lhz_dun03"
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "3": {
+      "original_instruction": "Now, keeping the Handcuffs, continue past the guard to Lighthalzen 's slum area. You are looking now for the following locations in order: 1st : Lighthalzen, the City-State of Prosperity (lighthalzen): 344, 278 2nd : Inside Lighthalzen (lhz_in03): 178, 22 (Building located at Lighthalzen, the City-State of Prosperity (lighthalzen): 344, 229) 3rd : Lighthalzen, the City-State of Prosperity (lighthalzen): 295, 227 4th : Lighthalzen, the City-State of Prosperity (lighthalzen): 364, 315 You will get another pop-up dialog at these check points, and you should be weary of what is ahead!",
+      "instruction_sha256": "4dddb9a9bd923087ee9c623996626037d68a311a92cf82b8b4995550601125fd",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/4dddb9a9bd923087ee9c/1",
+      "goal": "ordered_triggers",
+      "short_ru": "С Handcuffs активируйте четыре точки в указанном порядке, включая точку внутри здания.",
+      "short_en": "With Handcuffs, activate the four triggers in order, including the one inside the building.",
+      "full_ru": "Сохраняя Handcuffs, пройдите мимо стражника в трущобы Lighthalzen. Активируйте точки по порядку: 1-я — Lighthalzen, the City-State of Prosperity (lighthalzen): 344, 278; 2-я — Inside Lighthalzen (lhz_in03): 178, 22, внутри здания Lighthalzen, the City-State of Prosperity (lighthalzen): 344, 229; 3-я — Lighthalzen, the City-State of Prosperity (lighthalzen): 295, 227; 4-я — Lighthalzen, the City-State of Prosperity (lighthalzen): 364, 315. На контрольных точках появятся новые диалоги; будьте осторожны.",
+      "full_en": "Now, keeping the Handcuffs, continue past the guard to Lighthalzen 's slum area. You are looking now for the following locations in order: 1st : Lighthalzen, the City-State of Prosperity (lighthalzen): 344, 278 2nd : Inside Lighthalzen (lhz_in03): 178, 22 (Building located at Lighthalzen, the City-State of Prosperity (lighthalzen): 344, 229) 3rd : Lighthalzen, the City-State of Prosperity (lighthalzen): 295, 227 4th : Lighthalzen, the City-State of Prosperity (lighthalzen): 364, 315 You will get another pop-up dialog at these check points, and you should be weary of what is ahead!",
+      "items": [
+        {
+          "entity": "Handcuffs",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "trigger_dialogue",
+          "condition": "Four triggers in source order; enter the building before its interior trigger."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "lighthalzen",
+          "x": 344,
+          "y": 278,
+          "role": "trigger",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "lighthalzen",
+          "x": 344,
+          "y": 229,
+          "role": "entrance",
+          "known": true,
+          "order": 2,
+          "condition": "Enter this building before the lhz_in03 trigger."
+        },
+        {
+          "entity": "lhz_in03",
+          "x": 178,
+          "y": 22,
+          "role": "trigger",
+          "known": true,
+          "order": 3
+        },
+        {
+          "entity": "lighthalzen",
+          "x": 295,
+          "y": 227,
+          "role": "trigger",
+          "known": true,
+          "order": 4
+        },
+        {
+          "entity": "lighthalzen",
+          "x": 364,
+          "y": 315,
+          "role": "trigger",
+          "known": true,
+          "order": 5
+        }
+      ],
+      "protected_names": [
+        "Handcuffs",
+        "Lighthalzen",
+        "lighthalzen",
+        "lhz_in03"
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "4": {
+      "original_instruction": "Once you have ventured around Lighthalzen and have triggered the spirits, you can swing by and talk to the Elder (Lighthalzen, the City-State of Prosperity (lighthalzen): 346, 263). She has great wisdom regarding the research that has happened in recent years.",
+      "instruction_sha256": "fd750c7a450cec78dd6aa1961d3870626fab8efe702df0fb5fe0bb63124fc778",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/fd750c7a450cec78dd6a/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Elder: lighthalzen 346, 263.",
+      "short_en": "Talk to Elder: lighthalzen 346, 263.",
+      "full_ru": "После появления духов в Lighthalzen поговорите с Elder (Lighthalzen, the City-State of Prosperity (lighthalzen): 346, 263). Она многое знает об исследованиях последних лет.",
+      "full_en": "Once you have ventured around Lighthalzen and have triggered the spirits, you can swing by and talk to the Elder (Lighthalzen, the City-State of Prosperity (lighthalzen): 346, 263). She has great wisdom regarding the research that has happened in recent years.",
+      "npcs": [
+        {
+          "entity": "Elder",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Elder"
+        }
+      ],
+      "protected_names": [
+        "Elder",
+        "Lighthalzen",
+        "lighthalzen"
+      ],
+      "locations": [
+        {
+          "map": "lighthalzen",
+          "x": 346,
+          "y": 263,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lighthalzen): 346, 263"
+        }
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "5": {
+      "original_instruction": "Talk to her and pay attention to her story. She will then help you with getting rid of them. Be honest to her and let her know that you can't remember every bad thing you have done. Follow along with her as she helps you with how to deal with what you have just learned.",
+      "instruction_sha256": "3e436595d308ad55840ca4154ec797d1979d6904e140a79259591dde50cbc20c",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/3e436595d308ad55840c/1",
+      "goal": "talk",
+      "short_ru": "Честно ответьте Elder и выслушайте её объяснение.",
+      "short_en": "Answer Elder honestly and listen to her explanation.",
+      "full_ru": "Поговорите с ней и внимательно выслушайте историю. Она поможет избавиться от духов. Честно признайтесь, что не помните каждого своего дурного поступка, и следуйте её объяснениям.",
+      "full_en": "Talk to her and pay attention to her story. She will then help you with getting rid of them. Be honest to her and let her know that you can't remember every bad thing you have done. Follow along with her as she helps you with how to deal with what you have just learned.",
+      "npcs": [
+        {
+          "entity": "Elder",
+          "role": "talk",
+          "support_step": 4,
+          "evidence": "Once you have ventured around Lighthalzen and have triggered the spirits, you can swing by and talk to the Elder (Lighthalzen, the City-State of Prosperity (lighthalzen): 346, 263). She has great wisdom regarding the research that has happened in recent years."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Elder",
+          "condition": "Admit that you cannot remember every bad thing you have done; exact menu wording is not supplied."
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "6": {
+      "original_instruction": "She will show you where you need to go next, just pay attention to your mini-map. File:Curseminmap.jpg",
+      "instruction_sha256": "1b2a600b99364cc8f7dc8cb095aeb0727ead776d2a850e65f2fb5247f99d3446",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/1b2a600b99364cc8f7dc/1",
+      "goal": "move",
+      "short_ru": "Следуйте отметке на миникарте.",
+      "short_en": "Follow the minimap marker.",
+      "full_ru": "Она покажет, куда идти дальше. Следите за отметкой на миникарте. File:Curseminmap.jpg",
+      "full_en": "She will show you where you need to go next, just pay attention to your mini-map. File:Curseminmap.jpg",
+      "actions": [
+        {
+          "operation": "move",
+          "condition": "Follow the minimap marker; the referenced image is missing from the pinned source."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "route_image_missing",
+          "detail": "The guide references File:Curseminmap.jpg and has broken file links. No coordinates are inferred from an unavailable image."
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "7": {
+      "original_instruction": "Now following the Elder's instructions you will need to head to the Rekenber Headquarters. As you enter into this building you will walk forward and trigger another spirit (lhz_in01 113 150). After triggering the spirit you will want to continue forward towards the Representative and ask about the Corporation's History. She will then guide you to the Library.",
+      "instruction_sha256": "66ef1d0e5d8b4a02c8a5abc49c85cb1698c62c4b6f9951691b568eafa7e5d0e4",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/66ef1d0e5d8b4a02c8a5/1",
+      "goal": "trigger_dialogue",
+      "short_ru": "В Rekenber Headquarters активируйте духа: lhz_in01 113 150, затем поговорите с Representative.",
+      "short_en": "At Rekenber Headquarters, activate the spirit: lhz_in01 113 150, then talk to Representative.",
+      "full_ru": "Следуя указаниям Elder, войдите в Rekenber Headquarters. Пройдите вперёд, чтобы вызвать ещё одного духа (lhz_in01 113 150). Затем подойдите к Representative и спросите о Corporation's History. Она направит вас в Library.",
+      "full_en": "Now following the Elder's instructions you will need to head to the Rekenber Headquarters. As you enter into this building you will walk forward and trigger another spirit (lhz_in01 113 150). After triggering the spirit you will want to continue forward towards the Representative and ask about the Corporation's History. She will then guide you to the Library.",
+      "npcs": [
+        {
+          "entity": "entrance_representative",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "trigger_dialogue"
+        },
+        {
+          "operation": "talk",
+          "entity": "entrance_representative"
+        }
+      ],
+      "protected_names": [
+        "Elder",
+        "Representative",
+        "Representative",
+        "lhz_in01",
+        "Rekenber Headquarters"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 113,
+          "y": 150,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01 113 150"
+        }
+      ],
+      "mention_entities": {
+        "Representative": "entrance_representative"
+      }
+    },
+    "8": {
+      "original_instruction": "Now head to your left into the Library (lhz_in01 27 247) and talk to the Representative there. Talk to her about the Corporation's History and listen closely to what she says. You will need to talk to her again and discuss Rekenber's Businesses with her to find out more about what has been going on. She will then guide you to look up the Guidebook to find more about Rekenber's businesses. Clicking on the Guidebook and reading what little information there is will help you understand the mission that was at hand.",
+      "instruction_sha256": "300f9a2f7c81fc9fcb8c93668a9a7850b4dddd588bd4d8b1e8001a929b884a2a",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/300f9a2f7c81fc9fcb8c/1",
+      "goal": "investigate",
+      "short_ru": "У Representative в Library (lhz_in01 27 247) обсудите историю и деятельность корпорации; прочтите Guidebook.",
+      "short_en": "At Representative in the Library (lhz_in01 27 247), discuss corporate history and business; read Guidebook.",
+      "full_ru": "Идите налево в Library (lhz_in01 27 247) к Representative. Расспросите о Corporation's History, затем снова поговорите о Rekenber's Businesses. Она предложит прочитать Guidebook, чтобы узнать о деятельности Rekenber. Нажмите Guidebook и прочитайте доступные сведения.",
+      "full_en": "Now head to your left into the Library (lhz_in01 27 247) and talk to the Representative there. Talk to her about the Corporation's History and listen closely to what she says. You will need to talk to her again and discuss Rekenber's Businesses with her to find out more about what has been going on. She will then guide you to look up the Guidebook to find more about Rekenber's businesses. Clicking on the Guidebook and reading what little information there is will help you understand the mission that was at hand.",
+      "npcs": [
+        {
+          "entity": "library_representative",
+          "role": "talk"
+        },
+        {
+          "entity": "Guidebook",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "library_representative",
+          "condition": "Corporation's History, then Rekenber's Businesses."
+        },
+        {
+          "operation": "interact",
+          "entity": "Guidebook"
+        }
+      ],
+      "protected_names": [
+        "Guidebook",
+        "Representative",
+        "Representative",
+        "lhz_in01"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 27,
+          "y": 247,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01 27 247"
+        }
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "9": {
+      "original_instruction": "You will need to venture more in this building to find out some other information. There is another location to check out on the 2nd floor. Head to (lhz_in01 272 227) and you will find another spirit. | Note: If this spirit curses the player more than once step 11 will not work correctly and players will need to start over from step 7. Be extra careful when activating this spirit to ensure it is only done once.",
+      "instruction_sha256": "d8d212a5308fad9f1ee7c8c344745393be922223a7dcf91bd95bc920f305a860",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/d8d212a5308fad9f1ee7/1",
+      "goal": "trigger_dialogue",
+      "short_ru": "Активируйте духа только один раз: lhz_in01 272 227.",
+      "short_en": "Activate this spirit only once: lhz_in01 272 227.",
+      "full_ru": "На 2-м этаже посетите ещё одну точку с духом (lhz_in01 272 227). Примечание: если он проклянёт персонажа более одного раза, этап 11 не сработает и придётся начинать снова с этапа 7. Будьте особенно осторожны: активируйте этого духа только один раз.",
+      "full_en": "You will need to venture more in this building to find out some other information. There is another location to check out on the 2nd floor. Head to (lhz_in01 272 227) and you will find another spirit. | Note: If this spirit curses the player more than once step 11 will not work correctly and players will need to start over from step 7. Be extra careful when activating this spirit to ensure it is only done once.",
+      "actions": [
+        {
+          "operation": "trigger_dialogue",
+          "condition": "Only once; multiple curses force a restart from source step 7."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "maximum_trigger_count",
+          "amount": "1",
+          "condition": "Avoid repeated curses at this location."
+        },
+        {
+          "kind": "restart_source_step",
+          "amount": "7",
+          "condition": "Only if this spirit curses the character more than once."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "lhz_in01",
+          "x": 272,
+          "y": 227,
+          "role": "trigger",
+          "known": true,
+          "condition": "Activate only once; repeated curse requires restarting from source step 7."
+        }
+      ],
+      "protected_names": [
+        "lhz_in01"
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "10": {
+      "original_instruction": "Realizing that you might be in over your head and yet still curious as to what is going on, you head back towards the Library. As you get closer you see a Rekenber Guard , almost like you walked right past him earlier. Talk to the guard and he will request your ID to be confirmed. You will need a Grandpa's Beard and Geek Glasses, as you can tell from his own ID, before he will let you pass. File:Guard.jpg Once you have put on the Grandpa Beard and Geek Glasses you can then talk to the Rekenber Guard and he will let you into the room.",
+      "instruction_sha256": "ce705131711bc8644cd8800b4cefae1fbb019bf1e489c983c08e3b6be2034b0c",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/ce705131711bc8644cd8/1",
+      "goal": "equip",
+      "short_ru": "Наденьте Grandpa Beard и Geek Glasses и поговорите с Rekenber Guard.",
+      "short_en": "Equip Grandpa Beard and Geek Glasses and talk to Rekenber Guard.",
+      "full_ru": "Вернитесь к Library и поговорите с Rekenber Guard. Для проверки пропуска нужны Grandpa's Beard и Geek Glasses. File:Guard.jpg. Наденьте Grandpa Beard и Geek Glasses и снова поговорите с Rekenber Guard: он пропустит в комнату.",
+      "full_en": "Realizing that you might be in over your head and yet still curious as to what is going on, you head back towards the Library. As you get closer you see a Rekenber Guard , almost like you walked right past him earlier. Talk to the guard and he will request your ID to be confirmed. You will need a Grandpa's Beard and Geek Glasses, as you can tell from his own ID, before he will let you pass. File:Guard.jpg Once you have put on the Grandpa Beard and Geek Glasses you can then talk to the Rekenber Guard and he will let you into the room.",
+      "npcs": [
+        {
+          "entity": "Rekenber Guard",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Grandpa Beard",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Grandpa Beard",
+          "condition": "Must be worn; explicitly not consumed."
+        },
+        {
+          "entity": "Geek Glasses",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Geek Glasses",
+          "condition": "Must be worn; explicitly not consumed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "equip",
+          "entity": "Grandpa Beard"
+        },
+        {
+          "operation": "equip",
+          "entity": "Geek Glasses"
+        },
+        {
+          "operation": "talk",
+          "entity": "Rekenber Guard"
+        }
+      ],
+      "protected_names": [
+        "Rekenber Guard",
+        "Geek Glasses",
+        "Grandpa Beard"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "11": {
+      "original_instruction": "Once you enter the room, you will want to head to your right. You will see 3 rooms. Each room has a very specific purpose for the testing and creating that is done here. Head to the room on the far right, and walk towards the middle of the room (lhz_in01 206 129). A dialogue box will appear and you will be taken back in time.",
+      "instruction_sha256": "2ac443460844a6dc36e5b758d9f9c76eb2966dd8bde71a80be8ed840e9e69108",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/2ac443460844a6dc36e5/1",
+      "goal": "trigger_dialogue",
+      "short_ru": "Подойдите к центру правой комнаты: lhz_in01 206 129.",
+      "short_en": "Approach the center of the rightmost room: lhz_in01 206 129.",
+      "full_ru": "Войдя, идите направо. Здесь 3 комнаты с разными назначениями. В крайней правой подойдите к центру (lhz_in01 206 129): появится диалог, и вас перенесёт в прошлое.",
+      "full_en": "Once you enter the room, you will want to head to your right. You will see 3 rooms. Each room has a very specific purpose for the testing and creating that is done here. Head to the room on the far right, and walk towards the middle of the room (lhz_in01 206 129). A dialogue box will appear and you will be taken back in time.",
+      "actions": [
+        {
+          "operation": "trigger_dialogue"
+        }
+      ],
+      "protected_names": [
+        "lhz_in01"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 206,
+          "y": 129,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01 206 129"
+        }
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "12": {
+      "original_instruction": "Once you have entered, you will stumble upon a conversation between Doctor Varmunt and a representative of the Rekenber Corporation. It would seem that the brilliant Doctor isn't happy with what he was asked to do. After the conversation you will be transported back to your own time.",
+      "instruction_sha256": "f75a810827ee6a8b6332e8c57824e7e8e445d5a34a9aa8e83c2879d404dce67e",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/f75a810827ee6a8b6332/1",
+      "goal": "overhear",
+      "short_ru": "Выслушайте разговор Doctor Varmunt и дождитесь возвращения.",
+      "short_en": "Listen to Doctor Varmunt and wait to return.",
+      "full_ru": "Вы услышите разговор Doctor Varmunt с представителем Rekenber Corporation. Доктор недоволен порученной работой. После разговора вас вернёт в настоящее.",
+      "full_en": "Once you have entered, you will stumble upon a conversation between Doctor Varmunt and a representative of the Rekenber Corporation. It would seem that the brilliant Doctor isn't happy with what he was asked to do. After the conversation you will be transported back to your own time.",
+      "npcs": [
+        {
+          "entity": "Doctor Varmunt",
+          "role": "overhear"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "overhear",
+          "entity": "Doctor Varmunt"
+        },
+        {
+          "operation": "return"
+        }
+      ],
+      "protected_names": [
+        "Doctor Varmunt"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "13": {
+      "original_instruction": "Now that you know about the fake Ymir's Heart and the developments they are trying to accomplish with the Airship and the Guardians, you should go see and talk to one of the scientists in this area. Talk to the Mad Scientist (lhz_in01 273 121), and offer him your help. File:Scientistdiag.jpg",
+      "instruction_sha256": "ace2ec704ae749d59780b6419abc1b0daeab60da23797e1ea21bb2741bf09b9a",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/ace2ec704ae749d59780/1",
+      "goal": "talk",
+      "short_ru": "Предложите помощь Mad Scientist: lhz_in01 273 121.",
+      "short_en": "Offer to help Mad Scientist: lhz_in01 273 121.",
+      "full_ru": "Узнав о поддельном Ymir's Heart и разработках Airship и Guardians, поговорите с Mad Scientist (lhz_in01 273 121) и предложите помощь. File:Scientistdiag.jpg",
+      "full_en": "Now that you know about the fake Ymir's Heart and the developments they are trying to accomplish with the Airship and the Guardians, you should go see and talk to one of the scientists in this area. Talk to the Mad Scientist (lhz_in01 273 121), and offer him your help. File:Scientistdiag.jpg",
+      "npcs": [
+        {
+          "entity": "Mad Scientist",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mad Scientist"
+        }
+      ],
+      "protected_names": [
+        "Mad Scientist",
+        "Scientist",
+        "lhz_in01"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 273,
+          "y": 121,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01 273 121"
+        }
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "14": {
+      "original_instruction": "Talk to the Mad Scientist again as it would seem he was too distracted to give you the right attention you requested for. Ask to speak to him again, and he will give you a hint of what he needs. Round and Shiny? Must be a Glass Bead ! Bring back a Glass Bead to him again and politely ask him about his work. He will give you some details about what he is working on and how he feels it will change the world.",
+      "instruction_sha256": "573c87f9d59fe2ad9abefcd000214542e9d634953ad8f5c7e5112df9d256d78b",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/573c87f9d59fe2ad9abe/1",
+      "goal": "deliver",
+      "short_ru": "Принесите 1 Glass Bead Mad Scientist и расспросите о работе.",
+      "short_en": "Bring 1 Glass Bead to Mad Scientist and ask about his work.",
+      "full_ru": "Снова поговорите с Mad Scientist, который отвлёкся в прошлый раз. Попросите выслушать вас: он намекнёт на нужный предмет — «Round and Shiny?», то есть Glass Bead. Принесите Glass Bead и вежливо спросите о работе. Он расскажет о своём исследовании и надеждах изменить мир.",
+      "full_en": "Talk to the Mad Scientist again as it would seem he was too distracted to give you the right attention you requested for. Ask to speak to him again, and he will give you a hint of what he needs. Round and Shiny? Must be a Glass Bead ! Bring back a Glass Bead to him again and politely ask him about his work. He will give you some details about what he is working on and how he feels it will change the world.",
+      "npcs": [
+        {
+          "entity": "Mad Scientist",
+          "role": "deliver"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Glass Bead",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mad Scientist"
+        },
+        {
+          "operation": "deliver",
+          "entity": "Glass Bead"
+        }
+      ],
+      "protected_names": [
+        "Mad Scientist",
+        "Scientist",
+        "Glass Bead"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "15": {
+      "original_instruction": "Let's wander around, and head to the room to the north. See if what this Mad Scientist is talking about will really change the world. Moving into the north room, (lhz_in01 282 166) you will circle around a table in the middle of the room and find something on the floor. Oh wait! It's a door to another room. As you enter you notice this room looks just like the one you came from. If you move around the room you will see what looks to be some sort of testing going on.",
+      "instruction_sha256": "2362400256fae50dff98ca55275bf4834f01650e2c23c643f034ea2bccbf5641",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/2362400256fae50dff98/1",
+      "goal": "investigate",
+      "short_ru": "Исследуйте северную комнату и дверь в полу: lhz_in01 282 166.",
+      "short_en": "Investigate the north room and floor door: lhz_in01 282 166.",
+      "full_ru": "Проверьте северную комнату, чтобы увидеть, что имел в виду Mad Scientist. У (lhz_in01 282 166) обойдите стол в центре и найдите дверь в полу. За ней комната, похожая на предыдущую. Перемещайтесь внутри, чтобы увидеть происходящие опыты.",
+      "full_en": "Let's wander around, and head to the room to the north. See if what this Mad Scientist is talking about will really change the world. Moving into the north room, (lhz_in01 282 166) you will circle around a table in the middle of the room and find something on the floor. Oh wait! It's a door to another room. As you enter you notice this room looks just like the one you came from. If you move around the room you will see what looks to be some sort of testing going on.",
+      "actions": [
+        {
+          "operation": "investigate"
+        },
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "move"
+        }
+      ],
+      "protected_names": [
+        "Mad Scientist",
+        "Scientist",
+        "lhz_in01"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 282,
+          "y": 166,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01 282 166"
+        }
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "16": {
+      "original_instruction": "You talk to the Scientist and you see he is having a conversation with...what looks to be a Peco Peco. Upon listening into this conversation the Scientist is having with himself and the Peco Peco you realize that he throws down what he claims to be a cheap trinket. Pick up this Pendant and let's see if we can find its rightful owner. Someone has to know something about this item.",
+      "instruction_sha256": "990e7c1fb65464f83be47f678fef747c0cb157b292c634d8d0b7004d58e2d633",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/990e7c1fb65464f83be4/1",
+      "goal": "collect",
+      "short_ru": "Выслушайте Scientist и подберите Pendant.",
+      "short_en": "Listen to Scientist and collect Pendant.",
+      "full_ru": "Поговорите с Scientist, беседующим с существом, похожим на Peco Peco. Выслушайте разговор: Scientist бросит то, что называет дешёвой безделушкой. Подберите Pendant и попробуйте найти владельца.",
+      "full_en": "You talk to the Scientist and you see he is having a conversation with...what looks to be a Peco Peco. Upon listening into this conversation the Scientist is having with himself and the Peco Peco you realize that he throws down what he claims to be a cheap trinket. Pick up this Pendant and let's see if we can find its rightful owner. Someone has to know something about this item.",
+      "npcs": [
+        {
+          "entity": "Scientist",
+          "role": "talk"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Peco Peco",
+          "operation": "mention",
+          "required": 0,
+          "condition": "Story appearance; no kill objective or verified monster ID."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Pendant",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "overhear",
+          "entity": "Scientist"
+        },
+        {
+          "operation": "collect",
+          "entity": "Pendant"
+        }
+      ],
+      "protected_names": [
+        "Scientist",
+        "Pendant",
+        "Peco Peco"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "17": {
+      "original_instruction": "You remember that the Elder said to return once you find what you are looking for. Head back to the Elder and see if she can help by showing her the pendant. The pendant looks to have a curse on it, something that she claims to be able to fix. Return to her with 5 Holy Water (from a local priest or Merman ) and a Bouquet (from Prontera's Flower Girl) as she has requested. Once you return to her with the 5 Holy Water and the Bouquet she will calm the curse and ask you to return the pendant to its rightful owner.",
+      "instruction_sha256": "5a2bc33abe5aef9c1a66fd4542d198d32e95405d638f77278ad9978caea00775",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/5a2bc33abe5aef9c1a66/1",
+      "goal": "deliver",
+      "short_ru": "Принесите Elder 5 Holy Water и 1 Bouquet для снятия проклятия.",
+      "short_en": "Bring Elder 5 Holy Water and 1 Bouquet to lift the curse.",
+      "full_ru": "Вернитесь к Elder и покажите pendant. Она скажет, что может снять с него проклятие. Принесите 5 Holy Water, полученные у священника или с Merman, и Bouquet у Flower Girl в Prontera. Вернувшись с 5 Holy Water и Bouquet, вы успокоите проклятие; Elder попросит вернуть pendant владельцу.",
+      "full_en": "You remember that the Elder said to return once you find what you are looking for. Head back to the Elder and see if she can help by showing her the pendant. The pendant looks to have a curse on it, something that she claims to be able to fix. Return to her with 5 Holy Water (from a local priest or Merman ) and a Bouquet (from Prontera's Flower Girl) as she has requested. Once you return to her with the 5 Holy Water and the Bouquet she will calm the curse and ask you to return the pendant to its rightful owner.",
+      "npcs": [
+        {
+          "entity": "Elder",
+          "role": "talk"
+        },
+        {
+          "entity": "Flower Girl",
+          "role": "vendor"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Holy Water",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Bouquet",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Pendant",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "support_step": 16,
+          "evidence": "You talk to the Scientist and you see he is having a conversation with...what looks to be a Peco Peco. Upon listening into this conversation the Scientist is having with himself and the Peco Peco you realize that he throws down what he claims to be a cheap trinket. Pick up this Pendant and let's see if we can find its rightful owner. Someone has to know something about this item."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "show",
+          "entity": "Pendant"
+        },
+        {
+          "operation": "deliver"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Merman",
+          "operation": "loot_source",
+          "required": 0,
+          "condition": "One suggested Holy Water source; a priest is an alternative. No mandatory kills."
+        }
+      ],
+      "protected_names": [
+        "Elder",
+        "Flower Girl",
+        "Bouquet",
+        "Holy Water",
+        "Merman",
+        "Prontera"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "18": {
+      "original_instruction": "If you head north in the slums district (lighthalzen 319,321) you will come to a house with a Crippled Girl (lhz_in03 31,162) that looks to be in some serious discomfort. Talk to the girl and show her the pendant, and listen to her story of what the pendant means to her. Then tell her as gently as possible, and then offer her some comfort. If you tell her the brutal truth and get kicked out, simply keep retrying to enter the building and the door will eventually unlock.",
+      "instruction_sha256": "8ded66b9b0c4562fdb29a6dfc0daccc80dfd69c9dcfb8aca1afb6990941df513",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/8ded66b9b0c4562fdb29/1",
+      "goal": "comfort",
+      "short_ru": "Покажите pendant Crippled Girl (lhz_in03 31,162) и утешьте; при изгнании повторяйте вход.",
+      "short_en": "Show the pendant to Crippled Girl (lhz_in03 31,162) and comfort her; retry entry if expelled.",
+      "full_ru": "На севере трущоб войдите в дом (lighthalzen 319,321). Внутри найдите Crippled Girl (lhz_in03 31,162). Покажите pendant, выслушайте её историю, затем сообщите новости как можно мягче и утешьте. Если рассказать жестокую правду и вас выгонят, повторяйте попытки входа: дверь в итоге откроется.",
+      "full_en": "If you head north in the slums district (lighthalzen 319,321) you will come to a house with a Crippled Girl (lhz_in03 31,162) that looks to be in some serious discomfort. Talk to the girl and show her the pendant, and listen to her story of what the pendant means to her. Then tell her as gently as possible, and then offer her some comfort. If you tell her the brutal truth and get kicked out, simply keep retrying to enter the building and the door will eventually unlock.",
+      "npcs": [
+        {
+          "entity": "Crippled Girl",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Pendant",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "support_step": 16,
+          "evidence": "You talk to the Scientist and you see he is having a conversation with...what looks to be a Peco Peco. Upon listening into this conversation the Scientist is having with himself and the Peco Peco you realize that he throws down what he claims to be a cheap trinket. Pick up this Pendant and let's see if we can find its rightful owner. Someone has to know something about this item."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Crippled Girl"
+        },
+        {
+          "operation": "show",
+          "entity": "Pendant"
+        },
+        {
+          "operation": "comfort",
+          "entity": "Crippled Girl",
+          "condition": "Give the news gently; after a harsh response, retry the door until it opens."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "lighthalzen",
+          "x": 319,
+          "y": 321,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "lhz_in03",
+          "x": 31,
+          "y": 162,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Crippled Girl",
+        "lighthalzen",
+        "lhz_in03"
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "19": {
+      "original_instruction": "After you have comforted her, you can head back out of their house and continue your quest to find out what more there is about this spirit. As you exit the house (lighthalzen 319 321) you will be confronted by the spirit again, but this time the spirit is grateful for what you have been able to do to help him and blesses you for what you did. | Experience amounts received: | Level 60-69 = 800,000 Base Exp / 300,000 Job Exp | Level 70-79 = 1,000,000 Base Exp / 500,000 Job Exp | Level 80-89 = 1,500,000 Base Exp / 800,000 Job Exp | Level 90-99 = 2,000,000 Base Exp / 1,000,000 Job Exp",
+      "instruction_sha256": "dca5f3fc2d469ef124cd9ca037da1816f9b8e56113999d372d43f28ec5b75ea5",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/dca5f3fc2d469ef124cd/1",
+      "goal": "receive_reward",
+      "short_ru": "Выйдите из дома для получения EXP; награда зависит от уровня.",
+      "short_en": "Leave the house to receive EXP; the reward depends on your level.",
+      "full_ru": "Утешив девушку, выйдите из дома (lighthalzen 319 321). Снова появится дух, теперь благодарный вам, и благословит персонажа. Получаемый опыт: | Level 60-69 = 800,000 Base Exp / 300,000 Job Exp | Level 70-79 = 1,000,000 Base Exp / 500,000 Job Exp | Level 80-89 = 1,500,000 Base Exp / 800,000 Job Exp | Level 90-99 = 2,000,000 Base Exp / 1,000,000 Job Exp",
+      "full_en": "After you have comforted her, you can head back out of their house and continue your quest to find out what more there is about this spirit. As you exit the house (lighthalzen 319 321) you will be confronted by the spirit again, but this time the spirit is grateful for what you have been able to do to help him and blesses you for what you did. | Experience amounts received: | Level 60-69 = 800,000 Base Exp / 300,000 Job Exp | Level 70-79 = 1,000,000 Base Exp / 500,000 Job Exp | Level 80-89 = 1,500,000 Base Exp / 800,000 Job Exp | Level 90-99 = 2,000,000 Base Exp / 1,000,000 Job Exp",
+      "actions": [
+        {
+          "operation": "trigger_dialogue"
+        }
+      ],
+      "protected_names": [
+        "lighthalzen"
+      ],
+      "locations": [
+        {
+          "map": "lighthalzen",
+          "x": 319,
+          "y": 321,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lighthalzen 319 321"
+        }
+      ],
+      "branches": [
+        {
+          "key": "level_60_69",
+          "choice_group": "level_reward_band",
+          "variant_scope": "Classic wiki level band; server rates unverified",
+          "condition": "Base level 60-69 at the reward stage; one matching band only.",
+          "section": "",
+          "source_step": 19,
+          "original_instruction": "Level 60-69 = 800,000 Base Exp / 300,000 Job Exp",
+          "instruction_sha256": "4eeaa8dc002d74d624f7d3172ce2568046642b3af3041f17088f977d6c54fc63",
+          "short_ru": "Уровень 60-69: 800,000 Base Exp / 300,000 Job Exp.",
+          "short_en": "Level 60-69 = 800,000 Base Exp / 300,000 Job Exp.",
+          "full_ru": "Уровень 60-69: 800,000 Base Exp / 300,000 Job Exp.",
+          "full_en": "Level 60-69 = 800,000 Base Exp / 300,000 Job Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "800000",
+              "condition": "Base level 60-69 only."
+            },
+            {
+              "kind": "job_exp",
+              "amount": "300000",
+              "condition": "Base level 60-69 only."
+            }
+          ]
+        },
+        {
+          "key": "level_70_79",
+          "choice_group": "level_reward_band",
+          "variant_scope": "Classic wiki level band; server rates unverified",
+          "condition": "Base level 70-79 at the reward stage; one matching band only.",
+          "section": "",
+          "source_step": 19,
+          "original_instruction": "Level 70-79 = 1,000,000 Base Exp / 500,000 Job Exp",
+          "instruction_sha256": "3e0ab678fc55d6de47e5e5df3dd4192241bac8a395043ed3fbd439eb40abf12b",
+          "short_ru": "Уровень 70-79: 1,000,000 Base Exp / 500,000 Job Exp.",
+          "short_en": "Level 70-79 = 1,000,000 Base Exp / 500,000 Job Exp.",
+          "full_ru": "Уровень 70-79: 1,000,000 Base Exp / 500,000 Job Exp.",
+          "full_en": "Level 70-79 = 1,000,000 Base Exp / 500,000 Job Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "1000000",
+              "condition": "Base level 70-79 only."
+            },
+            {
+              "kind": "job_exp",
+              "amount": "500000",
+              "condition": "Base level 70-79 only."
+            }
+          ]
+        },
+        {
+          "key": "level_80_89",
+          "choice_group": "level_reward_band",
+          "variant_scope": "Classic wiki level band; server rates unverified",
+          "condition": "Base level 80-89 at the reward stage; one matching band only.",
+          "section": "",
+          "source_step": 19,
+          "original_instruction": "Level 80-89 = 1,500,000 Base Exp / 800,000 Job Exp",
+          "instruction_sha256": "7b5a4fb8e2540fffe3808dc703ceae95b13256d6d8fbfa802e4252537c17cdc6",
+          "short_ru": "Уровень 80-89: 1,500,000 Base Exp / 800,000 Job Exp.",
+          "short_en": "Level 80-89 = 1,500,000 Base Exp / 800,000 Job Exp.",
+          "full_ru": "Уровень 80-89: 1,500,000 Base Exp / 800,000 Job Exp.",
+          "full_en": "Level 80-89 = 1,500,000 Base Exp / 800,000 Job Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "1500000",
+              "condition": "Base level 80-89 only."
+            },
+            {
+              "kind": "job_exp",
+              "amount": "800000",
+              "condition": "Base level 80-89 only."
+            }
+          ]
+        },
+        {
+          "key": "level_90_99",
+          "choice_group": "level_reward_band",
+          "variant_scope": "Classic wiki level band; server rates unverified",
+          "condition": "Base level 90-99 at the reward stage; one matching band only.",
+          "section": "",
+          "source_step": 19,
+          "original_instruction": "Level 90-99 = 2,000,000 Base Exp / 1,000,000 Job Exp",
+          "instruction_sha256": "ce1a7537361819022c891e377be93045f7fbea5a5d0fef7d2ad39cb0a885269c",
+          "short_ru": "Уровень 90-99: 2,000,000 Base Exp / 1,000,000 Job Exp.",
+          "short_en": "Level 90-99 = 2,000,000 Base Exp / 1,000,000 Job Exp.",
+          "full_ru": "Уровень 90-99: 2,000,000 Base Exp / 1,000,000 Job Exp.",
+          "full_en": "Level 90-99 = 2,000,000 Base Exp / 1,000,000 Job Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "2000000",
+              "condition": "Base level 90-99 only."
+            },
+            {
+              "kind": "job_exp",
+              "amount": "1000000",
+              "condition": "Base level 90-99 only."
+            }
+          ]
+        }
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "20": {
+      "original_instruction": "The search for a true answer hasn't stopped, and you figure that this spirit that continues to follow you has something to do with the Rekenber Corporation and you feel the need to continue there. You head to speak with a Secretary; Secretary Slierre (lhz_in01 286 226). You ask Slierre about the slums, only to find out she doesn't know much about them. So you talk to her again and ask about the Laboratory, and she gives you a vague question and pushes you off to the help desk. Realizing she isn't going to answer your questions in a round about manner, you come out with it and ask about Wolfchev's Research. Stunned, she inquires about why you asked, and you explain that you are a friend of his. She tries to brush you off, but you reply with W-Wait!, and you ask again about Wolfchev's Research. She explains that she is not able to answer your questions but if you have something to show her then she is more then willing to help you. So you ask about Wolchev's Test Subjects, ignoring her statement of not being able to help. At this point she attempts to sway the conversation towards the positive aspects of the research and you claim that his experiments are suspicious and you don't trust the corporation. Not claiming to know anything, she asks for proof, so you show her the evidence. You show her the Handcuffs and Slierre becomes bothered by this proof. You ask what Wolfchev is doing now, and you explain that, Yes you are suspicious about his research, and question about Mr. Wolfchev and the creatures in Regenschirm. She takes your claims and asks that you give her time to go over it all and see if there is any truth to this report.",
+      "instruction_sha256": "546547c4e398b0e9678a4218bc3a119dafb8f3760c3c20413266e1388a45e11f",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/546547c4e398b0e9678a/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Secretary Slierre: lhz_in01 286 226; покажите Handcuffs как доказательство.",
+      "short_en": "Question Secretary Slierre: lhz_in01 286 226; show Handcuffs as evidence.",
+      "full_ru": "Продолжите расследование у Secretary Slierre (lhz_in01 286 226). Спросите Slierre о трущобах, затем о Laboratory. После уклончивых ответов спросите о Wolfchev's Research и объясните, что вы его друг. Когда она попытается закончить разговор, ответьте «W-Wait!» и снова спросите о Wolfchev's Research. На отказ отвечать спросите о Wolchev's Test Subjects. Выразите сомнения в исследованиях и недоверие корпорации. В качестве доказательства покажите Handcuffs. Затем спросите, чем теперь занимается Wolfchev, подтвердите подозрения относительно Mr. Wolfchev и существ в Regenschirm. Она попросит время на проверку сведений.",
+      "full_en": "The search for a true answer hasn't stopped, and you figure that this spirit that continues to follow you has something to do with the Rekenber Corporation and you feel the need to continue there. You head to speak with a Secretary; Secretary Slierre (lhz_in01 286 226). You ask Slierre about the slums, only to find out she doesn't know much about them. So you talk to her again and ask about the Laboratory, and she gives you a vague question and pushes you off to the help desk. Realizing she isn't going to answer your questions in a round about manner, you come out with it and ask about Wolfchev's Research. Stunned, she inquires about why you asked, and you explain that you are a friend of his. She tries to brush you off, but you reply with W-Wait!, and you ask again about Wolfchev's Research. She explains that she is not able to answer your questions but if you have something to show her then she is more then willing to help you. So you ask about Wolchev's Test Subjects, ignoring her statement of not being able to help. At this point she attempts to sway the conversation towards the positive aspects of the research and you claim that his experiments are suspicious and you don't trust the corporation. Not claiming to know anything, she asks for proof, so you show her the evidence. You show her the Handcuffs and Slierre becomes bothered by this proof. You ask what Wolfchev is doing now, and you explain that, Yes you are suspicious about his research, and question about Mr. Wolfchev and the creatures in Regenschirm. She takes your claims and asks that you give her time to go over it all and see if there is any truth to this report.",
+      "npcs": [
+        {
+          "entity": "Secretary Slierre",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Handcuffs",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "condition": "Evidence shown to Slierre; header says consumed but exact removal timing is not explicit."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Secretary Slierre",
+          "condition": "Slums, Laboratory, Wolfchev's Research, friend claim, W-Wait!, research again, Wolchev's Test Subjects, challenge the experiments."
+        },
+        {
+          "operation": "show",
+          "entity": "Handcuffs"
+        },
+        {
+          "operation": "talk",
+          "entity": "Secretary Slierre",
+          "condition": "Ask about current research and Regenschirm; wait for investigation results."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Secretary Slierre",
+          "options": [
+            {
+              "text": "W-Wait!",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "unquoted_menu_topics",
+          "detail": "Most topics are narrative descriptions, not verbatim menu choices. Only the explicit W-Wait! reply is asserted as an exact answer. Wolfchev/Wolchev spellings are preserved."
+        }
+      ],
+      "protected_names": [
+        "Secretary Slierre",
+        "Handcuffs",
+        "lhz_in01"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 286,
+          "y": 226,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01 286 226"
+        }
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "21": {
+      "original_instruction": "Being that you want answers now, you continue to pester her by requesting the results and what was found. After a few minutes of pestering her she comes back and informs you of the dreadful truth that Wolfchev had done unauthorized research and what you had found was the truth. You ask what he was doing, and she tells you what she was able to find out about his deadly research. | Obtain an Old Blue Box & 10 Speed Potions",
+      "instruction_sha256": "1ac279d7206d828b27305b68826282b330ac9fa84be7199bf762af4c295516ea",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/1ac279d7206d828b2730/1",
+      "goal": "receive_reward",
+      "short_ru": "Попросите результаты у Secretary Slierre; получите Old Blue Box и 10 Speed Potions.",
+      "short_en": "Ask Secretary Slierre for the results; receive Old Blue Box and 10 Speed Potions.",
+      "full_ru": "Продолжайте просить результаты проверки. Через несколько минут настойчивых обращений она подтвердит, что Wolfchev вёл несанкционированные исследования и ваши сведения верны. Расспросите об обнаруженных опытах. Награда: Old Blue Box и 10 Speed Potions.",
+      "full_en": "Being that you want answers now, you continue to pester her by requesting the results and what was found. After a few minutes of pestering her she comes back and informs you of the dreadful truth that Wolfchev had done unauthorized research and what you had found was the truth. You ask what he was doing, and she tells you what she was able to find out about his deadly research. | Obtain an Old Blue Box & 10 Speed Potions",
+      "npcs": [
+        {
+          "entity": "Secretary Slierre",
+          "role": "talk",
+          "support_step": 20,
+          "evidence": "The search for a true answer hasn't stopped, and you figure that this spirit that continues to follow you has something to do with the Rekenber Corporation and you feel the need to continue there. You head to speak with a Secretary; Secretary Slierre (lhz_in01 286 226). You ask Slierre about the slums, only to find out she doesn't know much about them. So you talk to her again and ask about the Laboratory, and she gives you a vague question and pushes you off to the help desk. Realizing she isn't going to answer your questions in a round about manner, you come out with it and ask about Wolfchev's Research. Stunned, she inquires about why you asked, and you explain that you are a friend of his. She tries to brush you off, but you reply with W-Wait!, and you ask again about Wolfchev's Research. She explains that she is not able to answer your questions but if you have something to show her then she is more then willing to help you. So you ask about Wolchev's Test Subjects, ignoring her statement of not being able to help. At this point she attempts to sway the conversation towards the positive aspects of the research and you claim that his experiments are suspicious and you don't trust the corporation. Not claiming to know anything, she asks for proof, so you show her the evidence. You show her the Handcuffs and Slierre becomes bothered by this proof. You ask what Wolfchev is doing now, and you explain that, Yes you are suspicious about his research, and question about Mr. Wolfchev and the creatures in Regenschirm. She takes your claims and asks that you give her time to go over it all and see if there is any truth to this report."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Secretary Slierre",
+          "condition": "Repeat until results are available; source does not give a fixed timer."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Blue Box"
+        },
+        {
+          "kind": "item",
+          "amount": "10",
+          "entity": "Speed Potions"
+        }
+      ],
+      "protected_names": [
+        "Old Blue Box",
+        "Speed Potions"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    },
+    "22": {
+      "original_instruction": "Now that you have confirmed the unauthorized research, you rush back to the Mad Scientist (lhz_que01 94 2) to put a stop to his research but when you arrive you find that he has vanished and that all he left behind were his well documented research files.",
+      "instruction_sha256": "0e42db8f0052122cea14d4751b7ddafd7d0cc1abd3b8b00c352bf36dc5785249",
+      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/0e42db8f0052122cea14/1",
+      "goal": "investigate",
+      "short_ru": "Осмотрите оставленные записи Mad Scientist: lhz_que01 94 2.",
+      "short_en": "Inspect the records left by Mad Scientist: lhz_que01 94 2.",
+      "full_ru": "Вернитесь к Mad Scientist (lhz_que01 94 2), чтобы остановить исследования. Он уже исчез, оставив только подробные исследовательские записи.",
+      "full_en": "Now that you have confirmed the unauthorized research, you rush back to the Mad Scientist (lhz_que01 94 2) to put a stop to his research but when you arrive you find that he has vanished and that all he left behind were his well documented research files.",
+      "npcs": [
+        {
+          "entity": "Mad Scientist",
+          "role": "absent"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "investigate",
+          "condition": "Scientist has vanished; no conversation with a present NPC is asserted."
+        }
+      ],
+      "protected_names": [
+        "Mad Scientist",
+        "Scientist",
+        "lhz_que01"
+      ],
+      "locations": [
+        {
+          "map": "lhz_que01",
+          "x": 94,
+          "y": 2,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_que01 94 2"
+        }
+      ],
+      "mention_entities": {
+        "Representative": "library_representative"
+      }
+    }
+  },
+  "reviews": [
+    {
+      "reason": "same_name_distinct_representatives",
+      "detail": "Entrance and library Representative are separate NPC records. The unnamed representative in the flashback is not merged into either."
+    },
+    {
+      "reason": "handcuff_consumption_stage_unknown",
+      "detail": "Header lists one consumed Handcuffs; the walkthrough retains it for triggers and later shows it to Slierre without stating exact removal. No early consume action is invented."
+    },
+    {
+      "reason": "source_images_unavailable",
+      "detail": "Pinned source has broken file links. File:Handcuffs.jpg, Cursetrigger.jpg, Curseminmap.jpg, Guard.jpg and Scientistdiag.jpg references remain audit text; no image is fabricated or automatically licensed."
+    },
+    {
+      "reason": "reward_band_limits",
+      "detail": "The source gives only Base levels 60-99. No reward for level 100+ or a changed server rate is inferred."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Handcuffs",
+        "entity": "Handcuffs",
+        "condition": "Quest header total; consumption timing may not be explicit in the walkthrough."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Glass Bead",
+        "entity": "Glass Bead",
+        "condition": "Quest header total; consumption timing may not be explicit in the walkthrough."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Bouquet",
+        "entity": "Bouquet",
+        "condition": "Quest header total; consumption timing may not be explicit in the walkthrough."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Holy Water",
+        "entity": "Holy Water",
+        "condition": "Quest header total; consumption timing may not be explicit in the walkthrough."
+      },
+      {
+        "kind": "item_not_consumed",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Grandpa Beard",
+        "entity": "Grandpa Beard",
+        "condition": "Disguise equipment; must be worn, not consumed."
+      },
+      {
+        "kind": "item_not_consumed",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Geek Glasses",
+        "entity": "Geek Glasses",
+        "condition": "Disguise equipment; must be worn, not consumed."
+      }
+    ]
+  }
+}
