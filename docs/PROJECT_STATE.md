@@ -8,19 +8,22 @@ Authoritative database-phase specification: `research/quest-database/SEMANTIC_DA
 
 ### Database implementation checkpoint — 2026-11-01
 
-Branch `research/quest-database`: normalized semantic SQLite schema 4 and
+Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 360 steps in 25 curated guides and
-14 conditional branches. One source addition supplements full descriptions;
-**2,390 steps / 191 remaining catalog entries still need processing**. Five quest routes preserve Odin's
+is excluded. All four RU/EN fields exist for 420 steps in 28 curated guides and
+21 conditional branches. One source addition supplements full descriptions;
+**2,330 steps / 188 remaining catalog entries still need processing**. Six quest routes preserve Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
-additional stage required for Report prerequisite use. New Surroundings has
+additional stage required for Report prerequisite use, plus Pursuing Rayan's
+optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
+group; scouting timers and failed-page losses retain separate iRO variants.
+Tripatriate's repeatable food recipes are separate from main rewards. New Surroundings has
 an explicit repair-action reuse link and one shared material total for both
 posts; curated quest relations retain exact prerequisite/concurrency evidence.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 119 regression tests, full offline rebuild and research CI
+Local validation: 128 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

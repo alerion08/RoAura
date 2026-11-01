@@ -16,12 +16,13 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-4.1.0'
+VERSION = 'semantic-5.0.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
 ROUTE_SCHEMA = ROOT/'migrations/004_quest_routes.sql'
-SCHEMA_VERSION = 4
+PREREQUISITE_SCHEMA = ROOT/'migrations/005_prerequisite_groups.sql'
+SCHEMA_VERSION = 5
 FIELDS = ('short_ru','short_en','full_ru','full_en')
 MAP_COORD = re.compile(r'\b([a-zA-Z][a-zA-Z0-9_]{2,24})\s*(?:\)\)?\s*:\s*|[, ]?\s*\(?\s*)(\d{1,3})\s*(?:,\s*|\s+)(\d{1,3})(?!\d)')
 BARE_COORD = re.compile(r'(?<![\d,])\b(\d{1,3})\s*,\s*(\d{1,3})(?![\d,])')
@@ -441,12 +442,41 @@ def curated_relations(w,curation):
         w.add('quest_relations',quest_id=w.qid,related_id=relation['related_quest_id'],kind=relation['kind'],evidence_id=ev)
 
 
+def prerequisite_group_proof(db,owner,minimum,members):
+    if not isinstance(minimum,int) or isinstance(minimum,bool) or not 0<minimum<=len(members) or len(set(members))!=len(members) or owner in members:
+        raise ValueError('Invalid prerequisite threshold or members')
+    names=[]
+    for related in members:
+        row=db.execute('SELECT original_name FROM quests WHERE quest_id=?',(related,)).fetchone()
+        if row is None:raise ValueError('Unknown prerequisite group member')
+        names.append(row[0])
+    text=f"Quest Prerequisite(s): {minimum} of the following {len(members)} quests: "+' , '.join(names)
+    original=db.execute('SELECT requirements_original FROM quests WHERE quest_id=?',(owner,)).fetchone()[0] or ''
+    if 'Quest Prerequisite(s): ' not in original or original.split('Quest Prerequisite(s): ',1)[1]!=text.split('Quest Prerequisite(s): ',1)[1]:
+        raise ValueError('Prerequisite group contradicts source header')
+    return text
+
+
+def prerequisite_groups(w,curation):
+    seen=set()
+    for group in curation.get('prerequisite_groups',[]):
+        key=group['key'];members=group['members'];minimum=group['minimum_completed']
+        if not key or key in seen:raise ValueError('Duplicate/empty prerequisite group key')
+        seen.add(key)
+        text=prerequisite_group_proof(w.db,w.qid,minimum,members)
+        ev=w.evidence(text,method='curated_prerequisite_group')
+        gid=stable('prerequisite_group',w.qid,key)
+        w.add('quest_prerequisite_groups',group_id=gid,quest_id=w.qid,group_key=key,minimum_completed=minimum,evidence_id=ev)
+        for n,related in enumerate(members,1):
+            w.add('quest_prerequisite_members',group_id=gid,related_id=related,member_order=n,evidence_id=ev)
+
+
 def migrate_semantic(db):
     """Upgrade a committed research export without rewriting existing content."""
     version=db.execute('PRAGMA user_version').fetchone()[0]
-    if version in (1,2,3):
+    if version in (1,2,3,4):
         if db.in_transaction:raise ValueError('Commit pending changes before semantic migration')
-        migrations=([BRANCH_SCHEMA] if version==1 else [])+([ADDITION_SCHEMA] if version<=2 else [])+[ROUTE_SCHEMA]
+        migrations=([BRANCH_SCHEMA] if version==1 else [])+([ADDITION_SCHEMA] if version<=2 else [])+([ROUTE_SCHEMA] if version<=3 else [])+[PREREQUISITE_SCHEMA]
         try:db.executescript('BEGIN;\n'+'\n'.join(p.read_text() for p in migrations)+'\nCOMMIT;')
         except Exception:
             db.rollback()
@@ -563,6 +593,14 @@ def validate(db):
         prefix='Quest Prerequisite(s): '
         if proof[0]!=owner or proof[1] is not None or proof[2]!=prefix+name or proof[3]!='curated_single_prerequisite' or prefix not in requirement or requirement.split(prefix,1)[1].strip()!=name:
             errors.append('invalid_mandatory_prerequisite')
+    if db.execute('PRAGMA user_version').fetchone()[0]>=5:
+        for gid,owner,minimum,eid in db.execute('SELECT group_id,quest_id,minimum_completed,evidence_id FROM quest_prerequisite_groups'):
+            members=db.execute('SELECT related_id,member_order,evidence_id FROM quest_prerequisite_members WHERE group_id=? ORDER BY member_order',(gid,)).fetchall()
+            try:expected=prerequisite_group_proof(db,owner,minimum,[r[0] for r in members])
+            except ValueError:errors.append('invalid_prerequisite_group');continue
+            proof=db.execute('SELECT quest_id,step_id,snippet,method FROM evidence WHERE evidence_id=?',(eid,)).fetchone()
+            if tuple(proof)!=(owner,None,expected,'curated_prerequisite_group') or [r[1] for r in members]!=list(range(1,len(members)+1)) or any(r[2]!=eid for r in members):
+                errors.append('invalid_prerequisite_group_evidence')
     if integrity!='ok' or foreign or errors:raise ValueError(f'Invalid semantic DB: {integrity}, FK={foreign}, errors={errors}')
     return {'integrity_check':integrity,'foreign_key_violations':len(foreign),'invalid_mentions':len(errors)}
 
@@ -595,13 +633,15 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
                 raise ValueError('Human-reviewed source additions must be exported to pinned curation before rebuilding; refusing overwrite.')
             if previous_db.execute('PRAGMA user_version').fetchone()[0]>=4 and previous_db.execute("SELECT count(*) FROM quest_routes WHERE review_state='human_reviewed'").fetchone()[0]:
                 raise ValueError('Human-reviewed quest routes must be exported to pinned curation before rebuilding; refusing overwrite.')
+            if previous_db.execute('PRAGMA user_version').fetchone()[0]>=5 and previous_db.execute("SELECT count(*) FROM quest_prerequisite_groups WHERE review_state='human_reviewed'").fetchone()[0]:
+                raise ValueError('Human-reviewed prerequisite groups must be exported to pinned curation before rebuilding; refusing overwrite.')
         finally:
             previous_db.close()
     if temp.exists():temp.unlink()
     db=resources.enter_context(closing(sqlite3.connect(temp)));db.row_factory=sqlite3.Row;db.executescript(SCHEMA.read_text());migrate_semantic(db);w=Writer(db)
     w.add('variants',variant_id='irowiki-classic',game_variant='Classic',assurance='source_scope_not_server_verified')
     known={r[0] for r in source.execute('SELECT DISTINCT map FROM script_npcs WHERE map IS NOT NULL')}
-    code_hash=sha(Path(__file__).read_bytes()+SCHEMA.read_bytes()+BRANCH_SCHEMA.read_bytes()+ADDITION_SCHEMA.read_bytes()+ROUTE_SCHEMA.read_bytes())
+    code_hash=sha(Path(__file__).read_bytes()+SCHEMA.read_bytes()+BRANCH_SCHEMA.read_bytes()+ADDITION_SCHEMA.read_bytes()+ROUTE_SCHEMA.read_bytes()+PREREQUISITE_SCHEMA.read_bytes())
     cache_hits=0;plans=[]
     for pid,selection in active.items():
         page=dict(source.execute('SELECT * FROM wiki_pages WHERE id=?',(pid,)).fetchone())
@@ -715,6 +755,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         if not plan['curation']:continue
         w.qid=plan['selection']['quest_id'];w.src=db.execute('SELECT source_id FROM quests WHERE quest_id=?',(w.qid,)).fetchone()[0]
         curated_relations(w,plan['curation'])
+        prerequisite_groups(w,plan['curation'])
     w.qid=None
     for row in source.execute('SELECT page_id,prerequisite_page_id,matched_title FROM wiki_quest_prerequisite_links'):
         if row[0] not in active:continue
@@ -737,6 +778,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         'source_additions':counts['step_source_additions'],
         'quest_routes':counts['quest_routes'],
         'action_reuse_links':db.execute("SELECT count(*) FROM step_edges WHERE kind='repeat_actions_from'").fetchone()[0],
+        'prerequisite_groups':counts['quest_prerequisite_groups'],
         'counts':counts,'fully_localized_steps':localized,'not_fully_localized_steps':counts['quest_steps']-localized,
         'localized_fields':{f:db.execute(f'SELECT count(*) FROM step_descriptions WHERE {f} IS NOT NULL').fetchone()[0] for f in FIELDS},
         'evidence_status_counts':status_counts,'checks':checks,'server_verified':0,
@@ -764,6 +806,10 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
             record['steps'].append(r)
         record['entities']=[dict(x) for x in db.execute('SELECT DISTINCT e.* FROM entities e JOIN entity_evidence l USING(entity_id) JOIN evidence v ON v.evidence_id=l.evidence_id WHERE v.quest_id=?',(qid,))]
         record['rewards']=[dict(x) for x in db.execute('SELECT * FROM rewards WHERE quest_id=?',(qid,))]
+        record['quest_relations']=[dict(x) for x in db.execute('SELECT * FROM quest_relations WHERE quest_id=? ORDER BY kind,related_id',(qid,))]
+        record['prerequisite_groups']=[dict(x) for x in db.execute('SELECT * FROM quest_prerequisite_groups WHERE quest_id=? ORDER BY group_key',(qid,))]
+        for group in record['prerequisite_groups']:
+            group['members']=[dict(x) for x in db.execute('SELECT * FROM quest_prerequisite_members WHERE group_id=? ORDER BY member_order',(group['group_id'],))]
         record['dialogue_options']=[dict(x) for x in db.execute('SELECT o.* FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id) JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(qid,))]
         examples.append(record)
     db.commit();db.execute('VACUUM');db.close();source.close()

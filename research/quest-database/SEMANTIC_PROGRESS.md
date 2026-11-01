@@ -15,12 +15,12 @@ that an event is permanently retired. The active catalog still contains
 reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
-The normalized `output/quest_semantic.sqlite` uses semantic schema **4** and
-generator **semantic-4.1.0**. All four description fields are populated for
-**360 steps across 25 curated guides**, up from the previous 22-guide/305-step
-checkpoint. **14 conditional branches** also have independent RU/EN short and
-full descriptions. Five quest routes represent two exclusive expedition paths
-and three conditional/optional activities. **2,390 steps in 191 remaining catalog entries still lack
+The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
+generator **semantic-5.0.0**. All four description fields are populated for
+**420 steps across 28 curated guides**, up from the previous 25-guide/360-step
+checkpoint. **21 conditional branches** also have independent RU/EN short and
+full descriptions. Six quest routes represent two exclusive expedition paths
+and four conditional/optional activities. **2,330 steps in 188 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -50,6 +50,9 @@ complete localization/context analysis.** `complete` remains false.
 | Onward to the New World Quest | 17 | Separate staff/manager identities; ordered gem deliveries; two EXP installments; Classic warning |
 | New Surroundings | 22 | Shared two-post material total; repair action reuse; 20 pies across 12 grants; letter identities |
 | Attitude to the New World | 16 | Concurrent quest conflict; item versus monster hunt; extra stage required for Report prerequisite |
+| Report from the New World | 13 | Minimum two-of-four prerequisite group; alternative scouts; variant timers/failure losses; distinct volumes |
+| Pursuing Rayan Moore | 26 | Unknown timed combat count/duration; two EXP installments; optional wrap-up materials and reward |
+| Tripatriate Union's Feud | 21 | One invitation with two signatures; unknown bug count; separate repeatable food recipes |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -57,6 +60,34 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Additive schema migration 4 → 5 introduces `quest_prerequisite_groups`
+  and `quest_prerequisite_members`. Report has one reviewed minimum-two-of-four
+  group, not four mandatory prerequisites. Source header order, membership,
+  threshold and evidence are validated together; unsupported group changes
+  fail without replacing a valid export. Generic prerequisite mentions remain
+  distinct from this reviewed threshold. Attitude's separate stage-16 relation
+  still governs its eligibility toward Report. No runtime quest flags are inferred.
+- Report's four scouts are alternative contacts, with a separate collective
+  textual label rather than an arbitrary individual identity. Default/iRO
+  search intervals (30/15 minutes) and failure losses (10/5 pages) are four
+  localized branches. Ten pages per attempt does not prove success or a
+  forty-page total. Four distinct volumes are needed; completed volumes are
+  stored to avoid duplicate-in-inventory failures. Page/volume IDs, delivery
+  copy counts and probabilities remain unknown.
+- Pursuing Rayan Moore has 200,000+1,200,000 base and 10,000+200,000 job EXP
+  installments. Its optional wrap-up (20 Potatoes, 20 logs → 5 Sweet Potatoes)
+  is a separate route. Dandelion Members' IDs/count and battle duration remain
+  unknown. Generic journals and tracking information are not silently assigned
+  inventory IDs or exact dialogue answers.
+- Tripatriate's final archived row is losslessly partitioned into main
+  completion and three optional repeatable food recipes. Recipe choice is per
+  exchange, not a permanent exclusion of other recipes. Main food/kit rewards
+  are not duplicated from headers. One invitation is presented for two
+  signatures; no second invitation or fixed Thief Bug count is invented.
+- Schema-1 through schema-4 migration paths preserve existing human data;
+  failed threshold migration rolls back to schema 4. Human-reviewed groups
+  cannot be silently regenerated.
 
 - Three additional source-pinned New World guides preserve all 55 original
   stages and four localized fields. Promotional Staff and Alliance Manager
@@ -74,7 +105,7 @@ verification; there are zero server-verified records.
   conditional route and a quest relation with exact stage-16 evidence.
 - Two reviewed single-quest prerequisite headers establish mandatory Onward
   relations. Unreviewed/compound headers retain unspecified Boolean semantics;
-  Report's two-of-four prerequisite group is not inferred by this block.
+  Report's reviewed threshold is stored separately in the schema-5 groups above.
 - Onward's undated pinned Classic warning remains visible in review metadata.
   Server-neutral inclusion does not turn it into a verified active Classic quest.
   No game/server availability was promoted.
@@ -196,7 +227,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **119 tests passed**; complete offline enrichment passed;
+Validated locally: **128 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -215,15 +246,18 @@ selection pins, route membership, optional activities, level rewards and locatio
 order versus alternative points, shared repair totals, repeated action references,
 New World reward accounting, item-versus-kill goals, and evidence-backed
 prerequisite/concurrency relations. Corrupted links and unsupported header
-prerequisites fail without replacing a valid export.
+prerequisites fail without replacing a valid export. Further cases cover
+threshold group corruption and migration rollback, source-default/iRO scouting
+variants, distinct volumes, optional wrap-up and postquest food recipes.
 
 ## Next work, in order
 
-1. Review the remaining 191 catalog candidates, separating reference pages,
+1. Review the remaining 188 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
-2. Continue with Report from the New World and its two-of-four prerequisite
-   group, then related scouting variants. Audit structured entity coverage
+2. Continue New World story/access chains beyond Report (such as Ring of
+   the Wise King), reviewing related requirements in whole-quest context.
+   Audit structured entity coverage
    of curated guides. Nameless Island now has a curated Curse of Gaebolg
    prerequisite, but no executable or universally applicable prerequisite graph
    is claimed.

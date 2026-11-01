@@ -1339,5 +1339,113 @@
       "https://irowiki.org/classic/Onward_to_the_New_World_Quest",
       "https://irowiki.org/classic/Report_from_the_New_World"
     ]
+  },
+  "Report_from_the_New_World": {
+    "url": "https://irowiki.org/classic/Report_from_the_New_World",
+    "sha256": "74f4b0d5b35ef4bf3f9b0c37d53634273892e5117e318e55c8e3288ac5c458e4",
+    "path": "74f4b0d5b35ef4bf3f9b0c37d53634273892e5117e318e55c8e3288ac5c458e4.html.gz",
+    "title": "Report from the New World",
+    "categories": [
+      "Articles Needing DB Links",
+      "Quest Window Quests",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T11:14:11Z",
+    "page_links": [
+      "https://irowiki.org/classic/Attitude_to_the_New_World",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/File:Soldier-man_fild01.png",
+      "https://irowiki.org/classic/File:Soldier-man_fild03.png",
+      "https://irowiki.org/classic/File:Soldier-spl_fild02.png",
+      "https://irowiki.org/classic/File:Soldier-spl_fild03.png",
+      "https://irowiki.org/classic/New_Surroundings",
+      "https://irowiki.org/classic/Pursuing_Rayan_Moore",
+      "https://irowiki.org/classic/Template:Item",
+      "https://irowiki.org/classic/Template:Map",
+      "https://irowiki.org/classic/Template:Monster",
+      "https://irowiki.org/classic/Tripatriate_Union%27s_Feud"
+    ]
+  },
+  "Pursuing_Rayan_Moore": {
+    "url": "https://irowiki.org/classic/Pursuing_Rayan_Moore",
+    "sha256": "754d013563fcac69db60237bd53455ccce7eb473ddeaa18ddac3974a38aa5492",
+    "path": "754d013563fcac69db60237bd53455ccce7eb473ddeaa18ddac3974a38aa5492.html.gz",
+    "title": "Pursuing Rayan Moore",
+    "categories": [
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Ash Vacuum Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T11:14:12Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/516/",
+      "http://db.irowiki.org/classic/item-info/523/",
+      "http://db.irowiki.org/classic/item-info/617/",
+      "http://db.irowiki.org/classic/item-info/633/",
+      "http://db.irowiki.org/classic/item-info/7201/",
+      "http://db.irowiki.org/classic/item-info/7511/",
+      "http://db.irowiki.org/classic/item-info/7563/",
+      "http://db.irowiki.org/classic/map-info/hu_fild04/",
+      "http://db.irowiki.org/classic/map-info/mid_camp/",
+      "http://db.irowiki.org/classic/map-info/yuno_fild09/",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/File:Pursuitmap.jpg",
+      "https://irowiki.org/classic/Job_EXP",
+      "https://irowiki.org/classic/Morroc",
+      "https://irowiki.org/classic/Onward_to_the_New_World_Quest"
+    ]
+  },
+  "Tripatriate_Union's_Feud": {
+    "url": "https://irowiki.org/classic/Tripatriate_Union%27s_Feud",
+    "sha256": "a34d5ea5eb01a5f93ef41d932e56e25f715dae22949a1bc871a61c0858e438aa",
+    "path": "a34d5ea5eb01a5f93ef41d932e56e25f715dae22949a1bc871a61c0858e438aa.html.gz",
+    "title": "Tripatriate Union's Feud",
+    "categories": [
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Ash Vacuum Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T11:14:13Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/1024/",
+      "http://db.irowiki.org/classic/item-info/12110/",
+      "http://db.irowiki.org/classic/item-info/12319/",
+      "http://db.irowiki.org/classic/item-info/12320/",
+      "http://db.irowiki.org/classic/item-info/12321/",
+      "http://db.irowiki.org/classic/item-info/6020/",
+      "http://db.irowiki.org/classic/item-info/6021/",
+      "http://db.irowiki.org/classic/item-info/6023/",
+      "http://db.irowiki.org/classic/item-info/6036/",
+      "http://db.irowiki.org/classic/item-info/6037/",
+      "http://db.irowiki.org/classic/item-info/6038/",
+      "http://db.irowiki.org/classic/item-info/7031/",
+      "http://db.irowiki.org/classic/item-info/7262/",
+      "http://db.irowiki.org/classic/item-info/7521/",
+      "http://db.irowiki.org/classic/map-info/mid_camp/",
+      "http://db.irowiki.org/classic/monster-info/1051/",
+      "https://irowiki.org/classic/ATK",
+      "https://irowiki.org/classic/Base_Experience",
+      "https://irowiki.org/classic/Crit",
+      "https://irowiki.org/classic/File:Hansenne.jpg",
+      "https://irowiki.org/classic/File:Hue.jpg",
+      "https://irowiki.org/classic/File:Ryosen.png",
+      "https://irowiki.org/classic/File:UnitedResearch.jpg",
+      "https://irowiki.org/classic/Hit",
+      "https://irowiki.org/classic/Job_Experience",
+      "https://irowiki.org/classic/MATK",
+      "https://irowiki.org/classic/Onward_to_the_New_World_Quest",
+      "https://irowiki.org/classic/Perfect_Dodge"
+    ]
   }
 }

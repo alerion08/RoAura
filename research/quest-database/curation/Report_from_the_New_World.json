@@ -1,0 +1,950 @@
+{
+  "quest_id": "irowiki-classic:Report_from_the_New_World",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "60fdfebd97dc53b1a33c7a8cb6205111db4db19a826055bc3d83e2fbc55fa0d1",
+  "snapshot_sha256": "74f4b0d5b35ef4bf3f9b0c37d53634273892e5117e318e55c8e3288ac5c458e4",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Hibba Agip",
+      "aliases": [
+        "Commander Agip"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Staff Officer Abidail",
+      "aliases": [
+        "Abidail"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Expedition Messenger",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Laur",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Nuria",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Gerhart",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Expedition Scout",
+      "ref": "scout_collective"
+    },
+    {
+      "type": "npc",
+      "name": "Expedition Scout",
+      "ref": "scout_spl02",
+      "identity": "irowiki-classic:npc:spl_fild02:296:369:Expedition Scout"
+    },
+    {
+      "type": "npc",
+      "name": "Expedition Scout",
+      "ref": "scout_spl03",
+      "identity": "irowiki-classic:npc:spl_fild03:172:71:Expedition Scout"
+    },
+    {
+      "type": "npc",
+      "name": "Expedition Scout",
+      "ref": "scout_man01",
+      "identity": "irowiki-classic:npc:man_fild01:316:92:Expedition Scout"
+    },
+    {
+      "type": "npc",
+      "name": "Expedition Scout",
+      "ref": "scout_man03",
+      "identity": "irowiki-classic:npc:man_fild03:202:251:Expedition Scout"
+    },
+    {
+      "type": "map",
+      "name": "mid_camp",
+      "map_code": "mid_camp"
+    },
+    {
+      "type": "map",
+      "name": "mid_campin",
+      "map_code": "mid_campin"
+    },
+    {
+      "type": "map",
+      "name": "spl_fild02",
+      "map_code": "spl_fild02"
+    },
+    {
+      "type": "map",
+      "name": "spl_fild03",
+      "map_code": "spl_fild03"
+    },
+    {
+      "type": "map",
+      "name": "man_fild01",
+      "map_code": "man_fild01"
+    },
+    {
+      "type": "map",
+      "name": "man_fild03",
+      "map_code": "man_fild03"
+    },
+    {
+      "type": "map",
+      "name": "prt_castle",
+      "map_code": "prt_castle"
+    },
+    {
+      "type": "map",
+      "name": "ra_temple",
+      "map_code": "ra_temple"
+    },
+    {
+      "type": "map",
+      "name": "lhz_in01",
+      "map_code": "lhz_in01"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Castle"
+    },
+    {
+      "type": "map",
+      "name": "Rachel"
+    },
+    {
+      "type": "map",
+      "name": "Rekenber"
+    },
+    {
+      "type": "item",
+      "name": "document"
+    },
+    {
+      "type": "item",
+      "name": "pages"
+    },
+    {
+      "type": "item",
+      "name": "volumes"
+    },
+    {
+      "type": "item",
+      "name": "completed report"
+    },
+    {
+      "type": "item",
+      "name": "a report"
+    },
+    {
+      "type": "item",
+      "name": "First Aid Kit",
+      "aliases": [
+        "First Aid Kits"
+      ]
+    },
+    {
+      "type": "monster",
+      "name": "quest summoned monsters"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Inside the central building (mid_camp 215, 247) at the camp, talk to Hibba Agip who is on the north side of the table in the center (mid_campin 90, 114), he and Abidail discuss your accomplishments.",
+      "instruction_sha256": "165fc8ae9e04ad27dcaac416ff166c067526ae3e31fc1fb805e88b0cff349532",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/165fc8ae9e04ad27dcaa/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Hibba Agip: mid_camp 215, 247 → mid_campin 90, 114.",
+      "short_en": "Talk to Hibba Agip: mid_camp 215, 247 → mid_campin 90, 114.",
+      "full_ru": "В центральном здании лагеря (mid_camp 215, 247) поговорите с Hibba Agip с северной стороны стола (mid_campin 90, 114). Он и Abidail обсудят ваши достижения.",
+      "full_en": "Inside the central building (mid_camp 215, 247) at the camp, talk to Hibba Agip who is on the north side of the table in the center (mid_campin 90, 114), he and Abidail discuss your accomplishments.",
+      "npcs": [
+        {
+          "entity": "Hibba Agip",
+          "role": "talk"
+        },
+        {
+          "entity": "Staff Officer Abidail",
+          "role": "present"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "talk",
+          "entity": "Hibba Agip"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "mid_camp",
+          "x": 215,
+          "y": 247,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "mid_campin",
+          "x": 90,
+          "y": 114,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Hibba Agip",
+        "mid_camp",
+        "mid_campin"
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to Staff Officer Abidail at the east end of the table, accept his request. He tells you to talk to Commander Agip.",
+      "instruction_sha256": "135ef6f99add7537d40ac345f4a39ddbffd9e0d2d08f6177eeca7dcf5e8b6da5",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/135ef6f99add7537d40a/1",
+      "goal": "talk",
+      "short_ru": "Примите просьбу Staff Officer Abidail и вернитесь к Commander Agip.",
+      "short_en": "Accept Staff Officer Abidail’s request and return to Commander Agip.",
+      "full_ru": "Поговорите с Staff Officer Abidail у восточного края стола и примите просьбу. Он направит к Commander Agip.",
+      "full_en": "Talk to Staff Officer Abidail at the east end of the table, accept his request. He tells you to talk to Commander Agip.",
+      "npcs": [
+        {
+          "entity": "Staff Officer Abidail",
+          "role": "talk"
+        },
+        {
+          "entity": "Hibba Agip",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Staff Officer Abidail"
+        },
+        {
+          "operation": "accept"
+        }
+      ],
+      "protected_names": [
+        "Staff Officer Abidail"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Speak to Hibba Agip again, he gives you a document and asks you to speak to the messenger at at the dimensional gate.",
+      "instruction_sha256": "df89f70d4aaf929a40ec61e67a870589cd3f2cf833981c75d679438ab5f4cc8e",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/df89f70d4aaf929a40ec/1",
+      "goal": "receive_item",
+      "short_ru": "Получите document у Hibba Agip для посланника.",
+      "short_en": "Receive the document from Hibba Agip for the messenger.",
+      "full_ru": "Снова поговорите с Hibba Agip. Он передаст document и попросит отнести его посланнику у dimensional gate.",
+      "full_en": "Speak to Hibba Agip again, he gives you a document and asks you to speak to the messenger at at the dimensional gate.",
+      "npcs": [
+        {
+          "entity": "Hibba Agip",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hibba Agip"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "document",
+          "condition": "Generic source label; exact inventory name and ID unknown."
+        }
+      ],
+      "protected_names": [
+        "Hibba Agip",
+        "document"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Find Expedition Messenger (mid_camp 206, 286), while you are discussing the report, someone sneaks up and attempts to take it. If you attempt to safeguard the report from the attacker, it will be easier later to re-assemble the report later.",
+      "instruction_sha256": "165b8ecbc5c70620f4690a671de1868484220bf8658ec7e2f5ea5d5cbb8e3b5a",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/165b8ecbc5c70620f469/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Expedition Messenger: mid_camp 206, 286; постарайтесь защитить отчёт.",
+      "short_en": "Talk to Expedition Messenger: mid_camp 206, 286; try to safeguard the report.",
+      "full_ru": "Найдите Expedition Messenger (mid_camp 206, 286). Во время обсуждения отчёта неизвестный попытается его похитить. Попытка защитить отчёт облегчит последующее восстановление.",
+      "full_en": "Find Expedition Messenger (mid_camp 206, 286), while you are discussing the report, someone sneaks up and attempts to take it. If you attempt to safeguard the report from the attacker, it will be easier later to re-assemble the report later.",
+      "npcs": [
+        {
+          "entity": "Expedition Messenger",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Expedition Messenger"
+        },
+        {
+          "operation": "safeguard_report",
+          "condition": "Source says this makes later restoration easier; exact effect and menu text are not stated."
+        }
+      ],
+      "protected_names": [
+        "Expedition Messenger",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 206,
+          "y": 286,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 206, 286"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Return to Hibba Agip to inform him that the report has been destroyed. He tells you to go find the pieces of it.",
+      "instruction_sha256": "a33c859201e1a19e7932410c5abb0bd00698083f05ab7cb6b824c5c97d5ef039",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/a33c859201e1a19e7932/1",
+      "goal": "talk",
+      "short_ru": "Сообщите Hibba Agip об уничтожении отчёта.",
+      "short_en": "Inform Hibba Agip that the report was destroyed.",
+      "full_ru": "Вернитесь к Hibba Agip и сообщите об уничтожении отчёта. Он попросит найти его части.",
+      "full_en": "Return to Hibba Agip to inform him that the report has been destroyed. He tells you to go find the pieces of it.",
+      "npcs": [
+        {
+          "entity": "Hibba Agip",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hibba Agip"
+        }
+      ],
+      "protected_names": [
+        "Hibba Agip"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Staff Officer Abidail asks you to bring him pages of the report in increments of 10.",
+      "instruction_sha256": "2f8b07d8400e7633b022a16bc0e51b16e7483a235857a2c436ec9209be5543a1",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/2f8b07d8400e7633b022/1",
+      "goal": "collect",
+      "short_ru": "Приносите Staff Officer Abidail pages партиями по 10.",
+      "short_en": "Bring pages to Staff Officer Abidail in batches of 10.",
+      "full_ru": "Staff Officer Abidail попросит приносить pages отчёта порциями по 10.",
+      "full_en": "Staff Officer Abidail asks you to bring him pages of the report in increments of 10.",
+      "npcs": [
+        {
+          "entity": "Staff Officer Abidail",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "pages",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Per restoration attempt, not a guaranteed four-attempt quest total."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "pages"
+        }
+      ],
+      "protected_names": [
+        "Staff Officer Abidail",
+        "pages"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Speak to any of the Expedition Scout on the New World field maps, the scout will start looking for pages. Return every 30 minutes (15 minutes if you are playing on iRO instead). Scout locations are: (spl_fild02 296, 369) (north wall) (spl_fild03 172, 71) (south wall) (man_fild01 316, 92) (southeast) (man_fild03 202, 251) (east wall, halfway up) Pages can also be found when killing specific quest summoned monsters on the fields. (usually at one of several fixed spawn points)",
+      "instruction_sha256": "834b71b9806092fe451f8acf5b11fc74bf0cf424a280fb91b5d7e26fa77fe7e3",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/834b71b9806092fe451f/1",
+      "goal": "collect",
+      "short_ru": "Запустите поиск у любого Expedition Scout: ожидание 30 минут, на iRO — 15; pages также выпадают с quest summoned monsters.",
+      "short_en": "Start a search with any Expedition Scout: wait 30 minutes, or 15 on iRO; pages also drop from quest summoned monsters.",
+      "full_ru": "Поговорите с любым Expedition Scout на полях New World, чтобы начать поиск pages. Возвращайтесь каждые 30 минут, а на iRO — каждые 15 минут. Точки разведчиков: spl_fild02 296, 369 у северной стены; spl_fild03 172, 71 у южной стены; man_fild01 316, 92 на юго-востоке; man_fild03 202, 251 у середины восточной стены. Pages также можно получить с особых quest summoned monsters на полях, обычно в нескольких фиксированных местах появления.",
+      "full_en": "Speak to any of the Expedition Scout on the New World field maps, the scout will start looking for pages. Return every 30 minutes (15 minutes if you are playing on iRO instead). Scout locations are: (spl_fild02 296, 369) (north wall) (spl_fild03 172, 71) (south wall) (man_fild01 316, 92) (southeast) (man_fild03 202, 251) (east wall, halfway up) Pages can also be found when killing specific quest summoned monsters on the fields. (usually at one of several fixed spawn points)",
+      "npcs": [
+        {
+          "entity": "scout_spl02",
+          "role": "alternative_contact"
+        },
+        {
+          "entity": "scout_spl03",
+          "role": "alternative_contact"
+        },
+        {
+          "entity": "scout_man01",
+          "role": "alternative_contact"
+        },
+        {
+          "entity": "scout_man03",
+          "role": "alternative_contact"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "spl_fild02",
+          "x": 296,
+          "y": 369,
+          "role": "alternative_scout",
+          "known": true,
+          "condition": "Choose any scout; no mandatory visit sequence."
+        },
+        {
+          "entity": "spl_fild03",
+          "x": 172,
+          "y": 71,
+          "role": "alternative_scout",
+          "known": true,
+          "condition": "Choose any scout; no mandatory visit sequence."
+        },
+        {
+          "entity": "man_fild01",
+          "x": 316,
+          "y": 92,
+          "role": "alternative_scout",
+          "known": true,
+          "condition": "Choose any scout; no mandatory visit sequence."
+        },
+        {
+          "entity": "man_fild03",
+          "x": 202,
+          "y": 251,
+          "role": "alternative_scout",
+          "known": true,
+          "condition": "Choose any scout; no mandatory visit sequence."
+        }
+      ],
+      "items": [
+        {
+          "entity": "pages",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Scout search or quest-summoned monster drops; yield unknown."
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "quest summoned monsters",
+          "operation": "loot_source",
+          "required": 0,
+          "condition": "Alternative page source; species and kill count unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "search",
+          "entity": "pages"
+        }
+      ],
+      "mention_entities": {
+        "Expedition Scout": "scout_collective"
+      },
+      "protected_names": [
+        "Expedition Scout",
+        "Expedition Scout",
+        "Expedition Scout",
+        "Expedition Scout",
+        "Expedition Scout",
+        "spl_fild02",
+        "spl_fild03",
+        "man_fild01",
+        "man_fild03",
+        "pages",
+        "quest summoned monsters"
+      ],
+      "branches": [
+        {
+          "key": "default_timer",
+          "choice_group": "scout_timer",
+          "variant_scope": "Default source timing; server applicability unverified",
+          "condition": "Use the source default outside its explicit iRO exception.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Speak to any of the Expedition Scout on the New World field maps, the scout will start looking for pages. Return every 30 minutes (15 minutes if you are playing on iRO instead). Scout locations are: (spl_fild02 296, 369) (north wall) (spl_fild03 172, 71) (south wall) (man_fild01 316, 92) (southeast) (man_fild03 202, 251) (east wall, halfway up) Pages can also be found when killing specific quest summoned monsters on the fields. (usually at one of several fixed spawn points)",
+          "instruction_sha256": "834b71b9806092fe451f8acf5b11fc74bf0cf424a280fb91b5d7e26fa77fe7e3",
+          "short_ru": "Повторный поиск Expedition Scout через 30 минут.",
+          "short_en": "Repeat the Expedition Scout search after 30 minutes.",
+          "full_ru": "Поговорите с любым Expedition Scout на полях New World, чтобы начать поиск pages. Возвращайтесь каждые 30 минут, а на iRO — каждые 15 минут. Точки разведчиков: spl_fild02 296, 369 у северной стены; spl_fild03 172, 71 у южной стены; man_fild01 316, 92 на юго-востоке; man_fild03 202, 251 у середины восточной стены. Pages также можно получить с особых quest summoned monsters на полях, обычно в нескольких фиксированных местах появления.",
+          "full_en": "Speak to any of the Expedition Scout on the New World field maps, the scout will start looking for pages. Return every 30 minutes (15 minutes if you are playing on iRO instead). Scout locations are: (spl_fild02 296, 369) (north wall) (spl_fild03 172, 71) (south wall) (man_fild01 316, 92) (southeast) (man_fild03 202, 251) (east wall, halfway up) Pages can also be found when killing specific quest summoned monsters on the fields. (usually at one of several fixed spawn points)",
+          "protected_names": [
+            "Expedition Scout",
+            "Expedition Scout",
+            "Expedition Scout",
+            "Expedition Scout",
+            "Expedition Scout",
+            "spl_fild02",
+            "spl_fild03",
+            "man_fild01",
+            "man_fild03",
+            "pages",
+            "quest summoned monsters"
+          ],
+          "requirements": [
+            {
+              "kind": "search_interval_minutes",
+              "amount": "30"
+            }
+          ],
+          "mention_entities": {
+            "Expedition Scout": "scout_collective"
+          },
+          "reviews": [
+            {
+              "reason": "alternative_scout_mentions",
+              "detail": "The source uses one collective Expedition Scout label for four alternative actors; the textual collective span links a separate collective label, not an arbitrarily selected individual. Read step_npcs and alternative_scout locations for the full set."
+            }
+          ]
+        },
+        {
+          "key": "iro_timer",
+          "choice_group": "scout_timer",
+          "variant_scope": "iRO-specific source exception",
+          "condition": "Use the iRO timing only on the source-described iRO variant.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Speak to any of the Expedition Scout on the New World field maps, the scout will start looking for pages. Return every 30 minutes (15 minutes if you are playing on iRO instead). Scout locations are: (spl_fild02 296, 369) (north wall) (spl_fild03 172, 71) (south wall) (man_fild01 316, 92) (southeast) (man_fild03 202, 251) (east wall, halfway up) Pages can also be found when killing specific quest summoned monsters on the fields. (usually at one of several fixed spawn points)",
+          "instruction_sha256": "834b71b9806092fe451f8acf5b11fc74bf0cf424a280fb91b5d7e26fa77fe7e3",
+          "short_ru": "Повторный поиск Expedition Scout через 15 минут.",
+          "short_en": "Repeat the Expedition Scout search after 15 minutes.",
+          "full_ru": "Поговорите с любым Expedition Scout на полях New World, чтобы начать поиск pages. Возвращайтесь каждые 30 минут, а на iRO — каждые 15 минут. Точки разведчиков: spl_fild02 296, 369 у северной стены; spl_fild03 172, 71 у южной стены; man_fild01 316, 92 на юго-востоке; man_fild03 202, 251 у середины восточной стены. Pages также можно получить с особых quest summoned monsters на полях, обычно в нескольких фиксированных местах появления.",
+          "full_en": "Speak to any of the Expedition Scout on the New World field maps, the scout will start looking for pages. Return every 30 minutes (15 minutes if you are playing on iRO instead). Scout locations are: (spl_fild02 296, 369) (north wall) (spl_fild03 172, 71) (south wall) (man_fild01 316, 92) (southeast) (man_fild03 202, 251) (east wall, halfway up) Pages can also be found when killing specific quest summoned monsters on the fields. (usually at one of several fixed spawn points)",
+          "protected_names": [
+            "Expedition Scout",
+            "Expedition Scout",
+            "Expedition Scout",
+            "Expedition Scout",
+            "Expedition Scout",
+            "spl_fild02",
+            "spl_fild03",
+            "man_fild01",
+            "man_fild03",
+            "pages",
+            "quest summoned monsters"
+          ],
+          "requirements": [
+            {
+              "kind": "search_interval_minutes",
+              "amount": "15"
+            }
+          ],
+          "mention_entities": {
+            "Expedition Scout": "scout_collective"
+          },
+          "reviews": [
+            {
+              "reason": "alternative_scout_mentions",
+              "detail": "The source uses one collective Expedition Scout label for four alternative actors; the textual collective span links a separate collective label, not an arbitrarily selected individual. Read step_npcs and alternative_scout locations for the full set."
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "alternative_scout_mentions",
+          "detail": "The source uses one collective Expedition Scout label for four alternative actors; the textual collective span links a separate collective label, not an arbitrarily selected individual. Read step_npcs and alternative_scout locations for the full set."
+        }
+      ]
+    },
+    "8": {
+      "original_instruction": "After returning with 10 pages, Abidail will restore one of the four volumes of the report. Keep searching for pages until all the volumes are restored. There is a very high chance that the pages bring do not form a single volume, or that they form a volume you already have. You will lose 10 pages and must collect more. (On iRO, you only lose 5 pages instead) You will automatically fail and discard the pages if he manages to restore a volume of the report you already have on you. As such, you should put completed volumes in storage. The extra volumes of the report can be given to other players doing the quest.",
+      "instruction_sha256": "e705249094ebad22452048a4bcccfbbf48e61cabaed8cbadf00825c1e337e6c9",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/e705249094ebad224520/1",
+      "goal": "restore_report",
+      "short_ru": "У Abidail повторяйте попытки с 10 pages до получения всех volumes; готовые тома убирайте на склад.",
+      "short_en": "Repeat attempts with 10 pages at Abidail until all volumes are restored; store completed volumes.",
+      "full_ru": "Принесите Abidail 10 pages: он попытается восстановить один из четырёх volumes. Продолжайте, пока не восстановите все volumes. Высока вероятность, что pages не образуют том или получится уже имеющийся том. При неудаче теряются 10 pages, а на iRO — только 5 pages. Если восстановлен том, который уже находится у вас, попытка автоматически провалится и pages будут отброшены. Храните готовые volumes на складе; лишние volumes можно передавать другим игрокам, проходящим квест.",
+      "full_en": "After returning with 10 pages, Abidail will restore one of the four volumes of the report. Keep searching for pages until all the volumes are restored. There is a very high chance that the pages bring do not form a single volume, or that they form a volume you already have. You will lose 10 pages and must collect more. (On iRO, you only lose 5 pages instead) You will automatically fail and discard the pages if he manages to restore a volume of the report you already have on you. As such, you should put completed volumes in storage. The extra volumes of the report can be given to other players doing the quest.",
+      "npcs": [
+        {
+          "entity": "Staff Officer Abidail",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "pages",
+          "quantity": 10,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Required batch per attempt; not a guaranteed success cost or quest total."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "distinct_report_volumes",
+          "amount": "4",
+          "condition": "Four distinct volumes, not four duplicates; store completed volumes to avoid duplicate-in-inventory failure."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "volumes",
+          "condition": "Only a successful restoration of a volume; repeats and failures are possible."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "restore_report",
+          "entity": "pages"
+        },
+        {
+          "operation": "store",
+          "entity": "volumes",
+          "condition": "Keep completed volumes out of inventory while attempting further restorations."
+        }
+      ],
+      "protected_names": [
+        "pages",
+        "volumes"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "default_failure",
+          "choice_group": "failed_page_loss",
+          "variant_scope": "Default source loss; server applicability unverified",
+          "condition": "Failure/discard loss outside the explicit iRO exception.",
+          "section": "",
+          "source_step": 8,
+          "original_instruction": "After returning with 10 pages, Abidail will restore one of the four volumes of the report. Keep searching for pages until all the volumes are restored. There is a very high chance that the pages bring do not form a single volume, or that they form a volume you already have. You will lose 10 pages and must collect more. (On iRO, you only lose 5 pages instead) You will automatically fail and discard the pages if he manages to restore a volume of the report you already have on you. As such, you should put completed volumes in storage. The extra volumes of the report can be given to other players doing the quest.",
+          "instruction_sha256": "e705249094ebad22452048a4bcccfbbf48e61cabaed8cbadf00825c1e337e6c9",
+          "short_ru": "При неудаче Abidail теряются 10 pages; храните готовые volumes на складе.",
+          "short_en": "On failure Abidail discards 10 pages; store completed volumes.",
+          "full_ru": "Принесите Abidail 10 pages: он попытается восстановить один из четырёх volumes. Продолжайте, пока не восстановите все volumes. Высока вероятность, что pages не образуют том или получится уже имеющийся том. При неудаче теряются 10 pages, а на iRO — только 5 pages. Если восстановлен том, который уже находится у вас, попытка автоматически провалится и pages будут отброшены. Храните готовые volumes на складе; лишние volumes можно передавать другим игрокам, проходящим квест.",
+          "full_en": "After returning with 10 pages, Abidail will restore one of the four volumes of the report. Keep searching for pages until all the volumes are restored. There is a very high chance that the pages bring do not form a single volume, or that they form a volume you already have. You will lose 10 pages and must collect more. (On iRO, you only lose 5 pages instead) You will automatically fail and discard the pages if he manages to restore a volume of the report you already have on you. As such, you should put completed volumes in storage. The extra volumes of the report can be given to other players doing the quest.",
+          "protected_names": [
+            "pages",
+            "volumes"
+          ],
+          "items": [
+            {
+              "entity": "pages",
+              "quantity": 10,
+              "operation": "consume",
+              "required": 1,
+              "condition": "Failed restoration only; do not add to a separate guaranteed ten-page consumption."
+            }
+          ]
+        },
+        {
+          "key": "iro_failure",
+          "choice_group": "failed_page_loss",
+          "variant_scope": "iRO-specific source exception",
+          "condition": "Failure/discard loss on iRO.",
+          "section": "",
+          "source_step": 8,
+          "original_instruction": "After returning with 10 pages, Abidail will restore one of the four volumes of the report. Keep searching for pages until all the volumes are restored. There is a very high chance that the pages bring do not form a single volume, or that they form a volume you already have. You will lose 10 pages and must collect more. (On iRO, you only lose 5 pages instead) You will automatically fail and discard the pages if he manages to restore a volume of the report you already have on you. As such, you should put completed volumes in storage. The extra volumes of the report can be given to other players doing the quest.",
+          "instruction_sha256": "e705249094ebad22452048a4bcccfbbf48e61cabaed8cbadf00825c1e337e6c9",
+          "short_ru": "При неудаче Abidail теряются 5 pages; храните готовые volumes на складе.",
+          "short_en": "On failure Abidail discards 5 pages; store completed volumes.",
+          "full_ru": "Принесите Abidail 10 pages: он попытается восстановить один из четырёх volumes. Продолжайте, пока не восстановите все volumes. Высока вероятность, что pages не образуют том или получится уже имеющийся том. При неудаче теряются 10 pages, а на iRO — только 5 pages. Если восстановлен том, который уже находится у вас, попытка автоматически провалится и pages будут отброшены. Храните готовые volumes на складе; лишние volumes можно передавать другим игрокам, проходящим квест.",
+          "full_en": "After returning with 10 pages, Abidail will restore one of the four volumes of the report. Keep searching for pages until all the volumes are restored. There is a very high chance that the pages bring do not form a single volume, or that they form a volume you already have. You will lose 10 pages and must collect more. (On iRO, you only lose 5 pages instead) You will automatically fail and discard the pages if he manages to restore a volume of the report you already have on you. As such, you should put completed volumes in storage. The extra volumes of the report can be given to other players doing the quest.",
+          "protected_names": [
+            "pages",
+            "volumes"
+          ],
+          "items": [
+            {
+              "entity": "pages",
+              "quantity": 5,
+              "operation": "consume",
+              "required": 1,
+              "condition": "Failed restoration only; do not add to a separate guaranteed ten-page consumption."
+            }
+          ]
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Return to Hibba Agip when you have all 4 volumes, and he'll give you the completed report. He instructs you to follow the same plan; he has stationed more soldiers in the area to protect the report.",
+      "instruction_sha256": "10ea5a5d6c54f0f3fae94787d3134bc01436e85cd12ecca20b2386cff6608993",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/10ea5a5d6c54f0f3fae9/1",
+      "goal": "deliver",
+      "short_ru": "Принесите Hibba Agip все 4 volumes и получите completed report.",
+      "short_en": "Bring all 4 volumes to Hibba Agip and receive the completed report.",
+      "full_ru": "Вернитесь к Hibba Agip, когда соберёте все 4 volumes. Он передаст completed report и попросит повторить план доставки; теперь в районе размещено больше солдат для охраны.",
+      "full_en": "Return to Hibba Agip when you have all 4 volumes, and he'll give you the completed report. He instructs you to follow the same plan; he has stationed more soldiers in the area to protect the report.",
+      "npcs": [
+        {
+          "entity": "Hibba Agip",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "volumes",
+          "quantity": 4,
+          "operation": "bring",
+          "required": 1,
+          "condition": "All four distinct restored volumes."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "entity": "completed report",
+          "condition": "Source does not establish inventory ID or number of delivery copies."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hibba Agip"
+        }
+      ],
+      "protected_names": [
+        "Hibba Agip",
+        "volumes",
+        "completed report"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Deliver a report to Laur in the throne room of Prontera Castle (prt_castle 88,165).",
+      "instruction_sha256": "2d1f5bae84cdb01717276793101c27d0e3a7bfbeffa4225aba22c221f3a4baa9",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/2d1f5bae84cdb0171727/1",
+      "goal": "deliver",
+      "short_ru": "Доставьте a report Laur: prt_castle 88, 165.",
+      "short_en": "Deliver a report to Laur: prt_castle 88, 165.",
+      "full_ru": "Доставьте a report Laur в тронном зале Prontera Castle (prt_castle 88, 165).",
+      "full_en": "Deliver a report to Laur in the throne room of Prontera Castle (prt_castle 88,165).",
+      "npcs": [
+        {
+          "entity": "Laur",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "a report",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Source does not identify separate inventory copies or their item ID."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "a report"
+        },
+        {
+          "operation": "talk",
+          "entity": "Laur"
+        }
+      ],
+      "protected_names": [
+        "Laur",
+        "prt_castle",
+        "Prontera Castle",
+        "a report"
+      ],
+      "locations": [
+        {
+          "map": "prt_castle",
+          "x": 88,
+          "y": 165,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prt_castle 88,165"
+        }
+      ]
+    },
+    "11": {
+      "original_instruction": "Deliver a report to Nuria outside Rachel's temple (ra_temple 122, 174).",
+      "instruction_sha256": "2b4e0b3cb0fde5864873cca0639427630ea65359ec29b2cce40cd416c88d0a12",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/2b4e0b3cb0fde5864873/1",
+      "goal": "deliver",
+      "short_ru": "Доставьте a report Nuria: ra_temple 122, 174.",
+      "short_en": "Deliver a report to Nuria: ra_temple 122, 174.",
+      "full_ru": "Доставьте a report Nuria в снаружи храма Rachel (ra_temple 122, 174).",
+      "full_en": "Deliver a report to Nuria outside Rachel's temple (ra_temple 122, 174).",
+      "npcs": [
+        {
+          "entity": "Nuria",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "a report",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Source does not identify separate inventory copies or their item ID."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "a report"
+        },
+        {
+          "operation": "talk",
+          "entity": "Nuria"
+        }
+      ],
+      "protected_names": [
+        "Nuria",
+        "ra_temple",
+        "Rachel",
+        "a report"
+      ],
+      "locations": [
+        {
+          "map": "ra_temple",
+          "x": 122,
+          "y": 174,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temple 122, 174"
+        }
+      ]
+    },
+    "12": {
+      "original_instruction": "Deliver a report to Gerhart at the front desk, inside Rekenber's Headquarters (lhz_in01 110, 174).",
+      "instruction_sha256": "1de918e6f00273825235f7b5a576f70ec1667a41b39fa2ed0d25bda39636d44e",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/1de918e6f00273825235/1",
+      "goal": "deliver",
+      "short_ru": "Доставьте a report Gerhart: lhz_in01 110, 174.",
+      "short_en": "Deliver a report to Gerhart: lhz_in01 110, 174.",
+      "full_ru": "Доставьте a report Gerhart в за стойкой внутри Rekenber Headquarters (lhz_in01 110, 174).",
+      "full_en": "Deliver a report to Gerhart at the front desk, inside Rekenber's Headquarters (lhz_in01 110, 174).",
+      "npcs": [
+        {
+          "entity": "Gerhart",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "a report",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Source does not identify separate inventory copies or their item ID."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "a report"
+        },
+        {
+          "operation": "talk",
+          "entity": "Gerhart"
+        }
+      ],
+      "protected_names": [
+        "Gerhart",
+        "lhz_in01",
+        "Rekenber",
+        "a report"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 110,
+          "y": 174,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01 110, 174"
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Return to Hibba Agip, he thanks you for your help Receive 2,500,000 Base EXP and 3 First Aid Kits.",
+      "instruction_sha256": "ac71a9e874dfb74f60b3088b630446032af41b6728decbb6463f35f00b63a546",
+      "step_id": "irowiki-classic:Report_from_the_New_World/step/ac71a9e874dfb74f60b3/1",
+      "goal": "receive_reward",
+      "short_ru": "Вернитесь к Hibba Agip: 2,500,000 Base EXP и 3 First Aid Kits.",
+      "short_en": "Return to Hibba Agip: 2,500,000 Base EXP and 3 First Aid Kits.",
+      "full_ru": "Вернитесь к Hibba Agip. Он поблагодарит за помощь: получите 2,500,000 Base EXP и 3 First Aid Kits.",
+      "full_en": "Return to Hibba Agip, he thanks you for your help Receive 2,500,000 Base EXP and 3 First Aid Kits.",
+      "npcs": [
+        {
+          "entity": "Hibba Agip",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hibba Agip"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "2500000"
+        },
+        {
+          "kind": "item",
+          "amount": "3",
+          "entity": "First Aid Kit"
+        }
+      ],
+      "protected_names": [
+        "Hibba Agip",
+        "First Aid Kit"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "missing_database_links",
+      "detail": "Pinned article has no database links. Generic document/pages/volumes/report labels and First Aid Kit have unknown game IDs here; delivery-copy counts and exact restoration probabilities are not invented."
+    },
+    {
+      "reason": "source_variant_report_restore",
+      "detail": "Scout interval and failed-page loss have separate source-default and iRO branches. Ten pages per attempt does not guarantee success or a forty-page total. Completed volumes must be distinct."
+    },
+    {
+      "reason": "reward_metadata_contains_walkthrough",
+      "detail": "Legacy reward metadata includes walkthrough prose. Only explicit step grants are emitted; no extra header reward is added."
+    }
+  ],
+  "prerequisite_groups": [
+    {
+      "key": "new_world_accomplishments",
+      "minimum_completed": 2,
+      "members": [
+        "irowiki-classic:Attitude_to_the_New_World",
+        "irowiki-classic:New_Surroundings",
+        "irowiki-classic:Tripatriate_Union's_Feud",
+        "irowiki-classic:Pursuing_Rayan_Moore"
+      ]
+    }
+  ]
+}

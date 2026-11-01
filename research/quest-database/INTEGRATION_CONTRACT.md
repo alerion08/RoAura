@@ -4,12 +4,12 @@
 
 **Objective:** a maximally complete, source-backed, versioned **ROQuestie** knowledge base for main Ragnarok Online quests across the wider RO ecosystem. The shared quest data are reusable, while Classic/Pre-Renewal/Renewal and optional individual-server differences are handled separately. A quest in the catalog is **not a guarantee that every server offers it**. This contract belongs to the standalone research work; it must not modify RoAura runtime code during collection.
 
-## Normalized semantic research export — schema 4 (current data phase)
+## Normalized semantic research export — schema 5 (current data phase)
 
 `output/quest_semantic.sqlite` is separate from the older research consumer
 catalog (`questie_catalog.sqlite`, schema 5). It is not integrated into RoAura.
-Check its own `PRAGMA user_version = 4`; apply migrations `001_semantic.sql`,
-`002_step_branches.sql`, `003_source_additions.sql`, then `004_quest_routes.sql`
+Check its own `PRAGMA user_version = 5`; apply migrations `001_semantic.sql`,
+`002_step_branches.sql`, `003_source_additions.sql`, `004_quest_routes.sql`, then `005_prerequisite_groups.sql`
 under `migrations/`. See
 [SEMANTIC_PROGRESS.md](./SEMANTIC_PROGRESS.md). Both active catalogs exclude
 archived/quarantined quest records and source-reviewed reference indexes; `quest_research.sqlite` is the raw audit archive.
@@ -79,10 +79,10 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   full RU contains their translations. Existing entity spans use final displayed
   descriptions. Additions are not new steps and are not alternative branches.
   The source fragment must occur in pinned HTML; never invent missing instructions.
-- Apply `migrate_semantic(connection)` to upgrade a committed schema-1, schema-2 or schema-3 export
+- Apply `migrate_semantic(connection)` to upgrade a committed schema-1, schema-2, schema-3 or schema-4 export
   without replacing human descriptions or IDs. Migration refuses an active
   transaction and rolls back on error. Regeneration is a separate operation
-  and refuses human-reviewed step, branch, source-addition or quest-route rows until exported
+  and refuses human-reviewed step, branch, source-addition, quest-route or prerequisite-group rows until exported
   to curation.
 - `step_edges.kind = source_order_only` is article order, not an executable
   route/branch graph. Raw prerequisites do not establish AND/OR semantics.
@@ -96,8 +96,8 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   only a single exact quest name in the owner's prerequisite header, with
   quest-level `curated_single_prerequisite` evidence. Generic
   `prerequisite_boolean_unspecified` links remain separate source mentions;
-  do not treat them as additional mandatory obligations. Multiquest AND/OR
-  groups require further review.
+  do not treat them as additional mandatory obligations. Other multiquest expressions
+  require further review.
 - `source_concurrency_constraint` links a source-described conflict with
   another quest. `extra_stage_required_for_prerequisite` links the owning
   quest to the later quest that requires its additional stage. Both use
@@ -105,6 +105,16 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   source condition. For Attitude, Report eligibility requires the horn stage
   16 despite the displayed reward at step 15. These links do not establish
   executable quest flags or a complete prerequisite expression.
+- `quest_prerequisite_groups.minimum_completed` is a reviewed threshold
+  over distinct `quest_prerequisite_members.related_id` values. Member order
+  preserves the source header list, not a compulsory progression order. Report
+  requires at least two of its four named quests; completing more than two
+  does not disqualify a player. The exact threshold/list/header evidence are
+  validated together. No UI prose parsing is needed. Check member-specific
+  `extra_stage_required_for_prerequisite` relations too: Attitude must include
+  stage 16 to count toward Report. Generic unspecified links do not override
+  the reviewed group or turn every member into a mandatory quest. This is
+  source logic, not an in-game completion/flag evaluator.
 - `ready_steps` currently means **all four localized text fields exist**. It
   is not a readiness claim for the quest, route, server or application.
   Unfinished fields are NULL with blocking review rows; `complete=false` is

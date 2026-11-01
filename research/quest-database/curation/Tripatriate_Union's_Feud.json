@@ -1,0 +1,1240 @@
+{
+  "quest_id": "irowiki-classic:Tripatriate_Union's_Feud",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "dcc625e94940019e7d66464f639968dadab6230a091012de0310a17fb88245a3",
+  "snapshot_sha256": "a34d5ea5eb01a5f93ef41d932e56e25f715dae22949a1bc871a61c0858e438aa",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "United Research Official",
+      "aliases": [
+        "Official"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Ryosen",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Hue",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Hansenne",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "School of Fish",
+      "aliases": []
+    },
+    {
+      "type": "map",
+      "name": "mid_camp",
+      "map_code": "mid_camp"
+    },
+    {
+      "type": "map",
+      "name": "mid_campin",
+      "map_code": "mid_campin"
+    },
+    {
+      "type": "item",
+      "name": "Meeting Invitation",
+      "game_id": 6036,
+      "id_source": "http://db.irowiki.org/classic/item-info/6036/"
+    },
+    {
+      "type": "item",
+      "name": "Messy File",
+      "game_id": 6037,
+      "id_source": "http://db.irowiki.org/classic/item-info/6037/"
+    },
+    {
+      "type": "item",
+      "name": "Folding Fan of Cat Ghost",
+      "game_id": 7262,
+      "id_source": "http://db.irowiki.org/classic/item-info/7262/"
+    },
+    {
+      "type": "item",
+      "name": "Flame Stone",
+      "game_id": 7521,
+      "id_source": "http://db.irowiki.org/classic/item-info/7521/"
+    },
+    {
+      "type": "item",
+      "name": "Old Frying Pan",
+      "game_id": 7031,
+      "id_source": "http://db.irowiki.org/classic/item-info/7031/"
+    },
+    {
+      "type": "item",
+      "name": "Squid Ink",
+      "game_id": 1024,
+      "id_source": "http://db.irowiki.org/classic/item-info/1024/"
+    },
+    {
+      "type": "item",
+      "name": "Neat Report",
+      "game_id": 6038,
+      "id_source": "http://db.irowiki.org/classic/item-info/6038/"
+    },
+    {
+      "type": "item",
+      "name": "Rune Midgard report"
+    },
+    {
+      "type": "item",
+      "name": "Arunafeltz Desert Sandwich",
+      "game_id": 12321,
+      "id_source": "http://db.irowiki.org/classic/item-info/12321/"
+    },
+    {
+      "type": "item",
+      "name": "Schwartzwald Pine Jubilee",
+      "game_id": 12320,
+      "id_source": "http://db.irowiki.org/classic/item-info/12320/"
+    },
+    {
+      "type": "item",
+      "name": "Rune Strawberry Cake",
+      "game_id": 12319,
+      "id_source": "http://db.irowiki.org/classic/item-info/12319/"
+    },
+    {
+      "type": "item",
+      "name": "First Aid Kit",
+      "game_id": 12110,
+      "id_source": "http://db.irowiki.org/classic/item-info/12110/"
+    },
+    {
+      "type": "item",
+      "name": "Mystic Horn",
+      "game_id": 6023,
+      "id_source": "http://db.irowiki.org/classic/item-info/6023/"
+    },
+    {
+      "type": "item",
+      "name": "Peaked Hat",
+      "game_id": 6021,
+      "id_source": "http://db.irowiki.org/classic/item-info/6021/"
+    },
+    {
+      "type": "item",
+      "name": "Fur",
+      "game_id": 6020,
+      "id_source": "http://db.irowiki.org/classic/item-info/6020/"
+    },
+    {
+      "type": "monster",
+      "name": "Thief Bugs",
+      "game_id": 1051,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1051/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Walk near the United Research Official ( mid_camp 163, 234 -> mid_campin 376, 120). He asks you to speak to the people managing the documents.",
+      "instruction_sha256": "d6e9e9ca4f9ddb82c459637100b56a9bcf0be797cebeb5e1827945a4e224b4ac",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/d6e9e9ca4f9ddb82c459/1",
+      "goal": "talk",
+      "short_ru": "Подойдите к United Research Official: mid_camp 163, 234 → mid_campin 376, 120.",
+      "short_en": "Approach United Research Official: mid_camp 163, 234 → mid_campin 376, 120.",
+      "full_ru": "Подойдите к United Research Official: mid_camp 163, 234 → mid_campin 376, 120. Он попросит поговорить с ответственными за документы.",
+      "full_en": "Walk near the United Research Official ( mid_camp 163, 234 -> mid_campin 376, 120). He asks you to speak to the people managing the documents.",
+      "npcs": [
+        {
+          "entity": "United Research Official",
+          "role": "proximity_trigger"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "approach",
+          "entity": "United Research Official"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "mid_camp",
+          "x": 163,
+          "y": 234,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "mid_campin",
+          "x": 376,
+          "y": 120,
+          "role": "trigger",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "United Research Official",
+        "mid_camp",
+        "mid_campin"
+      ]
+    },
+    "2": {
+      "original_instruction": "Speak to Ryosen ( mid_camp 165, 245), he asks you to deliver a Meeting Invitation to Hue, then to Hansenne.",
+      "instruction_sha256": "368ffaaa45ebac32afdfb4240fd63299d5c963e396ce608273e7ce7e0d9c6c67",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/368ffaaa45ebac32afdf/1",
+      "goal": "talk",
+      "short_ru": "У Ryosen (mid_camp 165, 245) получите Meeting Invitation: сначала Hue, затем Hansenne.",
+      "short_en": "At Ryosen (mid_camp 165, 245), get Meeting Invitation: visit Hue first, then Hansenne.",
+      "full_ru": "Поговорите с Ryosen (mid_camp 165, 245). Он попросит отнести Meeting Invitation сначала Hue, затем Hansenne.",
+      "full_en": "Speak to Ryosen ( mid_camp 165, 245), he asks you to deliver a Meeting Invitation to Hue, then to Hansenne.",
+      "npcs": [
+        {
+          "entity": "Ryosen",
+          "role": "talk"
+        },
+        {
+          "entity": "Hue",
+          "role": "next_contact"
+        },
+        {
+          "entity": "Hansenne",
+          "role": "later_contact"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Meeting Invitation",
+          "condition": "Same invitation is presented in order to Hue then Hansenne; no second copy is established."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ryosen"
+        }
+      ],
+      "protected_names": [
+        "Ryosen",
+        "Hue",
+        "Hansenne",
+        "mid_camp",
+        "Meeting Invitation"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 165,
+          "y": 245,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 165, 245"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Deliver the invitation to Hue ( mid_camp 247, 255), and ask him to sign it.",
+      "instruction_sha256": "0d35e39a21eba4540f12d1383fbbbc65dd108142615e320b19a572b7dc3332ec",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/0d35e39a21eba4540f12/1",
+      "goal": "deliver",
+      "short_ru": "Покажите приглашение Hue: mid_camp 247, 255; получите подпись.",
+      "short_en": "Present the invitation to Hue: mid_camp 247, 255; obtain the signature.",
+      "full_ru": "Отнесите приглашение Hue (mid_camp 247, 255) и попросите подписать.",
+      "full_en": "Deliver the invitation to Hue ( mid_camp 247, 255), and ask him to sign it.",
+      "npcs": [
+        {
+          "entity": "Hue",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Meeting Invitation",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "support_step": 2,
+          "evidence": "Speak to Ryosen ( mid_camp 165, 245), he asks you to deliver a Meeting Invitation to Hue, then to Hansenne.",
+          "condition": "Source says deliver for signature, then take it onward; do not model permanent consumption here."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hue"
+        }
+      ],
+      "protected_names": [
+        "Hue",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 247,
+          "y": 255,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 247, 255"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Next deliver the invitation to Hansenne ( mid_camp 222, 218), and ask him to sign it.",
+      "instruction_sha256": "3f6072e746ddeab75a03be5725f6157333ae4ca7609e21bc4b4e30dacff0d967",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/3f6072e746ddeab75a03/1",
+      "goal": "deliver",
+      "short_ru": "Затем получите подпись Hansenne: mid_camp 222, 218.",
+      "short_en": "Then obtain Hansenne’s signature: mid_camp 222, 218.",
+      "full_ru": "Затем отнесите приглашение Hansenne (mid_camp 222, 218) и попросите подписать.",
+      "full_en": "Next deliver the invitation to Hansenne ( mid_camp 222, 218), and ask him to sign it.",
+      "npcs": [
+        {
+          "entity": "Hansenne",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Meeting Invitation",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "support_step": 2,
+          "evidence": "Speak to Ryosen ( mid_camp 165, 245), he asks you to deliver a Meeting Invitation to Hue, then to Hansenne.",
+          "condition": "Second signature on the same source-described invitation, not another inventory copy."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hansenne"
+        }
+      ],
+      "protected_names": [
+        "Hansenne",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 222,
+          "y": 218,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 222, 218"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Return to Ryosen, he directs you to return to the United Research Official.",
+      "instruction_sha256": "19ca578ceb4ba5dc897c582a60c3e8fc69afce9a8fa16baf1d41c3b5529e299b",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/19ca578ceb4ba5dc897c/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Ryosen, затем к United Research Official.",
+      "short_en": "Return to Ryosen, then to United Research Official.",
+      "full_ru": "Вернитесь к Ryosen. Он направит обратно к United Research Official.",
+      "full_en": "Return to Ryosen, he directs you to return to the United Research Official.",
+      "npcs": [
+        {
+          "entity": "Ryosen",
+          "role": "talk"
+        },
+        {
+          "entity": "United Research Official",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ryosen"
+        }
+      ],
+      "protected_names": [
+        "United Research Official",
+        "Ryosen"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "The United Research Official asks you to check on each of the researchers to make sure they're preparing for their meeting.",
+      "instruction_sha256": "49223c977d1d5b991d47263405c46907a23c0a8e2ce6154275a35b5284e60756",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/49223c977d1d5b991d47/1",
+      "goal": "talk",
+      "short_ru": "Получите у United Research Official поручение проверить подготовку исследователей.",
+      "short_en": "Get United Research Official’s request to check the researchers’ preparations.",
+      "full_ru": "United Research Official попросит проверить, готовы ли исследователи к встрече.",
+      "full_en": "The United Research Official asks you to check on each of the researchers to make sure they're preparing for their meeting.",
+      "npcs": [
+        {
+          "entity": "United Research Official",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "United Research Official"
+        }
+      ],
+      "protected_names": [
+        "United Research Official"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Speak to Ryosen, he asks you to retrieve a document from Hansenne.",
+      "instruction_sha256": "ef6b41db9474a75a5b257907a080091156b30de26bd90627e45c2739e530d059",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/ef6b41db9474a75a5b25/1",
+      "goal": "talk",
+      "short_ru": "У Ryosen получите поручение забрать документ у Hansenne.",
+      "short_en": "Get Ryosen’s request to retrieve a document from Hansenne.",
+      "full_ru": "Поговорите с Ryosen: он попросит забрать документ у Hansenne.",
+      "full_en": "Speak to Ryosen, he asks you to retrieve a document from Hansenne.",
+      "npcs": [
+        {
+          "entity": "Ryosen",
+          "role": "talk"
+        },
+        {
+          "entity": "Hansenne",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ryosen"
+        }
+      ],
+      "protected_names": [
+        "Ryosen",
+        "Hansenne"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Hansenne tells you he lost the document while playing on the west bridge. He suggests you go fishing.",
+      "instruction_sha256": "fec7c4726ba4a48607f120ad57463d1c5e57adc7726be7dde45a140e295f6e44",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/fec7c4726ba4a48607f1/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Hansenne о потерянном документе у западного моста.",
+      "short_en": "Ask Hansenne about the document lost by the west bridge.",
+      "full_ru": "Hansenne расскажет, что потерял документ, играя у западного моста. Он предложит порыбачить.",
+      "full_en": "Hansenne tells you he lost the document while playing on the west bridge. He suggests you go fishing.",
+      "npcs": [
+        {
+          "entity": "Hansenne",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hansenne"
+        }
+      ],
+      "protected_names": [
+        "Hansenne"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Take the west bridge and go to ( mid_camp 69, 134), where you will find a School of Fish in the water. Attempt to fish until you retrieve a Messy File .",
+      "instruction_sha256": "976e57e4cc742bfa64e37839d6aae18616aeb3816fa8b82645fda98a5af0fbec",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/976e57e4cc742bfa64e3/1",
+      "goal": "fish",
+      "short_ru": "Ловите у School of Fish (mid_camp 69, 134), пока не получите Messy File.",
+      "short_en": "Fish at the School of Fish (mid_camp 69, 134) until you obtain Messy File.",
+      "full_ru": "Идите по западному мосту к mid_camp 69, 134. В воде находится School of Fish. Повторяйте попытки рыбалки, пока не получите Messy File.",
+      "full_en": "Take the west bridge and go to ( mid_camp 69, 134), where you will find a School of Fish in the water. Attempt to fish until you retrieve a Messy File .",
+      "npcs": [
+        {
+          "entity": "School of Fish",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "fish",
+          "entity": "School of Fish",
+          "condition": "Repeat until the file is obtained; no fixed attempt count or probability is stated."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Messy File"
+        }
+      ],
+      "protected_names": [
+        "School of Fish",
+        "mid_camp",
+        "Messy File"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 69,
+          "y": 134,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 69, 134"
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "Return to Hansenne, who tells you to take the document to Hue to restore it.",
+      "instruction_sha256": "12beb464355ee8639ca952882319d64751264dccfdb4c4f6f8cff754b97e7926",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/12beb464355ee8639ca9/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Hansenne и получите направление к Hue.",
+      "short_en": "Return to Hansenne for a referral to Hue.",
+      "full_ru": "Вернитесь к Hansenne. Он попросит отнести документ Hue для восстановления.",
+      "full_en": "Return to Hansenne, who tells you to take the document to Hue to restore it.",
+      "npcs": [
+        {
+          "entity": "Hansenne",
+          "role": "talk"
+        },
+        {
+          "entity": "Hue",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Messy File",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "support_step": 9,
+          "evidence": "Take the west bridge and go to ( mid_camp 69, 134), where you will find a School of Fish in the water. Attempt to fish until you retrieve a Messy File ."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hansenne"
+        }
+      ],
+      "protected_names": [
+        "Hue",
+        "Hansenne"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Hue requires 1 Folding Fan of Cat Ghost , 1 Flame Stone , 1 Old Frying Pan , 1 Squid Ink to restore the document.",
+      "instruction_sha256": "34975a5e2c1a4f9d9dc49158ce60add72287887452e996d8d04a8ed7033e8d9a",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/34975a5e2c1a4f9d9dc4/1",
+      "goal": "bring",
+      "short_ru": "Подготовьте Hue: 1 Folding Fan of Cat Ghost, 1 Flame Stone, 1 Old Frying Pan, 1 Squid Ink.",
+      "short_en": "Prepare for Hue: 1 Folding Fan of Cat Ghost, 1 Flame Stone, 1 Old Frying Pan, 1 Squid Ink.",
+      "full_ru": "Hue потребует 1 Folding Fan of Cat Ghost, 1 Flame Stone, 1 Old Frying Pan и 1 Squid Ink для восстановления документа.",
+      "full_en": "Hue requires 1 Folding Fan of Cat Ghost , 1 Flame Stone , 1 Old Frying Pan , 1 Squid Ink to restore the document.",
+      "npcs": [
+        {
+          "entity": "Hue",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Folding Fan of Cat Ghost",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Flame Stone",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Old Frying Pan",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Squid Ink",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hue"
+        }
+      ],
+      "protected_names": [
+        "Hue",
+        "Folding Fan of Cat Ghost",
+        "Flame Stone",
+        "Old Frying Pan",
+        "Squid Ink"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "After giving him the items, he restores the document and gives you a Neat Report .",
+      "instruction_sha256": "fcec6802829c12cc85c9798d6d6fa15cecd60001506dc8c6725aabee44607579",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/fcec6802829c12cc85c9/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Hue материалы из предыдущего этапа; получите Neat Report.",
+      "short_en": "Give Hue the materials from the previous step; receive Neat Report.",
+      "full_ru": "Передайте ему материалы. Он восстановит документ и выдаст Neat Report.",
+      "full_en": "After giving him the items, he restores the document and gives you a Neat Report .",
+      "npcs": [
+        {
+          "entity": "Hue",
+          "role": "talk",
+          "support_step": 11,
+          "evidence": "Hue requires 1 Folding Fan of Cat Ghost , 1 Flame Stone , 1 Old Frying Pan , 1 Squid Ink to restore the document."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Folding Fan of Cat Ghost",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 11,
+          "evidence": "Hue requires 1 Folding Fan of Cat Ghost , 1 Flame Stone , 1 Old Frying Pan , 1 Squid Ink to restore the document."
+        },
+        {
+          "entity": "Flame Stone",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 11,
+          "evidence": "Hue requires 1 Folding Fan of Cat Ghost , 1 Flame Stone , 1 Old Frying Pan , 1 Squid Ink to restore the document."
+        },
+        {
+          "entity": "Old Frying Pan",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 11,
+          "evidence": "Hue requires 1 Folding Fan of Cat Ghost , 1 Flame Stone , 1 Old Frying Pan , 1 Squid Ink to restore the document."
+        },
+        {
+          "entity": "Squid Ink",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 11,
+          "evidence": "Hue requires 1 Folding Fan of Cat Ghost , 1 Flame Stone , 1 Old Frying Pan , 1 Squid Ink to restore the document."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Neat Report"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "restore_document"
+        }
+      ],
+      "protected_names": [
+        "Neat Report"
+      ],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Return the document to Ryosen, who then asks you to go the Official to wait for the meeting to start.",
+      "instruction_sha256": "f9afd120b0e0b5ea5e16d2b8b50e2141a9f89c9c4fc1dd9bf1e67df92f8f627a",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/f9afd120b0e0b5ea5e16/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Ryosen восстановленный документ и идите к Official.",
+      "short_en": "Give Ryosen the restored document and go to the Official.",
+      "full_ru": "Верните документ Ryosen. Он попросит идти к Official и ждать начала встречи.",
+      "full_en": "Return the document to Ryosen, who then asks you to go the Official to wait for the meeting to start.",
+      "npcs": [
+        {
+          "entity": "Ryosen",
+          "role": "talk"
+        },
+        {
+          "entity": "United Research Official",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Neat Report",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 12,
+          "evidence": "After giving him the items, he restores the document and gives you a Neat Report ."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ryosen"
+        }
+      ],
+      "protected_names": [
+        "Ryosen"
+      ],
+      "locations": []
+    },
+    "14": {
+      "original_instruction": "Walk up to the Official, and the meeting begins. The three researchers give their reports, but the meeting is interrupted by the appearance of Thief Bugs , and everyone (including yourself) leaves the room.",
+      "instruction_sha256": "49dfccdc0b334aa72efb21837ad638e6c6c53be553cd2968abbedf365b528e23",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/49dfccdc0b334aa72efb/1",
+      "goal": "trigger",
+      "short_ru": "Подойдите к Official; после появления Thief Bugs выйдите вместе с остальными.",
+      "short_en": "Approach the Official; leave with the others when Thief Bugs appear.",
+      "full_ru": "Подойдите к Official: начнётся встреча. Исследователи выступят с отчётами, но появятся Thief Bugs. Все, включая вас, покинут комнату.",
+      "full_en": "Walk up to the Official, and the meeting begins. The three researchers give their reports, but the meeting is interrupted by the appearance of Thief Bugs , and everyone (including yourself) leaves the room.",
+      "npcs": [
+        {
+          "entity": "United Research Official",
+          "role": "proximity_trigger"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Thief Bugs",
+          "operation": "mention",
+          "required": 0
+        }
+      ],
+      "actions": [
+        {
+          "operation": "approach",
+          "entity": "United Research Official"
+        },
+        {
+          "operation": "leave"
+        }
+      ],
+      "protected_names": [
+        "Thief Bugs"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "Reenter the building and kill all of the Thief Bugs , after which the others reappear.",
+      "instruction_sha256": "4edd34ef9cc0bd58ab5f59bb7ed49366f17e689f0a3ea787fb3709e627d578c3",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/4edd34ef9cc0bd58ab5f/1",
+      "goal": "kill",
+      "short_ru": "Вернитесь в здание и убейте всех Thief Bugs.",
+      "short_en": "Reenter the building and kill all Thief Bugs.",
+      "full_ru": "Снова войдите в здание и уничтожьте всех Thief Bugs. После этого остальные вернутся.",
+      "full_en": "Reenter the building and kill all of the Thief Bugs , after which the others reappear.",
+      "monsters": [
+        {
+          "entity": "Thief Bugs",
+          "operation": "kill",
+          "quantity": null,
+          "required": 1,
+          "condition": "All spawned quest bugs; the source gives no fixed count."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "kill",
+          "entity": "Thief Bugs"
+        }
+      ],
+      "protected_names": [
+        "Thief Bugs"
+      ],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "Walk over to the Official, and the \"meeting\" resumes, whereupon Ryosen accuses the rest of tampering with his precious Cake, and an argument ensues, until the Official finally tells everyone to call it a day.",
+      "instruction_sha256": "5ab75da3c8a680a3ed842e71f000f98802b4ff6277a96afc2f2810f64a008469",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/5ab75da3c8a680a3ed84/1",
+      "goal": "trigger",
+      "short_ru": "Подойдите к Official и прослушайте спор Ryosen о Cake.",
+      "short_en": "Approach the Official and listen to Ryosen’s argument about Cake.",
+      "full_ru": "Подойдите к Official, чтобы продолжить встречу. Ryosen обвинит остальных в порче его Cake. После спора Official отпустит участников.",
+      "full_en": "Walk over to the Official, and the \"meeting\" resumes, whereupon Ryosen accuses the rest of tampering with his precious Cake, and an argument ensues, until the Official finally tells everyone to call it a day.",
+      "npcs": [
+        {
+          "entity": "United Research Official",
+          "role": "proximity_trigger"
+        },
+        {
+          "entity": "Ryosen",
+          "role": "story_actor"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "approach",
+          "entity": "United Research Official"
+        }
+      ],
+      "protected_names": [
+        "Ryosen"
+      ],
+      "locations": []
+    },
+    "17": {
+      "original_instruction": "Walk back again towards the Official, where you explain that you know Hansenne wasn't the tamperer, although he took the blame for it.",
+      "instruction_sha256": "95c600d88248a252c0cdcca9b0bf09ccd76c878d719b86c6876b9162e6c5310b",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/95c600d88248a252c0cd/1",
+      "goal": "talk",
+      "short_ru": "Объясните Official, что Hansenne не виноват.",
+      "short_en": "Tell the Official that Hansenne was not responsible.",
+      "full_ru": "Снова подойдите к Official и объясните, что Hansenne не портил торт, хотя и взял вину на себя.",
+      "full_en": "Walk back again towards the Official, where you explain that you know Hansenne wasn't the tamperer, although he took the blame for it.",
+      "npcs": [
+        {
+          "entity": "United Research Official",
+          "role": "talk"
+        },
+        {
+          "entity": "Hansenne",
+          "role": "story_actor"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "approach",
+          "entity": "United Research Official"
+        },
+        {
+          "operation": "talk",
+          "entity": "United Research Official"
+        }
+      ],
+      "protected_names": [
+        "Hansenne"
+      ],
+      "locations": []
+    },
+    "18": {
+      "original_instruction": "Talk to Hansenne, and he gives you a Arunafeltz Desert Sandwich in appreciation for your caring. He suggests you help Ryosen and Hue get along better.",
+      "instruction_sha256": "9ba7deda1aaaaa5f0b8d29a7ae976a3346063506390e4cbac01eb26e9a7461c4",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/9ba7deda1aaaaa5f0b8d/1",
+      "goal": "receive_reward",
+      "short_ru": "Поговорите с Hansenne; получите Arunafeltz Desert Sandwich.",
+      "short_en": "Talk to Hansenne; receive Arunafeltz Desert Sandwich.",
+      "full_ru": "Поговорите с Hansenne. В благодарность он даст Arunafeltz Desert Sandwich и предложит помочь Ryosen и Hue помириться.",
+      "full_en": "Talk to Hansenne, and he gives you a Arunafeltz Desert Sandwich in appreciation for your caring. He suggests you help Ryosen and Hue get along better.",
+      "npcs": [
+        {
+          "entity": "Hansenne",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Arunafeltz Desert Sandwich"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hansenne"
+        }
+      ],
+      "protected_names": [
+        "Ryosen",
+        "Hue",
+        "Hansenne",
+        "Arunafeltz Desert Sandwich"
+      ],
+      "locations": []
+    },
+    "19": {
+      "original_instruction": "Talk to Hue, who asks you to take the Rune Midgard report to Ryosen, and gives you a Schwartzwald Pine Jubilee in thanks.",
+      "instruction_sha256": "94c0c1fab1a0e226e2819c5ed1bc41088de5d1a38d43d1da7e3aad28cbda698f",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/94c0c1fab1a0e226e281/1",
+      "goal": "receive_item",
+      "short_ru": "Получите у Hue Rune Midgard report для Ryosen и Schwartzwald Pine Jubilee.",
+      "short_en": "Receive Rune Midgard report for Ryosen and Schwartzwald Pine Jubilee from Hue.",
+      "full_ru": "Поговорите с Hue. Он попросит отнести Rune Midgard report Ryosen и поблагодарит предметом Schwartzwald Pine Jubilee.",
+      "full_en": "Talk to Hue, who asks you to take the Rune Midgard report to Ryosen, and gives you a Schwartzwald Pine Jubilee in thanks.",
+      "npcs": [
+        {
+          "entity": "Hue",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Rune Midgard report",
+          "condition": "Generic source label; not assumed identical to the restored Neat Report."
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Schwartzwald Pine Jubilee"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hue"
+        }
+      ],
+      "protected_names": [
+        "Ryosen",
+        "Hue",
+        "Rune Midgard report",
+        "Schwartzwald Pine Jubilee"
+      ],
+      "locations": []
+    },
+    "20": {
+      "original_instruction": "Hand the report to Ryosen, who realizes he should've thanked Hue earlier, and asks you to set up another meeting with the Official. He gives you a piece of Rune Strawberry Cake in appreciation.",
+      "instruction_sha256": "aeed9689cbf6206aae2c8e9b541384e9325ac4d82a0d0b93642fb0dcf034cb71",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/aeed9689cbf6206aae2c/1",
+      "goal": "deliver",
+      "short_ru": "Передайте отчёт Ryosen; получите Rune Strawberry Cake и поручение к Official.",
+      "short_en": "Give Ryosen the report; receive Rune Strawberry Cake and a request for the Official.",
+      "full_ru": "Передайте отчёт Ryosen. Он поймёт, что должен был раньше поблагодарить Hue, попросит организовать ещё одну встречу с Official и даст Rune Strawberry Cake.",
+      "full_en": "Hand the report to Ryosen, who realizes he should've thanked Hue earlier, and asks you to set up another meeting with the Official. He gives you a piece of Rune Strawberry Cake in appreciation.",
+      "npcs": [
+        {
+          "entity": "Ryosen",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rune Midgard report",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 19,
+          "evidence": "Talk to Hue, who asks you to take the Rune Midgard report to Ryosen, and gives you a Schwartzwald Pine Jubilee in thanks."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Rune Strawberry Cake"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ryosen"
+        }
+      ],
+      "protected_names": [
+        "Ryosen",
+        "Hue",
+        "Rune Strawberry Cake"
+      ],
+      "locations": []
+    },
+    "21": {
+      "original_instruction": "Talk to the Official, who thanks you for all the work you've done, and gives you a First Aid Kit . Receive 300,000 Base Experience and 100,000 Job Experience . | Ryosen will give you 1 Rune Strawberry Cake (+5 ATK and +5 MATK for 10 minutes) for every 5 Mystic Horn you turn in. | Hansenne will give you 1 Arunafeltz Desert Sandwich (+7 Crit for 10 minutes) for every 5 Peaked Hat you turn in. | Hue will give you 1 Schwartzwald Pine Jubilee (+10 Hit and +20 Perfect Dodge for 10 minutes) for every 5 Fur you turn in.",
+      "instruction_sha256": "23916a3bbd76a14cc2badc251752418a2ee34ccad76864cae595ecc391413f2e",
+      "step_id": "irowiki-classic:Tripatriate_Union's_Feud/step/23916a3bbd76a14cc2ba/1",
+      "goal": "receive_reward",
+      "short_ru": "Завершите у Official: First Aid Kit, 300,000 Base Experience, 100,000 Job Experience.",
+      "short_en": "Finish with the Official: First Aid Kit, 300,000 Base Experience, 100,000 Job Experience.",
+      "full_ru": "Поговорите с Official. Он поблагодарит за работу и даст First Aid Kit. Получите 300,000 Base Experience и 100,000 Job Experience.",
+      "full_en": "Talk to the Official, who thanks you for all the work you've done, and gives you a First Aid Kit . Receive 300,000 Base Experience and 100,000 Job Experience .",
+      "npcs": [
+        {
+          "entity": "United Research Official",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "First Aid Kit"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "300000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "100000"
+        },
+        {
+          "kind": "unlock",
+          "condition": "Optional New World monster-drop consumable exchanges described in the following source section."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "United Research Official"
+        }
+      ],
+      "protected_names": [
+        "First Aid Kit"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "ryosen_exchange",
+          "choice_group": "turn_in_recipe_per_exchange",
+          "variant_scope": "Postquest optional repeatable source exchange",
+          "condition": "Optional after quest completion; choose a recipe per exchange, with no permanent exclusion of other recipes.",
+          "section": "",
+          "source_step": 21,
+          "original_instruction": " | Ryosen will give you 1 Rune Strawberry Cake (+5 ATK and +5 MATK for 10 minutes) for every 5 Mystic Horn you turn in.",
+          "instruction_sha256": "18525e442d48813add0c2bdc93935851ad34197a826c7fc636bf8b1f1e3d7bd6",
+          "short_ru": "Дополнительно у Ryosen: 5 Mystic Horn → 1 Rune Strawberry Cake; +5 ATK и +5 MATK на 10 минут.",
+          "short_en": "Optional at Ryosen: 5 Mystic Horn → 1 Rune Strawberry Cake; +5 ATK and +5 MATK for 10 minutes.",
+          "full_ru": "Ryosen предлагает повторяемый обмен: 5 Mystic Horn → 1 Rune Strawberry Cake; +5 ATK и +5 MATK на 10 минут.",
+          "full_en": " | Ryosen will give you 1 Rune Strawberry Cake (+5 ATK and +5 MATK for 10 minutes) for every 5 Mystic Horn you turn in.",
+          "protected_names": [
+            "Ryosen",
+            "Rune Strawberry Cake",
+            "Mystic Horn"
+          ],
+          "npcs": [
+            {
+              "entity": "Ryosen",
+              "role": "optional_exchange"
+            }
+          ],
+          "items": [
+            {
+              "entity": "Mystic Horn",
+              "quantity": 5,
+              "operation": "deliver",
+              "required": 0,
+              "condition": "Per optional exchange; not a prerequisite of main quest completion."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Rune Strawberry Cake",
+              "condition": "Per selected optional exchange; not an additional guaranteed main reward."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "exchange",
+              "entity": "Mystic Horn"
+            }
+          ]
+        },
+        {
+          "key": "hansenne_exchange",
+          "choice_group": "turn_in_recipe_per_exchange",
+          "variant_scope": "Postquest optional repeatable source exchange",
+          "condition": "Optional after quest completion; choose a recipe per exchange, with no permanent exclusion of other recipes.",
+          "section": "",
+          "source_step": 21,
+          "original_instruction": " | Hansenne will give you 1 Arunafeltz Desert Sandwich (+7 Crit for 10 minutes) for every 5 Peaked Hat you turn in.",
+          "instruction_sha256": "75bfb7c90e0038fe3b88d5a8783b5581ac70b0c71826a38be005a587a91335b8",
+          "short_ru": "Дополнительно у Hansenne: 5 Peaked Hat → 1 Arunafeltz Desert Sandwich; +7 Crit на 10 минут.",
+          "short_en": "Optional at Hansenne: 5 Peaked Hat → 1 Arunafeltz Desert Sandwich; +7 Crit for 10 minutes.",
+          "full_ru": "Hansenne предлагает повторяемый обмен: 5 Peaked Hat → 1 Arunafeltz Desert Sandwich; +7 Crit на 10 минут.",
+          "full_en": " | Hansenne will give you 1 Arunafeltz Desert Sandwich (+7 Crit for 10 minutes) for every 5 Peaked Hat you turn in.",
+          "protected_names": [
+            "Hansenne",
+            "Arunafeltz Desert Sandwich",
+            "Peaked Hat"
+          ],
+          "npcs": [
+            {
+              "entity": "Hansenne",
+              "role": "optional_exchange"
+            }
+          ],
+          "items": [
+            {
+              "entity": "Peaked Hat",
+              "quantity": 5,
+              "operation": "deliver",
+              "required": 0,
+              "condition": "Per optional exchange; not a prerequisite of main quest completion."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Arunafeltz Desert Sandwich",
+              "condition": "Per selected optional exchange; not an additional guaranteed main reward."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "exchange",
+              "entity": "Peaked Hat"
+            }
+          ]
+        },
+        {
+          "key": "hue_exchange",
+          "choice_group": "turn_in_recipe_per_exchange",
+          "variant_scope": "Postquest optional repeatable source exchange",
+          "condition": "Optional after quest completion; choose a recipe per exchange, with no permanent exclusion of other recipes.",
+          "section": "",
+          "source_step": 21,
+          "original_instruction": " | Hue will give you 1 Schwartzwald Pine Jubilee (+10 Hit and +20 Perfect Dodge for 10 minutes) for every 5 Fur you turn in.",
+          "instruction_sha256": "9245ed9132dab5805e48c11ae4405b6a39abd6fac25613229239912063a679b4",
+          "short_ru": "Дополнительно у Hue: 5 Fur → 1 Schwartzwald Pine Jubilee; +10 Hit и +20 Perfect Dodge на 10 минут.",
+          "short_en": "Optional at Hue: 5 Fur → 1 Schwartzwald Pine Jubilee; +10 Hit and +20 Perfect Dodge for 10 minutes.",
+          "full_ru": "Hue предлагает повторяемый обмен: 5 Fur → 1 Schwartzwald Pine Jubilee; +10 Hit и +20 Perfect Dodge на 10 минут.",
+          "full_en": " | Hue will give you 1 Schwartzwald Pine Jubilee (+10 Hit and +20 Perfect Dodge for 10 minutes) for every 5 Fur you turn in.",
+          "protected_names": [
+            "Hue",
+            "Schwartzwald Pine Jubilee",
+            "Fur"
+          ],
+          "npcs": [
+            {
+              "entity": "Hue",
+              "role": "optional_exchange"
+            }
+          ],
+          "items": [
+            {
+              "entity": "Fur",
+              "quantity": 5,
+              "operation": "deliver",
+              "required": 0,
+              "condition": "Per optional exchange; not a prerequisite of main quest completion."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Schwartzwald Pine Jubilee",
+              "condition": "Per selected optional exchange; not an additional guaranteed main reward."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "exchange",
+              "entity": "Fur"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "followup_exchanges_not_main_requirements",
+      "detail": "The old final step includes a separate Turn-in Follow-up Quests section. Its three repeatable exchanges are branch-scoped optional recipes per transaction; all main completion grants remain common. No follow-up materials are main requirements."
+    },
+    {
+      "reason": "generic_source_document_labels",
+      "detail": "Meeting Invitation is presented to Hue then Hansenne; no second copy or destruction at the first signature is established. Rune Midgard report is a generic label without proven inventory ID or identity with Neat Report."
+    },
+    {
+      "reason": "unknown_thief_bug_count",
+      "detail": "Source links Thief Bugs to monster 1051 and requires killing all spawned bugs, but does not give a quantity."
+    },
+    {
+      "reason": "reward_header_not_extra_grant",
+      "detail": "One of each main food reward and First Aid Kit is already granted in steps 18–21. Header totals do not add duplicate grants; repeatable recipes have independent conditions."
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
+      "kind": "mandatory_prerequisite"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Folding Fan of Cat Ghost",
+        "entity": "Folding Fan of Cat Ghost",
+        "condition": "Main restoration material total; do not add to step 12 delivery again."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Flame Stone",
+        "entity": "Flame Stone",
+        "condition": "Main restoration material total; do not add to step 12 delivery again."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Old Frying Pan",
+        "entity": "Old Frying Pan",
+        "condition": "Main restoration material total; do not add to step 12 delivery again."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Squid Ink",
+        "entity": "Squid Ink",
+        "condition": "Main restoration material total; do not add to step 12 delivery again."
+      }
+    ]
+  },
+  "source_partitions": [
+    {
+      "source_step": 21,
+      "segments": [
+        {
+          "target_step": 21,
+          "start": 0,
+          "end": 159,
+          "section": "Main completion"
+        },
+        {
+          "target_step": 21,
+          "branch_key": "ryosen_exchange",
+          "start": 159,
+          "end": 278,
+          "section": "Turn-in Follow-up Quests"
+        },
+        {
+          "target_step": 21,
+          "branch_key": "hansenne_exchange",
+          "start": 278,
+          "end": 393,
+          "section": "Turn-in Follow-up Quests"
+        },
+        {
+          "target_step": 21,
+          "branch_key": "hue_exchange",
+          "start": 393,
+          "end": 517,
+          "section": "Turn-in Follow-up Quests"
+        }
+      ]
+    }
+  ]
+}

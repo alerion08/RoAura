@@ -153,7 +153,7 @@ jobs:
           from semantic import validate, load_curations, ROOT
           semantic=sqlite3.connect("research/quest-database/output/quest_semantic.sqlite")
           assert validate(semantic)["integrity_check"]=="ok"
-          assert semantic.execute("PRAGMA user_version").fetchone()[0]==4
+          assert semantic.execute("PRAGMA user_version").fetchone()[0]==5
           assert semantic.execute("SELECT count(*) FROM quests").fetchone()[0]==len(active)
           curations=load_curations(ROOT/"curation")
           localized=sum(len(q["steps"]) for q in curations.values())
@@ -166,6 +166,11 @@ jobs:
           assert semantic.execute("SELECT count(*) FROM branch_descriptions").fetchone()[0]==branches
           additions=sum(len(s.get("source_additions",[])) for q in curations.values() for s in q["steps"].values())
           routes=sum(len(q.get("routes",[])) for q in curations.values())
+          groups=sum(len(q.get("prerequisite_groups",[])) for q in curations.values())
+          assert semantic_report["prerequisite_groups"]==groups
+          assert semantic.execute("SELECT count(*) FROM quest_prerequisite_groups").fetchone()[0]==groups
+          members=sum(len(g["members"]) for q in curations.values() for g in q.get("prerequisite_groups",[]))
+          assert semantic.execute("SELECT count(*) FROM quest_prerequisite_members").fetchone()[0]==members
           assert semantic_report["quest_routes"]==routes
           assert semantic.execute("SELECT count(*) FROM quest_routes").fetchone()[0]==routes
           reuse=sum(bool(s.get("action_reuse")) for q in curations.values() for s in q["steps"].values())

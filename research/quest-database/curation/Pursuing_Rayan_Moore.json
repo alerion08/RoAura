@@ -1,0 +1,1282 @@
+{
+  "quest_id": "irowiki-classic:Pursuing_Rayan_Moore",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "8456a02709443af9c0713232ea33f41d8a381d8b775893ee2ffa0bb28a4ac880",
+  "snapshot_sha256": "754d013563fcac69db60237bd53455ccce7eb473ddeaa18ddac3974a38aa5492",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Echinacea",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Kidd",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Bar Manager",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Rin",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Defaria",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Manager",
+      "aliases": [
+        "building manager"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Rayan",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "pile of dirt"
+    },
+    {
+      "type": "npc",
+      "name": "corpse"
+    },
+    {
+      "type": "npc",
+      "name": "man",
+      "ref": "basement_man"
+    },
+    {
+      "type": "map",
+      "name": "mid_camp",
+      "map_code": "mid_camp"
+    },
+    {
+      "type": "map",
+      "name": "mid_campin",
+      "map_code": "mid_campin"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "que_job01",
+      "map_code": "que_job01"
+    },
+    {
+      "type": "map",
+      "name": "hu_fild04",
+      "map_code": "hu_fild04"
+    },
+    {
+      "type": "map",
+      "name": "que_dan01",
+      "map_code": "que_dan01"
+    },
+    {
+      "type": "map",
+      "name": "yuno_fild09",
+      "map_code": "yuno_fild09"
+    },
+    {
+      "type": "map",
+      "name": "que_dan02",
+      "map_code": "que_dan02"
+    },
+    {
+      "type": "map",
+      "name": "Arunafeltz"
+    },
+    {
+      "type": "item",
+      "name": "Rune of Darkness",
+      "game_id": 7511,
+      "id_source": "http://db.irowiki.org/classic/item-info/7511/"
+    },
+    {
+      "type": "item",
+      "name": "Bloody Rune",
+      "game_id": 7563,
+      "id_source": "http://db.irowiki.org/classic/item-info/7563/"
+    },
+    {
+      "type": "item",
+      "name": "Holy Water",
+      "game_id": 523,
+      "id_source": "http://db.irowiki.org/classic/item-info/523/"
+    },
+    {
+      "type": "item",
+      "name": "Crystal of Feardom",
+      "aliases": [
+        "Crystal"
+      ]
+    },
+    {
+      "type": "item",
+      "name": "a report"
+    },
+    {
+      "type": "item",
+      "name": "Journal"
+    },
+    {
+      "type": "item",
+      "name": "Sealed Scroll"
+    },
+    {
+      "type": "item",
+      "name": "Unsealed Magic Scroll"
+    },
+    {
+      "type": "item",
+      "name": "journal"
+    },
+    {
+      "type": "item",
+      "name": "Old Purple Box",
+      "game_id": 617,
+      "id_source": "http://db.irowiki.org/classic/item-info/617/"
+    },
+    {
+      "type": "item",
+      "name": "Potatoes",
+      "game_id": 516,
+      "id_source": "http://db.irowiki.org/classic/item-info/516/"
+    },
+    {
+      "type": "item",
+      "name": "logs",
+      "game_id": 7201,
+      "id_source": "http://db.irowiki.org/classic/item-info/7201/"
+    },
+    {
+      "type": "item",
+      "name": "Sweet Potatoes",
+      "game_id": 633,
+      "id_source": "http://db.irowiki.org/classic/item-info/633/"
+    },
+    {
+      "type": "monster",
+      "name": "Dandelion Members"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Echinacea ( mid_camp 215, 247 -> mid_campin 86, 138 -> mid_campin 68,185), and she asks you to go help Kidd.",
+      "instruction_sha256": "ff79079823a8e95f2ff876512ea00a76a1be3d4683a9dcff84951006dafedae7",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/ff79079823a8e95f2ff8/1",
+      "goal": "talk",
+      "short_ru": "Найдите Echinacea: mid_camp 215, 247 → mid_campin 86, 138 → mid_campin 68,185.",
+      "short_en": "Find Echinacea: mid_camp 215, 247 → mid_campin 86, 138 → mid_campin 68,185.",
+      "full_ru": "Поговорите с Echinacea: mid_camp 215, 247 → mid_campin 86, 138 → mid_campin 68,185. Она попросит помочь Kidd.",
+      "full_en": "Talk to Echinacea ( mid_camp 215, 247 -> mid_campin 86, 138 -> mid_campin 68,185), and she asks you to go help Kidd.",
+      "npcs": [
+        {
+          "entity": "Echinacea",
+          "role": "talk"
+        },
+        {
+          "entity": "Kidd",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Echinacea"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "mid_camp",
+          "x": 215,
+          "y": 247,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "mid_campin",
+          "x": 86,
+          "y": 138,
+          "role": "waypoint",
+          "known": true,
+          "order": 2
+        },
+        {
+          "entity": "mid_campin",
+          "x": 68,
+          "y": 185,
+          "role": "npc",
+          "known": true,
+          "order": 3
+        }
+      ],
+      "protected_names": [
+        "Echinacea",
+        "Kidd",
+        "mid_camp",
+        "mid_campin"
+      ]
+    },
+    "2": {
+      "original_instruction": "Kidd (mid_camp 199, 311) tells you that he hasn't received any communications from the Old World in some time, and he asks you to find Rin in the secret Assassin Pub in southwest Morroc .",
+      "instruction_sha256": "589c2d5d107d2f6db70468e38327b571923fd5318074bca37cfc66be4eb23e58",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/589c2d5d107d2f6db704/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Kidd (mid_camp 199, 311); найдите Rin в Assassin Pub, Morroc.",
+      "short_en": "Talk to Kidd (mid_camp 199, 311); find Rin in the Assassin Pub, Morroc.",
+      "full_ru": "Kidd (mid_camp 199, 311) давно не получал сообщений из Old World и попросит найти Rin в тайном Assassin Pub на юго-западе Morroc.",
+      "full_en": "Kidd (mid_camp 199, 311) tells you that he hasn't received any communications from the Old World in some time, and he asks you to find Rin in the secret Assassin Pub in southwest Morroc .",
+      "npcs": [
+        {
+          "entity": "Kidd",
+          "role": "talk"
+        },
+        {
+          "entity": "Rin",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kidd"
+        }
+      ],
+      "protected_names": [
+        "Kidd",
+        "Rin",
+        "mid_camp",
+        "Morroc"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 199,
+          "y": 311,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 199, 311"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to the Bar Manager in the secret pub, and ask about a mission. He tells you Rin is in the back room resting.",
+      "instruction_sha256": "514c3a6b22de1e3f9a11b1b4b96118ec022114253c55663fd1b7a11d936c8dda",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/514c3a6b22de1e3f9a11/1",
+      "goal": "talk",
+      "short_ru": "Спросите Bar Manager о задании и местонахождении Rin.",
+      "short_en": "Ask Bar Manager about a mission and Rin.",
+      "full_ru": "Поговорите с Bar Manager в тайном пабе и спросите о задании. Он скажет, что Rin отдыхает в задней комнате.",
+      "full_en": "Talk to the Bar Manager in the secret pub, and ask about a mission. He tells you Rin is in the back room resting.",
+      "npcs": [
+        {
+          "entity": "Bar Manager",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Bar Manager"
+        }
+      ],
+      "protected_names": [
+        "Bar Manager",
+        "Rin",
+        "Manager"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Enter the back room, and go into the room to the south. Speak to Rin (que_job01 84, 17), and offer to help her. She will ask you to investigate the area where she was ambushed.",
+      "instruction_sha256": "ea554b5a16581a653c00c29b651d8b7acc21b52d097f703ea0c8ac300322f7e1",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/ea554b5a16581a653c00/1",
+      "goal": "talk",
+      "short_ru": "Предложите помощь Rin: que_job01 84, 17.",
+      "short_en": "Offer to help Rin: que_job01 84, 17.",
+      "full_ru": "Войдите в заднюю комнату, затем в южную. Поговорите с Rin (que_job01 84, 17) и предложите помощь. Она попросит исследовать место засады.",
+      "full_en": "Enter the back room, and go into the room to the south. Speak to Rin (que_job01 84, 17), and offer to help her. She will ask you to investigate the area where she was ambushed.",
+      "npcs": [
+        {
+          "entity": "Rin",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "talk",
+          "entity": "Rin"
+        }
+      ],
+      "protected_names": [
+        "Rin",
+        "que_job01"
+      ],
+      "locations": [
+        {
+          "map": "que_job01",
+          "x": 84,
+          "y": 17,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "que_job01 84, 17"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Speak to the pile of dirt at ( hu_fild04 235, 103), and investigate it closely. You will receive a Crystal of Feardom.",
+      "instruction_sha256": "96d54d532dd06e62ddf403dd33beb524a80dfa2b4b13d6143746a75c41b20dd4",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/96d54d532dd06e62ddf4/1",
+      "goal": "investigate",
+      "short_ru": "Исследуйте pile of dirt: hu_fild04 235, 103; получите Crystal of Feardom.",
+      "short_en": "Investigate the pile of dirt: hu_fild04 235, 103; receive Crystal of Feardom.",
+      "full_ru": "Осмотрите pile of dirt в hu_fild04 235, 103 и тщательно исследуйте её. Получите Crystal of Feardom.",
+      "full_en": "Speak to the pile of dirt at ( hu_fild04 235, 103), and investigate it closely. You will receive a Crystal of Feardom.",
+      "npcs": [
+        {
+          "entity": "pile of dirt",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "investigate",
+          "entity": "pile of dirt"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Crystal of Feardom"
+        }
+      ],
+      "protected_names": [
+        "pile of dirt",
+        "hu_fild04",
+        "Crystal of Feardom"
+      ],
+      "locations": [
+        {
+          "map": "hu_fild04",
+          "x": 235,
+          "y": 103,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "hu_fild04 235, 103"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Return to Rin with the Crystal, she will give you a report to take to Kidd along with the crystal.",
+      "instruction_sha256": "c1bbf9e801f73792cd2d9d295965e8e8580a4af17e37019b04b3450b785ca837",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/c1bbf9e801f73792cd2d/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Rin с Crystal и получите a report для Kidd.",
+      "short_en": "Return to Rin with the Crystal and receive a report for Kidd.",
+      "full_ru": "Вернитесь к Rin с Crystal. Она даст a report для Kidd, который нужно передать вместе с crystal.",
+      "full_en": "Return to Rin with the Crystal, she will give you a report to take to Kidd along with the crystal.",
+      "npcs": [
+        {
+          "entity": "Rin",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Crystal of Feardom",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "Speak to the pile of dirt at ( hu_fild04 235, 103), and investigate it closely. You will receive a Crystal of Feardom."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "a report",
+          "condition": "Generic label; the next step calls the delivery Journal, without a database ID."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Rin"
+        }
+      ],
+      "protected_names": [
+        "Kidd",
+        "Rin",
+        "a report"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Deliver the Crystal and Journal to Kidd, he will ask you to come back later. Receive 200,000 Base EXP and 10,000 Job EXP",
+      "instruction_sha256": "bde0a32559eb4baf6919c8d80d8ea10dc09be1dc981b551e29cf3a3bf9efb1e5",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/bde0a32559eb4baf6919/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Kidd Crystal и Journal: 200,000 Base EXP, 10,000 Job EXP.",
+      "short_en": "Deliver the Crystal and Journal to Kidd: 200,000 Base EXP, 10,000 Job EXP.",
+      "full_ru": "Передайте Crystal и Journal Kidd. Он попросит вернуться позже. Получите 200,000 Base EXP и 10,000 Job EXP.",
+      "full_en": "Deliver the Crystal and Journal to Kidd, he will ask you to come back later. Receive 200,000 Base EXP and 10,000 Job EXP",
+      "npcs": [
+        {
+          "entity": "Kidd",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Crystal of Feardom",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Journal",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Crystal of Feardom"
+        },
+        {
+          "operation": "deliver",
+          "entity": "Journal"
+        },
+        {
+          "operation": "talk",
+          "entity": "Kidd"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "200000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "10000"
+        }
+      ],
+      "protected_names": [
+        "Kidd",
+        "Journal"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Speak to Kidd and you will feel the urge to touch the crystal.",
+      "instruction_sha256": "a12e66591663a8eb5fa14fcc9d1bd986ce52896c17f531b588a5947e659910de",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/a12e66591663a8eb5fa1/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Kidd и коснитесь кристалла по развитию диалога.",
+      "short_en": "Talk to Kidd and touch the crystal as the dialogue progresses.",
+      "full_ru": "Поговорите с Kidd: вы почувствуете желание коснуться crystal.",
+      "full_en": "Speak to Kidd and you will feel the urge to touch the crystal.",
+      "npcs": [
+        {
+          "entity": "Kidd",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kidd"
+        },
+        {
+          "operation": "touch_crystal",
+          "condition": "Narrative trigger; inventory ownership/consumption is not established after the preceding delivery."
+        }
+      ],
+      "protected_names": [
+        "Kidd"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "After a short dialogue, you will start to battle several Dandelion Members. There is a time limit on this battle.",
+      "instruction_sha256": "1612c3b40915185e2f23dfddea0b1faa4f72fa01f51577fb32f28e9d5551df46",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/1612c3b40915185e2f23/1",
+      "goal": "kill",
+      "short_ru": "Победите Dandelion Members до окончания неуказанного лимита времени.",
+      "short_en": "Defeat the Dandelion Members within the unspecified time limit.",
+      "full_ru": "После короткого диалога начнётся бой с несколькими Dandelion Members. На бой отведено ограниченное время; длительность и число противников не указаны.",
+      "full_en": "After a short dialogue, you will start to battle several Dandelion Members. There is a time limit on this battle.",
+      "monsters": [
+        {
+          "entity": "Dandelion Members",
+          "operation": "kill",
+          "quantity": null,
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "battle_time_limit",
+          "amount": null,
+          "condition": "The source states a time limit but gives no duration."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill",
+          "entity": "Dandelion Members"
+        }
+      ],
+      "protected_names": [
+        "Dandelion Members"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "After dispatching them, speak to the corpse (que_dan01 49, 36), and search his pockets. You will obtain a Sealed Scroll.",
+      "instruction_sha256": "442c6fc52000d1b1b3facdc4f24d551d7c296f9d19fd692f9e4218fe6baf0715",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/442c6fc52000d1b1b3fa/1",
+      "goal": "search",
+      "short_ru": "Обыщите corpse: que_dan01 49, 36; получите Sealed Scroll.",
+      "short_en": "Search the corpse: que_dan01 49, 36; receive Sealed Scroll.",
+      "full_ru": "После боя взаимодействуйте с corpse (que_dan01 49, 36) и обыщите карманы. Получите Sealed Scroll.",
+      "full_en": "After dispatching them, speak to the corpse (que_dan01 49, 36), and search his pockets. You will obtain a Sealed Scroll.",
+      "npcs": [
+        {
+          "entity": "corpse",
+          "role": "interact"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Sealed Scroll"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "search",
+          "entity": "corpse"
+        }
+      ],
+      "protected_names": [
+        "corpse",
+        "que_dan01",
+        "Sealed Scroll"
+      ],
+      "locations": [
+        {
+          "map": "que_dan01",
+          "x": 49,
+          "y": 36,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "que_dan01 49, 36"
+        }
+      ]
+    },
+    "11": {
+      "original_instruction": "Speak to Kidd regarding what you saw after touching the crystal.",
+      "instruction_sha256": "7159149f0774509d16c003b0b0576ac77a9702f0621c066c072fccae2fe6a706",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/7159149f0774509d16c0/1",
+      "goal": "talk",
+      "short_ru": "Расскажите Kidd об увиденном.",
+      "short_en": "Tell Kidd what you saw.",
+      "full_ru": "Расскажите Kidd, что увидели после прикосновения к crystal.",
+      "full_en": "Speak to Kidd regarding what you saw after touching the crystal.",
+      "npcs": [
+        {
+          "entity": "Kidd",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kidd"
+        }
+      ],
+      "protected_names": [
+        "Kidd"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Kidd asks you to get Echinacea's opinion about which scholar to consult regarding the scroll.",
+      "instruction_sha256": "92865ca6551ed88ba71acb0988032386879126fa030d45e66baf9882e96763ac",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/92865ca6551ed88ba71a/1",
+      "goal": "talk",
+      "short_ru": "Получите у Kidd поручение обратиться к Echinacea.",
+      "short_en": "Get Kidd’s request to consult Echinacea.",
+      "full_ru": "Kidd попросит узнать у Echinacea, к какому учёному обратиться по поводу свитка.",
+      "full_en": "Kidd asks you to get Echinacea's opinion about which scholar to consult regarding the scroll.",
+      "npcs": [
+        {
+          "entity": "Kidd",
+          "role": "talk"
+        },
+        {
+          "entity": "Echinacea",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kidd"
+        }
+      ],
+      "protected_names": [
+        "Echinacea",
+        "Kidd"
+      ],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Speak to Echinacea and she will direct you to Defaria.",
+      "instruction_sha256": "5bba9912098c1e0f8d8e92c5246c3403fcc4a60b3613eb20534c6481d17483b4",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/5bba9912098c1e0f8d8e/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Echinacea и получите направление к Defaria.",
+      "short_en": "Talk to Echinacea for a referral to Defaria.",
+      "full_ru": "Поговорите с Echinacea: она направит к Defaria.",
+      "full_en": "Speak to Echinacea and she will direct you to Defaria.",
+      "npcs": [
+        {
+          "entity": "Echinacea",
+          "role": "talk"
+        },
+        {
+          "entity": "Defaria",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Echinacea"
+        }
+      ],
+      "protected_names": [
+        "Echinacea",
+        "Defaria"
+      ],
+      "locations": []
+    },
+    "14": {
+      "original_instruction": "Defaria ( mid_camp 256, 272) tells you the scroll is from Arunafeltz, and asks you to collect some items to unseal it.",
+      "instruction_sha256": "6f5c82a2380a70589a5929d3e1616965f5ec9ab3dd3033c788b735431763ba28",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/6f5c82a2380a70589a59/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Defaria: mid_camp 256, 272.",
+      "short_en": "Talk to Defaria: mid_camp 256, 272.",
+      "full_ru": "Defaria (mid_camp 256, 272) определит, что свиток происходит из Arunafeltz, и попросит материалы для снятия печати.",
+      "full_en": "Defaria ( mid_camp 256, 272) tells you the scroll is from Arunafeltz, and asks you to collect some items to unseal it.",
+      "npcs": [
+        {
+          "entity": "Defaria",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Defaria"
+        }
+      ],
+      "protected_names": [
+        "Defaria",
+        "mid_camp",
+        "Arunafeltz"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 256,
+          "y": 272,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 256, 272"
+        }
+      ]
+    },
+    "15": {
+      "original_instruction": "After bringing 30 Rune of Darkness , 30 Bloody Rune , and 30 Holy Water , Defaria will give you an Unsealed Magic Scroll.",
+      "instruction_sha256": "1dd5d5ff214c4b172f1496b649aa8f373e5bab4bb3b9bf56d7fce4ad977d0bec",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/1dd5d5ff214c4b172f14/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Defaria 30 Rune of Darkness, 30 Bloody Rune, 30 Holy Water; получите Unsealed Magic Scroll.",
+      "short_en": "Give Defaria 30 Rune of Darkness, 30 Bloody Rune, 30 Holy Water; receive Unsealed Magic Scroll.",
+      "full_ru": "Принесите Defaria 30 Rune of Darkness, 30 Bloody Rune и 30 Holy Water. Она передаст Unsealed Magic Scroll.",
+      "full_en": "After bringing 30 Rune of Darkness , 30 Bloody Rune , and 30 Holy Water , Defaria will give you an Unsealed Magic Scroll.",
+      "npcs": [
+        {
+          "entity": "Defaria",
+          "role": "talk",
+          "support_step": 14,
+          "evidence": "Defaria ( mid_camp 256, 272) tells you the scroll is from Arunafeltz, and asks you to collect some items to unseal it."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rune of Darkness",
+          "quantity": 30,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Bloody Rune",
+          "quantity": 30,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Holy Water",
+          "quantity": 30,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Unsealed Magic Scroll"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Rune of Darkness"
+        },
+        {
+          "operation": "deliver",
+          "entity": "Bloody Rune"
+        },
+        {
+          "operation": "deliver",
+          "entity": "Holy Water"
+        }
+      ],
+      "protected_names": [
+        "Defaria",
+        "Rune of Darkness",
+        "Bloody Rune",
+        "Holy Water",
+        "Unsealed Magic Scroll"
+      ],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "Consult with Kidd, he reminds you that your are his assistant and he tells you to use the scroll to go to the meeting. Double click the Unsealed Magic Scroll to use it, you will be warped to ( yuno_fild09 255, 127).",
+      "instruction_sha256": "cb0077bf43dc50446ab772b5857d028c3fdf65085a19af6a1f05613a0e7280c3",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/cb0077bf43dc50446ab7/1",
+      "goal": "use",
+      "short_ru": "У Kidd узнайте о встрече; используйте Unsealed Magic Scroll для переноса в yuno_fild09 255, 127.",
+      "short_en": "Ask Kidd about the meeting; use Unsealed Magic Scroll to warp to yuno_fild09 255, 127.",
+      "full_ru": "Посоветуйтесь с Kidd. Он напомнит, что вы его помощник, и предложит использовать свиток для посещения встречи. Дважды щёлкните Unsealed Magic Scroll: вас перенесёт в yuno_fild09 255, 127.",
+      "full_en": "Consult with Kidd, he reminds you that your are his assistant and he tells you to use the scroll to go to the meeting. Double click the Unsealed Magic Scroll to use it, you will be warped to ( yuno_fild09 255, 127).",
+      "npcs": [
+        {
+          "entity": "Kidd",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Unsealed Magic Scroll",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "condition": "Double click to warp; removal from inventory is not stated."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kidd"
+        },
+        {
+          "operation": "use",
+          "entity": "Unsealed Magic Scroll"
+        }
+      ],
+      "protected_names": [
+        "Kidd",
+        "yuno_fild09",
+        "Unsealed Magic Scroll"
+      ],
+      "locations": [
+        {
+          "map": "yuno_fild09",
+          "x": 255,
+          "y": 127,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_fild09 255, 127"
+        }
+      ]
+    },
+    "17": {
+      "original_instruction": "Walk up the hill and go into the building ( yuno_fild09 234, 133). Walk behind the curtain at the back of the building. After some conversation, you will be returned to your save point.",
+      "instruction_sha256": "03f468f8f6bf6a77504048fac8451ace5f72333a4540530e6276566b0ae349ab",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/03f468f8f6bf6a775040/1",
+      "goal": "enter",
+      "short_ru": "Войдите в здание yuno_fild09 234, 133 и пройдите за занавеску.",
+      "short_en": "Enter the building at yuno_fild09 234, 133 and walk behind the curtain.",
+      "full_ru": "Поднимитесь на холм и войдите в здание (yuno_fild09 234, 133). Пройдите за занавеску в глубине. После разговора вас вернёт к точке сохранения.",
+      "full_en": "Walk up the hill and go into the building ( yuno_fild09 234, 133). Walk behind the curtain at the back of the building. After some conversation, you will be returned to your save point.",
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "walk_behind_curtain"
+        },
+        {
+          "operation": "warp_to_save"
+        }
+      ],
+      "protected_names": [
+        "yuno_fild09"
+      ],
+      "locations": [
+        {
+          "map": "yuno_fild09",
+          "x": 234,
+          "y": 133,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_fild09 234, 133"
+        }
+      ]
+    },
+    "18": {
+      "original_instruction": "Talk to Kidd, he asks you to listen in some more. Return to the house and enter the basement.",
+      "instruction_sha256": "124442928604ce6de5aa2aa671f8ed76fa3d1f0c8207a9d2753ee9d8862a6d56",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/124442928604ce6de5aa/1",
+      "goal": "enter",
+      "short_ru": "После разговора с Kidd вернитесь в дом и спуститесь в подвал.",
+      "short_en": "After speaking to Kidd, return to the house and enter the basement.",
+      "full_ru": "Поговорите с Kidd: он попросит подслушать ещё. Вернитесь в дом и войдите в подвал.",
+      "full_en": "Talk to Kidd, he asks you to listen in some more. Return to the house and enter the basement.",
+      "npcs": [
+        {
+          "entity": "Kidd",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kidd"
+        },
+        {
+          "operation": "enter_basement"
+        }
+      ],
+      "protected_names": [
+        "Kidd"
+      ],
+      "locations": []
+    },
+    "19": {
+      "original_instruction": "Speak with the man (que_dan02 115, 53) at the back of the basement. Kidd will appear and arrest him.",
+      "instruction_sha256": "7a123e8a7d725cdb66568af04909ad25f5f65307b6c17561028969716ff669da",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/7a123e8a7d725cdb6656/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с man: que_dan02 115, 53; дождитесь, пока Kidd проведёт арест.",
+      "short_en": "Talk to the man: que_dan02 115, 53; wait for Kidd to make the arrest.",
+      "full_ru": "Поговорите с man в глубине подвала (que_dan02 115, 53). Появится Kidd и арестует его.",
+      "full_en": "Speak with the man (que_dan02 115, 53) at the back of the basement. Kidd will appear and arrest him.",
+      "npcs": [
+        {
+          "entity": "basement_man",
+          "role": "talk"
+        },
+        {
+          "entity": "Kidd",
+          "role": "appears"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "basement_man"
+        }
+      ],
+      "protected_names": [
+        "Kidd",
+        "man",
+        "que_dan02"
+      ],
+      "locations": [
+        {
+          "map": "que_dan02",
+          "x": 115,
+          "y": 53,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "que_dan02 115, 53"
+        }
+      ]
+    },
+    "20": {
+      "original_instruction": "Return to Kidd in the new world, he gives you a journal to take back to Rin.",
+      "instruction_sha256": "e1d19e3ab0e3de75847636d69a01fb75007bdf6a08c1c06005dfdbcf33093923",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/e1d19e3ab0e3de758476/1",
+      "goal": "receive_item",
+      "short_ru": "Получите у Kidd journal для Rin.",
+      "short_en": "Receive the journal for Rin from Kidd.",
+      "full_ru": "Вернитесь к Kidd в New World. Он передаст journal для Rin.",
+      "full_en": "Return to Kidd in the new world, he gives you a journal to take back to Rin.",
+      "npcs": [
+        {
+          "entity": "Kidd",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "journal",
+          "condition": "Generic source label; not automatically equated to the earlier Journal item."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kidd"
+        }
+      ],
+      "protected_names": [
+        "Kidd",
+        "Rin",
+        "journal"
+      ],
+      "locations": []
+    },
+    "21": {
+      "original_instruction": "Return to Rin, after some conversation you accidentally drop the Crystal and Rayan uses it to escape. Rin gives you a tracking number that can be used to find Rayan and asks you to go see Echinacea.",
+      "instruction_sha256": "805a7fda8cdbfa7e0d589c7c0c4b98757fe8e2d4fcd26a901658c63d474bfd92",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/805a7fda8cdbfa7e0d58/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Rin: Rayan сбежит с Crystal; получите tracking number для Echinacea.",
+      "short_en": "Talk to Rin: Rayan escapes with the Crystal; receive a tracking number for Echinacea.",
+      "full_ru": "Вернитесь к Rin. Во время разговора вы случайно уроните Crystal, и Rayan воспользуется им для побега. Rin даст tracking number для поиска Rayan и направит к Echinacea.",
+      "full_en": "Return to Rin, after some conversation you accidentally drop the Crystal and Rayan uses it to escape. Rin gives you a tracking number that can be used to find Rayan and asks you to go see Echinacea.",
+      "npcs": [
+        {
+          "entity": "Rin",
+          "role": "talk"
+        },
+        {
+          "entity": "Rayan",
+          "role": "story_actor"
+        },
+        {
+          "entity": "Echinacea",
+          "role": "next_contact"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "story_information",
+          "condition": "Rin provides a tracking number; inventory-item existence and code value are unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Rin"
+        }
+      ],
+      "protected_names": [
+        "Echinacea",
+        "Rin",
+        "Rayan"
+      ],
+      "locations": []
+    },
+    "22": {
+      "original_instruction": "Speak with Echinacea, she asks for the tracking number and explains how it works.",
+      "instruction_sha256": "5e0bc04a375ef6cd0496377da4b63c9795a5f8585f138c17dc30e251fde5481a",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/5e0bc04a375ef6cd0496/1",
+      "goal": "talk",
+      "short_ru": "Сообщите Echinacea tracking number.",
+      "short_en": "Tell Echinacea the tracking number.",
+      "full_ru": "Поговорите с Echinacea. Она попросит tracking number и объяснит принцип его работы.",
+      "full_en": "Speak with Echinacea, she asks for the tracking number and explains how it works.",
+      "npcs": [
+        {
+          "entity": "Echinacea",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Echinacea"
+        }
+      ],
+      "protected_names": [
+        "Echinacea"
+      ],
+      "locations": []
+    },
+    "23": {
+      "original_instruction": "Speak with her again and she tells you to check with building manager at the south end of the camp.",
+      "instruction_sha256": "7d1f0810f70d7f848afab9f8c1280aabf0085bff0563c01b2c95888f8abac982",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/7d1f0810f70d7f848afa/1",
+      "goal": "talk",
+      "short_ru": "Снова поговорите с Echinacea и получите направление к building manager.",
+      "short_en": "Talk to Echinacea again for a referral to the building manager.",
+      "full_ru": "Поговорите с ней снова: она направит к building manager в южной части лагеря.",
+      "full_en": "Speak with her again and she tells you to check with building manager at the south end of the camp.",
+      "npcs": [
+        {
+          "entity": "Echinacea",
+          "role": "talk",
+          "support_step": 22,
+          "evidence": "Speak with Echinacea, she asks for the tracking number and explains how it works."
+        },
+        {
+          "entity": "Manager",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Echinacea"
+        }
+      ],
+      "protected_names": [
+        "man"
+      ],
+      "locations": []
+    },
+    "24": {
+      "original_instruction": "Talk to the Manager ( mid_camp 191, 206), he tells you that he can not locate the target, but that Rayan must still be alive.",
+      "instruction_sha256": "770648629a6ae2bf3072e7592390fb279753a3c3d88285b6071959110f3be103",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/770648629a6ae2bf3072/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Manager: mid_camp 191, 206.",
+      "short_en": "Talk to Manager: mid_camp 191, 206.",
+      "full_ru": "Поговорите с Manager (mid_camp 191, 206). Он не может определить местоположение цели, но считает, что Rayan ещё жив.",
+      "full_en": "Talk to the Manager ( mid_camp 191, 206), he tells you that he can not locate the target, but that Rayan must still be alive.",
+      "npcs": [
+        {
+          "entity": "Manager",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Manager"
+        }
+      ],
+      "protected_names": [
+        "Manager",
+        "Rayan",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 191,
+          "y": 206,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 191, 206"
+        }
+      ]
+    },
+    "25": {
+      "original_instruction": "Return to Echinacea to report the results. She thanks you for your help and rewards you. Receive 1 Old Purple Box , 1,200,000 Base EXP , and 200,000 Job EXP",
+      "instruction_sha256": "a026e4f4f54d100cc41a9dc86433d4360a10caee101133568980981891563e94",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/a026e4f4f54d100cc41a/1",
+      "goal": "receive_reward",
+      "short_ru": "Доложите Echinacea: 1 Old Purple Box, 1,200,000 Base EXP, 200,000 Job EXP.",
+      "short_en": "Report to Echinacea: 1 Old Purple Box, 1,200,000 Base EXP, 200,000 Job EXP.",
+      "full_ru": "Вернитесь к Echinacea с результатами. Она поблагодарит за помощь: получите 1 Old Purple Box, 1,200,000 Base EXP и 200,000 Job EXP.",
+      "full_en": "Return to Echinacea to report the results. She thanks you for your help and rewards you. Receive 1 Old Purple Box , 1,200,000 Base EXP , and 200,000 Job EXP",
+      "npcs": [
+        {
+          "entity": "Echinacea",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Purple Box"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "1200000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "200000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Echinacea"
+        }
+      ],
+      "protected_names": [
+        "Echinacea",
+        "Old Purple Box"
+      ],
+      "locations": []
+    },
+    "26": {
+      "original_instruction": "There is a wrap-up portion of the quest which you can complete by talking to Echinacea, which requires 20 Potatoes and 20 logs . Completing these additional steps rewards the player with 5 Sweet Potatoes (smokie taming item).",
+      "instruction_sha256": "4a17bf63a4a9b83a84ac4a6240d707f9fbf3298c45406ab0b8e5b129579ea971",
+      "step_id": "irowiki-classic:Pursuing_Rayan_Moore/step/4a17bf63a4a9b83a84ac/1",
+      "goal": "optional_turn_in",
+      "short_ru": "Дополнительно у Echinacea: 20 Potatoes и 20 logs → 5 Sweet Potatoes.",
+      "short_en": "Optional at Echinacea: 20 Potatoes and 20 logs → 5 Sweet Potatoes.",
+      "full_ru": "Дополнительно можно завершить заключительную часть через Echinacea: потребуются 20 Potatoes и 20 logs. За эти дополнительные действия получите 5 Sweet Potatoes — предмет для приручения smokie.",
+      "full_en": "There is a wrap-up portion of the quest which you can complete by talking to Echinacea, which requires 20 Potatoes and 20 logs . Completing these additional steps rewards the player with 5 Sweet Potatoes (smokie taming item).",
+      "npcs": [
+        {
+          "entity": "Echinacea",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Potatoes",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Optional wrap-up only; exact handover steps and consumption are not described."
+        },
+        {
+          "entity": "logs",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Optional wrap-up only; exact handover steps and consumption are not described."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "5",
+          "entity": "Sweet Potatoes",
+          "condition": "Optional wrap-up reward; separate from main completion."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Echinacea"
+        },
+        {
+          "operation": "optional_turn_in"
+        }
+      ],
+      "protected_names": [
+        "Echinacea",
+        "Potatoes",
+        "logs",
+        "Sweet Potatoes"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "generic_source_item_labels",
+      "detail": "Crystal/report/Journal/journal and scroll labels lack database links; IDs remain unknown. The late journal is not asserted identical to the earlier Journal. Tracking number is narrative information, not a proven inventory item or invented exact answer."
+    },
+    {
+      "reason": "unknown_timed_battle",
+      "detail": "Dandelion Members count and battle time limit are unspecified; no species ID, quantity or timer is invented."
+    },
+    {
+      "reason": "reward_header_not_extra_grant",
+      "detail": "Main EXP totals are 200000+1200000 base and 10000+200000 job. Header totals do not create another reward. Optional wrap-up is separate."
+    },
+    {
+      "reason": "source_narrative_crystal_ownership",
+      "detail": "The source narrates delivering Crystal at step 7, touching it at step 8 and dropping it at step 21; exact inventory state transitions are not established."
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
+      "kind": "mandatory_prerequisite"
+    }
+  ],
+  "routes": [
+    {
+      "key": "wrap_up",
+      "kind": "optional",
+      "condition": "Additional wrap-up after the main rewards at step 25; material turn-in and Sweet Potatoes apply only here.",
+      "source_step": 26,
+      "steps": [
+        26
+      ]
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "30",
+        "source_section": "requirements",
+        "evidence": "30 Rune of Darkness",
+        "entity": "Rune of Darkness",
+        "condition": "Main quest material total; do not add to step 15 delivery again."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "30",
+        "source_section": "requirements",
+        "evidence": "30 Bloody Rune",
+        "entity": "Bloody Rune",
+        "condition": "Main quest material total; do not add to step 15 delivery again."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "30",
+        "source_section": "requirements",
+        "evidence": "30 Holy Water",
+        "entity": "Holy Water",
+        "condition": "Main quest material total; do not add to step 15 delivery again."
+      }
+    ]
+  }
+}

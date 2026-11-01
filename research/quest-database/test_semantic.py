@@ -8,7 +8,7 @@ import tempfile
 import unittest
 
 from selection import quest_key, select_pages, filter_catalog, snapshots
-from semantic import build, coordinates, resolve_context, item_operation, validate, sha, ROOT, SCHEMA, BRANCH_SCHEMA, ADDITION_SCHEMA, migrate_semantic
+from semantic import build, coordinates, resolve_context, item_operation, validate, sha, ROOT, SCHEMA, BRANCH_SCHEMA, ADDITION_SCHEMA, ROUTE_SCHEMA, migrate_semantic
 
 
 class ParsingTests(unittest.TestCase):
@@ -79,7 +79,7 @@ class MigrationTests(unittest.TestCase):
         db=self.seed()
         before={table:db.execute('SELECT * FROM '+table).fetchall() for table in ('quests','quest_steps','step_descriptions','evidence')}
         migrate_semantic(db);migrate_semantic(db)
-        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],4)
+        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],5)
         for table,rows in before.items():self.assertEqual(db.execute('SELECT * FROM '+table).fetchall(),rows)
         action=db.execute('SELECT * FROM step_actions').fetchone()
         self.assertEqual(action,('action','s',1,'talk',None,None,'ev',None))
@@ -101,7 +101,7 @@ class MigrationTests(unittest.TestCase):
         db.commit()
         before=db.execute('SELECT * FROM branch_descriptions').fetchall()
         migrate_semantic(db)
-        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],4)
+        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],5)
         self.assertEqual(db.execute('SELECT * FROM branch_descriptions').fetchall(),before)
         self.assertEqual(db.execute('SELECT count(*) FROM step_source_additions').fetchone()[0],0)
 
@@ -121,7 +121,7 @@ class MigrationTests(unittest.TestCase):
         db.execute("INSERT INTO step_locations VALUES('s','p','return','ev')");db.commit()
         before=db.execute('SELECT * FROM step_source_additions').fetchall()
         migrate_semantic(db)
-        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],4)
+        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],5)
         self.assertEqual(db.execute('SELECT * FROM step_source_additions').fetchall(),before)
         self.assertEqual(db.execute('SELECT * FROM step_locations').fetchone(),('s','p','return','ev',None,None))
 
@@ -132,6 +132,28 @@ class MigrationTests(unittest.TestCase):
         self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],3)
         self.assertIsNone(db.execute("SELECT name FROM sqlite_master WHERE name='quest_routes'").fetchone())
         self.assertEqual(len(db.execute('PRAGMA table_info(step_locations)').fetchall()),4)
+        self.assertFalse(db.in_transaction)
+
+    def test_schema_four_migration_preserves_human_route(self):
+        db=self.seed();db.executescript(BRANCH_SCHEMA.read_text()+ADDITION_SCHEMA.read_text()+ROUTE_SCHEMA.read_text())
+        db.execute("INSERT INTO quest_routes VALUES('route','q','optional','optional',NULL,'Manual condition','ev','human_reviewed')")
+        db.execute("INSERT INTO step_routes VALUES('s','route',1,'ev')");db.commit()
+        before=db.execute('SELECT * FROM quest_routes').fetchall()
+        migrate_semantic(db);migrate_semantic(db)
+        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],5)
+        self.assertEqual(db.execute('SELECT * FROM quest_routes').fetchall(),before)
+        self.assertEqual(db.execute('SELECT * FROM step_routes').fetchall(),[('s','route',1,'ev')])
+        self.assertEqual(db.execute('SELECT count(*) FROM quest_prerequisite_groups').fetchone()[0],0)
+        self.assertEqual(db.execute('PRAGMA foreign_key_check').fetchall(),[])
+
+    def test_failed_prerequisite_migration_rolls_back_to_four(self):
+        db=self.seed();db.executescript(BRANCH_SCHEMA.read_text()+ADDITION_SCHEMA.read_text()+ROUTE_SCHEMA.read_text())
+        db.execute('CREATE TABLE quest_prerequisite_members(blocker TEXT)')
+        before=db.execute('SELECT * FROM step_descriptions').fetchall()
+        with self.assertRaises(sqlite3.OperationalError):migrate_semantic(db)
+        self.assertEqual(db.execute('PRAGMA user_version').fetchone()[0],4)
+        self.assertIsNone(db.execute("SELECT name FROM sqlite_master WHERE name='quest_prerequisite_groups'").fetchone())
+        self.assertEqual(db.execute('SELECT * FROM step_descriptions').fetchall(),before)
         self.assertFalse(db.in_transaction)
 
 
@@ -171,16 +193,16 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],360)
-        self.assertEqual(self.report['not_fully_localized_steps'],2390)
+        self.assertEqual(self.report['fully_localized_steps'],420)
+        self.assertEqual(self.report['not_fully_localized_steps'],2330)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],360)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],420)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,2390)
-        self.assertEqual(self.report['fully_localized_branches'],14)
-        self.assertEqual(self.report['curated_quests'],25)
-        self.assertEqual(self.report['pending_quests'],191)
-        self.assertEqual(self.report['quest_routes'],5)
+        self.assertEqual(missing,2330)
+        self.assertEqual(self.report['fully_localized_branches'],21)
+        self.assertEqual(self.report['curated_quests'],28)
+        self.assertEqual(self.report['pending_quests'],188)
+        self.assertEqual(self.report['quest_routes'],6)
         self.assertEqual(self.report['action_reuse_links'],1)
 
     def test_new_world_staff_identity_and_source_availability(self):
@@ -262,7 +284,9 @@ class RealCorpusTests(unittest.TestCase):
         self.assertEqual(rows,[(prefix+'Attitude_to_the_New_World',prefix+'Report_from_the_New_World','extra_stage_required_for_prerequisite',16),
           (prefix+'Attitude_to_the_New_World',prefix+'Onward_to_the_New_World_Quest','mandatory_prerequisite',None),
           (prefix+'Attitude_to_the_New_World',prefix+'New_Surroundings','source_concurrency_constraint',2),
-          (prefix+'New_Surroundings',prefix+'Onward_to_the_New_World_Quest','mandatory_prerequisite',None)])
+          (prefix+'New_Surroundings',prefix+'Onward_to_the_New_World_Quest','mandatory_prerequisite',None),
+          (prefix+'Pursuing_Rayan_Moore',prefix+'Onward_to_the_New_World_Quest','mandatory_prerequisite',None),
+          (prefix+"Tripatriate_Union's_Feud",prefix+'Onward_to_the_New_World_Quest','mandatory_prerequisite',None)])
         ids={r[0] for r in self.db.execute('''SELECT m.entity_id FROM description_mentions m JOIN quest_steps s USING(step_id)
           WHERE s.quest_id IN (?,?) AND m.surface='Diego' ''',(prefix+'New_Surroundings',prefix+'Attitude_to_the_New_World'))}
         self.assertEqual(len(ids),1)
@@ -290,6 +314,107 @@ class RealCorpusTests(unittest.TestCase):
                 before=(self.out/'quest_semantic.sqlite').read_bytes()
                 with self.assertRaisesRegex(ValueError,error):build(self.source,self.out,curation_dir=folder)
                 self.assertEqual(before,(self.out/'quest_semantic.sqlite').read_bytes())
+
+    def test_report_requires_two_of_four_with_attitude_extra_stage(self):
+        q='irowiki-classic:Report_from_the_New_World'
+        group=self.db.execute('SELECT group_id,minimum_completed FROM quest_prerequisite_groups WHERE quest_id=?',(q,)).fetchone()
+        self.assertEqual(group[1],2)
+        members=[r[0] for r in self.db.execute('SELECT related_id FROM quest_prerequisite_members WHERE group_id=? ORDER BY member_order',(group[0],))]
+        self.assertEqual(members,['irowiki-classic:'+name for name in ['Attitude_to_the_New_World','New_Surroundings',"Tripatriate_Union's_Feud",'Pursuing_Rayan_Moore']])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM quest_relations WHERE quest_id=? AND kind='mandatory_prerequisite'",(q,)).fetchone()[0],0)
+        prerequisite_step=self.db.execute('''SELECT s.step_order FROM quest_relations r JOIN evidence e USING(evidence_id)
+          JOIN quest_steps s ON s.step_id=e.step_id WHERE r.quest_id=? AND r.related_id=? AND r.kind='extra_stage_required_for_prerequisite' ''',(members[0],q)).fetchone()[0]
+        self.assertEqual(prerequisite_step,16)
+        self.assertEqual(self.report['prerequisite_groups'],1)
+
+    def test_report_scouts_are_alternatives_and_timers_losses_are_variant_scoped(self):
+        q='irowiki-classic:Report_from_the_New_World'
+        facts=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,r.kind,r.amount FROM requirements r JOIN step_branches b USING(branch_id)
+          WHERE r.quest_id=? ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(facts,[('default_timer','search_interval_minutes','30'),('iro_timer','search_interval_minutes','15')])
+        losses=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,i.quantity FROM step_items i JOIN step_branches b USING(branch_id)
+          JOIN quest_steps s ON s.step_id=i.step_id WHERE s.quest_id=? AND i.operation='consume' ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(losses,[('default_failure',10),('iro_failure',5)])
+        scouts=[r[0] for r in self.db.execute('''SELECT npc_id FROM step_npcs JOIN quest_steps USING(step_id)
+          WHERE quest_id=? AND step_order=7 AND role='alternative_contact' ''',(q,))]
+        self.assertEqual(len(set(scouts)),4)
+        collective=self.db.execute('''SELECT entity_id FROM description_mentions JOIN quest_steps USING(step_id)
+          WHERE quest_id=? AND step_order=7 AND field='full_en' AND surface='Expedition Scout' ''',(q,)).fetchone()[0]
+        self.assertNotIn(collective,scouts)
+        self.assertEqual(self.db.execute('''SELECT count(*) FROM step_locations JOIN quest_steps USING(step_id)
+          WHERE quest_id=? AND step_order=7 AND location_order IS NULL AND role='alternative_scout' ''',(q,)).fetchone()[0],4)
+        self.assertEqual(self.db.execute('''SELECT count(*) FROM step_monsters JOIN quest_steps USING(step_id)
+          WHERE quest_id=? AND operation='kill' ''',(q,)).fetchone()[0],0)
+
+    def test_report_retries_do_not_invent_copy_ids_or_fixed_page_totals(self):
+        q='irowiki-classic:Report_from_the_New_World'
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='distinct_report_volumes'",(q,)).fetchone()[0],'4')
+        copies=self.db.execute('''SELECT i.quantity,x.game_id FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order IN (10,11,12)''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in copies],[(None,None)]*3)
+        self.assertEqual([r[0] for r in self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='base_exp'",(q,))],['2500000'])
+        self.assertIsNone(self.db.execute('''SELECT 1 FROM step_items i JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND i.quantity=40''',(q,)).fetchone())
+
+    def test_rayan_main_rewards_and_optional_wrap_up_are_separate(self):
+        q='irowiki-classic:Pursuing_Rayan_Moore'
+        grants=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.kind,r.amount FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s ON s.step_id=sr.step_id WHERE r.quest_id=? AND r.kind IN ('base_exp','job_exp') ORDER BY s.step_order,r.kind''',(q,))]
+        self.assertEqual(grants,[(7,'base_exp','200000'),(7,'job_exp','10000'),(25,'base_exp','1200000'),(25,'job_exp','200000')])
+        self.assertEqual([tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=15 ORDER BY x.game_id''',(q,))],[(523,30),(7511,30),(7563,30)])
+        route=self.db.execute('''SELECT r.kind,s.step_order FROM quest_routes r JOIN step_routes m USING(route_id)
+          JOIN quest_steps s USING(step_id) WHERE r.quest_id=?''',(q,)).fetchone()
+        self.assertEqual(tuple(route),('optional',26))
+        self.assertEqual([tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=26 ORDER BY x.game_id''',(q,))],[(516,20),(7201,20)])
+        battle=self.db.execute('''SELECT m.quantity,x.game_id FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,)).fetchone()
+        self.assertEqual(tuple(battle),(None,None))
+        self.assertIsNone(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='battle_time_limit'",(q,)).fetchone()[0])
+
+    def test_tripatriate_completion_is_separate_from_repeatable_food_recipes(self):
+        q="irowiki-classic:Tripatriate_Union's_Feud"
+        main=[tuple(r) for r in self.db.execute('''SELECT x.game_id,r.amount FROM rewards r JOIN items x ON x.entity_id=r.item_id
+          WHERE r.quest_id=? AND r.branch_id IS NULL AND x.game_id IN (12110,12319,12320,12321) ORDER BY x.game_id''',(q,))]
+        self.assertEqual(main,[(12110,'1'),(12319,'1'),(12320,'1'),(12321,'1')])
+        recipes=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,x.game_id,i.quantity,i.required FROM step_branches b
+          JOIN step_items i USING(branch_id) JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s ON s.step_id=b.step_id
+          WHERE s.quest_id=? ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(recipes,[('hansenne_exchange',6021,5,0),('hue_exchange',6020,5,0),('ryosen_exchange',6023,5,0)])
+        full,original=self.db.execute('''SELECT d.full_en,s.original_instruction FROM step_descriptions d JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=21''',(q,)).fetchone()
+        self.assertNotIn('Mystic Horn',full);self.assertIn('Mystic Horn',original)
+        count=self.db.execute('''SELECT m.quantity,x.game_id FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND m.operation='kill' ''',(q,)).fetchone()
+        self.assertEqual(tuple(count),(None,1051))
+
+    def test_prerequisite_group_corruption_and_invalid_curation_fail_closed(self):
+        for sql,error in [
+          ("UPDATE quest_prerequisite_groups SET minimum_completed=4",'invalid_prerequisite_group'),
+          ("DELETE FROM quest_prerequisite_members WHERE member_order=4",'invalid_prerequisite_group'),
+          ("UPDATE quest_prerequisite_members SET related_id='irowiki-classic:Juice_Quest' WHERE member_order=4",'invalid_prerequisite_group'),
+          ("UPDATE quest_prerequisite_members SET member_order=member_order+10",'invalid_prerequisite_group_evidence'),
+          ("UPDATE evidence SET method='candidate' WHERE method='curated_prerequisite_group'",'invalid_prerequisite_group_evidence'),
+        ]:
+            with self.subTest(sql=sql),contextlib.closing(sqlite3.connect(':memory:')) as db:
+                self.db.backup(db);db.execute(sql)
+                with self.assertRaisesRegex(ValueError,error):validate(db)
+        folder=self.out/'invalid-prerequisite-group';shutil.copytree(ROOT/'curation',folder)
+        path=folder/'Report_from_the_New_World.json';data=json.loads(path.read_text())
+        data['prerequisite_groups'][0]['minimum_completed']=4;path.write_text(json.dumps(data))
+        before=(self.out/'quest_semantic.sqlite').read_bytes()
+        with self.assertRaisesRegex(ValueError,'Prerequisite group contradicts source header'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual(before,(self.out/'quest_semantic.sqlite').read_bytes())
+
+    def test_human_prerequisite_group_cannot_be_silently_replaced(self):
+        folder=self.out/'human-prerequisite-group';folder.mkdir();target=folder/'quest_semantic.sqlite'
+        shutil.copyfile(self.out/'quest_semantic.sqlite',target)
+        with contextlib.closing(sqlite3.connect(target)) as db:
+            db.execute("UPDATE quest_prerequisite_groups SET review_state='human_reviewed'");db.commit()
+        before=target.read_bytes()
+        with self.assertRaisesRegex(ValueError,'Human-reviewed prerequisite groups'):build(self.source,folder)
+        self.assertEqual(before,target.read_bytes())
 
     def test_reference_index_is_excluded_with_pinned_evidence(self):
         key='irowiki-classic:Access_Quests'
