@@ -758,38 +758,11 @@
       "step_id": "irowiki-classic:Acorn_Exchange_Quest/step/dbb7f041a100b8b4d65f/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Package, Journal and Doodled Note lack local database links. No ordinary item IDs or unproven identity with other quests’ journals is assigned.",
       "evidence_id": "ev:6f133176de88bd838604998f",
       "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:d312cc33ef7c95ab80448b92",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:6f133176de88bd838604998f",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:fab135ec63376694905e4a9e",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:751900cd4aecb399c598719b",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:2bac1960f5ae5eb7c0c7e282",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:e8ddd1f8e60157938290eb61",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:7fc326cca62306a1d106b9e5",
+      "reason": "generic_journal_and_note_ids",
+      "review_id": "review:a9d1643c999257e900a35e51",
       "severity": "warning",
       "step_id": null
     },
@@ -803,175 +776,40 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3100ca85dd2f7a6eb306c143",
+      "detail": "Free Item Repair is a service unlock, not a reward item. Four Free Ticket for Flyship are granted only once, at the final stage.",
+      "evidence_id": "ev:6f133176de88bd838604998f",
       "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:852a5ced40bb4614a215f61f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/08785e3aa5a2235dae0a/1"
+      "reason": "service_and_item_rewards_distinct",
+      "review_id": "review:e5ef877b5ff1628b8448040c",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3100ca85dd2f7a6eb306c143",
+      "detail": "Defra is absent, and Kain takes back the package. Do not create a successful delivery to the absent recipient.",
+      "evidence_id": "ev:6f133176de88bd838604998f",
       "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:34c7b38c3f732a05bf82b801",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/08785e3aa5a2235dae0a/1"
+      "reason": "undelivered_package_returned",
+      "review_id": "review:aa1c515c0ae09536360d518b",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:3100ca85dd2f7a6eb306c143",
+      "detail": "The hotel front-desk actor is unnamed; its source role is preserved without inventing an in-game NPC name or ID.",
+      "evidence_id": "ev:6f133176de88bd838604998f",
       "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:51d671473ca6639b2f083cb0",
+      "reason": "unnamed_front_desk",
+      "review_id": "review:cf7d2b56f5fccef64f3838c6",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:2ed493cca7366a02d7569eef",
+      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
+      "reason": "map_not_reference_known",
+      "review_id": "review:be128f47bc3141d7bedc1230",
       "severity": "warning",
       "step_id": "irowiki-classic:Airship_Ticket_Quest/step/08785e3aa5a2235dae0a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3432a0c88ad2e3277eb428ec",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5d065653aa850780c64c9716",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/0f16ad1fffb7fc7c9129/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3432a0c88ad2e3277eb428ec",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bf5422a29f0df3645b296655",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/0f16ad1fffb7fc7c9129/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:3432a0c88ad2e3277eb428ec",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:34ddefe4fc5b325b3171ea54",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/0f16ad1fffb7fc7c9129/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c806fbcdb4e6f52ce7bb1b07",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:acf0170d2cf6393ea5a9f7b6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/10029885fa9c7731019a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c806fbcdb4e6f52ce7bb1b07",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1800c6be0dc7b53c6df3f27b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/10029885fa9c7731019a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5f3df3b1372c246aff2282a8",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8e43dbb8595c502e96688c2c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/12517df0a18ccd51dd83/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5f3df3b1372c246aff2282a8",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:505fd8a49a16dc0a85adb913",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/12517df0a18ccd51dd83/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:df0f540b08ce85e22ab7a8b8",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e65c1db0f1aff2c965233b20",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/1a36e4211b13204d636d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:df0f540b08ce85e22ab7a8b8",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:58f6713d0c93341e07d8688d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/1a36e4211b13204d636d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:13a5ca094f51636aeadf8ff9",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5072a92319cd9be540328d73",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/4a21be33846e9d7d5c98/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:13a5ca094f51636aeadf8ff9",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e9a4723ce0178454fd49268a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/4a21be33846e9d7d5c98/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9c345139cec67a97aa67c421",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b6cbe2e717f8f5197573289c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/599c732ccd03e616e5c6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9c345139cec67a97aa67c421",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d7e318ad1a3a6f478c7a2a61",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/599c732ccd03e616e5c6/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:9c345139cec67a97aa67c421",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:6ba9c2fc33ecd0e49f544551",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/599c732ccd03e616e5c6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ea6454fad60e2eeed5b77173",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d80ec15ec2287d2029a39883",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/a4d9dd321e9651812fab/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ea6454fad60e2eeed5b77173",
-      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:acd6a5953f7ab377cf22b7b3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Airship_Ticket_Quest/step/a4d9dd321e9651812fab/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -17228,38 +17066,20 @@
       "step_id": "irowiki-classic:Footprint_Quest/step/fdaa966086577246e926/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "The source does not quote Maku’s return message at step 6. No exact input is invented or copied from Digotz’s outgoing six lines.",
       "evidence_id": "ev:20541efe768bfbbfd1554b0f",
       "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:18657a71d0d5da554cab6b31",
+      "reason": "maku_return_reply_unknown",
+      "review_id": "review:4db4f5d60957abee83741d1a",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Exact Digotz lines originate in archived step 4 but must be entered at step 5. Lossless source partitions preserve both original instructions and map the quoted text to the delivery step.",
       "evidence_id": "ev:20541efe768bfbbfd1554b0f",
       "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:556aaa213c8e8999493af550",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:9f085eb932461ce572820506",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:94edac334d700d3fc83dbbd8",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:e0757860fcb128a97403d459",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:26c84bf7607cdd363ffc76ed",
+      "reason": "relay_message_source_relocation",
+      "review_id": "review:28901316308efea2b4155034",
       "severity": "warning",
       "step_id": null
     },
@@ -17273,274 +17093,22 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:51d05211a96d9297277ef3ba",
+      "detail": "Both source installments list 50–75 and 75–90, overlapping at 75. Preserve the ambiguity; do not silently change a bound or grant both branches.",
+      "evidence_id": "ev:20541efe768bfbbfd1554b0f",
       "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8365e55786e3ab5a3c6003da",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/03de4cab753b9ff60f28/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:51d05211a96d9297277ef3ba",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:03bdfdae6651ed5baae29bfd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/03de4cab753b9ff60f28/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d03db5b0f762c9a81f89fbb9",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:97be6107dd575cc9ce411e17",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/16f48597d91118575ccb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d03db5b0f762c9a81f89fbb9",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:de8f0c1e3a23bf72c5d362d8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/16f48597d91118575ccb/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:d03db5b0f762c9a81f89fbb9",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:c503aff14cca56bf18c7673e",
+      "reason": "source_level_75_overlap",
+      "review_id": "review:0d7856201ee8ffb10f7cd279",
       "severity": "warning",
-      "step_id": "irowiki-classic:Friendship_Quest/step/16f48597d91118575ccb/1"
+      "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6df9629d6a85633005b27a08",
+      "detail": "Each installment grants 200000/400000/700000. Header 400000/800000/1400000 summarizes both at unchanged level, not a third grant or a forced same-level condition.",
+      "evidence_id": "ev:20541efe768bfbbfd1554b0f",
       "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4945bc50d2931d63042eb0f4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/3cb5a4bfe79241a6a60a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6df9629d6a85633005b27a08",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:72f5385c3f8056618f6b1aeb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/3cb5a4bfe79241a6a60a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:822cdd4d535c32eebd662169",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d3a422624b3092dcc3e2d996",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/3d16f289c5ef50d3d23d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:822cdd4d535c32eebd662169",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:21088f5843018c24d693f433",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/3d16f289c5ef50d3d23d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5b4233a2a5e5690f49487880",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2d4c057c7543ed8c48d31e1e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/3e94a1754ef5559d00fd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5b4233a2a5e5690f49487880",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f9b2e9af0053823111b367bc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/3e94a1754ef5559d00fd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:acbb3b355268f0f134b7032e",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:52483e76e7b6f2ba680ed7aa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/5e552bf524c243b78e26/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:acbb3b355268f0f134b7032e",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1623de39e65cf1e016c34b32",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/5e552bf524c243b78e26/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:90672f708d41e87ad66fd4dd",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:bd3d9bf23ea7a318a6bc12da",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/66007529ed41259bf7c8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:90672f708d41e87ad66fd4dd",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:02674de70dac567d76c9364e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/66007529ed41259bf7c8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1462f18277973bbb0e96ee9f",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f65559d877e24067b4e6d2e4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/7022397fda092494e65a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1462f18277973bbb0e96ee9f",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:67923496fef17f84186e477f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/7022397fda092494e65a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d69b6e79ade0f208899e125e",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1982de2a3f04fb2b3383ca9f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/80cc340fce5a35c92c7e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d69b6e79ade0f208899e125e",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c10a2d58bad8115e2398a8e7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/80cc340fce5a35c92c7e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a00535399cee659e7e7fbeca",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:48e72d649acd73ce36e4fe72",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/8e1d53963aab67995ac4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a00535399cee659e7e7fbeca",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:78dc96e4270183838dcc8aa3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/8e1d53963aab67995ac4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0a0e252fc1aff9771444e593",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a59698c72099d46b2cf2434a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/c04cc9854651987b0241/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0a0e252fc1aff9771444e593",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8c0eb930b4beffb1fa0e69a7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/c04cc9854651987b0241/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:0a0e252fc1aff9771444e593",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:87f486cecd0b18418a3c7069",
+      "reason": "two_exp_installments_not_header_bonus",
+      "review_id": "review:daf67e5f8d0a3e6ec1c27eda",
       "severity": "warning",
-      "step_id": "irowiki-classic:Friendship_Quest/step/c04cc9854651987b0241/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:94d054f740e81219ddd725cc",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8df22e42b0c023abd3436cde",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/cbe33217056b27802c52/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:94d054f740e81219ddd725cc",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6b689e17b8bb1ffe8ffa4994",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/cbe33217056b27802c52/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a82526c94db4dac9220b3ed5",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a0457eb4eabb421c95e2a4a3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/ed8504debacc334a9260/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a82526c94db4dac9220b3ed5",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a0e7da34f83f95fcf4d0faa5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/ed8504debacc334a9260/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d7f6b937bb6264450166ca66",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:27871a2682bd68e00e336495",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/fadc5d26436e8d96c09e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d7f6b937bb6264450166ca66",
-      "quest_id": "irowiki-classic:Friendship_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0a002f9f7e5cf08c74ddedf1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Friendship_Quest/step/fadc5d26436e8d96c09e/1"
+      "step_id": null
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -23798,38 +23366,29 @@
       "step_id": "irowiki-classic:Headgear_Quests/step/f6722327541d6f7a2ed0/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "The source gives a partial unordered password list, not a proven prompt/answer table. Case and spelling differ from Einbroch Murder and remain literal; no cross-guide replacements or guaranteed correct mapping are inferred.",
       "evidence_id": "ev:4d6f8b600b2aea54577b9a10",
       "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:77b9c827fbeccc4984d0eee2",
+      "reason": "partial_password_list_not_mapping",
+      "review_id": "review:6f9a251d79b31f666fd92402",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The five-attempt three-digit code uses distinct digits 1–9; no specific code, solver result or invented correct answer is stored.",
       "evidence_id": "ev:4d6f8b600b2aea54577b9a10",
       "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:92aeee35ed892afc8f4878f3",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:83468261c29780f1f52a5c56",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:7bac74a6f2e632d49814f165",
+      "reason": "random_code_not_fixed_answer",
+      "review_id": "review:205917e866827412ef32779e",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:59237959137fb8100a87d4cc",
+      "detail": "Two Red Potion grants total the header two. Final EXP comes once from the header; no extra header potion or EXP installment.",
+      "evidence_id": "ev:4d6f8b600b2aea54577b9a10",
       "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:67d29d0335ad4c69caca6122",
+      "reason": "reward_header_not_extra_grant",
+      "review_id": "review:03873ea46509b88a5dbb54f3",
       "severity": "warning",
       "step_id": null
     },
@@ -23843,175 +23402,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f8f56d700400cd458132e400",
+      "detail": "Great sage and Drunken man/Einbroch Lab Director are source story references, not active talk objectives or verified identities shared with another guide.",
+      "evidence_id": "ev:4d6f8b600b2aea54577b9a10",
       "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1c75dc8a6b3b80c195a48c57",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/01f944d819ccecd5ce50/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f8f56d700400cd458132e400",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:66de52f6e522f83f41c57236",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/01f944d819ccecd5ce50/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fb9a6fb7391318c0938abcad",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b93677724382e7600e1cb354",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/049a4ab59f0d6a226dd1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fb9a6fb7391318c0938abcad",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:55850b4db5892ee472ad84c3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/049a4ab59f0d6a226dd1/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:fb9a6fb7391318c0938abcad",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:91db9a54ed83e1ae6b03223f",
+      "reason": "story_reference_ids_unknown",
+      "review_id": "review:f3763507525eebba19368913",
       "severity": "warning",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/049a4ab59f0d6a226dd1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6012239238338bd992677bdf",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8094892ac8df8ff560f67670",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/0ed589f5e20a788d7e2f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6012239238338bd992677bdf",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c32a15727da2e5ad85573c19",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/0ed589f5e20a788d7e2f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3e74c415bc0e1a57875c303c",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:dfc0bbc2f6aa66ada0e97860",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/7854cec2e5c34bee3e5f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3e74c415bc0e1a57875c303c",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:584bfcb16a7c0a3cc16ccd55",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/7854cec2e5c34bee3e5f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f4b9fdeeb32499f1876ca7f5",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d0bce152748926c44de8f7af",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/7eee7accf41a014fcd2f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f4b9fdeeb32499f1876ca7f5",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:115e6f8b1ab41b02833dc531",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/7eee7accf41a014fcd2f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b2d01c83de2accba464b7033",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a0cee38e35235e40fa029f98",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/890f50815735e4c4f579/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b2d01c83de2accba464b7033",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9861194b1bc3f387134de130",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/890f50815735e4c4f579/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c181e5d73e0e06692ec99b61",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:070fe95772a7c6f6541442f8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/99e5e4849a28447b2aff/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c181e5d73e0e06692ec99b61",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b3e0fbf57a3d24d5e5474e7a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/99e5e4849a28447b2aff/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c48cd393d2d3f50b556c185a",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4cd08fd6a219b34773b22141",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/bdc0f8ee04b9f65622b4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c48cd393d2d3f50b556c185a",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:754300139216285447749f79",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/bdc0f8ee04b9f65622b4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:545c900f42e6be1f5ca1677d",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8cda90f8f2eb21f137c8faa9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/dfe42421d14577179cd7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:545c900f42e6be1f5ca1677d",
-      "quest_id": "irowiki-classic:Heart_Fragment_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dc97e19327924cb5ecc7c086",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Heart_Fragment_Quest/step/dfe42421d14577179cd7/1"
+      "step_id": null
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -24752,38 +24149,20 @@
       "step_id": "irowiki-classic:Hood_Quest/step/83e327d5d8e422761f44/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Only the two material IDs are locally source-linked. Letters and monster IDs remain unknown; per-monster item drops are not guessed.",
       "evidence_id": "ev:089b8cfdc90a6d9e187e9c1c",
       "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:06980d778171800f3180dfb5",
+      "reason": "drop_and_letter_ids_unknown",
+      "review_id": "review:4f6216ba9eea1c8331dbbd1d",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The random attack can take days to occur. Four minutes is cleanup after it starts, not the spawn interval. Materials may already be held or obtained through accessible Rachel Sanctuary.",
       "evidence_id": "ev:089b8cfdc90a6d9e187e9c1c",
       "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:8f268b486e36a191ad862be8",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:aba8995e7b62afe3d369d986",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:0beea1128fd2bc5c625f806e",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:85368aa867f778c0016d9495",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:54611ed2eab3340ad93cd2ee",
+      "reason": "random_attack_not_guaranteed_timer",
+      "review_id": "review:f4d51b4952219bdd412c90f0",
       "severity": "warning",
       "step_id": null
     },
@@ -24795,141 +24174,6 @@
       "review_id": "review:404b52f2374b7e8098add33a",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ffdb3509ed2bd82e2bafac54",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:81185e3f65890a15201678b1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/35be2af9cda30c1bdb41/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ffdb3509ed2bd82e2bafac54",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:374a27ee99783a4f75444a5f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/35be2af9cda30c1bdb41/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:291effe639ca4e9d1ff45cfb",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:30200fad486529cdd24a8edd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/3ac992692104e09c121b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:291effe639ca4e9d1ff45cfb",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:24d561470461926d6568dfdf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/3ac992692104e09c121b/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:291effe639ca4e9d1ff45cfb",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:f67edd2c08d353ee2043f903",
-      "severity": "warning",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/3ac992692104e09c121b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a026400174bcd1cf30d0e103",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ef6743ddfe4dc7a27ea88aa8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/4ef055bc00739650845b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a026400174bcd1cf30d0e103",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5c80279e221000532a36c246",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/4ef055bc00739650845b/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:a026400174bcd1cf30d0e103",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:6041533e11ac30f1d0faafb7",
-      "severity": "warning",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/4ef055bc00739650845b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7bef22fcb485df3238f7d87a",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c8ab12447f59712bf3ffedd5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/9bb1ebf9e7796dd034ed/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7bef22fcb485df3238f7d87a",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1a60226db6ba9c1beac716d8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/9bb1ebf9e7796dd034ed/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:dddabce83ef9de7942d1d4e5",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:df5a6d53ae61a5262776ce76",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/e395edcdae4b4ce237c4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:dddabce83ef9de7942d1d4e5",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:007c0aa144001116a6a59332",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/e395edcdae4b4ce237c4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:730d71a0d2ff3ddf4a7b0423",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:dbcf3cd074ad4ddef03f6bf5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/e67436b199a63f595832/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:730d71a0d2ff3ddf4a7b0423",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0cf2f72186243f3669a712cb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/e67436b199a63f595832/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:730d71a0d2ff3ddf4a7b0423",
-      "quest_id": "irowiki-classic:How_the_Airship_Works_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:8e37124b6a6614179be01308",
-      "severity": "warning",
-      "step_id": "irowiki-classic:How_the_Airship_Works_Quest/step/e67436b199a63f595832/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -30404,38 +29648,29 @@
       "step_id": "irowiki-classic:Meat_Exchange/step/743dc1f97accf425493d/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Allen is hu_in01 387,245; the drawer is printed hu_in 372,254. Preserve the source code discrepancy rather than silently replacing it.",
       "evidence_id": "ev:abf55ee1768445cb2535f8bd",
       "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:5a81f3ad97e2efff3a3ec2d4",
+      "reason": "drawer_map_source_conflict",
+      "review_id": "review:51ebc66e0be21b60199ad75e",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Step 6 explicitly says not to click Allen. Repeated approach/drawer sequence and flash deadline have no invented timer or fixed total repetition count.",
       "evidence_id": "ev:abf55ee1768445cb2535f8bd",
       "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:c282a29ac5428e6418304ba6",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:32c1eac6f359049cc3d8b773",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:4f20e1443d5ad855fa818b98",
+      "reason": "medicine_proximity_not_click",
+      "review_id": "review:da05f3d4df660a700b748abe",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:3763279ab787c05de60d40d8",
+      "detail": "Only the initial White Potion is an identified consumed item. Subsequent medicine/CPR cycles are story actions with unknown inventory quantities; do not multiply White Potion by retries.",
+      "evidence_id": "ev:abf55ee1768445cb2535f8bd",
       "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:ef9cc05e66cda5bbc1cefeda",
+      "reason": "medicine_repeats_not_extra_potions",
+      "review_id": "review:c3f4790c895c3ab390bc89bd",
       "severity": "warning",
       "step_id": null
     },
@@ -30449,220 +29684,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1d428717b8162704b1acf792",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:e307aad4ab7788a774aeae9f",
       "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:500b090b6700484a8c721dfe",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/1f0b5e1e18c87062fde6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1d428717b8162704b1acf792",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:03d51550bd18841d04b0494d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/1f0b5e1e18c87062fde6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ec033e7d2b9fff6458ed0e19",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4b2eb6bc373417aeb68a02ee",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/25237bac1d64b42ec8e4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ec033e7d2b9fff6458ed0e19",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3e96dc4e0bde16ea2207c428",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/25237bac1d64b42ec8e4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:39ec32d766057a41016b6a0b",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:07971206765fc6e1b5931290",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/263d0ab0c195471d147a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:39ec32d766057a41016b6a0b",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2d46f97801dbe3d0fcc4d6cd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/263d0ab0c195471d147a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4d65a1c9a0eb4a495641d23c",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:aed79c7929719b7658295f73",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/2ed3c23a5b1a99615c77/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4d65a1c9a0eb4a495641d23c",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:754b072e8fbc3185339ebdd0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/2ed3c23a5b1a99615c77/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:aeb9d169b32345623dcdc47e",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:77036a4b67e28e9683a41dd5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/4562913fec043cca775d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:aeb9d169b32345623dcdc47e",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c11c287b79da6fe8a65fed04",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/4562913fec043cca775d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0028ed9e5efc3943376a86a4",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:97c2055f8d6eb47e3ebe99e5",
-      "severity": "blocking",
+      "reason": "map_not_reference_known",
+      "review_id": "review:48b38b36e3b38bf19554fee2",
+      "severity": "warning",
       "step_id": "irowiki-classic:Medicine_Quest/step/5e063211ec9c9891e760/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0028ed9e5efc3943376a86a4",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:84248c5a2df5a2575a3804af",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/5e063211ec9c9891e760/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9203be5d4b8245ef5edeffdc",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:985cccd395fc81d9bf05cd88",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/7b74b500b8abb11ee2e5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9203be5d4b8245ef5edeffdc",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c132ad57818dd53c28e5cfde",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/7b74b500b8abb11ee2e5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:308e6d076e180545088a9cd8",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2f8f44008e86a199f91934c1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/7c2911aee6cff53e53e7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:308e6d076e180545088a9cd8",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b2075a4f206b2c65631febde",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/7c2911aee6cff53e53e7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a368245f0bb44609f9e4d6b7",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9f3968a5ce2823767fa89909",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/8f3aaec155e722f28b8a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a368245f0bb44609f9e4d6b7",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6abdf78181734f02581a7c97",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/8f3aaec155e722f28b8a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:90b21eef19958a4fa45e7aa3",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0a1f8cdd4d04b9f2f949080d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/ac7721ebb08380d33a25/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:90b21eef19958a4fa45e7aa3",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:64bf5b0cc549d3ba22544529",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/ac7721ebb08380d33a25/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a29c3f4c8049d321c9b87abb",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:51f15dd4911e274eef9f8d44",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/e96320a83fa121178657/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a29c3f4c8049d321c9b87abb",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dbc1fbc300283305424409ee",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/e96320a83fa121178657/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:937e18e0ed73b29d7956840c",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8c77c23f27eb7ff901d68845",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/f61b0931c39b5cc0b421/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:937e18e0ed73b29d7956840c",
-      "quest_id": "irowiki-classic:Medicine_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:95fb79304cee546f448c10ee",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Medicine_Quest/step/f61b0931c39b5cc0b421/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
