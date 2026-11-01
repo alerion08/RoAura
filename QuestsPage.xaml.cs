@@ -104,7 +104,7 @@ public partial class QuestsPage : UserControl
             await _workspace.SelectProfileAsync(choice.Key, _observed!());
     }
     private async void Reload_Click(object sender, RoutedEventArgs e) { if (_workspace is not null) await _workspace.LoadCatalogAsync(); }
-    private async void Save_Click(object sender, RoutedEventArgs e) { if (_workspace is not null) await _workspace.SaveAndRefreshAsync(_observed!()); }
+    private async void Save_Click(object sender, RoutedEventArgs e) { if (_workspace is not null) {await _workspace.SaveAndRefreshAsync(_observed!());if(QuestTabs.SelectedIndex==3)CatalogDetails.ReportSave(string.IsNullOrEmpty(_workspace.Error));} }
     private void Visibility_Click(object sender, RoutedEventArgs e)
     { if (sender is CheckBox { DataContext: QuestListRow row } box) _workspace?.SetVisibility(row, box.IsChecked == true); }
     private void QuestAction_Click(object sender, RoutedEventArgs e)
@@ -155,22 +155,36 @@ public partial class QuestsPage : UserControl
             foreach (var scale in new[] { 1d, 1.25d, 1.5d })
             {
                 QuestTabs.SelectedIndex = 0;
-                SaveSnapshot(output, language + "-catalog-" + (int)(scale * 100), scale);
+                await SaveSnapshot(output, language + "-catalog-" + (int)(scale * 100), scale);
             }
             foreach (var (tab, name) in new[] { (1, "active"), (2, "history"), (3, "walkthrough") })
             {
                 QuestTabs.SelectedIndex = tab;
-                SaveSnapshot(output, language + "-" + name, 1);
+                await SaveSnapshot(output, language + "-" + name, 1);
             }
+        }
+        var restore=workspace.SelectedGuide;
+        if(workspace.Catalog?.Guides.GetValueOrDefault("irowiki-classic:Ayothaya_Dungeon_Entrance_Quest") is {} ayothaya)
+        {
+            ShowGuide(ayothaya);workspace.ToggleTracking(ayothaya);workspace.SelectStep(2);
+            workspace.SetStepDone(ayothaya,ayothaya.Steps[0],true);
+            foreach(var language in new[]{"ru","en"})
+            {
+                workspace.Settings.Language=language;LocalizationService.ApplyLanguage(language);workspace.RefreshLanguage();
+                CatalogDetails.ShowCurrentStep();UpdateLayout();
+                await SaveSnapshot(output,language+"-ayothaya-semantic",1);
+            }
+            workspace.ToggleTracking(ayothaya);workspace.SelectedGuide=restore;CatalogDetails.ShowCurrentStep();
         }
         await workspace.FlushAsync();
     }
-    private void SaveSnapshot(string directory, string name, double scale)
+    private async Task SaveSnapshot(string directory, string name, double scale)
     {
         // A detached view cannot be re-arranged by MainWindow's larger parent slot.
         // Equivalent pixel densities are not real mixed-monitor OS DPI acceptance.
         var view = new QuestsPage();
         view.Initialize(_workspace!, () => default, () => { });
+        await view.CatalogDetails.RefreshDataAsync();
         try
         {
             view.SearchInput.Text = SearchInput.Text; view._searchTimer.Stop(); view.Filter();

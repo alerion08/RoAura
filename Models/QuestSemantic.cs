@@ -18,7 +18,8 @@ public sealed record SemanticStep(string Id,string QuestId,int Order,int? Source
  public string Full(string language)=>language=="ru"?FullRu!:FullEn!;
 }
 public sealed record SemanticQuest(string Id,string Title,int? BaseLevel,int? JobLevel,string Review,string Availability,
- SemanticSource Source,IReadOnlyList<SemanticStep> Steps,IReadOnlyList<SemanticFact> Requirements,IReadOnlyList<SemanticFact> Rewards);
+ SemanticSource Source,IReadOnlyList<SemanticStep> Steps,IReadOnlyList<SemanticFact> Requirements,IReadOnlyList<SemanticFact> Rewards)
+{ public override string ToString()=>Title; }
 public sealed record SemanticCatalog(IReadOnlyDictionary<string,SemanticQuest> Quests,string Version);
 
 public static class SemanticReadiness

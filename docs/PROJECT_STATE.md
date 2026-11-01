@@ -1125,7 +1125,8 @@ separate facts, never summed across alternatives. Untranslated original fact
 conditions remain verbatim. Server assurance is explicitly unknown for this data,
 separate from RU/EN readiness. No game completion is detected automatically.
 
-Reopening and an active two-second file revision probe reload the semantic view;
+Reopening, file replacement/change notifications and an active two-second file
+revision probe reload the semantic view;
 newly ready quests appear without a whitelist, removed entries do not delete
 progress. Source screenshots are step-specific; the snapshot currently has zero
 images, so neutral placeholders are correct. User image uploads are not enabled.

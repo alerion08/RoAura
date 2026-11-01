@@ -18,23 +18,35 @@ public partial class QuestDetailsControl : UserControl
  private readonly DispatcherTimer _refresh=new(){Interval=TimeSpan.FromSeconds(2)};
  private readonly DispatcherTimer _toast=new(){Interval=TimeSpan.FromSeconds(3)};
  private SemanticCatalog? _catalog;private SemanticQuest? _quest;private QuestWorkspace? _workspace;
- private string? _selectedId;private string _language="ru",_fingerprint="";private bool _loading,_rendering;
+ private string? _selectedId;private string _language="ru",_fingerprint="";private bool _loading,_rendering;private Task? _loadTask;private FileSystemWatcher? _watcher;
  private readonly Dictionary<string,Border> _cards=new();
  private bool Editable=>_workspace?.CanEdit==true && _quest is not null && SemanticReadiness.MatchesProgress(_quest,_workspace.SelectedGuide);
  public QuestDetailsControl()
  {
   InitializeComponent();_refresh.Tick+=async(_,_)=>await RefreshDataAsync();
-  Loaded+=async(_,_)=>{_refresh.Start();await RefreshDataAsync(true);};Unloaded+=(_,_)=>_refresh.Stop();
+  Loaded+=async(_,_)=>{WatchDatabase();_refresh.Start();await RefreshDataAsync(true);};Unloaded+=(_,_)=>{_refresh.Stop();_watcher?.Dispose();_watcher=null;};
   _toast.Tick+=(_,_)=>{_toast.Stop();Toast.Visibility=Visibility.Collapsed;};
+ }
+ private void WatchDatabase()
+ {
+  _watcher?.Dispose();var directory=Path.GetDirectoryName(_reader.Path);
+  if(directory is null || !Directory.Exists(directory))return;
+  _watcher=new FileSystemWatcher(directory,Path.GetFileName(_reader.Path)){NotifyFilter=NotifyFilters.LastWrite|NotifyFilters.Size|NotifyFilters.FileName|NotifyFilters.CreationTime};
+  void Invalidate(){if(!Dispatcher.HasShutdownStarted)Dispatcher.BeginInvoke(new Action(()=>_fingerprint=""));}
+  _watcher.Changed+=(_,_)=>Invalidate();_watcher.Created+=(_,_)=>Invalidate();_watcher.Deleted+=(_,_)=>Invalidate();_watcher.Renamed+=(_,_)=>Invalidate();_watcher.Error+=(_,_)=>Invalidate();_watcher.EnableRaisingEvents=true;
  }
  private string L(string ru,string en)=>_language=="ru"?ru:en;
  private static Brush B(string color)=>(Brush)new BrushConverter().ConvertFromString(color)!;
  private static TextBlock Text(string value,double size=12,bool bold=false)=>new(){Text=value,FontSize=size,FontWeight=bold?FontWeights.SemiBold:FontWeights.Normal,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,2,0,4)};
- public async Task RefreshDataAsync(bool force=false)
+ public Task RefreshDataAsync(bool force=false)
  {
-  if(_loading)return;
+  if(_loadTask is {IsCompleted:false})return _loadTask;
   var file=new FileInfo(_reader.Path);var fingerprint=file.Exists?$"{file.Length}:{file.LastWriteTimeUtc.Ticks}":"missing";
-  if(!force && fingerprint==_fingerprint)return;
+  if(!force && fingerprint==_fingerprint)return Task.CompletedTask;
+  return _loadTask=LoadDataAsync(fingerprint);
+ }
+ private async Task LoadDataAsync(string fingerprint)
+ {
   _loading=true;
   try{_catalog=await _reader.LoadAsync();_fingerprint=fingerprint;DataStatus.Text="";}
   catch(Exception ex) when(ex is IOException or UnauthorizedAccessException or InvalidDataException)
@@ -63,11 +75,12 @@ public partial class QuestDetailsControl : UserControl
  private void RenderChrome()
  {
   QuestTitle.Text=_quest?.Title??L("Выберите полностью локализованный квест","Select a fully localized quest");
-  Metadata.Text=_quest is null?"":$"{L("Ревизия источника","Source revision")}: {_quest.Source.Revision} · Base Lv. {_quest.BaseLevel?.ToString()??L("не указан","not specified")} · Job Lv. {_quest.JobLevel?.ToString()??L("не указан","not specified")}";
+  Metadata.Text=_quest is null?"":$"{L("Ревизия источника","Source revision")}: {_quest.Source.Revision[..Math.Min(10,_quest.Source.Revision.Length)]} · Base Lv. {_quest.BaseLevel?.ToString()??L("не указан","not specified")} · Job Lv. {_quest.JobLevel?.ToString()??L("не указан","not specified")}";
+  Metadata.ToolTip=_quest?.Source.Revision;
   Quality.Text=_quest is null?L("Новый экран доступен только для квестов, все этапы которых готовы RU/EN.","The new screen accepts only quests with every step ready in RU/EN."):
    L("Описания: готовы RU/EN · Прохождение на сервере: статус неизвестен","Descriptions: RU/EN ready · Server walkthrough: status unknown");
   if(_quest is not null && !Editable)Quality.Text+="\n"+L("Изменение прогресса недоступно: выберите профиль; при несовпадении этапов требуется сверка каталога.","Progress editing unavailable: select a profile; mismatching steps require catalog review.");
-  var active=_workspace?.IsActive(_workspace.SelectedGuide)==true;
+  var active=_quest is not null && _workspace?.IsActive(_workspace.SelectedGuide)==true;
   AddButton.Content=active?L("✓ Активен","✓ Active"):L("+ Добавить в активные","+ Add to active");AddButton.IsEnabled=Editable;
   if(active)QuestCopyFeedback.ColorState(AddButton,B("#298E38"));else{AddButton.ClearValue(Button.TemplateProperty);AddButton.ClearValue(Button.ForegroundProperty);}
   GoCurrentButton.Content=L("К текущему этапу","Go to current step");GoCurrentButton.IsEnabled=Current() is not null;
@@ -93,10 +106,12 @@ public partial class QuestDetailsControl : UserControl
    var use=new Button {Content=L("Использовать инструкцию","Use this instruction"),FontSize=11,Height=24,MinHeight=24,Padding=new Thickness(10,0,10,0),IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide)};
    use.Click+=(_,e)=>{e.Handled=true;_selectedId=step.Id;_workspace!.SelectStep(step.Order);DetailsTabs.SelectedIndex=0;};actions.Children.Add(use);
    if(_workspace?.IsCurrentStep(step.Order)==true)actions.Children.Add(Tag(L("Текущий этап","Current step"),done?"#687787":"#1764CC"));content.Children.Add(actions);
-   var check=new CheckBox{IsChecked=done,IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide),VerticalAlignment=VerticalAlignment.Top,Foreground=B("#228842"),ToolTip=L("Отметить выполнение этапа","Mark step complete")};Grid.SetColumn(check,2);AutomationProperties.SetName(check,L("Выполнен этап ","Completed step ")+step.Order);
+   if(done){QuestCopyFeedback.ApplyTemplate(use,B("#E4E7EB"));use.Foreground=B("#3E4954");}
+   var check=new CheckBox{Style=(Style)FindResource("SemanticCheck"),IsChecked=done,IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide),VerticalAlignment=VerticalAlignment.Top,Foreground=B("#228842"),ToolTip=L("Отметить выполнение этапа","Mark step complete")};Grid.SetColumn(check,2);AutomationProperties.SetName(check,L("Выполнен этап ","Completed step ")+step.Order);
    check.Click+=(_,e)=>{e.Handled=true;if(Legacy(step) is {} legacy)_workspace!.SetStepDone(_workspace.SelectedGuide!,legacy,check.IsChecked==true);};grid.Children.Add(check);
-   var card=new Border {Child=grid,Tag=step.Id,CornerRadius=new CornerRadius(5),Padding=new Thickness(10,9,10,9),Margin=new Thickness(0,0,0,5),BorderThickness=new Thickness(selected?2:1,1,1,1),
+   var card=new Border {Child=grid,Tag=step.Id,CornerRadius=new CornerRadius(5),Padding=new Thickness(10,9,10,9),Margin=new Thickness(0,0,0,5),BorderThickness=new Thickness(1),
     Background=B(done?(selected?"#EDF2F7":"#F6F8FB"):(selected?"#E9F2FF":"#FBFDFF")),BorderBrush=B(selected?(done?"#9AB3CF":"#6CA6F1"):"#D5E4F4"),Focusable=true,Cursor=Cursors.Hand};
+   var accent=new Border {BorderBrush=selected?B("#2D78DB"):Brushes.Transparent,BorderThickness=new Thickness(2,0,0,0),Margin=new Thickness(-8,-7,0,-7),IsHitTestVisible=false};Grid.SetColumnSpan(accent,3);grid.Children.Add(accent);
    AutomationProperties.SetName(card,L("Этап ","Step ")+step.Order);
    card.MouseLeftButtonUp+=(_,e)=>{if(InteractiveAncestor(e.OriginalSource as DependencyObject,card))return;Select(step);e.Handled=true;};
    card.KeyDown+=(_,e)=>{if(e.Key is Key.Enter or Key.Space && ReferenceEquals(Keyboard.FocusedElement,card)){Select(step);e.Handled=true;}};
@@ -174,7 +189,7 @@ public partial class QuestDetailsControl : UserControl
    if(item.Condition is not null || item.Branch is not null)materials.Children.Add(Text(string.Join(" · ",new[]{item.Condition,item.Branch}.Where(x=>x is not null)),11));
   }
   aside.Children.Add(Info(L("Необходимые предметы","Required items"),materials));
-  if(ActualWidth<1050){layout.ColumnDefinitions[1].Width=new GridLength(0);layout.RowDefinitions.Add(new(){Height=GridLength.Auto});layout.RowDefinitions.Add(new(){Height=GridLength.Auto});Grid.SetColumn(aside,0);Grid.SetRow(aside,1);}
+  if(ActualWidth<760){layout.ColumnDefinitions[1].Width=new GridLength(0);layout.RowDefinitions.Add(new(){Height=GridLength.Auto});layout.RowDefinitions.Add(new(){Height=GridLength.Auto});Grid.SetColumn(aside,0);Grid.SetRow(aside,1);}
   DetailPanel.Children.Add(layout);
   foreach(var answer in step.Answers)
   {var button=new Button{Content=L("Скопировать ответ","Copy answer")+": "+answer.Text,ToolTip=string.Join(" · ",new[]{answer.Operation,answer.Condition,answer.Branch}.Where(x=>x is not null)),HorizontalAlignment=HorizontalAlignment.Left};button.Click+=(_,_)=>Notify(ClipboardService.TryCopy(answer.Text)?L("Текст скопирован","Text copied"):L("Ошибка копирования","Copy failed"));DetailPanel.Children.Add(button);}
@@ -232,6 +247,7 @@ public partial class QuestDetailsControl : UserControl
  internal Button? CurrentNavigationButton=>Current() is {} step && _cards.TryGetValue(step.Id,out var card)?((Grid)card.Child).Children.OfType<StackPanel>().SelectMany(p=>p.Children.OfType<WrapPanel>()).SelectMany(p=>p.Children.OfType<Button>()).FirstOrDefault(b=>b.Tag is QuestNavigationTarget):null;
  internal bool CurrentStepInView
  {get{if(DetailsTabs.SelectedIndex!=0 || Current() is not {} step || !_cards.TryGetValue(step.Id,out var card))return false;var top=card.TranslatePoint(new Point(),StepsPanel).Y-WalkScroll.VerticalOffset;return top>=-1 && top<WalkScroll.ViewportHeight;}}
+ internal void ReportSave(bool success)=>Notify(success?L("Прогресс сохранён","Progress saved"):L("Не удалось сохранить прогресс","Progress could not be saved"));
  internal bool CopyToastVisible=>Toast.Visibility==Visibility.Visible;
 
  private void Notify(string message){ToastText.Text=message;Toast.Visibility=Visibility.Visible;_toast.Stop();_toast.Start();}

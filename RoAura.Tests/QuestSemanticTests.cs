@@ -46,6 +46,12 @@ public sealed class QuestSemanticTests
     var text=mention.Field switch{"short_ru"=>step.ShortRu!,"short_en"=>step.ShortEn!,"full_ru"=>step.FullRu!,"full_en"=>step.FullEn!,_=>throw new InvalidDataException("Unknown semantic text field.")};
     Assert.NotNull(SemanticReadiness.Utf16Span(text,mention.Start,mention.End,mention.Surface));
    }
+  var legacyPath=Environment.GetEnvironmentVariable("ROAURA_QUEST_CATALOG_TEST_PATH");
+  if(!string.IsNullOrWhiteSpace(legacyPath))
+  {
+   var legacy=await new QuestCatalogService(legacyPath).LoadAsync();
+   Assert.All(result.Quests.Values,q=>Assert.True(SemanticReadiness.MatchesProgress(q,legacy.Guides.GetValueOrDefault(q.Id)),q.Id));
+  }
   Assert.Equal(hash,SHA256.HashData(File.ReadAllBytes(path)));
  }
 }
