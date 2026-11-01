@@ -16,8 +16,8 @@
     <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
      <Border BorderBrush="#E2EAF4" BorderThickness="0,0,0,1" Padding="14,13,14,12"><StackPanel>
       <DockPanel><StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Margin="8,0,0,0"><Button x:Name="RuButton" Style="{StaticResource SemanticLanguage}" Tag="ru" Content="RU" Width="42" Height="28" MinHeight="28" Margin="0" Padding="0" Click="Ru_Click"/><Button x:Name="EnButton" Style="{StaticResource SemanticLanguage}" Tag="en" Content="EN" Width="42" Height="28" MinHeight="28" Margin="0" Padding="0" Click="En_Click"/></StackPanel><TextBlock x:Name="QuestTitle" FontFamily="Georgia" FontSize="19" FontWeight="Bold" Foreground="#103B77" TextWrapping="Wrap"/></DockPanel>
-      <TextBlock x:Name="Metadata" FontSize="11" Foreground="#627C9C" TextWrapping="Wrap" Margin="0,4,0,4"/>
-      <TextBlock x:Name="Quality" FontSize="11" TextWrapping="Wrap" Foreground="#627C9C"/>
+      <TextBlock x:Name="Metadata" Visibility="Collapsed" FontSize="11" Foreground="#627C9C" TextWrapping="Wrap" Margin="0,4,0,4"/>
+      <TextBlock x:Name="Quality" Visibility="Collapsed" FontSize="11" TextWrapping="Wrap" Foreground="#627C9C"/>
       <WrapPanel Margin="0,10,0,0"><Button x:Name="AddButton" Click="Add_Click" Height="31" MinHeight="31" Margin="0,0,8,0"/><Button x:Name="GoCurrentButton" Click="Current_Click" Height="31" MinHeight="31"/></WrapPanel>
       <WrapPanel Margin="0,10,0,0"><TextBlock x:Name="ProgressText" FontSize="11" Foreground="#627C9C"/><ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="1" Height="5" Width="125" Margin="10,5,0,0" Foreground="#328B50" Background="#DCE8F6"/></WrapPanel>
      </StackPanel></Border>
@@ -26,7 +26,7 @@
    </Border>
    <Border x:Name="RightPanel" Grid.Column="1" Style="{StaticResource SemanticPanel}" Margin="5,0,0,0">
     <TabControl x:Name="DetailsTabs" Style="{StaticResource EditorTabControlStyle}">
-     <TabItem x:Name="WalkTab"><ScrollViewer x:Name="DetailScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel x:Name="DetailPanel" Margin="12"/></ScrollViewer></TabItem>
+     <TabItem x:Name="WalkTab"><Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions><ScrollViewer x:Name="DetailScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel x:Name="DetailPanel" Margin="12"/></ScrollViewer><ScrollViewer Grid.Row="1" MaxHeight="140" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><WrapPanel x:Name="AnswerPanel" Margin="12,4,12,10"/></ScrollViewer></Grid></TabItem>
      <TabItem x:Name="FactsTab"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel x:Name="FactsPanel" Margin="12"/></ScrollViewer></TabItem>
      <TabItem x:Name="SourcesTab"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel x:Name="SourcePanel" Margin="12"/></ScrollViewer></TabItem>
     </TabControl>

@@ -484,3 +484,27 @@ Actual game/mixed-DPI/narrow-layout acceptance remains manual, not release-ready
 
 Manual acceptance: real SpringRO mixed-DPI, narrow layout, long/conditional quests,
 RU/EN/selected/current/completed/profile isolation, live database replacement.
+
+Manual acceptance: real SpringRO mixed-DPI, narrow layout, long/conditional quests,
+RU/EN/selected/current/completed/profile isolation, live database replacement.
+
+
+## Walkthrough feedback — 2026-11-02
+
+Owner supersedes browser occlusion: opening QuestBrowserWindow must not exclude
+pixels from the tracker or ordinary overlay surface. Settings and database
+occlusion remain in force. Native smoke checks the browser intersection after
+a WPF scale transform; actual SpringRO mixed-DPI acceptance remains manual.
+
+Walkthrough metadata/quality lines and the instruction helper are hidden.
+The action is “Выбрать этап” / “Select step”. Legend follows the screenshot.
+Compact exact-answer buttons sit in a separate bottom row of the detail pane.
+Requirements/rewards use two compact columns and per-step material rows below;
+source conditions and alternative branches are preserved, never summed.
+Explicit localized map/cell literals supplement missing step_locations without
+writing the DB or guessing cells. Both panels share the same coordinate list;
+map highlights include numeric cells. Whole-quest readiness and progress guards
+remain unchanged. Focused tests cover all 11 Cursed Spirit positions, deduplication,
+full numeric highlights, known maps without underscores and invalid cells.
+
+Validation: pending Windows CI for this change; no release/version/main changes.

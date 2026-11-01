@@ -1515,7 +1515,7 @@ public partial class OverlayWindow : Window
                     window.IsVisible && window.WindowState != WindowState.Minimized).ToArray() ?? [];
             var settingsIsForeground = controlWindows.Any(window =>
                 ForegroundProcess.IsForegroundWindow(new WindowInteropHelper(window).Handle));
-            UpdateSettingsOcclusion(settingsIsForeground ? controlWindows : controlWindows.Where(w=>w is QuestBrowserWindow or DatabaseOverlayWindow or DatabaseDetailWindow || w is QuestPassiveWindow {IsTargetChooser:true}));
+            UpdateSettingsOcclusion((settingsIsForeground ? controlWindows : controlWindows.Where(w=>w is DatabaseOverlayWindow or DatabaseDetailWindow || w is QuestPassiveWindow {IsTargetChooser:true})).Where(w=>w is not QuestBrowserWindow));
             if (gameIsForeground)
             {
                 if (!IsVisible) Show();

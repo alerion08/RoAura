@@ -32,6 +32,26 @@ public sealed class QuestSemanticTests
   Assert.Null(SemanticReadiness.Utf16Span("😀 NPC!",2,5,"bad"));
   Assert.Null(SemanticReadiness.Utf16Span("test",1,100,"bad"));
  }
+ [Fact] public void ExplicitCoordinatesIncludeEveryLocalizedPointWithoutDuplicates()
+ {
+  var text="(lhz_dun01 147 106) | (lhz_dun01 239 135) | (lhz_dun01 66 213) | (lhz_dun01 225 198) | (lhz_dun02 244 229) | (lhz_dun02 60 298) | (lhz_dun02 267 278) | (lhz_dun02 94 199) | (lhz_dun03 244 51) | (lhz_dun03 123 191) | (lhz_dun03 74 140)";
+  var step=Step(2) with {FullRu=text,FullEn=text,Points=[new("db","lhz_dun02",94,199,"target",null,null)]};
+  var points=SemanticCoordinates.All(step);
+  Assert.Equal(11,points.Count);Assert.Equal(11,points.Select(p=>(p.Map,p.X,p.Y)).Distinct().Count());
+  Assert.Contains(points,p=>p.Map=="lhz_dun01" && p.X==147 && p.Y==106);
+ }
+ [Fact] public void CoordinateHighlightIncludesNumericCellsAndPreservesSurroundingText()
+ {
+  var text="Visit lhz_dun01 147 106 and return.";
+  var length=SemanticCoordinates.HighlightLength(text,6,9);
+  Assert.Equal("lhz_dun01 147 106",text.Substring(6,length));
+  Assert.Equal(" and return.",text[(6+length)..]);
+ }
+ [Fact] public void LiteralCoordinatesDoNotGuessUnknownMapsOrCells()
+ {
+  var step=Step(1) with {FullRu="niflheim 313 70; level 100 200; lhz_dun01 999 11",Mentions=[new("full_ru",0,8,"map","m","niflheim")]};
+  var point=Assert.Single(SemanticCoordinates.All(step));Assert.Equal("niflheim",point.Map);Assert.Equal(313,point.X);Assert.Equal(70,point.Y);
+ }
  [Fact] public async Task ActualSemanticSnapshotIsReadOnlyAndPartialReviewDoesNotExcludeLocalizedQuests()
  {
   var path=Environment.GetEnvironmentVariable("ROAURA_QUEST_SEMANTIC_TEST_PATH")??Path.Combine(AppContext.BaseDirectory,"Data","quest_semantic.sqlite");

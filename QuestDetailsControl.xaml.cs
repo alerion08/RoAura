@@ -105,9 +105,9 @@ public partial class QuestDetailsControl : UserControl
    var number=Text(step.Order+".",12,true);number.Foreground=B(done?"#5E6D80":"#0D3268");grid.Children.Add(number);
    var content=new StackPanel {Margin=new Thickness(7,0,7,0),Opacity=done ? 0.62 : 1};Grid.SetColumn(content,1);grid.Children.Add(content);
    var excerpt=Text("");ApplyText(excerpt,step,false,done);content.Children.Add(excerpt);
-   if(step.Points.Count>0)content.Children.Add(Coordinates(step,done));
+   if(SemanticCoordinates.All(step).Count>0)content.Children.Add(Coordinates(step,done));
    var actions=new WrapPanel{Margin=new Thickness(0,5,0,0)};
-   var use=new Button {Content=L("Использовать инструкцию","Use this instruction"),FontSize=11,Height=24,MinHeight=24,Padding=new Thickness(10,0,10,0),IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide)};
+   var use=new Button {Content=L("Выбрать этап","Select step"),FontSize=11,Height=24,MinHeight=24,Padding=new Thickness(10,0,10,0),IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide)};
    use.Click+=(_,e)=>{e.Handled=true;_selectedId=step.Id;_workspace!.SelectStep(step.Order);DetailsTabs.SelectedIndex=0;};actions.Children.Add(use);
    if(Current()?.Id==step.Id)actions.Children.Add(Tag(L("Текущий этап","Current step"),done?"#687787":"#1764CC"));content.Children.Add(actions);
    if(done){QuestCopyFeedback.ApplyTemplate(use,B("#E4E7EB"));use.Foreground=B("#3E4954");}
@@ -133,7 +133,7 @@ public partial class QuestDetailsControl : UserControl
  private WrapPanel Coordinates(SemanticStep step,bool monochrome=false)
  {
   var panel=new WrapPanel{Margin=new Thickness(0,5,0,0)};
-  foreach(var point in step.Points)
+  foreach(var point in SemanticCoordinates.All(step))
   {
    var label=(point.Map is null?"":point.Map+" ")+$"{point.X},{point.Y}";
    var command=point.Map is null?$"{point.X} {point.Y}":$"/navi {point.Map} {point.X}/{point.Y}";
@@ -149,7 +149,7 @@ public partial class QuestDetailsControl : UserControl
   var text=full?step.Full(_language):step.Short(_language);var field=(full?"full_":"short_")+_language;
   var spans=new List<(int Start,int Length,string Type)>();
   foreach(var m in step.Mentions.Where(m=>m.Field==field))
-   if(SemanticReadiness.Utf16Span(text,m.Start,m.End,m.Surface) is {} span)spans.Add((span.Start,span.Length,m.Type));
+   if(SemanticReadiness.Utf16Span(text,m.Start,m.End,m.Surface) is {} span)spans.Add((span.Start,m.Type=="map"?SemanticCoordinates.HighlightLength(text,span.Start,span.Length):span.Length,m.Type));
   // Exact answer text is linked by step_dialogues. This is not free-text answer discovery.
   foreach(var answer in step.Answers)
   {var index=text.IndexOf(answer.Text,StringComparison.Ordinal);if(index>=0 && answer.Text.Length>0 && !spans.Any(s=>s.Start<index+answer.Text.Length && s.Start+s.Length>index))spans.Add((index,answer.Text.Length,"answer"));}
@@ -157,18 +157,18 @@ public partial class QuestDetailsControl : UserControl
   foreach(var span in spans.OrderBy(s=>s.Start))
   {
    if(span.Start<offset)continue;
-   block.Inlines.Add(new Run(text[offset..span.Start]));
+   block.Inlines.Add(new Run(text[offset..span.Start]){Foreground=B(monochrome?"#5E6D80":"#0D3268")});
    block.Inlines.Add(new Run(text.Substring(span.Start,span.Length)){FontWeight=FontWeights.SemiBold,Foreground=B(monochrome?"#5E6D80":span.Type switch{"npc"=>"#075CB9","item"=>"#087747","map"=>"#985100","answer"=>"#783CAA",_=>"#0D3268"})});offset=span.Start+span.Length;
   }
-  block.Inlines.Add(new Run(text[offset..]));if(monochrome)block.Foreground=B("#5E6D80");
+  block.Inlines.Add(new Run(text[offset..]){Foreground=B(monochrome?"#5E6D80":"#0D3268")});if(monochrome)block.Foreground=B("#5E6D80");
  }
  private void RenderDetail()
  {
-  DetailPanel.Children.Clear();var step=_quest?.Steps.FirstOrDefault(s=>s.Id==_selectedId);if(step is null)return;
+  DetailPanel.Children.Clear();AnswerPanel.Children.Clear();var step=_quest?.Steps.FirstOrDefault(s=>s.Id==_selectedId);if(step is null)return;
   var layout=new Grid();layout.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});layout.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});
   var prose=new StackPanel{Margin=new Thickness(0,0,12,0)};layout.Children.Add(prose);
   prose.Children.Add(Text(L("Этап ","Step ")+step.Order+(Done(step)?L(" ✓ Завершено"," ✓ Completed"):""),15,true));prose.Children.Add(Text(L("Полное описание","Full description"),18,true));
-  var full=Text("",ActualWidth<1050?13:14);full.LineHeight=full.FontSize*1.67;ApplyText(full,step,true);prose.Children.Add(full);prose.Children.Add(Legend());
+  var full=Text("",ActualWidth<1050?13:14);full.LineHeight=full.FontSize*1.67;ApplyText(full,step,true);prose.Children.Add(full);
   var aside=new StackPanel();Grid.SetColumn(aside,1);layout.Children.Add(aside);
   var imageHost=new Border {Background=B("#F1F4F8"),BorderBrush=B("#D5E0EC"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),MinHeight=180,Padding=new Thickness(12),Child=Text(L("▧ Для этапа не добавлен скриншот","▧ No screenshot for this step"),11)};
   var image=step.Images.FirstOrDefault();
@@ -181,8 +181,8 @@ public partial class QuestDetailsControl : UserControl
    if(uri is null && Uri.TryCreate(image.Url,UriKind.Absolute,out var remote) && remote.Scheme is "http" or "https")uri=remote;
    if(uri is not null)try{var bitmap=new BitmapImage();bitmap.BeginInit();bitmap.UriSource=uri;bitmap.DecodePixelWidth=600;bitmap.EndInit();imageHost.Child=new Image{Source=bitmap,Stretch=Stretch.Uniform,ToolTip=image.Caption};}catch(Exception ex){DebugLog.Write("Quest image: "+ex.Message);}
   }
-  aside.Children.Add(imageHost);
-  var coordinates=new StackPanel();if(step.Points.Count>0)coordinates.Children.Add(Coordinates(step));else coordinates.Children.Add(Text(L("Координаты для этого этапа не указаны в документе","No coordinates specified for this step"),11));
+  aside.Children.Add(imageHost);aside.Children.Add(Legend());
+  var coordinates=new StackPanel();if(SemanticCoordinates.All(step).Count>0)coordinates.Children.Add(Coordinates(step));else coordinates.Children.Add(Text(L("Координаты для этого этапа не указаны в документе","No coordinates specified for this step"),11));
   if(step.Npcs.Count>0){var names=Text("NPC: "+string.Join(", ",step.Npcs),11,true);names.Foreground=B("#075CB9");coordinates.Children.Add(names);}
   aside.Children.Add(Info(L("Координаты","Coordinates"),coordinates));
   var materials=new StackPanel();var items=step.Items.Where(i=>i.Operation!="mention" && i.Operation!="decline").ToList();
@@ -196,8 +196,7 @@ public partial class QuestDetailsControl : UserControl
   if(ActualWidth<760){layout.ColumnDefinitions[1].Width=new GridLength(0);layout.RowDefinitions.Add(new(){Height=GridLength.Auto});layout.RowDefinitions.Add(new(){Height=GridLength.Auto});Grid.SetColumn(aside,0);Grid.SetRow(aside,1);}
   DetailPanel.Children.Add(layout);
   foreach(var answer in step.Answers)
-  {var button=new Button{Content=L("Скопировать ответ","Copy answer")+": "+answer.Text,ToolTip=string.Join(" · ",new[]{answer.Operation,answer.Condition,answer.Branch}.Where(x=>x is not null)),HorizontalAlignment=HorizontalAlignment.Left};button.Click+=(_,_)=>Notify(ClipboardService.TryCopy(answer.Text)?L("Текст скопирован","Text copied"):L("Ошибка копирования","Copy failed"));DetailPanel.Children.Add(button);}
-  DetailPanel.Children.Add(Text(L("Использовать инструкцию — назначить текущий этап. Галочка — подтвердить выполнение.","Use this instruction sets the current step. The checkbox confirms completion."),11));
+  {var button=new Button{Content=answer.Text,FontSize=11,Height=24,MinHeight=24,Padding=new Thickness(7,0,7,0),Margin=new Thickness(0,0,5,5),ToolTip=string.Join(" · ",new[]{answer.Operation,answer.Condition,answer.Branch}.Where(x=>x is not null)),HorizontalAlignment=HorizontalAlignment.Left};button.Click+=(_,_)=>Notify(ClipboardService.TryCopy(answer.Text)?L("Текст скопирован","Text copied"):L("Ошибка копирования","Copy failed"));AnswerPanel.Children.Add(button);}
  }
  private Border Info(string title,UIElement content)
  {var stack=new StackPanel();stack.Children.Add(Text(title,12,true));stack.Children.Add(content);return new(){Child=stack,Background=B("#FAFCFF"),BorderBrush=B("#D6E4F3"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),Padding=new Thickness(10),Margin=new Thickness(0,10,0,0)};}
@@ -206,14 +205,44 @@ public partial class QuestDetailsControl : UserControl
  private void RenderFacts()
  {
   FactsPanel.Children.Clear();if(_quest is null)return;
-  AddFacts(L("Требования","Requirements"),_quest.Requirements);AddFacts(L("Награды","Rewards"),_quest.Rewards);
+  var body=new StackPanel();body.Children.Add(Text(L("Требования и награды квеста","Quest requirements and rewards"),17,true));
+  body.Children.Add(Text(_quest.Title,11));
+  var columns=new Grid{Margin=new Thickness(0,12,0,0)};
+  columns.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});columns.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});
+  var requirements=FactRows(_quest.Requirements.Where(f=>f.StepId is null).ToList());
+  var left=Info(L("Суммарные материалы и требования","Total materials and requirements"),requirements);left.Margin=new Thickness(0,0,7,0);columns.Children.Add(left);
+  var rewards=new StackPanel();
+  var received=_quest.Rewards.Where(f=>f.Kind!="access").ToList();rewards.Children.Add(FactRows(received));
+  var access=_quest.Rewards.Where(f=>f.Kind=="access").ToList();
+  if(access.Count>0){rewards.Children.Add(Text(L("Доступ","Access"),15,true));rewards.Children.Add(FactRows(access));}
+  var right=Info(L("Получаемые предметы и награды","Received items and rewards"),rewards);right.Margin=new Thickness(7,0,0,0);Grid.SetColumn(right,1);columns.Children.Add(right);body.Children.Add(columns);
+  // Preserve source totals and branch conditions. Never add alternative branches together.
+  foreach(var step in _quest.Steps)
+  {
+   var facts=_quest.Requirements.Where(f=>f.StepId==step.Id).ToList();
+   if(facts.Count>0)body.Children.Add(Info(L("Материалы и требования — этап ","Materials and requirements — step ")+step.Order,FactRows(facts)));
+   else
+   {
+    var materials=step.Items.Where(i=>i.Operation is "collect" or "bring" or "deliver" or "buy" or "use" or "consume").Select(i=>new SemanticFact(i.Id,"item",i.Name,i.Quantity?.ToString(),string.Join(" · ",new[]{Operation(i.Operation),i.Condition}.Where(v=>!string.IsNullOrWhiteSpace(v))),i.Branch,step.Id)).ToList();
+    if(materials.Count>0)body.Children.Add(Info(L("Материалы — этап ","Materials — step ")+step.Order,FactRows(materials)));
+   }
+  }
+  FactsPanel.Children.Add(Info("",body));
  }
- private void AddFacts(string heading,IReadOnlyList<SemanticFact> facts)
+ private StackPanel FactRows(IReadOnlyList<SemanticFact> facts)
  {
-  FactsPanel.Children.Add(Text(heading,17,true));if(facts.Count==0)FactsPanel.Children.Add(Text(L("Нет данных","No data")));
-  // Rows are source facts, not totals. Alternative branches are never summed.
+  var rows=new StackPanel();if(facts.Count==0)rows.Children.Add(Text(L("Нет данных","No data"),11));
   foreach(var fact in facts)
-  {var content=new StackPanel();content.Children.Add(Text(FactLabel(fact.Kind)+(fact.Name is null?"":" · "+fact.Name)+(fact.Amount is null?"":" ×"+fact.Amount),12,true));if(fact.Condition is not null)content.Children.Add(Text(fact.Condition));if(fact.Branch is not null)content.Children.Add(Text(L("Вариант: ","Branch: ")+fact.Branch,11));FactsPanel.Children.Add(Info("",content));}
+  {
+   var row=new DockPanel();
+   if(fact.Amount is not null){var amount=Text("×"+fact.Amount,12,true);amount.Margin=new Thickness(8,2,0,4);DockPanel.SetDock(amount,Dock.Right);row.Children.Add(amount);}
+   var label=Text(fact.Name??FactLabel(fact.Kind),12,true);if(fact.Name is not null && fact.Kind.Contains("item"))label.Foreground=B("#087747");row.Children.Add(label);
+   var content=new StackPanel();content.Children.Add(row);
+   if(fact.Condition is not null)content.Children.Add(Text(fact.Condition,11));
+   if(fact.Branch is not null)content.Children.Add(Text(L("Вариант: ","Branch: ")+fact.Branch,11));
+   rows.Children.Add(new Border{Child=content,BorderBrush=B("#E2EAF4"),BorderThickness=new Thickness(0,1,0,0),Padding=new Thickness(0,7,0,5)});
+  }
+  return rows;
  }
  private string Operation(string value)=>value switch
  {"collect"=>L("собрать","collect"),"bring"=>L("принести","bring"),"deliver"=>L("передать","deliver"),"buy"=>L("купить","buy"),"use"=>L("использовать","use"),"consume"=>L("расходуется","consumed"),"possess"=>L("иметь при себе","possess"),"show"=>L("показать","show"),_=>value};
@@ -252,8 +281,16 @@ public partial class QuestDetailsControl : UserControl
   fresh.ReadyChoice.SelectedItem=fresh.ReadyChoice.Items.Cast<SemanticQuest>().First(q=>q.Id==_quest.Id);
   if(fresh._quest?.Id!=_quest.Id || fresh.Current() is not null || fresh.Editable)
    throw new InvalidOperationException("New ready content inherited another quest's progress or remained hidden.");
+  if(Metadata.Visibility!=Visibility.Collapsed || Quality.Visibility!=Visibility.Collapsed)throw new InvalidOperationException("Walkthrough metadata must stay hidden.");
   var current=Current()?.Id;var selected=_selectedId;
   var other=_quest.Steps.First(s=>s.Id!=current);Select(other);
+  if(AnswerPanel.Children.Count!=other.Answers.Count || Grid.GetRow((UIElement)AnswerPanel.Parent)!=1)
+   throw new InvalidOperationException("Answer actions must stay in the detail footer.");
+  if(_cards.TryGetValue(other.Id,out var selectedCard))
+  {
+   var pointButtons=((Grid)selectedCard.Child).Children.OfType<StackPanel>().SelectMany(p=>p.Children.OfType<WrapPanel>()).SelectMany(p=>p.Children.OfType<Button>()).Count(b=>b.Tag is QuestNavigationTarget);
+   if(pointButtons!=SemanticCoordinates.All(other).Count)throw new InvalidOperationException("Not all explicit coordinates have navigation buttons.");
+  }
   if(Current()?.Id!=current || _selectedId!=other.Id)throw new InvalidOperationException("Reading a semantic step changed current progress.");
   ShowFacts();Render(_workspace);
   if(DetailsTabs.SelectedIndex!=1 || _selectedId!=other.Id)throw new InvalidOperationException("Facts tab lost selection.");

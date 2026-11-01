@@ -117,9 +117,9 @@ internal static class QuestInputSmoke
                 host.RefreshNow();await Pause();host.RefreshNow();
                 var browserBounds=QuestWindowNative.Bounds(new WindowInteropHelper(host.Browser).Handle);
                 var inside=new Point(browserBounds.Left+4,browserBounds.Top+80);var outside=new Point(browserBounds.Left-12,browserBounds.Top+80);
-                if(transformedCanvas.Clip?.FillContains(transformedCanvas.PointFromScreen(inside))!=false ||
+                if((transformedCanvas.Clip?.FillContains(transformedCanvas.PointFromScreen(inside))??true)!=true ||
                     (transformedCanvas.Clip?.FillContains(transformedCanvas.PointFromScreen(outside))??true)!=true)
-                    throw new InvalidOperationException("Tracker clip does not follow its actual WPF transform.");
+                    throw new InvalidOperationException("Quest browser cut pixels out of the tracker.");
                 transformedCanvas.RenderTransform=System.Windows.Media.Transform.Identity;
                 workspace.Settings.QuestOverlay.BrowserWidth=oldBrowserWidth;workspace.Settings.QuestOverlay.BrowserX=oldBrowserX;host.RefreshNow();
                 host.HideBrowser(true);await Pause();
