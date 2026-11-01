@@ -1411,7 +1411,9 @@ public partial class OverlayWindow : Window
         // clients can silently move their own HWND ahead of us in the topmost
         // band without changing our WS_EX_TOPMOST flag. Reissuing this
         // non-activating call is what keeps the click-through overlay visible.
-        SetWindowPos(hwnd, HwndTopmost, 0, 0, 0, 0,
+        var browser = Application.Current?.Windows.OfType<QuestBrowserWindow>().FirstOrDefault(w=>w.IsVisible);
+        var after = browser is null ? HwndTopmost : new WindowInteropHelper(browser).Handle;
+        SetWindowPos(hwnd, after, 0, 0, 0, 0,
             SwpNoMove | SwpNoSize | SwpNoActivate);
         _isTopmost = true;
     }

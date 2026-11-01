@@ -171,6 +171,8 @@ public sealed class QuestOverlayHost : IDisposable
             if(window.Content is FrameworkElement content)
             {content.UpdateLayout();content.Clip=QuestWindowNative.ExclusionClip(content,new Size(Options.Width,24),excluded);}
         }
+        // Native stacking covers only the actual browser rectangle; no render cutouts.
+        if(Browser.IsVisible)PlaceBrowser(promote);
         if(_choices is not null)
         {
             if(!gameActive && !browserActive)CloseChoices();

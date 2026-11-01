@@ -231,6 +231,7 @@ public partial class QuestDetailsControl : UserControl
  }
  private StackPanel FactRows(IReadOnlyList<SemanticFact> facts)
  {
+  var sharedCondition=facts.Count>1 && facts.All(f=>f.Condition==facts[0].Condition)?facts[0].Condition:null;
   var rows=new StackPanel();if(facts.Count==0)rows.Children.Add(Text(L("Нет данных","No data"),11));
   foreach(var fact in facts)
   {
@@ -238,10 +239,11 @@ public partial class QuestDetailsControl : UserControl
    if(fact.Amount is not null){var amount=Text("×"+fact.Amount,12,true);amount.Margin=new Thickness(8,2,0,4);DockPanel.SetDock(amount,Dock.Right);row.Children.Add(amount);}
    var label=Text(fact.Name??FactLabel(fact.Kind),12,true);if(fact.Name is not null && fact.Kind.Contains("item"))label.Foreground=B("#087747");row.Children.Add(label);
    var content=new StackPanel();content.Children.Add(row);
-   if(fact.Condition is not null)content.Children.Add(Text(fact.Condition,11));
+   if(fact.Condition is not null && fact.Condition!=sharedCondition)content.Children.Add(Text(fact.Condition,11));
    if(fact.Branch is not null)content.Children.Add(Text(L("Вариант: ","Branch: ")+fact.Branch,11));
    rows.Children.Add(new Border{Child=content,BorderBrush=B("#E2EAF4"),BorderThickness=new Thickness(0,1,0,0),Padding=new Thickness(0,7,0,5)});
   }
+  if(!string.IsNullOrWhiteSpace(sharedCondition))rows.Children.Add(Text(sharedCondition,11));
   return rows;
  }
  private string Operation(string value)=>value switch
