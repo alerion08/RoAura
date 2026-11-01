@@ -7157,38 +7157,20 @@
       "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/e5ceb05e9e57e5cd3f2b/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Red Plant Stem Powder and medicine retain quest-scoped identities with NULL game IDs and quantities. The source does not specify a powder grant count or how medicine is split between Morriphen and Siria.",
       "evidence_id": "ev:953ec8377450bf86a6243189",
       "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:8bb532a84cfbb367495087e7",
+      "reason": "medicine_and_powder_inventory_unknown",
+      "review_id": "review:c43cd67012ded1bdb2e3908a",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The stage-8 500000 and stage-9 700000 Base EXP installments sum to the 1200000 header. The header is not an extra grant.",
       "evidence_id": "ev:953ec8377450bf86a6243189",
       "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:8c377ee7f93022280c9a3722",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:35939e5d945c6f542f5e77d7",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:eb7e864d554ecb15e3906d6b",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:e17a8bfbc12f6a42e064893c",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:e7e7245655f7b35f7a47001e",
+      "reason": "reward_header_not_extra_grant",
+      "review_id": "review:2fd22aef2b986d7d91518636",
       "severity": "warning",
       "step_id": null
     },
@@ -7200,168 +7182,6 @@
       "review_id": "review:1e60fe267c84ba98ab130407",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:963c77b2a48d2439ff49ed90",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0069dd532e90555e1c028c85",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/17bfab4262f01df70323/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:963c77b2a48d2439ff49ed90",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:60a23024f12f32c217253096",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/17bfab4262f01df70323/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:85b602bb42d948fc71b90ebb",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5aa01126728b40957542ffdc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/28e0fba0a1fa7b84a0a5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:85b602bb42d948fc71b90ebb",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e92cfbca947902c1251b71ed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/28e0fba0a1fa7b84a0a5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:73518956148d3d7e056ba764",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a0516e99dbb907a7910a704f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/37b3af20003306f28ff7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:73518956148d3d7e056ba764",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dfc296605496835618a5759a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/37b3af20003306f28ff7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:45ffdfe876315edc98f8b1dc",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8c096f6826193de78721be04",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/4e0fa5ee748f14a19db4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:45ffdfe876315edc98f8b1dc",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:47c1307aa47a9149bcb7b9fa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/4e0fa5ee748f14a19db4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:07a193fcfd60f86106957ce3",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8e20dd7e3357322aeb4d1a82",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/555a804eb270f1c6e91d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:07a193fcfd60f86106957ce3",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bb98909bb6eb081730a61ec0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/555a804eb270f1c6e91d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c2bba5c78b61ead71b4efeab",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3faa57af5c742ccf0412ebaa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/6da57625afd1f9b268fc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c2bba5c78b61ead71b4efeab",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:708354d95e660eef6489483c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/6da57625afd1f9b268fc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ed38ee910d203ef622f4906b",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b21dd264e5e58b9ebdddb415",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/b43d631bc0bfdf667f7e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ed38ee910d203ef622f4906b",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2e3c4acf1a594e65ee618c34",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/b43d631bc0bfdf667f7e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6eb4e3b54ea761f6d5ce54dd",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5e7d35fb10b5e5d185a9267e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/e946e113611bda59f987/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6eb4e3b54ea761f6d5ce54dd",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:24bc56498d337fc80773e776",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/e946e113611bda59f987/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8a1a5944add78add7056b814",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1e1ff0a2fd5b8ea1ab23de45",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/f8ec25f31e4ed967ff61/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8a1a5944add78add7056b814",
-      "quest_id": "irowiki-classic:Biological_Weapon_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:81a67cce7d71d12c18cacc18",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/f8ec25f31e4ed967ff61/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -8876,38 +8696,20 @@
       "step_id": "irowiki-classic:Broken_Diamond_Quest/step/f86df752e0c1b5091e88/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Book at stage 10 is an interactable. The separately named Bruspetti's Diary is obtained at stage 15. No early diary inventory grant is asserted.",
       "evidence_id": "ev:b87a1263010a9636d85a5ce3",
       "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:81fef0944d4a91c7d97e335e",
+      "reason": "book_is_interactable_not_inventory_diary",
+      "review_id": "review:71fc5c00d7d822223f070b21",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "This pinned page has no verified database links for Knife [3] or Bruspetti's Diary. Keep NULL IDs and source-qualified identities; do not import an ID solely from a similar item in another guide.",
       "evidence_id": "ev:b87a1263010a9636d85a5ce3",
       "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:47e299508f809ff79a0cbd05",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:a69c009d52557751f69c9d8a",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:64a77400dd2781f079024d46",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:c26c8010a309a30e6ef5f4e9",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:a41950f1e912855b3b8240ce",
+      "reason": "knife_and_diary_ids_unverified",
+      "review_id": "review:f38ebff53f045c448d12076b",
       "severity": "warning",
       "step_id": null
     },
@@ -8921,17 +8723,17 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2be0c594a762e75977e25340",
+      "detail": "Reward header says 76-90, while stage 18 says 75-90 and overlaps 50-75. Preserve both literal sources; do not choose a corrected bound or grant both bands at level 75.",
+      "evidence_id": "ev:b87a1263010a9636d85a5ce3",
       "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0f8b5cb75c0cf5c2fbd42087",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/068761c53d1ba321efcc/1"
+      "reason": "source_level_75_header_conflict",
+      "review_id": "review:ec65441fa3cdaaa5f0231f9b",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:ad91ce95557a573d0f467319",
+      "evidence_id": "ev:523eb4098b6f0d57e5717e5f",
       "quest_id": "irowiki-classic:Bruspetti_Quest",
       "reason": "map_unknown",
       "review_id": "review:ae93d96f392b4163cb1792db",
@@ -8939,328 +8741,13 @@
       "step_id": "irowiki-classic:Bruspetti_Quest/step/068761c53d1ba321efcc/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
+      "detail": "The source gives display-name Rachel and bare coordinates, not a literal map-qualified point. No rachel code is silently inferred.",
       "evidence_id": "ev:2be0c594a762e75977e25340",
       "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:18b3e4cb1b249121e5827b40",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/068761c53d1ba321efcc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:dacb41abec7c99c6814d3c3f",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:965c32ac309c7fba22d1d28e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/28267f6f8c6b7b3295af/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:dacb41abec7c99c6814d3c3f",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:340de8dee21c39bef98e7de4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/28267f6f8c6b7b3295af/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:27377d2184c165c393c8b617",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:036406e175225b576f50c394",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/485b16f03d1958b2eee4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:27377d2184c165c393c8b617",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:16fcf3d5dce3a07dc1e05e70",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/485b16f03d1958b2eee4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e3cd2b064a65a27b36a25d57",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:263742c45b078205e053ddcc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/4b4a9f7922ccc7b9cee3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e3cd2b064a65a27b36a25d57",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1dbaad722aabf6bdb1a6101e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/4b4a9f7922ccc7b9cee3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:42c92bc088fc9076dbe7abca",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9e97945f7b6a1dda192c9d63",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/618e0cd3b163fb253fb6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:42c92bc088fc9076dbe7abca",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b6261b854987cdba6928a75e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/618e0cd3b163fb253fb6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:33ab1e7c25509916dbdc68b1",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:23e4988b144935a62971417b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/62d103d54b0bc51b865e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:33ab1e7c25509916dbdc68b1",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f8402697c0dc0c0e8c0c2e97",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/62d103d54b0bc51b865e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:33433b43594783737250b957",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e11f2726a87e297130b3f07c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/6662fdd57866a601d2b4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:33433b43594783737250b957",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a0862400e51bad3a657720a6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/6662fdd57866a601d2b4/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:33433b43594783737250b957",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:137d4bb150f2ab52cc032e5d",
+      "reason": "spring_map_code_unqualified",
+      "review_id": "review:e8ee56a1a506ff9e17673f8a",
       "severity": "warning",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/6662fdd57866a601d2b4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0feeb6df2e2160b51c55e3a7",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:65bd0aaea87c6248f7f63ea8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/705fa25668799c1159f2/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0feeb6df2e2160b51c55e3a7",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:74b92be981052bce31f1a234",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/705fa25668799c1159f2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:61b6e3b1c79468f4656b5660",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a58dac533c1e8f610c024107",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/772f8ab1f3665c62f2d2/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:61b6e3b1c79468f4656b5660",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a3194aca597a2ebbaac38673",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/772f8ab1f3665c62f2d2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:68ac1781b6719798a8d09e68",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ee58d68ff65193e342b21522",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/7cbab5cc4c4ca71ee89f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:68ac1781b6719798a8d09e68",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a384f4e536a1a88de9350048",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/7cbab5cc4c4ca71ee89f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f21b0bbe4ac5a5e4fa9a2877",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e0c5804673c406da4b802780",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/86b31c342816d7ab0be9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f21b0bbe4ac5a5e4fa9a2877",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2cd24e29a79de3ce0a9d09a7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/86b31c342816d7ab0be9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5dd78fe89cd25d8822fefe65",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e57239063e49de7e5263ce54",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/8a659921c0b6521f9b25/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5dd78fe89cd25d8822fefe65",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c2d3541d1286564f9113ab76",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/8a659921c0b6521f9b25/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e964c2b0225420781642196c",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e2ee03744bb22c1dd6f6143f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/955489e8d2b73f607f2b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e964c2b0225420781642196c",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a4b60ce9eb85ecb3c84b16c2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/955489e8d2b73f607f2b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:446a3b59a58d88b9a8dd785e",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f236e8794b54abf50a97baca",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/9bbc3d8bf026ef1aa243/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:446a3b59a58d88b9a8dd785e",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:df53e9b6f7254d82571bfce2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/9bbc3d8bf026ef1aa243/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:16d7467b7c4a79fbda217559",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0b398bfef4f99fbd3d084191",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/9c3b56abfa57f6b6e03b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:16d7467b7c4a79fbda217559",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ca1c32e7f76417a978deee71",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/9c3b56abfa57f6b6e03b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6a234c14e5bb89ad41461da1",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:76059f82e782bc640feb5199",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/b6134066d458bdba59dc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6a234c14e5bb89ad41461da1",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:737f86bb840c8bcd892ef294",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/b6134066d458bdba59dc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9e7c724e35256995d93d94f4",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c9e6cb95b00db1fba7ffba1f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/bbbf5fc33df30b6b671d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9e7c724e35256995d93d94f4",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:60d1ff9146a999de3fc4c4c6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/bbbf5fc33df30b6b671d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5b533559a5aed1a6388a9b14",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:05e0999f9d96de8f0ea42a54",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/c35b8c5d04e1fcdb5d64/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5b533559a5aed1a6388a9b14",
-      "quest_id": "irowiki-classic:Bruspetti_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3e8377d238954e6f3642b986",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bruspetti_Quest/step/c35b8c5d04e1fcdb5d64/1"
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/068761c53d1ba321efcc/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -35858,38 +35345,29 @@
       "step_id": "irowiki-classic:Party_Relay_Quest/step/91b6922d51475118650d/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Zhed's personal note, Niren's original File/forgery request and Ishmael's returned forged File have distinct source-qualified identities with NULL game IDs/counts. They are not merged by generic labels or with older File Folder items.",
       "evidence_id": "ev:0859fa9f5803656ad87bec5b",
       "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:2a54939e35a827e9cd5e84a0",
+      "reason": "forgery_document_identities_separate",
+      "review_id": "review:30af104f25020822f42ea661",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The thirsty merchant at moc_ruins 77,167 and the oasis merchant at moc_ruins 101,133 are distinct source-qualified identities. Stages 1/4 target the first; stage 3 targets the second.",
       "evidence_id": "ev:0859fa9f5803656ad87bec5b",
       "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:4f480e0b55497d93256c5c6f",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:ee78386084259bfcd85faf20",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:d9caf3d7218f81c180f5267b",
+      "reason": "same_name_foreign_merchants_distinct",
+      "review_id": "review:39161caaf0c1e7bb3be0f035",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:d300735a1c986db75c0d879b",
+      "detail": "The header and stage 14 say Sardonyx with an item-725 link; stage 15 says Sardonx. Preserve that source spelling as an unverified separate label; the single requested material is evidenced by the header, with no invented second item.",
+      "evidence_id": "ev:0859fa9f5803656ad87bec5b",
       "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:208cefd97ee64d0fea0ee9eb",
+      "reason": "sardonx_source_spelling_conflict",
+      "review_id": "review:0bdeb1ff648c5d4dfa5321c4",
       "severity": "warning",
       "step_id": null
     },
@@ -35903,332 +35381,17 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b8b5e1b96ff75e4b364c4183",
+      "detail": "The header states 2500000 total Base EXP, but stages 20 and 21 give no individual amounts. Keep two NULL-amount installments and one base_exp_total summary; do not invent an equal split or a third grant.",
+      "evidence_id": "ev:0859fa9f5803656ad87bec5b",
       "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1bdcb27a740d33e221094189",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/0c1a74ad4c7aa9d6d770/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b8b5e1b96ff75e4b364c4183",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:401785d16c54e50ca293c39d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/0c1a74ad4c7aa9d6d770/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:822e66af78d04478e8b869f0",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d9cfc9d32c9d14918128c07f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/18bbe87a1c3f452c9f73/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:822e66af78d04478e8b869f0",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a6dbbdad59ab02b2bbc1213e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/18bbe87a1c3f452c9f73/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:40247f3839aff5765b339cbb",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2f850597fc4935320dd016b4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/194f7a3a192f7f97d681/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:40247f3839aff5765b339cbb",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9038ad40cf86532a2d769a07",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/194f7a3a192f7f97d681/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:05c02613f61f97b4fa970290",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:041121afcebb210fdf029018",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/1c0f604f84e30a01fa67/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:05c02613f61f97b4fa970290",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fb500ad1cf7a1d04cbffe5dc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/1c0f604f84e30a01fa67/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0c51ab776d27cc91c6bdce36",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7647d25e45b2275a8b5128ea",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/1ff90c951908dfdcc2bc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0c51ab776d27cc91c6bdce36",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:30b244a2937414c53e3d96d4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/1ff90c951908dfdcc2bc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4cb0aa4c4c5fca2ff79cfacf",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:67ecdc666de29e1b0865087e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/36c4c1eca1828e30fe73/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4cb0aa4c4c5fca2ff79cfacf",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c48021850fe2ce61d823b651",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/36c4c1eca1828e30fe73/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d481a72bfae00563b186eba9",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9c22e1071538374cff414303",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/3c690e967924eea2bbb4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d481a72bfae00563b186eba9",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d51df75d5a75a6e435558940",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/3c690e967924eea2bbb4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:646caf4f72a9aacacae07eb4",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e7dd9def0c737203eb92606e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/43ff8a8769210d0a837c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:646caf4f72a9aacacae07eb4",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b0db87b9c0f3515b51b026d4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/43ff8a8769210d0a837c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:730d84b3ae92899dcc7c57b1",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:76c6854a81a00cd8580e63f1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/49d897d2ffe93f550869/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:730d84b3ae92899dcc7c57b1",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3eaad5f985c4ad9c2d367540",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/49d897d2ffe93f550869/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:07a791e658904be3496b7692",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:245d8ffe2f2d3684fb9a4711",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/649c789ccb4aee412a51/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:07a791e658904be3496b7692",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d9317d5edbdc91e76cdfcdf1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/649c789ccb4aee412a51/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8c0254937841070544ba5188",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f00fdf942456e51ff87057bf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/6593c7033c31045f4b06/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8c0254937841070544ba5188",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:52ec34572c4e42295768ab30",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/6593c7033c31045f4b06/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9cf6153d7536304127a5e2af",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a8c67368cb18c7d5f9dafa2c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/6a6f8f28faae6721016f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9cf6153d7536304127a5e2af",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b03a521b4a869d789e2e945e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/6a6f8f28faae6721016f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ee1d307c95b44aec9851c009",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6f77590ef36332ea6c66366e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/6b386b89a42705ccc317/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ee1d307c95b44aec9851c009",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2dd925e857493e7104a7e433",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/6b386b89a42705ccc317/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:ee1d307c95b44aec9851c009",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:f22dcee297064f8c96beaa25",
+      "reason": "unknown_reward_installment_split",
+      "review_id": "review:235fc95dc7484e31d6b74e69",
       "severity": "warning",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/6b386b89a42705ccc317/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3790e497d825289bf523af59",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:cdb9337078cfb3a8fd28511b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/782c46608c64fecef6a8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3790e497d825289bf523af59",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d522dff91f63c776e47d9b38",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/782c46608c64fecef6a8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:325e1606e57f3525aa52d56a",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:030cc3c0cecbd49c4c2dcbd2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/9c9ca5c8c868ad89cccb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:325e1606e57f3525aa52d56a",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:41586b87ce3f999073aeb186",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/9c9ca5c8c868ad89cccb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:58c6e9bcc6aba886d5009bea",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:67e0daf45e63e108998660d3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/bed3dadc8f0943c0ed5a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:58c6e9bcc6aba886d5009bea",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2dd547b733cc3a7d06f2f53a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/bed3dadc8f0943c0ed5a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7dd87ca508b7839794bff59b",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9655e3e2ae5049cad3bed7ab",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/dd899d08b6f929389353/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7dd87ca508b7839794bff59b",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b47d17e61de03b5c6825a8b6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/dd899d08b6f929389353/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2b33738e721aea185cb87a9f",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1287ae902fb8df5d608cf8f9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/de84dd662afbcaa0d527/1"
+      "step_id": null
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:5485807cdb6f4b3e549cfb97",
+      "evidence_id": "ev:f0ec7bd4116ed38f9643a54c",
       "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
       "reason": "map_unknown",
       "review_id": "review:5668c86c7ae39e14b001e6fa",
@@ -36236,94 +35399,13 @@
       "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/de84dd662afbcaa0d527/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
+      "detail": "Rachel Field 3 is a display name. Bare coordinates do not prove a ra_fild03 map code; none is invented.",
       "evidence_id": "ev:2b33738e721aea185cb87a9f",
       "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4bb84d04afca5a9ed4a98142",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/de84dd662afbcaa0d527/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:2b33738e721aea185cb87a9f",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:c6dcc0866a037b24be9f65c7",
+      "reason": "rachel_field_display_name_only",
+      "review_id": "review:be9ae4f85ba0d0782859a282",
       "severity": "warning",
       "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/de84dd662afbcaa0d527/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4796c895c82af61a71a07888",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0e59096a3fbe5e0f915696ae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/e02cb4c5831be6ac846e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4796c895c82af61a71a07888",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fdd58d38687bcf7d2a8b4583",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/e02cb4c5831be6ac846e/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:4796c895c82af61a71a07888",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:9c9c1de7a492565da1e9cc0d",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/e02cb4c5831be6ac846e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2f708d81f5c6a27876c766d8",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4175d980edceb040ff5dc0cd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/eaaef078059af51d5454/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2f708d81f5c6a27876c766d8",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0795274f7f3bd6bab59d172f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/eaaef078059af51d5454/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:88d0de14f3037c0bc939a41d",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ccfd2e93e1713caa937124b0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/f60960b0205a22d0ba65/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:88d0de14f3037c0bc939a41d",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b0bceb25beeacc9ccc613c77",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/f60960b0205a22d0ba65/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:88d0de14f3037c0bc939a41d",
-      "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:47cf0f226bb7dd6d0a2c2e52",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/f60960b0205a22d0ba65/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
