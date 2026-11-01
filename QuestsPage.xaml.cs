@@ -174,7 +174,7 @@ public partial class QuestsPage : UserControl
                 CatalogDetails.ShowCurrentStep();UpdateLayout();
                 await SaveSnapshot(output,language+"-ayothaya-semantic",1);
                 CatalogDetails.ShowFacts();
-                await SaveSnapshot(output,language+"-ayothaya-facts",1);
+                await SaveSnapshot(output,language+"-ayothaya-facts",1,true,1450,900);
             }
             workspace.ToggleTracking(ayothaya);workspace.SelectedGuide=restore;CatalogDetails.ShowCurrentStep();
         }
@@ -182,13 +182,13 @@ public partial class QuestsPage : UserControl
         {
             if(workspace.Catalog?.Guides.GetValueOrDefault(key) is not {} example)continue;
             ShowGuide(example);workspace.ToggleTracking(example);workspace.SelectStep(number);CatalogDetails.ShowCurrentStep();UpdateLayout();
-            await SaveSnapshot(output,name,1);
+            await SaveSnapshot(output,name,1,false,1450,900);
             workspace.ToggleTracking(example);
         }
         workspace.SelectedGuide=restore;CatalogDetails.ShowCurrentStep();
         await workspace.FlushAsync();
     }
-    private async Task SaveSnapshot(string directory, string name, double scale)
+    private async Task SaveSnapshot(string directory, string name, double scale,bool facts=false,double width=840,double height=560)
     {
         // A detached view cannot be re-arranged by MainWindow's larger parent slot.
         // Equivalent pixel densities are not real mixed-monitor OS DPI acceptance.
@@ -199,11 +199,11 @@ public partial class QuestsPage : UserControl
         {
             view.SearchInput.Text = SearchInput.Text; view._searchTimer.Stop(); view.Filter();
             view.QuestTabs.SelectedIndex = QuestTabs.SelectedIndex;
-            view.Measure(new Size(840, 560)); view.Arrange(new Rect(0, 0, 840, 560)); view.UpdateLayout();
-            if(view.QuestTabs.SelectedIndex==3)view.CatalogDetails.ShowCurrentStep();
+            view.Measure(new Size(width, height)); view.Arrange(new Rect(0, 0, width, height)); view.UpdateLayout();
+            if(view.QuestTabs.SelectedIndex==3){view.CatalogDetails.ShowCurrentStep();if(facts)view.CatalogDetails.ShowFacts();}
             await view.Dispatcher.InvokeAsync(()=>{},DispatcherPriority.ContextIdle);
             view.UpdateLayout();
-            var bitmap = new System.Windows.Media.Imaging.RenderTargetBitmap((int)(840 * scale), (int)(560 * scale), 96 * scale, 96 * scale, PixelFormats.Pbgra32);
+            var bitmap = new System.Windows.Media.Imaging.RenderTargetBitmap((int)(width * scale), (int)(height * scale), 96 * scale, 96 * scale, PixelFormats.Pbgra32);
             bitmap.Render(view);
             var encoder = new System.Windows.Media.Imaging.PngBitmapEncoder();
             encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bitmap));
