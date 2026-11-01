@@ -1,0 +1,1080 @@
+{
+  "quest_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "c40d8923757eccd6f58a793d7f51881b215a71d04a07a8b2c1ad914ff4070c9e",
+  "snapshot_sha256": "14a39efd8ab381a1e20ea3f59cca83a4cc3a23cc04472bee03602ade48fbfb07",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Busy Looking Boy"
+    },
+    {
+      "type": "npc",
+      "name": "Karlomoff"
+    },
+    {
+      "type": "npc",
+      "name": "Rodafrian"
+    },
+    {
+      "type": "npc",
+      "name": "Mondo"
+    },
+    {
+      "type": "npc",
+      "name": "Absent-Minded Boy"
+    },
+    {
+      "type": "npc",
+      "name": "Sharp-looking Kid"
+    },
+    {
+      "type": "npc",
+      "name": "Assassin Guildsman"
+    },
+    {
+      "type": "npc",
+      "name": "Marjana"
+    },
+    {
+      "type": "npc",
+      "name": "Father Biscuss"
+    },
+    {
+      "type": "npc",
+      "name": "Bonnie Imbullea",
+      "aliases": [
+        "Exhausted-Looking Woman",
+        "Bonnie"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Father Bamph"
+    },
+    {
+      "type": "item",
+      "name": "Green Potion",
+      "game_id": 506,
+      "id_source": "http://db.irowiki.org/classic/item-info/506/"
+    },
+    {
+      "type": "item",
+      "name": "Yellow Gemstone",
+      "game_id": 715,
+      "id_source": "http://db.irowiki.org/classic/item-info/715/"
+    },
+    {
+      "type": "item",
+      "name": "File Folder"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "prontera",
+      "map_code": "prontera"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "yuno",
+      "map_code": "yuno"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "morocc",
+      "map_code": "morocc"
+    },
+    {
+      "type": "map",
+      "name": "morocc_in",
+      "map_code": "morocc_in"
+    },
+    {
+      "type": "map",
+      "name": "Mt. Mjolnir"
+    },
+    {
+      "type": "map",
+      "name": "Mjolnir"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "mjolnir_01",
+      "map_code": "mjolnir_01"
+    },
+    {
+      "type": "map",
+      "name": "prt_church",
+      "map_code": "prt_church"
+    },
+    {
+      "type": "map",
+      "name": "moc_fild16",
+      "map_code": "moc_fild16"
+    },
+    {
+      "type": "map",
+      "name": "que_job01",
+      "map_code": "que_job01"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Walk near Busy Looking Boy (prontera 248, 212) in Prontera to trigger a conversation. After picking up the books with him, you will be asked to send them to the Historian, Mr. Karlomoff in Juno . | Note: If you lose the books before you deliver them to Karlomoff, you can buy new ones from the Prontera library.",
+      "instruction_sha256": "4e1717cbaadb41d8885d8b2a6e9b95a471f4b8d605e1ef85627de21b417e69f2",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/4e1717cbaadb41d8885d/1",
+      "goal": "trigger_dialogue",
+      "short_ru": "Подойдите к Busy Looking Boy: prontera 248, 212, и возьмите книги для Karlomoff.",
+      "short_en": "Approach Busy Looking Boy: prontera 248, 212, and take the books for Karlomoff.",
+      "full_ru": "Подойдите к Busy Looking Boy в Prontera (prontera 248, 212), чтобы запустить разговор. Помогите собрать книги: он попросит отнести их историку Mr. Karlomoff в Juno. Примечание: если книги потеряны до передачи Karlomoff, новые можно купить в библиотеке Prontera.",
+      "full_en": "Walk near Busy Looking Boy (prontera 248, 212) in Prontera to trigger a conversation. After picking up the books with him, you will be asked to send them to the Historian, Mr. Karlomoff in Juno . | Note: If you lose the books before you deliver them to Karlomoff, you can buy new ones from the Prontera library.",
+      "npcs": [
+        {
+          "entity": "Busy Looking Boy",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "trigger_dialogue",
+          "entity": "Busy Looking Boy"
+        },
+        {
+          "operation": "collect",
+          "condition": "Books; replacement copies available at Prontera library if lost."
+        }
+      ],
+      "protected_names": [
+        "Busy Looking Boy",
+        "Karlomoff",
+        "Prontera",
+        "prontera",
+        "Juno"
+      ],
+      "locations": [
+        {
+          "map": "prontera",
+          "x": 248,
+          "y": 212,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prontera 248, 212"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Travel to Juno and find the Historian, Karlomoff (yuno 311, 195). After a conversation about a traditional rhyme, you will be requested to deliver a report to a colleague in Morroc . You will receive a File Folder.",
+      "instruction_sha256": "fe12ce3fc4b2cf1e50f2b1e0de6e18cde5bc73b60780b174368ea9f555705412",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/fe12ce3fc4b2cf1e50f2/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Karlomoff: yuno 311, 195; получите File Folder.",
+      "short_en": "Talk to Karlomoff: yuno 311, 195; receive File Folder.",
+      "full_ru": "В Juno найдите историка Karlomoff (yuno 311, 195). После разговора о старинной рифмовке он попросит доставить отчёт коллеге в Morroc. Вы получите File Folder.",
+      "full_en": "Travel to Juno and find the Historian, Karlomoff (yuno 311, 195). After a conversation about a traditional rhyme, you will be requested to deliver a report to a colleague in Morroc . You will receive a File Folder.",
+      "npcs": [
+        {
+          "entity": "Karlomoff",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Karlomoff"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "File Folder"
+        }
+      ],
+      "protected_names": [
+        "Karlomoff",
+        "File Folder",
+        "Juno",
+        "yuno",
+        "Morroc"
+      ],
+      "locations": [
+        {
+          "map": "yuno",
+          "x": 311,
+          "y": 195,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno 311, 195"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Proceed to a building at Morroc 5 o'clock (morocc 198, 63) to find the Historian, Rodafrian (morocc_in 45, 126). Tell her the rhyme you previously heard, but you will be asked to find someone in Mjolnir to verify it.",
+      "instruction_sha256": "258c420d86839fa9a9cb656e5338914748b64438d3c5dcd5336d5078d946c564",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/258c420d86839fa9a9cb/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Rodafrian: morocc_in 45, 126, в здании morocc 198, 63.",
+      "short_en": "Talk to Rodafrian: morocc_in 45, 126, inside the building at morocc 198, 63.",
+      "full_ru": "В Morroc идите к зданию в направлении 5 часов (morocc 198, 63). Найдите историка Rodafrian (morocc_in 45, 126) и перескажите услышанную рифмовку. Она попросит найти человека в Mjolnir, который её подтвердит.",
+      "full_en": "Proceed to a building at Morroc 5 o'clock (morocc 198, 63) to find the Historian, Rodafrian (morocc_in 45, 126). Tell her the rhyme you previously heard, but you will be asked to find someone in Mjolnir to verify it.",
+      "npcs": [
+        {
+          "entity": "Rodafrian",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Rodafrian"
+        }
+      ],
+      "protected_names": [
+        "Rodafrian",
+        "Morroc",
+        "morocc",
+        "morocc_in",
+        "Mjolnir"
+      ],
+      "locations": [
+        {
+          "map": "morocc",
+          "x": 198,
+          "y": 63,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "morocc 198, 63"
+        },
+        {
+          "map": "morocc_in",
+          "x": 45,
+          "y": 126,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "morocc_in 45, 126"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Go to Mt. Mjolnir 1, two maps north of Geffen . Find the Historian, Mondo (mjolnir_01 135 168) and tell him the version you heard: | Note: If directly copying/pasting, be careful not to copy any spaces at the beginning or end of the phrase, as it will not work correctly. | The great serpent swallowed the sea. | The eagle of the rainbow swallowed the serpent. | Then the eagle built its nest. | A nest upon the swallowed sea. You will then be asked to find a child who sang the rhyme.",
+      "instruction_sha256": "3e32268f5c5704e1d9b3035d20996198dd47fb1238befbf1686eb6ac34523f5f",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/3e32268f5c5704e1d9b3/1",
+      "goal": "type_answer",
+      "short_ru": "У Mondo (mjolnir_01 135 168) введите строки рифмовки дословно, без лишних пробелов.",
+      "short_en": "At Mondo (mjolnir_01 135 168), enter the rhyme lines exactly, without extra spaces.",
+      "full_ru": "На Mt. Mjolnir 1, через две карты к северу от Geffen, найдите историка Mondo (mjolnir_01 135 168). Передайте услышанную версию по строкам: The great serpent swallowed the sea. | The eagle of the rainbow swallowed the serpent. | Then the eagle built its nest. | A nest upon the swallowed sea. При копировании не оставляйте пробелы в начале или конце строки: ответ не будет принят. Затем он попросит найти ребёнка, который пел эту рифмовку.",
+      "full_en": "Go to Mt. Mjolnir 1, two maps north of Geffen . Find the Historian, Mondo (mjolnir_01 135 168) and tell him the version you heard: | Note: If directly copying/pasting, be careful not to copy any spaces at the beginning or end of the phrase, as it will not work correctly. | The great serpent swallowed the sea. | The eagle of the rainbow swallowed the serpent. | Then the eagle built its nest. | A nest upon the swallowed sea. You will then be asked to find a child who sang the rhyme.",
+      "npcs": [
+        {
+          "entity": "Mondo",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mondo"
+        },
+        {
+          "operation": "type_answer",
+          "condition": "Four lines in source order; no leading or trailing spaces."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Mondo",
+          "options": [
+            {
+              "text": "The great serpent swallowed the sea.",
+              "correct": 1,
+              "operation": "type"
+            },
+            {
+              "text": "The eagle of the rainbow swallowed the serpent.",
+              "correct": 1,
+              "operation": "type"
+            },
+            {
+              "text": "Then the eagle built its nest.",
+              "correct": 1,
+              "operation": "type"
+            },
+            {
+              "text": "A nest upon the swallowed sea.",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "Mondo",
+        "Mt. Mjolnir",
+        "Mjolnir",
+        "Geffen",
+        "mjolnir_01"
+      ],
+      "locations": [
+        {
+          "map": "mjolnir_01",
+          "x": 135,
+          "y": 168,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mjolnir_01 135 168"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Find the Absent-Minded Boy (mjolnir_01 313, 269) to hear the rhyme, but you will be interrupted by the Exhausted-Looking Woman (mjolnir_01 316, 268). Talk to the woman again and you will be requested to send herbs to Father Bamph in Prontera Church.",
+      "instruction_sha256": "ae2dd4d4e0c307d75291da262263e1edfd41799f46631d750b04d92950058970",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/ae2dd4d4e0c307d75291/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Absent-Minded Boy, затем с Exhausted-Looking Woman: mjolnir_01 316, 268.",
+      "short_en": "Talk to Absent-Minded Boy, then Exhausted-Looking Woman: mjolnir_01 316, 268.",
+      "full_ru": "Найдите Absent-Minded Boy (mjolnir_01 313, 269), чтобы услышать рифмовку. Вас прервёт Exhausted-Looking Woman (mjolnir_01 316, 268). Снова поговорите с женщиной: она попросит отнести травы Father Bamph в церковь Prontera.",
+      "full_en": "Find the Absent-Minded Boy (mjolnir_01 313, 269) to hear the rhyme, but you will be interrupted by the Exhausted-Looking Woman (mjolnir_01 316, 268). Talk to the woman again and you will be requested to send herbs to Father Bamph in Prontera Church.",
+      "npcs": [
+        {
+          "entity": "Absent-Minded Boy",
+          "role": "talk"
+        },
+        {
+          "entity": "Bonnie Imbullea",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Absent-Minded Boy"
+        },
+        {
+          "operation": "talk",
+          "entity": "Bonnie Imbullea"
+        }
+      ],
+      "protected_names": [
+        "Absent-Minded Boy",
+        "Father Bamph",
+        "Prontera",
+        "mjolnir_01"
+      ],
+      "locations": [
+        {
+          "map": "mjolnir_01",
+          "x": 313,
+          "y": 269,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mjolnir_01 313, 269"
+        },
+        {
+          "map": "mjolnir_01",
+          "x": 316,
+          "y": 268,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mjolnir_01 316, 268"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Talk to Father Bamph (prt_church 185, 106) to learn about the Jormungand Curse. He will request you to inquire about the rhyme from the woman.",
+      "instruction_sha256": "401c7513a83b0e948d9e07d4b41c701e1e340050d3550c44a2b1d83c9b944b6e",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/401c7513a83b0e948d9e/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Father Bamph: prt_church 185, 106.",
+      "short_en": "Talk to Father Bamph: prt_church 185, 106.",
+      "full_ru": "Поговорите с Father Bamph (prt_church 185, 106), чтобы узнать о Jormungand Curse. Он попросит расспросить женщину о рифмовке.",
+      "full_en": "Talk to Father Bamph (prt_church 185, 106) to learn about the Jormungand Curse. He will request you to inquire about the rhyme from the woman.",
+      "npcs": [
+        {
+          "entity": "Father Bamph",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Father Bamph"
+        }
+      ],
+      "protected_names": [
+        "Father Bamph",
+        "prt_church"
+      ],
+      "locations": [
+        {
+          "map": "prt_church",
+          "x": 185,
+          "y": 106,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prt_church 185, 106"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "After learning about the difference of the rhymes from Bonnie Imbullea (Exhausted-Looking Woman, mjolnir_01 316, 268), return to Father Bamph to inform him about it.",
+      "instruction_sha256": "f0e2ae6a5a292f9ec52adc703812af55aa01915af33679505040f16ead92abcf",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/f0e2ae6a5a292f9ec52a/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Bonnie Imbullea: mjolnir_01 316, 268; доложите Father Bamph.",
+      "short_en": "Question Bonnie Imbullea: mjolnir_01 316, 268; report to Father Bamph.",
+      "full_ru": "У Bonnie Imbullea (Exhausted-Looking Woman, mjolnir_01 316, 268) узнайте о различии рифмовок, затем вернитесь с этими сведениями к Father Bamph.",
+      "full_en": "After learning about the difference of the rhymes from Bonnie Imbullea (Exhausted-Looking Woman, mjolnir_01 316, 268), return to Father Bamph to inform him about it.",
+      "npcs": [
+        {
+          "entity": "Bonnie Imbullea",
+          "role": "talk"
+        },
+        {
+          "entity": "Father Bamph",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Bonnie Imbullea"
+        },
+        {
+          "operation": "talk",
+          "entity": "Father Bamph"
+        }
+      ],
+      "protected_names": [
+        "Bonnie Imbullea",
+        "Father Bamph",
+        "mjolnir_01"
+      ],
+      "locations": [
+        {
+          "map": "mjolnir_01",
+          "x": 316,
+          "y": 268,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mjolnir_01 316, 268"
+        }
+      ]
+    },
+    "8": {
+      "original_instruction": "You will be asked to investigate the bodies of the dead princes in the mausoleum, through the secret path in the cabinet.",
+      "instruction_sha256": "91cd756dc209155b59e4cfbded7b7563bd9895f101f43f8d1fa849a11c3f1f56",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/91cd756dc209155b59e4/1",
+      "goal": "enter",
+      "short_ru": "Войдите в мавзолей через тайный проход в шкафу.",
+      "short_en": "Enter the mausoleum through the secret passage in the cabinet.",
+      "full_ru": "Вам поручат осмотреть тела умерших принцев в мавзолее. Войдите туда через тайный проход в шкафу.",
+      "full_en": "You will be asked to investigate the bodies of the dead princes in the mausoleum, through the secret path in the cabinet.",
+      "actions": [
+        {
+          "operation": "enter"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Talk to Father Bamph first then examine the bodies from left to right and you find something suspicious. Answer \"Poison!\"",
+      "instruction_sha256": "64118601c3123a94de82621716e9fce315c894d561f4651546cae51d6a1a3e1b",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/64118601c3123a94de82/1",
+      "goal": "investigate",
+      "short_ru": "Поговорите с Father Bamph, осмотрите тела слева направо и ответьте «Poison!».",
+      "short_en": "Talk to Father Bamph, inspect the bodies left to right and answer “Poison!”.",
+      "full_ru": "Сначала поговорите с Father Bamph, затем осмотрите тела слева направо. Обнаружив подозрительное, ответьте «Poison!».",
+      "full_en": "Talk to Father Bamph first then examine the bodies from left to right and you find something suspicious. Answer \"Poison!\"",
+      "npcs": [
+        {
+          "entity": "Father Bamph",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Father Bamph"
+        },
+        {
+          "operation": "investigate",
+          "condition": "Bodies from left to right."
+        },
+        {
+          "operation": "choose"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Father Bamph",
+          "options": [
+            {
+              "text": "Poison!",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "Father Bamph"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Return to the church and Father Bamph will ask to search for information in the Assassin Guild.",
+      "instruction_sha256": "9370f12ed9f2c9241d1a659ea94d4ed77538d55b4c98ad6f752bfbb01d4fea5c",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/9370f12ed9f2c9241d1a/1",
+      "goal": "return",
+      "short_ru": "Вернитесь к Father Bamph и получите поручение посетить Assassin Guild.",
+      "short_en": "Return to Father Bamph and receive the Assassin Guild assignment.",
+      "full_ru": "Вернитесь в церковь: Father Bamph попросит поискать сведения в Assassin Guild.",
+      "full_en": "Return to the church and Father Bamph will ask to search for information in the Assassin Guild.",
+      "npcs": [
+        {
+          "entity": "Father Bamph",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Father Bamph"
+        }
+      ],
+      "protected_names": [
+        "Father Bamph"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Proceed to the Assassin Guild and talk to the Assassin Guildsman (moc_fild16 201, 295). You will be asked to investigate at the Assassin's Secret Inn.",
+      "instruction_sha256": "eaff66522fcd814ed5c3c448b741a3b6344c271bcff8186609d5fa4048e029a9",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/eaff66522fcd814ed5c3/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Assassin Guildsman: moc_fild16 201, 295.",
+      "short_en": "Talk to Assassin Guildsman: moc_fild16 201, 295.",
+      "full_ru": "В Assassin Guild поговорите с Assassin Guildsman (moc_fild16 201, 295). Он направит вас расследовать в Assassin's Secret Inn.",
+      "full_en": "Proceed to the Assassin Guild and talk to the Assassin Guildsman (moc_fild16 201, 295). You will be asked to investigate at the Assassin's Secret Inn.",
+      "npcs": [
+        {
+          "entity": "Assassin Guildsman",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Assassin Guildsman"
+        }
+      ],
+      "protected_names": [
+        "Assassin Guildsman",
+        "moc_fild16"
+      ],
+      "locations": [
+        {
+          "map": "moc_fild16",
+          "x": 201,
+          "y": 295,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "moc_fild16 201, 295"
+        }
+      ]
+    },
+    "12": {
+      "original_instruction": "Enter the building at Morroc 8 o'clock (morocc 43, 108). Sharp-looking Kid in front of the building will not allow you to enter, but if you stand exactly on (47,108) and pay 1000 zeny then you can 'secretly' enter the building.",
+      "instruction_sha256": "4a8439a8fb68c96444a51794017111bb5d0b17d6dc05a97311821d38e346850e",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/4a8439a8fb68c96444a5/1",
+      "goal": "enter",
+      "short_ru": "Встаньте на (47,108) у здания morocc 43, 108 и заплатите 1000 zeny.",
+      "short_en": "Stand at (47,108) by the building morocc 43, 108 and pay 1000 zeny.",
+      "full_ru": "В Morroc идите к зданию в направлении 8 часов (morocc 43, 108). Sharp-looking Kid у входа не пропускает. Встаньте точно на (47,108) и заплатите 1000 zeny, чтобы тайно войти.",
+      "full_en": "Enter the building at Morroc 8 o'clock (morocc 43, 108). Sharp-looking Kid in front of the building will not allow you to enter, but if you stand exactly on (47,108) and pay 1000 zeny then you can 'secretly' enter the building.",
+      "npcs": [
+        {
+          "entity": "Sharp-looking Kid",
+          "role": "gate"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "zeny",
+          "amount": "1000",
+          "condition": "Secret inn entrance at the exact trigger cell."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "move",
+          "condition": "Stand exactly at (47,108)."
+        },
+        {
+          "operation": "pay"
+        },
+        {
+          "operation": "enter"
+        }
+      ],
+      "protected_names": [
+        "Sharp-looking Kid",
+        "Morroc",
+        "morocc"
+      ],
+      "locations": [
+        {
+          "map": "morocc",
+          "x": 43,
+          "y": 108,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "morocc 43, 108"
+        },
+        {
+          "map": null,
+          "x": 47,
+          "y": 108,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "47,108"
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Follow the path to a bar room, then down the stairs. Find Marjana (que_job01 10, 16) in the north room to understand the method of using a Yellow Gemstone and Green Potion to identify poison. (Players will only have 4 minutes to remain in the room).",
+      "instruction_sha256": "f5e6669d5dedb1648f495b3cce6baf10674191dbcc4582b8f2e8ee60f1499ff1",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/f5e6669d5dedb1648f49/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Marjana: que_job01 10, 16; ограничение — 4 минуты.",
+      "short_en": "Talk to Marjana: que_job01 10, 16; time limit is 4 minutes.",
+      "full_ru": "Пройдите к бару и спуститесь по лестнице. В северной комнате найдите Marjana (que_job01 10, 16): она объяснит, как выявить яд с помощью Yellow Gemstone и Green Potion. В комнате можно оставаться только 4 минуты.",
+      "full_en": "Follow the path to a bar room, then down the stairs. Find Marjana (que_job01 10, 16) in the north room to understand the method of using a Yellow Gemstone and Green Potion to identify poison. (Players will only have 4 minutes to remain in the room).",
+      "npcs": [
+        {
+          "entity": "Marjana",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "time_limit_minutes",
+          "amount": "4",
+          "condition": "Time allowed in this room."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Marjana"
+        }
+      ],
+      "protected_names": [
+        "Marjana",
+        "Green Potion",
+        "Yellow Gemstone",
+        "que_job01"
+      ],
+      "locations": [
+        {
+          "map": "que_job01",
+          "x": 10,
+          "y": 16,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "que_job01 10, 16"
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "Return to Morroc (you must leave the building normally, using teleport or butterfly wing will cause problems!). You will reflect on what you now know, and have to decide on one of the following: A. Go back to Father Bamph first, or B. Inform Rodafrian. (This could violate the priest's edict and cause a quest complete without Exp) Option A : Go To Father Bamph First 1A. Go back to Father Bamph. He will ask you to verify if the princes are poisoned or not. 2A. Go to the mausoleum. Check on the 3rd prince. (Must have 1 Green Potion and 1 Yellow Gemstone). 3A. The serpent mark will vanish. Go back to the church office to discuss further. 4A. Father Bamph will ask you not to reveal the results to anyone yet due to the impact of the matter. He will ask you to bring some relief to Bonnie Imbullea. (Gain 1,600,000 base experience) 5A. Go back to Bonnie Imbullea (mjolnir_01 316, 268). Tell her that the exorcism is not her fault and good news will arrive soon. 6A. Go to Rodafrian. There will be 2 options here, i) Tell her about the curse: - She will be grateful and tell you about Western Region and Jormungand. Return to Father Bamph one last time to complete the quest. ii) Not telling her: - Rodafrian will be thankful of your help to solve her mystery. (Quest Finished) Option B : Go To Historian Rodafrian First (this is a dangerous option, as there is a failure path on this branch) 1B. Go to Rodafrian (morocc_in 45, 126) and tell her the last verse of the rhyme. Choose either tell her about the poisoned princes or not to tell. i) Tell her about the curse: - 1Bi. She will be grateful and tell you about the Western Region and Jormungand. 2Bi. Go back to Father Bamph. He will ask you to verify if the princes are poisoned or not. 3Bi. Go to the mausoleum. Check on the 3rd prince. (Must have 1 Green Potion and 1 Yellow Gemstone). 4Bi. The serpent mark will vanish. Go back to the church office to discuss further. 5Bi. Father Bamph will ask you not to reveal the results to anyone yet due to the impact of the matter. 6Bi. Talk to Father Biscuss (prt_church 184, 110) and he will thank you for your trouble. (Quest Finished, you receive EXP, and may now talk to Bonnie) | Note: If you speak to Bonnie prior to getting the EXP from Biscuss you will FAIL and get no EXP from this quest. This is due to breaking the Priest's edict of not telling anyone two times prior to them giving you clearance to do so. ii) Not telling her: - 1Bii. Rodafrian will be thankful for your help. 2Bii. Go back to Father Bamph. He will ask you to verify if the princes are poisoned or not. 3Bii. Go to the mausoleum. Check on the 3rd prince. (Must have 1 Green Potion and 1 Yellow Gemstone). 4Bii. The serpent mark will vanish. Talk to the Father Bamph that stands next to the corpses first, then go back to the church office to discuss further. 5Bii. Father Bamph will ask you not to reveal the results to anyone yet due to the impact of the matter. He will ask you to bring some relief to Bonnie Imbullea. (Gain 1,600,000 base experience) 6Bii. Go back to Bonnie Imbullea (mjolnir_01 316, 268). Tell her that the exorcism is not her fault and good news will arrive soon. (Quest Finished)",
+      "instruction_sha256": "32e2ef57c876cca6e983a4eac4f82daf762607e9b0ddaef276c48aeab4d21131",
+      "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/32e2ef57c876cca6e983/1",
+      "goal": "branch_choice",
+      "short_ru": "Выйдите обычным путём; выберите маршрут A или B и соблюдайте порядок разговоров ради EXP.",
+      "short_en": "Leave normally; choose route A or B and follow its conversation order to retain EXP.",
+      "full_ru": "Вернитесь в Morroc, обязательно выйдя из здания обычным путём: teleport или butterfly wing могут вызвать проблемы. Выберите дальнейший путь: A — сначала вернуться к Father Bamph; B — сообщить Rodafrian. Второй путь может нарушить запрет священника и закончить квест без Exp.",
+      "full_en": "Return to Morroc (you must leave the building normally, using teleport or butterfly wing will cause problems!). You will reflect on what you now know, and have to decide on one of the following: A. Go back to Father Bamph first, or B. Inform Rodafrian. (This could violate the priest's edict and cause a quest complete without Exp)",
+      "actions": [
+        {
+          "operation": "leave",
+          "evidence": "Return to Morroc (you must leave the building normally, using teleport or butterfly wing will cause problems!). You will reflect on what you now know, and have to decide on one of the following: A. Go back to Father Bamph first, or B. Inform Rodafrian. (This could violate the priest's edict and cause a quest complete without Exp)",
+          "condition": "Leave the inn normally; no teleport or butterfly wing."
+        }
+      ],
+      "protected_names": [
+        "Rodafrian",
+        "Father Bamph",
+        "Morroc"
+      ],
+      "locations": [
+        {
+          "map": "mjolnir_01",
+          "x": 316,
+          "y": 268,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mjolnir_01 316, 268"
+        },
+        {
+          "map": "morocc_in",
+          "x": 45,
+          "y": 126,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "morocc_in 45, 126"
+        },
+        {
+          "map": "prt_church",
+          "x": 184,
+          "y": 110,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prt_church 184, 110"
+        },
+        {
+          "map": "mjolnir_01",
+          "x": 316,
+          "y": 268,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mjolnir_01 316, 268"
+        }
+      ],
+      "branches": [
+        {
+          "key": "father_first",
+          "choice_group": "final_route",
+          "variant_scope": "Classic wiki route; server applicability unverified",
+          "condition": "Father-first route.",
+          "section": "",
+          "source_step": 14,
+          "original_instruction": "Option A : Go To Father Bamph First 1A. Go back to Father Bamph. He will ask you to verify if the princes are poisoned or not. 2A. Go to the mausoleum. Check on the 3rd prince. (Must have 1 Green Potion and 1 Yellow Gemstone). 3A. The serpent mark will vanish. Go back to the church office to discuss further. 4A. Father Bamph will ask you not to reveal the results to anyone yet due to the impact of the matter. He will ask you to bring some relief to Bonnie Imbullea. (Gain 1,600,000 base experience) 5A. Go back to Bonnie Imbullea (mjolnir_01 316, 268). Tell her that the exorcism is not her fault and good news will arrive soon. 6A. Go to Rodafrian. There will be 2 options here, i) Tell her about the curse: - She will be grateful and tell you about Western Region and Jormungand. Return to Father Bamph one last time to complete the quest. ii) Not telling her: - Rodafrian will be thankful of your help to solve her mystery. (Quest Finished) ",
+          "instruction_sha256": "91f84f67345aecc5fd7a50b4619619a46970c12ad0e8e0a9dc9ada3bde71eac2",
+          "short_ru": "Сначала Father Bamph; получите EXP до посещения Bonnie Imbullea.",
+          "short_en": "Visit Father Bamph first; receive EXP before visiting Bonnie Imbullea.",
+          "full_ru": "Option A: сначала Father Bamph. 1A. Вернитесь к Father Bamph: он попросит проверить, были ли принцы отравлены. 2A. В мавзолее осмотрите 3-го принца, имея 1 Green Potion и 1 Yellow Gemstone. 3A. Змеиная отметина исчезнет; вернитесь в церковный кабинет. 4A. Father Bamph запретит пока разглашать результат и попросит успокоить Bonnie Imbullea. Получите 1,600,000 base experience. 5A. Вернитесь к Bonnie Imbullea (mjolnir_01 316, 268), объясните, что изгнание не её вина и скоро придут хорошие вести. 6A. Посетите Rodafrian. Здесь 2 варианта: i) рассказать о проклятии — она расскажет о Western Region и Jormungand, после чего нужно ещё раз вернуться к Father Bamph для завершения; ii) не рассказывать — Rodafrian поблагодарит за помощь, и квест завершится.",
+          "full_en": "Option A : Go To Father Bamph First 1A. Go back to Father Bamph. He will ask you to verify if the princes are poisoned or not. 2A. Go to the mausoleum. Check on the 3rd prince. (Must have 1 Green Potion and 1 Yellow Gemstone). 3A. The serpent mark will vanish. Go back to the church office to discuss further. 4A. Father Bamph will ask you not to reveal the results to anyone yet due to the impact of the matter. He will ask you to bring some relief to Bonnie Imbullea. (Gain 1,600,000 base experience) 5A. Go back to Bonnie Imbullea (mjolnir_01 316, 268). Tell her that the exorcism is not her fault and good news will arrive soon. 6A. Go to Rodafrian. There will be 2 options here, i) Tell her about the curse: - She will be grateful and tell you about Western Region and Jormungand. Return to Father Bamph one last time to complete the quest. ii) Not telling her: - Rodafrian will be thankful of your help to solve her mystery. (Quest Finished) ",
+          "protected_names": [
+            "Rodafrian",
+            "Bonnie Imbullea",
+            "Father Bamph",
+            "Green Potion",
+            "Yellow Gemstone",
+            "mjolnir_01"
+          ],
+          "actions": [
+            {
+              "operation": "talk",
+              "entity": "Father Bamph"
+            },
+            {
+              "operation": "investigate",
+              "condition": "Third prince; Green Potion and Yellow Gemstone required."
+            },
+            {
+              "operation": "use",
+              "entity": "Green Potion"
+            },
+            {
+              "operation": "use",
+              "entity": "Yellow Gemstone"
+            },
+            {
+              "operation": "talk",
+              "entity": "Father Bamph",
+              "condition": "Return to the church office."
+            },
+            {
+              "operation": "receive_reward",
+              "entity": "Father Bamph",
+              "condition": "After office dialogue."
+            },
+            {
+              "operation": "talk",
+              "entity": "Bonnie Imbullea"
+            },
+            {
+              "operation": "talk",
+              "entity": "Rodafrian"
+            },
+            {
+              "operation": "talk",
+              "entity": "Father Bamph",
+              "condition": "Only if the player disclosed the curse to Rodafrian at the final choice."
+            }
+          ],
+          "items": [
+            {
+              "entity": "Green Potion",
+              "quantity": 1,
+              "operation": "use",
+              "required": 1
+            },
+            {
+              "entity": "Yellow Gemstone",
+              "quantity": 1,
+              "operation": "use",
+              "required": 1
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "1600000",
+              "condition": "Granted during this route, not additive to other routes."
+            }
+          ]
+        },
+        {
+          "key": "historian_first_disclose",
+          "choice_group": "final_route",
+          "variant_scope": "Classic wiki route; server applicability unverified",
+          "condition": "Historian-first route; disclose information, then obtain EXP from Biscuss before Bonnie.",
+          "section": "",
+          "source_step": 14,
+          "original_instruction": "Option B : Go To Historian Rodafrian First (this is a dangerous option, as there is a failure path on this branch) 1B. Go to Rodafrian (morocc_in 45, 126) and tell her the last verse of the rhyme. Choose either tell her about the poisoned princes or not to tell. i) Tell her about the curse: - 1Bi. She will be grateful and tell you about the Western Region and Jormungand. 2Bi. Go back to Father Bamph. He will ask you to verify if the princes are poisoned or not. 3Bi. Go to the mausoleum. Check on the 3rd prince. (Must have 1 Green Potion and 1 Yellow Gemstone). 4Bi. The serpent mark will vanish. Go back to the church office to discuss further. 5Bi. Father Bamph will ask you not to reveal the results to anyone yet due to the impact of the matter. 6Bi. Talk to Father Biscuss (prt_church 184, 110) and he will thank you for your trouble. (Quest Finished, you receive EXP, and may now talk to Bonnie) | Note: If you speak to Bonnie prior to getting the EXP from Biscuss you will FAIL and get no EXP from this quest. This is due to breaking the Priest's edict of not telling anyone two times prior to them giving you clearance to do so. ",
+          "instruction_sha256": "f0db95004e430a85dd614d1b759ce056c384e413b51cddbea9676fd8a205ecf6",
+          "short_ru": "После признания Rodafrian получите EXP у Father Biscuss до разговора с Bonnie.",
+          "short_en": "After telling Rodafrian, receive EXP from Father Biscuss before speaking to Bonnie.",
+          "full_ru": "Option B: сначала Historian Rodafrian; у этого пути есть исход без награды. 1B. У Rodafrian (morocc_in 45, 126) расскажите последнюю строку рифмовки и решите, сообщать ли об отравленных принцах. i) Рассказать о проклятии. 1Bi. Она поблагодарит и расскажет о Western Region и Jormungand. 2Bi. Вернитесь к Father Bamph: он попросит проверить отравление. 3Bi. В мавзолее осмотрите 3-го принца, имея 1 Green Potion и 1 Yellow Gemstone. 4Bi. Отметина исчезнет; вернитесь в церковный кабинет. 5Bi. Father Bamph запретит пока разглашать результат. 6Bi. Поговорите с Father Biscuss (prt_church 184, 110): он поблагодарит, квест завершится и вы получите EXP. Только после этого можно говорить с Bonnie. Примечание: разговор с Bonnie до получения EXP от Biscuss приведёт к провалу и потере всей награды EXP: это повторное нарушение запрета священника.",
+          "full_en": "Option B : Go To Historian Rodafrian First (this is a dangerous option, as there is a failure path on this branch) 1B. Go to Rodafrian (morocc_in 45, 126) and tell her the last verse of the rhyme. Choose either tell her about the poisoned princes or not to tell. i) Tell her about the curse: - 1Bi. She will be grateful and tell you about the Western Region and Jormungand. 2Bi. Go back to Father Bamph. He will ask you to verify if the princes are poisoned or not. 3Bi. Go to the mausoleum. Check on the 3rd prince. (Must have 1 Green Potion and 1 Yellow Gemstone). 4Bi. The serpent mark will vanish. Go back to the church office to discuss further. 5Bi. Father Bamph will ask you not to reveal the results to anyone yet due to the impact of the matter. 6Bi. Talk to Father Biscuss (prt_church 184, 110) and he will thank you for your trouble. (Quest Finished, you receive EXP, and may now talk to Bonnie) | Note: If you speak to Bonnie prior to getting the EXP from Biscuss you will FAIL and get no EXP from this quest. This is due to breaking the Priest's edict of not telling anyone two times prior to them giving you clearance to do so. ",
+          "protected_names": [
+            "Rodafrian",
+            "Father Biscuss",
+            "Father Bamph",
+            "Green Potion",
+            "Yellow Gemstone",
+            "morocc",
+            "morocc_in",
+            "prt_church"
+          ],
+          "actions": [
+            {
+              "operation": "talk",
+              "entity": "Rodafrian",
+              "condition": "Disclose the poisoned-prince information."
+            },
+            {
+              "operation": "talk",
+              "entity": "Father Bamph"
+            },
+            {
+              "operation": "investigate",
+              "condition": "Third prince; Green Potion and Yellow Gemstone required."
+            },
+            {
+              "operation": "use",
+              "entity": "Green Potion"
+            },
+            {
+              "operation": "use",
+              "entity": "Yellow Gemstone"
+            },
+            {
+              "operation": "talk",
+              "entity": "Father Bamph",
+              "condition": "Return to the church office."
+            },
+            {
+              "operation": "receive_reward",
+              "entity": "Father Biscuss",
+              "condition": "Before speaking to Bonnie."
+            }
+          ],
+          "items": [
+            {
+              "entity": "Green Potion",
+              "quantity": 1,
+              "operation": "use",
+              "required": 1
+            },
+            {
+              "entity": "Yellow Gemstone",
+              "quantity": 1,
+              "operation": "use",
+              "required": 1
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "condition": "Lost entirely if Bonnie is spoken to before Biscuss grants EXP."
+            }
+          ],
+          "reviews": [
+            {
+              "reason": "branch_failure_order",
+              "detail": "Talking to Bonnie before collecting EXP from Biscuss fails the quest and forfeits EXP. This branch states EXP without a numeric amount; do not infer a value from other routes."
+            }
+          ]
+        },
+        {
+          "key": "historian_first_withhold",
+          "choice_group": "final_route",
+          "variant_scope": "Classic wiki route; server applicability unverified",
+          "condition": "Historian-first route; withhold information.",
+          "section": "",
+          "source_step": 14,
+          "original_instruction": "ii) Not telling her: - 1Bii. Rodafrian will be thankful for your help. 2Bii. Go back to Father Bamph. He will ask you to verify if the princes are poisoned or not. 3Bii. Go to the mausoleum. Check on the 3rd prince. (Must have 1 Green Potion and 1 Yellow Gemstone). 4Bii. The serpent mark will vanish. Talk to the Father Bamph that stands next to the corpses first, then go back to the church office to discuss further. 5Bii. Father Bamph will ask you not to reveal the results to anyone yet due to the impact of the matter. He will ask you to bring some relief to Bonnie Imbullea. (Gain 1,600,000 base experience) 6Bii. Go back to Bonnie Imbullea (mjolnir_01 316, 268). Tell her that the exorcism is not her fault and good news will arrive soon. (Quest Finished)",
+          "instruction_sha256": "cbe1b9aa14256774baca6bea09ad646739df75cb47a5a009c93e3b65d693fa28",
+          "short_ru": "Не раскрывайте сведения Rodafrian; поговорите с Father Bamph у тел и в кабинете.",
+          "short_en": "Withhold information from Rodafrian; talk to Father Bamph beside the bodies and in the office.",
+          "full_ru": "ii) Не рассказывать. 1Bii. Rodafrian поблагодарит за помощь. 2Bii. Вернитесь к Father Bamph: он попросит проверить отравление. 3Bii. В мавзолее осмотрите 3-го принца, имея 1 Green Potion и 1 Yellow Gemstone. 4Bii. Отметина исчезнет: сначала поговорите с Father Bamph рядом с телами, затем вернитесь в церковный кабинет. 5Bii. Father Bamph запретит пока разглашать результат и попросит успокоить Bonnie Imbullea. Получите 1,600,000 base experience. 6Bii. Вернитесь к Bonnie Imbullea (mjolnir_01 316, 268), объясните, что изгнание не её вина и скоро придут хорошие вести. Квест завершён.",
+          "full_en": "ii) Not telling her: - 1Bii. Rodafrian will be thankful for your help. 2Bii. Go back to Father Bamph. He will ask you to verify if the princes are poisoned or not. 3Bii. Go to the mausoleum. Check on the 3rd prince. (Must have 1 Green Potion and 1 Yellow Gemstone). 4Bii. The serpent mark will vanish. Talk to the Father Bamph that stands next to the corpses first, then go back to the church office to discuss further. 5Bii. Father Bamph will ask you not to reveal the results to anyone yet due to the impact of the matter. He will ask you to bring some relief to Bonnie Imbullea. (Gain 1,600,000 base experience) 6Bii. Go back to Bonnie Imbullea (mjolnir_01 316, 268). Tell her that the exorcism is not her fault and good news will arrive soon. (Quest Finished)",
+          "protected_names": [
+            "Rodafrian",
+            "Bonnie Imbullea",
+            "Father Bamph",
+            "Green Potion",
+            "Yellow Gemstone",
+            "mjolnir_01"
+          ],
+          "actions": [
+            {
+              "operation": "talk",
+              "entity": "Rodafrian",
+              "condition": "Withhold the poisoned-prince information."
+            },
+            {
+              "operation": "talk",
+              "entity": "Father Bamph"
+            },
+            {
+              "operation": "investigate",
+              "condition": "Third prince; Green Potion and Yellow Gemstone required."
+            },
+            {
+              "operation": "use",
+              "entity": "Green Potion"
+            },
+            {
+              "operation": "use",
+              "entity": "Yellow Gemstone"
+            },
+            {
+              "operation": "talk",
+              "entity": "Father Bamph",
+              "condition": "Talk beside the corpses before returning to the office."
+            },
+            {
+              "operation": "talk",
+              "entity": "Father Bamph",
+              "condition": "Return to the church office."
+            },
+            {
+              "operation": "receive_reward",
+              "entity": "Father Bamph",
+              "condition": "After office dialogue."
+            },
+            {
+              "operation": "talk",
+              "entity": "Bonnie Imbullea"
+            }
+          ],
+          "items": [
+            {
+              "entity": "Green Potion",
+              "quantity": 1,
+              "operation": "use",
+              "required": 1
+            },
+            {
+              "entity": "Yellow Gemstone",
+              "quantity": 1,
+              "operation": "use",
+              "required": 1
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "1600000",
+              "condition": "Granted during this route, not additive to other routes."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "branch_order_not_executable_graph",
+      "detail": "Step 14 contains three mutually exclusive routes. Route A has a further conditional final return, and historian disclosure has a no-EXP failure path. Action conditions must be respected; source-order edges alone cannot execute these routes."
+    },
+    {
+      "reason": "priest_identity_source_scoped",
+      "detail": "Father Bamph identity is scoped to this guide. Same-name appearances in other quests have no verified shared game ID here."
+    }
+  ],
+  "source_partitions": [
+    {
+      "source_step": 14,
+      "segments": [
+        {
+          "target_step": 14,
+          "start": 0,
+          "end": 332,
+          "section": "Final route choice"
+        },
+        {
+          "target_step": 14,
+          "branch_key": "father_first",
+          "start": 332,
+          "end": 1280,
+          "section": "Option A"
+        },
+        {
+          "target_step": 14,
+          "branch_key": "historian_first_disclose",
+          "start": 1280,
+          "end": 2422,
+          "section": "Option B / disclose"
+        },
+        {
+          "target_step": 14,
+          "branch_key": "historian_first_withhold",
+          "start": 2422,
+          "end": 3185,
+          "section": "Option B / withhold"
+        }
+      ]
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Green Potion",
+        "entity": "Green Potion",
+        "condition": "One chosen route; do not add together alternative-route uses."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Yellow Gemstone",
+        "entity": "Yellow Gemstone",
+        "condition": "One chosen route; do not add together alternative-route uses."
+      }
+    ]
+  }
+}

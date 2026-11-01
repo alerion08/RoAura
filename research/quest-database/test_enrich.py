@@ -6,6 +6,15 @@ from enrich import parse_guide, step_evidence, script_score, link_database, ensu
 
 
 class GuideParserTests(unittest.TestCase):
+    def test_kiel_preformatted_sword_solution_is_not_lost(self):
+        from selection import snapshots
+        steps,quality,_=parse_guide(snapshots()['Kiel_Hyre_Quest']['html'])
+        self.assertEqual(quality['numbered'],75)
+        puzzle=next(s for s in steps if s.source_number==30)
+        for text in ['1st Sword into 2nd Snake','2nd Sword into 4th Snake',
+                     '3rd Sword into 1st Snake','4th Sword into 3rd Snake']:
+            self.assertIn(text,puzzle.instruction)
+
     def test_new_section_notes_do_not_attach_to_previous_step(self):
         raw='''<div class="mw-parser-output"><h2>Quest</h2>
         <p>1. Open the door.</p><p>2. Leave the laboratory.</p>

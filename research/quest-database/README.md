@@ -8,9 +8,9 @@ Isolated **research branch**. No changes to the RoAura WPF application, settings
 
 See [SEMANTIC_PROGRESS.md](./SEMANTIC_PROGRESS.md) for the implementation,
 reproduction commands and exact remaining work. `output/quest_semantic.sqlite`
-(schema 2, generator semantic-2.0.0) has 217 active catalog candidates and 2,753
-preserved steps. **166 steps in 17 guides** have all four RU/EN descriptions, with 7 localized
-conditional branches; **2,587 remain incomplete**. 59 historical events are excluded and 10 ambiguous
+(schema 3, generator semantic-3.0.0) has 217 active catalog candidates and 2,753
+preserved steps. **255 steps in 19 guides** have all four RU/EN descriptions, with 10 localized
+conditional branches; **2,498 remain incomplete**. 59 historical events are excluded and 10 ambiguous
 records quarantined from both usable research projections and the core worklist.
 The full raw archive is retained. This is a partial database, with no RoAura
 integration or release. Historical metrics below describe earlier snapshots.

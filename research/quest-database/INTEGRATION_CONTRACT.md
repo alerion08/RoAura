@@ -4,12 +4,12 @@
 
 **Objective:** a maximally complete, source-backed, versioned **ROQuestie** knowledge base for main Ragnarok Online quests across the wider RO ecosystem. The shared quest data are reusable, while Classic/Pre-Renewal/Renewal and optional individual-server differences are handled separately. A quest in the catalog is **not a guarantee that every server offers it**. This contract belongs to the standalone research work; it must not modify RoAura runtime code during collection.
 
-## Normalized semantic research export — schema 2 (current data phase)
+## Normalized semantic research export — schema 3 (current data phase)
 
 `output/quest_semantic.sqlite` is separate from the older research consumer
 catalog (`questie_catalog.sqlite`, schema 5). It is not integrated into RoAura.
-Check its own `PRAGMA user_version = 2`; migrations are `001_semantic.sql` then
-`002_step_branches.sql` under `migrations/`. See
+Check its own `PRAGMA user_version = 3`; apply migrations `001_semantic.sql`,
+`002_step_branches.sql`, then `003_source_additions.sql` under `migrations/`. See
 [SEMANTIC_PROGRESS.md](./SEMANTIC_PROGRESS.md). Both active catalogs exclude
 archived/quarantined quest records; `quest_research.sqlite` is the raw audit archive.
 
@@ -52,10 +52,18 @@ archived/quarantined quest records; `quest_research.sqlite` is the raw audit arc
   partition of that original step. Biolabs step 22's exit and alternate puzzle
   are separated here; its original bytes, stable ID and audit text remain.
   Branch fragments cite the actual source step, not their semantic target.
-- Apply `migrate_semantic(connection)` to upgrade a committed schema-1 export
+- `step_source_additions` holds ordered literal English fragments omitted by
+  older extraction, their Russian translations, source evidence and review state.
+  The original instruction/hash remains immutable. The full EN description is
+  original text (or its approved primary partition) plus ordered additions;
+  full RU contains their translations. Existing entity spans use final displayed
+  descriptions. Additions are not new steps and are not alternative branches.
+  The source fragment must occur in pinned HTML; never invent missing instructions.
+- Apply `migrate_semantic(connection)` to upgrade a committed schema-1 or schema-2 export
   without replacing human descriptions or IDs. Migration refuses an active
   transaction and rolls back on error. Regeneration is a separate operation
-  and refuses human-reviewed step or branch rows until exported to curation.
+  and refuses human-reviewed step, branch or source-addition rows until exported
+  to curation.
 - `step_edges.kind = source_order_only` is article order, not an executable
   route/branch graph. Raw prerequisites do not establish AND/OR semantics.
 - `ready_steps` currently means **all four localized text fields exist**. It

@@ -1,0 +1,4003 @@
+{
+  "quest_id": "irowiki-classic:Kiel_Hyre_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "a9af17595a01176549d03a25501ca745e7b664f6b86d75cbeb085b4e927ca65a",
+  "snapshot_sha256": "17a7492e8ea5a473845c104635a949c8ccdb3ba2c0fbd4abd4855ed2481da8f5",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Elly",
+      "aliases": [
+        "Cute Student"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Cezu",
+      "aliases": [
+        "Little Kid"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Mills",
+      "aliases": [
+        "Windmill Owner"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Lecollane"
+    },
+    {
+      "type": "npc",
+      "name": "Guardsman"
+    },
+    {
+      "type": "npc",
+      "name": "Allysia"
+    },
+    {
+      "type": "npc",
+      "name": "Steward"
+    },
+    {
+      "type": "npc",
+      "name": "Kiel Hyre"
+    },
+    {
+      "type": "npc",
+      "name": "Odd Grandma"
+    },
+    {
+      "type": "npc",
+      "name": "Old Lady"
+    },
+    {
+      "type": "npc",
+      "name": "Sushi Master"
+    },
+    {
+      "type": "npc",
+      "name": "Receiver"
+    },
+    {
+      "type": "npc",
+      "name": "Wooden Board"
+    },
+    {
+      "type": "npc",
+      "name": "Mitchell",
+      "aliases": [
+        "Mysterious Woman"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Kiel",
+      "ref": "kiel_door"
+    },
+    {
+      "type": "npc",
+      "name": "Kiel",
+      "ref": "kiel_mansion"
+    },
+    {
+      "type": "npc",
+      "name": "Kiel",
+      "ref": "kiel_uncertain"
+    },
+    {
+      "type": "npc",
+      "name": "Kiehl",
+      "ref": "kiehl_npc"
+    },
+    {
+      "type": "monster",
+      "name": "Kiehl",
+      "ref": "kiehl_boss"
+    },
+    {
+      "type": "monster",
+      "name": "Aliot",
+      "aliases": [
+        "Aliots"
+      ]
+    },
+    {
+      "type": "monster",
+      "name": "Alicel"
+    },
+    {
+      "type": "monster",
+      "name": "Yoyo"
+    },
+    {
+      "type": "monster",
+      "name": "Taoist Hermit"
+    },
+    {
+      "type": "monster",
+      "name": "Kiel-D-01"
+    },
+    {
+      "type": "item",
+      "name": "Culinary Wine",
+      "game_id": 7487,
+      "id_source": "http://db.irowiki.org/classic/item-info/7487/"
+    },
+    {
+      "type": "item",
+      "name": "Milk",
+      "game_id": 519,
+      "id_source": "http://db.irowiki.org/classic/item-info/519/"
+    },
+    {
+      "type": "item",
+      "name": "Cacao",
+      "game_id": 7182,
+      "id_source": "http://db.irowiki.org/classic/item-info/7182/"
+    },
+    {
+      "type": "item",
+      "name": "Cheese",
+      "game_id": 548,
+      "id_source": "http://db.irowiki.org/classic/item-info/548/"
+    },
+    {
+      "type": "item",
+      "name": "Egg",
+      "game_id": 574,
+      "id_source": "http://db.irowiki.org/classic/item-info/574/",
+      "aliases": [
+        "Eggs"
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Flour",
+      "game_id": 7604,
+      "id_source": "http://db.irowiki.org/classic/item-info/7604/"
+    },
+    {
+      "type": "item",
+      "name": "Delivery Package",
+      "game_id": 7488,
+      "id_source": "http://db.irowiki.org/classic/item-info/7488/"
+    },
+    {
+      "type": "item",
+      "name": "Well-Baked Cookies",
+      "game_id": 538,
+      "id_source": "http://db.irowiki.org/classic/item-info/538/"
+    },
+    {
+      "type": "item",
+      "name": "Cottage Key",
+      "game_id": 7489,
+      "id_source": "http://db.irowiki.org/classic/item-info/7489/"
+    },
+    {
+      "type": "item",
+      "name": "Letter to Elly",
+      "game_id": 7490,
+      "id_source": "http://db.irowiki.org/classic/item-info/7490/"
+    },
+    {
+      "type": "item",
+      "name": "Pet Food",
+      "game_id": 537,
+      "id_source": "http://db.irowiki.org/classic/item-info/537/"
+    },
+    {
+      "type": "item",
+      "name": "Old Bronze Key",
+      "game_id": 7329,
+      "id_source": "http://db.irowiki.org/classic/item-info/7329/"
+    },
+    {
+      "type": "item",
+      "name": "Old Copper Key"
+    },
+    {
+      "type": "item",
+      "name": "Green Keycard",
+      "game_id": 7516,
+      "id_source": "http://db.irowiki.org/classic/item-info/7516/"
+    },
+    {
+      "type": "item",
+      "name": "Steel Box",
+      "game_id": 7491,
+      "id_source": "http://db.irowiki.org/classic/item-info/7491/"
+    },
+    {
+      "type": "item",
+      "name": "Yellow Keycard",
+      "game_id": 7492,
+      "id_source": "http://db.irowiki.org/classic/item-info/7492/"
+    },
+    {
+      "type": "item",
+      "name": "Golden Key",
+      "game_id": 7493,
+      "id_source": "http://db.irowiki.org/classic/item-info/7493/"
+    },
+    {
+      "type": "item",
+      "name": "Luxurious Button",
+      "game_id": 7494,
+      "id_source": "http://db.irowiki.org/classic/item-info/7494/"
+    },
+    {
+      "type": "item",
+      "name": "Blue Keycard",
+      "game_id": 7495,
+      "id_source": "http://db.irowiki.org/classic/item-info/7495/"
+    },
+    {
+      "type": "item",
+      "name": "Red Keycard",
+      "game_id": 7496,
+      "id_source": "http://db.irowiki.org/classic/item-info/7496/"
+    },
+    {
+      "type": "item",
+      "name": "Metal Fragment",
+      "game_id": 7497,
+      "id_source": "http://db.irowiki.org/classic/item-info/7497/"
+    },
+    {
+      "type": "item",
+      "name": "Taming Gift Set",
+      "game_id": 12105,
+      "id_source": "http://db.irowiki.org/classic/item-info/12105/"
+    },
+    {
+      "type": "item",
+      "name": "Rosimmer Mansion Keys",
+      "game_id": 7498,
+      "id_source": "http://db.irowiki.org/classic/item-info/7498/"
+    },
+    {
+      "type": "item",
+      "name": "K.H's Letter",
+      "game_id": 7501,
+      "id_source": "http://db.irowiki.org/classic/item-info/7501/"
+    },
+    {
+      "type": "item",
+      "name": "James's Note",
+      "game_id": 7502,
+      "id_source": "http://db.irowiki.org/classic/item-info/7502/"
+    },
+    {
+      "type": "item",
+      "name": "Woman's Portrait",
+      "game_id": 7500,
+      "id_source": "http://db.irowiki.org/classic/item-info/7500/"
+    },
+    {
+      "type": "item",
+      "name": "Family Portrait",
+      "game_id": 7499,
+      "id_source": "http://db.irowiki.org/classic/item-info/7499/"
+    },
+    {
+      "type": "item",
+      "name": "Raw Fish",
+      "game_id": 544,
+      "id_source": "http://db.irowiki.org/classic/item-info/544/"
+    },
+    {
+      "type": "item",
+      "name": "Man's Portrait",
+      "game_id": 7503,
+      "id_source": "http://db.irowiki.org/classic/item-info/7503/"
+    },
+    {
+      "type": "item",
+      "name": "Toy Key",
+      "game_id": 7505,
+      "id_source": "http://db.irowiki.org/classic/item-info/7505/"
+    },
+    {
+      "type": "item",
+      "name": "Allysia's Ring"
+    },
+    {
+      "type": "item",
+      "name": "Ellisia's ring"
+    },
+    {
+      "type": "item",
+      "name": "Old Card Album",
+      "game_id": 616,
+      "id_source": "http://db.irowiki.org/classic/item-info/616/"
+    },
+    {
+      "type": "item",
+      "name": "Keycard"
+    },
+    {
+      "type": "item",
+      "name": "Sword of Love"
+    },
+    {
+      "type": "item",
+      "name": "Sword of Despair"
+    },
+    {
+      "type": "item",
+      "name": "Sword of Rage"
+    },
+    {
+      "type": "item",
+      "name": "Sword of Hope"
+    },
+    {
+      "type": "item",
+      "name": "Black Keycard",
+      "aliases": [
+        "Black Keycards"
+      ],
+      "game_id": 7506,
+      "id_source": "http://db.irowiki.org/classic/item-info/7506/"
+    },
+    {
+      "type": "item",
+      "name": "Solid Iron Piece",
+      "aliases": [
+        "Solid Iron Pieces"
+      ],
+      "game_id": 7507,
+      "id_source": "http://db.irowiki.org/classic/item-info/7507/"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "Juno Bar"
+    },
+    {
+      "type": "map",
+      "name": "yuno",
+      "map_code": "yuno"
+    },
+    {
+      "type": "map",
+      "name": "yuno_fild08",
+      "map_code": "yuno_fild08"
+    },
+    {
+      "type": "map",
+      "name": "Al De Baren"
+    },
+    {
+      "type": "map",
+      "name": "Kiel Hyre Academy"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Kunlun"
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "yuno_fild02",
+      "map_code": "yuno_fild02"
+    },
+    {
+      "type": "map",
+      "name": "kh_vila",
+      "map_code": "kh_vila"
+    },
+    {
+      "type": "map",
+      "name": "kh_dun01",
+      "map_code": "kh_dun01"
+    },
+    {
+      "type": "map",
+      "name": "kh_mansion",
+      "map_code": "kh_mansion"
+    },
+    {
+      "type": "map",
+      "name": "Rosimer Mansion"
+    },
+    {
+      "type": "map",
+      "name": "Amatsu"
+    },
+    {
+      "type": "map",
+      "name": "yuno_fild09",
+      "map_code": "yuno_fild09"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Enter the Juno Bar slightly above the lower left corner of Juno (yuno 51, 105). The master will speak upon entering. Talk to him and select \"You look worried, what's up?\". He mentions a delivery he was supposed to make to Ms. Lecollane. Select \"Do you want me to help you?\" followed by \"Sure, I'll do it!\", and he will give you a bottle of Culinary Wine .",
+      "instruction_sha256": "37647261ae46a970b3d65c7aa75dd403a2e8c8339bb4f393c9cc5ecc106f1d06",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/37647261ae46a970b3d6/1",
+      "goal": "collect",
+      "short_ru": "В Juno Bar (yuno 51, 105) согласитесь доставить Culinary Wine Lecollane.",
+      "short_en": "At Juno Bar (yuno 51, 105), agree to deliver Culinary Wine to Lecollane.",
+      "full_ru": "Войдите в Juno Bar немного выше юго-западного угла Juno (yuno 51, 105). При входе заговорит хозяин. Поговорите с ним и выберите «You look worried, what's up?». Он расскажет о доставке для Ms. Lecollane. Выберите «Do you want me to help you?», затем «Sure, I'll do it!» и получите бутылку Culinary Wine.",
+      "full_en": "Enter the Juno Bar slightly above the lower left corner of Juno (yuno 51, 105). The master will speak upon entering. Talk to him and select \"You look worried, what's up?\". He mentions a delivery he was supposed to make to Ms. Lecollane. Select \"Do you want me to help you?\" followed by \"Sure, I'll do it!\", and he will give you a bottle of Culinary Wine .",
+      "protected_names": [
+        "Lecollane",
+        "Culinary Wine",
+        "Juno",
+        "Juno Bar",
+        "yuno"
+      ],
+      "locations": [
+        {
+          "map": "yuno",
+          "x": 51,
+          "y": 105,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno 51, 105"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "You look worried, what's up?",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Do you want me to help you?",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Sure, I'll do it!",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Culinary Wine"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Go to the Kiel Hyre Academy (yuno_fild08 159, 189) (the shortest path is from Al De Baren taking 1 north, 1 west, 1 north). Talk to one of the guards at the main gate. You will tell him you are making a delivery to someone within the academy, and he will demand to know who you have business with, and what you are delivering. When asked, input the following to be allowed into the building: | Lecollane | Culinary Wine",
+      "instruction_sha256": "89bb42d27d32f10fe3bdc6d80061e8c6f4432fb9f58c49913c9ce3f23ea0883b",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/89bb42d27d32f10fe3bd/1",
+      "goal": "type_answer",
+      "short_ru": "У ворот Kiel Hyre Academy введите «Lecollane», затем «Culinary Wine».",
+      "short_en": "At the Kiel Hyre Academy gate, enter “Lecollane”, then “Culinary Wine”.",
+      "full_ru": "Идите в Kiel Hyre Academy (yuno_fild08 159, 189). Кратчайший путь от Al De Baren: 1 карта на север, 1 на запад, 1 на север. Поговорите с любым стражником у главных ворот. На вопросы о получателе и доставке введите Lecollane и Culinary Wine, чтобы войти.",
+      "full_en": "Go to the Kiel Hyre Academy (yuno_fild08 159, 189) (the shortest path is from Al De Baren taking 1 north, 1 west, 1 north). Talk to one of the guards at the main gate. You will tell him you are making a delivery to someone within the academy, and he will demand to know who you have business with, and what you are delivering. When asked, input the following to be allowed into the building: | Lecollane | Culinary Wine",
+      "protected_names": [
+        "Lecollane",
+        "Kiel Hyre",
+        "Kiel",
+        "Kiel",
+        "Kiel",
+        "Culinary Wine",
+        "yuno",
+        "yuno_fild08",
+        "Al De Baren",
+        "Kiel Hyre Academy"
+      ],
+      "locations": [
+        {
+          "map": "yuno_fild08",
+          "x": 159,
+          "y": 189,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_fild08 159, 189"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Lecollane",
+              "correct": 1,
+              "operation": "type"
+            },
+            {
+              "text": "Culinary Wine",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Go downstairs and speak to Lecollane. Tell her you are there to make a delivery. At this point you will overhear one student, Elly.",
+      "instruction_sha256": "754c30be5826ada7d810830df29a9d4551250cd6105a9d760b2f2ec9074ed1aa",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/754c30be5826ada7d810/1",
+      "goal": "deliver",
+      "short_ru": "Передайте доставку Lecollane.",
+      "short_en": "Make the delivery to Lecollane.",
+      "full_ru": "Спуститесь и поговорите с Lecollane. Скажите, что пришли с доставкой. Вы услышите разговор одной из учениц, Elly.",
+      "full_en": "Go downstairs and speak to Lecollane. Tell her you are there to make a delivery. At this point you will overhear one student, Elly.",
+      "protected_names": [
+        "Elly",
+        "Lecollane"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Lecollane",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lecollane"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Culinary Wine",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 1,
+          "evidence": "Enter the Juno Bar slightly above the lower left corner of Juno (yuno 51, 105). The master will speak upon entering. Talk to him and select \"You look worried, what's up?\". He mentions a delivery he was supposed to make to Ms. Lecollane. Select \"Do you want me to help you?\" followed by \"Sure, I'll do it!\", and he will give you a bottle of Culinary Wine ."
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Speak to a Cute Student (Elly), located at the 5 'o clock direction from Lecollane. Ask her \"What happened?\", and \"What can I do to help you?\". She will tell you the following items are required for her baking cookies, and where you can get the items. | 1 Culinary Wine - Bar in Juno (51, 105) | 7 Milk - Milk Merchant in Prontera (Will not be provided) | 5 Cacao - Dropped by Yoyo (Will not be provided) | 2 Cheese - Dropped by Taoist Hermit in Kunlun (Will not be provided) | 1 Egg - Toast Shop in Juno | 1 Flour - Toast Shop in Juno (217, 114) You'll need to gather the Cheese, Milk, and Cacao on your own.",
+      "instruction_sha256": "9460dccf1f4b2809ebbd37e8f868e9dbb750192c0401e4c42ba1669ed66b8dc7",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/9460dccf1f4b2809ebbd/1",
+      "goal": "collect",
+      "short_ru": "Помогите Elly: 1 Culinary Wine, 7 Milk, 5 Cacao, 2 Cheese, 1 Egg, 1 Flour.",
+      "short_en": "Help Elly: 1 Culinary Wine, 7 Milk, 5 Cacao, 2 Cheese, 1 Egg, 1 Flour.",
+      "full_ru": "Поговорите с Cute Student (Elly), находящейся в направлении 5 часов от Lecollane. Спросите «What happened?» и «What can I do to help you?». Для печенья нужны: 1 Culinary Wine из бара Juno (51, 105); 7 Milk у Milk Merchant в Prontera; 5 Cacao с Yoyo; 2 Cheese с Taoist Hermit в Kunlun; 1 Egg из Toast Shop в Juno; 1 Flour из Toast Shop в Juno (217, 114). Cheese, Milk и Cacao нужно добыть самостоятельно — их не выдадут.",
+      "full_en": "Speak to a Cute Student (Elly), located at the 5 'o clock direction from Lecollane. Ask her \"What happened?\", and \"What can I do to help you?\". She will tell you the following items are required for her baking cookies, and where you can get the items. | 1 Culinary Wine - Bar in Juno (51, 105) | 7 Milk - Milk Merchant in Prontera (Will not be provided) | 5 Cacao - Dropped by Yoyo (Will not be provided) | 2 Cheese - Dropped by Taoist Hermit in Kunlun (Will not be provided) | 1 Egg - Toast Shop in Juno | 1 Flour - Toast Shop in Juno (217, 114) You'll need to gather the Cheese, Milk, and Cacao on your own.",
+      "protected_names": [
+        "Elly",
+        "Lecollane",
+        "Yoyo",
+        "Taoist Hermit",
+        "Culinary Wine",
+        "Milk",
+        "Cacao",
+        "Cheese",
+        "Egg",
+        "Flour",
+        "Juno",
+        "Prontera",
+        "Kunlun"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 51,
+          "y": 105,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "51, 105"
+        },
+        {
+          "map": null,
+          "x": 217,
+          "y": 114,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "217, 114"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "npc": "Elly",
+          "options": [
+            {
+              "text": "What happened?",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "What can I do to help you?",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Elly",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Elly"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Culinary Wine",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Milk",
+          "quantity": 7,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Cacao",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Cheese",
+          "quantity": 2,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Egg",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Flour",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Yoyo",
+          "operation": "loot_source",
+          "required": 0,
+          "condition": "Suggested Cacao source; no kill count."
+        },
+        {
+          "entity": "Taoist Hermit",
+          "operation": "loot_source",
+          "required": 0,
+          "condition": "Suggested Cheese source; no kill count."
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Go to the Juno Bar again and select \"I need more wine...!\". The bartender there will give you some more Culinary Wine and pay you 1000z for making the delivery.",
+      "instruction_sha256": "e0648cd7334fc862a67fdb1d2b600bb4558639d9225cea5e2e3f883bf5e059d1",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/e0648cd7334fc862a67f/1",
+      "goal": "collect",
+      "short_ru": "В Juno Bar выберите «I need more wine...!» и получите Culinary Wine и 1000z.",
+      "short_en": "At Juno Bar, choose “I need more wine...!” to receive Culinary Wine and 1000z.",
+      "full_ru": "Вернитесь в Juno Bar и выберите «I need more wine...!». Бармен выдаст ещё Culinary Wine и заплатит 1000z за доставку.",
+      "full_en": "Go to the Juno Bar again and select \"I need more wine...!\". The bartender there will give you some more Culinary Wine and pay you 1000z for making the delivery.",
+      "protected_names": [
+        "Culinary Wine",
+        "Juno",
+        "Juno Bar"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "I need more wine...!",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Culinary Wine"
+        },
+        {
+          "kind": "zeny",
+          "amount": "1000"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Speak to the NPC \"Little Kid\" (Cezu) in Juno (217,113). Tell her \"I'm here for Elly...\". Cezu needs you to go to Lighthalzen for her.",
+      "instruction_sha256": "a758060b1356a7427f099747ab21b1d1445c499c8876a1cda8189ce85b385b35",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/a758060b1356a7427f09/1",
+      "goal": "talk",
+      "short_ru": "У Cezu в Juno (217,113) выберите «I'm here for Elly...».",
+      "short_en": "At Cezu in Juno (217,113), choose “I'm here for Elly...”.",
+      "full_ru": "Поговорите с NPC «Little Kid» (Cezu) в Juno (217,113). Скажите «I'm here for Elly...». Cezu попросит сходить в Lighthalzen.",
+      "full_en": "Speak to the NPC \"Little Kid\" (Cezu) in Juno (217,113). Tell her \"I'm here for Elly...\". Cezu needs you to go to Lighthalzen for her.",
+      "protected_names": [
+        "Elly",
+        "Cezu",
+        "Juno",
+        "Lighthalzen"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 217,
+          "y": 113,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "217,113"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "npc": "Cezu",
+          "options": [
+            {
+              "text": "I'm here for Elly...",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Cezu",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Cezu"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "In Lighthalzen , near the top right of the Slums area, you'll find Windmill Owner (Mills) in front of one building (365,300). Tell him \"I'm here for Cezu...\", and he'll give you a Delivery Package .",
+      "instruction_sha256": "815d676a28a305567bf2009ae4fcf003d17c379a6ee0e69c823eeec9c5d0d1f5",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/815d676a28a305567bf2/1",
+      "goal": "collect",
+      "short_ru": "У Mills в Lighthalzen (365,300) выберите «I'm here for Cezu...».",
+      "short_en": "At Mills in Lighthalzen (365,300), choose “I'm here for Cezu...”.",
+      "full_ru": "В Lighthalzen, на северо-востоке трущоб, найдите Windmill Owner (Mills) перед зданием (365,300). Скажите «I'm here for Cezu...» и получите Delivery Package.",
+      "full_en": "In Lighthalzen , near the top right of the Slums area, you'll find Windmill Owner (Mills) in front of one building (365,300). Tell him \"I'm here for Cezu...\", and he'll give you a Delivery Package .",
+      "protected_names": [
+        "Cezu",
+        "Mills",
+        "Delivery Package",
+        "Lighthalzen"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 365,
+          "y": 300,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "365,300"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "npc": "Mills",
+          "options": [
+            {
+              "text": "I'm here for Cezu...",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Mills",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mills"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Delivery Package"
+        }
+      ]
+    },
+    "8": {
+      "original_instruction": "Give the box to Cezu in Juno, and she'll make out a separate box with the Flour and Eggs you need for Elly.",
+      "instruction_sha256": "ad28b6c7144e2b03ed226ae34c2170575fc7e41c85527657f93e822546ea0d39",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/ad28b6c7144e2b03ed22/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Delivery Package Cezu и получите Flour и Eggs для Elly.",
+      "short_en": "Give Delivery Package to Cezu and receive Flour and Eggs for Elly.",
+      "full_ru": "Передайте коробку Cezu в Juno. Она подготовит отдельную коробку с Flour и Eggs для Elly.",
+      "full_en": "Give the box to Cezu in Juno, and she'll make out a separate box with the Flour and Eggs you need for Elly.",
+      "protected_names": [
+        "Elly",
+        "Cezu",
+        "Egg",
+        "Flour",
+        "Juno"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Cezu",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Cezu"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Delivery Package",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 7,
+          "evidence": "In Lighthalzen , near the top right of the Slums area, you'll find Windmill Owner (Mills) in front of one building (365,300). Tell him \"I'm here for Cezu...\", and he'll give you a Delivery Package ."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Flour",
+          "support_step": 4,
+          "evidence": "1 Flour"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Egg",
+          "support_step": 4,
+          "evidence": "1 Egg"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Bring the items back to Elly in the Kiel Hyre Academy (the guard should let you in freely at this point), and Elly will give you 5 of the Well-Baked Cookies she made. Don't worry if you misplace or use these cookies.",
+      "instruction_sha256": "27cea90f51115f2a13f8e0f24bc33d45e19b28d14a6a185424f5c69c2d4eb6fa",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/27cea90f51115f2a13f8/1",
+      "goal": "deliver",
+      "short_ru": "Принесите ингредиенты Elly в Kiel Hyre Academy и получите 5 Well-Baked Cookies.",
+      "short_en": "Bring the ingredients to Elly at Kiel Hyre Academy and receive 5 Well-Baked Cookies.",
+      "full_ru": "Принесите предметы Elly в Kiel Hyre Academy; теперь стражник должен пропускать свободно. Elly выдаст 5 Well-Baked Cookies. Потеря или использование этого печенья не должны мешать дальнейшему прохождению.",
+      "full_en": "Bring the items back to Elly in the Kiel Hyre Academy (the guard should let you in freely at this point), and Elly will give you 5 of the Well-Baked Cookies she made. Don't worry if you misplace or use these cookies.",
+      "protected_names": [
+        "Elly",
+        "Kiel Hyre",
+        "Kiel",
+        "Kiel",
+        "Kiel",
+        "Well-Baked Cookies",
+        "Kiel Hyre Academy"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Elly",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Elly"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Culinary Wine",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Speak to a Cute Student (Elly), located at the 5 'o clock direction from Lecollane. Ask her \"What happened?\", and \"What can I do to help you?\". She will tell you the following items are required for her baking cookies, and where you can get the items. | 1 Culinary Wine - Bar in Juno (51, 105) | 7 Milk - Milk Merchant in Prontera (Will not be provided) | 5 Cacao - Dropped by Yoyo (Will not be provided) | 2 Cheese - Dropped by Taoist Hermit in Kunlun (Will not be provided) | 1 Egg - Toast Shop in Juno | 1 Flour - Toast Shop in Juno (217, 114) You'll need to gather the Cheese, Milk, and Cacao on your own."
+        },
+        {
+          "entity": "Milk",
+          "quantity": 7,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Speak to a Cute Student (Elly), located at the 5 'o clock direction from Lecollane. Ask her \"What happened?\", and \"What can I do to help you?\". She will tell you the following items are required for her baking cookies, and where you can get the items. | 1 Culinary Wine - Bar in Juno (51, 105) | 7 Milk - Milk Merchant in Prontera (Will not be provided) | 5 Cacao - Dropped by Yoyo (Will not be provided) | 2 Cheese - Dropped by Taoist Hermit in Kunlun (Will not be provided) | 1 Egg - Toast Shop in Juno | 1 Flour - Toast Shop in Juno (217, 114) You'll need to gather the Cheese, Milk, and Cacao on your own."
+        },
+        {
+          "entity": "Cacao",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Speak to a Cute Student (Elly), located at the 5 'o clock direction from Lecollane. Ask her \"What happened?\", and \"What can I do to help you?\". She will tell you the following items are required for her baking cookies, and where you can get the items. | 1 Culinary Wine - Bar in Juno (51, 105) | 7 Milk - Milk Merchant in Prontera (Will not be provided) | 5 Cacao - Dropped by Yoyo (Will not be provided) | 2 Cheese - Dropped by Taoist Hermit in Kunlun (Will not be provided) | 1 Egg - Toast Shop in Juno | 1 Flour - Toast Shop in Juno (217, 114) You'll need to gather the Cheese, Milk, and Cacao on your own."
+        },
+        {
+          "entity": "Cheese",
+          "quantity": 2,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Speak to a Cute Student (Elly), located at the 5 'o clock direction from Lecollane. Ask her \"What happened?\", and \"What can I do to help you?\". She will tell you the following items are required for her baking cookies, and where you can get the items. | 1 Culinary Wine - Bar in Juno (51, 105) | 7 Milk - Milk Merchant in Prontera (Will not be provided) | 5 Cacao - Dropped by Yoyo (Will not be provided) | 2 Cheese - Dropped by Taoist Hermit in Kunlun (Will not be provided) | 1 Egg - Toast Shop in Juno | 1 Flour - Toast Shop in Juno (217, 114) You'll need to gather the Cheese, Milk, and Cacao on your own."
+        },
+        {
+          "entity": "Egg",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Speak to a Cute Student (Elly), located at the 5 'o clock direction from Lecollane. Ask her \"What happened?\", and \"What can I do to help you?\". She will tell you the following items are required for her baking cookies, and where you can get the items. | 1 Culinary Wine - Bar in Juno (51, 105) | 7 Milk - Milk Merchant in Prontera (Will not be provided) | 5 Cacao - Dropped by Yoyo (Will not be provided) | 2 Cheese - Dropped by Taoist Hermit in Kunlun (Will not be provided) | 1 Egg - Toast Shop in Juno | 1 Flour - Toast Shop in Juno (217, 114) You'll need to gather the Cheese, Milk, and Cacao on your own."
+        },
+        {
+          "entity": "Flour",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Speak to a Cute Student (Elly), located at the 5 'o clock direction from Lecollane. Ask her \"What happened?\", and \"What can I do to help you?\". She will tell you the following items are required for her baking cookies, and where you can get the items. | 1 Culinary Wine - Bar in Juno (51, 105) | 7 Milk - Milk Merchant in Prontera (Will not be provided) | 5 Cacao - Dropped by Yoyo (Will not be provided) | 2 Cheese - Dropped by Taoist Hermit in Kunlun (Will not be provided) | 1 Egg - Toast Shop in Juno | 1 Flour - Toast Shop in Juno (217, 114) You'll need to gather the Cheese, Milk, and Cacao on your own."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "5",
+          "entity": "Well-Baked Cookies"
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "Talk to Elly again, because she feels she can trust you, she wants you to deliver the cookies to her gramps Kiel Hyre at his Cottage. Answer \"Do you want me to?\", followed by \"Sure\".",
+      "instruction_sha256": "bf378c850144577a28db843765a13bdee18c42708f464ef742a1bb7039bbbe3b",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/bf378c850144577a28db/1",
+      "goal": "talk",
+      "short_ru": "У Elly выберите «Do you want me to?», затем «Sure».",
+      "short_en": "With Elly, choose “Do you want me to?”, then “Sure”.",
+      "full_ru": "Снова поговорите с Elly. Теперь она доверяет вам и просит доставить печенье её дедушке Kiel Hyre в Cottage. Ответьте «Do you want me to?», затем «Sure».",
+      "full_en": "Talk to Elly again, because she feels she can trust you, she wants you to deliver the cookies to her gramps Kiel Hyre at his Cottage. Answer \"Do you want me to?\", followed by \"Sure\".",
+      "protected_names": [
+        "Elly",
+        "Kiel Hyre",
+        "Kiel",
+        "Kiel",
+        "Kiel"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "npc": "Elly",
+          "options": [
+            {
+              "text": "Do you want me to?",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Sure",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Elly",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Elly"
+        }
+      ]
+    },
+    "11": {
+      "original_instruction": "Make your way to Kiel Hyre's Cottage (yuno_fild02 92, 207). This is 1 map north of the Academy, just left of center.",
+      "instruction_sha256": "ac12ff5726042e4d10ad98655fd3fd303b7d3381b6d5d027358b7ad134713a4c",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/ac12ff5726042e4d10ad/1",
+      "goal": "move",
+      "short_ru": "Идите к Cottage Kiel Hyre: yuno_fild02 92, 207.",
+      "short_en": "Go to the Cottage of Kiel Hyre: yuno_fild02 92, 207.",
+      "full_ru": "Идите к Cottage Kiel Hyre (yuno_fild02 92, 207): это на 1 карту севернее Academy, чуть левее центра.",
+      "full_en": "Make your way to Kiel Hyre's Cottage (yuno_fild02 92, 207). This is 1 map north of the Academy, just left of center.",
+      "protected_names": [
+        "Kiel Hyre",
+        "Kiel",
+        "Kiel",
+        "Kiel",
+        "yuno",
+        "yuno_fild02"
+      ],
+      "locations": [
+        {
+          "map": "yuno_fild02",
+          "x": 92,
+          "y": 207,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_fild02 92, 207"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "move"
+        }
+      ]
+    },
+    "12": {
+      "original_instruction": "Talk to the Guardsman on watch at the Cottage. Tell him \"I have an appointment with Kiel Hyre \", followed by \"Yes\". He will tell you he is not in.",
+      "instruction_sha256": "81ebbfd221ed9e3149427aad90d53049679b13c58084b55ce612985ad890deac",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/81ebbfd221ed9e314942/1",
+      "goal": "talk",
+      "short_ru": "У Guardsman выберите «I have an appointment with Kiel Hyre », затем «Yes».",
+      "short_en": "With Guardsman, choose “I have an appointment with Kiel Hyre ”, then “Yes”.",
+      "full_ru": "Поговорите с Guardsman у Cottage. Скажите «I have an appointment with Kiel Hyre », затем «Yes». Он сообщит, что хозяина нет.",
+      "full_en": "Talk to the Guardsman on watch at the Cottage. Tell him \"I have an appointment with Kiel Hyre \", followed by \"Yes\". He will tell you he is not in.",
+      "protected_names": [
+        "Guardsman",
+        "Kiel Hyre",
+        "Kiel",
+        "Kiel",
+        "Kiel"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "npc": "Guardsman",
+          "options": [
+            {
+              "text": "I have an appointment with Kiel Hyre ",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Yes",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Guardsman",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Guardsman"
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Return to Elly with this news. She will give you a Cottage Key .",
+      "instruction_sha256": "03fefc336033b5fab785d20ee6241606b6753a966e2899539c729585ae758792",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/03fefc336033b5fab785/1",
+      "goal": "collect",
+      "short_ru": "Вернитесь к Elly за Cottage Key.",
+      "short_en": "Return to Elly for Cottage Key.",
+      "full_ru": "Вернитесь с новостями к Elly. Она выдаст Cottage Key.",
+      "full_en": "Return to Elly with this news. She will give you a Cottage Key .",
+      "protected_names": [
+        "Elly",
+        "Cottage Key"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Elly",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Elly"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Cottage Key"
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "At the Cottage, use the key on the door to the left (yuno_fild02 75, 218) and select \"Unlock\" to enter the storage room.",
+      "instruction_sha256": "0067f81ba94f338785ed321c3cb1174357eea739f9ecd6e96a439c7ddd746643",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/0067f81ba94f338785ed/1",
+      "goal": "enter",
+      "short_ru": "У левой двери yuno_fild02 75, 218 выберите «Unlock».",
+      "short_en": "At the left door yuno_fild02 75, 218, choose “Unlock”.",
+      "full_ru": "В Cottage примените ключ к левой двери (yuno_fild02 75, 218) и выберите «Unlock», чтобы войти в кладовую.",
+      "full_en": "At the Cottage, use the key on the door to the left (yuno_fild02 75, 218) and select \"Unlock\" to enter the storage room.",
+      "protected_names": [
+        "yuno",
+        "yuno_fild02"
+      ],
+      "locations": [
+        {
+          "map": "yuno_fild02",
+          "x": 75,
+          "y": 218,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_fild02 75, 218"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Unlock",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Cottage Key",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "support_step": 13,
+          "evidence": "Return to Elly with this news. She will give you a Cottage Key ."
+        }
+      ]
+    },
+    "15": {
+      "original_instruction": "Move 6 cells foward, 3 cells left, 3 foward, then 4 more left, (or simply move to (kh_vila 179, 12) around the boxes in the bottom right of this room) and you'll find a Letter to Elly .",
+      "instruction_sha256": "64c76b0b5eede90e22828186791de6d7562cabf4e22bdbfe8c817be87c4e0d80",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/64c76b0b5eede90e2282/1",
+      "goal": "collect",
+      "short_ru": "Найдите Letter to Elly: kh_vila 179, 12.",
+      "short_en": "Find Letter to Elly: kh_vila 179, 12.",
+      "full_ru": "Пройдите 6 клеток вперёд, 3 влево, 3 вперёд и ещё 4 влево. Можно просто подойти к (kh_vila 179, 12) возле коробок в правом нижнем углу комнаты. Там находится Letter to Elly.",
+      "full_en": "Move 6 cells foward, 3 cells left, 3 foward, then 4 more left, (or simply move to (kh_vila 179, 12) around the boxes in the bottom right of this room) and you'll find a Letter to Elly .",
+      "protected_names": [
+        "Elly",
+        "Letter to Elly",
+        "kh_vila"
+      ],
+      "locations": [
+        {
+          "map": "kh_vila",
+          "x": 179,
+          "y": 12,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "kh_vila 179, 12"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "move"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Letter to Elly",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ]
+    },
+    "16": {
+      "original_instruction": "Bring the letter back to Elly. Speak to her a second time and she'll find something weird. Ask her \"What's with this academy?\", then ask her about the \"Strange incidents?\". Speak to her a third time and she will then ask you to go back to the Cottage and look around.",
+      "instruction_sha256": "63d5d1b18d3497c3fe2116d8e076699a22f4ccf82d8d8efc9e1bf7f7d6e3ab73",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/63d5d1b18d3497c3fe21/1",
+      "goal": "deliver",
+      "short_ru": "Передайте письмо Elly; во втором разговоре расспросите об academy, в третьем получите поручение.",
+      "short_en": "Give the letter to Elly; ask about the academy in the second conversation, then get the assignment in the third.",
+      "full_ru": "Отнесите письмо Elly. Во втором разговоре она заметит странность: спросите «What's with this academy?», затем «Strange incidents?». В третьем разговоре она попросит снова осмотреть Cottage.",
+      "full_en": "Bring the letter back to Elly. Speak to her a second time and she'll find something weird. Ask her \"What's with this academy?\", then ask her about the \"Strange incidents?\". Speak to her a third time and she will then ask you to go back to the Cottage and look around.",
+      "protected_names": [
+        "Elly"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "npc": "Elly",
+          "options": [
+            {
+              "text": "What's with this academy?",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Strange incidents?",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Elly",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Elly"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Letter to Elly",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 15,
+          "evidence": "Move 6 cells foward, 3 cells left, 3 foward, then 4 more left, (or simply move to (kh_vila 179, 12) around the boxes in the bottom right of this room) and you'll find a Letter to Elly ."
+        }
+      ]
+    },
+    "17": {
+      "original_instruction": "Go back to the Cottage, and enter in the door to the left. This time, when you are down there, investigate the bookshelf at the left side (there are four \"Book\" that you can talk to, they all work). You may need to check several times, but you should find a switch. Activate the switch, and a secret passage (kh_vila 191, 14) to the main building will open up. You'll need to click on the passage to activate it.",
+      "instruction_sha256": "2a8885c6f42099e8ff4c9104285bb3b9ec715724547c8d45a6dc39097e84a6c5",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/2a8885c6f42099e8ff4c/1",
+      "goal": "activate_switch",
+      "short_ru": "Найдите переключатель в книжной полке и нажмите тайный проход: kh_vila 191, 14.",
+      "short_en": "Find the bookshelf switch and click the secret passage: kh_vila 191, 14.",
+      "full_ru": "Вернитесь в Cottage через левую дверь. Осматривайте книжную полку слева: подходят все четыре объекта «Book». При необходимости повторяйте проверку до обнаружения переключателя. Активируйте его: откроется тайный проход в главное здание (kh_vila 191, 14). Нажмите сам проход для входа.",
+      "full_en": "Go back to the Cottage, and enter in the door to the left. This time, when you are down there, investigate the bookshelf at the left side (there are four \"Book\" that you can talk to, they all work). You may need to check several times, but you should find a switch. Activate the switch, and a secret passage (kh_vila 191, 14) to the main building will open up. You'll need to click on the passage to activate it.",
+      "protected_names": [
+        "kh_vila"
+      ],
+      "locations": [
+        {
+          "map": "kh_vila",
+          "x": 191,
+          "y": 14,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "kh_vila 191, 14"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact",
+          "condition": "Any of the four Book objects; repeat until the switch is found."
+        },
+        {
+          "operation": "activate"
+        },
+        {
+          "operation": "enter",
+          "condition": "Click the passage at kh_vila 191,14."
+        }
+      ]
+    },
+    "18": {
+      "original_instruction": "As soon as you enter the Cottage, you'll find yourself in the kitchen. Look behind you, and you'll see some boxes. Take some of the pet food here. | Note: bringing your own Pet Food instead of buying it here will work (and it will be cheaper).",
+      "instruction_sha256": "69377b1281707144683ea8279f174988f0a6867f4be0c844d36e18952ae879e6",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/69377b1281707144683e/1",
+      "goal": "collect",
+      "short_ru": "Подготовьте Pet Food для собаки; можно принести свой.",
+      "short_en": "Prepare Pet Food for the dog; you may bring your own.",
+      "full_ru": "Войдя в Cottage, вы окажетесь на кухне. В коробках позади возьмите немного корма. Примечание: можно принести собственный Pet Food вместо покупки здесь — так дешевле.",
+      "full_en": "As soon as you enter the Cottage, you'll find yourself in the kitchen. Look behind you, and you'll see some boxes. Take some of the pet food here. | Note: bringing your own Pet Food instead of buying it here will work (and it will be cheaper).",
+      "protected_names": [
+        "Pet Food"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Pet Food",
+          "quantity": null,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Can bring your own instead of buying here; source gives no quantity."
+        }
+      ]
+    },
+    "19": {
+      "original_instruction": "Outside of the kitchen, along the wall you'll find a map of the world. \"Examine\" at this map. You'll find something hidden but you can't get to it without damaging the map.",
+      "instruction_sha256": "4b248a493393fa0fcbe59783fb3da7bfe147c8b88f1fa20ca256ffbb3dedb45e",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/4b248a493393fa0fcbe5/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите карту мира: «Examine».",
+      "short_en": "Inspect the world map: “Examine”.",
+      "full_ru": "Снаружи кухни на стене находится карта мира. Выберите «Examine». За картой что-то спрятано, но достать это без повреждения карты пока нельзя.",
+      "full_en": "Outside of the kitchen, along the wall you'll find a map of the world. \"Examine\" at this map. You'll find something hidden but you can't get to it without damaging the map.",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Examine",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "20": {
+      "original_instruction": "Go back to the kitchen, and investigate the Pot and \"Try it.\".",
+      "instruction_sha256": "bd910a753cee2da463a8aee1cced3f21a029c906bf814c76f2ccb0288f32d62a",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/bd910a753cee2da463a8/1",
+      "goal": "interact",
+      "short_ru": "У Pot выберите «Try it.».",
+      "short_en": "At Pot, choose “Try it.”.",
+      "full_ru": "Вернитесь на кухню, осмотрите Pot и выберите «Try it.».",
+      "full_en": "Go back to the kitchen, and investigate the Pot and \"Try it.\".",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Try it.",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "21": {
+      "original_instruction": "Return to the map of the world. Investigate it again, and this time you will find a hidden paper with a poem.",
+      "instruction_sha256": "08538e4b26f1550a92ee40706f9274747a7ae3fe3d51c0dd2bd3347671041145",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/08538e4b26f1550a92ee/1",
+      "goal": "interact",
+      "short_ru": "Снова осмотрите карту мира и найдите стихотворение.",
+      "short_en": "Inspect the world map again and find the poem.",
+      "full_ru": "Снова осмотрите карту мира. Теперь вы найдёте спрятанный лист со стихотворением.",
+      "full_en": "Return to the map of the world. Investigate it again, and this time you will find a hidden paper with a poem.",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "22": {
+      "original_instruction": "There is a portal near the south west corner of the room, enter it, on top of the hearth along the west wall, you'll find a green Calabash. \"Look inside Calabash\", and you'll obtain an Old Bronze Key .",
+      "instruction_sha256": "f8fc296e8e49ba80f1ee9f6365d81542e33ec94468a5c83fb3d6fc0a5437aa40",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/f8fc296e8e49ba80f1ee/1",
+      "goal": "collect",
+      "short_ru": "Выберите «Look inside Calabash» и получите Old Bronze Key.",
+      "short_en": "Choose “Look inside Calabash” to receive Old Bronze Key.",
+      "full_ru": "Войдите в портал у юго-западного угла комнаты. На камине у западной стены найдите зелёную Calabash. Выберите «Look inside Calabash», чтобы получить Old Bronze Key.",
+      "full_en": "There is a portal near the south west corner of the room, enter it, on top of the hearth along the west wall, you'll find a green Calabash. \"Look inside Calabash\", and you'll obtain an Old Bronze Key .",
+      "protected_names": [
+        "Old Bronze Key"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Look inside Calabash",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Bronze Key"
+        }
+      ]
+    },
+    "23": {
+      "original_instruction": "South of this point, you'll find a small indoor garden. Investigate the pool, and \"Pull Handles\". Pull the on the \"Left Handle\" and the pool will drain, \"Investigate\" to find a button. \"Press Button\", and you'll hear a sound from far away. You should be able to go upstairs now.",
+      "instruction_sha256": "930c24db253b499eea488f0525ed4fbbd0aca45573786cdab513ebb12982f62f",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/930c24db253b499eea48/1",
+      "goal": "interact",
+      "short_ru": "У бассейна: «Pull Handles» → «Left Handle» → «Investigate» → «Press Button».",
+      "short_en": "At the pool: “Pull Handles” → “Left Handle” → “Investigate” → “Press Button”.",
+      "full_ru": "Южнее находится небольшой внутренний сад. Осмотрите бассейн: «Pull Handles», затем «Left Handle». Когда вода уйдёт, выберите «Investigate», затем «Press Button». Вы услышите далёкий звук и сможете подняться наверх.",
+      "full_en": "South of this point, you'll find a small indoor garden. Investigate the pool, and \"Pull Handles\". Pull the on the \"Left Handle\" and the pool will drain, \"Investigate\" to find a button. \"Press Button\", and you'll hear a sound from far away. You should be able to go upstairs now.",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Pull Handles",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Left Handle",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Investigate",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Press Button",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "24": {
+      "original_instruction": "Go out the portal just to the east of the pool and through the portal accross the hall. At the top of the stairs, you'll find a dog guarding the path, \"March Forward\". Not wanting to alert the guardsman outside, you need to find a way past. Select \"Give Pet Food\" to toss the dog some of the Pet Food you bought earlier and it'll let you by.",
+      "instruction_sha256": "a67160aea6561e2dea6f4c1bcceae6d970b126ee3685eddf9500293dc7fab766",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/a67160aea6561e2dea6f/1",
+      "goal": "use_item",
+      "short_ru": "У собаки выберите «March Forward», затем «Give Pet Food».",
+      "short_en": "At the dog, choose “March Forward”, then “Give Pet Food”.",
+      "full_ru": "Выйдите через портал восточнее бассейна и войдите в портал напротив, через коридор. Наверху путь охраняет собака: выберите «March Forward». Чтобы не тревожить наружного стражника, выберите «Give Pet Food» и бросьте собаке ранее подготовленный Pet Food — она пропустит.",
+      "full_en": "Go out the portal just to the east of the pool and through the portal accross the hall. At the top of the stairs, you'll find a dog guarding the path, \"March Forward\". Not wanting to alert the guardsman outside, you need to find a way past. Select \"Give Pet Food\" to toss the dog some of the Pet Food you bought earlier and it'll let you by.",
+      "protected_names": [
+        "Pet Food"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "March Forward",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Give Pet Food",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Pet Food",
+          "quantity": null,
+          "operation": "use",
+          "required": 1,
+          "condition": "Feed the dog; quantity not stated."
+        }
+      ]
+    },
+    "25": {
+      "original_instruction": "There are three rooms upstairs, a bedroom, an office, and a library. Enter the office, the second room. Search through the documents located on the desk, and you'll receive a blank piece of paper with the Kiel Hyre seal on it.",
+      "instruction_sha256": "e30366f9b5e74804a1502c9797c96d1e2b9320d49fb80cc89e992a928959e819",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/e30366f9b5e74804a150/1",
+      "goal": "interact",
+      "short_ru": "В кабинете осмотрите документы на столе.",
+      "short_en": "In the office, inspect the documents on the desk.",
+      "full_ru": "Наверху три комнаты: спальня, кабинет и библиотека. Войдите во вторую комнату, кабинет. Осмотрите документы на столе и получите чистый лист с печатью Kiel Hyre.",
+      "full_en": "There are three rooms upstairs, a bedroom, an office, and a library. Enter the office, the second room. Search through the documents located on the desk, and you'll receive a blank piece of paper with the Kiel Hyre seal on it.",
+      "protected_names": [
+        "Kiel Hyre",
+        "Kiel",
+        "Kiel",
+        "Kiel"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "26": {
+      "original_instruction": "Investigate the box in the bottom left of the room and \"Use Old Copper Key\". You'll obtain a Green Keycard .",
+      "instruction_sha256": "f6ade6a07db58e53961a719f5c73257b05251576c42414bf752078d8d3a6e204",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/f6ade6a07db58e53961a/1",
+      "goal": "collect",
+      "short_ru": "У коробки выберите «Use Old Copper Key» и получите Green Keycard.",
+      "short_en": "At the box, choose “Use Old Copper Key” to receive Green Keycard.",
+      "full_ru": "Осмотрите коробку в левом нижнем углу комнаты и выберите «Use Old Copper Key». Вы получите Green Keycard.",
+      "full_en": "Investigate the box in the bottom left of the room and \"Use Old Copper Key\". You'll obtain a Green Keycard .",
+      "protected_names": [
+        "Old Copper Key",
+        "Green Keycard",
+        "Keycard"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Use Old Copper Key",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Green Keycard"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "key_name_conflict",
+          "detail": "Step 22 grants Old Bronze Key (linked ID 7329); the exact menu in step 26 says Use Old Copper Key. Names and answer are retained; no unsupported ID/alias is assigned to Old Copper Key."
+        }
+      ]
+    },
+    "27": {
+      "original_instruction": "Go to the library. In the 1 'o clock direction, investigate this bookshelf. You'll find a suspicious book 'To Elly', \"Examine Book\". When you return the book to the shelf you should \"Examine Steel Surface\". When you open it you'll see two keyholes, \"Try All Your Keys\". When prompted, insert Elly's Key, \"Cottage Key\", into the first slot, and the \"Green Keycard\" into the second. You will obtain a small Steel Box .",
+      "instruction_sha256": "c5a45e999b1a09815697539f0da74c14e5e6b9cd7720640fc4314ee35290a4d8",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/c5a45e999b1a09815697/1",
+      "goal": "use_items",
+      "short_ru": "В библиотеке вставьте Cottage Key в первое отверстие, Green Keycard — во второе; получите Steel Box.",
+      "short_en": "In the library, insert Cottage Key into the first slot and Green Keycard into the second; receive Steel Box.",
+      "full_ru": "В библиотеке осмотрите полку в направлении 1 часа. Найдя книгу «To Elly», выберите «Examine Book». Вернув книгу, выберите «Examine Steel Surface». У двух замочных отверстий выберите «Try All Your Keys». В первое вставьте ключ Elly — «Cottage Key», во второе — «Green Keycard». Вы получите небольшой Steel Box.",
+      "full_en": "Go to the library. In the 1 'o clock direction, investigate this bookshelf. You'll find a suspicious book 'To Elly', \"Examine Book\". When you return the book to the shelf you should \"Examine Steel Surface\". When you open it you'll see two keyholes, \"Try All Your Keys\". When prompted, insert Elly's Key, \"Cottage Key\", into the first slot, and the \"Green Keycard\" into the second. You will obtain a small Steel Box .",
+      "protected_names": [
+        "Elly",
+        "Cottage Key",
+        "Green Keycard",
+        "Steel Box",
+        "Keycard"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Examine Book",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Examine Steel Surface",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Try All Your Keys",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Cottage Key",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Green Keycard",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Cottage Key",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "condition": "First slot."
+        },
+        {
+          "entity": "Green Keycard",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "condition": "Second slot."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Steel Box"
+        }
+      ]
+    },
+    "28": {
+      "original_instruction": "Go to the last room (the first one in the hallway). Look beside the bed and you'll find a Drawer. \"Open Drawer\" to receive the Yellow Keycard .",
+      "instruction_sha256": "21acbd22a6b2c819dc98f626c11666b625a8a383721d365455720c29323ffc49",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/21acbd22a6b2c819dc98/1",
+      "goal": "collect",
+      "short_ru": "У Drawer возле кровати выберите «Open Drawer» и получите Yellow Keycard.",
+      "short_en": "At the Drawer beside the bed, choose “Open Drawer” to receive Yellow Keycard.",
+      "full_ru": "В последней комнате, первой по коридору, найдите Drawer возле кровати. Выберите «Open Drawer», чтобы получить Yellow Keycard.",
+      "full_en": "Go to the last room (the first one in the hallway). Look beside the bed and you'll find a Drawer. \"Open Drawer\" to receive the Yellow Keycard .",
+      "protected_names": [
+        "Yellow Keycard",
+        "Keycard"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Open Drawer",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Yellow Keycard"
+        }
+      ]
+    },
+    "29": {
+      "original_instruction": "In the same room, you'll find a 'Medicine Chest' lined with potions, you'll spectlate that the blank document must have secret writing, select \"Of course! Let's try it!\". \"Try Blue Liquid\" on the documents you found earlier, and you'll reveal a poem. Be sure to keep this information handy.",
+      "instruction_sha256": "b433c1df970e4893b5b76e4badd563525537b1172d744673f78106a251cb15c9",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/b433c1df970e4893b5b7/1",
+      "goal": "interact",
+      "short_ru": "У Medicine Chest выберите «Of course! Let's try it!», затем «Try Blue Liquid».",
+      "short_en": "At Medicine Chest, choose “Of course! Let's try it!”, then “Try Blue Liquid”.",
+      "full_ru": "В той же комнате найдите Medicine Chest с зельями. Предположив, что на чистом листе скрытые записи, выберите «Of course! Let's try it!», затем «Try Blue Liquid». На найденных документах появится стихотворение; сохраните его текст.",
+      "full_en": "In the same room, you'll find a 'Medicine Chest' lined with potions, you'll spectlate that the blank document must have secret writing, select \"Of course! Let's try it!\". \"Try Blue Liquid\" on the documents you found earlier, and you'll reveal a poem. Be sure to keep this information handy.",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Of course! Let's try it!",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Try Blue Liquid",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "30": {
+      "original_instruction": "Head back downstairs. Just beside the stairs, you will see a decoration with 4 swords. Upon investigation, these swords could be used as levers, but you'd have to pull them in the correct order. Each of the 4 swords has a special look to it. Pull them in the order that they match up with the two poems you had read earlier. If you do it correctly, a door will open to a secret chamber. Select \"Of course!\" followed by \"Insert Ornamental Swords\" The decoration will ask you which snake to plant the first, second, etc. swords into. A summary of the solution is:",
+      "instruction_sha256": "5fe4a2d08a8a110a780b06235df334644ecf562a549343f305bc9003b1951410",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/5fe4a2d08a8a110a780b/1",
+      "goal": "interact",
+      "short_ru": "У украшения выберите «Of course!» и «Insert Ornamental Swords»; используйте порядок мечей из полного описания.",
+      "short_en": "At the decoration, choose “Of course!” and “Insert Ornamental Swords”; use the sword order in the full description.",
+      "full_ru": "Спуститесь. Рядом с лестницей находится украшение с 4 мечами. Они работают как рычаги: сопоставьте каждый из 4 мечей с двумя ранее найденными стихотворениями и выберите правильный порядок. При успехе откроется тайная комната. Выберите «Of course!», затем «Insert Ornamental Swords». Для каждого меча нужно указать соответствующую змею. Решение приведено далее. *1-й меч в 2-ю змею: Sword of Love побеждает Snake of Magic. *2-й меч в 4-ю змею: Sword of Despair побеждает Formless Snake. *3-й меч в 1-ю змею: Sword of Rage побеждает Snake of Steel. *4-й меч в 3-ю змею: Sword of Hope побеждает Snake of Flesh.",
+      "full_en": "Head back downstairs. Just beside the stairs, you will see a decoration with 4 swords. Upon investigation, these swords could be used as levers, but you'd have to pull them in the correct order. Each of the 4 swords has a special look to it. Pull them in the order that they match up with the two poems you had read earlier. If you do it correctly, a door will open to a secret chamber. Select \"Of course!\" followed by \"Insert Ornamental Swords\" The decoration will ask you which snake to plant the first, second, etc. swords into. A summary of the solution is: *1st Sword into 2nd Snake: (Sword of Love slays Snake of Magic) *2nd Sword into 4th Snake: (Sword of Despair slays Formless Snake) *3rd Sword into 1st Snake: (Sword of Rage slays Snake of Steel) *4th Sword into 3rd Snake: (Sword of Hope slays Snake of Flesh)",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Of course!",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Insert Ornamental Swords",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        },
+        {
+          "operation": "insert",
+          "entity": "Sword of Love",
+          "source_section": "html_text",
+          "evidence": "*1st Sword into 2nd Snake: (Sword of Love slays Snake of Magic) *2nd Sword into 4th Snake: (Sword of Despair slays Formless Snake) *3rd Sword into 1st Snake: (Sword of Rage slays Snake of Steel) *4th Sword into 3rd Snake: (Sword of Hope slays Snake of Flesh)",
+          "condition": "Puzzle position 1: 2nd Snake / Snake of Magic."
+        },
+        {
+          "operation": "insert",
+          "entity": "Sword of Despair",
+          "source_section": "html_text",
+          "evidence": "*1st Sword into 2nd Snake: (Sword of Love slays Snake of Magic) *2nd Sword into 4th Snake: (Sword of Despair slays Formless Snake) *3rd Sword into 1st Snake: (Sword of Rage slays Snake of Steel) *4th Sword into 3rd Snake: (Sword of Hope slays Snake of Flesh)",
+          "condition": "Puzzle position 2: 4th Snake / Formless Snake."
+        },
+        {
+          "operation": "insert",
+          "entity": "Sword of Rage",
+          "source_section": "html_text",
+          "evidence": "*1st Sword into 2nd Snake: (Sword of Love slays Snake of Magic) *2nd Sword into 4th Snake: (Sword of Despair slays Formless Snake) *3rd Sword into 1st Snake: (Sword of Rage slays Snake of Steel) *4th Sword into 3rd Snake: (Sword of Hope slays Snake of Flesh)",
+          "condition": "Puzzle position 3: 1st Snake / Snake of Steel."
+        },
+        {
+          "operation": "insert",
+          "entity": "Sword of Hope",
+          "source_section": "html_text",
+          "evidence": "*1st Sword into 2nd Snake: (Sword of Love slays Snake of Magic) *2nd Sword into 4th Snake: (Sword of Despair slays Formless Snake) *3rd Sword into 1st Snake: (Sword of Rage slays Snake of Steel) *4th Sword into 3rd Snake: (Sword of Hope slays Snake of Flesh)",
+          "condition": "Puzzle position 4: 3rd Snake / Snake of Flesh."
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "*1st Sword into 2nd Snake: (Sword of Love slays Snake of Magic) *2nd Sword into 4th Snake: (Sword of Despair slays Formless Snake) *3rd Sword into 1st Snake: (Sword of Rage slays Snake of Steel) *4th Sword into 3rd Snake: (Sword of Hope slays Snake of Flesh)",
+          "text_ru": "*1-й меч в 2-ю змею: Sword of Love побеждает Snake of Magic. *2-й меч в 4-ю змею: Sword of Despair побеждает Formless Snake. *3-й меч в 1-ю змею: Sword of Rage побеждает Snake of Steel. *4-й меч в 3-ю змею: Sword of Hope побеждает Snake of Flesh."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Sword of Love",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "*1st Sword into 2nd Snake: (Sword of Love slays Snake of Magic) *2nd Sword into 4th Snake: (Sword of Despair slays Formless Snake) *3rd Sword into 1st Snake: (Sword of Rage slays Snake of Steel) *4th Sword into 3rd Snake: (Sword of Hope slays Snake of Flesh)",
+          "condition": "Puzzle position 1: insert into 2nd Snake / Snake of Magic. Object label, not a verified inventory item."
+        },
+        {
+          "entity": "Sword of Despair",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "*1st Sword into 2nd Snake: (Sword of Love slays Snake of Magic) *2nd Sword into 4th Snake: (Sword of Despair slays Formless Snake) *3rd Sword into 1st Snake: (Sword of Rage slays Snake of Steel) *4th Sword into 3rd Snake: (Sword of Hope slays Snake of Flesh)",
+          "condition": "Puzzle position 2: insert into 4th Snake / Formless Snake. Object label, not a verified inventory item."
+        },
+        {
+          "entity": "Sword of Rage",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "*1st Sword into 2nd Snake: (Sword of Love slays Snake of Magic) *2nd Sword into 4th Snake: (Sword of Despair slays Formless Snake) *3rd Sword into 1st Snake: (Sword of Rage slays Snake of Steel) *4th Sword into 3rd Snake: (Sword of Hope slays Snake of Flesh)",
+          "condition": "Puzzle position 3: insert into 1st Snake / Snake of Steel. Object label, not a verified inventory item."
+        },
+        {
+          "entity": "Sword of Hope",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "*1st Sword into 2nd Snake: (Sword of Love slays Snake of Magic) *2nd Sword into 4th Snake: (Sword of Despair slays Formless Snake) *3rd Sword into 1st Snake: (Sword of Rage slays Snake of Steel) *4th Sword into 3rd Snake: (Sword of Hope slays Snake of Flesh)",
+          "condition": "Puzzle position 4: insert into 3rd Snake / Snake of Flesh. Object label, not a verified inventory item."
+        }
+      ]
+    },
+    "31": {
+      "original_instruction": "In this hidden room, there will be two test tubes. When you \"Press Button\" on the right one, it will ask you for a name. Input the code found in red on the end of the second poem \"little lost devil\". You'll be revealed the code \"4772961\".",
+      "instruction_sha256": "0e96e661e2d4aa52451b4e4680e0a8522b8f783dce627dddb2eee23ab0b5bd01",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/0e96e661e2d4aa52451b/1",
+      "goal": "interact",
+      "short_ru": "У правой пробирки выберите «Press Button», введите «little lost devil» и запомните 4772961.",
+      "short_en": "At the right test tube, choose “Press Button”, enter “little lost devil” and note 4772961.",
+      "full_ru": "В тайной комнате находятся две пробирки. У правой выберите «Press Button»; на запрос имени введите красный код из конца второго стихотворения — «little lost devil». Вы узнаете код «4772961».",
+      "full_en": "In this hidden room, there will be two test tubes. When you \"Press Button\" on the right one, it will ask you for a name. Input the code found in red on the end of the second poem \"little lost devil\". You'll be revealed the code \"4772961\".",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Press Button",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "little lost devil",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "32": {
+      "original_instruction": "Its time to Return to Elly. She won't be at the school anymore so there is no need to return there, but instead you'll want to go to her room at the dormitory located behind the school. To enter her room, you can \"Climb Water Pipe\" by clicking on her window (it may take several attempts to climb up).",
+      "instruction_sha256": "619175097ca199b4fa0cb4f2f41537dea4edc25f6ef65e94b29f4b96903fb4b0",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/619175097ca199b4fa0c/1",
+      "goal": "interact",
+      "short_ru": "Войдите в комнату Elly через окно: «Climb Water Pipe», при неудаче повторите.",
+      "short_en": "Enter the room of Elly through its window: “Climb Water Pipe”; retry if necessary.",
+      "full_ru": "Вернитесь к Elly: теперь она не в школе, а в своей комнате общежития позади неё. Нажмите на окно и выберите «Climb Water Pipe». Может потребоваться несколько попыток подъёма.",
+      "full_en": "Its time to Return to Elly. She won't be at the school anymore so there is no need to return there, but instead you'll want to go to her room at the dormitory located behind the school. To enter her room, you can \"Climb Water Pipe\" by clicking on her window (it may take several attempts to climb up).",
+      "protected_names": [
+        "Elly"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Climb Water Pipe",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "33": {
+      "original_instruction": "Talk to Elly. You'll find that she won't respond to you at all.",
+      "instruction_sha256": "86ea872e8e9a1d2f4a579d7348eba0cc74fde9b856f986a9b6a864b77678dbbd",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/86ea872e8e9a1d2f4a57/1",
+      "goal": "talk",
+      "short_ru": "Попробуйте поговорить с Elly.",
+      "short_en": "Try talking to Elly.",
+      "full_ru": "Поговорите с Elly: она совсем не отвечает.",
+      "full_en": "Talk to Elly. You'll find that she won't respond to you at all.",
+      "protected_names": [
+        "Elly"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Elly",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Elly"
+        }
+      ]
+    },
+    "34": {
+      "original_instruction": "Check the cookie basket on the table. In the box you'll find a note written for you, select \"Read Note\".",
+      "instruction_sha256": "f9e13e88a8454e8c04c2bab02a0590507b176cf403513788e7484e02ab9547f0",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/f9e13e88a8454e8c04c2/1",
+      "goal": "interact",
+      "short_ru": "У корзинки с печеньем выберите «Read Note».",
+      "short_en": "At the cookie basket, choose “Read Note”.",
+      "full_ru": "Проверьте корзинку с печеньем на столе. Внутри находится записка для вас: выберите «Read Note».",
+      "full_en": "Check the cookie basket on the table. In the box you'll find a note written for you, select \"Read Note\".",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Read Note",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "35": {
+      "original_instruction": "Talk to Elly again. This time, tell her \"Wake up, Elly!\". She won't talk but she will drop a small Golden Key and a Luxurious Button . Using the Key on the Steel Box (by 'talking' to Elly again) reveals a Blue Keycard .",
+      "instruction_sha256": "d11e70d95368e0ad95c6ba0ebdd10aa7a155f8ccfd2a1f7afd3d304772bf18f9",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/d11e70d95368e0ad95c6/1",
+      "goal": "use_items",
+      "short_ru": "Скажите Elly «Wake up, Elly!»; получите Golden Key, Luxurious Button и откройте Steel Box ради Blue Keycard.",
+      "short_en": "Tell Elly “Wake up, Elly!”; receive Golden Key and Luxurious Button, then open Steel Box for Blue Keycard.",
+      "full_ru": "Снова поговорите с Elly и скажите «Wake up, Elly!». Она не ответит, но уронит Golden Key и Luxurious Button. Ещё раз взаимодействуйте с Elly, чтобы применить ключ к Steel Box и получить Blue Keycard.",
+      "full_en": "Talk to Elly again. This time, tell her \"Wake up, Elly!\". She won't talk but she will drop a small Golden Key and a Luxurious Button . Using the Key on the Steel Box (by 'talking' to Elly again) reveals a Blue Keycard .",
+      "protected_names": [
+        "Elly",
+        "Steel Box",
+        "Golden Key",
+        "Luxurious Button",
+        "Blue Keycard",
+        "Keycard"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "npc": "Elly",
+          "options": [
+            {
+              "text": "Wake up, Elly!",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Elly",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Elly"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Golden Key",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "condition": "Use on Steel Box by interacting with Elly again."
+        },
+        {
+          "entity": "Steel Box",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Golden Key"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Luxurious Button"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Blue Keycard"
+        }
+      ]
+    },
+    "36": {
+      "original_instruction": "Leave Elly's room, and outside you'll see an arrangement of 5 graves. Go to the bottom right one. When prompted, insert the Yellow Keycard first, and then the code 4772961. At this point, players obtain access to the first level of the dungeon .",
+      "instruction_sha256": "083a4280713cf14ac21700cdcfcbe343bbc598782a99f0bfa050018678670194",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/083a4280713cf14ac217/1",
+      "goal": "unlock_access",
+      "short_ru": "У нижней правой могилы сначала используйте Yellow Keycard, затем введите 4772961.",
+      "short_en": "At the bottom-right grave, use Yellow Keycard first, then enter 4772961.",
+      "full_ru": "Выйдите из комнаты Elly. Снаружи находятся 5 могил; используйте нижнюю правую. Сначала вставьте Yellow Keycard, затем введите код 4772961. Откроется доступ на первый уровень подземелья.",
+      "full_en": "Leave Elly's room, and outside you'll see an arrangement of 5 graves. Go to the bottom right one. When prompted, insert the Yellow Keycard first, and then the code 4772961. At this point, players obtain access to the first level of the dungeon .",
+      "protected_names": [
+        "Elly",
+        "Yellow Keycard",
+        "Keycard"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "4772961",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Yellow Keycard",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "condition": "Before entering code 4772961."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "access",
+          "condition": "First dungeon level after the grave lock."
+        }
+      ]
+    },
+    "37": {
+      "original_instruction": "Make your way to the far right side, the bottom door along the wall (kh_dun01 234, 49). Be careful as you cannot teleport here. When you attempt to \"Open Door\", type in \"Blue Keycard\".",
+      "instruction_sha256": "7ded515715d92af4a1a7e8020b726dd2561c6d3bd61939a12757d50134faf6a6",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/7ded515715d92af4a1a7/1",
+      "goal": "enter",
+      "short_ru": "У двери kh_dun01 234, 49 выберите «Open Door» и введите «Blue Keycard».",
+      "short_en": "At the door kh_dun01 234, 49, choose “Open Door” and enter “Blue Keycard”.",
+      "full_ru": "На востоке найдите нижнюю дверь у стены (kh_dun01 234, 49). Здесь нельзя телепортироваться. При выборе «Open Door» введите «Blue Keycard».",
+      "full_en": "Make your way to the far right side, the bottom door along the wall (kh_dun01 234, 49). Be careful as you cannot teleport here. When you attempt to \"Open Door\", type in \"Blue Keycard\".",
+      "protected_names": [
+        "Blue Keycard",
+        "Keycard",
+        "kh_dun01"
+      ],
+      "locations": [
+        {
+          "map": "kh_dun01",
+          "x": 234,
+          "y": 49,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "kh_dun01 234, 49"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Open Door",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Blue Keycard",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Blue Keycard",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1
+        }
+      ]
+    },
+    "38": {
+      "original_instruction": "Inside you will see several women. Talk the one in the middle (the others do nothing if you click them), and they will introduce themselves as Allysia. When they ask you to identify yourself, show them the \"Golden Key\" which you got from Elly. They will immediately know you are one of Elly's friends, and one of them will ask to speak to you.",
+      "instruction_sha256": "6f784658f9a3f3830e3ca2879be0edb1269c71ce77048bd1a7009e9c88d18bb6",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/6f784658f9a3f3830e3c/1",
+      "goal": "show_item",
+      "short_ru": "Поговорите с центральной Allysia и покажите Golden Key.",
+      "short_en": "Talk to the central Allysia and show Golden Key.",
+      "full_ru": "Внутри находятся несколько женщин. Поговорите с центральной: остальные не реагируют. Они представятся как Allysia. На вопрос о вас покажите «Golden Key», полученный от Elly. Они узнают друга Elly, и одна попросит поговорить отдельно.",
+      "full_en": "Inside you will see several women. Talk the one in the middle (the others do nothing if you click them), and they will introduce themselves as Allysia. When they ask you to identify yourself, show them the \"Golden Key\" which you got from Elly. They will immediately know you are one of Elly's friends, and one of them will ask to speak to you.",
+      "protected_names": [
+        "Elly",
+        "Allysia",
+        "Golden Key"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "npc": "Allysia",
+          "options": [
+            {
+              "text": "Golden Key",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Allysia",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Allysia"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Golden Key",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "condition": "Identification, not consumption."
+        }
+      ]
+    },
+    "39": {
+      "original_instruction": "When you're moved to a separate room, talk to Allysia and ask \"What happened to Kiel Hyre?\" and she will give you a Red Keycard , and ask you to find Kiel Hyre. Talk to her again and you'll be warped back to the 1F entrance.",
+      "instruction_sha256": "a7767ff9d0b30f596ae7653134f90b54ec45fdf33d6cffc8fef90e6f4533a202",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/a7767ff9d0b30f596ae7/1",
+      "goal": "collect",
+      "short_ru": "У Allysia спросите «What happened to Kiel Hyre?»; получите Red Keycard и поговорите снова.",
+      "short_en": "Ask Allysia “What happened to Kiel Hyre?”; receive Red Keycard and talk again.",
+      "full_ru": "После переноса в отдельную комнату поговорите с Allysia и спросите «What happened to Kiel Hyre?». Она выдаст Red Keycard и попросит найти Kiel Hyre. Поговорите ещё раз для возвращения ко входу на 1F.",
+      "full_en": "When you're moved to a separate room, talk to Allysia and ask \"What happened to Kiel Hyre?\" and she will give you a Red Keycard , and ask you to find Kiel Hyre. Talk to her again and you'll be warped back to the 1F entrance.",
+      "protected_names": [
+        "Allysia",
+        "Kiel Hyre",
+        "Kiel",
+        "Kiel",
+        "Kiel",
+        "Red Keycard",
+        "Keycard"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "npc": "Allysia",
+          "options": [
+            {
+              "text": "What happened to Kiel Hyre?",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Allysia",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Allysia"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Red Keycard"
+        }
+      ]
+    },
+    "40": {
+      "original_instruction": "This time, in the top right corner of 1F, use the \"Red Keycard\" to access the restricted area (kh_dun01 166, 223).",
+      "instruction_sha256": "7793eb9398b1ea660ad7d3f2608461c3b3b48ffe557fcd754ff03b7d390768d1",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/7793eb9398b1ea660ad7/1",
+      "goal": "enter",
+      "short_ru": "Используйте Red Keycard у входа kh_dun01 166, 223.",
+      "short_en": "Use Red Keycard at the entrance kh_dun01 166, 223.",
+      "full_ru": "В северо-восточном углу 1F используйте «Red Keycard», чтобы войти в закрытую зону (kh_dun01 166, 223).",
+      "full_en": "This time, in the top right corner of 1F, use the \"Red Keycard\" to access the restricted area (kh_dun01 166, 223).",
+      "protected_names": [
+        "Red Keycard",
+        "Keycard",
+        "kh_dun01"
+      ],
+      "locations": [
+        {
+          "map": "kh_dun01",
+          "x": 166,
+          "y": 223,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "kh_dun01 166, 223"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Red Keycard",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Red Keycard",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1
+        }
+      ]
+    },
+    "41": {
+      "original_instruction": "Along the path, approach the final door to the right (kh_dun01 223, 232). While Kiel will not let you in he will talk to you briefly, and give you a Metal Fragment . Use the portal to the right to exit the restricted area.",
+      "instruction_sha256": "e2adc6829d884bd7e6e31afe40b0af81086ce914c39dfaa6b56d9281395853bf",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/e2adc6829d884bd7e6e3/1",
+      "goal": "collect",
+      "short_ru": "Поговорите с Kiel за дверью kh_dun01 223, 232 и получите Metal Fragment.",
+      "short_en": "Talk to Kiel behind the door kh_dun01 223, 232 and receive Metal Fragment.",
+      "full_ru": "По пути подойдите к последней двери справа (kh_dun01 223, 232). Kiel не впустит, но поговорит и выдаст Metal Fragment. Выйдите через портал справа.",
+      "full_en": "Along the path, approach the final door to the right (kh_dun01 223, 232). While Kiel will not let you in he will talk to you briefly, and give you a Metal Fragment . Use the portal to the right to exit the restricted area.",
+      "protected_names": [
+        "Kiel",
+        "Kiel",
+        "Kiel",
+        "Metal Fragment",
+        "kh_dun01"
+      ],
+      "locations": [
+        {
+          "map": "kh_dun01",
+          "x": 223,
+          "y": 232,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "kh_dun01 223, 232"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_door",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "kiel_door",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "kiel_door"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Metal Fragment"
+        }
+      ]
+    },
+    "42": {
+      "original_instruction": "Take the part back to Allysia. She will ask you to visit her master in Lighthalzen .",
+      "instruction_sha256": "c85061a2bc5908e66662efcaa88dd2edc2f6ed9f1ce061fc63117d36fd51b072",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/c85061a2bc5908e66662/1",
+      "goal": "deliver",
+      "short_ru": "Отнесите Metal Fragment Allysia.",
+      "short_en": "Take Metal Fragment to Allysia.",
+      "full_ru": "Отнесите деталь Allysia. Она попросит навестить её хозяина в Lighthalzen.",
+      "full_en": "Take the part back to Allysia. She will ask you to visit her master in Lighthalzen .",
+      "protected_names": [
+        "Allysia",
+        "Lighthalzen"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Allysia",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Allysia"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Metal Fragment",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "support_step": 41,
+          "evidence": "Along the path, approach the final door to the right (kh_dun01 223, 232). While Kiel will not let you in he will talk to you briefly, and give you a Metal Fragment . Use the portal to the right to exit the restricted area."
+        }
+      ]
+    },
+    "43": {
+      "original_instruction": "In Lighthalzen in the center of the map (just above the item shop) you'll find Kiel Hyre's Mansion. Enter, and speak to the Steward (kh_mansion 79,83). When he questions you. Show him Elly's Golden Key.",
+      "instruction_sha256": "a360cad1485ff4e3e6d89d860993ef704bac84f97062cd606a4ed99c353d0e60",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/a360cad1485ff4e3e6d8/1",
+      "goal": "show_item",
+      "short_ru": "Покажите Golden Key Steward: kh_mansion 79,83.",
+      "short_en": "Show Golden Key to Steward: kh_mansion 79,83.",
+      "full_ru": "В центре Lighthalzen, чуть выше магазина предметов, войдите в Mansion Kiel Hyre. Поговорите со Steward (kh_mansion 79,83) и покажите Golden Key, полученный от Elly.",
+      "full_en": "In Lighthalzen in the center of the map (just above the item shop) you'll find Kiel Hyre's Mansion. Enter, and speak to the Steward (kh_mansion 79,83). When he questions you. Show him Elly's Golden Key.",
+      "protected_names": [
+        "Elly",
+        "Steward",
+        "Kiel Hyre",
+        "Kiel",
+        "Kiel",
+        "Kiel",
+        "Golden Key",
+        "Lighthalzen",
+        "kh_mansion"
+      ],
+      "locations": [
+        {
+          "map": "kh_mansion",
+          "x": 79,
+          "y": 83,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "kh_mansion 79,83"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Steward",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Steward"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Golden Key",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "condition": "Steward identification; minimum helper progress."
+        }
+      ]
+    },
+    "44": {
+      "original_instruction": "You will find Kiel Hyre senior and Allysia here. Talk to them, and answer the questions they have for you. You will receive roughly 700,000 Base Experience, and a Taming Gift Set , and Allysia will explain about the mechanical dolls.",
+      "instruction_sha256": "a88917437df4739fc1bebdce78bcfe136c23a55697077e60f7c6856412c3223a",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/a88917437df4739fc1be/1",
+      "goal": "receive_reward",
+      "short_ru": "Поговорите с Kiel Hyre и Allysia: примерно 700,000 Base Experience и Taming Gift Set.",
+      "short_en": "Talk to Kiel Hyre and Allysia: roughly 700,000 Base Experience and Taming Gift Set.",
+      "full_ru": "Внутри находятся Kiel Hyre старший и Allysia. Поговорите с ними и ответьте на вопросы. Вы получите примерно 700,000 Base Experience и Taming Gift Set; Allysia расскажет о механических куклах.",
+      "full_en": "You will find Kiel Hyre senior and Allysia here. Talk to them, and answer the questions they have for you. You will receive roughly 700,000 Base Experience, and a Taming Gift Set , and Allysia will explain about the mechanical dolls.",
+      "protected_names": [
+        "Allysia",
+        "Kiel Hyre",
+        "Kiel",
+        "Kiel",
+        "Kiel",
+        "Taming Gift Set"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Kiel Hyre",
+          "role": "talk"
+        },
+        {
+          "entity": "Allysia",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kiel Hyre"
+        },
+        {
+          "operation": "talk",
+          "entity": "Allysia"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "700000",
+          "condition": "Approximately, according to this step; not an exact measured amount."
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Taming Gift Set"
+        }
+      ]
+    },
+    "45": {
+      "original_instruction": "After you're finished talking with them, walk outside and you'll fall unconscious after being hit in the head.",
+      "instruction_sha256": "13b00780358d7243e9373ad170b45aaf4460e14c5b07da38f7b344d77fade7a7",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/13b00780358d7243e937/1",
+      "goal": "interact",
+      "short_ru": "Выйдите из особняка после разговоров.",
+      "short_en": "Leave the mansion after the conversations.",
+      "full_ru": "Завершив разговоры, выйдите наружу. Вас ударят по голове, и вы потеряете сознание.",
+      "full_en": "After you're finished talking with them, walk outside and you'll fall unconscious after being hit in the head.",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "46": {
+      "original_instruction": "Finding yourself in a tiny room, talk to the Mysterious Woman. Don't tell her anything, and she'll explain about Kiel's company and its ties to Rekenber. (You end up telling her everything anyway) After agreeing to help, she'll tell you her name is Mitchell.",
+      "instruction_sha256": "ee1f7ae64a3dd37c2fa0e556a4734f07dd0d98276725f8056305aace496710f1",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/ee1f7ae64a3dd37c2fa0/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Mysterious Woman и согласитесь помочь Mitchell.",
+      "short_en": "Talk to Mysterious Woman and agree to help Mitchell.",
+      "full_ru": "Оказавшись в маленькой комнате, поговорите с Mysterious Woman. Не сообщайте ничего: она расскажет о компании Kiel и её связи с Rekenber. В итоге вы всё равно расскажете всё. Согласившись помочь, вы узнаете её имя — Mitchell.",
+      "full_en": "Finding yourself in a tiny room, talk to the Mysterious Woman. Don't tell her anything, and she'll explain about Kiel's company and its ties to Rekenber. (You end up telling her everything anyway) After agreeing to help, she'll tell you her name is Mitchell.",
+      "protected_names": [
+        "Mitchell",
+        "Kiel",
+        "Kiel",
+        "Kiel"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Mitchell",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mitchell"
+        }
+      ]
+    },
+    "47": {
+      "original_instruction": "Talk to Mitchell again, and she asks you to go to Juno to investigate a woman who knew the real Allysia thirty years ago. Talk to her once more to take the airship to Juno.",
+      "instruction_sha256": "fabe6885a32c924ef447c06a1a35c554c463b4ca862019441b48951457bc6c58",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/fabe6885a32c924ef447/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Mitchell дважды и отправляйтесь в Juno.",
+      "short_en": "Talk to Mitchell twice and travel to Juno.",
+      "full_ru": "Снова поговорите с Mitchell. Она попросит в Juno найти женщину, знавшую настоящую Allysia тридцать лет назад. Поговорите ещё раз, чтобы отправиться воздушным кораблём в Juno.",
+      "full_en": "Talk to Mitchell again, and she asks you to go to Juno to investigate a woman who knew the real Allysia thirty years ago. Talk to her once more to take the airship to Juno.",
+      "protected_names": [
+        "Allysia",
+        "Mitchell",
+        "Juno"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Mitchell",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mitchell"
+        }
+      ]
+    },
+    "48": {
+      "original_instruction": "Find the two women, Odd Grandma and Old Lady to the southeast of the main forum (around 253,136). Talk to the Odd Grandma first, then the Old Lady to learn about the Grandma. The Old Lady then hands over the Rosimmer Mansion Keys .",
+      "instruction_sha256": "772ed5e85c39135c17012c1192bdcfd497c71b9d9387d5a4a37cac6b2308da94",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/772ed5e85c39135c1701/1",
+      "goal": "collect",
+      "short_ru": "У (253,136) поговорите сначала с Odd Grandma, затем с Old Lady; получите Rosimmer Mansion Keys.",
+      "short_en": "At (253,136), talk to Odd Grandma first, then Old Lady; receive Rosimmer Mansion Keys.",
+      "full_ru": "К юго-востоку от главной площади найдите Odd Grandma и Old Lady, примерно у (253,136). Сначала поговорите с Odd Grandma, затем с Old Lady о бабушке. Old Lady передаст Rosimmer Mansion Keys.",
+      "full_en": "Find the two women, Odd Grandma and Old Lady to the southeast of the main forum (around 253,136). Talk to the Odd Grandma first, then the Old Lady to learn about the Grandma. The Old Lady then hands over the Rosimmer Mansion Keys .",
+      "protected_names": [
+        "Odd Grandma",
+        "Old Lady",
+        "Rosimmer Mansion Keys"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Odd Grandma",
+          "role": "talk"
+        },
+        {
+          "entity": "Old Lady",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Odd Grandma"
+        },
+        {
+          "operation": "talk",
+          "entity": "Old Lady",
+          "condition": "After Odd Grandma."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Rosimmer Mansion Keys"
+        }
+      ]
+    },
+    "49": {
+      "original_instruction": "Head to the Rosimer Mansion near where the two women are standing, and go inside (270,139).",
+      "instruction_sha256": "84b48bed9bd13ed00695fefe62fd67a308d469dbac93569ac934b8b4ce7a5817",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/84b48bed9bd13ed00695/1",
+      "goal": "move",
+      "short_ru": "Войдите в Rosimer Mansion: (270,139).",
+      "short_en": "Enter Rosimer Mansion: (270,139).",
+      "full_ru": "Войдите в Rosimer Mansion неподалёку от женщин (270,139).",
+      "full_en": "Head to the Rosimer Mansion near where the two women are standing, and go inside (270,139).",
+      "protected_names": [
+        "Rosimer Mansion"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 270,
+          "y": 139,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "270,139"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "move"
+        }
+      ]
+    },
+    "50": {
+      "original_instruction": "Go upstairs and head south, then take a left. Take the top left portal out of the set of 6, and open the second drawer of the desk. You'll receive K.H's Letter . Check the bookshelf in the same room and find James's Note .",
+      "instruction_sha256": "4a25e06b6b61d9286a79a3bbba6047a2e76fe90cbd1f560fc8ddbc8db3548f46",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/4a25e06b6b61d9286a79/1",
+      "goal": "collect",
+      "short_ru": "Во втором ящике найдите K.H's Letter, на книжной полке — James's Note.",
+      "short_en": "Find K.H's Letter in the second drawer and James's Note on the bookshelf.",
+      "full_ru": "Поднимитесь наверх, идите на юг, затем налево. Из 6 порталов выберите верхний левый. Откройте второй ящик стола, чтобы получить K.H's Letter. В этой же комнате проверьте книжную полку и найдите James's Note.",
+      "full_en": "Go upstairs and head south, then take a left. Take the top left portal out of the set of 6, and open the second drawer of the desk. You'll receive K.H's Letter . Check the bookshelf in the same room and find James's Note .",
+      "protected_names": [
+        "K.H's Letter",
+        "James's Note"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "K.H's Letter",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        },
+        {
+          "entity": "James's Note",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ]
+    },
+    "51": {
+      "original_instruction": "Go downstairs again, and take the second portal from the stairs (not the one right under them). Check the Shelf near the portal, and use the Master Key on it to obtain a Woman's Portrait .",
+      "instruction_sha256": "81568112c581712f4af115a98e30d84d8e09e1e40dd76fa97d77206c1d8e5892",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/81568112c581712f4af1/1",
+      "goal": "collect",
+      "short_ru": "У Shelf примените Master Key и получите Woman's Portrait.",
+      "short_en": "At Shelf, use Master Key to obtain Woman's Portrait.",
+      "full_ru": "Спуститесь и войдите во второй портал от лестницы, не в портал прямо под ней. Осмотрите Shelf возле портала и примените Master Key, чтобы получить Woman's Portrait.",
+      "full_en": "Go downstairs again, and take the second portal from the stairs (not the one right under them). Check the Shelf near the portal, and use the Master Key on it to obtain a Woman's Portrait .",
+      "protected_names": [
+        "Woman's Portrait"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Woman's Portrait",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "master_key_identity_unresolved",
+          "detail": "The walkthrough says Master Key here, after granting Rosimmer Mansion Keys. No linked Master Key ID or proven alias is supplied."
+        }
+      ]
+    },
+    "52": {
+      "original_instruction": "Take the other portal in the room, and check the Table in the next room. You'll get the Family Portrait .",
+      "instruction_sha256": "43c49c3018e3df1b5c0cf2576a18c66a3df1166c042a553440d3c04b6520e3a1",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/43c49c3018e3df1b5c0c/1",
+      "goal": "collect",
+      "short_ru": "Осмотрите Table в следующей комнате и получите Family Portrait.",
+      "short_en": "Inspect Table in the next room to obtain Family Portrait.",
+      "full_ru": "Войдите в другой портал комнаты и осмотрите Table в следующей комнате. Вы получите Family Portrait.",
+      "full_en": "Take the other portal in the room, and check the Table in the next room. You'll get the Family Portrait .",
+      "protected_names": [
+        "Family Portrait"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Family Portrait",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ]
+    },
+    "53": {
+      "original_instruction": "Talk to the Old Lady, and she'll tell you to search for a fisherman south of the KH Academy.",
+      "instruction_sha256": "0120eb06eb3345ebc0f91bbc522468ec0749d0885d4bd97de188bb799be0742b",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/0120eb06eb3345ebc0f9/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Old Lady о рыбаке южнее KH Academy.",
+      "short_en": "Ask Old Lady about the fisherman south of KH Academy.",
+      "full_ru": "Поговорите с Old Lady: она отправит искать рыбака южнее KH Academy.",
+      "full_en": "Talk to the Old Lady, and she'll tell you to search for a fisherman south of the KH Academy.",
+      "protected_names": [
+        "Old Lady"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Old Lady",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Old Lady"
+        }
+      ]
+    },
+    "54": {
+      "original_instruction": "Head to one map south of the Academy, and find the fisherman at the southern tip of the map (232,224). Talk to him and he asks you to bring him 10 Raw Fish . Raw Fish is buyable in the Amatsu sushi shop (212, 116). | Note: Do not choose to give your assistance to the Sushi Master or you will not be able to buy more Raw Fish until you give him the items he asked for.",
+      "instruction_sha256": "c3854325edce7a35a8c2d049249ee6a5dbc87c6883509e10c9601808643fb618",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/c3854325edce7a35a8c2/1",
+      "goal": "bring",
+      "short_ru": "Принесите рыбаку (232,224) 10 Raw Fish; не берите поручение Sushi Master.",
+      "short_en": "Bring the fisherman at (232,224) 10 Raw Fish; do not accept the Sushi Master task.",
+      "full_ru": "На карте южнее Academy найдите рыбака у южного края (232,224). Он попросит 10 Raw Fish. Их можно купить в суши-магазине Amatsu (212, 116). Примечание: не соглашайтесь помогать Sushi Master, иначе покупка Raw Fish станет недоступна до передачи запрошенных им предметов.",
+      "full_en": "Head to one map south of the Academy, and find the fisherman at the southern tip of the map (232,224). Talk to him and he asks you to bring him 10 Raw Fish . Raw Fish is buyable in the Amatsu sushi shop (212, 116). | Note: Do not choose to give your assistance to the Sushi Master or you will not be able to buy more Raw Fish until you give him the items he asked for.",
+      "protected_names": [
+        "Sushi Master",
+        "Raw Fish",
+        "Amatsu"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 232,
+          "y": 224,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "232,224"
+        },
+        {
+          "map": null,
+          "x": 212,
+          "y": 116,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "212, 116"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Raw Fish",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "optional_sushi_task_blocks_shop",
+          "detail": "Accepting the Sushi Master assistance task blocks Raw Fish purchases until that separate task supplies are delivered."
+        }
+      ]
+    },
+    "55": {
+      "original_instruction": "After bringing him the fish, he tells you to visit Kiel's old hut.",
+      "instruction_sha256": "828d7b4a2da530f7fbeae7864f9a621d94a85ba152af35fb109036c865fa6921",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/828d7b4a2da530f7fbea/1",
+      "goal": "deliver",
+      "short_ru": "Передайте рыбаку 10 Raw Fish и узнайте о хижине.",
+      "short_en": "Give the fisherman 10 Raw Fish and learn about the hut.",
+      "full_ru": "Принесите рыбу: он направит к старой хижине Kiel.",
+      "full_en": "After bringing him the fish, he tells you to visit Kiel's old hut.",
+      "protected_names": [
+        "Kiel",
+        "Kiel",
+        "Kiel"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_mansion",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Raw Fish",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 54,
+          "evidence": "Head to one map south of the Academy, and find the fisherman at the southern tip of the map (232,224). Talk to him and he asks you to bring him 10 Raw Fish . Raw Fish is buyable in the Amatsu sushi shop (212, 116). | Note: Do not choose to give your assistance to the Sushi Master or you will not be able to buy more Raw Fish until you give him the items he asked for."
+        }
+      ]
+    },
+    "56": {
+      "original_instruction": "Go to (yuno_fild09 158,217) and click on the Wooden Board in the bushes outside the hut. You'll find the Man's Portrait .",
+      "instruction_sha256": "91e641d7aeb45a650814ecb02ad8515151f99c8eb6e1e37ac85cef03a6d3b3b6",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/91e641d7aeb45a650814/1",
+      "goal": "collect",
+      "short_ru": "Нажмите Wooden Board: yuno_fild09 158,217; получите Man's Portrait.",
+      "short_en": "Click Wooden Board: yuno_fild09 158,217; obtain Man's Portrait.",
+      "full_ru": "Идите к (yuno_fild09 158,217) и нажмите Wooden Board в кустах снаружи хижины, чтобы найти Man's Portrait.",
+      "full_en": "Go to (yuno_fild09 158,217) and click on the Wooden Board in the bushes outside the hut. You'll find the Man's Portrait .",
+      "protected_names": [
+        "Wooden Board",
+        "Man's Portrait",
+        "yuno",
+        "yuno_fild09"
+      ],
+      "locations": [
+        {
+          "map": "yuno_fild09",
+          "x": 158,
+          "y": 217,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_fild09 158,217"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Wooden Board",
+          "role": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Man's Portrait",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ]
+    },
+    "57": {
+      "original_instruction": "Head back to Mitchell (kh_mansion 20,87) by going back to the mansion in Lighthalzen, and tell her what you found. She sends you to talk with Kiel.",
+      "instruction_sha256": "b315da3e39ad6b53ca6b91bad8e47ea84363f7e27e4afc66e23ca1f08427dcf7",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/b315da3e39ad6b53ca6b/1",
+      "goal": "talk",
+      "short_ru": "Доложите Mitchell: kh_mansion 20,87.",
+      "short_en": "Report to Mitchell: kh_mansion 20,87.",
+      "full_ru": "Вернитесь в особняк Lighthalzen к Mitchell (kh_mansion 20,87) и сообщите о находках. Она отправит поговорить с Kiel.",
+      "full_en": "Head back to Mitchell (kh_mansion 20,87) by going back to the mansion in Lighthalzen, and tell her what you found. She sends you to talk with Kiel.",
+      "protected_names": [
+        "Mitchell",
+        "Kiel",
+        "Kiel",
+        "Kiel",
+        "Lighthalzen",
+        "kh_mansion"
+      ],
+      "locations": [
+        {
+          "map": "kh_mansion",
+          "x": 20,
+          "y": 87,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "kh_mansion 20,87"
+        }
+      ],
+      "mention_entities": {
+        "Kiel": "kiel_mansion",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Mitchell",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mitchell"
+        }
+      ]
+    },
+    "58": {
+      "original_instruction": "Talk to Kiel, and he tells you the whole story. He then asks for your help to stop his \"son\" and opens a portal for you to enter. | Note: If you need help with this quest and are bringing party members along, they need to have reached at least step 43 (show the Golden Key to the Steward) and it doesn't matter if they have finished the quest earlier in order to follow you in.",
+      "instruction_sha256": "9de3f389f62025d0b0d45bc23ef17597a7ca9c7794f389b98be776980b7764df",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/9de3f389f62025d0b0d4/1",
+      "goal": "party_entry",
+      "short_ru": "Поговорите с Kiel; помощникам нужен минимум этап 43 с Golden Key у Steward.",
+      "short_en": "Talk to Kiel; helpers need at least step 43, showing Golden Key to Steward.",
+      "full_ru": "Поговорите с Kiel: он расскажет всю историю, попросит помочь остановить своего «сына» и откроет портал. Примечание: помощники в группе должны дойти минимум до этапа 43, где Golden Key показывают Steward. Уже завершившие квест также могут пройти с вами.",
+      "full_en": "Talk to Kiel, and he tells you the whole story. He then asks for your help to stop his \"son\" and opens a portal for you to enter. | Note: If you need help with this quest and are bringing party members along, they need to have reached at least step 43 (show the Golden Key to the Steward) and it doesn't matter if they have finished the quest earlier in order to follow you in.",
+      "protected_names": [
+        "Steward",
+        "Kiel",
+        "Kiel",
+        "Kiel",
+        "Golden Key"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_mansion",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "kiel_mansion",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "kiel_mansion"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "helper_minimum_source_step",
+          "amount": "43",
+          "condition": "Helpers must have shown Golden Key to Steward; already completed players may also help."
+        }
+      ]
+    },
+    "59": {
+      "original_instruction": "Enter the portal and you'll enter the first room.",
+      "instruction_sha256": "85e4cd8db26544aafbbf0a6a0cde2e04492078cc4bb4b233b5522fcaec5ece53",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/85e4cd8db26544aafbbf/1",
+      "goal": "move",
+      "short_ru": "Войдите в портал в первую комнату.",
+      "short_en": "Enter the portal to the first room.",
+      "full_ru": "Войдите в портал, чтобы попасть в первую комнату.",
+      "full_en": "Enter the portal and you'll enter the first room.",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "move"
+        }
+      ]
+    },
+    "60": {
+      "original_instruction": "Click on the Receiver next to the bed. This will summon an Alicel and Aliot. After the summoned monsters are dead, a Black Keycard will drop from the receiver. You will need one Black Keycard now, and three more later. It may be easier to obtain four Black Keycards now because it’s harder to obtain later on. | Note: Only one person should activate the Receiver at any time, because the key only spawns when every monster in the room dies regardless of number summoned. Black Keycards are not transferrable. Anybody who picks it up is stuck with it, so make sure the correct person gets it.",
+      "instruction_sha256": "e9e07459c0dd45d6ce3951ff0be654e5ae6ad28e0587901ca80e2cb3b29c10bc",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/e9e07459c0dd45d6ce39/1",
+      "goal": "repeat_collect",
+      "short_ru": "Соберите одну Black Keycard у Receiver; ещё три можно взять заранее.",
+      "short_en": "Collect one Black Keycard at Receiver; optionally collect three more now.",
+      "full_ru": "Нажмите Receiver возле кровати: появятся Alicel и Aliot. Когда призванные монстры погибнут, Receiver уронит Black Keycard. Сейчас нужна одна Black Keycard, позже ещё три; проще заранее собрать четыре Black Keycards. Примечание: Receiver должен активировать только один игрок за раз. Карта появляется только после гибели всех монстров в комнате независимо от числа призванных. Black Keycards нельзя передавать: подбирать их должен нужный персонаж.",
+      "full_en": "Click on the Receiver next to the bed. This will summon an Alicel and Aliot. After the summoned monsters are dead, a Black Keycard will drop from the receiver. You will need one Black Keycard now, and three more later. It may be easier to obtain four Black Keycards now because it’s harder to obtain later on. | Note: Only one person should activate the Receiver at any time, because the key only spawns when every monster in the room dies regardless of number summoned. Black Keycards are not transferrable. Anybody who picks it up is stuck with it, so make sure the correct person gets it.",
+      "protected_names": [
+        "Receiver",
+        "Aliot",
+        "Alicel",
+        "Keycard",
+        "Black Keycard"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Receiver",
+          "condition": "One player activates at a time."
+        },
+        {
+          "operation": "kill",
+          "condition": "Every monster in the room."
+        },
+        {
+          "operation": "collect",
+          "entity": "Black Keycard",
+          "condition": "Correct character must pick up the nontransferable card."
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Receiver",
+          "role": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Black Keycard",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One needed now; intended character must pick up the nontransferable card."
+        },
+        {
+          "entity": "Black Keycard",
+          "quantity": 3,
+          "operation": "collect",
+          "required": 0,
+          "condition": "Optional advance collection for later doors; not three additional cards per activation."
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Alicel",
+          "operation": "kill",
+          "quantity": 1,
+          "required": 1,
+          "condition": "Per activation; every monster in the room must die before one card drops."
+        },
+        {
+          "entity": "Aliot",
+          "operation": "kill",
+          "quantity": 1,
+          "required": 1,
+          "condition": "Per activation; every monster in the room must die before one card drops."
+        }
+      ]
+    },
+    "61": {
+      "original_instruction": "Click on the vase next to the bed, and when prompted, read the message on the bottom (by turning it upside down).",
+      "instruction_sha256": "aa63bd94b2af8d1c20e92ea2d77d8e415dcbf67d1e4186811f59dfa71c67317e",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/aa63bd94b2af8d1c20e9/1",
+      "goal": "interact",
+      "short_ru": "Прочитайте сообщение на дне вазы возле кровати.",
+      "short_en": "Read the message on the bottom of the vase beside the bed.",
+      "full_ru": "Нажмите вазу рядом с кроватью. Переверните её и прочитайте сообщение снизу.",
+      "full_en": "Click on the vase next to the bed, and when prompted, read the message on the bottom (by turning it upside down).",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ]
+    },
+    "62": {
+      "original_instruction": "Open the chest at the bottom of the room. The password to open it is \" open the door \". You will receive a Toy Key .",
+      "instruction_sha256": "8925ae818f06824b3c26ee396868bf0ceee8957957ba2593e2bab202a9c2003f",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/8925ae818f06824b3c26/1",
+      "goal": "type_answer",
+      "short_ru": "У сундука введите « open the door » и получите Toy Key.",
+      "short_en": "At the chest, enter “ open the door ” to obtain Toy Key.",
+      "full_ru": "Откройте сундук внизу комнаты. Пароль в источнике записан как « open the door ». Вы получите Toy Key.",
+      "full_en": "Open the chest at the bottom of the room. The password to open it is \" open the door \". You will receive a Toy Key .",
+      "protected_names": [
+        "Toy Key"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": " open the door ",
+              "correct": 1,
+              "operation": "type"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Toy Key"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "password_whitespace_unverified",
+          "detail": "Source puts spaces inside the quotes around open the door. Preserve that literal string; whether the game expects those spaces remains unverified."
+        }
+      ]
+    },
+    "63": {
+      "original_instruction": "Open the door at the end of the room and make your way to the next room. If the door doesn't open, make sure all the monsters are dead before proceeding, and that you have the required keys.",
+      "instruction_sha256": "76b2ae81a696faf6b16b910642ce08d4e4c21ed0d6b252708e3827ebdc6d3013",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/76b2ae81a696faf6b16b/1",
+      "goal": "enter",
+      "short_ru": "Откройте дверь после убийства всех монстров; проверьте ключи.",
+      "short_en": "Open the door after killing all monsters; check the required keys.",
+      "full_ru": "Откройте дверь в конце комнаты и перейдите дальше. Если дверь не открывается, проверьте, что все монстры убиты и нужные ключи у вас.",
+      "full_en": "Open the door at the end of the room and make your way to the next room. If the door doesn't open, make sure all the monsters are dead before proceeding, and that you have the required keys.",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "room_clear",
+          "condition": "All monsters dead and required keys held; source does not state which key is consumed at this door."
+        }
+      ]
+    },
+    "64": {
+      "original_instruction": "On the way through between rooms, you'll encounter a small number of monsters. In the room, you can open this door by using the Toy Key .",
+      "instruction_sha256": "97b3f44c885c8b75e597c6c67ebd85a0dc16c92631afcedb52988b351cdb3a80",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/97b3f44c885c8b75e597/1",
+      "goal": "use_item",
+      "short_ru": "Откройте следующую дверь с помощью Toy Key.",
+      "short_en": "Open the next door using Toy Key.",
+      "full_ru": "Между комнатами встретится немного монстров. Дверь в следующей комнате откройте с помощью Toy Key.",
+      "full_en": "On the way through between rooms, you'll encounter a small number of monsters. In the room, you can open this door by using the Toy Key .",
+      "protected_names": [
+        "Toy Key"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Toy Key",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1
+        }
+      ]
+    },
+    "65": {
+      "original_instruction": "Follow the path to the third room. Open this door using the Black Keycard .",
+      "instruction_sha256": "427c4eb190bb7c0731cc68fc4d236d8e3a2c51b21690357a6f82462756f42a38",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/427c4eb190bb7c0731cc/1",
+      "goal": "use_item",
+      "short_ru": "Откройте дверь третьей комнаты с помощью Black Keycard.",
+      "short_en": "Open the third-room door with Black Keycard.",
+      "full_ru": "Следуйте в третью комнату и откройте дверь с помощью Black Keycard.",
+      "full_en": "Follow the path to the third room. Open this door using the Black Keycard .",
+      "protected_names": [
+        "Keycard",
+        "Black Keycard"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Black Keycard",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1
+        }
+      ]
+    },
+    "66": {
+      "original_instruction": "Make your way to the fourth room. You will need two Black Keycards to open this door. At the left side of the room there will be test tubes that can be used to spawn monsters. Killing them will reveal a Black Keycard if it’s needed.",
+      "instruction_sha256": "54b8f6f2c5a9302f0d596ed66afcecc24372df1bd43732d4f3e4ad1a8f848f76",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/54b8f6f2c5a9302f0d59/1",
+      "goal": "use_item",
+      "short_ru": "Для двери четвёртой комнаты нужны две Black Keycards; дополнительные карты добываются у пробирок.",
+      "short_en": "The fourth-room door needs two Black Keycards; obtain extra cards at the test tubes.",
+      "full_ru": "Идите в четвёртую комнату. Для двери нужны две Black Keycards. Пробирки слева позволяют призвать монстров; при необходимости убейте их, чтобы получить Black Keycard.",
+      "full_en": "Make your way to the fourth room. You will need two Black Keycards to open this door. At the left side of the room there will be test tubes that can be used to spawn monsters. Killing them will reveal a Black Keycard if it’s needed.",
+      "protected_names": [
+        "Keycard",
+        "Black Keycard"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Black Keycard",
+          "quantity": 2,
+          "operation": "use",
+          "required": 1,
+          "condition": "Fourth-room door; additional cards may be obtained from tube-spawned monsters."
+        }
+      ]
+    },
+    "67": {
+      "original_instruction": "Make your way to the fifth and final room. There will be more monsters here than there were previously. | Note: At this point, NPC dialog should be initiated by only one player. Once Kiehl is defeated, and the first player has received Ellisia's ring can the others talk to him. It may be required for other players to repeat this portion of the quest with them initiating it. Remember that even if you've completed the quest, you will be able to return later and assist others if needed. Only those actively participating in completing the quest can open the portal to the Toy Room.",
+      "instruction_sha256": "b50da56e8faeb12b42fb654171c4ddbc69dabcce048573b9ecc1989cd98e3c07",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/b50da56e8faeb12b42fb/1",
+      "goal": "party_sequence",
+      "short_ru": "В последней комнате диалог начинает один игрок; остальные ждут поражения Kiehl и получения Ellisia's ring.",
+      "short_en": "In the final room, one player starts dialogue; others wait until Kiehl is defeated and Ellisia's ring is received.",
+      "full_ru": "Идите в пятую, последнюю комнату: монстров здесь больше. Примечание: диалог NPC начинает только один игрок. Остальные могут говорить с Kiehl лишь после его поражения и получения первым игроком Ellisia's ring. Возможно, другим участникам придётся повторить эту часть, начав диалог самостоятельно. Завершившие квест могут возвращаться помогать. Открыть портал в Toy Room могут только игроки, которые сейчас проходят квест.",
+      "full_en": "Make your way to the fifth and final room. There will be more monsters here than there were previously. | Note: At this point, NPC dialog should be initiated by only one player. Once Kiehl is defeated, and the first player has received Ellisia's ring can the others talk to him. It may be required for other players to repeat this portion of the quest with them initiating it. Remember that even if you've completed the quest, you will be able to return later and assist others if needed. Only those actively participating in completing the quest can open the portal to the Toy Room.",
+      "protected_names": [
+        "Kiehl",
+        "Kiehl",
+        "Ellisia's ring"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_boss"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "dialogue_initiators",
+          "amount": "1",
+          "condition": "Only one initiator until Kiehl is defeated and the first player has the ring."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "ring_name_conflict",
+          "detail": "This note spells Ellisia's ring; step 74 spells Allysia's Ring. No unsupported item ID or automatic alias is assigned."
+        }
+      ]
+    },
+    "68": {
+      "original_instruction": "You'll need to try three times to force the door here open. Each time, two Aliots, and 2 Alicel will attack you. You'll need to kill the monsters before making another attempt on the door.",
+      "instruction_sha256": "8f3d240027afc148c09837753ca65f1b002df902a545f49f8d5fa65524c03fbd",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/8f3d240027afc148c098/1",
+      "goal": "repeat_combat",
+      "short_ru": "Трижды открывайте дверь; после каждой попытки убейте два Aliots и 2 Alicel.",
+      "short_en": "Force the door three times; after each attempt kill two Aliots and 2 Alicel.",
+      "full_ru": "Попробуйте силой открыть дверь три раза. При каждой попытке нападут два Aliots и 2 Alicel. Убейте их перед следующей попыткой.",
+      "full_en": "You'll need to try three times to force the door here open. Each time, two Aliots, and 2 Alicel will attack you. You'll need to kill the monsters before making another attempt on the door.",
+      "protected_names": [
+        "Aliot",
+        "Alicel"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "door_attempts",
+          "amount": "3"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Aliot",
+          "operation": "kill",
+          "quantity": 2,
+          "required": 1,
+          "condition": "Per attempt; three door attempts. Do not treat this as two monsters for the entire stage."
+        },
+        {
+          "entity": "Alicel",
+          "operation": "kill",
+          "quantity": 2,
+          "required": 1,
+          "condition": "Per attempt; three door attempts. Do not treat this as two monsters for the entire stage."
+        }
+      ]
+    },
+    "69": {
+      "original_instruction": "Once the door is slightly open you'll need to pry it open further to pass. You'll need to make four attempts before you will be able to enter, and each time you'll need to use some kind of metal fragment. Solid Iron Piece is probably the best to use for this. If you do not have 4 Solid Iron Pieces, backtrack a little and kill the monsters here until you get them.",
+      "instruction_sha256": "20175e94c3dbc4bc3dde09f86253a94f7726f813b551929666d74a9e971f06b5",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/20175e94c3dbc4bc3dde/1",
+      "goal": "use_items",
+      "short_ru": "Расширьте проход за четыре попытки; предпочтительный материал — 4 Solid Iron Pieces.",
+      "short_en": "Pry the passage open in four attempts; the preferred material is 4 Solid Iron Pieces.",
+      "full_ru": "Приоткрыв дверь, расширьте проход. Нужно четыре попытки, каждая требует металлической детали. Предпочтительно использовать Solid Iron Piece. Если у вас нет 4 Solid Iron Pieces, немного отступите и добывайте их с местных монстров.",
+      "full_en": "Once the door is slightly open you'll need to pry it open further to pass. You'll need to make four attempts before you will be able to enter, and each time you'll need to use some kind of metal fragment. Solid Iron Piece is probably the best to use for this. If you do not have 4 Solid Iron Pieces, backtrack a little and kill the monsters here until you get them.",
+      "protected_names": [
+        "Solid Iron Piece"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Solid Iron Piece",
+          "quantity": 4,
+          "operation": "use",
+          "required": 0,
+          "condition": "Recommended material across four attempts. Guide permits another metal fragment; header lists this specific material."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "pry_attempts",
+          "amount": "4",
+          "condition": "A suitable metal fragment is used on each attempt."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "material_substitution_conflict",
+          "detail": "Header lists 4 Solid Iron Piece as consumed; walkthrough describes them as preferred among metal fragments. Do not silently equate them to the earlier quest item Metal Fragment."
+        }
+      ]
+    },
+    "70": {
+      "original_instruction": "Once the door is pried open, anyone you want to assist you in the coming battle will need to enter before you do. Once you enter the portal, the door will close and no one else will be able to enter until you are finished. | Note: This area has a time limit. After roughly 10 minutes you will be warped out. If you leave and return the quest will continue from roughly the same point for the person who opened the door.",
+      "instruction_sha256": "55bd57616b96cae47375453d5d2cb81b965ebc1299dc6f2bf811e1cc27a0552d",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/55bd57616b96cae47375/1",
+      "goal": "party_entry",
+      "short_ru": "Сначала пропустите помощников, войдите последним; лимит зоны — примерно 10 минут.",
+      "short_en": "Let helpers enter first and enter last; the area limit is roughly 10 minutes.",
+      "full_ru": "Когда дверь открыта, сначала должны войти все помощники, а вы — последним. После вашего входа дверь закроется до окончания боя. Примечание: примерно через 10 минут вас выведет из зоны. Если уйти и вернуться, квест продолжится примерно с прежнего места для открывшего дверь.",
+      "full_en": "Once the door is pried open, anyone you want to assist you in the coming battle will need to enter before you do. Once you enter the portal, the door will close and no one else will be able to enter until you are finished. | Note: This area has a time limit. After roughly 10 minutes you will be warped out. If you leave and return the quest will continue from roughly the same point for the person who opened the door.",
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "enter",
+          "condition": "Helpers enter first; initiating player enters last and closes the door."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "approximate_time_limit_minutes",
+          "amount": "10",
+          "condition": "Approximate timeout; helpers enter before the initiating player."
+        }
+      ]
+    },
+    "71": {
+      "original_instruction": "When you enter the room a large number of monsters will spawn within a few seconds. Dispatch these and make your way to the center of the room. | Note: If at any time from this step onwards your party is wiped out, you'll need 3 Black Keycards again to open all the doors you went through earlier, and all previous monsters will respawn. However, the monsters in Steps 68-69 will not respawn unless another person initiates the quest and you do not need any additional Solid Iron Pieces.",
+      "instruction_sha256": "7e6b500d8251f0a6f4f06933c2c4d1df5c0d246c484516289a59261197506c13",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/7e6b500d8251f0a6f4f0/1",
+      "goal": "combat",
+      "short_ru": "Убейте появившихся монстров; после поражения группы нужны 3 Black Keycards, без дополнительных Solid Iron Pieces.",
+      "short_en": "Kill the spawned monsters; after a party wipe, bring 3 Black Keycards without additional Solid Iron Pieces.",
+      "full_ru": "Через несколько секунд после входа появится много монстров. Убейте их и идите в центр. Примечание: если с этого этапа группа полностью погибнет, для повторного открытия дверей потребуются 3 Black Keycards, а прежние монстры возродятся. Однако монстры этапов 68–69 не появятся снова, пока другой персонаж не начнёт квест; дополнительные Solid Iron Pieces не нужны.",
+      "full_en": "When you enter the room a large number of monsters will spawn within a few seconds. Dispatch these and make your way to the center of the room. | Note: If at any time from this step onwards your party is wiped out, you'll need 3 Black Keycards again to open all the doors you went through earlier, and all previous monsters will respawn. However, the monsters in Steps 68-69 will not respawn unless another person initiates the quest and you do not need any additional Solid Iron Pieces.",
+      "protected_names": [
+        "Keycard",
+        "Black Keycard",
+        "Solid Iron Piece"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "actions": [
+        {
+          "operation": "kill",
+          "condition": "Initial room monsters; source does not give a count."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Black Keycard",
+          "quantity": 3,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Only after a party wipe from this stage onward; reopening previous doors. No additional Solid Iron Pieces for the same initiator."
+        }
+      ]
+    },
+    "72": {
+      "original_instruction": "Upon talking to Kiehl, he will summon more monsters (including the weak constants). After killing these, Kiehl will return.",
+      "instruction_sha256": "38d32c470c9ae88f8c7aa109f046b3beca76a1b946046affa2e920968f3a03f1",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/38d32c470c9ae88f8c7a/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Kiehl и убейте призванных монстров.",
+      "short_en": "Talk to Kiehl and kill the summoned monsters.",
+      "full_ru": "Поговорите с Kiehl: он призовёт ещё монстров, включая слабых constants. После их гибели Kiehl вернётся.",
+      "full_en": "Upon talking to Kiehl, he will summon more monsters (including the weak constants). After killing these, Kiehl will return.",
+      "protected_names": [
+        "Kiehl",
+        "Kiehl"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "kiehl_npc",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "kiehl_npc"
+        },
+        {
+          "operation": "kill",
+          "condition": "Summoned monsters, including weak constants; identities/counts are not source-linked."
+        }
+      ]
+    },
+    "73": {
+      "original_instruction": "Talk to Kiehl again. After a brief conversation, Kiehl will attack you. You must defeat Kiehl to continue.",
+      "instruction_sha256": "24b1b9ab4a8dccb594f01a0f44a77426101200f58e5005b691879eeccfb2cfb8",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/24b1b9ab4a8dccb594f0/1",
+      "goal": "kill",
+      "short_ru": "Поговорите с Kiehl и победите Kiehl.",
+      "short_en": "Talk to Kiehl and defeat Kiehl.",
+      "full_ru": "Снова поговорите с Kiehl. После короткого разговора Kiehl нападёт: для продолжения победите Kiehl.",
+      "full_en": "Talk to Kiehl again. After a brief conversation, Kiehl will attack you. You must defeat Kiehl to continue.",
+      "protected_names": [
+        "Kiehl",
+        "Kiehl"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "kiehl_npc",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "kiehl_npc"
+        },
+        {
+          "operation": "kill",
+          "entity": "kiehl_boss"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "kiehl_boss",
+          "operation": "kill",
+          "quantity": 1,
+          "required": 1
+        }
+      ],
+      "mention_overrides": [
+        {
+          "field": "full_ru",
+          "surface": "Kiehl",
+          "occurrence": 2,
+          "entity": "kiehl_boss"
+        },
+        {
+          "field": "full_ru",
+          "surface": "Kiehl",
+          "occurrence": 3,
+          "entity": "kiehl_boss"
+        },
+        {
+          "field": "full_en",
+          "surface": "Kiehl",
+          "occurrence": 2,
+          "entity": "kiehl_boss"
+        },
+        {
+          "field": "full_en",
+          "surface": "Kiehl",
+          "occurrence": 3,
+          "entity": "kiehl_boss"
+        },
+        {
+          "field": "short_ru",
+          "surface": "Kiehl",
+          "occurrence": 2,
+          "entity": "kiehl_boss"
+        },
+        {
+          "field": "short_en",
+          "surface": "Kiehl",
+          "occurrence": 2,
+          "entity": "kiehl_boss"
+        }
+      ]
+    },
+    "74": {
+      "original_instruction": "After defeating Kiehl, talk to him again. He will explain his plan. In the end he will hand over Allysia's Ring. A portal will appear behind him, and you can use this to leave the room (If you didn't get the ring, talk to Kiehl again before exiting the room). At this point, the other members of the party who have not also completed the quest will find Allysia's Ring when they leave the portal.",
+      "instruction_sha256": "ee836ad970bf5978df3ec91860c20038fb8250ec9746bd65180d795e81b4aff9",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/ee836ad970bf5978df3e/1",
+      "goal": "collect",
+      "short_ru": "Получите Allysia's Ring у Kiehl до выхода через портал.",
+      "short_en": "Obtain Allysia's Ring from Kiehl before leaving through the portal.",
+      "full_ru": "Победив Kiehl, снова поговорите с ним. Он объяснит план и выдаст Allysia's Ring. Позади появится портал для выхода. Если кольцо не получено, до выхода поговорите с Kiehl ещё раз. Остальные участники группы, ещё не завершившие квест, найдут Allysia's Ring при выходе через портал.",
+      "full_en": "After defeating Kiehl, talk to him again. He will explain his plan. In the end he will hand over Allysia's Ring. A portal will appear behind him, and you can use this to leave the room (If you didn't get the ring, talk to Kiehl again before exiting the room). At this point, the other members of the party who have not also completed the quest will find Allysia's Ring when they leave the portal.",
+      "protected_names": [
+        "Allysia",
+        "Kiehl",
+        "Kiehl",
+        "Allysia's Ring"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "kiehl_npc",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "kiehl_npc"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Allysia's Ring",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Initiator must obtain it before exiting; unfinished party members receive it at portal exit."
+        }
+      ],
+      "mention_overrides": [
+        {
+          "field": "full_ru",
+          "surface": "Kiehl",
+          "occurrence": 1,
+          "entity": "kiehl_boss"
+        },
+        {
+          "field": "full_en",
+          "surface": "Kiehl",
+          "occurrence": 1,
+          "entity": "kiehl_boss"
+        }
+      ]
+    },
+    "75": {
+      "original_instruction": "Bring the ring to Kiel Hyre. He will recommend you look for Kiehl in the second level of the factory dungeon. He will give you experience, an Old Card Album , and a Keycard to gain access to the second level . At this point the quest is complete, and you can choose to find and battle Kiel-D-01 now if you wish.",
+      "instruction_sha256": "4b1da398706d82e874ba28049406fe86be653a17060f06b6bd7b09e0572852c9",
+      "step_id": "irowiki-classic:Kiel_Hyre_Quest/step/4b1da398706d82e874ba/1",
+      "goal": "complete",
+      "short_ru": "Отнесите Allysia's Ring Kiel Hyre; получите Old Card Album, Keycard и доступ на второй уровень.",
+      "short_en": "Bring Allysia's Ring to Kiel Hyre; receive Old Card Album, Keycard and second-level access.",
+      "full_ru": "Отнесите кольцо Kiel Hyre. Он посоветует искать Kiehl на втором уровне подземелья фабрики и выдаст опыт, Old Card Album и Keycard для доступа на второй уровень. Квест завершён; при желании теперь можно найти Kiel-D-01 и сразиться с ним.",
+      "full_en": "Bring the ring to Kiel Hyre. He will recommend you look for Kiehl in the second level of the factory dungeon. He will give you experience, an Old Card Album , and a Keycard to gain access to the second level . At this point the quest is complete, and you can choose to find and battle Kiel-D-01 now if you wish.",
+      "protected_names": [
+        "Kiel Hyre",
+        "Kiel",
+        "Kiel",
+        "Kiel",
+        "Kiehl",
+        "Kiehl",
+        "Kiel-D-01",
+        "Old Card Album",
+        "Keycard"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Kiel": "kiel_uncertain",
+        "Kiehl": "kiehl_npc"
+      },
+      "npcs": [
+        {
+          "entity": "Kiel Hyre",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kiel Hyre"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Allysia's Ring",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 74,
+          "evidence": "After defeating Kiehl, talk to him again. He will explain his plan. In the end he will hand over Allysia's Ring. A portal will appear behind him, and you can use this to leave the room (If you didn't get the ring, talk to Kiehl again before exiting the room). At this point, the other members of the party who have not also completed the quest will find Allysia's Ring when they leave the portal."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "condition": "Amount unspecified at this final step; do not derive an exact remainder from an approximate earlier grant."
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Card Album"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Keycard"
+        },
+        {
+          "kind": "access",
+          "condition": "Second factory dungeon level after returning the ring."
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Kiel-D-01",
+          "operation": "mention",
+          "required": 0,
+          "condition": "Optional later fight after quest completion; not the mandatory Kiehl encounter."
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "kiel_identity_variants",
+      "detail": "Kiel at the restricted door, Kiel in the mansion, and uncertain narrative Kiel mentions retain separate identities. Kiehl dialogue and combat references are typed separately; optional Kiel-D-01 is not the mandatory encounter."
+    },
+    {
+      "reason": "source_reward_precision",
+      "detail": "Header total is 1700000, step 44 is roughly 700000, and step 75 omits its amount. No exact 1000000 final installment is invented."
+    },
+    {
+      "reason": "source_only_mechanics",
+      "detail": "Party ordering, timeout, nontransferable cards and restart costs are wiki assertions; no server/gameplay verification was performed."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "7",
+        "source_section": "requirements",
+        "evidence": "7 Milk",
+        "entity": "Milk",
+        "condition": "Quest header total; do not add it to matching stage deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Cacao",
+        "entity": "Cacao",
+        "condition": "Quest header total; do not add it to matching stage deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "2",
+        "source_section": "requirements",
+        "evidence": "2 Cheese",
+        "entity": "Cheese",
+        "condition": "Quest header total; do not add it to matching stage deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "source_section": "requirements",
+        "evidence": "10 Raw Fish",
+        "entity": "Raw Fish",
+        "condition": "Quest header total; do not add it to matching stage deliveries."
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "base_exp_total",
+        "amount": "1700000",
+        "source_section": "rewards",
+        "evidence": "Base Experience: 1,700,000",
+        "condition": "Header total, not an extra reward. First installment is approximate and the final amount is unspecified."
+      }
+    ]
+  }
+}

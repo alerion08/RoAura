@@ -8,21 +8,21 @@ Authoritative database-phase specification: `research/quest-database/SEMANTIC_DA
 
 ### Database implementation checkpoint — 2026-11-01
 
-Branch `research/quest-database`: normalized semantic SQLite schema 2 and
+Branch `research/quest-database`: normalized semantic SQLite schema 3 and
 source-pinned curation are implemented. Active selection retains 217 catalog
 candidates / 2,753 original rows; 59 historical events are excluded, 10 ambiguous
-records quarantined. All four RU/EN fields exist for 166 steps in 17 curated
-guides and 7 conditional branches; **2,587 steps / 200 remaining catalog entries
-still need processing**. Biolabs alternate puzzle is correctly attached to
-step 16 with a lossless partition of the original mixed step 22. Veins, Nameless
-Island and Thor chains now distinguish conditional costs, combat, reward
-alternatives, source scope and repeatable access from one-time quests.
-Local validation: 94 regression tests, full offline rebuild and research CI
+records quarantined. All four RU/EN fields exist for 255 steps in 19 curated
+guides and 10 conditional branches; **2,498 steps / 198 remaining catalog entries
+still need processing**. Kiel Hyre (75 steps) includes the previously omitted
+sword solution via a pinned HTML addition. Curse of Gaebolg (14 original steps)
+separates its three final routes and the order-dependent loss of EXP. Initial,
+optional and retry materials remain distinct; unknown reward amounts remain NULL.
+Local validation: 103 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
-for commands, known conflicts and next chains (Kiel Hyre / Curse of Gaebolg).
-Application integration remains deferred. Continue database work without
-reconstructing this checkpoint from chats.
+for commands, known conflicts and the remaining workload. Application integration
+remains deferred. Continue database work without reconstructing this checkpoint
+from chats.
 
 ## Release correction: 3.1.1 (2026-10-29)
 

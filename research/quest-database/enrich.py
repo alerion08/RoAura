@@ -64,8 +64,8 @@ def parse_guide(raw):
     section=""
     # MediaWiki quest templates often wrap the entire guide inside a table cell.
     # Descend through tables while skipping duplicate nested list descendants.
-    for child in root.find_all(["h2","h3","h4","p","ol","ul"]):
-        if child.name=="p" and child.find_parent(["ol","ul","li"]):continue
+    for child in root.find_all(["h2","h3","h4","p","pre","ol","ul"]):
+        if child.name in ("p","pre") and child.find_parent(["ol","ul","li"]):continue
         if child.name in ("ol","ul") and child.find_parent(["ol","ul","li"]):continue
         if child.name in ("h2","h3","h4"):
             section = clean(child.get_text(" ",strip=True))
@@ -77,7 +77,7 @@ def parse_guide(raw):
                     order.append(('numbered',len(numbered)))
                     numbered.append(GuideStep(section,value,None,"ordered_list"))
             continue
-        if child.name=="p":
+        if child.name in ("p","pre"):
             value=clean(child.get_text(" ",strip=True))
             if not value:continue
             m=STEP_START.match(value)

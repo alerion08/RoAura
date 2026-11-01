@@ -14,11 +14,11 @@ that an event is permanently retired. The active catalog still contains
 reference pages and unreviewed candidates; 217 is not a count of independently
 verified permanent quests.
 
-The normalized `output/quest_semantic.sqlite` uses semantic schema **2** and
-generator **semantic-2.0.0**. All four description fields are populated for
-**166 steps across 17 curated guides**, up from the previous 12-guide/76-step
-checkpoint. **7 conditional branches** also have independent RU/EN short and
-full descriptions. **2,587 steps in 200 remaining catalog entries still lack
+The normalized `output/quest_semantic.sqlite` uses semantic schema **3** and
+generator **semantic-3.0.0**. All four description fields are populated for
+**255 steps across 19 curated guides**, up from the previous 17-guide/166-step
+checkpoint. **10 conditional branches** also have independent RU/EN short and
+full descriptions. **2,498 steps in 198 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -40,6 +40,8 @@ complete localization/context analysis.** `complete` remains false.
 | Nameless Island Entrance Quest | 20 | House-only death penalty exception; prerequisite gate; EXP installments |
 | Thor Volcano Base Quest | 22 | Literal oath; five mutually exclusive item rewards; unknown quiver quantities |
 | Thor Volcano Level 2 Access Quest | 6 | Optional iRO/premium shortcut; reusable warp versus one-time quest |
+| Curse of Gaebolg | 14 | Three final routes; EXP forfeiture order; exact rhyme; lossless source split |
+| Kiel Hyre Quest | 75 | Restored sword puzzle; optional advance cards; retry costs; ambiguous keys; approximate rewards |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -47,6 +49,32 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Additive schema migration 2 → 3 introduces `step_source_additions`. These
+  records attach literal text from pinned HTML and its Russian translation
+  to an existing step. The archive and stable step IDs remain unchanged.
+  English full descriptions are validated as original/partition text plus
+  ordered additions; fabricated or missing additions fail the build.
+- Kiel Hyre step 30's four sword/snake pairings were omitted by the old
+  extractor because the solution uses `<pre>` blocks. The full descriptions
+  now include the source-backed solution; four item-use/action records retain
+  its order and targets. Future HTML extraction also retains these blocks.
+- Curse of Gaebolg step 14 is losslessly partitioned into its introduction
+  and three route branches. Historian disclosure can forfeit all EXP if Bonnie
+  is visited before Biscuss pays; that route's numeric EXP amount is unknown.
+  The two routes that explicitly state 1,600,000 keep separate conditional grants.
+- Kiel Hyre records one mandatory initial Black Keycard, three optional
+  advance cards, door uses and three retry cards after a party wipe. Per-attempt
+  monsters and optional material substitutions are not flattened into quest totals.
+  The source's approximate 700,000 installment, unknown final EXP and 1,700,000
+  header total remain distinct; no exact remainder is invented.
+- Kiehl NPC/combat mentions use separate typed spans. Uncertain Kiel identities,
+  Old Bronze/Copper Key, Rosimmer/Rosimer names and Ellisia/Allysia ring names
+  retain source spellings; key/ring conflicts have explicit review notes. Literal answer whitespace
+  is preserved and marked unverified where the source may contain formatting spaces.
+- Schema-1 and schema-2 upgrades preserve human descriptions and branch rows;
+  failed migrations roll back. Human-reviewed additions are also protected from
+  silent replacement during regeneration.
 
 - Additive schema migration 1 → 2 preserves existing IDs, facts and human
   descriptions; failed migration rolls back schema and version changes.
@@ -115,7 +143,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **94 tests passed**; complete offline enrichment passed;
+Validated locally: **103 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -126,16 +154,19 @@ unchanged original rows, event selection, context witnesses, original names,
 exact answers, source pinning, failed-build preservation, homonyms, source HTML
 requirements, per-trip cost, server-wide donations, split reward totals, lossless source
 partitions, branch corruption, additive/failed migrations, human-reviewed
-branch protection, optional rewards and repeatability/death-penalty scope.
+branch protection, optional rewards and repeatability/death-penalty scope,
+source additions, sword order, Gaebolg route rewards, keycard retry quantities
+and NPC/combat homonyms. Both schema-1 and schema-2 migration paths are tested.
 
 ## Next work, in order
 
-1. Review the remaining 200 catalog candidates, separating reference pages,
+1. Review the remaining 198 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
-2. Continue larger access/story chains: Kiel Hyre and Curse of Gaebolg are
-   next candidates. Nameless Island prerequisites still include an uncurated
-   Curse of Gaebolg guide; no complete prerequisite graph is claimed.
+2. Continue remaining access/story chains and audit structured entity coverage
+   of curated guides. Nameless Island now has a curated Curse of Gaebolg
+   prerequisite, but no executable or universally applicable prerequisite graph
+   is claimed.
 3. Resolve source spelling conflicts (Boonthon/Boomthon, Dusit/Dustit,
    Phoebe/Phobe, Nema/Nemma, Jackknif e/Jackknife, Laboratory Pass/Permit).
    Biolabs shape-menu/input mapping and the single-digit Yellow Key receipt

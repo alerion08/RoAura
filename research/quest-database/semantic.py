@@ -16,10 +16,11 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-2.0.0'
+VERSION = 'semantic-3.0.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
-SCHEMA_VERSION = 2
+ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
+SCHEMA_VERSION = 3
 FIELDS = ('short_ru','short_en','full_ru','full_en')
 MAP_COORD = re.compile(r'\b([a-zA-Z][a-zA-Z0-9_]{2,24})\s*(?:\)\)?\s*:\s*|[, ]?\s*\(?\s*)(\d{1,3})\s*(?:,\s*|\s+)(\d{1,3})(?!\d)')
 BARE_COORD = re.compile(r'(?<![\d,])\b(\d{1,3})\s*,\s*(\d{1,3})(?![\d,])')
@@ -310,7 +311,8 @@ def curated_facts(w,entry,entities,ev,source_sections=None,html_source=None,bran
               original_text=f.get('text'),evidence_id=e,branch_id=branch_id)
         w.add('step_dialogues',step_id=w.sid,dialogue_id=did,dialogue_order=i)
         for j,o in enumerate(f.get('options',[]),1):
-            if o['text'] not in entry['original_instruction']:raise ValueError('Invented dialogue text')
+            witness=w.db.execute('SELECT snippet FROM evidence WHERE evidence_id=?',(e,)).fetchone()[0]
+            if o['text'] not in witness:raise ValueError('Invented dialogue text')
             w.add('dialogue_options',option_id=stable('option',did,j),dialogue_id=did,option_order=j,
                   exact_text=o['text'],correct=o.get('correct'),operation=o.get('operation','choose'),
                   condition_text=o.get('condition'),evidence_id=e)
@@ -364,12 +366,28 @@ def contextual_branches(w,curation,entities,surfaces,source_sections,html_source
             fragment(origin,target,seg['start'],seg['end'],seg['section'],branch_ids.get(key),rows[origin]['step_id'])
 
 
+def source_additions(w,entry,source_sections,html_source):
+    additions=entry.get('source_additions',[])
+    if additions and not entry['full_ru'].endswith(' '.join(x['text_ru'] for x in additions)):
+        raise ValueError('Source additions missing from translated description')
+    for i,a in enumerate(additions,1):
+        text=a['text_en'];section=a['source_section']
+        if section!='html_text' or not html_source or not text.strip() or text not in source_sections[section]:
+            raise ValueError('Nonliteral source addition')
+        if not a['text_ru'].strip():raise ValueError('Missing source addition translation')
+        if Counter(re.findall(r'\d+',text))!=Counter(re.findall(r'\d+',a['text_ru'])):raise ValueError('Source addition numeric mismatch')
+        ev=w.evidence(text,method='curated_description_addition',source=html_source)
+        w.add('step_source_additions',addition_id=stable('addition',w.sid,i),step_id=w.sid,addition_order=i,
+              text_ru=a['text_ru'],text_en=text,evidence_id=ev)
+
+
 def migrate_semantic(db):
-    """Upgrade an existing v1 research export without rewriting its content."""
+    """Upgrade a committed research export without rewriting existing content."""
     version=db.execute('PRAGMA user_version').fetchone()[0]
-    if version==1:
+    if version in (1,2):
         if db.in_transaction:raise ValueError('Commit pending changes before semantic migration')
-        try:db.executescript('BEGIN;\n'+BRANCH_SCHEMA.read_text()+'\nCOMMIT;')
+        migrations=([BRANCH_SCHEMA] if version==1 else [])+[ADDITION_SCHEMA]
+        try:db.executescript('BEGIN;\n'+'\n'.join(p.read_text() for p in migrations)+'\nCOMMIT;')
         except Exception:
             db.rollback()
             raise
@@ -438,11 +456,26 @@ def validate(db):
         for sid,text in db.execute('''SELECT s.step_id,d.full_en FROM quest_steps s JOIN step_descriptions d USING(step_id)
           WHERE d.full_en<>s.original_instruction'''):
             primary=[r[0].strip() for r in db.execute("SELECT original_text FROM source_fragments WHERE target_step_id=? AND role='primary' AND partition_key IS NOT NULL ORDER BY start_offset",(sid,))]
-            if not primary or ' '.join(primary)!=text:errors.append('edited_description_without_partition')
+            additions=[]
+            if db.execute('PRAGMA user_version').fetchone()[0]>=3:
+                additions=[r[0] for r in db.execute('SELECT text_en FROM step_source_additions WHERE step_id=? ORDER BY addition_order',(sid,))]
+            original=db.execute('SELECT original_instruction FROM quest_steps WHERE step_id=?',(sid,)).fetchone()[0]
+            expected=' '.join((primary or [original])+additions)
+            if (not primary and not additions) or expected!=text:errors.append('edited_description_without_partition')
         for table in ('step_actions','step_items','step_monsters','requirements'):
             if db.execute(f'SELECT 1 FROM {table} f JOIN step_branches b USING(branch_id) WHERE f.step_id IS NULL OR f.step_id<>b.step_id LIMIT 1').fetchone():errors.append('branch_fact_wrong_step')
         if db.execute('SELECT 1 FROM rewards r JOIN step_branches b USING(branch_id) LEFT JOIN step_rewards s ON s.reward_id=r.reward_id AND s.step_id=b.step_id WHERE s.reward_id IS NULL LIMIT 1').fetchone():errors.append('branch_reward_wrong_step')
         if db.execute('SELECT 1 FROM dialogues d JOIN step_branches b USING(branch_id) LEFT JOIN step_dialogues s ON s.dialogue_id=d.dialogue_id AND s.step_id=b.step_id WHERE s.dialogue_id IS NULL LIMIT 1').fetchone():errors.append('branch_dialogue_wrong_step')
+    if db.execute('PRAGMA user_version').fetchone()[0]>=3:
+        for row in db.execute('''SELECT a.text_ru,a.text_en,e.snippet,e.method,src.kind,d.full_ru,d.full_en,
+          a.step_id,e.step_id,e.quest_id,s.quest_id
+          FROM step_source_additions a JOIN evidence e USING(evidence_id) JOIN sources src USING(source_id)
+          JOIN step_descriptions d ON d.step_id=a.step_id JOIN quest_steps s ON s.step_id=a.step_id'''):
+            ru,en,snippet,method,kind,full_ru,full_en,sid,source_sid,source_quest,quest=row
+            if en!=snippet or method!='curated_description_addition' or kind!='html_snapshot':errors.append('source_addition_evidence')
+            if sid!=source_sid or quest!=source_quest:errors.append('source_addition_wrong_step')
+            if ru not in (full_ru or '') or en not in (full_en or ''):errors.append('source_addition_missing_from_description')
+            if Counter(re.findall(r'\d+',ru))!=Counter(re.findall(r'\d+',en)):errors.append('source_addition_numeric_parity')
     if integrity!='ok' or foreign or errors:raise ValueError(f'Invalid semantic DB: {integrity}, FK={foreign}, errors={errors}')
     return {'integrity_check':integrity,'foreign_key_violations':len(foreign),'invalid_mentions':len(errors)}
 
@@ -471,13 +504,15 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
                 raise ValueError('Human-reviewed database rows must be exported to pinned curation before rebuilding; refusing overwrite.')
             if previous_db.execute('PRAGMA user_version').fetchone()[0]>=2 and previous_db.execute("SELECT count(*) FROM branch_descriptions WHERE review_state='human_reviewed'").fetchone()[0]:
                 raise ValueError('Human-reviewed branch rows must be exported to pinned curation before rebuilding; refusing overwrite.')
+            if previous_db.execute('PRAGMA user_version').fetchone()[0]>=3 and previous_db.execute("SELECT count(*) FROM step_source_additions WHERE review_state='human_reviewed'").fetchone()[0]:
+                raise ValueError('Human-reviewed source additions must be exported to pinned curation before rebuilding; refusing overwrite.')
         finally:
             previous_db.close()
     if temp.exists():temp.unlink()
     db=resources.enter_context(closing(sqlite3.connect(temp)));db.row_factory=sqlite3.Row;db.executescript(SCHEMA.read_text());migrate_semantic(db);w=Writer(db)
     w.add('variants',variant_id='irowiki-classic',game_variant='Classic',assurance='source_scope_not_server_verified')
     known={r[0] for r in source.execute('SELECT DISTINCT map FROM script_npcs WHERE map IS NOT NULL')}
-    code_hash=sha(Path(__file__).read_bytes()+SCHEMA.read_bytes()+BRANCH_SCHEMA.read_bytes())
+    code_hash=sha(Path(__file__).read_bytes()+SCHEMA.read_bytes()+BRANCH_SCHEMA.read_bytes()+ADDITION_SCHEMA.read_bytes())
     cache_hits=0;plans=[]
     for pid,selection in active.items():
         page=dict(source.execute('SELECT * FROM wiki_pages WHERE id=?',(pid,)).fetchone())
@@ -569,6 +604,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
             if curated:
                 if curated['original_instruction']!=step['instruction']:raise ValueError('Curation original mismatch')
                 curated_facts(w,curated,entities,ev,source_sections,html_source)
+                source_additions(w,curated,source_sections,html_source)
             else:
                 w.review('step_semantics_unreviewed','Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.',ev,'blocking')
                 if PRONOUN.search(step['instruction']):w.review('unresolved_pronoun','No uniquely reviewed NPC antecedent; context link withheld.',ev)
@@ -603,6 +639,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         'source_pages':len(decisions),'selection_counts':dict(Counter(r['state'] for r in decisions.values())),
         'curated_quests':len(curations),'pending_quests':counts['quests']-len(curations),
         'fully_localized_branches':counts['branch_descriptions'],
+        'source_additions':counts['step_source_additions'],
         'counts':counts,'fully_localized_steps':localized,'not_fully_localized_steps':counts['quest_steps']-localized,
         'localized_fields':{f:db.execute(f'SELECT count(*) FROM step_descriptions WHERE {f} IS NOT NULL').fetchone()[0] for f in FIELDS},
         'evidence_status_counts':status_counts,'checks':checks,'server_verified':0,
@@ -624,6 +661,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
             for b in r['branches']:
                 b['mentions']=[dict(x) for x in db.execute('SELECT * FROM branch_mentions WHERE branch_id=? ORDER BY field,start_offset',(b['branch_id'],))]
             r['source_fragments']=[dict(x) for x in db.execute('SELECT * FROM source_fragments WHERE target_step_id=? ORDER BY origin_step_id,start_offset',(sid,))]
+            r['source_additions']=[dict(x) for x in db.execute('SELECT * FROM step_source_additions WHERE step_id=? ORDER BY addition_order',(sid,))]
             record['steps'].append(r)
         record['entities']=[dict(x) for x in db.execute('SELECT DISTINCT e.* FROM entities e JOIN entity_evidence l USING(entity_id) JOIN evidence v ON v.evidence_id=l.evidence_id WHERE v.quest_id=?',(qid,))]
         record['rewards']=[dict(x) for x in db.execute('SELECT * FROM rewards WHERE quest_id=?',(qid,))]
