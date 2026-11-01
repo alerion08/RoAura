@@ -767,6 +767,15 @@
       "step_id": null
     },
     {
+      "detail": "The source Journal label has no verified game ID. It is scoped to this quest and is not the Journal delivered in Pursuing Rayan Moore merely because the names match.",
+      "evidence_id": "ev:6f133176de88bd838604998f",
+      "quest_id": "irowiki-classic:Airship_Ticket_Quest",
+      "reason": "generic_journal_identity_scoped",
+      "review_id": "review:7f544df9c827fab6398d1813",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
       "evidence_id": "ev:6f133176de88bd838604998f",
       "quest_id": "irowiki-classic:Airship_Ticket_Quest",

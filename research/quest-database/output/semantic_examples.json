@@ -527,17 +527,17 @@
     ],
     "entities": [
       {
-        "entity_id": "item:67c6a0ca346a80a5b20b1574",
-        "entity_type": "item",
-        "evidence_id": "ev:8149bdb6472870f89fd8ea50",
-        "original_name": "Journal",
-        "variant_id": "irowiki-classic"
-      },
-      {
         "entity_id": "item:7761ea7e4ec829c127eb5f3e",
         "entity_type": "item",
         "evidence_id": "ev:5ec33d567d51314f09f424c1",
         "original_name": "Free Ticket for Flyship",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:7bf1b1fa8dbd6110ad6883ff",
+        "entity_type": "item",
+        "evidence_id": "ev:8149bdb6472870f89fd8ea50",
+        "original_name": "Journal",
         "variant_id": "irowiki-classic"
       },
       {
@@ -1622,7 +1622,7 @@
           },
           {
             "end_offset": 191,
-            "entity_id": "item:67c6a0ca346a80a5b20b1574",
+            "entity_id": "item:7bf1b1fa8dbd6110ad6883ff",
             "entity_type": "item",
             "evidence_id": "ev:8149bdb6472870f89fd8ea50",
             "field": "full_en",
@@ -1666,7 +1666,7 @@
           },
           {
             "end_offset": 160,
-            "entity_id": "item:67c6a0ca346a80a5b20b1574",
+            "entity_id": "item:7bf1b1fa8dbd6110ad6883ff",
             "entity_type": "item",
             "evidence_id": "ev:8149bdb6472870f89fd8ea50",
             "field": "full_ru",
@@ -1710,7 +1710,7 @@
           },
           {
             "end_offset": 77,
-            "entity_id": "item:67c6a0ca346a80a5b20b1574",
+            "entity_id": "item:7bf1b1fa8dbd6110ad6883ff",
             "entity_type": "item",
             "evidence_id": "ev:8149bdb6472870f89fd8ea50",
             "field": "short_en",
@@ -1743,7 +1743,7 @@
           },
           {
             "end_offset": 70,
-            "entity_id": "item:67c6a0ca346a80a5b20b1574",
+            "entity_id": "item:7bf1b1fa8dbd6110ad6883ff",
             "entity_type": "item",
             "evidence_id": "ev:8149bdb6472870f89fd8ea50",
             "field": "short_ru",
@@ -1964,7 +1964,7 @@
             "condition_text": null,
             "evidence_id": "ev:90cc86d0aee12c7d713e1886",
             "fact_id": "item_fact:76baa3008cadecf8e298bed7",
-            "item_id": "item:67c6a0ca346a80a5b20b1574",
+            "item_id": "item:7bf1b1fa8dbd6110ad6883ff",
             "operation": "collect",
             "quantity": 1,
             "required": 1,
@@ -81984,7 +81984,7 @@
       {
         "entity_id": "item:67c6a0ca346a80a5b20b1574",
         "entity_type": "item",
-        "evidence_id": "ev:8149bdb6472870f89fd8ea50",
+        "evidence_id": "ev:bab8884c9f0d971307a543d4",
         "original_name": "Journal",
         "variant_id": "irowiki-classic"
       },

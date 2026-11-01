@@ -12,12 +12,12 @@
     "description_mentions": 6291,
     "dialogue_options": 130,
     "dialogues": 81,
-    "entities": 762,
+    "entities": 763,
     "entity_aliases": 80,
     "entity_evidence": 1994,
     "evidence": 6724,
     "evidence_context": 108,
-    "items": 207,
+    "items": 208,
     "locations": 1145,
     "maps": 244,
     "metadata": 4,
@@ -30,7 +30,7 @@
     "quest_steps": 2750,
     "quests": 216,
     "requirements": 274,
-    "review_queue": 5862,
+    "review_queue": 5863,
     "rewards": 238,
     "source_fragments": 63,
     "sources": 260,
@@ -50,7 +50,7 @@
     "variants": 1
   },
   "curated_quests": 40,
-  "data_version": "d09ba3555a8a6b753e1d7298c265d4ae47c1fd9303b111a8dbb21e9b92e72ab6",
+  "data_version": "a3421459970e7df9449bd97c70d9ac0d27f4fc54142778518c7ef80b8e499ec5",
   "evidence_status_counts": {
     "context_inferred": 99,
     "source_literal": 6625
