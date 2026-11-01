@@ -1,0 +1,1116 @@
+{
+  "quest_id": "irowiki-classic:Peace_for_Arunafeltz_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "7dc61815e98f2bbd64039b5fd6bb79848178bb53c074d740e1947825ecfe1c11",
+  "snapshot_sha256": "7414d9ac849c602cbb460024e1062130a9fa2d3c157846f60a09ec832d889c8a",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Foreign Merchant",
+      "ref": "thirsty_merchant",
+      "identity": "irowiki-classic:npc:moc_ruins:77:167:Foreign Merchant"
+    },
+    {
+      "type": "npc",
+      "name": "Foreign Merchant",
+      "ref": "oasis_merchant",
+      "identity": "irowiki-classic:npc:moc_ruins:101:133:Foreign Merchant"
+    },
+    {
+      "type": "npc",
+      "name": "High Priest Zhed",
+      "aliases": [
+        "Zhed"
+      ],
+      "identity": "irowiki-classic:npc:ra_temin:277:159:High Priest Zhed"
+    },
+    {
+      "type": "npc",
+      "name": "High Priest Niren",
+      "aliases": [
+        "Niren"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Female Follower"
+    },
+    {
+      "type": "npc",
+      "name": "Pope"
+    },
+    {
+      "type": "npc",
+      "name": "Ishmael"
+    },
+    {
+      "type": "map",
+      "name": "Morroc Ruins"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "moc_ruins",
+      "map_code": "moc_ruins"
+    },
+    {
+      "type": "map",
+      "name": "Rachel"
+    },
+    {
+      "type": "map",
+      "name": "ra_temin",
+      "map_code": "ra_temin"
+    },
+    {
+      "type": "map",
+      "name": "ra_temple",
+      "map_code": "ra_temple"
+    },
+    {
+      "type": "map",
+      "name": "Rachel Field 3"
+    },
+    {
+      "type": "item",
+      "name": "Sardonyx",
+      "game_id": 725,
+      "id_source": "http://db.irowiki.org/classic/item-info/725/"
+    },
+    {
+      "type": "item",
+      "name": "Sardonx",
+      "identity": "irowiki-classic:Peace_for_Arunafeltz_Quest:source_item:Sardonx"
+    },
+    {
+      "type": "item",
+      "name": "bottle",
+      "identity": "irowiki-classic:Peace_for_Arunafeltz_Quest:source_item:bottle"
+    },
+    {
+      "type": "item",
+      "name": "note",
+      "ref": "zhed_note",
+      "identity": "irowiki-classic:Peace_for_Arunafeltz_Quest:source_item:zhed_note"
+    },
+    {
+      "type": "item",
+      "name": "File",
+      "ref": "original_file",
+      "aliases": [
+        "note"
+      ],
+      "identity": "irowiki-classic:Peace_for_Arunafeltz_Quest:source_item:original_file"
+    },
+    {
+      "type": "item",
+      "name": "File",
+      "ref": "forged_file",
+      "identity": "irowiki-classic:Peace_for_Arunafeltz_Quest:source_item:forged_file"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "At the Morroc Ruins (one map NW from Morroc) talk to the Foreign Merchant (moc_ruins 77,167) in the NW corner of the map. He complains about how hot the town is and says he may be leaving soon, and asks if there's a place to grab a drink in town. Talk to him twice and he will suggest a merchant at the oasis.",
+      "instruction_sha256": "6b386b89a42705ccc317025be6c5c6437585b8eed64c80f2d6e857346e7bda80",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/6b386b89a42705ccc317/1",
+      "goal": "talk",
+      "short_ru": "Дважды поговорите с Foreign Merchant: moc_ruins 77,167.",
+      "short_en": "Talk twice to Foreign Merchant: moc_ruins 77,167.",
+      "full_ru": "В Morroc Ruins, на одну карту к NW от Morroc, дважды поговорите с Foreign Merchant (moc_ruins 77,167) в северо-западном углу. Он жалуется на жару, собирается уехать и спрашивает, где выпить. После второго разговора он предложит найти торговца у оазиса.",
+      "full_en": "At the Morroc Ruins (one map NW from Morroc) talk to the Foreign Merchant (moc_ruins 77,167) in the NW corner of the map. He complains about how hot the town is and says he may be leaving soon, and asks if there's a place to grab a drink in town. Talk to him twice and he will suggest a merchant at the oasis.",
+      "npcs": [
+        {
+          "entity": "thirsty_merchant",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk_twice",
+          "entity": "thirsty_merchant"
+        }
+      ],
+      "protected_names": [
+        "Foreign Merchant",
+        "Foreign Merchant",
+        "Morroc Ruins",
+        "Morroc",
+        "moc_ruins"
+      ],
+      "locations": [
+        {
+          "map": "moc_ruins",
+          "x": 77,
+          "y": 167,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "moc_ruins 77,167"
+        }
+      ],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "2": {
+      "original_instruction": "Next, walk around the perimeter of the oasis in the center of the map to trigger the next NPC . After a couple of trips around, he should appear at (moc_ruins 101,133), in between the Cool Corp. and Kafra voting staff NPCs.",
+      "instruction_sha256": "43ff8a8769210d0a837c6d843bfe525ea95b8d9758ed50f10d65aeb11d9dc5f5",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/43ff8a8769210d0a837c/1",
+      "goal": "trigger",
+      "short_ru": "Обходите оазис до появления торговца: moc_ruins 101,133.",
+      "short_en": "Walk around the oasis until the merchant appears: moc_ruins 101,133.",
+      "full_ru": "Обойдите периметр оазиса в центре карты, чтобы вызвать следующего NPC. Через пару кругов он должен появиться в точке moc_ruins 101,133, между сотрудниками голосования Cool Corp. и Kafra.",
+      "full_en": "Next, walk around the perimeter of the oasis in the center of the map to trigger the next NPC . After a couple of trips around, he should appear at (moc_ruins 101,133), in between the Cool Corp. and Kafra voting staff NPCs.",
+      "npcs": [
+        {
+          "entity": "oasis_merchant",
+          "role": "trigger_target",
+          "support_step": 3,
+          "evidence": "Talk to the new Foreign Merchant, who says he's out of wine, but manages to scrounge up a bottle for you to give to the thirsty man."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk_around_oasis",
+          "condition": "A couple of trips is descriptive; no exact count, timer or guaranteed loop number."
+        }
+      ],
+      "protected_names": [
+        "moc_ruins"
+      ],
+      "locations": [
+        {
+          "map": "moc_ruins",
+          "x": 101,
+          "y": 133,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "moc_ruins 101,133"
+        }
+      ],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "3": {
+      "original_instruction": "Talk to the new Foreign Merchant, who says he's out of wine, but manages to scrounge up a bottle for you to give to the thirsty man.",
+      "instruction_sha256": "49d897d2ffe93f550869759314795359aecaa2e71668465b6d487d8dabd9a0f5",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/49d897d2ffe93f550869/1",
+      "goal": "collect",
+      "short_ru": "Получите bottle у Foreign Merchant возле оазиса.",
+      "short_en": "Collect the bottle from Foreign Merchant at the oasis.",
+      "full_ru": "Поговорите с новым Foreign Merchant. Хотя вино у него закончилось, он найдёт bottle, чтобы вы передали её страдающему от жажды мужчине.",
+      "full_en": "Talk to the new Foreign Merchant, who says he's out of wine, but manages to scrounge up a bottle for you to give to the thirsty man.",
+      "npcs": [
+        {
+          "entity": "oasis_merchant",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "bottle",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Story bottle; inventory ID and count are not established."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "oasis_merchant"
+        }
+      ],
+      "protected_names": [
+        "Foreign Merchant",
+        "Foreign Merchant",
+        "bottle"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "oasis_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "4": {
+      "original_instruction": "Return to the first Foreign Merchant, who is thankful for the drink. For some reason, he also knows your name--he's an agent of High Priest Zhed from the Rachel Sanctuary Quest .",
+      "instruction_sha256": "1ff90c951908dfdcc2bcadc4c47f0b9106bb22f862c4260dfe63fd0e5622f91a",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/1ff90c951908dfdcc2bc/1",
+      "goal": "deliver",
+      "short_ru": "Вернитесь с напитком к первому Foreign Merchant.",
+      "short_en": "Return with the drink to the first Foreign Merchant.",
+      "full_ru": "Вернитесь к первому Foreign Merchant с напитком. Он поблагодарит вас и окажется агентом High Priest Zhed из Rachel Sanctuary Quest; поэтому он знает ваше имя.",
+      "full_en": "Return to the first Foreign Merchant, who is thankful for the drink. For some reason, he also knows your name--he's an agent of High Priest Zhed from the Rachel Sanctuary Quest .",
+      "npcs": [
+        {
+          "entity": "thirsty_merchant",
+          "role": "talk"
+        },
+        {
+          "entity": "High Priest Zhed",
+          "role": "story_reference"
+        }
+      ],
+      "items": [
+        {
+          "entity": "bottle",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Talk to the new Foreign Merchant, who says he's out of wine, but manages to scrounge up a bottle for you to give to the thirsty man.",
+          "condition": "The bottle from the oasis merchant; no second grant or numeric count is inferred."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "thirsty_merchant"
+        }
+      ],
+      "protected_names": [
+        "Foreign Merchant",
+        "Foreign Merchant",
+        "High Priest Zhed",
+        "Rachel"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "5": {
+      "original_instruction": "Head to Rachel , and talk to High Priest Zhed in the Sanctuary (ra_temin 277, 159). He explains how he's lost control of the other priests, and belives the young Pope is too inexperienced to do her job. He wants to help her, but needs your help to convince her to let him assist her. He feels telling her the complete truth is the best course of action. However, you must choose whether or not to \"sugar coat\" it to her. It's not relevant if you choose \"Truth\" or \"Lies\", the quests follows the same way.",
+      "instruction_sha256": "36c4c1eca1828e30fe73e502ca5413db2e36fa1a425aae0558652457035816f0",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/36c4c1eca1828e30fe73/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с High Priest Zhed: ra_temin 277, 159; «Truth» и «Lies» равнозначны.",
+      "short_en": "Talk to High Priest Zhed: ra_temin 277, 159; “Truth” and “Lies” lead onward equally.",
+      "full_ru": "В Rachel поговорите с High Priest Zhed в Sanctuary (ra_temin 277, 159). Он потерял влияние на остальных жрецов и считает молодую Pope неопытной. Он хочет помочь ей и просит вашей поддержки. Можно выбрать «Truth» или «Lies»: оба ответа ведут к одному продолжению, несмотря на вопрос о том, стоит ли смягчать правду.",
+      "full_en": "Head to Rachel , and talk to High Priest Zhed in the Sanctuary (ra_temin 277, 159). He explains how he's lost control of the other priests, and belives the young Pope is too inexperienced to do her job. He wants to help her, but needs your help to convince her to let him assist her. He feels telling her the complete truth is the best course of action. However, you must choose whether or not to \"sugar coat\" it to her. It's not relevant if you choose \"Truth\" or \"Lies\", the quests follows the same way.",
+      "npcs": [
+        {
+          "entity": "High Priest Zhed",
+          "role": "talk"
+        },
+        {
+          "entity": "Pope",
+          "role": "story_reference"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "High Priest Zhed",
+          "options": [
+            {
+              "text": "Truth",
+              "correct": 1,
+              "condition": "Either choice continues the same quest."
+            },
+            {
+              "text": "Lies",
+              "correct": 1,
+              "condition": "Either choice continues the same quest."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Zhed"
+        }
+      ],
+      "protected_names": [
+        "High Priest Zhed",
+        "Pope",
+        "Rachel",
+        "ra_temin"
+      ],
+      "locations": [
+        {
+          "map": "ra_temin",
+          "x": 277,
+          "y": 159,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temin 277, 159"
+        }
+      ],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "6": {
+      "original_instruction": "Zhed tells you about his close friend, High Priest Niren, and asks that you go talk to her.",
+      "instruction_sha256": "e02cb4c5831be6ac846e16deb2b0775c298354f901df81ff764dd39374531fb5",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/e02cb4c5831be6ac846e/1",
+      "goal": "talk",
+      "short_ru": "Выслушайте Zhed и получите поручение найти High Priest Niren.",
+      "short_en": "Listen to Zhed and receive the request to find High Priest Niren.",
+      "full_ru": "Zhed расскажет о близкой подруге High Priest Niren и попросит поговорить с ней.",
+      "full_en": "Zhed tells you about his close friend, High Priest Niren, and asks that you go talk to her.",
+      "npcs": [
+        {
+          "entity": "High Priest Zhed",
+          "role": "talk"
+        },
+        {
+          "entity": "High Priest Niren",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Zhed"
+        }
+      ],
+      "protected_names": [
+        "High Priest Niren"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "7": {
+      "original_instruction": "Inside the sanctuary still, go to the left side, and talk to the Female Follower (ra_temin 103, 151). She says you can find Niren outside in the garden.",
+      "instruction_sha256": "1c0f604f84e30a01fa67b460dc35f633cd8207b8aa08853a9d4910857f6f09c4",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/1c0f604f84e30a01fa67/1",
+      "goal": "talk",
+      "short_ru": "Спросите Female Follower о Niren: ra_temin 103, 151.",
+      "short_en": "Ask Female Follower about Niren: ra_temin 103, 151.",
+      "full_ru": "Оставаясь внутри Sanctuary, пройдите в левую часть и поговорите с Female Follower (ra_temin 103, 151). Она скажет, что Niren находится снаружи, в саду.",
+      "full_en": "Inside the sanctuary still, go to the left side, and talk to the Female Follower (ra_temin 103, 151). She says you can find Niren outside in the garden.",
+      "npcs": [
+        {
+          "entity": "Female Follower",
+          "role": "talk"
+        },
+        {
+          "entity": "High Priest Niren",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Female Follower"
+        }
+      ],
+      "protected_names": [
+        "Female Follower",
+        "ra_temin"
+      ],
+      "locations": [
+        {
+          "map": "ra_temin",
+          "x": 103,
+          "y": 151,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temin 103, 151"
+        }
+      ],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "8": {
+      "original_instruction": "Talk to Niren (ra_temple 165, 57), and ask about Zhed. She refuses to help him, and says she wants a war.",
+      "instruction_sha256": "bed3dadc8f0943c0ed5a3df0a54969f6536791e71ea2a2d6cc243c4f80867a49",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/bed3dadc8f0943c0ed5a/1",
+      "goal": "talk",
+      "short_ru": "Спросите Niren о Zhed: ra_temple 165, 57.",
+      "short_en": "Ask Niren about Zhed: ra_temple 165, 57.",
+      "full_ru": "Поговорите с Niren (ra_temple 165, 57) и спросите о Zhed. Она откажется помогать ему и заявит, что хочет войны.",
+      "full_en": "Talk to Niren (ra_temple 165, 57), and ask about Zhed. She refuses to help him, and says she wants a war.",
+      "npcs": [
+        {
+          "entity": "High Priest Niren",
+          "role": "talk"
+        },
+        {
+          "entity": "High Priest Zhed",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Niren"
+        }
+      ],
+      "protected_names": [
+        "ra_temple"
+      ],
+      "locations": [
+        {
+          "map": "ra_temple",
+          "x": 165,
+          "y": 57,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temple 165, 57"
+        }
+      ],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "9": {
+      "original_instruction": "Return to Zhed, and explain Niren's feelings to him. He writes you a note to give to her to explain himself better and gives it to you to deliver to her.",
+      "instruction_sha256": "194f7a3a192f7f97d681f277aaa8b338124a640e47203a3a0315d55a2dc5c617",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/194f7a3a192f7f97d681/1",
+      "goal": "collect",
+      "short_ru": "Заберите note у Zhed для Niren.",
+      "short_en": "Collect the note from Zhed for Niren.",
+      "full_ru": "Вернитесь к Zhed и расскажите о настроении Niren. Он напишет note с объяснениями и передаст её вам для доставки Niren.",
+      "full_en": "Return to Zhed, and explain Niren's feelings to him. He writes you a note to give to her to explain himself better and gives it to you to deliver to her.",
+      "npcs": [
+        {
+          "entity": "High Priest Zhed",
+          "role": "talk"
+        },
+        {
+          "entity": "High Priest Niren",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "zhed_note",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Personal note from Zhed; distinct from the later forgery File."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Zhed"
+        }
+      ],
+      "protected_names": [
+        "note"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "10": {
+      "original_instruction": "Deliver the note to Niren, and she seems to be symathetic to Zhed. She asks you to wait a bit so she can think about what to do.",
+      "instruction_sha256": "782c46608c64fecef6a8b62254a4f358b45d3273330f6ca894ab7b812b950b4a",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/782c46608c64fecef6a8/1",
+      "goal": "deliver",
+      "short_ru": "Передайте note Niren и дождитесь продолжения.",
+      "short_en": "Deliver the note to Niren and wait for the conversation to continue.",
+      "full_ru": "Доставьте note Niren. Она отнесётся к объяснениям Zhed сочувственно и попросит немного подождать, пока обдумает дальнейшие действия.",
+      "full_en": "Deliver the note to Niren, and she seems to be symathetic to Zhed. She asks you to wait a bit so she can think about what to do.",
+      "npcs": [
+        {
+          "entity": "High Priest Niren",
+          "role": "talk"
+        },
+        {
+          "entity": "High Priest Zhed",
+          "role": "story_reference"
+        }
+      ],
+      "items": [
+        {
+          "entity": "zhed_note",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "zhed_note"
+        }
+      ],
+      "protected_names": [
+        "note"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "11": {
+      "original_instruction": "Talk to her again until she continues (it may take a few tries), who says she'll give Zhed another try, and tells you to go visit the Pope.",
+      "instruction_sha256": "f60960b0205a22d0ba6523406a8ca1a2ea2217d0b75d08b5d4b44b41b478a6ef",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/f60960b0205a22d0ba65/1",
+      "goal": "repeat_talk",
+      "short_ru": "Повторяйте разговор с Niren, пока она не отправит к Pope.",
+      "short_en": "Keep talking to Niren until she sends you to Pope.",
+      "full_ru": "Снова говорите с ней, пока разговор не продолжится; может потребоваться несколько попыток. Она даст Zhed ещё один шанс и попросит посетить Pope.",
+      "full_en": "Talk to her again until she continues (it may take a few tries), who says she'll give Zhed another try, and tells you to go visit the Pope.",
+      "npcs": [
+        {
+          "entity": "High Priest Niren",
+          "role": "talk",
+          "support_step": 10,
+          "evidence": "Deliver the note to Niren, and she seems to be symathetic to Zhed. She asks you to wait a bit so she can think about what to do."
+        },
+        {
+          "entity": "High Priest Zhed",
+          "role": "story_reference"
+        },
+        {
+          "entity": "Pope",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "repeat_talk",
+          "entity": "High Priest Niren",
+          "condition": "Source gives no exact wait duration or conversation count."
+        }
+      ],
+      "protected_names": [
+        "Pope"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "12": {
+      "original_instruction": "Go back into the Sanctuary, and head to the Pope's Office (ra_temin 132, 131). Talk to the Pope, and she's apparently feeling lonely and tired.",
+      "instruction_sha256": "0c1a74ad4c7aa9d6d770502d1b8979a2d4ae3af3aa35981050ad7318a1ff991d",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/0c1a74ad4c7aa9d6d770/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Pope в Pope's Office: ra_temin 132, 131.",
+      "short_en": "Talk to Pope in Pope's Office: ra_temin 132, 131.",
+      "full_ru": "Вернитесь в Sanctuary и войдите в Pope's Office (ra_temin 132, 131). Поговорите с Pope: она чувствует себя одинокой и уставшей.",
+      "full_en": "Go back into the Sanctuary, and head to the Pope's Office (ra_temin 132, 131). Talk to the Pope, and she's apparently feeling lonely and tired.",
+      "npcs": [
+        {
+          "entity": "Pope",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Pope"
+        }
+      ],
+      "protected_names": [
+        "Pope",
+        "ra_temin"
+      ],
+      "locations": [
+        {
+          "map": "ra_temin",
+          "x": 132,
+          "y": 131,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temin 132, 131"
+        }
+      ],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "13": {
+      "original_instruction": "Go back to Niren, and tell her about the situation with the Pope. Unfortunately, the priests are with her day and night, so Niren comes up with a way to get them all to leave. She writes a note for you to give to a forger who'll come up with something to give all the other priests some vacation.",
+      "instruction_sha256": "3c690e967924eea2bbb41e8b80f5355e8db8a40f73f4af43b2c3f604cb08442f",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/3c690e967924eea2bbb4/1",
+      "goal": "collect",
+      "short_ru": "Получите у Niren note для мастера подделок.",
+      "short_en": "Collect the note for the forger from Niren.",
+      "full_ru": "Вернитесь к Niren и расскажите о состоянии Pope. Жрецы находятся с ней день и ночь, поэтому Niren придумает способ отправить их в отпуск. Она напишет note, которую нужно передать мастеру подделок.",
+      "full_en": "Go back to Niren, and tell her about the situation with the Pope. Unfortunately, the priests are with her day and night, so Niren comes up with a way to get them all to leave. She writes a note for you to give to a forger who'll come up with something to give all the other priests some vacation.",
+      "npcs": [
+        {
+          "entity": "High Priest Niren",
+          "role": "talk"
+        },
+        {
+          "entity": "Pope",
+          "role": "story_reference"
+        }
+      ],
+      "items": [
+        {
+          "entity": "original_file",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "support_step": 14,
+          "evidence": "Head to Rachel Field 3 (2 maps directly north of Rachel), and talk to Ishmael (top center-left of the map) at (139, 355). Give her the File you got from Niren, but Ishmael needs a Sardonyx to finish the note because her pen broke.",
+          "condition": "Stage 14 explicitly calls the document received from Niren File; this is not Zhed's earlier personal note."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_forgery_request",
+          "entity": "High Priest Niren"
+        }
+      ],
+      "protected_names": [
+        "Pope",
+        "note"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "note",
+        "File": "original_file"
+      }
+    },
+    "14": {
+      "original_instruction": "Head to Rachel Field 3 (2 maps directly north of Rachel), and talk to Ishmael (top center-left of the map) at (139, 355). Give her the File you got from Niren, but Ishmael needs a Sardonyx to finish the note because her pen broke.",
+      "instruction_sha256": "de84dd662afbcaa0d52764a66c1e38ba264267b0eb9ecba40ee77705fbae099f",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/de84dd662afbcaa0d527/1",
+      "goal": "deliver",
+      "short_ru": "Передайте File Ishmael в Rachel Field 3 (139, 355); ей нужен Sardonyx.",
+      "short_en": "Deliver File to Ishmael in Rachel Field 3 (139, 355); she needs Sardonyx.",
+      "full_ru": "Идите в Rachel Field 3, на 2 карты прямо к северу от Rachel. Поговорите с Ishmael в верхней части карты, немного левее центра (139, 355). Передайте File от Niren. Для завершения note ей нужен Sardonyx, поскольку её ручка сломалась.",
+      "full_en": "Head to Rachel Field 3 (2 maps directly north of Rachel), and talk to Ishmael (top center-left of the map) at (139, 355). Give her the File you got from Niren, but Ishmael needs a Sardonyx to finish the note because her pen broke.",
+      "npcs": [
+        {
+          "entity": "Ishmael",
+          "role": "talk"
+        },
+        {
+          "entity": "High Priest Niren",
+          "role": "source_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "original_file",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Sardonyx",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Sardonyx",
+          "condition": "Single header material; requested here, supplied in stage 15. Not a second cost."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "original_file"
+        },
+        {
+          "operation": "request_material",
+          "entity": "Sardonyx"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "rachel_field_display_name_only",
+          "detail": "Rachel Field 3 is a display name. Bare coordinates do not prove a ra_fild03 map code; none is invented."
+        }
+      ],
+      "protected_names": [
+        "Ishmael",
+        "Rachel",
+        "Rachel Field 3",
+        "Sardonyx",
+        "note",
+        "File",
+        "File"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 139,
+          "y": 355,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "139, 355"
+        }
+      ],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "note",
+        "File": "original_file"
+      }
+    },
+    "15": {
+      "original_instruction": "Once you have a Sardonx, talk to Ishmael again, and she completes the forgery, then hands back another File.",
+      "instruction_sha256": "649c789ccb4aee412a51121b8dcb2073441348fda0bda1a2f5f66298ae3fb1cd",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/649c789ccb4aee412a51/1",
+      "goal": "deliver",
+      "short_ru": "Вернитесь к Ishmael с запрошенным камнем и заберите поддельный File.",
+      "short_en": "Return to Ishmael with the requested gem and collect the forged File.",
+      "full_ru": "Когда у вас будет Sardonx (именно такое написание в тексте этапа), снова поговорите с Ishmael. Она завершит подделку и вернёт другой File.",
+      "full_en": "Once you have a Sardonx, talk to Ishmael again, and she completes the forgery, then hands back another File.",
+      "npcs": [
+        {
+          "entity": "Ishmael",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Sardonyx",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Sardonyx",
+          "condition": "Header and stage 14 say Sardonyx; stage 15 says Sardonx. Link this one source-requested gem to the header ID, without treating the typo label as independently verified."
+        },
+        {
+          "entity": "forged_file",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Another File, replacing the original forgery request; distinct document identity."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ishmael"
+        },
+        {
+          "operation": "receive_forged_document",
+          "entity": "forged_file"
+        }
+      ],
+      "protected_names": [
+        "Ishmael",
+        "Sardonx",
+        "File",
+        "File"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "forged_file"
+      }
+    },
+    "16": {
+      "original_instruction": "Return the File to Niren, who gives it to her assistant to deliver. She tells you go to get Zhed.",
+      "instruction_sha256": "9c9ca5c8c868ad89cccb1941787fdf8406521f61384e018e2421249f1acdf6ec",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/9c9ca5c8c868ad89cccb/1",
+      "goal": "deliver",
+      "short_ru": "Верните поддельный File Niren и отправляйтесь к Zhed.",
+      "short_en": "Return the forged File to Niren and go to Zhed.",
+      "full_ru": "Верните File Niren. Она передаст его помощнику для доставки и попросит привести Zhed.",
+      "full_en": "Return the File to Niren, who gives it to her assistant to deliver. She tells you go to get Zhed.",
+      "npcs": [
+        {
+          "entity": "High Priest Niren",
+          "role": "talk"
+        },
+        {
+          "entity": "High Priest Zhed",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "forged_file",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "forged_file"
+        }
+      ],
+      "protected_names": [
+        "File",
+        "File"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "forged_file"
+      }
+    },
+    "17": {
+      "original_instruction": "Talk to Zhed, and you tell him he and Niren can visit the Pope.",
+      "instruction_sha256": "6a6f8f28faae6721016f1f20cfc17cfd0931d075f045c6a814c8baced77bd518",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/6a6f8f28faae6721016f/1",
+      "goal": "talk",
+      "short_ru": "Позовите Zhed на встречу с Pope и Niren.",
+      "short_en": "Invite Zhed to meet Pope and Niren.",
+      "full_ru": "Поговорите с Zhed и сообщите, что он и Niren могут посетить Pope.",
+      "full_en": "Talk to Zhed, and you tell him he and Niren can visit the Pope.",
+      "npcs": [
+        {
+          "entity": "High Priest Zhed",
+          "role": "talk"
+        },
+        {
+          "entity": "High Priest Niren",
+          "role": "story_reference"
+        },
+        {
+          "entity": "Pope",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Zhed"
+        }
+      ],
+      "protected_names": [
+        "Pope"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "18": {
+      "original_instruction": "Go back to the Pope's Office, where you see Niren and Zhed speaking with the Pope. She already knew most of what they told her, and is happy to have someone willing to help. After their conversation ends, she sends you back to Rachel.",
+      "instruction_sha256": "6593c7033c31045f4b06f85d3ace6099d61a4b84c2f4352f1b12260da73bac56",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/6593c7033c31045f4b06/1",
+      "goal": "watch_conversation",
+      "short_ru": "Посмотрите разговор Pope, Niren и Zhed; затем вас перенесут в Rachel.",
+      "short_en": "Watch Pope, Niren and Zhed talk; you are then sent to Rachel.",
+      "full_ru": "Вернитесь в Pope's Office и посмотрите разговор Niren и Zhed с Pope. Она уже знала многое из сказанного и рада, что ей готовы помочь. После разговора она отправит вас обратно в Rachel.",
+      "full_en": "Go back to the Pope's Office, where you see Niren and Zhed speaking with the Pope. She already knew most of what they told her, and is happy to have someone willing to help. After their conversation ends, she sends you back to Rachel.",
+      "npcs": [
+        {
+          "entity": "High Priest Niren",
+          "role": "conversation_participant"
+        },
+        {
+          "entity": "High Priest Zhed",
+          "role": "conversation_participant"
+        },
+        {
+          "entity": "Pope",
+          "role": "conversation_participant"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "watch_conversation"
+        },
+        {
+          "operation": "return_to_rachel"
+        }
+      ],
+      "protected_names": [
+        "Pope",
+        "Rachel"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "19": {
+      "original_instruction": "The Pope now makes a speech, saying the rest of the high priests and preistesses will now be under Zhed and Niren's command.",
+      "instruction_sha256": "18bbe87a1c3f452c9f73d9886cc4aac20c2edc2fa26b68283a16652dd856b258",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/18bbe87a1c3f452c9f73/1",
+      "goal": "watch_conversation",
+      "short_ru": "Дождитесь речи Pope о Zhed и Niren.",
+      "short_en": "Listen to the speech of Pope about Zhed and Niren.",
+      "full_ru": "Pope произнесёт речь: остальные верховные жрецы и жрицы теперь подчиняются Zhed и Niren.",
+      "full_en": "The Pope now makes a speech, saying the rest of the high priests and preistesses will now be under Zhed and Niren's command.",
+      "npcs": [
+        {
+          "entity": "Pope",
+          "role": "speaker"
+        },
+        {
+          "entity": "High Priest Zhed",
+          "role": "story_reference"
+        },
+        {
+          "entity": "High Priest Niren",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "listen_to_speech",
+          "entity": "Pope"
+        }
+      ],
+      "protected_names": [
+        "Pope"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "20": {
+      "original_instruction": "Talk to Niren again, who is very happy about what happened. She then says to talk to Zhed, and gives you some Base Experience.",
+      "instruction_sha256": "dd899d08b6f92938935324d61745a96fee76bc90544316567b589ba90d1e8e32",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/dd899d08b6f929389353/1",
+      "goal": "receive_reward",
+      "short_ru": "Получите Base Experience у Niren, затем идите к Zhed.",
+      "short_en": "Collect Base Experience from Niren, then go to Zhed.",
+      "full_ru": "Снова поговорите с Niren. Она рада случившемуся, даст некоторое количество Base Experience и попросит поговорить с Zhed.",
+      "full_en": "Talk to Niren again, who is very happy about what happened. She then says to talk to Zhed, and gives you some Base Experience.",
+      "npcs": [
+        {
+          "entity": "High Priest Niren",
+          "role": "talk"
+        },
+        {
+          "entity": "High Priest Zhed",
+          "role": "next_contact"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "condition": "First installment; amount unknown. Do not assign the entire header total here."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Niren"
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    },
+    "21": {
+      "original_instruction": "Talk to Zhed again, who says the Thor Volcano camp is closing down, and is glad that they're doing something to fight back against the extremist priests. He rewards you with some Base Experience.",
+      "instruction_sha256": "eaaef078059af51d545405402345de7cf89ea6a1bddb830bba68a01f3c8228fa",
+      "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/eaaef078059af51d5454/1",
+      "goal": "receive_reward",
+      "short_ru": "Поговорите с Zhed и получите оставшуюся награду Base Experience.",
+      "short_en": "Talk to Zhed and receive the remaining Base Experience reward.",
+      "full_ru": "Снова поговорите с Zhed. Он сообщит о закрытии Thor Volcano camp и порадуется противодействию радикальным жрецам. Получите ещё некоторое количество Base Experience.",
+      "full_en": "Talk to Zhed again, who says the Thor Volcano camp is closing down, and is glad that they're doing something to fight back against the extremist priests. He rewards you with some Base Experience.",
+      "npcs": [
+        {
+          "entity": "High Priest Zhed",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "condition": "Second installment; amount unknown. Header total is not a third grant."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "High Priest Zhed"
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "Foreign Merchant": "thirsty_merchant",
+        "note": "zhed_note",
+        "File": "original_file"
+      }
+    }
+  },
+  "reviews": [
+    {
+      "reason": "same_name_foreign_merchants_distinct",
+      "detail": "The thirsty merchant at moc_ruins 77,167 and the oasis merchant at moc_ruins 101,133 are distinct source-qualified identities. Stages 1/4 target the first; stage 3 targets the second."
+    },
+    {
+      "reason": "forgery_document_identities_separate",
+      "detail": "Zhed's personal note, Niren's original File/forgery request and Ishmael's returned forged File have distinct source-qualified identities with NULL game IDs/counts. They are not merged by generic labels or with older File Folder items."
+    },
+    {
+      "reason": "sardonx_source_spelling_conflict",
+      "detail": "The header and stage 14 say Sardonyx with an item-725 link; stage 15 says Sardonx. Preserve that source spelling as an unverified separate label; the single requested material is evidenced by the header, with no invented second item."
+    },
+    {
+      "reason": "unknown_reward_installment_split",
+      "detail": "The header states 2500000 total Base EXP, but stages 20 and 21 give no individual amounts. Keep two NULL-amount installments and one base_exp_total summary; do not invent an equal split or a third grant."
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
+      "kind": "mandatory_prerequisite"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "entity": "Sardonyx",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Sardonyx",
+        "condition": "One quest total, supplied in stage 15, not additional to the stage material fact."
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "base_exp_total",
+        "amount": "2500000",
+        "source_section": "rewards",
+        "evidence": "Base Experience: 2,500,000",
+        "condition": "Header total across the two unspecified installments at stages 20 and 21; not an additional grant."
+      }
+    ]
+  }
+}

@@ -1785,5 +1785,87 @@
       "https://irowiki.org/classic/Lighthalzen",
       "https://irowiki.org/classic/NPC"
     ]
+  },
+  "Biological_Weapon_Quest": {
+    "url": "https://irowiki.org/classic/Biological_Weapon_Quest",
+    "sha256": "c2b0f0f0615c5f053aa684cbe0e1fb4a4ccdd807fa8a90cab5c405325723aab9",
+    "path": "c2b0f0f0615c5f053aa684cbe0e1fb4a4ccdd807fa8a90cab5c405325723aab9.html.gz",
+    "title": "Biological Weapon Quest",
+    "categories": [
+      "Base Experience Reward",
+      "Level 60~99 Quests",
+      "Quests",
+      "Hugel Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T18:41:23Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/1003/",
+      "http://db.irowiki.org/classic/item-info/507/",
+      "http://db.irowiki.org/classic/item-info/508/",
+      "http://db.irowiki.org/classic/item-info/509/",
+      "http://db.irowiki.org/classic/item-info/510/",
+      "http://db.irowiki.org/classic/item-info/511/",
+      "http://db.irowiki.org/classic/item-info/619/",
+      "http://db.irowiki.org/classic/item-info/7053/",
+      "http://db.irowiki.org/classic/item-info/7054/",
+      "http://db.irowiki.org/classic/item-info/935/",
+      "http://db.irowiki.org/classic/item-info/971/",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/Blacksmith",
+      "https://irowiki.org/classic/Einbroch",
+      "https://irowiki.org/classic/Hugel",
+      "https://irowiki.org/classic/Lighthalzen",
+      "https://irowiki.org/classic/Medicine_Quest"
+    ]
+  },
+  "Bruspetti_Quest": {
+    "url": "https://irowiki.org/classic/Bruspetti_Quest",
+    "sha256": "fe9c3ed161fa96d1370b3129c9e3c1714761fe65296c426aace8bcc57a999e9f",
+    "path": "fe9c3ed161fa96d1370b3129c9e3c1714761fe65296c426aace8bcc57a999e9f.html.gz",
+    "title": "Bruspetti Quest",
+    "categories": [
+      "Quest Window Quests",
+      "Base Experience Reward",
+      "Level 50~99 Quests",
+      "Quests",
+      "Rachel Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T18:41:24Z",
+    "page_links": [
+      "https://irowiki.org/classic/File:Bruspettis_Diary.jpg",
+      "https://irowiki.org/classic/File:Katinshuell.jpg",
+      "https://irowiki.org/classic/File:Lachellen.jpg",
+      "https://irowiki.org/classic/File:Lake_Grandma.jpg",
+      "https://irowiki.org/classic/File:Lake_Slip.jpg",
+      "https://irowiki.org/classic/File:Mr_Shendar.jpg",
+      "https://irowiki.org/classic/File:Rachel_Bookshelf.jpg",
+      "https://irowiki.org/classic/Friendship_Quest",
+      "https://irowiki.org/classic/HP"
+    ]
+  },
+  "Peace_for_Arunafeltz_Quest": {
+    "url": "https://irowiki.org/classic/Peace_for_Arunafeltz_Quest",
+    "sha256": "7414d9ac849c602cbb460024e1062130a9fa2d3c157846f60a09ec832d889c8a",
+    "path": "7414d9ac849c602cbb460024e1062130a9fa2d3c157846f60a09ec832d889c8a.html.gz",
+    "title": "Peace for Arunafeltz Quest",
+    "categories": [
+      "Articles Needing Interwiki Links",
+      "Base Experience Reward",
+      "Level 60~99 Quests",
+      "Nameless Island Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T18:41:25Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/725/",
+      "https://irowiki.org/classic/File:Forein_trader.JPG",
+      "https://irowiki.org/classic/File:Npc.JPG",
+      "https://irowiki.org/classic/NPC",
+      "https://irowiki.org/classic/Rachel",
+      "https://irowiki.org/classic/Rachel_Sanctuary_Quest",
+      "https://irowiki.org/classic/Thor_Volcano_Base_Quest"
+    ]
   }
 }

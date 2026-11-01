@@ -1,0 +1,927 @@
+{
+  "quest_id": "irowiki-classic:Bruspetti_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "8fcf55ae8cce84dcfbc0277f9dfdafbb8adcc3c0d193c080c19f6fc51b51114a",
+  "snapshot_sha256": "fe9c3ed161fa96d1370b3129c9e3c1714761fe65296c426aace8bcc57a999e9f",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Katinshuell"
+    },
+    {
+      "type": "npc",
+      "name": "Mr. Shendar"
+    },
+    {
+      "type": "npc",
+      "name": "Lachellen"
+    },
+    {
+      "type": "npc",
+      "name": "Book"
+    },
+    {
+      "type": "npc",
+      "name": "Bruspetti"
+    },
+    {
+      "type": "npc",
+      "name": "Digotz"
+    },
+    {
+      "type": "npc",
+      "name": "Grandma",
+      "aliases": [
+        "grandmother"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Rachel"
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "rachel",
+      "map_code": "rachel"
+    },
+    {
+      "type": "map",
+      "name": "ra_in01",
+      "map_code": "ra_in01"
+    },
+    {
+      "type": "map",
+      "name": "lighthalzen",
+      "map_code": "lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lhz_in02",
+      "map_code": "lhz_in02"
+    },
+    {
+      "type": "map",
+      "name": "Freya's Spring"
+    },
+    {
+      "type": "item",
+      "name": "Knife [3]",
+      "aliases": [
+        "knife[3]"
+      ],
+      "identity": "irowiki-classic:Bruspetti_Quest:source_item:Knife [3]"
+    },
+    {
+      "type": "item",
+      "name": "Bruspetti's Diary",
+      "identity": "irowiki-classic:Bruspetti_Quest:source_item:Bruspetti's Diary"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Katinshuell (ra_in01 235,194) inside the building at (rachel 81, 36).",
+      "instruction_sha256": "705fa25668799c1159f2c8833b850d9cfcbc0dc3d6a7a2d3a6b773d212357858",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/705fa25668799c1159f2/1",
+      "goal": "talk",
+      "short_ru": "Найдите Katinshuell: rachel 81, 36 → ra_in01 235,194.",
+      "short_en": "Find Katinshuell: rachel 81, 36 → ra_in01 235,194.",
+      "full_ru": "Поговорите с Katinshuell (ra_in01 235,194) в здании по адресу rachel 81, 36.",
+      "full_en": "Talk to Katinshuell (ra_in01 235,194) inside the building at (rachel 81, 36).",
+      "npcs": [
+        {
+          "entity": "Katinshuell",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Katinshuell"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "rachel",
+          "x": 81,
+          "y": 36,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "ra_in01",
+          "x": 235,
+          "y": 194,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Katinshuell",
+        "rachel",
+        "ra_in01"
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to Mr. Shendar (ra_in01 250,19) inside the building at (rachel 217, 60).",
+      "instruction_sha256": "c35b8c5d04e1fcdb5d6423b7c5fe1a05bc77b75ef33125a0c625b32efc5b6bb2",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/c35b8c5d04e1fcdb5d64/1",
+      "goal": "talk",
+      "short_ru": "Найдите Mr. Shendar: rachel 217, 60 → ra_in01 250,19.",
+      "short_en": "Find Mr. Shendar: rachel 217, 60 → ra_in01 250,19.",
+      "full_ru": "Поговорите с Mr. Shendar (ra_in01 250,19) в здании по адресу rachel 217, 60.",
+      "full_en": "Talk to Mr. Shendar (ra_in01 250,19) inside the building at (rachel 217, 60).",
+      "npcs": [
+        {
+          "entity": "Mr. Shendar",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mr. Shendar"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "rachel",
+          "x": 217,
+          "y": 60,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "ra_in01",
+          "x": 250,
+          "y": 19,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Mr. Shendar",
+        "rachel",
+        "ra_in01"
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to Lachellen at (rachel 73, 244). She mentions how jealous she is of Bruspetti and her new boyfriend.",
+      "instruction_sha256": "485b16f03d1958b2eee46b2d42ac747a5cd6835b7a9bee722512b85207aa6cda",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/485b16f03d1958b2eee4/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Lachellen: rachel 73, 244.",
+      "short_en": "Talk to Lachellen: rachel 73, 244.",
+      "full_ru": "Поговорите с Lachellen (rachel 73, 244). Она завидует Bruspetti и её новому парню.",
+      "full_en": "Talk to Lachellen at (rachel 73, 244). She mentions how jealous she is of Bruspetti and her new boyfriend.",
+      "npcs": [
+        {
+          "entity": "Lachellen",
+          "role": "talk"
+        },
+        {
+          "entity": "Bruspetti",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lachellen"
+        }
+      ],
+      "protected_names": [
+        "Lachellen",
+        "Bruspetti",
+        "rachel"
+      ],
+      "locations": [
+        {
+          "map": "rachel",
+          "x": 73,
+          "y": 244,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "rachel 73, 244"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Talk to Katinshuell again, who says he broke up with his girlfriend.",
+      "instruction_sha256": "b6134066d458bdba59dc11a125c3ae56c9275ff7b529c0dd5ff4a66476fed6a1",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/b6134066d458bdba59dc/1",
+      "goal": "talk",
+      "short_ru": "Снова поговорите с Katinshuell о расставании.",
+      "short_en": "Talk to Katinshuell again about the break-up.",
+      "full_ru": "Снова поговорите с Katinshuell. Он скажет, что расстался со своей девушкой.",
+      "full_en": "Talk to Katinshuell again, who says he broke up with his girlfriend.",
+      "npcs": [
+        {
+          "entity": "Katinshuell",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Katinshuell"
+        }
+      ],
+      "protected_names": [
+        "Katinshuell"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Talk to Mr. Shendar once more, who talks about how he misses his daughter.",
+      "instruction_sha256": "8a659921c0b6521f9b25335c99ca1ce73a97055bb7104c4907e2a3ef49918269",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/8a659921c0b6521f9b25/1",
+      "goal": "talk",
+      "short_ru": "Снова поговорите с Mr. Shendar о дочери.",
+      "short_en": "Talk to Mr. Shendar again about his daughter.",
+      "full_ru": "Снова поговорите с Mr. Shendar: он расскажет, как скучает по дочери.",
+      "full_en": "Talk to Mr. Shendar once more, who talks about how he misses his daughter.",
+      "npcs": [
+        {
+          "entity": "Mr. Shendar",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mr. Shendar"
+        }
+      ],
+      "protected_names": [
+        "Mr. Shendar"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Travel to Lighthalzen, and enter the Hotel at (lighthalzen 158, 129) and go to the first room to the left upstairs at (lhz_in02 235,200) and walk around the bed, and you smell the scent of roses.",
+      "instruction_sha256": "955489e8d2b73f607f2b9446985488ead18f33238991b51bd0d86693aa9a92ef",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/955489e8d2b73f607f2b/1",
+      "goal": "trigger",
+      "short_ru": "В Hotel пройдите вокруг кровати: lighthalzen 158, 129 → lhz_in02 235,200.",
+      "short_en": "In the Hotel, walk around the bed: lighthalzen 158, 129 → lhz_in02 235,200.",
+      "full_ru": "Отправляйтесь в Lighthalzen и войдите в Hotel (lighthalzen 158, 129). Поднимитесь наверх и зайдите в первую комнату слева (lhz_in02 235,200). Пройдите вокруг кровати, чтобы почувствовать аромат роз.",
+      "full_en": "Travel to Lighthalzen, and enter the Hotel at (lighthalzen 158, 129) and go to the first room to the left upstairs at (lhz_in02 235,200) and walk around the bed, and you smell the scent of roses.",
+      "actions": [
+        {
+          "operation": "walk_around_bed"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "lighthalzen",
+          "x": 158,
+          "y": 129,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "lhz_in02",
+          "x": 235,
+          "y": 200,
+          "role": "trigger",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Lighthalzen",
+        "lighthalzen",
+        "lhz_in02"
+      ]
+    },
+    "7": {
+      "original_instruction": "Go back to Rachel, and talk to Lachellen again. She isn't surprised, and says Bruspetti was traveling to Lighthalzen. She suggests you visit the place where she and her boyfriend often went.",
+      "instruction_sha256": "bbbf5fc33df30b6b671d930ce98ccca580cf3804d7894854a8da961e22a50f95",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/bbbf5fc33df30b6b671d/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Lachellen в Rachel и узнайте о месте встреч.",
+      "short_en": "Return to Lachellen in Rachel and ask about the meeting place.",
+      "full_ru": "Вернитесь в Rachel и снова поговорите с Lachellen. Она не удивится поездке Bruspetti в Lighthalzen и посоветует посетить место, куда Bruspetti ходила с парнем.",
+      "full_en": "Go back to Rachel, and talk to Lachellen again. She isn't surprised, and says Bruspetti was traveling to Lighthalzen. She suggests you visit the place where she and her boyfriend often went.",
+      "npcs": [
+        {
+          "entity": "Lachellen",
+          "role": "talk"
+        },
+        {
+          "entity": "Bruspetti",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lachellen"
+        }
+      ],
+      "protected_names": [
+        "Lachellen",
+        "Bruspetti",
+        "Rachel",
+        "Lighthalzen"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Go to the lower right corner in Rachel, and walk along the Spring until you get to (265, 47). A grandmother will warn you about slipping into the water.",
+      "instruction_sha256": "068761c53d1ba321efcc9f5aaf530ce3e2434e68a3f285b7cd291c88526295c3",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/068761c53d1ba321efcc/1",
+      "goal": "trigger",
+      "short_ru": "Пройдите вдоль Spring в Rachel до (265, 47), чтобы вызвать предупреждение.",
+      "short_en": "Walk along the Spring in Rachel to (265, 47) to trigger the warning.",
+      "full_ru": "В правом нижнем углу Rachel пройдите вдоль Spring до точки (265, 47). Появится предупреждение от grandmother об опасности поскользнуться и упасть в воду.",
+      "full_en": "Go to the lower right corner in Rachel, and walk along the Spring until you get to (265, 47). A grandmother will warn you about slipping into the water.",
+      "npcs": [
+        {
+          "entity": "Grandma",
+          "role": "trigger_speaker"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk_along_spring"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "spring_map_code_unqualified",
+          "detail": "The source gives display-name Rachel and bare coordinates, not a literal map-qualified point. No rachel code is silently inferred."
+        }
+      ],
+      "protected_names": [
+        "Rachel"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 265,
+          "y": 47,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "265, 47"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Go back to Mr. Shendar, and he's amazed Bruspetti went to Lighthalzen. He then struggles with the decision whether or not to invade her privacy by reading her diary.",
+      "instruction_sha256": "7cbab5cc4c4ca71ee89fe0ffed5349c7b67e2954a205466b1fcc9b68af3064ac",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/7cbab5cc4c4ca71ee89f/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Mr. Shendar о поездке Bruspetti и дневнике.",
+      "short_en": "Talk to Mr. Shendar about the trip of Bruspetti and her diary.",
+      "full_ru": "Вернитесь к Mr. Shendar. Он удивится поездке Bruspetti в Lighthalzen и будет сомневаться, стоит ли читать её дневник.",
+      "full_en": "Go back to Mr. Shendar, and he's amazed Bruspetti went to Lighthalzen. He then struggles with the decision whether or not to invade her privacy by reading her diary.",
+      "npcs": [
+        {
+          "entity": "Mr. Shendar",
+          "role": "talk"
+        },
+        {
+          "entity": "Bruspetti",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mr. Shendar"
+        }
+      ],
+      "protected_names": [
+        "Mr. Shendar",
+        "Bruspetti",
+        "Lighthalzen"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Click on the \"Book\" close to Mr. Shendar (ra_in01 253, 24).",
+      "instruction_sha256": "86b31c342816d7ab0be97f3f247c319337e5be8c9febbfe65478f9faccf8f73e",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/86b31c342816d7ab0be9/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Book: ra_in01 253, 24.",
+      "short_en": "Inspect Book: ra_in01 253, 24.",
+      "full_ru": "Нажмите Book рядом с Mr. Shendar (ra_in01 253, 24).",
+      "full_en": "Click on the \"Book\" close to Mr. Shendar (ra_in01 253, 24).",
+      "npcs": [
+        {
+          "entity": "Book",
+          "role": "interact"
+        },
+        {
+          "entity": "Mr. Shendar",
+          "role": "location_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Book"
+        }
+      ],
+      "protected_names": [
+        "Mr. Shendar",
+        "Book",
+        "ra_in01"
+      ],
+      "locations": [
+        {
+          "map": "ra_in01",
+          "x": 253,
+          "y": 24,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_in01 253, 24"
+        }
+      ]
+    },
+    "11": {
+      "original_instruction": "Talk to Katinshuell again, and when he asks what you want to ask him about, type \"Bruspetti\" then ask about \"Lighthalzen\" and finally \"Freya's Spring\"",
+      "instruction_sha256": "4b4a9f7922ccc7b9cee31ddf5004621ae867a6b2bf24f64ce2af037b0e2a0270",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/4b4a9f7922ccc7b9cee3/1",
+      "goal": "dialogue",
+      "short_ru": "У Katinshuell: «Bruspetti» → «Lighthalzen» → «Freya's Spring».",
+      "short_en": "At Katinshuell: “Bruspetti” → “Lighthalzen” → “Freya's Spring”.",
+      "full_ru": "Снова поговорите с Katinshuell. На вопрос о теме разговора введите «Bruspetti», затем спросите о «Lighthalzen» и в конце о «Freya's Spring».",
+      "full_en": "Talk to Katinshuell again, and when he asks what you want to ask him about, type \"Bruspetti\" then ask about \"Lighthalzen\" and finally \"Freya's Spring\"",
+      "npcs": [
+        {
+          "entity": "Katinshuell",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Katinshuell",
+          "options": [
+            {
+              "text": "Bruspetti",
+              "correct": 1,
+              "operation": "enter_text"
+            },
+            {
+              "text": "Lighthalzen",
+              "correct": 1,
+              "operation": "ask_topic",
+              "condition": "Second topic; source does not specify whether typed or selected."
+            },
+            {
+              "text": "Freya's Spring",
+              "correct": 1,
+              "operation": "ask_topic",
+              "condition": "Third topic; source does not specify whether typed or selected."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "follow_dialogue_topics",
+          "entity": "Katinshuell",
+          "condition": "Preserve the stated topic order. Only the first is explicitly a typed input."
+        }
+      ],
+      "protected_names": [
+        "Katinshuell",
+        "Bruspetti",
+        "Lighthalzen",
+        "Freya's Spring"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Talk to Lachellen again, and when she asks if she can help with anything, type \"Freya's Spring\"",
+      "instruction_sha256": "9bbc3d8bf026ef1aa2437d15db26346592625a8ed9a949b9f1844143401c789a",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/9bbc3d8bf026ef1aa243/1",
+      "goal": "enter_text",
+      "short_ru": "У Lachellen введите «Freya's Spring».",
+      "short_en": "At Lachellen, type “Freya's Spring”.",
+      "full_ru": "Снова поговорите с Lachellen. Когда она предложит помощь, введите «Freya's Spring».",
+      "full_en": "Talk to Lachellen again, and when she asks if she can help with anything, type \"Freya's Spring\"",
+      "npcs": [
+        {
+          "entity": "Lachellen",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Lachellen",
+          "options": [
+            {
+              "text": "Freya's Spring",
+              "correct": 1,
+              "operation": "enter_text"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_text",
+          "entity": "Lachellen"
+        }
+      ],
+      "protected_names": [
+        "Lachellen",
+        "Freya's Spring"
+      ],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Head to the Spring again, and talk to the Grandma (rachel 266, 35).",
+      "instruction_sha256": "772f8ab1f3665c62f2d2c59c042b30cd70b58372eebb79e35a9b7369efc53db8",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/772f8ab1f3665c62f2d2/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Grandma: rachel 266, 35.",
+      "short_en": "Talk to Grandma: rachel 266, 35.",
+      "full_ru": "Снова отправляйтесь к Spring и поговорите с Grandma (rachel 266, 35).",
+      "full_en": "Head to the Spring again, and talk to the Grandma (rachel 266, 35).",
+      "npcs": [
+        {
+          "entity": "Grandma",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Grandma"
+        }
+      ],
+      "protected_names": [
+        "Grandma",
+        "rachel"
+      ],
+      "locations": [
+        {
+          "map": "rachel",
+          "x": 266,
+          "y": 35,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "rachel 266, 35"
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "Go back to Mr. Shendar, and he starts beating you up, thinking you're Bruspetti's boyfriend (Your HP will drop to ~50% if full, but be careful). After realizing who you are and apologizing, he allows you to help and read Bruspetti's diary.",
+      "instruction_sha256": "28267f6f8c6b7b3295afcc154f4aafc56348e9e52e2dd1edcb9d7359297fb525",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/28267f6f8c6b7b3295af/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Mr. Shendar; будьте готовы к урону, примерно до 50% HP при полном здоровье.",
+      "short_en": "Talk to Mr. Shendar; expect damage, down to about 50% HP if initially full.",
+      "full_ru": "Вернитесь к Mr. Shendar: приняв вас за парня Bruspetti, он начнёт вас бить. При полном здоровье HP опустится примерно до 50%; будьте осторожны. Узнав вас и извинившись, он разрешит помочь и прочитать дневник Bruspetti.",
+      "full_en": "Go back to Mr. Shendar, and he starts beating you up, thinking you're Bruspetti's boyfriend (Your HP will drop to ~50% if full, but be careful). After realizing who you are and apologizing, he allows you to help and read Bruspetti's diary.",
+      "npcs": [
+        {
+          "entity": "Mr. Shendar",
+          "role": "talk"
+        },
+        {
+          "entity": "Bruspetti",
+          "role": "story_reference"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "scripted_hp_result_approx_percent",
+          "amount": "50",
+          "condition": "Approximate remaining HP when initially full; not a minimum HP requirement or a fixed damage amount."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mr. Shendar"
+        }
+      ],
+      "protected_names": [
+        "Mr. Shendar",
+        "Bruspetti"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "On the shelf near Mr. Shendar (ra_in01 253, 24) obtain Bruspetti's Diary.",
+      "instruction_sha256": "9c3b56abfa57f6b6e03bd683c0c4a304fa0d22edd55263071ddb3bc5d21c6fbf",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/9c3b56abfa57f6b6e03b/1",
+      "goal": "collect",
+      "short_ru": "Возьмите Bruspetti's Diary: ra_in01 253, 24.",
+      "short_en": "Take Bruspetti's Diary: ra_in01 253, 24.",
+      "full_ru": "На полке рядом с Mr. Shendar (ra_in01 253, 24) возьмите Bruspetti's Diary.",
+      "full_en": "On the shelf near Mr. Shendar (ra_in01 253, 24) obtain Bruspetti's Diary.",
+      "npcs": [
+        {
+          "entity": "Mr. Shendar",
+          "role": "location_reference"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Bruspetti's Diary",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Source identifies the diary, but no verified game ID or inventory count."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Bruspetti's Diary"
+        }
+      ],
+      "protected_names": [
+        "Mr. Shendar",
+        "Bruspetti",
+        "ra_in01",
+        "Bruspetti's Diary"
+      ],
+      "locations": [
+        {
+          "map": "ra_in01",
+          "x": 253,
+          "y": 24,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_in01 253, 24"
+        }
+      ]
+    },
+    "16": {
+      "original_instruction": "Go back to Katinshuell, and confront him with the truth about his relationship with Bruspetti. Confront him in this order: | Lighthalzen | Recent Break-up | Freya's Spring",
+      "instruction_sha256": "618e0cd3b163fb253fb6c6dd3438f2ca33b174cabdd5c57772ec36d115f0e1a5",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/618e0cd3b163fb253fb6/1",
+      "goal": "dialogue",
+      "short_ru": "У Katinshuell: «Lighthalzen» → «Recent Break-up» → «Freya's Spring».",
+      "short_en": "At Katinshuell: “Lighthalzen” → “Recent Break-up” → “Freya's Spring”.",
+      "full_ru": "Вернитесь к Katinshuell и потребуйте объяснить его отношения с Bruspetti. Темы должны идти в таком порядке: Lighthalzen → Recent Break-up → Freya's Spring.",
+      "full_en": "Go back to Katinshuell, and confront him with the truth about his relationship with Bruspetti. Confront him in this order: | Lighthalzen | Recent Break-up | Freya's Spring",
+      "npcs": [
+        {
+          "entity": "Katinshuell",
+          "role": "talk"
+        },
+        {
+          "entity": "Bruspetti",
+          "role": "story_reference"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Katinshuell",
+          "options": [
+            {
+              "text": "Lighthalzen",
+              "correct": 1,
+              "operation": "ask_topic",
+              "condition": "Follow this exact topic order; typed-versus-menu interaction is unspecified."
+            },
+            {
+              "text": "Recent Break-up",
+              "correct": 1,
+              "operation": "ask_topic",
+              "condition": "Follow this exact topic order; typed-versus-menu interaction is unspecified."
+            },
+            {
+              "text": "Freya's Spring",
+              "correct": 1,
+              "operation": "ask_topic",
+              "condition": "Follow this exact topic order; typed-versus-menu interaction is unspecified."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "follow_dialogue_topics",
+          "entity": "Katinshuell"
+        }
+      ],
+      "protected_names": [
+        "Katinshuell",
+        "Bruspetti",
+        "Lighthalzen",
+        "Freya's Spring"
+      ],
+      "locations": []
+    },
+    "17": {
+      "original_instruction": "Make sure you have a Knife [3] in your inventory before talking to Katinshuell . After the confrontation, Katinshuell says that Bruspetti drowned herself in Freya's Spring. Talk to him again, and you go through entries in the diary. He then explains how he killed Digotz, and, indirectly, Bruspetti. After you talk to him the last time, the knife[3] will disappear out of your inventory.",
+      "instruction_sha256": "6662fdd57866a601d2b41c3e110ba083725030aeef40c3663d16b5f3e67f0bea",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/6662fdd57866a601d2b4/1",
+      "goal": "deliver",
+      "short_ru": "Говорите с Katinshuell до конца признания; Knife [3] будет изъят.",
+      "short_en": "Talk to Katinshuell through the confession; Knife [3] will be removed.",
+      "full_ru": "Перед разговором с Katinshuell убедитесь, что в инвентаре есть Knife [3]. Он расскажет, что Bruspetti утопилась в Freya's Spring. Поговорите снова и разберите записи дневника. Он объяснит, как убил Digotz и косвенно погубил Bruspetti. После последнего разговора knife[3] исчезнет из инвентаря.",
+      "full_en": "Make sure you have a Knife [3] in your inventory before talking to Katinshuell . After the confrontation, Katinshuell says that Bruspetti drowned herself in Freya's Spring. Talk to him again, and you go through entries in the diary. He then explains how he killed Digotz, and, indirectly, Bruspetti. After you talk to him the last time, the knife[3] will disappear out of your inventory.",
+      "npcs": [
+        {
+          "entity": "Katinshuell",
+          "role": "talk"
+        },
+        {
+          "entity": "Bruspetti",
+          "role": "story_reference"
+        },
+        {
+          "entity": "Digotz",
+          "role": "story_reference"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Knife [3]",
+          "quantity": 1,
+          "operation": "consume",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Knife [3]",
+          "condition": "One Knife [3]; [3] denotes slots, not three knives. Removed after the last conversation in this stage."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "repeat_talk",
+          "entity": "Katinshuell"
+        },
+        {
+          "operation": "consume",
+          "entity": "Knife [3]"
+        }
+      ],
+      "protected_names": [
+        "Katinshuell",
+        "Bruspetti",
+        "Digotz",
+        "Freya's Spring",
+        "Knife [3]"
+      ],
+      "locations": []
+    },
+    "18": {
+      "original_instruction": "Return to the Spring, and talk to the Grandma, then walk over the spot that previously triggered the dialogue box to the north of her. After closing it the first time, talk to it again, and receive some Experience. | [Gained Experience] | Level 50-75 = 450,000 Exp | Level 75-90 = 850,000 Exp | Level 91-99 = 1,300,000 Exp",
+      "instruction_sha256": "62d103d54b0bc51b865e25691cec34a41c18ba156b8fcf5e2254de4016ca933c",
+      "step_id": "irowiki-classic:Bruspetti_Quest/step/62d103d54b0bc51b865e/1",
+      "goal": "receive_reward",
+      "short_ru": "Поговорите с Grandma, повторно вызовите диалог севернее неё и получите награду по уровню.",
+      "short_en": "Talk to Grandma, trigger the dialogue north of her again and collect the level reward.",
+      "full_ru": "Вернитесь к Spring и поговорите с Grandma. Затем пройдите по месту севернее неё, где раньше появлялось окно диалога. Закрыв его впервые, взаимодействуйте с ним снова, чтобы получить опыт. Награда в тексте этапа: Level 50-75 = 450,000 Exp; Level 75-90 = 850,000 Exp; Level 91-99 = 1,300,000 Exp.",
+      "full_en": "Return to the Spring, and talk to the Grandma, then walk over the spot that previously triggered the dialogue box to the north of her. After closing it the first time, talk to it again, and receive some Experience. | [Gained Experience] | Level 50-75 = 450,000 Exp | Level 75-90 = 850,000 Exp | Level 91-99 = 1,300,000 Exp",
+      "npcs": [
+        {
+          "entity": "Grandma",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Grandma"
+        },
+        {
+          "operation": "trigger_spring_dialogue",
+          "condition": "Walk over the earlier trigger north of Grandma; interact again after closing it."
+        }
+      ],
+      "protected_names": [
+        "Grandma"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "level_50_75",
+          "choice_group": "source_level_reward",
+          "variant_scope": "Source stage-18 level bands; header conflict at level 75 unresolved",
+          "condition": "Source stage says level 50-75; one reward per completion, but overlapping level 75 is not resolved.",
+          "section": "",
+          "original_instruction": "Level 50-75 = 450,000 Exp",
+          "instruction_sha256": "57ef7b28c9115066a9b07e029d10d7973ef3f457d220b0fc0d8746a7a74f06bf",
+          "short_ru": "Уровень 50-75: 450,000 Exp.",
+          "short_en": "Level 50-75: 450,000 Exp.",
+          "full_ru": "Уровень 50-75: 450,000 Exp.",
+          "full_en": "Level 50-75 = 450,000 Exp",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "50-75",
+              "condition": "Literal stage band; overlap is an unresolved source conflict, not two rewards."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "450000",
+              "condition": "One level-dependent completion grant, not additive to other bands or header."
+            }
+          ]
+        },
+        {
+          "key": "level_75_90",
+          "choice_group": "source_level_reward",
+          "variant_scope": "Source stage-18 level bands; header conflict at level 75 unresolved",
+          "condition": "Source stage says level 75-90; one reward per completion, but overlapping level 75 is not resolved.",
+          "section": "",
+          "original_instruction": "Level 75-90 = 850,000 Exp",
+          "instruction_sha256": "bb4dad8a04c8de1aea9f9c6953df1f0aceb706f34171cad2f2764a58884e5980",
+          "short_ru": "Уровень 75-90: 850,000 Exp.",
+          "short_en": "Level 75-90: 850,000 Exp.",
+          "full_ru": "Уровень 75-90: 850,000 Exp.",
+          "full_en": "Level 75-90 = 850,000 Exp",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "75-90",
+              "condition": "Literal stage band; overlap is an unresolved source conflict, not two rewards."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "850000",
+              "condition": "One level-dependent completion grant, not additive to other bands or header."
+            }
+          ]
+        },
+        {
+          "key": "level_91_99",
+          "choice_group": "source_level_reward",
+          "variant_scope": "Source stage-18 level bands; header conflict at level 75 unresolved",
+          "condition": "Source stage says level 91-99; one reward per completion, but overlapping level 75 is not resolved.",
+          "section": "",
+          "original_instruction": "Level 91-99 = 1,300,000 Exp",
+          "instruction_sha256": "d187e8abe9da3ee9ec56c6b64eeee8916c0ea2070d92d4a398e6d4334767d95c",
+          "short_ru": "Уровень 91-99: 1,300,000 Exp.",
+          "short_en": "Level 91-99: 1,300,000 Exp.",
+          "full_ru": "Уровень 91-99: 1,300,000 Exp.",
+          "full_en": "Level 91-99 = 1,300,000 Exp",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "91-99",
+              "condition": "Literal stage band; overlap is an unresolved source conflict, not two rewards."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "1300000",
+              "condition": "One level-dependent completion grant, not additive to other bands or header."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "source_level_75_header_conflict",
+      "detail": "Reward header says 76-90, while stage 18 says 75-90 and overlaps 50-75. Preserve both literal sources; do not choose a corrected bound or grant both bands at level 75."
+    },
+    {
+      "reason": "knife_and_diary_ids_unverified",
+      "detail": "This pinned page has no verified database links for Knife [3] or Bruspetti's Diary. Keep NULL IDs and source-qualified identities; do not import an ID solely from a similar item in another guide."
+    },
+    {
+      "reason": "book_is_interactable_not_inventory_diary",
+      "detail": "Book at stage 10 is an interactable. The separately named Bruspetti's Diary is obtained at stage 15. No early diary inventory grant is asserted."
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:Friendship_Quest",
+      "kind": "mandatory_prerequisite"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "entity": "Knife [3]",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Knife [3]",
+        "condition": "One three-slot Knife, removed at stage 17. This summary is not a second cost."
+      }
+    ]
+  }
+}

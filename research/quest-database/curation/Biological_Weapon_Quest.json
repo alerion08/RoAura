@@ -1,0 +1,858 @@
+{
+  "quest_id": "irowiki-classic:Biological_Weapon_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "a17d9a0da5b5f56c4260620b9e4d74610d847c6b46a54c46943a47f06f84d338",
+  "snapshot_sha256": "c2b0f0f0615c5f053aa684cbe0e1fb4a4ccdd807fa8a90cab5c405325723aab9",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Morriphen"
+    },
+    {
+      "type": "npc",
+      "name": "Siria"
+    },
+    {
+      "type": "npc",
+      "name": "Dono"
+    },
+    {
+      "type": "npc",
+      "name": "Makkie"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch"
+    },
+    {
+      "type": "map",
+      "name": "Hugel"
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "ein_in01",
+      "map_code": "ein_in01"
+    },
+    {
+      "type": "map",
+      "name": "einbroch",
+      "map_code": "einbroch"
+    },
+    {
+      "type": "map",
+      "name": "hu_in01",
+      "map_code": "hu_in01"
+    },
+    {
+      "type": "map",
+      "name": "hugel",
+      "map_code": "hugel"
+    },
+    {
+      "type": "map",
+      "name": "lighthalzen",
+      "map_code": "lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lhz_in03",
+      "map_code": "lhz_in03"
+    },
+    {
+      "type": "item",
+      "name": "Coal",
+      "game_id": 1003,
+      "id_source": "http://db.irowiki.org/classic/item-info/1003/"
+    },
+    {
+      "type": "item",
+      "name": "Brigan",
+      "game_id": 7054,
+      "id_source": "http://db.irowiki.org/classic/item-info/7054/"
+    },
+    {
+      "type": "item",
+      "name": "Cyfar",
+      "game_id": 7053,
+      "id_source": "http://db.irowiki.org/classic/item-info/7053/"
+    },
+    {
+      "type": "item",
+      "name": "Unripe Apple",
+      "game_id": 619,
+      "id_source": "http://db.irowiki.org/classic/item-info/619/"
+    },
+    {
+      "type": "item",
+      "name": "Detrimindexta",
+      "game_id": 971,
+      "id_source": "http://db.irowiki.org/classic/item-info/971/"
+    },
+    {
+      "type": "item",
+      "name": "Shell",
+      "game_id": 935,
+      "id_source": "http://db.irowiki.org/classic/item-info/935/"
+    },
+    {
+      "type": "item",
+      "name": "Red Herb",
+      "game_id": 507,
+      "id_source": "http://db.irowiki.org/classic/item-info/507/"
+    },
+    {
+      "type": "item",
+      "name": "Blue Herb",
+      "game_id": 510,
+      "id_source": "http://db.irowiki.org/classic/item-info/510/"
+    },
+    {
+      "type": "item",
+      "name": "Green Herb",
+      "game_id": 511,
+      "id_source": "http://db.irowiki.org/classic/item-info/511/"
+    },
+    {
+      "type": "item",
+      "name": "White Herb",
+      "game_id": 509,
+      "id_source": "http://db.irowiki.org/classic/item-info/509/"
+    },
+    {
+      "type": "item",
+      "name": "Yellow Herb",
+      "game_id": 508,
+      "id_source": "http://db.irowiki.org/classic/item-info/508/"
+    },
+    {
+      "type": "item",
+      "name": "Red Plant Stem Powder",
+      "identity": "irowiki-classic:Biological_Weapon_Quest:source_item:Red Plant Stem Powder"
+    },
+    {
+      "type": "item",
+      "name": "medicine",
+      "identity": "irowiki-classic:Biological_Weapon_Quest:source_item:medicine"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Morriphen (ein_in01 16 36) inside the Einbroch Blacksmith Guild (einbroch 255 108). Offer to help him. At first he says he doesn't need your help. Since he is coughing so badly, your character insists, then he will ask you to get his medicine from his wife in Hugel .",
+      "instruction_sha256": "555a804eb270f1c6e91de114c14c7471ea576efe07ffcd8c8f38fb8ac3439504",
+      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/555a804eb270f1c6e91d/1",
+      "goal": "talk",
+      "short_ru": "Предложите помощь Morriphen: einbroch 255 108 → ein_in01 16 36.",
+      "short_en": "Offer to help Morriphen: einbroch 255 108 → ein_in01 16 36.",
+      "full_ru": "В Einbroch войдите в Blacksmith Guild (einbroch 255 108) и поговорите с Morriphen (ein_in01 16 36). Предложите помощь: сначала он отказывается, но из-за сильного кашля ваш персонаж настаивает. Morriphen попросит забрать medicine у его жены в Hugel.",
+      "full_en": "Talk to Morriphen (ein_in01 16 36) inside the Einbroch Blacksmith Guild (einbroch 255 108). Offer to help him. At first he says he doesn't need your help. Since he is coughing so badly, your character insists, then he will ask you to get his medicine from his wife in Hugel .",
+      "npcs": [
+        {
+          "entity": "Morriphen",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "offer_help",
+          "entity": "Morriphen"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "einbroch",
+          "x": 255,
+          "y": 108,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "ein_in01",
+          "x": 16,
+          "y": 36,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Morriphen",
+        "Einbroch",
+        "Hugel",
+        "ein_in01",
+        "einbroch",
+        "medicine"
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to Siria (hu_in01 326 307) on the 2nd floor of the house in Hugel (hugel 147 216). She will tell you she is out of the medicine that Morriphen needs and to go speak to Dono in Lighthalzen.",
+      "instruction_sha256": "28e0fba0a1fa7b84a0a5fa22619932f0261f6b40b906b3a8c24c6aff656d460c",
+      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/28e0fba0a1fa7b84a0a5/1",
+      "goal": "talk",
+      "short_ru": "Спросите Siria о medicine: hugel 147 216 → hu_in01 326 307.",
+      "short_en": "Ask Siria about medicine: hugel 147 216 → hu_in01 326 307.",
+      "full_ru": "В Hugel войдите в дом (hugel 147 216) и на 2-м этаже поговорите с Siria (hu_in01 326 307). У неё закончилась medicine для Morriphen; она отправит вас к Dono в Lighthalzen.",
+      "full_en": "Talk to Siria (hu_in01 326 307) on the 2nd floor of the house in Hugel (hugel 147 216). She will tell you she is out of the medicine that Morriphen needs and to go speak to Dono in Lighthalzen.",
+      "npcs": [
+        {
+          "entity": "Siria",
+          "role": "talk"
+        },
+        {
+          "entity": "Morriphen",
+          "role": "story_reference"
+        },
+        {
+          "entity": "Dono",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Siria"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "hugel",
+          "x": 147,
+          "y": 216,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "hu_in01",
+          "x": 326,
+          "y": 307,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Morriphen",
+        "Siria",
+        "Dono",
+        "Hugel",
+        "Lighthalzen",
+        "hu_in01",
+        "hugel",
+        "medicine"
+      ]
+    },
+    "3": {
+      "original_instruction": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+      "instruction_sha256": "37b3af20003306f28ff74f2a71eed910790dd905269c2f5e923140735a8491a9",
+      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/37b3af20003306f28ff7/1",
+      "goal": "collect",
+      "short_ru": "Соберите набор для Dono: 5 Coal, 5 Brigan, 5 Cyfar, 1 Unripe Apple, 3 Detrimindexta, 20 Shell и по 1 Red Herb, Blue Herb, Green Herb, White Herb, Yellow Herb.",
+      "short_en": "Collect the set for Dono: 5 Coal, 5 Brigan, 5 Cyfar, 1 Unripe Apple, 3 Detrimindexta, 20 Shell and 1 each of Red Herb, Blue Herb, Green Herb, White Herb, Yellow Herb.",
+      "full_ru": "В Lighthalzen поговорите с Dono (lighthalzen 88 79). Для изготовления medicine он попросит: 5 Coal, 5 Brigan, 5 Cyfar, 1 Unripe Apple, 3 Detrimindexta, 20 Shell, 1 Red Herb, 1 Blue Herb, 1 Green Herb, 1 White Herb, 1 Yellow Herb.",
+      "full_en": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+      "npcs": [
+        {
+          "entity": "Dono",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Coal",
+          "quantity": 5,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One material set requested here and delivered at stage 4, not two independent costs."
+        },
+        {
+          "entity": "Brigan",
+          "quantity": 5,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One material set requested here and delivered at stage 4, not two independent costs."
+        },
+        {
+          "entity": "Cyfar",
+          "quantity": 5,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One material set requested here and delivered at stage 4, not two independent costs."
+        },
+        {
+          "entity": "Unripe Apple",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One material set requested here and delivered at stage 4, not two independent costs."
+        },
+        {
+          "entity": "Detrimindexta",
+          "quantity": 3,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One material set requested here and delivered at stage 4, not two independent costs."
+        },
+        {
+          "entity": "Shell",
+          "quantity": 20,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One material set requested here and delivered at stage 4, not two independent costs."
+        },
+        {
+          "entity": "Red Herb",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One material set requested here and delivered at stage 4, not two independent costs."
+        },
+        {
+          "entity": "Blue Herb",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One material set requested here and delivered at stage 4, not two independent costs."
+        },
+        {
+          "entity": "Green Herb",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One material set requested here and delivered at stage 4, not two independent costs."
+        },
+        {
+          "entity": "White Herb",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One material set requested here and delivered at stage 4, not two independent costs."
+        },
+        {
+          "entity": "Yellow Herb",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One material set requested here and delivered at stage 4, not two independent costs."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Dono"
+        },
+        {
+          "operation": "collect_material_set"
+        }
+      ],
+      "protected_names": [
+        "Dono",
+        "Lighthalzen",
+        "lighthalzen",
+        "Coal",
+        "Brigan",
+        "Cyfar",
+        "Unripe Apple",
+        "Detrimindexta",
+        "Shell",
+        "Red Herb",
+        "Blue Herb",
+        "Green Herb",
+        "White Herb",
+        "Yellow Herb",
+        "medicine"
+      ],
+      "locations": [
+        {
+          "map": "lighthalzen",
+          "x": 88,
+          "y": 79,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lighthalzen 88 79"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "After bringing him the items, he will make the medicine, but something doesn't work right, so he needs \"Red Plant Stem Powder\" from Makkie.",
+      "instruction_sha256": "6da57625afd1f9b268fc60d4e042f3148ee95a3e1c40a54aef49f8323f89de75",
+      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/6da57625afd1f9b268fc/1",
+      "goal": "deliver",
+      "short_ru": "Передайте набор Dono; затем нужен Red Plant Stem Powder от Makkie.",
+      "short_en": "Deliver the set to Dono; Red Plant Stem Powder from Makkie is then needed.",
+      "full_ru": "Принесите ему запрошенные предметы. Изготовление medicine не удаётся: дополнительно нужен Red Plant Stem Powder от Makkie.",
+      "full_en": "After bringing him the items, he will make the medicine, but something doesn't work right, so he needs \"Red Plant Stem Powder\" from Makkie.",
+      "npcs": [
+        {
+          "entity": "Dono",
+          "role": "talk",
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb"
+        },
+        {
+          "entity": "Makkie",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Coal",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+          "condition": "The single set requested at stage 3. Header consumed totals are summaries, not another delivery."
+        },
+        {
+          "entity": "Brigan",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+          "condition": "The single set requested at stage 3. Header consumed totals are summaries, not another delivery."
+        },
+        {
+          "entity": "Cyfar",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+          "condition": "The single set requested at stage 3. Header consumed totals are summaries, not another delivery."
+        },
+        {
+          "entity": "Unripe Apple",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+          "condition": "The single set requested at stage 3. Header consumed totals are summaries, not another delivery."
+        },
+        {
+          "entity": "Detrimindexta",
+          "quantity": 3,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+          "condition": "The single set requested at stage 3. Header consumed totals are summaries, not another delivery."
+        },
+        {
+          "entity": "Shell",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+          "condition": "The single set requested at stage 3. Header consumed totals are summaries, not another delivery."
+        },
+        {
+          "entity": "Red Herb",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+          "condition": "The single set requested at stage 3. Header consumed totals are summaries, not another delivery."
+        },
+        {
+          "entity": "Blue Herb",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+          "condition": "The single set requested at stage 3. Header consumed totals are summaries, not another delivery."
+        },
+        {
+          "entity": "Green Herb",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+          "condition": "The single set requested at stage 3. Header consumed totals are summaries, not another delivery."
+        },
+        {
+          "entity": "White Herb",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+          "condition": "The single set requested at stage 3. Header consumed totals are summaries, not another delivery."
+        },
+        {
+          "entity": "Yellow Herb",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Head to Lighthalzen and talk to Dono (lighthalzen 88 79). He will ask you to bring the following items so that he can make the medicine. | 5 Coal | 5 Brigan | 5 Cyfar | 1 Unripe Apple | 3 Detrimindexta | 20 Shell | 1 Red Herb | 1 Blue Herb | 1 Green Herb | 1 White Herb | 1 Yellow Herb",
+          "condition": "The single set requested at stage 3. Header consumed totals are summaries, not another delivery."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_material_set",
+          "entity": "Dono"
+        }
+      ],
+      "protected_names": [
+        "Makkie",
+        "Red Plant Stem Powder",
+        "medicine"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Go find Makkie (lhz_in03 193 28) inside the bar (lighthalzen 345 229) in the Lighthalzen slums (lighthalzen 267 200).",
+      "instruction_sha256": "f8ec25f31e4ed967ff617a493ce567bcd89403877de3b5547e4ec2967e0b67bc",
+      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/f8ec25f31e4ed967ff61/1",
+      "goal": "talk",
+      "short_ru": "Найдите Makkie: lighthalzen 267 200 → lighthalzen 345 229 → lhz_in03 193 28.",
+      "short_en": "Find Makkie: lighthalzen 267 200 → lighthalzen 345 229 → lhz_in03 193 28.",
+      "full_ru": "Найдите Makkie (lhz_in03 193 28) в баре (lighthalzen 345 229), в трущобах Lighthalzen (lighthalzen 267 200).",
+      "full_en": "Go find Makkie (lhz_in03 193 28) inside the bar (lighthalzen 345 229) in the Lighthalzen slums (lighthalzen 267 200).",
+      "npcs": [
+        {
+          "entity": "Makkie",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Makkie"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "lighthalzen",
+          "x": 267,
+          "y": 200,
+          "role": "slums_access",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "lighthalzen",
+          "x": 345,
+          "y": 229,
+          "role": "entrance",
+          "known": true,
+          "order": 2
+        },
+        {
+          "entity": "lhz_in03",
+          "x": 193,
+          "y": 28,
+          "role": "npc",
+          "known": true,
+          "order": 3
+        }
+      ],
+      "protected_names": [
+        "Makkie",
+        "Lighthalzen",
+        "lighthalzen",
+        "lhz_in03"
+      ]
+    },
+    "6": {
+      "original_instruction": "Return to Dono with \"Red Plant Stem Powder\", he will make the medicine and send you back to Morriphen.",
+      "instruction_sha256": "17bfab4262f01df70323c3bf72996684bc14b2f61a1eca880556607f0b7f5d5f",
+      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/17bfab4262f01df70323/1",
+      "goal": "deliver",
+      "short_ru": "Вернитесь к Dono с Red Plant Stem Powder и заберите medicine для Morriphen.",
+      "short_en": "Return to Dono with Red Plant Stem Powder and collect medicine for Morriphen.",
+      "full_ru": "Вернитесь к Dono с Red Plant Stem Powder. Он изготовит medicine и отправит вас обратно к Morriphen.",
+      "full_en": "Return to Dono with \"Red Plant Stem Powder\", he will make the medicine and send you back to Morriphen.",
+      "npcs": [
+        {
+          "entity": "Dono",
+          "role": "talk"
+        },
+        {
+          "entity": "Morriphen",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Red Plant Stem Powder",
+          "quantity": null,
+          "operation": "bring",
+          "required": 1,
+          "condition": "The source specifies neither inventory quantity nor an explicit removal count."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_medicine",
+          "entity": "medicine",
+          "condition": "Prepared by Dono; inventory ID and quantity unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "bring",
+          "entity": "Red Plant Stem Powder"
+        },
+        {
+          "operation": "receive_medicine",
+          "entity": "Dono"
+        }
+      ],
+      "protected_names": [
+        "Morriphen",
+        "Dono",
+        "Red Plant Stem Powder",
+        "medicine"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Deliver the medicine to Morriphen, he will thank you for the medicine and ask you to hurry and give some to Siria as well.",
+      "instruction_sha256": "4e0fa5ee748f14a19db4e1129d2dc12763eb64370a3f19670db7a45bb237af55",
+      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/4e0fa5ee748f14a19db4/1",
+      "goal": "deliver",
+      "short_ru": "Передайте medicine Morriphen; затем отнесите часть Siria.",
+      "short_en": "Deliver medicine to Morriphen, then take some to Siria.",
+      "full_ru": "Доставьте medicine Morriphen. Он поблагодарит вас и попросит как можно скорее дать часть medicine также Siria.",
+      "full_en": "Deliver the medicine to Morriphen, he will thank you for the medicine and ask you to hurry and give some to Siria as well.",
+      "npcs": [
+        {
+          "entity": "Morriphen",
+          "role": "talk"
+        },
+        {
+          "entity": "Siria",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "medicine",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "First recipient; no numerical split or extra medicine batch is specified."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "medicine"
+        }
+      ],
+      "protected_names": [
+        "Morriphen",
+        "Siria",
+        "medicine"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Siria will thank you for saving her and gives experience then asks you to return to Morriphen. | Receive 500,000 Base EXP .",
+      "instruction_sha256": "b43d631bc0bfdf667f7ef973e8be11e127487978c445c79abbe486de0b7d2d7b",
+      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/b43d631bc0bfdf667f7e/1",
+      "goal": "receive_reward",
+      "short_ru": "Доставьте medicine Siria, получите 500,000 Base EXP и вернитесь к Morriphen.",
+      "short_en": "Deliver medicine to Siria, receive 500,000 Base EXP and return to Morriphen.",
+      "full_ru": "Siria поблагодарит вас за спасение, даст опыт и попросит вернуться к Morriphen. Получите 500,000 Base EXP.",
+      "full_en": "Siria will thank you for saving her and gives experience then asks you to return to Morriphen. | Receive 500,000 Base EXP .",
+      "npcs": [
+        {
+          "entity": "Siria",
+          "role": "talk"
+        },
+        {
+          "entity": "Morriphen",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "medicine",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 7,
+          "evidence": "Deliver the medicine to Morriphen, he will thank you for the medicine and ask you to hurry and give some to Siria as well.",
+          "condition": "Second recipient is explicitly requested in stage 7; quantity unknown."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "500000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Siria"
+        }
+      ],
+      "protected_names": [
+        "Morriphen",
+        "Siria"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Morriphen will give you more exp and explain that Siria was originally a Biological Weapon. He thought she was so beautiful that he fell in love with her and freed her from Rekenber's research. However ever since, the both of them have been very sick. | Receive 700,000 Base EXP .",
+      "instruction_sha256": "e946e113611bda59f987cfe6241378652f7bf1f8f9032e7f72015a00d27ebde5",
+      "step_id": "irowiki-classic:Biological_Weapon_Quest/step/e946e113611bda59f987/1",
+      "goal": "receive_reward",
+      "short_ru": "Поговорите с Morriphen и получите 700,000 Base EXP.",
+      "short_en": "Talk to Morriphen and receive 700,000 Base EXP.",
+      "full_ru": "Morriphen даст ещё опыт и расскажет, что Siria изначально была Biological Weapon. Он влюбился в неё и освободил от исследований Rekenber, но с тех пор они оба очень больны. Получите 700,000 Base EXP.",
+      "full_en": "Morriphen will give you more exp and explain that Siria was originally a Biological Weapon. He thought she was so beautiful that he fell in love with her and freed her from Rekenber's research. However ever since, the both of them have been very sick. | Receive 700,000 Base EXP .",
+      "npcs": [
+        {
+          "entity": "Morriphen",
+          "role": "talk"
+        },
+        {
+          "entity": "Siria",
+          "role": "story_reference"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "700000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Morriphen"
+        }
+      ],
+      "protected_names": [
+        "Morriphen",
+        "Siria"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "medicine_and_powder_inventory_unknown",
+      "detail": "Red Plant Stem Powder and medicine retain quest-scoped identities with NULL game IDs and quantities. The source does not specify a powder grant count or how medicine is split between Morriphen and Siria."
+    },
+    {
+      "reason": "reward_header_not_extra_grant",
+      "detail": "The stage-8 500000 and stage-9 700000 Base EXP installments sum to the 1200000 header. The header is not an extra grant."
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:Medicine_Quest",
+      "kind": "mandatory_prerequisite"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "entity": "Coal",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Coal",
+        "condition": "One header material total, satisfied by the stage-4 delivery; not additive."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Brigan",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Brigan",
+        "condition": "One header material total, satisfied by the stage-4 delivery; not additive."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Cyfar",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Cyfar",
+        "condition": "One header material total, satisfied by the stage-4 delivery; not additive."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Unripe Apple",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Unripe Apple",
+        "condition": "One header material total, satisfied by the stage-4 delivery; not additive."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Detrimindexta",
+        "amount": "3",
+        "source_section": "requirements",
+        "evidence": "3 Detrimindexta",
+        "condition": "One header material total, satisfied by the stage-4 delivery; not additive."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Shell",
+        "amount": "20",
+        "source_section": "requirements",
+        "evidence": "20 Shell",
+        "condition": "One header material total, satisfied by the stage-4 delivery; not additive."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Red Herb",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Red Herb",
+        "condition": "One header material total, satisfied by the stage-4 delivery; not additive."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Blue Herb",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Blue Herb",
+        "condition": "One header material total, satisfied by the stage-4 delivery; not additive."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Green Herb",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Green Herb",
+        "condition": "One header material total, satisfied by the stage-4 delivery; not additive."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "White Herb",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 White Herb",
+        "condition": "One header material total, satisfied by the stage-4 delivery; not additive."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Yellow Herb",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Yellow Herb",
+        "condition": "One header material total, satisfied by the stage-4 delivery; not additive."
+      }
+    ]
+  }
+}

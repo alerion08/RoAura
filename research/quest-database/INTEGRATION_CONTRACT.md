@@ -33,6 +33,11 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
 - Intermediate quest items are recorded as rewards with conditions. Possess,
   bring, deliver, consume and keep are not interchangeable. Quest-level and
   stage rewards must not be blindly summed without reading their conditions.
+- `base_exp_total` is a source header summary, not a payable installment.
+  Peace for Arunafeltz has two `base_exp` grants with NULL amounts and a known
+  total; do not infer their split. A slot suffix such as Knife [3] is part of
+  the item label, not quantity. Same-label File documents may have distinct
+  IDs for the original and forged versions, with explicit mention bindings.
 - `evidence` and `evidence_context` distinguish literal text, contextual
   witnesses and confidence. `source_section` in curation may cite exact header
   text or normalized text extracted from pinned HTML; the HTML bytes and hash

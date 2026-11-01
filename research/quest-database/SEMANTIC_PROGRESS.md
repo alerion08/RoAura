@@ -1,4 +1,4 @@
-# Semantic database progress — 2026-11-01
+# Semantic database progress — 2026-11-02
 
 Status: **partial research dataset, not ready for application integration**.
 Scope: database, sources, parsers, curations, exports and research CI only.
@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.3.0**. All four description fields are populated for
-**584 steps across 40 curated guides**, up from the previous 35-guide/535-step
-checkpoint. **47 conditional branches** also have independent RU/EN short and
+**632 steps across 43 curated guides**, up from the previous 40-guide/584-step
+checkpoint. **50 conditional branches** also have independent RU/EN short and
 full descriptions. Seven quest routes represent two exclusive expedition paths
-and five conditional/optional activities. **2,166 steps in 176 remaining catalog entries still lack
+and five conditional/optional activities. **2,118 steps in 173 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -65,6 +65,9 @@ complete localization/context analysis.** `complete` remains false.
 | Airship Ticket Quest | 8 | Undeliverable package returned; exact choices; repair service versus final tickets |
 | Medicine Quest | 12 | Proximity triggers; multi-step repetitions; one White Potion; unknown later medicine quantities |
 | Friendship Quest | 14 | Exact six-line relay at its delivery step; unknown return message; two EXP installments; overlapping level 75 bands |
+| Biological Weapon Quest | 9 | One requested/delivered eleven-material set; unknown medicine split; two exact EXP installments |
+| Bruspetti Quest | 18 | Ordered exact topics; interactable Book versus later diary; one three-slot Knife consumed; header/stage level-75 conflict |
+| Peace for Arunafeltz Quest | 21 | Distinct same-name merchants; original/forged documents; equivalent choices; unknown split of total EXP; source gem spelling conflict |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -72,6 +75,32 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Three related permanent story guides preserve all 48 original stages and
+  add three localized level-reward branches. Their single mandatory header
+  prerequisites link to the already curated Medicine, Friendship and Thor
+  Volcano Base guides without inferring executable quest flags.
+- Biological Weapon requests one eleven-material set at stage 3 and delivers
+  it at 4; header consumed totals summarize that delivery. Red Plant Stem
+  Powder and medicine retain NULL IDs/counts and quest-scoped identities.
+  The medicine is distributed to Morriphen and Siria without inventing a
+  numerical split. Exact 500,000 and 700,000 EXP installments are not
+  supplemented by another header reward.
+- Bruspetti retains exact ordered topic strings and distinguishes explicit
+  typed answers from unspecified topic interactions. Book at stage 10 is an
+  interactable, while Bruspetti's Diary is acquired at 15. One Knife [3] is
+  removed at 17; the slot notation does not mean three knives, and this page
+  supplies no verified item ID. Approximate remaining HP is not a minimum
+  requirement. Stage 18 says 75–90 while the header says 76–90: both literal
+  sources remain, with an explicit unresolved overlap at level 75.
+- Peace's two Foreign Merchants have separate source-coordinate identities;
+  High Priest Zhed shares the reviewed identity from the Rachel chain.
+  Zhed's personal note, Niren's original File and the returned forged File
+  are independently addressable, with explicit per-stage mention bindings.
+  Truth/Lies both continue. The 2,500,000 EXP header is a total, while the
+  two actual installments have NULL amounts. One Sardonyx is supported by
+  its header/link (725); stage-15 Sardonx remains an unverified source spelling,
+  not an invented second gem. Rachel Field 3 has no inferred map code.
 
 - Five regional/airship guides preserve all 49 original stages and add six
   localized reward branches. International and domestic routes retain their
@@ -317,7 +346,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **151 tests passed**; complete offline enrichment passed;
+Validated locally: **160 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -347,10 +376,14 @@ case-sensitive file search, random requests, drink prices and early exchange
 unlock. New checks cover random airship timing, shared captain identity,
 partial password candidates, returned packages, multi-target action reuse,
 proximity actions, cross-step message provenance and overlapping EXP bands.
+Further checks cover the regional prerequisite links, single material-set
+accounting, unknown medicine quantities, exact topic input modes, slot counts,
+Book/diary distinction, conflicting reward headers, merchant/document identity
+bindings, unknown EXP splits and unqualified field coordinates.
 
 ## Next work, in order
 
-1. Review the remaining 176 catalog candidates, separating reference pages,
+1. Review the remaining 173 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World
