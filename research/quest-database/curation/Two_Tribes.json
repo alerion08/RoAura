@@ -1,0 +1,1218 @@
+{
+  "quest_id": "irowiki-classic:Two_Tribes",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "caca842f6c4ac750d9a5bc051bb8de8acb2da593abe288df6e0cbc5a69deb3a9",
+  "snapshot_sha256": "578611953478cc7419ce0676de2e626a8b13f0e2649fa427170d9dc7d0889885",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Arc",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Petrified Sapha",
+      "aliases": [
+        "Ogen"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Villagers",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Snorren",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "captured Laphine",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Terra",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "weeds",
+      "ref": "weeds_south",
+      "identity": "irowiki-classic:object:spl_fild02:44:214:weeds"
+    },
+    {
+      "type": "npc",
+      "name": "weeds",
+      "ref": "weeds_east",
+      "identity": "irowiki-classic:object:spl_fild02:123:106:weeds"
+    },
+    {
+      "type": "npc",
+      "name": "weeds",
+      "ref": "weeds_north",
+      "identity": "irowiki-classic:object:spl_fild02:330:192:weeds"
+    },
+    {
+      "type": "npc",
+      "name": "footprints",
+      "ref": "prints_north",
+      "identity": "irowiki-classic:object:spl_fild02:328:322:footprints"
+    },
+    {
+      "type": "npc",
+      "name": "footprints",
+      "ref": "prints_tree",
+      "identity": "irowiki-classic:object:spl_fild01:343:109:footprints"
+    },
+    {
+      "type": "npc",
+      "name": "fruit",
+      "ref": "fruit_1",
+      "identity": "irowiki-classic:object:spl_fild01:356:42:fruit"
+    },
+    {
+      "type": "npc",
+      "name": "fruit",
+      "ref": "fruit_2",
+      "identity": "irowiki-classic:object:spl_fild01:314:78:fruit"
+    },
+    {
+      "type": "npc",
+      "name": "fruit",
+      "ref": "fruit_3",
+      "identity": "irowiki-classic:object:spl_fild01:328:26:fruit"
+    },
+    {
+      "type": "map",
+      "name": "Splendide"
+    },
+    {
+      "type": "map",
+      "name": "splendide",
+      "map_code": "splendide"
+    },
+    {
+      "type": "map",
+      "name": "spl_in01",
+      "map_code": "spl_in01"
+    },
+    {
+      "type": "map",
+      "name": "spl_fild02",
+      "map_code": "spl_fild02"
+    },
+    {
+      "type": "map",
+      "name": "spl_fild01",
+      "map_code": "spl_fild01"
+    },
+    {
+      "type": "map",
+      "name": "Yggdrasil Dungeon"
+    },
+    {
+      "type": "map",
+      "name": "nyd_dun01",
+      "map_code": "nyd_dun01"
+    },
+    {
+      "type": "map",
+      "name": "Manuk"
+    },
+    {
+      "type": "map",
+      "name": "manuk",
+      "map_code": "manuk"
+    },
+    {
+      "type": "map",
+      "name": "Yggdrasil Tree"
+    },
+    {
+      "type": "item",
+      "name": "Ring of the Ancient Wise King"
+    },
+    {
+      "type": "item",
+      "name": "Yggdrasil Berry",
+      "aliases": [
+        "Yggdrasil Berrys",
+        "Berrys",
+        "Berries"
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Muffler"
+    },
+    {
+      "type": "item",
+      "name": "Bradium"
+    },
+    {
+      "type": "item",
+      "name": "Manuk Coin"
+    },
+    {
+      "type": "item",
+      "name": "Splendide Coin"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "With your Ring of the Ancient Wise King equipped, speak to Arc in Splendide (splendide 228, 162 -> spl_in01 32,306), and offer to help him look for his friend. He tells you his friend frequently ties knot's in weeds to leave a trail.",
+      "instruction_sha256": "7d4dcaf13909db92b8f533b0e83f6fa08dc2e3ae2f49e218c6a03b51fa1f9794",
+      "step_id": "irowiki-classic:Two_Tribes/step/7d4dcaf13909db92b8f5/1",
+      "goal": "talk",
+      "short_ru": "Наденьте Ring of the Ancient Wise King и поговорите с Arc: splendide 228, 162 → spl_in01 32,306.",
+      "short_en": "Equip Ring of the Ancient Wise King and talk to Arc: splendide 228, 162 → spl_in01 32,306.",
+      "full_ru": "Надев Ring of the Ancient Wise King, поговорите с Arc в Splendide (splendide 228, 162 → spl_in01 32,306). Предложите помочь найти друга: он оставляет следы, завязывая узлы на weeds.",
+      "full_en": "With your Ring of the Ancient Wise King equipped, speak to Arc in Splendide (splendide 228, 162 -> spl_in01 32,306), and offer to help him look for his friend. He tells you his friend frequently ties knot's in weeds to leave a trail.",
+      "npcs": [
+        {
+          "entity": "Arc",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Ring of the Ancient Wise King",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Must be equipped, not consumed."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "equipped_item",
+          "entity": "Ring of the Ancient Wise King",
+          "amount": "1"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "equip",
+          "entity": "Ring of the Ancient Wise King"
+        },
+        {
+          "operation": "talk",
+          "entity": "Arc"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "splendide",
+          "x": 228,
+          "y": 162,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "spl_in01",
+          "x": 32,
+          "y": 306,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "mention_entities": {
+        "weeds": "weeds_south"
+      },
+      "protected_names": [
+        "Arc",
+        "weeds",
+        "weeds",
+        "weeds",
+        "Splendide",
+        "splendide",
+        "spl_in01",
+        "Ring of the Ancient Wise King"
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to the weeds outside the village (spl_fild02 44,214), they are knotted and point south.",
+      "instruction_sha256": "5d7c87687cdc1201973db8507c1a3ea3587a4cbedd2b4b0b393e0b6ac8c1ecaa",
+      "step_id": "irowiki-classic:Two_Tribes/step/5d7c87687cdc1201973d/1",
+      "goal": "investigate",
+      "short_ru": "Осмотрите weeds: spl_fild02 44,214; идите south.",
+      "short_en": "Inspect the weeds: spl_fild02 44,214; go south.",
+      "full_ru": "Осмотрите weeds у spl_fild02 44,214. Узлы указывают направление south.",
+      "full_en": "Talk to the weeds outside the village (spl_fild02 44,214), they are knotted and point south.",
+      "npcs": [
+        {
+          "entity": "weeds_south",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "investigate",
+          "entity": "weeds_south",
+          "condition": "Source trail points south."
+        }
+      ],
+      "mention_entities": {
+        "weeds": "weeds_south"
+      },
+      "protected_names": [
+        "weeds",
+        "weeds",
+        "weeds",
+        "spl_fild02"
+      ],
+      "locations": [
+        {
+          "map": "spl_fild02",
+          "x": 44,
+          "y": 214,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "spl_fild02 44,214"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to the weeds near (spl_fild02 123,106), they are knotted and point east.",
+      "instruction_sha256": "beaf84a615a7b52f261ed5cf4ea4a2feeda581b73b105c4c9003631e4d6191da",
+      "step_id": "irowiki-classic:Two_Tribes/step/beaf84a615a7b52f261e/1",
+      "goal": "investigate",
+      "short_ru": "Осмотрите weeds: spl_fild02 123,106; идите east.",
+      "short_en": "Inspect the weeds: spl_fild02 123,106; go east.",
+      "full_ru": "Осмотрите weeds у spl_fild02 123,106. Узлы указывают направление east.",
+      "full_en": "Talk to the weeds near (spl_fild02 123,106), they are knotted and point east.",
+      "npcs": [
+        {
+          "entity": "weeds_east",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "investigate",
+          "entity": "weeds_east",
+          "condition": "Source trail points east."
+        }
+      ],
+      "mention_entities": {
+        "weeds": "weeds_east"
+      },
+      "protected_names": [
+        "weeds",
+        "weeds",
+        "weeds",
+        "spl_fild02"
+      ],
+      "locations": [
+        {
+          "map": "spl_fild02",
+          "x": 123,
+          "y": 106,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "spl_fild02 123,106"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Talk to the weeds near (spl_fild02 330,192), they are knotted and point north.",
+      "instruction_sha256": "ea607a571106c956701caf6356936d8de7b2bbcf2fec374114c77724fd438af6",
+      "step_id": "irowiki-classic:Two_Tribes/step/ea607a571106c956701c/1",
+      "goal": "investigate",
+      "short_ru": "Осмотрите weeds: spl_fild02 330,192; идите north.",
+      "short_en": "Inspect the weeds: spl_fild02 330,192; go north.",
+      "full_ru": "Осмотрите weeds у spl_fild02 330,192. Узлы указывают направление north.",
+      "full_en": "Talk to the weeds near (spl_fild02 330,192), they are knotted and point north.",
+      "npcs": [
+        {
+          "entity": "weeds_north",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "investigate",
+          "entity": "weeds_north",
+          "condition": "Source trail points north."
+        }
+      ],
+      "mention_entities": {
+        "weeds": "weeds_north"
+      },
+      "protected_names": [
+        "weeds",
+        "weeds",
+        "weeds",
+        "spl_fild02"
+      ],
+      "locations": [
+        {
+          "map": "spl_fild02",
+          "x": 330,
+          "y": 192,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "spl_fild02 330,192"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Talk to the footprints near (spl_fild02 328, 322), the footprints are headed north.",
+      "instruction_sha256": "acebab7be6b6d78522a4424550842bb9b900229fd0d77e3a4fc9eb95eccaf6f0",
+      "step_id": "irowiki-classic:Two_Tribes/step/acebab7be6b6d78522a4/1",
+      "goal": "investigate",
+      "short_ru": "Осмотрите footprints: spl_fild02 328, 322; идите на север.",
+      "short_en": "Inspect the footprints: spl_fild02 328, 322; head north.",
+      "full_ru": "Осмотрите footprints у spl_fild02 328, 322. Следы направлены на север.",
+      "full_en": "Talk to the footprints near (spl_fild02 328, 322), the footprints are headed north.",
+      "npcs": [
+        {
+          "entity": "prints_north",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "investigate",
+          "entity": "prints_north"
+        }
+      ],
+      "mention_entities": {
+        "footprints": "prints_north"
+      },
+      "protected_names": [
+        "footprints",
+        "footprints",
+        "spl_fild02"
+      ],
+      "locations": [
+        {
+          "map": "spl_fild02",
+          "x": 328,
+          "y": 322,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "spl_fild02 328, 322"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Near (spl_fild01 343, 109) there are more footprints which lead to the root of a huge tree.",
+      "instruction_sha256": "528f092f565484da0584765c225eefcd051bb60dd1fc0d1c65bada49b8bc32f1",
+      "step_id": "irowiki-classic:Two_Tribes/step/528f092f565484da0584/1",
+      "goal": "move",
+      "short_ru": "Следуйте footprints: spl_fild01 343, 109; идите к корню дерева.",
+      "short_en": "Follow the footprints: spl_fild01 343, 109; head to the tree root.",
+      "full_ru": "Около spl_fild01 343, 109 находятся следующие footprints, ведущие к корням огромного дерева.",
+      "full_en": "Near (spl_fild01 343, 109) there are more footprints which lead to the root of a huge tree.",
+      "npcs": [
+        {
+          "entity": "prints_tree",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "follow",
+          "entity": "prints_tree"
+        }
+      ],
+      "mention_entities": {
+        "footprints": "prints_tree"
+      },
+      "protected_names": [
+        "footprints",
+        "footprints",
+        "spl_fild01"
+      ],
+      "locations": [
+        {
+          "map": "spl_fild01",
+          "x": 343,
+          "y": 109,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "spl_fild01 343, 109"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Enter the Yggdrasil Dungeon just east (368, 112). (This is as far as you need to go in order to start the Guardian of Yggdrasil Quest).",
+      "instruction_sha256": "7041196b03c71cc1f5e9150764c2ae35a6f3ee66428160d18a03ce85e9f64999",
+      "step_id": "irowiki-classic:Two_Tribes/step/7041196b03c71cc1f5e9/1",
+      "goal": "enter",
+      "short_ru": "Войдите в Yggdrasil Dungeon у (368, 112); открыт этап для начала Guardian of Yggdrasil.",
+      "short_en": "Enter Yggdrasil Dungeon at (368, 112); this is the stage needed to start Guardian of Yggdrasil.",
+      "full_ru": "Войдите в Yggdrasil Dungeon немного восточнее (368, 112). Этого этапа достаточно для начала Guardian of Yggdrasil Quest.",
+      "full_en": "Enter the Yggdrasil Dungeon just east (368, 112). (This is as far as you need to go in order to start the Guardian of Yggdrasil Quest).",
+      "actions": [
+        {
+          "operation": "enter"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "spl_fild01",
+          "x": 368,
+          "y": 112,
+          "role": "entrance",
+          "known": true,
+          "support_step": 6,
+          "evidence": "Near (spl_fild01 343, 109) there are more footprints which lead to the root of a huge tree.",
+          "condition": "Map inherited from the preceding trail point; original step has bare coordinates."
+        }
+      ],
+      "protected_names": [
+        "Yggdrasil Dungeon"
+      ]
+    },
+    "8": {
+      "original_instruction": "Inside the dungeon, click on the Petrified Sapha (nyd_dun01 57, 222) in the northwest corner.",
+      "instruction_sha256": "e88c49c0cae135f318c90377e58fc230b6bebc2b3667247063792f655f77b638",
+      "step_id": "irowiki-classic:Two_Tribes/step/e88c49c0cae135f318c9/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Petrified Sapha: nyd_dun01 57, 222.",
+      "short_en": "Inspect Petrified Sapha: nyd_dun01 57, 222.",
+      "full_ru": "Внутри подземелья нажмите на Petrified Sapha (nyd_dun01 57, 222) в северо-западной части.",
+      "full_en": "Inside the dungeon, click on the Petrified Sapha (nyd_dun01 57, 222) in the northwest corner.",
+      "npcs": [
+        {
+          "entity": "Petrified Sapha",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Petrified Sapha"
+        }
+      ],
+      "protected_names": [
+        "Petrified Sapha",
+        "nyd_dun01"
+      ],
+      "locations": [
+        {
+          "map": "nyd_dun01",
+          "x": 57,
+          "y": 222,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "nyd_dun01 57, 222"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Walk north a few cells to (62, 232) and climb out of the dungeon.",
+      "instruction_sha256": "63b2d7637a4fd9081a20ed1cca4b8da3dff3936ad38d7b9db77b48f7c3456e2b",
+      "step_id": "irowiki-classic:Two_Tribes/step/63b2d7637a4fd9081a20/1",
+      "goal": "leave",
+      "short_ru": "Выйдите из подземелья у (62, 232).",
+      "short_en": "Climb out of the dungeon at (62, 232).",
+      "full_ru": "Пройдите на несколько клеток севернее к (62, 232) и выберитесь из подземелья.",
+      "full_en": "Walk north a few cells to (62, 232) and climb out of the dungeon.",
+      "actions": [
+        {
+          "operation": "leave"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "nyd_dun01",
+          "x": 62,
+          "y": 232,
+          "role": "exit",
+          "known": true,
+          "support_step": 8,
+          "evidence": "Inside the dungeon, click on the Petrified Sapha (nyd_dun01 57, 222) in the northwest corner.",
+          "condition": "Interior map inherited from the immediately preceding Petrified Sapha location."
+        }
+      ],
+      "protected_names": []
+    },
+    "10": {
+      "original_instruction": "Return to Arc, he tells you Terra left with some bradium, after some discussion, you decide to head back to the Petrified Sapha.",
+      "instruction_sha256": "ec7f7ffa0fa598b1ea81818d2a35f72faf185004ffef31ab5352884c20b2c675",
+      "step_id": "irowiki-classic:Two_Tribes/step/ec7f7ffa0fa598b1ea81/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Arc о Terra, затем вернитесь к Petrified Sapha.",
+      "short_en": "Talk to Arc about Terra, then return to Petrified Sapha.",
+      "full_ru": "Вернитесь к Arc. Он расскажет, что Terra ушла с bradium. После обсуждения вернитесь к Petrified Sapha.",
+      "full_en": "Return to Arc, he tells you Terra left with some bradium, after some discussion, you decide to head back to the Petrified Sapha.",
+      "npcs": [
+        {
+          "entity": "Arc",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Arc"
+        },
+        {
+          "operation": "return",
+          "entity": "Petrified Sapha"
+        }
+      ],
+      "protected_names": [
+        "Arc",
+        "Petrified Sapha",
+        "Terra"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Return to the Petrified Sapha, after noticing bits of bradium ore scattered about, you decide to go visit the sapha.",
+      "instruction_sha256": "db7377eecc7ca75b27a5e055ce6459df7209ac6cd0be99245847cf7ae3d8406f",
+      "step_id": "irowiki-classic:Two_Tribes/step/db7377eecc7ca75b27a5/1",
+      "goal": "investigate",
+      "short_ru": "Осмотрите Petrified Sapha и отправляйтесь к sapha.",
+      "short_en": "Inspect Petrified Sapha and go visit the sapha.",
+      "full_ru": "Вернитесь к Petrified Sapha. Заметив рассыпанные кусочки bradium, решите посетить sapha.",
+      "full_en": "Return to the Petrified Sapha, after noticing bits of bradium ore scattered about, you decide to go visit the sapha.",
+      "npcs": [
+        {
+          "entity": "Petrified Sapha",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "investigate",
+          "entity": "Petrified Sapha"
+        }
+      ],
+      "protected_names": [
+        "Petrified Sapha"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "In Manuk , speak to the Villagers near (manuk 278, 177), they mention Terra's arrival in Manuk.",
+      "instruction_sha256": "15cbd2b1b1dd01000bab19d2b231bad11b4917b8b82804d18e44ddcb01290eca",
+      "step_id": "irowiki-classic:Two_Tribes/step/15cbd2b1b1dd01000bab/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Villagers: manuk 278, 177.",
+      "short_en": "Question the Villagers: manuk 278, 177.",
+      "full_ru": "В Manuk поговорите с Villagers около manuk 278, 177. Они расскажут о появлении Terra в Manuk.",
+      "full_en": "In Manuk , speak to the Villagers near (manuk 278, 177), they mention Terra's arrival in Manuk.",
+      "npcs": [
+        {
+          "entity": "Villagers",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Villagers"
+        }
+      ],
+      "protected_names": [
+        "Villagers",
+        "Terra",
+        "Manuk",
+        "manuk"
+      ],
+      "locations": [
+        {
+          "map": "manuk",
+          "x": 278,
+          "y": 177,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "manuk 278, 177"
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Inside the building at (252, 110) speak to Snorren and offer to interpret for him.",
+      "instruction_sha256": "8d060bd10536a7badff7ced3a76b12c8a9342ef2bc2f964af04084264681fda6",
+      "step_id": "irowiki-classic:Two_Tribes/step/8d060bd10536a7badff7/1",
+      "goal": "talk",
+      "short_ru": "Войдите в здание у (252, 110) и предложите помощь Snorren.",
+      "short_en": "Enter the building at (252, 110) and offer to interpret for Snorren.",
+      "full_ru": "Войдите в здание у (252, 110), поговорите с Snorren и предложите переводить.",
+      "full_en": "Inside the building at (252, 110) speak to Snorren and offer to interpret for him.",
+      "npcs": [
+        {
+          "entity": "Snorren",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "talk",
+          "entity": "Snorren"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "manuk",
+          "x": 252,
+          "y": 110,
+          "role": "entrance",
+          "known": true,
+          "support_step": 12,
+          "evidence": "In Manuk , speak to the Villagers near (manuk 278, 177), they mention Terra's arrival in Manuk.",
+          "condition": "Exterior town inherited from the previous step; Snorren’s interior map is not established."
+        }
+      ],
+      "protected_names": [
+        "Snorren"
+      ]
+    },
+    "14": {
+      "original_instruction": "Speak to Snorren again, the guard on the other side of the door says Terra's wounds need to be treated first. Head back to Arc to find out how.",
+      "instruction_sha256": "3b480ce557cca6aff8f1299d14fa3eabc80e0b979d04c7b4d074e8f99319f8f2",
+      "step_id": "irowiki-classic:Two_Tribes/step/3b480ce557cca6aff8f1/1",
+      "goal": "talk",
+      "short_ru": "После разговора с Snorren вернитесь к Arc за способом лечения Terra.",
+      "short_en": "After speaking to Snorren, return to Arc to learn how to treat Terra.",
+      "full_ru": "Снова поговорите с Snorren. Стражник за дверью скажет, что сначала нужно вылечить раны Terra. Вернитесь к Arc и узнайте, как это сделать.",
+      "full_en": "Speak to Snorren again, the guard on the other side of the door says Terra's wounds need to be treated first. Head back to Arc to find out how.",
+      "npcs": [
+        {
+          "entity": "Snorren",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Snorren"
+        },
+        {
+          "operation": "return",
+          "entity": "Arc"
+        }
+      ],
+      "protected_names": [
+        "Arc",
+        "Snorren",
+        "Terra"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "Speak to Arc, he tells you that Yggdrasil Berrys are the best way to cure a Laphine's wounds. He gives you 3 and tell you that you can get more at the root of the Yggdrasil Tree.",
+      "instruction_sha256": "b943b5dac7fbb2d7bb245cd0166e936a1bf0ac7faff6185f2493a14250342b2e",
+      "step_id": "irowiki-classic:Two_Tribes/step/b943b5dac7fbb2d7bb24/1",
+      "goal": "receive_item",
+      "short_ru": "Получите у Arc 3 Yggdrasil Berrys; остальные найдите у Yggdrasil Tree.",
+      "short_en": "Receive 3 Yggdrasil Berrys from Arc; find more at the Yggdrasil Tree.",
+      "full_ru": "Arc посоветует лечить раны Laphine с помощью Yggdrasil Berrys. Он даст 3 и скажет, что дополнительные можно найти у корня Yggdrasil Tree.",
+      "full_en": "Speak to Arc, he tells you that Yggdrasil Berrys are the best way to cure a Laphine's wounds. He gives you 3 and tell you that you can get more at the root of the Yggdrasil Tree.",
+      "npcs": [
+        {
+          "entity": "Arc",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "3",
+          "entity": "Yggdrasil Berry"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Arc"
+        }
+      ],
+      "protected_names": [
+        "Arc",
+        "Yggdrasil Tree",
+        "Yggdrasil Berry"
+      ],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "Collect 1 Yggdrasil Berry from the fruit near (spl_fild01 356, 42).",
+      "instruction_sha256": "713cdc135ff4a08701cf626e091e324012edf9bbd75a9269ff2a103c22f3e822",
+      "step_id": "irowiki-classic:Two_Tribes/step/713cdc135ff4a08701cf/1",
+      "goal": "collect",
+      "short_ru": "Соберите 1 Yggdrasil Berry у fruit: spl_fild01 356, 42.",
+      "short_en": "Collect 1 Yggdrasil Berry from the fruit: spl_fild01 356, 42.",
+      "full_ru": "Соберите 1 Yggdrasil Berry у fruit около spl_fild01 356, 42.",
+      "full_en": "Collect 1 Yggdrasil Berry from the fruit near (spl_fild01 356, 42).",
+      "npcs": [
+        {
+          "entity": "fruit_1",
+          "role": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Yggdrasil Berry",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Yggdrasil Berry"
+        }
+      ],
+      "mention_entities": {
+        "fruit": "fruit_1"
+      },
+      "protected_names": [
+        "fruit",
+        "fruit",
+        "fruit",
+        "spl_fild01",
+        "Yggdrasil Berry"
+      ],
+      "locations": [
+        {
+          "map": "spl_fild01",
+          "x": 356,
+          "y": 42,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "spl_fild01 356, 42"
+        }
+      ]
+    },
+    "17": {
+      "original_instruction": "Collect another Yggdrasil Berry from the fruit near (spl_fild01 314, 78).",
+      "instruction_sha256": "0df72da9d6e574b06abbe6a30c83f8a0822ee14b8d72c4575d026309fa3f0878",
+      "step_id": "irowiki-classic:Two_Tribes/step/0df72da9d6e574b06abb/1",
+      "goal": "collect",
+      "short_ru": "Соберите Yggdrasil Berry у fruit: spl_fild01 314, 78.",
+      "short_en": "Collect Yggdrasil Berry from the fruit: spl_fild01 314, 78.",
+      "full_ru": "Соберите ещё одну Yggdrasil Berry у fruit около spl_fild01 314, 78.",
+      "full_en": "Collect another Yggdrasil Berry from the fruit near (spl_fild01 314, 78).",
+      "npcs": [
+        {
+          "entity": "fruit_2",
+          "role": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Yggdrasil Berry",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Yggdrasil Berry"
+        }
+      ],
+      "mention_entities": {
+        "fruit": "fruit_2"
+      },
+      "protected_names": [
+        "fruit",
+        "fruit",
+        "fruit",
+        "spl_fild01",
+        "Yggdrasil Berry"
+      ],
+      "locations": [
+        {
+          "map": "spl_fild01",
+          "x": 314,
+          "y": 78,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "spl_fild01 314, 78"
+        }
+      ]
+    },
+    "18": {
+      "original_instruction": "Collect the last Yggdrasil Berry from the fruit near (spl_fild01 328, 26).",
+      "instruction_sha256": "c29e078955299d03b3233a92cdc3cd73ca51d7b72bb38c345660c0b91ed7d681",
+      "step_id": "irowiki-classic:Two_Tribes/step/c29e078955299d03b323/1",
+      "goal": "collect",
+      "short_ru": "Соберите Yggdrasil Berry у fruit: spl_fild01 328, 26.",
+      "short_en": "Collect Yggdrasil Berry from the fruit: spl_fild01 328, 26.",
+      "full_ru": "Соберите последнюю Yggdrasil Berry у fruit около spl_fild01 328, 26.",
+      "full_en": "Collect the last Yggdrasil Berry from the fruit near (spl_fild01 328, 26).",
+      "npcs": [
+        {
+          "entity": "fruit_3",
+          "role": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Yggdrasil Berry",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Yggdrasil Berry"
+        }
+      ],
+      "mention_entities": {
+        "fruit": "fruit_3"
+      },
+      "protected_names": [
+        "fruit",
+        "fruit",
+        "fruit",
+        "spl_fild01",
+        "Yggdrasil Berry"
+      ],
+      "locations": [
+        {
+          "map": "spl_fild01",
+          "x": 328,
+          "y": 26,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "spl_fild01 328, 26"
+        }
+      ]
+    },
+    "19": {
+      "original_instruction": "Return to Snorren with the Berrys. (Warning: If you have more than 6 Berries, he will take them ALL)",
+      "instruction_sha256": "0f73e5064c1ec2213f1c30366ba14c2e7a9e6c4dc06bd4094622ba1db86e4053",
+      "step_id": "irowiki-classic:Two_Tribes/step/0f73e5064c1ec2213f1c/1",
+      "goal": "deliver",
+      "short_ru": "Принесите Snorren Berrys; при количестве больше 6 он заберёт все Berries.",
+      "short_en": "Bring the Berrys to Snorren; if you have more than 6, he takes all Berries.",
+      "full_ru": "Вернитесь к Snorren с Berrys. Предупреждение: если у вас больше 6 Berries, он заберёт их ВСЕ.",
+      "full_en": "Return to Snorren with the Berrys. (Warning: If you have more than 6 Berries, he will take them ALL)",
+      "npcs": [
+        {
+          "entity": "Snorren",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Yggdrasil Berry",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Source preparation gives three and collects three more; if carrying more than six, he takes ALL. Removal is not capped at six."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "berry_overcollection_loss_threshold",
+          "amount": "6",
+          "condition": "More than six held berries triggers the explicit all-held warning, not a fixed maximum removal amount."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Snorren"
+        }
+      ],
+      "protected_names": [
+        "Snorren"
+      ],
+      "locations": []
+    },
+    "20": {
+      "original_instruction": "After giving Snorren the Berrys, enter the room behind him, Talk to the captured Laphine, she will tell you about the injured Sapha. Her captors are skeptical, and want to see proof to ensure they are not being led into a trap.",
+      "instruction_sha256": "8df26bd286e8691d65e539c879ccd2fb8073dafcadb10094bd5162cfda935125",
+      "step_id": "irowiki-classic:Two_Tribes/step/8df26bd286e8691d65e5/1",
+      "goal": "talk",
+      "short_ru": "После передачи Berrys Snorren поговорите с captured Laphine в комнате.",
+      "short_en": "After giving Snorren the Berrys, talk to the captured Laphine in the room.",
+      "full_ru": "После передачи Berrys Snorren войдите в комнату за ним. Поговорите с captured Laphine: она расскажет о раненом Sapha. Её пленители потребуют доказательства, опасаясь ловушки.",
+      "full_en": "After giving Snorren the Berrys, enter the room behind him, Talk to the captured Laphine, she will tell you about the injured Sapha. Her captors are skeptical, and want to see proof to ensure they are not being led into a trap.",
+      "npcs": [
+        {
+          "entity": "captured Laphine",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "talk",
+          "entity": "captured Laphine"
+        }
+      ],
+      "protected_names": [
+        "Snorren",
+        "captured Laphine"
+      ],
+      "locations": []
+    },
+    "21": {
+      "original_instruction": "Return the the Petrified Sapha. You will need to take something back with you, take his Muffler and the Bradium.",
+      "instruction_sha256": "74e351fad1402442353c9704bac2ecb63e400db69ab5b4d12b99135f980a079d",
+      "step_id": "irowiki-classic:Two_Tribes/step/74e351fad1402442353c/1",
+      "goal": "collect",
+      "short_ru": "Возьмите Muffler и Bradium у Petrified Sapha.",
+      "short_en": "Take the Muffler and Bradium from Petrified Sapha.",
+      "full_ru": "Вернитесь к Petrified Sapha и возьмите его Muffler и Bradium как доказательство.",
+      "full_en": "Return the the Petrified Sapha. You will need to take something back with you, take his Muffler and the Bradium.",
+      "npcs": [
+        {
+          "entity": "Petrified Sapha",
+          "role": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Muffler",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        },
+        {
+          "entity": "Bradium",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Muffler"
+        },
+        {
+          "operation": "collect",
+          "entity": "Bradium"
+        }
+      ],
+      "protected_names": [
+        "Petrified Sapha",
+        "Muffler",
+        "Bradium"
+      ],
+      "locations": []
+    },
+    "22": {
+      "original_instruction": "Return to Snorren with the items, He recognizes that the bradium has not been properly refined and would not have helped Ogen. He also recognizes the muffler as Ogens. He asks you to lead him to the roots of the tree.",
+      "instruction_sha256": "aa97d25e274ad2a818750495a044825a168ce9404571d262793d3fb30c53508e",
+      "step_id": "irowiki-classic:Two_Tribes/step/aa97d25e274ad2a81875/1",
+      "goal": "talk",
+      "short_ru": "Покажите Snorren предметы и отведите его к корням дерева.",
+      "short_en": "Show Snorren the items and lead him to the tree roots.",
+      "full_ru": "Вернитесь к Snorren с предметами. Он распознает плохо очищенный bradium, который не помог бы Ogen, и узнает muffler как принадлежащий Ogens. Он попросит отвести его к корням дерева.",
+      "full_en": "Return to Snorren with the items, He recognizes that the bradium has not been properly refined and would not have helped Ogen. He also recognizes the muffler as Ogens. He asks you to lead him to the roots of the tree.",
+      "npcs": [
+        {
+          "entity": "Snorren",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Muffler",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "support_step": 21,
+          "evidence": "Return the the Petrified Sapha. You will need to take something back with you, take his Muffler and the Bradium."
+        },
+        {
+          "entity": "Bradium",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "support_step": 21,
+          "evidence": "Return the the Petrified Sapha. You will need to take something back with you, take his Muffler and the Bradium."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Snorren"
+        }
+      ],
+      "protected_names": [
+        "Snorren"
+      ],
+      "locations": []
+    },
+    "23": {
+      "original_instruction": "Return to the Petrified Sapha, Snorren tells you Ogen is too far gone to be saved. His body can remain as a statue in his honor.",
+      "instruction_sha256": "13d0ba57886eb45a4c29948c5cf8953b3f356f3bf71d4de1c4e9b01bfadec45d",
+      "step_id": "irowiki-classic:Two_Tribes/step/13d0ba57886eb45a4c29/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Petrified Sapha и выслушайте Snorren об Ogen.",
+      "short_en": "Return to Petrified Sapha and hear Snorren’s conclusion about Ogen.",
+      "full_ru": "Вернитесь к Petrified Sapha. Snorren скажет, что Ogen уже нельзя спасти: его тело останется статуей в память о нём.",
+      "full_en": "Return to the Petrified Sapha, Snorren tells you Ogen is too far gone to be saved. His body can remain as a statue in his honor.",
+      "npcs": [
+        {
+          "entity": "Petrified Sapha",
+          "role": "interact"
+        },
+        {
+          "entity": "Snorren",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return",
+          "entity": "Petrified Sapha"
+        },
+        {
+          "operation": "talk",
+          "entity": "Snorren"
+        }
+      ],
+      "protected_names": [
+        "Petrified Sapha",
+        "Snorren"
+      ],
+      "locations": []
+    },
+    "24": {
+      "original_instruction": "Return to Snorren, he will reward you with 15 Manuk Coin.",
+      "instruction_sha256": "f6381eed5d382dac7947cd1225105333e619adbd089c562c31c2518d06368985",
+      "step_id": "irowiki-classic:Two_Tribes/step/f6381eed5d382dac7947/1",
+      "goal": "receive_reward",
+      "short_ru": "Получите у Snorren 15 Manuk Coin.",
+      "short_en": "Receive 15 Manuk Coin from Snorren.",
+      "full_ru": "Вернитесь к Snorren и получите 15 Manuk Coin.",
+      "full_en": "Return to Snorren, he will reward you with 15 Manuk Coin.",
+      "npcs": [
+        {
+          "entity": "Snorren",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "15",
+          "entity": "Manuk Coin"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Snorren"
+        }
+      ],
+      "protected_names": [
+        "Snorren",
+        "Manuk",
+        "Manuk Coin"
+      ],
+      "locations": []
+    },
+    "25": {
+      "original_instruction": "Return to Arc, he tells you to meet him at Terra's Yai (splendide 285, 139). Inside, talk to Terra. Recieve 25 Splendide Coin, 1,200,000 Base EXP and 100,000 Job EXP .",
+      "instruction_sha256": "3c868280d1949bdecced631d98e404cf47c484becd5aaa08ecb0fe296e513c47",
+      "step_id": "irowiki-classic:Two_Tribes/step/3c868280d1949bdecced/1",
+      "goal": "receive_reward",
+      "short_ru": "После Arc встретьтесь с Terra: splendide 285, 139; получите 25 Splendide Coin, 1,200,000 Base EXP, 100,000 Job EXP.",
+      "short_en": "After Arc, meet Terra: splendide 285, 139; receive 25 Splendide Coin, 1,200,000 Base EXP, 100,000 Job EXP.",
+      "full_ru": "Вернитесь к Arc. Он назначит встречу у Terra's Yai (splendide 285, 139). Внутри поговорите с Terra. Получите 25 Splendide Coin, 1,200,000 Base EXP и 100,000 Job EXP.",
+      "full_en": "Return to Arc, he tells you to meet him at Terra's Yai (splendide 285, 139). Inside, talk to Terra. Recieve 25 Splendide Coin, 1,200,000 Base EXP and 100,000 Job EXP .",
+      "npcs": [
+        {
+          "entity": "Arc",
+          "role": "talk"
+        },
+        {
+          "entity": "Terra",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "25",
+          "entity": "Splendide Coin"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "1200000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "100000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Arc"
+        },
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "talk",
+          "entity": "Terra"
+        }
+      ],
+      "protected_names": [
+        "Arc",
+        "Terra",
+        "Splendide",
+        "splendide",
+        "Splendide Coin"
+      ],
+      "locations": [
+        {
+          "map": "splendide",
+          "x": 285,
+          "y": 139,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "splendide 285, 139"
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "berry_all_held_loss",
+      "detail": "Arc grants three berries and three separate collection steps add one each. Source warns that carrying more than six makes Snorren take all; delivery quantity remains unknown rather than falsely capped at six."
+    },
+    {
+      "reason": "ring_name_source_variant",
+      "detail": "Ring of the Ancient Wise King is preserved literally; no local database link proves its ID or alias with the other guide’s Ring of the Wise Ancient King."
+    },
+    {
+      "reason": "generic_item_ids_unknown",
+      "detail": "This article has no database ID links. Muffler, Bradium and coin labels retain NULL IDs; no ordinary equipment/ore IDs are guessed."
+    },
+    {
+      "reason": "captured_laphine_identity_unresolved",
+      "detail": "Captured Laphine and named Terra remain separate source labels until identity is corroborated. Bare-coordinate map inheritance has explicit earlier-step witnesses."
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:Ring_of_the_Wise_King",
+      "kind": "mandatory_prerequisite"
+    },
+    {
+      "related_quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
+      "kind": "stage_required_to_start",
+      "source_step": 7
+    }
+  ]
+}

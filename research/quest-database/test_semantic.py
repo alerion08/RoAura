@@ -193,15 +193,15 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],420)
-        self.assertEqual(self.report['not_fully_localized_steps'],2330)
+        self.assertEqual(self.report['fully_localized_steps'],473)
+        self.assertEqual(self.report['not_fully_localized_steps'],2277)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],420)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],473)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,2330)
-        self.assertEqual(self.report['fully_localized_branches'],21)
-        self.assertEqual(self.report['curated_quests'],28)
-        self.assertEqual(self.report['pending_quests'],188)
+        self.assertEqual(missing,2277)
+        self.assertEqual(self.report['fully_localized_branches'],29)
+        self.assertEqual(self.report['curated_quests'],32)
+        self.assertEqual(self.report['pending_quests'],184)
         self.assertEqual(self.report['quest_routes'],6)
         self.assertEqual(self.report['action_reuse_links'],1)
 
@@ -279,7 +279,7 @@ class RealCorpusTests(unittest.TestCase):
     def test_new_world_relations_keep_literal_step_evidence_and_shared_identity(self):
         rows=[tuple(r) for r in self.db.execute('''SELECT r.quest_id,r.related_id,r.kind,s.step_order FROM quest_relations r
           JOIN evidence e USING(evidence_id) LEFT JOIN quest_steps s ON s.step_id=e.step_id
-          WHERE e.method IN ('curated_quest_relation','curated_single_prerequisite') ORDER BY r.quest_id,r.kind''')]
+          WHERE e.method IN ('curated_quest_relation','curated_single_prerequisite') AND r.quest_id NOT IN ('irowiki-classic:Finding_a_Fairy','irowiki-classic:Two_Tribes') ORDER BY r.quest_id,r.kind''')]
         prefix='irowiki-classic:'
         self.assertEqual(rows,[(prefix+'Attitude_to_the_New_World',prefix+'Report_from_the_New_World','extra_stage_required_for_prerequisite',16),
           (prefix+'Attitude_to_the_New_World',prefix+'Onward_to_the_New_World_Quest','mandatory_prerequisite',None),
@@ -415,6 +415,104 @@ class RealCorpusTests(unittest.TestCase):
         before=target.read_bytes()
         with self.assertRaisesRegex(ValueError,'Human-reviewed prerequisite groups'):build(self.source,folder)
         self.assertEqual(before,target.read_bytes())
+
+    def test_fairy_installments_and_ring_header_reward_provenance(self):
+        q='irowiki-classic:Finding_a_Fairy'
+        grants=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s ON s.step_id=sr.step_id WHERE r.quest_id=? AND r.kind='base_exp' ORDER BY s.step_order''',(q,))]
+        self.assertEqual(grants,[(2,'700000'),(4,'700000')])
+        q='irowiki-classic:Ring_of_the_Wise_King'
+        exact=[tuple(r) for r in self.db.execute('''SELECT r.kind,r.amount,e.method FROM rewards r JOIN evidence e USING(evidence_id)
+          WHERE r.quest_id=? AND r.kind IN ('base_exp','job_exp') ORDER BY r.kind''',(q,))]
+        self.assertEqual(exact,[('base_exp','1000000','curated_rewards'),('job_exp','300000','curated_rewards')])
+        ring=self.db.execute('''SELECT x.game_id,r.amount FROM rewards r JOIN items x ON x.entity_id=r.item_id
+          JOIN entities e ON e.entity_id=r.item_id WHERE r.quest_id=? AND e.original_name='Ring of the Wise Ancient King' ''',(q,)).fetchone()
+        self.assertEqual(tuple(ring),(2782,'1'))
+
+    def test_started_and_finished_prerequisites_have_distinct_typed_relations(self):
+        rows=[tuple(r) for r in self.db.execute('''SELECT r.quest_id,r.related_id,r.kind,e.snippet FROM quest_relations r
+          JOIN evidence e USING(evidence_id) WHERE e.method='curated_prerequisite_clause' ORDER BY r.quest_id,r.kind''')]
+        p='irowiki-classic:'
+        self.assertEqual(rows,[(p+'Guardian_of_Yggdrasil',p+'Report_from_the_New_World','required_completed_quest','Finished Report from the New World'),
+          (p+'Guardian_of_Yggdrasil',p+'Two_Tribes','required_started_quest','Started Two Tribes (To the point where you enter the Dungeon)'),
+          (p+'Ring_of_the_Wise_King',p+'Finding_a_Fairy','required_quest','Finding a Fairy'),
+          (p+'Ring_of_the_Wise_King',p+'Report_from_the_New_World','required_started_quest','Started Report from the New World')])
+        stage=self.db.execute('''SELECT s.step_order FROM quest_relations r JOIN evidence e USING(evidence_id)
+          JOIN quest_steps s ON s.step_id=e.step_id WHERE r.quest_id=? AND r.related_id=? AND r.kind='stage_required_to_start' ''',(p+'Two_Tribes',p+'Guardian_of_Yggdrasil')).fetchone()[0]
+        self.assertEqual(stage,7);self.assertEqual(self.report['phase_prerequisites'],4)
+
+    def test_ring_literal_language_inputs_and_separate_gem_objects(self):
+        q='irowiki-classic:Ring_of_the_Wise_King'
+        options=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,o.exact_text,o.operation FROM dialogue_options o
+          JOIN dialogues d USING(dialogue_id) JOIN step_branches b ON b.branch_id=d.branch_id
+          JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? ORDER BY b.branch_key,o.option_order''',(q,))]
+        self.assertEqual(options,[('iro_language','RLGHLRXLA TKANTLFDMS WJACK TNAHRDNJSDMFH WLSGHKWND !!','enter_text'),
+          ('iro_language','TJDTMFJDNS CJFDI TKADLFDMF QKATOS EKDTLSDML DLFMADMS..','enter_text'),
+          ('non_iro_language','TKANTLFDMS TNAHRDNJSDMFH WLSGHKWND','enter_text'),
+          ('non_iro_language','CJFDI QKATOS DLFMADMS..','enter_text')])
+        gems=[r[0] for r in self.db.execute('''SELECT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order IN (5,6)''',(q,))]
+        self.assertEqual(len(set(gems)),2)
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='wait_hours'",(q,)).fetchone()[0],'1')
+        self.assertEqual(self.db.execute('''SELECT count(*) FROM step_monsters m JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND m.quantity IS NOT NULL''',(q,)).fetchone()[0],0)
+
+    def test_two_tribes_berry_preparation_and_all_held_loss_are_distinct(self):
+        q='irowiki-classic:Two_Tribes'
+        granted=self.db.execute('''SELECT r.amount FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s ON s.step_id=sr.step_id WHERE s.quest_id=? AND s.step_order=15''',(q,)).fetchone()[0]
+        collected=[r[0] for r in self.db.execute('''SELECT i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order IN (16,17,18) ORDER BY s.step_order''',(q,))]
+        self.assertEqual((granted,collected),('3',[1,1,1]))
+        delivery=self.db.execute('''SELECT i.quantity,i.condition_text FROM step_items i JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=19''',(q,)).fetchone()
+        self.assertIsNone(delivery[0]);self.assertIn('ALL',delivery[1])
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='berry_overcollection_loss_threshold'",(q,)).fetchone()[0],'6')
+        ring=self.db.execute('''SELECT x.game_id FROM requirements r JOIN items x ON x.entity_id=r.entity_id
+          WHERE r.quest_id=? AND r.kind='equipped_item' ''',(q,)).fetchone()[0]
+        self.assertIsNone(ring)
+
+    def test_guardian_choices_do_not_double_rewards_or_invent_password(self):
+        q='irowiki-classic:Guardian_of_Yggdrasil'
+        groups=[tuple(r) for r in self.db.execute('''SELECT s.step_order,count(DISTINCT b.choice_group),count(*) FROM step_branches b
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? GROUP BY s.step_order ORDER BY s.step_order''',(q,))]
+        self.assertEqual(groups,[(5,1,2),(8,1,2),(10,1,2)])
+        rewards=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,r.kind,r.amount FROM rewards r JOIN step_branches b USING(branch_id)
+          WHERE r.quest_id=? AND b.branch_key LIKE 'reward_%' ORDER BY b.branch_key,r.kind''',(q,))]
+        self.assertEqual(rewards,[(branch,kind,amount) for branch in ['reward_manuk','reward_splendide'] for kind,amount in [('base_exp','1500000'),('item','10'),('job_exp','35000')]])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM rewards WHERE quest_id=? AND branch_id IS NULL",(q,)).fetchone()[0],0)
+        self.assertEqual(self.db.execute('''SELECT count(*) FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,)).fetchone()[0],0)
+        self.assertEqual(self.db.execute('SELECT availability FROM quests WHERE quest_id=?',(q,)).fetchone()[0],'unknown')
+        self.assertIsNotNone(self.db.execute("SELECT 1 FROM review_queue WHERE quest_id=? AND reason='source_iro_completion_warning'",(q,)).fetchone())
+
+    def test_guardian_navigation_keeps_source_typo_and_two_tribes_map_witnesses(self):
+        q='irowiki-classic:Guardian_of_Yggdrasil'
+        points=[tuple(r) for r in self.db.execute('''SELECT m.map_code,l.x,l.y,sl.location_order FROM step_locations sl
+          JOIN locations l USING(location_id) JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=1 ORDER BY sl.location_order''',(q,))]
+        self.assertEqual(points,[('spl_fld01',368,112,1),('nyd_dun01',252,144,2),('nyd_dun02',137,274,3),('nyd_dun02',99,199,4)])
+        self.assertEqual(self.db.execute("SELECT known_in_reference FROM maps WHERE map_code='spl_fld01'").fetchone()[0],0)
+        inherited=[tuple(r) for r in self.db.execute('''SELECT s.step_order,m.map_code FROM step_locations sl JOIN locations l USING(location_id)
+          JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order IN (7,9) ORDER BY s.step_order''',('irowiki-classic:Two_Tribes',))]
+        self.assertEqual(inherited,[(7,'spl_fild01'),(9,'nyd_dun01')])
+        self.assertEqual(self.db.execute('''SELECT count(*) FROM step_locations sl JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=5 AND (sl.condition_text IS NULL OR sl.role='waypoint')''',(q,)).fetchone()[0],0)
+
+    def test_phase_prerequisite_corruption_and_unsupported_curations_fail_closed(self):
+        for sql,error in [
+          ("UPDATE quest_relations SET kind='required_completed_quest' WHERE kind='required_started_quest'",'invalid_phase_prerequisite'),
+          ("DELETE FROM quest_relations WHERE kind IN ('required_quest','required_started_quest','required_completed_quest')",'incomplete_phase_prerequisite_list'),
+          ("UPDATE evidence SET method='candidate' WHERE method='curated_prerequisite_clause'",'invalid_phase_prerequisite_evidence'),
+        ]:
+            with self.subTest(sql=sql),contextlib.closing(sqlite3.connect(':memory:')) as db:
+                self.db.backup(db);db.execute(sql)
+                with self.assertRaisesRegex(ValueError,error):validate(db)
+        folder=self.out/'invalid-phase-prerequisite';shutil.copytree(ROOT/'curation',folder)
+        path=folder/'Ring_of_the_Wise_King.json';data=json.loads(path.read_text());data['prerequisite_clauses'][1]['kind']='required_completed_quest';path.write_text(json.dumps(data))
+        before=(self.out/'quest_semantic.sqlite').read_bytes()
+        with self.assertRaisesRegex(ValueError,'Phase prerequisite contradicts source clause'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual(before,(self.out/'quest_semantic.sqlite').read_bytes())
 
     def test_reference_index_is_excluded_with_pinned_evidence(self):
         key='irowiki-classic:Access_Quests'

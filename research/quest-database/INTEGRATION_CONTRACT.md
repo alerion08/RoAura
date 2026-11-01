@@ -115,6 +115,18 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   stage 16 to count toward Report. Generic unspecified links do not override
   the reviewed group or turn every member into a mandatory quest. This is
   source logic, not an in-game completion/flag evaluator.
+- Phase-qualified `quest_relations` use `required_started_quest` and
+  `required_completed_quest` for literal Started/Finished header clauses.
+  `required_quest` retains an unqualified clause without inventing a flag
+  phase. These reviewed component lists are conjunctions; exact full-header
+  coverage is checked, and threshold headers cannot be imported through this
+  path. Evidence method is `curated_prerequisite_clause`, with a literal
+  clause and no step ID.
+- `stage_required_to_start` points from a prerequisite quest to the quest
+  whose start needs a milestone; its evidence step is that milestone. Two
+  Tribes stage 7 permits starting Guardian, while the rest of Two Tribes is
+  separate. Do not replace this condition with full quest completion. This
+  remains source logic rather than a verified runtime flag evaluator.
 - `ready_steps` currently means **all four localized text fields exist**. It
   is not a readiness claim for the quest, route, server or application.
   Unfinished fields are NULL with blocking review rows; `complete=false` is

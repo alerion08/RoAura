@@ -1,0 +1,780 @@
+{
+  "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "2d00a813bb9bf154fcd73cd02e4a3b028fb2c09b4d2c83097f597f1664e94873",
+  "snapshot_sha256": "6ef61695ad11b5f59766edd34a026c208818ac582376a91a06b09392388f7447",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Schwartzvalt Mechanic",
+      "aliases": [
+        "mechanic"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Arunafeltz Linguist",
+      "aliases": [
+        "Arunafeltz linguist",
+        "Linguist",
+        "linguist"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Rune Midgart's Magician",
+      "aliases": [
+        "magician"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Gem",
+      "ref": "gem_red",
+      "identity": "irowiki-classic:npc:spl_fild02:26:218:Gem"
+    },
+    {
+      "type": "npc",
+      "name": "Gem",
+      "ref": "gem_blue",
+      "identity": "irowiki-classic:npc:man_fild03:227:109:Gem"
+    },
+    {
+      "type": "npc",
+      "name": "Faerie"
+    },
+    {
+      "type": "npc",
+      "name": "Giant",
+      "aliases": [
+        "Giants"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Mysterious Rock"
+    },
+    {
+      "type": "map",
+      "name": "mid_camp",
+      "map_code": "mid_camp"
+    },
+    {
+      "type": "map",
+      "name": "spl_fild02",
+      "map_code": "spl_fild02"
+    },
+    {
+      "type": "map",
+      "name": "man_fild03",
+      "map_code": "man_fild03"
+    },
+    {
+      "type": "item",
+      "name": "Red Jewel"
+    },
+    {
+      "type": "item",
+      "name": "Blue Jewel"
+    },
+    {
+      "type": "item",
+      "name": "Unidentified Mineral"
+    },
+    {
+      "type": "item",
+      "name": "Ring of the Wise Ancient King",
+      "game_id": 2782,
+      "id_source": "http://db.irowiki.org/classic/item-info/2782/"
+    },
+    {
+      "type": "monster",
+      "name": "thief bugs"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Speak to Schwartzvalt Mechanic (mid_camp 197, 237) outside the Alliance Headquarters. He tells you about the Ring of the Wise King, and asks you to speak to the Arunafeltz Linguist on the 2nd floor of the Alliance Headquarters.",
+      "instruction_sha256": "e254c6b018908122eed05de9e6b6934fd047e3fce12b943d73b555adeae5cff9",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/e254c6b018908122eed0/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Schwartzvalt Mechanic: mid_camp 197, 237; идите к Arunafeltz Linguist.",
+      "short_en": "Talk to Schwartzvalt Mechanic: mid_camp 197, 237; visit Arunafeltz Linguist.",
+      "full_ru": "Поговорите с Schwartzvalt Mechanic (mid_camp 197, 237) у Alliance Headquarters. Он расскажет о Ring of the Wise King и направит к Arunafeltz Linguist на 2-м этаже Alliance Headquarters.",
+      "full_en": "Speak to Schwartzvalt Mechanic (mid_camp 197, 237) outside the Alliance Headquarters. He tells you about the Ring of the Wise King, and asks you to speak to the Arunafeltz Linguist on the 2nd floor of the Alliance Headquarters.",
+      "npcs": [
+        {
+          "entity": "Schwartzvalt Mechanic",
+          "role": "talk"
+        },
+        {
+          "entity": "Arunafeltz Linguist",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Schwartzvalt Mechanic"
+        }
+      ],
+      "protected_names": [
+        "Schwartzvalt Mechanic",
+        "Arunafeltz Linguist",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 197,
+          "y": 237,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 197, 237"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Inside, up the stairs, find the linguist in the room to the far right. He asks you to visit the Faerie and Giants out on the fields and remember every single word they say. These are from the Finding a Fairy quest. The Faerie's text is: RLGHLRXLA TKANTLFDMS WJACK TNAHRDNJSDMFH WLSGHKWND !! The Giant's text is: TJDTMFJDNS CJFDI TKADLFDMF QKATOS EKDTLSDML DLFMADMS.. Note : On non-iRO servers, the text for the linguist is different: The Faerie's text is: TKANTLFDMS TNAHRDNJSDMFH WLSGHKWND The Giant's text is: CJFDI QKATOS DLFMADMS..",
+      "instruction_sha256": "ffc8baebdb561f7854727d920b213ec3e4e339f487ff9ba8191c371c84341823",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/ffc8baebdb561f785472/1",
+      "goal": "dialogue",
+      "short_ru": "Посетите Faerie и Giants из Finding a Fairy; используйте вариант текста для своего сервера.",
+      "short_en": "Visit the Faerie and Giants from Finding a Fairy; use the text variant for your server.",
+      "full_ru": "Внутри поднимитесь по лестнице и найдите linguist в крайней правой комнате. Он попросит посетить Faerie и Giants на полях из квеста Finding a Fairy и запомнить каждое слово.",
+      "full_en": "Inside, up the stairs, find the linguist in the room to the far right. He asks you to visit the Faerie and Giants out on the fields and remember every single word they say. These are from the Finding a Fairy quest.",
+      "npcs": [
+        {
+          "entity": "Arunafeltz Linguist",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Speak to Schwartzvalt Mechanic (mid_camp 197, 237) outside the Alliance Headquarters. He tells you about the Ring of the Wise King, and asks you to speak to the Arunafeltz Linguist on the 2nd floor of the Alliance Headquarters."
+        },
+        {
+          "entity": "Faerie",
+          "role": "language_source"
+        },
+        {
+          "entity": "Giant",
+          "role": "language_source"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Arunafeltz Linguist"
+        }
+      ],
+      "protected_names": [
+        "Faerie",
+        "Giant"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "iro_language",
+          "choice_group": "language_input",
+          "variant_scope": "Source default language text; contrasted with explicit non-iRO exception",
+          "condition": "Choose the source-described server variant; do not combine its answers with the other variant.",
+          "section": "",
+          "source_step": 2,
+          "original_instruction": "The Faerie's text is: RLGHLRXLA TKANTLFDMS WJACK TNAHRDNJSDMFH WLSGHKWND !! The Giant's text is: TJDTMFJDNS CJFDI TKADLFDMF QKATOS EKDTLSDML DLFMADMS.. ",
+          "instruction_sha256": "ea3f8bc83b619f0c83836d518eb03a25ce9591ffbccae78d82c697d782d3c4e3",
+          "short_ru": "Передайте linguist точные фразы Faerie и Giant из этого варианта.",
+          "short_en": "Give the linguist the exact Faerie and Giant phrases for this variant.",
+          "full_ru": "Текст Faerie: RLGHLRXLA TKANTLFDMS WJACK TNAHRDNJSDMFH WLSGHKWND !! Текст Giant: TJDTMFJDNS CJFDI TKADLFDMF QKATOS EKDTLSDML DLFMADMS..",
+          "full_en": "The Faerie's text is: RLGHLRXLA TKANTLFDMS WJACK TNAHRDNJSDMFH WLSGHKWND !! The Giant's text is: TJDTMFJDNS CJFDI TKADLFDMF QKATOS EKDTLSDML DLFMADMS.. ",
+          "protected_names": [
+            "Faerie",
+            "Giant"
+          ],
+          "dialogues": [
+            {
+              "npc": "Arunafeltz Linguist",
+              "options": [
+                {
+                  "text": "RLGHLRXLA TKANTLFDMS WJACK TNAHRDNJSDMFH WLSGHKWND !!",
+                  "correct": 1,
+                  "operation": "enter_text"
+                },
+                {
+                  "text": "TJDTMFJDNS CJFDI TKADLFDMF QKATOS EKDTLSDML DLFMADMS..",
+                  "correct": 1,
+                  "operation": "enter_text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "non_iro_language",
+          "choice_group": "language_input",
+          "variant_scope": "Explicit non-iRO language exception in the source",
+          "condition": "Choose the source-described server variant; do not combine its answers with the other variant.",
+          "section": "",
+          "source_step": 2,
+          "original_instruction": "Note : On non-iRO servers, the text for the linguist is different: The Faerie's text is: TKANTLFDMS TNAHRDNJSDMFH WLSGHKWND The Giant's text is: CJFDI QKATOS DLFMADMS..",
+          "instruction_sha256": "8b11cb4bd817a0f3f4e16ba09bc66c3d6e9b241b0d85157bf84c82076cbefd39",
+          "short_ru": "Передайте linguist точные фразы Faerie и Giant из этого варианта.",
+          "short_en": "Give the linguist the exact Faerie and Giant phrases for this variant.",
+          "full_ru": "Примечание для linguist на non-iRO: текст Faerie — TKANTLFDMS TNAHRDNJSDMFH WLSGHKWND; текст Giant — CJFDI QKATOS DLFMADMS..",
+          "full_en": "Note : On non-iRO servers, the text for the linguist is different: The Faerie's text is: TKANTLFDMS TNAHRDNJSDMFH WLSGHKWND The Giant's text is: CJFDI QKATOS DLFMADMS..",
+          "protected_names": [
+            "Faerie",
+            "Giant"
+          ],
+          "dialogues": [
+            {
+              "npc": "Arunafeltz Linguist",
+              "options": [
+                {
+                  "text": "TKANTLFDMS TNAHRDNJSDMFH WLSGHKWND",
+                  "correct": 1,
+                  "operation": "enter_text"
+                },
+                {
+                  "text": "CJFDI QKATOS DLFMADMS..",
+                  "correct": 1,
+                  "operation": "enter_text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "The Linguist isn't able to make any sense of the languages and refers you to the Rune Midgart's Magician.",
+      "instruction_sha256": "650cdf040796f490fbfe49ca6f7775dbbcc36ad66206fa423a99e59e82be4883",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/650cdf040796f490fbfe/1",
+      "goal": "talk",
+      "short_ru": "У Linguist получите направление к Rune Midgart's Magician.",
+      "short_en": "Get the Linguist’s referral to Rune Midgart's Magician.",
+      "full_ru": "Linguist не сможет разобраться в языках и направит к Rune Midgart's Magician.",
+      "full_en": "The Linguist isn't able to make any sense of the languages and refers you to the Rune Midgart's Magician.",
+      "npcs": [
+        {
+          "entity": "Arunafeltz Linguist",
+          "role": "talk"
+        },
+        {
+          "entity": "Rune Midgart's Magician",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Arunafeltz Linguist"
+        }
+      ],
+      "protected_names": [
+        "Rune Midgart's Magician"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "The Rune Midgart's Magician (mid_camp 147, 256), in the west half of the allied camp, says he needs to actually hear the languages being pronounced. He had some assassins bury gems near the villages to record the spoken languages, he would like you to go retrieve the gems.",
+      "instruction_sha256": "65cdcc7ef769f1c1b073a937d0ccb978ab7c3eba055ba77023b6008cc5dad483",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/65cdcc7ef769f1c1b073/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Rune Midgart's Magician: mid_camp 147, 256; получите задание на самоцветы.",
+      "short_en": "Talk to Rune Midgart's Magician: mid_camp 147, 256; accept the gemstone task.",
+      "full_ru": "Rune Midgart's Magician (mid_camp 147, 256) в западной части лагеря нужно услышать произношение. Его ассасины закопали у деревень записывающие самоцветы; он попросит принести их.",
+      "full_en": "The Rune Midgart's Magician (mid_camp 147, 256), in the west half of the allied camp, says he needs to actually hear the languages being pronounced. He had some assassins bury gems near the villages to record the spoken languages, he would like you to go retrieve the gems.",
+      "npcs": [
+        {
+          "entity": "Rune Midgart's Magician",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Rune Midgart's Magician"
+        }
+      ],
+      "protected_names": [
+        "Rune Midgart's Magician",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 147,
+          "y": 256,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 147, 256"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Talk to the Gem at (spl_fild02 26, 218), near the fairy, and attempt to dig it out. Several thief bugs will spawn, kill them. Repeat until you obtain a Red Jewel from it.",
+      "instruction_sha256": "278fa98c9128ea1f2efb88fb443430037c25b2b7a2a672298af67e2875a2b6e9",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/278fa98c9128ea1f2efb/1",
+      "goal": "collect",
+      "short_ru": "У Gem (spl_fild02 26, 218) убивайте thief bugs и повторяйте попытки до получения Red Jewel.",
+      "short_en": "At Gem (spl_fild02 26, 218), kill thief bugs and repeat attempts until you obtain Red Jewel.",
+      "full_ru": "Поговорите с Gem (spl_fild02 26, 218) рядом с местом феи и попробуйте выкопать его. Появятся thief bugs — убейте их. Повторяйте, пока не получите Red Jewel.",
+      "full_en": "Talk to the Gem at (spl_fild02 26, 218), near the fairy, and attempt to dig it out. Several thief bugs will spawn, kill them. Repeat until you obtain a Red Jewel from it.",
+      "npcs": [
+        {
+          "entity": "gem_red",
+          "role": "interact"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "thief bugs",
+          "operation": "kill",
+          "quantity": null,
+          "required": 1,
+          "condition": "Spawned bugs per excavation attempt; count and number of retries unspecified."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Red Jewel",
+          "condition": "Obtained after a successful excavation; retry count unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "dig",
+          "entity": "gem_red"
+        },
+        {
+          "operation": "kill",
+          "entity": "thief bugs"
+        }
+      ],
+      "mention_entities": {
+        "Gem": "gem_red"
+      },
+      "protected_names": [
+        "Gem",
+        "Gem",
+        "spl_fild02",
+        "Red Jewel",
+        "thief bugs"
+      ],
+      "locations": [
+        {
+          "map": "spl_fild02",
+          "x": 26,
+          "y": 218,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "spl_fild02 26, 218"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Talk to the Gem at (man_fild03 227, 109), near the giant, and attempt to dig it out. Several thief bugs will spawn, kill them. Repeat until you obtain a Blue Jewel from it.",
+      "instruction_sha256": "8a6811c418e9de1b8b2fcdf7d372887d3dcb82f2e8c6475c1266a8546e5a8916",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/8a6811c418e9de1b8b2f/1",
+      "goal": "collect",
+      "short_ru": "У Gem (man_fild03 227, 109) убивайте thief bugs и повторяйте попытки до получения Blue Jewel.",
+      "short_en": "At Gem (man_fild03 227, 109), kill thief bugs and repeat attempts until you obtain Blue Jewel.",
+      "full_ru": "Поговорите с Gem (man_fild03 227, 109) рядом с местом великана и попробуйте выкопать его. Появятся thief bugs — убейте их. Повторяйте, пока не получите Blue Jewel.",
+      "full_en": "Talk to the Gem at (man_fild03 227, 109), near the giant, and attempt to dig it out. Several thief bugs will spawn, kill them. Repeat until you obtain a Blue Jewel from it.",
+      "npcs": [
+        {
+          "entity": "gem_blue",
+          "role": "interact"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "thief bugs",
+          "operation": "kill",
+          "quantity": null,
+          "required": 1,
+          "condition": "Spawned bugs per excavation attempt; count and number of retries unspecified."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Blue Jewel",
+          "condition": "Obtained after a successful excavation; retry count unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "dig",
+          "entity": "gem_blue"
+        },
+        {
+          "operation": "kill",
+          "entity": "thief bugs"
+        }
+      ],
+      "mention_entities": {
+        "Gem": "gem_blue"
+      },
+      "protected_names": [
+        "Gem",
+        "Gem",
+        "man_fild03",
+        "Blue Jewel",
+        "thief bugs"
+      ],
+      "locations": [
+        {
+          "map": "man_fild03",
+          "x": 227,
+          "y": 109,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "man_fild03 227, 109"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Return to the Rune Midgart's Magician with the gemstones, he says he will extract the voices from the gems and send them to the Arunafeltz linguist.",
+      "instruction_sha256": "7f9cac1497c01205979b2aa9ece04ea06e6b9c263df787d11f072e843d14fb1c",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/7f9cac1497c01205979b/1",
+      "goal": "deliver",
+      "short_ru": "Принесите самоцветы Rune Midgart's Magician для Arunafeltz linguist.",
+      "short_en": "Bring the gemstones to Rune Midgart's Magician for the Arunafeltz linguist.",
+      "full_ru": "Вернитесь к Rune Midgart's Magician с самоцветами. Он извлечёт голоса и отправит записи Arunafeltz linguist.",
+      "full_en": "Return to the Rune Midgart's Magician with the gemstones, he says he will extract the voices from the gems and send them to the Arunafeltz linguist.",
+      "npcs": [
+        {
+          "entity": "Rune Midgart's Magician",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Red Jewel",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "Talk to the Gem at (spl_fild02 26, 218), near the fairy, and attempt to dig it out. Several thief bugs will spawn, kill them. Repeat until you obtain a Red Jewel from it."
+        },
+        {
+          "entity": "Blue Jewel",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Talk to the Gem at (man_fild03 227, 109), near the giant, and attempt to dig it out. Several thief bugs will spawn, kill them. Repeat until you obtain a Blue Jewel from it."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Rune Midgart's Magician"
+        }
+      ],
+      "protected_names": [
+        "Rune Midgart's Magician"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Return to the Arunafeltz linguist, He tells you that he has made amazing progress decoding the language. So much so that he's unsure how to even store all the data. He asks you to speak the Schwartzvalt Mechanic.",
+      "instruction_sha256": "d5c6f92b90fd48dba09e9a101d104990eed9d903d7d92fd1091db0dd0edb9374",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/d5c6f92b90fd48dba09e/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Arunafeltz linguist и вернитесь к Schwartzvalt Mechanic.",
+      "short_en": "Talk to Arunafeltz linguist and return to Schwartzvalt Mechanic.",
+      "full_ru": "Вернитесь к Arunafeltz linguist. Он значительно продвинулся в расшифровке, но не знает, где хранить данные, и направит к Schwartzvalt Mechanic.",
+      "full_en": "Return to the Arunafeltz linguist, He tells you that he has made amazing progress decoding the language. So much so that he's unsure how to even store all the data. He asks you to speak the Schwartzvalt Mechanic.",
+      "npcs": [
+        {
+          "entity": "Arunafeltz Linguist",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Arunafeltz Linguist"
+        }
+      ],
+      "protected_names": [
+        "Schwartzvalt Mechanic"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "The Schwartzvalt Mechanic says he needs some way to store the massive amount of data, and asks you to inquire with the Rune Midgart's Magician about a magical gem to hold the data.",
+      "instruction_sha256": "8e1d6b4c9cd03183830cc8600274eb91f5130f654d76dca82a0357e532fb53fb",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/8e1d6b4c9cd03183830c/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Schwartzvalt Mechanic, затем с Rune Midgart's Magician о хранилище.",
+      "short_en": "Talk to Schwartzvalt Mechanic, then Rune Midgart's Magician about storage.",
+      "full_ru": "Schwartzvalt Mechanic ищет способ хранить большой объём данных. Он попросит узнать у Rune Midgart's Magician о магическом самоцвете-хранилище.",
+      "full_en": "The Schwartzvalt Mechanic says he needs some way to store the massive amount of data, and asks you to inquire with the Rune Midgart's Magician about a magical gem to hold the data.",
+      "npcs": [
+        {
+          "entity": "Schwartzvalt Mechanic",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Schwartzvalt Mechanic"
+        }
+      ],
+      "protected_names": [
+        "Schwartzvalt Mechanic",
+        "Rune Midgart's Magician"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "The Rune Midgart's Magician says he needs an Ore unlike any found in the old world to store the data. He asks you to go find one on the manuk fields.",
+      "instruction_sha256": "856937114f40c9dacac05e11d1db56b2bba27fbf09026953c2025523de4f7c8e",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/856937114f40c9dacac0/1",
+      "goal": "talk",
+      "short_ru": "У Rune Midgart's Magician получите поручение найти Ore на полях manuk.",
+      "short_en": "Get Rune Midgart's Magician’s request to find Ore on the manuk fields.",
+      "full_ru": "Rune Midgart's Magician попросит найти необычную Ore на полях manuk, чтобы хранить данные.",
+      "full_en": "The Rune Midgart's Magician says he needs an Ore unlike any found in the old world to store the data. He asks you to go find one on the manuk fields.",
+      "npcs": [
+        {
+          "entity": "Rune Midgart's Magician",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Rune Midgart's Magician"
+        }
+      ],
+      "protected_names": [
+        "Rune Midgart's Magician"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Return to him with 1 Unidentified Mineral (obtained from \"Mysterious Rock\" which are located on all 3 Manuk fields). He asks you to wait a minute while he works his magic.",
+      "instruction_sha256": "8d3a9e0d92d185649364666c3e4b3f02ddd3b64be0a4a2555764083edbbeddc5",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/8d3a9e0d92d185649364/1",
+      "goal": "bring",
+      "short_ru": "Принесите Rune Midgart's Magician 1 Unidentified Mineral из Mysterious Rock; подождите минуту.",
+      "short_en": "Bring Rune Midgart's Magician 1 Unidentified Mineral from Mysterious Rock; wait a minute.",
+      "full_ru": "Вернитесь к нему с 1 Unidentified Mineral, полученным из Mysterious Rock на всех 3 полях Manuk. Он попросит подождать минуту, пока выполнит магическую работу.",
+      "full_en": "Return to him with 1 Unidentified Mineral (obtained from \"Mysterious Rock\" which are located on all 3 Manuk fields). He asks you to wait a minute while he works his magic.",
+      "npcs": [
+        {
+          "entity": "Rune Midgart's Magician",
+          "role": "talk",
+          "support_step": 10,
+          "evidence": "The Rune Midgart's Magician says he needs an Ore unlike any found in the old world to store the data. He asks you to go find one on the manuk fields."
+        },
+        {
+          "entity": "Mysterious Rock",
+          "role": "material_source"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Unidentified Mineral",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_wait_instruction",
+          "amount": "a minute",
+          "condition": "Source wording; do not equate this short wait with the separate one-hour machine construction."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Rune Midgart's Magician"
+        },
+        {
+          "operation": "wait"
+        }
+      ],
+      "protected_names": [
+        "Mysterious Rock",
+        "Unidentified Mineral"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Talk to the magician and he asks you to take the gem to the Schwartzvalt Mechanic.",
+      "instruction_sha256": "7584cad3b9e27cbedb874d7818fe93432921a9afdf060bf4fb5a3bb892af4243",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/7584cad3b9e27cbedb87/1",
+      "goal": "deliver",
+      "short_ru": "После работы magician отнесите самоцвет Schwartzvalt Mechanic.",
+      "short_en": "After the magician finishes, take the gemstone to Schwartzvalt Mechanic.",
+      "full_ru": "Поговорите с magician: он попросит отнести самоцвет Schwartzvalt Mechanic.",
+      "full_en": "Talk to the magician and he asks you to take the gem to the Schwartzvalt Mechanic.",
+      "npcs": [
+        {
+          "entity": "Rune Midgart's Magician",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Rune Midgart's Magician"
+        },
+        {
+          "operation": "deliver_gemstone",
+          "condition": "Generic source label; an inventory name, ID and count are not established."
+        }
+      ],
+      "protected_names": [
+        "Schwartzvalt Mechanic"
+      ],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "The Schwartzvalt Mechanic says it will take him at least an hour to complete a machine to translate using the gem. Return in 1 hour.",
+      "instruction_sha256": "5e247ada5507ef83fa53f16d95c7e1ba003fa162f4dfd7c1c32d7718956d8f00",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/5e247ada5507ef83fa53/1",
+      "goal": "wait",
+      "short_ru": "Подождите 1 час и вернитесь к Schwartzvalt Mechanic.",
+      "short_en": "Wait 1 hour and return to Schwartzvalt Mechanic.",
+      "full_ru": "Schwartzvalt Mechanic потребуется не менее часа, чтобы закончить переводящую машину с самоцветом. Вернитесь через 1 час.",
+      "full_en": "The Schwartzvalt Mechanic says it will take him at least an hour to complete a machine to translate using the gem. Return in 1 hour.",
+      "npcs": [
+        {
+          "entity": "Schwartzvalt Mechanic",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "wait_hours",
+          "amount": "1",
+          "condition": "Machine construction wait, separate from the magician’s earlier short wait."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Schwartzvalt Mechanic"
+        },
+        {
+          "operation": "wait"
+        }
+      ],
+      "protected_names": [
+        "Schwartzvalt Mechanic"
+      ],
+      "locations": []
+    },
+    "14": {
+      "original_instruction": "Return to the mechanic and he will give you the Ring of the Wise Ancient King and some EXP .",
+      "instruction_sha256": "5784399edf9e0a3d292dfc0692b9e52fe26eda4e24ab2813c10ee97ea8bd07fa",
+      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/5784399edf9e0a3d292d/1",
+      "goal": "receive_reward",
+      "short_ru": "Получите у mechanic Ring of the Wise Ancient King и EXP.",
+      "short_en": "Receive Ring of the Wise Ancient King and EXP from the mechanic.",
+      "full_ru": "Вернитесь к mechanic. Он даст Ring of the Wise Ancient King и EXP.",
+      "full_en": "Return to the mechanic and he will give you the Ring of the Wise Ancient King and some EXP .",
+      "npcs": [
+        {
+          "entity": "Schwartzvalt Mechanic",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Ring of the Wise Ancient King"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "1000000",
+          "source_section": "rewards",
+          "evidence": "Base Experience: 1,000,000",
+          "condition": "Exact amount from the reward header; the final instruction says only some EXP."
+        },
+        {
+          "kind": "job_exp",
+          "amount": "300000",
+          "source_section": "rewards",
+          "evidence": "Job Experience: 300,000",
+          "condition": "Exact amount from the reward header; not an additional second grant."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Schwartzvalt Mechanic"
+        }
+      ],
+      "protected_names": [
+        "Ring of the Wise Ancient King"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "ring_name_source_variant",
+      "detail": "This guide links Ring of the Wise Ancient King to item 2782; Two Tribes uses Ring of the Ancient Wise King without a database link. Both spellings are retained; a cross-guide alias is not invented."
+    },
+    {
+      "reason": "language_server_scope",
+      "detail": "Two literal answer sets are independent branches. Source default is contrasted with an explicit non-iRO exception; this is not server verification."
+    },
+    {
+      "reason": "unknown_excavation_counts",
+      "detail": "Red and Blue Jewel IDs, spawned thief bug species/count and retry counts are unspecified. The two Gem objects are distinct source-qualified actors."
+    }
+  ],
+  "prerequisite_clauses": [
+    {
+      "related_quest_id": "irowiki-classic:Finding_a_Fairy",
+      "kind": "required_quest",
+      "evidence": "Finding a Fairy"
+    },
+    {
+      "related_quest_id": "irowiki-classic:Report_from_the_New_World",
+      "kind": "required_started_quest",
+      "evidence": "Started Report from the New World"
+    }
+  ],
+  "source_partitions": [
+    {
+      "source_step": 2,
+      "segments": [
+        {
+          "target_step": 2,
+          "start": 0,
+          "end": 215,
+          "section": "Language task"
+        },
+        {
+          "target_step": 2,
+          "branch_key": "iro_language",
+          "start": 215,
+          "end": 367,
+          "section": "Source default language input"
+        },
+        {
+          "target_step": 2,
+          "branch_key": "non_iro_language",
+          "start": 367,
+          "end": 535,
+          "section": "Explicit non-iRO language input"
+        }
+      ]
+    }
+  ]
+}

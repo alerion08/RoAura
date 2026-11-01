@@ -167,6 +167,9 @@ jobs:
           additions=sum(len(s.get("source_additions",[])) for q in curations.values() for s in q["steps"].values())
           routes=sum(len(q.get("routes",[])) for q in curations.values())
           groups=sum(len(q.get("prerequisite_groups",[])) for q in curations.values())
+          phases=sum(len(q.get("prerequisite_clauses",[])) for q in curations.values())
+          assert semantic_report["phase_prerequisites"]==phases
+          assert semantic.execute("SELECT count(*) FROM quest_relations WHERE kind IN ('required_quest','required_started_quest','required_completed_quest')").fetchone()[0]==phases
           assert semantic_report["prerequisite_groups"]==groups
           assert semantic.execute("SELECT count(*) FROM quest_prerequisite_groups").fetchone()[0]==groups
           members=sum(len(g["members"]) for q in curations.values() for g in q.get("prerequisite_groups",[]))

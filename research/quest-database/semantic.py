@@ -16,7 +16,7 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-5.0.0'
+VERSION = 'semantic-5.1.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
@@ -434,12 +434,37 @@ def curated_relations(w,curation):
             w.add('quest_relations',quest_id=w.qid,related_id=relation['related_quest_id'],kind=relation['kind'],evidence_id=ev)
             continue
         step=w.db.execute('SELECT step_id,original_instruction FROM quest_steps WHERE quest_id=? AND step_order=?',(w.qid,relation['source_step'])).fetchone()
-        if relation['kind'] not in ('source_concurrency_constraint','extra_stage_required_for_prerequisite') or not target or not step:
+        if relation['kind'] not in ('source_concurrency_constraint','extra_stage_required_for_prerequisite','stage_required_to_start') or not target or not step:
             raise ValueError('Invalid curated quest relation')
         snippet=relation.get('evidence',step[1])
         if snippet not in step[1] or target[0] not in snippet:raise ValueError('Unproven curated quest relation')
         ev=w.evidence(snippet,method='curated_quest_relation',step=step[0])
         w.add('quest_relations',quest_id=w.qid,related_id=relation['related_quest_id'],kind=relation['kind'],evidence_id=ev)
+
+
+PHASE_PREFIXES={'required_quest':'','required_started_quest':'Started ','required_completed_quest':'Finished '}
+
+
+def prerequisite_clause_proof(db,owner,related,kind,clause):
+    target=db.execute('SELECT original_name FROM quests WHERE quest_id=?',(related,)).fetchone()
+    if kind not in PHASE_PREFIXES or not target or owner==related:raise ValueError('Invalid phase prerequisite')
+    expected=PHASE_PREFIXES[kind]+target[0]
+    if not re.fullmatch(re.escape(expected)+r'(?: \([^()]+\))?',clause):raise ValueError('Phase prerequisite contradicts source clause')
+    return clause
+
+
+def phase_prerequisites(w,curation):
+    clauses=curation.get('prerequisite_clauses',[])
+    if not clauses:return
+    original=w.db.execute('SELECT requirements_original FROM quests WHERE quest_id=?',(w.qid,)).fetchone()[0] or ''
+    expected=' , '.join(x['evidence'] for x in clauses)
+    if 'Quest Prerequisite(s): ' not in original or original.split('Quest Prerequisite(s): ',1)[1]!=expected:
+        raise ValueError('Phase prerequisite list contradicts source header')
+    if len({x['related_quest_id'] for x in clauses})!=len(clauses):raise ValueError('Duplicate phase prerequisite')
+    for clause in clauses:
+        text=prerequisite_clause_proof(w.db,w.qid,clause['related_quest_id'],clause['kind'],clause['evidence'])
+        ev=w.evidence(text,method='curated_prerequisite_clause')
+        w.add('quest_relations',quest_id=w.qid,related_id=clause['related_quest_id'],kind=clause['kind'],evidence_id=ev)
 
 
 def prerequisite_group_proof(db,owner,minimum,members):
@@ -583,7 +608,7 @@ def validate(db):
       AND support.step_id=edge.to_step AND support.snippet=b.original_instruction)) LIMIT 1''').fetchone():errors.append('invalid_action_reuse_target')
     if db.execute('''SELECT 1 FROM quest_relations r JOIN evidence e USING(evidence_id) LEFT JOIN quest_steps s ON s.step_id=e.step_id
       JOIN quests target ON target.quest_id=r.related_id
-      WHERE r.kind IN ('source_concurrency_constraint','extra_stage_required_for_prerequisite')
+      WHERE r.kind IN ('source_concurrency_constraint','extra_stage_required_for_prerequisite','stage_required_to_start')
       AND (e.method<>'curated_quest_relation' OR e.quest_id IS NOT r.quest_id OR s.quest_id IS NOT r.quest_id
       OR instr(s.original_instruction,e.snippet)=0 OR instr(e.snippet,target.original_name)=0) LIMIT 1''').fetchone():errors.append('invalid_curated_quest_relation')
     for owner,kind,related,eid in db.execute("SELECT quest_id,kind,related_id,evidence_id FROM quest_relations WHERE kind='mandatory_prerequisite'"):
@@ -593,6 +618,19 @@ def validate(db):
         prefix='Quest Prerequisite(s): '
         if proof[0]!=owner or proof[1] is not None or proof[2]!=prefix+name or proof[3]!='curated_single_prerequisite' or prefix not in requirement or requirement.split(prefix,1)[1].strip()!=name:
             errors.append('invalid_mandatory_prerequisite')
+    owners={r[0] for r in db.execute("SELECT quest_id FROM quest_relations WHERE kind IN ('required_quest','required_started_quest','required_completed_quest') UNION SELECT quest_id FROM evidence WHERE method='curated_prerequisite_clause'")}
+    for owner in owners:
+        clauses=[]
+        for related,kind,eowner,sid,text,method in db.execute('''SELECT r.related_id,r.kind,e.quest_id,e.step_id,e.snippet,e.method
+          FROM quest_relations r JOIN evidence e USING(evidence_id) WHERE r.quest_id=?
+          AND r.kind IN ('required_quest','required_started_quest','required_completed_quest')''',(owner,)):
+            try:prerequisite_clause_proof(db,owner,related,kind,text)
+            except ValueError:errors.append('invalid_phase_prerequisite')
+            if eowner!=owner or sid is not None or method!='curated_prerequisite_clause':errors.append('invalid_phase_prerequisite_evidence')
+            clauses.append(text)
+        original=db.execute('SELECT requirements_original FROM quests WHERE quest_id=?',(owner,)).fetchone()[0] or ''
+        if 'Quest Prerequisite(s): ' not in original or Counter(original.split('Quest Prerequisite(s): ',1)[1].split(' , '))!=Counter(clauses):
+            errors.append('incomplete_phase_prerequisite_list')
     if db.execute('PRAGMA user_version').fetchone()[0]>=5:
         for gid,owner,minimum,eid in db.execute('SELECT group_id,quest_id,minimum_completed,evidence_id FROM quest_prerequisite_groups'):
             members=db.execute('SELECT related_id,member_order,evidence_id FROM quest_prerequisite_members WHERE group_id=? ORDER BY member_order',(gid,)).fetchall()
@@ -755,6 +793,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         if not plan['curation']:continue
         w.qid=plan['selection']['quest_id'];w.src=db.execute('SELECT source_id FROM quests WHERE quest_id=?',(w.qid,)).fetchone()[0]
         curated_relations(w,plan['curation'])
+        phase_prerequisites(w,plan['curation'])
         prerequisite_groups(w,plan['curation'])
     w.qid=None
     for row in source.execute('SELECT page_id,prerequisite_page_id,matched_title FROM wiki_quest_prerequisite_links'):
@@ -779,6 +818,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         'quest_routes':counts['quest_routes'],
         'action_reuse_links':db.execute("SELECT count(*) FROM step_edges WHERE kind='repeat_actions_from'").fetchone()[0],
         'prerequisite_groups':counts['quest_prerequisite_groups'],
+        'phase_prerequisites':db.execute("SELECT count(*) FROM quest_relations WHERE kind IN ('required_quest','required_started_quest','required_completed_quest')").fetchone()[0],
         'counts':counts,'fully_localized_steps':localized,'not_fully_localized_steps':counts['quest_steps']-localized,
         'localized_fields':{f:db.execute(f'SELECT count(*) FROM step_descriptions WHERE {f} IS NOT NULL').fetchone()[0] for f in FIELDS},
         'evidence_status_counts':status_counts,'checks':checks,'server_verified':0,

@@ -1,0 +1,989 @@
+{
+  "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "c098251e6df36c680b351655afec84effc1104ee3074709835ea76cd80f7c2bc",
+  "snapshot_sha256": "706799a5c4374fdcf637c4155b4898626a60c923679886a39024b4b88007e930",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Yggdrasil Gatekeeper",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Strange Device",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Commander Agip",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Historian Magnifier",
+      "aliases": [
+        "Magnifier"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Assistant Naomi",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Grumbling Soldier",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Laphine Commander",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Laphine Prisoner",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Neat Etorr",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Aide Arioss",
+      "aliases": [
+        "Arioss"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Etol",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Yggdrasiliad",
+      "aliases": []
+    },
+    {
+      "type": "npc",
+      "name": "Yggdrasilid",
+      "aliases": []
+    },
+    {
+      "type": "map",
+      "name": "nyd_dun02",
+      "map_code": "nyd_dun02"
+    },
+    {
+      "type": "map",
+      "name": "spl_fld01",
+      "map_code": "spl_fld01"
+    },
+    {
+      "type": "map",
+      "name": "nyd_dun01",
+      "map_code": "nyd_dun01"
+    },
+    {
+      "type": "map",
+      "name": "mid_campin",
+      "map_code": "mid_campin"
+    },
+    {
+      "type": "map",
+      "name": "mid_camp",
+      "map_code": "mid_camp"
+    },
+    {
+      "type": "map",
+      "name": "prontera",
+      "map_code": "prontera"
+    },
+    {
+      "type": "map",
+      "name": "prt_in",
+      "map_code": "prt_in"
+    },
+    {
+      "type": "map",
+      "name": "splendide",
+      "map_code": "splendide"
+    },
+    {
+      "type": "map",
+      "name": "spl_in01",
+      "map_code": "spl_in01"
+    },
+    {
+      "type": "map",
+      "name": "man_in01",
+      "map_code": "man_in01"
+    },
+    {
+      "type": "map",
+      "name": "Splendide"
+    },
+    {
+      "type": "map",
+      "name": "Manuk"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Library"
+    },
+    {
+      "type": "map",
+      "name": "Yggdrasil Dungeon"
+    },
+    {
+      "type": "map",
+      "name": "Nidhoggur's Nest Instance"
+    },
+    {
+      "type": "item",
+      "name": "Manuk Coins"
+    },
+    {
+      "type": "item",
+      "name": "Splendide Coins"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to the Yggdrasil Gatekeeper at (nyd_dun02 99, 199). How to reach the gatekeeper: Enter Yggdrasil Dungeon at (spl_fld01 368, 112). Enter the portal located at 3 o'clock of the map (nyd_dun01 252, 144) (not shown on minimap). The portal markings on the minimap are exits only. Once in level 2, walk right until you've reached a cliff. Control the \"Strange Device\" at (nyd_dun02 137, 274), and cross the canyon by stepping on the circles. Stepping anywhere outside the shown circles will return you to the bottom right corner of the previous map. After crossing the cliff, follow the path consisting of stairs and roots until you've arrived at a gate at (nyd_dun02 99, 199).",
+      "instruction_sha256": "286af4d804bdfce563807bf7876c74a2b528fadff2e052b4bf0b4477eb8636a9",
+      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/286af4d804bdfce56380/1",
+      "goal": "navigate",
+      "short_ru": "Пройдите через портал nyd_dun01 252, 144 и Strange Device (nyd_dun02 137, 274) к Yggdrasil Gatekeeper (nyd_dun02 99, 199).",
+      "short_en": "Use the portal at nyd_dun01 252, 144 and Strange Device (nyd_dun02 137, 274) to reach Yggdrasil Gatekeeper (nyd_dun02 99, 199).",
+      "full_ru": "Поговорите с Yggdrasil Gatekeeper (nyd_dun02 99, 199). Путь: войдите в Yggdrasil Dungeon через spl_fld01 368, 112. Войдите в портал на 3 часа (nyd_dun01 252, 144), не отмеченный на миникарте; видимые метки порталов обозначают только выходы. На уровне 2 двигайтесь вправо до обрыва. Используйте Strange Device (nyd_dun02 137, 274) и переходите каньон, наступая на круги. Шаг вне кругов вернёт в нижний правый угол предыдущей карты. После обрыва идите по лестницам и корням к воротам (nyd_dun02 99, 199).",
+      "full_en": "Talk to the Yggdrasil Gatekeeper at (nyd_dun02 99, 199). How to reach the gatekeeper: Enter Yggdrasil Dungeon at (spl_fld01 368, 112). Enter the portal located at 3 o'clock of the map (nyd_dun01 252, 144) (not shown on minimap). The portal markings on the minimap are exits only. Once in level 2, walk right until you've reached a cliff. Control the \"Strange Device\" at (nyd_dun02 137, 274), and cross the canyon by stepping on the circles. Stepping anywhere outside the shown circles will return you to the bottom right corner of the previous map. After crossing the cliff, follow the path consisting of stairs and roots until you've arrived at a gate at (nyd_dun02 99, 199).",
+      "npcs": [
+        {
+          "entity": "Yggdrasil Gatekeeper",
+          "role": "talk"
+        },
+        {
+          "entity": "Strange Device",
+          "role": "interact"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "spl_fld01",
+          "x": 368,
+          "y": 112,
+          "role": "entrance",
+          "known": false,
+          "order": 1,
+          "condition": "Literal source spelling; conflicts with spl_fild01 in Two Tribes and is not reference-known."
+        },
+        {
+          "entity": "nyd_dun01",
+          "x": 252,
+          "y": 144,
+          "role": "portal",
+          "known": true,
+          "order": 2
+        },
+        {
+          "entity": "nyd_dun02",
+          "x": 137,
+          "y": 274,
+          "role": "device",
+          "known": true,
+          "order": 3
+        },
+        {
+          "entity": "nyd_dun02",
+          "x": 99,
+          "y": 199,
+          "role": "npc",
+          "known": true,
+          "order": 4
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "interact",
+          "entity": "Strange Device"
+        },
+        {
+          "operation": "cross_canyon",
+          "condition": "Step only on the circles; stepping off returns to the previous map."
+        },
+        {
+          "operation": "talk",
+          "entity": "Yggdrasil Gatekeeper"
+        }
+      ],
+      "protected_names": [
+        "Yggdrasil Gatekeeper",
+        "Strange Device",
+        "nyd_dun02",
+        "spl_fld01",
+        "nyd_dun01",
+        "Yggdrasil Dungeon"
+      ]
+    },
+    "2": {
+      "original_instruction": "Tell Commander Agip (mid_campin 90, 121) about the cave you found, he tells you to find Historian Magnifier.",
+      "instruction_sha256": "dbfe24ff050bc54bb94778d9117483d13cc3f3e0498ebfa534d16574f290b67a",
+      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/dbfe24ff050bc54bb947/1",
+      "goal": "talk",
+      "short_ru": "Расскажите Commander Agip о пещере: mid_campin 90, 121.",
+      "short_en": "Tell Commander Agip about the cave: mid_campin 90, 121.",
+      "full_ru": "Сообщите Commander Agip (mid_campin 90, 121) о найденной пещере. Он направит к Historian Magnifier.",
+      "full_en": "Tell Commander Agip (mid_campin 90, 121) about the cave you found, he tells you to find Historian Magnifier.",
+      "npcs": [
+        {
+          "entity": "Commander Agip",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Commander Agip"
+        }
+      ],
+      "protected_names": [
+        "Commander Agip",
+        "Historian Magnifier",
+        "mid_campin",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_campin",
+          "x": 90,
+          "y": 121,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_campin 90, 121"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Ask Historian Magnifier (mid_camp 271, 299) for help. He tells you to visit his assistant in the Prontera library.",
+      "instruction_sha256": "869433447b804f2534dbffeb913560eeb411143e4bae128af46dff394fbaf6ce",
+      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/869433447b804f2534db/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Historian Magnifier: mid_camp 271, 299.",
+      "short_en": "Talk to Historian Magnifier: mid_camp 271, 299.",
+      "full_ru": "Попросите помощи у Historian Magnifier (mid_camp 271, 299). Он направит к помощнице в библиотеке Prontera.",
+      "full_en": "Ask Historian Magnifier (mid_camp 271, 299) for help. He tells you to visit his assistant in the Prontera library.",
+      "npcs": [
+        {
+          "entity": "Historian Magnifier",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Historian Magnifier"
+        }
+      ],
+      "protected_names": [
+        "Historian Magnifier",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 271,
+          "y": 299,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 271, 299"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "In the west Prontera Library (prontera 120, 264), talk to Assistant Naomi (prt_in 171, 94), and she will give you several papers to read.",
+      "instruction_sha256": "895bed999962cb4c1792d8ecc452846e085a1d84901e94acc6a305bfbbed7392",
+      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/895bed999962cb4c1792/1",
+      "goal": "talk",
+      "short_ru": "Посетите Assistant Naomi: prontera 120, 264 → prt_in 171, 94.",
+      "short_en": "Visit Assistant Naomi: prontera 120, 264 → prt_in 171, 94.",
+      "full_ru": "Войдите в западную Prontera Library (prontera 120, 264). Поговорите с Assistant Naomi (prt_in 171, 94), она даст несколько документов для чтения.",
+      "full_en": "In the west Prontera Library (prontera 120, 264), talk to Assistant Naomi (prt_in 171, 94), and she will give you several papers to read.",
+      "npcs": [
+        {
+          "entity": "Assistant Naomi",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prontera",
+          "x": 120,
+          "y": 264,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "prt_in",
+          "x": 171,
+          "y": 94,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "talk",
+          "entity": "Assistant Naomi"
+        },
+        {
+          "operation": "read_papers",
+          "condition": "Source narrative; inventory item names and count are unknown."
+        }
+      ],
+      "protected_names": [
+        "Assistant Naomi",
+        "prontera",
+        "prt_in",
+        "Prontera Library"
+      ]
+    },
+    "5": {
+      "original_instruction": "Return to Magnifier, he tells you to go investigate what the Laphine and Sapha know. Chose to go to either the Laphine or Sapha. Laphine: Talk to the Grumbling Soldier in the Splendide (splendide 198, 178), and ask him about the tree. Inside the central building (splendide 197, 191), speak to the Laphine Commander (spl_in01 110, 60). Sapha: Inside the building in the far right of Manuk (309, 142), talk to the Laphine Prisoner (man_in01 291, 62). Talk to Neat Etorr (man_in01 311, 57) in the same building.",
+      "instruction_sha256": "69e14cec3d87115edc86a2d931dbdf976282f192dc52240a14b667e99e93af60",
+      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/69e14cec3d87115edc86/1",
+      "goal": "branch_choice",
+      "short_ru": "У Magnifier выберите, кого расспросить: Laphine или Sapha.",
+      "short_en": "At Magnifier, choose whom to question: Laphine or Sapha.",
+      "full_ru": "Вернитесь к Magnifier. Он предложит узнать, что знают Laphine и Sapha. Выберите, к кому обратиться: Laphine или Sapha.",
+      "full_en": "Return to Magnifier, he tells you to go investigate what the Laphine and Sapha know. Chose to go to either the Laphine or Sapha.",
+      "locations": [],
+      "protected_names": [],
+      "branches": [
+        {
+          "key": "investigate_laphine",
+          "choice_group": "tribe_choice_5",
+          "variant_scope": "Source Laphine/Sapha choice; server applicability unverified",
+          "condition": "Choose one tribe at this source choice; do not sum or execute both alternatives.",
+          "section": "",
+          "source_step": 5,
+          "original_instruction": "Laphine: Talk to the Grumbling Soldier in the Splendide (splendide 198, 178), and ask him about the tree. Inside the central building (splendide 197, 191), speak to the Laphine Commander (spl_in01 110, 60). ",
+          "instruction_sha256": "950ad24f68bb9a3b19af81d5647d4158721df2b265577fdb27847589be3a1ddd",
+          "short_ru": "Расспросите Grumbling Soldier, затем Laphine Commander в Splendide.",
+          "short_en": "Question Grumbling Soldier, then Laphine Commander in Splendide.",
+          "full_ru": "Laphine: поговорите с Grumbling Soldier в Splendide (splendide 198, 178) о дереве. В центральном здании (splendide 197, 191) поговорите с Laphine Commander (spl_in01 110, 60).",
+          "full_en": "Laphine: Talk to the Grumbling Soldier in the Splendide (splendide 198, 178), and ask him about the tree. Inside the central building (splendide 197, 191), speak to the Laphine Commander (spl_in01 110, 60). ",
+          "protected_names": [
+            "Grumbling Soldier",
+            "Laphine Commander",
+            "splendide",
+            "spl_in01",
+            "Splendide"
+          ],
+          "npcs": [
+            {
+              "entity": "Grumbling Soldier",
+              "role": "talk"
+            },
+            {
+              "entity": "Laphine Commander",
+              "role": "talk"
+            }
+          ],
+          "locations": [
+            {
+              "entity": "splendide",
+              "x": 198,
+              "y": 178,
+              "role": "npc",
+              "known": true,
+              "order": 1,
+              "condition": "Only the investigate_laphine branch; order does not require visiting the other tribe."
+            },
+            {
+              "entity": "splendide",
+              "x": 197,
+              "y": 191,
+              "role": "entrance",
+              "known": true,
+              "order": 2,
+              "condition": "Only the investigate_laphine branch; order does not require visiting the other tribe."
+            },
+            {
+              "entity": "spl_in01",
+              "x": 110,
+              "y": 60,
+              "role": "npc",
+              "known": true,
+              "order": 3,
+              "condition": "Only the investigate_laphine branch; order does not require visiting the other tribe."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "talk",
+              "entity": "Grumbling Soldier"
+            },
+            {
+              "operation": "enter"
+            },
+            {
+              "operation": "talk",
+              "entity": "Laphine Commander"
+            }
+          ]
+        },
+        {
+          "key": "investigate_sapha",
+          "choice_group": "tribe_choice_5",
+          "variant_scope": "Source Laphine/Sapha choice; server applicability unverified",
+          "condition": "Choose one tribe at this source choice; do not sum or execute both alternatives.",
+          "section": "",
+          "source_step": 5,
+          "original_instruction": "Sapha: Inside the building in the far right of Manuk (309, 142), talk to the Laphine Prisoner (man_in01 291, 62). Talk to Neat Etorr (man_in01 311, 57) in the same building.",
+          "instruction_sha256": "31479a58ee6f1a4882ae11b57756326360daefe6c05bb0ae88fefe857f994992",
+          "short_ru": "В Manuk поговорите с Laphine Prisoner, затем с Neat Etorr.",
+          "short_en": "In Manuk, talk to Laphine Prisoner, then Neat Etorr.",
+          "full_ru": "Sapha: войдите в здание в дальней правой части Manuk (309, 142). Поговорите с Laphine Prisoner (man_in01 291, 62), затем с Neat Etorr (man_in01 311, 57) в том же здании.",
+          "full_en": "Sapha: Inside the building in the far right of Manuk (309, 142), talk to the Laphine Prisoner (man_in01 291, 62). Talk to Neat Etorr (man_in01 311, 57) in the same building.",
+          "protected_names": [
+            "Laphine Prisoner",
+            "Neat Etorr",
+            "man_in01",
+            "Manuk"
+          ],
+          "npcs": [
+            {
+              "entity": "Laphine Prisoner",
+              "role": "talk"
+            },
+            {
+              "entity": "Neat Etorr",
+              "role": "talk"
+            }
+          ],
+          "locations": [
+            {
+              "entity": "Manuk",
+              "x": 309,
+              "y": 142,
+              "role": "entrance",
+              "known": false,
+              "order": 4,
+              "condition": "Only the investigate_sapha branch; order does not require visiting the other tribe."
+            },
+            {
+              "entity": "man_in01",
+              "x": 291,
+              "y": 62,
+              "role": "npc",
+              "known": true,
+              "order": 5,
+              "condition": "Only the investigate_sapha branch; order does not require visiting the other tribe."
+            },
+            {
+              "entity": "man_in01",
+              "x": 311,
+              "y": 57,
+              "role": "npc",
+              "known": true,
+              "order": 6,
+              "condition": "Only the investigate_sapha branch; order does not require visiting the other tribe."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "enter"
+            },
+            {
+              "operation": "talk",
+              "entity": "Laphine Prisoner"
+            },
+            {
+              "operation": "talk",
+              "entity": "Neat Etorr"
+            }
+          ]
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Historian Magnifier",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Historian Magnifier"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Return to Magnifier, he tells you to speak to Commander Agip to get his opinion.",
+      "instruction_sha256": "dbee5a7fbedf1343a376a9d2d4f9bca0f40fbdc70020a2d3c2b9bd765e74f78c",
+      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/dbee5a7fbedf1343a376/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Magnifier и вернитесь к Commander Agip.",
+      "short_en": "Talk to Magnifier and return to Commander Agip.",
+      "full_ru": "Вернитесь к Magnifier. Он предложит узнать мнение Commander Agip.",
+      "full_en": "Return to Magnifier, he tells you to speak to Commander Agip to get his opinion.",
+      "npcs": [
+        {
+          "entity": "Historian Magnifier",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Historian Magnifier"
+        }
+      ],
+      "protected_names": [
+        "Commander Agip"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Commander Agip decides to ask both tribes for help exploring the cave. This will force each to help you to prevent you from getting help from their enemy.",
+      "instruction_sha256": "ef1d99d74e672fa3ebfd9e59d5503f2fa85a6405c85b879494a3337b51722e85",
+      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/ef1d99d74e672fa3ebfd/1",
+      "goal": "talk",
+      "short_ru": "Обсудите с Commander Agip помощь обеих сторон.",
+      "short_en": "Discuss assistance from both tribes with Commander Agip.",
+      "full_ru": "Commander Agip решит попросить обе стороны помочь с исследованием пещеры: каждая согласится, чтобы не дать преимущество врагу.",
+      "full_en": "Commander Agip decides to ask both tribes for help exploring the cave. This will force each to help you to prevent you from getting help from their enemy.",
+      "npcs": [
+        {
+          "entity": "Commander Agip",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Commander Agip"
+        }
+      ],
+      "protected_names": [
+        "Commander Agip"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "You are presented with a choice of which tribe to go to in order to seek assistance. Laphine Branch: Speak to the Laphine Commander, and threaten to ask the Sapha's help if she refuses hers. She will agree to help and ask you to talk to Aide Arioss. Aide Arioss (spl_in01 104, 56) will give you a token to mark you as a guardian of the yggdrasil and tell you the password to get past the door. Sapha Branch: Return to the building in Manuk and talk to Neat Etorr again. Talk to the Laphine Prisoner twice.",
+      "instruction_sha256": "101f2146e379f921053234bf0fc42eda0e898dd7968269b44e2b907073ecaa9b",
+      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/101f2146e379f9210532/1",
+      "goal": "branch_choice",
+      "short_ru": "Выберите Laphine или Sapha для получения помощи.",
+      "short_en": "Choose Laphine or Sapha for assistance.",
+      "full_ru": "Выберите, к какому племени обратиться за помощью.",
+      "full_en": "You are presented with a choice of which tribe to go to in order to seek assistance.",
+      "locations": [],
+      "protected_names": [],
+      "branches": [
+        {
+          "key": "assistance_laphine",
+          "choice_group": "tribe_choice_8",
+          "variant_scope": "Source Laphine/Sapha choice; server applicability unverified",
+          "condition": "Choose one tribe at this source choice; do not sum or execute both alternatives.",
+          "section": "",
+          "source_step": 8,
+          "original_instruction": "Laphine Branch: Speak to the Laphine Commander, and threaten to ask the Sapha's help if she refuses hers. She will agree to help and ask you to talk to Aide Arioss. Aide Arioss (spl_in01 104, 56) will give you a token to mark you as a guardian of the yggdrasil and tell you the password to get past the door. ",
+          "instruction_sha256": "ef9afe658cd6760bc2c06c70ac7e27e34c98530b56127b479902f4d0f5e92b69",
+          "short_ru": "Получите помощь Laphine Commander и сведения от Aide Arioss: spl_in01 104, 56.",
+          "short_en": "Get Laphine Commander’s help and information from Aide Arioss: spl_in01 104, 56.",
+          "full_ru": "Laphine Branch: поговорите с Laphine Commander и пригрозите обратиться за помощью к Sapha. Она согласится и направит к Aide Arioss. Aide Arioss (spl_in01 104, 56) даст знак хранителя yggdrasil и сообщит пароль от двери.",
+          "full_en": "Laphine Branch: Speak to the Laphine Commander, and threaten to ask the Sapha's help if she refuses hers. She will agree to help and ask you to talk to Aide Arioss. Aide Arioss (spl_in01 104, 56) will give you a token to mark you as a guardian of the yggdrasil and tell you the password to get past the door. ",
+          "protected_names": [
+            "Laphine Commander",
+            "Aide Arioss",
+            "spl_in01"
+          ],
+          "npcs": [
+            {
+              "entity": "Laphine Commander",
+              "role": "talk"
+            },
+            {
+              "entity": "Aide Arioss",
+              "role": "talk"
+            }
+          ],
+          "locations": [
+            {
+              "entity": "spl_in01",
+              "x": 104,
+              "y": 56,
+              "role": "npc",
+              "known": true,
+              "condition": "Only Laphine assistance branch."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "talk",
+              "entity": "Laphine Commander"
+            },
+            {
+              "operation": "talk",
+              "entity": "Aide Arioss"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "guardian_token",
+              "condition": "Generic source token; inventory name, ID and exact count unknown."
+            },
+            {
+              "kind": "password_information",
+              "condition": "Source gives no literal password; no exact answer is invented."
+            }
+          ]
+        },
+        {
+          "key": "assistance_sapha",
+          "choice_group": "tribe_choice_8",
+          "variant_scope": "Source Laphine/Sapha choice; server applicability unverified",
+          "condition": "Choose one tribe at this source choice; do not sum or execute both alternatives.",
+          "section": "",
+          "source_step": 8,
+          "original_instruction": "Sapha Branch: Return to the building in Manuk and talk to Neat Etorr again. Talk to the Laphine Prisoner twice.",
+          "instruction_sha256": "f374370232ac018b95c657c2b8f7c2bff9e86fabaf67e849ccbc8d8d28a060b2",
+          "short_ru": "В Manuk поговорите с Neat Etorr, затем дважды с Laphine Prisoner.",
+          "short_en": "In Manuk, speak to Neat Etorr, then twice to Laphine Prisoner.",
+          "full_ru": "Sapha Branch: вернитесь в здание Manuk, поговорите с Neat Etorr, затем дважды с Laphine Prisoner.",
+          "full_en": "Sapha Branch: Return to the building in Manuk and talk to Neat Etorr again. Talk to the Laphine Prisoner twice.",
+          "protected_names": [
+            "Laphine Prisoner",
+            "Neat Etorr",
+            "Manuk"
+          ],
+          "npcs": [
+            {
+              "entity": "Neat Etorr",
+              "role": "talk"
+            },
+            {
+              "entity": "Laphine Prisoner",
+              "role": "talk"
+            }
+          ],
+          "actions": [
+            {
+              "operation": "talk",
+              "entity": "Neat Etorr"
+            },
+            {
+              "operation": "talk",
+              "entity": "Laphine Prisoner",
+              "condition": "Twice, as stated by the source."
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "dialogue_repetitions",
+              "entity": "Laphine Prisoner",
+              "amount": "2"
+            }
+          ]
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "At this step you can now enter the Nidhoggur's Nest Instance. After you clear the instance, talk to Yggdrasiliad in the final room. Note: The instance is very difficult and will require a strong party to complete. Note 2: This quest can not currently be completed on iRO , the Yggdrasilid in the instance does not appear to set a needed quest variable.",
+      "instruction_sha256": "459796b4313935a68b92f0ffe76cc1b57e6238c8971acd627b0da067942108d6",
+      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/459796b4313935a68b92/1",
+      "goal": "clear_instance",
+      "short_ru": "Пройдите Nidhoggur's Nest Instance и поговорите с Yggdrasiliad; учитывайте предупреждение источника об iRO.",
+      "short_en": "Clear Nidhoggur's Nest Instance and talk to Yggdrasiliad; heed the source’s iRO warning.",
+      "full_ru": "Теперь можно войти в Nidhoggur's Nest Instance. После прохождения поговорите с Yggdrasiliad в последней комнате. Примечание: подземелье очень сложно, нужна сильная группа. Примечание 2: источник сообщает, что квест нельзя завершить на iRO, поскольку Yggdrasilid внутри не устанавливает нужную переменную.",
+      "full_en": "At this step you can now enter the Nidhoggur's Nest Instance. After you clear the instance, talk to Yggdrasiliad in the final room. Note: The instance is very difficult and will require a strong party to complete. Note 2: This quest can not currently be completed on iRO , the Yggdrasilid in the instance does not appear to set a needed quest variable.",
+      "npcs": [
+        {
+          "entity": "Yggdrasiliad",
+          "role": "talk"
+        },
+        {
+          "entity": "Yggdrasilid",
+          "role": "unresolved_source_name"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "instance_clear",
+          "amount": null,
+          "condition": "Source advises a strong party; no required party size or universal availability is established."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "clear_instance"
+        },
+        {
+          "operation": "talk",
+          "entity": "Yggdrasiliad"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "source_iro_completion_warning",
+          "detail": "Pinned undated source says this quest cannot currently be completed on iRO due to a missing quest-variable update. This is retained as a source warning, not a verified current server state."
+        }
+      ],
+      "protected_names": [
+        "Yggdrasiliad",
+        "Yggdrasilid",
+        "Nidhoggur's Nest Instance"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Chose if you want to go to Splendide or Manuk for your reward. Splendide: Talk to the Laphine Commander, and then Arioss. You will receive 1,500,000 Base EXP , 35,000 Job EXP , and 10 Splendide Coins. Manuk: Talk to Etol, and then with the Laphine Prisoner. You will receive 1,500,000 Base EXP , 35,000 Job EXP , and 10 Manuk Coins.",
+      "instruction_sha256": "ffb0e421a8d0762475814b8e95bf2632bb8f4411f3049949dc1a85b3bae3498f",
+      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/ffb0e421a8d076247581/1",
+      "goal": "branch_choice",
+      "short_ru": "Выберите награду в Splendide или Manuk; это альтернативы.",
+      "short_en": "Choose the reward in Splendide or Manuk; these are alternatives.",
+      "full_ru": "Выберите, куда отправиться за наградой: Splendide или Manuk.",
+      "full_en": "Chose if you want to go to Splendide or Manuk for your reward.",
+      "locations": [],
+      "protected_names": [
+        "Splendide",
+        "Manuk"
+      ],
+      "branches": [
+        {
+          "key": "reward_splendide",
+          "choice_group": "tribe_choice_10",
+          "variant_scope": "Source Laphine/Sapha choice; server applicability unverified",
+          "condition": "Choose one tribe at this source choice; do not sum or execute both alternatives.",
+          "section": "",
+          "source_step": 10,
+          "original_instruction": "Splendide: Talk to the Laphine Commander, and then Arioss. You will receive 1,500,000 Base EXP , 35,000 Job EXP , and 10 Splendide Coins. ",
+          "instruction_sha256": "afe8ea74d53d9f726126dc5e70f7adb14013026aa3351719688b8250d5a049af",
+          "short_ru": "У Laphine Commander и Arioss получите 1,500,000 Base EXP, 35,000 Job EXP, 10 Splendide Coins.",
+          "short_en": "At Laphine Commander and Arioss, receive 1,500,000 Base EXP, 35,000 Job EXP, 10 Splendide Coins.",
+          "full_ru": "Splendide: поговорите с Laphine Commander, затем с Arioss. Получите 1,500,000 Base EXP, 35,000 Job EXP и 10 Splendide Coins.",
+          "full_en": "Splendide: Talk to the Laphine Commander, and then Arioss. You will receive 1,500,000 Base EXP , 35,000 Job EXP , and 10 Splendide Coins. ",
+          "protected_names": [
+            "Laphine Commander",
+            "Splendide",
+            "Splendide Coins"
+          ],
+          "npcs": [
+            {
+              "entity": "Laphine Commander",
+              "role": "talk"
+            },
+            {
+              "entity": "Aide Arioss",
+              "role": "talk"
+            }
+          ],
+          "actions": [
+            {
+              "operation": "talk",
+              "entity": "Laphine Commander"
+            },
+            {
+              "operation": "talk",
+              "entity": "Aide Arioss"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "1500000"
+            },
+            {
+              "kind": "job_exp",
+              "amount": "35000"
+            },
+            {
+              "kind": "item",
+              "amount": "10",
+              "entity": "Splendide Coins"
+            }
+          ]
+        },
+        {
+          "key": "reward_manuk",
+          "choice_group": "tribe_choice_10",
+          "variant_scope": "Source Laphine/Sapha choice; server applicability unverified",
+          "condition": "Choose one tribe at this source choice; do not sum or execute both alternatives.",
+          "section": "",
+          "source_step": 10,
+          "original_instruction": "Manuk: Talk to Etol, and then with the Laphine Prisoner. You will receive 1,500,000 Base EXP , 35,000 Job EXP , and 10 Manuk Coins.",
+          "instruction_sha256": "aed5d4100db330e72092602877f769326bfed83328c836ddd115407e0e58025a",
+          "short_ru": "У Etol и Laphine Prisoner получите 1,500,000 Base EXP, 35,000 Job EXP, 10 Manuk Coins.",
+          "short_en": "At Etol and Laphine Prisoner, receive 1,500,000 Base EXP, 35,000 Job EXP, 10 Manuk Coins.",
+          "full_ru": "Manuk: поговорите с Etol, затем с Laphine Prisoner. Получите 1,500,000 Base EXP, 35,000 Job EXP и 10 Manuk Coins.",
+          "full_en": "Manuk: Talk to Etol, and then with the Laphine Prisoner. You will receive 1,500,000 Base EXP , 35,000 Job EXP , and 10 Manuk Coins.",
+          "protected_names": [
+            "Laphine Prisoner",
+            "Etol",
+            "Manuk",
+            "Manuk Coins"
+          ],
+          "npcs": [
+            {
+              "entity": "Etol",
+              "role": "talk"
+            },
+            {
+              "entity": "Laphine Prisoner",
+              "role": "talk"
+            }
+          ],
+          "actions": [
+            {
+              "operation": "talk",
+              "entity": "Etol"
+            },
+            {
+              "operation": "talk",
+              "entity": "Laphine Prisoner"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "1500000"
+            },
+            {
+              "kind": "job_exp",
+              "amount": "35000"
+            },
+            {
+              "kind": "item",
+              "amount": "10",
+              "entity": "Manuk Coins"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "source_map_spelling_conflict",
+      "detail": "Guardian prints spl_fld01 at the dungeon entrance; Two Tribes prints a trail on spl_fild01. Preserve both literals and mark the former unverified rather than silently correcting coordinates."
+    },
+    {
+      "reason": "source_npc_spelling_conflict",
+      "detail": "Neat Etorr and Etol, and Yggdrasiliad and Yggdrasilid, retain separate source identities; spelling similarity does not prove an alias."
+    },
+    {
+      "reason": "independent_tribe_choices",
+      "detail": "Source offers choices at investigation, assistance and reward stages. No proven cross-stage forced tribe lock is stated; each choice group is local to its stage, and rewards must not be summed."
+    },
+    {
+      "reason": "reward_header_not_extra_grant",
+      "detail": "Final reward has two exclusive branches. Header EXP and OR-coins summarize one chosen branch, not a third grant."
+    }
+  ],
+  "prerequisite_clauses": [
+    {
+      "related_quest_id": "irowiki-classic:Report_from_the_New_World",
+      "kind": "required_completed_quest",
+      "evidence": "Finished Report from the New World"
+    },
+    {
+      "related_quest_id": "irowiki-classic:Two_Tribes",
+      "kind": "required_started_quest",
+      "evidence": "Started Two Tribes (To the point where you enter the Dungeon)"
+    }
+  ],
+  "source_partitions": [
+    {
+      "source_step": 5,
+      "segments": [
+        {
+          "target_step": 5,
+          "start": 0,
+          "end": 129,
+          "section": "Shared choice introduction"
+        },
+        {
+          "target_step": 5,
+          "branch_key": "investigate_laphine",
+          "start": 129,
+          "end": 336,
+          "section": "investigate_laphine"
+        },
+        {
+          "target_step": 5,
+          "branch_key": "investigate_sapha",
+          "start": 336,
+          "end": 509,
+          "section": "investigate_sapha"
+        }
+      ]
+    },
+    {
+      "source_step": 8,
+      "segments": [
+        {
+          "target_step": 8,
+          "start": 0,
+          "end": 85,
+          "section": "Shared choice introduction"
+        },
+        {
+          "target_step": 8,
+          "branch_key": "assistance_laphine",
+          "start": 85,
+          "end": 394,
+          "section": "assistance_laphine"
+        },
+        {
+          "target_step": 8,
+          "branch_key": "assistance_sapha",
+          "start": 394,
+          "end": 505,
+          "section": "assistance_sapha"
+        }
+      ]
+    },
+    {
+      "source_step": 10,
+      "segments": [
+        {
+          "target_step": 10,
+          "start": 0,
+          "end": 63,
+          "section": "Shared choice introduction"
+        },
+        {
+          "target_step": 10,
+          "branch_key": "reward_splendide",
+          "start": 63,
+          "end": 201,
+          "section": "reward_splendide"
+        },
+        {
+          "target_step": 10,
+          "branch_key": "reward_manuk",
+          "start": 201,
+          "end": 332,
+          "section": "reward_manuk"
+        }
+      ]
+    }
+  ]
+}

@@ -16,11 +16,11 @@ reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
-generator **semantic-5.0.0**. All four description fields are populated for
-**420 steps across 28 curated guides**, up from the previous 25-guide/360-step
-checkpoint. **21 conditional branches** also have independent RU/EN short and
+generator **semantic-5.1.0**. All four description fields are populated for
+**473 steps across 32 curated guides**, up from the previous 28-guide/420-step
+checkpoint. **29 conditional branches** also have independent RU/EN short and
 full descriptions. Six quest routes represent two exclusive expedition paths
-and four conditional/optional activities. **2,330 steps in 188 remaining catalog entries still lack
+and four conditional/optional activities. **2,277 steps in 184 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -53,6 +53,10 @@ complete localization/context analysis.** `complete` remains false.
 | Report from the New World | 13 | Minimum two-of-four prerequisite group; alternative scouts; variant timers/failure losses; distinct volumes |
 | Pursuing Rayan Moore | 26 | Unknown timed combat count/duration; two EXP installments; optional wrap-up materials and reward |
 | Tripatriate Union's Feud | 21 | One invitation with two signatures; unknown bug count; separate repeatable food recipes |
+| Finding a Fairy | 4 | Two EXP installments; source prerequisite for the language chain |
+| Ring of the Wise King | 14 | Started Report requirement; exact source/non-iRO language inputs; separate Gem actors; one-hour wait |
+| Two Tribes | 25 | Equipped ring spelling; three granted plus three gathered berries; all-held removal warning; Guardian start milestone |
+| Guardian of Yggdrasil | 10 | Finished versus started prerequisites; independent tribe choices; exclusive rewards; source map typo and iRO warning |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -60,6 +64,31 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Four connected New World guides preserve all 53 source stages and add eight
+  localized branches. `prerequisite_clauses` adds reviewed header components
+  with typed `required_quest`, `required_started_quest` and
+  `required_completed_quest` links. Unqualified clauses do not assert a
+  specific flag phase. Exact source clauses and complete header coverage are
+  validated; a Started requirement cannot be promoted to Finished.
+- `stage_required_to_start` links Two Tribes stage 7 to Guardian. This is
+  distinct from completing Two Tribes; Report must explicitly be finished
+  for Guardian, but only started for Ring of the Wise King.
+- Ring language input is losslessly partitioned into source-default and
+  explicit non-iRO branches, preserving all four exact strings. The two Gem
+  objects have separate identities. Ring 2782 is locally source-linked; the
+  differently spelled Two Tribes ring remains unlinked rather than silently
+  aliased. Exact final EXP comes from the reward header, with its evidence,
+  while the stage prose itself only says some EXP.
+- Two Tribes grants three berries and separately collects three. Snorren
+  explicitly takes all held berries if more than six are carried; removal
+  quantity remains unknown, not capped at six. Bare coordinates inherit a
+  map only through explicit preceding-step witnesses.
+- Guardian has independent investigation, assistance and final reward choices.
+  One completion gives one EXP/coin reward branch, not both. No literal
+  password, token ID or instance party size is invented. Its undated iRO
+  completion warning and `spl_fld01`/`spl_fild01` discrepancy stay visible;
+  server availability remains unknown. NPC spelling conflicts remain separate.
 
 - Additive schema migration 4 → 5 introduces `quest_prerequisite_groups`
   and `quest_prerequisite_members`. Report has one reviewed minimum-two-of-four
@@ -227,7 +256,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **128 tests passed**; complete offline enrichment passed;
+Validated locally: **135 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -248,15 +277,19 @@ New World reward accounting, item-versus-kill goals, and evidence-backed
 prerequisite/concurrency relations. Corrupted links and unsupported header
 prerequisites fail without replacing a valid export. Further cases cover
 threshold group corruption and migration rollback, source-default/iRO scouting
-variants, distinct volumes, optional wrap-up and postquest food recipes.
+variants, distinct volumes, optional wrap-up and postquest food recipes. New
+checks cover phase-qualified prerequisites, exact language inputs, distinct
+gem actors, all-held berry loss, independent tribe choices and source map
+spelling conflicts.
 
 ## Next work, in order
 
-1. Review the remaining 188 catalog candidates, separating reference pages,
+1. Review the remaining 184 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
-2. Continue New World story/access chains beyond Report (such as Ring of
-   the Wise King), reviewing related requirements in whole-quest context.
+2. Continue remaining permanent access/story chains and related New World
+   requirements in whole-quest context. Keep early start milestones separate
+   from full quest completion.
    Audit structured entity coverage
    of curated guides. Nameless Island now has a curated Curse of Gaebolg
    prerequisite, but no executable or universally applicable prerequisite graph

@@ -1,0 +1,211 @@
+{
+  "quest_id": "irowiki-classic:Finding_a_Fairy",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "5284365f6415c3985952e81a71d50dd3131f8bf456b2eddfade30409bb4ec22b",
+  "snapshot_sha256": "b68ba7ee547be3ee27e7cfe8264010f27aa1d7933ac5c374517a1301693426f6",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Small Fairy"
+    },
+    {
+      "type": "npc",
+      "name": "Camp Guard Captain"
+    },
+    {
+      "type": "npc",
+      "name": "Tree Giant"
+    },
+    {
+      "type": "map",
+      "name": "Splendide Field 2"
+    },
+    {
+      "type": "map",
+      "name": "spl_fild02",
+      "map_code": "spl_fild02"
+    },
+    {
+      "type": "map",
+      "name": "Midgard Camp"
+    },
+    {
+      "type": "map",
+      "name": "mid_camp",
+      "map_code": "mid_camp"
+    },
+    {
+      "type": "map",
+      "name": "Manuk Field 3"
+    },
+    {
+      "type": "map",
+      "name": "man_fild03",
+      "map_code": "man_fild03"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In Splendide Field 2, talk to the Small Fairy ( spl_fild02 34,223).",
+      "instruction_sha256": "071fc42b8b608688ac5d7aa1c4409e09259b9eaf5b83d5d7ca243d27707ce6c2",
+      "step_id": "irowiki-classic:Finding_a_Fairy/step/071fc42b8b608688ac5d/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Small Fairy: spl_fild02 34,223.",
+      "short_en": "Talk to Small Fairy: spl_fild02 34,223.",
+      "full_ru": "В Splendide Field 2 поговорите с Small Fairy (spl_fild02 34,223).",
+      "full_en": "In Splendide Field 2, talk to the Small Fairy ( spl_fild02 34,223).",
+      "npcs": [
+        {
+          "entity": "Small Fairy",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Small Fairy"
+        }
+      ],
+      "protected_names": [
+        "Small Fairy",
+        "Splendide Field 2",
+        "spl_fild02"
+      ],
+      "locations": [
+        {
+          "map": "spl_fild02",
+          "x": 34,
+          "y": 223,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "spl_fild02 34,223"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Back at the Midgard Camp, talk to the Camp Guard Captain ( mid_camp 212,237). | Receive 700,000 Base EXP",
+      "instruction_sha256": "3e26080efe88648d41c56dc6c7c8fd08594676e9b1488c8472924918a5a8ec8d",
+      "step_id": "irowiki-classic:Finding_a_Fairy/step/3e26080efe88648d41c5/1",
+      "goal": "receive_reward",
+      "short_ru": "Доложите Camp Guard Captain: mid_camp 212,237; получите 700,000 Base EXP.",
+      "short_en": "Report to Camp Guard Captain: mid_camp 212,237; receive 700,000 Base EXP.",
+      "full_ru": "Вернитесь в Midgard Camp и поговорите с Camp Guard Captain (mid_camp 212,237). Получите 700,000 Base EXP.",
+      "full_en": "Back at the Midgard Camp, talk to the Camp Guard Captain ( mid_camp 212,237). | Receive 700,000 Base EXP",
+      "npcs": [
+        {
+          "entity": "Camp Guard Captain",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "700000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Camp Guard Captain"
+        }
+      ],
+      "protected_names": [
+        "Camp Guard Captain",
+        "Midgard Camp",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 212,
+          "y": 237,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 212,237"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "In Manuk Field 3, talk to the Tree Giant ( man_fild03 236, 105).",
+      "instruction_sha256": "8adefd74e6f838c2b79e74f0a435d813e3ae1853801b702bb21e7a6acbf03249",
+      "step_id": "irowiki-classic:Finding_a_Fairy/step/8adefd74e6f838c2b79e/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Tree Giant: man_fild03 236, 105.",
+      "short_en": "Talk to Tree Giant: man_fild03 236, 105.",
+      "full_ru": "В Manuk Field 3 поговорите с Tree Giant (man_fild03 236, 105).",
+      "full_en": "In Manuk Field 3, talk to the Tree Giant ( man_fild03 236, 105).",
+      "npcs": [
+        {
+          "entity": "Tree Giant",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Tree Giant"
+        }
+      ],
+      "protected_names": [
+        "Tree Giant",
+        "Manuk Field 3",
+        "man_fild03"
+      ],
+      "locations": [
+        {
+          "map": "man_fild03",
+          "x": 236,
+          "y": 105,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "man_fild03 236, 105"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Return to the Camp Guard Captain to tell him of the giant. | Receive 700,000 Base EXP",
+      "instruction_sha256": "9546e8a0619828d6c6cb7a0cec445f909a19400bfb51219f2932eadf7e22fb3c",
+      "step_id": "irowiki-classic:Finding_a_Fairy/step/9546e8a0619828d6c6cb/1",
+      "goal": "receive_reward",
+      "short_ru": "Доложите Camp Guard Captain о великане; получите 700,000 Base EXP.",
+      "short_en": "Tell Camp Guard Captain about the giant; receive 700,000 Base EXP.",
+      "full_ru": "Вернитесь к Camp Guard Captain и расскажите о великане. Получите 700,000 Base EXP.",
+      "full_en": "Return to the Camp Guard Captain to tell him of the giant. | Receive 700,000 Base EXP",
+      "npcs": [
+        {
+          "entity": "Camp Guard Captain",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "700000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Camp Guard Captain"
+        }
+      ],
+      "protected_names": [
+        "Camp Guard Captain"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "reward_header_not_extra_grant",
+      "detail": "Two 700000 installments total the 1400000 header reward; no third header grant is emitted."
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
+      "kind": "mandatory_prerequisite"
+    }
+  ]
+}

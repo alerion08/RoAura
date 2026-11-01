@@ -1447,5 +1447,123 @@
       "https://irowiki.org/classic/Onward_to_the_New_World_Quest",
       "https://irowiki.org/classic/Perfect_Dodge"
     ]
+  },
+  "Finding_a_Fairy": {
+    "url": "https://irowiki.org/classic/Finding_a_Fairy",
+    "sha256": "b68ba7ee547be3ee27e7cfe8264010f27aa1d7933ac5c374517a1301693426f6",
+    "path": "b68ba7ee547be3ee27e7cfe8264010f27aa1d7933ac5c374517a1301693426f6.html.gz",
+    "title": "Finding a Fairy",
+    "categories": [
+      "Quest Window Quests",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Ash Vacuum Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T16:05:44Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/map-info/man_fild03/",
+      "http://db.irowiki.org/classic/map-info/mid_camp/",
+      "http://db.irowiki.org/classic/map-info/spl_fild02/",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/File:Camp_Guard_Captain.jpg",
+      "https://irowiki.org/classic/File:Small_Fairy.jpg",
+      "https://irowiki.org/classic/File:Tree_Giant.jpg",
+      "https://irowiki.org/classic/Onward_to_the_New_World_Quest"
+    ]
+  },
+  "Ring_of_the_Wise_King": {
+    "url": "https://irowiki.org/classic/Ring_of_the_Wise_King",
+    "sha256": "6ef61695ad11b5f59766edd34a026c208818ac582376a91a06b09392388f7447",
+    "path": "6ef61695ad11b5f59766edd34a026c208818ac582376a91a06b09392388f7447.html.gz",
+    "title": "Ring of the Wise King",
+    "categories": [
+      "Articles Needing DB Links",
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Into the Unknown Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T16:05:46Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/2782/",
+      "https://irowiki.org/classic/EXP",
+      "https://irowiki.org/classic/File:Magician.png",
+      "https://irowiki.org/classic/File:Schwartzvalt_Mechanic.png",
+      "https://irowiki.org/classic/Finding_a_Fairy",
+      "https://irowiki.org/classic/Report_from_the_New_World",
+      "https://irowiki.org/classic/Template:Item",
+      "https://irowiki.org/classic/Template:Map",
+      "https://irowiki.org/classic/Template:Monster"
+    ]
+  },
+  "Two_Tribes": {
+    "url": "https://irowiki.org/classic/Two_Tribes",
+    "sha256": "578611953478cc7419ce0676de2e626a8b13f0e2649fa427170d9dc7d0889885",
+    "path": "578611953478cc7419ce0676de2e626a8b13f0e2649fa427170d9dc7d0889885.html.gz",
+    "title": "Two Tribes",
+    "categories": [
+      "Articles Needing DB Links",
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Into the Unknown Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T16:05:47Z",
+    "page_links": [
+      "https://irowiki.org/cl/index.php?title=Splendide&action=edit&redlink=1",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/File:East.png",
+      "https://irowiki.org/classic/File:North.png",
+      "https://irowiki.org/classic/File:North1.png",
+      "https://irowiki.org/classic/File:South.png",
+      "https://irowiki.org/classic/File:Spl_fild01.png",
+      "https://irowiki.org/classic/Guardian_of_Yggdrasil",
+      "https://irowiki.org/classic/Job_EXP",
+      "https://irowiki.org/classic/Manuk",
+      "https://irowiki.org/classic/Ring_of_the_Wise_King",
+      "https://irowiki.org/classic/Template:Item",
+      "https://irowiki.org/classic/Template:Map",
+      "https://irowiki.org/classic/Template:Monster"
+    ]
+  },
+  "Guardian_of_Yggdrasil": {
+    "url": "https://irowiki.org/classic/Guardian_of_Yggdrasil",
+    "sha256": "706799a5c4374fdcf637c4155b4898626a60c923679886a39024b4b88007e930",
+    "path": "706799a5c4374fdcf637c4155b4898626a60c923679886a39024b4b88007e930.html.gz",
+    "title": "Guardian of Yggdrasil",
+    "categories": [
+      "Articles Needing DB Links",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Into the Unknown Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T16:05:48Z",
+    "page_links": [
+      "https://irowiki.org/cl/index.php?title=Splendide&action=edit&redlink=1",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/File:Device.jpg",
+      "https://irowiki.org/classic/File:Magniffer.png",
+      "https://irowiki.org/classic/File:Nyd1.jpg",
+      "https://irowiki.org/classic/Job_EXP",
+      "https://irowiki.org/classic/Manuk",
+      "https://irowiki.org/classic/Nidhoggur%27s_Nest",
+      "https://irowiki.org/classic/Prontera",
+      "https://irowiki.org/classic/Report_from_the_New_World",
+      "https://irowiki.org/classic/Template:Item",
+      "https://irowiki.org/classic/Template:Map",
+      "https://irowiki.org/classic/Template:Monster",
+      "https://irowiki.org/classic/Two_Tribes"
+    ]
   }
 }
