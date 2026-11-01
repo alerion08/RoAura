@@ -5834,38 +5834,29 @@
       "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Source step 15 grants 1500000 and ends displayed tasks. Step 16 adds 1000000 and is required if Attitude is used for Report. Do not set a universal prerequisite-complete flag at step 15.",
       "evidence_id": "ev:ca4b82124bf6ce30a1baf677",
       "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "original_html_missing",
-      "review_id": "review:f2ed9418499bb07ef2ffce54",
+      "reason": "displayed_completion_not_prerequisite_completion",
+      "review_id": "review:7114e14e948e8a03f256679c",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The specimen and Decaying Stem have no linked item IDs in the pinned source. Sprout is a story event with an unverified entity type; no NPC/monster ID is invented.",
       "evidence_id": "ev:ca4b82124bf6ce30a1baf677",
       "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:4a1cf6791895c1d63a59c3ba",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:dc4993149251aeecd95ccbb3",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:8314f334978b4415c8599bd9",
+      "reason": "generic_source_item_labels",
+      "review_id": "review:e4888e90fd022a7ecfee2b64",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:e27005fe29b609040035176b",
+      "detail": "Legacy rewards metadata includes prose and truncates at 2000 characters. The full sixteen steps establish the additional horn stage and its prerequisite condition.",
+      "evidence_id": "ev:ca4b82124bf6ce30a1baf677",
       "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:bd9f47e353de99b09a7c1a3b",
+      "reason": "reward_metadata_contains_walkthrough",
+      "review_id": "review:eb4c66083e52fa3c3e0ecb55",
       "severity": "warning",
       "step_id": null
     },
@@ -5879,310 +5870,22 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:30916723abe34a9f4ad7eadd",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:bc9a2452157caef26661d18d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/0f2f76edbf8581eb761c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:30916723abe34a9f4ad7eadd",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1558d4c2f491d8c3ad14a5e0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/0f2f76edbf8581eb761c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8ad2b7eae6336949c34326dd",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:c0a4120c62f43d4a07a67f9e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/1782cba7e0878e8824cf/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8ad2b7eae6336949c34326dd",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:61d99064300beec8e3bedb80",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/1782cba7e0878e8824cf/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:41643d6765c47be50089b11b",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:1e48534375eb7b23834a62fb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/2ba99bbe616e83088ef1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:41643d6765c47be50089b11b",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4a759777dfffbff207c61fa2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/2ba99bbe616e83088ef1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:598d0cbe9bae253f216b31f9",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:400aa57408eb14f6cc97ebcf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/317917cd51e317487ea0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:598d0cbe9bae253f216b31f9",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:de31c3aeee8a2f14b6f35a1f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/317917cd51e317487ea0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d2ee6784b58cf790cd6c30a7",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:2b9232bd938b607ffb529318",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/32e153c99065c3e6c120/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d2ee6784b58cf790cd6c30a7",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f7d2c8e0780f3b533efaf00e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/32e153c99065c3e6c120/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:510af2e4066f5f133e312306",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:6e678b9f5eec1a837138d79a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/34af1d0de681442d2ece/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:510af2e4066f5f133e312306",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3feb0a3202cbb128f2084335",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/34af1d0de681442d2ece/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:510af2e4066f5f133e312306",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:97109223b791545ebe93f43e",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/34af1d0de681442d2ece/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:17e713aa9e810832c1787726",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:79802cff08b26e36c593caee",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/4cbaed200dfeb9745a48/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:17e713aa9e810832c1787726",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:400f4008d97280793e9b821b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/4cbaed200dfeb9745a48/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:17e713aa9e810832c1787726",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:0029188a1a3eb018ced9a170",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/4cbaed200dfeb9745a48/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2cbaee000ef18f3eda6a1666",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:80fa5ef29029862c5c48a717",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/529ffad23caf85158a1c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2cbaee000ef18f3eda6a1666",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:22126d9bd3348399fa9192a4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/529ffad23caf85158a1c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:72e63c647385cb028145f437",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:6ec4b426c45965c3d0566a04",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/59df74bb916a84c5da7c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:72e63c647385cb028145f437",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:011de1fbdfc504716a156d5e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/59df74bb916a84c5da7c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ecda24a546b3d38b989c0328",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:05a65b382b54734f78251117",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/8526157da45a2e2b485d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ecda24a546b3d38b989c0328",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9adda667f24ef679a774de4f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/8526157da45a2e2b485d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b7c4a63c65224b40750b946f",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:4df902d803e5c2fab5e4acdd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/8730d8083d5976ef61c2/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b7c4a63c65224b40750b946f",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d6388efefd6b3d0d24d3c1a8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/8730d8083d5976ef61c2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3f06511fb5fa4765c99ca5e5",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:bc0eb9145c6ead94f2d2d622",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/8d7c01eee6781c2d7ed4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3f06511fb5fa4765c99ca5e5",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9c838379c806ad0e2c16ed0c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/8d7c01eee6781c2d7ed4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c8f7981b9b157afac1cbdae8",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:4fd3432e53ff89b56ad67870",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/99a2d563b1e66a3d94a9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c8f7981b9b157afac1cbdae8",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:aabdb6cd67fd364f0a0ff2ec",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/99a2d563b1e66a3d94a9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "Source describes travel conflicts with New Surroundings tasks and other travel quests. Exact game flag ranges are not given; do not turn this into a universal all-quests-completed prerequisite.",
       "evidence_id": "ev:472fbddfe429a1d948a10053",
       "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:d59dc664b11fae958ce04078",
-      "severity": "blocking",
+      "reason": "travel_gate_concurrency",
+      "review_id": "review:02ae165a4aa2914dd81132a2",
+      "severity": "warning",
       "step_id": "irowiki-classic:Attitude_to_the_New_World/step/9d62037af65168434d97/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:472fbddfe429a1d948a10053",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1945f7382d623e84676afb70",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/9d62037af65168434d97/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "This step says Lumis, while surrounding steps name Rumis. Preserve the spelling and separate the unresolved entity; do not invent an alias or NPC location.",
       "evidence_id": "ev:8c9663ce7672df9462cd6669",
       "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:8800179b60b8238ba344242a",
-      "severity": "blocking",
+      "reason": "rumis_lumis_source_spelling",
+      "review_id": "review:0109e1e56500ca8efa40170c",
+      "severity": "warning",
       "step_id": "irowiki-classic:Attitude_to_the_New_World/step/af8678b0a6a13e7a0099/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8c9663ce7672df9462cd6669",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:deb8d40b522033587f07557b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/af8678b0a6a13e7a0099/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0ff18b5af9b6db77a6a1d69e",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "localization_missing",
-      "review_id": "review:b9e8715388a9a45e875fae0a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/f1207661e1837d680a7b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0ff18b5af9b6db77a6a1d69e",
-      "quest_id": "irowiki-classic:Attitude_to_the_New_World",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2e4fb997e65f67174fea02e0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/f1207661e1837d680a7b/1"
     },
     {
       "detail": "The same guide alternates Dusit/Dustit and Boonthon/Boomthon. Literal spellings remain separate unconfirmed identities; no silent alias merge.",
@@ -33743,38 +33446,38 @@
       "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/4f9f5083062504d55470/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "The guide names Marian at the start and Marien when boxes are received. They are kept separately pending proof of a canonical alias; no name/coordinate is silently corrected.",
       "evidence_id": "ev:6b7956a3ed4e19f65e970164",
       "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "original_html_missing",
-      "review_id": "review:950ba3886b3dc4edfaa9b119",
+      "reason": "marian_marien_source_spelling",
+      "review_id": "review:9f49582fdec2f58a10dc1982",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Twenty Ordinary Branch and twenty Strong Vine are the quest total for two posts. Per-click consumption and exact post identities/coordinates are not supplied.",
       "evidence_id": "ev:6b7956a3ed4e19f65e970164",
       "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:4e381c56f014ebf973d4868d",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:18836053bbedab7286222ef0",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:abd1ace87b6ce7875b7972cd",
+      "reason": "repair_material_total_not_per_post",
+      "review_id": "review:384107054fe5f78660fc1dce",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:31dc9da6689facc1a3e56468",
+      "detail": "The twenty Chocolate Pie in the header equal the sum of twelve stage grants. The header is not added as another reward.",
+      "evidence_id": "ev:6b7956a3ed4e19f65e970164",
       "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:2b546d97469c8199a1e86a0a",
+      "reason": "reward_header_not_extra_grant",
+      "review_id": "review:1fd680b6fdafaefecbca3a2b",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Legacy reward metadata contains walkthrough prose and truncates at 2000 characters. Complete source steps, not that tail, establish the letter deliveries and final EXP.",
+      "evidence_id": "ev:6b7956a3ed4e19f65e970164",
+      "quest_id": "irowiki-classic:New_Surroundings",
+      "reason": "reward_metadata_contains_walkthrough",
+      "review_id": "review:6a298f449a4c8e41826c8f1d",
       "severity": "warning",
       "step_id": null
     },
@@ -33788,436 +33491,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e67bac6f38cbb7609155b1e0",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:2d75c752cf54a1250d34a19c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/017abaf0e40b0b0fca27/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e67bac6f38cbb7609155b1e0",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3cc90fa149a087f647de5b2c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/017abaf0e40b0b0fca27/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6587a3b5c9d4653a9dfd6d3c",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:f2b09419f5917e92b4cc81b8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/12a540f773bece1e3d7b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6587a3b5c9d4653a9dfd6d3c",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:956d861781326638f10acfa4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/12a540f773bece1e3d7b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4ac900915297e93768b446ef",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:18fb42d726008af24a75eb72",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/17fb8833af0563322a5a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4ac900915297e93768b446ef",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bbfd6d060e5d7e245ec16362",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/17fb8833af0563322a5a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c4979d904ad3885dd8a9f20a",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:c15d4a93c40d983da74e2108",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/2da7359738c17fa55be3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c4979d904ad3885dd8a9f20a",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:533637d47a8d40aec19686eb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/2da7359738c17fa55be3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2d7fb61e442926d4c869dc67",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:cd8ebdc2e061dbeb2fdefad8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/3608eb8d83b8dcd83e7d/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:776f998c942f397e40fe0559",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "map_unknown",
-      "review_id": "review:76f88c62dd740165a8887f99",
-      "severity": "warning",
-      "step_id": "irowiki-classic:New_Surroundings/step/3608eb8d83b8dcd83e7d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2d7fb61e442926d4c869dc67",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:065df325814a8b96663ed0c8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/3608eb8d83b8dcd83e7d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:de763c446acbd55ad7f91bc2",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:6e917beb6db92e181da5b83b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/36a1ba1d90d694028ad8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:de763c446acbd55ad7f91bc2",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:61f8d9bfd136c5321eaebe5f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/36a1ba1d90d694028ad8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:28df9c7f69ece9f2ee770406",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:2c8e5e4b66f52bbd9c1f6bb9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/447918aaa4d526c98a8c/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:381f4016152deec4496a613b",
+      "evidence_id": "ev:41bf5b821921d0a9f0debab1",
       "quest_id": "irowiki-classic:New_Surroundings",
       "reason": "map_unknown",
       "review_id": "review:96a35905d81a543f92eba6df",
       "severity": "warning",
       "step_id": "irowiki-classic:New_Surroundings/step/447918aaa4d526c98a8c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:28df9c7f69ece9f2ee770406",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f645feda2424ef4c191723a0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/447918aaa4d526c98a8c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7e8c6fe7c9c8bbdb2edec64d",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:3b75a640561f50e8909f058a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/4599483071b53349f26e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7e8c6fe7c9c8bbdb2edec64d",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4477151c5c2201364beee549",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/4599483071b53349f26e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b13e7dda7fde45c466a9e0f7",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:54b6b3223ecb6189789da7fe",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/4a13f65f3f8914dc3317/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:08f6576f2a7d2a533163b9ac",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "map_unknown",
-      "review_id": "review:ced7ecfe57cae95b1fdf8d3a",
-      "severity": "warning",
-      "step_id": "irowiki-classic:New_Surroundings/step/4a13f65f3f8914dc3317/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b13e7dda7fde45c466a9e0f7",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8087402f8b255fd9c076e2d9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/4a13f65f3f8914dc3317/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:96cdef06181fe32060e11221",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:6f01b0655e7b766addf9d946",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/4d9e301e79df64baa00b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:96cdef06181fe32060e11221",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0ef3d1b291d425984b0b504f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/4d9e301e79df64baa00b/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:96cdef06181fe32060e11221",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:53297730973870ac3377deb7",
-      "severity": "warning",
-      "step_id": "irowiki-classic:New_Surroundings/step/4d9e301e79df64baa00b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:78e0c2438a1cfd13ecaa5ab2",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:3d595737f68c8eafcc69b30a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/76be4448c5ef8f10a5c7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:78e0c2438a1cfd13ecaa5ab2",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9d179c180e3bc1915a9f1a04",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/76be4448c5ef8f10a5c7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:aeb05de906054a63be42e552",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:02646b195aa2e1b63cd1809a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/77b802498322740c0b7d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:aeb05de906054a63be42e552",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8ac67af394db95da8b46aeb5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/77b802498322740c0b7d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:501ec0e8e01f16d625371300",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:e9866525b1c9b92c05134c50",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/79d402be70321298e4b6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:501ec0e8e01f16d625371300",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1cd56a18fd131023d66514c1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/79d402be70321298e4b6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3ec1be601c87424ab38ec16d",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:d85c074ff06a58f09d197864",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/8080d4f1a29ff161dad4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3ec1be601c87424ab38ec16d",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ee9225cc104f8204f42fe55f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/8080d4f1a29ff161dad4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:631cd54e544d8ce50dd99513",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:2b50043f6fac82cd0ba93dea",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/81e0606c2259ded25f15/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:631cd54e544d8ce50dd99513",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6dacf9b2dc942065533fa51a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/81e0606c2259ded25f15/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ab94e23831b0f3eaace4a961",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:8e55e511478509f95110e786",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/a1f49ff622eb6616ac78/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ab94e23831b0f3eaace4a961",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9776f8cf62ef4a154e9fe315",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/a1f49ff622eb6616ac78/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a8a78eb00be73d726ce019b3",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:0288bc414e8a4fe423cae3ed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/ad2f587a1a905d86bf47/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a8a78eb00be73d726ce019b3",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:022eee2754f7fe8aac1f6a55",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/ad2f587a1a905d86bf47/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1f996ed6da6e4c497280815c",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:5b49f2da569a1b855d9b2e43",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/b61c17249a1a9caf06b8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1f996ed6da6e4c497280815c",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9ac82a4e88cee5920bb517e1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/b61c17249a1a9caf06b8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e91b3936d80cecd30abc763d",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:7b9f6062e9d1aaa3c2d2b9da",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/bb827263c06f5aebfde0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e91b3936d80cecd30abc763d",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9b3027a53fc1110621b2ffed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/bb827263c06f5aebfde0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f2243a98880c945b8b7394ab",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:ea012e045c5875fe32833ea3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/bee5ebfc8e8781be0382/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f2243a98880c945b8b7394ab",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dab9d1ff02fd9ca380087285",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/bee5ebfc8e8781be0382/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fddaefe9fa60b447424932e0",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:04a2ea3dbffb6495fcb65317",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/c945236bcd91bb7ef865/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fddaefe9fa60b447424932e0",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dce715f24be68515ab97d312",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/c945236bcd91bb7ef865/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7b978324334b337ad1fe698d",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "localization_missing",
-      "review_id": "review:2d6b1f98af1d415e3abbdc48",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/e77e4006343fb3f1dec5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7b978324334b337ad1fe698d",
-      "quest_id": "irowiki-classic:New_Surroundings",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d4c2f01d854109e9ca285430",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:New_Surroundings/step/e77e4006343fb3f1dec5/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -37136,38 +36416,29 @@
       "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/ca0eb33675df1930b28c/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Ash-Vacuum and Ash Vaccum are retained as source spellings without inventing a canonical map code or server-specific alias.",
       "evidence_id": "ev:b620960e1e0bff798251e0ab",
       "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:5b50887e9f6f8df063da96c3",
+      "reason": "place_name_spelling_conflict",
+      "review_id": "review:20bc6903fb4d0faee323eae0",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Legacy rewards text includes walkthrough prose and is truncated. Reward assertions use the complete original stages: two 660000 Base / 210000 Job grants, not an extra header grant.",
       "evidence_id": "ev:b620960e1e0bff798251e0ab",
       "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:68ea097c44c340aa84adea30",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:365ebde55d29a62e353e434e",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:941529ebb0fcec8f23b10ee3",
+      "reason": "reward_metadata_contains_walkthrough",
+      "review_id": "review:bd83ab56f34565f26fcaec14",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:2e7329a933c7eb33fc34abeb",
+      "detail": "Promotional Staff in three cities and Alliance Manager in Prontera/Rachel have separate source-scoped identities. The Arunafeltz full name and Rachel short name share a proven scene identity.",
+      "evidence_id": "ev:b620960e1e0bff798251e0ab",
       "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:ba8aa2a2ef390c34a2776b0e",
+      "reason": "same_name_distinct_staff_and_managers",
+      "review_id": "review:f7b01e7e80ff111ac15d4523",
       "severity": "warning",
       "step_id": null
     },
@@ -37181,98 +36452,17 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5eed446bd97415fcb33b424d",
+      "detail": "Pinned source says: This quest is not available yet on iRO Classic. It is an undated source warning, not evidence of current availability or retirement on every server.",
+      "evidence_id": "ev:b620960e1e0bff798251e0ab",
       "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d79be975d1444597164980a5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/3958980c1039c6976494/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5eed446bd97415fcb33b424d",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:964d6e9d22d262464a008e8a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/3958980c1039c6976494/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4e7a07f809b1b641b863585c",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d98ada4bc8fc98d9bb911edb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/4a3c303f7fc547a1f9b7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4e7a07f809b1b641b863585c",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:32ecc1dcc077e2a19bf5437c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/4a3c303f7fc547a1f9b7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:54b18f068b585c376298a930",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ef4537eb070823cfacef65cb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/6ba9c328f70da22b54e5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:54b18f068b585c376298a930",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b8b943a48b87071db7745045",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/6ba9c328f70da22b54e5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:dc6cccded07ecfcc847811ad",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:cd188b29a6daaebea8b9cad0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/6fe2371cedf2041f8e7b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:dc6cccded07ecfcc847811ad",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b76e2911671269766540124f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/6fe2371cedf2041f8e7b/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:dc6cccded07ecfcc847811ad",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:ebe45559b1dcecef6227050c",
+      "reason": "source_classic_availability_warning",
+      "review_id": "review:afbce795e5125f7959dfc4dc",
       "severity": "warning",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/6fe2371cedf2041f8e7b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:05b8fd1542e67f4902fbb6b0",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:db5f7e2b0cea9964779714ab",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/73a3f05ab3ae485831e7/1"
+      "step_id": null
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:def8e88b1ab70e227c93887a",
+      "evidence_id": "ev:e32e2ef5821119badc69cc90",
       "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
       "reason": "map_unknown",
       "review_id": "review:44a69963ab70ba849c2d7588",
@@ -37280,256 +36470,13 @@
       "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/73a3f05ab3ae485831e7/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:05b8fd1542e67f4902fbb6b0",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fc43e73e332d6bf145b01836",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/73a3f05ab3ae485831e7/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:05b8fd1542e67f4902fbb6b0",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:ec527b423b7f99eb3201aff9",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/73a3f05ab3ae485831e7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:dcd2a1daa1bf4851795dfe14",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:380d7a8f9dfd0f8bf3144075",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/79422da6907f7fc04116/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:dcd2a1daa1bf4851795dfe14",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b8b77d97684496edb0370a3d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/79422da6907f7fc04116/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7e788e7ee9d7cd76da9e283c",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:16984d676e2ae5fa39db6886",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/7ec7d463f2d7e78949f3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7e788e7ee9d7cd76da9e283c",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:596ee6d5888e9930dedf54c2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/7ec7d463f2d7e78949f3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:165088a649a65b058d134e6d",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b64944cd981ef1548e7309fe",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/8088e3d1c94a0644bb14/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:165088a649a65b058d134e6d",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:27560588a873e4be98082263",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/8088e3d1c94a0644bb14/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:312058327f653f0f6dfba0ad",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:085d456769cfcbe8232a24bb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/95ea811ca24db89d066a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:312058327f653f0f6dfba0ad",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c4bec927539996c309d931d8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/95ea811ca24db89d066a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:480217bb20152a5b1454d378",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9f2730a5edbc82cb1c9c78f6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/9fc1b6ae9bc67c0565c3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:480217bb20152a5b1454d378",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:85f5e8732120b24038ba6349",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/9fc1b6ae9bc67c0565c3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d0381488505de5c994482ef5",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:fa79702fdcff45434bc56538",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/af8d480e55af650891c5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d0381488505de5c994482ef5",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:eda36c154d4d54b8eee9b670",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/af8d480e55af650891c5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:aff1c3d2493d800ac7ca6ecd",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:405a728b5600eb5913a39517",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/b2d229ec55b454b96364/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:aff1c3d2493d800ac7ca6ecd",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:56e16d795c75b88597dbd937",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/b2d229ec55b454b96364/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0b3f7a8df7a29be2d95650ae",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4266f16b833de1a3427f1f12",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/b373acf915f1a12db8e9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0b3f7a8df7a29be2d95650ae",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:57e11accb824bb06b42bc556",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/b373acf915f1a12db8e9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:16b870ea7e4b7a387f2405cd",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d341119a9171b0182497c504",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/bafd1423296797cfda36/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:16b870ea7e4b7a387f2405cd",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6c0543b60b9ade6f8df6cf6a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/bafd1423296797cfda36/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:51c39d6fa15460c0fc325819",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:622d680d7e6d5ff3285762a6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/d1f33ccd2c2909c80deb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:51c39d6fa15460c0fc325819",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1e8267bb45d57a2fc0b20c92",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/d1f33ccd2c2909c80deb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:36a3afe5f808c98e92571740",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:74d3a76376c31d2192ca5447",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/d727159084b8ba50d055/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:1fbd02504307cccd1762c9bc",
+      "evidence_id": "ev:5d32986b0b5ec44fe1e1ee59",
       "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
       "reason": "map_unknown",
       "review_id": "review:794d3ec40340a0be7ce93f63",
       "severity": "warning",
       "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/d727159084b8ba50d055/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:36a3afe5f808c98e92571740",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0048a459786ed14e7a4e9c71",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/d727159084b8ba50d055/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4d0e3b33bec63c3fc379b196",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:27f17d11c3751f05d71b00c2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/e7376791e2d67ddbbab1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4d0e3b33bec63c3fc379b196",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a3907ab0b2dbaeb9deb80c6a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/e7376791e2d67ddbbab1/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:4d0e3b33bec63c3fc379b196",
-      "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:5702943216ed866efdd6cd3e",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/e7376791e2d67ddbbab1/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
