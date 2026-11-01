@@ -1,0 +1,649 @@
+{
+  "quest_id": "irowiki-classic:Juno_Remedy_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "94d418699b6ef13a178a8049467681674652b110b9adfeb5f8598266c568406e",
+  "snapshot_sha256": "ea7ef88a76644cfaa5d03923ed386e15a7bec57946a685d511d92b36c1fb2d7a",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Euslan"
+    },
+    {
+      "type": "npc",
+      "name": "Thierry"
+    },
+    {
+      "type": "npc",
+      "name": "Hallen"
+    },
+    {
+      "type": "npc",
+      "name": "Kaci"
+    },
+    {
+      "type": "npc",
+      "name": "Eukran"
+    },
+    {
+      "type": "npc",
+      "name": "Suspicious Man"
+    },
+    {
+      "type": "npc",
+      "name": "Airship Captain",
+      "identity": "irowiki-classic:npc:airplane:236:163:Ferlock"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "yuno",
+      "map_code": "yuno"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch"
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "Hugel"
+    },
+    {
+      "type": "map",
+      "name": "airplane",
+      "map_code": "airplane"
+    },
+    {
+      "type": "map",
+      "name": "Odin Temple"
+    },
+    {
+      "type": "map",
+      "name": "odin_tem01",
+      "map_code": "odin_tem01"
+    },
+    {
+      "type": "item",
+      "name": "Rune of Darkness",
+      "game_id": 7511,
+      "id_source": "http://db.irowiki.org/classic/item-info/7511/"
+    },
+    {
+      "type": "item",
+      "name": "remedy",
+      "identity": "irowiki-classic:Juno_Remedy_Quest:source_item:remedy"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Meet a sad girl who doesn't stop crying, Euslan (yuno 111, 156) in Juno , ask why she's sad. She tells you that she misses her boyfriend, Thierry, who is looking for a remedy to cure her sickness. Help her to look for her boyfriend. She tells you that the staff in the airship station will have some information on this.",
+      "instruction_sha256": "d872e2a98ca2d7952a89f6abc5fb7c649e87453bfb56f8f823ea3b7cb8415764",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/d872e2a98ca2d7952a89/1",
+      "goal": "talk",
+      "short_ru": "Предложите помощь Euslan: yuno 111, 156.",
+      "short_en": "Offer to help Euslan: yuno 111, 156.",
+      "full_ru": "В Juno поговорите с плачущей Euslan (yuno 111, 156) и спросите о причине её печали. Её парень Thierry ищет remedy от её болезни. Предложите найти его: она посоветует расспросить сотрудников станции дирижабля.",
+      "full_en": "Meet a sad girl who doesn't stop crying, Euslan (yuno 111, 156) in Juno , ask why she's sad. She tells you that she misses her boyfriend, Thierry, who is looking for a remedy to cure her sickness. Help her to look for her boyfriend. She tells you that the staff in the airship station will have some information on this.",
+      "npcs": [
+        {
+          "entity": "Euslan",
+          "role": "talk"
+        },
+        {
+          "entity": "Thierry",
+          "role": "search_target"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Euslan"
+        }
+      ],
+      "protected_names": [
+        "Euslan",
+        "Thierry",
+        "Juno",
+        "yuno",
+        "remedy"
+      ],
+      "locations": [
+        {
+          "map": "yuno",
+          "x": 111,
+          "y": 156,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno 111, 156"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Go to the Domestic ( Juno / Einbroch / Lighthalzen / Hugel ) Airship and talk to Hallen (airplane 235, 62), he says he's not sure, but you can ask Kaci in the airship casino for more information.",
+      "instruction_sha256": "38ab41ec9d8121c0374846441e33dbec2ae6ceadd38cd164ad2599510dec097b",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/38ab41ec9d8121c03748/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Hallen: airplane 235, 62, Domestic Airship.",
+      "short_en": "Talk to Hallen: airplane 235, 62, Domestic Airship.",
+      "full_ru": "Сядьте на Domestic Airship маршрута Juno / Einbroch / Lighthalzen / Hugel. Поговорите с Hallen (airplane 235, 62): он не уверен, но посоветует спросить Kaci в казино на борту.",
+      "full_en": "Go to the Domestic ( Juno / Einbroch / Lighthalzen / Hugel ) Airship and talk to Hallen (airplane 235, 62), he says he's not sure, but you can ask Kaci in the airship casino for more information.",
+      "npcs": [
+        {
+          "entity": "Hallen",
+          "role": "talk"
+        },
+        {
+          "entity": "Kaci",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "board_domestic_airship"
+        },
+        {
+          "operation": "talk",
+          "entity": "Hallen"
+        }
+      ],
+      "protected_names": [
+        "Hallen",
+        "Kaci",
+        "Juno",
+        "Einbroch",
+        "Lighthalzen",
+        "Hugel",
+        "airplane"
+      ],
+      "locations": [
+        {
+          "map": "airplane",
+          "x": 235,
+          "y": 62,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "airplane 235, 62"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to Kaci (airplane 33, 69) and she will inform you that she met with Thierry. However, she is not sure of his whereabouts. She advises you to check with the captain of the airship by telling the captain your story. She also asks you to send her regards to Euslan.",
+      "instruction_sha256": "70e1dda7cd6110ebb3f778a035b2bc2b351952334272c2121985e779b3f4dd22",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/70e1dda7cd6110ebb3f7/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Kaci: airplane 33, 69.",
+      "short_en": "Talk to Kaci: airplane 33, 69.",
+      "full_ru": "Поговорите с Kaci (airplane 33, 69). Она видела Thierry, но не знает, где он сейчас. Она посоветует рассказать историю капитану и попросит передать привет Euslan.",
+      "full_en": "Talk to Kaci (airplane 33, 69) and she will inform you that she met with Thierry. However, she is not sure of his whereabouts. She advises you to check with the captain of the airship by telling the captain your story. She also asks you to send her regards to Euslan.",
+      "npcs": [
+        {
+          "entity": "Kaci",
+          "role": "talk"
+        },
+        {
+          "entity": "Thierry",
+          "role": "story_reference"
+        },
+        {
+          "entity": "Euslan",
+          "role": "later_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kaci"
+        }
+      ],
+      "protected_names": [
+        "Euslan",
+        "Thierry",
+        "Kaci",
+        "airplane"
+      ],
+      "locations": [
+        {
+          "map": "airplane",
+          "x": 33,
+          "y": 69,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "airplane 33, 69"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Look for the Airship Captain (airplane 236, 163) and tell him your story. He explains that Thierry went to Hugel .",
+      "instruction_sha256": "80b06517ea529158d7cf0a68297abad03a0b07f78c45c756238be49158c8ec85",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/80b06517ea529158d7cf/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Airship Captain: airplane 236, 163.",
+      "short_en": "Question Airship Captain: airplane 236, 163.",
+      "full_ru": "Поговорите с Airship Captain (airplane 236, 163) и расскажите о поисках. Он сообщит, что Thierry отправился в Hugel.",
+      "full_en": "Look for the Airship Captain (airplane 236, 163) and tell him your story. He explains that Thierry went to Hugel .",
+      "npcs": [
+        {
+          "entity": "Airship Captain",
+          "role": "talk"
+        },
+        {
+          "entity": "Thierry",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Airship Captain"
+        }
+      ],
+      "protected_names": [
+        "Thierry",
+        "Airship Captain",
+        "Hugel",
+        "airplane"
+      ],
+      "locations": [
+        {
+          "map": "airplane",
+          "x": 236,
+          "y": 163,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "airplane 236, 163"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Return to Euslan to pass her Kaci's regards. She will tell you that her brother Eukran works in the Bingo game Amusement Park in Hugel .",
+      "instruction_sha256": "0bf9c7e2ac6968dc9d344661683423c8bdf3766ebdd740f62db690a698555d97",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/0bf9c7e2ac6968dc9d34/1",
+      "goal": "talk",
+      "short_ru": "Передайте Euslan привет от Kaci и узнайте об Eukran.",
+      "short_en": "Pass the regards of Kaci to Euslan and learn about Eukran.",
+      "full_ru": "Вернитесь к Euslan и передайте привет от Kaci. Она расскажет, что её брат Eukran работает в Amusement Park с игрой Bingo в Hugel.",
+      "full_en": "Return to Euslan to pass her Kaci's regards. She will tell you that her brother Eukran works in the Bingo game Amusement Park in Hugel .",
+      "npcs": [
+        {
+          "entity": "Euslan",
+          "role": "talk"
+        },
+        {
+          "entity": "Kaci",
+          "role": "story_reference"
+        },
+        {
+          "entity": "Eukran",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Euslan"
+        }
+      ],
+      "protected_names": [
+        "Euslan",
+        "Kaci",
+        "Eukran",
+        "Hugel"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Go to the Bingo House (57,207) and once you enter a dialogue will pop out, the person there tells you that you can only meet the Euslan's brother after playing a game because he is a very busy man. | Five people are needed to play a game of Bingo , but winning the game is not necessary.",
+      "instruction_sha256": "c2637f7397aadfdce4b746e3c4edb8fbc27929adcb5c2ea850314923941e34b8",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/c2637f7397aadfdce4b7/1",
+      "goal": "play_game",
+      "short_ru": "Сыграйте в Bingo в Bingo House (57,207): нужны 5 игроков всего, победа не требуется.",
+      "short_en": "Play Bingo in Bingo House (57,207): 5 players total are needed; winning is unnecessary.",
+      "full_ru": "Идите в Bingo House (57,207). При входе появится диалог: встретиться с братом Euslan можно только после игры, поскольку он очень занят. Для Bingo нужны пять человек; выигрывать не требуется.",
+      "full_en": "Go to the Bingo House (57,207) and once you enter a dialogue will pop out, the person there tells you that you can only meet the Euslan's brother after playing a game because he is a very busy man. | Five people are needed to play a game of Bingo , but winning the game is not necessary.",
+      "npcs": [
+        {
+          "entity": "Eukran",
+          "role": "postgame_contact",
+          "support_step": 5,
+          "evidence": "Return to Euslan to pass her Kaci's regards. She will tell you that her brother Eukran works in the Bingo game Amusement Park in Hugel ."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "total_players_for_bingo",
+          "amount": "5",
+          "condition": "Five including the player; header says four other players, not four total."
+        },
+        {
+          "kind": "additional_players_for_bingo",
+          "amount": "4",
+          "source_section": "requirements",
+          "evidence": "4 Other Players (Bingo)",
+          "condition": "Same five-player game, not four more beyond the total of five."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "play_bingo",
+          "condition": "Participate in a game; victory is explicitly unnecessary."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "bingo_house_map_unqualified",
+          "detail": "Source gives Hugel context and bare 57,207. No literal map code is supplied at this point, so no hugel map code is invented."
+        }
+      ],
+      "protected_names": [
+        "Euslan"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 57,
+          "y": 207,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "57,207"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "After playing a game, you can see Eukran (You will be instantly warped to the room where he works). He says that Thierry went to the Odin Temple to look for the medicine.",
+      "instruction_sha256": "2860e602b997d93577ee7a8ef5ff9fdedac8310ce4b2d65df88c9ca7e842b25a",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/2860e602b997d93577ee/1",
+      "goal": "talk",
+      "short_ru": "После Bingo поговорите с Eukran об исчезновении Thierry.",
+      "short_en": "After Bingo, talk to Eukran about Thierry.",
+      "full_ru": "После игры вас сразу перенесёт в рабочую комнату Eukran. Он сообщит, что Thierry ушёл в Odin Temple искать лекарство.",
+      "full_en": "After playing a game, you can see Eukran (You will be instantly warped to the room where he works). He says that Thierry went to the Odin Temple to look for the medicine.",
+      "npcs": [
+        {
+          "entity": "Eukran",
+          "role": "talk"
+        },
+        {
+          "entity": "Thierry",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "postgame_warp"
+        },
+        {
+          "operation": "talk",
+          "entity": "Eukran"
+        }
+      ],
+      "protected_names": [
+        "Thierry",
+        "Eukran",
+        "Odin Temple"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Go to Odin Temple and listen around for a Suspicious Man (odin_tem01 135,125 [Walk around this area]), you'll hear 2 people talking about research related topics. After talking, one person leaves and a young man will appear (114, 147 [Walk around this area]).",
+      "instruction_sha256": "846b5519683b68929f5dde8d5e5b21b4e92377a50d262d9b051a970299ec78a1",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/846b5519683b68929f5d/1",
+      "goal": "trigger",
+      "short_ru": "Вызовите сцену у odin_tem01 135,125, затем подойдите к появившемуся человеку на 114,147.",
+      "short_en": "Trigger the scene at odin_tem01 135,125, then approach the appearing man at 114,147.",
+      "full_ru": "В Odin Temple пройдите по области возле Suspicious Man (odin_tem01 135,125). Вы услышите разговор 2 людей об исследованиях. После разговора один уйдёт, а молодой человек появится возле (114, 147); пройдите по этой области.",
+      "full_en": "Go to Odin Temple and listen around for a Suspicious Man (odin_tem01 135,125 [Walk around this area]), you'll hear 2 people talking about research related topics. After talking, one person leaves and a young man will appear (114, 147 [Walk around this area]).",
+      "npcs": [
+        {
+          "entity": "Suspicious Man",
+          "role": "scene_trigger"
+        },
+        {
+          "entity": "Thierry",
+          "role": "appearing_contact",
+          "support_step": 9,
+          "evidence": "Talk to the young man and find he is Thierry. Unfortunately he will not leave his research to go back to Euslan."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "odin_tem01",
+          "x": 135,
+          "y": 125,
+          "role": "scene_trigger",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "odin_tem01",
+          "x": 114,
+          "y": 147,
+          "role": "appearing_contact",
+          "known": true,
+          "order": 2,
+          "support_step": 8,
+          "evidence": "Go to Odin Temple and listen around for a Suspicious Man (odin_tem01 135,125 [Walk around this area]), you'll hear 2 people talking about research related topics. After talking, one person leaves and a young man will appear (114, 147 [Walk around this area]).",
+          "condition": "Map inherited from the same explicitly located scene; young man identity is established in stage 9."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk_to_conversation"
+        },
+        {
+          "operation": "approach_appearing_contact"
+        }
+      ],
+      "protected_names": [
+        "Suspicious Man",
+        "Odin Temple",
+        "odin_tem01"
+      ]
+    },
+    "9": {
+      "original_instruction": "Talk to the young man and find he is Thierry. Unfortunately he will not leave his research to go back to Euslan.",
+      "instruction_sha256": "31e6ba236522c6660e48e34be77b76ed3bda5d65b1bc1caa921f58015b5ee1ca",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/31e6ba236522c6660e48/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Thierry о возвращении к Euslan.",
+      "short_en": "Talk to Thierry about returning to Euslan.",
+      "full_ru": "Поговорите с молодым человеком: это Thierry. Он отказывается бросать исследования и возвращаться к Euslan.",
+      "full_en": "Talk to the young man and find he is Thierry. Unfortunately he will not leave his research to go back to Euslan.",
+      "npcs": [
+        {
+          "entity": "Thierry",
+          "role": "talk"
+        },
+        {
+          "entity": "Euslan",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Thierry"
+        }
+      ],
+      "protected_names": [
+        "Euslan",
+        "Thierry"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "After you leave Thierry, the stranger that talked to him (odin_tem01 108, 146, right in front of the port in the temple) is talking to someone else, and they are plotting something.",
+      "instruction_sha256": "9bf19d7052e5b5a573c8f54ef909661299ee6c61cdfdf4a5ad90f038a6824ba2",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/9bf19d7052e5b5a573c8/1",
+      "goal": "overhear",
+      "short_ru": "Подслушайте разговор у порта: odin_tem01 108, 146.",
+      "short_en": "Overhear the conversation by the port: odin_tem01 108, 146.",
+      "full_ru": "Отойдя от Thierry, подслушайте незнакомца, который раньше говорил с ним: теперь у порта храма (odin_tem01 108, 146) он обсуждает с кем-то заговор.",
+      "full_en": "After you leave Thierry, the stranger that talked to him (odin_tem01 108, 146, right in front of the port in the temple) is talking to someone else, and they are plotting something.",
+      "npcs": [
+        {
+          "entity": "Thierry",
+          "role": "previous_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "overhear_conspiracy"
+        }
+      ],
+      "protected_names": [
+        "Thierry",
+        "odin_tem01"
+      ],
+      "locations": [
+        {
+          "map": "odin_tem01",
+          "x": 108,
+          "y": 146,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "odin_tem01 108, 146"
+        }
+      ]
+    },
+    "11": {
+      "original_instruction": "Go back to Thierry and inform him what you heard. He asks for help to gather some ingredient for him. Collect 5 Rune of Darkness . When you have the correct amount, Thierry will make the remedy and ask you to pass the remedy to Euslan while he will stay a bit longer to distract the stranger's attention.",
+      "instruction_sha256": "612e831cd0b43375886e1355683a07cc56501961d83ceb54ee691b27e52930cb",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/612e831cd0b43375886e/1",
+      "goal": "deliver",
+      "short_ru": "Принесите Thierry 5 Rune of Darkness и заберите remedy для Euslan.",
+      "short_en": "Bring Thierry 5 Rune of Darkness and collect the remedy for Euslan.",
+      "full_ru": "Вернитесь к Thierry и расскажите об услышанном. Он попросит ингредиент: соберите 5 Rune of Darkness. Когда принесёте нужное количество, он изготовит remedy и попросит передать его Euslan, а сам задержится, чтобы отвлечь незнакомца.",
+      "full_en": "Go back to Thierry and inform him what you heard. He asks for help to gather some ingredient for him. Collect 5 Rune of Darkness . When you have the correct amount, Thierry will make the remedy and ask you to pass the remedy to Euslan while he will stay a bit longer to distract the stranger's attention.",
+      "npcs": [
+        {
+          "entity": "Thierry",
+          "role": "talk"
+        },
+        {
+          "entity": "Euslan",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rune of Darkness",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Single five-rune set, consumed according to the header; collection and handover are not separate costs."
+        },
+        {
+          "entity": "remedy",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Prepared remedy; no stated inventory quantity or verified game ID."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Rune of Darkness"
+        },
+        {
+          "operation": "receive",
+          "entity": "remedy"
+        }
+      ],
+      "protected_names": [
+        "Euslan",
+        "Thierry",
+        "Rune of Darkness",
+        "remedy"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Pass the remedy to Euslan. The quest ends here and you will get some Base EXP and Job EXP .",
+      "instruction_sha256": "186d65cc6212068e26992ba6a029c0b31611db0656274ad43a534b2246f893d5",
+      "step_id": "irowiki-classic:Juno_Remedy_Quest/step/186d65cc6212068e2699/1",
+      "goal": "receive_reward",
+      "short_ru": "Передайте remedy Euslan и получите 900,000 Base EXP и 600,000 Job EXP.",
+      "short_en": "Deliver the remedy to Euslan and receive 900,000 Base EXP and 600,000 Job EXP.",
+      "full_ru": "Передайте remedy Euslan. Квест завершится, и вы получите некоторое количество Base EXP и Job EXP; точные суммы указаны в заголовке наград источника.",
+      "full_en": "Pass the remedy to Euslan. The quest ends here and you will get some Base EXP and Job EXP .",
+      "npcs": [
+        {
+          "entity": "Euslan",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "remedy",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "900000",
+          "source_section": "rewards",
+          "evidence": "Base Experience: 900,000",
+          "condition": "One final grant from exact header; stage prose supplies no extra amount."
+        },
+        {
+          "kind": "job_exp",
+          "amount": "600000",
+          "source_section": "rewards",
+          "evidence": "Job Experience: 600,000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "remedy"
+        }
+      ],
+      "protected_names": [
+        "Euslan",
+        "remedy"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "bingo_participation_not_victory",
+      "detail": "Five players total equals the header four other players plus the questing player. Participation, not winning, unlocks Eukran; no party size, victory requirement or extra game is invented."
+    },
+    {
+      "reason": "captain_identity_by_pinned_location",
+      "detail": "Airship Captain uses the shared Classic domestic-airship identity at airplane 236,163, already source-qualified as Ferlock in two other guides. The new descriptions preserve their own literal Airship Captain label."
+    },
+    {
+      "reason": "scene_context_not_generic_actor_merge",
+      "detail": "The young man in stage 8 is explicitly identified as Thierry at 9. His map inherits odin_tem01 from the same source scene with context evidence. The generic stranger is not silently made a separately named or game-ID-verified NPC."
+    },
+    {
+      "reason": "remedy_inventory_unknown",
+      "detail": "Remedy retains a source-qualified unknown-ID identity and NULL quantity. Its transfer is known, not a numerical inventory count. Exact final EXP comes once from the header."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "entity": "Rune of Darkness",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Rune of Darkness",
+        "condition": "Summary of the sole stage-11 delivery, not another five runes."
+      }
+    ]
+  }
+}

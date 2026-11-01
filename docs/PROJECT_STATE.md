@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 632 steps in 43 curated guides and
-50 conditional branches. One source addition supplements full descriptions;
-**2,118 steps / 173 remaining catalog entries still need processing**. Seven quest routes preserve Odin's
+is excluded. All four RU/EN fields exist for 670 steps in 46 curated guides and
+64 conditional branches. One source addition supplements full descriptions;
+**2,080 steps / 170 remaining catalog entries still need processing**. Seven quest routes preserve Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -38,8 +38,14 @@ set requested then delivered, exact ordered topics, one three-slot Knife,
 distinct same-name merchants and original/forged documents. Peace's total EXP
 does not invent individual installments; Bruspetti's level-75 header/step
 conflict and Sardonx/Sardonyx spelling remain explicit source review issues.
+Shadow, Lovers and Juno Remedy are curated: two alternative guard-response
+paths, separate attack counts and final flashback, two independent level-band
+EXP installments, one four-batch Coal total, dynamic character-name inputs,
+and five-player Bingo participation without a victory requirement. Captain
+identity is shared by the pinned domestic-airship coordinates; unknown remedy
+quantities and source spelling conflicts remain explicit.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 160 regression tests, full offline rebuild and research CI
+Local validation: 168 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

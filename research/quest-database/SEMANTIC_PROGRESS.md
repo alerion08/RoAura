@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.3.0**. All four description fields are populated for
-**632 steps across 43 curated guides**, up from the previous 40-guide/584-step
-checkpoint. **50 conditional branches** also have independent RU/EN short and
+**670 steps across 46 curated guides**, up from the previous 43-guide/632-step
+checkpoint. **64 conditional branches** also have independent RU/EN short and
 full descriptions. Seven quest routes represent two exclusive expedition paths
-and five conditional/optional activities. **2,118 steps in 173 remaining catalog entries still lack
+and five conditional/optional activities. **2,080 steps in 170 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -68,6 +68,9 @@ complete localization/context analysis.** `complete` remains false.
 | Biological Weapon Quest | 9 | One requested/delivered eleven-material set; unknown medicine split; two exact EXP installments |
 | Bruspetti Quest | 18 | Ordered exact topics; interactable Book versus later diary; one three-slot Knife consumed; header/stage level-75 conflict |
 | Peace for Arunafeltz Quest | 21 | Distinct same-name merchants; original/forged documents; equivalent choices; unknown split of total EXP; source gem spelling conflict |
+| Shadow Quest (Rekenber Job Quest) | 17 | Alternative guard sequences; wrong return answer; work versus quest-log gate; two attack counts; final flashback after reward |
+| Lovers Quest | 9 | Two independent level-band payouts; 40 Coal in four batches; player-specific name input; unknown random ore category |
+| Juno Remedy Quest | 12 | Five Bingo participants without winning; shared captain identity; contextual scene location; one rune set and header-evidenced final EXP |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -75,6 +78,32 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Three further Schwartzvald/airship story guides preserve all 38 original
+  stages and add fourteen localized branches. Shadow's guard test offers
+  one immediate-leave response OR a business-then-leave sequence; they are
+  alternatives, not a combined list. Sure is explicitly a wrong answer to
+  Kazien on return. The retry wait is unknown; the separate 5–10-minute
+  missing-Lyozien advice is not a quest cooldown or guaranteed respawn.
+- Shadow permits the quest-log entry before the level-70 work gate. Two
+  attacks require two and three Thugs (source-linked 1592). Three EXP grants
+  sum to 1,400,000; one potion is awarded after cargo inspection. The final
+  flashback at stage 17 remains after the stage-16 payout. Kazien/Kaizen
+  spellings are preserved without inventing a verified universal alias.
+- Lovers has six independent level alternatives at each of stages 4 and 9.
+  Header totals summarize two same-band grants, not a third reward or a rule
+  that the player's level stays fixed. Satra takes one 40-Coal total in four
+  batches of 10. One purchased Tuxedo is handed over once; Flower is requested,
+  not explicitly granted. Own-character-name inputs have no fixed copyable
+  option, while Klitzer is the exact sender answer. Random Level 4 Weapon Ore
+  retains an unknown item/count category rather than an invented named ore.
+- Juno Remedy needs five Bingo participants total (four others plus player),
+  not victory. Airship Captain shares the Classic airplane 236,163 identity
+  already used by Ferlock, retaining this guide's literal display label.
+  Stage 8's second map point inherits its map from the same source scene with
+  contextual evidence; stage 9 identifies the appearing man as Thierry.
+  One five-rune set (7511) produces a remedy of unknown ID/count. Final
+  900,000 Base and 600,000 Job EXP are cited once from the reward header.
 
 - Three related permanent story guides preserve all 48 original stages and
   add three localized level-reward branches. Their single mandatory header
@@ -346,7 +375,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **160 tests passed**; complete offline enrichment passed;
+Validated locally: **168 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -380,10 +409,22 @@ Further checks cover the regional prerequisite links, single material-set
 accounting, unknown medicine quantities, exact topic input modes, slot counts,
 Book/diary distinction, conflicting reward headers, merchant/document identity
 bindings, unknown EXP splits and unqualified field coordinates.
+Additional checks cover alternative guard dialogue paths, wrong answers,
+level-versus-log gates, attack counts, the final trigger after payout,
+independent level installments, four-batch accounting, dynamic character names,
+Bingo participation, shared captain identity and context-qualified map points.
+
+Local-host reproduction note: file-backed construction of the large legacy
+catalog has intermittently returned SQLite read-only/malformed-image errors
+in this hosted workspace. Local full validation builds that projection in an
+in-memory connection, then uses SQLite backup into the final file before the
+normal integrity/FK and exact CI assertions. The source archive and semantic
+export use their normal builders. Isolated CI runs the unmodified offline
+command above; partial files from failed local attempts are never published.
 
 ## Next work, in order
 
-1. Review the remaining 173 catalog candidates, separating reference pages,
+1. Review the remaining 170 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

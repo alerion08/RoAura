@@ -1,0 +1,956 @@
+{
+  "quest_id": "irowiki-classic:Lovers_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "bc58793edfbaf4d1da8037f3115dc162061132edb6f30bc5d4bef3c84fc32263",
+  "snapshot_sha256": "294af279879a40773703f1311faee836c10630484c2dc82bef1126879aa08765",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Calla"
+    },
+    {
+      "type": "npc",
+      "name": "Megass"
+    },
+    {
+      "type": "npc",
+      "name": "Klitzer"
+    },
+    {
+      "type": "npc",
+      "name": "Kaijeta"
+    },
+    {
+      "type": "npc",
+      "name": "Satra"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch"
+    },
+    {
+      "type": "map",
+      "name": "einbroch",
+      "map_code": "einbroch"
+    },
+    {
+      "type": "map",
+      "name": "Einbech"
+    },
+    {
+      "type": "map",
+      "name": "einbech",
+      "map_code": "einbech"
+    },
+    {
+      "type": "item",
+      "name": "Violin",
+      "aliases": [
+        "violin"
+      ],
+      "game_id": 1901,
+      "id_source": "http://db.irowiki.org/classic/item-info/1901/"
+    },
+    {
+      "type": "item",
+      "name": "Flower",
+      "game_id": 712,
+      "id_source": "http://db.irowiki.org/classic/item-info/712/"
+    },
+    {
+      "type": "item",
+      "name": "Coal",
+      "game_id": 1003,
+      "id_source": "http://db.irowiki.org/classic/item-info/1003/"
+    },
+    {
+      "type": "item",
+      "name": "Tuxedo",
+      "game_id": 7170,
+      "id_source": "http://db.irowiki.org/classic/item-info/7170/"
+    },
+    {
+      "type": "item",
+      "name": "Level 4 Weapon Ore",
+      "identity": "irowiki-classic:Lovers_Quest:source_item:Level 4 Weapon Ore"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Look for Calla inside Einbroch (einbroch 126, 229). If you are spotted by her father Megass, (he's right inside the door) you will be thrown out, so stay along the left wall.",
+      "instruction_sha256": "fefb0f75a726aff62c074e17639e464fd307a94b4cfc250cec22afd2795dde87",
+      "step_id": "irowiki-classic:Lovers_Quest/step/fefb0f75a726aff62c07/1",
+      "goal": "talk",
+      "short_ru": "Найдите Calla: einbroch 126, 229; держитесь левой стены и избегайте Megass.",
+      "short_en": "Find Calla: einbroch 126, 229; keep to the left wall and avoid Megass.",
+      "full_ru": "Найдите Calla в Einbroch (einbroch 126, 229). Держитесь левой стены: если её отец Megass, стоящий сразу за дверью, заметит вас, вас выбросит наружу.",
+      "full_en": "Look for Calla inside Einbroch (einbroch 126, 229). If you are spotted by her father Megass, (he's right inside the door) you will be thrown out, so stay along the left wall.",
+      "npcs": [
+        {
+          "entity": "Calla",
+          "role": "talk"
+        },
+        {
+          "entity": "Megass",
+          "role": "avoid"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Calla"
+        },
+        {
+          "operation": "avoid_detection",
+          "entity": "Megass"
+        }
+      ],
+      "protected_names": [
+        "Calla",
+        "Megass",
+        "Einbroch",
+        "einbroch"
+      ],
+      "locations": [
+        {
+          "map": "einbroch",
+          "x": 126,
+          "y": 229,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "einbroch 126, 229"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Take the train to Einbech , and look for Klitzer inside the apartment house at (einbech 204, 135). When talking to you, he will say something like \"I can smell the scent of Calla's house on you, traveler\".",
+      "instruction_sha256": "219ef5f158f25db2db57eea00c5330a6296086dec7ff99e2d2574cb1b0e84ab7",
+      "step_id": "irowiki-classic:Lovers_Quest/step/219ef5f158f25db2db57/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Klitzer: einbech 204, 135.",
+      "short_en": "Talk to Klitzer: einbech 204, 135.",
+      "full_ru": "Поездом отправляйтесь в Einbech и найдите Klitzer в жилом доме (einbech 204, 135). Он скажет что-то вроде «I can smell the scent of Calla's house on you, traveler».",
+      "full_en": "Take the train to Einbech , and look for Klitzer inside the apartment house at (einbech 204, 135). When talking to you, he will say something like \"I can smell the scent of Calla's house on you, traveler\".",
+      "npcs": [
+        {
+          "entity": "Klitzer",
+          "role": "talk"
+        },
+        {
+          "entity": "Calla",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Klitzer"
+        }
+      ],
+      "protected_names": [
+        "Calla",
+        "Klitzer",
+        "Einbech",
+        "einbech"
+      ],
+      "locations": [
+        {
+          "map": "einbech",
+          "x": 204,
+          "y": 135,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "einbech 204, 135"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Go back to Calla in Einbroch , and she will ask you to take her violin back to him. | Obtain a Violin",
+      "instruction_sha256": "f55fec0fea437bbdb6c7119d0d86debfe6897605de8a043392f1b47048bd579e",
+      "step_id": "irowiki-classic:Lovers_Quest/step/f55fec0fea437bbdb6c7/1",
+      "goal": "collect",
+      "short_ru": "Возьмите Violin у Calla в Einbroch.",
+      "short_en": "Collect Violin from Calla in Einbroch.",
+      "full_ru": "Вернитесь к Calla в Einbroch. Она попросит отнести ему её violin. Получите Violin.",
+      "full_en": "Go back to Calla in Einbroch , and she will ask you to take her violin back to him. | Obtain a Violin",
+      "npcs": [
+        {
+          "entity": "Calla",
+          "role": "talk"
+        },
+        {
+          "entity": "Klitzer",
+          "role": "next_contact",
+          "support_step": 2,
+          "evidence": "Take the train to Einbech , and look for Klitzer inside the apartment house at (einbech 204, 135). When talking to you, he will say something like \"I can smell the scent of Calla's house on you, traveler\"."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Violin",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Source says a Violin; later delivery is the same instrument."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Calla"
+        },
+        {
+          "operation": "receive",
+          "entity": "Violin"
+        }
+      ],
+      "protected_names": [
+        "Calla",
+        "Einbroch",
+        "Violin"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "When you deliver it to him, he will say he wants to meet her, but he's too busy and can't leave. He will ask you to deliver 1 Flower for him to Calla. | [Gained Experience] | Level 1-40 = 3,712 Base EXP | Level 41-60 = 7,425 Base EXP | Level 61-70 = 14,850 Base EXP | Level 71-80 = 29,700 Base EXP | Level 81-90 = 59,400 Base EXP | Level 91-99 = 118,800 Base EXP",
+      "instruction_sha256": "1097885a981829d7b074b009f5911a00801247d105734a4103e36c5861c3c20b",
+      "step_id": "irowiki-classic:Lovers_Quest/step/1097885a981829d7b074/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Violin Klitzer и получите награду по уровню; затем доставьте 1 Flower для Calla.",
+      "short_en": "Deliver Violin to Klitzer and receive the level reward; then deliver 1 Flower to Calla.",
+      "full_ru": "Доставьте его ему. Он хочет встретиться с ней, но слишком занят, и попросит передать от него 1 Flower для Calla. Получите опыт по уровню: Level 1-40 = 3,712 Base EXP; Level 41-60 = 7,425 Base EXP; Level 61-70 = 14,850 Base EXP; Level 71-80 = 29,700 Base EXP; Level 81-90 = 59,400 Base EXP; Level 91-99 = 118,800 Base EXP.",
+      "full_en": "When you deliver it to him, he will say he wants to meet her, but he's too busy and can't leave. He will ask you to deliver 1 Flower for him to Calla. | [Gained Experience] | Level 1-40 = 3,712 Base EXP | Level 41-60 = 7,425 Base EXP | Level 61-70 = 14,850 Base EXP | Level 71-80 = 29,700 Base EXP | Level 81-90 = 59,400 Base EXP | Level 91-99 = 118,800 Base EXP",
+      "npcs": [
+        {
+          "entity": "Klitzer",
+          "role": "talk",
+          "support_step": 2,
+          "evidence": "Take the train to Einbech , and look for Klitzer inside the apartment house at (einbech 204, 135). When talking to you, he will say something like \"I can smell the scent of Calla's house on you, traveler\"."
+        },
+        {
+          "entity": "Calla",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Violin",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Go back to Calla in Einbroch , and she will ask you to take her violin back to him. | Obtain a Violin"
+        },
+        {
+          "entity": "Flower",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Requested here, delivered at stage 5. The source does not explicitly grant a free Flower."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Violin"
+        }
+      ],
+      "protected_names": [
+        "Calla",
+        "Flower"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "level_1_40",
+          "choice_group": "level_reward_4",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 4; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 1-40 = 3,712 Base EXP",
+          "instruction_sha256": "417e9ad130fae0d6c204800d2943c8f0debe432963211f2cbed292c05d48aa8e",
+          "short_ru": "Уровень 1-40: 3,712 Base EXP.",
+          "short_en": "Level 1-40: 3,712 Base EXP.",
+          "full_ru": "Уровень 1-40: 3,712 Base EXP.",
+          "full_en": "Level 1-40 = 3,712 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "1-40"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "3712",
+              "condition": "One installment at stage 4; not additive to other level alternatives or the header."
+            }
+          ]
+        },
+        {
+          "key": "level_41_60",
+          "choice_group": "level_reward_4",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 4; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 41-60 = 7,425 Base EXP",
+          "instruction_sha256": "ebf964fd5c2510b8b5b54f98e41eaf7aa7ad2720822842d8f5145ffa73f36808",
+          "short_ru": "Уровень 41-60: 7,425 Base EXP.",
+          "short_en": "Level 41-60: 7,425 Base EXP.",
+          "full_ru": "Уровень 41-60: 7,425 Base EXP.",
+          "full_en": "Level 41-60 = 7,425 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "41-60"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "7425",
+              "condition": "One installment at stage 4; not additive to other level alternatives or the header."
+            }
+          ]
+        },
+        {
+          "key": "level_61_70",
+          "choice_group": "level_reward_4",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 4; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 61-70 = 14,850 Base EXP",
+          "instruction_sha256": "47882106cc5aeacf3ae0d757c88dd3d3a9cc4e083b87b7ec49b765ec4df0b86a",
+          "short_ru": "Уровень 61-70: 14,850 Base EXP.",
+          "short_en": "Level 61-70: 14,850 Base EXP.",
+          "full_ru": "Уровень 61-70: 14,850 Base EXP.",
+          "full_en": "Level 61-70 = 14,850 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "61-70"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "14850",
+              "condition": "One installment at stage 4; not additive to other level alternatives or the header."
+            }
+          ]
+        },
+        {
+          "key": "level_71_80",
+          "choice_group": "level_reward_4",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 4; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 71-80 = 29,700 Base EXP",
+          "instruction_sha256": "521ec600b7de852474595d356a38272b3a7c19227953e83ad15f4ba9306fd87c",
+          "short_ru": "Уровень 71-80: 29,700 Base EXP.",
+          "short_en": "Level 71-80: 29,700 Base EXP.",
+          "full_ru": "Уровень 71-80: 29,700 Base EXP.",
+          "full_en": "Level 71-80 = 29,700 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "71-80"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "29700",
+              "condition": "One installment at stage 4; not additive to other level alternatives or the header."
+            }
+          ]
+        },
+        {
+          "key": "level_81_90",
+          "choice_group": "level_reward_4",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 4; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 81-90 = 59,400 Base EXP",
+          "instruction_sha256": "437d96e9dac464ca26806576ca229aa90c7c27a50806021ec58b4e94b1ee7497",
+          "short_ru": "Уровень 81-90: 59,400 Base EXP.",
+          "short_en": "Level 81-90: 59,400 Base EXP.",
+          "full_ru": "Уровень 81-90: 59,400 Base EXP.",
+          "full_en": "Level 81-90 = 59,400 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "81-90"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "59400",
+              "condition": "One installment at stage 4; not additive to other level alternatives or the header."
+            }
+          ]
+        },
+        {
+          "key": "level_91_99",
+          "choice_group": "level_reward_4",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 4; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 91-99 = 118,800 Base EXP",
+          "instruction_sha256": "52d2caf7903efc30a36adf8a2c823bd5d588cd4462970aca694a1668f971d440",
+          "short_ru": "Уровень 91-99: 118,800 Base EXP.",
+          "short_en": "Level 91-99: 118,800 Base EXP.",
+          "full_ru": "Уровень 91-99: 118,800 Base EXP.",
+          "full_en": "Level 91-99 = 118,800 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "91-99"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "118800",
+              "condition": "One installment at stage 4; not additive to other level alternatives or the header."
+            }
+          ]
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "When you give the Flower to Calla, she'll thank you. She will ask you your name, so type your character's name in the box.",
+      "instruction_sha256": "7daf31df45bef81de9f960c4d25d6b24532f9ad3577c6d6b5cb8d20777f63f8a",
+      "step_id": "irowiki-classic:Lovers_Quest/step/7daf31df45bef81de9f9/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Flower для Calla и введите имя своего персонажа.",
+      "short_en": "Give Flower to Calla and enter your own character name.",
+      "full_ru": "Передайте Flower для Calla. Она поблагодарит вас и спросит имя: введите имя собственного персонажа в поле.",
+      "full_en": "When you give the Flower to Calla, she'll thank you. She will ask you your name, so type your character's name in the box.",
+      "npcs": [
+        {
+          "entity": "Calla",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Flower",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Flower",
+          "condition": "Single Flower requested at stage 4; header total is not another cost."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Calla",
+          "options": [],
+          "text": "type your character's name in the box."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Flower"
+        },
+        {
+          "operation": "enter_character_name",
+          "entity": "Calla",
+          "condition": "Player-specific character name; no fixed copyable answer."
+        }
+      ],
+      "protected_names": [
+        "Calla",
+        "Flower"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Return to Klitzer and he will ask you your name, so type your character's name in the box again. He'll then ask you to talk to his mother, Kaijeta. Talk to her then talk to him again. Then go back to Calla in Einbroch .",
+      "instruction_sha256": "c2313cc3f5619c8279eabc0607ba6362ee8e2e6a4d640f6eba6bc09d6d2bc7b3",
+      "step_id": "irowiki-classic:Lovers_Quest/step/c2313cc3f5619c8279ea/1",
+      "goal": "dialogue",
+      "short_ru": "У Klitzer введите своё имя; поговорите с Kaijeta, затем снова с Klitzer и вернитесь к Calla.",
+      "short_en": "At Klitzer, enter your own name; talk to Kaijeta, then Klitzer again, and return to Calla.",
+      "full_ru": "Вернитесь к Klitzer и снова введите имя своего персонажа в поле. Затем он попросит поговорить с матерью Kaijeta. Поговорите с ней, потом снова с ним, после чего вернитесь к Calla в Einbroch.",
+      "full_en": "Return to Klitzer and he will ask you your name, so type your character's name in the box again. He'll then ask you to talk to his mother, Kaijeta. Talk to her then talk to him again. Then go back to Calla in Einbroch .",
+      "npcs": [
+        {
+          "entity": "Klitzer",
+          "role": "talk"
+        },
+        {
+          "entity": "Kaijeta",
+          "role": "talk"
+        },
+        {
+          "entity": "Calla",
+          "role": "next_contact"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Klitzer",
+          "options": [],
+          "text": "type your character's name in the box again."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_character_name",
+          "entity": "Klitzer"
+        },
+        {
+          "operation": "talk",
+          "entity": "Kaijeta"
+        },
+        {
+          "operation": "talk_again",
+          "entity": "Klitzer"
+        },
+        {
+          "operation": "return",
+          "entity": "Calla"
+        }
+      ],
+      "protected_names": [
+        "Calla",
+        "Klitzer",
+        "Kaijeta",
+        "Einbroch"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Talk to Satra in Calla's house, and while talking you find out she wants Coal . Bring 40 Coal and talk to her 4x, and each time she will take 10 Coal. After the last batch, she will ask you who you are delivering the Coal from. Type in \"Klitzer\" in the box, and she will tell you she will invite him over for tea.",
+      "instruction_sha256": "1aeda83affe3e1a4afaa40f8eb47381ce90be47a068cf0d8954f53f9d00f895b",
+      "step_id": "irowiki-classic:Lovers_Quest/step/1aeda83affe3e1a4afaa/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Satra 40 Coal четырьмя партиями по 10; после 4-го разговора введите «Klitzer».",
+      "short_en": "Give Satra 40 Coal in four batches of 10; after the 4th conversation, type “Klitzer”.",
+      "full_ru": "Поговорите с Satra в доме Calla: ей нужен Coal. Принесите 40 Coal и поговорите с ней 4 раза; каждый раз она забирает 10 Coal. После последней партии введите «Klitzer» в ответ на вопрос об отправителе. Она пригласит его на чай.",
+      "full_en": "Talk to Satra in Calla's house, and while talking you find out she wants Coal . Bring 40 Coal and talk to her 4x, and each time she will take 10 Coal. After the last batch, she will ask you who you are delivering the Coal from. Type in \"Klitzer\" in the box, and she will tell you she will invite him over for tea.",
+      "npcs": [
+        {
+          "entity": "Satra",
+          "role": "talk"
+        },
+        {
+          "entity": "Calla",
+          "role": "location_reference"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Coal",
+          "quantity": 40,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "One total of 40, delivered in four batches of 10; not 40 per conversation."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "delivery_batch_count",
+          "entity": "Coal",
+          "amount": "4",
+          "condition": "Four conversations/deliveries divide the same 40-Coal total."
+        },
+        {
+          "kind": "items_per_delivery_batch",
+          "entity": "Coal",
+          "amount": "10",
+          "condition": "Each of the four batches, not an extra 10 Coal."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Satra",
+          "options": [
+            {
+              "text": "Klitzer",
+              "correct": 1,
+              "operation": "enter_text"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_four_batches",
+          "entity": "Coal"
+        },
+        {
+          "operation": "enter_text",
+          "entity": "Satra"
+        }
+      ],
+      "protected_names": [
+        "Calla",
+        "Klitzer",
+        "Satra",
+        "Coal"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Talk to Klitzer's mother Kaijeta again, and she'll tell you that he has no clothes for such a elegant tea, and tell you that they can't afford to get one. Go buy a Tuxedo and return to his house. While you have the Tuxedo in your inventory, talk to Klitzer and he'll ask you if he can use that Tuxedo. Give it to him. | Receive a random Level 4 Weapon Ore",
+      "instruction_sha256": "1ff24107ccf2d11d32b9da2f0a0fe18426a9e574d44db700f9f2676445e3a8ed",
+      "step_id": "irowiki-classic:Lovers_Quest/step/1ff24107ccf2d11d32b9/1",
+      "goal": "deliver",
+      "short_ru": "Купите Tuxedo, передайте его Klitzer и получите случайный Level 4 Weapon Ore.",
+      "short_en": "Buy Tuxedo, give it to Klitzer and receive a random Level 4 Weapon Ore.",
+      "full_ru": "Снова поговорите с Kaijeta, матерью Klitzer. У него нет подходящей одежды для такого чаепития, а купить её семья не может. Купите Tuxedo и вернитесь в его дом. Держа Tuxedo в инвентаре, поговорите с Klitzer и отдайте ему костюм по просьбе. Получите случайную награду категории Level 4 Weapon Ore.",
+      "full_en": "Talk to Klitzer's mother Kaijeta again, and she'll tell you that he has no clothes for such a elegant tea, and tell you that they can't afford to get one. Go buy a Tuxedo and return to his house. While you have the Tuxedo in your inventory, talk to Klitzer and he'll ask you if he can use that Tuxedo. Give it to him. | Receive a random Level 4 Weapon Ore",
+      "npcs": [
+        {
+          "entity": "Kaijeta",
+          "role": "talk"
+        },
+        {
+          "entity": "Klitzer",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Tuxedo",
+          "quantity": 1,
+          "operation": "buy",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Tuxedo",
+          "condition": "Buy the one Tuxedo that is handed over in this stage; price unknown."
+        },
+        {
+          "entity": "Tuxedo",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Tuxedo",
+          "condition": "Same Tuxedo as the purchase, not a second consumed suit."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "random_material_category",
+          "entity": "Level 4 Weapon Ore",
+          "condition": "One unspecified random ore category outcome. Exact item, game ID, quantity and probabilities are not stated."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kaijeta"
+        },
+        {
+          "operation": "buy",
+          "entity": "Tuxedo"
+        },
+        {
+          "operation": "deliver",
+          "entity": "Tuxedo"
+        }
+      ],
+      "protected_names": [
+        "Klitzer",
+        "Kaijeta",
+        "Tuxedo",
+        "Level 4 Weapon Ore"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Return to Calla and she gives you her thanks and an EXP award. | [Gained Experience] | Level 1-40 = 3,712 Base EXP | Level 41-60 = 7,425 Base EXP | Level 61-70 = 14,850 Base EXP | Level 71-80 = 29,700 Base EXP | Level 81-90 = 59,400 Base EXP | Level 91-99 = 118,800 Base EXP",
+      "instruction_sha256": "5e780e7e651861dc463706278e63925f960fd88321c325b3efc223350a5acd51",
+      "step_id": "irowiki-classic:Lovers_Quest/step/5e780e7e651861dc4637/1",
+      "goal": "receive_reward",
+      "short_ru": "Вернитесь к Calla и получите вторую награду опыта по уровню.",
+      "short_en": "Return to Calla and receive the second level-dependent EXP award.",
+      "full_ru": "Вернитесь к Calla: она поблагодарит вас и выдаст опыт по уровню. Level 1-40 = 3,712 Base EXP; Level 41-60 = 7,425 Base EXP; Level 61-70 = 14,850 Base EXP; Level 71-80 = 29,700 Base EXP; Level 81-90 = 59,400 Base EXP; Level 91-99 = 118,800 Base EXP.",
+      "full_en": "Return to Calla and she gives you her thanks and an EXP award. | [Gained Experience] | Level 1-40 = 3,712 Base EXP | Level 41-60 = 7,425 Base EXP | Level 61-70 = 14,850 Base EXP | Level 71-80 = 29,700 Base EXP | Level 81-90 = 59,400 Base EXP | Level 91-99 = 118,800 Base EXP",
+      "npcs": [
+        {
+          "entity": "Calla",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Calla"
+        }
+      ],
+      "protected_names": [
+        "Calla"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "level_1_40",
+          "choice_group": "level_reward_9",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 9; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 1-40 = 3,712 Base EXP",
+          "instruction_sha256": "417e9ad130fae0d6c204800d2943c8f0debe432963211f2cbed292c05d48aa8e",
+          "short_ru": "Уровень 1-40: 3,712 Base EXP.",
+          "short_en": "Level 1-40: 3,712 Base EXP.",
+          "full_ru": "Уровень 1-40: 3,712 Base EXP.",
+          "full_en": "Level 1-40 = 3,712 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "1-40"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "3712",
+              "condition": "One installment at stage 9; not additive to other level alternatives or the header."
+            }
+          ]
+        },
+        {
+          "key": "level_41_60",
+          "choice_group": "level_reward_9",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 9; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 41-60 = 7,425 Base EXP",
+          "instruction_sha256": "ebf964fd5c2510b8b5b54f98e41eaf7aa7ad2720822842d8f5145ffa73f36808",
+          "short_ru": "Уровень 41-60: 7,425 Base EXP.",
+          "short_en": "Level 41-60: 7,425 Base EXP.",
+          "full_ru": "Уровень 41-60: 7,425 Base EXP.",
+          "full_en": "Level 41-60 = 7,425 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "41-60"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "7425",
+              "condition": "One installment at stage 9; not additive to other level alternatives or the header."
+            }
+          ]
+        },
+        {
+          "key": "level_61_70",
+          "choice_group": "level_reward_9",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 9; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 61-70 = 14,850 Base EXP",
+          "instruction_sha256": "47882106cc5aeacf3ae0d757c88dd3d3a9cc4e083b87b7ec49b765ec4df0b86a",
+          "short_ru": "Уровень 61-70: 14,850 Base EXP.",
+          "short_en": "Level 61-70: 14,850 Base EXP.",
+          "full_ru": "Уровень 61-70: 14,850 Base EXP.",
+          "full_en": "Level 61-70 = 14,850 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "61-70"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "14850",
+              "condition": "One installment at stage 9; not additive to other level alternatives or the header."
+            }
+          ]
+        },
+        {
+          "key": "level_71_80",
+          "choice_group": "level_reward_9",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 9; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 71-80 = 29,700 Base EXP",
+          "instruction_sha256": "521ec600b7de852474595d356a38272b3a7c19227953e83ad15f4ba9306fd87c",
+          "short_ru": "Уровень 71-80: 29,700 Base EXP.",
+          "short_en": "Level 71-80: 29,700 Base EXP.",
+          "full_ru": "Уровень 71-80: 29,700 Base EXP.",
+          "full_en": "Level 71-80 = 29,700 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "71-80"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "29700",
+              "condition": "One installment at stage 9; not additive to other level alternatives or the header."
+            }
+          ]
+        },
+        {
+          "key": "level_81_90",
+          "choice_group": "level_reward_9",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 9; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 81-90 = 59,400 Base EXP",
+          "instruction_sha256": "437d96e9dac464ca26806576ca229aa90c7c27a50806021ec58b4e94b1ee7497",
+          "short_ru": "Уровень 81-90: 59,400 Base EXP.",
+          "short_en": "Level 81-90: 59,400 Base EXP.",
+          "full_ru": "Уровень 81-90: 59,400 Base EXP.",
+          "full_en": "Level 81-90 = 59,400 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "81-90"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "59400",
+              "condition": "One installment at stage 9; not additive to other level alternatives or the header."
+            }
+          ]
+        },
+        {
+          "key": "level_91_99",
+          "choice_group": "level_reward_9",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One band for the level at installment stage 9; the other installment has its own level selection.",
+          "section": "",
+          "original_instruction": "Level 91-99 = 118,800 Base EXP",
+          "instruction_sha256": "52d2caf7903efc30a36adf8a2c823bd5d588cd4462970aca694a1668f971d440",
+          "short_ru": "Уровень 91-99: 118,800 Base EXP.",
+          "short_en": "Level 91-99: 118,800 Base EXP.",
+          "full_ru": "Уровень 91-99: 118,800 Base EXP.",
+          "full_en": "Level 91-99 = 118,800 Base EXP",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "base_level_range",
+              "amount": "91-99"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "118800",
+              "condition": "One installment at stage 9; not additive to other level alternatives or the header."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "two_independent_level_installments",
+      "detail": "Stages 4 and 9 each pay one of six level-band amounts. Header totals match twice those amounts; they are not additional grants. Do not impose unchanged player level between the two stages."
+    },
+    {
+      "reason": "character_name_is_dynamic_answer",
+      "detail": "Stages 5 and 6 require the player's own character name. No literal placeholder or invented name is a correct copyable dialogue option. Klitzer at stage 7 is the separate literal answer."
+    },
+    {
+      "reason": "random_ore_category_not_named_item",
+      "detail": "Level 4 Weapon Ore is a random reward category. Its specific item, quantity and probabilities are unknown; no named ore or game ID is invented."
+    },
+    {
+      "reason": "four_batches_one_material_total",
+      "detail": "Satra consumes 40 Coal total, split into four 10-Coal deliveries. Header, total and batch metadata summarize the same cost. Buying and giving Tuxedo are two operations on one suit; Flower is requested, not explicitly granted."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "entity": "Flower",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Flower",
+        "condition": "Quest consumed total; summarizes the corresponding stage handover(s), not an extra cost."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Coal",
+        "amount": "40",
+        "source_section": "requirements",
+        "evidence": "40 Coal",
+        "condition": "Quest consumed total; summarizes the corresponding stage handover(s), not an extra cost."
+      },
+      {
+        "kind": "item_consumed_total",
+        "entity": "Tuxedo",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Tuxedo",
+        "condition": "Quest consumed total; summarizes the corresponding stage handover(s), not an extra cost."
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "base_exp_total",
+        "amount": "7424",
+        "source_section": "rewards",
+        "evidence": "Level 1-40 = 7,424 Exp",
+        "condition": "Header summary for level 1-40; matches two installments in that same band, not another payout or a rule that level cannot change between stages."
+      },
+      {
+        "kind": "base_exp_total",
+        "amount": "14850",
+        "source_section": "rewards",
+        "evidence": "Level 41-60 = 14,850 Exp",
+        "condition": "Header summary for level 41-60; matches two installments in that same band, not another payout or a rule that level cannot change between stages."
+      },
+      {
+        "kind": "base_exp_total",
+        "amount": "29700",
+        "source_section": "rewards",
+        "evidence": "Level 61-70 = 29,700 Exp",
+        "condition": "Header summary for level 61-70; matches two installments in that same band, not another payout or a rule that level cannot change between stages."
+      },
+      {
+        "kind": "base_exp_total",
+        "amount": "59400",
+        "source_section": "rewards",
+        "evidence": "Level 71-80 = 59,400 Exp",
+        "condition": "Header summary for level 71-80; matches two installments in that same band, not another payout or a rule that level cannot change between stages."
+      },
+      {
+        "kind": "base_exp_total",
+        "amount": "118800",
+        "source_section": "rewards",
+        "evidence": "Level 81-90 = 118,800 Exp",
+        "condition": "Header summary for level 81-90; matches two installments in that same band, not another payout or a rule that level cannot change between stages."
+      },
+      {
+        "kind": "base_exp_total",
+        "amount": "237600",
+        "source_section": "rewards",
+        "evidence": "Level 91-99 = 237,600 Exp",
+        "condition": "Header summary for level 91-99; matches two installments in that same band, not another payout or a rule that level cannot change between stages."
+      }
+    ]
+  }
+}

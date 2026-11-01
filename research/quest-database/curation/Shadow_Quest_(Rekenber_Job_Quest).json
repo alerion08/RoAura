@@ -1,0 +1,897 @@
+{
+  "quest_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "ac5c802e95c93574dd793d29f62f9be24ca797789d98da1fb11b0cf86cb80302",
+  "snapshot_sha256": "12f48b281c33e16f836f74d94b493ece75fea2933964b865a13fde879b3c3cfe",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Old Man"
+    },
+    {
+      "type": "npc",
+      "name": "Kazien",
+      "aliases": [
+        "Young Man"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Kaizen"
+    },
+    {
+      "type": "npc",
+      "name": "Laboratory Guard"
+    },
+    {
+      "type": "npc",
+      "name": "Lyozien",
+      "aliases": [
+        "Man"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Ahman",
+      "aliases": [
+        "Scamp"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lighthalzen",
+      "map_code": "lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lhz_in01",
+      "map_code": "lhz_in01"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch"
+    },
+    {
+      "type": "map",
+      "name": "einbroch",
+      "map_code": "einbroch"
+    },
+    {
+      "type": "map",
+      "name": "airplane_01",
+      "map_code": "airplane_01"
+    },
+    {
+      "type": "map",
+      "name": "Izlude"
+    },
+    {
+      "type": "map",
+      "name": "Rachel"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "izlude",
+      "map_code": "izlude"
+    },
+    {
+      "type": "monster",
+      "name": "Thugs",
+      "game_id": 1592,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1592/"
+    },
+    {
+      "type": "item",
+      "name": "White Potion",
+      "aliases": [
+        "white potion"
+      ],
+      "game_id": 504,
+      "id_source": "http://db.irowiki.org/classic/item-info/504/"
+    },
+    {
+      "type": "item",
+      "name": "goods",
+      "aliases": [
+        "Goods"
+      ],
+      "identity": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest):source_item:goods"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to the Old Man in Lighthalzen (( lighthalzen ): 141, 162). He mentions how Kazien is busy due to a lack of workers. (You can talk to the Old Man and get the quest listed in your quest list at any time, but Kaizen won't give you any work until you reach base level 70).",
+      "instruction_sha256": "aba4d9975cef4b58729a44852ba324c15b5492bb51fce027a1fc822e13cfb4de",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/aba4d9975cef4b58729a/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Old Man: lighthalzen 141, 162; работа доступна с base level 70.",
+      "short_en": "Talk to Old Man: lighthalzen 141, 162; jobs require base level 70.",
+      "full_ru": "Поговорите с Old Man в Lighthalzen (lighthalzen 141, 162). Он расскажет о нехватке работников у Kazien. Запись квеста можно получить в любой момент, однако Kaizen (такое написание в этой части источника) не даст работу до base level 70.",
+      "full_en": "Talk to the Old Man in Lighthalzen (( lighthalzen ): 141, 162). He mentions how Kazien is busy due to a lack of workers. (You can talk to the Old Man and get the quest listed in your quest list at any time, but Kaizen won't give you any work until you reach base level 70).",
+      "npcs": [
+        {
+          "entity": "Old Man",
+          "role": "talk"
+        },
+        {
+          "entity": "Kazien",
+          "role": "story_reference"
+        },
+        {
+          "entity": "Kaizen",
+          "role": "source_spelling_reference"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum_base_level_for_jobs",
+          "amount": "70",
+          "condition": "Work gate, not a restriction on receiving the quest-log entry from Old Man."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Old Man"
+        }
+      ],
+      "protected_names": [
+        "Old Man",
+        "Kazien",
+        "Kaizen",
+        "Lighthalzen",
+        "lighthalzen"
+      ],
+      "locations": [
+        {
+          "map": "lighthalzen",
+          "x": 141,
+          "y": 162,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lighthalzen ): 141, 162"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Go into the Rekenber Headquarters. Go to the second floor of the first room (reached by the winding red-carpeted stairs), then to the room to the right of the area blocked off by the sun-glasses wearing men to find the Young Man (Kazien) at ((lhz_in01): 174, 258). Select 'yes' when he asks if you can keep a secret.",
+      "instruction_sha256": "4473843e336db469cd2dc65cd6b3ed2bbeaa38851bb38dcfa81596aa832e0741",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/4473843e336db469cd2d/1",
+      "goal": "talk",
+      "short_ru": "Найдите Young Man (Kazien), lhz_in01 174, 258, и выберите «yes».",
+      "short_en": "Find Young Man (Kazien), lhz_in01 174, 258, and choose “yes”.",
+      "full_ru": "Войдите в Rekenber Headquarters. В первом зале поднимитесь на второй этаж по изогнутой лестнице с красным ковром и идите в комнату справа от участка, перекрытого людьми в тёмных очках. Найдите Young Man (Kazien), lhz_in01 174, 258. Когда он спросит, умеете ли вы хранить секрет, выберите «yes».",
+      "full_en": "Go into the Rekenber Headquarters. Go to the second floor of the first room (reached by the winding red-carpeted stairs), then to the room to the right of the area blocked off by the sun-glasses wearing men to find the Young Man (Kazien) at ((lhz_in01): 174, 258). Select 'yes' when he asks if you can keep a secret.",
+      "npcs": [
+        {
+          "entity": "Kazien",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Kazien",
+          "options": [
+            {
+              "text": "yes",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kazien"
+        }
+      ],
+      "protected_names": [
+        "Kazien",
+        "lhz_in01"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 174,
+          "y": 258,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01): 174, 258"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Go to the Einbroch laboratory (( einbroch ): 54, 52); the town guide can mark it for you on your mini-map. The Laboratory Guard will ask the player why they want to enter the lab. Answer with either \"Whoa, I'm leaving!\" or \"I have some business\" followed by \"I'll be back later.\" and go back to find Kazien. | If this is done incorrectly the mission will fail. There will be a chance to redo the mission from Kazien again, after a period of time so that he can forget about you. However, you first have to report your failure to Kaizen before he can forget. If he still remembers you after some time has passed, immediately talk to him again a few times to see if this makes him forget. Even if the conversation with the guard NPC is done correctly, answering \"Sure\" after returning to Kazien will fail this part.",
+      "instruction_sha256": "2489a79794b2f5acd1343cb5d5490db75f8bf0fd863a05f6c6f1e87193fef5af",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/2489a79794b2f5acd134/1",
+      "goal": "dialogue",
+      "short_ru": "У Laboratory Guard: «Whoa, I'm leaving!» ИЛИ «I have some business» → «I'll be back later.»; у Kazien избегайте «Sure».",
+      "short_en": "At Laboratory Guard: “Whoa, I'm leaving!” OR “I have some business” → “I'll be back later.”; avoid “Sure” at Kazien.",
+      "full_ru": "Идите к лаборатории Einbroch (einbroch 54, 52); городской проводник может отметить её на мини-карте. На вопрос Laboratory Guard выберите либо «Whoa, I'm leaving!», либо «I have some business», а затем «I'll be back later.». Вернитесь к Kazien. Ошибка провалит проверку: сначала сообщите о провале Kaizen, затем подождите, пока он забудет вас, и повторите поручение у Kazien. Точный срок ожидания не указан. Если он всё ещё помнит вас, сразу поговорите с ним ещё несколько раз. Даже после правильного разговора с охранником ответ «Sure» при возвращении к Kazien провалит эту часть.",
+      "full_en": "Go to the Einbroch laboratory (( einbroch ): 54, 52); the town guide can mark it for you on your mini-map. The Laboratory Guard will ask the player why they want to enter the lab. Answer with either \"Whoa, I'm leaving!\" or \"I have some business\" followed by \"I'll be back later.\" and go back to find Kazien. | If this is done incorrectly the mission will fail. There will be a chance to redo the mission from Kazien again, after a period of time so that he can forget about you. However, you first have to report your failure to Kaizen before he can forget. If he still remembers you after some time has passed, immediately talk to him again a few times to see if this makes him forget. Even if the conversation with the guard NPC is done correctly, answering \"Sure\" after returning to Kazien will fail this part.",
+      "npcs": [
+        {
+          "entity": "Laboratory Guard",
+          "role": "talk"
+        },
+        {
+          "entity": "Kazien",
+          "role": "return_contact"
+        },
+        {
+          "entity": "Kaizen",
+          "role": "failure_report_contact"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Kazien",
+          "options": [
+            {
+              "text": "Sure",
+              "correct": 0,
+              "condition": "Source explicitly says this answer fails even after the correct guard conversation."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "complete_secrecy_test",
+          "entity": "Laboratory Guard"
+        },
+        {
+          "operation": "report_failure_before_retry",
+          "condition": "Only if failed: report failure, then wait an unspecified period; repeated talks may be needed."
+        }
+      ],
+      "protected_names": [
+        "Kazien",
+        "Kaizen",
+        "Laboratory Guard",
+        "Einbroch",
+        "einbroch"
+      ],
+      "locations": [
+        {
+          "map": "einbroch",
+          "x": 54,
+          "y": 52,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "einbroch ): 54, 52"
+        }
+      ],
+      "branches": [
+        {
+          "key": "leave_immediately",
+          "choice_group": "lab_guard_response",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "One alternative guard response; do not also perform the business path.",
+          "section": "",
+          "original_instruction": "\"Whoa, I'm leaving!\"",
+          "instruction_sha256": "7845c561d3860525d2d1ac21f8566aaf0e197683336db7d7cb897ee642bcd43b",
+          "short_ru": "Выберите «Whoa, I'm leaving!».",
+          "short_en": "Choose “Whoa, I'm leaving!”.",
+          "full_ru": "Выберите «Whoa, I'm leaving!» и вернитесь к поручителю.",
+          "full_en": "\"Whoa, I'm leaving!\"",
+          "protected_names": [],
+          "dialogues": [
+            {
+              "npc": "Laboratory Guard",
+              "options": [
+                {
+                  "text": "Whoa, I'm leaving!",
+                  "correct": 1
+                }
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "operation": "choose_response",
+              "entity": "Laboratory Guard"
+            }
+          ]
+        },
+        {
+          "key": "business_then_leave",
+          "choice_group": "lab_guard_response",
+          "variant_scope": "Pinned iRO Wiki Classic source; server applicability unverified",
+          "condition": "Alternative two-answer sequence; do not first perform the immediate-leave path.",
+          "section": "",
+          "original_instruction": "\"I have some business\" followed by \"I'll be back later.\"",
+          "instruction_sha256": "215b74dfde1b520d96f2b254c530c522fe2d4deeaa555378d054b866bc6b3826",
+          "short_ru": "«I have some business» → «I'll be back later.».",
+          "short_en": "“I have some business” → “I'll be back later.”.",
+          "full_ru": "Выберите «I have some business», затем «I'll be back later.».",
+          "full_en": "\"I have some business\" followed by \"I'll be back later.\"",
+          "protected_names": [],
+          "dialogues": [
+            {
+              "npc": "Laboratory Guard",
+              "options": [
+                {
+                  "text": "I have some business",
+                  "correct": 1
+                },
+                {
+                  "text": "I'll be back later.",
+                  "correct": 1,
+                  "condition": "Only after choosing I have some business."
+                }
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "operation": "choose_ordered_responses",
+              "entity": "Laboratory Guard"
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Return to Kazien ((lhz_in01): 174, 258). He says the \"job\" was a test to check the player's ability to keep a secret. Talk to him again, and he mentions Lyozien.",
+      "instruction_sha256": "e6900777ba3607bf5c79f6adfe22700897681661b65f5731f887054d0aef063a",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e6900777ba3607bf5c79/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Kazien дважды: lhz_in01 174, 258; получите контакт Lyozien.",
+      "short_en": "Talk to Kazien twice: lhz_in01 174, 258; receive the contact for Lyozien.",
+      "full_ru": "Вернитесь к Kazien (lhz_in01 174, 258). Он объяснит, что поручение было проверкой умения хранить секрет. Поговорите с ним ещё раз, чтобы узнать о Lyozien.",
+      "full_en": "Return to Kazien ((lhz_in01): 174, 258). He says the \"job\" was a test to check the player's ability to keep a secret. Talk to him again, and he mentions Lyozien.",
+      "npcs": [
+        {
+          "entity": "Kazien",
+          "role": "talk"
+        },
+        {
+          "entity": "Lyozien",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk_again",
+          "entity": "Kazien"
+        }
+      ],
+      "protected_names": [
+        "Kazien",
+        "Lyozien",
+        "lhz_in01"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 174,
+          "y": 258,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01): 174, 258"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Talk to Lyozien (Man) at ((airplane_01): 96, 48 - the International route Izlude / Rachel / Juno Airship). He mentions Ahman, located in Izlude near the airport. | Note: if Lyozien is not present on the airship, wait 5 to 10 min to see if he re-appears, if he does not, the quest has encountered a problem and you will need to contact the GM Team using the \"In-game Help\" section of the Warp Portal Service to resolve the problem.",
+      "instruction_sha256": "0569458b056f3ecd1f9ed2405f17352def40028145cbfb339fb119d517426018",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/0569458b056f3ecd1f9e/1",
+      "goal": "talk",
+      "short_ru": "Найдите Lyozien: airplane_01 96, 48, маршрут Izlude / Rachel / Juno; если его нет, подождите 5–10 min.",
+      "short_en": "Find Lyozien: airplane_01 96, 48, Izlude / Rachel / Juno route; if absent, wait 5–10 min.",
+      "full_ru": "Поговорите с Lyozien (Man), airplane_01 96, 48, на International route airship Izlude / Rachel / Juno. Он расскажет об Ahman у аэропорта Izlude. Если Lyozien отсутствует, подождите от 5 до 10 min. Если он не появится, источник рекомендует обратиться к GM Team через «In-game Help» сервиса Warp Portal Service; это примечание относится к сервису источника.",
+      "full_en": "Talk to Lyozien (Man) at ((airplane_01): 96, 48 - the International route Izlude / Rachel / Juno Airship). He mentions Ahman, located in Izlude near the airport. | Note: if Lyozien is not present on the airship, wait 5 to 10 min to see if he re-appears, if he does not, the quest has encountered a problem and you will need to contact the GM Team using the \"In-game Help\" section of the Warp Portal Service to resolve the problem.",
+      "npcs": [
+        {
+          "entity": "Lyozien",
+          "role": "talk"
+        },
+        {
+          "entity": "Ahman",
+          "role": "next_contact"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "missing_npc_wait_minutes",
+          "amount": "5-10",
+          "condition": "Troubleshooting advice if Lyozien is absent, not a guaranteed respawn timer."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lyozien"
+        }
+      ],
+      "protected_names": [
+        "Lyozien",
+        "Ahman",
+        "airplane_01",
+        "Izlude",
+        "Rachel",
+        "Juno"
+      ],
+      "locations": [
+        {
+          "map": "airplane_01",
+          "x": 96,
+          "y": 48,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "airplane_01): 96, 48"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Talk to the Scamp (Ahman) at (( izlude ): 186, 57). He says the goods have been delivered.",
+      "instruction_sha256": "a525ab0439f332093efcbce3f897566932b017071d9a779b36abae6d710eddc2",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/a525ab0439f332093efc/1",
+      "goal": "talk",
+      "short_ru": "Поговорите со Scamp (Ahman): izlude 186, 57.",
+      "short_en": "Talk to Scamp (Ahman): izlude 186, 57.",
+      "full_ru": "Поговорите со Scamp (Ahman), izlude 186, 57. Он сообщит, что goods доставлены.",
+      "full_en": "Talk to the Scamp (Ahman) at (( izlude ): 186, 57). He says the goods have been delivered.",
+      "npcs": [
+        {
+          "entity": "Ahman",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ahman"
+        }
+      ],
+      "protected_names": [
+        "Ahman",
+        "izlude",
+        "goods"
+      ],
+      "locations": [
+        {
+          "map": "izlude",
+          "x": 186,
+          "y": 57,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "izlude ): 186, 57"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Talk to Lyozien again. He asks the player to see Kazien.",
+      "instruction_sha256": "e6622b9aad2f033b53a1d3158922ac2a083bc4465c618a2e9386779cbdfc32dd",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e6622b9aad2f033b53a1/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Lyozien и вернитесь к Kazien.",
+      "short_en": "Talk to Lyozien and return to Kazien.",
+      "full_ru": "Снова поговорите с Lyozien. Он отправит вас к Kazien.",
+      "full_en": "Talk to Lyozien again. He asks the player to see Kazien.",
+      "npcs": [
+        {
+          "entity": "Lyozien",
+          "role": "talk"
+        },
+        {
+          "entity": "Kazien",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lyozien"
+        }
+      ],
+      "protected_names": [
+        "Kazien",
+        "Lyozien"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Talk to Kazien. | Obtain 400,000 Base EXP",
+      "instruction_sha256": "6d3a7b92e93767b6344aa6d400cf8f781e3781bcb53809a1b98b239247b69cdc",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/6d3a7b92e93767b6344a/1",
+      "goal": "receive_reward",
+      "short_ru": "Получите 400,000 Base EXP у Kazien.",
+      "short_en": "Collect 400,000 Base EXP from Kazien.",
+      "full_ru": "Поговорите с Kazien и получите 400,000 Base EXP.",
+      "full_en": "Talk to Kazien. | Obtain 400,000 Base EXP",
+      "npcs": [
+        {
+          "entity": "Kazien",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "400000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kazien"
+        }
+      ],
+      "protected_names": [
+        "Kazien"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Go back to Lyozien again. This time two Thugs will appear. Kill them. Lyozien requires the player to find Ahman in Izlude again.",
+      "instruction_sha256": "468e02ca4b597f712daac4a20df7c22134a33de18722bcbe8357e19009ce4e3e",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/468e02ca4b597f712daa/1",
+      "goal": "kill",
+      "short_ru": "Убейте 2 Thugs возле Lyozien, затем найдите Ahman в Izlude.",
+      "short_en": "Kill 2 Thugs near Lyozien, then find Ahman in Izlude.",
+      "full_ru": "Вернитесь к Lyozien. Появятся двое Thugs — убейте их. После этого Lyozien попросит снова найти Ahman в Izlude.",
+      "full_en": "Go back to Lyozien again. This time two Thugs will appear. Kill them. Lyozien requires the player to find Ahman in Izlude again.",
+      "npcs": [
+        {
+          "entity": "Lyozien",
+          "role": "talk"
+        },
+        {
+          "entity": "Ahman",
+          "role": "next_contact"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Thugs",
+          "quantity": 2,
+          "operation": "kill",
+          "required": 1,
+          "condition": "First scripted attack, separate from the later three-Thugs attack."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lyozien"
+        },
+        {
+          "operation": "kill",
+          "entity": "Thugs"
+        }
+      ],
+      "protected_names": [
+        "Lyozien",
+        "Ahman",
+        "Izlude",
+        "Thugs"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Talk to Ahman and show your suspicion on the Goods delivered and the attackers. However there will be no answer.",
+      "instruction_sha256": "b2a41938896d9dbbdad9548148a3cd8ecfc8f0043cf15026aae84a931c22c01a",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/b2a41938896d9dbbdad9/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Ahman о Goods и нападении.",
+      "short_en": "Question Ahman about Goods and the attack.",
+      "full_ru": "Поговорите с Ahman и выразите подозрения о доставляемых Goods и нападавших. Ответа вы не получите.",
+      "full_en": "Talk to Ahman and show your suspicion on the Goods delivered and the attackers. However there will be no answer.",
+      "npcs": [
+        {
+          "entity": "Ahman",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ahman"
+        }
+      ],
+      "protected_names": [
+        "Ahman"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Go back to Lyozien, who express his gratitude and asks the player to find Kazien in Lighthalzen .",
+      "instruction_sha256": "e66c82979af3678831986c299880aab90b3bda5e8b284aa6648d2783658aaa18",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e66c82979af367883198/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Lyozien, затем идите к Kazien в Lighthalzen.",
+      "short_en": "Talk to Lyozien, then go to Kazien in Lighthalzen.",
+      "full_ru": "Вернитесь к Lyozien. Он поблагодарит вас и отправит к Kazien в Lighthalzen.",
+      "full_en": "Go back to Lyozien, who express his gratitude and asks the player to find Kazien in Lighthalzen .",
+      "npcs": [
+        {
+          "entity": "Lyozien",
+          "role": "talk"
+        },
+        {
+          "entity": "Kazien",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lyozien"
+        }
+      ],
+      "protected_names": [
+        "Kazien",
+        "Lyozien",
+        "Lighthalzen"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Talk to Kazien again and have a little debate on the attack and the contents of the goods. | Obtain 450,000 Base EXP",
+      "instruction_sha256": "3cc0e7985043ac3ebb36988b589d94acfebe693a3328072b77bfcdaa58e8c455",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/3cc0e7985043ac3ebb36/1",
+      "goal": "receive_reward",
+      "short_ru": "Получите 450,000 Base EXP у Kazien.",
+      "short_en": "Collect 450,000 Base EXP from Kazien.",
+      "full_ru": "Снова поговорите с Kazien о нападении и содержимом goods. Получите 450,000 Base EXP.",
+      "full_en": "Talk to Kazien again and have a little debate on the attack and the contents of the goods. | Obtain 450,000 Base EXP",
+      "npcs": [
+        {
+          "entity": "Kazien",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "450000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kazien"
+        }
+      ],
+      "protected_names": [
+        "Kazien",
+        "goods"
+      ],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Go to Lyozien. Another Thugs attack happens (three of them, this time) after talking to him. After the fight, some of the of the goods will be damaged. Walk to ((airplane_01): 98, 46) to examine them. While examining them, Lyozien will reappear and hand over a white potion . | Note : if you fail to inspect the the damaged good, Lyozien will not reappear, and the quest will be broken for future players. | Obtain 1 White Potion .",
+      "instruction_sha256": "3d44237ee8300a1c2cf0ef3a61df087cc327d9584d3b4f10d5504006c547d24c",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/3d44237ee8300a1c2cf0/1",
+      "goal": "inspect",
+      "short_ru": "Убейте 3 Thugs, осмотрите goods на airplane_01 98, 46 и получите 1 White Potion.",
+      "short_en": "Kill 3 Thugs, inspect goods at airplane_01 98, 46 and receive 1 White Potion.",
+      "full_ru": "Поговорите с Lyozien: снова нападут Thugs, на этот раз трое. После боя часть goods окажется повреждена. Пройдите к airplane_01 98, 46 и осмотрите их: при осмотре Lyozien появится снова и передаст white potion. Не пропускайте осмотр повреждённого груза: источник предупреждает, что иначе Lyozien не вернётся и квест может оказаться заблокированным для следующих игроков. Получите 1 White Potion.",
+      "full_en": "Go to Lyozien. Another Thugs attack happens (three of them, this time) after talking to him. After the fight, some of the of the goods will be damaged. Walk to ((airplane_01): 98, 46) to examine them. While examining them, Lyozien will reappear and hand over a white potion . | Note : if you fail to inspect the the damaged good, Lyozien will not reappear, and the quest will be broken for future players. | Obtain 1 White Potion .",
+      "npcs": [
+        {
+          "entity": "Lyozien",
+          "role": "talk"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Thugs",
+          "quantity": 3,
+          "operation": "kill",
+          "required": 1,
+          "condition": "Second scripted attack; not a replacement count for stage 9."
+        }
+      ],
+      "items": [
+        {
+          "entity": "goods",
+          "quantity": null,
+          "operation": "inspect",
+          "required": 1,
+          "condition": "Damaged cargo inspection target, not an inventory delivery or an additional cost."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "White Potion",
+          "condition": "One grant after inspection; the earlier lowercase white potion and header refer to the same potion."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lyozien"
+        },
+        {
+          "operation": "kill",
+          "entity": "Thugs"
+        },
+        {
+          "operation": "inspect",
+          "entity": "goods"
+        },
+        {
+          "operation": "receive",
+          "entity": "White Potion"
+        }
+      ],
+      "protected_names": [
+        "Lyozien",
+        "airplane_01",
+        "Thugs",
+        "White Potion",
+        "goods"
+      ],
+      "locations": [
+        {
+          "map": "airplane_01",
+          "x": 98,
+          "y": 46,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "airplane_01): 98, 46"
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "Talk to Ahman in Izlude . He asks the player to take a rest as they seem pale after looking at the contents of the goods.",
+      "instruction_sha256": "e257c57927e9467740828b636cbc62ed8ebfc8225bccdf810fe36b233d3e215d",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/e257c57927e946774082/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Ahman в Izlude.",
+      "short_en": "Talk to Ahman in Izlude.",
+      "full_ru": "Поговорите с Ahman в Izlude. Заметив, что после осмотра goods вы побледнели, он посоветует отдохнуть.",
+      "full_en": "Talk to Ahman in Izlude . He asks the player to take a rest as they seem pale after looking at the contents of the goods.",
+      "npcs": [
+        {
+          "entity": "Ahman",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ahman"
+        }
+      ],
+      "protected_names": [
+        "Ahman",
+        "Izlude",
+        "goods"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "Return to the airship. Lyozien will also ask the player to rest.",
+      "instruction_sha256": "a7de809a6a14979548ad547651425422fd56b610dcabd1de956de6f09adbb66e",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/a7de809a6a14979548ad/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Lyozien на дирижабле.",
+      "short_en": "Return to Lyozien on the airship.",
+      "full_ru": "Вернитесь на дирижабль. Lyozien также посоветует вам отдохнуть.",
+      "full_en": "Return to the airship. Lyozien will also ask the player to rest.",
+      "npcs": [
+        {
+          "entity": "Lyozien",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lyozien"
+        }
+      ],
+      "protected_names": [
+        "Lyozien"
+      ],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "Talk to Kazien again and tell him you knew the contents of the goods. An argument on the righteous of the delivery commences. | Obtain 550,000 Base EXP",
+      "instruction_sha256": "592169b1ef7e9128aabc8a744b3e8330b7504abe4785b67b89d07be064b786e2",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/592169b1ef7e9128aabc/1",
+      "goal": "receive_reward",
+      "short_ru": "Поговорите с Kazien и получите 550,000 Base EXP.",
+      "short_en": "Talk to Kazien and receive 550,000 Base EXP.",
+      "full_ru": "Снова поговорите с Kazien и скажите, что знаете содержимое goods. Возникнет спор о нравственной стороне доставки. Получите 550,000 Base EXP.",
+      "full_en": "Talk to Kazien again and tell him you knew the contents of the goods. An argument on the righteous of the delivery commences. | Obtain 550,000 Base EXP",
+      "npcs": [
+        {
+          "entity": "Kazien",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "550000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kazien"
+        }
+      ],
+      "protected_names": [
+        "Kazien",
+        "goods"
+      ],
+      "locations": []
+    },
+    "17": {
+      "original_instruction": "When you walk out of the room and towards the stairs (lhz_in01 189, 248) (the non-winding stairs with a portal to the right of Kaizen), you will have a flashback of the things Kazien argued about. (Quest Finished)",
+      "instruction_sha256": "a954d235f2b6569ae4d5749a6b48e4e3342fab702a1de965d6b2e69f39f8c41d",
+      "step_id": "irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)/step/a954d235f2b6569ae4d5/1",
+      "goal": "trigger",
+      "short_ru": "После награды пройдите к lhz_in01 189, 248, чтобы завершить квест.",
+      "short_en": "After the reward, walk to lhz_in01 189, 248 to finish the quest.",
+      "full_ru": "Выйдите из комнаты и пройдите к лестнице (lhz_in01 189, 248). Это прямая лестница с порталом справа от Kaizen, а не изогнутая. Возникнет воспоминание о споре с Kazien; после него квест завершается.",
+      "full_en": "When you walk out of the room and towards the stairs (lhz_in01 189, 248) (the non-winding stairs with a portal to the right of Kaizen), you will have a flashback of the things Kazien argued about. (Quest Finished)",
+      "npcs": [
+        {
+          "entity": "Kazien",
+          "role": "story_reference"
+        },
+        {
+          "entity": "Kaizen",
+          "role": "source_spelling_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk_to_flashback",
+          "condition": "Completion trigger after the stage-16 reward; do not mark complete at the reward alone."
+        }
+      ],
+      "protected_names": [
+        "Kazien",
+        "Kaizen",
+        "lhz_in01"
+      ],
+      "locations": [
+        {
+          "map": "lhz_in01",
+          "x": 189,
+          "y": 248,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "lhz_in01 189, 248"
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "kazien_kaizen_source_spelling",
+      "detail": "Kazien and Kaizen spellings both occur. Preserve the two literal labels without silently creating a universal game-name alias; Young Man is explicitly identified as Kazien in stage 2."
+    },
+    {
+      "reason": "work_gate_not_quest_log_gate",
+      "detail": "Base level 70 gates obtaining work, while Old Man can add the quest-log entry earlier. Header level is not an executable acceptance rule."
+    },
+    {
+      "reason": "retry_and_missing_npc_timers_distinct",
+      "detail": "Failure retry wait is unspecified. The separate 5–10-minute wait is source troubleshooting advice for missing Lyozien, not a mission cooldown or guaranteed respawn interval. GM/official support advice is source-specific."
+    },
+    {
+      "reason": "rewards_not_terminal_trigger",
+      "detail": "Three Base EXP grants sum to the 1400000 header; the White Potion header is not an extra grant. The final flashback at stage 17 follows the last payout and is the stated completion trigger."
+    }
+  ]
+}

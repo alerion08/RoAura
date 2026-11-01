@@ -38,6 +38,12 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   total; do not infer their split. A slot suffix such as Knife [3] is part of
   the item label, not quantity. Same-label File documents may have distinct
   IDs for the original and forged versions, with explicit mention bindings.
+- Level-reward choice groups belong to their own installment. Lovers stages
+  4 and 9 each select one band; do not reuse an earlier level selection or add
+  their conditional header totals as another grant. Dynamic own-character-name
+  prompts are `enter_character_name` actions without fixed correct options.
+  A missing-NPC wait suggestion is distinct from a retry cooldown; a Bingo
+  player total is distinct from additional players and does not imply winning.
 - `evidence` and `evidence_context` distinguish literal text, contextual
   witnesses and confidence. `source_section` in curation may cite exact header
   text or normalized text extracted from pinned HTML; the HTML bytes and hash

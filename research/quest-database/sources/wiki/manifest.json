@@ -1867,5 +1867,87 @@
       "https://irowiki.org/classic/Rachel_Sanctuary_Quest",
       "https://irowiki.org/classic/Thor_Volcano_Base_Quest"
     ]
+  },
+  "Shadow_Quest_(Rekenber_Job_Quest)": {
+    "url": "https://irowiki.org/classic/Shadow_Quest_(Rekenber_Job_Quest)",
+    "sha256": "12f48b281c33e16f836f74d94b493ece75fea2933964b865a13fde879b3c3cfe",
+    "path": "12f48b281c33e16f836f74d94b493ece75fea2933964b865a13fde879b3c3cfe.html.gz",
+    "title": "Shadow Quest (Rekenber Job Quest)",
+    "categories": [
+      "Quest Window Quests",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Quests",
+      "Noghalt Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T19:40:14Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/504/",
+      "http://db.irowiki.org/classic/map-info/einbroch/",
+      "http://db.irowiki.org/classic/map-info/izlude/",
+      "http://db.irowiki.org/classic/map-info/lighthalzen/",
+      "http://db.irowiki.org/classic/monster-info/1592/",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/Base_Level",
+      "https://irowiki.org/classic/Einbroch",
+      "https://irowiki.org/classic/Izlude",
+      "https://irowiki.org/classic/Juno",
+      "https://irowiki.org/classic/Lighthalzen",
+      "https://irowiki.org/classic/Rachel"
+    ]
+  },
+  "Lovers_Quest": {
+    "url": "https://irowiki.org/classic/Lovers_Quest",
+    "sha256": "294af279879a40773703f1311faee836c10630484c2dc82bef1126879aa08765",
+    "path": "294af279879a40773703f1311faee836c10630484c2dc82bef1126879aa08765.html.gz",
+    "title": "Lovers Quest",
+    "categories": [
+      "Quest Window Quests",
+      "Base Experience Reward",
+      "Level 1~99 Quests",
+      "Quests",
+      "Einbroch Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T19:40:16Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/1003/",
+      "http://db.irowiki.org/classic/item-info/1901/",
+      "http://db.irowiki.org/classic/item-info/712/",
+      "http://db.irowiki.org/classic/item-info/7170/",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/EXP",
+      "https://irowiki.org/classic/Einbech",
+      "https://irowiki.org/classic/Einbroch"
+    ]
+  },
+  "Juno_Remedy_Quest": {
+    "url": "https://irowiki.org/classic/Juno_Remedy_Quest",
+    "sha256": "ea7ef88a76644cfaa5d03923ed386e15a7bec57946a685d511d92b36c1fb2d7a",
+    "path": "ea7ef88a76644cfaa5d03923ed386e15a7bec57946a685d511d92b36c1fb2d7a.html.gz",
+    "title": "Juno Remedy Quest",
+    "categories": [
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 60~99 Quests",
+      "Quests",
+      "Hugel Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-01T19:40:18Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/7511/",
+      "https://irowiki.org/classic/Airship",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/Bingo",
+      "https://irowiki.org/classic/Einbroch",
+      "https://irowiki.org/classic/Hugel",
+      "https://irowiki.org/classic/Job_EXP",
+      "https://irowiki.org/classic/Juno",
+      "https://irowiki.org/classic/Lighthalzen",
+      "https://irowiki.org/classic/Party"
+    ]
   }
 }

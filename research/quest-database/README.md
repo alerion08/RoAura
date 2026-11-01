@@ -9,8 +9,8 @@ Isolated **research branch**. No changes to the RoAura WPF application, settings
 See [SEMANTIC_PROGRESS.md](./SEMANTIC_PROGRESS.md) for the implementation,
 reproduction commands and exact remaining work. `output/quest_semantic.sqlite`
 (schema 5, generator semantic-5.3.0) has 216 active catalog candidates and 2,750
-preserved steps. **632 steps in 43 guides** have all four RU/EN descriptions, with 50 localized
-conditional branches; **2,118 remain incomplete**. 59 historical events are excluded and 10 ambiguous
+preserved steps. **670 steps in 46 guides** have all four RU/EN descriptions, with 64 localized
+conditional branches; **2,080 remain incomplete**. 59 historical events are excluded and 10 ambiguous
 records quarantined from both usable research projections and the core worklist.
 One reference index (Access Quests) is also excluded; seven quest routes retain
 exclusive paths and independent optional activities. A normalized prerequisite
