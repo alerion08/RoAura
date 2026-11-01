@@ -168,6 +168,11 @@ jobs:
           routes=sum(len(q.get("routes",[])) for q in curations.values())
           assert semantic_report["quest_routes"]==routes
           assert semantic.execute("SELECT count(*) FROM quest_routes").fetchone()[0]==routes
+          reuse=sum(bool(s.get("action_reuse")) for q in curations.values() for s in q["steps"].values())
+          assert semantic_report["action_reuse_links"]==reuse
+          assert semantic.execute("SELECT count(*) FROM step_edges WHERE kind='repeat_actions_from'").fetchone()[0]==reuse
+          relations=sum(len(q.get("relations",[])) for q in curations.values())
+          assert semantic.execute("SELECT count(*) FROM quest_relations r JOIN evidence e USING(evidence_id) WHERE e.method IN ('curated_quest_relation','curated_single_prerequisite')").fetchone()[0]==relations
           assert semantic_report["source_additions"]==additions
           assert semantic.execute("SELECT count(*) FROM step_source_additions").fetchone()[0]==additions
           assert semantic.execute("SELECT count(*) FROM quest_steps").fetchone()[0]==consumer.execute("SELECT count(*) FROM quest_steps").fetchone()[0]

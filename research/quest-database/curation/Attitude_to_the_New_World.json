@@ -1,0 +1,885 @@
+{
+  "quest_id": "irowiki-classic:Attitude_to_the_New_World",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "b6d3076f35035b09ccba41beccd97246e64ce1250b51952151077da4c968d9ca",
+  "snapshot_sha256": "924ce28fad45cfee51c0374a25da93dcac0c31b954da6e07b98b28ae3f83230c",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Rumis Block",
+      "aliases": [
+        "Rumis"
+      ],
+      "identity": "irowiki-classic:npc:mid_camp:188:254:Rumis Block"
+    },
+    {
+      "type": "npc",
+      "name": "Terris Block",
+      "aliases": [
+        "Terris"
+      ],
+      "identity": "irowiki-classic:npc:mid_camp:240:270:Terris Block"
+    },
+    {
+      "type": "npc",
+      "name": "Diego",
+      "identity": "irowiki-classic:npc:mid_camp:264:263:Diego"
+    },
+    {
+      "type": "npc",
+      "name": "Camp Guard"
+    },
+    {
+      "type": "npc",
+      "name": "Frozen Tree"
+    },
+    {
+      "type": "npc",
+      "name": "Lumis"
+    },
+    {
+      "type": "item",
+      "name": "Empty Bottle",
+      "game_id": 713,
+      "id_source": "http://db.irowiki.org/classic/item-info/713/"
+    },
+    {
+      "type": "item",
+      "name": "Strong Vine",
+      "game_id": 6041,
+      "id_source": "http://db.irowiki.org/classic/item-info/6041/"
+    },
+    {
+      "type": "item",
+      "name": "Holy Water",
+      "game_id": 523,
+      "id_source": "http://db.irowiki.org/classic/item-info/523/"
+    },
+    {
+      "type": "item",
+      "name": "Sticky Mucus",
+      "game_id": 938,
+      "id_source": "http://db.irowiki.org/classic/item-info/938/"
+    },
+    {
+      "type": "item",
+      "name": "specimen"
+    },
+    {
+      "type": "item",
+      "name": "Decaying Stem"
+    },
+    {
+      "type": "item",
+      "name": "Horn of Hillslion",
+      "game_id": 6032,
+      "id_source": "http://db.irowiki.org/classic/item-info/6032/"
+    },
+    {
+      "type": "item",
+      "name": "Horn of Tendrilion",
+      "game_id": 6033,
+      "id_source": "http://db.irowiki.org/classic/item-info/6033/"
+    },
+    {
+      "type": "monster",
+      "name": "Nephentes",
+      "game_id": 1988,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1988/"
+    },
+    {
+      "type": "monster",
+      "name": "Pinguicula",
+      "game_id": 1995,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1995/"
+    },
+    {
+      "type": "monster",
+      "name": "Cornus",
+      "game_id": 1992,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1992/"
+    },
+    {
+      "type": "monster",
+      "name": "Tatacho",
+      "game_id": 1986,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1986/"
+    },
+    {
+      "type": "map",
+      "name": "mid_camp",
+      "map_code": "mid_camp"
+    },
+    {
+      "type": "map",
+      "name": "man_fild01",
+      "map_code": "man_fild01"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Speak to Rumis Block ( mid_camp 188, 254), he tells you he hates the New World and loathes his job.",
+      "instruction_sha256": "529ffad23caf85158a1c26d05c7a81fa2caade2a50cbfdca6802dcf85b6b9b1a",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/529ffad23caf85158a1c/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Rumis Block: mid_camp 188, 254.",
+      "short_en": "Talk to Rumis Block: mid_camp 188, 254.",
+      "full_ru": "Поговорите с Rumis Block (mid_camp 188, 254). Он жалуется на New World и свою работу.",
+      "full_en": "Speak to Rumis Block ( mid_camp 188, 254), he tells you he hates the New World and loathes his job.",
+      "npcs": [
+        {
+          "entity": "Rumis Block",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Rumis Block"
+        }
+      ],
+      "protected_names": [
+        "Rumis Block",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 188,
+          "y": 254,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 188, 254"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Speak to Camp Guard ( mid_camp 336,171). You must not be helping Diego with the posts or delivering the final packing in the New Surroundings quest. Go and kill a Nephentes and bring back a Strong Vine to help Rumis realize these monsters aren't so scary. Note: if you have other quests that require trips into the New World Maps, you will need to finish those first.",
+      "instruction_sha256": "9d62037af65168434d97d04b341595d7165f55c414e134dd3463bfec9a2f5edd",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/9d62037af65168434d97/1",
+      "goal": "kill_collect",
+      "short_ru": "Вне этапов ремонта постов Diego и последней доставки New Surroundings выйдите через Camp Guard (mid_camp 336,171): убейте 1 Nephentes, добудьте 1 Strong Vine.",
+      "short_en": "Outside the Diego post-repair and final-delivery stages of New Surroundings, leave via Camp Guard (mid_camp 336,171): kill 1 Nephentes and collect 1 Strong Vine.",
+      "full_ru": "Поговорите с Camp Guard (mid_camp 336,171). В этот момент вы не должны помогать Diego с постами или доставлять последнюю посылку в New Surroundings. Убейте Nephentes и принесите Strong Vine, чтобы показать Rumis, что монстры не так страшны. Примечание источника: сначала закончите другие задания, требующие посещения карт New World.",
+      "full_en": "Speak to Camp Guard ( mid_camp 336,171). You must not be helping Diego with the posts or delivering the final packing in the New Surroundings quest. Go and kill a Nephentes and bring back a Strong Vine to help Rumis realize these monsters aren't so scary. Note: if you have other quests that require trips into the New World Maps, you will need to finish those first.",
+      "npcs": [
+        {
+          "entity": "Camp Guard",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Strong Vine",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Nephentes",
+          "operation": "kill",
+          "quantity": 1,
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Camp Guard"
+        },
+        {
+          "operation": "kill",
+          "entity": "Nephentes"
+        },
+        {
+          "operation": "collect",
+          "entity": "Strong Vine"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "concurrent_stage_blocker",
+          "condition": "Do not be helping Diego with posts or delivering the final package in New Surroundings."
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "travel_gate_concurrency",
+          "detail": "Source describes travel conflicts with New Surroundings tasks and other travel quests. Exact game flag ranges are not given; do not turn this into a universal all-quests-completed prerequisite."
+        }
+      ],
+      "protected_names": [
+        "Diego",
+        "Camp Guard",
+        "Strong Vine",
+        "Nephentes",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 336,
+          "y": 171,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 336,171"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Return to Rumis Block with 1 Strong Vine , he thanks you and asks for further help. He needs some supplies to prepare a Nephentes specimen. 1 Empty Bottle 5 Holy Water 30 Sticky Mucus",
+      "instruction_sha256": "99a2d563b1e66a3d94a9aeaec13344ce9e45479ecb45048e26726308df52af59",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/99a2d563b1e66a3d94a9/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Rumis Block 1 Strong Vine; подготовьте 1 Empty Bottle, 5 Holy Water, 30 Sticky Mucus.",
+      "short_en": "Give Rumis Block 1 Strong Vine; prepare 1 Empty Bottle, 5 Holy Water, 30 Sticky Mucus.",
+      "full_ru": "Вернитесь к Rumis Block с 1 Strong Vine. Он поблагодарит и попросит материалы для Nephentes specimen: 1 Empty Bottle, 5 Holy Water, 30 Sticky Mucus.",
+      "full_en": "Return to Rumis Block with 1 Strong Vine , he thanks you and asks for further help. He needs some supplies to prepare a Nephentes specimen. 1 Empty Bottle 5 Holy Water 30 Sticky Mucus",
+      "npcs": [
+        {
+          "entity": "Rumis Block",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Strong Vine",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Empty Bottle",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Requested specimen supplies; exact handover sub-dialogue is not shown."
+        },
+        {
+          "entity": "Holy Water",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Requested specimen supplies; exact handover sub-dialogue is not shown."
+        },
+        {
+          "entity": "Sticky Mucus",
+          "quantity": 30,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Requested specimen supplies; exact handover sub-dialogue is not shown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Strong Vine"
+        },
+        {
+          "operation": "bring"
+        }
+      ],
+      "protected_names": [
+        "Rumis Block",
+        "Empty Bottle",
+        "Strong Vine",
+        "Holy Water",
+        "Sticky Mucus",
+        "specimen",
+        "Nephentes"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Rumis asks you to deliver his specimen to his brother Terris Block ( mid_camp 240, 270).",
+      "instruction_sha256": "8d7c01eee6781c2d7ed40b4fd51054839d04a88826269eb5b0b311a479eaa1b6",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/8d7c01eee6781c2d7ed4/1",
+      "goal": "deliver",
+      "short_ru": "Доставьте specimen Terris Block: mid_camp 240, 270.",
+      "short_en": "Deliver the specimen to Terris Block: mid_camp 240, 270.",
+      "full_ru": "Rumis попросит доставить его specimen брату Terris Block (mid_camp 240, 270).",
+      "full_en": "Rumis asks you to deliver his specimen to his brother Terris Block ( mid_camp 240, 270).",
+      "npcs": [
+        {
+          "entity": "Terris Block",
+          "role": "deliver"
+        }
+      ],
+      "items": [
+        {
+          "entity": "specimen",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "specimen"
+        }
+      ],
+      "protected_names": [
+        "Terris Block",
+        "specimen",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 240,
+          "y": 270,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 240, 270"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "After some conversation, Terris asks you to talk to 30 or so of the pretty girls to the west. Kill 30 Pinguicula .",
+      "instruction_sha256": "0f2f76edbf8581eb761cca180b94974946cd7a48edf081988b230778baa9a91a",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/0f2f76edbf8581eb761c/1",
+      "goal": "kill",
+      "short_ru": "По поручению Terris убейте 30 Pinguicula.",
+      "short_en": "Kill 30 Pinguicula for Terris.",
+      "full_ru": "После разговора Terris попросит «поговорить» примерно с 30 красавицами к западу. Задача — убить 30 Pinguicula.",
+      "full_en": "After some conversation, Terris asks you to talk to 30 or so of the pretty girls to the west. Kill 30 Pinguicula .",
+      "npcs": [
+        {
+          "entity": "Terris Block",
+          "role": "talk"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Pinguicula",
+          "operation": "kill",
+          "quantity": 30,
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Terris Block"
+        },
+        {
+          "operation": "kill",
+          "entity": "Pinguicula"
+        }
+      ],
+      "protected_names": [
+        "Pinguicula"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Once the Pinguicula have been dispatched, Terris tells you that Cornus have been destroying his climate monitors. Has asks to to teach them a lesson. Kill 10 Cornus .",
+      "instruction_sha256": "8730d8083d5976ef61c21c24a55c8c1b5ad74b7eb9a680927027a1a3c625ed06",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/8730d8083d5976ef61c2/1",
+      "goal": "kill",
+      "short_ru": "Убейте 10 Cornus по поручению Terris.",
+      "short_en": "Kill 10 Cornus for Terris.",
+      "full_ru": "После Pinguicula Terris расскажет, что Cornus ломают его климатические приборы. Убейте 10 Cornus, чтобы их проучить.",
+      "full_en": "Once the Pinguicula have been dispatched, Terris tells you that Cornus have been destroying his climate monitors. Has asks to to teach them a lesson. Kill 10 Cornus .",
+      "npcs": [
+        {
+          "entity": "Terris Block",
+          "role": "talk"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Cornus",
+          "operation": "kill",
+          "quantity": 10,
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Terris Block"
+        },
+        {
+          "operation": "kill",
+          "entity": "Cornus"
+        }
+      ],
+      "protected_names": [
+        "Pinguicula",
+        "Cornus"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Return to Terris, He tells you he suspects the land to the west is cultivated. He hands you a Decaying Stem and asks you to meet him near the mushroom west of the bridge.",
+      "instruction_sha256": "8526157da45a2e2b485d01c1ea9947425ef6a4688b3ce3d71922a5d04b8b03a1",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/8526157da45a2e2b485d/1",
+      "goal": "collect",
+      "short_ru": "Получите Decaying Stem у Terris и идите к западному мосту.",
+      "short_en": "Get Decaying Stem from Terris and go to the west bridge.",
+      "full_ru": "Вернитесь к Terris. Он предположит, что западная земля обработана, выдаст Decaying Stem и предложит встретиться у гриба западнее моста.",
+      "full_en": "Return to Terris, He tells you he suspects the land to the west is cultivated. He hands you a Decaying Stem and asks you to meet him near the mushroom west of the bridge.",
+      "npcs": [
+        {
+          "entity": "Terris Block",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Terris Block"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Decaying Stem"
+        }
+      ],
+      "protected_names": [
+        "Decaying Stem"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Walk over the end of the bridge and he will appear. Talk to him and plant the Decaying Stem in the dirt ( mid_camp 52, 148).",
+      "instruction_sha256": "4cbaed200dfeb9745a485ee8f13ce6b44ba0399dd9dec13e25b9d159c07b07a5",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/4cbaed200dfeb9745a48/1",
+      "goal": "use_item",
+      "short_ru": "Встретьтесь с Terris и посадите Decaying Stem: mid_camp 52, 148.",
+      "short_en": "Meet Terris and plant Decaying Stem: mid_camp 52, 148.",
+      "full_ru": "Перейдите конец моста: он появится. Поговорите с ним и посадите Decaying Stem в землю (mid_camp 52, 148).",
+      "full_en": "Walk over the end of the bridge and he will appear. Talk to him and plant the Decaying Stem in the dirt ( mid_camp 52, 148).",
+      "npcs": [
+        {
+          "entity": "Terris Block",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "Return to Terris, He tells you he suspects the land to the west is cultivated. He hands you a Decaying Stem and asks you to meet him near the mushroom west of the bridge."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Decaying Stem",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "trigger_dialogue"
+        },
+        {
+          "operation": "talk",
+          "entity": "Terris Block"
+        },
+        {
+          "operation": "use",
+          "entity": "Decaying Stem"
+        }
+      ],
+      "protected_names": [
+        "Decaying Stem",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 52,
+          "y": 148,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 52, 148"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "After the Sprout comes to life talk to Terris again. Terris asks you to inform Rumis of his success.",
+      "instruction_sha256": "317917cd51e317487ea0678044f93b3f85f8557a2257f500f5305d903270c2ed",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/317917cd51e317487ea0/1",
+      "goal": "talk",
+      "short_ru": "После оживления Sprout поговорите с Terris о сообщении для Rumis.",
+      "short_en": "After Sprout comes to life, talk to Terris about reporting to Rumis.",
+      "full_ru": "Когда Sprout оживёт, снова поговорите с Terris. Он попросит сообщить Rumis об успехе.",
+      "full_en": "After the Sprout comes to life talk to Terris again. Terris asks you to inform Rumis of his success.",
+      "npcs": [
+        {
+          "entity": "Terris Block",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Terris Block"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Rumis has already heard, and strives to make his own discovery. Rumis asks you to meet him at the end of the east bridge to escort him to study a one of the new species.",
+      "instruction_sha256": "32e153c99065c3e6c12065d7350dcc8bd8b9b2eac4a3d6f50cadabb60eea1ee2",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/32e153c99065c3e6c120/1",
+      "goal": "talk",
+      "short_ru": "Получите у Rumis задание встретиться у восточного моста.",
+      "short_en": "Get the east-bridge meeting assignment from Rumis.",
+      "full_ru": "Rumis уже узнал об успехе и хочет сделать собственное открытие. Он попросит встретить его в конце восточного моста и сопроводить для изучения нового вида.",
+      "full_en": "Rumis has already heard, and strives to make his own discovery. Rumis asks you to meet him at the end of the east bridge to escort him to study a one of the new species.",
+      "npcs": [
+        {
+          "entity": "Rumis Block",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Rumis Block"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Walk past ( man_fild01 55, 259), and Rumis tells you to head towards the tree slightly southeast.",
+      "instruction_sha256": "2ba99bbe616e83088ef1eff6ff3fdc111c578c7d60cc3a48fae1c7083e816622",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/2ba99bbe616e83088ef1/1",
+      "goal": "trigger_dialogue",
+      "short_ru": "Активируйте встречу с Rumis: man_fild01 55, 259.",
+      "short_en": "Trigger the meeting with Rumis: man_fild01 55, 259.",
+      "full_ru": "Пройдите мимо (man_fild01 55, 259). Rumis предложит направиться к дереву немного юго-восточнее.",
+      "full_en": "Walk past ( man_fild01 55, 259), and Rumis tells you to head towards the tree slightly southeast.",
+      "actions": [
+        {
+          "operation": "trigger_dialogue"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "man_fild01",
+          "x": 55,
+          "y": 259,
+          "role": "trigger",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "man_fild01"
+      ]
+    },
+    "12": {
+      "original_instruction": "Talk to the Frozen Tree ( man_fild01 92, 229), Rumis climbed the tree because monsters were looking at him. He asks you to hunt 20 Horn of Hillslion .",
+      "instruction_sha256": "f1207661e1837d680a7b8218e3c29fdc8c08dd703298125369d1754c4fc15f32",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/f1207661e1837d680a7b/1",
+      "goal": "collect",
+      "short_ru": "У Frozen Tree (man_fild01 92, 229) получите задание добыть 20 Horn of Hillslion.",
+      "short_en": "At Frozen Tree (man_fild01 92, 229), get the task to collect 20 Horn of Hillslion.",
+      "full_ru": "Поговорите с Frozen Tree (man_fild01 92, 229). Rumis забрался на дерево, потому что монстры смотрели на него. Он попросит добыть 20 Horn of Hillslion.",
+      "full_en": "Talk to the Frozen Tree ( man_fild01 92, 229), Rumis climbed the tree because monsters were looking at him. He asks you to hunt 20 Horn of Hillslion .",
+      "npcs": [
+        {
+          "entity": "Frozen Tree",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Horn of Hillslion",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Frozen Tree"
+        },
+        {
+          "operation": "collect",
+          "entity": "Horn of Hillslion"
+        }
+      ],
+      "protected_names": [
+        "Frozen Tree",
+        "Horn of Hillslion",
+        "man_fild01"
+      ],
+      "locations": [
+        {
+          "map": "man_fild01",
+          "x": 92,
+          "y": 229,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "man_fild01 92, 229"
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Return to the tree with 20 horn. Rumis sees nothing particularly interesting about them, but he has gained the confidence to come to his tree alone next time. He asks you to talk to him back at the camp.",
+      "instruction_sha256": "34af1d0de681442d2ece744ed14659cdab8db0f325dbcb06ae1848c2736b0562",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/34af1d0de681442d2ece/1",
+      "goal": "deliver",
+      "short_ru": "Отнесите 20 Horn of Hillslion к Frozen Tree, затем вернитесь к Rumis в лагерь.",
+      "short_en": "Take 20 Horn of Hillslion to Frozen Tree, then return to Rumis at camp.",
+      "full_ru": "Вернитесь к дереву с 20 рогами. Rumis не найдёт в них ничего особенного, но осмелеет и сможет приходить сюда один. Он попросит поговорить с ним обратно в лагере.",
+      "full_en": "Return to the tree with 20 horn. Rumis sees nothing particularly interesting about them, but he has gained the confidence to come to his tree alone next time. He asks you to talk to him back at the camp.",
+      "npcs": [
+        {
+          "entity": "Frozen Tree",
+          "role": "talk",
+          "support_step": 12,
+          "evidence": "Talk to the Frozen Tree ( man_fild01 92, 229), Rumis climbed the tree because monsters were looking at him. He asks you to hunt 20 Horn of Hillslion ."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Horn of Hillslion",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 12,
+          "evidence": "Talk to the Frozen Tree ( man_fild01 92, 229), Rumis climbed the tree because monsters were looking at him. He asks you to hunt 20 Horn of Hillslion ."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Horn of Hillslion"
+        },
+        {
+          "operation": "return",
+          "entity": "Rumis Block"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "man_fild01",
+          "x": 92,
+          "y": 229,
+          "role": "tree",
+          "known": true,
+          "support_step": 12,
+          "evidence": "Talk to the Frozen Tree ( man_fild01 92, 229), Rumis climbed the tree because monsters were looking at him. He asks you to hunt 20 Horn of Hillslion ."
+        }
+      ],
+      "protected_names": []
+    },
+    "14": {
+      "original_instruction": "Lumis heard about someone being attacked to the east, he asks you to go investigate if the natives are hostile. Kill 10 Tatacho .",
+      "instruction_sha256": "af8678b0a6a13e7a009913cf3e5fe05cb8aa66a7afb40bd98687f2bd4be498d8",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/af8678b0a6a13e7a0099/1",
+      "goal": "kill",
+      "short_ru": "По поручению Lumis убейте 10 Tatacho.",
+      "short_en": "Kill 10 Tatacho for Lumis.",
+      "full_ru": "Lumis услышал о нападении к востоку и попросит проверить, враждебны ли местные жители. Убейте 10 Tatacho.",
+      "full_en": "Lumis heard about someone being attacked to the east, he asks you to go investigate if the natives are hostile. Kill 10 Tatacho .",
+      "npcs": [
+        {
+          "entity": "Lumis",
+          "role": "unresolved_source_name"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Tatacho",
+          "operation": "kill",
+          "quantity": 10,
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill",
+          "entity": "Tatacho"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "rumis_lumis_source_spelling",
+          "detail": "This step says Lumis, while surrounding steps name Rumis. Preserve the spelling and separate the unresolved entity; do not invent an alias or NPC location."
+        }
+      ],
+      "protected_names": [
+        "Lumis",
+        "Tatacho"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "Return to Rumis, he thanks your for your help. This marks the end of the displayed quests, and you gain 1,500,000 Base EXP .",
+      "instruction_sha256": "59df74bb916a84c5da7c53e32c91ad996163e54c51c452c53193f9727d934dfd",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/59df74bb916a84c5da7c/1",
+      "goal": "receive_reward",
+      "short_ru": "Вернитесь к Rumis за 1,500,000 Base EXP.",
+      "short_en": "Return to Rumis for 1,500,000 Base EXP.",
+      "full_ru": "Вернитесь к Rumis. Он поблагодарит за помощь: отображаемые задания завершатся, и вы получите 1,500,000 Base EXP.",
+      "full_en": "Return to Rumis, he thanks your for your help. This marks the end of the displayed quests, and you gain 1,500,000 Base EXP .",
+      "npcs": [
+        {
+          "entity": "Rumis Block",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Rumis Block"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "1500000",
+          "condition": "Displayed task completion; prerequisite use for Report still requires the later horn stage."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "Additionally if you bring Rumis one Horn of Tendrilion you will gain 1,000,000 more Base EXP . This marks the end of this quest. Note : This last step needs to be completed if you are using this quest as one of your pre-requisites to Report from the New World .",
+      "instruction_sha256": "1782cba7e0878e8824cfc5a974e45840344111d6d9b4254e5bec36e70a8a1a2c",
+      "step_id": "irowiki-classic:Attitude_to_the_New_World/step/1782cba7e0878e8824cf/1",
+      "goal": "conditional_delivery",
+      "short_ru": "Дополнительно передайте Rumis 1 Horn of Tendrilion за 1,000,000 Base EXP; это нужно для Report from the New World.",
+      "short_en": "Additionally give Rumis 1 Horn of Tendrilion for 1,000,000 Base EXP; this is needed for Report from the New World.",
+      "full_ru": "Дополнительно принесите Rumis один Horn of Tendrilion, чтобы получить ещё 1,000,000 Base EXP. Это завершает квест. Примечание: последний этап обязателен, если вы используете этот квест как одно из предварительных условий для Report from the New World.",
+      "full_en": "Additionally if you bring Rumis one Horn of Tendrilion you will gain 1,000,000 more Base EXP . This marks the end of this quest. Note : This last step needs to be completed if you are using this quest as one of your pre-requisites to Report from the New World .",
+      "npcs": [
+        {
+          "entity": "Rumis Block",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Horn of Tendrilion",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Additional reward stage; required if using Attitude as a prerequisite for Report from the New World."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Horn of Tendrilion"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "1000000",
+          "condition": "Additional grant after handing in Horn of Tendrilion; not a replacement for the earlier 1500000."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "required_for_prerequisite_use",
+          "amount": "Report from the New World",
+          "condition": "This stage must be completed if this quest is counted toward the Report prerequisite."
+        }
+      ],
+      "protected_names": [
+        "Horn of Tendrilion"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "displayed_completion_not_prerequisite_completion",
+      "detail": "Source step 15 grants 1500000 and ends displayed tasks. Step 16 adds 1000000 and is required if Attitude is used for Report. Do not set a universal prerequisite-complete flag at step 15."
+    },
+    {
+      "reason": "generic_source_item_labels",
+      "detail": "The specimen and Decaying Stem have no linked item IDs in the pinned source. Sprout is a story event with an unverified entity type; no NPC/monster ID is invented."
+    },
+    {
+      "reason": "reward_metadata_contains_walkthrough",
+      "detail": "Legacy rewards metadata includes prose and truncates at 2000 characters. The full sixteen steps establish the additional horn stage and its prerequisite condition."
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
+      "kind": "mandatory_prerequisite"
+    },
+    {
+      "related_quest_id": "irowiki-classic:New_Surroundings",
+      "kind": "source_concurrency_constraint",
+      "source_step": 2
+    },
+    {
+      "related_quest_id": "irowiki-classic:Report_from_the_New_World",
+      "kind": "extra_stage_required_for_prerequisite",
+      "source_step": 16
+    }
+  ],
+  "routes": [
+    {
+      "key": "additional_tendrilion_horn",
+      "kind": "optional",
+      "condition": "Additional to the displayed tasks and 1500000 EXP, but required when counting this quest as a Report from the New World prerequisite.",
+      "source_step": 16,
+      "steps": [
+        16
+      ]
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Empty Bottle",
+        "entity": "Empty Bottle",
+        "condition": "Main displayed quest total; the later Horn of Tendrilion delivery is a separate conditional stage."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Strong Vine",
+        "entity": "Strong Vine",
+        "condition": "Main displayed quest total; the later Horn of Tendrilion delivery is a separate conditional stage."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Holy Water",
+        "entity": "Holy Water",
+        "condition": "Main displayed quest total; the later Horn of Tendrilion delivery is a separate conditional stage."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "30",
+        "source_section": "requirements",
+        "evidence": "30 Sticky Mucus",
+        "entity": "Sticky Mucus",
+        "condition": "Main displayed quest total; the later Horn of Tendrilion delivery is a separate conditional stage."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "20",
+        "source_section": "requirements",
+        "evidence": "20 Horn of Hillslion",
+        "entity": "Horn of Hillslion",
+        "condition": "Main displayed quest total; the later Horn of Tendrilion delivery is a separate conditional stage."
+      }
+    ]
+  }
+}

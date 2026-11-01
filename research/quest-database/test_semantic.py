@@ -171,16 +171,125 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],305)
-        self.assertEqual(self.report['not_fully_localized_steps'],2445)
+        self.assertEqual(self.report['fully_localized_steps'],360)
+        self.assertEqual(self.report['not_fully_localized_steps'],2390)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],305)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],360)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,2445)
+        self.assertEqual(missing,2390)
         self.assertEqual(self.report['fully_localized_branches'],14)
-        self.assertEqual(self.report['curated_quests'],22)
-        self.assertEqual(self.report['pending_quests'],194)
-        self.assertEqual(self.report['quest_routes'],4)
+        self.assertEqual(self.report['curated_quests'],25)
+        self.assertEqual(self.report['pending_quests'],191)
+        self.assertEqual(self.report['quest_routes'],5)
+        self.assertEqual(self.report['action_reuse_links'],1)
+
+    def test_new_world_staff_identity_and_source_availability(self):
+        q='irowiki-classic:Onward_to_the_New_World_Quest'
+        staff=[r[0] for r in self.db.execute('''SELECT m.entity_id FROM description_mentions m JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=2 AND m.field='full_en' AND m.surface='Promotional Staff' ORDER BY m.start_offset''',(q,))]
+        self.assertEqual(len(set(staff)),2)
+        self.assertEqual(staff[1],self.db.execute('''SELECT npc_id FROM step_npcs JOIN quest_steps USING(step_id)
+          WHERE quest_id=? AND step_order=3''',(q,)).fetchone()[0])
+        managers=[r[0] for r in self.db.execute('''SELECT npc_id FROM step_npcs JOIN quest_steps USING(step_id)
+          WHERE quest_id=? AND step_order IN (10,12)''',(q,))]
+        self.assertEqual(len(set(managers)),2)
+        self.assertEqual(self.db.execute('SELECT availability FROM quests WHERE quest_id=?',(q,)).fetchone()[0],'unknown')
+        self.assertIsNotNone(self.db.execute("SELECT 1 FROM review_queue WHERE quest_id=? AND reason='source_classic_availability_warning'",(q,)).fetchone())
+
+    def test_new_world_deliveries_combat_and_reward_installments(self):
+        q='irowiki-classic:Onward_to_the_New_World_Quest'
+        delivered=[r[0] for r in self.db.execute('''SELECT e.original_name FROM step_actions a JOIN entities e USING(entity_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=3 AND a.operation='deliver' ORDER BY a.action_order''',(q,))]
+        self.assertEqual(delivered,['Emerald','Ruby'])
+        self.assertEqual([tuple(r) for r in self.db.execute('''SELECT s.step_order,r.kind,r.amount FROM rewards r
+          JOIN step_rewards sr USING(reward_id) JOIN quest_steps s ON s.step_id=sr.step_id
+          WHERE r.quest_id=? AND r.kind IN ('base_exp','job_exp') ORDER BY s.step_order,r.kind''',(q,))],
+          [(5,'base_exp','660000'),(5,'job_exp','210000'),(17,'base_exp','660000'),(17,'job_exp','210000')])
+        monster=self.db.execute('''SELECT x.game_id,m.quantity,m.required FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND m.operation='kill' ''',(q,)).fetchone()
+        self.assertEqual(tuple(monster),(1313,50,1))
+
+    def test_surroundings_shared_repair_materials_and_action_reuse(self):
+        q='irowiki-classic:New_Surroundings'
+        rows=self.db.execute('''SELECT s.step_order,e.original_name,i.operation,i.quantity FROM step_items i
+          JOIN entities e ON e.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order IN (6,9,10) ORDER BY s.step_order,e.original_name''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(n,item,op,qty) for n,op,qty in [(6,'bring',20),(9,'use',None),(10,'use',None)] for item in ['Ordinary Branch','Strong Vine']])
+        options=[r[0] for r in self.db.execute('''SELECT o.exact_text FROM dialogue_options o JOIN step_dialogues sd USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=9 ORDER BY o.option_order''',(q,))]
+        self.assertEqual(options,['Attach the Tree Bar','Tie it with vines','Knot it'])
+        edge=self.db.execute('''SELECT a.step_order,b.step_order FROM step_edges e JOIN quest_steps a ON a.step_id=e.from_step
+          JOIN quest_steps b ON b.step_id=e.to_step WHERE a.quest_id=? AND e.kind='repeat_actions_from' ''',(q,)).fetchone()
+        self.assertEqual(tuple(edge),(10,9))
+        self.assertEqual(self.db.execute('''SELECT m.operation,m.required,m.quantity FROM step_monsters m
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,)).fetchone()[:],('loot_source',0,None))
+
+    def test_surroundings_pies_boxes_and_letters_are_not_double_counted(self):
+        q='irowiki-classic:New_Surroundings'
+        pies=self.db.execute('''SELECT count(*),sum(CAST(r.amount AS INTEGER)) FROM rewards r JOIN items x ON x.entity_id=r.item_id
+          WHERE r.quest_id=? AND x.game_id=12322''',(q,)).fetchone()
+        self.assertEqual(tuple(pies),(12,20))
+        boxes=self.db.execute('''SELECT sum(i.quantity) FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND x.game_id=6045 AND i.operation='deliver' ''',(q,)).fetchone()[0]
+        self.assertEqual(boxes,3)
+        letters=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,i.quantity FROM step_items i
+          JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND x.game_id IN (6043,6044) AND i.operation='deliver' ORDER BY s.step_order''',(q,))]
+        self.assertEqual(letters,[(21,6044,1),(22,6043,1)])
+        self.assertEqual(self.db.execute('''SELECT alias FROM entity_aliases a JOIN items x USING(entity_id)
+          WHERE x.game_id=6043 AND alias=?''',("Otto's Letter",)).fetchone()[0],"Otto's Letter")
+
+    def test_attitude_item_hunt_and_extra_reward_scope(self):
+        q='irowiki-classic:Attitude_to_the_New_World'
+        kills=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,m.quantity FROM step_monsters m
+          JOIN monsters x ON x.entity_id=m.monster_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND m.operation='kill' ORDER BY s.step_order''',(q,))]
+        self.assertEqual(kills,[(2,1988,1),(5,1995,30),(6,1992,10),(14,1986,10)])
+        horn=self.db.execute('''SELECT x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=13''',(q,)).fetchone()
+        self.assertEqual(tuple(horn),(6032,20,'deliver'))
+        self.assertEqual([tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s ON s.step_id=sr.step_id WHERE r.quest_id=? AND r.kind='base_exp' ORDER BY s.step_order''',(q,))],[(15,'1500000'),(16,'1000000')])
+        route=self.db.execute('''SELECT r.kind,s.step_order,r.condition_text FROM quest_routes r JOIN step_routes m USING(route_id)
+          JOIN quest_steps s USING(step_id) WHERE r.quest_id=?''',(q,)).fetchone()
+        self.assertEqual(tuple(route[:2]),('optional',16));self.assertIn('required',route[2]);self.assertIn('Report',route[2])
+
+    def test_new_world_relations_keep_literal_step_evidence_and_shared_identity(self):
+        rows=[tuple(r) for r in self.db.execute('''SELECT r.quest_id,r.related_id,r.kind,s.step_order FROM quest_relations r
+          JOIN evidence e USING(evidence_id) LEFT JOIN quest_steps s ON s.step_id=e.step_id
+          WHERE e.method IN ('curated_quest_relation','curated_single_prerequisite') ORDER BY r.quest_id,r.kind''')]
+        prefix='irowiki-classic:'
+        self.assertEqual(rows,[(prefix+'Attitude_to_the_New_World',prefix+'Report_from_the_New_World','extra_stage_required_for_prerequisite',16),
+          (prefix+'Attitude_to_the_New_World',prefix+'Onward_to_the_New_World_Quest','mandatory_prerequisite',None),
+          (prefix+'Attitude_to_the_New_World',prefix+'New_Surroundings','source_concurrency_constraint',2),
+          (prefix+'New_Surroundings',prefix+'Onward_to_the_New_World_Quest','mandatory_prerequisite',None)])
+        ids={r[0] for r in self.db.execute('''SELECT m.entity_id FROM description_mentions m JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id IN (?,?) AND m.surface='Diego' ''',(prefix+'New_Surroundings',prefix+'Attitude_to_the_New_World'))}
+        self.assertEqual(len(ids),1)
+        self.assertEqual(self.db.execute('''SELECT count(*) FROM step_npcs n JOIN quest_steps s USING(step_id)
+          JOIN entities e ON e.entity_id=n.npc_id WHERE s.quest_id=? AND s.step_order=2 AND e.original_name='Diego' ''',(prefix+'Attitude_to_the_New_World',)).fetchone()[0],0)
+
+    def test_action_reuse_and_curated_relation_corruption_fail_closed(self):
+        cases=[
+          ("UPDATE step_edges SET to_step=(SELECT step_id FROM quest_steps WHERE quest_id='irowiki-classic:New_Surroundings' AND step_order=8) WHERE kind='repeat_actions_from'",'invalid_action_reuse_target'),
+          ("UPDATE quest_relations SET related_id='irowiki-classic:Juice_Quest' WHERE kind='extra_stage_required_for_prerequisite'",'invalid_curated_quest_relation'),
+          ("UPDATE evidence SET method='source_literal' WHERE method='curated_quest_relation'",'invalid_curated_quest_relation'),
+          ("UPDATE quest_relations SET related_id='irowiki-classic:Juice_Quest' WHERE kind='mandatory_prerequisite'",'invalid_mandatory_prerequisite'),
+        ]
+        for sql,error in cases:
+            with self.subTest(error=error),contextlib.closing(sqlite3.connect(':memory:')) as db:
+                self.db.backup(db);db.execute(sql)
+                with self.assertRaisesRegex(ValueError,error):validate(db)
+        for name,mutate,error in [
+          ('reuse',lambda d:d['steps']['10']['action_reuse'].update(source_step=10),'Action reuse requires an earlier step'),
+          ('prerequisite',lambda d:d['relations'][0].update(related_quest_id='irowiki-classic:Juice_Quest'),'Header does not establish a single mandatory prerequisite'),
+        ]:
+            with self.subTest(name=name):
+                folder=self.out/('invalid-'+name);shutil.copytree(ROOT/'curation',folder)
+                path=folder/'New_Surroundings.json';data=json.loads(path.read_text());mutate(data);path.write_text(json.dumps(data))
+                before=(self.out/'quest_semantic.sqlite').read_bytes()
+                with self.assertRaisesRegex(ValueError,error):build(self.source,self.out,curation_dir=folder)
+                self.assertEqual(before,(self.out/'quest_semantic.sqlite').read_bytes())
 
     def test_reference_index_is_excluded_with_pinned_evidence(self):
         key='irowiki-classic:Access_Quests'

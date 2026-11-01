@@ -1,0 +1,1048 @@
+{
+  "quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "9305b2d067b0d3aaad3c872d0499b1935a9244f1fa22dc590917861c761734c0",
+  "snapshot_sha256": "8182096a8cae75f057676a5a0fb137b6d9632e2b14a32649f794ef6b9de2d30d",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Recruiter for the Brave",
+      "aliases": [
+        "Recruiter"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Promotional Staff",
+      "ref": "staff_aldebaran"
+    },
+    {
+      "type": "npc",
+      "name": "Promotional Staff",
+      "ref": "staff_geffen"
+    },
+    {
+      "type": "npc",
+      "name": "Promotional Staff",
+      "ref": "staff_izlude"
+    },
+    {
+      "type": "npc",
+      "name": "Arunafeltz Alliance Manager",
+      "ref": "rachel_manager_full",
+      "identity": "irowiki-classic:Onward_to_the_New_World_Quest:rachel_manager"
+    },
+    {
+      "type": "npc",
+      "name": "Alliance Manager",
+      "ref": "rachel_manager",
+      "identity": "irowiki-classic:Onward_to_the_New_World_Quest:rachel_manager"
+    },
+    {
+      "type": "npc",
+      "name": "Alliance Manager",
+      "ref": "prontera_manager"
+    },
+    {
+      "type": "npc",
+      "name": "Sikaiz"
+    },
+    {
+      "type": "npc",
+      "name": "Munkenro"
+    },
+    {
+      "type": "npc",
+      "name": "Guards"
+    },
+    {
+      "type": "npc",
+      "name": "Guard"
+    },
+    {
+      "type": "npc",
+      "name": "Rift Guard"
+    },
+    {
+      "type": "npc",
+      "name": "Officers"
+    },
+    {
+      "type": "item",
+      "name": "Jellopy",
+      "game_id": 909,
+      "id_source": "http://db.irowiki.org/classic/item-info/909/"
+    },
+    {
+      "type": "item",
+      "name": "Emerald",
+      "game_id": 721,
+      "id_source": "http://db.irowiki.org/classic/item-info/721/"
+    },
+    {
+      "type": "item",
+      "name": "Ruby",
+      "game_id": 723,
+      "id_source": "http://db.irowiki.org/classic/item-info/723/"
+    },
+    {
+      "type": "monster",
+      "name": "Mobster",
+      "aliases": [
+        "Mobsters"
+      ],
+      "game_id": 1313,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1313/"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Castle"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "prt_castle",
+      "map_code": "prt_castle"
+    },
+    {
+      "type": "map",
+      "name": "Aldebaran"
+    },
+    {
+      "type": "map",
+      "name": "aldebaran",
+      "map_code": "aldebaran"
+    },
+    {
+      "type": "map",
+      "name": "Rachel"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "geffen",
+      "map_code": "geffen"
+    },
+    {
+      "type": "map",
+      "name": "Izlude"
+    },
+    {
+      "type": "map",
+      "name": "izlude",
+      "map_code": "izlude"
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lighthalzen",
+      "map_code": "lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "lhz_in01",
+      "map_code": "lhz_in01"
+    },
+    {
+      "type": "map",
+      "name": "ra_temple",
+      "map_code": "ra_temple"
+    },
+    {
+      "type": "map",
+      "name": "moc_fild20",
+      "map_code": "moc_fild20"
+    },
+    {
+      "type": "map",
+      "name": "moc_fild22b",
+      "map_code": "moc_fild22b"
+    },
+    {
+      "type": "map",
+      "name": "Ash-Vacuum"
+    },
+    {
+      "type": "map",
+      "name": "Ash Vaccum"
+    },
+    {
+      "type": "map",
+      "name": "New World"
+    },
+    {
+      "type": "map",
+      "name": "Dimensional Gorge"
+    },
+    {
+      "type": "map",
+      "name": "Continental Guard Quarantine",
+      "map_code": "moc_fild20",
+      "game_id": "moc_fild20"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to the Recruiter for the Brave in the Prontera Castle (prt_castle 83, 67) (north-west corner of first castle room when entering from within Prontera ). Tell him you're interested in his mission, which is to visit a \"special place.\" He then asks you to visit a Promotional Staff member in Aldebaran .",
+      "instruction_sha256": "3958980c1039c69764944039383e2811b9982395b06da79fcfefd8a11588fece",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/3958980c1039c6976494/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Recruiter for the Brave: prt_castle 83, 67.",
+      "short_en": "Talk to Recruiter for the Brave: prt_castle 83, 67.",
+      "full_ru": "В Prontera Castle поговорите с Recruiter for the Brave (prt_castle 83, 67), в северо-западном углу первой комнаты замка при входе из Prontera. Скажите, что заинтересованы миссией по посещению «special place». Он направит вас к Promotional Staff в Aldebaran.",
+      "full_en": "Talk to the Recruiter for the Brave in the Prontera Castle (prt_castle 83, 67) (north-west corner of first castle room when entering from within Prontera ). Tell him you're interested in his mission, which is to visit a \"special place.\" He then asks you to visit a Promotional Staff member in Aldebaran .",
+      "npcs": [
+        {
+          "entity": "Recruiter for the Brave",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Recruiter for the Brave"
+        }
+      ],
+      "protected_names": [
+        "Recruiter for the Brave",
+        "Promotional Staff",
+        "Promotional Staff",
+        "Promotional Staff",
+        "Prontera Castle",
+        "Prontera",
+        "prt_castle",
+        "Aldebaran"
+      ],
+      "locations": [
+        {
+          "map": "prt_castle",
+          "x": 83,
+          "y": 67,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prt_castle 83, 67"
+        }
+      ],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "2": {
+      "original_instruction": "Talk to the Promotional Staff member in Aldebaran ( aldebaran 127, 138). As a test, he asks you to bring him 300 Jellopy . After handing over the Jellopy , he asks you to visit a Promotional Staff Member in Geffen .",
+      "instruction_sha256": "e7376791e2d67ddbbab1414f1569243bb1691bbfd01039d1652170f13040e6f1",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/e7376791e2d67ddbbab1/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Promotional Staff в Aldebaran (aldebaran 127, 138) 300 Jellopy.",
+      "short_en": "Give Promotional Staff in Aldebaran (aldebaran 127, 138) 300 Jellopy.",
+      "full_ru": "Поговорите с Promotional Staff в Aldebaran (aldebaran 127, 138). Для испытания принесите 300 Jellopy. Передав Jellopy, получите направление к Promotional Staff Member в Geffen.",
+      "full_en": "Talk to the Promotional Staff member in Aldebaran ( aldebaran 127, 138). As a test, he asks you to bring him 300 Jellopy . After handing over the Jellopy , he asks you to visit a Promotional Staff Member in Geffen .",
+      "npcs": [
+        {
+          "entity": "staff_aldebaran",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Jellopy",
+          "quantity": 300,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "staff_aldebaran"
+        },
+        {
+          "operation": "deliver",
+          "entity": "Jellopy"
+        }
+      ],
+      "protected_names": [
+        "Promotional Staff",
+        "Promotional Staff",
+        "Promotional Staff",
+        "Jellopy",
+        "Aldebaran",
+        "aldebaran",
+        "Geffen"
+      ],
+      "locations": [
+        {
+          "map": "aldebaran",
+          "x": 127,
+          "y": 138,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "aldebaran 127, 138"
+        }
+      ],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      },
+      "mention_overrides": [
+        {
+          "field": "full_ru",
+          "surface": "Promotional Staff",
+          "occurrence": 2,
+          "entity": "staff_geffen"
+        },
+        {
+          "field": "full_en",
+          "surface": "Promotional Staff",
+          "occurrence": 2,
+          "entity": "staff_geffen"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "In Geffen, talk to the staff member ( geffen 90, 67). He asks you to bring 1 Emerald . After turning it in, he asks you to bring 1 Ruby . Bring him the Ruby , and he sends you to talk to the next staff member in Izlude .",
+      "instruction_sha256": "6fe2371cedf2041f8e7b2cd4a5b05fa8bbbfa3311d291baf55cd36476c4a2f2f",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/6fe2371cedf2041f8e7b/1",
+      "goal": "deliver",
+      "short_ru": "Передайте сотруднику в Geffen (geffen 90, 67) сначала 1 Emerald, затем 1 Ruby.",
+      "short_en": "Give the staff member in Geffen (geffen 90, 67) 1 Emerald first, then 1 Ruby.",
+      "full_ru": "В Geffen поговорите с сотрудником (geffen 90, 67). Сначала принесите 1 Emerald, затем по новому запросу 1 Ruby. После передачи Ruby он направит к следующему сотруднику в Izlude.",
+      "full_en": "In Geffen, talk to the staff member ( geffen 90, 67). He asks you to bring 1 Emerald . After turning it in, he asks you to bring 1 Ruby . Bring him the Ruby , and he sends you to talk to the next staff member in Izlude .",
+      "npcs": [
+        {
+          "entity": "staff_geffen",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Emerald",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "First delivery."
+        },
+        {
+          "entity": "Ruby",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "After the Emerald delivery and next request."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "staff_geffen"
+        },
+        {
+          "operation": "deliver",
+          "entity": "Emerald"
+        },
+        {
+          "operation": "deliver",
+          "entity": "Ruby"
+        }
+      ],
+      "protected_names": [
+        "Emerald",
+        "Ruby",
+        "Geffen",
+        "geffen",
+        "Izlude"
+      ],
+      "locations": [
+        {
+          "map": "geffen",
+          "x": 90,
+          "y": 67,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "geffen 90, 67"
+        }
+      ],
+      "mention_entities": {
+        "Promotional Staff": "staff_geffen",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "4": {
+      "original_instruction": "In Izlude , talk to the staff member ( izlude 99, 136). If you are at least base level 70, he tells you that you've passed the tests, and to talk to the Recruiter in Prontera Castle again.",
+      "instruction_sha256": "b2d229ec55b454b96364decbc9df0e915d896ce7c0fa6cc01b6f63ef50c87a6c",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/b2d229ec55b454b96364/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с сотрудником в Izlude (izlude 99, 136), имея base level не ниже 70.",
+      "short_en": "Talk to the staff member in Izlude (izlude 99, 136) at base level 70 or higher.",
+      "full_ru": "В Izlude поговорите с сотрудником (izlude 99, 136). При base level не ниже 70 он подтвердит прохождение испытаний и направит обратно к Recruiter в Prontera Castle.",
+      "full_en": "In Izlude , talk to the staff member ( izlude 99, 136). If you are at least base level 70, he tells you that you've passed the tests, and to talk to the Recruiter in Prontera Castle again.",
+      "npcs": [
+        {
+          "entity": "staff_izlude",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "base_level",
+          "amount": "70"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "staff_izlude"
+        }
+      ],
+      "protected_names": [
+        "Prontera Castle",
+        "Prontera",
+        "Izlude",
+        "izlude"
+      ],
+      "locations": [
+        {
+          "map": "izlude",
+          "x": 99,
+          "y": 136,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "izlude 99, 136"
+        }
+      ],
+      "mention_entities": {
+        "Promotional Staff": "staff_izlude",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "5": {
+      "original_instruction": "Return to the Recruiter, who says you are now ready to explore the \"Ash-Vacuum\" which is an entirely different place from Rune Midgard. He tells you go to to Lighthalzen to register for the United Midgard Alliance. Receive 660,000 Base EXP Receive 210,000 Job EXP",
+      "instruction_sha256": "4a3c303f7fc547a1f9b7f852ae98ca49003a4a537dd91f7f76dc7a56df41d511",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/4a3c303f7fc547a1f9b7/1",
+      "goal": "receive_reward",
+      "short_ru": "Вернитесь к Recruiter за 660,000 Base EXP и 210,000 Job EXP.",
+      "short_en": "Return to Recruiter for 660,000 Base EXP and 210,000 Job EXP.",
+      "full_ru": "Вернитесь к Recruiter. Он сообщит, что вы готовы исследовать Ash-Vacuum, отдельное от Rune Midgard место, и направит в Lighthalzen для регистрации в United Midgard Alliance. Получите 660,000 Base EXP и 210,000 Job EXP.",
+      "full_en": "Return to the Recruiter, who says you are now ready to explore the \"Ash-Vacuum\" which is an entirely different place from Rune Midgard. He tells you go to to Lighthalzen to register for the United Midgard Alliance. Receive 660,000 Base EXP Receive 210,000 Job EXP",
+      "npcs": [
+        {
+          "entity": "Recruiter for the Brave",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Recruiter for the Brave"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "660000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "210000"
+        }
+      ],
+      "protected_names": [
+        "Lighthalzen",
+        "Ash-Vacuum"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "6": {
+      "original_instruction": "In Lighthalzen , go into Rekenber HQ ( lighthalzen 101, 246) and talk to the Guards upstairs (lhz_in01 124, 234), who let you in to register.",
+      "instruction_sha256": "9fc1b6ae9bc67c0565c3c41edfc27856259eeecd5bcb639bf8f094d3413b9d94",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/9fc1b6ae9bc67c0565c3/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Guards наверху Rekenber HQ: lhz_in01 124, 234.",
+      "short_en": "Talk to Guards upstairs in Rekenber HQ: lhz_in01 124, 234.",
+      "full_ru": "В Lighthalzen войдите в Rekenber HQ (lighthalzen 101, 246). Поговорите с Guards наверху (lhz_in01 124, 234): они пропустят на регистрацию.",
+      "full_en": "In Lighthalzen , go into Rekenber HQ ( lighthalzen 101, 246) and talk to the Guards upstairs (lhz_in01 124, 234), who let you in to register.",
+      "npcs": [
+        {
+          "entity": "Guards",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "talk",
+          "entity": "Guards"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "lighthalzen",
+          "x": 101,
+          "y": 246,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "lhz_in01",
+          "x": 124,
+          "y": 234,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Guards",
+        "Guard",
+        "Lighthalzen",
+        "lighthalzen",
+        "lhz_in01"
+      ],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "7": {
+      "original_instruction": "Talk to Sikaiz at the front of the room, who's giving a speech.",
+      "instruction_sha256": "6ba9c328f70da22b54e5db2567aac1d98ec3c72ac4154399586dc47b6b2d9614",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/6ba9c328f70da22b54e5/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Sikaiz в зале.",
+      "short_en": "Talk to Sikaiz in the room.",
+      "full_ru": "Поговорите с Sikaiz в передней части комнаты: он произносит речь.",
+      "full_en": "Talk to Sikaiz at the front of the room, who's giving a speech.",
+      "npcs": [
+        {
+          "entity": "Sikaiz",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Sikaiz"
+        }
+      ],
+      "protected_names": [
+        "Sikaiz"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "8": {
+      "original_instruction": "After Sikaiz is finished lecturing, speak to him again and he will tell you about the Ash Vaccum and Satan Morroc's gateway.",
+      "instruction_sha256": "b373acf915f1a12db8e9f87b3b37cb0c67c45239d9120db0c7fa97433994b3a5",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/b373acf915f1a12db8e9/1",
+      "goal": "talk",
+      "short_ru": "После речи снова поговорите с Sikaiz.",
+      "short_en": "Talk to Sikaiz again after the speech.",
+      "full_ru": "После окончания речи Sikaiz снова поговорите с ним. Он расскажет об Ash Vaccum и проходе Satan Morroc.",
+      "full_en": "After Sikaiz is finished lecturing, speak to him again and he will tell you about the Ash Vaccum and Satan Morroc's gateway.",
+      "npcs": [
+        {
+          "entity": "Sikaiz",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "Talk to Sikaiz at the front of the room, who's giving a speech."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Sikaiz"
+        }
+      ],
+      "protected_names": [
+        "Sikaiz",
+        "Ash Vaccum"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "9": {
+      "original_instruction": "Speak to him again and he will ask you to inform the Alliance Manager in Rune Midgards that they are ready to depart.",
+      "instruction_sha256": "8088e3d1c94a0644bb1465a664fedcb129fd8dab3a4c3cb3e9554e4e2a55cd03",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/8088e3d1c94a0644bb14/1",
+      "goal": "talk",
+      "short_ru": "Получите у Sikaiz сообщение для Alliance Manager.",
+      "short_en": "Get the message for Alliance Manager from Sikaiz.",
+      "full_ru": "Поговорите с ним ещё раз. Он попросит уведомить Alliance Manager в Rune Midgards о готовности к отправлению.",
+      "full_en": "Speak to him again and he will ask you to inform the Alliance Manager in Rune Midgards that they are ready to depart.",
+      "npcs": [
+        {
+          "entity": "Sikaiz",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "Talk to Sikaiz at the front of the room, who's giving a speech."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Sikaiz"
+        }
+      ],
+      "protected_names": [
+        "Alliance Manager",
+        "Alliance Manager"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "10": {
+      "original_instruction": "The Alliance Manager in Prontera Castle (prt_castle 121, 51) will discuss with you how the kingdom feels about the upcoming expedition.",
+      "instruction_sha256": "79422da6907f7fc041160ba25c000862e22d81ea369e8b3c9d97e9bbe77b30b3",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/79422da6907f7fc04116/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Alliance Manager: prt_castle 121, 51.",
+      "short_en": "Talk to Alliance Manager: prt_castle 121, 51.",
+      "full_ru": "Alliance Manager в Prontera Castle (prt_castle 121, 51) расскажет об отношении королевства к предстоящей экспедиции.",
+      "full_en": "The Alliance Manager in Prontera Castle (prt_castle 121, 51) will discuss with you how the kingdom feels about the upcoming expedition.",
+      "npcs": [
+        {
+          "entity": "prontera_manager",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "prontera_manager"
+        }
+      ],
+      "protected_names": [
+        "Alliance Manager",
+        "Alliance Manager",
+        "Prontera Castle",
+        "Prontera",
+        "prt_castle"
+      ],
+      "locations": [
+        {
+          "map": "prt_castle",
+          "x": 121,
+          "y": 51,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prt_castle 121, 51"
+        }
+      ],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "11": {
+      "original_instruction": "Go back to Sikaiz in Lighthalzen , who tells you about the Three Kingdom's Alliance and his aide Munkenro. Munkenro interrupts your conversation and you're asked to deliver a message to the Alliance Manager in Rachel .",
+      "instruction_sha256": "bafd1423296797cfda364a53c270d65ffddab972cbc13f531d8bd7d007252f63",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/bafd1423296797cfda36/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Sikaiz и получите сообщение для Alliance Manager в Rachel.",
+      "short_en": "Talk to Sikaiz and receive the message for Alliance Manager in Rachel.",
+      "full_ru": "Вернитесь к Sikaiz в Lighthalzen. Он расскажет о Three Kingdom's Alliance и помощнике Munkenro. Munkenro прервёт разговор; вам поручат доставить сообщение Alliance Manager в Rachel.",
+      "full_en": "Go back to Sikaiz in Lighthalzen , who tells you about the Three Kingdom's Alliance and his aide Munkenro. Munkenro interrupts your conversation and you're asked to deliver a message to the Alliance Manager in Rachel .",
+      "npcs": [
+        {
+          "entity": "Sikaiz",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Sikaiz"
+        }
+      ],
+      "protected_names": [
+        "Alliance Manager",
+        "Alliance Manager",
+        "Sikaiz",
+        "Munkenro",
+        "Rachel",
+        "Lighthalzen"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "rachel_manager"
+      }
+    },
+    "12": {
+      "original_instruction": "Find the Arunafeltz Alliance Manager outside the temple ( ra_temple 119, 113) and report the status to her.",
+      "instruction_sha256": "95ea811ca24db89d066ab3e4713b3d8375dbab6ade623d8c60fa65089d48ca86",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/95ea811ca24db89d066a/1",
+      "goal": "talk",
+      "short_ru": "Доложите Arunafeltz Alliance Manager: ra_temple 119, 113.",
+      "short_en": "Report to Arunafeltz Alliance Manager: ra_temple 119, 113.",
+      "full_ru": "Найдите Arunafeltz Alliance Manager снаружи храма (ra_temple 119, 113) и доложите о готовности.",
+      "full_en": "Find the Arunafeltz Alliance Manager outside the temple ( ra_temple 119, 113) and report the status to her.",
+      "npcs": [
+        {
+          "entity": "rachel_manager_full",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "rachel_manager_full"
+        }
+      ],
+      "protected_names": [
+        "Arunafeltz Alliance Manager",
+        "Alliance Manager",
+        "Alliance Manager",
+        "ra_temple"
+      ],
+      "locations": [
+        {
+          "map": "ra_temple",
+          "x": 119,
+          "y": 113,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ra_temple 119, 113"
+        }
+      ],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "rachel_manager"
+      }
+    },
+    "13": {
+      "original_instruction": "Go back to Sikaiz, who registers you and sends you to talk to some Officers to let them know of your departure. Go downstairs to the banquet hall (147, 179) and talk to them, but first you overhear them plotting to ignore the peace and take control of things for themselves.",
+      "instruction_sha256": "73a3f05ab3ae485831e7889c5c5c4249b13c1a940bf773a818a0c6df5ed7ccd8",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/73a3f05ab3ae485831e7/1",
+      "goal": "overhear",
+      "short_ru": "У Sikaiz завершите регистрацию, затем подслушайте Officers внизу (147, 179).",
+      "short_en": "Finish registration with Sikaiz, then overhear Officers downstairs (147, 179).",
+      "full_ru": "Вернитесь к Sikaiz. Он зарегистрирует вас и попросит уведомить Officers об отправлении. Спуститесь в банкетный зал (147, 179). Перед разговором вы подслушаете их планы нарушить мир и захватить власть.",
+      "full_en": "Go back to Sikaiz, who registers you and sends you to talk to some Officers to let them know of your departure. Go downstairs to the banquet hall (147, 179) and talk to them, but first you overhear them plotting to ignore the peace and take control of things for themselves.",
+      "npcs": [
+        {
+          "entity": "Sikaiz",
+          "role": "talk"
+        },
+        {
+          "entity": "Officers",
+          "role": "overhear"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Sikaiz"
+        },
+        {
+          "operation": "overhear",
+          "entity": "Officers"
+        },
+        {
+          "operation": "talk",
+          "entity": "Officers"
+        }
+      ],
+      "protected_names": [
+        "Sikaiz",
+        "Officers"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 147,
+          "y": 179,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "147, 179"
+        }
+      ],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "14": {
+      "original_instruction": "Report back upstairs, but the guards won't let you in. Walk to (148, 257), where you're able to overhear Munkenro talking to someone.",
+      "instruction_sha256": "d727159084b8ba50d055f83db3fcd70dff3a825a6dbad10fba4a4d4a9fc9bae8",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/d727159084b8ba50d055/1",
+      "goal": "overhear",
+      "short_ru": "Подслушайте Munkenro у (148, 257).",
+      "short_en": "Overhear Munkenro at (148, 257).",
+      "full_ru": "Вернитесь наверх с докладом, но стражники не пропустят. Подойдите к (148, 257), чтобы подслушать разговор Munkenro.",
+      "full_en": "Report back upstairs, but the guards won't let you in. Walk to (148, 257), where you're able to overhear Munkenro talking to someone.",
+      "npcs": [
+        {
+          "entity": "Munkenro",
+          "role": "overhear"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "overhear",
+          "entity": "Munkenro"
+        }
+      ],
+      "protected_names": [
+        "Munkenro"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 148,
+          "y": 257,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "148, 257"
+        }
+      ],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "15": {
+      "original_instruction": "Talk to the Guard outside of the lecture hall (lhz_in01 130, 231). Ask it to teleport you immediately to the Continental Guard Quarantine (moc_fild20), and talk to the Rift Guard ( moc_fild20 349, 179). He takes you to the Dimensional Gorge.",
+      "instruction_sha256": "d1f33ccd2c2909c80deb08c5485f0198c670a6e0171a20df9db5be41c2c1ed13",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/d1f33ccd2c2909c80deb/1",
+      "goal": "travel",
+      "short_ru": "У Guard (lhz_in01 130, 231) запросите перенос, затем поговорите с Rift Guard (moc_fild20 349, 179).",
+      "short_en": "Ask Guard (lhz_in01 130, 231) for transport, then talk to Rift Guard (moc_fild20 349, 179).",
+      "full_ru": "Поговорите с Guard у лекционного зала (lhz_in01 130, 231). Попросите сразу перенести в Continental Guard Quarantine (moc_fild20). Там поговорите с Rift Guard (moc_fild20 349, 179): он отправит в Dimensional Gorge.",
+      "full_en": "Talk to the Guard outside of the lecture hall (lhz_in01 130, 231). Ask it to teleport you immediately to the Continental Guard Quarantine (moc_fild20), and talk to the Rift Guard ( moc_fild20 349, 179). He takes you to the Dimensional Gorge.",
+      "npcs": [
+        {
+          "entity": "Guard",
+          "role": "talk"
+        },
+        {
+          "entity": "Rift Guard",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Guard"
+        },
+        {
+          "operation": "warp",
+          "entity": "moc_fild20"
+        },
+        {
+          "operation": "talk",
+          "entity": "Rift Guard"
+        },
+        {
+          "operation": "warp",
+          "entity": "Dimensional Gorge"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "lhz_in01",
+          "x": 130,
+          "y": 231,
+          "role": "npc",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "moc_fild20",
+          "x": 349,
+          "y": 179,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Guard",
+        "Rift Guard",
+        "lhz_in01",
+        "moc_fild20",
+        "Dimensional Gorge",
+        "Continental Guard Quarantine"
+      ],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "16": {
+      "original_instruction": "From the middle of the right side of the map, go towards the center until you reach Munkenro (moc_fild22b 230, 197). He says Sikaiz has \"retired\" and that he is now the alliance leader. He also requires you to pass another test, by defeating 50 Mobsters .",
+      "instruction_sha256": "af8d480e55af650891c55f1cecaa25c05e69a5521dd3e2a74f1361a254b4252a",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/af8d480e55af650891c5/1",
+      "goal": "kill",
+      "short_ru": "У Munkenro (moc_fild22b 230, 197) получите испытание: победить 50 Mobsters.",
+      "short_en": "Get the trial from Munkenro (moc_fild22b 230, 197): defeat 50 Mobsters.",
+      "full_ru": "От середины правой стороны карты идите к центру до Munkenro (moc_fild22b 230, 197). Он заявит, что Sikaiz «retired», а новым лидером стал он сам. Для ещё одного испытания победите 50 Mobsters.",
+      "full_en": "From the middle of the right side of the map, go towards the center until you reach Munkenro (moc_fild22b 230, 197). He says Sikaiz has \"retired\" and that he is now the alliance leader. He also requires you to pass another test, by defeating 50 Mobsters .",
+      "npcs": [
+        {
+          "entity": "Munkenro",
+          "role": "talk"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Mobster",
+          "operation": "kill",
+          "quantity": 50,
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Munkenro"
+        },
+        {
+          "operation": "kill",
+          "entity": "Mobster"
+        }
+      ],
+      "protected_names": [
+        "Sikaiz",
+        "Munkenro",
+        "Mobster",
+        "moc_fild22b"
+      ],
+      "locations": [
+        {
+          "map": "moc_fild22b",
+          "x": 230,
+          "y": 197,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "moc_fild22b 230, 197"
+        }
+      ],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    },
+    "17": {
+      "original_instruction": "After passing the test, talk to Munkenro again, who sends you to the Ash-Vacuum. Receive 660,000 Base EXP Receive 210,000 Job EXP | Note: To ensure you can travel around in the New World, start New Surroundings and Attitude to the New World .",
+      "instruction_sha256": "7ec7d463f2d7e78949f3a90587ceda09b578b48c4a6cb481cbf8375eb477af10",
+      "step_id": "irowiki-classic:Onward_to_the_New_World_Quest/step/7ec7d463f2d7e78949f3/1",
+      "goal": "receive_reward",
+      "short_ru": "Завершите испытание у Munkenro: 660,000 Base EXP, 210,000 Job EXP и доступ в Ash-Vacuum.",
+      "short_en": "Complete the trial with Munkenro: 660,000 Base EXP, 210,000 Job EXP and Ash-Vacuum access.",
+      "full_ru": "После испытания снова поговорите с Munkenro: он отправит вас в Ash-Vacuum. Получите 660,000 Base EXP и 210,000 Job EXP. Примечание: чтобы свободно перемещаться по New World, начните New Surroundings и Attitude to the New World.",
+      "full_en": "After passing the test, talk to Munkenro again, who sends you to the Ash-Vacuum. Receive 660,000 Base EXP Receive 210,000 Job EXP | Note: To ensure you can travel around in the New World, start New Surroundings and Attitude to the New World .",
+      "npcs": [
+        {
+          "entity": "Munkenro",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Munkenro"
+        },
+        {
+          "operation": "warp",
+          "entity": "Ash-Vacuum"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "660000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "210000"
+        },
+        {
+          "kind": "access",
+          "condition": "New World access per guide; source warns this quest was not available on iRO Classic."
+        }
+      ],
+      "protected_names": [
+        "Munkenro",
+        "Ash-Vacuum",
+        "New World"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Promotional Staff": "staff_aldebaran",
+        "Alliance Manager": "prontera_manager"
+      }
+    }
+  },
+  "reviews": [
+    {
+      "reason": "source_classic_availability_warning",
+      "detail": "Pinned source says: This quest is not available yet on iRO Classic. It is an undated source warning, not evidence of current availability or retirement on every server."
+    },
+    {
+      "reason": "same_name_distinct_staff_and_managers",
+      "detail": "Promotional Staff in three cities and Alliance Manager in Prontera/Rachel have separate source-scoped identities. The Arunafeltz full name and Rachel short name share a proven scene identity."
+    },
+    {
+      "reason": "reward_metadata_contains_walkthrough",
+      "detail": "Legacy rewards text includes walkthrough prose and is truncated. Reward assertions use the complete original stages: two 660000 Base / 210000 Job grants, not an extra header grant."
+    },
+    {
+      "reason": "place_name_spelling_conflict",
+      "detail": "Ash-Vacuum and Ash Vaccum are retained as source spellings without inventing a canonical map code or server-specific alias."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "300",
+        "source_section": "requirements",
+        "evidence": "300 Jellopy",
+        "entity": "Jellopy",
+        "condition": "Quest total; do not add it to the stage delivery rows."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Emerald",
+        "entity": "Emerald",
+        "condition": "Quest total; do not add it to the stage delivery rows."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Ruby",
+        "entity": "Ruby",
+        "condition": "Quest total; do not add it to the stage delivery rows."
+      }
+    ]
+  }
+}

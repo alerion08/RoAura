@@ -16,7 +16,7 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-4.0.0'
+VERSION = 'semantic-4.1.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
@@ -321,6 +321,15 @@ def curated_facts(w,entry,entities,ev,source_sections=None,html_source=None,bran
     for f in entry.get('locations',[]):
         e=evidence_for(f)
         w.location(f,e,f['role'],entity(f['entity']) if f.get('entity') else None)
+    reuse=entry.get('action_reuse')
+    if reuse:
+        target=w.db.execute('SELECT step_id,step_order,original_instruction FROM quest_steps WHERE quest_id=? AND step_order=?',(w.qid,reuse['source_step'])).fetchone()
+        current=w.db.execute('SELECT step_order FROM quest_steps WHERE step_id=?',(w.sid,)).fetchone()[0]
+        if target is None or target[1]>=current:raise ValueError('Action reuse requires an earlier step in the same quest')
+        e=w.evidence(entry['original_instruction'],method='curated_action_reuse',status='context_inferred',note=reuse['condition'])
+        supporting=w.evidence(target[2],step=target[0])
+        w.add('evidence_context',evidence_id=e,supporting_id=supporting)
+        w.add('step_edges',from_step=w.sid,to_step=target[0],kind='repeat_actions_from',condition_text=reuse['condition'],evidence_id=e)
     for f in entry.get('reviews',[]):w.review(f['reason'],f['detail'],ev,f.get('severity','warning'))
 
 
@@ -410,6 +419,26 @@ def quest_routes(w,curation,source_sections,html_source):
                                step=sid,note=route['condition'])
             w.add('evidence_context',evidence_id=witness,supporting_id=ev)
             w.add('step_routes',step_id=sid,route_id=rid,route_order=i,evidence_id=witness)
+
+
+def curated_relations(w,curation):
+    for relation in curation.get('relations',[]):
+        target=w.db.execute('SELECT original_name FROM quests WHERE quest_id=?',(relation['related_quest_id'],)).fetchone()
+        if relation['kind']=='mandatory_prerequisite':
+            original=w.db.execute('SELECT requirements_original FROM quests WHERE quest_id=?',(w.qid,)).fetchone()[0] or ''
+            prefix='Quest Prerequisite(s): '
+            if not target or prefix not in original or original.split(prefix,1)[1].strip()!=target[0]:
+                raise ValueError('Header does not establish a single mandatory prerequisite')
+            ev=w.evidence(prefix+target[0],method='curated_single_prerequisite')
+            w.add('quest_relations',quest_id=w.qid,related_id=relation['related_quest_id'],kind=relation['kind'],evidence_id=ev)
+            continue
+        step=w.db.execute('SELECT step_id,original_instruction FROM quest_steps WHERE quest_id=? AND step_order=?',(w.qid,relation['source_step'])).fetchone()
+        if relation['kind'] not in ('source_concurrency_constraint','extra_stage_required_for_prerequisite') or not target or not step:
+            raise ValueError('Invalid curated quest relation')
+        snippet=relation.get('evidence',step[1])
+        if snippet not in step[1] or target[0] not in snippet:raise ValueError('Unproven curated quest relation')
+        ev=w.evidence(snippet,method='curated_quest_relation',step=step[0])
+        w.add('quest_relations',quest_id=w.qid,related_id=relation['related_quest_id'],kind=relation['kind'],evidence_id=ev)
 
 
 def migrate_semantic(db):
@@ -515,6 +544,25 @@ def validate(db):
           LEFT JOIN step_routes m USING(route_id) WHERE e.quest_id IS NOT r.quest_id OR m.route_id IS NULL LIMIT 1''').fetchone():errors.append('route_evidence_or_members_missing')
         if db.execute('''SELECT route_id FROM step_routes GROUP BY route_id
           HAVING min(route_order)<>1 OR max(route_order)<>count(*) LIMIT 1''').fetchone():errors.append('route_order_gap')
+    if db.execute('''SELECT 1 FROM step_edges edge JOIN quest_steps a ON a.step_id=edge.from_step
+      JOIN quest_steps b ON b.step_id=edge.to_step JOIN evidence ev ON ev.evidence_id=edge.evidence_id
+      WHERE edge.kind='repeat_actions_from' AND (a.quest_id IS NOT b.quest_id OR b.step_order>=a.step_order
+      OR ev.step_id IS NOT edge.from_step OR ev.quest_id IS NOT a.quest_id OR ev.method<>'curated_action_reuse'
+      OR ev.snippet<>a.original_instruction OR NOT EXISTS (SELECT 1 FROM evidence_context c
+      JOIN evidence support ON support.evidence_id=c.supporting_id WHERE c.evidence_id=edge.evidence_id
+      AND support.step_id=edge.to_step AND support.snippet=b.original_instruction)) LIMIT 1''').fetchone():errors.append('invalid_action_reuse_target')
+    if db.execute('''SELECT 1 FROM quest_relations r JOIN evidence e USING(evidence_id) LEFT JOIN quest_steps s ON s.step_id=e.step_id
+      JOIN quests target ON target.quest_id=r.related_id
+      WHERE r.kind IN ('source_concurrency_constraint','extra_stage_required_for_prerequisite')
+      AND (e.method<>'curated_quest_relation' OR e.quest_id IS NOT r.quest_id OR s.quest_id IS NOT r.quest_id
+      OR instr(s.original_instruction,e.snippet)=0 OR instr(e.snippet,target.original_name)=0) LIMIT 1''').fetchone():errors.append('invalid_curated_quest_relation')
+    for owner,kind,related,eid in db.execute("SELECT quest_id,kind,related_id,evidence_id FROM quest_relations WHERE kind='mandatory_prerequisite'"):
+        proof=db.execute('SELECT quest_id,step_id,snippet,method FROM evidence WHERE evidence_id=?',(eid,)).fetchone()
+        requirement=db.execute('SELECT requirements_original FROM quests WHERE quest_id=?',(owner,)).fetchone()[0] or ''
+        name=db.execute('SELECT original_name FROM quests WHERE quest_id=?',(related,)).fetchone()[0]
+        prefix='Quest Prerequisite(s): '
+        if proof[0]!=owner or proof[1] is not None or proof[2]!=prefix+name or proof[3]!='curated_single_prerequisite' or prefix not in requirement or requirement.split(prefix,1)[1].strip()!=name:
+            errors.append('invalid_mandatory_prerequisite')
     if integrity!='ok' or foreign or errors:raise ValueError(f'Invalid semantic DB: {integrity}, FK={foreign}, errors={errors}')
     return {'integrity_check':integrity,'foreign_key_violations':len(foreign),'invalid_mentions':len(errors)}
 
@@ -663,6 +711,11 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
             quest_routes(w,curation,source_sections,html_source)
             for issue in curation.get('reviews',[]):w.review(issue['reason'],issue['detail'],page_ev,issue.get('severity','warning'))
     w.qid=None;w.sid=None
+    for plan,_,_ in plans:
+        if not plan['curation']:continue
+        w.qid=plan['selection']['quest_id'];w.src=db.execute('SELECT source_id FROM quests WHERE quest_id=?',(w.qid,)).fetchone()[0]
+        curated_relations(w,plan['curation'])
+    w.qid=None
     for row in source.execute('SELECT page_id,prerequisite_page_id,matched_title FROM wiki_quest_prerequisite_links'):
         if row[0] not in active:continue
         w.qid=active[row[0]]['quest_id'];w.src=db.execute('SELECT source_id FROM quests WHERE quest_id=?',(w.qid,)).fetchone()[0]
@@ -683,6 +736,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         'fully_localized_branches':counts['branch_descriptions'],
         'source_additions':counts['step_source_additions'],
         'quest_routes':counts['quest_routes'],
+        'action_reuse_links':db.execute("SELECT count(*) FROM step_edges WHERE kind='repeat_actions_from'").fetchone()[0],
         'counts':counts,'fully_localized_steps':localized,'not_fully_localized_steps':counts['quest_steps']-localized,
         'localized_fields':{f:db.execute(f'SELECT count(*) FROM step_descriptions WHERE {f} IS NOT NULL').fetchone()[0] for f in FIELDS},
         'evidence_status_counts':status_counts,'checks':checks,'server_verified':0,
@@ -706,6 +760,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
             r['source_fragments']=[dict(x) for x in db.execute('SELECT * FROM source_fragments WHERE target_step_id=? ORDER BY origin_step_id,start_offset',(sid,))]
             r['source_additions']=[dict(x) for x in db.execute('SELECT * FROM step_source_additions WHERE step_id=? ORDER BY addition_order',(sid,))]
             r['routes']=[dict(x) for x in db.execute('SELECT m.*,r.route_key,r.kind,r.choice_group,r.condition_text FROM step_routes m JOIN quest_routes r USING(route_id) WHERE m.step_id=? ORDER BY r.route_key',(sid,))]
+            r['action_reuse']=[dict(x) for x in db.execute("SELECT * FROM step_edges WHERE from_step=? AND kind='repeat_actions_from'",(sid,))]
             record['steps'].append(r)
         record['entities']=[dict(x) for x in db.execute('SELECT DISTINCT e.* FROM entities e JOIN entity_evidence l USING(entity_id) JOIN evidence v ON v.evidence_id=l.evidence_id WHERE v.quest_id=?',(qid,))]
         record['rewards']=[dict(x) for x in db.execute('SELECT * FROM rewards WHERE quest_id=?',(qid,))]

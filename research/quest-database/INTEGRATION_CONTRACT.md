@@ -86,6 +86,25 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   to curation.
 - `step_edges.kind = source_order_only` is article order, not an executable
   route/branch graph. Raw prerequisites do not establish AND/OR semantics.
+- `step_edges.kind = repeat_actions_from` references an earlier step in the
+  same quest for a repeated action sequence. It is an explanatory reference,
+  not a progression loop. Evidence cites the current instruction and links
+  the earlier instruction through `evidence_context`. New Surroundings step
+  10 reuses step 9 for the other post; neither the link nor NULL per-click
+  quantities create a second independent material total.
+- Reviewed `quest_relations.kind = mandatory_prerequisite` currently accepts
+  only a single exact quest name in the owner's prerequisite header, with
+  quest-level `curated_single_prerequisite` evidence. Generic
+  `prerequisite_boolean_unspecified` links remain separate source mentions;
+  do not treat them as additional mandatory obligations. Multiquest AND/OR
+  groups require further review.
+- `source_concurrency_constraint` links a source-described conflict with
+  another quest. `extra_stage_required_for_prerequisite` links the owning
+  quest to the later quest that requires its additional stage. Both use
+  `curated_quest_relation` evidence whose `step_id` points to the literal
+  source condition. For Attitude, Report eligibility requires the horn stage
+  16 despite the displayed reward at step 15. These links do not establish
+  executable quest flags or a complete prerequisite expression.
 - `ready_steps` currently means **all four localized text fields exist**. It
   is not a readiness claim for the quest, route, server or application.
   Unfinished fields are NULL with blocking review rows; `complete=false` is

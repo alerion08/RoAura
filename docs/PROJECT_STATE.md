@@ -12,13 +12,15 @@ Branch `research/quest-database`: normalized semantic SQLite schema 4 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 305 steps in 22 curated guides and
+is excluded. All four RU/EN fields exist for 360 steps in 25 curated guides and
 14 conditional branches. One source addition supplements full descriptions;
-**2,445 steps / 194 remaining catalog entries still need processing**. Four quest routes preserve Odin's
-exclusive Alex/Laura paths and Ice Necklace's independent optional activities.
-Cursed Spirit now has four level reward bands and reviewed trigger ordering.
+**2,390 steps / 191 remaining catalog entries still need processing**. Five quest routes preserve Odin's
+exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
+additional stage required for Report prerequisite use. New Surroundings has
+an explicit repair-action reuse link and one shared material total for both
+posts; curated quest relations retain exact prerequisite/concurrency evidence.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 112 regression tests, full offline rebuild and research CI
+Local validation: 119 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

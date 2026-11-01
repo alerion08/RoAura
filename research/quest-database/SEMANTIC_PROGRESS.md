@@ -16,11 +16,11 @@ reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **4** and
-generator **semantic-4.0.0**. All four description fields are populated for
-**305 steps across 22 curated guides**, up from the previous 19-guide/255-step
+generator **semantic-4.1.0**. All four description fields are populated for
+**360 steps across 25 curated guides**, up from the previous 22-guide/305-step
 checkpoint. **14 conditional branches** also have independent RU/EN short and
-full descriptions. Four quest routes represent two exclusive expedition paths
-and two independent optional activities. **2,445 steps in 194 remaining catalog entries still lack
+full descriptions. Five quest routes represent two exclusive expedition paths
+and three conditional/optional activities. **2,390 steps in 191 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -47,6 +47,9 @@ complete localization/context analysis.** `complete` remains false.
 | Ice Necklace Quest | 7 | Optional summon and sales; weapon slots are not counts; merchant unlock without boss kill |
 | Cursed Spirit Quest | 22 | Ordered triggers; separate Representatives; disguise not consumed; four level reward bands |
 | Odin's Temple Excavation Quest | 21 | Exclusive Alex/Laura paths; one material set/box; alternative warp points |
+| Onward to the New World Quest | 17 | Separate staff/manager identities; ordered gem deliveries; two EXP installments; Classic warning |
+| New Surroundings | 22 | Shared two-post material total; repair action reuse; 20 pies across 12 grants; letter identities |
+| Attitude to the New World | 16 | Concurrent quest conflict; item versus monster hunt; extra stage required for Report prerequisite |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -54,6 +57,27 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Three additional source-pinned New World guides preserve all 55 original
+  stages and four localized fields. Promotional Staff and Alliance Manager
+  homonyms remain distinct; Diego is shared across two guides with a
+  source-qualified identity. Marian/Marien and Rumis/Lumis spellings remain
+  unresolved source conflicts rather than invented aliases.
+- New Surroundings uses one shared 20-Branch/20-Vine material total for two
+  posts. `repeat_actions_from` links step 10 to the repair sequence in step 9;
+  per-click consumption stays unknown. Twelve Chocolate Pie grants sum to 20,
+  and the reward header does not create an extra grant.
+- Attitude records the Camp Guard conflict with New Surroundings separately
+  from ordinary prerequisites. Its 1,500,000 EXP stage is distinct from the
+  additional Horn of Tendrilion stage (1,000,000 EXP), which is required when
+  counting Attitude toward Report from the New World. The extra stage has a
+  conditional route and a quest relation with exact stage-16 evidence.
+- Two reviewed single-quest prerequisite headers establish mandatory Onward
+  relations. Unreviewed/compound headers retain unspecified Boolean semantics;
+  Report's two-of-four prerequisite group is not inferred by this block.
+- Onward's undated pinned Classic warning remains visible in review metadata.
+  Server-neutral inclusion does not turn it into a verified active Classic quest.
+  No game/server availability was promoted.
 
 - Additive schema migration 3 → 4 introduces `quest_routes` and `step_routes`
   for alternatives that span several archived steps and independent optional
@@ -172,7 +196,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **112 tests passed**; complete offline enrichment passed;
+Validated locally: **119 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -188,14 +212,18 @@ source additions, sword order, Gaebolg route rewards, keycard retry quantities
 and NPC/combat homonyms. Schema-1, schema-2 and schema-3 migration paths are tested, including rollback
 and preserved human additions/locations. Additional checks cover reference-index
 selection pins, route membership, optional activities, level rewards and location
-order versus alternative points.
+order versus alternative points, shared repair totals, repeated action references,
+New World reward accounting, item-versus-kill goals, and evidence-backed
+prerequisite/concurrency relations. Corrupted links and unsupported header
+prerequisites fail without replacing a valid export.
 
 ## Next work, in order
 
-1. Review the remaining 194 catalog candidates, separating reference pages,
+1. Review the remaining 191 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
-2. Continue remaining access/story chains and audit structured entity coverage
+2. Continue with Report from the New World and its two-of-four prerequisite
+   group, then related scouting variants. Audit structured entity coverage
    of curated guides. Nameless Island now has a curated Curse of Gaebolg
    prerequisite, but no executable or universally applicable prerequisite graph
    is claimed.

@@ -1,0 +1,1202 @@
+{
+  "quest_id": "irowiki-classic:New_Surroundings",
+  "reviewer": "Codex source review, 2026-11-01",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "bc61d37e6a1e347383418c6b2f29107c590f3a3fa9b094e2c8d3d430e0b09b76",
+  "snapshot_sha256": "72af5a0baf7c1372f07683ab8581ae63c8fc727bcaa5ece276e2b0935197fc85",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Instructor Lugen",
+      "aliases": [
+        "Lugen"
+      ],
+      "identity": "irowiki-classic:npc:mid_camp:261:284:Instructor Lugen"
+    },
+    {
+      "type": "npc",
+      "name": "Receptionist Brink",
+      "aliases": [
+        "Receptionist"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Marian"
+    },
+    {
+      "type": "npc",
+      "name": "Marien"
+    },
+    {
+      "type": "npc",
+      "name": "Lucas"
+    },
+    {
+      "type": "npc",
+      "name": "Jan"
+    },
+    {
+      "type": "npc",
+      "name": "Gerard"
+    },
+    {
+      "type": "npc",
+      "name": "Alberto"
+    },
+    {
+      "type": "npc",
+      "name": "Otto"
+    },
+    {
+      "type": "npc",
+      "name": "Diego",
+      "identity": "irowiki-classic:npc:mid_camp:264:263:Diego"
+    },
+    {
+      "type": "item",
+      "name": "Ordinary Branch",
+      "game_id": 6042,
+      "id_source": "http://db.irowiki.org/classic/item-info/6042/"
+    },
+    {
+      "type": "item",
+      "name": "Strong Vine",
+      "game_id": 6041,
+      "id_source": "http://db.irowiki.org/classic/item-info/6041/"
+    },
+    {
+      "type": "item",
+      "name": "Chocolate Pie",
+      "game_id": 12322,
+      "id_source": "http://db.irowiki.org/classic/item-info/12322/"
+    },
+    {
+      "type": "item",
+      "name": "Supply Box",
+      "game_id": 6045,
+      "id_source": "http://db.irowiki.org/classic/item-info/6045/"
+    },
+    {
+      "type": "item",
+      "name": "Letter to Otto",
+      "game_id": 6044,
+      "id_source": "http://db.irowiki.org/classic/item-info/6044/"
+    },
+    {
+      "type": "item",
+      "name": "Old Purple Box",
+      "game_id": 617,
+      "id_source": "http://db.irowiki.org/classic/item-info/617/"
+    },
+    {
+      "type": "item",
+      "name": "Letter to Lugen",
+      "aliases": [
+        "Otto's Letter"
+      ],
+      "game_id": 6043,
+      "id_source": "http://db.irowiki.org/classic/item-info/6043/"
+    },
+    {
+      "type": "monster",
+      "name": "Nephentes",
+      "game_id": 1988,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1988/"
+    },
+    {
+      "type": "map",
+      "name": "mid_camp",
+      "map_code": "mid_camp"
+    },
+    {
+      "type": "map",
+      "name": "spl_fild02",
+      "map_code": "spl_fild02"
+    },
+    {
+      "type": "map",
+      "name": "man_fild01",
+      "map_code": "man_fild01"
+    },
+    {
+      "type": "map",
+      "name": "Manuk Field",
+      "map_code": "man_fild01",
+      "game_id": "man_fild01"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Marian ( mid_camp 222, 283), who tells you to talk to Instructor Lugen, and gives you a Chocolate Pie .",
+      "instruction_sha256": "017abaf0e40b0b0fca277adf6e28324f975ea12a9907a8b2d1ccd9e5ac50e2dd",
+      "step_id": "irowiki-classic:New_Surroundings/step/017abaf0e40b0b0fca27/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Marian: mid_camp 222, 283; получите Chocolate Pie.",
+      "short_en": "Talk to Marian: mid_camp 222, 283; receive Chocolate Pie.",
+      "full_ru": "Поговорите с Marian (mid_camp 222, 283). Она направит вас к Instructor Lugen и выдаст Chocolate Pie.",
+      "full_en": "Talk to Marian ( mid_camp 222, 283), who tells you to talk to Instructor Lugen, and gives you a Chocolate Pie .",
+      "npcs": [
+        {
+          "entity": "Marian",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Marian"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Chocolate Pie"
+        }
+      ],
+      "protected_names": [
+        "Instructor Lugen",
+        "Marian",
+        "Chocolate Pie",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 222,
+          "y": 283,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 222, 283"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to Instructor Lugen (261, 284), who says you need to register with the Receptionist at the big building in the center of the camp.",
+      "instruction_sha256": "3608eb8d83b8dcd83e7db530ddc2c3bb9cf49830b9687f2a53abaf976d9fb485",
+      "step_id": "irowiki-classic:New_Surroundings/step/3608eb8d83b8dcd83e7d/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Instructor Lugen: (261, 284), затем идите на регистрацию.",
+      "short_en": "Talk to Instructor Lugen: (261, 284), then go to register.",
+      "full_ru": "Поговорите с Instructor Lugen (261, 284). Он попросит зарегистрироваться у Receptionist в большом здании в центре лагеря.",
+      "full_en": "Talk to Instructor Lugen (261, 284), who says you need to register with the Receptionist at the big building in the center of the camp.",
+      "npcs": [
+        {
+          "entity": "Instructor Lugen",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Instructor Lugen"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "mid_camp",
+          "x": 261,
+          "y": 284,
+          "role": "npc",
+          "known": true,
+          "support_step": 12,
+          "evidence": "mid_camp 261, 284",
+          "condition": "Map/coordinates corroborated by the later explicit return to the same NPC."
+        }
+      ],
+      "protected_names": [
+        "Instructor Lugen"
+      ]
+    },
+    "3": {
+      "original_instruction": "Enter the building (215, 247), and talk to Receptionist Brink. He registers you, gives you another Chocolate Pie , and sends you back to Lugen.",
+      "instruction_sha256": "447918aaa4d526c98a8c49e80984d4a5bc682c427b51074e3b3cd659ae0295cb",
+      "step_id": "irowiki-classic:New_Surroundings/step/447918aaa4d526c98a8c/1",
+      "goal": "talk",
+      "short_ru": "Зарегистрируйтесь у Receptionist Brink в здании (215, 247).",
+      "short_en": "Register with Receptionist Brink inside the building (215, 247).",
+      "full_ru": "Войдите в здание (215, 247) и поговорите с Receptionist Brink. Он зарегистрирует вас, выдаст ещё Chocolate Pie и отправит обратно к Lugen.",
+      "full_en": "Enter the building (215, 247), and talk to Receptionist Brink. He registers you, gives you another Chocolate Pie , and sends you back to Lugen.",
+      "npcs": [
+        {
+          "entity": "Receptionist Brink",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter"
+        },
+        {
+          "operation": "talk",
+          "entity": "Receptionist Brink"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Chocolate Pie"
+        }
+      ],
+      "protected_names": [
+        "Receptionist Brink",
+        "Chocolate Pie"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 215,
+          "y": 247,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "215, 247"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Lugen gives you another Chocolate Pie , and tells you to go to the Barracks to rest for the night.",
+      "instruction_sha256": "b61c17249a1a9caf06b809b3773224d737bac729401882a37622fef421284167",
+      "step_id": "irowiki-classic:New_Surroundings/step/b61c17249a1a9caf06b8/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Lugen за Chocolate Pie и направлением в Barracks.",
+      "short_en": "Return to Lugen for Chocolate Pie and directions to the Barracks.",
+      "full_ru": "Lugen выдаст ещё Chocolate Pie и предложит отдохнуть ночью в Barracks.",
+      "full_en": "Lugen gives you another Chocolate Pie , and tells you to go to the Barracks to rest for the night.",
+      "npcs": [
+        {
+          "entity": "Instructor Lugen",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Instructor Lugen"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Chocolate Pie"
+        }
+      ],
+      "protected_names": [
+        "Chocolate Pie"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "At the Barracks ( mid_camp 264, 260), speak to Diego ( mid_camp 264, 263) and offer to help him.",
+      "instruction_sha256": "36a1ba1d90d694028ad8c1fe8f588b6dceec1d20534e9cae5b9fc646ccd2f7c4",
+      "step_id": "irowiki-classic:New_Surroundings/step/36a1ba1d90d694028ad8/1",
+      "goal": "talk",
+      "short_ru": "Предложите помощь Diego: mid_camp 264, 263.",
+      "short_en": "Offer to help Diego: mid_camp 264, 263.",
+      "full_ru": "У Barracks (mid_camp 264, 260) поговорите с Diego (mid_camp 264, 263) и предложите помочь.",
+      "full_en": "At the Barracks ( mid_camp 264, 260), speak to Diego ( mid_camp 264, 263) and offer to help him.",
+      "npcs": [
+        {
+          "entity": "Diego",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Diego"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "mid_camp",
+          "x": 264,
+          "y": 260,
+          "role": "barracks",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "mid_camp",
+          "x": 264,
+          "y": 263,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Diego",
+        "mid_camp"
+      ]
+    },
+    "6": {
+      "original_instruction": "He asks you to bring him 20 Ordinary Branch and 20 Strong Vine . Strong Vine is dropped by Nephentes on the first Manuk Field",
+      "instruction_sha256": "4d9e301e79df64baa00b119ac06fb9156df4a5199b7c06e9772f83647ca2b425",
+      "step_id": "irowiki-classic:New_Surroundings/step/4d9e301e79df64baa00b/1",
+      "goal": "bring",
+      "short_ru": "Подготовьте для Diego суммарно 20 Ordinary Branch и 20 Strong Vine на оба поста.",
+      "short_en": "Prepare a shared total of 20 Ordinary Branch and 20 Strong Vine for Diego to repair both posts.",
+      "full_ru": "Он попросит принести 20 Ordinary Branch и 20 Strong Vine. Strong Vine выпадает с Nephentes на первом Manuk Field.",
+      "full_en": "He asks you to bring him 20 Ordinary Branch and 20 Strong Vine . Strong Vine is dropped by Nephentes on the first Manuk Field",
+      "npcs": [
+        {
+          "entity": "Diego",
+          "role": "talk",
+          "support_step": 5,
+          "evidence": "At the Barracks ( mid_camp 264, 260), speak to Diego ( mid_camp 264, 263) and offer to help him."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Ordinary Branch",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Strong Vine",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "bring"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Nephentes",
+          "operation": "loot_source",
+          "required": 0,
+          "condition": "Suggested Strong Vine source; no fixed kill count is specified."
+        }
+      ],
+      "protected_names": [
+        "Ordinary Branch",
+        "Strong Vine",
+        "Nephentes",
+        "Manuk Field"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "On the map to the west ( spl_fild02 ), click on one of the trees at (232, 143), (306, 152), or (379,197) until you have 20 Ordinary Branch Ordinary Branch locations",
+      "instruction_sha256": "4a13f65f3f8914dc3317d930508373a48b2ec37f98b5680acc3b64290de96eb7",
+      "step_id": "irowiki-classic:New_Surroundings/step/4a13f65f3f8914dc3317/1",
+      "goal": "collect",
+      "short_ru": "Соберите 20 Ordinary Branch у одного из указанных деревьев на spl_fild02.",
+      "short_en": "Collect 20 Ordinary Branch at one listed tree on spl_fild02.",
+      "full_ru": "На карте к западу (spl_fild02) нажимайте на одно из деревьев: (232, 143), (306, 152) или (379,197), пока не соберёте 20 Ordinary Branch. Источник ссылается на изображение Ordinary Branch locations.",
+      "full_en": "On the map to the west ( spl_fild02 ), click on one of the trees at (232, 143), (306, 152), or (379,197) until you have 20 Ordinary Branch Ordinary Branch locations",
+      "items": [
+        {
+          "entity": "Ordinary Branch",
+          "quantity": 20,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Ordinary Branch",
+          "condition": "Repeat at one of the three alternative tree locations until twenty branches are held."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "spl_fild02",
+          "x": 232,
+          "y": 143,
+          "role": "resource_node",
+          "known": true,
+          "condition": "Alternative resource spot; visiting all three is not required."
+        },
+        {
+          "entity": "spl_fild02",
+          "x": 306,
+          "y": 152,
+          "role": "resource_node",
+          "known": true,
+          "condition": "Alternative resource spot; visiting all three is not required."
+        },
+        {
+          "entity": "spl_fild02",
+          "x": 379,
+          "y": 197,
+          "role": "resource_node",
+          "known": true,
+          "condition": "Alternative resource spot; visiting all three is not required."
+        }
+      ],
+      "protected_names": [
+        "Ordinary Branch",
+        "spl_fild02"
+      ]
+    },
+    "8": {
+      "original_instruction": "Return to Diego with the parts, he asks you to fix the posts with them.",
+      "instruction_sha256": "bb827263c06f5aebfde0dd96275671fc17641eaf688b8c694405eaf2c5de6f04",
+      "step_id": "irowiki-classic:New_Surroundings/step/bb827263c06f5aebfde0/1",
+      "goal": "bring",
+      "short_ru": "Вернитесь к Diego с материалами для ремонта постов.",
+      "short_en": "Return to Diego with the materials for repairing the posts.",
+      "full_ru": "Вернитесь к Diego с материалами. Он попросит отремонтировать ими посты.",
+      "full_en": "Return to Diego with the parts, he asks you to fix the posts with them.",
+      "npcs": [
+        {
+          "entity": "Diego",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Ordinary Branch",
+          "quantity": 20,
+          "operation": "possess",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "He asks you to bring him 20 Ordinary Branch and 20 Strong Vine . Strong Vine is dropped by Nephentes on the first Manuk Field",
+          "condition": "Materials for both posts together; not a handover to Diego or twenty per post."
+        },
+        {
+          "entity": "Strong Vine",
+          "quantity": 20,
+          "operation": "possess",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "He asks you to bring him 20 Ordinary Branch and 20 Strong Vine . Strong Vine is dropped by Nephentes on the first Manuk Field",
+          "condition": "Materials for both posts together; not a handover to Diego or twenty per post."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Diego"
+        }
+      ],
+      "protected_names": [
+        "Diego"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Speak to one of the Posts near Diego and select Attach the Tree Bar then Tie it with vines . Repeat this til the post has been fixed and then select the option Knot it .",
+      "instruction_sha256": "ad2f587a1a905d86bf47f51d0299a0437b683e15325347cc2386eebe6b204193",
+      "step_id": "irowiki-classic:New_Surroundings/step/ad2f587a1a905d86bf47/1",
+      "goal": "repair",
+      "short_ru": "У первого поста: «Attach the Tree Bar» → «Tie it with vines», повторяйте до ремонта, затем «Knot it».",
+      "short_en": "At the first post: “Attach the Tree Bar” → “Tie it with vines”; repeat until repaired, then “Knot it”.",
+      "full_ru": "Взаимодействуйте с одним из Posts возле Diego. Выберите «Attach the Tree Bar», затем «Tie it with vines». Повторяйте до ремонта поста, после чего выберите «Knot it».",
+      "full_en": "Speak to one of the Posts near Diego and select Attach the Tree Bar then Tie it with vines . Repeat this til the post has been fixed and then select the option Knot it .",
+      "actions": [
+        {
+          "operation": "choose",
+          "condition": "Repeat Attach the Tree Bar then Tie it with vines until the selected post is fixed; finish with Knot it."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Ordinary Branch",
+          "quantity": null,
+          "operation": "use",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "He asks you to bring him 20 Ordinary Branch and 20 Strong Vine . Strong Vine is dropped by Nephentes on the first Manuk Field",
+          "condition": "From the shared total of twenty of each material for both posts; per-click consumption is not stated."
+        },
+        {
+          "entity": "Strong Vine",
+          "quantity": null,
+          "operation": "use",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "He asks you to bring him 20 Ordinary Branch and 20 Strong Vine . Strong Vine is dropped by Nephentes on the first Manuk Field",
+          "condition": "From the shared total of twenty of each material for both posts; per-click consumption is not stated."
+        }
+      ],
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Attach the Tree Bar",
+              "correct": 1
+            },
+            {
+              "text": "Tie it with vines",
+              "correct": 1
+            },
+            {
+              "text": "Knot it",
+              "correct": 1,
+              "condition": "After this post has been repaired."
+            }
+          ]
+        }
+      ],
+      "protected_names": [
+        "Diego"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Do the same to the other post, once it is repaired, talk to Diego again. Recieve 5 Chocolate Pie .",
+      "instruction_sha256": "bee5ebfc8e8781be03827ee193263cb953dd13bdacc64a3c39d7022b74c6b9da",
+      "step_id": "irowiki-classic:New_Surroundings/step/bee5ebfc8e8781be0382/1",
+      "goal": "repair",
+      "short_ru": "Отремонтируйте второй пост, поговорите с Diego и получите 5 Chocolate Pie.",
+      "short_en": "Repair the other post, talk to Diego and receive 5 Chocolate Pie.",
+      "full_ru": "Повторите ремонт на другом посту, затем снова поговорите с Diego. Получите 5 Chocolate Pie.",
+      "full_en": "Do the same to the other post, once it is repaired, talk to Diego again. Recieve 5 Chocolate Pie .",
+      "npcs": [
+        {
+          "entity": "Diego",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "repair",
+          "condition": "Repair the other post with the same sequence, without a second independent material total."
+        },
+        {
+          "operation": "talk",
+          "entity": "Diego"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Ordinary Branch",
+          "quantity": null,
+          "operation": "use",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "He asks you to bring him 20 Ordinary Branch and 20 Strong Vine . Strong Vine is dropped by Nephentes on the first Manuk Field",
+          "condition": "Remaining materials from the same twenty-of-each total; not an additional twenty-of-each delivery."
+        },
+        {
+          "entity": "Strong Vine",
+          "quantity": null,
+          "operation": "use",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "He asks you to bring him 20 Ordinary Branch and 20 Strong Vine . Strong Vine is dropped by Nephentes on the first Manuk Field",
+          "condition": "Remaining materials from the same twenty-of-each total; not an additional twenty-of-each delivery."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "repaired_post_total",
+          "amount": "2",
+          "support_step": 9,
+          "evidence": "Speak to one of the Posts near Diego and select Attach the Tree Bar then Tie it with vines . Repeat this til the post has been fixed and then select the option Knot it .",
+          "condition": "One selected post in step 9, then the other in this step."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "5",
+          "entity": "Chocolate Pie"
+        }
+      ],
+      "protected_names": [
+        "Diego",
+        "Chocolate Pie"
+      ],
+      "locations": [],
+      "action_reuse": {
+        "source_step": 9,
+        "condition": "Repeat the first-post repair actions for the other post, using the same shared material total."
+      }
+    },
+    "11": {
+      "original_instruction": "You will then be warped inside to your bed. Speak to Lucas. Recieve 1 Chocolate Pie .",
+      "instruction_sha256": "a1f49ff622eb6616ac7891863a23db6bb06f89bce8644163670c611267f3dce2",
+      "step_id": "irowiki-classic:New_Surroundings/step/a1f49ff622eb6616ac78/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Lucas после переноса; получите 1 Chocolate Pie.",
+      "short_en": "Talk to Lucas after the warp; receive 1 Chocolate Pie.",
+      "full_ru": "Вас перенесёт внутрь, к кровати. Поговорите с Lucas и получите 1 Chocolate Pie.",
+      "full_en": "You will then be warped inside to your bed. Speak to Lucas. Recieve 1 Chocolate Pie .",
+      "npcs": [
+        {
+          "entity": "Lucas",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Lucas"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Chocolate Pie"
+        }
+      ],
+      "protected_names": [
+        "Lucas",
+        "Chocolate Pie"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Return to Instructor Lugen ( mid_camp 261, 284) who asks you to distribute some supplies. He directs you to Marian. Receive 1 Chocolate Pie .",
+      "instruction_sha256": "e77e4006343fb3f1dec5c2cfd72c4ad8eaf0bd0507018752dd65fc6ad0cc79c3",
+      "step_id": "irowiki-classic:New_Surroundings/step/e77e4006343fb3f1dec5/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Instructor Lugen: mid_camp 261, 284; получите 1 Chocolate Pie.",
+      "short_en": "Return to Instructor Lugen: mid_camp 261, 284; receive 1 Chocolate Pie.",
+      "full_ru": "Вернитесь к Instructor Lugen (mid_camp 261, 284). Он попросит разнести припасы и отправит к Marian. Получите 1 Chocolate Pie.",
+      "full_en": "Return to Instructor Lugen ( mid_camp 261, 284) who asks you to distribute some supplies. He directs you to Marian. Receive 1 Chocolate Pie .",
+      "npcs": [
+        {
+          "entity": "Instructor Lugen",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Instructor Lugen"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Chocolate Pie"
+        }
+      ],
+      "protected_names": [
+        "Instructor Lugen",
+        "Marian",
+        "Chocolate Pie",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 261,
+          "y": 284,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 261, 284"
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Speak to Marien and receive 3 Supply Box and 1 Chocolate Pie .",
+      "instruction_sha256": "12a540f773bece1e3d7b7b06f37eeb2b287405ae62d4dadb5a3ddb915df02dd2",
+      "step_id": "irowiki-classic:New_Surroundings/step/12a540f773bece1e3d7b/1",
+      "goal": "collect",
+      "short_ru": "Получите у Marien 3 Supply Box и 1 Chocolate Pie.",
+      "short_en": "Get 3 Supply Box and 1 Chocolate Pie from Marien.",
+      "full_ru": "Поговорите с Marien и получите 3 Supply Box и 1 Chocolate Pie.",
+      "full_en": "Speak to Marien and receive 3 Supply Box and 1 Chocolate Pie .",
+      "npcs": [
+        {
+          "entity": "Marien",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Marien"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "3",
+          "entity": "Supply Box"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Chocolate Pie"
+        }
+      ],
+      "protected_names": [
+        "Marien",
+        "Chocolate Pie",
+        "Supply Box"
+      ],
+      "locations": []
+    },
+    "14": {
+      "original_instruction": "Instructor Lugen tells you to deliver the 1st box to Jan, northwest of the camp.",
+      "instruction_sha256": "76be4448c5ef8f10a5c712b766041e5594c93e419ca9b8ff0b0a718e067053fa",
+      "step_id": "irowiki-classic:New_Surroundings/step/76be4448c5ef8f10a5c7/1",
+      "goal": "talk",
+      "short_ru": "У Instructor Lugen получите задание на 1-ю коробку для Jan.",
+      "short_en": "Get the 1st box assignment for Jan from Instructor Lugen.",
+      "full_ru": "Instructor Lugen попросит доставить 1-ю коробку Jan на северо-западе лагеря.",
+      "full_en": "Instructor Lugen tells you to deliver the 1st box to Jan, northwest of the camp.",
+      "npcs": [
+        {
+          "entity": "Instructor Lugen",
+          "role": "talk"
+        },
+        {
+          "entity": "Jan",
+          "role": "destination"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Instructor Lugen"
+        }
+      ],
+      "protected_names": [
+        "Instructor Lugen",
+        "Jan"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "Deliver the supplies to Jan ( mid_camp 162, 298) Receive 1 Chocolate Pie .",
+      "instruction_sha256": "c945236bcd91bb7ef8654ab2ac9b1a7d8ca4d3b7b59fb1b8d9a40d0f109d6b27",
+      "step_id": "irowiki-classic:New_Surroundings/step/c945236bcd91bb7ef865/1",
+      "goal": "deliver",
+      "short_ru": "Доставьте припасы Jan: mid_camp 162, 298; получите 1 Chocolate Pie.",
+      "short_en": "Deliver the supplies to Jan: mid_camp 162, 298; receive 1 Chocolate Pie.",
+      "full_ru": "Доставьте припасы Jan (mid_camp 162, 298) и получите 1 Chocolate Pie.",
+      "full_en": "Deliver the supplies to Jan ( mid_camp 162, 298) Receive 1 Chocolate Pie .",
+      "npcs": [
+        {
+          "entity": "Jan",
+          "role": "deliver"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Supply Box",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 14,
+          "evidence": "Instructor Lugen tells you to deliver the 1st box to Jan, northwest of the camp.",
+          "condition": "First of the three Supply Boxes received in step 13."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Supply Box"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Chocolate Pie"
+        }
+      ],
+      "protected_names": [
+        "Jan",
+        "Chocolate Pie",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 162,
+          "y": 298,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 162, 298"
+        }
+      ]
+    },
+    "16": {
+      "original_instruction": "Return to Instructor Lugen. Your next delivery is to Gerard across the west bridge.",
+      "instruction_sha256": "2da7359738c17fa55be321ec291fc2f6d116d63f1ea23b49186fda81509f026a",
+      "step_id": "irowiki-classic:New_Surroundings/step/2da7359738c17fa55be3/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Instructor Lugen за поручением для Gerard.",
+      "short_en": "Return to Instructor Lugen for the Gerard assignment.",
+      "full_ru": "Вернитесь к Instructor Lugen. Следующая доставка — Gerard за западным мостом.",
+      "full_en": "Return to Instructor Lugen. Your next delivery is to Gerard across the west bridge.",
+      "npcs": [
+        {
+          "entity": "Instructor Lugen",
+          "role": "talk"
+        },
+        {
+          "entity": "Gerard",
+          "role": "destination"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Instructor Lugen"
+        }
+      ],
+      "protected_names": [
+        "Instructor Lugen",
+        "Gerard"
+      ],
+      "locations": []
+    },
+    "17": {
+      "original_instruction": "Delivery the supplies to Gerard ( mid_camp 30, 168) and return to Instructor Lugen. Receive 1 Chocolate Pie .",
+      "instruction_sha256": "81e0606c2259ded25f157fd6be68de51a2b4ab7e08fa328a6bb3772c9ae1937d",
+      "step_id": "irowiki-classic:New_Surroundings/step/81e0606c2259ded25f15/1",
+      "goal": "deliver",
+      "short_ru": "Передайте припасы Gerard: mid_camp 30, 168, затем вернитесь к Instructor Lugen.",
+      "short_en": "Deliver the supplies to Gerard: mid_camp 30, 168, then return to Instructor Lugen.",
+      "full_ru": "Доставьте припасы Gerard (mid_camp 30, 168) и вернитесь к Instructor Lugen. Получите 1 Chocolate Pie.",
+      "full_en": "Delivery the supplies to Gerard ( mid_camp 30, 168) and return to Instructor Lugen. Receive 1 Chocolate Pie .",
+      "npcs": [
+        {
+          "entity": "Gerard",
+          "role": "deliver"
+        },
+        {
+          "entity": "Instructor Lugen",
+          "role": "return"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Supply Box",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 13,
+          "evidence": "Speak to Marien and receive 3 Supply Box and 1 Chocolate Pie .",
+          "condition": "Second of the three received boxes, assigned in step 16."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Supply Box"
+        },
+        {
+          "operation": "return",
+          "entity": "Instructor Lugen"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Chocolate Pie"
+        }
+      ],
+      "protected_names": [
+        "Instructor Lugen",
+        "Gerard",
+        "Chocolate Pie",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 30,
+          "y": 168,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 30, 168"
+        }
+      ]
+    },
+    "18": {
+      "original_instruction": "The last delivery is to Alberto ( man_fild01 80, 248) at the entrance to the east field. He asks for your help to open the box. Receive 1 Chocolate Pie .",
+      "instruction_sha256": "77b802498322740c0b7d74a6656946c2d459da4bdf9c96071d67de56ebd5f9d4",
+      "step_id": "irowiki-classic:New_Surroundings/step/77b802498322740c0b7d/1",
+      "goal": "deliver",
+      "short_ru": "Доставьте последнюю коробку Alberto: man_fild01 80, 248; получите 1 Chocolate Pie.",
+      "short_en": "Deliver the last box to Alberto: man_fild01 80, 248; receive 1 Chocolate Pie.",
+      "full_ru": "Последняя доставка — Alberto (man_fild01 80, 248) у входа на восточное поле. Помогите ему открыть коробку и получите 1 Chocolate Pie.",
+      "full_en": "The last delivery is to Alberto ( man_fild01 80, 248) at the entrance to the east field. He asks for your help to open the box. Receive 1 Chocolate Pie .",
+      "npcs": [
+        {
+          "entity": "Alberto",
+          "role": "deliver"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Supply Box",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 13,
+          "evidence": "Speak to Marien and receive 3 Supply Box and 1 Chocolate Pie .",
+          "condition": "Third and final box; no new batch is granted."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Supply Box"
+        },
+        {
+          "operation": "interact",
+          "condition": "Help Alberto open the box."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Chocolate Pie"
+        }
+      ],
+      "protected_names": [
+        "Alberto",
+        "Chocolate Pie",
+        "man_fild01"
+      ],
+      "locations": [
+        {
+          "map": "man_fild01",
+          "x": 80,
+          "y": 248,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "man_fild01 80, 248"
+        }
+      ]
+    },
+    "19": {
+      "original_instruction": "Instructor Lugen thanks you for your help.",
+      "instruction_sha256": "79d402be70321298e4b60828d594e1b69387a629ee6e0834dfd38c126f5be53d",
+      "step_id": "irowiki-classic:New_Surroundings/step/79d402be70321298e4b6/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Instructor Lugen.",
+      "short_en": "Return to Instructor Lugen.",
+      "full_ru": "Instructor Lugen поблагодарит вас за помощь.",
+      "full_en": "Instructor Lugen thanks you for your help.",
+      "npcs": [
+        {
+          "entity": "Instructor Lugen",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Instructor Lugen"
+        }
+      ],
+      "protected_names": [
+        "Instructor Lugen"
+      ],
+      "locations": []
+    },
+    "20": {
+      "original_instruction": "Continue talking to Lugen until he asks you to deliver a letter for him. Receive 1 Letter to Otto .",
+      "instruction_sha256": "4599483071b53349f26e8181331616a570314b59d29eb310b84bb8325f5090d0",
+      "step_id": "irowiki-classic:New_Surroundings/step/4599483071b53349f26e/1",
+      "goal": "collect",
+      "short_ru": "Получите у Lugen 1 Letter to Otto.",
+      "short_en": "Get 1 Letter to Otto from Lugen.",
+      "full_ru": "Продолжайте говорить с Lugen, пока он не попросит доставить письмо. Получите 1 Letter to Otto.",
+      "full_en": "Continue talking to Lugen until he asks you to deliver a letter for him. Receive 1 Letter to Otto .",
+      "npcs": [
+        {
+          "entity": "Instructor Lugen",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Instructor Lugen",
+          "condition": "Repeat until the letter assignment is offered."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Letter to Otto"
+        }
+      ],
+      "protected_names": [
+        "Otto",
+        "Letter to Otto"
+      ],
+      "locations": []
+    },
+    "21": {
+      "original_instruction": "Deliver his letter to Otto ( mid_camp 123, 290). Otto has a letter for you to send back to Lugen. Receive 1 Letter to Lugen . Receive 1 Chocolate Pie .",
+      "instruction_sha256": "17fb8833af0563322a5a31655c45e16c6c494304366b9d9eb80cbed57f69b291",
+      "step_id": "irowiki-classic:New_Surroundings/step/17fb8833af0563322a5a/1",
+      "goal": "deliver",
+      "short_ru": "Передайте письмо Otto: mid_camp 123, 290; получите 1 Letter to Lugen и 1 Chocolate Pie.",
+      "short_en": "Give the letter to Otto: mid_camp 123, 290; receive 1 Letter to Lugen and 1 Chocolate Pie.",
+      "full_ru": "Доставьте письмо Otto (mid_camp 123, 290). Он даст ответ для Lugen: получите 1 Letter to Lugen и 1 Chocolate Pie.",
+      "full_en": "Deliver his letter to Otto ( mid_camp 123, 290). Otto has a letter for you to send back to Lugen. Receive 1 Letter to Lugen . Receive 1 Chocolate Pie .",
+      "npcs": [
+        {
+          "entity": "Otto",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Letter to Otto",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 20,
+          "evidence": "Continue talking to Lugen until he asks you to deliver a letter for him. Receive 1 Letter to Otto ."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Letter to Otto"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Letter to Lugen"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Chocolate Pie"
+        }
+      ],
+      "protected_names": [
+        "Otto",
+        "Chocolate Pie",
+        "Letter to Lugen",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 123,
+          "y": 290,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 123, 290"
+        }
+      ]
+    },
+    "22": {
+      "original_instruction": "Deliver Otto's Letter to Lugen. Receive 5 Chocolate Pie . Receive 1 Old Purple Box . Receive 1,000,000 Base EXP Receive 100,000 Job EXP",
+      "instruction_sha256": "8080d4f1a29ff161dad4ab806d807541a90e282927d7262daaca0c0ac4d64c4e",
+      "step_id": "irowiki-classic:New_Surroundings/step/8080d4f1a29ff161dad4/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Lugen Letter to Lugen (Otto's Letter): 5 Chocolate Pie, 1 Old Purple Box, 1,000,000 Base EXP, 100,000 Job EXP.",
+      "short_en": "Give Otto's Letter to Lugen: 5 Chocolate Pie, 1 Old Purple Box, 1,000,000 Base EXP, 100,000 Job EXP.",
+      "full_ru": "Передайте Lugen письмо Letter to Lugen (Otto's Letter). Получите 5 Chocolate Pie, 1 Old Purple Box, 1,000,000 Base EXP и 100,000 Job EXP.",
+      "full_en": "Deliver Otto's Letter to Lugen. Receive 5 Chocolate Pie . Receive 1 Old Purple Box . Receive 1,000,000 Base EXP Receive 100,000 Job EXP",
+      "npcs": [
+        {
+          "entity": "Instructor Lugen",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Letter to Lugen",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 21,
+          "evidence": "Deliver his letter to Otto ( mid_camp 123, 290). Otto has a letter for you to send back to Lugen. Receive 1 Letter to Lugen . Receive 1 Chocolate Pie ."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Letter to Lugen"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "5",
+          "entity": "Chocolate Pie"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Purple Box"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "1000000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "100000"
+        }
+      ],
+      "protected_names": [
+        "Otto",
+        "Chocolate Pie",
+        "Old Purple Box",
+        "Letter to Lugen"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "marian_marien_source_spelling",
+      "detail": "The guide names Marian at the start and Marien when boxes are received. They are kept separately pending proof of a canonical alias; no name/coordinate is silently corrected."
+    },
+    {
+      "reason": "repair_material_total_not_per_post",
+      "detail": "Twenty Ordinary Branch and twenty Strong Vine are the quest total for two posts. Per-click consumption and exact post identities/coordinates are not supplied."
+    },
+    {
+      "reason": "reward_header_not_extra_grant",
+      "detail": "The twenty Chocolate Pie in the header equal the sum of twelve stage grants. The header is not added as another reward."
+    },
+    {
+      "reason": "reward_metadata_contains_walkthrough",
+      "detail": "Legacy reward metadata contains walkthrough prose and truncates at 2000 characters. Complete source steps, not that tail, establish the letter deliveries and final EXP."
+    }
+  ],
+  "relations": [
+    {
+      "related_quest_id": "irowiki-classic:Onward_to_the_New_World_Quest",
+      "kind": "mandatory_prerequisite"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "20",
+        "source_section": "requirements",
+        "evidence": "20 Ordinary Branch",
+        "entity": "Ordinary Branch",
+        "condition": "Shared repair total for both posts, not twenty per interaction or per post."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "20",
+        "source_section": "requirements",
+        "evidence": "20 Strong Vine",
+        "entity": "Strong Vine",
+        "condition": "Shared repair total for both posts, not twenty per interaction or per post."
+      }
+    ]
+  }
+}
