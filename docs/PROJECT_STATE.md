@@ -1177,3 +1177,17 @@ remain unchanged. Focused tests cover all 11 Cursed Spirit positions, deduplicat
 full numeric highlights, known maps without underscores and invalid cells.
 
 Validation: pending Windows CI for this change; no release/version/main changes.
+
+
+Windows verification SUCCESS for `daaf1eeab4efa91b632bd64dc44f009fcc36ed53`:
+https://github.com/alerion08/RoAura/actions/runs/41338810202 — 332 tests,
+eight ToC checks, portable startup/native input and clean package validation.
+The initial no-clip change exposed tracker actions intercepting browser clicks;
+native stacking now places the browser above tracker actions and ordinary overlays,
+without adding browser exclusion geometry. Coordinate copying passed afterward.
+RU Ayothaya facts, all 11 Cursed Spirit points and Biolabs answer-footer snapshots
+were visually inspected at 1450x900; compact and native snapshots also reviewed.
+Artifact 89: https://github.com/alerion08/RoAura/actions/runs/41338810202/artifacts/13096247167
+Portable SHA256: `2cf919a059459da40bdded20eead6d3fb85691bf1ce471d988633ee42b7f524a`.
+Actual SpringRO overlap/mixed-DPI acceptance remains manual. Main/research,
+version metadata and release state unchanged.
