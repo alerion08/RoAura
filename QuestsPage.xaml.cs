@@ -190,6 +190,9 @@ public partial class QuestsPage : UserControl
             view.SearchInput.Text = SearchInput.Text; view._searchTimer.Stop(); view.Filter();
             view.QuestTabs.SelectedIndex = QuestTabs.SelectedIndex;
             view.Measure(new Size(840, 560)); view.Arrange(new Rect(0, 0, 840, 560)); view.UpdateLayout();
+            if(view.QuestTabs.SelectedIndex==3)view.CatalogDetails.ShowCurrentStep();
+            await view.Dispatcher.InvokeAsync(()=>{},DispatcherPriority.ContextIdle);
+            view.UpdateLayout();
             var bitmap = new System.Windows.Media.Imaging.RenderTargetBitmap((int)(840 * scale), (int)(560 * scale), 96 * scale, 96 * scale, PixelFormats.Pbgra32);
             bitmap.Render(view);
             var encoder = new System.Windows.Media.Imaging.PngBitmapEncoder();

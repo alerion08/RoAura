@@ -68,6 +68,8 @@ public partial class QuestDetailsControl : UserControl
    if(_quest?.Id!=previous)_selectedId=null;
    if(_quest is not null && !_quest.Steps.Any(s=>s.Id==_selectedId))_selectedId=Current()?.Id??_quest.Steps[0].Id;
    RenderChrome();RenderSteps();RenderDetail();RenderFacts();RenderSources();
+   if(previous!=_quest?.Id && Current()?.Id==_selectedId)
+       Dispatcher.BeginInvoke(ScrollToCurrent,DispatcherPriority.ContextIdle);
   }
   finally{_rendering=false;}
  }
