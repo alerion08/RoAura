@@ -127,7 +127,7 @@ public partial class QuestsPage : UserControl
         }
     }
     public void ShowGuide(RoAura.Models.QuestGuide? guide)
-    { if (_workspace is null) return; _workspace.SelectedGuide=guide; QuestTabs.SelectedIndex=3; CatalogDetails.ShowCurrentStep(); }
+    { if (_workspace is null) return; CatalogDetails.ResetSemanticChoice(); _workspace.SelectedGuide=guide; QuestTabs.SelectedIndex=3; CatalogDetails.ShowCurrentStep(); }
     private void OpenGuide_Click(object sender,RoutedEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
     private void OpenGuide_DoubleClick(object sender,MouseButtonEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
     internal bool CopyToastVisible=>CatalogDetails.CopyToastVisible;

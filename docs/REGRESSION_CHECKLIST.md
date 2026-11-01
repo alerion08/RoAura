@@ -445,7 +445,9 @@ and progress system. All 28 ready quests match original stage number/kind/text
 with the legacy catalog: source anchors remain compatible. Mismatching source
 revisions fail closed for editing rather than moving marks by row position.
 Descriptions never fall back to old prose. The old catalog/active/history/tracker
-are not filtered by semantic readiness. The new view has its own ready selector.
+are not filtered by semantic readiness. The new view has its own ready selector. Newly ready content absent from the old
+progress catalog remains readable, with editing disabled until source alignment;
+it never inherits the old selected quest's current/completed/tracking state.
 
 Read-only SQLite uses the existing Windows SQLite reader, schema/integrity guards.
 Typed entity spans convert Unicode code-point offsets to UTF-16 and verify exact

@@ -18,7 +18,7 @@ public partial class QuestDetailsControl : UserControl
  private readonly DispatcherTimer _refresh=new(){Interval=TimeSpan.FromSeconds(2)};
  private readonly DispatcherTimer _toast=new(){Interval=TimeSpan.FromSeconds(3)};
  private SemanticCatalog? _catalog;private SemanticQuest? _quest;private QuestWorkspace? _workspace;
- private string? _selectedId;private string _language="ru",_fingerprint="";private bool _loading,_rendering;private Task? _loadTask;private FileSystemWatcher? _watcher;
+ private string? _selectedId,_semanticChoice,_workspaceKey;private string _language="ru",_fingerprint="";private bool _loading,_rendering;private Task? _loadTask;private FileSystemWatcher? _watcher;
  private readonly Dictionary<string,Border> _cards=new();
  private bool Editable=>_workspace?.CanEdit==true && _quest is not null && SemanticReadiness.MatchesProgress(_quest,_workspace.SelectedGuide);
  public QuestDetailsControl()
@@ -61,7 +61,9 @@ public partial class QuestDetailsControl : UserControl
   try
   {
    _language=LocalizationService.CurrentLanguage=="ru"?"ru":"en";
-   var previous=_quest?.Id;_quest=workspace.SelectedGuide is {} selected?_catalog?.Quests.GetValueOrDefault(selected.Key):null;
+   var previous=_quest?.Id;var workspaceKey=workspace.SelectedGuide?.Key;
+   if(workspaceKey!=_workspaceKey){_semanticChoice=null;_workspaceKey=workspaceKey;}
+   var key=_semanticChoice??workspaceKey;_quest=key is null?null:_catalog?.Quests.GetValueOrDefault(key);
    ReadyChoice.ItemsSource=_catalog?.Quests.Values.OrderBy(q=>q.Title).ToList();ReadyChoice.SelectedValue=_quest?.Id;
    if(_quest?.Id!=previous)_selectedId=null;
    if(_quest is not null && !_quest.Steps.Any(s=>s.Id==_selectedId))_selectedId=Current()?.Id??_quest.Steps[0].Id;
@@ -69,7 +71,7 @@ public partial class QuestDetailsControl : UserControl
   }
   finally{_rendering=false;}
  }
- private SemanticStep? Current()=>_quest?.Steps.FirstOrDefault(s=>_workspace?.IsCurrentStep(s.Order)==true);
+ private SemanticStep? Current()=>_workspace?.SelectedGuide?.Key==_quest?.Id?_quest?.Steps.FirstOrDefault(s=>_workspace?.IsCurrentStep(s.Order)==true):null;
  private QuestStep? Legacy(SemanticStep step)=>Editable?_workspace?.SelectedGuide?.Steps.SingleOrDefault(s=>s.Number==step.Order):null;
  private bool Done(SemanticStep step)=>Legacy(step) is {} legacy && _workspace!.IsStepDone(_workspace.SelectedGuide!,legacy);
  private void RenderChrome()
@@ -80,7 +82,7 @@ public partial class QuestDetailsControl : UserControl
   Quality.Text=_quest is null?L("Новый экран доступен только для квестов, все этапы которых готовы RU/EN.","The new screen accepts only quests with every step ready in RU/EN."):
    L("Описания: готовы RU/EN · Прохождение на сервере: статус неизвестен","Descriptions: RU/EN ready · Server walkthrough: status unknown");
   if(_quest is not null && !Editable)Quality.Text+="\n"+L("Изменение прогресса недоступно: выберите профиль; при несовпадении этапов требуется сверка каталога.","Progress editing unavailable: select a profile; mismatching steps require catalog review.");
-  var active=_quest is not null && _workspace?.IsActive(_workspace.SelectedGuide)==true;
+  var active=_quest is not null && _workspace?.SelectedGuide?.Key==_quest.Id && _workspace.IsActive(_workspace.SelectedGuide);
   AddButton.Content=active?L("✓ Активен","✓ Active"):L("+ Добавить в активные","+ Add to active");AddButton.IsEnabled=Editable;
   if(active)QuestCopyFeedback.ColorState(AddButton,B("#298E38"));else{AddButton.ClearValue(Button.TemplateProperty);AddButton.ClearValue(Button.ForegroundProperty);}
   GoCurrentButton.Content=L("К текущему этапу","Go to current step");GoCurrentButton.IsEnabled=Current() is not null;
@@ -105,7 +107,7 @@ public partial class QuestDetailsControl : UserControl
    var actions=new WrapPanel{Margin=new Thickness(0,5,0,0)};
    var use=new Button {Content=L("Использовать инструкцию","Use this instruction"),FontSize=11,Height=24,MinHeight=24,Padding=new Thickness(10,0,10,0),IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide)};
    use.Click+=(_,e)=>{e.Handled=true;_selectedId=step.Id;_workspace!.SelectStep(step.Order);DetailsTabs.SelectedIndex=0;};actions.Children.Add(use);
-   if(_workspace?.IsCurrentStep(step.Order)==true)actions.Children.Add(Tag(L("Текущий этап","Current step"),done?"#687787":"#1764CC"));content.Children.Add(actions);
+   if(Current()?.Id==step.Id)actions.Children.Add(Tag(L("Текущий этап","Current step"),done?"#687787":"#1764CC"));content.Children.Add(actions);
    if(done){QuestCopyFeedback.ApplyTemplate(use,B("#E4E7EB"));use.Foreground=B("#3E4954");}
    var check=new CheckBox{Style=(Style)FindResource("SemanticCheck"),IsChecked=done,IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide),VerticalAlignment=VerticalAlignment.Top,Foreground=B("#228842"),ToolTip=L("Отметить выполнение этапа","Mark step complete")};Grid.SetColumn(check,2);AutomationProperties.SetName(check,L("Выполнен этап ","Completed step ")+step.Order);
    check.Click+=(_,e)=>{e.Handled=true;if(Legacy(step) is {} legacy)_workspace!.SetStepDone(_workspace.SelectedGuide!,legacy,check.IsChecked==true);};grid.Children.Add(check);
@@ -125,7 +127,7 @@ public partial class QuestDetailsControl : UserControl
   while(node is not null && node!=stop){if(node is Button or CheckBox)return true;node=node is Visual?VisualTreeHelper.GetParent(node):LogicalTreeHelper.GetParent(node);}return false;
  }
  private void Select(SemanticStep step){_selectedId=step.Id;DetailsTabs.SelectedIndex=0;RenderSteps();RenderDetail();}
- private Border Tag(string text,string color)=>new(){Background=B(color),BorderBrush=B(color),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(3),Padding=new Thickness(6,1,6,1),Margin=new Thickness(8,3,0,0),Child=new TextBlock {Text=text,Foreground=Brushes.White,FontSize=10,FontWeight=FontWeights.Bold}};
+ private Border Tag(string text,string color)=>new(){Background=B(color),BorderBrush=B(color),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(3),Padding=new Thickness(6,1,6,1),VerticalAlignment=VerticalAlignment.Center,Margin=new Thickness(8,0,0,0),Child=new TextBlock {Text=text,Foreground=Brushes.White,FontSize=10,FontWeight=FontWeights.Bold}};
  private WrapPanel Coordinates(SemanticStep step,bool monochrome=false)
  {
   var panel=new WrapPanel{Margin=new Thickness(0,5,0,0)};
@@ -224,7 +226,14 @@ public partial class QuestDetailsControl : UserControl
   SourcePanel.Children.Add(Text(L("Неизвестные карты и координаты не заполняются автоматически.","Unknown maps and coordinates are never inferred."),11));
  }
  private static void OpenUrl(string value){if(Uri.TryCreate(value,UriKind.Absolute,out var uri) && uri.Scheme is "http" or "https")try{Process.Start(new ProcessStartInfo(uri.AbsoluteUri){UseShellExecute=true});}catch(Exception ex){DebugLog.Write(ex.Message);}}
- private void Ready_Changed(object sender,SelectionChangedEventArgs e){if(_rendering || ReadyChoice.SelectedItem is not SemanticQuest quest)return;if(_workspace?.Catalog?.Guides.GetValueOrDefault(quest.Id) is {} guide)GuideRequested?.Invoke(guide);}
+ internal void ResetSemanticChoice()=>_semanticChoice=null;
+ private void Ready_Changed(object sender,SelectionChangedEventArgs e)
+ {
+  if(_rendering || ReadyChoice.SelectedItem is not SemanticQuest quest || _workspace is null)return;
+  _semanticChoice=null;
+  if(_workspace.Catalog?.Guides.GetValueOrDefault(quest.Id) is {} guide)GuideRequested?.Invoke(guide);
+  else {_semanticChoice=quest.Id;Render(_workspace);} // New ready content remains readable before legacy progress is reconciled.
+ }
  private void Ru_Click(object sender,RoutedEventArgs e)=>Language("ru");private void En_Click(object sender,RoutedEventArgs e)=>Language("en");
  private void Language(string language){if(_workspace is null)return;var offset=WalkScroll.VerticalOffset;_workspace.Settings.Language=language;LocalizationService.ApplyLanguage(language);_workspace.RefreshLanguage();Render(_workspace);WalkScroll.ScrollToVerticalOffset(offset);Notify(L("Язык изменён","Language changed"));}
  private void Add_Click(object sender,RoutedEventArgs e){if(Editable && _workspace?.SelectedGuide is {} guide){_workspace.ToggleTracking(guide);Notify(L("Отслеживание обновлено","Tracking updated"));}}
@@ -235,6 +244,12 @@ public partial class QuestDetailsControl : UserControl
  internal void ValidateSelectionSmoke()
  {
   if(_quest is null || _workspace is null)throw new InvalidOperationException("Semantic view not loaded.");
+  // A newly ready quest must remain readable even before the old progress catalog knows it.
+  var fresh=new QuestDetailsControl{_catalog=_catalog};
+  fresh.Render(new QuestWorkspace(new AppSettings(),catalog:new QuestCatalog([])));
+  fresh.ReadyChoice.SelectedItem=fresh.ReadyChoice.Items.Cast<SemanticQuest>().First(q=>q.Id==_quest.Id);
+  if(fresh._quest?.Id!=_quest.Id || fresh.Current() is not null || fresh.Editable)
+   throw new InvalidOperationException("New ready content inherited another quest's progress or remained hidden.");
   var current=Current()?.Id;var selected=_selectedId;
   var other=_quest.Steps.First(s=>s.Id!=current);Select(other);
   if(Current()?.Id!=current || _selectedId!=other.Id)throw new InvalidOperationException("Reading a semantic step changed current progress.");
