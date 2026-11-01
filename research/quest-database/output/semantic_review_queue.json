@@ -14636,38 +14636,29 @@
       "step_id": "irowiki-classic:Dropped_Knife_Quest/step/2eb5a5b03c81bd090b0c/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Initial purchase is 100 apples, followed by an unspecified number of repeated handovers. Do not assert exactly 100 consumed or infer a gamble probability.",
       "evidence_id": "ev:685e5d28cced29d7f76306b2",
       "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:a91586209c4a0e80a6a8dbc7",
+      "reason": "apple_repeat_total_unknown",
+      "review_id": "review:810bf37bcd7120a82cf83832",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Seven literal prompt/answer pairs are retained. Two different prompts intentionally share the same answer; they are not duplicate instructions to perform twice.",
       "evidence_id": "ev:685e5d28cced29d7f76306b2",
       "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:fc9921e585204a304fd7490a",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:d3006ef151e2108dd7a67fc1",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:60a31667743824f43fb64379",
+      "reason": "password_pairs_case_sensitive",
+      "review_id": "review:00dc5b8cb27eecd5fab1ec87",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:1b21ece0b4ed8e6c8222995b",
+      "detail": "Four exclusive level bands provide the final EXP; header totals do not add further rewards. No outside-range reward is inferred.",
+      "evidence_id": "ev:685e5d28cced29d7f76306b2",
       "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:c88274126bc0587a7f9997f4",
+      "reason": "reward_header_not_extra_grant",
+      "review_id": "review:148b71f335d4f3043679d7f0",
       "severity": "warning",
       "step_id": null
     },
@@ -14681,166 +14672,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:add9d610008c7935b1dfe89d",
+      "detail": "This source prints ein_in 67,247; Factory Quest prints ein_in01 67,242. Keep source spellings/points and separate source identities pending corroboration.",
+      "evidence_id": "ev:685e5d28cced29d7f76306b2",
       "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:99b615cc968f09e34faa40ca",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/135d6ab6b0ce28128d0d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:add9d610008c7935b1dfe89d",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d895cd4d7eaec46c30f9974a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/135d6ab6b0ce28128d0d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:38fc4135fca82e7b60801c44",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:92cca74527ca09ad50125968",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/175efe6a06d7b1f313f3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:38fc4135fca82e7b60801c44",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:673cfc7adeeeda1193f93feb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/175efe6a06d7b1f313f3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e94f9f03528d30b40dd5fc3e",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5721916b33309c98110a86d7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/1adb2c4996a2bd7f3c00/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e94f9f03528d30b40dd5fc3e",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b15637251d91d40d9ac07674",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/1adb2c4996a2bd7f3c00/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:e94f9f03528d30b40dd5fc3e",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:310cff745ad8749f34ac943c",
+      "reason": "zelmeto_location_conflict",
+      "review_id": "review:0ddf2ad31a0f76993e7bb15e",
       "severity": "warning",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/1adb2c4996a2bd7f3c00/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:be0d5ad83ba3d4cdb209ae33",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:47880068243c45e1fd7c776b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/60fcc0093e01dcbd71e0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:be0d5ad83ba3d4cdb209ae33",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6e479d47568c1481b83ac592",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/60fcc0093e01dcbd71e0/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:be0d5ad83ba3d4cdb209ae33",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:b2a0a05d923b658a466c6e30",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/60fcc0093e01dcbd71e0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:926680218b5da30a58badcd5",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a5bcfcd81db488f2b4f0035b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/b21c4187db4a8bdf040d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:926680218b5da30a58badcd5",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:16ae64e9449753eddc493888",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/b21c4187db4a8bdf040d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:75f89d182ff8b075df6f8bfd",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:cbd151a46daad4fe2b65dddb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/cc192d99f0d00c61da89/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:75f89d182ff8b075df6f8bfd",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4f987ec393ad30b3524d1b6d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/cc192d99f0d00c61da89/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5008bf8139f89af368d4396d",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c4e91c9e34639d578c849db0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/d4b5565d90d95eb68bac/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5008bf8139f89af368d4396d",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:de8878b494a64f15c881eef7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/d4b5565d90d95eb68bac/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5e16305b1ca107b2e993753b",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:34e3eec896a971b18df6ad19",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/e7e9e6104c6d7e83035b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5e16305b1ca107b2e993753b",
-      "quest_id": "irowiki-classic:Einbroch_Murder_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c5def68c3af2826f943bd41e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Einbroch_Murder_Quest/step/e7e9e6104c6d7e83035b/1"
+      "step_id": null
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -38765,38 +38603,29 @@
       "step_id": "irowiki-classic:Prayer_To_Heaven_(Transcendence_Quest)/step/f5a465f8eb8fc5fa9640/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Two alternative appointment windows are source text. Pacific Time is stated only for iRO; no host-local conversion, DST rule or universal server timezone is inferred.",
       "evidence_id": "ev:3ed354ae5ed144c29efcce39",
       "quest_id": "irowiki-classic:President_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:d9221bb3354d2ce8b30e54ba",
+      "reason": "appointment_timezone_scope",
+      "review_id": "review:ac006a5fc5d2881106b9a291",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Einbroch Murder completion is explicitly required at source step 22; no arbitrary earlier executable start flag is asserted from the header.",
       "evidence_id": "ev:3ed354ae5ed144c29efcce39",
       "quest_id": "irowiki-classic:President_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:e38e621f3c4a84aa43054627",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:dfc4cc1bf214295a180ac06f",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:24b58c85dd9a79fd49d84417",
+      "reason": "completion_gate_at_step",
+      "review_id": "review:38b05daa7219c732ac8b6210",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:56fc148e32cf63bf078fd141",
+      "detail": "738495 is the first prompted PIN. The later card number is unspecified; the two inputs must not be conflated. The three-minute descriptions refer to the same intrusion window.",
+      "evidence_id": "ev:3ed354ae5ed144c29efcce39",
       "quest_id": "irowiki-classic:President_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:3f2b4907f44c75059bbeb85d",
+      "reason": "pin_and_card_number_different",
+      "review_id": "review:221bf97dfc3f85cd36ce4e27",
       "severity": "warning",
       "step_id": null
     },
@@ -38810,706 +38639,31 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:93b1ed202be6e4845e6a62aa",
+      "detail": "Venice and Benith, and Wing Of Secret/Wind of Secret, retain literal source wording without an invented identity or spelling correction.",
+      "evidence_id": "ev:3ed354ae5ed144c29efcce39",
       "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:63c508333ab170ffe2840d34",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/03727ad3425baed3b900/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:93b1ed202be6e4845e6a62aa",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6f438b8b5e4b5d0cdfc77ab7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/03727ad3425baed3b900/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:aac612dd6f524d2d8599d3ad",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4cf0c9309887f132752a3fae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/078aff28a1cde2048b7c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:aac612dd6f524d2d8599d3ad",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b07d9a0fb9135db65bcfd881",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/078aff28a1cde2048b7c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9be2bb34d619612d6a584945",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:832e353cd33f0179d6ae381e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/114d7630d6f4bf31be51/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9be2bb34d619612d6a584945",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:67ac828c9208b31a8d1bcdb2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/114d7630d6f4bf31be51/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:12614530716a387cad59b72f",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:841c71b6ae1acbaf1505b583",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/18feec9df6be828669eb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:12614530716a387cad59b72f",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:89303b4e3c5a47f2e04cea46",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/18feec9df6be828669eb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:890ba2ca7c49069fba2cc692",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a26e21159f30ff04ec35ffd5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/256568a31d0c44e3201f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:890ba2ca7c49069fba2cc692",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:519763c436317ac2b96083fb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/256568a31d0c44e3201f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:80afdad234b949029e7b9c01",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6642683f71949387f7135e7c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/281304b468cf70e4b6d3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:80afdad234b949029e7b9c01",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:563ad42ce8eb5023eb646ff6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/281304b468cf70e4b6d3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:775312a887c95d646c4cec6e",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c38719e37bd44d7e0aaf9ec1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/31486289512fac594504/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:775312a887c95d646c4cec6e",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b364e186a5e8f8a11514b530",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/31486289512fac594504/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0cfc812704cbd4b328b6cbad",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c32da7b40ee22fbdc3d7b8c6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/317a7711d0392f5b82bb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0cfc812704cbd4b328b6cbad",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bd361fff68c20073d56c63dd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/317a7711d0392f5b82bb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a04dfa5d0ceea94540cd79c1",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:94a849072fe14af2aaf50f1f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/37ea985af77547d6c5bb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a04dfa5d0ceea94540cd79c1",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f85285f4d57963298e169fe2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/37ea985af77547d6c5bb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a24745f3ab3a18d9bd49f001",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b6afed96497b21f4af37307e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/3978ca2ddd715a209440/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a24745f3ab3a18d9bd49f001",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4880c38005e33bfabe794c06",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/3978ca2ddd715a209440/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f54b8448cc48b6cc962e4d63",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:36d012f5f3d8ef8cf172ac0d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/3a711f2643863e208973/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f54b8448cc48b6cc962e4d63",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:65385dced35bc5ece137afea",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/3a711f2643863e208973/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:44142ae3c8a1bc9f10105e9a",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:82ada9b1b9fa8027efd738ef",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/4378af8ba8f063e9331a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:44142ae3c8a1bc9f10105e9a",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7211598fc08691c6d9371f62",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/4378af8ba8f063e9331a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:87938ec99990e5e9636f98ee",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f68ccd0e9dca3ba62acae22e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/4428e8a12f0cf22bf15b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:87938ec99990e5e9636f98ee",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d1577e8b791b7d140ccbaac8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/4428e8a12f0cf22bf15b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d75230d1de067feafa87971f",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d3ce3bcf231dab300b66ea47",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/4475d503dfe87e1e31ca/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d75230d1de067feafa87971f",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ebdf4e655713d4e7b34ff39d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/4475d503dfe87e1e31ca/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:02411b5ace03049277e63119",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1c492949166d11a6ec167cdb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/45050e8e69e65a9c3a44/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:02411b5ace03049277e63119",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:00ca9eee4dba542ad3ed6310",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/45050e8e69e65a9c3a44/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3272899da1577a50a88084e7",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:77dc86cb72a15e48959274f4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/4aaa56f6c051af7b6913/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3272899da1577a50a88084e7",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3937cc3d535fd2bf2cdf6dcb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/4aaa56f6c051af7b6913/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:51dd1e9c98672f133749c209",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4115635adbea783a50fc2f1b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/50930e42ec525117cd42/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:51dd1e9c98672f133749c209",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b7ca55975d61e459efa89f7d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/50930e42ec525117cd42/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ee29c592e03d2dd042256517",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:93fb8f1d5645859620b19e99",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/54619d0c5109e4286776/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ee29c592e03d2dd042256517",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6a1afbadba14dedbf7667b49",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/54619d0c5109e4286776/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:abf79bd4d6a477bfb584d967",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d89963617e6685f9f4476579",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/5872db3e47d279a59c9f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:abf79bd4d6a477bfb584d967",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fad14cb95502cea72a064804",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/5872db3e47d279a59c9f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e5d133e501c3294361a42b2d",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4d686c8ebb2c73b747ea5b8b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/5e12fa0a774e35379c4c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e5d133e501c3294361a42b2d",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ee823f608e0602f96bfb9158",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/5e12fa0a774e35379c4c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0670c7f6c2e9c0428a1620ff",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6e410d562a290a5e295548a5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/5f5cf8f53c312c4a11e4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0670c7f6c2e9c0428a1620ff",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0453b1346ab68c4b8c3b3b3e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/5f5cf8f53c312c4a11e4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8e49e05ad0464fe8549dd116",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e350c809c2fa2772be5acdfd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/627a9aad9f538227df00/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8e49e05ad0464fe8549dd116",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c31e0c5827367afb3997d3a8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/627a9aad9f538227df00/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1587f9cb239398efd022583c",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b1daf90bc1b7b0dffde40c56",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/65e2d1af12e05dcd68cc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1587f9cb239398efd022583c",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a2ffd219951b85b2274da05f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/65e2d1af12e05dcd68cc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:81267748056701f44914dff9",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:cbad37b2953e68efd4f02d7d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/7f2235d4255e73495f55/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:81267748056701f44914dff9",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dac136137b9dc51e5d28d755",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/7f2235d4255e73495f55/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8b5a7563880f3a04cbe6b2d1",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6c91b0e58e8b2f0fd29a95fa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/94318bed09785e79fccc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8b5a7563880f3a04cbe6b2d1",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bee6e7ce18df739859de2eb4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/94318bed09785e79fccc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:753589e72d29216cd5bb0eb5",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:191abcf5b8cb8bab18dccd60",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/9e66752ab7aba8a74c43/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:753589e72d29216cd5bb0eb5",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ee2f3ddf898bb1ebc9829a44",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/9e66752ab7aba8a74c43/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:139f54e6c4c8fbd72bead250",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8f728bee8bcc309de4377065",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/a460e62de76da70f271b/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:9e0e87387ecd4bda7156a6f2",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:dc7bd705f43fe354f545f710",
+      "reason": "source_name_conflicts",
+      "review_id": "review:f81a7d3d44cf0fc80d2b8730",
       "severity": "warning",
-      "step_id": "irowiki-classic:President_Quest/step/a460e62de76da70f271b/1"
+      "step_id": null
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:139f54e6c4c8fbd72bead250",
+      "detail": "Main instruction says Shinokas; explicit iRO tested note says case-sensitive lowercase shinokas. Separate branches preserve both, with the iRO note controlling that variant.",
+      "evidence_id": "ev:3ed354ae5ed144c29efcce39",
       "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d310cb8a3a61107dd58bac7e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/a460e62de76da70f271b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:18c2fb802dbe452d9fbc3e7c",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9cfc4d6708b7ce1159ee477d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/a5584931519c7c6f7ace/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:18c2fb802dbe452d9fbc3e7c",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:23e2aaac25ebdc227ce515e7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/a5584931519c7c6f7ace/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5544107407b430b5719308fe",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:497da127acf733d248a5e444",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/afa384cbf4952be9f010/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5544107407b430b5719308fe",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c09f99feb9a76aed8bc52135",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/afa384cbf4952be9f010/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:df74516e568dd45d8555f512",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:06c63e8e4be28e9d39ff97d4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/b8f6b051769ad6d39cd7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:df74516e568dd45d8555f512",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:83aab23d75265212c7f6cd3a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/b8f6b051769ad6d39cd7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a37432bfe2ec9b0be93debdc",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0f6678805d169055674492b0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/bb768ba1f0bc159f94cc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a37432bfe2ec9b0be93debdc",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bb3154902e9d63aa52b78cd6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/bb768ba1f0bc159f94cc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:353cf1478e1351e1778506d9",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a0ae5481cbfa26357dab25ff",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/c2fabc262d5d1ef6a16f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:353cf1478e1351e1778506d9",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:251dd750e60fdf3ef72e96ec",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/c2fabc262d5d1ef6a16f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:97b703de52c5f546ff31fba1",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1408c5770ba2a192f94653da",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/dce05e671e7b38c03896/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:97b703de52c5f546ff31fba1",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:004ccb7e49234534ec060192",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/dce05e671e7b38c03896/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ae6d01bcdadefccb6e4bf392",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:01a65995b0460d6b8fbcb510",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/e5d56eb93072d7dfc914/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ae6d01bcdadefccb6e4bf392",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:cf9405a5dc261e75119b06b2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/e5d56eb93072d7dfc914/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:bfad5f79d82aaf11a6ddb199",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ca5ddf14ff9806d6d292ca48",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/ed75a7a5ec424a3152e8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:bfad5f79d82aaf11a6ddb199",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1a724b7850b2c0c6bef4a4ae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/ed75a7a5ec424a3152e8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e030fb0553c49bca97c83e46",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:dc19678f5cded42e130c2d80",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/f43fc6f7c366eab781cd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e030fb0553c49bca97c83e46",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:485aa5cad7286bf3eba57507",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/f43fc6f7c366eab781cd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:41373aacc011f46a9d999471",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4b91946cc664c7c7b1e8ca54",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/fafb7c19da22cf35a4f8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:41373aacc011f46a9d999471",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1ebd442962eb3b97c083aa94",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/fafb7c19da22cf35a4f8/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:41373aacc011f46a9d999471",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:5d026289780392177f8dc9d5",
+      "reason": "source_search_capitalization_conflict",
+      "review_id": "review:ade5a033261a11c45ff0e660",
       "severity": "warning",
-      "step_id": "irowiki-classic:President_Quest/step/fafb7c19da22cf35a4f8/1"
+      "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:44c2108f43c16a3452327e0e",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:aa0d0b04895aa936670d6f3d",
       "quest_id": "irowiki-classic:President_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:99ab43a73997dbc3bbc5b617",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/ff9918d4bba4df5c6a2e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:44c2108f43c16a3452327e0e",
-      "quest_id": "irowiki-classic:President_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fd91a5770fb57a8c4cf08417",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:President_Quest/step/ff9918d4bba4df5c6a2e/1"
+      "reason": "map_not_reference_known",
+      "review_id": "review:4eff752bd072dd0410b12a30",
+      "severity": "warning",
+      "step_id": "irowiki-classic:President_Quest/step/5872db3e47d279a59c9f/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -40187,38 +39341,29 @@
       "step_id": "irowiki-classic:Rachel_Sanctuary_Quest/step/6ccac74b34fc90e8f56a/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "File Folder labels are source story roles with unknown IDs. Separate grants do not prove that the research copy and later presidential document are the same physical inventory copy.",
       "evidence_id": "ev:c816ddb43ae5bf9c0bf8b1a7",
       "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:fc838409cbe580d877a112b5",
+      "reason": "document_roles_unverified",
+      "review_id": "review:48691881832ad8d3855a404c",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Shede requests one random set of five; no player must gather all fifteen listed materials.",
       "evidence_id": "ev:c816ddb43ae5bf9c0bf8b1a7",
       "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:6c425baca6359e23f5141fec",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:60f2b3639822d77626937991",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:e9bcd6b2dbdeea90d5960ed8",
+      "reason": "random_material_sets_not_cumulative",
+      "review_id": "review:ea56ee3fa70430efb86e6be3",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:2c1751697df33153b3f29b65",
+      "detail": "The 100-Handcuff recipe unlocks at source step 15, before final presidential delivery at 16. It is optional and repeatable, not an additional main cost.",
+      "evidence_id": "ev:c816ddb43ae5bf9c0bf8b1a7",
       "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:b4f0086d112bb4e55234888f",
+      "reason": "repeatable_unlock_before_final_delivery",
+      "review_id": "review:54157c193a9d9d6eb7c7927e",
       "severity": "warning",
       "step_id": null
     },
@@ -40232,35 +39377,26 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a1b1acda4081b8fa9ab7043b",
+      "detail": "The Einbech seller is unnamed; the source pronoun does not prove Herico is physically present at the selling point.",
+      "evidence_id": "ev:c816ddb43ae5bf9c0bf8b1a7",
       "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8f37e7739f41e012a87a34d9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/205e93fdc75b96181cda/1"
+      "reason": "unnamed_bottle_seller",
+      "review_id": "review:4020d0fc63a571e76865e79b",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a1b1acda4081b8fa9ab7043b",
+      "detail": "Header 3000 is only a source summary. Drinks cost 1000 each or 800 for the source assassin exception; bottle cost is unstated. Do not infer a 1000 bottle price or charge header and step prices together.",
+      "evidence_id": "ev:c816ddb43ae5bf9c0bf8b1a7",
       "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:25f69e2109c629a6d5ba7e71",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/205e93fdc75b96181cda/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5227ca3c4f42bbaae4ab01e0",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:de6c4d054e679ef28f17f410",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/2c59f3c7c714d32aa24c/1"
+      "reason": "zeny_summary_not_extra_cost",
+      "review_id": "review:c870f7fc3d2c27c570070971",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Map spelling has not been matched to a pinned reference map.",
-      "evidence_id": "ev:724171fbf1dfa905806d9b78",
+      "evidence_id": "ev:db1feedf0d2df0d3a6e28f3c",
       "quest_id": "irowiki-classic:Rebellion_Quest",
       "reason": "map_not_reference_known",
       "review_id": "review:0858f00930da00705ad2b06a",
@@ -40268,328 +39404,22 @@
       "step_id": "irowiki-classic:Rebellion_Quest/step/2c59f3c7c714d32aa24c/1"
     },
     {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:2a094ad924491b7026be7f79",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:b5853412a483bc3b206e3078",
       "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:db59a19f9af69e668e7b24b1",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/2c59f3c7c714d32aa24c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5227ca3c4f42bbaae4ab01e0",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2220e84b58c7e7f90e6e890b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/2c59f3c7c714d32aa24c/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:5227ca3c4f42bbaae4ab01e0",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:33f65c90425213f784d72622",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/2c59f3c7c714d32aa24c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e6bb173bdda776270451905b",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:363dc278ef89a58fd2a939d9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/3a976a775e7eab068d51/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e6bb173bdda776270451905b",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:61990761d9aa790eccc89fc8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/3a976a775e7eab068d51/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:93044214a4edb4fc01690640",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2215238ebc558859d6335729",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/3bc622955c59acb7e568/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:93044214a4edb4fc01690640",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c9837bcf820d07ee45ab2bcb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/3bc622955c59acb7e568/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0bbcb62d36dd055e51b4f333",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9da24d89671d706d2dd4880e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/5cd4226d1ba631eda778/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0bbcb62d36dd055e51b4f333",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e434298adb884e95dc2b93c2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/5cd4226d1ba631eda778/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:50678b03d7ef3604388c0fb1",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1a64433adaf7a2b51de6896b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/8701320318602bf02122/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:50678b03d7ef3604388c0fb1",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9e73f0708ae755f1a9aa915c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/8701320318602bf02122/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fe87243f5effe7176b15cd27",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d40d911ab02b9ca5e9d772ec",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/8bb943a617c9b538c494/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:da92b5347a6eaf6c48c5207f",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:bfd58d34bd6f8e64c31a8e51",
+      "reason": "map_not_reference_known",
+      "review_id": "review:783b5b12ade94178b1e15789",
       "severity": "warning",
       "step_id": "irowiki-classic:Rebellion_Quest/step/8bb943a617c9b538c494/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fe87243f5effe7176b15cd27",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:6e74602857660bcc2302b32d",
       "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e55583a8ca3e6839cf67999b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/8bb943a617c9b538c494/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:47401e8ff06818c2f2902763",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d8de8b34c775f7d3d043d9db",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/940ab50fe1fe755f2184/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:47401e8ff06818c2f2902763",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c2ee45e08aa51b1b84a38ab3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/940ab50fe1fe755f2184/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e23704150df3fbb3ab540fdf",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:60b4d7b53e7dc4587872ec01",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/a31f10c74930a180ebb7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e23704150df3fbb3ab540fdf",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a35712669a7f53ec2c163c51",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/a31f10c74930a180ebb7/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:e23704150df3fbb3ab540fdf",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:37d0259634ffd5f1b852031e",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/a31f10c74930a180ebb7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:af5a473404227173bb362b22",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a371d0de10a77e4851f7d0de",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/a864eb5015d1a3a5b2c8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:af5a473404227173bb362b22",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f5031fef1a6d9d408682832f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/a864eb5015d1a3a5b2c8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e5eb458f20eb9cef5448d3dc",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:47a1d047f319bb5b46ebba91",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/b8132da184a37ccbde63/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e5eb458f20eb9cef5448d3dc",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e41b6f193a1011bc5cb88692",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/b8132da184a37ccbde63/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:e5eb458f20eb9cef5448d3dc",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:68c3bf914bbce0f4b27ed411",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/b8132da184a37ccbde63/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fbc9f9f104d36dc06328aa2a",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:622078c164efdd5ee41b392c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/c383a28ff4a202950462/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fbc9f9f104d36dc06328aa2a",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0584fdb869247707be3a6941",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/c383a28ff4a202950462/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ea2ae4c4959bafb254393cf7",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:18c4361e1dffcc60a30c43db",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/d0fd41a039013b81bce5/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:121eb78d5a4456e1cbafe096",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:d3a3763e496c7475de3e7277",
+      "reason": "map_not_reference_known",
+      "review_id": "review:3f894788562dcec6a9b23f4b",
       "severity": "warning",
       "step_id": "irowiki-classic:Rebellion_Quest/step/d0fd41a039013b81bce5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ea2ae4c4959bafb254393cf7",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b991adbdb40ffa4181ee8420",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/d0fd41a039013b81bce5/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:ea2ae4c4959bafb254393cf7",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:15a104366c0d829574d70ce6",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/d0fd41a039013b81bce5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:205d0d96d4585bd89d855ca7",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d673205e87658d7326781443",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/e45fc2b5bd9195e0ffff/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:205d0d96d4585bd89d855ca7",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:addd8ec99dc21437db12411b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/e45fc2b5bd9195e0ffff/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:96a93b5f7b1896ec6b56e35b",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b92c8ebceef0673d97fe48aa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/ed9a8ad877a8e789159f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:96a93b5f7b1896ec6b56e35b",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d4eb3678ef4e2ac669043a16",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/ed9a8ad877a8e789159f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e5b2a6d06c5fd5dc1c2cdceb",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c794f30b1ccbf44356aa0971",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/eef468d2e4ae6ce95185/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e5b2a6d06c5fd5dc1c2cdceb",
-      "quest_id": "irowiki-classic:Rebellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3cb1adcbb912ccb822e59c84",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rebellion_Quest/step/eef468d2e4ae6ce95185/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
