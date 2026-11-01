@@ -130,6 +130,7 @@ public partial class QuestsPage : UserControl
     { if (_workspace is null) return; _workspace.SelectedGuide=guide; QuestTabs.SelectedIndex=3; CatalogDetails.ShowCurrentStep(); }
     private void OpenGuide_Click(object sender,RoutedEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
     private void OpenGuide_DoubleClick(object sender,MouseButtonEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
+    internal bool CopyToastVisible=>CatalogDetails.CopyToastVisible;
     internal Button? CurrentNavigationButton=>CatalogDetails.CurrentNavigationButton;
     internal bool CurrentStepInView=>CatalogDetails.CurrentStepInView;
     public void FocusSearch() {if(QuestTabs.SelectedIndex==0)SearchInput.Focus();}
@@ -140,8 +141,10 @@ public partial class QuestsPage : UserControl
         SearchInput.Text = "Lost Child"; _searchTimer.Stop(); Filter();
         if (CatalogList.Items.Count != 1) throw new InvalidOperationException("Quest title search failed.");
         CatalogList.SelectedIndex = 0;
+        await CatalogDetails.RefreshDataAsync(true);
         CatalogDetails.Render(workspace);
         if (!CatalogDetails.HasStepCount(13)) throw new InvalidOperationException("Quest details lost source instructions.");
+        CatalogDetails.ValidateSelectionSmoke();
         var output = Environment.GetEnvironmentVariable("ROAURA_QUEST_UI_SNAPSHOTS");
         if (string.IsNullOrWhiteSpace(output)) return;
         Directory.CreateDirectory(output);

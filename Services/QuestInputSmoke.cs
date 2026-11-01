@@ -139,9 +139,9 @@ internal static class QuestInputSmoke
                 var pointButton=host.Browser.Page.CurrentNavigationButton ?? throw new InvalidOperationException("Current navigation button missing.");
                 var coordinateCaption=pointButton.Content;
                 Click(pointButton.PointToScreen(new Point(pointButton.ActualWidth/2,pointButton.ActualHeight/2)));
-                await Until(()=>Equals(pointButton.Content,"copied"),"detail coordinate copied feedback");
+                await Until(()=>host.Browser.Page.CopyToastVisible,"detail coordinate copy toast");
                 SaveDesktop(host.Browser,"detail-copied-native");
-                await Until(()=>Equals(pointButton.Content,coordinateCaption),"detail coordinate label restored after four seconds");
+                if(!Equals(pointButton.Content,coordinateCaption))throw new InvalidOperationException("Semantic coordinate caption changed after copy.");
                 if(row.Guide is not null){host.Browser.Page.ShowFacts(row.Guide);await Pause();SaveDesktop(host.Browser,"facts-native");}
                 var keys=Read(reportPath)!.Keys;Key(0x5A,true);Key(0x5A,false);await Pause();
                 if(Read(reportPath)!.Keys!=keys)throw new InvalidOperationException("Quest search typing reached the game.");

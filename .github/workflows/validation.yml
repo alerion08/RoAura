@@ -49,9 +49,15 @@ jobs:
           assert hashlib.sha256(payload).hexdigest() == '7c89954c66b90603467ee4b645979fe4bad46ff0003ebaf9073e32c18d748745'
           (pathlib.Path(os.environ['RUNNER_TEMP']) / 'questie_catalog.sqlite').write_bytes(payload)
           pathlib.Path('Data/questie_catalog.sqlite').write_bytes(payload)
+          semantic_revision = 'e3206beccbdd414c6d6f31d146d168247634c578'
+          subprocess.run(['git', 'fetch', '--depth=1', 'origin', semantic_revision], check=True)
+          semantic = subprocess.check_output(['git', 'show', semantic_revision + ':research/quest-database/output/quest_semantic.sqlite'])
+          assert hashlib.sha256(semantic).hexdigest() == 'af4de49aa11587dc6ec971aa019c6ff60e6ed4aa3fee802c61282db65ac7091d'
+          pathlib.Path('Data/quest_semantic.sqlite').write_bytes(semantic)
 
       - name: Run logic and UI regression tests
         env:
+          ROAURA_QUEST_SEMANTIC_TEST_PATH: ${{ github.ref_name == 'feature/roquestie-mvp' && format('{0}/Data/quest_semantic.sqlite', github.workspace) || '' }}
           ROAURA_QUEST_CATALOG_TEST_PATH: ${{ github.ref_name == 'feature/roquestie-mvp' && format('{0}/questie_catalog.sqlite', runner.temp) || '' }}
         shell: pwsh
         run: dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release --logger "trx;LogFileName=regression.trx"

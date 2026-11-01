@@ -1,166 +1,244 @@
 using System.Diagnostics;
-using System.Windows.Documents;
-using System.Windows.Threading;
-using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
+using RoAura.Models;
 using RoAura.Services;
-
 namespace RoAura;
 
 public partial class QuestDetailsControl : UserControl
 {
-    public event Action<RoAura.Models.QuestGuide?>? GuideRequested;
-    private QuestWorkspace? _workspace;
-    private string _stamp = "";
-    private string? _lastKey;
-    private int? _lastStep;
-    public QuestDetailsControl() => InitializeComponent();
-    private static string T(string key) => LocalizationService.Get(key);
-    public void Render(QuestWorkspace workspace)
-    {
-        _workspace = workspace;
-        var guide = workspace.SelectedGuide;
-        var stamp = guide?.Key + "|" + guide?.ContentHash + "|" + workspace.CanEdit + "|" + workspace.IsActive(guide) + "|" +
-            LocalizationService.CurrentLanguage + "|" + string.Join(",", workspace.Active.Concat(workspace.History).Where(q => q.Progress.QuestKey == guide?.Key).Select(q => q.Progress.CurrentStep+":"+string.Join(";",q.Progress.CompletedStepAnchors)));
-        if (_stamp == stamp) return;
-        _stamp = stamp;
-        var currentStep=workspace.Active.Concat(workspace.History).FirstOrDefault(r=>r.Progress.QuestKey==guide?.Key)?.Progress.CurrentStep;
-        var moveToCurrent=_lastKey!=guide?.Key || _lastStep!=currentStep;_lastStep=currentStep;
-        var offset = _lastKey == guide?.Key ? WalkScroll.VerticalOffset : 0;
-        _lastKey = guide?.Key;
-        QuestTitle.Text = guide?.Title ?? T("QSelectGuide");
-        Metadata.Text = guide is null ? "" : T("QFreshness") + ": " + guide.RefreshState + " · " + T("QBaseLevel") + " " + (guide.BaseLevel?.ToString() ?? T("QUnknown")) + " · Job Lv. " + (guide.JobLevel?.ToString() ?? T("QUnknown"));
-        FactsPanel.Children.Clear();
-        RenderFacts("QRequirements", guide?.Requirements);
-        RenderFacts("QRewards", guide?.Rewards);
-        SourceText.Text = guide is null ? T("QUnknown") : guide.SourceUrl + "\n\n" + T("QReview") + ": " + guide.ReviewState +
-            "\n" + T("QSourceHash") + ": " + (guide.ContentHash ?? T("QUnknown")) + "\n" +
-            T("QFreshness") + ": " + guide.RefreshState + "\n" + (guide.LastSuccessUtc ?? T("QUnknown")) + "\n" + guide.LastError + "\n\n" + T("QEvidenceHint");
-        AddButton.Content = T(workspace.IsActive(guide) ? "QActive" : workspace.HasProgress(guide) ? "QRestore" : "QAdd");
-        AddButton.IsEnabled = workspace.CanEdit && guide?.Steps.Count > 0;
-        if(workspace.IsActive(guide))QuestCopyFeedback.ColorState(AddButton,Brushes.ForestGreen);
-        else if(workspace.HasProgress(guide))QuestCopyFeedback.ColorState(AddButton,Brushes.Firebrick);
-        else {AddButton.ClearValue(Button.TemplateProperty);AddButton.ClearValue(Button.ForegroundProperty); }
-        StepsPanel.Children.Clear();
-        if (guide is null || guide.Steps.Count == 0) StepsPanel.Children.Add(Text(T("QNoSteps")));
-        if (guide is not null)
-            foreach (var step in guide.Steps)
-            {
-                var content = new StackPanel();
-                var heading=new DockPanel();
-                var completed=new CheckBox {IsChecked=workspace.IsStepDone(guide,step),IsEnabled=workspace.CanEdit && workspace.HasProgress(guide),ToolTip=T("QStepDone"),VerticalAlignment=VerticalAlignment.Top,Margin=new Thickness(8,0,0,0)};
-                DockPanel.SetDock(completed,Dock.Right);heading.Children.Add(completed);
-                completed.Click+=(_,_)=>workspace.SetStepDone(guide,step,completed.IsChecked==true);
-                heading.Children.Add(Text($"{step.Number}. " + (step.SourceNumber is null ? T("QNarrative") : ""),true));content.Children.Add(heading);
-                if (!string.IsNullOrWhiteSpace(step.Section)) content.Children.Add(Text(step.Section));
-                var instruction=Text("");QuestInstructionText.Apply(instruction,step.Instruction);content.Children.Add(instruction);
-                var points=new WrapPanel();
-                var row=new QuestListRow(new QuestProgressEntry {QuestKey=guide.Key,CurrentStep=step.Number},guide);
-                foreach(var target in QuestNavigation.Targets(row))
-                {
-                    var coordinate=new Button {Tag=target,Content=target.ToString(),HorizontalAlignment=HorizontalAlignment.Left,Margin=new Thickness(0,3,4,0),Padding=new Thickness(4,0,4,0),FontSize=11,MinHeight=22,Height=22,ToolTip=target.Command,
-                        IsEnabled=workspace.Settings.ServerProfile!=RoAura.Models.GameServerProfile.Other};
-                    coordinate.Click+=(_,_)=>{if(ClipboardService.TryCopy(target.Command))QuestCopyFeedback.Success(coordinate);else coordinate.ToolTip=T("QCopyFailed");};
-                    points.Children.Add(coordinate);
-                }
-                content.Children.Add(points);
-                var keys=new WrapPanel {Margin=new Thickness(0,4,0,0)};
-                var select = new Button { Content = T("QSelectStep"), IsEnabled = workspace.CanEdit && workspace.HasProgress(guide),
-                    HorizontalAlignment = HorizontalAlignment.Left, Margin = new Thickness(0, 6, 0, 0), Tag = step.Number };
-                select.Click += (_, _) => workspace.SelectStep((int)select.Tag);
-                keys.Children.Add(select);
-                foreach(var answer in QuestAnswers.Extract(step.Instruction))
-                {
-                    var copy=new Button {Content=T("QCopyAnswer"),ToolTip=answer,HorizontalAlignment=HorizontalAlignment.Left,Margin=new Thickness(0,6,0,0)};
-                    copy.Click+=(_,_)=>{if(ClipboardService.TryCopy(answer)){QuestCopyFeedback.Success(copy);}else copy.ToolTip=T("QCopyFailed");};
-                    keys.Children.Add(copy);
-                }
-                content.Children.Add(keys);
-                StepsPanel.Children.Add(new Border { CornerRadius = new CornerRadius(6), Padding = new Thickness(10), Margin = new Thickness(0, 0, 0, 6),
-                    Background = (Brush)FindResource(workspace.IsCurrentStep(step.Number) ? "RoTitleBrush" : "RoCardBrush"),
-                    BorderBrush = workspace.IsStepDone(guide,step)?Brushes.ForestGreen:(Brush)FindResource(workspace.IsCurrentStep(step.Number) ? "RoGoldBrush" : "RoSoftBorderBrush"),
-                    BorderThickness = new Thickness(workspace.IsCurrentStep(step.Number) || workspace.IsStepDone(guide,step) ? 2 : 1), Child = content, Tag = step.Number });
-            }
-        WalkScroll.ScrollToVerticalOffset(offset);
-        if (guide is not null && moveToCurrent) Dispatcher.BeginInvoke(ScrollToCurrent, DispatcherPriority.Loaded);
-    }
-    private void RenderFacts(string title, string? original)
-    {
-        var group = new StackPanel { Margin = new Thickness(0,0,0,18) };
-        var heading = Text(T(title), true); heading.Style=(Style)FindResource("RoSectionTitleStyle");group.Children.Add(heading);
-        var facts = QuestFactFormatter.Parse(original);
-        if (facts.Count == 0) group.Children.Add(Text(T("QUnknown")));
-        foreach(var fact in facts)
-        {
-            var card = new StackPanel();
-            if (fact.Label.Length>0)
-            {
-                var label=Text(QuestFactFormatter.LabelKey(fact.Label) is { } key ? T(key) : fact.Label,true);
-                label.ToolTip=fact.Label;card.Children.Add(label);
-            }
-            if(string.IsNullOrWhiteSpace(fact.Value))card.Children.Add(Text(T("QUnknown")));
-            foreach(var line in QuestFactFormatter.Lines(fact))
-            {
-                var block = Text("",false); block.Margin=new Thickness(12,4,0,5);
-                foreach(var part in QuestLinks.Split(line,_workspace?.Catalog,_workspace?.SelectedGuide?.Key))
-                {
-                    if(part.Guide is { } linked)
-                    {
-                        var link=new Hyperlink(new Run(part.Text)) {ToolTip=linked.Title};
-                        link.Click+=(_,_)=>GuideRequested?.Invoke(linked);block.Inlines.Add(link);
-                    }
-                    else AddNumbers(block,part.Text);
-                }
-                card.Children.Add(block);
-            }
-            group.Children.Add(new Border { Child=card, Padding=new Thickness(12),Margin=new Thickness(0,8,0,0),CornerRadius=new CornerRadius(6),Background=(Brush)FindResource("RoTitleBrush") });
-        }
-        if (!string.IsNullOrWhiteSpace(original)) group.Children.Add(new Expander { Header=T("QOriginalText"),Content=Text(original),Margin=new Thickness(0,8,0,0) });
-        FactsPanel.Children.Add(group);
-    }
-    private static void AddNumbers(TextBlock block,string text)
-    {
-        var last=0;
-        foreach(Match match in Regex.Matches(text,@"\b\d[\d,]*(?:\.\d+)?(?:%|\s*(?:EXP|Zeny))?"))
-        {block.Inlines.Add(new Run(text[last..match.Index]));block.Inlines.Add(new Bold(new Run(match.Value)));last=match.Index+match.Length;}
-        block.Inlines.Add(new Run(text[last..]));
-    }
-    internal void ShowFacts()=>DetailsTabs.SelectedIndex=1;
-    public void ShowCurrentStep()
-    {
-        DetailsTabs.SelectedIndex=0;
-        Dispatcher.BeginInvoke(new Action(()=>{UpdateLayout();ScrollToCurrent();}),DispatcherPriority.ContextIdle);
-    }
-    public void ScrollToCurrent()
-    {
-        if(Window.GetWindow(this) is {IsVisible:false})return;
-        foreach(var card in StepsPanel.Children.OfType<Border>())
-            if(card.Tag is int step && _workspace?.IsCurrentStep(step)==true) {WalkScroll.UpdateLayout();var top=card.TranslatePoint(new Point(0,0),StepsPanel).Y;WalkScroll.ScrollToVerticalOffset(top);return;}
-    }
-    internal Button? CurrentNavigationButton=>StepsPanel.Children.OfType<Border>().Where(c=>c.Tag is int n && _workspace?.IsCurrentStep(n)==true)
-        .SelectMany(c=>((StackPanel)c.Child).Children.OfType<WrapPanel>()).SelectMany(p=>p.Children.OfType<Button>()).FirstOrDefault(b=>b.Tag is QuestNavigationTarget);
-    internal bool CurrentStepInView
-    {
-        get
-        {
-            if(DetailsTabs.SelectedIndex!=0)return false;
-            var card=StepsPanel.Children.OfType<Border>().FirstOrDefault(c=>c.Tag is int n && _workspace?.IsCurrentStep(n)==true);
-            if(card is null)return false;
-            var top=card.TranslatePoint(new Point(0,0),StepsPanel).Y-WalkScroll.VerticalOffset;
-            return top>=-1 && top<WalkScroll.ViewportHeight;
-        }
-    }
-    private void Current_Click(object sender,RoutedEventArgs e)=>ScrollToCurrent();
-    private static TextBlock Text(string value, bool bold = false) => new() { Text = value, TextWrapping = TextWrapping.Wrap,
-        FontWeight = bold ? FontWeights.SemiBold : FontWeights.Normal, Margin = new Thickness(0, 2, 0, 3) };
-    internal bool HasStepCount(int count) => StepsPanel.Children.Count == count;
-    private void Add_Click(object sender, RoutedEventArgs e) {if(_workspace?.SelectedGuide is { } guide)_workspace.ToggleTracking(guide);}
-    private void Source_Click(object sender, RoutedEventArgs e)
-    {
-        if (!Uri.TryCreate(_workspace?.SelectedGuide?.SourceUrl, UriKind.Absolute, out var uri) || uri.Scheme is not ("https" or "http")) return;
-        try { Process.Start(new ProcessStartInfo(uri.AbsoluteUri) { UseShellExecute = true }); }
-        catch (Exception ex) { MessageBox.Show(ex.Message, "RoAura", MessageBoxButton.OK, MessageBoxImage.Warning); }
-    }
+ public event Action<QuestGuide?>? GuideRequested;
+ private readonly QuestSemanticService _reader=new();
+ private readonly DispatcherTimer _refresh=new(){Interval=TimeSpan.FromSeconds(2)};
+ private readonly DispatcherTimer _toast=new(){Interval=TimeSpan.FromSeconds(3)};
+ private SemanticCatalog? _catalog;private SemanticQuest? _quest;private QuestWorkspace? _workspace;
+ private string? _selectedId;private string _language="ru",_fingerprint="";private bool _loading,_rendering;
+ private readonly Dictionary<string,Border> _cards=new();
+ private bool Editable=>_workspace?.CanEdit==true && _quest is not null && SemanticReadiness.MatchesProgress(_quest,_workspace.SelectedGuide);
+ public QuestDetailsControl()
+ {
+  InitializeComponent();_refresh.Tick+=async(_,_)=>await RefreshDataAsync();
+  Loaded+=async(_,_)=>{_refresh.Start();await RefreshDataAsync(true);};Unloaded+=(_,_)=>_refresh.Stop();
+  _toast.Tick+=(_,_)=>{_toast.Stop();Toast.Visibility=Visibility.Collapsed;};
+ }
+ private string L(string ru,string en)=>_language=="ru"?ru:en;
+ private static Brush B(string color)=>(Brush)new BrushConverter().ConvertFromString(color)!;
+ private static TextBlock Text(string value,double size=12,bool bold=false)=>new(){Text=value,FontSize=size,FontWeight=bold?FontWeights.SemiBold:FontWeights.Normal,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,2,0,4)};
+ public async Task RefreshDataAsync(bool force=false)
+ {
+  if(_loading)return;
+  var file=new FileInfo(_reader.Path);var fingerprint=file.Exists?$"{file.Length}:{file.LastWriteTimeUtc.Ticks}":"missing";
+  if(!force && fingerprint==_fingerprint)return;
+  _loading=true;
+  try{_catalog=await _reader.LoadAsync();_fingerprint=fingerprint;DataStatus.Text="";}
+  catch(Exception ex) when(ex is IOException or UnauthorizedAccessException or InvalidDataException)
+  {_catalog=null;_fingerprint=fingerprint;DataStatus.Text=L("Семантическая база недоступна: ","Semantic database unavailable: ")+ex.Message;}
+  finally{_loading=false;if(_workspace is not null)Render(_workspace);}
+ }
+ public void Render(QuestWorkspace workspace)
+ {
+  _workspace=workspace;
+  if(_catalog is null && !_loading && _fingerprint=="")_ = RefreshDataAsync();
+  _rendering=true;
+  try
+  {
+   _language=LocalizationService.CurrentLanguage=="ru"?"ru":"en";
+   var previous=_quest?.Id;_quest=workspace.SelectedGuide is {} selected?_catalog?.Quests.GetValueOrDefault(selected.Key):null;
+   ReadyChoice.ItemsSource=_catalog?.Quests.Values.OrderBy(q=>q.Title).ToList();ReadyChoice.SelectedValue=_quest?.Id;
+   if(_quest?.Id!=previous)_selectedId=null;
+   if(_quest is not null && !_quest.Steps.Any(s=>s.Id==_selectedId))_selectedId=Current()?.Id??_quest.Steps[0].Id;
+   RenderChrome();RenderSteps();RenderDetail();RenderFacts();RenderSources();
+  }
+  finally{_rendering=false;}
+ }
+ private SemanticStep? Current()=>_quest?.Steps.FirstOrDefault(s=>_workspace?.IsCurrentStep(s.Order)==true);
+ private QuestStep? Legacy(SemanticStep step)=>Editable?_workspace?.SelectedGuide?.Steps.SingleOrDefault(s=>s.Number==step.Order):null;
+ private bool Done(SemanticStep step)=>Legacy(step) is {} legacy && _workspace!.IsStepDone(_workspace.SelectedGuide!,legacy);
+ private void RenderChrome()
+ {
+  QuestTitle.Text=_quest?.Title??L("Выберите полностью локализованный квест","Select a fully localized quest");
+  Metadata.Text=_quest is null?"":$"{L("Ревизия источника","Source revision")}: {_quest.Source.Revision} · Base Lv. {_quest.BaseLevel?.ToString()??L("не указан","not specified")} · Job Lv. {_quest.JobLevel?.ToString()??L("не указан","not specified")}";
+  Quality.Text=_quest is null?L("Новый экран доступен только для квестов, все этапы которых готовы RU/EN.","The new screen accepts only quests with every step ready in RU/EN."):
+   L("Описания: готовы RU/EN · Прохождение на сервере: статус неизвестен","Descriptions: RU/EN ready · Server walkthrough: status unknown");
+  if(_quest is not null && !Editable)Quality.Text+="\n"+L("Изменение прогресса недоступно: выберите профиль; при несовпадении этапов требуется сверка каталога.","Progress editing unavailable: select a profile; mismatching steps require catalog review.");
+  var active=_workspace?.IsActive(_workspace.SelectedGuide)==true;
+  AddButton.Content=active?L("✓ Активен","✓ Active"):L("+ Добавить в активные","+ Add to active");AddButton.IsEnabled=Editable;
+  if(active)QuestCopyFeedback.ColorState(AddButton,B("#298E38"));else{AddButton.ClearValue(Button.TemplateProperty);AddButton.ClearValue(Button.ForegroundProperty);}
+  GoCurrentButton.Content=L("К текущему этапу","Go to current step");GoCurrentButton.IsEnabled=Current() is not null;
+  WalkTab.Header=L("Прохождение","Walkthrough");FactsTab.Header=L("Требования и награды","Requirements and rewards");SourcesTab.Header=L("Источники","Sources");
+  var done=_quest?.Steps.Count(Done)??0;var count=_quest?.Steps.Count??0;
+  ProgressText.Text=L("Выполнено: ","Completed: ")+$"{done}/{count}";ProgressBar.Value=count==0?0:(double)done/count;
+  foreach(var (button,language) in new[]{(RuButton,"ru"),(EnButton,"en")})
+  {button.Background=B(language==_language?"#1F67C2":"#F3F7FD");button.Foreground=language==_language?Brushes.White:B("#1C4782");}
+ }
+ private void RenderSteps()
+ {
+  var offset=WalkScroll.VerticalOffset;StepsPanel.Children.Clear();_cards.Clear();
+  if(_quest is null)return;
+  foreach(var step in _quest.Steps)
+  {
+   var done=Done(step);var selected=step.Id==_selectedId;
+   var grid=new Grid();grid.ColumnDefinitions.Add(new(){Width=new GridLength(22)});grid.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});grid.ColumnDefinitions.Add(new(){Width=new GridLength(19)});
+   var number=Text(step.Order+".",12,true);number.Foreground=B(done?"#5E6D80":"#0D3268");grid.Children.Add(number);
+   var content=new StackPanel {Margin=new Thickness(7,0,7,0),Opacity=done ? 0.62 : 1};Grid.SetColumn(content,1);grid.Children.Add(content);
+   var excerpt=Text("");ApplyText(excerpt,step,false,done);content.Children.Add(excerpt);
+   if(step.Points.Count>0)content.Children.Add(Coordinates(step,done));
+   var actions=new WrapPanel{Margin=new Thickness(0,5,0,0)};
+   var use=new Button {Content=L("Использовать инструкцию","Use this instruction"),FontSize=11,Height=24,MinHeight=24,Padding=new Thickness(10,0,10,0),IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide)};
+   use.Click+=(_,e)=>{e.Handled=true;_selectedId=step.Id;_workspace!.SelectStep(step.Order);DetailsTabs.SelectedIndex=0;};actions.Children.Add(use);
+   if(_workspace?.IsCurrentStep(step.Order)==true)actions.Children.Add(Tag(L("Текущий этап","Current step"),done?"#687787":"#1764CC"));content.Children.Add(actions);
+   var check=new CheckBox{IsChecked=done,IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide),VerticalAlignment=VerticalAlignment.Top,Foreground=B("#228842"),ToolTip=L("Отметить выполнение этапа","Mark step complete")};Grid.SetColumn(check,2);AutomationProperties.SetName(check,L("Выполнен этап ","Completed step ")+step.Order);
+   check.Click+=(_,e)=>{e.Handled=true;if(Legacy(step) is {} legacy)_workspace!.SetStepDone(_workspace.SelectedGuide!,legacy,check.IsChecked==true);};grid.Children.Add(check);
+   var card=new Border {Child=grid,Tag=step.Id,CornerRadius=new CornerRadius(5),Padding=new Thickness(10,9,10,9),Margin=new Thickness(0,0,0,5),BorderThickness=new Thickness(selected?2:1,1,1,1),
+    Background=B(done?(selected?"#EDF2F7":"#F6F8FB"):(selected?"#E9F2FF":"#FBFDFF")),BorderBrush=B(selected?(done?"#9AB3CF":"#6CA6F1"):"#D5E4F4"),Focusable=true,Cursor=Cursors.Hand};
+   AutomationProperties.SetName(card,L("Этап ","Step ")+step.Order);
+   card.MouseLeftButtonUp+=(_,e)=>{if(InteractiveAncestor(e.OriginalSource as DependencyObject,card))return;Select(step);e.Handled=true;};
+   card.KeyDown+=(_,e)=>{if(e.Key is Key.Enter or Key.Space && ReferenceEquals(Keyboard.FocusedElement,card)){Select(step);e.Handled=true;}};
+   card.GotKeyboardFocus+=(_,_)=>card.BorderBrush=B("#1764CC");card.LostKeyboardFocus+=(_,_)=>card.BorderBrush=B(selected?(done?"#9AB3CF":"#6CA6F1"):"#D5E4F4");
+   _cards[step.Id]=card;StepsPanel.Children.Add(card);
+  }
+  WalkScroll.ScrollToVerticalOffset(offset);
+ }
+ private static bool InteractiveAncestor(DependencyObject? node,DependencyObject stop)
+ {
+  while(node is not null && node!=stop){if(node is Button or CheckBox)return true;node=node is Visual?VisualTreeHelper.GetParent(node):LogicalTreeHelper.GetParent(node);}return false;
+ }
+ private void Select(SemanticStep step){_selectedId=step.Id;DetailsTabs.SelectedIndex=0;RenderSteps();RenderDetail();}
+ private Border Tag(string text,string color)=>new(){Background=B(color),BorderBrush=B(color),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(3),Padding=new Thickness(6,1,6,1),Margin=new Thickness(8,3,0,0),Child=new TextBlock {Text=text,Foreground=Brushes.White,FontSize=10,FontWeight=FontWeights.Bold}};
+ private WrapPanel Coordinates(SemanticStep step,bool monochrome=false)
+ {
+  var panel=new WrapPanel{Margin=new Thickness(0,5,0,0)};
+  foreach(var point in step.Points)
+  {
+   var label=(point.Map is null?"":point.Map+" ")+$"{point.X},{point.Y}";
+   var command=point.Map is null?$"{point.X} {point.Y}":$"/navi {point.Map} {point.X}/{point.Y}";
+   var button=new Button{Content=label,Tag=new QuestNavigationTarget(point.Map??"",point.X,point.Y),FontSize=10,FontWeight=FontWeights.SemiBold,Padding=new Thickness(4,1,4,1),MinHeight=16,Height=20,Margin=new Thickness(0,0,5,0),ToolTip=string.Join(" · ",new[]{command,point.Role,point.Condition}.Where(v=>!string.IsNullOrWhiteSpace(v)))};
+   button.Background=B(monochrome?"#EEF1F5":"#EFF5FE");button.Foreground=B(monochrome?"#4E5A66":"#1F477B");
+   AutomationProperties.SetName(button,L("Скопировать координаты ","Copy coordinates ")+label);
+   button.Click+=(_,e)=>{e.Handled=true;Notify(ClipboardService.TryCopy(command)?L("Координаты скопированы","Coordinates copied"):L("Не удалось скопировать","Copy failed"));};panel.Children.Add(button);
+  }
+  return panel;
+ }
+ private void ApplyText(TextBlock block,SemanticStep step,bool full,bool monochrome=false)
+ {
+  var text=full?step.Full(_language):step.Short(_language);var field=(full?"full_":"short_")+_language;
+  var spans=new List<(int Start,int Length,string Type)>();
+  foreach(var m in step.Mentions.Where(m=>m.Field==field))
+   if(SemanticReadiness.Utf16Span(text,m.Start,m.End,m.Surface) is {} span)spans.Add((span.Start,span.Length,m.Type));
+  // Exact answer text is linked by step_dialogues. This is not free-text answer discovery.
+  foreach(var answer in step.Answers)
+  {var index=text.IndexOf(answer.Text,StringComparison.Ordinal);if(index>=0 && answer.Text.Length>0 && !spans.Any(s=>s.Start<index+answer.Text.Length && s.Start+s.Length>index))spans.Add((index,answer.Text.Length,"answer"));}
+  var offset=0;
+  foreach(var span in spans.OrderBy(s=>s.Start))
+  {
+   if(span.Start<offset)continue;
+   block.Inlines.Add(new Run(text[offset..span.Start]));
+   block.Inlines.Add(new Run(text.Substring(span.Start,span.Length)){FontWeight=FontWeights.SemiBold,Foreground=B(monochrome?"#5E6D80":span.Type switch{"npc"=>"#075CB9","item"=>"#087747","map"=>"#985100","answer"=>"#783CAA",_=>"#0D3268"})});offset=span.Start+span.Length;
+  }
+  block.Inlines.Add(new Run(text[offset..]));if(monochrome)block.Foreground=B("#5E6D80");
+ }
+ private void RenderDetail()
+ {
+  DetailPanel.Children.Clear();var step=_quest?.Steps.FirstOrDefault(s=>s.Id==_selectedId);if(step is null)return;
+  var layout=new Grid();layout.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});layout.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});
+  var prose=new StackPanel{Margin=new Thickness(0,0,12,0)};layout.Children.Add(prose);
+  prose.Children.Add(Text(L("Этап ","Step ")+step.Order+(Done(step)?L(" ✓ Завершено"," ✓ Completed"):""),15,true));prose.Children.Add(Text(L("Полное описание","Full description"),18,true));
+  var full=Text("",ActualWidth<1050?13:14);full.LineHeight=full.FontSize*1.67;ApplyText(full,step,true);prose.Children.Add(full);prose.Children.Add(Legend());
+  var aside=new StackPanel();Grid.SetColumn(aside,1);layout.Children.Add(aside);
+  var imageHost=new Border {Background=B("#F1F4F8"),BorderBrush=B("#D5E0EC"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),MinHeight=180,Padding=new Thickness(12),Child=Text(L("▧ Для этапа не добавлен скриншот","▧ No screenshot for this step"),11)};
+  var image=step.Images.FirstOrDefault();
+  if(image is not null)
+  {
+   // Only a source image explicitly attached to this stable step; never reuse the prototype illustration.
+   Uri? uri=null;
+   if(image.LocalPath is {} local)
+   {var root=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"Data"))+Path.DirectorySeparatorChar;var path=Path.GetFullPath(Path.Combine(root,local));if(path.StartsWith(root,StringComparison.OrdinalIgnoreCase) && File.Exists(path))uri=new Uri(path);}
+   if(uri is null && Uri.TryCreate(image.Url,UriKind.Absolute,out var remote) && remote.Scheme is "http" or "https")uri=remote;
+   if(uri is not null)try{var bitmap=new BitmapImage();bitmap.BeginInit();bitmap.UriSource=uri;bitmap.DecodePixelWidth=600;bitmap.EndInit();imageHost.Child=new Image{Source=bitmap,Stretch=Stretch.Uniform,ToolTip=image.Caption};}catch(Exception ex){DebugLog.Write("Quest image: "+ex.Message);}
+  }
+  aside.Children.Add(imageHost);
+  var coordinates=new StackPanel();if(step.Points.Count>0)coordinates.Children.Add(Coordinates(step));else coordinates.Children.Add(Text(L("Координаты для этого этапа не указаны в документе","No coordinates specified for this step"),11));
+  if(step.Npcs.Count>0){var names=Text("NPC: "+string.Join(", ",step.Npcs),11,true);names.Foreground=B("#075CB9");coordinates.Children.Add(names);}
+  aside.Children.Add(Info(L("Координаты","Coordinates"),coordinates));
+  var materials=new StackPanel();var items=step.Items.Where(i=>i.Operation!="mention" && i.Operation!="decline").ToList();
+  if(items.Count==0)materials.Children.Add(Text(L("Не требуются по описанию этапа","None specified for this step"),11));
+  foreach(var item in items)
+  {
+   var line=Text(item.Name+(item.Quantity is {} n?" ×"+n:" ×?")+" · "+Operation(item.Operation),12,true);line.Foreground=B("#087747");materials.Children.Add(line);
+   if(item.Condition is not null || item.Branch is not null)materials.Children.Add(Text(string.Join(" · ",new[]{item.Condition,item.Branch}.Where(x=>x is not null)),11));
+  }
+  aside.Children.Add(Info(L("Необходимые предметы","Required items"),materials));
+  if(ActualWidth<1050){layout.ColumnDefinitions[1].Width=new GridLength(0);layout.RowDefinitions.Add(new(){Height=GridLength.Auto});layout.RowDefinitions.Add(new(){Height=GridLength.Auto});Grid.SetColumn(aside,0);Grid.SetRow(aside,1);}
+  DetailPanel.Children.Add(layout);
+  foreach(var answer in step.Answers)
+  {var button=new Button{Content=L("Скопировать ответ","Copy answer")+": "+answer.Text,ToolTip=string.Join(" · ",new[]{answer.Operation,answer.Condition,answer.Branch}.Where(x=>x is not null)),HorizontalAlignment=HorizontalAlignment.Left};button.Click+=(_,_)=>Notify(ClipboardService.TryCopy(answer.Text)?L("Текст скопирован","Text copied"):L("Ошибка копирования","Copy failed"));DetailPanel.Children.Add(button);}
+  DetailPanel.Children.Add(Text(L("Использовать инструкцию — назначить текущий этап. Галочка — подтвердить выполнение.","Use this instruction sets the current step. The checkbox confirms completion."),11));
+ }
+ private Border Info(string title,UIElement content)
+ {var stack=new StackPanel();stack.Children.Add(Text(title,12,true));stack.Children.Add(content);return new(){Child=stack,Background=B("#FAFCFF"),BorderBrush=B("#D6E4F3"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),Padding=new Thickness(10),Margin=new Thickness(0,10,0,0)};}
+ private WrapPanel Legend()
+ {var legend=new WrapPanel{Margin=new Thickness(0,18,0,0)};foreach(var pair in new[]{(L("NPC","NPC"),"#075CB9"),(L("Предмет","Item"),"#087747"),(L("Карта / координаты","Map / coordinates"),"#985100"),(L("Вариант ответа","Answer"),"#783CAA")})legend.Children.Add(Tag(pair.Item1,pair.Item2));return legend;}
+ private void RenderFacts()
+ {
+  FactsPanel.Children.Clear();if(_quest is null)return;
+  AddFacts(L("Требования","Requirements"),_quest.Requirements);AddFacts(L("Награды","Rewards"),_quest.Rewards);
+ }
+ private void AddFacts(string heading,IReadOnlyList<SemanticFact> facts)
+ {
+  FactsPanel.Children.Add(Text(heading,17,true));if(facts.Count==0)FactsPanel.Children.Add(Text(L("Нет данных","No data")));
+  // Rows are source facts, not totals. Alternative branches are never summed.
+  foreach(var fact in facts)
+  {var content=new StackPanel();content.Children.Add(Text(FactLabel(fact.Kind)+(fact.Name is null?"":" · "+fact.Name)+(fact.Amount is null?"":" ×"+fact.Amount),12,true));if(fact.Condition is not null)content.Children.Add(Text(fact.Condition));if(fact.Branch is not null)content.Children.Add(Text(L("Вариант: ","Branch: ")+fact.Branch,11));FactsPanel.Children.Add(Info("",content));}
+ }
+ private string Operation(string value)=>value switch
+ {"collect"=>L("собрать","collect"),"bring"=>L("принести","bring"),"deliver"=>L("передать","deliver"),"buy"=>L("купить","buy"),"use"=>L("использовать","use"),"consume"=>L("расходуется","consumed"),"possess"=>L("иметь при себе","possess"),"show"=>L("показать","show"),_=>value};
+ private string FactLabel(string value)=>value switch
+ {"base_level"=>L("Базовый уровень","Base level"),"job_level"=>L("Уровень профессии","Job level"),"base_exp"=>L("Базовый опыт","Base experience"),"job_exp"=>L("Опыт профессии","Job experience"),"item"=>L("Предмет","Item"),"item_consumed_total"=>L("Суммарные расходуемые материалы","Total consumed materials"),"item_not_consumed"=>L("Нерасходуемый предмет","Retained item"),"quest_completed"=>L("Предварительный квест","Prerequisite quest"),"zeny" or "zeny_total"=>L("Зени","Zeny"),_=>value.Replace('_',' ')};
+ private void RenderSources()
+ {
+  SourcePanel.Children.Clear();if(_quest is null)return;
+  SourcePanel.Children.Add(Text(L("Источники","Sources"),17,true));var source=_quest.Source;
+  var link=new Button{Content=source.Url,HorizontalAlignment=HorizontalAlignment.Left,ToolTip=source.Url};link.Click+=(_,_)=>OpenUrl(source.Url);SourcePanel.Children.Add(link);
+  SourcePanel.Children.Add(Text(source.Kind+"\n"+source.Revision+"\n"+source.License+"\n"+_quest.Review+"\n"+L("Проверка сервера: ","Server verification: ")+_quest.Availability));SourcePanel.Children.Add(Legend());
+  SourcePanel.Children.Add(Text(L("Неизвестные карты и координаты не заполняются автоматически.","Unknown maps and coordinates are never inferred."),11));
+ }
+ private static void OpenUrl(string value){if(Uri.TryCreate(value,UriKind.Absolute,out var uri) && uri.Scheme is "http" or "https")try{Process.Start(new ProcessStartInfo(uri.AbsoluteUri){UseShellExecute=true});}catch(Exception ex){DebugLog.Write(ex.Message);}}
+ private void Ready_Changed(object sender,SelectionChangedEventArgs e){if(_rendering || ReadyChoice.SelectedItem is not SemanticQuest quest)return;if(_workspace?.Catalog?.Guides.GetValueOrDefault(quest.Id) is {} guide)GuideRequested?.Invoke(guide);}
+ private void Ru_Click(object sender,RoutedEventArgs e)=>Language("ru");private void En_Click(object sender,RoutedEventArgs e)=>Language("en");
+ private void Language(string language){if(_workspace is null)return;var offset=WalkScroll.VerticalOffset;_workspace.Settings.Language=language;LocalizationService.ApplyLanguage(language);_workspace.RefreshLanguage();Render(_workspace);WalkScroll.ScrollToVerticalOffset(offset);Notify(L("Язык изменён","Language changed"));}
+ private void Add_Click(object sender,RoutedEventArgs e){if(Editable && _workspace?.SelectedGuide is {} guide){_workspace.ToggleTracking(guide);Notify(L("Отслеживание обновлено","Tracking updated"));}}
+ private void Current_Click(object sender,RoutedEventArgs e)=>ShowCurrentStep();
+ public void ShowCurrentStep(){DetailsTabs.SelectedIndex=0;if(Current() is {} step)_selectedId=step.Id;RenderSteps();RenderDetail();Dispatcher.BeginInvoke(ScrollToCurrent,DispatcherPriority.ContextIdle);}
+ public void ScrollToCurrent(){if(Current() is {} step && _cards.TryGetValue(step.Id,out var card)){WalkScroll.UpdateLayout();WalkScroll.ScrollToVerticalOffset(card.TranslatePoint(new Point(),StepsPanel).Y);}}
+ internal void ShowFacts()=>DetailsTabs.SelectedIndex=1;
+ internal void ValidateSelectionSmoke()
+ {
+  if(_quest is null || _workspace is null)throw new InvalidOperationException("Semantic view not loaded.");
+  var current=Current()?.Id;var selected=_selectedId;
+  var other=_quest.Steps.First(s=>s.Id!=current);Select(other);
+  if(Current()?.Id!=current || _selectedId!=other.Id)throw new InvalidOperationException("Reading a semantic step changed current progress.");
+  ShowFacts();Render(_workspace);
+  if(DetailsTabs.SelectedIndex!=1 || _selectedId!=other.Id)throw new InvalidOperationException("Facts tab lost selection.");
+  _selectedId=selected;ShowCurrentStep();
+ }
+
+ internal bool HasStepCount(int count)=>_quest?.Steps.Count==count && _cards.Count==count;
+ internal Button? CurrentNavigationButton=>Current() is {} step && _cards.TryGetValue(step.Id,out var card)?((Grid)card.Child).Children.OfType<StackPanel>().SelectMany(p=>p.Children.OfType<WrapPanel>()).SelectMany(p=>p.Children.OfType<Button>()).FirstOrDefault(b=>b.Tag is QuestNavigationTarget):null;
+ internal bool CurrentStepInView
+ {get{if(DetailsTabs.SelectedIndex!=0 || Current() is not {} step || !_cards.TryGetValue(step.Id,out var card))return false;var top=card.TranslatePoint(new Point(),StepsPanel).Y-WalkScroll.VerticalOffset;return top>=-1 && top<WalkScroll.ViewportHeight;}}
+ internal bool CopyToastVisible=>Toast.Visibility==Visibility.Visible;
+
+ private void Notify(string message){ToastText.Text=message;Toast.Visibility=Visibility.Visible;_toast.Stop();_toast.Start();}
+ private void Layout_Changed(object sender,SizeChangedEventArgs e)
+ {
+  var narrow=ActualWidth<760;Grid.SetColumn(RightPanel,narrow?0:1);Grid.SetRow(RightPanel,narrow?1:0);RightColumn.Width=narrow?new GridLength(0):new GridLength(1,GridUnitType.Star);
+  TopRow.Height=narrow?GridLength.Auto:new GridLength(1,GridUnitType.Star);BottomRow.Height=narrow?new GridLength(1,GridUnitType.Star):new GridLength(0);LeftPanel.MaxHeight=narrow?385:double.PositiveInfinity;
+  LeftPanel.Margin=narrow?new Thickness(0,0,0,5):new Thickness(0,0,5,0);RightPanel.Margin=narrow?new Thickness(0,5,0,0):new Thickness(5,0,0,0);RenderDetail();
+ }
 }

@@ -430,3 +430,45 @@ Artifact: [RoAura-development-81-ed06d76](https://github.com/alerion08/RoAura/ac
 Portable SHA256: `ae502ff9067fdca7fa14497bea00d50769ce82315d7bf2a2f3ab4c4f315cb02f`.
 Real SpringRO clipping/mixed-DPI and settings preview acceptance remain manual.
 No main/research writes, version changes, merge, tag or release.
+
+## Semantic walkthrough redesign — 2026-11-01
+
+Owner specification v1.1: docs/ROQUESTIE_WALKTHROUGH_SPEC.md and the user-attached
+Ayothaya HTML are design references only. The production view reads exclusively
+Data/quest_semantic.sqlite, semantic schema 5 (not the legacy schema-5 catalog).
+Pinned research e3206beccbdd414c6d6f31d146d168247634c578 has 28 fully localized
+quests / 420 ready steps. Research and main remain untouched; version stays 3.2.0.
+The whole-quest gate compares distinct (quest_id,step_id) membership in ready_steps
+and requires all four fields to contain non-whitespace text. A zero-step or
+partially translated quest is absent; partial source review is not an exclusion.
+
+Two panels separate selected/read step from current/manual progress. Left short
+texts, right full texts, independent scroll, right-only detail/facts/source tabs,
+RU/EN, compact coordinate copy, completion and tracking use the existing profile
+and progress system. All 28 ready quests match original stage number/kind/text
+with the legacy catalog: source anchors remain compatible. Mismatching source
+revisions fail closed for editing rather than moving marks by row position.
+Descriptions never fall back to old prose. The old catalog/active/history/tracker
+are not filtered by semantic readiness. The new view has its own ready selector.
+
+Read-only SQLite uses the existing Windows SQLite reader, schema/integrity guards.
+Typed entity spans convert Unicode code-point offsets to UTF-16 and verify exact
+surfaces. Coordinates/NPCs/materials/dialogue options/facts/images come from typed
+relations. Unknown maps stay unknown; no regular-expression extraction or guessed
+NPC identity. Requirements and conditional/branch rewards are displayed as
+separate facts, never summed across alternatives. Untranslated original fact
+conditions remain verbatim. Server assurance is explicitly unknown for this data,
+separate from RU/EN readiness. No game completion is detected automatically.
+
+Reopening and an active two-second file revision probe reload the semantic view;
+newly ready quests appear without a whitelist, removed entries do not delete
+progress. Source screenshots are step-specific; the snapshot currently has zero
+images, so neutral placeholders are correct. User image uploads are not enabled.
+Feature CI provisions SHA-pinned read-only semantic/legacy fixtures and notices.
+
+Acceptance: readiness 0/1/10/9-of-10, whitespace/NULL, cross-quest membership,
+duplicate IDs, newly ready membership, partial source review, Unicode spans,
+SQLite immutability; native More/current, copy toast (coordinates retain caption),
+focus/input, F9, database priority and snapshots. Windows validation pending.
+Manual acceptance: real SpringRO mixed-DPI, narrow layout, long/conditional quests,
+RU/EN/selected/current/completed/profile isolation, live database replacement.

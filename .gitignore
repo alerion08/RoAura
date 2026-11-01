@@ -46,3 +46,5 @@ Data/*.building*
 
 # ROQuestie runtime snapshot is extracted from its pinned research revision by feature CI.
 Data/questie_catalog.sqlite
+
+Data/quest_semantic.sqlite

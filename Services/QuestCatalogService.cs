@@ -68,7 +68,7 @@ public sealed class QuestCatalogService
         return new QuestCatalog(guides);
     }
 
-    private sealed class Reader : IDisposable
+    internal sealed class Reader : IDisposable
     {
         private IntPtr _db, _statement;
         private readonly CancellationToken _token;
