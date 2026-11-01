@@ -16004,38 +16004,11 @@
       "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/c3b5d59320550cc8ecd5/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Two 700000 installments total the 1400000 header reward; no third header grant is emitted.",
       "evidence_id": "ev:d3ab34a22db31b46fac7e6e9",
       "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "original_html_missing",
-      "review_id": "review:f70d54fe8d5a201418721232",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:d3ab34a22db31b46fac7e6e9",
-      "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:b1b98c2cea0db5dd4fd0cc7e",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:92a322d54c192867f3016dcd",
-      "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:b6e081baf58e98caf9a21d78",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:32a80f797f312a173be8d337",
-      "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:621c6ae2e96ed454808a27ce",
+      "reason": "reward_header_not_extra_grant",
+      "review_id": "review:139ed2692da5ddff59c4293b",
       "severity": "warning",
       "step_id": null
     },
@@ -16047,78 +16020,6 @@
       "review_id": "review:7e68ac26e7e133bb538248ca",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0b242218c669c991486d1e10",
-      "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "localization_missing",
-      "review_id": "review:e3c6faf04b592f1fd676aae4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_a_Fairy/step/071fc42b8b608688ac5d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0b242218c669c991486d1e10",
-      "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8be05aefb2c42fa0e3cd1dd6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_a_Fairy/step/071fc42b8b608688ac5d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:97cb063509a83a172ad25cd6",
-      "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "localization_missing",
-      "review_id": "review:bb56895cf4c7c9279222f4a8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_a_Fairy/step/3e26080efe88648d41c5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:97cb063509a83a172ad25cd6",
-      "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:15f326792f254a1d0bafa41d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_a_Fairy/step/3e26080efe88648d41c5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b58692a236a92044d47085c4",
-      "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "localization_missing",
-      "review_id": "review:fac5881137d49117962a0d0a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_a_Fairy/step/8adefd74e6f838c2b79e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b58692a236a92044d47085c4",
-      "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c427422b9fc9831ccf22a30d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_a_Fairy/step/8adefd74e6f838c2b79e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b0a814f3f7efa6e7d3906383",
-      "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "localization_missing",
-      "review_id": "review:a59f967961f438a0458b42d2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_a_Fairy/step/9546e8a0619828d6c6cb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b0a814f3f7efa6e7d3906383",
-      "quest_id": "irowiki-classic:Finding_a_Fairy",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7d229be683871e5f471897cb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_a_Fairy/step/9546e8a0619828d6c6cb/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -21548,38 +21449,20 @@
       "step_id": "irowiki-classic:God_Items_Quest_2/step/d5f0e1ad4aef6a27faf4/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Source offers choices at investigation, assistance and reward stages. No proven cross-stage forced tribe lock is stated; each choice group is local to its stage, and rewards must not be summed.",
       "evidence_id": "ev:a28677c7a918b87ed14e2200",
       "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "original_html_missing",
-      "review_id": "review:5c9e8e53d5184bbfe1cb9a18",
+      "reason": "independent_tribe_choices",
+      "review_id": "review:4a0f72fed0830cc696d2109f",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Final reward has two exclusive branches. Header EXP and OR-coins summarize one chosen branch, not a third grant.",
       "evidence_id": "ev:a28677c7a918b87ed14e2200",
       "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:0744fe2b2756e9e04bbb2f00",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:ad65f941655f0338badb40c0",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:95ca1d7c38d4b766d70516cb",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:96b1f8f6dc042aceb861d0a6",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:0ea076e08823d6b2a21599e0",
+      "reason": "reward_header_not_extra_grant",
+      "review_id": "review:1fc0e901a0975da43a17d437",
       "severity": "warning",
       "step_id": null
     },
@@ -21593,35 +21476,26 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ff7fb90fd0bfaedb8293f2d4",
+      "detail": "Guardian prints spl_fld01 at the dungeon entrance; Two Tribes prints a trail on spl_fild01. Preserve both literals and mark the former unverified rather than silently correcting coordinates.",
+      "evidence_id": "ev:a28677c7a918b87ed14e2200",
       "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "localization_missing",
-      "review_id": "review:461bcad8150740a900cbee47",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/101f2146e379f9210532/1"
+      "reason": "source_map_spelling_conflict",
+      "review_id": "review:b726bf99ee545b0def2304f9",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ff7fb90fd0bfaedb8293f2d4",
+      "detail": "Neat Etorr and Etol, and Yggdrasiliad and Yggdrasilid, retain separate source identities; spelling similarity does not prove an alias.",
+      "evidence_id": "ev:a28677c7a918b87ed14e2200",
       "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6b299596a3dc9d68f4d0ad90",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/101f2146e379f9210532/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:36650f0fe67340e717a923ad",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "localization_missing",
-      "review_id": "review:35541dd517161d66a7b778cc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/286af4d804bdfce56380/1"
+      "reason": "source_npc_spelling_conflict",
+      "review_id": "review:2652f607e17f361ce3a44f94",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Map spelling has not been matched to a pinned reference map.",
-      "evidence_id": "ev:6922572231455d1d23fb18c8",
+      "evidence_id": "ev:e5593f6bb40134409e5785f2",
       "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
       "reason": "map_not_reference_known",
       "review_id": "review:bfd1b5bcb5c457b93085433f",
@@ -21629,166 +21503,22 @@
       "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/286af4d804bdfce56380/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:36650f0fe67340e717a923ad",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:82aa0eaf210449dee50b3dfa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/286af4d804bdfce56380/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "Pinned undated source says this quest cannot currently be completed on iRO due to a missing quest-variable update. This is retained as a source warning, not a verified current server state.",
       "evidence_id": "ev:33ba41fea5f5e19f05bbc869",
       "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "localization_missing",
-      "review_id": "review:56549127471280337490f864",
-      "severity": "blocking",
+      "reason": "source_iro_completion_warning",
+      "review_id": "review:c8fe9b643387a4d9493630f6",
+      "severity": "warning",
       "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/459796b4313935a68b92/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:33ba41fea5f5e19f05bbc869",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:72b26db7280bc4d8eb7e367c",
       "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6ae2eb60c0dfb7672164cc14",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/459796b4313935a68b92/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f571b91126f47243b3e454e3",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "localization_missing",
-      "review_id": "review:425b8d6203f5a595594a3d4f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/69e14cec3d87115edc86/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:3945416d0ffc3ba7649569ee",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "map_unknown",
-      "review_id": "review:b563fa82dcf0aeb6c7413a2a",
+      "reason": "map_not_reference_known",
+      "review_id": "review:5f3b7529a5b04f3fc551bdd5",
       "severity": "warning",
       "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/69e14cec3d87115edc86/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f571b91126f47243b3e454e3",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a6598523cb032d6f59891375",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/69e14cec3d87115edc86/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8a51cdd3429623aa1ce0b7cf",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "localization_missing",
-      "review_id": "review:9afd31e1f082f59d908e4dc4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/869433447b804f2534db/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8a51cdd3429623aa1ce0b7cf",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5ec79a88f9092063b37590ca",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/869433447b804f2534db/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:83abdfe99fdadc3a9669d5e0",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "localization_missing",
-      "review_id": "review:1bc955546ea842255010271d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/895bed999962cb4c1792/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:83abdfe99fdadc3a9669d5e0",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2974b706773ff1e63d9cbbb9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/895bed999962cb4c1792/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8ba984acd15a38efb2ff9c66",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "localization_missing",
-      "review_id": "review:82aef686ee8983991d904432",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/dbee5a7fbedf1343a376/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8ba984acd15a38efb2ff9c66",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7e22db62efc7e4a667762fdf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/dbee5a7fbedf1343a376/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:eb7a9402afd680f7cf17f458",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "localization_missing",
-      "review_id": "review:f8346a750f7a4d66dcc260a8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/dbfe24ff050bc54bb947/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:eb7a9402afd680f7cf17f458",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6562068212a72b7b04e36d1b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/dbfe24ff050bc54bb947/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6b8f25d1850175200f6130ca",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "localization_missing",
-      "review_id": "review:8b46008292f43cdcbf7a7b8d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/ef1d99d74e672fa3ebfd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6b8f25d1850175200f6130ca",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:624f59224928b372bbf41ec2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/ef1d99d74e672fa3ebfd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:650beb167bf8be7f81029a4d",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "localization_missing",
-      "review_id": "review:d1e12e5d9e67826f2907a03a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/ffb0e421a8d076247581/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:650beb167bf8be7f81029a4d",
-      "quest_id": "irowiki-classic:Guardian_of_Yggdrasil",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1994dca6f5d127d24d4a8fc3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Guardian_of_Yggdrasil/step/ffb0e421a8d076247581/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -41555,38 +41285,20 @@
       "step_id": "irowiki-classic:Rin's_Request/step/b3450732a92c95620b33/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Two literal answer sets are independent branches. Source default is contrasted with an explicit non-iRO exception; this is not server verification.",
       "evidence_id": "ev:649a7a8616e977066f176cb5",
       "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "original_html_missing",
-      "review_id": "review:8714fb5efd7839200561515a",
+      "reason": "language_server_scope",
+      "review_id": "review:d39396bda1e85bf709c621d0",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "This guide links Ring of the Wise Ancient King to item 2782; Two Tribes uses Ring of the Ancient Wise King without a database link. Both spellings are retained; a cross-guide alias is not invented.",
       "evidence_id": "ev:649a7a8616e977066f176cb5",
       "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:8435eb8b7b8040467e370d06",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:c7217394875545e04b5114c4",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:983c32548a8a725718ab4514",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:6f67f5536518a0ca4c0df7e8",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:1dc65af9154c0e658432c795",
+      "reason": "ring_name_source_variant",
+      "review_id": "review:bb5933c0354a6b9a520f9845",
       "severity": "warning",
       "step_id": null
     },
@@ -41600,265 +41312,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:531b76b6a33980624dd37e5c",
+      "detail": "Red and Blue Jewel IDs, spawned thief bug species/count and retry counts are unspecified. The two Gem objects are distinct source-qualified actors.",
+      "evidence_id": "ev:649a7a8616e977066f176cb5",
       "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:37f98cc9db05a4c818f32455",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/278fa98c9128ea1f2efb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:531b76b6a33980624dd37e5c",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f5d55336ffb39d3ad506f6d8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/278fa98c9128ea1f2efb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c98aebb6a83ec53fc96b7b8f",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:e649bf874bdb8f8d3836b071",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/5784399edf9e0a3d292d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c98aebb6a83ec53fc96b7b8f",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:93169bbb931d714fe8312a4f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/5784399edf9e0a3d292d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:067c349ad174e517da6793da",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:54ff71b2fbd264b58d238690",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/5e247ada5507ef83fa53/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:067c349ad174e517da6793da",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c8a53f684acb6962855760af",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/5e247ada5507ef83fa53/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:55103bd4117ea4bc7bbf64dc",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:8413058bc65109134f7d3dad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/650cdf040796f490fbfe/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:55103bd4117ea4bc7bbf64dc",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0bc62bb7ff820ea12d7982f5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/650cdf040796f490fbfe/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1caed4bf1f8fdc0bdddb43e7",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:c531f8982b05358d5c634d30",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/65cdcc7ef769f1c1b073/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1caed4bf1f8fdc0bdddb43e7",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9685af95e5dfbe34c7b2aad5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/65cdcc7ef769f1c1b073/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d97c40e41184b88875be95d2",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:4e095905a2b08e074577f862",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/7584cad3b9e27cbedb87/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d97c40e41184b88875be95d2",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:331af093d5a50e4d25de83e5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/7584cad3b9e27cbedb87/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:11041899372876c193a1ac2c",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:baa3a662286876be480e29a0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/7f9cac1497c01205979b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:11041899372876c193a1ac2c",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:86e65b9b53a35e7b0b7f2f51",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/7f9cac1497c01205979b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5cf2ea4c304e66b5d7c2b815",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:abf0b058df4402a86e6ff530",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/856937114f40c9dacac0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5cf2ea4c304e66b5d7c2b815",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ccff7340c88e42ce71ee79c6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/856937114f40c9dacac0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:442ae71527c478de426c3265",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:5a031eec287f5ace20dda380",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/8a6811c418e9de1b8b2f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:442ae71527c478de426c3265",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fff13ac28a3ebe8178def877",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/8a6811c418e9de1b8b2f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0608b041a16fea4de8c716a2",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:47eb8b8c0a48b371b8b0e176",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/8d3a9e0d92d185649364/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0608b041a16fea4de8c716a2",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:036242a05958814ea155eaaa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/8d3a9e0d92d185649364/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:0608b041a16fea4de8c716a2",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:48e31d6658d742295aa553e9",
+      "reason": "unknown_excavation_counts",
+      "review_id": "review:ca661d79ab49a93e654f9ff2",
       "severity": "warning",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/8d3a9e0d92d185649364/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5a7360447f2a4062c79b3a9b",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:2ff6be788048ae746592d335",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/8e1d6b4c9cd03183830c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5a7360447f2a4062c79b3a9b",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:31ccd304c4fcdbd178f459ed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/8e1d6b4c9cd03183830c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4066c3ca628dbb37f0f9a897",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:e1b5ef01b716d1a29dc88231",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/d5c6f92b90fd48dba09e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4066c3ca628dbb37f0f9a897",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6f355a30eefafeecd4cb2614",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/d5c6f92b90fd48dba09e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:81ad849e2a0a5820a67739bd",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:dbf6956d919a776b4de0895d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/e254c6b018908122eed0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:81ad849e2a0a5820a67739bd",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:846c5bc1d4839c0c22c129c4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/e254c6b018908122eed0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:14cc077f436102c2f3bc54b3",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "localization_missing",
-      "review_id": "review:d5bc197103dbc7bad4cbafa8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/ffc8baebdb561f785472/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:14cc077f436102c2f3bc54b3",
-      "quest_id": "irowiki-classic:Ring_of_the_Wise_King",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4cd686000b9f7b6f5ab519f7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ring_of_the_Wise_King/step/ffc8baebdb561f785472/1"
+      "step_id": null
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -53651,38 +53111,38 @@
       "step_id": "irowiki-classic:Turtle_Island_Treasure_Quest/step/f57dc51ba94d0c07d9a7/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Arc grants three berries and three separate collection steps add one each. Source warns that carrying more than six makes Snorren take all; delivery quantity remains unknown rather than falsely capped at six.",
       "evidence_id": "ev:6f3c505fecd1283201b21722",
       "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "original_html_missing",
-      "review_id": "review:648936ab934fd01316bd647a",
+      "reason": "berry_all_held_loss",
+      "review_id": "review:c5789f35ce230df8593edf24",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Captured Laphine and named Terra remain separate source labels until identity is corroborated. Bare-coordinate map inheritance has explicit earlier-step witnesses.",
       "evidence_id": "ev:6f3c505fecd1283201b21722",
       "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:56139d5a2f48feb493db1e36",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:617e078f5923798f53cf4647",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:76f47d4e0991b713da39adde",
+      "reason": "captured_laphine_identity_unresolved",
+      "review_id": "review:4d9a56d1be2c878e0f46f09c",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:c3dbbbdd38d030a90f1025f9",
+      "detail": "This article has no database ID links. Muffler, Bradium and coin labels retain NULL IDs; no ordinary equipment/ore IDs are guessed.",
+      "evidence_id": "ev:6f3c505fecd1283201b21722",
       "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:32617aabaf6fa20519a5b192",
+      "reason": "generic_item_ids_unknown",
+      "review_id": "review:7de5cd31de1088a6322bf6b6",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Ring of the Ancient Wise King is preserved literally; no local database link proves its ID or alias with the other guide’s Ring of the Wise Ancient King.",
+      "evidence_id": "ev:6f3c505fecd1283201b21722",
+      "quest_id": "irowiki-classic:Two_Tribes",
+      "reason": "ring_name_source_variant",
+      "review_id": "review:284fcb594302834ce2326a87",
       "severity": "warning",
       "step_id": null
     },
@@ -53694,483 +53154,6 @@
       "review_id": "review:24470e230f3f87fd70b2506f",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ff76e85750bcbbdf911a21b9",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:81c174061ecb8f51a03c2bfa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/0df72da9d6e574b06abb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ff76e85750bcbbdf911a21b9",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ea7cf664f32e6723a2a4f95c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/0df72da9d6e574b06abb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e63fa776addb82ade2e6438d",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:e0cb7019f3ad71fb69d08072",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/0f73e5064c1ec2213f1c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e63fa776addb82ade2e6438d",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:917e4e932e1900a0d2002391",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/0f73e5064c1ec2213f1c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4f71fa87628ad576cbf74c35",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:b7e4ef0caebaaa5e014833fe",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/13d0ba57886eb45a4c29/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4f71fa87628ad576cbf74c35",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4030bda0b44d3dd108389bd8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/13d0ba57886eb45a4c29/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ff759ddfec1a62ff4ecda6a2",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:f6a83d378a2850e7a475c646",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/15cbd2b1b1dd01000bab/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ff759ddfec1a62ff4ecda6a2",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5390f911e1ff608eb5ec79c2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/15cbd2b1b1dd01000bab/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e8f6cf730237ee7de0466d56",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:710b5c016df6e26d92197099",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/3b480ce557cca6aff8f1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e8f6cf730237ee7de0466d56",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:68839fa7db0308e9f5a1ed3f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/3b480ce557cca6aff8f1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:360bc40884c9b41ce0f24e94",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:00966e25efdacd581ac77333",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/3c868280d1949bdecced/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:360bc40884c9b41ce0f24e94",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:32bbb090bcfd409cc6fcccef",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/3c868280d1949bdecced/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d21f1a751193e46692507a39",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:531c7d95fc2c7524308ec332",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/528f092f565484da0584/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d21f1a751193e46692507a39",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:40acd42bbbd2b9b5b300a9dd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/528f092f565484da0584/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:34517259e0ac26d62d466684",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:a0a5ac6951fdca11505abcfa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/5d7c87687cdc1201973d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:34517259e0ac26d62d466684",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8410a9b1a3201e0f4f38b541",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/5d7c87687cdc1201973d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:33c5dfaf844cf086b9286dbb",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:6e2f1210b1f3f1b49ff5c4e9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/63b2d7637a4fd9081a20/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:ac0f01ac1b17f4958b6d58ea",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "map_unknown",
-      "review_id": "review:280f1b2de6aaa18fd0a2ecbd",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Two_Tribes/step/63b2d7637a4fd9081a20/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:33c5dfaf844cf086b9286dbb",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2cd269b8dcc8b4c5eca8f86b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/63b2d7637a4fd9081a20/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2701b9a1d23198ab9672d1fb",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:fd75562b001501ba3b2fcc4d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/7041196b03c71cc1f5e9/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:134b453e520a3db760255c16",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "map_unknown",
-      "review_id": "review:45937c435319b5e21f999185",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Two_Tribes/step/7041196b03c71cc1f5e9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2701b9a1d23198ab9672d1fb",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b08243b5ebdd5b28ca115efa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/7041196b03c71cc1f5e9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2fe222eebe50e0bad86436ec",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:d453380882c459f1fb90d4cb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/713cdc135ff4a08701cf/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2fe222eebe50e0bad86436ec",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3734dc928619c5d6b4583ad4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/713cdc135ff4a08701cf/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:946df97fbdc44ae507cbf3bc",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:790072b7ffdb652a8b382d06",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/74e351fad1402442353c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:946df97fbdc44ae507cbf3bc",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2ef6ecce0edea60fd83ac42c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/74e351fad1402442353c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:be1494cf515c0ff154692809",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:1ba247e1cb32d2f5c59c7805",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/7d4dcaf13909db92b8f5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:be1494cf515c0ff154692809",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:76cd0359639bcdfec35c5432",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/7d4dcaf13909db92b8f5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f654f3e6687342160d90eb55",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:50f3e9cb43418a3d206139b7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/8d060bd10536a7badff7/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:ec183dccb8318800b3750f87",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "map_unknown",
-      "review_id": "review:544736b87a3c7e031f7d5770",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Two_Tribes/step/8d060bd10536a7badff7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f654f3e6687342160d90eb55",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5a1b82dd30e8a14e61fe4212",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/8d060bd10536a7badff7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:84bcca90d99fa04fda68eb45",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:e704bf974945dc9d8a375516",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/8df26bd286e8691d65e5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:84bcca90d99fa04fda68eb45",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:784984adf39fad1d133d3758",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/8df26bd286e8691d65e5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0cf9ad482e3e349859519022",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:88c076dff7032d344138364b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/aa97d25e274ad2a81875/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0cf9ad482e3e349859519022",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9fe7aa6cb8ad71b87d49592b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/aa97d25e274ad2a81875/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:60074b939d90aaddb98ab353",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:3407e53fa7a8c86f7355bce5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/acebab7be6b6d78522a4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:60074b939d90aaddb98ab353",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dc1886d640299ca41fc62a7c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/acebab7be6b6d78522a4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5a437213f0f86b6921449246",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:4a1faf48b98ec3b4eefdcaa2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/b943b5dac7fbb2d7bb24/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5a437213f0f86b6921449246",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a0e522f4b1c87acac374ffd9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/b943b5dac7fbb2d7bb24/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a8ad6be018622e8a19f04f0c",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:97e72befd74575ff543e568d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/beaf84a615a7b52f261e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a8ad6be018622e8a19f04f0c",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bca738266ca7440b0aaad496",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/beaf84a615a7b52f261e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a7daa74f362098f6503d47fb",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:8a18c5fb46a07f097d933358",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/c29e078955299d03b323/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a7daa74f362098f6503d47fb",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c4a9892d2352a4497629f37a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/c29e078955299d03b323/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a29ee3417b6bcdafe78ff43d",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:00143a738ca2043ef04046ad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/db7377eecc7ca75b27a5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a29ee3417b6bcdafe78ff43d",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4715cbc499248fb0be48f01f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/db7377eecc7ca75b27a5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ebe0e8a0c64aac5166c95fd4",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:21642047f8080013b5bb9f01",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/e88c49c0cae135f318c9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ebe0e8a0c64aac5166c95fd4",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:213f6cbed7151e4fd64bc3a1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/e88c49c0cae135f318c9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1f87a7fcef24e4bd26289d09",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:028b313be3e519c1a7566ce6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/ea607a571106c956701c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1f87a7fcef24e4bd26289d09",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:084c5a37713b15db1cb2113b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/ea607a571106c956701c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b8eaa6f77d1fd9c5bd51b6d3",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:aececd03894011178751974e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/ec7f7ffa0fa598b1ea81/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b8eaa6f77d1fd9c5bd51b6d3",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8ac36cb29e943ae0edfe4f9a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/ec7f7ffa0fa598b1ea81/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f80e08b1d8c3fd21026cfb62",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "localization_missing",
-      "review_id": "review:fc1322ac0e4ef5dca6645498",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/f6381eed5d382dac7947/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f80e08b1d8c3fd21026cfb62",
-      "quest_id": "irowiki-classic:Two_Tribes",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9884646a51b72e3631dcff33",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Two_Tribes/step/f6381eed5d382dac7947/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
