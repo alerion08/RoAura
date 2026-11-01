@@ -1,6 +1,6 @@
 {
   "complete": false,
-  "data_version": "7fdf8b5b1b91dfc00a332982d1db2f63c5f14938dfc9234957f8e934bc576823",
+  "data_version": "921f270137773d4af2ea56dec87fba0ab2bb94061748502c25c24372ee56ba10",
   "quests": [
     {
       "as_of": "2026-10-31",
@@ -2413,18 +2413,6 @@
       "source_url": "https://irowiki.org/classic/God_Items_Quest_2",
       "state": "included",
       "title": "God Items Quest 2"
-    },
-    {
-      "as_of": "2026-10-31",
-      "evidence_sha256": "f83088809aa53570bd538a063eda23db2cc9bfc1cb541cd4650de33893ca6c2e",
-      "evidence_text": "Access Quests | Current Quests",
-      "evidence_url": "https://irowiki.org/classic/Quests",
-      "quest_id": "irowiki-classic:Access_Quests",
-      "reason": "source_current_quest_index_not_server_verification",
-      "source_content_sha": "10dfc8433f5536c8bd46567d736a806f151b6f36554e34a0c86dd16ef4aa4949",
-      "source_url": "https://irowiki.org/classic/Access_Quests",
-      "state": "included",
-      "title": "Access Quests"
     },
     {
       "as_of": "2026-10-31",

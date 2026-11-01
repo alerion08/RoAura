@@ -4,10 +4,10 @@
   "coverage_scope": "common Ragnarok Online quest knowledge base; individual server behavior is variable",
   "assurance": "Unverified reference candidates, not a list of quests guaranteed on every server",
   "metrics": {
-    "total_source_pages": 217,
+    "total_source_pages": 216,
     "categories": {
       "storyline_candidate": 8,
-      "dungeon_or_access_candidate": 22,
+      "dungeon_or_access_candidate": 21,
       "profession_quest_candidate": 44,
       "item_collection_candidate": 2,
       "repeatable_quest_candidate": 3,
@@ -15,7 +15,7 @@
       "profession_reference_candidate": 12,
       "historical_or_seasonal": 4
     },
-    "core_research_candidates": 74,
+    "core_research_candidates": 73,
     "seasonal_archive_candidates": 4,
     "categorized_from_content": 27,
     "still_unsorted": 122,
@@ -1572,26 +1572,6 @@
       "category_evidence_steps": 0,
       "curation_action": "prioritize_core_research",
       "walkthrough_steps": 4,
-      "script_candidates": 0,
-      "linked_step_npcs": 0,
-      "source_variant_scopes": [],
-      "coverage_gaps": [
-        "no_script_candidate",
-        "incomplete_step_npc_mapping"
-      ],
-      "quest_review_priority": "high",
-      "server_availability": "unknown",
-      "universal_availability_claim": false
-    },
-    {
-      "quest_key": "irowiki-classic:Access_Quests",
-      "title": "Access Quests",
-      "source_category_candidate": "dungeon_or_access_candidate",
-      "category_evidence": "Dungeon/access keyword in wiki title",
-      "category_method": "wiki_title",
-      "category_evidence_steps": 0,
-      "curation_action": "prioritize_core_research",
-      "walkthrough_steps": 3,
       "script_candidates": 0,
       "linked_step_npcs": 0,
       "source_variant_scopes": [],

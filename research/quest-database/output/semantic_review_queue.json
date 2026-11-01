@@ -30,87 +30,6 @@
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
-      "evidence_id": "ev:e8f1e83d1d154f6fcc48b102",
-      "quest_id": "irowiki-classic:Access_Quests",
-      "reason": "original_html_missing",
-      "review_id": "review:2ed50ed52550c33d243cb9f9",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:e8f1e83d1d154f6fcc48b102",
-      "quest_id": "irowiki-classic:Access_Quests",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:45bfca8344fe21b5470dd119",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Classic wiki and emulator matches do not verify any individual server.",
-      "evidence_id": "ev:e8f1e83d1d154f6fcc48b102",
-      "quest_id": "irowiki-classic:Access_Quests",
-      "reason": "server_availability_unknown",
-      "review_id": "review:91cb160c7065f1cc1c1bf007",
-      "severity": "info",
-      "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:06d61d09c5ac159e02b55e7c",
-      "quest_id": "irowiki-classic:Access_Quests",
-      "reason": "localization_missing",
-      "review_id": "review:ca5272885697b6cb5b6b6532",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Access_Quests/step/28449dd2d708cdd2c630/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:06d61d09c5ac159e02b55e7c",
-      "quest_id": "irowiki-classic:Access_Quests",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9e9db7c435b1adf618ebc89f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Access_Quests/step/28449dd2d708cdd2c630/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3c8704a44d5b09720e7f410a",
-      "quest_id": "irowiki-classic:Access_Quests",
-      "reason": "localization_missing",
-      "review_id": "review:3cc7e19c18a36c71b5cea6e9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Access_Quests/step/5574e26691debaaca466/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3c8704a44d5b09720e7f410a",
-      "quest_id": "irowiki-classic:Access_Quests",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:60b47aa59fe40f5cd7f279d1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Access_Quests/step/5574e26691debaaca466/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:bb02405110c55fc88c40aa0d",
-      "quest_id": "irowiki-classic:Access_Quests",
-      "reason": "localization_missing",
-      "review_id": "review:cfc5747715001eeb8ec9df16",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Access_Quests/step/7aaddb96cbd0f22850e5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:bb02405110c55fc88c40aa0d",
-      "quest_id": "irowiki-classic:Access_Quests",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a45af801b4d28422d0162615",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Access_Quests/step/7aaddb96cbd0f22850e5/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
       "evidence_id": "ev:d1db54f3087286e0529b9e7e",
       "quest_id": "irowiki-classic:Acolyte",
       "reason": "original_html_missing",
@@ -12386,38 +12305,29 @@
       "step_id": "irowiki-classic:Curse_of_Gaebolg_(Founding_of_the_Nation_Myth_Quest)/step/4a8439a8fb68c96444a5/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Header lists one consumed Handcuffs; the walkthrough retains it for triggers and later shows it to Slierre without stating exact removal. No early consume action is invented.",
       "evidence_id": "ev:131e02551a32bf2258bff7fc",
       "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:babad32f1ac237815f5c2608",
+      "reason": "handcuff_consumption_stage_unknown",
+      "review_id": "review:853e2bad5bab8d65e3b3d976",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The source gives only Base levels 60-99. No reward for level 100+ or a changed server rate is inferred.",
       "evidence_id": "ev:131e02551a32bf2258bff7fc",
       "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:64f0c756de89decb5032b64b",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:488caea666c2ebcb4dd97952",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:6cf416cec4516e9f4627c01d",
+      "reason": "reward_band_limits",
+      "review_id": "review:b72e62192875ca1bf2810ba6",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:c0481d39943232b120687ba9",
+      "detail": "Entrance and library Representative are separate NPC records. The unnamed representative in the flashback is not merged into either.",
+      "evidence_id": "ev:131e02551a32bf2258bff7fc",
       "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:5f22e4b302ad8490932acdf4",
+      "reason": "same_name_distinct_representatives",
+      "review_id": "review:bb3f5ffedb0590dec364fbe9",
       "severity": "warning",
       "step_id": null
     },
@@ -12431,436 +12341,31 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fd5178a60a2777b0da2ee463",
+      "detail": "Pinned source has broken file links. File:Handcuffs.jpg, Cursetrigger.jpg, Curseminmap.jpg, Guard.jpg and Scientistdiag.jpg references remain audit text; no image is fabricated or automatically licensed.",
+      "evidence_id": "ev:131e02551a32bf2258bff7fc",
       "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d3fc937e6a254eda09b51d20",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/0e42db8f0052122cea14/1"
+      "reason": "source_images_unavailable",
+      "review_id": "review:10afaf52354e552c09947570",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fd5178a60a2777b0da2ee463",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:610566b4bcb0e5c0c89ff2e1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/0e42db8f0052122cea14/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1dd5b74488997e6716fbc1e2",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4daa9b9e0b667b522286de80",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/1ac279d7206d828b2730/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1dd5b74488997e6716fbc1e2",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b54a6725c59cc2d8cd4e573a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/1ac279d7206d828b2730/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "The guide references File:Curseminmap.jpg and has broken file links. No coordinates are inferred from an unavailable image.",
       "evidence_id": "ev:6de517cfdbfe9b143f5f9f1c",
       "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:17e491af88ba6d9fb634b88d",
-      "severity": "blocking",
+      "reason": "route_image_missing",
+      "review_id": "review:50154d410f9cb53638dc14bd",
+      "severity": "warning",
       "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/1b2a600b99364cc8f7dc/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6de517cfdbfe9b143f5f9f1c",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:593f30539701009569e11777",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/1b2a600b99364cc8f7dc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:35f64a2b0ec18c46f10a1bab",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e629f4745edd10b8c8eb032a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/2362400256fae50dff98/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:35f64a2b0ec18c46f10a1bab",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:33b61d4372c0b9e7864dd6c4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/2362400256fae50dff98/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:81d0ef975a7ede3078e90ac4",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f2e6c4eb60547d292aeafa9f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/2ac443460844a6dc36e5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:81d0ef975a7ede3078e90ac4",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:06cfb8f2e0d30ea53b2f4be0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/2ac443460844a6dc36e5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:947fd5e0fc28a2639404f9f3",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c5c1033175abc5982d87199a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/300f9a2f7c81fc9fcb8c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:947fd5e0fc28a2639404f9f3",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:678c65d603e186abfa464622",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/300f9a2f7c81fc9fcb8c/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:947fd5e0fc28a2639404f9f3",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:5350b71a0605f04c0855cfa5",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/300f9a2f7c81fc9fcb8c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:30dc16e4f03be3c1f33c979a",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:95ff74f97a11b5308b7d50ac",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/3e436595d308ad55840c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:30dc16e4f03be3c1f33c979a",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b35899ca02ca2dc90d814b00",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/3e436595d308ad55840c/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:30dc16e4f03be3c1f33c979a",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:2dc3e0ddadabd5d59c99ab96",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/3e436595d308ad55840c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:75d8b036f830086862e6399a",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8a3141206a67db82e5d762b2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/4dddb9a9bd923087ee9c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:75d8b036f830086862e6399a",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c4050f087116e1d3682669d6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/4dddb9a9bd923087ee9c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "Most topics are narrative descriptions, not verbatim menu choices. Only the explicit W-Wait! reply is asserted as an exact answer. Wolfchev/Wolchev spellings are preserved.",
       "evidence_id": "ev:1f879e7a323ff7ee156e4914",
       "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:958d14392a2b3d5b6730a9d2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/546547c4e398b0e9678a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1f879e7a323ff7ee156e4914",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3ca46ca4c172a425a0f0dc75",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/546547c4e398b0e9678a/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:1f879e7a323ff7ee156e4914",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:3273e0638b345477d28008f8",
+      "reason": "unquoted_menu_topics",
+      "review_id": "review:ed1deb0452e9d342827a33ad",
       "severity": "warning",
       "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/546547c4e398b0e9678a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b661aeadb4e721592db9b52f",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8f0bde9105b4887dd881f559",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/573c87f9d59fe2ad9abe/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b661aeadb4e721592db9b52f",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8c748dcac364b072ff469220",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/573c87f9d59fe2ad9abe/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b2db59c342985ebe23872ca5",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3068c65894630eeab1680a32",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/5a2bc33abe5aef9c1a66/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b2db59c342985ebe23872ca5",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:204bc90b16e114e5ccdf05a6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/5a2bc33abe5aef9c1a66/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:b2db59c342985ebe23872ca5",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:af8a0d4ecdb737f44618a7cc",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/5a2bc33abe5aef9c1a66/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:cba15fbe5e71171256a9e314",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8109d9e57329b3970e82503b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/614b7510de3171a21986/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:cba15fbe5e71171256a9e314",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:03d5b6a49d06168ada57a183",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/614b7510de3171a21986/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:047bc19b46e4ac12cc86cf26",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:602d54ed8b28752d40992db5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/66ef1d0e5d8b4a02c8a5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:047bc19b46e4ac12cc86cf26",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0d121f7f392d17181fe6f200",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/66ef1d0e5d8b4a02c8a5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9e5289aa00684b136775a0ca",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:648cfc8720d3632b8cc46bff",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/8ded66b9b0c4562fdb29/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9e5289aa00684b136775a0ca",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2b5c43326e7d106f3bf4c83a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/8ded66b9b0c4562fdb29/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3634f297c36bc15918b51935",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:87e05fdd9154f1896a6cadb8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/929ac8c1cee6ea6d322e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3634f297c36bc15918b51935",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8a5b7cb532448d61a922fe24",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/929ac8c1cee6ea6d322e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1ed2b873c4ad4c48896b99d2",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5986196a487bc8ceeb61cfd5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/990e7c1fb65464f83be4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1ed2b873c4ad4c48896b99d2",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bf3503a9ea503a567bb0f7ef",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/990e7c1fb65464f83be4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:cd247f06c09dd788fde1dc24",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:34431c5e428ee54c0578efff",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/ace2ec704ae749d59780/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:cd247f06c09dd788fde1dc24",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f3fb1be1230fc9254a9eccda",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/ace2ec704ae749d59780/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f00706873e990c0a09f998e1",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ee7c398717db82b31ab831b6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/ce705131711bc8644cd8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f00706873e990c0a09f998e1",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bfa501cde53a5c708d0a6db3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/ce705131711bc8644cd8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d04f8c21a1cc1eeaf7481108",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:54229b969f3a6d3cb37fd106",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/d8d212a5308fad9f1ee7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d04f8c21a1cc1eeaf7481108",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:13dc7e66dbce06427437a35a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/d8d212a5308fad9f1ee7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:91f2fefed66e2db7027db674",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1fc4c89f60ee01a7ea1489fd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/dca5f3fc2d469ef124cd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:91f2fefed66e2db7027db674",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:575625e2ea2f496d4c75f3d4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/dca5f3fc2d469ef124cd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f63f7aa01bbc8a1905d06b8d",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ed5c9ff3bb734837cd1a1e47",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/f75a810827ee6a8b6332/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f63f7aa01bbc8a1905d06b8d",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6fa97368d7262e548754dace",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/f75a810827ee6a8b6332/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0cca1fe892493367edd7d714",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8d98cec3e56dfc821fa35cb5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/fd750c7a450cec78dd6a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0cca1fe892493367edd7d714",
-      "quest_id": "irowiki-classic:Cursed_Spirit_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e521820322f71ff3d5f3e8a0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Cursed_Spirit_Quest/step/fd750c7a450cec78dd6a/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -27236,38 +26741,11 @@
       "step_id": "irowiki-classic:Hunter_Skill_Quest/step/fb3c5de8072f25cd5a9e/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Ashy Necklace has linked item ID 7572. The source does not link Sparkling Necklace or the narrative Urstia's Necklace label to verified IDs; no ID is guessed.",
       "evidence_id": "ev:30e049285b50b91a42fbade5",
       "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:53e2b438fa8ed24f7ad34168",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:30e049285b50b91a42fbade5",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:518cc5a536fde12a3f4411f1",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:2cb93f40ce195d7214b519bf",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:00e14f56219a68343e0fc947",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:ade6ed586ff08aaf07a7d17f",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:3f8086662afedda7b03aaa6f",
+      "reason": "necklace_id_scope",
+      "review_id": "review:dfb61e6763f1e215d33276d3",
       "severity": "warning",
       "step_id": null
     },
@@ -27281,157 +26759,22 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:17baa0d994c4304c76e6633b",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:763b66802bbeec292c13680d",
       "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a4ca074a8b6508e6ecf0c3e3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/08f255a6fa3bd961ab6a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:17baa0d994c4304c76e6633b",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c999e39a20a0c5f40aadec94",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/08f255a6fa3bd961ab6a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:46470617f1abfa2838050e20",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4fec10eb01a32968f0f43d03",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/0e8547d98209132a238e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:46470617f1abfa2838050e20",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8911107bc8e2e19c64bc3c33",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/0e8547d98209132a238e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6eb93ccb174ee85221f19f67",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:547408f1121a000236b92fb9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/219aab1eb7a48f37b6d7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6eb93ccb174ee85221f19f67",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:86e43a5559c66ae91da994cb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/219aab1eb7a48f37b6d7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d11c2665df23385cbf32f513",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8d251deedd7c59c3d9d7fd90",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/37ed2761c18ff03ec818/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d11c2665df23385cbf32f513",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:31759e1ece0104a1de826dc5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/37ed2761c18ff03ec818/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2adcb77914f4134017940271",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:15a73f8eaf3762ec105ce504",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/7b2368f995123c404dde/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:baba90c003049373a33a3947",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:44d6d2fbfd7eaaf893a500bd",
+      "reason": "map_not_reference_known",
+      "review_id": "review:bad0d6a91c01c8a2628a2759",
       "severity": "warning",
       "step_id": "irowiki-classic:Ice_Necklace_Quest/step/7b2368f995123c404dde/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
+      "detail": "Hammer [2] means the source weapon slot notation; required quantity is one Hammer, linked item 1354, not two hammers.",
       "evidence_id": "ev:2adcb77914f4134017940271",
       "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9929c52c94413259b188e574",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/7b2368f995123c404dde/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:2adcb77914f4134017940271",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:fc5c339125859facd99f563a",
+      "reason": "weapon_slots_not_quantity",
+      "review_id": "review:f607b83d358491dad5f1c922",
       "severity": "warning",
       "step_id": "irowiki-classic:Ice_Necklace_Quest/step/7b2368f995123c404dde/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d57bb669453be6a7ef421f60",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:12208e73923159669f299236",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/9069c95377c60b603e7b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d57bb669453be6a7ef421f60",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d2e3af692ef05be97994d7fd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/9069c95377c60b603e7b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fd0ccc90a17c8584379d3778",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:51b821d140401035b74faf5b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/b62f2ddef08cf63a3eea/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fd0ccc90a17c8584379d3778",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fdd46dca20465b7d6dc5bbaf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/b62f2ddef08cf63a3eea/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:fd0ccc90a17c8584379d3778",
-      "quest_id": "irowiki-classic:Ice_Necklace_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:25dada1b309f22035aca1dbd",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Ice_Necklace_Quest/step/b62f2ddef08cf63a3eea/1"
     },
     {
       "detail": "Infobox says 1 Meat consumed; step 1 explicitly says show and decline. Kept possession/show/decline, no consumption assertion.",
@@ -37703,38 +37046,11 @@
       "step_id": "irowiki-classic:OBB_Quest/step/fd9c1ab1be73d90369eb/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Pinned headings Alex Path, Laura Path and Continuing from Either Path establish two alternatives. Do not deliver two sets of runes or grant both boxes for one completion.",
       "evidence_id": "ev:0656adb19c000d6e76000b32",
       "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:e4013ddb85314b83bf9d36d6",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:0656adb19c000d6e76000b32",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:59887587d138ab49b88cb52e",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:9ba69f711d6d7f495f6d76fe",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:d7ebe77738989664f2fb244b",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:bae9e3a002accbe0bc8589ec",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:d982682c5ad247b788f37b35",
+      "reason": "alternative_paths_not_cumulative",
+      "review_id": "review:1cf4a613041ec3ec8f46ba7d",
       "severity": "warning",
       "step_id": null
     },
@@ -37748,143 +37064,44 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ca0e0983f5d82df105748120",
+      "detail": "Original source steps 4-7 and 8-12 are alternatives; source-order edges are not executable transitions. Follow quest_routes/step_routes, then shared step 13.",
+      "evidence_id": "ev:0656adb19c000d6e76000b32",
       "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:bdfc101eee5c681e5dfee273",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/1e4cace29984144aae4f/1"
+      "reason": "source_order_not_route_execution",
+      "review_id": "review:0cb9c77cac7c8596d5933e9f",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:79fcfcb4e383723bcae5e293",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:b78ed9e6d7262c7cef5a9a12",
       "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:33b2b26738fadc6ae590cc59",
+      "reason": "map_not_reference_known",
+      "review_id": "review:3cde40aa5a99701b548ba028",
       "severity": "warning",
       "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/1e4cace29984144aae4f/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ca0e0983f5d82df105748120",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:9268ffedc0e4cdeeb0bf5e7d",
       "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:236f4bb8b506f1743195f9dc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/1e4cace29984144aae4f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9b46782e5dcbb50e5bf8da0d",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4efd97ba20f33b6646e08f85",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/2b1af2ef51406154cc9f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9b46782e5dcbb50e5bf8da0d",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:87cba72b4f7f633cbf6cb1f6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/2b1af2ef51406154cc9f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f0947179e99b848946cc95c8",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e344266900d4f254ee1b67f5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/3355d5138a1b8b11be9b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f0947179e99b848946cc95c8",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:aac0387f0fe6d195874e3c1b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/3355d5138a1b8b11be9b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:97ecc760667e5f66d5427fb6",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:fd082b99c3702653f5867c9c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/374bf3d5bf33290232da/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:97ecc760667e5f66d5427fb6",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0221ee13e35ee829238ed5cb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/374bf3d5bf33290232da/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7290376a1d748a87738b8af5",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c87ebeebc73390995676bc47",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/49c3a5497abbc4aa73ac/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:531aeb1d92b442aea4b76aec",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:6283e8d0ac154bc1bf969eba",
+      "reason": "map_not_reference_known",
+      "review_id": "review:ac6e5a658edc0170d281e48e",
       "severity": "warning",
       "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/49c3a5497abbc4aa73ac/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7290376a1d748a87738b8af5",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:286a24e80c4e675056e1e4c2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/49c3a5497abbc4aa73ac/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:38368af56a7e855dc721af33",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:aa06bdddc9326407869038bd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/4e00c6c9ec9580098ef6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:38368af56a7e855dc721af33",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:063f1267f34ab8443e61418e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/4e00c6c9ec9580098ef6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "This introduction locates Laura at (13,11); her route later gives hu_in01 (14,11). Preserve both literal coordinates without silently merging their exact positions.",
       "evidence_id": "ev:2c9d74d7a3c9db9cf51ae72a",
       "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:24cf68ccb065c9eb9043eccf",
-      "severity": "blocking",
+      "reason": "initial_npc_coordinate_discrepancy",
+      "review_id": "review:25f0dd9425ce70bcf9a00718",
+      "severity": "warning",
       "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/5a623e213c605b5a4365/1"
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:1e0ca6e7259e2bfe37674c9f",
+      "evidence_id": "ev:1eb512c5d9fa36a3cfa4b8d9",
       "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
       "reason": "map_unknown",
       "review_id": "review:25d2c7292c9e605c6c8e3b8c",
@@ -37892,292 +37109,31 @@
       "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/5a623e213c605b5a4365/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2c9d74d7a3c9db9cf51ae72a",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:cbfc2f0353e7c4e30cfd1fbc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/5a623e213c605b5a4365/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c0be6f74f761a74fa3c36dce",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:41ee58bd6577229eb38e531c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/67bbc3d664b8af08b5bd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c0be6f74f761a74fa3c36dce",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:24098aff475d02f8259515bc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/67bbc3d664b8af08b5bd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:310a0c203cf88b5bef9464a4",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7af5dc8927695ba54860e72c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/9843adcc63c045283225/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:310a0c203cf88b5bef9464a4",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:90cf804fa86ef7e085f5073d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/9843adcc63c045283225/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "The source describes the map south of Morroc without a map code. Do not infer moc_fildXX from a current or private-server map layout.",
       "evidence_id": "ev:2ba4290cc9999498482c1bbf",
       "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1b5dd3edaa2e46f338ddb23a",
-      "severity": "blocking",
+      "reason": "unqualified_trigger_map",
+      "review_id": "review:d9961d132dd8933026573d9f",
+      "severity": "warning",
       "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/9ca7acf81ce415373fac/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2ba4290cc9999498482c1bbf",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:0a3ec5aa5acce8db370656aa",
       "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e121e72aaf36ad588dd1e3d9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/9ca7acf81ce415373fac/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:94577b1665138faff9870691",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:dba0a275a411ccd07ec9581a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/a3937879477d32a65473/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:d6d7d4aa61be715ec4d8879d",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:69204a99be1a24de9176dc27",
+      "reason": "map_not_reference_known",
+      "review_id": "review:a445e1835c377ccaec52ea33",
       "severity": "warning",
       "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/a3937879477d32a65473/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:94577b1665138faff9870691",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:5d74bd5ca8593efa752d4edf",
       "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7dea32d9d12e51a880d4ce13",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/a3937879477d32a65473/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2e66957d62c97ae7e176d9bd",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:10bdb476454c32ab64255e84",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/a41cedf31b12cd417ffa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2e66957d62c97ae7e176d9bd",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7799d4b1df10e48c56d6b0b6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/a41cedf31b12cd417ffa/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:2e66957d62c97ae7e176d9bd",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:0d7c41c010b6aa7a02eb396c",
+      "reason": "map_not_reference_known",
+      "review_id": "review:770b4fb6109f78dfb56fca59",
       "severity": "warning",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/a41cedf31b12cd417ffa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b547141e8244630595d5d09c",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:06958b785a249c88f468f79c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/af8486c084d863f86c3c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b547141e8244630595d5d09c",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d9ac8a285affc92b95f14c1f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/af8486c084d863f86c3c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1c2b2a88bbd82ea599cc1958",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f0bd14a9d49ad67ab330c865",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/b0e529104aee31a0048f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1c2b2a88bbd82ea599cc1958",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:90d328fffa9ba78a68b6f190",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/b0e529104aee31a0048f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3a015b31970cefee364a6fab",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d5950919c8c7710d20bc973f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/b3fe83ebafda2bbc019b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3a015b31970cefee364a6fab",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:79f84e29ff91ce7b68c5816f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/b3fe83ebafda2bbc019b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c9ef4491d1911b612da93690",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:76fa253901f4d897ee3ea433",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/b442676d93c51b3cfb3a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c9ef4491d1911b612da93690",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2a5185ee7c8af2a835245b87",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/b442676d93c51b3cfb3a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fe5bf0be6d1f748c5fb008b6",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:94a440635f4a2d3b292f1f7b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/c73a7eec1e018bd80747/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fe5bf0be6d1f748c5fb008b6",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:780a3965f22b59a5343bf69c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/c73a7eec1e018bd80747/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ff511d878f404e4b38c7f961",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:01ce224a0998c35629b10a4e",
-      "severity": "blocking",
       "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/ca0eb33675df1930b28c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ff511d878f404e4b38c7f961",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8187726905406f3f8820fc11",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/ca0eb33675df1930b28c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:627c57e600eda688d88a164c",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9ae4915ddd9e961db2c15ac5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/ec3bdbc3983da375e389/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:627c57e600eda688d88a164c",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f16a45b7046613ef46ce2a97",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/ec3bdbc3983da375e389/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:85defeecccb06be0cbf81a3d",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8eb15e51a84c8bebcd4279ae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/f2f0afe46bba96a9b551/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:c4f94310a803842a6e1cd8cd",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:ad10ba8e6354791573a4850b",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/f2f0afe46bba96a9b551/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:85defeecccb06be0cbf81a3d",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6a34de125febe5bf74a0a566",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/f2f0afe46bba96a9b551/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f6a4821882d684a4420def17",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9c02b85a48045929936cb655",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/f6cc68840a1acec27010/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f6a4821882d684a4420def17",
-      "quest_id": "irowiki-classic:Odin's_Temple_Excavation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3147a47d9ee49b031ea15370",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Odin's_Temple_Excavation_Quest/step/f6cc68840a1acec27010/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",

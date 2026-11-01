@@ -3087,14 +3087,15 @@
     },
     {
       "as_of": "2026-10-31",
-      "evidence_sha256": "f83088809aa53570bd538a063eda23db2cc9bfc1cb541cd4650de33893ca6c2e",
-      "evidence_text": "Access Quests | Current Quests",
-      "evidence_url": "https://irowiki.org/classic/Quests",
+      "decision_reviewed_at": "2026-11-01",
+      "evidence_sha256": "40d515ad2dbe928207678c1e0ad837d8e997acce8eb3b1b4ebc75589b739c24a",
+      "evidence_text": "The following table lists which areas or dungeons require a quest to access them, along with selected quest requirements and at which step permanent access to said area is granted.",
+      "evidence_url": "https://irowiki.org/classic/Access_Quests",
       "quest_id": "irowiki-classic:Access_Quests",
-      "reason": "source_current_quest_index_not_server_verification",
+      "reason": "source_confirmed_reference_index",
       "source_content_sha": "10dfc8433f5536c8bd46567d736a806f151b6f36554e34a0c86dd16ef4aa4949",
       "source_url": "https://irowiki.org/classic/Access_Quests",
-      "state": "included",
+      "state": "excluded_reference",
       "title": "Access Quests"
     },
     {
