@@ -73,7 +73,8 @@
     },
     {
       "type": "item",
-      "name": "Journal"
+      "name": "Journal",
+      "identity": "irowiki-classic:Airship_Ticket_Quest:source_item:Journal"
     },
     {
       "type": "item",
@@ -503,6 +504,10 @@
     {
       "reason": "generic_journal_and_note_ids",
       "detail": "Package, Journal and Doodled Note lack local database links. No ordinary item IDs or unproven identity with other quests’ journals is assigned."
+    },
+    {
+      "reason": "generic_journal_identity_scoped",
+      "detail": "The source Journal label has no verified game ID. It is scoped to this quest and is not the Journal delivered in Pursuing Rayan Moore merely because the names match."
     }
   ]
 }

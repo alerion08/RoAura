@@ -34,7 +34,7 @@ curated. Random attack timing, partial password candidates, returned package,
 proximity/repetition links and exact relay text retain source evidence.
 Friendship's level-75 reward overlap remains an explicit review issue.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 150 regression tests, full offline rebuild and research CI
+Local validation: 151 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

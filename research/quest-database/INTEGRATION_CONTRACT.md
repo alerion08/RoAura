@@ -151,6 +151,10 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   guaranteed answer or a sequence to enter in full. Heart Fragment's partial
   list and random code require live prompts. Overlapping source reward bands
   (Friendship at 75) remain review issues rather than automatically resolved.
+- A generic item label with no verified game ID does not establish shared
+  identity across quests. Use a source-qualified curation `identity` for such
+  documents; Airship Ticket's Journal is distinct from Pursuing Rayan Moore's
+  same-label Journal. Verified item IDs may still provide shared identity.
 - `ready_steps` currently means **all four localized text fields exist**. It
   is not a readiness claim for the quest, route, server or application.
   Unfinished fields are NULL with blocking review rows; `complete=false` is

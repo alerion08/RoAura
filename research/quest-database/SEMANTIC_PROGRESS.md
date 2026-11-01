@@ -86,6 +86,8 @@ verification; there are zero server-verified records.
 - Ticket returns an undeliverable package to Kain, rather than delivering to
   absent Defra. Free Item Repair is a service unlock; four tickets are one
   final item grant. Unknown journals, notes and unnamed contacts remain explicit.
+  The unverified Journal identity is quest-scoped to avoid merging it with
+  Pursuing Rayan Moore's unrelated same-label document.
 - `action_reuse` accepts a legacy single reference or a list of distinct
   earlier steps. Medicine stage 8 reuses both 6 and 7; later stages reuse
   their preceding sequence. These are explanatory links, not executable
@@ -315,7 +317,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **150 tests passed**; complete offline enrichment passed;
+Validated locally: **151 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -358,7 +360,9 @@ proximity actions, cross-step message provenance and overlapping EXP bands.
    of curated guides. Nameless Island now has a curated Curse of Gaebolg
    prerequisite, but no executable or universally applicable prerequisite graph
    is claimed.
-3. Resolve source spelling conflicts (Boonthon/Boomthon, Dusit/Dustit,
+3. Audit remaining generic item labels with unknown IDs, including earlier
+   File Folder roles, before treating shared names as verified game identity.
+   Resolve source spelling conflicts (Boonthon/Boomthon, Dusit/Dustit,
    Phoebe/Phobe, Nema/Nemma, Jackknif e/Jackknife, Laboratory Pass/Permit).
    Biolabs shape-menu/input mapping and the single-digit Yellow Key receipt
    remain review items, not silently invented facts.

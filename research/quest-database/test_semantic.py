@@ -645,6 +645,13 @@ class RealCorpusTests(unittest.TestCase):
         self.assertEqual([tuple(r) for r in reward],[(7311,'4')])
         self.assertEqual(self.db.execute("SELECT count(*) FROM rewards WHERE quest_id=? AND kind='service_unlock'",(q,)).fetchone()[0],1)
 
+    def test_unknown_journals_are_not_merged_by_label_across_quests(self):
+        rows=self.db.execute('''SELECT DISTINCT s.quest_id,i.item_id,x.game_id FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id JOIN entities e ON e.entity_id=i.item_id
+          WHERE s.quest_id IN ('irowiki-classic:Airship_Ticket_Quest','irowiki-classic:Pursuing_Rayan_Moore') AND e.original_name='Journal'
+          ORDER BY s.quest_id''').fetchall()
+        self.assertEqual(len(rows),2);self.assertNotEqual(rows[0][1],rows[1][1]);self.assertTrue(all(r[2] is None for r in rows))
+
     def test_medicine_reuses_two_steps_without_multiplying_potions(self):
         q='irowiki-classic:Medicine_Quest'
         repeats=[tuple(r) for r in self.db.execute('''SELECT a.step_order,b.step_order FROM step_edges e JOIN quest_steps a ON a.step_id=e.from_step
