@@ -7616,33 +7616,6 @@
       "step_id": "irowiki-classic:Beginner_Skill_Resetter/step/9873cff11ab7e949b9ae/1"
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:202d60cb143eda4280c78597",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:8d05609f3b648a7ab835044e",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:b0b741795bb9b07fdd473b88",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:7b9ab0c99e6f332605a73f43",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:214f4f9340907bd6d83e7a7b",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:8236d6e42d70c5916dbdf37a",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
       "evidence_id": "ev:202d60cb143eda4280c78597",
       "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
@@ -7652,71 +7625,26 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:03b5e35f9488e834688f33c2",
+      "detail": "The single-digit instruction does not explicitly grant Yellow Key; the later generator needs it. No invented receipt is inserted into that branch.",
+      "evidence_id": "ev:202d60cb143eda4280c78597",
       "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a489e52c739df76bb1205dbf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/0e94353e7c96da113355/1"
+      "reason": "single_digit_key_receipt_omitted",
+      "review_id": "review:f951f2bd8f333ece57c8a2e4",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:03b5e35f9488e834688f33c2",
+      "detail": "Jackknif e versus Jackknife and Laboratory Pass versus Laboratory Permit are retained separately. The wiki links Laboratory Pass to item 2657; it does not prove that the walkthrough Permit has that ID.",
+      "evidence_id": "ev:202d60cb143eda4280c78597",
       "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:decb9b5951f2357ccabf968d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/0e94353e7c96da113355/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:30868ec1b87bac5d5a589d8d",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0d09cf7e8353d4d9810e71e0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/13e329255369859d2645/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:30868ec1b87bac5d5a589d8d",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e13408d0b6e8af9ac77f0e56",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/13e329255369859d2645/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7aae69e0cc224ecfee8baea1",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4d3ef173f9e60ba15f4446a9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/1c9a33e1b9b44c49fcb1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7aae69e0cc224ecfee8baea1",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5efdc4ee1ec545e30dedf222",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/1c9a33e1b9b44c49fcb1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:963e91e65eefe42f16e8ad99",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ba8c38f94f3c73cc806209da",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/2cb2eb410e0889fdffd7/1"
+      "reason": "source_name_discrepancies",
+      "review_id": "review:92906d3d8f7b6742371dea97",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:92e15a581bd3048376ef4be0",
+      "evidence_id": "ev:3176eeb5c02a19e0d26bb1c8",
       "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
       "reason": "map_unknown",
       "review_id": "review:0227bac27ea535ec5bc0ad57",
@@ -7724,364 +7652,40 @@
       "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/2cb2eb410e0889fdffd7/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:963e91e65eefe42f16e8ad99",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1f41468c68b54e4343ebd13f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/2cb2eb410e0889fdffd7/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:963e91e65eefe42f16e8ad99",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:51b45751f8032c93c1cc7436",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/2cb2eb410e0889fdffd7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:362c0b8dc6639335709eb178",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3668e7bd3b860da9a5b76639",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/45554852ebcedf683a38/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:362c0b8dc6639335709eb178",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3971e3853f70868cd22691c8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/45554852ebcedf683a38/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "Room coordinates are literal but the map code and server-specific portal behavior are unverified.",
       "evidence_id": "ev:6e947fc389ee651aad0aedb3",
       "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:eb1b86ad936d2be89c9193e4",
-      "severity": "blocking",
+      "reason": "maze_map_unknown",
+      "review_id": "review:d384f5d19d3f13dd376744c2",
+      "severity": "warning",
       "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/5a03ad44707e59aa57bf/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6e947fc389ee651aad0aedb3",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7766dfec130424a737e04711",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/5a03ad44707e59aa57bf/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "Menu order Oval/Polygon/Square differs from input list Oval/Cube/Polygon. Do not zip them into asserted correct answers.",
       "evidence_id": "ev:3a9dcec6cc9e91c0304fab68",
       "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:cb89eb8d1d390963bf9ded61",
-      "severity": "blocking",
+      "reason": "shape_answer_mapping_ambiguous",
+      "review_id": "review:e45847caf8b762e6974e83d4",
+      "severity": "warning",
       "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/66e01172e5c69b6cb597/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3a9dcec6cc9e91c0304fab68",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8e1ffa83ce255d117950d6da",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/66e01172e5c69b6cb597/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "Source refers to an unbound map image. Routes are retained as text; no complete graphical route is claimed.",
       "evidence_id": "ev:cccf97990ab70bd06c9ea8e1",
       "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4be6bee29f68695037df1b78",
-      "severity": "blocking",
+      "reason": "maze_image_unbound",
+      "review_id": "review:1e5f5867e130f032c9f696ba",
+      "severity": "warning",
       "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/6f8e0d39a5cd06c11b86/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:cccf97990ab70bd06c9ea8e1",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:db0dfb8e43ee47d35a1fb1ea",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/6f8e0d39a5cd06c11b86/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:15fb3d3ae4f21fd90709713c",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0b75f6d1d38263ff29ef2ca0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/7345f622212ab5c2ac9f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:15fb3d3ae4f21fd90709713c",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ee713827c6ae33b4549ee227",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/7345f622212ab5c2ac9f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:cac7ba0aa61d94593c1b2682",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:69562ae64c3cfdd1e65a686b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/747f52ab8575e93acf4a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:cac7ba0aa61d94593c1b2682",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:61509b7c492fa94d2f13468d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/747f52ab8575e93acf4a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f21fcbabb52aeba553d8eb28",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8a05a8cd060e13e1c0623fe9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/7ce9231d218d5cf4c12e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f21fcbabb52aeba553d8eb28",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b9aafccb4d8b9b00aceb7616",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/7ce9231d218d5cf4c12e/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:f21fcbabb52aeba553d8eb28",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:f51bd5b1df8e93e7a7b78a0f",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/7ce9231d218d5cf4c12e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:620a693582f11eee4bee1910",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:09a15ceacfb17b96ecc852f3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/879a2fc73855d90181c3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:620a693582f11eee4bee1910",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3d0bd45a0ef6825cc2c3056a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/879a2fc73855d90181c3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:dec3045dbfb8185f543c1d16",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a0601de0932e0916c35e9c04",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/8ccb39a44ca04ba4079b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:dec3045dbfb8185f543c1d16",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0d7d6ea268082ca0d2d64bc6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/8ccb39a44ca04ba4079b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:82a4e0faef74dde5de73b525",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:90231a985890711988e18956",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/94b2500a0daeb50c8b04/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:82a4e0faef74dde5de73b525",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:94d9f23930110d923be27c0c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/94b2500a0daeb50c8b04/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:04ff2745a8bad933b4639dd0",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b8e1fe9ea68dec5d8bffd18c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/9d2b144704fb9fcad433/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:04ff2745a8bad933b4639dd0",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e4cb6d10c382d7633a0bb965",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/9d2b144704fb9fcad433/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6969a899a2aee877dc46e548",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f28cc8d03d53da0c16377f8f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/9ea1e9c5fb27a06dc1a1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6969a899a2aee877dc46e548",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:85fa82bbe02a376c3e930505",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/9ea1e9c5fb27a06dc1a1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1243bb995005119da7980d8b",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8eea6943e7748ab1ba80bf05",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/d43cbc63f4e31e1153ee/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1243bb995005119da7980d8b",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:80c1ec632dc61dfaa0eab838",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/d43cbc63f4e31e1153ee/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:1243bb995005119da7980d8b",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:cf3eabfeb5cfab4d419b9784",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/d43cbc63f4e31e1153ee/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "Single-digit iRO and non-iRO two-digit algorithms are alternatives, never sequential or automatically selected. Listed codes are examples, not universal answers.",
       "evidence_id": "ev:e4d44b551cf7fc508acb1d89",
       "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:168a70bbea76c4b81844589b",
-      "severity": "blocking",
+      "reason": "server_variant_requires_selection",
+      "review_id": "review:08b855493c86d602c95c4bd7",
+      "severity": "warning",
       "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/e5ceb05e9e57e5cd3f2b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e4d44b551cf7fc508acb1d89",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:83fee8c2c502ea365692fc20",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/e5ceb05e9e57e5cd3f2b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8dd01e727b07d07abb04f4e9",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:58b5502bc9f58483e763be51",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/ef8aa1c059b0c5f197ad/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8dd01e727b07d07abb04f4e9",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d2ce42e99697269e13eeee20",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/ef8aa1c059b0c5f197ad/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:95e2d6a640df551846b76921",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6e557d3462dc8b3d505cfa5d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/f140dba0e1c2a6713cf3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:95e2d6a640df551846b76921",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3221ad1dafef399ba8666757",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/f140dba0e1c2a6713cf3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b41f4e39c4d41ae43adb899d",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:79632cdaa5e5b3b9411619aa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/f43279c9c2046e627f80/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b41f4e39c4d41ae43adb899d",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8e498383e015e359ce6835ec",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/f43279c9c2046e627f80/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ef79d41d6ab49e72d4ed2d8b",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:315f400436f3eea28c04cf09",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/f57ceec42d7da0ca2a6c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ef79d41d6ab49e72d4ed2d8b",
-      "quest_id": "irowiki-classic:Biolabs_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c26b6ae975395be7f3c04c3f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Biolabs_Entrance_Quest/step/f57ceec42d7da0ca2a6c/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -36389,38 +35993,11 @@
       "step_id": "irowiki-classic:Muff's_Loan_Quest/step/cff978e824d281082e17/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Ordinary Man is the casino contact in context, but a shared entity ID with later Larjes appearances is withheld pending explicit identity evidence.",
       "evidence_id": "ev:7fb12274852ecebdcf9d9859",
       "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:f5111326628afde5174a31ef",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:7fb12274852ecebdcf9d9859",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:f0a503f34b2ea2c6e1798a91",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:3e7446c10b3afcd08f2e89f5",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:bf8bc1bc04583a28d1e73207",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:db1a28672563052c79932eb8",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:4293bd05c57a0b45a8524dfb",
+      "reason": "contact_alias_unconfirmed",
+      "review_id": "review:269b99249d300c480cc3647b",
       "severity": "warning",
       "step_id": null
     },
@@ -36434,382 +36011,22 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "No-penalty exception applies only inside the encounter house. The night map outside has normal experience loss.",
       "evidence_id": "ev:46da25472d4992e339029e0f",
       "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:abfa205a38c262dd344faf40",
-      "severity": "blocking",
+      "reason": "death_penalty_scope",
+      "review_id": "review:9f6209accf91ef07eb4e32a3",
+      "severity": "warning",
       "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/0a6e129a56b0a84ead69/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:46da25472d4992e339029e0f",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a3fdff7f74065345054e88d4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/0a6e129a56b0a84ead69/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5e741cf357bd7f01536502bd",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7744874f1bcd217dc8762ed6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/0d460a03b8cfa76b492f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5e741cf357bd7f01536502bd",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:83f1574fcf73bd588ed403aa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/0d460a03b8cfa76b492f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9d2a59c06522f891308f1041",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f1f97ac981414361e5658bfa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/1420d4cdc38a5a966efd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9d2a59c06522f891308f1041",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d5931f10d6d9fb887dabbfbd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/1420d4cdc38a5a966efd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e394cbc1579fedbe245189df",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:34c23eec2aff754f1022d0da",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/1d9dd1cb76575c466c10/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e394cbc1579fedbe245189df",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0f398ec4ee993eb62dbb3c92",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/1d9dd1cb76575c466c10/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c680f6ab35982ccfe965032e",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7610417b1ac5ce623e00e7c6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/2d7bff4cdd58ce76c8be/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c680f6ab35982ccfe965032e",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e53a8b6f0006d8ed34caa7ce",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/2d7bff4cdd58ce76c8be/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6b1cede18cbed72e626c3a86",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9cd22db73312fa83f385c06d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/336a603891093a3b5543/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6b1cede18cbed72e626c3a86",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:28b1b4887b334cb5d0633e57",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/336a603891093a3b5543/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "Header lists 3000 Zeny; walkthrough says payment occurs if held. Do not enforce an unconditional balance gate without server verification.",
       "evidence_id": "ev:3854d9062a223a549a606f52",
       "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4ceb70b3c7328c34544350aa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/4f9f5083062504d55470/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3854d9062a223a549a606f52",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:74d1b1b460f2e3ef1174cb06",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/4f9f5083062504d55470/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:bbf7a8f5e931dd1079588904",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6841f32fe7f280d62828d7c7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/6cad8a3a2e8ffe03ae0e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:bbf7a8f5e931dd1079588904",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:153762b28e1b671fa0fc548b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/6cad8a3a2e8ffe03ae0e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8f683e67f37cd912006f1f79",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7aaee25b55df087759824e2c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/87a96f2f9f9bcd44dafe/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8f683e67f37cd912006f1f79",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e2847ede43b097f4426c54af",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/87a96f2f9f9bcd44dafe/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c53e50f53f60a2d90bb80ce0",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d7cd361d5a5afb59a88a8f2c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/918271ea44b78ebe9fcf/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c53e50f53f60a2d90bb80ce0",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8d5631616bbf822cc5dcc97a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/918271ea44b78ebe9fcf/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:c53e50f53f60a2d90bb80ce0",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:8ad7969939cbefcdc5a050c6",
+      "reason": "cost_condition_conflict",
+      "review_id": "review:7fac5d02963c23004788c894",
       "severity": "warning",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/918271ea44b78ebe9fcf/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:18ef91d8318ffc217992536f",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:dff477ae4289f2a7f0799988",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/965ef9522a38b6cafc6d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:18ef91d8318ffc217992536f",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:201a397b2afd14833de5258a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/965ef9522a38b6cafc6d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:55f361e56ab8d023ec32c2c7",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f353ef8db76b3ff86fcd3e4d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/af5cef6a5b3636654a14/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:55f361e56ab8d023ec32c2c7",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b5266bba1f98c2698d359001",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/af5cef6a5b3636654a14/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d01f00094fc75be056f6c835",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0b8cdd8f6b1aa5cdefcb1c2d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/b0c50109b627d1050a9f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d01f00094fc75be056f6c835",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3eb5f4dc546e81fcd5657421",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/b0c50109b627d1050a9f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ce9fd654615ed2b75f559a22",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3a5e2fb9ca4e0675755fd1ed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/c752cb8bec3abfc664a7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ce9fd654615ed2b75f559a22",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:543df7e2abf3e38fd28f20df",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/c752cb8bec3abfc664a7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:896821c89db259e939e4bb5c",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:735ef3be92ca342cef55d26c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/e0e7dfe86131416090eb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:896821c89db259e939e4bb5c",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d83e21ef27557f2bfdec40bf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/e0e7dfe86131416090eb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9bb3d53564ca8269fcf9b038",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f930ff9fec078d3fb73caa2d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/e29600696df505a4f82d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9bb3d53564ca8269fcf9b038",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9c37ecf20dd74ba1444f40be",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/e29600696df505a4f82d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:43c01c48a2d578739b2ae235",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3aebb52b430c5f0c81479d43",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/ee14c2b7f939464d0be8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:43c01c48a2d578739b2ae235",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:79231994c946a388e2047fcc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/ee14c2b7f939464d0be8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:af016ec2a37e44a068fc0977",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:459bd5fe83b78f93cab02a41",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/ee8ad0ac678fc445581c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:af016ec2a37e44a068fc0977",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9b336aead72c530ae17e3be3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/ee8ad0ac678fc445581c/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:af016ec2a37e44a068fc0977",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:013d22d2fa87a221a360ee1d",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/ee8ad0ac678fc445581c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:726427b66d111ad3ce2047a1",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4cb2d1370da9e4bdf730c1d9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/f5c42a63f13690269d84/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:726427b66d111ad3ce2047a1",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e5b2820980edd4ca9cbf5c2a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/f5c42a63f13690269d84/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:cc050660c9ed7649687389e9",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8fc5fa320558f07676c1be92",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/f5fd5ab762872e9998c4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:cc050660c9ed7649687389e9",
-      "quest_id": "irowiki-classic:Nameless_Island_Entrance_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:66aeb2c3fde1df8d85b8bf82",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/f5fd5ab762872e9998c4/1"
+      "step_id": "irowiki-classic:Nameless_Island_Entrance_Quest/step/4f9f5083062504d55470/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -58151,38 +57368,11 @@
       "step_id": "irowiki-classic:Thief_Training_Quest/step/fdda47b116438bd3a709/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Five OR item alternatives belong to one choice group. The source does not establish player choice versus random selection, or quantities for the two quiver alternatives.",
       "evidence_id": "ev:d1c001d88143f1a6611db073",
       "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:3a3fba6ab349458abe99a179",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:d1c001d88143f1a6611db073",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:a3a9663d7bce0da838b03f55",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:c34e9f4825478b144f73521e",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:8b864993a86eac3daea646ad",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:6bef62b563f518cb3ec9c890",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:7dd9fe03d4acd44cd25892fb",
+      "reason": "reward_alternatives_not_additive",
+      "review_id": "review:c0111f5da4a72629fa55fceb",
       "severity": "warning",
       "step_id": null
     },
@@ -58196,17 +57386,17 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4ead8b641b51300632c065ee",
+      "detail": "Camp and training coordinates have no proven map code in this guide; no code is inferred from similarly named emulator NPCs.",
+      "evidence_id": "ev:d1c001d88143f1a6611db073",
       "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c53a7e1f9eb2d7918a77601b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/003adceb53d70b9b6ebf/1"
+      "reason": "unqualified_camp_map",
+      "review_id": "review:528bc9b5468d474befc2ae9e",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:6a80c60c349132d6269954b1",
+      "evidence_id": "ev:99c95ffc3adb07add7f25df7",
       "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
       "reason": "map_unknown",
       "review_id": "review:2ce81e29d3284098986c334b",
@@ -58214,116 +57404,8 @@
       "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/003adceb53d70b9b6ebf/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4ead8b641b51300632c065ee",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:cc8e2880f6207ade0611f377",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/003adceb53d70b9b6ebf/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2db9ebc92454f356721db547",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:82cd1c3ec66c120052ad01d9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/052b0b8e31756ed1f32f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2db9ebc92454f356721db547",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:350196e389886c266473223d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/052b0b8e31756ed1f32f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4fc4ebfa40e5b23f556ccf4a",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:961505f674ec9e62d62c8450",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/0be0087c99569d8c0344/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4fc4ebfa40e5b23f556ccf4a",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1ac5e12c59bba158bbcd425c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/0be0087c99569d8c0344/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:40040683edbe3c768bee7050",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6839d1d79f3f2b5fa0f769c0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/1cd1fb9f0a448c2423d1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:40040683edbe3c768bee7050",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9302f62ae9417f4973a667b8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/1cd1fb9f0a448c2423d1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6a40a59e8d30886f55e22cca",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b4ae90257eaf2897421256e4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/1db306bc278c84a3051a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6a40a59e8d30886f55e22cca",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b78035a23b1641b48043d490",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/1db306bc278c84a3051a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:da918206f31c426eb3253e5b",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ae6e51c62f350d2632f9121f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/25d1863278777f662383/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:da918206f31c426eb3253e5b",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5983233ecc7cf04504356afb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/25d1863278777f662383/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d246097d0bce3ddfa7da3fa4",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:eb94a3811e1f6b25cc4a9e9f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/348a12fc55eabb7ce79c/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:7d18b1c67dd3b2ea22480ac5",
+      "evidence_id": "ev:35e76af4bb75274dce4657bf",
       "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
       "reason": "map_unknown",
       "review_id": "review:8d496cff1935507ade161e38",
@@ -58331,26 +57413,8 @@
       "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/348a12fc55eabb7ce79c/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d246097d0bce3ddfa7da3fa4",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3bb6b7871c2c948dfeab6829",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/348a12fc55eabb7ce79c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e763f4f32a4d50c178dc7477",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ea72db255ee9d722cc059de2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/38143b98bf824e9b6538/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:476d3696a0fef19306fd6fd4",
+      "evidence_id": "ev:af356775e27f869aa2917620",
       "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
       "reason": "map_unknown",
       "review_id": "review:5330f2e3def92112aac6dc4b",
@@ -58358,26 +57422,8 @@
       "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/38143b98bf824e9b6538/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e763f4f32a4d50c178dc7477",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:37480d55cf2170d8f62ec549",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/38143b98bf824e9b6538/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:406fb096846fb8520b54c94f",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:49f5ac6095a31720fe23764c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/3c917d1816d4d6b83d89/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:bf23390fbf695eef4fdc0d44",
+      "evidence_id": "ev:63dc961645679e8b2d7e76c4",
       "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
       "reason": "map_unknown",
       "review_id": "review:302376d89b17c521cd7396e7",
@@ -58385,62 +57431,8 @@
       "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/3c917d1816d4d6b83d89/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:406fb096846fb8520b54c94f",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a530743fbb2b126b3aa4d753",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/3c917d1816d4d6b83d89/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3c13ce7e31a934d0683eb0f5",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e28e2f069ba71af7ebdff683",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/4f043793a9b4bf7ce0d5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3c13ce7e31a934d0683eb0f5",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3e5c42dfa5ba1b4f30503791",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/4f043793a9b4bf7ce0d5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d37b8d91266b966c204b98ff",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:54f026ae5f8f4551cadf3beb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/53fef6e6143397cfc402/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d37b8d91266b966c204b98ff",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5f0a517429ebe04e89836122",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/53fef6e6143397cfc402/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:690d26b4bf3fdf26fd537404",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c00cd99f31e405740d436b18",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/6294c324adae5bab6e96/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:b6e0a05f10473bda7630ed73",
+      "evidence_id": "ev:4e52f394d609f6299fce3b03",
       "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
       "reason": "map_unknown",
       "review_id": "review:23c2d74916c47aa043ee6ef3",
@@ -58448,44 +57440,8 @@
       "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/6294c324adae5bab6e96/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:690d26b4bf3fdf26fd537404",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9507e2619aac6cf4e7bfdd9b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/6294c324adae5bab6e96/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f8c2db247071c882052c4d3c",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8fbd00faf1b74debd5f3a03f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/8d049c91bcff9b035cab/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f8c2db247071c882052c4d3c",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9018a04b74c3f783120cc042",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/8d049c91bcff9b035cab/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b4b06e9a9e3f3141f47de970",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d6fbc3794ba31d9041fe2ee7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/9f0a1725a67b60b98622/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:5e16e91088893a72638f59a8",
+      "evidence_id": "ev:3b552509e833ce0d385cd4ea",
       "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
       "reason": "map_unknown",
       "review_id": "review:18f3252425d041636c694cb0",
@@ -58493,44 +57449,8 @@
       "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/9f0a1725a67b60b98622/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b4b06e9a9e3f3141f47de970",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e51cc470d6b294dc1083602b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/9f0a1725a67b60b98622/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:cbd71654bd7b1499bd5b1973",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:44e31a02f92e08155f8096b0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/abd069db5d0b37bdf543/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:cbd71654bd7b1499bd5b1973",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e4f1c8f6fd3886cab6051bb4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/abd069db5d0b37bdf543/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:de17e3a184bb408e5cbf6760",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b22388edc82bff946bb87132",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/ae60cad5f3f54b12c940/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:5b82312ca3b829b8b8258c5d",
+      "evidence_id": "ev:526367decd328afb36458b96",
       "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
       "reason": "map_unknown",
       "review_id": "review:615e7009795f171192022538",
@@ -58538,53 +57458,8 @@
       "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/ae60cad5f3f54b12c940/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:de17e3a184bb408e5cbf6760",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:23d787cdd4eb73622c50e4f2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/ae60cad5f3f54b12c940/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:de17e3a184bb408e5cbf6760",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:b884fe0a96a4c09e5c530657",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/ae60cad5f3f54b12c940/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3a441922d04659d37250d01c",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3bca3088edea77e73a4841c5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/d8ea952cf4a8ed390abe/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3a441922d04659d37250d01c",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f44787a9ef2cdda3e34dbb77",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/d8ea952cf4a8ed390abe/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5e02c5e0ac9e6c1616eba15f",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b092d51924a05d3bf8ad1be9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/da1a83520d88a0e14281/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:1ebfe26c276d28c60869f5fe",
+      "evidence_id": "ev:fffa52ed907c5f7eb1d5a56c",
       "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
       "reason": "map_unknown",
       "review_id": "review:867e9ceb83595e0b88ab1cdd",
@@ -58592,80 +57467,8 @@
       "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/da1a83520d88a0e14281/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5e02c5e0ac9e6c1616eba15f",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b1239e5cc31c139068bbfa0d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/da1a83520d88a0e14281/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:19314c67ec7fc6b06bbe9ccc",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:95f1ef470362762d70b37d42",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/dff46573d3a0267c39d8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:19314c67ec7fc6b06bbe9ccc",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e8663faa6978ae4668e67c68",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/dff46573d3a0267c39d8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:346f10a1c1b7a46aa2dba0a3",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:997b18baf4b9a7892a1be3bd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/e267f973a3323f25cf2a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:346f10a1c1b7a46aa2dba0a3",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:45fa25a33a715f2be292a063",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/e267f973a3323f25cf2a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5d211cf45bb6f7a7ff9284a6",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2f7427b8c18a882fb0cf0971",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/fca05e744a0443e41bff/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5d211cf45bb6f7a7ff9284a6",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:02de4ca0c6f15e6999a593bd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/fca05e744a0443e41bff/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a38117aa9bec8fe84088361f",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ef077d8d857c32b7c8ed2df0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/fe600f73a897183818b9/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:e62370bedadb236a3c0be68f",
+      "evidence_id": "ev:93a9a5ada1301bbe0329e343",
       "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
       "reason": "map_unknown",
       "review_id": "review:b8a552b069aff5f11090a1a0",
@@ -58673,47 +57476,29 @@
       "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/fe600f73a897183818b9/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a38117aa9bec8fe84088361f",
-      "quest_id": "irowiki-classic:Thor_Volcano_Base_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f56f23bdc93174ad4f5d0b9b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Base_Quest/step/fe600f73a897183818b9/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Pinned page categories are IRO Only Events & Features and Premium Server Events & Features. This optional shortcut is not required for ordinary Thor floor-two access and is not asserted available on other servers.",
       "evidence_id": "ev:c2a8dd1c4625aa86a1fc249c",
       "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:4c21f929362df1a699efb517",
+      "reason": "iRO_premium_source_scope",
+      "review_id": "review:e39e7fbae28b00847b2fe252",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The source spells Survey Leader location juno. Preserve it; do not silently substitute yuno or assert a validated map code.",
       "evidence_id": "ev:c2a8dd1c4625aa86a1fc249c",
       "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:d6f047b116a5c54ca8e7281c",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:c1c04f49405e68c70aed0ff4",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:aa76a9380a4341dccc18fe3a",
+      "reason": "literal_map_spelling",
+      "review_id": "review:2b136cab59926f5c22d29f74",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:a5fa530061fab60e06bda48b",
+      "detail": "Warp reuse is unlimited after completion, but the quest and EXP rewards cannot be repeated.",
+      "evidence_id": "ev:c2a8dd1c4625aa86a1fc249c",
       "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:f82fb61a7463044a25dc58a8",
+      "reason": "repeatability_scope",
+      "review_id": "review:e05ef63cd58dea6f549969a6",
       "severity": "warning",
       "step_id": null
     },
@@ -58727,53 +57512,8 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:41ff00c3614d19c8694dc374",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ec7a3e81c6dec00ffc04f538",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/593bc4d51efc66ebb615/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:41ff00c3614d19c8694dc374",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:68859b6d07424d5f754f711b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/593bc4d51efc66ebb615/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b3d67cecfc4e424cc9a933a5",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3336a7988ad6a84cb14d04c8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/77d4637e3dea55a7f38f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b3d67cecfc4e424cc9a933a5",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c5fe598b51704a395b968102",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/77d4637e3dea55a7f38f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a35868d0d67bbd577db7b132",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e17074892628bd5edb35ae06",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/819595218037e12443c6/1"
-    },
-    {
       "detail": "Map spelling has not been matched to a pinned reference map.",
-      "evidence_id": "ev:3fb4f0742844c8043bacee34",
+      "evidence_id": "ev:98015a0d51a3f1d9aefe9f1a",
       "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
       "reason": "map_not_reference_known",
       "review_id": "review:7153b0c3b595c6d5c7b174fd",
@@ -58781,84 +57521,12 @@
       "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/819595218037e12443c6/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a35868d0d67bbd577db7b132",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ecf589047494d54e8ea27095",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/819595218037e12443c6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7e8f586cfd7c18dd3865e00d",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:24385b5b63169e3882ed0c9a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/8eb66bb3b4852d3a5e8d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7e8f586cfd7c18dd3865e00d",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:63c4200ca2af2769d0cdead1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/8eb66bb3b4852d3a5e8d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:130b46e662b0bda8d22264a4",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e3598f63b6d5bf866b631d58",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/9e6b145a867a34c15f60/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:130b46e662b0bda8d22264a4",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b014d2d6ff1b18ca397aee51",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/9e6b145a867a34c15f60/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:130b46e662b0bda8d22264a4",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:de95790db76e58ef50513bd8",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/9e6b145a867a34c15f60/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9161a0957c4c55d78bc9f597",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f86cd7fb304db392f84810b3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/e976d980b00b5b28c13e/1"
-    },
-    {
       "detail": "Map spelling has not been matched to a pinned reference map.",
-      "evidence_id": "ev:e29e243b18cd953d083a8564",
+      "evidence_id": "ev:05d0a28cba3110abd4b82733",
       "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
       "reason": "map_not_reference_known",
       "review_id": "review:36fcf1bcddb35128684d828d",
       "severity": "warning",
-      "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/e976d980b00b5b28c13e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9161a0957c4c55d78bc9f597",
-      "quest_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2652e5f1c6c0ffe954cde597",
-      "severity": "blocking",
       "step_id": "irowiki-classic:Thor_Volcano_Level_2_Access_Quest/step/e976d980b00b5b28c13e/1"
     },
     {
@@ -60608,38 +59276,11 @@
       "step_id": "irowiki-classic:Unlucky_Emerald_Quest/step/d7b94cf9baacc78b64b7/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Source recommends party preparation for repeated Thor floor-two visits; Hiding/Cloaking do not protect against all Boss Protocol or Demon enemies.",
       "evidence_id": "ev:f3b1c5574032c32810260120",
       "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:66872737d343596c5e852fad",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:f3b1c5574032c32810260120",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:e70a796bd4963353b35c5e39",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:5739769c608a816be33e8335",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:0e218c6bfc4223f18e8bf26b",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:2b553db288d41bf84ed42088",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:7f2cf46dc2965aa01fb15737",
+      "reason": "party_and_dungeon_warning",
+      "review_id": "review:492d9b3661500c670e40a80f",
       "severity": "warning",
       "step_id": null
     },
@@ -60653,35 +59294,17 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "Green Herb, Milk and Jellopy totals are variable. 10 attempts, 1K herbs and 500 Jellopy are examples, not fixed totals; no more than five bottles for this stage.",
       "evidence_id": "ev:b4eb2807189dd1c13663f43b",
       "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:fdcccce1ab7eea736450b7ab",
-      "severity": "blocking",
+      "reason": "random_material_total",
+      "review_id": "review:832ffe05e86a95d464c82d03",
+      "severity": "warning",
       "step_id": "irowiki-classic:Veins_Siblings_Quest/step/04602166900858bc5f9c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b4eb2807189dd1c13663f43b",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f9e17a685673947693580920",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/04602166900858bc5f9c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:10a505f2fe020cde045850c8",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6bf4abae4e2566798f7d263d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/15df651940390ead8454/1"
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:6a47385d024ad15f70fe6590",
+      "evidence_id": "ev:2acf51e1677ae0be6692d0e7",
       "quest_id": "irowiki-classic:Veins_Siblings_Quest",
       "reason": "map_unknown",
       "review_id": "review:cf5471f034f65f159a75a907",
@@ -60689,373 +59312,22 @@
       "step_id": "irowiki-classic:Veins_Siblings_Quest/step/15df651940390ead8454/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:10a505f2fe020cde045850c8",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8bbd169b891f3e219b643b68",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/15df651940390ead8454/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f5ed6fae08426afd507a7200",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:50e3992e5df6ee6733ad6fa7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/2c4e8e53ac240d8aa352/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f5ed6fae08426afd507a7200",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f6cbba89d6b27938ae272a62",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/2c4e8e53ac240d8aa352/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b685d844788eea26cc624120",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:14c6fa82209f11dfc94e65d0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/3122838f5e262675bb0a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b685d844788eea26cc624120",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:db6d25294c7e600801c8abae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/3122838f5e262675bb0a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:76f6fbf22791f40a40bafeca",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4db9116876e5f901ee45982c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/3915de9a08f6c848dd6e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:76f6fbf22791f40a40bafeca",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:03c3fd5402228ccc7ddce9b8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/3915de9a08f6c848dd6e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "veins 7x, 22x is an approximate area, not an integer waypoint.",
       "evidence_id": "ev:44a03b9dd0ec42ce799e5695",
       "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:586adc4365402628e8b2877d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/3a9631b67e70d4d7916a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:44a03b9dd0ec42ce799e5695",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:24ecae9e608fe12988463a30",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/3a9631b67e70d4d7916a/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:44a03b9dd0ec42ce799e5695",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:3ab70e1d41291b4d93f54d71",
+      "reason": "approximate_coordinates",
+      "review_id": "review:f9d920c1ff7e83f8a16e5a0e",
       "severity": "warning",
       "step_id": "irowiki-classic:Veins_Siblings_Quest/step/3a9631b67e70d4d7916a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fa3770254af76550e6d0462c",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4da536ddbeace78cd2e2488c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/42670e8fd6951c66794a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fa3770254af76550e6d0462c",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7c19908d1c601918a6d6fadf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/42670e8fd6951c66794a/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:fa3770254af76550e6d0462c",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:f9132ff45c8642fc952831a8",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/42670e8fd6951c66794a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b7d0f1d028779f7cdc8685e8",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:fbda64301d1268310a7381d1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/4576c519e4fa95006bdf/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b7d0f1d028779f7cdc8685e8",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:01427479fdb45b53ed6e3dc0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/4576c519e4fa95006bdf/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:110fabf3ce844402f25898ad",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:34605149c0351d256effda78",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/5c1aa3124845137a1d6d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:110fabf3ce844402f25898ad",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fe416f1a4b87e13e55c5f74a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/5c1aa3124845137a1d6d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c363405f303a95c73604d619",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d897cc7313f6c55d611c271f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/681dd0660a234a763657/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c363405f303a95c73604d619",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:00b0c08df40c6aebecbc4c1b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/681dd0660a234a763657/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c2acd177e5757474724831c4",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:501552732064f21fd3ab7d17",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/8bb07b191c2fe5376473/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c2acd177e5757474724831c4",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7377384bffe639f2d0df1bee",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/8bb07b191c2fe5376473/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fcaa8e3f6fabd23b71d11688",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:200d4a9d760ad81e2e65d65c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/914ad8a47a9f36e6a369/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fcaa8e3f6fabd23b71d11688",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1d0c80e7aa16af7a5db5d582",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/914ad8a47a9f36e6a369/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2da0d2b9a082ff7bcfcb93ba",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:56083be565a24d0182fc880e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/a95278d13dd10e0b47c7/1"
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:18cd99934d9d9476aedebfa3",
+      "evidence_id": "ev:1f91bc5d69e43f6b90d6c087",
       "quest_id": "irowiki-classic:Veins_Siblings_Quest",
       "reason": "map_unknown",
       "review_id": "review:88298a750e65cdf9069e0cfa",
       "severity": "warning",
       "step_id": "irowiki-classic:Veins_Siblings_Quest/step/a95278d13dd10e0b47c7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2da0d2b9a082ff7bcfcb93ba",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2e09945500f404b90b685cb0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/a95278d13dd10e0b47c7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:38733d7c2ca80ea633152760",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ab5db2f83bf4399b48b4ad5a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b020b977368c46d3207c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:38733d7c2ca80ea633152760",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:68f5b8e249a5b3ab3d4f6562",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b020b977368c46d3207c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:16354037ce8a1b990578ee85",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a26689eadeae2df039008b31",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b0e21c17cde6e5dc1717/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:16354037ce8a1b990578ee85",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a96552e56a3549071370601f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b0e21c17cde6e5dc1717/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:30a4cd805fd13fde7b687b7b",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ba0ae18be680fcd4078e563f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b496b450e36528d9c2ea/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:30a4cd805fd13fde7b687b7b",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:baaa772d1d215568217e9bd7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b496b450e36528d9c2ea/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:463e905dd5075139ed18c1f4",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e7ccb90c66d2d915d9d41406",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b590b2089b4f5cec6103/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:463e905dd5075139ed18c1f4",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a113fe7caa840c852b93ddf6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/b590b2089b4f5cec6103/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0dbb72d59f4fad710d17ea11",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d4f149e18565f63791cbde98",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/cd63ad0d8a9a6eeaa162/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0dbb72d59f4fad710d17ea11",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c11512394a119c2d4bd1d5e6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/cd63ad0d8a9a6eeaa162/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2d1b7d5e29c7f55611ff1213",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5b58885697b946749af38242",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/d709246c2a70da4ee364/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2d1b7d5e29c7f55611ff1213",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4145451b3f6de7f5164754ca",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/d709246c2a70da4ee364/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d90d2fd98a6e0b0fa40ef8dc",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a3aa4399f3f9aaac8444a691",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/eb1d889f2b938129cadf/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d90d2fd98a6e0b0fa40ef8dc",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e9bbf933dbc6f1a27111e1a0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/eb1d889f2b938129cadf/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:d90d2fd98a6e0b0fa40ef8dc",
-      "quest_id": "irowiki-classic:Veins_Siblings_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:4f62dad79d5ac16f0a9a34e4",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Veins_Siblings_Quest/step/eb1d889f2b938129cadf/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
