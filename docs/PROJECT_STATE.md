@@ -1220,3 +1220,19 @@ Checks: focused range/sequential reward, requirement order, ready catalog and
 translation coverage tests; native content-area selector click; RU Cursed Spirit
 facts and Biolabs answer-card snapshots. Windows CI pending for this block.
 Main/research/version/release remain unchanged.
+
+
+Verification SUCCESS on `373a63d5342a18fadc8bb15db9a7fdbb87e90b02`:
+https://github.com/alerion08/RoAura/actions/runs/41383797815 — 338 tests,
+eight ToC checks, native input/startup and portable package validation passed.
+All 154 distinct comments in the pinned ready snapshot have exact-source Russian
+translations; English originals and semantic SQLite immutability are retained.
+Native smoke verifies opening the quest chooser from its content area and equal
+catalog/walkthrough readiness sets. RU Cursed Spirit facts and Biolabs answer-card
+snapshots were inspected. Visual QA additionally promoted step-linked prerequisite
+quests to the header immediately after level, without a quantity multiplier.
+Sequential experience grants are preserved; only numeric alternative grants use ranges.
+Artifact 91: https://github.com/alerion08/RoAura/actions/runs/41383797815/artifacts/13113904744
+Portable SHA256: `9db691093c5a9e3349a07e581d7657a367671f6d5860aaabd7fbd9d95235865f`.
+Real SpringRO mixed-DPI, narrow-screen usability and long-session acceptance remain
+manual. Main/research, version metadata, tags and public release remain unchanged.
