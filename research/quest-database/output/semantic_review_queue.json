@@ -10703,38 +10703,47 @@
       "step_id": "irowiki-classic:Dancer/step/e356dfbd28512bb3da71/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Dance tiles are ordered movement actions, not geographical coordinates or dialogue answers. Pose means hold position. Improve Concentration is explicitly optional. Source corrects the live Front, Right text to Right only. Long sequences have exclusive full/first-last branches with context proof from later source step 28; shortcuts are source advice, not server-verified guarantees.",
       "evidence_id": "ev:a93ba2448e1052a565334df3",
       "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:df70cbf94e8e84209c42aca8",
+      "reason": "dancer_dance_cues_and_shortcuts",
+      "review_id": "review:e889ce970d409c723b780665",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "One final poring must be killed with a bow; its actor ID is unknown and not borrowed from a generic Poring link. Arrow Shower/Double Strafe are alternative attacks, not literal menu options. Bow/arrows are generic equipment categories with unknown IDs/counts. Final Line/Rope IDs use exact own-guide links, with exclusive Job Level 50/below-50 rewards.",
       "evidence_id": "ev:a93ba2448e1052a565334df3",
       "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:905d041aabd8b3a184a8af79",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:0d8dd027b77a1d9ca6db7486",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:dba248865c4ba36352482e27",
+      "reason": "dancer_final_attack_and_reward",
+      "review_id": "review:1dad09a7351c4744beaaecd0",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:6b36d1847155c21044b30796",
+      "detail": "Aile, Bijou, Bor Robin and the unnamed waiting-room host remain separate. Another NPC is a descriptive label, not an invented game name. No coordinate, map code or female-character eligibility flag is inferred from narrative pronouns.",
+      "evidence_id": "ev:a93ba2448e1052a565334df3",
       "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:a3e39fc5ea9b58bfb2da46fd",
+      "reason": "dancer_identity_and_coordinates",
+      "review_id": "review:337856f10cbc00d62a791654",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Thirty literal question/answer pairs are restored from HTML in three reference branches. Match live questions; source says wording may differ and does not prove random assignment. Elder Willow is an example obvious non-Jazz answer. Comodo Beach is the actual offered answer; source says Kokomo beach is not an option. Quiz-only NPC/item/monster references do not become travel, collection or kill objectives.",
+      "evidence_id": "ev:a93ba2448e1052a565334df3",
+      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
+      "reason": "dancer_quiz_restored_with_conditions",
+      "review_id": "review:6149f8bf151b461a3e846aea",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "The item-retention note is a sibling following the entire three-set list in pinned HTML, so it applies to all materials despite archive placement at step 5. One requested route is checked, not all sets consumed. The note says items, not explicitly currency: Set 3 records 10000 Zeny possession, with actual deduction unproven. Header Consumed/Varies is not allowed to override the detailed retention note.",
+      "evidence_id": "ev:a93ba2448e1052a565334df3",
+      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
+      "reason": "dancer_registration_retention_and_zeny",
+      "review_id": "review:69fefa23898de9a9f368f8f5",
       "severity": "warning",
       "step_id": null
     },
@@ -10748,560 +10757,20 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:eb8c4e309da3df10aa0a6add",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:84129669998570384c9fd1ab",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/07c5ecadbd5fce038c16/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:eb8c4e309da3df10aa0a6add",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8f50ba0f72a94ee19756485b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/07c5ecadbd5fce038c16/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:00dfa313a9079779a1436a7d",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:b652cf9d054ee21e21e52a10",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/0a2605770008b0218bf2/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:00dfa313a9079779a1436a7d",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7a3bc0ddcbd6658b4fb1110c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/0a2605770008b0218bf2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0ce3b98269f19a3b167b5f9c",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:080b3af479fbb4e0fbf652da",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/1a6b57e020f024db56ab/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0ce3b98269f19a3b167b5f9c",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5b96bec83a9b0d6a7e081b8f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/1a6b57e020f024db56ab/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8bd62e38c5730efdad2176de",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:dca0fcd1c111783a956df4dc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/1bd6c9b513d153fb5e1b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8bd62e38c5730efdad2176de",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a7f13257a4c30c8a3e071bb4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/1bd6c9b513d153fb5e1b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:84bd37f13743794f6cc314ff",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:b136a9bba77cc73c5a4df502",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/1bd6c9b513d153fb5e1b/2"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:84bd37f13743794f6cc314ff",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1b2b3772fa38a8db9f5795f1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/1bd6c9b513d153fb5e1b/2"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ac5a28ae8847944e1b8d3c35",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:6004156d39f7034cae717ca3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/4bf3f7b05946368196dd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ac5a28ae8847944e1b8d3c35",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:893b6aa2d5e77c8d4bda0846",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/4bf3f7b05946368196dd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:cd79d13d3538b32d2a9def8e",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:c540c1d4a43ec13e675dfd45",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/508d5981e7326f773d2b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:cd79d13d3538b32d2a9def8e",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0bb30971cbac4350a1ebdc33",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/508d5981e7326f773d2b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9ba9454f0b681c20f1673422",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:4832c6af5c0a4d446652f6b7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/52524505fc2e453b15ab/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9ba9454f0b681c20f1673422",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1b117abfbae6273fcd0502dc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/52524505fc2e453b15ab/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7c18412eeaaaf77be1b67a89",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:ec8b20ce40eb26fd95edd5a3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/58eb9032e3bb83f0e39d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7c18412eeaaaf77be1b67a89",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:df86715d0465d6815b5971db",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/58eb9032e3bb83f0e39d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8b52665638a0535e7397401f",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:e35a02c8c72f1c1ec2c5c01f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/58eb9032e3bb83f0e39d/2"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8b52665638a0535e7397401f",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:454b652a4272966e1e5954ea",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/58eb9032e3bb83f0e39d/2"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6d07d5093c61ef2abc402a82",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:b01d18b6ed4f6ecba1bbcaf4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/58eb9032e3bb83f0e39d/3"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6d07d5093c61ef2abc402a82",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f16bf7f5ff0afbc3757b803e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/58eb9032e3bb83f0e39d/3"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b05c05aacf6ae043ac83bf54",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:4c891065c4a1f4da32811de9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/76900f1bfd16c8d4dd3d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b05c05aacf6ae043ac83bf54",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:33b6a4323e61adead3e0e2b8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/76900f1bfd16c8d4dd3d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:aa280d2fab22a0c4e9c5a9fb",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:2bafaa399ce0a649a2f8e9e9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/87db14da6d55d1767e4c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:aa280d2fab22a0c4e9c5a9fb",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:51ded924b6ea81be23a3564b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/87db14da6d55d1767e4c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a85ed7a7103aa2e615caa78a",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:730a473f3c149c61d05f2897",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/87db14da6d55d1767e4c/2"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a85ed7a7103aa2e615caa78a",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6e5490d4cca26bd90ec7fcee",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/87db14da6d55d1767e4c/2"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b32e1ee277824f76f82f7049",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:8f3373027a958cc16d7dc70a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/883361d5d682a1574410/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b32e1ee277824f76f82f7049",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8155b25a48ef56017d7c849b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/883361d5d682a1574410/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:68a27ca8586422585036fe3f",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:75f2858b5190a017f205178e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/883361d5d682a1574410/2"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:68a27ca8586422585036fe3f",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:47e3ce5787bc74737ca86373",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/883361d5d682a1574410/2"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:704e257a7bb4b1a28e22813a",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:cc5c7f428c87e9b6856bde51",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/8a7f7345e01b9c809782/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:704e257a7bb4b1a28e22813a",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1ccd4a94c60fefe81e4e29c0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/8a7f7345e01b9c809782/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:55800eb597eff2f818454f44",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:4481ad8505097654b4220d35",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a61759020289882109fa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:55800eb597eff2f818454f44",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:43330e0ed1ae99ea402e7830",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a61759020289882109fa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0fc08a1a6755dc5d65a4118c",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:612dfa5474cc4399eba8ce2a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a61759020289882109fa/2"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0fc08a1a6755dc5d65a4118c",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:cf36ff9ecd2b5c506996595c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a61759020289882109fa/2"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3e507590b6a5cf978391cd8d",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:f6631a7d47c9088cec594e41",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a61759020289882109fa/3"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3e507590b6a5cf978391cd8d",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ba3ca9270f26a482b94d7f39",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a61759020289882109fa/3"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fa320134b9722b692735b10f",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:653335fae0a87e396723b3dc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a69db46b80f4ec5ccf87/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fa320134b9722b692735b10f",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:aecb8e77bda1d7336c6d9326",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a69db46b80f4ec5ccf87/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:19885547cccff82df920ea9e",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:2ef79399687c7117090cd64b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/b0e818b95d77ae097587/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:19885547cccff82df920ea9e",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:84c2a585e5a2e9d0db6c3341",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/b0e818b95d77ae097587/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:46811001d07d9879a7d4b72c",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:46ce8b161d4c36b04a84215a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/b3d41b90e4f1f2293981/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:46811001d07d9879a7d4b72c",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fb18e5bbd4c70fc2d00ba3e8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/b3d41b90e4f1f2293981/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:174202c591c90add05a7eb82",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:e3deebff4293d9eacc8574e8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/c034888a4192a03e6dc9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:174202c591c90add05a7eb82",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c2b1720df328009665352851",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/c034888a4192a03e6dc9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f188ef230a68b0c78d30f6c5",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:cadc768de246b285130383c1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/d946067427e930a14aed/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f188ef230a68b0c78d30f6c5",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:764e825039e8796c81e34ec2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/d946067427e930a14aed/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0c058d3f38a4b198fdb5386a",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:7674d6d9e13c1b6af3c585f6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/d946067427e930a14aed/2"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0c058d3f38a4b198fdb5386a",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:245fa7ab4b11f1181de867f4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/d946067427e930a14aed/2"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:59e12fcbdd2e2ff771f79b98",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:a5edb4a6eb198b91349a13e4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/eb55c91d419fd0c51b9e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:59e12fcbdd2e2ff771f79b98",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fa092d6da46d08f08e9c6c41",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/eb55c91d419fd0c51b9e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6e0cdd897581e088894922fd",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:ba00e1aa7d7916018c6bcc9a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/f3848e03c8689b40d45c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6e0cdd897581e088894922fd",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:14408bb3001e9594c81ef702",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/f3848e03c8689b40d45c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ecae4985ed54558c8cd5e7e0",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:6ec172a13d4e47dd56062ed2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/fd36fda9c590f11d0c6e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ecae4985ed54558c8cd5e7e0",
-      "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0eada73616fc11b1aec66a1a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/fd36fda9c590f11d0c6e/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Aelle is not aliased to Dancer Job Change Aile because spelling/occupation alone do not establish identity. Canell is separate from both. Comodo/Prontera and bare points have no invented map codes, actor IDs or teleport destinations.",
       "evidence_id": "ev:3c0b02bcf2ebaa91052fa843",
       "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:9719489b5d1748d87de03492",
+      "reason": "charming_wink_identity_and_map_scope",
+      "review_id": "review:ba3b28dc4e711b8536690653",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "One Crystal Mirror is explicitly taken by Canell. Aelle receives one separate five-material set; final return to Canell does not consume another mirror or set. Repeated Aelle talks may teleport the player to apparently random town points, not a required retry objective.",
       "evidence_id": "ev:3c0b02bcf2ebaa91052fa843",
       "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:8c0dbc81763e2dcd2f154d22",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:a7120efeb64432b93ee7fe0a",
-      "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:3558bc19b3095d0172c52900",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:5ae39522b688b252bf69f64f",
-      "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:26066a104d157bdf2d231aaf",
+      "reason": "charming_wink_material_and_return_scope",
+      "review_id": "review:1c3bca1605c8bff7b1df0dee",
       "severity": "warning",
       "step_id": null
     },
@@ -11315,83 +10784,20 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7c7b0734545a04963475d424",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:01948c4ffaf4d543bb717e07",
       "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:aeeba4ebf58d46167b8a624a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Skill_Quest/step/064c205064473318981d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7c7b0734545a04963475d424",
-      "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f0e1e5fc7c8d179b0ef1580f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Skill_Quest/step/064c205064473318981d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9bb0ca5007fb094c33b1686c",
-      "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:bdf0b483d4aceea433c8f344",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Skill_Quest/step/7866b023de7fe231fa60/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:8c32aa86b0446b6875391d23",
-      "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:4e8865e99baf8fe2f684247f",
+      "reason": "map_not_reference_known",
+      "review_id": "review:8e6a7cfdb20643e6b497e018",
       "severity": "warning",
       "step_id": "irowiki-classic:Dancer_Skill_Quest/step/7866b023de7fe231fa60/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9bb0ca5007fb094c33b1686c",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:c1d7b7dcc511b812e7160e17",
       "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:80d1173b659b11f3e253d99e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Skill_Quest/step/7866b023de7fe231fa60/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:12c3157e8bc0852523b08761",
-      "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:89bca72d0e7b95f311f57707",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Skill_Quest/step/e51644a2c014692a427c/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:0206435e6eae8dd76d25c577",
-      "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:9916cdb1b1f640f5fbaafddc",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Dancer_Skill_Quest/step/e51644a2c014692a427c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:12c3157e8bc0852523b08761",
-      "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4a29d2ba9cab467c5ec51679",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Dancer_Skill_Quest/step/e51644a2c014692a427c/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:12c3157e8bc0852523b08761",
-      "quest_id": "irowiki-classic:Dancer_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:be8c696b72e04d2616037b97",
+      "reason": "map_not_reference_known",
+      "review_id": "review:ec70189df9697f3e043a9c98",
       "severity": "warning",
       "step_id": "irowiki-classic:Dancer_Skill_Quest/step/e51644a2c014692a427c/1"
     },
