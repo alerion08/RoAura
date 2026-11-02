@@ -11,4 +11,11 @@ Structured facts retain evidence and source IDs; manual descriptions do not
 create a server-verified route. Description readiness and server verification
 are separate. User progress is never stored in the distributed SQLite file.
 
-This is a feature-test snapshot, not a public-release licensing clearance.
+This reference compilation and its adapted RU/EN guide text are distributed under
+GNU Free Documentation License 1.3 or later, with no Invariant Sections, no
+Front-Cover Texts and no Back-Cover Texts. See GFDL-1.3.txt and QUEST_SOURCES.txt.
+Original guide authors: iRO Wiki contributors; page and revision history links
+are retained in the source index and SQLite. Adaptation: RoAura contributors,
+2026 (structured facts, localized short/full descriptions and display comments).
+The SQLite is the editable, machine-readable source form of this data compilation.
+Source records and evidence remain available; this is not server certification.

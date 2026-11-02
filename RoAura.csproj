@@ -14,9 +14,9 @@
       read it from here. The only other copy is app.manifest/assemblyIdentity,
       which MSBuild cannot substitute; keep it in sync manually.
     -->
-    <Version>3.2.0</Version>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
-    <FileVersion>3.2.0.0</FileVersion>
+    <Version>3.3.0</Version>
+    <AssemblyVersion>3.3.0.0</AssemblyVersion>
+    <FileVersion>3.3.0.0</FileVersion>
     <InformationalVersion>$(Version)</InformationalVersion>
     <Company>Alerion</Company>
     <Authors>Alerion</Authors>
@@ -60,7 +60,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Data\questie_catalog.NOTICE.txt;Data\quest_semantic.NOTICE.txt">
+    <Content Include="Data\*.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

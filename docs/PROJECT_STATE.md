@@ -1283,3 +1283,22 @@ Artifact 95: https://github.com/alerion08/RoAura/actions/runs/41423274253/artifa
 Portable SHA256: `f98a476e21fa5ad36d31d2dc161d2e31689b27d1a5033767c012669bbcf56bbe`.
 Actual SpringRO mixed-DPI and subjective readability remain manual acceptance.
 No main/research changes, version bump, merge, tag or public release.
+
+
+## Release 3.3.0 preparation — 2026-11-02
+
+Owner explicitly requested footer centering and publication of the current feature
+work. Twitch/Discord/Donate content, icon and label centers are explicit; startup
+smoke checks their measured center alignment in both themes and captures the footer.
+Version/manifest are 3.3.0. Release includes ROQuestie and independent themes from
+the verified feature line, retaining the exact pinned catalogs used by test build 95.
+
+Release CI now prepares hash-pinned quest data before reader tests and packaging;
+installer includes Data/*.sqlite and attribution/license text, and CI silently
+installs it into an isolated runner directory to compare installed data hashes.
+Silent setup does not display the interactive Npcap notice or launch the app.
+Both distributions retain source/license notices and full GFDL/GPL references;
+per-page wiki/history and upstream script provenance remain available.
+Full release Windows tests, native input and installer verification are pending.
+Publishing is authorized by the owner; merge/tag/release will follow successful checks.
+Remaining real-game/mixed-DPI acceptance is documented in release notes.

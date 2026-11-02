@@ -20,5 +20,11 @@ https://github.com/alerion08/RoAura/tree/41bfc483311fa0e24ee84d1b1edcb0b4558914b
 Source references/candidate links are not server-verified routes, guaranteed
 requirements/rewards, dialogue answers or live character progress. Manual player
 state belongs in the separate local ROQuestie directory, never this catalog.
-This is a feature-test distribution; full packaging/license review remains a
-stage-5 gate before public release.
+Wiki guide text and adaptations: GNU Free Documentation License 1.3 or later,
+with no Invariant Sections, no Front-Cover Texts and no Back-Cover Texts.
+See GFDL-1.3.txt and QUEST_SOURCES.txt for license and original author/history links.
+Adaptations: RoAura contributors, 2026 (reference compilation and localization).
+The SQLite is distributed in editable source form, with no access restrictions.
+Script tables contain provenance/quest metadata, not executable server scripts.
+The linked upstream source repositories retain their original GPL notices;
+GPL-3.0.txt is included for reference. No upstream script is executed by RoAura.

@@ -1604,14 +1604,14 @@
             <Grid Grid.Row="4" Margin="10,0,10,7">
                 <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button Tag="https://twitch.tv/im_alerion" Click="SocialLink_Click">
-                        <StackPanel Orientation="Horizontal"><Image Source="Assets/twitch.png" Width="18" Height="18"/><TextBlock Text=" twitch.tv/im_alerion"/></StackPanel>
+                    <Button x:Name="TwitchLinkButton" Tag="https://twitch.tv/im_alerion" Click="SocialLink_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"><Image Source="Assets/twitch.png" Width="18" Height="18" VerticalAlignment="Center"/><TextBlock Text=" twitch.tv/im_alerion" VerticalAlignment="Center" TextAlignment="Center"/></StackPanel>
                     </Button>
-                    <Button Tag="http://discord.gg/aleriontv" Click="SocialLink_Click">
-                        <StackPanel Orientation="Horizontal"><Image Source="Assets/discord.png" Width="18" Height="18"/><TextBlock Text=" Discord"/></StackPanel>
+                    <Button x:Name="DiscordLinkButton" Tag="http://discord.gg/aleriontv" Click="SocialLink_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"><Image Source="Assets/discord.png" Width="18" Height="18" VerticalAlignment="Center"/><TextBlock Text=" Discord" VerticalAlignment="Center" TextAlignment="Center"/></StackPanel>
                     </Button>
-                    <Button Tag="https://www.donationalerts.com/r/im_alerion" Click="SocialLink_Click">
-                        <StackPanel Orientation="Horizontal"><Image Source="Assets/donate.png" Width="18" Height="18"/><TextBlock Text=" Donate"/></StackPanel>
+                    <Button x:Name="DonateLinkButton" Tag="https://www.donationalerts.com/r/im_alerion" Click="SocialLink_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"><Image Source="Assets/donate.png" Width="18" Height="18" VerticalAlignment="Center"/><TextBlock Text=" Donate" VerticalAlignment="Center" TextAlignment="Center"/></StackPanel>
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
