@@ -1,0 +1,1064 @@
+{
+  "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "072572940b9091e5c83561c96645df20452b30ac7e7049eac2374a7fb8165ffb",
+  "snapshot_sha256": "6593ebe3633d53313de829c690c745c4faa9de90ff81dcf9346da24c1d3ca76b",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Book-Loving Man",
+      "aliases": [
+        "Benjamin"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Curator"
+    },
+    {
+      "type": "npc",
+      "name": "Library Curator",
+      "aliases": [
+        "Library Master"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Library Part-Timer",
+      "aliases": [
+        "Part-Timer"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Hot Bestseller Corner"
+    },
+    {
+      "type": "npc",
+      "name": "Female Researcher"
+    },
+    {
+      "type": "npc",
+      "name": "Eva"
+    },
+    {
+      "type": "npc",
+      "name": "Cave Settler"
+    },
+    {
+      "type": "npc",
+      "name": "Jaeda"
+    },
+    {
+      "type": "npc",
+      "name": "Monsterous Man",
+      "aliases": [
+        "Zid"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Mammi"
+    },
+    {
+      "type": "npc",
+      "name": "Oliver Hilpert",
+      "aliases": [
+        "Oliver"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Old News Scrapbook"
+    },
+    {
+      "type": "map",
+      "name": "Morroc Ruins"
+    },
+    {
+      "type": "map",
+      "name": "moc_ruins",
+      "map_code": "moc_ruins"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Library"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "prontera",
+      "map_code": "prontera"
+    },
+    {
+      "type": "map",
+      "name": "Juno Library"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "yuno",
+      "map_code": "yuno"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch Field 1"
+    },
+    {
+      "type": "item",
+      "name": "The Crow of the Fate",
+      "identity": "irowiki-classic:Crow_of_Destiny_Quest:source_item:The Crow of the Fate"
+    },
+    {
+      "type": "item",
+      "name": "Trace of the Fate",
+      "identity": "irowiki-classic:Crow_of_Destiny_Quest:source_item:Trace of the Fate"
+    },
+    {
+      "type": "item",
+      "name": "Mammi's Photo Album",
+      "identity": "irowiki-classic:Crow_of_Destiny_Quest:source_item:Mammi's Photo Album"
+    },
+    {
+      "type": "item",
+      "name": "bird feather",
+      "identity": "irowiki-classic:Crow_of_Destiny_Quest:source_item:bird feather"
+    },
+    {
+      "type": "item",
+      "name": "Autograph",
+      "identity": "irowiki-classic:Crow_of_Destiny_Quest:source_item:Autograph"
+    },
+    {
+      "type": "item",
+      "name": "Memo",
+      "identity": "irowiki-classic:Crow_of_Destiny_Quest:source_item:mansion_memo",
+      "ref": "mansion_memo",
+      "aliases": [
+        "note"
+      ]
+    },
+    {
+      "type": "item",
+      "name": "note",
+      "identity": "irowiki-classic:Crow_of_Destiny_Quest:source_item:final_note",
+      "ref": "final_note"
+    },
+    {
+      "type": "item",
+      "name": "Old Purple Box",
+      "game_id": 617,
+      "id_source": "http://db.irowiki.org/classic/item-info/617/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "At the Morroc Ruins, talk to the Book-Loving Man (moc_ruins 136, 70), who talks to you about the book lover Mammi, and tells you his name is Benjamin. He seems quite infatuated with Mammi, and asks you to find her favorite book, The Crow of the Fate by Oliver Hilpert at the Prontera Library.",
+      "instruction_sha256": "3a4999aa4f610a67f90c9ab1f92cd9065695bd7f56558928b4e115f22fc4e2c6",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/3a4999aa4f610a67f90c/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Book-Loving Man в moc_ruins 136, 70 о The Crow of the Fate.",
+      "short_en": "Talk to Book-Loving Man at moc_ruins 136, 70 about The Crow of the Fate.",
+      "full_ru": "В Morroc Ruins поговорите с Book-Loving Man (moc_ruins 136, 70). Он расскажет о любительнице книг Mammi и представится как Benjamin. Он явно увлечён Mammi и попросит найти её любимую книгу The Crow of the Fate автора Oliver Hilpert в Prontera Library.",
+      "full_en": "At the Morroc Ruins, talk to the Book-Loving Man (moc_ruins 136, 70), who talks to you about the book lover Mammi, and tells you his name is Benjamin. He seems quite infatuated with Mammi, and asks you to find her favorite book, The Crow of the Fate by Oliver Hilpert at the Prontera Library.",
+      "npcs": [
+        {
+          "entity": "Book-Loving Man",
+          "role": "talk"
+        },
+        {
+          "entity": "Mammi",
+          "role": "story_reference"
+        },
+        {
+          "entity": "Oliver Hilpert",
+          "role": "author_reference"
+        }
+      ],
+      "items": [
+        {
+          "entity": "The Crow of the Fate",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_book",
+          "entity": "Book-Loving Man"
+        }
+      ],
+      "protected_names": [
+        "Book-Loving Man",
+        "Mammi",
+        "Oliver Hilpert",
+        "Morroc Ruins",
+        "moc_ruins",
+        "Prontera Library",
+        "Prontera",
+        "The Crow of the Fate"
+      ],
+      "locations": [
+        {
+          "map": "moc_ruins",
+          "x": 136,
+          "y": 70,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "moc_ruins 136, 70"
+        }
+      ],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "2": {
+      "original_instruction": "Head to the library in Prontera (prontera 120, 264), and talk to the second Curator behind the desk. He allows you to search for books by title and author. Searching for either 'The Crow of the Fate' in titles or 'Oliver Hilpert' in authors will work. Unfortunately, the library never got a copy, and he suggests you check the Juno Library instead.",
+      "instruction_sha256": "a948d8f59aadb3f389d4568dfc847abf8779abe51dd03e89746e4b39b05b75d2",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/a948d8f59aadb3f389d4/1",
+      "goal": "enter_text",
+      "short_ru": "У второго Curator в prontera 120, 264 ищите The Crow of the Fate или Oliver Hilpert.",
+      "short_en": "At the second Curator in prontera 120, 264, search for The Crow of the Fate or Oliver Hilpert.",
+      "full_ru": "Отправляйтесь в библиотеку Prontera (prontera 120, 264) и поговорите со вторым Curator за стойкой. Можно искать по названию или автору: подойдёт название The Crow of the Fate либо автор Oliver Hilpert. Книги здесь нет, поэтому он посоветует Juno Library.",
+      "full_en": "Head to the library in Prontera (prontera 120, 264), and talk to the second Curator behind the desk. He allows you to search for books by title and author. Searching for either 'The Crow of the Fate' in titles or 'Oliver Hilpert' in authors will work. Unfortunately, the library never got a copy, and he suggests you check the Juno Library instead.",
+      "npcs": [
+        {
+          "entity": "Curator",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Curator",
+          "options": [
+            {
+              "text": "The Crow of the Fate",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Title search; alternative to author search."
+            },
+            {
+              "text": "Oliver Hilpert",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Author search; alternative to title search."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "search_catalog",
+          "entity": "Curator"
+        }
+      ],
+      "protected_names": [
+        "Curator",
+        "Oliver Hilpert",
+        "Prontera",
+        "prontera",
+        "Juno Library",
+        "Juno",
+        "The Crow of the Fate"
+      ],
+      "locations": [
+        {
+          "map": "prontera",
+          "x": 120,
+          "y": 264,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prontera 120, 264"
+        }
+      ],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "3": {
+      "original_instruction": "In Juno , head to the library (yuno 338, 204), where you find a barking dog and the Library Curator outside. Apparently there is a huge crow on the library rooftop. The man throws a rock at the crow, but that just makes it start flying over the roof in circles. Some feathers fell off the crow, and the Library Master gives one to you.",
+      "instruction_sha256": "0248ef70c8dfbec9e1ecd0905cda379c984d875692b7d62183ec5a536fd07d4a",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/0248ef70c8dfbec9e1ec/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Library Curator в yuno 338, 204 и получите перо.",
+      "short_en": "Talk to Library Curator at yuno 338, 204 and receive a feather.",
+      "full_ru": "В Juno идите к библиотеке (yuno 338, 204). Снаружи стоят лающая собака и Library Curator. На крыше сидит огромный ворон. Мужчина бросит в него камень; ворон начнёт кружить над крышей, и с него упадут перья. Library Master отдаст вам одно перо.",
+      "full_en": "In Juno , head to the library (yuno 338, 204), where you find a barking dog and the Library Curator outside. Apparently there is a huge crow on the library rooftop. The man throws a rock at the crow, but that just makes it start flying over the roof in circles. Some feathers fell off the crow, and the Library Master gives one to you.",
+      "npcs": [
+        {
+          "entity": "Library Curator",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "bird feather",
+          "condition": "One feather, identified by the later bird-feather reference; unknown inventory ID."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "witness_crow",
+          "entity": "Library Curator"
+        },
+        {
+          "operation": "receive_item",
+          "entity": "bird feather"
+        }
+      ],
+      "protected_names": [
+        "Curator",
+        "Library Curator",
+        "Juno",
+        "yuno"
+      ],
+      "locations": [
+        {
+          "map": "yuno",
+          "x": 338,
+          "y": 204,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno 338, 204"
+        }
+      ],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "4": {
+      "original_instruction": "Go inside the library, and talk to the Library Part-Timer, who says you can find the book in the room on the right side of the hall in the bestseller corner.",
+      "instruction_sha256": "4fa68d96bd12dee5c870f7a56195eacd520c42220627450a3d0d755162eaffc6",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/4fa68d96bd12dee5c870/1",
+      "goal": "talk",
+      "short_ru": "Спросите Library Part-Timer, где найти книгу.",
+      "short_en": "Ask Library Part-Timer where to find the book.",
+      "full_ru": "Войдите в библиотеку и поговорите с Library Part-Timer. Она скажет, что книга лежит в комнате справа от коридора, в углу бестселлеров.",
+      "full_en": "Go inside the library, and talk to the Library Part-Timer, who says you can find the book in the room on the right side of the hall in the bestseller corner.",
+      "npcs": [
+        {
+          "entity": "Library Part-Timer",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Library Part-Timer"
+        }
+      ],
+      "protected_names": [
+        "Library Part-Timer"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "5": {
+      "original_instruction": "Enter the room to her left (your right, it has two portals going into it), and find the Hot Bestseller Corner around (100, 4). Investigate it, and you'll black out.",
+      "instruction_sha256": "1077e94a57a5769ccd0a49252257860c3dc365ac93d47351a9837eb1c57b10fc",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/1077e94a57a5769ccd0a/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Hot Bestseller Corner около (100, 4).",
+      "short_en": "Inspect Hot Bestseller Corner near (100, 4).",
+      "full_ru": "Войдите в комнату слева от неё — справа от вас; туда ведут два портала. Найдите Hot Bestseller Corner примерно в (100, 4), осмотрите его и потеряете сознание.",
+      "full_en": "Enter the room to her left (your right, it has two portals going into it), and find the Hot Bestseller Corner around (100, 4). Investigate it, and you'll black out.",
+      "npcs": [
+        {
+          "entity": "Hot Bestseller Corner",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "inspect",
+          "entity": "Hot Bestseller Corner"
+        },
+        {
+          "operation": "enter_vision"
+        }
+      ],
+      "protected_names": [
+        "Hot Bestseller Corner"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 100,
+          "y": 4,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "100, 4"
+        }
+      ],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "6": {
+      "original_instruction": "You wake up in an unknown place, lit only by fires. There's a Female Researcher here, but when you try talking to her, you find she's some sort of ghost.",
+      "instruction_sha256": "36d733d252f71c395bf0713672e4b39f641b44901be9c2882e63a904b6826343",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/36d733d252f71c395bf0/1",
+      "goal": "talk",
+      "short_ru": "Попробуйте поговорить с Female Researcher в видении.",
+      "short_en": "Try talking to Female Researcher in the vision.",
+      "full_ru": "Вы очнётесь в неизвестном месте, освещённом огнём. Здесь находится Female Researcher; при попытке заговорить окажется, что это призрак.",
+      "full_en": "You wake up in an unknown place, lit only by fires. There's a Female Researcher here, but when you try talking to her, you find she's some sort of ghost.",
+      "npcs": [
+        {
+          "entity": "Female Researcher",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Female Researcher"
+        }
+      ],
+      "protected_names": [
+        "Female Researcher"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "7": {
+      "original_instruction": "Head inside the building, where you see a researcher who shouts out to everyone, warning them of the fires that seem to be consuming the lab. Through the left portal, you find Grotesque people, who seem to have tentacles coming out of them. Walk up towards the female, and you see them making their escape as the man appears to bury something, calling the female Eva.",
+      "instruction_sha256": "a385dbe983978dc1be8a8000739b216601f62933d1efaebe2a76cf7d02ce0811",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/a385dbe983978dc1be8a/1",
+      "goal": "witness_scene",
+      "short_ru": "Пройдите через левый портал и просмотрите сцену с Eva.",
+      "short_en": "Go through the left portal and watch the scene with Eva.",
+      "full_ru": "Войдите в здание. Исследователь предупреждает остальных о пожаре, охватившем лабораторию. Через левый портал вы увидите Grotesque people, из тел которых словно растут щупальца. Подойдите к женщине и посмотрите, как они бегут: мужчина, кажется, что-то закапывает и называет женщину Eva.",
+      "full_en": "Head inside the building, where you see a researcher who shouts out to everyone, warning them of the fires that seem to be consuming the lab. Through the left portal, you find Grotesque people, who seem to have tentacles coming out of them. Walk up towards the female, and you see them making their escape as the man appears to bury something, calling the female Eva.",
+      "npcs": [
+        {
+          "entity": "Eva",
+          "role": "scene_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "witness_scene"
+        }
+      ],
+      "protected_names": [
+        "Eva"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "8": {
+      "original_instruction": "You're then taken to another place, now outside. (Be careful here, if you re-trigger the dialogue box while moving you'll be disconnected and sent back to your save point.) The two creatures then find a cave, where they decide to hide out. You're then transported back to the library.",
+      "instruction_sha256": "ef98899b66923e12a42cef739b10cb4d2a2a25d199f498449cfecc319e5aa4b5",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/ef98899b66923e12a42c/1",
+      "goal": "witness_scene",
+      "short_ru": "Досмотрите сцену у пещеры, избегая повторного запуска диалога.",
+      "short_en": "Watch the cave scene, avoiding a repeated dialogue trigger.",
+      "full_ru": "Затем вас перенесёт в другое место, уже снаружи. Осторожно: если при движении повторно вызвать диалоговое окно, по сообщению источника произойдёт отключение и возврат в точку сохранения. Два существа найдут пещеру и решат спрятаться в ней; после этого вы вернётесь в библиотеку.",
+      "full_en": "You're then taken to another place, now outside. (Be careful here, if you re-trigger the dialogue box while moving you'll be disconnected and sent back to your save point.) The two creatures then find a cave, where they decide to hide out. You're then transported back to the library.",
+      "actions": [
+        {
+          "operation": "witness_scene"
+        },
+        {
+          "operation": "avoid_retrigger",
+          "condition": "Source warns of disconnection and return to the save point; not server verified."
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "9": {
+      "original_instruction": "Walk back (99, 3), and you decide to open the book again. It tells you the same story that happened in your \"dream\", and you want to do more research on the fire that happened in it.",
+      "instruction_sha256": "12c662ed6d421d4ecc0c6f0f26ee1020822fda098d3b33f87449a49ddb73ca89",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/12c662ed6d421d4ecc0c/1",
+      "goal": "read",
+      "short_ru": "Снова откройте книгу около (99, 3).",
+      "short_en": "Open the book again near (99, 3).",
+      "full_ru": "Вернитесь к (99, 3) и снова откройте книгу. В ней описана та же история, что и в вашем «сне», поэтому вы решите подробнее изучить упомянутый пожар.",
+      "full_en": "Walk back (99, 3), and you decide to open the book again. It tells you the same story that happened in your \"dream\", and you want to do more research on the fire that happened in it.",
+      "actions": [
+        {
+          "operation": "read",
+          "entity": "The Crow of the Fate"
+        }
+      ],
+      "protected_names": [],
+      "locations": [
+        {
+          "map": null,
+          "x": 99,
+          "y": 3,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "99, 3"
+        }
+      ],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "10": {
+      "original_instruction": "Talk to the Library Part-Timer again, who tells you that the old news articles are found in the room opposite that of the first.",
+      "instruction_sha256": "d3b308f8f33b5411806b5d25d03a52cc65df9d5bc26d6509dab79b009a761f5d",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/d3b308f8f33b5411806b/1",
+      "goal": "talk",
+      "short_ru": "Спросите Library Part-Timer о старых газетах.",
+      "short_en": "Ask Library Part-Timer about old newspapers.",
+      "full_ru": "Снова поговорите с Library Part-Timer. Она подскажет, что старые газеты находятся в комнате напротив первой.",
+      "full_en": "Talk to the Library Part-Timer again, who tells you that the old news articles are found in the room opposite that of the first.",
+      "npcs": [
+        {
+          "entity": "Library Part-Timer",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Library Part-Timer"
+        }
+      ],
+      "protected_names": [
+        "Library Part-Timer"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "11": {
+      "original_instruction": "You'll find the Old News Scrapbook on the right bookcase (around 115, 99). You search through it, and find an article about the fire. After reading it, you decide to look for the cave from your dream, in hopes of finding descendents from the incident.",
+      "instruction_sha256": "a18d35982dd3c793dbca7bbbb9f55b686818d1d9b60eb16ec4bc8d29455780fe",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/a18d35982dd3c793dbca/1",
+      "goal": "read",
+      "short_ru": "Прочитайте Old News Scrapbook около (115, 99).",
+      "short_en": "Read Old News Scrapbook near (115, 99).",
+      "full_ru": "Найдите Old News Scrapbook на правой книжной полке примерно в (115, 99). Изучите статью о пожаре. Затем вы решите отыскать пещеру из сна, надеясь найти потомков участников происшествия.",
+      "full_en": "You'll find the Old News Scrapbook on the right bookcase (around 115, 99). You search through it, and find an article about the fire. After reading it, you decide to look for the cave from your dream, in hopes of finding descendents from the incident.",
+      "npcs": [
+        {
+          "entity": "Old News Scrapbook",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "read",
+          "entity": "Old News Scrapbook"
+        }
+      ],
+      "protected_names": [
+        "Old News Scrapbook"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "12": {
+      "original_instruction": "Go to the top left portal on Einbroch Field 1 (28, 258), and go inside. You find yourself in a large cave filled with people and housing a small village. When you try to talk to people they quickly stop talking upon realizing that you're human. The village does have an NPC vendor that you can sell loot to if you are overweight.",
+      "instruction_sha256": "2376604ad1042b131123f54067d9655068a3eb882cb0fcce3a03a70ffcad22f9",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/2376604ad1042b131123/1",
+      "goal": "navigate",
+      "short_ru": "Войдите в пещеру через портал Einbroch Field 1 (28, 258).",
+      "short_en": "Enter the cave through Einbroch Field 1 portal (28, 258).",
+      "full_ru": "Идите к верхнему левому порталу на Einbroch Field 1 (28, 258) и войдите. В большой пещере расположена деревня. Жители прерывают разговоры, поняв, что вы человек. Если вы перегружены, здесь можно продать добычу NPC-торговцу.",
+      "full_en": "Go to the top left portal on Einbroch Field 1 (28, 258), and go inside. You find yourself in a large cave filled with people and housing a small village. When you try to talk to people they quickly stop talking upon realizing that you're human. The village does have an NPC vendor that you can sell loot to if you are overweight.",
+      "actions": [
+        {
+          "operation": "enter_cave"
+        },
+        {
+          "operation": "sell_loot",
+          "condition": "Optional vendor service if overweight; not an extra quest cost or required sale."
+        }
+      ],
+      "protected_names": [
+        "Einbroch Field 1"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 28,
+          "y": 258,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "28, 258"
+        }
+      ],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "13": {
+      "original_instruction": "Upstairs, talk to the male Cave Settler (82, 97), and tell him you're looking for Eva. Jaeda will appear. The conversation will continue and then you will be transported to the start of the black tunnel. The Cave Settler then lets you continue on your way.",
+      "instruction_sha256": "25e798c94f89d2c975e9d7699cb0b3f27615134ff5cb3f2c8f1fd9979dac5271",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/25e798c94f89d2c975e9/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Cave Settler (82, 97) о Eva и дождитесь Jaeda.",
+      "short_en": "Talk to Cave Settler (82, 97) about Eva and wait for Jaeda.",
+      "full_ru": "Поднимитесь наверх и поговорите с мужчиной Cave Settler (82, 97). Скажите, что ищете Eva. Появится Jaeda; после разговора вас перенесёт к началу чёрного туннеля, и Cave Settler разрешит пройти дальше.",
+      "full_en": "Upstairs, talk to the male Cave Settler (82, 97), and tell him you're looking for Eva. Jaeda will appear. The conversation will continue and then you will be transported to the start of the black tunnel. The Cave Settler then lets you continue on your way.",
+      "npcs": [
+        {
+          "entity": "Cave Settler",
+          "role": "talk"
+        },
+        {
+          "entity": "Jaeda",
+          "role": "scene_participant"
+        },
+        {
+          "entity": "Eva",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "ask_about",
+          "entity": "Eva"
+        },
+        {
+          "operation": "witness_scene",
+          "entity": "Jaeda"
+        }
+      ],
+      "protected_names": [
+        "Eva",
+        "Cave Settler",
+        "Jaeda"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 82,
+          "y": 97,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "82, 97"
+        }
+      ],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "14": {
+      "original_instruction": "Walk through the black tunnel until you reach a room with a portal, then go through it. Keep walking through the next passageway, and talk to the Monsterous Man in the room at the end. You show him the book, and is surprised, and tells you his name is Zid. He used to be human, but volunteered for an experiment, along with Eva. After the accident they started the cave village and he now leads and protects it. Eva was in love with the lead researcher, who experimented on her, then killed himself after she mutated. Eva saved one of the baby test subjects, who ran away when he was about 10. Eva disappeared soon after.",
+      "instruction_sha256": "51ad70c32c46f024c8434fcb7579366791d467f2fed30db7ae389858d52b6b2e",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/51ad70c32c46f024c843/1",
+      "goal": "talk",
+      "short_ru": "Пройдите чёрный туннель и покажите книгу Monsterous Man.",
+      "short_en": "Follow the black tunnel and show the book to Monsterous Man.",
+      "full_ru": "Пройдите по чёрному туннелю до комнаты с порталом, войдите в него и продолжайте по следующему проходу. В комнате в конце поговорите с Monsterous Man. Вы покажете книгу; удивлённый мужчина представится как Zid. Он и Eva добровольно участвовали в опыте. После аварии они основали пещерную деревню, которую он теперь защищает и возглавляет. Eva любила ведущего исследователя; он ставил на ней опыты, а после её мутации покончил с собой. Eva спасла одного из младенцев-подопытных, но примерно в 10 лет тот убежал. Вскоре исчезла и Eva.",
+      "full_en": "Walk through the black tunnel until you reach a room with a portal, then go through it. Keep walking through the next passageway, and talk to the Monsterous Man in the room at the end. You show him the book, and is surprised, and tells you his name is Zid. He used to be human, but volunteered for an experiment, along with Eva. After the accident they started the cave village and he now leads and protects it. Eva was in love with the lead researcher, who experimented on her, then killed himself after she mutated. Eva saved one of the baby test subjects, who ran away when he was about 10. Eva disappeared soon after.",
+      "npcs": [
+        {
+          "entity": "Monsterous Man",
+          "role": "talk"
+        },
+        {
+          "entity": "Eva",
+          "role": "story_reference"
+        }
+      ],
+      "items": [
+        {
+          "entity": "The Crow of the Fate",
+          "quantity": null,
+          "operation": "show",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "show",
+          "entity": "The Crow of the Fate"
+        },
+        {
+          "operation": "talk",
+          "entity": "Monsterous Man"
+        }
+      ],
+      "protected_names": [
+        "Eva",
+        "Monsterous Man"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "15": {
+      "original_instruction": "Zid thinks that Oliver may be the test subject that Eva saved. He asks that you not tell anyone else about the cave and to leave them alone. Walk back thru the black tunnel to the village. The game designers did put in a fair bit of detail into the other RPG aspects of the village. At this time, you may choose to explore other cave entrances in the village to explore the black tunnels leading to other chambers.",
+      "instruction_sha256": "7275e1f2c46960361e1b5b5e3b2270334eb59dcae71dc228621b87246b5aad0c",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/7275e1f2c46960361e1b/1",
+      "goal": "talk",
+      "short_ru": "Выслушайте Zid и вернитесь через чёрный туннель в деревню.",
+      "short_en": "Hear Zid out and return through the black tunnel to the village.",
+      "full_ru": "Zid считает, что Oliver мог быть тем подопытным, которого спасла Eva. Он просит никому не рассказывать о пещере и оставить жителей в покое. Вернитесь через чёрный туннель в деревню. При желании можно исследовать другие входы в пещеры и чёрные туннели к дополнительным комнатам: авторы игры подробно проработали деревню и её окружение.",
+      "full_en": "Zid thinks that Oliver may be the test subject that Eva saved. He asks that you not tell anyone else about the cave and to leave them alone. Walk back thru the black tunnel to the village. The game designers did put in a fair bit of detail into the other RPG aspects of the village. At this time, you may choose to explore other cave entrances in the village to explore the black tunnels leading to other chambers.",
+      "npcs": [
+        {
+          "entity": "Monsterous Man",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Monsterous Man"
+        },
+        {
+          "operation": "return_to_village"
+        },
+        {
+          "operation": "explore_side_caves",
+          "condition": "Optional exploration, not required quest stages."
+        }
+      ],
+      "protected_names": [
+        "Eva"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "16": {
+      "original_instruction": "Go back to Benjamin at the Morroc Ruins. You give him the book, and he shows you 2 photos of Mammi. He gives you Mammi's Photo Album, and suggests you read another book by Oliver called the Trace of the Fate.",
+      "instruction_sha256": "e7785a82d53f566ebb719a1a1237ee58813fb8661141424c58510a80198fe80b",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/e7785a82d53f566ebb71/1",
+      "goal": "deliver",
+      "short_ru": "Отдайте книгу Benjamin в Morroc Ruins и получите Mammi's Photo Album.",
+      "short_en": "Give the book to Benjamin in Morroc Ruins and receive Mammi's Photo Album.",
+      "full_ru": "Вернитесь к Benjamin в Morroc Ruins и отдайте ему книгу. Он покажет 2 фотографии Mammi, даст Mammi's Photo Album и посоветует прочитать другую книгу Oliver — Trace of the Fate.",
+      "full_en": "Go back to Benjamin at the Morroc Ruins. You give him the book, and he shows you 2 photos of Mammi. He gives you Mammi's Photo Album, and suggests you read another book by Oliver called the Trace of the Fate.",
+      "npcs": [
+        {
+          "entity": "Book-Loving Man",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "The Crow of the Fate",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "shown_photo_count",
+          "amount": "2",
+          "condition": "Two displayed photos, not two granted albums."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "entity": "Mammi's Photo Album",
+          "condition": "Unknown ID/count; two shown photos do not establish two album items."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "The Crow of the Fate"
+        },
+        {
+          "operation": "receive_item",
+          "entity": "Mammi's Photo Album"
+        }
+      ],
+      "protected_names": [
+        "Mammi",
+        "Morroc Ruins",
+        "Trace of the Fate",
+        "Mammi's Photo Album"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "17": {
+      "original_instruction": "Return to the Juno Library and talk to the Library Part-Timer, who tells you where you can find the book. Before you can find it however, you black out again.",
+      "instruction_sha256": "6cd09f9e55081b528efc205597b239e74bfce0945c962cb44809776f7327cc75",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/6cd09f9e55081b528efc/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Library Part-Timer в Juno Library и дождитесь видения.",
+      "short_en": "Talk to Library Part-Timer in Juno Library and wait for the vision.",
+      "full_ru": "Вернитесь в Juno Library и поговорите с Library Part-Timer. Она объяснит, где искать книгу, но до её нахождения вы снова потеряете сознание.",
+      "full_en": "Return to the Juno Library and talk to the Library Part-Timer, who tells you where you can find the book. Before you can find it however, you black out again.",
+      "npcs": [
+        {
+          "entity": "Library Part-Timer",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Library Part-Timer"
+        },
+        {
+          "operation": "enter_vision"
+        }
+      ],
+      "protected_names": [
+        "Library Part-Timer",
+        "Juno Library",
+        "Juno"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "18": {
+      "original_instruction": "You wake up in a burning mansion, and find a man at the bottom of a staircase, lamenting what's happened. The fire then swallows him up, and you return to the library. Talking to the Part-Timer, she says you blanked out for a minute, and suggests you go find the book.",
+      "instruction_sha256": "66ba9e7a330e8293ce7c61c324f37915711af624079bedb147555ab0224e0e02",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/66ba9e7a330e8293ce7c/1",
+      "goal": "witness_scene",
+      "short_ru": "Досмотрите сцену в особняке и поговорите с Part-Timer.",
+      "short_en": "Watch the mansion scene and talk to Part-Timer.",
+      "full_ru": "Вы очнётесь в горящем особняке. Внизу лестницы мужчина оплакивает случившееся, затем его поглотит огонь, и вы вернётесь в библиотеку. Part-Timer скажет, что вы отключились на минуту, и предложит найти книгу.",
+      "full_en": "You wake up in a burning mansion, and find a man at the bottom of a staircase, lamenting what's happened. The fire then swallows him up, and you return to the library. Talking to the Part-Timer, she says you blanked out for a minute, and suggests you go find the book.",
+      "npcs": [
+        {
+          "entity": "Library Part-Timer",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "witness_scene"
+        },
+        {
+          "operation": "talk",
+          "entity": "Library Part-Timer"
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "19": {
+      "original_instruction": "In the room at the end of the hall, and you find the book on a table. After you read through it, you notice a suspicious person staring out you, who turns out to be Oliver. He signs his autograph for you, and tells you about his dreams. Upon noticing you have the photo album from Benjamin, who he seems to admire. You trade him the album for some information, and after reading a note he dropped, you are transported to the mansion again. You receive 1 Old Purple Box, and the Memo and Autograph.",
+      "instruction_sha256": "5bf9aa0fed249ee77fd666536148d25560cb3300d2f6be2381bbcbfff31cf1de",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/5bf9aa0fed249ee77fd6/1",
+      "goal": "exchange",
+      "short_ru": "Прочитайте книгу, передайте фотоальбом Oliver и прочитайте note.",
+      "short_en": "Read the book, give the photo album to Oliver and read the note.",
+      "full_ru": "В комнате в конце коридора найдите книгу на столе и прочитайте её. Вы заметите подозрительного человека: это Oliver. Он даст автограф и расскажет о своих снах. Увидев у вас фотоальбом от Benjamin, которым он, похоже, восхищается, он обменяет информацию на альбом. Прочитайте оброненную им note: вас снова перенесёт в особняк. Вы получите 1 Old Purple Box, а также Memo и Autograph.",
+      "full_en": "In the room at the end of the hall, and you find the book on a table. After you read through it, you notice a suspicious person staring out you, who turns out to be Oliver. He signs his autograph for you, and tells you about his dreams. Upon noticing you have the photo album from Benjamin, who he seems to admire. You trade him the album for some information, and after reading a note he dropped, you are transported to the mansion again. You receive 1 Old Purple Box, and the Memo and Autograph.",
+      "npcs": [
+        {
+          "entity": "Oliver Hilpert",
+          "role": "talk"
+        },
+        {
+          "entity": "Book-Loving Man",
+          "role": "story_reference"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Mammi's Photo Album",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Purple Box"
+        },
+        {
+          "kind": "quest_document",
+          "entity": "mansion_memo"
+        },
+        {
+          "kind": "quest_document",
+          "entity": "Autograph"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "read",
+          "entity": "Trace of the Fate"
+        },
+        {
+          "operation": "exchange_album",
+          "entity": "Mammi's Photo Album"
+        },
+        {
+          "operation": "read",
+          "entity": "mansion_memo"
+        },
+        {
+          "operation": "enter_vision"
+        }
+      ],
+      "protected_names": [
+        "Autograph",
+        "Memo",
+        "note",
+        "Old Purple Box"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "20": {
+      "original_instruction": "After witnessing another scene, you're transported back to the library. Talk to Oliver and give his note back, and he tears it to pieces upon seeing the bird feather you got earlier.",
+      "instruction_sha256": "3ed2b1a5e93a54ba1e68461ddc1eba3106a1ebb8f22b42730f49afbc13fee367",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/3ed2b1a5e93a54ba1e68/1",
+      "goal": "deliver",
+      "short_ru": "После видения верните note Oliver; он отреагирует на bird feather.",
+      "short_en": "After the vision, return the note to Oliver; he reacts to the bird feather.",
+      "full_ru": "Посмотрите следующую сцену и вернитесь в библиотеку. Поговорите с Oliver и отдайте его note. Увидев bird feather, полученное вами раньше, он разорвёт note на части.",
+      "full_en": "After witnessing another scene, you're transported back to the library. Talk to Oliver and give his note back, and he tears it to pieces upon seeing the bird feather you got earlier.",
+      "npcs": [
+        {
+          "entity": "Oliver Hilpert",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "mansion_memo",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "bird feather",
+          "quantity": null,
+          "operation": "show",
+          "required": 1,
+          "condition": "Earlier feather is seen; no inventory consumption is established."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return_note",
+          "entity": "mansion_memo"
+        },
+        {
+          "operation": "witness_note_torn",
+          "entity": "Oliver Hilpert"
+        }
+      ],
+      "protected_names": [
+        "bird feather",
+        "note"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "note"
+      }
+    },
+    "21": {
+      "original_instruction": "Return to Benjamin, and you give him the autograph and note from Oliver, who rewards you with Base and Job experience.",
+      "instruction_sha256": "6ff691a5ed87fd798cc66509d5a5be0a1aabc42d86f705834d9c18d5f6390d41",
+      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/6ff691a5ed87fd798cc6/1",
+      "goal": "deliver",
+      "short_ru": "Вернитесь к Benjamin с автографом и note от Oliver.",
+      "short_en": "Return to Benjamin with the autograph and note from Oliver.",
+      "full_ru": "Вернитесь к Benjamin и отдайте автограф и note от Oliver. Он наградит вас базовым и профессиональным опытом.",
+      "full_en": "Return to Benjamin, and you give him the autograph and note from Oliver, who rewards you with Base and Job experience.",
+      "npcs": [
+        {
+          "entity": "Book-Loving Man",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Autograph",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "final_note",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Source says a note despite stage 20 tearing; not asserted to be the same inventory Memo."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "900000",
+          "source_section": "rewards",
+          "evidence": "Base Experience: 900,000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "900000",
+          "source_section": "rewards",
+          "evidence": "Job Experience: 900,000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_documents",
+          "entity": "Book-Loving Man"
+        },
+        {
+          "operation": "receive_experience"
+        }
+      ],
+      "protected_names": [
+        "note"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "final_note"
+      }
+    }
+  },
+  "reviews": [
+    {
+      "reason": "torn_and_final_note_identity_unresolved",
+      "detail": "Stage 20 returns a note that Oliver tears, but stage 21 still asks for an autograph and note. Final note is a distinct unresolved source referent, not a fabricated replacement Memo grant; no inventory recovery or removal is inferred."
+    },
+    {
+      "reason": "story_characters_not_kill_targets",
+      "detail": "Eva, Jaeda and vision participants are narrative actors. Grotesque people and the crow are not mandatory monster kills. Female Researcher is not silently merged with Eva."
+    },
+    {
+      "reason": "documents_and_scene_maps_unverified",
+      "detail": "Book, album, feather, Memo and Autograph retain unknown inventory IDs. Two shown photos are not two album rewards. Library/vision/cave interior coordinate pairs lack confirmed map codes."
+    }
+  ]
+}

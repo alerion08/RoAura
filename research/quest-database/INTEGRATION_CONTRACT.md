@@ -186,6 +186,20 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   identity across quests. Use a source-qualified curation `identity` for such
   documents; Airship Ticket's Journal is distinct from Pursuing Rayan Moore's
   same-label Journal. Verified item IDs may still provide shared identity.
+- Rogue Guild Investigation stores two one-Alcohol deliveries, a withdrawn
+  Red Herbs request, and one shown/retained Mask alongside the literal request
+  for two. Food level 4 is not quantity. Same-label city agents and separate
+  notes retain explicit bindings; returning guild actor identity is shared.
+- Crow's returned-and-torn note and final note have unresolved inventory
+  identity. Separate source referents do not prove separate obtainable items;
+  read the review issue instead of inventing a replacement grant. Displayed
+  photos are not album quantity, and vision scenes are not kill goals.
+- Footprint `zeny_rental` is the tool-rental price; `item_per_attempt` is bait
+  per attempt with no known retry total. Four plus five footprint points are
+  not the rescue tile. Ten Random Potions are an intermediate category grant;
+  final EXP selects one of nine `final_level_reward` branches. NULL retained
+  thread quantities stay unknown. Prerequisite box receipt is a completion
+  milestone and not another reward from the owning quest.
 - `ready_steps` currently means **all four localized text fields exist**. It
   is not a readiness claim for the quest, route, server or application.
   Unfinished fields are NULL with blocking review rows; `complete=false` is

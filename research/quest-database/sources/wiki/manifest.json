@@ -2201,5 +2201,82 @@
       "https://irowiki.org/classic/Prontera",
       "https://irowiki.org/classic/Rogue"
     ]
+  },
+  "Rogue_Guild_Investigation_Quest": {
+    "url": "https://irowiki.org/classic/Rogue_Guild_Investigation_Quest",
+    "sha256": "4945dbc35f387d3936e0c7816992211bf75842ab09755e7e12782b22e7f205bd",
+    "path": "4945dbc35f387d3936e0c7816992211bf75842ab09755e7e12782b22e7f205bd.html.gz",
+    "title": "Rogue Guild Investigation Quest",
+    "categories": [
+      "Level 1~99 Quests",
+      "Nameless Island Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T05:55:41Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/1038/",
+      "http://db.irowiki.org/classic/item-info/1059/",
+      "http://db.irowiki.org/classic/item-info/1060/",
+      "http://db.irowiki.org/classic/item-info/1062/",
+      "http://db.irowiki.org/classic/item-info/511/",
+      "http://db.irowiki.org/classic/item-info/644/",
+      "http://db.irowiki.org/classic/item-info/944/",
+      "http://db.irowiki.org/classic/item-info/970/",
+      "https://irowiki.org/classic/Al_De_Baran",
+      "https://irowiki.org/classic/Comodo",
+      "https://irowiki.org/classic/Geffen",
+      "https://irowiki.org/classic/Morroc",
+      "https://irowiki.org/classic/Payon",
+      "https://irowiki.org/classic/Prontera",
+      "https://irowiki.org/classic/Rogue",
+      "https://irowiki.org/classic/Z-Gang_Quest"
+    ]
+  },
+  "Crow_of_Destiny_Quest": {
+    "url": "https://irowiki.org/classic/Crow_of_Destiny_Quest",
+    "sha256": "6593ebe3633d53313de829c690c745c4faa9de90ff81dcf9346da24c1d3ca76b",
+    "path": "6593ebe3633d53313de829c690c745c4faa9de90ff81dcf9346da24c1d3ca76b.html.gz",
+    "title": "Crow of Destiny Quest",
+    "categories": [
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 60~99 Quests",
+      "Satan Morroc Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T05:55:42Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/617/",
+      "https://irowiki.org/classic/Juno",
+      "https://irowiki.org/classic/Prontera"
+    ]
+  },
+  "Footprint_Quest": {
+    "url": "https://irowiki.org/classic/Footprint_Quest",
+    "sha256": "60a206935d7d863d4ee8aa1867e4f1a48845c592fe8596edde7b11102f3f5f31",
+    "path": "60a206935d7d863d4ee8aa1867e4f1a48845c592fe8596edde7b11102f3f5f31.html.gz",
+    "title": "Footprint Quest",
+    "categories": [
+      "Base Experience Reward",
+      "Level 1~99 Quests",
+      "Quests",
+      "Ayothaya Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T05:55:44Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/504/",
+      "http://db.irowiki.org/classic/item-info/528/",
+      "http://db.irowiki.org/classic/item-info/7285/",
+      "http://db.irowiki.org/classic/item-info/7287/",
+      "http://db.irowiki.org/classic/item-info/7288/",
+      "http://db.irowiki.org/classic/map-info/ayo_dun01/",
+      "http://db.irowiki.org/classic/map-info/ayo_dun02/",
+      "https://irowiki.org/classic/Ayothaya",
+      "https://irowiki.org/classic/Ayothaya_Dungeon_Entrance_Quest",
+      "https://irowiki.org/classic/File:Ayodng01.png",
+      "https://irowiki.org/classic/File:Ayodng02.png"
+    ]
   }
 }

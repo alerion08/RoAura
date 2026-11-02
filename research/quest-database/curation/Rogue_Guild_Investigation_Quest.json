@@ -1,0 +1,1173 @@
+{
+  "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "40e4d1211fbf2af7756be571b1639eebf522849bf9937784d61f1d51287cbe7b",
+  "snapshot_sha256": "4945dbc35f387d3936e0c7816992211bf75842ab09755e7e12782b22e7f205bd",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Man from Morroc"
+    },
+    {
+      "type": "npc",
+      "name": "Rogue Agent",
+      "ref": "guild",
+      "identity": "irowiki-classic:Rogue_Guild_Investigation_Quest:guild"
+    },
+    {
+      "type": "npc",
+      "name": "Agent",
+      "ref": "aldebaran"
+    },
+    {
+      "type": "npc",
+      "name": "agent",
+      "ref": "geffen",
+      "identity": "irowiki-classic:Rogue_Guild_Investigation_Quest:geffen"
+    },
+    {
+      "type": "npc",
+      "name": "agent",
+      "ref": "payon",
+      "identity": "irowiki-classic:Rogue_Guild_Investigation_Quest:payon"
+    },
+    {
+      "type": "npc",
+      "name": "agent",
+      "ref": "comodo",
+      "identity": "irowiki-classic:Rogue_Guild_Investigation_Quest:comodo"
+    },
+    {
+      "type": "npc",
+      "name": "agent",
+      "ref": "morroc",
+      "identity": "irowiki-classic:Rogue_Guild_Investigation_Quest:morroc"
+    },
+    {
+      "type": "npc",
+      "name": "agent",
+      "ref": "guild_return",
+      "identity": "irowiki-classic:Rogue_Guild_Investigation_Quest:guild"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Pharos Lighthouse"
+    },
+    {
+      "type": "map",
+      "name": "Al De Baran"
+    },
+    {
+      "type": "map",
+      "name": "Super Novice Guild"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "Geffen Tower Dungeon"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "Comodo"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "Rogue Guild"
+    },
+    {
+      "type": "item",
+      "name": "Jack o' Pumpkin",
+      "game_id": 1062,
+      "id_source": "http://db.irowiki.org/classic/item-info/1062/"
+    },
+    {
+      "type": "item",
+      "name": "Golden Hair",
+      "game_id": 1060,
+      "id_source": "http://db.irowiki.org/classic/item-info/1060/"
+    },
+    {
+      "type": "item",
+      "name": "Horseshoe",
+      "game_id": 944,
+      "id_source": "http://db.irowiki.org/classic/item-info/944/"
+    },
+    {
+      "type": "item",
+      "name": "Little Evil Horn",
+      "game_id": 1038,
+      "id_source": "http://db.irowiki.org/classic/item-info/1038/"
+    },
+    {
+      "type": "item",
+      "name": "Fabric",
+      "game_id": 1059,
+      "id_source": "http://db.irowiki.org/classic/item-info/1059/"
+    },
+    {
+      "type": "item",
+      "name": "Green Herb",
+      "game_id": 511,
+      "id_source": "http://db.irowiki.org/classic/item-info/511/"
+    },
+    {
+      "type": "item",
+      "name": "Alcohol",
+      "game_id": 970,
+      "id_source": "http://db.irowiki.org/classic/item-info/970/"
+    },
+    {
+      "type": "item",
+      "name": "Gift Box",
+      "game_id": 644,
+      "id_source": "http://db.irowiki.org/classic/item-info/644/"
+    },
+    {
+      "type": "item",
+      "name": "Mask",
+      "identity": "irowiki-classic:Rogue_Guild_Investigation_Quest:source_item:Mask"
+    },
+    {
+      "type": "item",
+      "name": "Red Herbs",
+      "identity": "irowiki-classic:Rogue_Guild_Investigation_Quest:source_item:Red Herbs"
+    },
+    {
+      "type": "item",
+      "name": "Level 4 Food Item",
+      "identity": "irowiki-classic:Rogue_Guild_Investigation_Quest:source_item:Level 4 Food Item"
+    },
+    {
+      "type": "item",
+      "name": "note",
+      "identity": "irowiki-classic:Rogue_Guild_Investigation_Quest:source_item:aldebaran_note",
+      "ref": "aldebaran_note"
+    },
+    {
+      "type": "item",
+      "name": "note",
+      "identity": "irowiki-classic:Rogue_Guild_Investigation_Quest:source_item:payon_note",
+      "ref": "payon_note"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In central Prontera , talk to the Man from Morroc (163, 204), who says Rogue agents are infiltrating the Kingdom.",
+      "instruction_sha256": "b973aadd13c9794e04bdaa9513a26389c7ef60b12e0a5c9e24d4320a7dcfe885",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/b973aadd13c9794e04bd/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Man from Morroc в Prontera (163, 204).",
+      "short_en": "Talk to Man from Morroc in Prontera (163, 204).",
+      "full_ru": "В центре Prontera поговорите с Man from Morroc (163, 204). Он говорит, что агенты Rogue проникают в королевство.",
+      "full_en": "In central Prontera , talk to the Man from Morroc (163, 204), who says Rogue agents are infiltrating the Kingdom.",
+      "npcs": [
+        {
+          "entity": "Man from Morroc",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Man from Morroc"
+        }
+      ],
+      "protected_names": [
+        "Man from Morroc",
+        "Prontera",
+        "Morroc"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 163,
+          "y": 204,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "163, 204"
+        }
+      ],
+      "mention_entities": {
+        "agent": "payon",
+        "note": "aldebaran_note"
+      }
+    },
+    "2": {
+      "original_instruction": "Go to the Rogue guild at the Pharos Lighthouse, and talk to the Rogue Agent on the first floor (355, 28). He says they've been investigating the recent events, so of course you offer to help him.",
+      "instruction_sha256": "6f186ec08362754271c7fe6e082af0fc11e88b2ba32b63ce04695b64a8b17e6b",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/6f186ec08362754271c7/1",
+      "goal": "talk",
+      "short_ru": "Предложите помощь Rogue Agent у Pharos Lighthouse (355, 28).",
+      "short_en": "Offer help to Rogue Agent at Pharos Lighthouse (355, 28).",
+      "full_ru": "Отправляйтесь в гильдию Rogue у Pharos Lighthouse и поговорите с Rogue Agent на первом этаже (355, 28). Он расскажет о расследовании последних событий; предложите ему помощь.",
+      "full_en": "Go to the Rogue guild at the Pharos Lighthouse, and talk to the Rogue Agent on the first floor (355, 28). He says they've been investigating the recent events, so of course you offer to help him.",
+      "npcs": [
+        {
+          "entity": "guild",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "offer_help",
+          "entity": "guild"
+        }
+      ],
+      "protected_names": [
+        "Rogue Agent",
+        "Agent",
+        "Pharos Lighthouse"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 355,
+          "y": 28,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "355, 28"
+        }
+      ],
+      "mention_entities": {
+        "agent": "payon",
+        "note": "aldebaran_note"
+      }
+    },
+    "3": {
+      "original_instruction": "Talk to him again, and he tells you to find one of the investigators in Al De Baran .",
+      "instruction_sha256": "088a90b6d33751e1134c8d9d9cf9842794e971f09abae722c23a2adb1de07a31",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/088a90b6d33751e1134c/1",
+      "goal": "talk",
+      "short_ru": "Снова поговорите с Rogue Agent о следователе в Al De Baran.",
+      "short_en": "Talk to Rogue Agent again about the investigator in Al De Baran.",
+      "full_ru": "Снова поговорите с ним: он попросит найти одного из следователей в Al De Baran.",
+      "full_en": "Talk to him again, and he tells you to find one of the investigators in Al De Baran .",
+      "npcs": [
+        {
+          "entity": "guild",
+          "role": "talk",
+          "support_step": 2,
+          "evidence": "Go to the Rogue guild at the Pharos Lighthouse, and talk to the Rogue Agent on the first floor (355, 28). He says they've been investigating the recent events, so of course you offer to help him."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "guild"
+        }
+      ],
+      "protected_names": [
+        "Al De Baran"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "agent": "payon",
+        "note": "aldebaran_note"
+      }
+    },
+    "4": {
+      "original_instruction": "Head to Al De Baran, and go to outside of the Super Novice Guild (114, 56), and talk to the Agent there. He says the Z-Gang was spreading rumors about a coming war around town, trying to scare people. He hands you a note and asks you to give to another agent in Geffen .",
+      "instruction_sha256": "a82e33966f83525bb9779e74dc519f1082eb53502facceb7846bae836766e5f7",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/a82e33966f83525bb977/1",
+      "goal": "talk",
+      "short_ru": "Возьмите note у Agent в Al De Baran (114, 56) для Geffen.",
+      "short_en": "Take the note from Agent in Al De Baran (114, 56) for Geffen.",
+      "full_ru": "Идите в Al De Baran к Agent снаружи Super Novice Guild (114, 56). По его словам, Z-Gang пугает жителей слухами о войне. Он передаст note и попросит отнести её другому agent в Geffen.",
+      "full_en": "Head to Al De Baran, and go to outside of the Super Novice Guild (114, 56), and talk to the Agent there. He says the Z-Gang was spreading rumors about a coming war around town, trying to scare people. He hands you a note and asks you to give to another agent in Geffen .",
+      "npcs": [
+        {
+          "entity": "aldebaran",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "aldebaran"
+        },
+        {
+          "operation": "receive_document",
+          "entity": "aldebaran_note"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_document",
+          "entity": "aldebaran_note",
+          "condition": "Intended for the Geffen agent; no verified inventory ID or quantity."
+        }
+      ],
+      "protected_names": [
+        "Agent",
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "Al De Baran",
+        "Super Novice Guild",
+        "Geffen",
+        "note",
+        "note"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 114,
+          "y": 56,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "114, 56"
+        }
+      ],
+      "mention_entities": {
+        "agent": "geffen",
+        "note": "aldebaran_note"
+      }
+    },
+    "5": {
+      "original_instruction": "In Geffen, walk behind the building to the southwest of the central fountain (91, 36). Talk to the agent there, who asks you to bring him back some items from monsters inside the Geffen Tower Dungeon: | 1 Jack o' Pumpkin | 1 Golden Hair | 1 Horseshoe | 1 Little Evil Horn | 1 Fabric",
+      "instruction_sha256": "08661fd98e2126ac007ccf4faa41575bdfc33bef7bdf490758812c9692177576",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/08661fd98e2126ac007c/1",
+      "goal": "talk",
+      "short_ru": "Получите у agent в Geffen список: по 1 Jack o' Pumpkin, Golden Hair, Horseshoe, Little Evil Horn и Fabric.",
+      "short_en": "Get the list from the agent in Geffen: 1 each of Jack o' Pumpkin, Golden Hair, Horseshoe, Little Evil Horn and Fabric.",
+      "full_ru": "В Geffen пройдите за здание к юго-западу от центрального фонтана (91, 36). Поговорите с agent. Он попросит принести предметы из монстров в Geffen Tower Dungeon: 1 Jack o' Pumpkin, 1 Golden Hair, 1 Horseshoe, 1 Little Evil Horn и 1 Fabric.",
+      "full_en": "In Geffen, walk behind the building to the southwest of the central fountain (91, 36). Talk to the agent there, who asks you to bring him back some items from monsters inside the Geffen Tower Dungeon: | 1 Jack o' Pumpkin | 1 Golden Hair | 1 Horseshoe | 1 Little Evil Horn | 1 Fabric",
+      "npcs": [
+        {
+          "entity": "geffen",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Jack o' Pumpkin",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Golden Hair",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Horseshoe",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Little Evil Horn",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Fabric",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_materials",
+          "entity": "geffen"
+        }
+      ],
+      "protected_names": [
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "Geffen",
+        "Geffen Tower Dungeon",
+        "Jack o' Pumpkin",
+        "Golden Hair",
+        "Horseshoe",
+        "Little Evil Horn",
+        "Fabric"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 91,
+          "y": 36,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "91, 36"
+        }
+      ],
+      "mention_entities": {
+        "agent": "geffen",
+        "note": "aldebaran_note"
+      }
+    },
+    "6": {
+      "original_instruction": "Bring him the items, and he thanks you, then tells you to visit the agent in Payon .",
+      "instruction_sha256": "012d9b0a719276eb6055daab1b9ff9b14574a62981c7340d24dba6363d358e2e",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/012d9b0a719276eb6055/1",
+      "goal": "deliver",
+      "short_ru": "Передайте набор agent в Geffen и отправляйтесь в Payon.",
+      "short_en": "Deliver the set to the agent in Geffen and go to Payon.",
+      "full_ru": "Принесите предметы: он поблагодарит вас и направит к agent в Payon.",
+      "full_en": "Bring him the items, and he thanks you, then tells you to visit the agent in Payon .",
+      "npcs": [
+        {
+          "entity": "geffen",
+          "role": "deliver",
+          "support_step": 5,
+          "evidence": "In Geffen, walk behind the building to the southwest of the central fountain (91, 36). Talk to the agent there, who asks you to bring him back some items from monsters inside the Geffen Tower Dungeon: | 1 Jack o' Pumpkin | 1 Golden Hair | 1 Horseshoe | 1 Little Evil Horn | 1 Fabric"
+        },
+        {
+          "entity": "payon",
+          "role": "destination"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Jack o' Pumpkin",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "In Geffen, walk behind the building to the southwest of the central fountain (91, 36). Talk to the agent there, who asks you to bring him back some items from monsters inside the Geffen Tower Dungeon: | 1 Jack o' Pumpkin | 1 Golden Hair | 1 Horseshoe | 1 Little Evil Horn | 1 Fabric",
+          "condition": "The single set requested at stage 5, not a second collection."
+        },
+        {
+          "entity": "Golden Hair",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "In Geffen, walk behind the building to the southwest of the central fountain (91, 36). Talk to the agent there, who asks you to bring him back some items from monsters inside the Geffen Tower Dungeon: | 1 Jack o' Pumpkin | 1 Golden Hair | 1 Horseshoe | 1 Little Evil Horn | 1 Fabric",
+          "condition": "The single set requested at stage 5, not a second collection."
+        },
+        {
+          "entity": "Horseshoe",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "In Geffen, walk behind the building to the southwest of the central fountain (91, 36). Talk to the agent there, who asks you to bring him back some items from monsters inside the Geffen Tower Dungeon: | 1 Jack o' Pumpkin | 1 Golden Hair | 1 Horseshoe | 1 Little Evil Horn | 1 Fabric",
+          "condition": "The single set requested at stage 5, not a second collection."
+        },
+        {
+          "entity": "Little Evil Horn",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "In Geffen, walk behind the building to the southwest of the central fountain (91, 36). Talk to the agent there, who asks you to bring him back some items from monsters inside the Geffen Tower Dungeon: | 1 Jack o' Pumpkin | 1 Golden Hair | 1 Horseshoe | 1 Little Evil Horn | 1 Fabric",
+          "condition": "The single set requested at stage 5, not a second collection."
+        },
+        {
+          "entity": "Fabric",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "In Geffen, walk behind the building to the southwest of the central fountain (91, 36). Talk to the agent there, who asks you to bring him back some items from monsters inside the Geffen Tower Dungeon: | 1 Jack o' Pumpkin | 1 Golden Hair | 1 Horseshoe | 1 Little Evil Horn | 1 Fabric",
+          "condition": "The single set requested at stage 5, not a second collection."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_materials",
+          "entity": "geffen"
+        }
+      ],
+      "protected_names": [
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "Payon"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "agent": "payon",
+        "note": "aldebaran_note"
+      },
+      "mention_overrides": [
+        {
+          "field": "short_ru",
+          "surface": "agent",
+          "occurrence": 1,
+          "entity": "geffen"
+        },
+        {
+          "field": "short_en",
+          "surface": "agent",
+          "occurrence": 1,
+          "entity": "geffen"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "In Payon, go to (209, 44), and talk to the agent. At first he asks you to collect Red Herbs, but then changes his mind and asks for a Green Herb .",
+      "instruction_sha256": "d8d50e318a8ec4f6efb4b4a9f84912f74f2caa7bbe80cdb8426c72096750cc6b",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/d8d50e318a8ec4f6efb4/1",
+      "goal": "talk",
+      "short_ru": "Получите у agent в Payon (209, 44) просьбу принести Green Herb.",
+      "short_en": "Get the Green Herb request from the agent in Payon (209, 44).",
+      "full_ru": "В Payon поговорите с agent (209, 44). Сначала он попросит собрать Red Herbs, но затем передумает и попросит Green Herb.",
+      "full_en": "In Payon, go to (209, 44), and talk to the agent. At first he asks you to collect Red Herbs, but then changes his mind and asks for a Green Herb .",
+      "npcs": [
+        {
+          "entity": "payon",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Red Herbs",
+          "quantity": null,
+          "operation": "decline",
+          "required": 0,
+          "condition": "Retracted request, not a quest material."
+        },
+        {
+          "entity": "Green Herb",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_materials",
+          "entity": "payon"
+        }
+      ],
+      "protected_names": [
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "Payon",
+        "Green Herb",
+        "Red Herbs"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 209,
+          "y": 44,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "209, 44"
+        }
+      ],
+      "mention_entities": {
+        "agent": "payon",
+        "note": "aldebaran_note"
+      }
+    },
+    "8": {
+      "original_instruction": "Once you have the Green Herb, talk to the agent again, and he says it'll take awhile for it to work.",
+      "instruction_sha256": "ad7a9a47458c560e33a0798c1b08256104d49409b17ead2e02382c415dda7121",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/ad7a9a47458c560e33a0/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Green Herb agent в Payon.",
+      "short_en": "Give Green Herb to the agent in Payon.",
+      "full_ru": "Получив Green Herb, снова поговорите с agent: он скажет, что нужно подождать, пока она подействует.",
+      "full_en": "Once you have the Green Herb, talk to the agent again, and he says it'll take awhile for it to work.",
+      "npcs": [
+        {
+          "entity": "payon",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "In Payon, go to (209, 44), and talk to the agent. At first he asks you to collect Red Herbs, but then changes his mind and asks for a Green Herb ."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Green Herb",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Green Herb",
+          "condition": "Single herb requested at stage 7; unspecified wait, no invented timer."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Green Herb"
+        }
+      ],
+      "protected_names": [
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "Green Herb"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "agent": "payon",
+        "note": "aldebaran_note"
+      }
+    },
+    "9": {
+      "original_instruction": "Talk to him again, and he asks you for 1 Alcohol .",
+      "instruction_sha256": "3bac32994125dd0ae353d0f14e986506458678ccd48ca868f61eca4c6a5480db",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/3bac32994125dd0ae353/1",
+      "goal": "talk",
+      "short_ru": "Получите просьбу agent в Payon принести 1 Alcohol.",
+      "short_en": "Get the Payon agent request for 1 Alcohol.",
+      "full_ru": "Снова поговорите с ним: теперь он попросит 1 Alcohol.",
+      "full_en": "Talk to him again, and he asks you for 1 Alcohol .",
+      "npcs": [
+        {
+          "entity": "payon",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "In Payon, go to (209, 44), and talk to the agent. At first he asks you to collect Red Herbs, but then changes his mind and asks for a Green Herb ."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Alcohol",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_materials",
+          "entity": "payon"
+        }
+      ],
+      "protected_names": [
+        "Alcohol"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "agent": "payon",
+        "note": "aldebaran_note"
+      }
+    },
+    "10": {
+      "original_instruction": "Bring him the Alcohol, and he thanks you again.",
+      "instruction_sha256": "e9203cf30b71312d0b60d02564a1007ea5f06b2f532b80fc76a6558f1ec80372",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/e9203cf30b71312d0b60/1",
+      "goal": "deliver",
+      "short_ru": "Передайте первую Alcohol agent в Payon.",
+      "short_en": "Give the first Alcohol to the agent in Payon.",
+      "full_ru": "Принесите ему Alcohol: он снова поблагодарит вас.",
+      "full_en": "Bring him the Alcohol, and he thanks you again.",
+      "npcs": [
+        {
+          "entity": "payon",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "In Payon, go to (209, 44), and talk to the agent. At first he asks you to collect Red Herbs, but then changes his mind and asks for a Green Herb ."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Alcohol",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 9,
+          "evidence": "Talk to him again, and he asks you for 1 Alcohol ."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Alcohol"
+        }
+      ],
+      "protected_names": [
+        "Alcohol"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "agent": "payon",
+        "note": "aldebaran_note"
+      }
+    },
+    "11": {
+      "original_instruction": "Talk to him again, and he claims he messed up, and needs another Alcohol.",
+      "instruction_sha256": "228a89d8d5bcb58eea5c34186956ae13e1d97e94ba6e70e942d92575cb89e3ed",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/228a89d8d5bcb58eea5c/1",
+      "goal": "talk",
+      "short_ru": "Получите у agent в Payon просьбу о второй Alcohol.",
+      "short_en": "Get the Payon agent request for a second Alcohol.",
+      "full_ru": "Поговорите с ним ещё раз. Он признается, что ошибся, и попросит ещё Alcohol.",
+      "full_en": "Talk to him again, and he claims he messed up, and needs another Alcohol.",
+      "npcs": [
+        {
+          "entity": "payon",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "In Payon, go to (209, 44), and talk to the agent. At first he asks you to collect Red Herbs, but then changes his mind and asks for a Green Herb ."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Alcohol",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_materials",
+          "entity": "payon"
+        }
+      ],
+      "protected_names": [
+        "Alcohol"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "agent": "payon",
+        "note": "aldebaran_note"
+      }
+    },
+    "12": {
+      "original_instruction": "Bring one more Alcohol, and he thanks you again.",
+      "instruction_sha256": "a3f49962a6984fd838c352cac88d92d8780a96915d2d64ccf3f798f284f05670",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/a3f49962a6984fd838c3/1",
+      "goal": "deliver",
+      "short_ru": "Передайте вторую Alcohol agent в Payon.",
+      "short_en": "Give the second Alcohol to the agent in Payon.",
+      "full_ru": "Принесите ещё Alcohol: он снова поблагодарит вас.",
+      "full_en": "Bring one more Alcohol, and he thanks you again.",
+      "npcs": [
+        {
+          "entity": "payon",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "In Payon, go to (209, 44), and talk to the agent. At first he asks you to collect Red Herbs, but then changes his mind and asks for a Green Herb ."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Alcohol",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "One more Alcohol, separate from stage 10; quest total is two, not two per delivery."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Alcohol"
+        }
+      ],
+      "protected_names": [
+        "Alcohol"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "agent": "payon",
+        "note": "aldebaran_note"
+      }
+    },
+    "13": {
+      "original_instruction": "Talk to him again, and he gives you a note to give to the agent in Comodo .",
+      "instruction_sha256": "b65505f4c84859fa38a88e302916d952af801125f3e8792a41873a690ed0d86e",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/b65505f4c84859fa38a8/1",
+      "goal": "talk",
+      "short_ru": "Возьмите у agent в Payon note для Comodo.",
+      "short_en": "Take the note for Comodo from the agent in Payon.",
+      "full_ru": "Снова поговорите с ним: он даст note для agent в Comodo.",
+      "full_en": "Talk to him again, and he gives you a note to give to the agent in Comodo .",
+      "npcs": [
+        {
+          "entity": "payon",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "In Payon, go to (209, 44), and talk to the agent. At first he asks you to collect Red Herbs, but then changes his mind and asks for a Green Herb ."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_document",
+          "entity": "payon_note",
+          "condition": "Different source document from the Al De Baran note; unknown ID/count."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_document",
+          "entity": "payon_note"
+        }
+      ],
+      "protected_names": [
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "Comodo",
+        "note",
+        "note"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "agent": "comodo",
+        "note": "payon_note"
+      },
+      "mention_overrides": [
+        {
+          "field": "short_ru",
+          "surface": "agent",
+          "occurrence": 1,
+          "entity": "payon"
+        },
+        {
+          "field": "short_en",
+          "surface": "agent",
+          "occurrence": 1,
+          "entity": "payon"
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "In Comodo, talk to the agent at (233, 199). He asks you to bring 2 Masks. | Note: You only need to bring 1 Mask, and he doesn't take it from you.",
+      "instruction_sha256": "8a8851c32353cb0689383a223eedd2f2bdd42d8185958cc656a2da89b2115604",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/8a8851c32353cb068938/1",
+      "goal": "show",
+      "short_ru": "Покажите 1 Mask agent в Comodo (233, 199); предмет останется у вас.",
+      "short_en": "Show 1 Mask to the agent in Comodo (233, 199); keep the item.",
+      "full_ru": "В Comodo поговорите с agent (233, 199). Он попросит 2 Masks. Примечание: достаточно принести 1 Mask; он не заберёт её.",
+      "full_en": "In Comodo, talk to the agent at (233, 199). He asks you to bring 2 Masks. | Note: You only need to bring 1 Mask, and he doesn't take it from you.",
+      "npcs": [
+        {
+          "entity": "comodo",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Mask",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "condition": "Retained; the literal request for two is superseded by the one-Mask note."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_requested_item_count",
+          "amount": "2",
+          "entity": "Mask",
+          "condition": "Literal request only; actual held/shown requirement is one and nothing is consumed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "show",
+          "entity": "Mask"
+        }
+      ],
+      "protected_names": [
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "Comodo",
+        "Mask"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 233,
+          "y": 199,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "233, 199"
+        }
+      ],
+      "mention_entities": {
+        "agent": "comodo",
+        "note": "payon_note"
+      }
+    },
+    "15": {
+      "original_instruction": "Talk to him again, and he admits he thought you were a new Rogue trainee. He asks you not to tell anyone about what he asked you to do, and sends you to talk to the Morroc agent. He also gives you a random Level 4 Food Item.",
+      "instruction_sha256": "0203a2d3889a8694fb233508c3d227416b18a692c9b7678b6c3a014e8b0d0ea9",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/0203a2d3889a8694fb23/1",
+      "goal": "talk",
+      "short_ru": "Получите случайный Level 4 Food Item у agent в Comodo и идите в Morroc.",
+      "short_en": "Get a random Level 4 Food Item from the agent in Comodo and go to Morroc.",
+      "full_ru": "Поговорите с ним ещё раз. Он признается, что принял вас за нового ученика Rogue, и попросит никому не рассказывать о его заданиях. Он направит вас к agent в Morroc и даст случайный Level 4 Food Item.",
+      "full_en": "Talk to him again, and he admits he thought you were a new Rogue trainee. He asks you not to tell anyone about what he asked you to do, and sends you to talk to the Morroc agent. He also gives you a random Level 4 Food Item.",
+      "npcs": [
+        {
+          "entity": "comodo",
+          "role": "talk",
+          "support_step": 14,
+          "evidence": "In Comodo, talk to the agent at (233, 199). He asks you to bring 2 Masks. | Note: You only need to bring 1 Mask, and he doesn't take it from you."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Level 4 Food Item",
+          "source_section": "rewards",
+          "evidence": "1 Random Level 4 Food",
+          "condition": "One random food; 4 is the food level, not quantity or four guaranteed rewards."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_reward",
+          "entity": "Level 4 Food Item"
+        }
+      ],
+      "protected_names": [
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "Morroc",
+        "Level 4 Food Item"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "agent": "morroc",
+        "note": "payon_note"
+      },
+      "mention_overrides": [
+        {
+          "field": "short_ru",
+          "surface": "agent",
+          "occurrence": 1,
+          "entity": "comodo"
+        },
+        {
+          "field": "short_en",
+          "surface": "agent",
+          "occurrence": 1,
+          "entity": "comodo"
+        }
+      ]
+    },
+    "16": {
+      "original_instruction": "In Morroc, talk to the agent by a building at (116, 39). He asks you to report back to the Rogue Guild for him.",
+      "instruction_sha256": "9fb9a4e83f09cd76d52b8bbe070661118d72e00b42e95d2fbd27f0f0a95b67ed",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/9fb9a4e83f09cd76d52b/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с agent в Morroc (116, 39) об отчёте в Rogue Guild.",
+      "short_en": "Talk to the agent in Morroc (116, 39) about reporting to the Rogue Guild.",
+      "full_ru": "В Morroc поговорите с agent у здания (116, 39). Он попросит передать отчёт в Rogue Guild.",
+      "full_en": "In Morroc, talk to the agent by a building at (116, 39). He asks you to report back to the Rogue Guild for him.",
+      "npcs": [
+        {
+          "entity": "morroc",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "morroc"
+        }
+      ],
+      "protected_names": [
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "Morroc",
+        "Rogue Guild"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 116,
+          "y": 39,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "116, 39"
+        }
+      ],
+      "mention_entities": {
+        "agent": "morroc",
+        "note": "payon_note"
+      }
+    },
+    "17": {
+      "original_instruction": "Return to the Rogue Guild, and talk to the agent again. He asks why you stirred up so much trouble, but thanks you and rewards you with 1 Gift Box .",
+      "instruction_sha256": "8796a46825a2d6cfed5118e5ee37e9639ceca04c0d110c89574f95eaa5749104",
+      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/8796a46825a2d6cfed51/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к agent в Rogue Guild и получите 1 Gift Box.",
+      "short_en": "Return to the agent in the Rogue Guild and receive 1 Gift Box.",
+      "full_ru": "Вернитесь в Rogue Guild и снова поговорите с agent. Он спросит, почему вы устроили столько неприятностей, но поблагодарит и наградит 1 Gift Box.",
+      "full_en": "Return to the Rogue Guild, and talk to the agent again. He asks why you stirred up so much trouble, but thanks you and rewards you with 1 Gift Box .",
+      "npcs": [
+        {
+          "entity": "guild_return",
+          "role": "talk",
+          "support_step": 2,
+          "evidence": "Go to the Rogue guild at the Pharos Lighthouse, and talk to the Rogue Agent on the first floor (355, 28). He says they've been investigating the recent events, so of course you offer to help him."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Gift Box"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_reward",
+          "entity": "Gift Box"
+        }
+      ],
+      "locations": [
+        {
+          "x": 355,
+          "y": 28,
+          "known": false,
+          "role": "return",
+          "support_step": 2,
+          "evidence": "Go to the Rogue guild at the Pharos Lighthouse, and talk to the Rogue Agent on the first floor (355, 28). He says they've been investigating the recent events, so of course you offer to help him.",
+          "condition": "Same guild agent from stage 2; interior map code unknown."
+        }
+      ],
+      "protected_names": [
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "agent",
+        "Rogue Guild",
+        "Gift Box"
+      ],
+      "mention_entities": {
+        "agent": "guild_return",
+        "note": "payon_note"
+      }
+    }
+  },
+  "reviews": [
+    {
+      "reason": "homonymous_agents_and_notes",
+      "detail": "Agents in Geffen, Payon, Comodo and Morroc are distinct. The returning guild agent shares the stage-2 identity. The two notes remain separate quest-scoped documents; requested onward delivery does not prove inventory removal."
+    },
+    {
+      "reason": "mask_and_alcohol_accounting",
+      "detail": "Two one-Alcohol deliveries total two. Red Herbs is a withdrawn request. Two requested Masks are not two consumed items: the note requires one retained Mask. Level 4 describes one random food, not quantity."
+    },
+    {
+      "reason": "interior_maps_unknown",
+      "detail": "All bare city/interior points remain map-code unknown; no town map code is guessed for a guild interior."
+    }
+  ],
+  "relations": [
+    {
+      "kind": "mandatory_prerequisite",
+      "related_quest_id": "irowiki-classic:Z-Gang_Quest"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Jack o' Pumpkin",
+        "entity": "Jack o' Pumpkin",
+        "condition": "Non-additive material summary; Alcohol consists of two distinct one-item deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Golden Hair",
+        "entity": "Golden Hair",
+        "condition": "Non-additive material summary; Alcohol consists of two distinct one-item deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Horseshoe",
+        "entity": "Horseshoe",
+        "condition": "Non-additive material summary; Alcohol consists of two distinct one-item deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Little Evil Horn",
+        "entity": "Little Evil Horn",
+        "condition": "Non-additive material summary; Alcohol consists of two distinct one-item deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Fabric",
+        "entity": "Fabric",
+        "condition": "Non-additive material summary; Alcohol consists of two distinct one-item deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Green Herb",
+        "entity": "Green Herb",
+        "condition": "Non-additive material summary; Alcohol consists of two distinct one-item deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "2",
+        "source_section": "requirements",
+        "evidence": "2 Alcohol",
+        "entity": "Alcohol",
+        "condition": "Non-additive material summary; Alcohol consists of two distinct one-item deliveries."
+      },
+      {
+        "kind": "item_not_consumed",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Mask",
+        "entity": "Mask",
+        "condition": "A single Mask is shown and retained, despite the request for 2 Masks."
+      }
+    ]
+  }
+}

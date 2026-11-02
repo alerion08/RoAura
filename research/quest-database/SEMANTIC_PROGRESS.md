@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.4.0**. All four description fields are populated for
-**757 steps across 53 curated guides**, up from the previous 50-guide/712-step
-checkpoint. **75 conditional branches** also have independent RU/EN short and
+**802 steps across 56 curated guides**, up from the previous 53-guide/757-step
+checkpoint. **84 conditional branches** also have independent RU/EN short and
 full descriptions. Eight quest routes represent two exclusive expedition paths
-and six conditional/optional activities. **1,993 steps in 163 remaining catalog entries still lack
+and six conditional/optional activities. **1,948 steps in 160 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -78,6 +78,9 @@ complete localization/context analysis.** `complete` remains false.
 | Muff's Loan Quest | 14 | Requested versus consumed gems; incomplete/full material check; restored machine state/color table; literal theory answer |
 | Broken Diamond Quest | 13 | Mandatory Muff link; distinct investigators; ordered switches; intermediate Pearl and final two diamonds |
 | Z-Gang Quest | 18 | Input-stage passwords; distinct notes/decoders; gambling rule; planned versus actual combat waves |
+| Rogue Guild Investigation Quest | 17 | Distinct city agents; two Alcohol installments; one retained Mask; food level versus count |
+| Crow of Destiny Quest | 21 | Alternative title/author search; story scenes; album versus displayed photos; torn-note uncertainty |
+| Footprint Quest | 7 | Per-attempt bait versus rental fee; nine footprint triggers and exact rescue tile; nine EXP bands |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -85,6 +88,31 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Three permanent story/regional guides preserve all 45 original stages and
+  add nine localized Footprint reward branches. No schema/generator change or
+  source addition is needed; the original archive and earlier 757 descriptions
+  remain intact.
+- Rogue Guild Investigation continues the mandatory Z-Gang prerequisite. City
+  agents and two source notes have separate identities; the final return shares
+  the original guild actor. Five dungeon materials form one requested/delivered
+  set. Two Alcohol are delivered separately, one each. Red Herbs is a retracted
+  request. Two requested Masks are separate from the actual one retained Mask;
+  one random level-4 food and one final Gift Box are not duplicated from headers.
+- Crow keeps two alternative exact catalog inputs. Vision characters and the
+  crow are not kill objectives; Female Researcher is not silently merged with
+  Eva. Two shown photos are distinct from the album grant. The box is at stage
+  19 and 900000 Base/Job EXP each at 21. Source stage 20 tears a note, while 21
+  still mentions a note: the final referent stays unresolved rather than adding
+  a replacement inventory grant. Unknown document and interior map IDs stay NULL.
+- Footprint requires full Ayothaya Dungeon Entrance completion at stage 4,
+  including its Old Blue Box receipt. That box is not another Footprint reward.
+  The 50-Zeny tool rental and one Monster Feed per attempt have different scopes;
+  no retry total or repeated rental is guessed. Nine triggers comprise four on
+  ayo_dun01 and five on ayo_dun02; listed order is not asserted compulsory.
+  The last footprint at 89,262 differs from the exact rescue tile at 91,262.
+  Ten random potions belong to the intermediate trigger; final EXP selects one
+  of nine level bands. Holy/Holier Threads are retained with unknown quantities.
 
 - Three loan/jewel/gang guides preserve all 45 original stages. Three new
   source additions restore the Muff machine table and put both Z-Gang
@@ -455,7 +483,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **191 tests passed**; complete offline enrichment passed;
+Validated locally: **200 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -504,7 +532,7 @@ command above; partial files from failed local attempts are never published.
 
 ## Next work, in order
 
-1. Review the remaining 163 catalog candidates, separating reference pages,
+1. Review the remaining 160 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

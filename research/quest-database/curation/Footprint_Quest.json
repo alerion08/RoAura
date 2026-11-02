@@ -1,0 +1,747 @@
+{
+  "quest_id": "irowiki-classic:Footprint_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "9044301cfd07dc936b1f5c3b07010eb4ea1fc33f95bee967f237cb2999367e84",
+  "snapshot_sha256": "60a206935d7d863d4ee8aa1867e4f1a48845c592fe8596edde7b11102f3f5f31",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Shuda"
+    },
+    {
+      "type": "npc",
+      "name": "Anon",
+      "aliases": [
+        "Annon"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "man",
+      "ref": "rental_man"
+    },
+    {
+      "type": "npc",
+      "name": "old man",
+      "ref": "old_man"
+    },
+    {
+      "type": "map",
+      "name": "Ayothaya"
+    },
+    {
+      "type": "map",
+      "name": "ayothaya",
+      "map_code": "ayothaya"
+    },
+    {
+      "type": "map",
+      "name": "Ayothaya Dungeon"
+    },
+    {
+      "type": "map",
+      "name": "Ayothaya Dungeon Level 1"
+    },
+    {
+      "type": "map",
+      "name": "Ayothaya Dungeon Level 2"
+    },
+    {
+      "type": "map",
+      "name": "ayo_dun01",
+      "map_code": "ayo_dun01"
+    },
+    {
+      "type": "map",
+      "name": "ayo_dun02",
+      "map_code": "ayo_dun02"
+    },
+    {
+      "type": "item",
+      "name": "Monster Feed",
+      "game_id": 528,
+      "id_source": "http://db.irowiki.org/classic/item-info/528/"
+    },
+    {
+      "type": "item",
+      "name": "White Potion",
+      "game_id": 504,
+      "id_source": "http://db.irowiki.org/classic/item-info/504/"
+    },
+    {
+      "type": "item",
+      "name": "Holy Threads",
+      "game_id": 7285,
+      "id_source": "http://db.irowiki.org/classic/item-info/7285/"
+    },
+    {
+      "type": "item",
+      "name": "Holier Threads",
+      "game_id": 7287,
+      "id_source": "http://db.irowiki.org/classic/item-info/7287/"
+    },
+    {
+      "type": "item",
+      "name": "Engagement Ring",
+      "game_id": 7288,
+      "id_source": "http://db.irowiki.org/classic/item-info/7288/"
+    },
+    {
+      "type": "item",
+      "name": "Random Potions",
+      "identity": "irowiki-classic:Footprint_Quest:source_item:Random Potions"
+    },
+    {
+      "type": "item",
+      "name": "Old Blue Box"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Find Shuda in Ayothaya (ayothaya 233 105), she's sad because her bridegroom is lost, you must help her find the ring that her bridegroom dropped in the sea.",
+      "instruction_sha256": "a0a3d8c1eccd3e89df121cb6c53871068e97adc7bcc5640484d46f6d1a2e4caa",
+      "step_id": "irowiki-classic:Footprint_Quest/step/a0a3d8c1eccd3e89df12/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Shuda в ayothaya 233 105 о потерянном кольце.",
+      "short_en": "Talk to Shuda at ayothaya 233 105 about the lost ring.",
+      "full_ru": "Найдите Shuda в Ayothaya (ayothaya 233 105). Она переживает из-за пропавшего жениха. Помогите ей найти кольцо, которое он уронил в море.",
+      "full_en": "Find Shuda in Ayothaya (ayothaya 233 105), she's sad because her bridegroom is lost, you must help her find the ring that her bridegroom dropped in the sea.",
+      "npcs": [
+        {
+          "entity": "Shuda",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Shuda"
+        }
+      ],
+      "protected_names": [
+        "Shuda",
+        "Ayothaya",
+        "ayothaya"
+      ],
+      "locations": [
+        {
+          "map": "ayothaya",
+          "x": 233,
+          "y": 105,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayothaya 233 105"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Walk right a bit, and you'll see a man who can rent you a fishing tool for finding the ring in the sea for 50z (you need 1 Monster Feed per try when fishing).",
+      "instruction_sha256": "a09df021bb3520b9761a444aa8929953f1986312cba3eee86018747524ab5904",
+      "step_id": "irowiki-classic:Footprint_Quest/step/a09df021bb3520b9761a/1",
+      "goal": "fish",
+      "short_ru": "Арендуйте инструмент за 50z; тратьте по 1 Monster Feed на попытку.",
+      "short_en": "Rent the tool for 50z; spend 1 Monster Feed per attempt.",
+      "full_ru": "Пройдите немного вправо: man сдаёт рыболовный инструмент для поиска кольца в море за 50z. На каждую попытку рыбалки требуется 1 Monster Feed.",
+      "full_en": "Walk right a bit, and you'll see a man who can rent you a fishing tool for finding the ring in the sea for 50z (you need 1 Monster Feed per try when fishing).",
+      "npcs": [
+        {
+          "entity": "rental_man",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Monster Feed",
+          "quantity": 1,
+          "operation": "consume",
+          "required": 1,
+          "condition": "Per fishing attempt; unknown number of attempts, not a one-item quest total."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "zeny_rental",
+          "amount": "50",
+          "condition": "Tool rental price, not asserted to repeat on every fishing attempt."
+        },
+        {
+          "kind": "item_per_attempt",
+          "amount": "1",
+          "entity": "Monster Feed",
+          "condition": "Each fishing attempt; unknown total."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "rent_fishing_tool",
+          "entity": "rental_man"
+        },
+        {
+          "operation": "fish",
+          "condition": "Repeat until the ring is found."
+        }
+      ],
+      "protected_names": [
+        "Monster Feed",
+        "man"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Try it until you find the Engagement Ring , and then go back to Shuda. She'll ask you to find her bridegroom (Anon).",
+      "instruction_sha256": "412c1b68e5c5e53cd91160c44ef358744bc80dfc124955b73476e34d20cfaef1",
+      "step_id": "irowiki-classic:Footprint_Quest/step/412c1b68e5c5e53cd911/1",
+      "goal": "collect",
+      "short_ru": "Найдите Engagement Ring и вернитесь к Shuda.",
+      "short_en": "Find Engagement Ring and return to Shuda.",
+      "full_ru": "Продолжайте попытки, пока не найдёте Engagement Ring. Затем вернитесь к Shuda: она попросит найти её жениха Anon.",
+      "full_en": "Try it until you find the Engagement Ring , and then go back to Shuda. She'll ask you to find her bridegroom (Anon).",
+      "npcs": [
+        {
+          "entity": "Shuda",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Engagement Ring",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Found through fishing; no explicit removal on return to Shuda."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "fish_until_found",
+          "entity": "Engagement Ring"
+        },
+        {
+          "operation": "report",
+          "entity": "Shuda"
+        }
+      ],
+      "protected_names": [
+        "Shuda",
+        "Anon",
+        "Engagement Ring"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "You can find clue about where Anon is from an old man (ayothaya 193 171). He'll tell you that Anon has gone to the Ayothaya Dungeon. Note: You need to have fully completed the Ayothaya Dungeon Entrance Quest to continue (including retrieval of the Old Blue Box).",
+      "instruction_sha256": "650960f4c40828774897f1871aa5bb988027e6d45639e8b2df453c2681ae330a",
+      "step_id": "irowiki-classic:Footprint_Quest/step/650960f4c40828774897/1",
+      "goal": "talk",
+      "short_ru": "Расспросите old man в ayothaya 193 171; полностью завершите Ayothaya Dungeon Entrance Quest, включая Old Blue Box.",
+      "short_en": "Question the old man at ayothaya 193 171; fully finish Ayothaya Dungeon Entrance Quest, including Old Blue Box.",
+      "full_ru": "Расспросите old man (ayothaya 193 171) о Anon. Он расскажет, что Anon отправился в Ayothaya Dungeon. Примечание: для продолжения нужно полностью завершить Ayothaya Dungeon Entrance Quest, включая получение Old Blue Box.",
+      "full_en": "You can find clue about where Anon is from an old man (ayothaya 193 171). He'll tell you that Anon has gone to the Ayothaya Dungeon. Note: You need to have fully completed the Ayothaya Dungeon Entrance Quest to continue (including retrieval of the Old Blue Box).",
+      "npcs": [
+        {
+          "entity": "old_man",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Old Blue Box",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0,
+          "condition": "Receipt is the prerequisite completion milestone, not a second Footprint reward or item to consume."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "prerequisite_completion_milestone",
+          "entity": "Old Blue Box",
+          "condition": "Full Ayothaya Dungeon Entrance completion including box receipt, not merely earlier access."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "old_man"
+        }
+      ],
+      "protected_names": [
+        "Anon",
+        "old man",
+        "Ayothaya",
+        "ayothaya",
+        "Ayothaya Dungeon",
+        "Old Blue Box"
+      ],
+      "locations": [
+        {
+          "map": "ayothaya",
+          "x": 193,
+          "y": 171,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayothaya 193 171"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Now you must find 9 of Anon's footprints in Ayothaya Dungeon.",
+      "instruction_sha256": "fdaa966086577246e926c1066fbcd2f19417c1bf60a6022002a466c443d63714",
+      "step_id": "irowiki-classic:Footprint_Quest/step/fdaa966086577246e926/1",
+      "goal": "find_triggers",
+      "short_ru": "Найдите 9 следов Anon в Ayothaya Dungeon.",
+      "short_en": "Find 9 Anon footprints in Ayothaya Dungeon.",
+      "full_ru": "Найдите 9 следов Anon в Ayothaya Dungeon.",
+      "full_en": "Now you must find 9 of Anon's footprints in Ayothaya Dungeon.",
+      "requirements": [
+        {
+          "kind": "footprint_count",
+          "amount": "9",
+          "condition": "Combined count across both dungeon floors, not nine per floor."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "find_footprints",
+          "entity": "Anon"
+        }
+      ],
+      "protected_names": [
+        "Anon",
+        "Ayothaya",
+        "Ayothaya Dungeon"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "There are four footprint spots (when you pass it, a dialog box will appear) in Ayothaya Dungeon Level 1, and five footprints in Ayothaya Dungeon Level 2. Level 1 Footprints: | ( ayo_dun01 256,61) | ( ayo_dun01 73,142) | ( ayo_dun01 243,257) | ( ayo_dun01 18,258) Level 2 Footprints: | ( ayo_dun02 146,117) | ( ayo_dun02 136,169) - Obtain Random Potions | ( ayo_dun02 73,213) | ( ayo_dun02 87,254) | ( ayo_dun02 89,262)",
+      "instruction_sha256": "cfcca6ac281fadd150ed056125e0c263655d79ef2555e86d83a5752153f0f969",
+      "step_id": "irowiki-classic:Footprint_Quest/step/cfcca6ac281fadd150ed/1",
+      "goal": "find_triggers",
+      "short_ru": "Найдите четыре следа в ayo_dun01 и пять в ayo_dun02.",
+      "short_en": "Find four footprints in ayo_dun01 and five in ayo_dun02.",
+      "full_ru": "В Ayothaya Dungeon Level 1 находятся четыре точки со следами, а в Ayothaya Dungeon Level 2 — пять. При приближении появляется диалог. Точки Level 1: (ayo_dun01 256,61), (ayo_dun01 73,142), (ayo_dun01 243,257), (ayo_dun01 18,258). Точки Level 2: (ayo_dun02 146,117), (ayo_dun02 136,169) — получение Random Potions, (ayo_dun02 73,213), (ayo_dun02 87,254), (ayo_dun02 89,262).",
+      "full_en": "There are four footprint spots (when you pass it, a dialog box will appear) in Ayothaya Dungeon Level 1, and five footprints in Ayothaya Dungeon Level 2. Level 1 Footprints: | ( ayo_dun01 256,61) | ( ayo_dun01 73,142) | ( ayo_dun01 243,257) | ( ayo_dun01 18,258) Level 2 Footprints: | ( ayo_dun02 146,117) | ( ayo_dun02 136,169) - Obtain Random Potions | ( ayo_dun02 73,213) | ( ayo_dun02 87,254) | ( ayo_dun02 89,262)",
+      "requirements": [
+        {
+          "kind": "footprints_on_floor",
+          "amount": "4",
+          "entity": "ayo_dun01",
+          "condition": "Four on the first floor; list order is not asserted mandatory."
+        },
+        {
+          "kind": "footprints_on_floor",
+          "amount": "5",
+          "entity": "ayo_dun02",
+          "condition": "Five on the second floor; list order is not asserted mandatory."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "10",
+          "entity": "Random Potions",
+          "source_section": "rewards",
+          "evidence": "10 Random Potions",
+          "condition": "Random potion category from the stage-6 trigger at ayo_dun02 136,169; not ten of every potion and not another final reward."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "visit_footprint_triggers"
+        },
+        {
+          "operation": "receive_random_potions",
+          "entity": "Random Potions"
+        }
+      ],
+      "protected_names": [
+        "Ayothaya",
+        "Ayothaya Dungeon",
+        "Ayothaya Dungeon Level 1",
+        "Ayothaya Dungeon Level 2",
+        "ayo_dun01",
+        "ayo_dun02",
+        "Random Potions"
+      ],
+      "locations": [
+        {
+          "map": "ayo_dun01",
+          "x": 256,
+          "y": 61,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayo_dun01 256,61"
+        },
+        {
+          "map": "ayo_dun01",
+          "x": 73,
+          "y": 142,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayo_dun01 73,142"
+        },
+        {
+          "map": "ayo_dun01",
+          "x": 243,
+          "y": 257,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayo_dun01 243,257"
+        },
+        {
+          "map": "ayo_dun01",
+          "x": 18,
+          "y": 258,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayo_dun01 18,258"
+        },
+        {
+          "map": "ayo_dun02",
+          "x": 146,
+          "y": 117,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayo_dun02 146,117"
+        },
+        {
+          "map": "ayo_dun02",
+          "x": 136,
+          "y": 169,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayo_dun02 136,169"
+        },
+        {
+          "map": "ayo_dun02",
+          "x": 73,
+          "y": 213,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayo_dun02 73,213"
+        },
+        {
+          "map": "ayo_dun02",
+          "x": 87,
+          "y": 254,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayo_dun02 87,254"
+        },
+        {
+          "map": "ayo_dun02",
+          "x": 89,
+          "y": 262,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayo_dun02 89,262"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "When you find the last footprint, you need to stand exactly on tile (ayo_dun02 91,262) and shatter the bush to find Annon, or else you won't find him. Tell him that you're not Shuda and bring a White Potion to treat his wounds. He'll reward you with some EXP. | Base experience amounts: | Level 1-55 = 9000 Exp | Level 56-60 = 10500 Exp | Level 61-65 = 18684 Exp | Level 66-70 = 27411 Exp | Level 71-75 = 70757 Exp | Level 76-80 = 130246 Exp | Level 81-85 = 150340 Exp | Level 86-90 = 182052 Exp | Level 91-99 = 406786 Exp",
+      "instruction_sha256": "8a93b44100c95ceb6b41a182cb7749ac2ac2435cdb6e154223e5250e801a7b8a",
+      "step_id": "irowiki-classic:Footprint_Quest/step/8a93b44100c95ceb6b41/1",
+      "goal": "treat",
+      "short_ru": "После следов встаньте в ayo_dun02 91,262, разбейте куст и принесите White Potion для Annon.",
+      "short_en": "After the footprints, stand at ayo_dun02 91,262, break the bush and bring White Potion for Annon.",
+      "full_ru": "Найдя последний след, встаньте точно на клетку (ayo_dun02 91,262) и разбейте куст, чтобы обнаружить Annon; иначе вы его не найдёте. Скажите, что вы не Shuda, и принесите White Potion для лечения ран. Он даст опыт. Базовый опыт по уровню: 1-55 = 9000 Exp; 56-60 = 10500 Exp; 61-65 = 18684 Exp; 66-70 = 27411 Exp; 71-75 = 70757 Exp; 76-80 = 130246 Exp; 81-85 = 150340 Exp; 86-90 = 182052 Exp; 91-99 = 406786 Exp.",
+      "full_en": "When you find the last footprint, you need to stand exactly on tile (ayo_dun02 91,262) and shatter the bush to find Annon, or else you won't find him. Tell him that you're not Shuda and bring a White Potion to treat his wounds. He'll reward you with some EXP. | Base experience amounts: | Level 1-55 = 9000 Exp | Level 56-60 = 10500 Exp | Level 61-65 = 18684 Exp | Level 66-70 = 27411 Exp | Level 71-75 = 70757 Exp | Level 76-80 = 130246 Exp | Level 81-85 = 150340 Exp | Level 86-90 = 182052 Exp | Level 91-99 = 406786 Exp",
+      "npcs": [
+        {
+          "entity": "Anon",
+          "role": "talk"
+        },
+        {
+          "entity": "Shuda",
+          "role": "reference"
+        }
+      ],
+      "items": [
+        {
+          "entity": "White Potion",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 White Potion",
+          "condition": "Single wound-treatment potion, not one per footprint."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "stand_on_exact_tile"
+        },
+        {
+          "operation": "break_bush"
+        },
+        {
+          "operation": "deny_being_Shuda"
+        },
+        {
+          "operation": "treat",
+          "entity": "Anon"
+        }
+      ],
+      "protected_names": [
+        "Shuda",
+        "ayo_dun02",
+        "White Potion"
+      ],
+      "locations": [
+        {
+          "map": "ayo_dun02",
+          "x": 91,
+          "y": 262,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "ayo_dun02 91,262"
+        }
+      ],
+      "branches": [
+        {
+          "key": "level_1_55",
+          "choice_group": "final_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Base level 1-55; select exactly one band at payout.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Level 1-55 = 9000 Exp",
+          "instruction_sha256": "cacf9ab52224a9921e9730dfcc5444f37a78678cd1e5cd50f118a9affc15ccd1",
+          "short_ru": "Уровень 1-55: получите 9000 базового опыта.",
+          "short_en": "Level 1-55: receive 9000 Base EXP.",
+          "full_ru": "Уровень 1-55: 9000 базового опыта.",
+          "full_en": "Level 1-55 = 9000 Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "9000"
+            }
+          ]
+        },
+        {
+          "key": "level_56_60",
+          "choice_group": "final_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Base level 56-60; select exactly one band at payout.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Level 56-60 = 10500 Exp",
+          "instruction_sha256": "cf515dc823502446f7e3a16c7c8119770765aff7b74296e71d2c52a0cf7a7746",
+          "short_ru": "Уровень 56-60: получите 10500 базового опыта.",
+          "short_en": "Level 56-60: receive 10500 Base EXP.",
+          "full_ru": "Уровень 56-60: 10500 базового опыта.",
+          "full_en": "Level 56-60 = 10500 Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "10500"
+            }
+          ]
+        },
+        {
+          "key": "level_61_65",
+          "choice_group": "final_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Base level 61-65; select exactly one band at payout.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Level 61-65 = 18684 Exp",
+          "instruction_sha256": "ee695060720da4a2c97d47cf7308d7699d2bd1b9c72801a984c82614e8728eb9",
+          "short_ru": "Уровень 61-65: получите 18684 базового опыта.",
+          "short_en": "Level 61-65: receive 18684 Base EXP.",
+          "full_ru": "Уровень 61-65: 18684 базового опыта.",
+          "full_en": "Level 61-65 = 18684 Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "18684"
+            }
+          ]
+        },
+        {
+          "key": "level_66_70",
+          "choice_group": "final_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Base level 66-70; select exactly one band at payout.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Level 66-70 = 27411 Exp",
+          "instruction_sha256": "08e0f1b44de97889f3e509c40308a125d4dd89c3cc9267ba0092b52a5cf13cc6",
+          "short_ru": "Уровень 66-70: получите 27411 базового опыта.",
+          "short_en": "Level 66-70: receive 27411 Base EXP.",
+          "full_ru": "Уровень 66-70: 27411 базового опыта.",
+          "full_en": "Level 66-70 = 27411 Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "27411"
+            }
+          ]
+        },
+        {
+          "key": "level_71_75",
+          "choice_group": "final_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Base level 71-75; select exactly one band at payout.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Level 71-75 = 70757 Exp",
+          "instruction_sha256": "566cc785558f377dd07d48b764f9f6ddf1f4f72d6c9a48775e6e685e25e63a28",
+          "short_ru": "Уровень 71-75: получите 70757 базового опыта.",
+          "short_en": "Level 71-75: receive 70757 Base EXP.",
+          "full_ru": "Уровень 71-75: 70757 базового опыта.",
+          "full_en": "Level 71-75 = 70757 Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "70757"
+            }
+          ]
+        },
+        {
+          "key": "level_76_80",
+          "choice_group": "final_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Base level 76-80; select exactly one band at payout.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Level 76-80 = 130246 Exp",
+          "instruction_sha256": "5d97c058eb29a17010b55290481de73894009a34e5e120b8d7245e4df2cc4c78",
+          "short_ru": "Уровень 76-80: получите 130246 базового опыта.",
+          "short_en": "Level 76-80: receive 130246 Base EXP.",
+          "full_ru": "Уровень 76-80: 130246 базового опыта.",
+          "full_en": "Level 76-80 = 130246 Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "130246"
+            }
+          ]
+        },
+        {
+          "key": "level_81_85",
+          "choice_group": "final_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Base level 81-85; select exactly one band at payout.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Level 81-85 = 150340 Exp",
+          "instruction_sha256": "b161954f00fe4e02895f63d1586432185001e1002e8bdda16f40a4c8a7824487",
+          "short_ru": "Уровень 81-85: получите 150340 базового опыта.",
+          "short_en": "Level 81-85: receive 150340 Base EXP.",
+          "full_ru": "Уровень 81-85: 150340 базового опыта.",
+          "full_en": "Level 81-85 = 150340 Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "150340"
+            }
+          ]
+        },
+        {
+          "key": "level_86_90",
+          "choice_group": "final_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Base level 86-90; select exactly one band at payout.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Level 86-90 = 182052 Exp",
+          "instruction_sha256": "bb1033ca10414351f4108d68f7b8e04b407b0d392c49a2ba5a5cbcec9c06d88d",
+          "short_ru": "Уровень 86-90: получите 182052 базового опыта.",
+          "short_en": "Level 86-90: receive 182052 Base EXP.",
+          "full_ru": "Уровень 86-90: 182052 базового опыта.",
+          "full_en": "Level 86-90 = 182052 Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "182052"
+            }
+          ]
+        },
+        {
+          "key": "level_91_99",
+          "choice_group": "final_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Base level 91-99; select exactly one band at payout.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "Level 91-99 = 406786 Exp",
+          "instruction_sha256": "25479df7d0a1aa1fc302f84753856462b6a7751fff467517584ac702fd8628d3",
+          "short_ru": "Уровень 91-99: получите 406786 базового опыта.",
+          "short_en": "Level 91-99: receive 406786 Base EXP.",
+          "full_ru": "Уровень 91-99: 406786 базового опыта.",
+          "full_en": "Level 91-99 = 406786 Exp",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "406786"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "fishing_costs_and_inventory_unknown",
+      "detail": "50 Zeny is a fishing-tool rental price; only one Monster Feed is per attempt. Number of attempts and ring-removal behavior are not given. Holy/Holier Threads quantities are unspecified and they are not consumed."
+    },
+    {
+      "reason": "footprints_vs_rescue_tile",
+      "detail": "Nine footprint points comprise four first-floor and five second-floor points. Final footprint at 89,262 and exact rescue tile 91,262 are distinct. No compulsory visit order is inferred from list order."
+    },
+    {
+      "reason": "anon_spelling_and_rewards",
+      "detail": "Anon/Annon refer to the same bridegroom in this guide; source spelling remains unchanged per step. Ten Random Potions are a category reward at the footprint trigger; final EXP selects one of nine level bands. Old Blue Box belongs to prerequisite completion, not another Footprint payout."
+    }
+  ],
+  "relations": [
+    {
+      "kind": "mandatory_prerequisite",
+      "related_quest_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest"
+    },
+    {
+      "kind": "completion_required_at_step",
+      "related_quest_id": "irowiki-classic:Ayothaya_Dungeon_Entrance_Quest",
+      "source_step": 4
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_not_consumed",
+        "entity": "Holy Threads",
+        "source_section": "requirements",
+        "evidence": "Holy Threads",
+        "condition": "Listed as not consumed; quantity not provided by the source."
+      },
+      {
+        "kind": "item_not_consumed",
+        "entity": "Holier Threads",
+        "source_section": "requirements",
+        "evidence": "Holier Threads",
+        "condition": "Listed as not consumed; quantity not provided by the source."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 White Potion",
+        "entity": "White Potion",
+        "condition": "Single final treatment, not an additional delivery."
+      }
+    ]
+  }
+}

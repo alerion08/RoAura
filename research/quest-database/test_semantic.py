@@ -221,18 +221,130 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],757)
-        self.assertEqual(self.report['not_fully_localized_steps'],1993)
+        self.assertEqual(self.report['fully_localized_steps'],802)
+        self.assertEqual(self.report['not_fully_localized_steps'],1948)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],757)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],802)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1993)
-        self.assertEqual(self.report['fully_localized_branches'],75)
-        self.assertEqual(self.report['curated_quests'],53)
-        self.assertEqual(self.report['pending_quests'],163)
+        self.assertEqual(missing,1948)
+        self.assertEqual(self.report['fully_localized_branches'],84)
+        self.assertEqual(self.report['curated_quests'],56)
+        self.assertEqual(self.report['pending_quests'],160)
         self.assertEqual(self.report['quest_routes'],8)
         self.assertEqual(self.report['source_additions'],13)
         self.assertEqual(self.report['action_reuse_links'],5)
+
+    def test_rogue_agents_are_distinct_and_return_to_same_guild_actor(self):
+        q='irowiki-classic:Rogue_Guild_Investigation_Quest'
+        def actor(n,role='talk'):
+            return self.db.execute('SELECT npc_id FROM step_npcs JOIN quest_steps USING(step_id) WHERE quest_id=? AND step_order=? AND role=?',(q,n,role)).fetchone()[0]
+        self.assertEqual(actor(2),actor(17))
+        self.assertEqual(len({actor(n) for n in [2,4,5,7,14,16]}),6)
+        for n,full_target,short_target in [(6,7,5),(13,14,7),(15,16,14)]:
+            for field,target in [('full_en',full_target),('short_en',short_target),('full_ru',full_target),('short_ru',short_target)]:
+                ids=[r[0] for r in self.db.execute('''SELECT m.entity_id FROM description_mentions m JOIN quest_steps s USING(step_id)
+                  WHERE s.quest_id=? AND s.step_order=? AND m.field=? AND m.surface='agent' ''',(q,n,field))]
+                self.assertEqual(ids,[actor(target)],(n,field))
+
+    def test_rogue_mask_is_retained_and_alcohol_is_two_installments(self):
+        q='irowiki-classic:Rogue_Guild_Investigation_Quest'
+        alcohol=[tuple(r) for r in self.db.execute('''SELECT s.step_order,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? AND x.game_id=970 AND i.operation='deliver' ORDER BY s.step_order''',(q,))]
+        self.assertEqual(alcohol,[(10,1),(12,1)])
+        mask=[tuple(r) for r in self.db.execute('''SELECT i.operation,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN entities e ON e.entity_id=i.item_id WHERE s.quest_id=? AND e.original_name='Mask' ''',(q,))]
+        self.assertEqual(mask,[('show',1)])
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='source_requested_item_count'",(q,)).fetchone()[0],'2')
+        red=self.db.execute('''SELECT i.operation,i.required FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN entities e ON e.entity_id=i.item_id WHERE s.quest_id=? AND e.original_name='Red Herbs' ''',(q,)).fetchone()
+        self.assertEqual(tuple(red),('decline',0))
+        delivered=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? AND s.step_order=6 ORDER BY x.game_id''',(q,))]
+        self.assertEqual(delivered,[(944,1),(1038,1),(1059,1),(1060,1),(1062,1)])
+
+    def test_rogue_prerequisite_notes_and_food_level_are_separate(self):
+        q='irowiki-classic:Rogue_Guild_Investigation_Quest'
+        self.assertTrue(self.db.execute("SELECT 1 FROM quest_relations WHERE quest_id=? AND related_id='irowiki-classic:Z-Gang_Quest' AND kind='mandatory_prerequisite'",(q,)).fetchone())
+        notes=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.item_id,x.game_id,r.amount FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s USING(step_id) JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? AND r.kind='quest_document' ORDER BY s.step_order''',(q,))]
+        self.assertEqual([r[0] for r in notes],[4,13]);self.assertNotEqual(notes[0][1],notes[1][1])
+        self.assertTrue(all(r[2:] == (None,None) for r in notes))
+        grants=[tuple(r) for r in self.db.execute('''SELECT s.step_order,e.original_name,r.amount,x.game_id FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s USING(step_id) JOIN entities e ON e.entity_id=r.item_id JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? AND r.kind='item' ORDER BY s.step_order''',(q,))]
+        self.assertEqual(grants,[(15,'Level 4 Food Item','1',None),(17,'Gift Box','1',644)])
+
+    def test_crow_search_inputs_are_alternatives_and_scenes_are_not_kills(self):
+        q='irowiki-classic:Crow_of_Destiny_Quest'
+        opts=[tuple(r) for r in self.db.execute('''SELECT o.exact_text,o.operation,o.condition_text FROM dialogue_options o JOIN dialogues d USING(dialogue_id)
+          JOIN step_dialogues sd USING(dialogue_id) JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=2 ORDER BY o.option_order''',(q,))]
+        self.assertEqual([(r[0],r[1]) for r in opts],[('The Crow of the Fate','enter_text'),('Oliver Hilpert','enter_text')])
+        self.assertTrue(all('alternative' in r[2].lower() for r in opts))
+        self.assertEqual(self.db.execute('SELECT count(*) FROM step_monsters JOIN quest_steps USING(step_id) WHERE quest_id=?',(q,)).fetchone()[0],0)
+        actors=[tuple(r) for r in self.db.execute('''SELECT s.step_order,e.original_name FROM step_npcs n JOIN quest_steps s USING(step_id)
+          JOIN entities e ON e.entity_id=n.npc_id WHERE s.quest_id=? AND s.step_order IN (6,7) ORDER BY s.step_order''',(q,))]
+        self.assertEqual(actors,[(6,'Female Researcher'),(7,'Eva')])
+
+    def test_crow_photos_album_and_reward_installments(self):
+        q='irowiki-classic:Crow_of_Destiny_Quest'
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='shown_photo_count'",(q,)).fetchone()[0],'2')
+        album=self.db.execute('''SELECT r.amount,x.game_id FROM rewards r JOIN entities e ON e.entity_id=r.item_id
+          JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? AND e.original_name="Mammi's Photo Album" ''',(q,)).fetchone()
+        self.assertEqual(tuple(album),(None,None))
+        box=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s USING(step_id) JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? AND x.game_id=617''',(q,))]
+        self.assertEqual(box,[(19,'1')])
+        xp=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.kind,r.amount FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.kind IN ('base_exp','job_exp') ORDER BY r.kind''',(q,))]
+        self.assertEqual(xp,[(21,'base_exp','900000'),(21,'job_exp','900000')])
+
+    def test_crow_torn_and_final_notes_keep_identity_uncertainty(self):
+        q='irowiki-classic:Crow_of_Destiny_Quest'
+        refs={}
+        for n in [19,20,21]:
+            refs[n]={r[0] for r in self.db.execute('''SELECT m.entity_id FROM description_mentions m JOIN quest_steps s USING(step_id)
+              WHERE s.quest_id=? AND s.step_order=? AND m.field='full_en' AND m.surface='note' ''',(q,n))}
+        self.assertEqual(len(refs[19]),1);self.assertEqual(refs[19],refs[20]);self.assertTrue(refs[19].isdisjoint(refs[21]))
+        self.assertEqual(len(refs[21]),1)
+        self.assertTrue(self.db.execute("SELECT 1 FROM review_queue WHERE quest_id=? AND reason='torn_and_final_note_identity_unresolved'",(q,)).fetchone())
+        feather=[tuple(r) for r in self.db.execute('''SELECT i.operation,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN entities e ON e.entity_id=i.item_id WHERE s.quest_id=? AND s.step_order=20 AND e.original_name='bird feather' ''',(q,))]
+        self.assertEqual(feather,[('show',None)])
+
+    def test_footprint_rental_per_attempt_cost_and_retained_items(self):
+        q='irowiki-classic:Footprint_Quest'
+        costs={r[0]:r[1] for r in self.db.execute("SELECT kind,amount FROM requirements WHERE quest_id=? AND kind IN ('zeny_rental','item_per_attempt')",(q,))}
+        self.assertEqual(costs,{'zeny_rental':'50','item_per_attempt':'1'})
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements r JOIN items x ON x.entity_id=r.entity_id WHERE r.quest_id=? AND r.kind='item_consumed_total' AND x.game_id=528",(q,)).fetchone())
+        kept=[tuple(r) for r in self.db.execute("SELECT x.game_id,r.amount FROM requirements r JOIN items x ON x.entity_id=r.entity_id WHERE r.quest_id=? AND r.kind='item_not_consumed' ORDER BY x.game_id",(q,))]
+        self.assertEqual(kept,[(7285,None),(7287,None)])
+        items=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,i.operation,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? AND x.game_id IN (504,528,7288) ORDER BY s.step_order''',(q,))]
+        self.assertEqual(items,[(2,528,'consume',1),(3,7288,'collect',None),(7,504,'deliver',1)])
+
+    def test_footprint_nine_triggers_exact_rescue_tile_and_completion_gate(self):
+        q='irowiki-classic:Footprint_Quest'
+        points=[tuple(r) for r in self.db.execute('''SELECT m.map_code,l.x,l.y,sl.location_order FROM step_locations sl JOIN locations l USING(location_id)
+          JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=6 ORDER BY m.map_code,l.x,l.y''',(q,))]
+        expected=[('ayo_dun01',x,y,None) for x,y in [(18,258),(73,142),(243,257),(256,61)]]+[('ayo_dun02',x,y,None) for x,y in [(73,213),(87,254),(89,262),(136,169),(146,117)]]
+        self.assertEqual(points,expected)
+        rescue=[tuple(r) for r in self.db.execute('''SELECT m.map_code,l.x,l.y FROM step_locations sl JOIN locations l USING(location_id)
+          JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=7''',(q,))]
+        self.assertEqual(rescue,[('ayo_dun02',91,262)])
+        gate=self.db.execute("SELECT e.step_id,e.snippet FROM quest_relations r JOIN evidence e USING(evidence_id) WHERE r.quest_id=? AND r.kind='completion_required_at_step'",(q,)).fetchone()
+        self.assertIn('including retrieval of the Old Blue Box',gate[1])
+        self.assertEqual(self.db.execute('SELECT step_order FROM quest_steps WHERE step_id=?',(gate[0],)).fetchone()[0],4)
+        self.assertFalse(self.db.execute("SELECT 1 FROM rewards r JOIN entities e ON e.entity_id=r.item_id WHERE r.quest_id=? AND e.original_name='Old Blue Box'",(q,)).fetchone())
+
+    def test_footprint_potions_are_intermediate_and_final_exp_selects_one_band(self):
+        q='irowiki-classic:Footprint_Quest'
+        potions=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s USING(step_id) JOIN entities e ON e.entity_id=r.item_id WHERE r.quest_id=? AND e.original_name='Random Potions' ''',(q,))]
+        self.assertEqual(potions,[(6,'10')])
+        bands=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,b.choice_group,r.amount FROM rewards r JOIN step_branches b USING(branch_id)
+          WHERE r.quest_id=? AND r.kind='base_exp' ORDER BY b.branch_key''',(q,))]
+        expected=[('level_'+key,'final_level_reward',str(amount)) for key,amount in [('1_55',9000),('56_60',10500),('61_65',18684),('66_70',27411),('71_75',70757),('76_80',130246),('81_85',150340),('86_90',182052),('91_99',406786)]]
+        self.assertEqual(bands,expected)
+        self.assertFalse(self.db.execute("SELECT 1 FROM rewards WHERE quest_id=? AND kind='base_exp' AND branch_id IS NULL",(q,)).fetchone())
 
     def test_new_world_staff_identity_and_source_availability(self):
         q='irowiki-classic:Onward_to_the_New_World_Quest'

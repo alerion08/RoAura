@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 757 steps in 53 curated guides and
-75 conditional branches. Thirteen source additions supplement full descriptions;
-**1,993 steps / 163 remaining catalog entries still need processing**. Eight quest routes preserve Odin's
+is excluded. All four RU/EN fields exist for 802 steps in 56 curated guides and
+84 conditional branches. Thirteen source additions supplement full descriptions;
+**1,948 steps / 160 remaining catalog entries still need processing**. Eight quest routes preserve Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -56,8 +56,14 @@ is restored from pinned HTML. Broken Diamond has its mandatory Muff link,
 separate investigators and intermediate Pearl. Z-Gang passwords are attached
 to their actual input stages, while two notes, decoders and wave events remain
 distinct. Unknown IDs and map codes are not invented.
+Rogue Guild Investigation, Crow of Destiny and Footprint are curated. City
+agents and notes are distinct; one retained Mask is separate from the request
+for two, and Alcohol has two one-item installments. Crow preserves exact
+alternative catalog inputs and the torn/final-note uncertainty. Footprint
+separates rental from per-attempt bait, nine triggers from the exact rescue
+tile, and intermediate potions from nine alternative final EXP bands.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 191 regression tests, full offline rebuild and research CI
+Local validation: 200 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration
