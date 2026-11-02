@@ -1,0 +1,1036 @@
+{
+  "quest_id": "irowiki-classic:Z-Gang_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "f15b0e481c4e385ca784f13a1ea807f799ab6e682220ab913288d30e0fdb05f3",
+  "snapshot_sha256": "604df3ba31c9ff5bd2a8cb0c4a685380ad1ee30a936a4dc862ed9c4951fdfc7a",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Bulletin Board"
+    },
+    {
+      "type": "npc",
+      "name": "Chief Officer"
+    },
+    {
+      "type": "npc",
+      "name": "Valdes"
+    },
+    {
+      "type": "npc",
+      "name": "Marybell"
+    },
+    {
+      "type": "npc",
+      "name": "Gooho Ahn"
+    },
+    {
+      "type": "npc",
+      "name": "suspicious man"
+    },
+    {
+      "type": "npc",
+      "name": "Odd Slab"
+    },
+    {
+      "type": "npc",
+      "name": "Moonho Ahn",
+      "aliases": [
+        "Moonho"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Castle"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Pub"
+    },
+    {
+      "type": "map",
+      "name": "prontera",
+      "map_code": "prontera"
+    },
+    {
+      "type": "map",
+      "name": "Pharos Lighthouse"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "Morroc Ruins"
+    },
+    {
+      "type": "map",
+      "name": "Pyramids"
+    },
+    {
+      "type": "map",
+      "name": "Morroc Field 17"
+    },
+    {
+      "type": "map",
+      "name": "moc_fild17",
+      "map_code": "moc_fild17"
+    },
+    {
+      "type": "item",
+      "name": "Morroc Fruit Wine",
+      "game_id": 12049,
+      "id_source": "http://db.irowiki.org/classic/item-info/12049/"
+    },
+    {
+      "type": "item",
+      "name": "Live Coal",
+      "game_id": 7098,
+      "id_source": "http://db.irowiki.org/classic/item-info/7098/"
+    },
+    {
+      "type": "item",
+      "name": "Alcohol",
+      "game_id": 970,
+      "id_source": "http://db.irowiki.org/classic/item-info/970/"
+    },
+    {
+      "type": "item",
+      "name": "Matchstick",
+      "game_id": 7035,
+      "id_source": "http://db.irowiki.org/classic/item-info/7035/"
+    },
+    {
+      "type": "item",
+      "name": "Burning Heart",
+      "game_id": 7097,
+      "id_source": "http://db.irowiki.org/classic/item-info/7097/"
+    },
+    {
+      "type": "item",
+      "name": "stolen book",
+      "identity": "irowiki-classic:Z-Gang_Quest:source_item:stolen book"
+    },
+    {
+      "type": "item",
+      "name": "note",
+      "ref": "attack_note",
+      "identity": "irowiki-classic:Z-Gang_Quest:source_item:attack_note"
+    },
+    {
+      "type": "item",
+      "name": "note",
+      "ref": "coded_note",
+      "identity": "irowiki-classic:Z-Gang_Quest:source_item:coded_note"
+    },
+    {
+      "type": "monster",
+      "name": "Skel Prisoners"
+    },
+    {
+      "type": "monster",
+      "name": "Antique Firelock"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to the Bulletin Board outside the Prontera Castle (prontera 150, 326), which is advertising a wanted notice about the infamous Z-Gang, suspected of making off with priceless treasure from the Kingdom.",
+      "instruction_sha256": "7ac50c7c9b4ce8894c92dfead7186cac89e59721f53818318ff81ec4440aaacc",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/7ac50c7c9b4ce8894c92/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Bulletin Board: prontera 150, 326.",
+      "short_en": "Inspect Bulletin Board: prontera 150, 326.",
+      "full_ru": "Поговорите с Bulletin Board у Prontera Castle (prontera 150, 326). Объявлен розыск Z-Gang, подозреваемой в краже бесценного сокровища королевства.",
+      "full_en": "Talk to the Bulletin Board outside the Prontera Castle (prontera 150, 326), which is advertising a wanted notice about the infamous Z-Gang, suspected of making off with priceless treasure from the Kingdom.",
+      "npcs": [
+        {
+          "entity": "Bulletin Board",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "read_notice",
+          "entity": "Bulletin Board"
+        }
+      ],
+      "protected_names": [
+        "Bulletin Board",
+        "Prontera",
+        "Prontera Castle",
+        "prontera"
+      ],
+      "locations": [
+        {
+          "map": "prontera",
+          "x": 150,
+          "y": 326,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prontera 150, 326"
+        }
+      ],
+      "mention_entities": {
+        "note": "attack_note"
+      }
+    },
+    "2": {
+      "original_instruction": "Talk to the Chief Officer next to the sign, and ask him about the Z-Gang.",
+      "instruction_sha256": "02fc14172d08d1cbd094210a3d3e05972214718f72f62fe153d70512aa27f467",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/02fc14172d08d1cbd094/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Chief Officer рядом с объявлением.",
+      "short_en": "Question Chief Officer beside the notice.",
+      "full_ru": "Поговорите с Chief Officer рядом с объявлением о Z-Gang.",
+      "full_en": "Talk to the Chief Officer next to the sign, and ask him about the Z-Gang.",
+      "npcs": [
+        {
+          "entity": "Chief Officer",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Chief Officer"
+        }
+      ],
+      "protected_names": [
+        "Chief Officer"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "attack_note"
+      }
+    },
+    "3": {
+      "original_instruction": "Next, head to the Prontera Pub (205, 157), and talk to Valdes. He asks you to bring him 5 Morroc Fruit Wine . He explains how he's tried and failed at investigating the gang, and tells you to talk to Marybell in the Rogue guild for more information. The password needed to talk to her is \"The dawn is yet to come.\"",
+      "instruction_sha256": "638c14d9a1966646ee7413f3a436334f1297b0e8f75b3ed12a3a47bc168e1bcc",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/638c14d9a1966646ee74/1",
+      "goal": "deliver",
+      "short_ru": "Принесите Valdes 5 Morroc Fruit Wine в Prontera Pub (205, 157).",
+      "short_en": "Bring Valdes 5 Morroc Fruit Wine in Prontera Pub (205, 157).",
+      "full_ru": "В Prontera Pub (205, 157) поговорите с Valdes и принесите ему 5 Morroc Fruit Wine. Он расскажет о неудачном расследовании и отправит к Marybell в Rogue guild. Пароль для разговора с ней: «The dawn is yet to come.».",
+      "full_en": "Next, head to the Prontera Pub (205, 157), and talk to Valdes. He asks you to bring him 5 Morroc Fruit Wine . He explains how he's tried and failed at investigating the gang, and tells you to talk to Marybell in the Rogue guild for more information. The password needed to talk to her is \"The dawn is yet to come.\"",
+      "npcs": [
+        {
+          "entity": "Valdes",
+          "role": "talk"
+        },
+        {
+          "entity": "Marybell",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Morroc Fruit Wine",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Single source-listed consumed wine set; INT +4 in header is a food stat, not four more items."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Valdes"
+        },
+        {
+          "operation": "deliver",
+          "entity": "Morroc Fruit Wine"
+        }
+      ],
+      "protected_names": [
+        "Valdes",
+        "Marybell",
+        "Prontera",
+        "Prontera Pub",
+        "Morroc",
+        "Morroc Fruit Wine"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 205,
+          "y": 157,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "205, 157"
+        }
+      ],
+      "mention_entities": {
+        "note": "attack_note"
+      }
+    },
+    "4": {
+      "original_instruction": "Head to the Rogue guild (Pharos Lighthouse), and talk to Marybell (downstairs at 359, 116). You must input the password given by Valdes. She's glad you've been sent, but needs to test you first. She asks you to go to Payon , and find a man named Moonho Ahn, who you have to beat at gambling.",
+      "instruction_sha256": "d6ced28c8acdb14f7f393509cc1e3090960e8caa922e7a1a695a8722c02c3e8e",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/d6ced28c8acdb14f7f39/1",
+      "goal": "enter_text",
+      "short_ru": "У Marybell на Pharos Lighthouse (359, 116) введите «The dawn is yet to come.».",
+      "short_en": "At Marybell in Pharos Lighthouse (359, 116), type “The dawn is yet to come.”.",
+      "full_ru": "В Rogue guild на Pharos Lighthouse поговорите с Marybell внизу (359, 116). Введите пароль от Valdes. Она назначит проверку: найдите Moonho Ahn в Payon и победите его в азартной игре. Пароль для разговора: «The dawn is yet to come.».",
+      "full_en": "Head to the Rogue guild (Pharos Lighthouse), and talk to Marybell (downstairs at 359, 116). You must input the password given by Valdes. She's glad you've been sent, but needs to test you first. She asks you to go to Payon , and find a man named Moonho Ahn, who you have to beat at gambling. The password needed to talk to her is \"The dawn is yet to come.\"",
+      "npcs": [
+        {
+          "entity": "Marybell",
+          "role": "talk"
+        },
+        {
+          "entity": "Valdes",
+          "role": "previous_contact"
+        },
+        {
+          "entity": "Moonho Ahn",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_text",
+          "entity": "Marybell"
+        }
+      ],
+      "protected_names": [
+        "Valdes",
+        "Marybell",
+        "Moonho Ahn",
+        "Pharos Lighthouse",
+        "Payon"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 359,
+          "y": 116,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "359, 116"
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "The password needed to talk to her is \"The dawn is yet to come.\"",
+          "text_ru": "Пароль для разговора: «The dawn is yet to come.»."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Marybell",
+          "options": [
+            {
+              "text": "The dawn is yet to come.",
+              "correct": 1,
+              "operation": "enter_text"
+            }
+          ],
+          "source_section": "html_text",
+          "evidence": "The password needed to talk to her is \"The dawn is yet to come.\""
+        }
+      ],
+      "mention_entities": {
+        "note": "attack_note"
+      }
+    },
+    "5": {
+      "original_instruction": "Go to Payon, and walk to the building in the lower right corner. There you'll find Moonho (244, 62). Tell him you there to challenge him, and he explains the rules of the game.",
+      "instruction_sha256": "013e630f032000188a336bb6d01acfa95e23392b7a7706cded9fb91a56101c6e",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/013e630f032000188a33/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Moonho в Payon (244, 62) и бросьте вызов.",
+      "short_en": "Talk to Moonho in Payon (244, 62) and challenge him.",
+      "full_ru": "В Payon зайдите в здание в правом нижнем углу и найдите Moonho (244, 62). Бросьте ему вызов и выслушайте правила.",
+      "full_en": "Go to Payon, and walk to the building in the lower right corner. There you'll find Moonho (244, 62). Tell him you there to challenge him, and he explains the rules of the game.",
+      "npcs": [
+        {
+          "entity": "Moonho Ahn",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "challenge",
+          "entity": "Moonho Ahn"
+        }
+      ],
+      "protected_names": [
+        "Payon"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 244,
+          "y": 62,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "244, 62"
+        }
+      ],
+      "mention_entities": {
+        "note": "attack_note"
+      }
+    },
+    "6": {
+      "original_instruction": "When you're ready to play, talk to him again. Once you win 2 out of 3 rounds, he will proclaim you the new White Meteor, and scribble a mark on your arm.",
+      "instruction_sha256": "2f2fb8b1aba07bca8f43fc8e636b8323cfc9dbe9a921a56274ab66ae210d3bea",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/2f2fb8b1aba07bca8f43/1",
+      "goal": "play_game",
+      "short_ru": "Победите Moonho в 2 из 3 раундов.",
+      "short_en": "Beat Moonho in 2 out of 3 rounds.",
+      "full_ru": "Когда будете готовы, поговорите с ним снова. Победите в 2 из 3 раундов: он назовёт вас новым White Meteor и нанесёт отметку на руку.",
+      "full_en": "When you're ready to play, talk to him again. Once you win 2 out of 3 rounds, he will proclaim you the new White Meteor, and scribble a mark on your arm.",
+      "npcs": [
+        {
+          "entity": "Moonho Ahn",
+          "role": "talk",
+          "support_step": 5,
+          "evidence": "Go to Payon, and walk to the building in the lower right corner. There you'll find Moonho (244, 62). Tell him you there to challenge him, and he explains the rules of the game."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "rounds_to_win",
+          "amount": "2"
+        },
+        {
+          "kind": "rounds_in_match",
+          "amount": "3"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "play_match",
+          "entity": "Moonho Ahn"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "title_reference",
+          "condition": "White Meteor proclamation and arm mark, not an inventory item."
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "note": "attack_note"
+      }
+    },
+    "7": {
+      "original_instruction": "Return to Marybell, who is amazed you were able to win. She goes off to talk tell her friends, then talk to her again. You're now able to ask her questions about the Z-Gang. She tells you they've been trying to recruit people in Morroc , so off you run!",
+      "instruction_sha256": "fda45baef508583a173f538d847ed65c6d807f4e295b42b53039ca6236f94c13",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/fda45baef508583a173f/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Marybell повторно и узнайте о Morroc.",
+      "short_en": "Talk to Marybell again and learn about Morroc.",
+      "full_ru": "Вернитесь к Marybell. Она удивится победе и уйдёт рассказать друзьям; затем поговорите с ней ещё раз. Расспросите о Z-Gang: она сообщит о наборе людей в Morroc.",
+      "full_en": "Return to Marybell, who is amazed you were able to win. She goes off to talk tell her friends, then talk to her again. You're now able to ask her questions about the Z-Gang. She tells you they've been trying to recruit people in Morroc , so off you run!",
+      "npcs": [
+        {
+          "entity": "Marybell",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Marybell"
+        },
+        {
+          "operation": "talk_again",
+          "entity": "Marybell"
+        }
+      ],
+      "protected_names": [
+        "Marybell",
+        "Morroc"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "attack_note"
+      }
+    },
+    "8": {
+      "original_instruction": "In the Morroc Ruins, go to either (90,67) or (78,167), where a suspicious man mugs you, and drops a note apparently written to inform someone to kill you.",
+      "instruction_sha256": "a794b0ef094e5a5f78c2543d9800d888e146912aba29c6eda00b13812b7dfbf2",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/a794b0ef094e5a5f78c2/1",
+      "goal": "trigger",
+      "short_ru": "Вызовите сцену с suspicious man в Morroc Ruins: (90,67) ИЛИ (78,167).",
+      "short_en": "Trigger the suspicious man scene in Morroc Ruins: (90,67) OR (78,167).",
+      "full_ru": "В Morroc Ruins придите к одной из точек (90,67) или (78,167). Подозрительный мужчина (suspicious man) нападёт и уронит note с приказом убить вас.",
+      "full_en": "In the Morroc Ruins, go to either (90,67) or (78,167), where a suspicious man mugs you, and drops a note apparently written to inform someone to kill you.",
+      "npcs": [
+        {
+          "entity": "suspicious man",
+          "role": "scene_actor"
+        }
+      ],
+      "items": [
+        {
+          "entity": "attack_note",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0,
+          "condition": "Dropped in the attack scene; not asserted as a guaranteed inventory grant."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "trigger_mugging"
+        }
+      ],
+      "mention_entities": {
+        "note": "attack_note"
+      },
+      "protected_names": [
+        "suspicious man",
+        "Morroc",
+        "Morroc Ruins",
+        "note",
+        "note"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 90,
+          "y": 67,
+          "known": false,
+          "role": "alternative_trigger",
+          "evidence": "90,67",
+          "condition": "Either point triggers the scene, not a compulsory two-point route."
+        },
+        {
+          "map": null,
+          "x": 78,
+          "y": 167,
+          "known": false,
+          "role": "alternative_trigger",
+          "evidence": "78,167",
+          "condition": "Either point triggers the scene, not a compulsory two-point route."
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Look for the same suspicious man at (75, 171) near the entrance to the Pyramids. He informs you that he only does what he's told through the notes, and doesn't know much.",
+      "instruction_sha256": "a61d7eb88922a8701a6f764008dddacfb66236f24a158561055edd084ca91d71",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/a61d7eb88922a8701a6f/1",
+      "goal": "talk",
+      "short_ru": "Расспросите suspicious man у Pyramids (75, 171).",
+      "short_en": "Question suspicious man by Pyramids (75, 171).",
+      "full_ru": "Найдите того же suspicious man (75, 171) у входа в Pyramids. Он скажет, что действует по запискам и мало что знает.",
+      "full_en": "Look for the same suspicious man at (75, 171) near the entrance to the Pyramids. He informs you that he only does what he's told through the notes, and doesn't know much.",
+      "npcs": [
+        {
+          "entity": "suspicious man",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "suspicious man"
+        }
+      ],
+      "protected_names": [
+        "suspicious man",
+        "Pyramids"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 75,
+          "y": 171,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "75, 171"
+        }
+      ],
+      "mention_entities": {
+        "note": "attack_note"
+      }
+    },
+    "10": {
+      "original_instruction": "Return to Marybell again, and find out if she's learned anything new. She tells you another rogue found a piece of paper with a note written in invisible ink on it, and took it to a decoder, Gooho Ahn in Payon. She asks you to go visit him to see if he's figured out what it says.",
+      "instruction_sha256": "4c22668ccb3ed32eaf72a0c415e8102af5c6e17ec2cf991a13a628c4a1096cdb",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/4c22668ccb3ed32eaf72/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Marybell и отправляйтесь к Gooho Ahn в Payon.",
+      "short_en": "Talk to Marybell and go to Gooho Ahn in Payon.",
+      "full_ru": "Вернитесь к Marybell. Другой разбойник нашёл бумагу с note, написанной невидимыми чернилами, и отнёс её дешифровщику Gooho Ahn в Payon. Она попросит узнать, что ему удалось прочитать.",
+      "full_en": "Return to Marybell again, and find out if she's learned anything new. She tells you another rogue found a piece of paper with a note written in invisible ink on it, and took it to a decoder, Gooho Ahn in Payon. She asks you to go visit him to see if he's figured out what it says.",
+      "npcs": [
+        {
+          "entity": "Marybell",
+          "role": "talk"
+        },
+        {
+          "entity": "Gooho Ahn",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "coded_note",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0,
+          "condition": "Different paper found by another rogue; no player inventory transfer is stated."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Marybell"
+        }
+      ],
+      "mention_entities": {
+        "note": "coded_note"
+      },
+      "protected_names": [
+        "Marybell",
+        "Gooho Ahn",
+        "Payon",
+        "note",
+        "note"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "In Payon, go to a gazebo (192, 176), and talk to the man there. He's decoded part of the message, but ran out of materials. Bring him 20 Live Coal , 2 Alcohol , 1 Matchstick , and 10 Burning Heart . Apparently the note was written in an ancient language, and says: | Weii arr prowd Z G gna | Aynoen hwo sspotp uys | wlil eb kckide on htier ssa!",
+      "instruction_sha256": "904812646e4f32da8ad6fedf7db0246bef22f4bf3295b24f1fd97acc39ef3185",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/904812646e4f32da8ad6/1",
+      "goal": "deliver",
+      "short_ru": "Принесите Gooho Ahn 20 Live Coal, 2 Alcohol, 1 Matchstick и 10 Burning Heart в Payon (192, 176).",
+      "short_en": "Bring Gooho Ahn 20 Live Coal, 2 Alcohol, 1 Matchstick and 10 Burning Heart in Payon (192, 176).",
+      "full_ru": "В Payon у беседки (192, 176) поговорите с мужчиной. Он расшифровал часть сообщения, но материалы закончились. Принесите 20 Live Coal, 2 Alcohol, 1 Matchstick и 10 Burning Heart. Оказывается, note написана на древнем языке: «Weii arr prowd Z G gna»; «Aynoen hwo sspotp uys»; «wlil eb kckide on htier ssa!».",
+      "full_en": "In Payon, go to a gazebo (192, 176), and talk to the man there. He's decoded part of the message, but ran out of materials. Bring him 20 Live Coal , 2 Alcohol , 1 Matchstick , and 10 Burning Heart . Apparently the note was written in an ancient language, and says: | Weii arr prowd Z G gna | Aynoen hwo sspotp uys | wlil eb kckide on htier ssa!",
+      "npcs": [
+        {
+          "entity": "Gooho Ahn",
+          "role": "talk",
+          "support_step": 10,
+          "evidence": "Return to Marybell again, and find out if she's learned anything new. She tells you another rogue found a piece of paper with a note written in invisible ink on it, and took it to a decoder, Gooho Ahn in Payon. She asks you to go visit him to see if he's figured out what it says."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Live Coal",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Alcohol",
+          "quantity": 2,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Matchstick",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Burning Heart",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "coded_note",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_decoding_materials"
+        }
+      ],
+      "mention_entities": {
+        "note": "coded_note"
+      },
+      "protected_names": [
+        "Payon",
+        "Live Coal",
+        "Alcohol",
+        "Matchstick",
+        "Burning Heart",
+        "note",
+        "note"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 192,
+          "y": 176,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "192, 176"
+        }
+      ]
+    },
+    "12": {
+      "original_instruction": "Back at the rogue guild, relay the message to Marybell. She tells you that they've located the area of the Z-Gang's hideout, but that you can't come with them.",
+      "instruction_sha256": "a1bb59fce14cee9c36289f6debcc9fa399548338267b7f521fb026fad8844077",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/a1bb59fce14cee9c3628/1",
+      "goal": "talk",
+      "short_ru": "Перескажите сообщение Marybell в Rogue guild.",
+      "short_en": "Relay the message to Marybell in the Rogue guild.",
+      "full_ru": "Вернитесь в Rogue guild и перескажите сообщение Marybell. Она знает расположение убежища Z-Gang, но не разрешит идти с ними.",
+      "full_en": "Back at the rogue guild, relay the message to Marybell. She tells you that they've located the area of the Z-Gang's hideout, but that you can't come with them.",
+      "npcs": [
+        {
+          "entity": "Marybell",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "relay_message",
+          "entity": "Marybell"
+        }
+      ],
+      "protected_names": [
+        "Marybell"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "coded_note"
+      }
+    },
+    "13": {
+      "original_instruction": "Go to Morroc Field 17 (moc_fild17 209, 235) and stop at top far right \"hole\" in the ground.",
+      "instruction_sha256": "557a350e7b2f63d8616ad37cbeb82bb0d58682906bcfd07e14a6374353ecce85",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/557a350e7b2f63d8616a/1",
+      "goal": "travel",
+      "short_ru": "Подойдите к яме: moc_fild17 209, 235.",
+      "short_en": "Approach the hole: moc_fild17 209, 235.",
+      "full_ru": "Идите в Morroc Field 17 (moc_fild17 209, 235) и остановитесь у ямы далеко справа вверху карты.",
+      "full_en": "Go to Morroc Field 17 (moc_fild17 209, 235) and stop at top far right \"hole\" in the ground.",
+      "actions": [
+        {
+          "operation": "approach_hideout_entrance"
+        }
+      ],
+      "protected_names": [
+        "Morroc",
+        "Morroc Field 17",
+        "moc_fild17"
+      ],
+      "locations": [
+        {
+          "map": "moc_fild17",
+          "x": 209,
+          "y": 235,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "moc_fild17 209, 235"
+        }
+      ],
+      "mention_entities": {
+        "note": "coded_note"
+      }
+    },
+    "14": {
+      "original_instruction": "Talk to the \"Odd Slab\", and it asks you to enter the password. Enter the three lines (separately) into the Slab, and you'll be taken to the Z-Gang's hideout.",
+      "instruction_sha256": "376243e870b479fc05fc06de878ae0870607d1427fafb4ab2fa5f19819e63e81",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/376243e870b479fc05fc/1",
+      "goal": "enter_text",
+      "short_ru": "У Odd Slab введите три строки расшифрованного сообщения отдельно.",
+      "short_en": "At Odd Slab, enter the three decoded lines separately.",
+      "full_ru": "Поговорите с Odd Slab. Введите три строки пароля отдельно, чтобы попасть в убежище Z-Gang. Строки для отдельного ввода: «Weii arr prowd Z G gna»; «Aynoen hwo sspotp uys»; «wlil eb kckide on htier ssa!».",
+      "full_en": "Talk to the \"Odd Slab\", and it asks you to enter the password. Enter the three lines (separately) into the Slab, and you'll be taken to the Z-Gang's hideout. Weii arr prowd Z G gna Aynoen hwo sspotp uys wlil eb kckide on htier ssa!",
+      "npcs": [
+        {
+          "entity": "Odd Slab",
+          "role": "interact"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "moc_fild17",
+          "x": 209,
+          "y": 235,
+          "role": "entrance",
+          "known": true,
+          "support_step": 13,
+          "evidence": "Go to Morroc Field 17 (moc_fild17 209, 235) and stop at top far right \"hole\" in the ground.",
+          "condition": "Slab at the entrance reached in the preceding stage."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_three_lines",
+          "entity": "Odd Slab"
+        }
+      ],
+      "protected_names": [
+        "Odd Slab"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Weii arr prowd Z G gna Aynoen hwo sspotp uys wlil eb kckide on htier ssa!",
+          "text_ru": "Строки для отдельного ввода: «Weii arr prowd Z G gna»; «Aynoen hwo sspotp uys»; «wlil eb kckide on htier ssa!»."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Odd Slab",
+          "options": [
+            {
+              "text": "Weii arr prowd Z G gna",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Line 1 of three; enter separately in order."
+            }
+          ],
+          "source_section": "html_text",
+          "evidence": "Weii arr prowd Z G gna"
+        },
+        {
+          "npc": "Odd Slab",
+          "options": [
+            {
+              "text": "Aynoen hwo sspotp uys",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Line 2 of three; enter separately in order."
+            }
+          ],
+          "source_section": "html_text",
+          "evidence": "Aynoen hwo sspotp uys"
+        },
+        {
+          "npc": "Odd Slab",
+          "options": [
+            {
+              "text": "wlil eb kckide on htier ssa!",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Line 3 of three; enter separately in order."
+            }
+          ],
+          "source_section": "html_text",
+          "evidence": "wlil eb kckide on htier ssa!"
+        }
+      ],
+      "mention_entities": {
+        "note": "coded_note"
+      }
+    },
+    "15": {
+      "original_instruction": "As you enter the hideout, the gang will realize you're there. They send out Skel Prisoners and an Antique Firelock.",
+      "instruction_sha256": "de3641fabe596806cc1dff87f9e37a4b32eac9b2df8e9f7a48c1dfe376654c2c",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/de3641fabe596806cc1d/1",
+      "goal": "fight",
+      "short_ru": "Отбейте волну Skel Prisoners и Antique Firelock.",
+      "short_en": "Fight the wave of Skel Prisoners and Antique Firelock.",
+      "full_ru": "В убежище банда заметит вас и выпустит Skel Prisoners и Antique Firelock.",
+      "full_en": "As you enter the hideout, the gang will realize you're there. They send out Skel Prisoners and an Antique Firelock.",
+      "monsters": [
+        {
+          "entity": "Skel Prisoners",
+          "quantity": null,
+          "operation": "kill",
+          "required": 1,
+          "condition": "Wave count and game ID are not given."
+        },
+        {
+          "entity": "Antique Firelock",
+          "quantity": 1,
+          "operation": "kill",
+          "required": 1,
+          "condition": "Source says an Antique Firelock; no verified ID link."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "fight_first_wave"
+        }
+      ],
+      "protected_names": [
+        "Skel Prisoners",
+        "Antique Firelock"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "coded_note"
+      }
+    },
+    "16": {
+      "original_instruction": "After defeating the first wave, a conversation between the gang members is shown, followed by their decision to launch an even worse, second wave.",
+      "instruction_sha256": "d35facfc008462d412e1c27c01e34bedbb32bb77860ce6ff84867b41e7fe0eb3",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/d35facfc008462d412e1/1",
+      "goal": "watch_conversation",
+      "short_ru": "Победите первую волну и посмотрите разговор о следующей атаке.",
+      "short_en": "Defeat the first wave and watch the conversation about the next attack.",
+      "full_ru": "После победы над первой волной появится разговор членов банды: они решат выпустить ещё более опасную вторую волну.",
+      "full_en": "After defeating the first wave, a conversation between the gang members is shown, followed by their decision to launch an even worse, second wave.",
+      "actions": [
+        {
+          "operation": "watch_second_wave_plan",
+          "condition": "A plan only; actual next event is the wrong-button reveal at stage 17."
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "mention_entities": {
+        "note": "coded_note"
+      }
+    },
+    "17": {
+      "original_instruction": "Unfortunately for the gang, the wrong button is pressed, and instead of ferocious monsters appearing, their invisibility cloak is deactivated. Keep talking to them until they hand over the stolen book, and then you are returned to the morroc field.",
+      "instruction_sha256": "b8efc5c993dbc5dc4c358fcfc0097f9a03e644e83e11c0007e8829ba78c2d36a",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/b8efc5c993dbc5dc4c35/1",
+      "goal": "collect",
+      "short_ru": "Говорите с раскрытой бандой до получения stolen book и возврата на поле.",
+      "short_en": "Keep talking to the revealed gang until you receive stolen book and return to the field.",
+      "full_ru": "Члены банды нажмут не ту кнопку: вместо новых чудовищ отключится маскировка. Продолжайте говорить с ними, пока не получите stolen book; затем вас вернёт на поле morroc.",
+      "full_en": "Unfortunately for the gang, the wrong button is pressed, and instead of ferocious monsters appearing, their invisibility cloak is deactivated. Keep talking to them until they hand over the stolen book, and then you are returned to the morroc field.",
+      "items": [
+        {
+          "entity": "stolen book",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Unverified inventory ID/count; no invisibility-cloak item is granted."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "reveal_gang"
+        },
+        {
+          "operation": "repeat_talk_gang"
+        },
+        {
+          "operation": "receive",
+          "entity": "stolen book"
+        },
+        {
+          "operation": "return_to_field"
+        }
+      ],
+      "protected_names": [
+        "stolen book"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "coded_note"
+      }
+    },
+    "18": {
+      "original_instruction": "Return to Prontera, and speak to the Chief Officer again. He thanks you for your efforts, and rewards you with 1,000,000 Base Experience.",
+      "instruction_sha256": "90e933b04a89b019e4bc43992f56fa38bfaaeefc61b2b903272dc8f7d0ed9f1c",
+      "step_id": "irowiki-classic:Z-Gang_Quest/step/90e933b04a89b019e4bc/1",
+      "goal": "receive_reward",
+      "short_ru": "Поговорите с Chief Officer в Prontera и получите 1,000,000 Base Experience.",
+      "short_en": "Talk to Chief Officer in Prontera and receive 1,000,000 Base Experience.",
+      "full_ru": "Вернитесь в Prontera к Chief Officer. Он поблагодарит вас и выдаст 1,000,000 Base Experience.",
+      "full_en": "Return to Prontera, and speak to the Chief Officer again. He thanks you for your efforts, and rewards you with 1,000,000 Base Experience.",
+      "npcs": [
+        {
+          "entity": "Chief Officer",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "1000000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Chief Officer"
+        }
+      ],
+      "protected_names": [
+        "Chief Officer",
+        "Prontera"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "note": "coded_note"
+      }
+    }
+  },
+  "reviews": [
+    {
+      "reason": "passwords_at_actual_input_steps",
+      "detail": "Marybell password is source-added at stage 4. Three exact decoded lines are source-added at stage 14 with ordered separate input options; no spelling corrections or combined single input. Original stage 11 remains unchanged."
+    },
+    {
+      "reason": "notes_and_decoders_not_merged",
+      "detail": "Attack note and invisible-ink coded note are distinct quest-scoped unknown-ID documents; neither has a proven player inventory grant. Moonho Ahn and Gooho Ahn are different actors, not interchangeable relatives or aliases."
+    },
+    {
+      "reason": "wave_plan_not_spawn_or_loot",
+      "detail": "Only the first wave is sent. Wrong-button revelation replaces the planned second wave. No second-wave monster quota, guaranteed cloak item or extra payout is invented; stolen book has unknown ID/count."
+    },
+    {
+      "reason": "gambling_and_source_maps_unverified",
+      "detail": "Two wins in three rounds are required; no fixed winning answers or retry cap are stated. Bare city/interior points remain map-unknown. Trigger points at Morroc Ruins are alternatives; Pharos/Paros spelling is not silently normalized."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "entity": "Morroc Fruit Wine",
+        "source_section": "requirements",
+        "evidence": "5 Morroc Fruit Wine",
+        "condition": "Summary of stage-3 wine or stage-11 decoding materials, not extra deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "20",
+        "entity": "Live Coal",
+        "source_section": "requirements",
+        "evidence": "20 Live Coal",
+        "condition": "Summary of stage-3 wine or stage-11 decoding materials, not extra deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "2",
+        "entity": "Alcohol",
+        "source_section": "requirements",
+        "evidence": "2 Alcohol",
+        "condition": "Summary of stage-3 wine or stage-11 decoding materials, not extra deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "entity": "Matchstick",
+        "source_section": "requirements",
+        "evidence": "1 Matchstick",
+        "condition": "Summary of stage-3 wine or stage-11 decoding materials, not extra deliveries."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "entity": "Burning Heart",
+        "source_section": "requirements",
+        "evidence": "10 Burning Heart",
+        "condition": "Summary of stage-3 wine or stage-11 decoding materials, not extra deliveries."
+      }
+    ]
+  }
+}

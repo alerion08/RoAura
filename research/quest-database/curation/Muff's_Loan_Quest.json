@@ -1,0 +1,811 @@
+{
+  "quest_id": "irowiki-classic:Muff's_Loan_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "c0810350f30b45c9e1c007094de96056b9f621ad055270f54ba00ea5f27b44d1",
+  "snapshot_sha256": "59a352da9082fea4fa822057cf3b49eb53dcd064cde12b87bdee7c03fa910a2d",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Muff",
+      "identity": "irowiki-classic:npc:Comodo:224:187:Muff"
+    },
+    {
+      "type": "npc",
+      "name": "Belder"
+    },
+    {
+      "type": "npc",
+      "name": "Heap of Earth",
+      "aliases": [
+        "Heap"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Dorian"
+    },
+    {
+      "type": "npc",
+      "name": "Tool Dealer"
+    },
+    {
+      "type": "npc",
+      "name": "Magic Dryer",
+      "aliases": [
+        "Dryer"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Comodo"
+    },
+    {
+      "type": "map",
+      "name": "Alberta"
+    },
+    {
+      "type": "map",
+      "name": "Comodo Field 1"
+    },
+    {
+      "type": "map",
+      "name": "cmd_fild01",
+      "map_code": "cmd_fild01"
+    },
+    {
+      "type": "map",
+      "name": "Izlude"
+    },
+    {
+      "type": "map",
+      "name": "Izlude Tool Shop"
+    },
+    {
+      "type": "item",
+      "name": "wallet",
+      "identity": "irowiki-classic:Muff's_Loan_Quest:source_item:wallet"
+    },
+    {
+      "type": "item",
+      "name": "Debt Note",
+      "aliases": [
+        "Note"
+      ],
+      "identity": "irowiki-classic:Muff's_Loan_Quest:source_item:Debt Note"
+    },
+    {
+      "type": "item",
+      "name": "Rusty Screw",
+      "game_id": 7317,
+      "id_source": "http://db.irowiki.org/classic/item-info/7317/"
+    },
+    {
+      "type": "item",
+      "name": "Iron Ore",
+      "game_id": 1002,
+      "id_source": "http://db.irowiki.org/classic/item-info/1002/"
+    },
+    {
+      "type": "item",
+      "name": "Steel",
+      "game_id": 999,
+      "id_source": "http://db.irowiki.org/classic/item-info/999/"
+    },
+    {
+      "type": "item",
+      "name": "Ruby",
+      "game_id": 723,
+      "id_source": "http://db.irowiki.org/classic/item-info/723/"
+    },
+    {
+      "type": "item",
+      "name": "Red Gemstone",
+      "game_id": 716,
+      "id_source": "http://db.irowiki.org/classic/item-info/716/"
+    },
+    {
+      "type": "item",
+      "name": "Old Blue Box",
+      "game_id": 603,
+      "id_source": "http://db.irowiki.org/classic/item-info/603/"
+    },
+    {
+      "type": "item",
+      "name": "Yggdrasil Seed",
+      "game_id": 608,
+      "id_source": "http://db.irowiki.org/classic/item-info/608/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In Comodo , talk to the man \"Muff\" northeast of the Kafra at (224, 187). He explains how he borrowed money from someone named Belder in Alberta , and has lost the money to repay it with. He thinks he may have dropped it on a field near town.",
+      "instruction_sha256": "aa78a8e0335208f1ea01476f036a89f1e0d88097765577299c8564139b729aec",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/aa78a8e0335208f1ea01/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Muff в Comodo (224, 187).",
+      "short_en": "Talk to Muff in Comodo (224, 187).",
+      "full_ru": "В Comodo поговорите с Muff к северо-востоку от Kafra (224, 187). Он занял деньги у Belder в Alberta, но потерял средства для возврата, вероятно на поле возле города.",
+      "full_en": "In Comodo , talk to the man \"Muff\" northeast of the Kafra at (224, 187). He explains how he borrowed money from someone named Belder in Alberta , and has lost the money to repay it with. He thinks he may have dropped it on a field near town.",
+      "npcs": [
+        {
+          "entity": "Muff",
+          "role": "talk"
+        },
+        {
+          "entity": "Belder",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Muff"
+        }
+      ],
+      "protected_names": [
+        "Muff",
+        "Belder",
+        "Comodo",
+        "Alberta"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 224,
+          "y": 187,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "224, 187"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Go to Comodo Field 1, (cmd_fild01 55 160), and investigate the \"Heap of Earth\". You pull something out, but unfortunately drop it again.",
+      "instruction_sha256": "17452985f641487435b1729ad0ecdbe9f5701624fa035f349b5e483e72ec4291",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/17452985f641487435b1/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Heap of Earth: cmd_fild01 55 160.",
+      "short_en": "Inspect Heap of Earth: cmd_fild01 55 160.",
+      "full_ru": "Идите в Comodo Field 1 (cmd_fild01 55 160) и осмотрите Heap of Earth. Вы достанете предмет, но снова уроните его.",
+      "full_en": "Go to Comodo Field 1, (cmd_fild01 55 160), and investigate the \"Heap of Earth\". You pull something out, but unfortunately drop it again.",
+      "npcs": [
+        {
+          "entity": "Heap of Earth",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Heap of Earth"
+        }
+      ],
+      "protected_names": [
+        "Heap of Earth",
+        "Comodo",
+        "Comodo Field 1",
+        "cmd_fild01"
+      ],
+      "locations": [
+        {
+          "map": "cmd_fild01",
+          "x": 55,
+          "y": 160,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "cmd_fild01 55 160"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to the Heap again, and you find it's a soggy wallet.",
+      "instruction_sha256": "98f865668b69dc054b06cbede016be167f6732d3a7f3e45427d41d694927f142",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/98f865668b69dc054b06/1",
+      "goal": "collect",
+      "short_ru": "Снова осмотрите Heap и найдите wallet.",
+      "short_en": "Inspect Heap again and find the wallet.",
+      "full_ru": "Снова осмотрите Heap: это промокший wallet.",
+      "full_en": "Talk to the Heap again, and you find it's a soggy wallet.",
+      "npcs": [
+        {
+          "entity": "Heap of Earth",
+          "role": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "wallet",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Found on the second inspection; count and game ID unspecified."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "interact",
+          "entity": "Heap of Earth"
+        }
+      ],
+      "protected_names": [
+        "wallet"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Bring the wallet back to Muff, but the wallet needs to be dried. Muff suggests taking it to a man named Dorian in Izlude , who's invented a \"Magic Dryer\".",
+      "instruction_sha256": "2643a478cb42cbeb3b4e7aa4bf118c5890f6f92cbf0ee382be27ba785b2ff8cc",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/2643a478cb42cbeb3b4e/1",
+      "goal": "bring",
+      "short_ru": "Покажите wallet для Muff и отправляйтесь к Dorian в Izlude.",
+      "short_en": "Show the wallet to Muff and go to Dorian in Izlude.",
+      "full_ru": "Принесите wallet обратно к Muff. Его нужно высушить: Muff посоветует Dorian в Izlude, изобретателя Magic Dryer.",
+      "full_en": "Bring the wallet back to Muff, but the wallet needs to be dried. Muff suggests taking it to a man named Dorian in Izlude , who's invented a \"Magic Dryer\".",
+      "npcs": [
+        {
+          "entity": "Muff",
+          "role": "talk"
+        },
+        {
+          "entity": "Dorian",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "wallet",
+          "quantity": null,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "bring",
+          "entity": "wallet"
+        }
+      ],
+      "protected_names": [
+        "Muff",
+        "Dorian",
+        "Magic Dryer",
+        "Izlude",
+        "wallet"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Go to the Izlude Tool Shop (146, 145), and you'll find Dorian next to the Tool Dealer. He explains how his glorious creation works, but unfortunately you fall asleep. Dorian then asks what the theory behind the Dryer's workings is, and you must type in: | 3 Centrifuge Wavelength Theory",
+      "instruction_sha256": "2c8b2bb4900301c3df7a80cbaae4d9d643d5472eadcd1b33bae7df73a13c2b2f",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/2c8b2bb4900301c3df7a/1",
+      "goal": "enter_text",
+      "short_ru": "У Dorian в Izlude Tool Shop (146, 145) введите «3 Centrifuge Wavelength Theory».",
+      "short_en": "At Dorian in Izlude Tool Shop (146, 145), type “3 Centrifuge Wavelength Theory”.",
+      "full_ru": "В Izlude Tool Shop (146, 145) найдите Dorian рядом с Tool Dealer. Во время его объяснений вы заснёте. На вопрос о принципе работы Dryer введите точно: «3 Centrifuge Wavelength Theory».",
+      "full_en": "Go to the Izlude Tool Shop (146, 145), and you'll find Dorian next to the Tool Dealer. He explains how his glorious creation works, but unfortunately you fall asleep. Dorian then asks what the theory behind the Dryer's workings is, and you must type in: | 3 Centrifuge Wavelength Theory",
+      "npcs": [
+        {
+          "entity": "Dorian",
+          "role": "talk"
+        },
+        {
+          "entity": "Tool Dealer",
+          "role": "location_reference"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Dorian",
+          "options": [
+            {
+              "text": "3 Centrifuge Wavelength Theory",
+              "correct": 1,
+              "operation": "enter_text"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_text",
+          "entity": "Dorian"
+        }
+      ],
+      "protected_names": [
+        "Dorian",
+        "Tool Dealer",
+        "Izlude",
+        "Izlude Tool Shop"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 146,
+          "y": 145,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "146, 145"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Satisfied with your answer, Dorian explain that, (naturally) the Dryer is in need of repairs, and you must bring some items to fix it. | 20 Rusty Screw | 10 Iron Ore | 5 Steel | 2 Ruby | 5 Red Gemstone (The NPC asks for 10 but only takes 5)",
+      "instruction_sha256": "08d8b50c5e3800504d00863a70142be5b73da2c21bff4dc07f11bf104a1ea227",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/08d8b50c5e3800504d00/1",
+      "goal": "collect",
+      "short_ru": "Соберите 20 Rusty Screw, 10 Iron Ore, 5 Steel, 2 Ruby и 5 Red Gemstone для Dorian.",
+      "short_en": "Collect 20 Rusty Screw, 10 Iron Ore, 5 Steel, 2 Ruby and 5 Red Gemstone for Dorian.",
+      "full_ru": "Dorian доволен ответом, но Dryer нужно починить. Соберите 20 Rusty Screw, 10 Iron Ore, 5 Steel, 2 Ruby и 5 Red Gemstone. Примечание: NPC просит 10 Red Gemstone, но забирает только 5.",
+      "full_en": "Satisfied with your answer, Dorian explain that, (naturally) the Dryer is in need of repairs, and you must bring some items to fix it. | 20 Rusty Screw | 10 Iron Ore | 5 Steel | 2 Ruby | 5 Red Gemstone (The NPC asks for 10 but only takes 5)",
+      "npcs": [
+        {
+          "entity": "Dorian",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rusty Screw",
+          "quantity": 20,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Single set delivered at stage 7."
+        },
+        {
+          "entity": "Iron Ore",
+          "quantity": 10,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Single set delivered at stage 7."
+        },
+        {
+          "entity": "Steel",
+          "quantity": 5,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Single set delivered at stage 7."
+        },
+        {
+          "entity": "Ruby",
+          "quantity": 2,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Single set delivered at stage 7."
+        },
+        {
+          "entity": "Red Gemstone",
+          "quantity": 5,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Single set delivered at stage 7."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_requested_item_count",
+          "amount": "10",
+          "entity": "Red Gemstone",
+          "condition": "NPC request wording, not actual consumed quantity; source says only five are taken."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect_materials"
+        }
+      ],
+      "protected_names": [
+        "Dorian",
+        "Rusty Screw",
+        "Iron Ore",
+        "Steel",
+        "Ruby",
+        "Red Gemstone"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "You have to talk to Dorian again without all of the items, then talk to him again with them. Dorian then explains how to fix the machine.",
+      "instruction_sha256": "b81af157b6acb389f4d7de6fda0eac48437bc61976deafdf6a2e8546c00fb292",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/b81af157b6acb389f4d7/1",
+      "goal": "deliver",
+      "short_ru": "Поговорите с Dorian до полного набора материалов, затем предъявите полный набор.",
+      "short_en": "Talk to Dorian before holding the complete set, then present the full material set.",
+      "full_ru": "Сначала поговорите с Dorian, когда у вас нет полного набора предметов, затем поговорите снова уже со всеми материалами. Он объяснит, как починить машину.",
+      "full_en": "You have to talk to Dorian again without all of the items, then talk to him again with them. Dorian then explains how to fix the machine.",
+      "npcs": [
+        {
+          "entity": "Dorian",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rusty Screw",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Satisfied with your answer, Dorian explain that, (naturally) the Dryer is in need of repairs, and you must bring some items to fix it. | 20 Rusty Screw | 10 Iron Ore | 5 Steel | 2 Ruby | 5 Red Gemstone (The NPC asks for 10 but only takes 5)",
+          "condition": "One material set; Red Gemstone actual consumption is five, not the requested ten."
+        },
+        {
+          "entity": "Iron Ore",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Satisfied with your answer, Dorian explain that, (naturally) the Dryer is in need of repairs, and you must bring some items to fix it. | 20 Rusty Screw | 10 Iron Ore | 5 Steel | 2 Ruby | 5 Red Gemstone (The NPC asks for 10 but only takes 5)",
+          "condition": "One material set; Red Gemstone actual consumption is five, not the requested ten."
+        },
+        {
+          "entity": "Steel",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Satisfied with your answer, Dorian explain that, (naturally) the Dryer is in need of repairs, and you must bring some items to fix it. | 20 Rusty Screw | 10 Iron Ore | 5 Steel | 2 Ruby | 5 Red Gemstone (The NPC asks for 10 but only takes 5)",
+          "condition": "One material set; Red Gemstone actual consumption is five, not the requested ten."
+        },
+        {
+          "entity": "Ruby",
+          "quantity": 2,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Satisfied with your answer, Dorian explain that, (naturally) the Dryer is in need of repairs, and you must bring some items to fix it. | 20 Rusty Screw | 10 Iron Ore | 5 Steel | 2 Ruby | 5 Red Gemstone (The NPC asks for 10 but only takes 5)",
+          "condition": "One material set; Red Gemstone actual consumption is five, not the requested ten."
+        },
+        {
+          "entity": "Red Gemstone",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Satisfied with your answer, Dorian explain that, (naturally) the Dryer is in need of repairs, and you must bring some items to fix it. | 20 Rusty Screw | 10 Iron Ore | 5 Steel | 2 Ruby | 5 Red Gemstone (The NPC asks for 10 but only takes 5)",
+          "condition": "One material set; Red Gemstone actual consumption is five, not the requested ten."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "incomplete_then_complete_material_check",
+          "condition": "First conversation without all materials; this does not mean inventory must contain zero of every material."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk_with_incomplete_set",
+          "entity": "Dorian"
+        },
+        {
+          "operation": "talk_with_complete_set",
+          "entity": "Dorian"
+        }
+      ],
+      "protected_names": [
+        "Dorian"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "First, Replace the Engine.",
+      "instruction_sha256": "cff978e824d281082e1701b8c0fd73ecf9c6b51fe4c25cf0a2b4af712250cbcd",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/cff978e824d281082e17/1",
+      "goal": "repair",
+      "short_ru": "Замените Engine в машине.",
+      "short_en": "Replace the Engine in the machine.",
+      "full_ru": "Сначала замените Engine.",
+      "full_en": "First, Replace the Engine.",
+      "actions": [
+        {
+          "operation": "replace_engine"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Then, Tighten the Screw until it *Click*s.",
+      "instruction_sha256": "b92c00c094b65074d7abb1577d5a6d31a87f2abc7cb2201f0f0087a7f309e6e1",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/b92c00c094b65074d7ab/1",
+      "goal": "repair",
+      "short_ru": "Затяните Screw до сигнала *Click*s.",
+      "short_en": "Tighten the Screw until it *Click*s.",
+      "full_ru": "Затем затягивайте Screw до сигнала *Click*s.",
+      "full_en": "Then, Tighten the Screw until it *Click*s.",
+      "actions": [
+        {
+          "operation": "tighten_screw_until_click"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Then, Press a Switch:",
+      "instruction_sha256": "72a13a3cc6fb69709f353f63db9f88ceccca3a24d614560f61500f4f376eb2b4",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/72a13a3cc6fb69709f35/1",
+      "goal": "repair",
+      "short_ru": "Выбирайте цвет Switch по текущему состоянию машины.",
+      "short_en": "Choose the Switch color matching the current machine state.",
+      "full_ru": "Затем нажмите Switch. Таблица выбора Switch по состоянию машины: Vibrating Weakly → Red; Vibrating a Bit More Strongly → Blue; Vibrations are a Bit More Stable → Yellow; Vibrating Fairly Strongly → Green.",
+      "full_en": "Then, Press a Switch: Machine is Switch to Press Vibrating Weakly Red Vibrating a Bit More Strongly Blue Vibrations are a Bit More Stable Yellow Vibrating Fairly Strongly Green",
+      "npcs": [
+        {
+          "entity": "Magic Dryer",
+          "role": "interact",
+          "support_step": 4,
+          "evidence": "Bring the wallet back to Muff, but the wallet needs to be dried. Muff suggests taking it to a man named Dorian in Izlude , who's invented a \"Magic Dryer\"."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_switch_by_machine_state"
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Machine is Switch to Press Vibrating Weakly Red Vibrating a Bit More Strongly Blue Vibrations are a Bit More Stable Yellow Vibrating Fairly Strongly Green",
+          "text_ru": "Таблица выбора Switch по состоянию машины: Vibrating Weakly → Red; Vibrating a Bit More Strongly → Blue; Vibrations are a Bit More Stable → Yellow; Vibrating Fairly Strongly → Green."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Magic Dryer",
+          "text": "Vibrating Weakly",
+          "source_section": "html_text",
+          "evidence": "Vibrating Weakly Red",
+          "options": [
+            {
+              "text": "Red",
+              "correct": 1,
+              "operation": "choose",
+              "condition": "Only when current machine state is Vibrating Weakly."
+            }
+          ]
+        },
+        {
+          "npc": "Magic Dryer",
+          "text": "Vibrating a Bit More Strongly",
+          "source_section": "html_text",
+          "evidence": "Vibrating a Bit More Strongly Blue",
+          "options": [
+            {
+              "text": "Blue",
+              "correct": 1,
+              "operation": "choose",
+              "condition": "Only when current machine state is Vibrating a Bit More Strongly."
+            }
+          ]
+        },
+        {
+          "npc": "Magic Dryer",
+          "text": "Vibrations are a Bit More Stable",
+          "source_section": "html_text",
+          "evidence": "Vibrations are a Bit More Stable Yellow",
+          "options": [
+            {
+              "text": "Yellow",
+              "correct": 1,
+              "operation": "choose",
+              "condition": "Only when current machine state is Vibrations are a Bit More Stable."
+            }
+          ]
+        },
+        {
+          "npc": "Magic Dryer",
+          "text": "Vibrating Fairly Strongly",
+          "source_section": "html_text",
+          "evidence": "Vibrating Fairly Strongly Green",
+          "options": [
+            {
+              "text": "Green",
+              "correct": 1,
+              "operation": "choose",
+              "condition": "Only when current machine state is Vibrating Fairly Strongly."
+            }
+          ]
+        }
+      ]
+    },
+    "11": {
+      "original_instruction": "Once you have had to push all 4 Switches, the machine will be fixed.",
+      "instruction_sha256": "27d7d464030de93de984bd12a290ddaaf102f686b9f35f2349b51a9498b83ca9",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/27d7d464030de93de984/1",
+      "goal": "repair",
+      "short_ru": "Завершите нажатие всех 4 Switches.",
+      "short_en": "Finish pressing all 4 Switches.",
+      "full_ru": "После нажатия всех 4 Switches машина будет исправна.",
+      "full_en": "Once you have had to push all 4 Switches, the machine will be fixed.",
+      "requirements": [
+        {
+          "kind": "distinct_switch_count",
+          "amount": "4",
+          "condition": "Use the current-state mapping; source table rows are not a guaranteed fixed sequence."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "finish_four_switches"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Talk to Dorian again, who says you can now use the machine.",
+      "instruction_sha256": "23e996a76eb1c1103f6fab7802f6179383df6406cb572adea1e7db143ec79d72",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/23e996a76eb1c1103f6f/1",
+      "goal": "unlock_access",
+      "short_ru": "Поговорите с Dorian, чтобы получить доступ к машине.",
+      "short_en": "Talk to Dorian to gain use of the machine.",
+      "full_ru": "Снова поговорите с Dorian: он разрешит пользоваться машиной.",
+      "full_en": "Talk to Dorian again, who says you can now use the machine.",
+      "npcs": [
+        {
+          "entity": "Dorian",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Dorian"
+        }
+      ],
+      "protected_names": [
+        "Dorian"
+      ],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Use the machine, and obtain a Debt Note.",
+      "instruction_sha256": "055c7acb9a34dc7d7fe4dd3fda7ee83b54bf29bb3bc3481ea362c3631562a51d",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/055c7acb9a34dc7d7fe4/1",
+      "goal": "collect",
+      "short_ru": "Воспользуйтесь машиной и получите Debt Note.",
+      "short_en": "Use the machine and obtain Debt Note.",
+      "full_ru": "Воспользуйтесь машиной и получите Debt Note.",
+      "full_en": "Use the machine, and obtain a Debt Note.",
+      "npcs": [
+        {
+          "entity": "Magic Dryer",
+          "role": "interact",
+          "support_step": 4,
+          "evidence": "Bring the wallet back to Muff, but the wallet needs to be dried. Muff suggests taking it to a man named Dorian in Izlude , who's invented a \"Magic Dryer\"."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Debt Note",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "use_machine"
+        }
+      ],
+      "protected_names": [
+        "Debt Note"
+      ],
+      "locations": []
+    },
+    "14": {
+      "original_instruction": "Bring the Note back to Muff in Comodo. He is thankful, and rewards you with 1 Old Blue Box , and 4 Yggdrasil Seed .",
+      "instruction_sha256": "93d67199f699cb5e71488db58c3cb5ceacedfd68470f4df9ca683f04976abae6",
+      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/93d67199f699cb5e7148/1",
+      "goal": "receive_reward",
+      "short_ru": "Верните Note для Muff: награда — 1 Old Blue Box и 4 Yggdrasil Seed.",
+      "short_en": "Return Note to Muff: reward is 1 Old Blue Box and 4 Yggdrasil Seed.",
+      "full_ru": "Верните Note для Muff в Comodo. Получите 1 Old Blue Box и 4 Yggdrasil Seed.",
+      "full_en": "Bring the Note back to Muff in Comodo. He is thankful, and rewards you with 1 Old Blue Box , and 4 Yggdrasil Seed .",
+      "npcs": [
+        {
+          "entity": "Muff",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Debt Note",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Blue Box"
+        },
+        {
+          "kind": "item",
+          "amount": "4",
+          "entity": "Yggdrasil Seed"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Debt Note"
+        }
+      ],
+      "protected_names": [
+        "Muff",
+        "Comodo",
+        "Old Blue Box",
+        "Yggdrasil Seed"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "red_gemstone_request_not_consumption",
+      "detail": "NPC asks for ten Red Gemstone but only consumes five. Header and actual delivery use five; request count is separate metadata, not an extra payment. Whether the request also imposes a ten-held check is not established; no executable threshold is asserted."
+    },
+    {
+      "reason": "material_check_order",
+      "detail": "First talk before the full set is held, then with the full set. No zero-inventory check or second material set is invented."
+    },
+    {
+      "reason": "machine_switch_mapping_restored",
+      "detail": "Four state/color pairs omitted by the old extractor are restored from pinned HTML. Choose by the live state, not by treating table order as an unconditional sequence."
+    },
+    {
+      "reason": "wallet_and_note_inventory_unknown",
+      "detail": "Wallet and Debt Note are quest-scoped unknown-ID documents with unspecified counts. First inspection drops the object; second finds it. No invented wallet consumption or duplicate final/header reward."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "20",
+        "entity": "Rusty Screw",
+        "source_section": "requirements",
+        "evidence": "20 Rusty Screw",
+        "condition": "Summary of stage-7 delivery, not another set."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "entity": "Iron Ore",
+        "source_section": "requirements",
+        "evidence": "10 Iron Ore",
+        "condition": "Summary of stage-7 delivery, not another set."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "entity": "Steel",
+        "source_section": "requirements",
+        "evidence": "5 Steel",
+        "condition": "Summary of stage-7 delivery, not another set."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "2",
+        "entity": "Ruby",
+        "source_section": "requirements",
+        "evidence": "2 Ruby",
+        "condition": "Summary of stage-7 delivery, not another set."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "entity": "Red Gemstone",
+        "source_section": "requirements",
+        "evidence": "5 Red Gemstone",
+        "condition": "Summary of stage-7 delivery, not another set."
+      }
+    ]
+  }
+}

@@ -1,0 +1,867 @@
+{
+  "quest_id": "irowiki-classic:Broken_Diamond_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "3d0f8babe9655de60f035368e2aa422973b62d4dd42919c1723a89c2a1d62e19",
+  "snapshot_sha256": "61e2dc62c9422044706544b55779cedff13106943aa79d1c0a8935f9f81f752a",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Muff",
+      "identity": "irowiki-classic:npc:Comodo:224:187:Muff"
+    },
+    {
+      "type": "npc",
+      "name": "Ibrahim"
+    },
+    {
+      "type": "npc",
+      "name": "Jhonnita"
+    },
+    {
+      "type": "npc",
+      "name": "Kimeunbang"
+    },
+    {
+      "type": "npc",
+      "name": "Leblo"
+    },
+    {
+      "type": "npc",
+      "name": "Belder"
+    },
+    {
+      "type": "npc",
+      "name": "Wola"
+    },
+    {
+      "type": "npc",
+      "name": "Small Safe"
+    },
+    {
+      "type": "npc",
+      "name": "Odd Switch"
+    },
+    {
+      "type": "npc",
+      "name": "Another Switch"
+    },
+    {
+      "type": "npc",
+      "name": "Rogue Investigator",
+      "aliases": [
+        "Rogue Guild Investigator"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "investigator",
+      "identity": "irowiki-classic:Broken_Diamond_Quest:Comodo:local_investigator"
+    },
+    {
+      "type": "map",
+      "name": "Morroc Ruins"
+    },
+    {
+      "type": "map",
+      "name": "Alberta"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "payon",
+      "map_code": "payon"
+    },
+    {
+      "type": "map",
+      "name": "Paros Lighthouse"
+    },
+    {
+      "type": "map",
+      "name": "Comodo"
+    },
+    {
+      "type": "map",
+      "name": "Kafra Headquarters"
+    },
+    {
+      "type": "item",
+      "name": "Diamond",
+      "aliases": [
+        "Diamond of Destruction",
+        "Diamond of Ruin"
+      ],
+      "identity": "irowiki-classic:Broken_Diamond_Quest:source_item:investigated_diamond"
+    },
+    {
+      "type": "item",
+      "name": "medicine",
+      "identity": "irowiki-classic:Broken_Diamond_Quest:source_item:medicine"
+    },
+    {
+      "type": "item",
+      "name": "Fine Sand",
+      "game_id": 7043,
+      "id_source": "http://db.irowiki.org/classic/item-info/7043/"
+    },
+    {
+      "type": "item",
+      "name": "Brigan",
+      "game_id": 7054,
+      "id_source": "http://db.irowiki.org/classic/item-info/7054/"
+    },
+    {
+      "type": "item",
+      "name": "Soft Blade of Grass",
+      "game_id": 7194,
+      "id_source": "http://db.irowiki.org/classic/item-info/7194/"
+    },
+    {
+      "type": "item",
+      "name": "Empty Bottle",
+      "game_id": 713,
+      "id_source": "http://db.irowiki.org/classic/item-info/713/"
+    },
+    {
+      "type": "item",
+      "name": "Old Blue Box",
+      "game_id": 603,
+      "id_source": "http://db.irowiki.org/classic/item-info/603/"
+    },
+    {
+      "type": "item",
+      "name": "Pearl",
+      "game_id": 722,
+      "id_source": "http://db.irowiki.org/classic/item-info/722/"
+    },
+    {
+      "type": "item",
+      "name": "3carat Diamond",
+      "aliases": [
+        "3carat Diamonds"
+      ],
+      "game_id": 732,
+      "id_source": "http://db.irowiki.org/classic/item-info/732/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "At the Morroc Ruins , talk to the man Ibrahim (152, 147) in the north east corner. He says the Diamond of Destruction that presumably came from Muff as collateral for the loan was stolen, and he needs your help to find out where it went. He suggests talking to three jewelers who may have some idea about it: | Jhonnita in Alberta | Kimeunbang in Payon | Leblo in Geffen",
+      "instruction_sha256": "6645e6964eda92fd0241cc84a3975e8072751c917802e4d2922975a6fdd6e3f8",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/6645e6964eda92fd0241/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Ibrahim в Morroc Ruins (152, 147).",
+      "short_en": "Talk to Ibrahim in Morroc Ruins (152, 147).",
+      "full_ru": "В Morroc Ruins поговорите с Ibrahim (152, 147) на северо-востоке. Украден Diamond of Destruction, предположительно полученный от Muff как залог займа. Он посоветует трёх ювелиров: Jhonnita в Alberta, Kimeunbang в Payon и Leblo в Geffen.",
+      "full_en": "At the Morroc Ruins , talk to the man Ibrahim (152, 147) in the north east corner. He says the Diamond of Destruction that presumably came from Muff as collateral for the loan was stolen, and he needs your help to find out where it went. He suggests talking to three jewelers who may have some idea about it: | Jhonnita in Alberta | Kimeunbang in Payon | Leblo in Geffen",
+      "npcs": [
+        {
+          "entity": "Ibrahim",
+          "role": "talk"
+        },
+        {
+          "entity": "Muff",
+          "role": "story_reference"
+        },
+        {
+          "entity": "Jhonnita",
+          "role": "next_contact"
+        },
+        {
+          "entity": "Kimeunbang",
+          "role": "later_contact"
+        },
+        {
+          "entity": "Leblo",
+          "role": "later_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ibrahim"
+        }
+      ],
+      "protected_names": [
+        "Muff",
+        "Ibrahim",
+        "Jhonnita",
+        "Kimeunbang",
+        "Leblo",
+        "Morroc Ruins",
+        "Alberta",
+        "Payon",
+        "Geffen",
+        "Diamond"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 152,
+          "y": 147,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "152, 147"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "In Alberta, ask Jhonnita (102, 80) about the Diamond. He's upset over how he lost it to Ibrahim, and explains how all of the jewelers are trying to obtain the Four Cursed Jewels.",
+      "instruction_sha256": "39e060136ed1bbf84a1fd81d10539148cb2e7a510fb83ee94dac0ba049095118",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/39e060136ed1bbf84a1f/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Jhonnita в Alberta (102, 80).",
+      "short_en": "Question Jhonnita in Alberta (102, 80).",
+      "full_ru": "В Alberta спросите Jhonnita (102, 80) о Diamond. Он расстроен потерей камня в пользу Ibrahim и расскажет о стремлении ювелиров собрать Four Cursed Jewels.",
+      "full_en": "In Alberta, ask Jhonnita (102, 80) about the Diamond. He's upset over how he lost it to Ibrahim, and explains how all of the jewelers are trying to obtain the Four Cursed Jewels.",
+      "npcs": [
+        {
+          "entity": "Jhonnita",
+          "role": "talk"
+        },
+        {
+          "entity": "Ibrahim",
+          "role": "story_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Jhonnita"
+        }
+      ],
+      "protected_names": [
+        "Ibrahim",
+        "Jhonnita",
+        "Alberta",
+        "Diamond"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 102,
+          "y": 80,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "102, 80"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "In Payon, talk to Kimeunbang (69, 65), who says Belder stole the Diamond from him. He gives you 1 Pearl .",
+      "instruction_sha256": "5866aecf349f480ac389e1713a275115d752f3f6bafb38f17442ebf63c263700",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/5866aecf349f480ac389/1",
+      "goal": "receive_reward",
+      "short_ru": "Поговорите с Kimeunbang в Payon (69, 65); получите 1 Pearl.",
+      "short_en": "Talk to Kimeunbang in Payon (69, 65); receive 1 Pearl.",
+      "full_ru": "В Payon поговорите с Kimeunbang (69, 65). Он скажет, что Belder украл у него Diamond, и даст 1 Pearl.",
+      "full_en": "In Payon, talk to Kimeunbang (69, 65), who says Belder stole the Diamond from him. He gives you 1 Pearl .",
+      "npcs": [
+        {
+          "entity": "Kimeunbang",
+          "role": "talk"
+        },
+        {
+          "entity": "Belder",
+          "role": "story_reference"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Pearl"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kimeunbang"
+        }
+      ],
+      "protected_names": [
+        "Kimeunbang",
+        "Belder",
+        "Payon",
+        "Diamond",
+        "Pearl"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 69,
+          "y": 65,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "69, 65"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "In Geffen, talk to Leblo (128, 153), who's heard of you asking about the Diamond. Before he'll tell you anything, he needs you to make some back medicine from Wola in Payon.",
+      "instruction_sha256": "e6fe73d39f39130798e4f1ed0302a96020fa9d8d384bf60e5c994bd14d215fd5",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/e6fe73d39f39130798e4/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Leblo в Geffen (128, 153) и отправляйтесь к Wola в Payon.",
+      "short_en": "Talk to Leblo in Geffen (128, 153) and go to Wola in Payon.",
+      "full_ru": "В Geffen поговорите с Leblo (128, 153) о Diamond. Для продолжения он попросит приготовить medicine для спины у Wola в Payon.",
+      "full_en": "In Geffen, talk to Leblo (128, 153), who's heard of you asking about the Diamond. Before he'll tell you anything, he needs you to make some back medicine from Wola in Payon.",
+      "npcs": [
+        {
+          "entity": "Leblo",
+          "role": "talk"
+        },
+        {
+          "entity": "Wola",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Leblo"
+        }
+      ],
+      "protected_names": [
+        "Leblo",
+        "Wola",
+        "Payon",
+        "Geffen",
+        "Diamond",
+        "medicine"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 128,
+          "y": 153,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "128, 153"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Go to the building to the right of the \"large\" one at the top (payon 155, 325). Talk to Wola inside, who drops her pot, and needs you to bring her some items to repair it: | 20 Fine Sand | 10 Brigan | 10 Soft Blade of Grass | 5 Empty Bottle",
+      "instruction_sha256": "c300fbf5cd816584265f16f7265589c9113fab6cc2515ea3489c7e42576925c1",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/c300fbf5cd816584265f/1",
+      "goal": "collect",
+      "short_ru": "Соберите для Wola: 20 Fine Sand, 10 Brigan, 10 Soft Blade of Grass, 5 Empty Bottle; payon 155, 325.",
+      "short_en": "Collect for Wola: 20 Fine Sand, 10 Brigan, 10 Soft Blade of Grass, 5 Empty Bottle; payon 155, 325.",
+      "full_ru": "Идите к зданию справа от большого здания на севере (payon 155, 325). Внутри поговорите с Wola. Она уронит горшок и попросит для ремонта 20 Fine Sand, 10 Brigan, 10 Soft Blade of Grass и 5 Empty Bottle.",
+      "full_en": "Go to the building to the right of the \"large\" one at the top (payon 155, 325). Talk to Wola inside, who drops her pot, and needs you to bring her some items to repair it: | 20 Fine Sand | 10 Brigan | 10 Soft Blade of Grass | 5 Empty Bottle",
+      "npcs": [
+        {
+          "entity": "Wola",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Fine Sand",
+          "quantity": 20,
+          "operation": "collect",
+          "required": 1
+        },
+        {
+          "entity": "Brigan",
+          "quantity": 10,
+          "operation": "collect",
+          "required": 1
+        },
+        {
+          "entity": "Soft Blade of Grass",
+          "quantity": 10,
+          "operation": "collect",
+          "required": 1
+        },
+        {
+          "entity": "Empty Bottle",
+          "quantity": 5,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Wola"
+        },
+        {
+          "operation": "collect_materials"
+        }
+      ],
+      "protected_names": [
+        "Wola",
+        "payon",
+        "Fine Sand",
+        "Brigan",
+        "Soft Blade of Grass",
+        "Empty Bottle"
+      ],
+      "locations": [
+        {
+          "map": "payon",
+          "x": 155,
+          "y": 325,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "payon 155, 325"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Bring the items to her, and she fixes the pot, and gives you the medicine to take to Leblo.",
+      "instruction_sha256": "052c9eaa29af91b4a7ed9fea907a82b949abebe8b5991025de5bc870b5676a6e",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/052c9eaa29af91b4a7ed/1",
+      "goal": "deliver",
+      "short_ru": "Передайте материалы Wola и заберите medicine для Leblo.",
+      "short_en": "Give the materials to Wola and collect medicine for Leblo.",
+      "full_ru": "Принесите ей материалы. Она починит горшок и даст medicine для Leblo.",
+      "full_en": "Bring the items to her, and she fixes the pot, and gives you the medicine to take to Leblo.",
+      "npcs": [
+        {
+          "entity": "Wola",
+          "role": "talk",
+          "support_step": 5,
+          "evidence": "Go to the building to the right of the \"large\" one at the top (payon 155, 325). Talk to Wola inside, who drops her pot, and needs you to bring her some items to repair it: | 20 Fine Sand | 10 Brigan | 10 Soft Blade of Grass | 5 Empty Bottle"
+        },
+        {
+          "entity": "Leblo",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Fine Sand",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "Go to the building to the right of the \"large\" one at the top (payon 155, 325). Talk to Wola inside, who drops her pot, and needs you to bring her some items to repair it: | 20 Fine Sand | 10 Brigan | 10 Soft Blade of Grass | 5 Empty Bottle",
+          "condition": "Same set requested at stage 5."
+        },
+        {
+          "entity": "Brigan",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "Go to the building to the right of the \"large\" one at the top (payon 155, 325). Talk to Wola inside, who drops her pot, and needs you to bring her some items to repair it: | 20 Fine Sand | 10 Brigan | 10 Soft Blade of Grass | 5 Empty Bottle",
+          "condition": "Same set requested at stage 5."
+        },
+        {
+          "entity": "Soft Blade of Grass",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "Go to the building to the right of the \"large\" one at the top (payon 155, 325). Talk to Wola inside, who drops her pot, and needs you to bring her some items to repair it: | 20 Fine Sand | 10 Brigan | 10 Soft Blade of Grass | 5 Empty Bottle",
+          "condition": "Same set requested at stage 5."
+        },
+        {
+          "entity": "Empty Bottle",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "Go to the building to the right of the \"large\" one at the top (payon 155, 325). Talk to Wola inside, who drops her pot, and needs you to bring her some items to repair it: | 20 Fine Sand | 10 Brigan | 10 Soft Blade of Grass | 5 Empty Bottle",
+          "condition": "Same set requested at stage 5."
+        },
+        {
+          "entity": "medicine",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_materials"
+        },
+        {
+          "operation": "receive",
+          "entity": "medicine"
+        }
+      ],
+      "protected_names": [
+        "Leblo",
+        "medicine"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Back in Geffen, give Leblo his medicine, who says a young couple tried to sell the Diamond to him. He thinks they may have been members of the Z-Gang. He suggests you talk to a Rogue Guild Investigator about it.",
+      "instruction_sha256": "f86df752e0c1b5091e888c5c6a34dc0332d112485954fe0f26ddb897532f208e",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/f86df752e0c1b5091e88/1",
+      "goal": "deliver",
+      "short_ru": "Отнесите medicine для Leblo в Geffen и получите направление к Rogue Guild Investigator.",
+      "short_en": "Take medicine to Leblo in Geffen and receive directions to Rogue Guild Investigator.",
+      "full_ru": "В Geffen передайте medicine для Leblo. Молодая пара пыталась продать ему Diamond; он подозревает Z-Gang и направит вас к Rogue Guild Investigator.",
+      "full_en": "Back in Geffen, give Leblo his medicine, who says a young couple tried to sell the Diamond to him. He thinks they may have been members of the Z-Gang. He suggests you talk to a Rogue Guild Investigator about it.",
+      "npcs": [
+        {
+          "entity": "Leblo",
+          "role": "talk"
+        },
+        {
+          "entity": "Rogue Investigator",
+          "role": "next_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "medicine",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "medicine"
+        }
+      ],
+      "protected_names": [
+        "Leblo",
+        "Geffen",
+        "Diamond",
+        "medicine"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Head to the Rogue guild at Paros Lighthouse, and on the first floor, talk to the Rogue Investigator (366, 46). Ask him about the Z-Gang, but he won't tell you the location of their hideout (apparently they're back and have moved) until you pay him 10,000 Zeny. He says they're in a large warehouse in Comodo .",
+      "instruction_sha256": "1ba38092a5f6db53d12b5ffce62628497c7a9716ab8edc3772a9a8835da2f6a6",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/1ba38092a5f6db53d12b/1",
+      "goal": "talk",
+      "short_ru": "Заплатите Rogue Investigator (366, 46) на Paros Lighthouse 10,000 Zeny.",
+      "short_en": "Pay Rogue Investigator (366, 46) at Paros Lighthouse 10,000 Zeny.",
+      "full_ru": "В Rogue guild на Paros Lighthouse, на первом этаже, поговорите с Rogue Investigator (366, 46) о Z-Gang. Заплатите 10,000 Zeny за расположение нового убежища: большой склад в Comodo.",
+      "full_en": "Head to the Rogue guild at Paros Lighthouse, and on the first floor, talk to the Rogue Investigator (366, 46). Ask him about the Z-Gang, but he won't tell you the location of their hideout (apparently they're back and have moved) until you pay him 10,000 Zeny. He says they're in a large warehouse in Comodo .",
+      "npcs": [
+        {
+          "entity": "Rogue Investigator",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "zeny_payment",
+          "amount": "10000",
+          "condition": "Single hideout-information payment; header is a summary."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "pay_for_information",
+          "entity": "Rogue Investigator"
+        }
+      ],
+      "protected_names": [
+        "Rogue Investigator",
+        "Paros Lighthouse",
+        "Comodo"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 366,
+          "y": 46,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "366, 46"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "In Comodo, go to the Kafra Headquarters (129, 192), and go downstairs. Talk to the investigator there, who says the Z-Gang is gone, but that you can look around.",
+      "instruction_sha256": "53d1e1c45cb472b89b82d0e648a3c447689579c88fdf59c91fe3208f09e7b735",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/53d1e1c45cb472b89b82/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с investigator внизу Kafra Headquarters, Comodo (129, 192).",
+      "short_en": "Talk to investigator downstairs in Kafra Headquarters, Comodo (129, 192).",
+      "full_ru": "В Comodo войдите в Kafra Headquarters (129, 192) и спуститесь вниз. Местный investigator скажет, что Z-Gang ушла, но разрешит осмотреться.",
+      "full_en": "In Comodo, go to the Kafra Headquarters (129, 192), and go downstairs. Talk to the investigator there, who says the Z-Gang is gone, but that you can look around.",
+      "npcs": [
+        {
+          "entity": "investigator",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "investigator"
+        }
+      ],
+      "protected_names": [
+        "investigator",
+        "Comodo",
+        "Kafra Headquarters"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 129,
+          "y": 192,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "129, 192"
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "Walk to the southwest, and investigate the Small Safe (69, 188). Apparently a key or switch must be triggered in order to open it.",
+      "instruction_sha256": "aa9981c1c4a402ba5ffc985b7474709db38b9555646f28e8e16043fe5d556082",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/aa9981c1c4a402ba5ffc/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Small Safe (69, 188).",
+      "short_en": "Inspect Small Safe (69, 188).",
+      "full_ru": "Идите на юго-запад и осмотрите Small Safe (69, 188). Для открытия нужен ключ или переключатель.",
+      "full_en": "Walk to the southwest, and investigate the Small Safe (69, 188). Apparently a key or switch must be triggered in order to open it.",
+      "npcs": [
+        {
+          "entity": "Small Safe",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "inspect",
+          "entity": "Small Safe"
+        }
+      ],
+      "protected_names": [
+        "Small Safe"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 69,
+          "y": 188,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "69, 188"
+        }
+      ]
+    },
+    "11": {
+      "original_instruction": "To the north, there's an Odd Switch (69, 196), so press it. Another Switch is then revealed. Flip that switch as well (80, 189) to unlock the safe.",
+      "instruction_sha256": "ef7bfb82d36db5a6f451ab5afc140a3dbc18f2a81111b312818baafe36108bfb",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/ef7bfb82d36db5a6f451/1",
+      "goal": "interact",
+      "short_ru": "Нажмите Odd Switch (69, 196), затем Another Switch (80, 189).",
+      "short_en": "Press Odd Switch (69, 196), then Another Switch (80, 189).",
+      "full_ru": "Севернее нажмите Odd Switch (69, 196). Появится Another Switch (80, 189); нажмите его, чтобы открыть сейф.",
+      "full_en": "To the north, there's an Odd Switch (69, 196), so press it. Another Switch is then revealed. Flip that switch as well (80, 189) to unlock the safe.",
+      "npcs": [
+        {
+          "entity": "Odd Switch",
+          "role": "interact"
+        },
+        {
+          "entity": "Another Switch",
+          "role": "interact"
+        }
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 69,
+          "y": 196,
+          "role": "first_switch",
+          "known": false,
+          "order": 1
+        },
+        {
+          "map": null,
+          "x": 80,
+          "y": 189,
+          "role": "revealed_switch",
+          "known": false,
+          "order": 2
+        }
+      ],
+      "actions": [
+        {
+          "operation": "press",
+          "entity": "Odd Switch"
+        },
+        {
+          "operation": "press",
+          "entity": "Another Switch"
+        }
+      ],
+      "protected_names": [
+        "Odd Switch",
+        "Another Switch"
+      ]
+    },
+    "12": {
+      "original_instruction": "Open the safe, and you find the Diamond of Ruin!",
+      "instruction_sha256": "d58c7618b93f1ed3ad558b4caf18286738ba92cca50cd40242803270b3b30e0d",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/d58c7618b93f1ed3ad55/1",
+      "goal": "collect",
+      "short_ru": "Откройте сейф и возьмите Diamond of Ruin.",
+      "short_en": "Open the safe and take Diamond of Ruin.",
+      "full_ru": "Откройте сейф и найдите Diamond of Ruin.",
+      "full_en": "Open the safe, and you find the Diamond of Ruin!",
+      "npcs": [
+        {
+          "entity": "Small Safe",
+          "role": "interact",
+          "support_step": 10,
+          "evidence": "Walk to the southwest, and investigate the Small Safe (69, 188). Apparently a key or switch must be triggered in order to open it."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Diamond",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Source calls the found quest object Diamond of Ruin; game ID unverified."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "open_safe"
+        },
+        {
+          "operation": "collect",
+          "entity": "Diamond"
+        }
+      ],
+      "protected_names": [
+        "Diamond"
+      ],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Bring the Diamond back to Ibrahim at the Morroc Ruins, who rewards you with 1 Old Blue Box and 2 3carat Diamonds .",
+      "instruction_sha256": "4c3b7773d717b19983a2b5f3c24598e12fe24182c8000f89b9c4f86ee730cafc",
+      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/4c3b7773d717b19983a2/1",
+      "goal": "receive_reward",
+      "short_ru": "Верните Diamond для Ibrahim: 1 Old Blue Box и 2 3carat Diamonds.",
+      "short_en": "Return Diamond to Ibrahim: 1 Old Blue Box and 2 3carat Diamonds.",
+      "full_ru": "Верните Diamond для Ibrahim в Morroc Ruins. Получите 1 Old Blue Box и 2 3carat Diamonds.",
+      "full_en": "Bring the Diamond back to Ibrahim at the Morroc Ruins, who rewards you with 1 Old Blue Box and 2 3carat Diamonds .",
+      "npcs": [
+        {
+          "entity": "Ibrahim",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Diamond",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Old Blue Box"
+        },
+        {
+          "kind": "item",
+          "amount": "2",
+          "entity": "3carat Diamond"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Diamond"
+        }
+      ],
+      "protected_names": [
+        "Ibrahim",
+        "Morroc Ruins",
+        "Diamond",
+        "Old Blue Box",
+        "3carat Diamond"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "diamond_source_labels_and_unknown_id",
+      "detail": "Diamond of Destruction, Diamond of Ruin and Diamond refer to the investigated quest object through this source narrative. The identity is quest-scoped with NULL game ID; these are not asserted universal inventory-name synonyms. 3carat Diamond is a separate verified reward item."
+    },
+    {
+      "reason": "investigators_are_distinct",
+      "detail": "Rogue Investigator on the guild first floor and the unnamed Comodo investigator are separate actors, not merged by job title. Their bare interior coordinates do not prove map codes."
+    },
+    {
+      "reason": "intermediate_pearl_not_extra_final_reward",
+      "detail": "One Pearl is awarded at stage 3. The final stage gives only one box and two diamonds; header does not add another Pearl or repeat final rewards."
+    },
+    {
+      "reason": "medicine_id_unknown_and_place_spelling",
+      "detail": "Medicine has a quest-scoped unknown-ID identity and unspecified count. Paros Lighthouse is the literal source spelling; do not silently replace it with another guide's Pharos Lighthouse."
+    }
+  ],
+  "relations": [
+    {
+      "kind": "mandatory_prerequisite",
+      "related_quest_id": "irowiki-classic:Muff's_Loan_Quest"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "20",
+        "entity": "Fine Sand",
+        "source_section": "requirements",
+        "evidence": "20 Fine Sand",
+        "condition": "Summary of stage-6 delivery."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "entity": "Brigan",
+        "source_section": "requirements",
+        "evidence": "10 Brigan",
+        "condition": "Summary of stage-6 delivery."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "entity": "Soft Blade of Grass",
+        "source_section": "requirements",
+        "evidence": "10 Soft Blade of Grass",
+        "condition": "Summary of stage-6 delivery."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "entity": "Empty Bottle",
+        "source_section": "requirements",
+        "evidence": "5 Empty Bottle",
+        "condition": "Summary of stage-6 delivery."
+      },
+      {
+        "kind": "source_zeny_summary",
+        "amount": "10000",
+        "source_section": "requirements",
+        "evidence": "10,000 Zeny",
+        "condition": "Same stage-8 payment, not another fee."
+      }
+    ]
+  }
+}

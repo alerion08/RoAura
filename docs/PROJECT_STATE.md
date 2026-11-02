@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 712 steps in 50 curated guides and
-75 conditional branches. Ten source additions supplement full descriptions;
-**2,038 steps / 166 remaining catalog entries still need processing**. Eight quest routes preserve Odin's
+is excluded. All four RU/EN fields exist for 757 steps in 53 curated guides and
+75 conditional branches. Thirteen source additions supplement full descriptions;
+**1,993 steps / 163 remaining catalog entries still need processing**. Eight quest routes preserve Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -50,8 +50,14 @@ additions; Classic entry/availability warnings remain explicit. Timers, leader
 roles, per-visit combat counts, dungeon population and optional headgear costs
 are distinct. Generator semantic-5.4.0 recognizes literal instance map codes
 and reviewed non-entity homonyms without changing semantic schema 5.
+Muff's Loan, Broken Diamond and Z-Gang are curated. Red Gemstone request
+wording is separate from actual consumption; the machine state/color table
+is restored from pinned HTML. Broken Diamond has its mandatory Muff link,
+separate investigators and intermediate Pearl. Z-Gang passwords are attached
+to their actual input stages, while two notes, decoders and wave events remain
+distinct. Unknown IDs and map codes are not invented.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 182 regression tests, full offline rebuild and research CI
+Local validation: 191 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

@@ -221,17 +221,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],712)
-        self.assertEqual(self.report['not_fully_localized_steps'],2038)
+        self.assertEqual(self.report['fully_localized_steps'],757)
+        self.assertEqual(self.report['not_fully_localized_steps'],1993)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],712)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],757)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,2038)
+        self.assertEqual(missing,1993)
         self.assertEqual(self.report['fully_localized_branches'],75)
-        self.assertEqual(self.report['curated_quests'],50)
-        self.assertEqual(self.report['pending_quests'],166)
+        self.assertEqual(self.report['curated_quests'],53)
+        self.assertEqual(self.report['pending_quests'],163)
         self.assertEqual(self.report['quest_routes'],8)
-        self.assertEqual(self.report['source_additions'],10)
+        self.assertEqual(self.report['source_additions'],13)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_new_world_staff_identity_and_source_availability(self):
@@ -1078,6 +1078,99 @@ class RealCorpusTests(unittest.TestCase):
         path.write_text(json.dumps(data));before=(self.out/'quest_semantic.sqlite').read_bytes()
         with self.assertRaisesRegex(ValueError,'Unsupported curated item operation'):build(self.source,self.out,curation_dir=folder)
         self.assertEqual(before,(self.out/'quest_semantic.sqlite').read_bytes())
+
+    def test_muff_requested_gems_and_actual_material_consumption_are_distinct(self):
+        q="irowiki-classic:Muff's_Loan_Quest"
+        rows=self.db.execute('''SELECT x.game_id,i.quantity FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=7 ORDER BY x.game_id''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(716,5),(723,2),(999,5),(1002,10),(7317,20)])
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='source_requested_item_count'",(q,)).fetchone()[0],'10')
+        self.assertIsNotNone(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='incomplete_then_complete_material_check'",(q,)).fetchone())
+        actions=self.db.execute('''SELECT a.operation FROM step_actions a JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=7 ORDER BY a.action_order''',(q,)).fetchall()
+        self.assertEqual([r[0] for r in actions],['talk_with_incomplete_set','talk_with_complete_set'])
+
+    def test_muff_switch_table_is_conditioned_mapping_restored_from_html(self):
+        q="irowiki-classic:Muff's_Loan_Quest"
+        rows=self.db.execute('''SELECT d.original_text,o.exact_text,o.condition_text FROM dialogues d JOIN dialogue_options o USING(dialogue_id)
+          JOIN step_dialogues sd USING(dialogue_id) JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=10 ORDER BY sd.dialogue_order''',(q,)).fetchall()
+        expected=[('Vibrating Weakly','Red'),('Vibrating a Bit More Strongly','Blue'),('Vibrations are a Bit More Stable','Yellow'),('Vibrating Fairly Strongly','Green')]
+        self.assertEqual([(r[0],r[1]) for r in rows],expected)
+        self.assertTrue(all(state in r[2] for (state,_),r in zip(expected,rows)))
+        original,full=self.db.execute('SELECT original_instruction,full_en FROM localized_steps WHERE quest_id=? AND step_order=10',(q,)).fetchone()
+        self.assertNotIn('Vibrating Weakly',original);self.assertIn('Vibrating Weakly Red',full)
+        self.assertEqual(self.db.execute('''SELECT count(*) FROM step_source_additions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,)).fetchone()[0],1)
+
+    def test_muff_exact_theory_answer_wallet_timing_and_final_rewards(self):
+        q="irowiki-classic:Muff's_Loan_Quest"
+        answer=self.db.execute('''SELECT o.exact_text FROM dialogue_options o JOIN step_dialogues sd USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=5''',(q,)).fetchone()[0]
+        self.assertEqual(answer,'3 Centrifuge Wavelength Theory')
+        wallet=self.db.execute('''SELECT s.step_order,x.game_id,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id JOIN entities e ON e.entity_id=i.item_id WHERE s.quest_id=? AND e.original_name='wallet' AND i.operation='collect' ''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in wallet],[(3,None,None)])
+        rewards=self.db.execute('''SELECT s.step_order,x.game_id,r.amount FROM rewards r JOIN items x ON x.entity_id=r.item_id
+          JOIN step_rewards sr USING(reward_id) JOIN quest_steps s ON s.step_id=sr.step_id WHERE r.quest_id=? ORDER BY x.game_id''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rewards],[(14,603,'1'),(14,608,'4')])
+
+    def test_broken_diamond_prerequisite_shared_muff_and_distinct_investigators(self):
+        q='irowiki-classic:Broken_Diamond_Quest';p="irowiki-classic:Muff's_Loan_Quest"
+        self.assertIsNotNone(self.db.execute("SELECT 1 FROM quest_relations WHERE quest_id=? AND related_id=? AND kind='mandatory_prerequisite'",(q,p)).fetchone())
+        shared=self.db.execute('''SELECT DISTINCT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id)
+          JOIN entities e ON e.entity_id=n.npc_id WHERE s.quest_id IN (?,?) AND e.original_name='Muff' ''',(q,p)).fetchall()
+        self.assertEqual(len(shared),1)
+        actors=self.db.execute('''SELECT s.step_order,n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order IN (8,9) AND n.role='talk' ORDER BY s.step_order''',(q,)).fetchall()
+        self.assertEqual([r[0] for r in actors],[8,9]);self.assertNotEqual(actors[0][1],actors[1][1])
+
+    def test_broken_diamond_one_material_set_and_one_information_fee(self):
+        q='irowiki-classic:Broken_Diamond_Quest'
+        materials=self.db.execute('''SELECT x.game_id,i.quantity FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=6 AND i.operation='deliver' ORDER BY x.game_id''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in materials],[(713,5),(7043,20),(7054,10),(7194,10)])
+        fees=self.db.execute("SELECT kind,amount FROM requirements WHERE quest_id=? AND kind IN ('zeny_payment','source_zeny_summary') ORDER BY kind",(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in fees],[('source_zeny_summary','10000'),('zeny_payment','10000')])
+        switches=self.db.execute('''SELECT l.x,l.y,a.location_order FROM step_locations a JOIN locations l USING(location_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=11 ORDER BY a.location_order''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in switches],[(69,196,1),(80,189,2)])
+
+    def test_broken_diamond_pearl_is_intermediate_and_carat_label_not_quantity(self):
+        q='irowiki-classic:Broken_Diamond_Quest'
+        rewards=self.db.execute('''SELECT s.step_order,x.game_id,r.amount FROM rewards r JOIN items x ON x.entity_id=r.item_id
+          JOIN step_rewards sr USING(reward_id) JOIN quest_steps s ON s.step_id=sr.step_id WHERE r.quest_id=? ORDER BY s.step_order,x.game_id''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rewards],[(3,722,'1'),(13,603,'1'),(13,732,'2')])
+        gems=self.db.execute('''SELECT s.step_order,i.item_id,x.game_id FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) JOIN entities e ON e.entity_id=i.item_id WHERE s.quest_id=? AND e.original_name='Diamond' ORDER BY s.step_order''',(q,)).fetchall()
+        self.assertEqual([r[0] for r in gems],[12,13]);self.assertEqual(gems[0][1],gems[1][1]);self.assertTrue(all(r[2] is None for r in gems))
+
+    def test_zgang_exact_passwords_belong_to_input_stages(self):
+        q='irowiki-classic:Z-Gang_Quest'
+        rows=self.db.execute('''SELECT s.step_order,o.exact_text,o.operation FROM dialogue_options o JOIN step_dialogues sd USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order,sd.dialogue_order,o.option_order''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(4,'The dawn is yet to come.','enter_text'),(14,'Weii arr prowd Z G gna','enter_text'),(14,'Aynoen hwo sspotp uys','enter_text'),(14,'wlil eb kckide on htier ssa!','enter_text')])
+        raw,full=self.db.execute('SELECT original_instruction,full_en FROM localized_steps WHERE quest_id=? AND step_order=14',(q,)).fetchone()
+        self.assertNotIn('Weii arr',raw);self.assertIn('Weii arr',full)
+
+    def test_zgang_notes_and_ahn_characters_are_distinct_without_invented_inventory(self):
+        q='irowiki-classic:Z-Gang_Quest'
+        notes=self.db.execute('''SELECT s.step_order,i.item_id,x.game_id,i.operation FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id JOIN entities e ON e.entity_id=i.item_id WHERE s.quest_id=? AND e.original_name='note' ORDER BY s.step_order''',(q,)).fetchall()
+        self.assertEqual([r[0] for r in notes],[8,10,11]);self.assertNotEqual(notes[0][1],notes[1][1]);self.assertEqual(notes[1][1],notes[2][1]);self.assertTrue(all(r[2] is None and r[3]=='mention' for r in notes))
+        ahns=self.db.execute('''SELECT DISTINCT e.entity_id FROM entities e JOIN step_npcs n ON n.npc_id=e.entity_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND e.original_name IN ('Moonho Ahn','Gooho Ahn')''',(q,)).fetchall()
+        self.assertEqual(len(ahns),2)
+        self.assertEqual(dict(self.db.execute("SELECT kind,amount FROM requirements WHERE quest_id=? AND kind IN ('rounds_to_win','rounds_in_match')",(q,))),{'rounds_to_win':'2','rounds_in_match':'3'})
+
+    def test_zgang_material_quantities_first_wave_and_single_exp_reward(self):
+        q='irowiki-classic:Z-Gang_Quest'
+        materials=self.db.execute('''SELECT s.step_order,x.game_id,i.quantity FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND i.operation='deliver' ORDER BY s.step_order,x.game_id''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in materials],[(3,12049,5),(11,970,2),(11,7035,1),(11,7097,10),(11,7098,20)])
+        monsters=self.db.execute('''SELECT s.step_order,m.quantity,x.game_id FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order,m.quantity''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in monsters],[(15,None,None),(15,1,None)])
+        self.assertEqual([tuple(r) for r in self.db.execute("SELECT kind,amount FROM rewards WHERE quest_id=? AND kind='base_exp'",(q,))],[('base_exp','1000000')])
+        self.assertIsNotNone(self.db.execute("SELECT 1 FROM review_queue WHERE quest_id=? AND reason='wave_plan_not_spawn_or_loot'",(q,)).fetchone())
 
     def test_reference_index_is_excluded_with_pinned_evidence(self):
         key='irowiki-classic:Access_Quests'

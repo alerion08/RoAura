@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.4.0**. All four description fields are populated for
-**712 steps across 50 curated guides**, up from the previous 46-guide/670-step
+**757 steps across 53 curated guides**, up from the previous 50-guide/712-step
 checkpoint. **75 conditional branches** also have independent RU/EN short and
 full descriptions. Eight quest routes represent two exclusive expedition paths
-and six conditional/optional activities. **2,038 steps in 166 remaining catalog entries still lack
+and six conditional/optional activities. **1,993 steps in 163 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -75,6 +75,9 @@ complete localization/context analysis.** `complete` remains false.
 | Nidhoggur's Nest | 8 | Source Geffen entry; collective guardian count; per-visit side rooms; uncertain HP effect; distinct timers |
 | Sealed Shrine Quest | 12 | Leader/returner roles; population versus kills; seal timing; optional crafting route |
 | Orc Memory Dungeon | 14 | Literal instance maps; ordered braziers; lookalikes versus objectives; conditional spawns and cleanup |
+| Muff's Loan Quest | 14 | Requested versus consumed gems; incomplete/full material check; restored machine state/color table; literal theory answer |
+| Broken Diamond Quest | 13 | Mandatory Muff link; distinct investigators; ordered switches; intermediate Pearl and final two diamonds |
+| Z-Gang Quest | 18 | Input-stage passwords; distinct notes/decoders; gambling rule; planned versus actual combat waves |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -82,6 +85,33 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Three loan/jewel/gang guides preserve all 45 original stages. Three new
+  source additions restore the Muff machine table and put both Z-Gang
+  passwords at their actual input steps; total additions are now thirteen.
+  Schema 5 and generator semantic-5.4.0 are unchanged.
+- Muff distinguishes the ten-Red-Gemstone request from five actually consumed.
+  The source does not establish whether ten-held checking also exists, so no
+  executable holding threshold is asserted. The incomplete-then-complete
+  conversation is not a zero-inventory rule. Four state/color mappings are
+  live-condition answers, not a guaranteed fixed button order. The literal
+  theory input includes its leading 3. Wallet and Debt Note retain unknown
+  IDs/counts; final rewards are not duplicated from the header.
+- Broken Diamond has a single mandatory Muff prerequisite. The shared Muff
+  actor is source-qualified; guild and Comodo investigators stay distinct.
+  Materials and the 10000-Zeny payment each have one delivery/payment plus a
+  non-additive summary. Two switches have explicit order. Pearl is awarded
+  at stage 3; final rewards are one box and two 3carat Diamonds, with carat
+  notation not a quantity. The investigated gem's narrative labels have one
+  quest-scoped referent, no verified game ID or asserted universal synonym.
+- Z-Gang keeps the exact Marybell password at stage 4 and three ordered,
+  separate lines at 14 with pinned HTML evidence. Stage 11's original text
+  remains unchanged. Attack and invisible-ink notes are distinct, without
+  invented player inventory grants. Moonho and Gooho Ahn are separate actors;
+  gambling requires two wins in three rounds, with no invented winning input.
+  Only the first wave is sent; the announced second wave is replaced by the
+  reveal event. No cloak item, extra kill quota or extra EXP is invented.
+
 
 - Writer conflict handling ignores duplicate keys only; CHECK/NOT NULL errors
   cannot silently discard facts. Curated item/monster operations are checked
@@ -425,7 +455,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **182 tests passed**; complete offline enrichment passed;
+Validated locally: **191 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -474,7 +504,7 @@ command above; partial files from failed local attempts are never published.
 
 ## Next work, in order
 
-1. Review the remaining 166 catalog candidates, separating reference pages,
+1. Review the remaining 163 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

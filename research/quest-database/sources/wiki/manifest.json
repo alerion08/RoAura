@@ -2122,5 +2122,84 @@
       "https://irowiki.org/classic/Party",
       "https://irowiki.org/classic/Sealed_Shrine_Quest"
     ]
+  },
+  "Muff's_Loan_Quest": {
+    "url": "https://irowiki.org/classic/Muff's_Loan_Quest",
+    "sha256": "59a352da9082fea4fa822057cf3b49eb53dcd064cde12b87bdee7c03fa910a2d",
+    "path": "59a352da9082fea4fa822057cf3b49eb53dcd064cde12b87bdee7c03fa910a2d.html.gz",
+    "title": "Muff's Loan Quest",
+    "categories": [
+      "Level 60~99 Quests",
+      "Nameless Island Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T03:25:08Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/1002/",
+      "http://db.irowiki.org/classic/item-info/603/",
+      "http://db.irowiki.org/classic/item-info/608/",
+      "http://db.irowiki.org/classic/item-info/716/",
+      "http://db.irowiki.org/classic/item-info/723/",
+      "http://db.irowiki.org/classic/item-info/7317/",
+      "http://db.irowiki.org/classic/item-info/999/",
+      "https://irowiki.org/classic/Alberta",
+      "https://irowiki.org/classic/Comodo",
+      "https://irowiki.org/classic/Izlude",
+      "https://irowiki.org/classic/NPC"
+    ]
+  },
+  "Broken_Diamond_Quest": {
+    "url": "https://irowiki.org/classic/Broken_Diamond_Quest",
+    "sha256": "61e2dc62c9422044706544b55779cedff13106943aa79d1c0a8935f9f81f752a",
+    "path": "61e2dc62c9422044706544b55779cedff13106943aa79d1c0a8935f9f81f752a.html.gz",
+    "title": "Broken Diamond Quest",
+    "categories": [
+      "Level 60~99 Quests",
+      "Nameless Island Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T03:25:09Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/603/",
+      "http://db.irowiki.org/classic/item-info/7043/",
+      "http://db.irowiki.org/classic/item-info/7054/",
+      "http://db.irowiki.org/classic/item-info/713/",
+      "http://db.irowiki.org/classic/item-info/7194/",
+      "http://db.irowiki.org/classic/item-info/722/",
+      "http://db.irowiki.org/classic/item-info/732/",
+      "http://db.irowiki.org/classic/map-info/moc_ruins/",
+      "https://irowiki.org/classic/Alberta",
+      "https://irowiki.org/classic/Comodo",
+      "https://irowiki.org/classic/Geffen",
+      "https://irowiki.org/classic/Kafra",
+      "https://irowiki.org/classic/Muff%27s_Loan_Quest",
+      "https://irowiki.org/classic/Payon",
+      "https://irowiki.org/classic/Rogue"
+    ]
+  },
+  "Z-Gang_Quest": {
+    "url": "https://irowiki.org/classic/Z-Gang_Quest",
+    "sha256": "604df3ba31c9ff5bd2a8cb0c4a685380ad1ee30a936a4dc862ed9c4951fdfc7a",
+    "path": "604df3ba31c9ff5bd2a8cb0c4a685380ad1ee30a936a4dc862ed9c4951fdfc7a.html.gz",
+    "title": "Z-Gang Quest",
+    "categories": [
+      "Articles Needing Interwiki Links",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Nameless Island Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T03:25:11Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/12049/",
+      "http://db.irowiki.org/classic/item-info/7035/",
+      "http://db.irowiki.org/classic/item-info/7097/",
+      "http://db.irowiki.org/classic/item-info/7098/",
+      "http://db.irowiki.org/classic/item-info/970/",
+      "https://irowiki.org/classic/Morroc",
+      "https://irowiki.org/classic/Payon",
+      "https://irowiki.org/classic/Prontera",
+      "https://irowiki.org/classic/Rogue"
+    ]
   }
 }
