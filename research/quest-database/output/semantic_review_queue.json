@@ -8336,38 +8336,38 @@
       "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Diamond of Destruction, Diamond of Ruin and Diamond refer to the investigated quest object through this source narrative. The identity is quest-scoped with NULL game ID; these are not asserted universal inventory-name synonyms. 3carat Diamond is a separate verified reward item.",
       "evidence_id": "ev:e169532fb23a50ac8906abb6",
       "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:f9170183d511aa8faec3b159",
+      "reason": "diamond_source_labels_and_unknown_id",
+      "review_id": "review:a5d96308891cd345b79dbdf2",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "One Pearl is awarded at stage 3. The final stage gives only one box and two diamonds; header does not add another Pearl or repeat final rewards.",
       "evidence_id": "ev:e169532fb23a50ac8906abb6",
       "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:a2ceedc08a6735060df0304d",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:4ebe0fa2392fcb7d8a10ae0d",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:b6fe030ca7a914ca19264f35",
+      "reason": "intermediate_pearl_not_extra_final_reward",
+      "review_id": "review:012cf08540be8bfd6853cd0b",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:39ce20100fe5da9fbc52ccc4",
+      "detail": "Rogue Investigator on the guild first floor and the unnamed Comodo investigator are separate actors, not merged by job title. Their bare interior coordinates do not prove map codes.",
+      "evidence_id": "ev:e169532fb23a50ac8906abb6",
       "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:cd629c91587a2b8a42a637ee",
+      "reason": "investigators_are_distinct",
+      "review_id": "review:c162d840ba227355eae2d323",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Medicine has a quest-scoped unknown-ID identity and unspecified count. Paros Lighthouse is the literal source spelling; do not silently replace it with another guide's Pharos Lighthouse.",
+      "evidence_id": "ev:e169532fb23a50ac8906abb6",
+      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
+      "reason": "medicine_id_unknown_and_place_spelling",
+      "review_id": "review:6293fec254ca76dba82926ea",
       "severity": "warning",
       "step_id": null
     },
@@ -8381,35 +8381,8 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ca5f4c7f81e38f4417cb6bc8",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8db0e6ee5841081fdec6feb2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/052c9eaa29af91b4a7ed/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ca5f4c7f81e38f4417cb6bc8",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6af32009b20bba9e8fe6cc12",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/052c9eaa29af91b4a7ed/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:559b776a070a1f902e4458da",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c1f2e9f06e90cb94da8f9c48",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/1ba38092a5f6db53d12b/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:cdecaf55a8e6391c7a140159",
+      "evidence_id": "ev:36b38d6414dc22aacc3e9f0f",
       "quest_id": "irowiki-classic:Broken_Diamond_Quest",
       "reason": "map_unknown",
       "review_id": "review:65f0adbeebf2cf30b69465bb",
@@ -8417,26 +8390,8 @@
       "step_id": "irowiki-classic:Broken_Diamond_Quest/step/1ba38092a5f6db53d12b/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:559b776a070a1f902e4458da",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b93f823f83e2acb3c840d6a9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/1ba38092a5f6db53d12b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:93f06bac7d0e2b735fb75778",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:042d4df88a1a87bb787d911d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/39e060136ed1bbf84a1f/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:1679a9e2b1c7fc6ae1075816",
+      "evidence_id": "ev:bca5fd06fae93adfa290606d",
       "quest_id": "irowiki-classic:Broken_Diamond_Quest",
       "reason": "map_unknown",
       "review_id": "review:773d429181837e6a21f96adc",
@@ -8444,44 +8399,8 @@
       "step_id": "irowiki-classic:Broken_Diamond_Quest/step/39e060136ed1bbf84a1f/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:93f06bac7d0e2b735fb75778",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c70269be589e4b26ab9ca4c5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/39e060136ed1bbf84a1f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:bb5ddbc90eb97865c1b8b9a3",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5eb576291b7606ebe15d4bb6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/4c3b7773d717b19983a2/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:bb5ddbc90eb97865c1b8b9a3",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:68c256fe58dd4ed21a73dfb2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/4c3b7773d717b19983a2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e7609973e61ce3df7026b028",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2aa8dcd44d4a623fc33cad09",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/53d1e1c45cb472b89b82/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:d62cb35af34d54ed888612f7",
+      "evidence_id": "ev:8c6265d47c9d6bcc5e101a58",
       "quest_id": "irowiki-classic:Broken_Diamond_Quest",
       "reason": "map_unknown",
       "review_id": "review:79b984c45394d796f3e5a35c",
@@ -8489,26 +8408,8 @@
       "step_id": "irowiki-classic:Broken_Diamond_Quest/step/53d1e1c45cb472b89b82/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e7609973e61ce3df7026b028",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7d10b7ae59f2a4aa27db6404",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/53d1e1c45cb472b89b82/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ae60a51089f9bffa320b6d62",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5bd7eaf619ffa5ed553db606",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/5866aecf349f480ac389/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:062508a631845970a94f1876",
+      "evidence_id": "ev:2e83e383723e6d8338ddda0f",
       "quest_id": "irowiki-classic:Broken_Diamond_Quest",
       "reason": "map_unknown",
       "review_id": "review:d3a166d3bb8b7cb3fbeca392",
@@ -8516,26 +8417,8 @@
       "step_id": "irowiki-classic:Broken_Diamond_Quest/step/5866aecf349f480ac389/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ae60a51089f9bffa320b6d62",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dc76ce2dd90bf98e60afd821",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/5866aecf349f480ac389/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5649ca761fb92314278196ae",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6e065237c70a835dc8c41622",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/6645e6964eda92fd0241/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:e0b626eff643fb816bbe723d",
+      "evidence_id": "ev:5da552b05b8e0aa9c728a2e0",
       "quest_id": "irowiki-classic:Broken_Diamond_Quest",
       "reason": "map_unknown",
       "review_id": "review:02cbcb8aadc8c8baa7aaff5d",
@@ -8543,26 +8426,8 @@
       "step_id": "irowiki-classic:Broken_Diamond_Quest/step/6645e6964eda92fd0241/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5649ca761fb92314278196ae",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f43bdc29fbb98c9ff51f7e73",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/6645e6964eda92fd0241/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4f068194c4331c6a7d16348c",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9013d19ea9d30f5f81c6f7aa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/aa9981c1c4a402ba5ffc/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:acf67ca34c7a1b73bb865f05",
+      "evidence_id": "ev:d1cb9be4a59e25728aad22d4",
       "quest_id": "irowiki-classic:Broken_Diamond_Quest",
       "reason": "map_unknown",
       "review_id": "review:261af58dfcda86bd754269b2",
@@ -8570,71 +8435,8 @@
       "step_id": "irowiki-classic:Broken_Diamond_Quest/step/aa9981c1c4a402ba5ffc/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4f068194c4331c6a7d16348c",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2b6d31685a0238124d72aa80",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/aa9981c1c4a402ba5ffc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:04c6d48698b9aa56a6b73984",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8b2a690f059bdfe6ea466513",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/c300fbf5cd816584265f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:04c6d48698b9aa56a6b73984",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d10c76224b7a71b1deba911d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/c300fbf5cd816584265f/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:04c6d48698b9aa56a6b73984",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:e2b3b74130ee048626eb201e",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/c300fbf5cd816584265f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:adc6bb43af8084567224a96e",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:676043181d0125cc781a0099",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/d58c7618b93f1ed3ad55/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:adc6bb43af8084567224a96e",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:214b1b6e7af5ec4feb3859a3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/d58c7618b93f1ed3ad55/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f70d85b963c52592492c10e8",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:13677b86187818071013ad75",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/e6fe73d39f39130798e4/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:caf493fe1cacd34bad614afd",
+      "evidence_id": "ev:10074b2a4bc9e8e26f0285f4",
       "quest_id": "irowiki-classic:Broken_Diamond_Quest",
       "reason": "map_unknown",
       "review_id": "review:1dc69caee7e5ed68b2ce02f6",
@@ -8642,58 +8444,13 @@
       "step_id": "irowiki-classic:Broken_Diamond_Quest/step/e6fe73d39f39130798e4/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f70d85b963c52592492c10e8",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d14b9ebc13e99f33ff6959b9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/e6fe73d39f39130798e4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b8b4ec6cef62bc178da65ef3",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:86e5b662e3b09cfdd5ce06a7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/ef7bfb82d36db5a6f451/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:4c1321a1afacf474bcabd0a5",
+      "evidence_id": "ev:3c5a6408875cc20ec00c6508",
       "quest_id": "irowiki-classic:Broken_Diamond_Quest",
       "reason": "map_unknown",
       "review_id": "review:583c848b7b8d694c85a18f96",
       "severity": "warning",
       "step_id": "irowiki-classic:Broken_Diamond_Quest/step/ef7bfb82d36db5a6f451/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b8b4ec6cef62bc178da65ef3",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5b6280b1ae81ab9f1a7e9b00",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/ef7bfb82d36db5a6f451/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f67a9fd66df42adb581778f8",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7b6369269d57c7420bb8e2a0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/f86df752e0c1b5091e88/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f67a9fd66df42adb581778f8",
-      "quest_id": "irowiki-classic:Broken_Diamond_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5408e3f98d6380e4928dc247",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Broken_Diamond_Quest/step/f86df752e0c1b5091e88/1"
     },
     {
       "detail": "Book at stage 10 is an interactable. The separately named Bruspetti's Diary is obtained at stage 15. No early diary inventory grant is asserted.",
@@ -30638,38 +30395,29 @@
       "step_id": "irowiki-classic:Monk_Skill_Quest/step/a42be32dc5319d642891/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Four state/color pairs omitted by the old extractor are restored from pinned HTML. Choose by the live state, not by treating table order as an unconditional sequence.",
       "evidence_id": "ev:591507851ab0bdf50e79251a",
       "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:35c5f484956dce66013361db",
+      "reason": "machine_switch_mapping_restored",
+      "review_id": "review:82440c3983bafc869357cd21",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "First talk before the full set is held, then with the full set. No zero-inventory check or second material set is invented.",
       "evidence_id": "ev:591507851ab0bdf50e79251a",
       "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:cfbea3fd7590ccb609d18dc7",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:92b7b24ef6d0d525bffc3b65",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:f138a06e7bedcd84d133941a",
+      "reason": "material_check_order",
+      "review_id": "review:6671690e31c8b8d160692399",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:38cbb498f01115072ae09632",
+      "detail": "NPC asks for ten Red Gemstone but only consumes five. Header and actual delivery use five; request count is separate metadata, not an extra payment. Whether the request also imposes a ten-held check is not established; no executable threshold is asserted.",
+      "evidence_id": "ev:591507851ab0bdf50e79251a",
       "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:c18a41133bfe79428aaf13e3",
+      "reason": "red_gemstone_request_not_consumption",
+      "review_id": "review:378012b8c3d253ab4ab23b46",
       "severity": "warning",
       "step_id": null
     },
@@ -30683,125 +30431,17 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2d6691c3048b0512c09b4a08",
+      "detail": "Wallet and Debt Note are quest-scoped unknown-ID documents with unspecified counts. First inspection drops the object; second finds it. No invented wallet consumption or duplicate final/header reward.",
+      "evidence_id": "ev:591507851ab0bdf50e79251a",
       "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2a21e8a3f27b9b0b85b70c25",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/055c7acb9a34dc7d7fe4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2d6691c3048b0512c09b4a08",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:80881b306e34899e71cfe419",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/055c7acb9a34dc7d7fe4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4ccfa1e72a2ba13c65b44e1d",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2205213e83f8bc5b4419aa68",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/08d8b50c5e3800504d00/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4ccfa1e72a2ba13c65b44e1d",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:66c66064f7b3cd2b4b616d42",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/08d8b50c5e3800504d00/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9756b706fae799bab1b89a65",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:797240876a3e2007de2b84b9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/17452985f641487435b1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9756b706fae799bab1b89a65",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:30e71dd1f02388084df5a413",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/17452985f641487435b1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9bcddd66fc798dc2120c9858",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ead813ff61690d2ad3474cd4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/23e996a76eb1c1103f6f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9bcddd66fc798dc2120c9858",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5a2bede65f5c43898f7458d0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/23e996a76eb1c1103f6f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ffa66720899f20049e3a3215",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b28b92bf61eefe2d9d736e6f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/2643a478cb42cbeb3b4e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ffa66720899f20049e3a3215",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ab61d113b06e5454c7c4bc51",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/2643a478cb42cbeb3b4e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e3f28bb0107bc3caab0e46b2",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:cc73ec93506ebcfe1f07abee",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/27d7d464030de93de984/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e3f28bb0107bc3caab0e46b2",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:25c6e49b1cad7d2b9278ff53",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/27d7d464030de93de984/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4ea2eddf83ae21d8671647c0",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:64ff360b805475b943bc5709",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/2c8b2bb4900301c3df7a/1"
+      "reason": "wallet_and_note_inventory_unknown",
+      "review_id": "review:1f380374840c98f6d5dbc881",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:7f306a7443d2254595ad6a76",
+      "evidence_id": "ev:cea5d92c67c9e804aa5188e1",
       "quest_id": "irowiki-classic:Muff's_Loan_Quest",
       "reason": "map_unknown",
       "review_id": "review:9ffbf4060b9b3fe7144dc936",
@@ -30809,157 +30449,13 @@
       "step_id": "irowiki-classic:Muff's_Loan_Quest/step/2c8b2bb4900301c3df7a/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4ea2eddf83ae21d8671647c0",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7557620c6f2c3a4b27e265db",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/2c8b2bb4900301c3df7a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:074b44febaabc78a7f6bd66d",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:90c3a0ed2d7c5e9e77e2c06a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/72a13a3cc6fb69709f35/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:074b44febaabc78a7f6bd66d",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5a2e863c627a1e7a70de15b9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/72a13a3cc6fb69709f35/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f7b9514056a2827121380d43",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b45b867e211f52b09670e252",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/93d67199f699cb5e7148/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f7b9514056a2827121380d43",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:466412900550f922d62c8a62",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/93d67199f699cb5e7148/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:77ca0cc96aa8b121597753d1",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:872bf7443427a8c6fceea829",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/98f865668b69dc054b06/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:77ca0cc96aa8b121597753d1",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:eec9b69c11a84bd8fb0e0174",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/98f865668b69dc054b06/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:64851c39712b6159ff0d7193",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b8010577df3d8a18163bc300",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/aa78a8e0335208f1ea01/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:d8042a05098b452566e7831d",
+      "evidence_id": "ev:4f26d2b42c409e5945ec55a8",
       "quest_id": "irowiki-classic:Muff's_Loan_Quest",
       "reason": "map_unknown",
       "review_id": "review:d0c175f327a65d0db5ac5615",
       "severity": "warning",
       "step_id": "irowiki-classic:Muff's_Loan_Quest/step/aa78a8e0335208f1ea01/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:64851c39712b6159ff0d7193",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f26c95cc47489279b28174b3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/aa78a8e0335208f1ea01/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:30b85e8bb80101e2bef3985a",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6b7188de7c24e2eb1f820382",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/b81af157b6acb389f4d7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:30b85e8bb80101e2bef3985a",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dc89d1cb8937642508f0ba50",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/b81af157b6acb389f4d7/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:30b85e8bb80101e2bef3985a",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:ae977593dd211f3d248dab4a",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/b81af157b6acb389f4d7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4237468c43d8a87b91492a0d",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0e9a9520c1e9764a0a82b443",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/b92c00c094b65074d7ab/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4237468c43d8a87b91492a0d",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:292174e98dbdd39319f7d838",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/b92c00c094b65074d7ab/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a2a0297ec24ff82af417bc60",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:43781f3c1962f5522e132367",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/cff978e824d281082e17/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a2a0297ec24ff82af417bc60",
-      "quest_id": "irowiki-classic:Muff's_Loan_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1d70d1eaf622abdf45c25ba7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Muff's_Loan_Quest/step/cff978e824d281082e17/1"
     },
     {
       "detail": "Ordinary Man is the casino contact in context, but a shared entity ID with later Larjes appearances is withheld pending explicit identity evidence.",
@@ -49952,38 +49448,29 @@
       "step_id": "irowiki-classic:WoE_2_Guild_Dungeon_Event/step/b7af51f0fb4c141b2f5a/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Two wins in three rounds are required; no fixed winning answers or retry cap are stated. Bare city/interior points remain map-unknown. Trigger points at Morroc Ruins are alternatives; Pharos/Paros spelling is not silently normalized.",
       "evidence_id": "ev:c290be4785e38654ec940a7a",
       "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:274b9b093e4f0d93e989939b",
+      "reason": "gambling_and_source_maps_unverified",
+      "review_id": "review:dd8133efcd78156348d77693",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Attack note and invisible-ink coded note are distinct quest-scoped unknown-ID documents; neither has a proven player inventory grant. Moonho Ahn and Gooho Ahn are different actors, not interchangeable relatives or aliases.",
       "evidence_id": "ev:c290be4785e38654ec940a7a",
       "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:ffc769e46f298fe8a9389dc0",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:631c4f7acbe40f05e1b1a7cf",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:71529da2ce1474deba065fe7",
+      "reason": "notes_and_decoders_not_merged",
+      "review_id": "review:f2f5bcd0799eb4dfb8ea498b",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:1fa433583786a23572d70ce5",
+      "detail": "Marybell password is source-added at stage 4. Three exact decoded lines are source-added at stage 14 with ordered separate input options; no spelling corrections or combined single input. Original stage 11 remains unchanged.",
+      "evidence_id": "ev:c290be4785e38654ec940a7a",
       "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:c26fd95ef5061c2b60aed77e",
+      "reason": "passwords_at_actual_input_steps",
+      "review_id": "review:9b837bbe7046b0fc33b094c7",
       "severity": "warning",
       "step_id": null
     },
@@ -49997,17 +49484,17 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:638a19d600cbd866eee19849",
+      "detail": "Only the first wave is sent. Wrong-button revelation replaces the planned second wave. No second-wave monster quota, guaranteed cloak item or extra payout is invented; stolen book has unknown ID/count.",
+      "evidence_id": "ev:c290be4785e38654ec940a7a",
       "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0609a9058ce61848cfeebf4c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/013e630f032000188a33/1"
+      "reason": "wave_plan_not_spawn_or_loot",
+      "review_id": "review:128f702b113aaff1811826e2",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:c38f0191789f409726a13f78",
+      "evidence_id": "ev:9b28ed0647b7ac28b294777d",
       "quest_id": "irowiki-classic:Z-Gang_Quest",
       "reason": "map_unknown",
       "review_id": "review:4b57f580701d93083f555d9f",
@@ -50015,125 +49502,8 @@
       "step_id": "irowiki-classic:Z-Gang_Quest/step/013e630f032000188a33/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:638a19d600cbd866eee19849",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a2f6e9d4ddb39809897838bb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/013e630f032000188a33/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7c255d592e187ef0c4a683eb",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:465fb3ab0efb89b2705fad0d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/02fc14172d08d1cbd094/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7c255d592e187ef0c4a683eb",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:383f2415c6be34ba42424828",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/02fc14172d08d1cbd094/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6a8cee5890ff7dcd7d82aa80",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:735494a2bed0093696d1bf7d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/2f2fb8b1aba07bca8f43/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6a8cee5890ff7dcd7d82aa80",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:75d1157994df86cbc1b03b43",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/2f2fb8b1aba07bca8f43/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:6a8cee5890ff7dcd7d82aa80",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:951ace2b8ea79c6b892ef6cd",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/2f2fb8b1aba07bca8f43/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4771490ff0471a8790d7a137",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:75fbd42b738be58a422e6907",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/376243e870b479fc05fc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4771490ff0471a8790d7a137",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d6fdc1eca58497eab013ffa6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/376243e870b479fc05fc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:376c554ed0b84127e7b156a1",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0e62d0fe7479f3b3cd37d299",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/4c22668ccb3ed32eaf72/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:376c554ed0b84127e7b156a1",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:91c44535c72418024b24c891",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/4c22668ccb3ed32eaf72/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f402bf0bc4b7f58e07386ffa",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f442e156153fe1a0ada596f3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/557a350e7b2f63d8616a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f402bf0bc4b7f58e07386ffa",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:56ef4af22219a77081befb41",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/557a350e7b2f63d8616a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e2098f79e436de0b94269c1e",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:aa14a829bacfd82a280b98f3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/638c14d9a1966646ee74/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:1fb264ce11b8c9587eb1bae9",
+      "evidence_id": "ev:a3e1090eab75666c0cd30b36",
       "quest_id": "irowiki-classic:Z-Gang_Quest",
       "reason": "map_unknown",
       "review_id": "review:f783c35fa8b066a88bcedc61",
@@ -50141,53 +49511,8 @@
       "step_id": "irowiki-classic:Z-Gang_Quest/step/638c14d9a1966646ee74/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e2098f79e436de0b94269c1e",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ff55274d2d42b6db447afafd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/638c14d9a1966646ee74/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:e2098f79e436de0b94269c1e",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:df873d98d6ff41e83e093664",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/638c14d9a1966646ee74/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5d8a30d046664da6736ee9df",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2b72e810d74349fadcc89eaa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/7ac50c7c9b4ce8894c92/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5d8a30d046664da6736ee9df",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5be55f1dea3cf8872472601e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/7ac50c7c9b4ce8894c92/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:add8d79380add620e3046c1d",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3608f55875fe4476c85708ad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/904812646e4f32da8ad6/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:647893804b49f04b0261aba2",
+      "evidence_id": "ev:20cc36aecf5f458e5c85eda7",
       "quest_id": "irowiki-classic:Z-Gang_Quest",
       "reason": "map_unknown",
       "review_id": "review:6820cb4e25f0d6fcb1f8fcf6",
@@ -50195,71 +49520,8 @@
       "step_id": "irowiki-classic:Z-Gang_Quest/step/904812646e4f32da8ad6/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:add8d79380add620e3046c1d",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bef573fe5e19b23616b36856",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/904812646e4f32da8ad6/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:add8d79380add620e3046c1d",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:4dfaa81b3551f050e4684755",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/904812646e4f32da8ad6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a7b8a34052f19f5172420080",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f6e8a595bf538ba3d0779af5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/90e933b04a89b019e4bc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a7b8a34052f19f5172420080",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:536b6f607d2feb78c64cf1d1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/90e933b04a89b019e4bc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fe0ed20b3ba623e6eb7dc1e4",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:190d4f36a9d57d62d4cb26e0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/a1bb59fce14cee9c3628/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fe0ed20b3ba623e6eb7dc1e4",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:840787051fc2ce188b50019c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/a1bb59fce14cee9c3628/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e9552751f43dfa1d293dc920",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0e0775dc2542acbc420c3f2c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/a61d7eb88922a8701a6f/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:1d8feaad13c611f84620ea07",
+      "evidence_id": "ev:cc9a64dd2c698903155da45a",
       "quest_id": "irowiki-classic:Z-Gang_Quest",
       "reason": "map_unknown",
       "review_id": "review:e2a9fc7a5630c7f814629c8e",
@@ -50267,26 +49529,8 @@
       "step_id": "irowiki-classic:Z-Gang_Quest/step/a61d7eb88922a8701a6f/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e9552751f43dfa1d293dc920",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9738dee9d7d1f2776eb7daae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/a61d7eb88922a8701a6f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4316d0f96c041b3acbd02389",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f67185b91f680e08b54b228d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/a794b0ef094e5a5f78c2/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:7ef98ed14dbea53c3a59caa6",
+      "evidence_id": "ev:fae1370d6e77a3b510d85fa9",
       "quest_id": "irowiki-classic:Z-Gang_Quest",
       "reason": "map_unknown",
       "review_id": "review:89fcc4e94b87a317c1a6fdfc",
@@ -50294,121 +49538,13 @@
       "step_id": "irowiki-classic:Z-Gang_Quest/step/a794b0ef094e5a5f78c2/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4316d0f96c041b3acbd02389",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a9b69a78fdf0bf667a8bfede",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/a794b0ef094e5a5f78c2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:97927bd60fc625ecef71f5af",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:752a6c52a83eada2818a5d12",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/b8efc5c993dbc5dc4c35/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:97927bd60fc625ecef71f5af",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e8b1636d39b0229408f3d415",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/b8efc5c993dbc5dc4c35/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:55d70dce2b4a60047fbe08d0",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:54aee3524b8b2651b20f04f1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/d35facfc008462d412e1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:55d70dce2b4a60047fbe08d0",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:db0807c76972785b6011c9cf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/d35facfc008462d412e1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3b6bc96783d187497704571e",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a3e37ead8ff4af730c96d06e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/d6ced28c8acdb14f7f39/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:ac07e16f05e17670461a9e6c",
+      "evidence_id": "ev:88c53699cb004e09e5810dcc",
       "quest_id": "irowiki-classic:Z-Gang_Quest",
       "reason": "map_unknown",
       "review_id": "review:a643778d6d4e05466343d47c",
       "severity": "warning",
       "step_id": "irowiki-classic:Z-Gang_Quest/step/d6ced28c8acdb14f7f39/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3b6bc96783d187497704571e",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:206ffc04f5930ba784141826",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/d6ced28c8acdb14f7f39/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0cc47cd4194d759654f94c8c",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:deea084d1ab9ec7f1c434dc6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/de3641fabe596806cc1d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0cc47cd4194d759654f94c8c",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:787c8b0d48444d28ae0bdb09",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/de3641fabe596806cc1d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:085bb3b75305b740c828d4b8",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:25c46a715bf9d0988798fa6a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/fda45baef508583a173f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:085bb3b75305b740c828d4b8",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8f5dc269cd5a8529d72bd5f2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/fda45baef508583a173f/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:085bb3b75305b740c828d4b8",
-      "quest_id": "irowiki-classic:Z-Gang_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:d3400300be40c835f69726a6",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Z-Gang_Quest/step/fda45baef508583a173f/1"
     }
   ]
 }
