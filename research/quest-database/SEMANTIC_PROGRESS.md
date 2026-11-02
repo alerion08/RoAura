@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.7.0**. All four description fields are populated for
-**974 steps across 76 curated guides**, up from the previous 74-guide/942-step
-checkpoint. **137 conditional branches** also have independent RU/EN short and
-full descriptions. Twenty quest routes represent nine exclusive expedition/lyric/material paths
-and eleven conditional/optional activities. **1,776 steps in 140 remaining catalog entries still lack
+**988 steps across 80 curated guides**, up from the previous 76-guide/974-step
+checkpoint. **143 conditional branches** also have independent RU/EN short and
+full descriptions. Twenty-one quest routes represent nine exclusive expedition/lyric/material paths
+and twelve conditional/optional activities. **1,762 steps in 136 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -101,6 +101,10 @@ complete localization/context analysis.** `complete` remains false.
 | Hunter Skill Quest | 2 | One 5/5/30 material set; two participants; only Arpesto has printed coordinates |
 | Dancer Job Change Guide | 29 | Three retained material sets; restored 30-answer quiz; ordered dance/optional shortcuts; one final target and exclusive instrument rewards |
 | Dancer Skill Quest | 3 | One taken mirror; separate Aelle material set; uncertain teleport destination; Canell return without a second cost |
+| Acolyte Job Change Guide | 2 | Three assigned ascetic options; changed save point; restored Ymir restriction; explicit map links and missing third coordinate |
+| Acolyte Skill Quest | 1 | One Holy Light material set; Rosary delivery distinct from helper possession |
+| Priest Job Change Guide | 9 | Three visits with Job-50 exemption; optional unequipped Rosary helper; Exorcism versus pass rooms; temptation NPCs and exclusive books |
+| Priest Skill Quest | 2 | Restored Resurrection prerequisite; initial/extra stock distinct from one-plus-one random teaching-attempt costs |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -109,7 +113,39 @@ verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
 
-- Two Dancer guides preserve all 32 original stages. Coverage is now 974
+- Four Acolyte/Priest guides preserve all 14 original stages. Coverage is now
+  988 stages / 80 guides, 143 localized branches and twenty-one routes. All prior
+  974 localized descriptions, 137 branches and original step IDs remain unchanged.
+  Existing schema 5 / semantic-5.7.0 supports this data-only iteration.
+- Acolyte has one assigned ascetic branch, not three required visits. Field map
+  codes come from the guide's own links; Father Rubalkabara has no printed point.
+  Talking to the Ascetic changes the save point, so death/Butterfly Wing returns
+  there, not to the church/previous point. Travel hazards and escape suggestions
+  are not kill quotas or mandatory costs. The omitted Ymir-only-Father-Yosuke
+  note is restored as a source-specific restriction, not universal availability.
+- Holy Light delivers Rosary 2608, Opal 727 and Crystal Blue 991 once. Cleric is
+  not merged with the unnamed Acolyte church Priest or Bishop Paul. Rosary has
+  a different role in the optional Priest job-change assistance branch.
+- Priest requires all three ascetic visits unless Job Level 50 permits a skip.
+  The conditional route is not a free skip below 50, and the next room-entry
+  description repeats this context. The referenced Acolyte guide is not a newly
+  asserted full-quest completion dependency. Optional assisting Priest holds
+  Rosary in inventory, not equipped/consumed or charged to the applicant.
+  Repeated Peter S. Alberto clicks are intentional, with no fixed count.
+- Exorcism clears all actual Zombie spawns with unknown totals. Later Zombie/
+  Mummies rooms need no full clear. Deviruchi, Doppleganger, Dark Lord and Baphomet
+  are ordered temptation NPCs, not boss kills. Rejection and Sister Cecelia
+  answer labels are absent, so no literal choices are invented. Bible 1551 and
+  Book 1550 rewards are exclusive by Job Level, with the job change shared.
+- Redemptio keeps initial 30-water/20-gem stock, ten recommended extra gems and
+  per-attempt one-water/one-gem consumption distinct. Header consumed summaries
+  do not create another upfront fee. Success chance, number of attempts and
+  total consumption remain unknown. Resurrection Level 1 is restored from the
+  header; skill ID and Sister Linus coordinates are not guessed.
+
+Earlier source-review checkpoints:
+
+- Two Dancer guides preserved all 32 original stages. Coverage was 974
   stages / 76 guides, 137 localized branches and twenty routes. All prior 942
   localized descriptions, 124 branches and original step IDs remain unchanged.
   Existing schema 5 / semantic-5.7.0 supports this data-only iteration.
@@ -690,7 +726,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **264 tests passed**; complete offline enrichment passed;
+Validated locally: **276 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -754,7 +790,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 ## Next work, in order
 
-1. Review the remaining 140 catalog candidates, separating reference pages,
+1. Review the remaining 136 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

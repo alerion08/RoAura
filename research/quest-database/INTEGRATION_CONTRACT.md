@@ -155,6 +155,24 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   Job Level. Charming Wink takes one mirror and a separate five-item set; its
   later town teleport is a possible talk effect, not a required retry loop.
   Aelle and Aile are distinct identities; bare town points do not invent maps.
+- Acolyte's `assigned_ascetic` branches require one assigned option; Priest's
+  `visit_all_ascetics` requires three unless the Job Level 50 exemption applies.
+  Its `conditional_ascetic_visits` route is not an unrestricted optional skip.
+  Referring to the Acolyte guide is not proof of another completion prerequisite.
+  Acolyte's changed save point and source Ymir restriction retain explicit scope;
+  unknown coordinates, escape counts and fees are not inferred.
+- The same Rosary 2608 is delivered for Holy Light but only possessed by the
+  optional Priest helper. `helper_class` and `helper_item_not_equipped` apply to
+  that helper; do not require/equip/consume it for the applicant. Exorcism kills
+  all actual spawns with unknown count; later monster rooms are pass-through.
+  Temptation actors are ordered NPCs despite boss names. Exact refusal and
+  Sister Cecelia answer labels are absent; never manufacture menu options.
+- Redemptio's initial 30-water/20-gem `bring` stock, ten optional extra gems and
+  per-attempt one-water/one-gem `consume` rows are separate obligations. Header
+  `source_item_cost_summary` rows are non-additive and preserve a source wording
+  conflict, not a second upfront charge. Random success has no known percentage
+  or fixed total attempts/cost. `required_skill_level=1` names Resurrection in
+  its condition; no numeric Skill ID is established.
 - `step_locations.location_order` is a reviewed visit sequence when present,
   not an ordering inferred automatically from every textual occurrence.
   NULL means no established sequence. `condition_text` identifies alternative

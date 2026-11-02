@@ -251,17 +251,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],974)
-        self.assertEqual(self.report['not_fully_localized_steps'],1776)
+        self.assertEqual(self.report['fully_localized_steps'],988)
+        self.assertEqual(self.report['not_fully_localized_steps'],1762)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],974)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],988)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1776)
-        self.assertEqual(self.report['fully_localized_branches'],137)
-        self.assertEqual(self.report['curated_quests'],76)
-        self.assertEqual(self.report['pending_quests'],140)
-        self.assertEqual(self.report['quest_routes'],20)
-        self.assertEqual(self.report['source_additions'],28)
+        self.assertEqual(missing,1762)
+        self.assertEqual(self.report['fully_localized_branches'],143)
+        self.assertEqual(self.report['curated_quests'],80)
+        self.assertEqual(self.report['pending_quests'],136)
+        self.assertEqual(self.report['quest_routes'],21)
+        self.assertEqual(self.report['source_additions'],31)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_juperos_four_homonymous_books_and_return_scholar_have_typed_links(self):
@@ -398,6 +398,119 @@ class RealCorpusTests(unittest.TestCase):
             destination=self.out/'quest_semantic.sqlite';before=destination.read_bytes()
             with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid optional route context proof'):build(self.source,self.out,curation_dir=folder)
             self.assertEqual(destination.read_bytes(),before)
+
+    def test_acolyte_ascetics_are_one_assigned_branch_not_three_required_visits(self):
+        q='irowiki-classic:Acolyte_Job_Change_Guide'
+        branches=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,b.choice_group,e.original_name FROM step_branches b JOIN requirements r USING(branch_id)
+          JOIN entities e ON e.entity_id=r.entity_id JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? AND r.kind='visit_assigned_ascetic' ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(branches,[('marthilda','assigned_ascetic','Mother Marthilda'),('rubalkabara','assigned_ascetic','Father Rubalkabara'),('yosuke','assigned_ascetic','Father Yosuke')])
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='visit_all_ascetics'",(q,)).fetchone())
+
+    def test_acolyte_field_maps_follow_own_links_without_fabricating_third_coordinate(self):
+        q='irowiki-classic:Acolyte_Job_Change_Guide'
+        points=[tuple(r) for r in self.db.execute('''SELECT m.map_code,l.x,l.y,sl.condition_text FROM step_locations sl JOIN locations l USING(location_id)
+          JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND sl.role='ascetic_destination' ORDER BY m.map_code''',(q,))]
+        self.assertEqual([(r[0],r[1],r[2]) for r in points],[('moc_fild07',41,355),('prt_fild00',208,218)])
+        self.assertTrue(all('do not visit all' in r[3] for r in points))
+        third=self.db.execute('''SELECT m.map_code FROM requirements r JOIN step_branches b USING(branch_id) JOIN maps m ON m.entity_id=r.entity_id
+          JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? AND b.branch_key='rubalkabara' AND r.kind='source_destination_map' ''',(q,)).fetchone()[0]
+        self.assertEqual(third,'prt_fild03')
+        entrance=self.db.execute('''SELECT l.x,l.y,m.map_code FROM step_locations sl JOIN locations l USING(location_id) JOIN maps m ON m.entity_id=l.map_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND sl.role='church_entrance' ''',(q,)).fetchone()
+        self.assertEqual(tuple(entrance),(234,314,None))
+
+    def test_acolyte_savepoint_and_hazards_are_context_not_inventory_or_kill_quotas(self):
+        q='irowiki-classic:Acolyte_Job_Change_Guide'
+        wing=self.db.execute('''SELECT i.operation,i.quantity,i.required FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND x.game_id=602''',(q,)).fetchone()
+        self.assertEqual(tuple(wing),('mention',None,0))
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='savepoint_change'",(q,)).fetchone()[0],'ascetic_location')
+        hazards=[tuple(r) for r in self.db.execute('''SELECT m.operation,m.quantity,m.required FROM step_monsters m JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,))]
+        self.assertEqual(hazards,[('mention',None,0)]*3)
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='zeny'",(q,)).fetchone())
+
+    def test_acolyte_ymir_note_is_restored_as_a_source_variant(self):
+        q='irowiki-classic:Acolyte_Job_Change_Guide'
+        note=self.db.execute('''SELECT a.text_en,a.text_ru FROM step_source_additions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,)).fetchone()
+        self.assertIn('On Ymir server',note[0]);self.assertIn('Father Yosuke',note[0]);self.assertIn('Ymir',note[1])
+        variant=self.db.execute('''SELECT r.amount,e.original_name FROM requirements r JOIN entities e ON e.entity_id=r.entity_id WHERE r.quest_id=? AND r.kind='source_server_variant' ''',(q,)).fetchone()
+        self.assertEqual(tuple(variant),('Ymir','Father Yosuke'))
+        conditions={r[0]:r[1] for r in self.db.execute('SELECT b.branch_key,b.condition_text FROM step_branches b JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,))}
+        self.assertIn('Not eligible',conditions['marthilda']);self.assertIn('Not eligible',conditions['rubalkabara'])
+
+    def test_holy_light_materials_and_cleric_do_not_merge_other_church_roles(self):
+        q='irowiki-classic:Acolyte_Skill_Quest'
+        materials=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY x.game_id''',(q,))]
+        self.assertEqual(materials,[(727,1,'deliver'),(991,1,'deliver'),(2608,1,'deliver')])
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='skill_unlock'",(q,)).fetchone()[0],'Holy Light')
+        actor_ids=[r[0] for r in self.db.execute("SELECT entity_id FROM entities WHERE original_name IN ('Cleric','Bishop Paul','Sister Linus','Sister Cecelia')")]
+        self.assertEqual(len(actor_ids),4);self.assertEqual(len(set(actor_ids)),4)
+        self.assertFalse(self.db.execute('SELECT 1 FROM step_locations l JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone())
+
+    def test_priest_visits_all_three_unless_job_50_without_new_completion_dependency(self):
+        q='irowiki-classic:Priest_Job_Change_Guide'
+        route=self.db.execute('''SELECT r.route_id,r.kind,r.condition_text,e.method FROM quest_routes r JOIN evidence e USING(evidence_id) WHERE r.quest_id=?''',(q,)).fetchone()
+        self.assertEqual((route[1],route[3]),('optional','source_optional_activity_context'));self.assertIn('unless',route[2])
+        self.assertEqual([r[0] for r in self.db.execute('SELECT s.step_order FROM step_routes m JOIN quest_steps s USING(step_id) WHERE m.route_id=?',(route[0],))],[2])
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='visit_all_ascetics'",(q,)).fetchone()[0],'3')
+        self.assertFalse(self.db.execute("SELECT 1 FROM quest_relations WHERE quest_id=? AND kind='mandatory_prerequisite'",(q,)).fetchone())
+        context=self.db.execute('''SELECT a.text_en FROM step_source_additions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=3''',(q,)).fetchone()[0]
+        self.assertIn('Job Level 50',context)
+
+    def test_priest_optional_helper_rosary_is_in_inventory_not_applicant_consumption(self):
+        q='irowiki-classic:Priest_Job_Change_Guide'
+        fact=self.db.execute('''SELECT x.game_id,i.quantity,i.operation,b.branch_key FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=?''',(q,)).fetchone()
+        self.assertEqual(tuple(fact),(2608,1,'possess','optional_priest_helper'))
+        self.assertFalse(self.db.execute('''SELECT 1 FROM step_items i JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND i.branch_id IS NULL''',(q,)).fetchone())
+        role=self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='helper_class'",(q,)).fetchone()[0]
+        self.assertEqual(role,'Priest')
+        self.assertTrue(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='helper_item_not_equipped'",(q,)).fetchone())
+        clicks=self.db.execute('''SELECT operation FROM step_actions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=4 AND a.branch_id IS NULL''',(q,)).fetchone()[0]
+        self.assertEqual(clicks,'repeat_click_until_dialogue')
+
+    def test_priest_exorcism_and_later_pass_rooms_do_not_share_kill_requirement(self):
+        q='irowiki-classic:Priest_Job_Change_Guide'
+        facts=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,m.operation,m.quantity,m.required FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order,x.game_id''',(q,))]
+        self.assertEqual(facts,[(5,1015,'kill',None,1),(7,1015,'mention',None,0),(7,1041,'mention',None,0)])
+
+    def test_priest_temptation_boss_names_are_ordered_npcs_without_fabricated_menu_answers(self):
+        q='irowiki-classic:Priest_Job_Change_Guide'
+        actors=[tuple(r) for r in self.db.execute('''SELECT e.original_name,e.entity_type,n.game_id FROM step_actions a JOIN entities e USING(entity_id) JOIN npcs n USING(entity_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=6 ORDER BY a.action_order''',(q,))]
+        self.assertEqual(actors,[(name,'npc',None) for name in ['Deviruchi','Doppleganger','Dark Lord','Baphomet']])
+        self.assertFalse(self.db.execute('''SELECT 1 FROM dialogue_options o JOIN step_dialogues sd USING(dialogue_id) JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,)).fetchone())
+
+    def test_priest_bible_book_rewards_are_exclusive_own_link_ids(self):
+        q='irowiki-classic:Priest_Job_Change_Guide'
+        items=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,x.game_id,r.amount FROM rewards r JOIN step_branches b USING(branch_id)
+          JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(items,[('below_50_book',1550,'1'),('job_50_bible',1551,'1')])
+        self.assertEqual(tuple(self.db.execute("SELECT amount,branch_id FROM rewards WHERE quest_id=? AND kind='job_change'",(q,)).fetchone()),('Priest',None))
+
+    def test_redemptio_initial_stock_optional_extra_and_per_attempt_costs_stay_separate(self):
+        q='irowiki-classic:Priest_Skill_Quest'
+        stock=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity,i.operation,i.required FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=1 ORDER BY x.game_id,i.quantity''',(q,))]
+        self.assertEqual(stock,[(523,30,'bring',1),(717,10,'bring',0),(717,20,'bring',1)])
+        attempts=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=2 ORDER BY x.game_id''',(q,))]
+        self.assertEqual(attempts,[(523,1,'consume'),(717,1,'consume')])
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='required_skill_level'",(q,)).fetchone()[0],'1')
+        self.assertIsNone(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='attempt_success_probability'",(q,)).fetchone()[0])
+        self.assertIn('Resurrection Level 1',self.db.execute('SELECT a.text_en FROM step_source_additions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone()[0])
+        reward=self.db.execute("SELECT amount,condition_text FROM rewards WHERE quest_id=? AND kind='skill_unlock'",(q,)).fetchone()
+        self.assertEqual(reward[0],'Redemptio');self.assertIn('successful',reward[1])
+
+    def test_priest_job_50_skip_proof_corruption_preserves_export(self):
+        folder=self.out/'invalid-priest-skip-proof';shutil.copytree(ROOT/'curation',folder)
+        path=folder/'Priest_Job_Change_Guide.json';data=json.loads(path.read_text())
+        data['routes'][0]['source_evidence']='Job Level 40 Acolytes may skip all visits'
+        path.write_text(json.dumps(data));before=(self.out/'quest_semantic.sqlite').read_bytes()
+        with self.assertRaisesRegex(ValueError,'Invalid optional route context proof'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
 
     def test_dancer_registration_sets_are_exclusive_and_items_are_shown_not_consumed(self):
         q='irowiki-classic:Dancer_Job_Change_Guide'

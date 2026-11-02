@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 974 steps in 76 curated guides and
-137 conditional branches. Twenty-eight source additions supplement full descriptions;
-**1,776 steps / 140 remaining catalog entries still need processing**. Twenty quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
+is excluded. All four RU/EN fields exist for 988 steps in 80 curated guides and
+143 conditional branches. Thirty-one source additions supplement full descriptions;
+**1,762 steps / 136 remaining catalog entries still need processing**. Twenty-one quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -112,8 +112,18 @@ are separate from quiz-only references. Charming Wink has one mirror cost,
 one Aelle set and no mandatory teleport retry loop. Aile and Aelle remain
 separate actors. Seven new source additions preserve per-stage context without
 changing schema 5 or generator 5.7.0.
+Acolyte/Priest job and skill guides are curated: four guides / 14 stages.
+Acolyte visits one assigned ascetic and changes the save point; own-guide map
+links and the restored Ymir-only-Yosuke note retain their source scope. Priest
+visits all three unless Job Level 50 permits a skip. Its optional helper holds
+Rosary unequipped, unlike the Rosary delivered for Holy Light. Exorcism kills
+are separate from later pass rooms and ordered temptation NPCs. Bible/Book
+rewards are exclusive; unknown exact answers are not invented. Redemptio has
+restored Resurrection Level 1, distinct initial/extra stock and one-plus-one
+per-attempt costs with unknown success chance/totals. Three new source additions
+preserve context; schema/generator remain 5 / 5.7.0.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 264 regression tests, full offline rebuild and research CI
+Local validation: 276 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

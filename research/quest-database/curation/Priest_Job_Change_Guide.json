@@ -1,0 +1,556 @@
+{
+  "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "3ee09db0a9ee59ab1670400ff5ac8b819086f78f52dcd9104d6ab4465bb51162",
+  "snapshot_sha256": "f75909229a5cf205a1293831214f2eb3f196f8500ed0306fe6adb4dc396e26e8",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Bishop Paul"
+    },
+    {
+      "type": "npc",
+      "name": "Peter S. Alberto"
+    },
+    {
+      "type": "npc",
+      "name": "Deviruchi"
+    },
+    {
+      "type": "npc",
+      "name": "Doppleganger"
+    },
+    {
+      "type": "npc",
+      "name": "Dark Lord"
+    },
+    {
+      "type": "npc",
+      "name": "Baphomet"
+    },
+    {
+      "type": "npc",
+      "name": "Sister Cecelia"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "prt_church",
+      "map_code": "prt_church"
+    },
+    {
+      "type": "item",
+      "name": "Rosary",
+      "game_id": 2608,
+      "id_source": "http://db.irowiki.org/classic/item-info/2608/"
+    },
+    {
+      "type": "item",
+      "name": "Bible",
+      "game_id": 1551,
+      "id_source": "http://db.irowiki.org/classic/item-info/1551/"
+    },
+    {
+      "type": "item",
+      "name": "Book",
+      "game_id": 1550,
+      "id_source": "http://db.irowiki.org/classic/item-info/1550/"
+    },
+    {
+      "type": "monster",
+      "name": "Zombie",
+      "game_id": 1015,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1015/"
+    },
+    {
+      "type": "monster",
+      "name": "Mummies",
+      "game_id": 1041,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1041/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Apply to become a Priest in the Prontera Church (prt_church 16, 41) by speaking to Bishop Paul.",
+      "instruction_sha256": "a9f6a8821209a09e670fd1fad9e2d14f528d77c0275719f64729ee02fdc6f730",
+      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/a9f6a8821209a09e670f/1",
+      "goal": "talk",
+      "short_ru": "Подайте заявку у Bishop Paul: prt_church 16, 41.",
+      "short_en": "Apply to Bishop Paul: prt_church 16, 41.",
+      "full_ru": "Подайте заявку на профессию Priest у Bishop Paul в Prontera Church (prt_church 16, 41).",
+      "full_en": "Apply to become a Priest in the Prontera Church (prt_church 16, 41) by speaking to Bishop Paul.",
+      "npcs": [
+        {
+          "entity": "Bishop Paul",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "apply_for_priest",
+          "entity": "Bishop Paul"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prt_church",
+          "x": 16,
+          "y": 41,
+          "role": "npc",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Bishop Paul",
+        "Prontera",
+        "prt_church"
+      ]
+    },
+    "2": {
+      "original_instruction": "You must visit all three Ascetics from the Acolyte Job Quest . However, this step may be skipped by Job Level 50 Acolytes .",
+      "instruction_sha256": "2f1ac5fdcf465262c7509c076796371678fc119aaf9056d9584a7b912470c8ce",
+      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/2f1ac5fdcf465262c750/1",
+      "goal": "visit_ascetics",
+      "short_ru": "Посетите всех трёх Ascetics из Acolyte Job Quest; при Job Level 50 этап можно пропустить.",
+      "short_en": "Visit all three Ascetics from Acolyte Job Quest; Job Level 50 permits skipping this stage.",
+      "full_ru": "Посетите всех трёх Ascetics из Acolyte Job Quest. Этот этап могут пропустить Acolytes с Job Level 50.",
+      "full_en": "You must visit all three Ascetics from the Acolyte Job Quest . However, this step may be skipped by Job Level 50 Acolytes .",
+      "requirements": [
+        {
+          "kind": "visit_all_ascetics",
+          "amount": "3",
+          "condition": "All three Ascetics referenced by Acolyte Job Quest; exempt only at Job Level 50."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "visit_all_three_ascetics",
+          "condition": "Required unless Job Level 50; names/points are not independently printed in this guide."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "After returning from the three Ascetics, Bishop Paul grants you access to a room where the next two tests will take place: Exorcism and Temptation.",
+      "instruction_sha256": "5ea5c777034617c411936f9b602ee49fb4eedb0e3eb0df3288ec43ac6d98a6bd",
+      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/5ea5c777034617c41193/1",
+      "goal": "enter_test",
+      "short_ru": "Вернитесь к Bishop Paul и войдите в комнату Exorcism и Temptation.",
+      "short_en": "Return to Bishop Paul and enter the Exorcism and Temptation room.",
+      "full_ru": "После возвращения от трёх Ascetics Bishop Paul откроет доступ в комнату следующих двух испытаний: Exorcism и Temptation. Правило предыдущего этапа: посетите всех трёх Ascetics из Acolyte Job Quest; Acolytes с Job Level 50 могут пропустить эти посещения.",
+      "full_en": "After returning from the three Ascetics, Bishop Paul grants you access to a room where the next two tests will take place: Exorcism and Temptation. You must visit all three Ascetics from the Acolyte Job Quest .  However, this step may be skipped by Job Level 50 Acolytes .",
+      "npcs": [
+        {
+          "entity": "Bishop Paul",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_test_room",
+          "entity": "Bishop Paul",
+          "condition": "After the applicable ascetic-visit stage; Job Level 50 exemption does not require fabricating completed visits."
+        }
+      ],
+      "protected_names": [
+        "Bishop Paul"
+      ],
+      "locations": [],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "You must visit all three Ascetics from the Acolyte Job Quest .  However, this step may be skipped by Job Level 50 Acolytes .",
+          "text_ru": "Правило предыдущего этапа: посетите всех трёх Ascetics из Acolyte Job Quest; Acolytes с Job Level 50 могут пропустить эти посещения."
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "In this room, click Peter S. Alberto multiple times to activate his dialogue window. The excessive clicking required is actually part of the test, not a bug. A Priest can come along to help for these two tests by following the same instructions and bringing a Rosary in their inventory (not equipped).",
+      "instruction_sha256": "b9d40ed02db944e46b12eac515b36e3ec8f772612a82889422579a397430d387",
+      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/b9d40ed02db944e46b12/1",
+      "goal": "repeat_interact",
+      "short_ru": "Повторно нажимайте на Peter S. Alberto до открытия диалога; помощь другого Priest необязательна.",
+      "short_en": "Click Peter S. Alberto repeatedly until dialogue opens; another Priest's help is optional.",
+      "full_ru": "В комнате многократно нажмите на Peter S. Alberto, пока не откроется диалог. Многочисленные нажатия — часть испытания, а не ошибка. Другой Priest может помочь в этих двух испытаниях: ему нужно выполнить те же инструкции и держать Rosary в инвентаре, не надевая его.",
+      "full_en": "In this room, click Peter S. Alberto multiple times to activate his dialogue window. The excessive clicking required is actually part of the test, not a bug. A Priest can come along to help for these two tests by following the same instructions and bringing a Rosary in their inventory (not equipped).",
+      "npcs": [
+        {
+          "entity": "Peter S. Alberto",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "interaction_count_unknown",
+          "condition": "Multiple clicks are intentional; no fixed count or timer printed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "repeat_click_until_dialogue",
+          "entity": "Peter S. Alberto"
+        }
+      ],
+      "protected_names": [
+        "Peter S. Alberto",
+        "Rosary"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "optional_priest_helper",
+          "choice_group": "assistance_activity",
+          "variant_scope": "irowiki-classic",
+          "condition": "Optional assistance by another Priest for Exorcism and Temptation; not an applicant material requirement.",
+          "section": "",
+          "source_step": 4,
+          "original_instruction": "In this room, click Peter S. Alberto multiple times to activate his dialogue window. The excessive clicking required is actually part of the test, not a bug. A Priest can come along to help for these two tests by following the same instructions and bringing a Rosary in their inventory (not equipped).",
+          "instruction_sha256": "b9d40ed02db944e46b12eac515b36e3ec8f772612a82889422579a397430d387",
+          "short_ru": "Помощник Priest должен держать 1 Rosary в инвентаре, не надевая его.",
+          "short_en": "An assisting Priest must keep 1 Rosary in inventory, not equipped.",
+          "full_ru": "В комнате многократно нажмите на Peter S. Alberto, пока не откроется диалог. Многочисленные нажатия — часть испытания, а не ошибка. Другой Priest может помочь в этих двух испытаниях: ему нужно выполнить те же инструкции и держать Rosary в инвентаре, не надевая его.",
+          "full_en": "In this room, click Peter S. Alberto multiple times to activate his dialogue window. The excessive clicking required is actually part of the test, not a bug. A Priest can come along to help for these two tests by following the same instructions and bringing a Rosary in their inventory (not equipped).",
+          "protected_names": [
+            "Peter S. Alberto",
+            "Rosary"
+          ],
+          "items": [
+            {
+              "entity": "Rosary",
+              "quantity": 1,
+              "operation": "possess",
+              "required": 1,
+              "condition": "The assisting Priest owns the inventory item; not consumed, equipped or charged to the applicant."
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "helper_class",
+              "amount": "Priest"
+            },
+            {
+              "kind": "helper_item_not_equipped",
+              "entity": "Rosary"
+            }
+          ],
+          "actions": [
+            {
+              "operation": "assist_tests",
+              "condition": "Optional Priest companion follows the same interaction instructions."
+            }
+          ]
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "In the next few rooms, Heal \"bomb\" all the Zombie that appear. All must be killed in each room to clear the Exorcism stage and move onto Temptation.",
+      "instruction_sha256": "a8f73b70fe0dbdc51bb8aa3e9122b5e0ef153340d49a041133a714f17bdfc3ef",
+      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/a8f73b70fe0dbdc51bb8/1",
+      "goal": "kill",
+      "short_ru": "Используйте Heal против всех появляющихся Zombie в каждой комнате Exorcism.",
+      "short_en": "Use Heal on all Zombie spawns in each Exorcism room.",
+      "full_ru": "В следующих комнатах убивайте всех появляющихся Zombie с помощью Heal. Для прохождения Exorcism и перехода к Temptation нужно зачистить каждую комнату.",
+      "full_en": "In the next few rooms, Heal \"bomb\" all the Zombie that appear. All must be killed in each room to clear the Exorcism stage and move onto Temptation.",
+      "monsters": [
+        {
+          "entity": "Zombie",
+          "operation": "kill",
+          "quantity": null,
+          "required": 1,
+          "condition": "All actual spawns in each Exorcism room; total spawn count and number of rooms unknown."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "combat_technique",
+          "amount": "Heal",
+          "condition": "Source suggests Heal bombing; no skill level or fixed cast count is printed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "clear_each_exorcism_room",
+          "entity": "Zombie"
+        }
+      ],
+      "protected_names": [
+        "Zombie"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Successfully walk past four NPCs (Deviruchi, Doppleganger, Dark Lord, and finally Baphomet) without accepting their deals. Some may offer bribes or insist Priest life is too difficult to be worthwhile, but choose options that reject their offers.",
+      "instruction_sha256": "5eccee778ed3eb32f6a4f7c81cecd88920fb6578ed72eff6ffbcec15a78dc9d5",
+      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/5eccee778ed3eb32f6a4/1",
+      "goal": "reject_offers",
+      "short_ru": "По порядку отвергните предложения Deviruchi, Doppleganger, Dark Lord и Baphomet.",
+      "short_en": "Reject Deviruchi, Doppleganger, Dark Lord and Baphomet in order.",
+      "full_ru": "Пройдите мимо четырёх NPC по порядку: Deviruchi, Doppleganger, Dark Lord и Baphomet. Не принимайте их сделки: отвергайте подкуп и предложения отказаться от жизни Priest.",
+      "full_en": "Successfully walk past four NPCs (Deviruchi, Doppleganger, Dark Lord, and finally Baphomet) without accepting their deals. Some may offer bribes or insist Priest life is too difficult to be worthwhile, but choose options that reject their offers.",
+      "npcs": [
+        {
+          "entity": "Deviruchi",
+          "role": "temptation_actor"
+        },
+        {
+          "entity": "Doppleganger",
+          "role": "temptation_actor"
+        },
+        {
+          "entity": "Dark Lord",
+          "role": "temptation_actor"
+        },
+        {
+          "entity": "Baphomet",
+          "role": "temptation_actor"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "pass_and_reject_offer",
+          "entity": "Deviruchi",
+          "condition": "Exact menu label not supplied; reject the offer, do not invent a boss kill."
+        },
+        {
+          "operation": "pass_and_reject_offer",
+          "entity": "Doppleganger",
+          "condition": "Exact menu label not supplied; reject the offer, do not invent a boss kill."
+        },
+        {
+          "operation": "pass_and_reject_offer",
+          "entity": "Dark Lord",
+          "condition": "Exact menu label not supplied; reject the offer, do not invent a boss kill."
+        },
+        {
+          "operation": "pass_and_reject_offer",
+          "entity": "Baphomet",
+          "condition": "Exact menu label not supplied; reject the offer, do not invent a boss kill."
+        }
+      ],
+      "protected_names": [
+        "Deviruchi",
+        "Doppleganger",
+        "Dark Lord",
+        "Baphomet"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Following this is another series of rooms where Zombie spawn, with Mummies mixed in. It is not necessary to kill them all, simply run by.",
+      "instruction_sha256": "c487b4fae8e5d9924dac05faf44353b4ea14a7b41914f36334b39193b98d9dc5",
+      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/c487b4fae8e5d9924dac/1",
+      "goal": "pass_room",
+      "short_ru": "Пробегите комнаты с Zombie и Mummies; полная зачистка не требуется.",
+      "short_en": "Run past the Zombie and Mummies; clearing every monster is not required.",
+      "full_ru": "Далее идут комнаты с Zombie и Mummies. Убивать всех необязательно: просто пробегите мимо.",
+      "full_en": "Following this is another series of rooms where Zombie spawn, with Mummies mixed in. It is not necessary to kill them all, simply run by.",
+      "monsters": [
+        {
+          "entity": "Zombie",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Run past these spawns; no additional compulsory kill quota."
+        },
+        {
+          "entity": "Mummies",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Run past these spawns; no additional compulsory kill quota."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "run_past_remaining_rooms"
+        }
+      ],
+      "protected_names": [
+        "Zombie",
+        "Mummies"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "After exiting the last room, you'll be warped back to Bishop Paul. He suggests speaking with Sister Cecelia on the other side of the room. Employ common sense to answer her questions with holy and righteous responses to pass it.",
+      "instruction_sha256": "928c9cb67d4e74ed2bf8a856fb2384402a2764bde44096fa87afd98780a12fc6",
+      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/928c9cb67d4e74ed2bf8/1",
+      "goal": "talk",
+      "short_ru": "У Bishop Paul получите направление к Sister Cecelia и дайте благочестивые ответы.",
+      "short_en": "Follow Bishop Paul's referral to Sister Cecelia and give righteous answers.",
+      "full_ru": "После выхода из последней комнаты вас перенесёт к Bishop Paul. Он направит к Sister Cecelia на другой стороне комнаты. Отвечайте на её вопросы благочестиво и праведно, руководствуясь здравым смыслом.",
+      "full_en": "After exiting the last room, you'll be warped back to Bishop Paul. He suggests speaking with Sister Cecelia on the other side of the room. Employ common sense to answer her questions with holy and righteous responses to pass it.",
+      "npcs": [
+        {
+          "entity": "Bishop Paul",
+          "role": "referral"
+        },
+        {
+          "entity": "Sister Cecelia",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Sister Cecelia"
+        },
+        {
+          "operation": "answer_righteously",
+          "entity": "Sister Cecelia",
+          "condition": "No literal questions or answer labels printed; do not fabricate a static answer list."
+        }
+      ],
+      "protected_names": [
+        "Bishop Paul",
+        "Sister Cecelia"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Return to Bishop Paul to become a Priest after a bit of dialogue. He will reward Job Level 50 Acolytes with a Bible , while those below Job 50 will receive a Book .",
+      "instruction_sha256": "851f4ba3ddd513a45e2e1b19813d7f87bf4c900a92caacc6d014c856c550ad4d",
+      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/851f4ba3ddd513a45e2e/1",
+      "goal": "job_change",
+      "short_ru": "Вернитесь к Bishop Paul и станьте Priest; награда Bible или Book зависит от Job Level.",
+      "short_en": "Return to Bishop Paul and become a Priest; Bible or Book depends on Job Level.",
+      "full_ru": "Вернитесь к Bishop Paul: после разговора вы станете Priest. Acolytes с Job Level 50 получат Bible, а персонажи с Job ниже 50 — Book.",
+      "full_en": "Return to Bishop Paul to become a Priest after a bit of dialogue. He will reward Job Level 50 Acolytes with a Bible , while those below Job 50 will receive a Book .",
+      "npcs": [
+        {
+          "entity": "Bishop Paul",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Priest"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "change_job",
+          "entity": "Bishop Paul"
+        }
+      ],
+      "protected_names": [
+        "Bishop Paul",
+        "Bible",
+        "Book"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "job_50_bible",
+          "choice_group": "job_level_book",
+          "variant_scope": "irowiki-classic",
+          "condition": "Job Level 50 only; exclusive with Book.",
+          "section": "",
+          "source_step": 9,
+          "original_instruction": "Return to Bishop Paul to become a Priest after a bit of dialogue. He will reward Job Level 50 Acolytes with a Bible , while those below Job 50 will receive a Book .",
+          "instruction_sha256": "851f4ba3ddd513a45e2e1b19813d7f87bf4c900a92caacc6d014c856c550ad4d",
+          "short_ru": "Job Level 50: получите 1 Bible.",
+          "short_en": "Job Level 50: receive 1 Bible.",
+          "full_ru": "Вернитесь к Bishop Paul: после разговора вы станете Priest. Acolytes с Job Level 50 получат Bible, а персонажи с Job ниже 50 — Book.",
+          "full_en": "Return to Bishop Paul to become a Priest after a bit of dialogue. He will reward Job Level 50 Acolytes with a Bible , while those below Job 50 will receive a Book .",
+          "protected_names": [
+            "Bishop Paul",
+            "Bible",
+            "Book"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Bible"
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "job_level",
+              "amount": "50"
+            }
+          ]
+        },
+        {
+          "key": "below_50_book",
+          "choice_group": "job_level_book",
+          "variant_scope": "irowiki-classic",
+          "condition": "Below Job Level 50; source header specifies 40~49. Exclusive with Bible.",
+          "section": "",
+          "source_step": 9,
+          "original_instruction": "Return to Bishop Paul to become a Priest after a bit of dialogue. He will reward Job Level 50 Acolytes with a Bible , while those below Job 50 will receive a Book .",
+          "instruction_sha256": "851f4ba3ddd513a45e2e1b19813d7f87bf4c900a92caacc6d014c856c550ad4d",
+          "short_ru": "Job Level ниже 50: получите 1 Book.",
+          "short_en": "Job Level below 50: receive 1 Book.",
+          "full_ru": "Вернитесь к Bishop Paul: после разговора вы станете Priest. Acolytes с Job Level 50 получат Bible, а персонажи с Job ниже 50 — Book.",
+          "full_en": "Return to Bishop Paul to become a Priest after a bit of dialogue. He will reward Job Level 50 Acolytes with a Bible , while those below Job 50 will receive a Book .",
+          "protected_names": [
+            "Bishop Paul",
+            "Bible",
+            "Book"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Book"
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "job_level_below",
+              "amount": "50"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "priest_ascetic_group_and_skip",
+      "detail": "All three Ascetics are required unless Job Level 50. This differs from the one assigned option in Acolyte job change. The own-guide HTML Acolyte Job Quest link resolves Acolyte_Job_Change_Guide, but this is a visit-group reference, not a newly asserted mandatory quest-completion relation. Actor names/points are not copied without own-guide evidence. The following test-room step preserves the skip context."
+    },
+    {
+      "reason": "priest_helper_and_rosary",
+      "detail": "The optional assisting character must be Priest and keep Rosary 2608 in inventory, not equipped. It is neither consumed nor an extra applicant cost; Holy Light uses the same linked item with a different role. Peter S. Alberto repeated clicks are intentional with unknown count."
+    },
+    {
+      "reason": "priest_combat_and_temptation_roles",
+      "detail": "Exorcism clears all actual Zombie spawns with unknown totals. Later Zombie/Mummies rooms can be run through. Deviruchi, Doppleganger, Dark Lord and Baphomet are ordered temptation NPCs, not four mandatory bosses. Exact rejection and Sister Cecelia answers are absent; no literal dialogue is fabricated."
+    },
+    {
+      "reason": "priest_reward_and_identity_scope",
+      "detail": "Bible 1551 and Book 1550 are exact own-guide links with exclusive job-level rewards. Bishop Paul is not automatically merged with the unnamed Acolyte church Priest or Holy Light Cleric; only his own interior map point is asserted."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Acolyte",
+        "source_section": "requirements",
+        "evidence": "Class: Acolyte"
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "conditional_ascetic_visits",
+      "kind": "optional",
+      "source_step": 2,
+      "source_evidence": "this step may be skipped by Job Level 50 Acolytes",
+      "steps": [
+        2
+      ],
+      "condition": "All three visits are required unless the applicant is Job Level 50, when this step may be skipped. Conditional exemption, not a free skip for lower job levels."
+    }
+  ]
+}

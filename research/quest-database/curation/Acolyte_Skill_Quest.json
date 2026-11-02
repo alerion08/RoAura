@@ -1,0 +1,118 @@
+{
+  "quest_id": "irowiki-classic:Acolyte_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "7db287e33216d559e8389b0126f992d6520160b3e21b310eb76a82398f80cdcc",
+  "snapshot_sha256": "5a75793038a1ad0f112ae4c284bd1682508b34d39cc7138d04f1e535a2d4eadf",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Cleric"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Sanctuary"
+    },
+    {
+      "type": "item",
+      "name": "Rosary",
+      "game_id": 2608,
+      "id_source": "http://db.irowiki.org/classic/item-info/2608/"
+    },
+    {
+      "type": "item",
+      "name": "Opal",
+      "game_id": 727,
+      "id_source": "http://db.irowiki.org/classic/item-info/727/"
+    },
+    {
+      "type": "item",
+      "name": "Crystal Blue",
+      "game_id": 991,
+      "id_source": "http://db.irowiki.org/classic/item-info/991/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to the Cleric in the Prontera Sanctuary, and give him the following items to learn Holy Light: 1 Rosary , 1 Opal , 1 Crystal Blue .",
+      "instruction_sha256": "94e7a336f27729ae4c2ce9e225acd5a665f07334601c3cead75ada40bae848ff",
+      "step_id": "irowiki-classic:Acolyte_Skill_Quest/step/94e7a336f27729ae4c2c/1",
+      "goal": "learn_skill",
+      "short_ru": "У Cleric в Prontera Sanctuary отдайте 1 Rosary, 1 Opal и 1 Crystal Blue; изучите Holy Light.",
+      "short_en": "Give Cleric in Prontera Sanctuary 1 Rosary, 1 Opal and 1 Crystal Blue; learn Holy Light.",
+      "full_ru": "Поговорите с Cleric в Prontera Sanctuary и передайте ему для изучения Holy Light: 1 Rosary, 1 Opal, 1 Crystal Blue.",
+      "full_en": "Talk to the Cleric in the Prontera Sanctuary, and give him the following items to learn Holy Light: 1 Rosary , 1 Opal , 1 Crystal Blue .",
+      "npcs": [
+        {
+          "entity": "Cleric",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rosary",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Opal",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Crystal Blue",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Holy Light"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_materials",
+          "entity": "Cleric"
+        },
+        {
+          "operation": "learn_holy_light",
+          "entity": "Cleric"
+        }
+      ],
+      "protected_names": [
+        "Cleric",
+        "Prontera",
+        "Prontera Sanctuary",
+        "Rosary",
+        "Opal",
+        "Crystal Blue"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "holy_light_rosary_role",
+      "detail": "Rosary 2608 is delivered for this skill. It is not the optional assisting Priest inventory requirement from the other guide. Cleric has no printed coordinates and is not merged with other church actors."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Acolyte",
+        "source_section": "requirements",
+        "evidence": "Class: Acolyte"
+      }
+    ]
+  }
+}

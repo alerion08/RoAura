@@ -1,0 +1,422 @@
+{
+  "quest_id": "irowiki-classic:Acolyte_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "5f399904961d5e8e8eee1c0a46f8511ddb59d5af76398d35b5f445de2996cac8",
+  "snapshot_sha256": "9f4ae63662ae603ee3e12ae9477209c058b1e142c46c65720d4b169052f6ccfd",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Priest"
+    },
+    {
+      "type": "npc",
+      "name": "Mother Marthilda"
+    },
+    {
+      "type": "npc",
+      "name": "Father Yosuke"
+    },
+    {
+      "type": "npc",
+      "name": "Father Rubalkabara"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "Sograt Desert 07",
+      "map_code": "moc_fild07"
+    },
+    {
+      "type": "map",
+      "name": "Dimensional Gorge",
+      "map_code": "moc_fild20"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Field 00",
+      "map_code": "prt_fild00"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Field 03",
+      "map_code": "prt_fild03"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Field 02",
+      "map_code": "prt_fild02"
+    },
+    {
+      "type": "item",
+      "name": "Butterfly Wing",
+      "game_id": 602,
+      "id_source": "http://db.irowiki.org/classic/item-info/602/"
+    },
+    {
+      "type": "item",
+      "name": "Fly Wing",
+      "identity": "irowiki-classic:Acolyte_Job_Change_Guide:source_item:Fly Wing"
+    },
+    {
+      "type": "monster",
+      "name": "Mandragora",
+      "game_id": 1020,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1020/"
+    },
+    {
+      "type": "monster",
+      "name": "Yoyos",
+      "identity": "irowiki-classic:Acolyte_Job_Change_Guide:source_warning:Yoyos"
+    },
+    {
+      "type": "monster",
+      "name": "Chocos",
+      "identity": "irowiki-classic:Acolyte_Job_Change_Guide:source_warning:Chocos"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Go to the Prontera Church (234,314) in the northeastern corner of Prontera . Go to the room to the right hand side and talk to the Priest NPC . He will ask you to go meet one of the following NPCs: | Note : Once you talk to the Ascetic, you will be saved at their location. This means that if you die or use a Butterfly Wing , you will return to the NPC's spot instead of your previous save point. 2a. Mother Marthilda in Morroc : With the Episode 12 patch, this is no longer an easy NPC to reach. The easiest way to get to this Ascetic is to use the Kafra teleport service to go to Morroc , and go out the exit to the north. You will then be on Sograt Desert 07 . The NPC is located in the northwestern corner of the map (41, 355). To return to Prontera , use the Kafra teleport service again, or you will have to attempt to cross the dangerous Dimensional Gorge map between Morroc and Prontera. 2b. Father Yosuke in East Geffen : Use the Kafra teleport service to warp to Geffen and walk 2 maps to the East to locate the NPC on Prontera Field 00 . It is also possible to reach this NPC by traveling 1 map West, 1 map North, and 1 map West from Prontera . The NPC is located in the center of the map (208,218). 2c. Father Rubalkabara in East Prontera : The Ascetic to the East of Prontera is located in the northeastern corner of Prontera Field 03 . This quest is actually one of the hardest of the three choices due to the Mandragora map ( Prontera Field 02 ) you must pass through. Try not to hit any of the Yoyos. They will kill most Novices. Fly Wing from any Chocos, they will also kill most Novices.",
+      "instruction_sha256": "33379974982e9ae14e116d077396942142aef076f5f6d75d484a37dda069df4c",
+      "step_id": "irowiki-classic:Acolyte_Job_Change_Guide/step/33379974982e9ae14e11/1",
+      "goal": "visit_ascetic",
+      "short_ru": "У Priest в Prontera Church (234,314) получите направление к одному Ascetic; разговор изменит точку сохранения.",
+      "short_en": "Get Priest's referral at Prontera Church (234,314) to one Ascetic; talking to them changes your save point.",
+      "full_ru": "Идите в Prontera Church (234,314), в северо-восточной части Prontera. В комнате справа поговорите с Priest: он направит вас к одному из перечисленных NPC. Примечание: разговор с Ascetic изменит точку сохранения на его местоположение. После смерти или использования Butterfly Wing вы вернётесь к этому NPC, а не в прежнюю точку сохранения. 2a. Mother Marthilda в Morroc: после обновления Episode 12 добраться до этого NPC стало сложнее. Проще всего воспользоваться телепортацией Kafra в Morroc и выйти на север, на Sograt Desert 07. NPC стоит в северо-западном углу карты (41, 355). Для возвращения в Prontera снова воспользуйтесь Kafra, иначе придётся пересекать опасную Dimensional Gorge между Morroc и Prontera. 2b. Father Yosuke к востоку от Geffen: телепортируйтесь через Kafra в Geffen и пройдите 2 карты на восток, на Prontera Field 00. Другой путь из Prontera: 1 карта на запад, 1 на север и 1 на запад. NPC находится в центре карты (208,218). 2c. Father Rubalkabara к востоку от Prontera: Ascetic находится в северо-восточном углу Prontera Field 03. Это один из самых сложных вариантов из-за карты с Mandragora (Prontera Field 02), которую нужно пересечь. Не бейте Yoyos: они могут убить большинство Novices. Используйте Fly Wing, чтобы уйти от Chocos, которые тоже опасны для большинства Novices. В варианте сервера Ymir источник указывает только одного возможного NPC для получения Acolyte — Father Yosuke.",
+      "full_en": "Go to the Prontera Church (234,314) in the northeastern corner of Prontera . Go to the room to the right hand side and talk to the Priest NPC . He will ask you to go meet one of the following NPCs: | Note : Once you talk to the Ascetic, you will be saved at their location. This means that if you die or use a Butterfly Wing , you will return to the NPC's spot instead of your previous save point. 2a. Mother Marthilda in Morroc : With the Episode 12 patch, this is no longer an easy NPC to reach. The easiest way to get to this Ascetic is to use the Kafra teleport service to go to Morroc , and go out the exit to the north. You will then be on Sograt Desert 07 . The NPC is located in the northwestern corner of the map (41, 355). To return to Prontera , use the Kafra teleport service again, or you will have to attempt to cross the dangerous Dimensional Gorge map between Morroc and Prontera. 2b. Father Yosuke in East Geffen : Use the Kafra teleport service to warp to Geffen and walk 2 maps to the East to locate the NPC on Prontera Field 00 . It is also possible to reach this NPC by traveling 1 map West, 1 map North, and 1 map West from Prontera . The NPC is located in the center of the map (208,218). 2c. Father Rubalkabara in East Prontera : The Ascetic to the East of Prontera is located in the northeastern corner of Prontera Field 03 . This quest is actually one of the hardest of the three choices due to the Mandragora map ( Prontera Field 02 ) you must pass through. Try not to hit any of the Yoyos. They will kill most Novices. Fly Wing from any Chocos, they will also kill most Novices. On Ymir server, there is now only one possible NPC you need to speak with in order to become an Acolyte and it's Father Yosuke .",
+      "npcs": [
+        {
+          "entity": "Priest",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Butterfly Wing",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0,
+          "condition": "Illustrates return to the new ascetic save point; not a mandatory supply or a way to return to the previous save point."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "savepoint_change",
+          "amount": "ascetic_location",
+          "condition": "After talking to the assigned Ascetic; death or Butterfly Wing returns there instead of the previous save point."
+        },
+        {
+          "kind": "source_server_variant",
+          "amount": "Ymir",
+          "entity": "Father Yosuke",
+          "source_section": "html_text",
+          "evidence": "On Ymir server, there is now only one possible NPC you need to speak with in order to become an Acolyte and it's Father Yosuke .",
+          "condition": "Source historical server variant, not a universal availability claim; other two branches do not apply under this note."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_ascetic_referral",
+          "entity": "Priest"
+        }
+      ],
+      "locations": [
+        {
+          "x": 234,
+          "y": 314,
+          "role": "church_entrance",
+          "known": false,
+          "entity": "Prontera"
+        }
+      ],
+      "protected_names": [
+        "Priest",
+        "Mother Marthilda",
+        "Father Yosuke",
+        "Father Rubalkabara",
+        "Prontera",
+        "Morroc",
+        "Geffen",
+        "Sograt Desert 07",
+        "Dimensional Gorge",
+        "Prontera Field 00",
+        "Prontera Field 03",
+        "Prontera Field 02",
+        "Butterfly Wing",
+        "Fly Wing",
+        "Mandragora",
+        "Yoyos",
+        "Chocos"
+      ],
+      "branches": [
+        {
+          "key": "marthilda",
+          "choice_group": "assigned_ascetic",
+          "variant_scope": "irowiki-classic",
+          "condition": "Follow the assigned Mother Marthilda ascetic option, not all three. Not eligible under the source Ymir-only-Father-Yosuke variant.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "2a. Mother Marthilda in Morroc : With the Episode 12 patch, this is no longer an easy NPC to reach. The easiest way to get to this Ascetic is to use the Kafra teleport service to go to Morroc , and go out the exit to the north. You will then be on Sograt Desert 07 . The NPC is located in the northwestern corner of the map (41, 355). To return to Prontera , use the Kafra teleport service again, or you will have to attempt to cross the dangerous Dimensional Gorge map between Morroc and Prontera.",
+          "instruction_sha256": "3603b26a887b9dae82db5c4f5dcdbdef9d51184081bb3a1b74afc733943193c4",
+          "short_ru": "Посетите Mother Marthilda на Sograt Desert 07.",
+          "short_en": "Visit Mother Marthilda on Sograt Desert 07.",
+          "full_ru": "2a. Mother Marthilda в Morroc: после обновления Episode 12 добраться до этого NPC стало сложнее. Проще всего воспользоваться телепортацией Kafra в Morroc и выйти на север, на Sograt Desert 07. NPC стоит в северо-западном углу карты (41, 355). Для возвращения в Prontera снова воспользуйтесь Kafra, иначе придётся пересекать опасную Dimensional Gorge между Morroc и Prontera.",
+          "full_en": "2a. Mother Marthilda in Morroc : With the Episode 12 patch, this is no longer an easy NPC to reach. The easiest way to get to this Ascetic is to use the Kafra teleport service to go to Morroc , and go out the exit to the north. You will then be on Sograt Desert 07 . The NPC is located in the northwestern corner of the map (41, 355). To return to Prontera , use the Kafra teleport service again, or you will have to attempt to cross the dangerous Dimensional Gorge map between Morroc and Prontera.",
+          "protected_names": [
+            "Mother Marthilda",
+            "Prontera",
+            "Morroc",
+            "Sograt Desert 07",
+            "Dimensional Gorge"
+          ],
+          "npcs": [
+            {
+              "entity": "Mother Marthilda",
+              "role": "ascetic_choice"
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "visit_assigned_ascetic",
+              "entity": "Mother Marthilda",
+              "condition": "Follow the assigned Mother Marthilda ascetic option, not all three. Not eligible under the source Ymir-only-Father-Yosuke variant."
+            },
+            {
+              "kind": "source_destination_map",
+              "entity": "Sograt Desert 07",
+              "condition": "Follow the assigned Mother Marthilda ascetic option, not all three. Not eligible under the source Ymir-only-Father-Yosuke variant."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "visit_ascetic",
+              "entity": "Mother Marthilda",
+              "condition": "Follow the assigned Mother Marthilda ascetic option, not all three. Not eligible under the source Ymir-only-Father-Yosuke variant."
+            }
+          ],
+          "locations": [
+            {
+              "entity": "Sograt Desert 07",
+              "x": 41,
+              "y": 355,
+              "role": "ascetic_destination",
+              "known": true,
+              "condition": "Only the Mother Marthilda option; do not visit all ascetic points."
+            }
+          ]
+        },
+        {
+          "key": "yosuke",
+          "choice_group": "assigned_ascetic",
+          "variant_scope": "irowiki-classic",
+          "condition": "Follow the assigned Father Yosuke ascetic option, not all three. Source Ymir note restricts this server variant to Father Yosuke.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "2b. Father Yosuke in East Geffen : Use the Kafra teleport service to warp to Geffen and walk 2 maps to the East to locate the NPC on Prontera Field 00 . It is also possible to reach this NPC by traveling 1 map West, 1 map North, and 1 map West from Prontera . The NPC is located in the center of the map (208,218).",
+          "instruction_sha256": "b4ebfda0f2d9aafe8142e0563ad4839554b446b7e2df0dc54f9edfa0b75e38cd",
+          "short_ru": "Посетите Father Yosuke на Prontera Field 00.",
+          "short_en": "Visit Father Yosuke on Prontera Field 00.",
+          "full_ru": "2b. Father Yosuke к востоку от Geffen: телепортируйтесь через Kafra в Geffen и пройдите 2 карты на восток, на Prontera Field 00. Другой путь из Prontera: 1 карта на запад, 1 на север и 1 на запад. NPC находится в центре карты (208,218).",
+          "full_en": "2b. Father Yosuke in East Geffen : Use the Kafra teleport service to warp to Geffen and walk 2 maps to the East to locate the NPC on Prontera Field 00 . It is also possible to reach this NPC by traveling 1 map West, 1 map North, and 1 map West from Prontera . The NPC is located in the center of the map (208,218).",
+          "protected_names": [
+            "Father Yosuke",
+            "Prontera",
+            "Geffen",
+            "Prontera Field 00"
+          ],
+          "npcs": [
+            {
+              "entity": "Father Yosuke",
+              "role": "ascetic_choice"
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "visit_assigned_ascetic",
+              "entity": "Father Yosuke",
+              "condition": "Follow the assigned Father Yosuke ascetic option, not all three. Source Ymir note restricts this server variant to Father Yosuke."
+            },
+            {
+              "kind": "source_destination_map",
+              "entity": "Prontera Field 00",
+              "condition": "Follow the assigned Father Yosuke ascetic option, not all three. Source Ymir note restricts this server variant to Father Yosuke."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "visit_ascetic",
+              "entity": "Father Yosuke",
+              "condition": "Follow the assigned Father Yosuke ascetic option, not all three. Source Ymir note restricts this server variant to Father Yosuke."
+            }
+          ],
+          "locations": [
+            {
+              "entity": "Prontera Field 00",
+              "x": 208,
+              "y": 218,
+              "role": "ascetic_destination",
+              "known": true,
+              "condition": "Only the Father Yosuke option; do not visit all ascetic points."
+            }
+          ]
+        },
+        {
+          "key": "rubalkabara",
+          "choice_group": "assigned_ascetic",
+          "variant_scope": "irowiki-classic",
+          "condition": "Follow the assigned Father Rubalkabara ascetic option, not all three. Not eligible under the source Ymir-only-Father-Yosuke variant.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "2c. Father Rubalkabara in East Prontera : The Ascetic to the East of Prontera is located in the northeastern corner of Prontera Field 03 . This quest is actually one of the hardest of the three choices due to the Mandragora map ( Prontera Field 02 ) you must pass through. Try not to hit any of the Yoyos. They will kill most Novices. Fly Wing from any Chocos, they will also kill most Novices.",
+          "instruction_sha256": "fe8fb9ca7e1df6c61b663455a540cbb57934b645520233ec79ffc33ff7940b20",
+          "short_ru": "Посетите Father Rubalkabara на Prontera Field 03.",
+          "short_en": "Visit Father Rubalkabara on Prontera Field 03.",
+          "full_ru": "2c. Father Rubalkabara к востоку от Prontera: Ascetic находится в северо-восточном углу Prontera Field 03. Это один из самых сложных вариантов из-за карты с Mandragora (Prontera Field 02), которую нужно пересечь. Не бейте Yoyos: они могут убить большинство Novices. Используйте Fly Wing, чтобы уйти от Chocos, которые тоже опасны для большинства Novices.",
+          "full_en": "2c. Father Rubalkabara in East Prontera : The Ascetic to the East of Prontera is located in the northeastern corner of Prontera Field 03 . This quest is actually one of the hardest of the three choices due to the Mandragora map ( Prontera Field 02 ) you must pass through. Try not to hit any of the Yoyos. They will kill most Novices. Fly Wing from any Chocos, they will also kill most Novices.",
+          "protected_names": [
+            "Father Rubalkabara",
+            "Prontera",
+            "Prontera Field 03",
+            "Prontera Field 02",
+            "Fly Wing",
+            "Mandragora",
+            "Yoyos",
+            "Chocos"
+          ],
+          "npcs": [
+            {
+              "entity": "Father Rubalkabara",
+              "role": "ascetic_choice"
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "visit_assigned_ascetic",
+              "entity": "Father Rubalkabara",
+              "condition": "Follow the assigned Father Rubalkabara ascetic option, not all three. Not eligible under the source Ymir-only-Father-Yosuke variant."
+            },
+            {
+              "kind": "source_destination_map",
+              "entity": "Prontera Field 03",
+              "condition": "Follow the assigned Father Rubalkabara ascetic option, not all three. Not eligible under the source Ymir-only-Father-Yosuke variant."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "visit_ascetic",
+              "entity": "Father Rubalkabara",
+              "condition": "Follow the assigned Father Rubalkabara ascetic option, not all three. Not eligible under the source Ymir-only-Father-Yosuke variant."
+            }
+          ],
+          "monsters": [
+            {
+              "entity": "Mandragora",
+              "operation": "mention",
+              "quantity": null,
+              "required": 0,
+              "condition": "Route hazard to avoid, not a kill goal."
+            },
+            {
+              "entity": "Yoyos",
+              "operation": "mention",
+              "quantity": null,
+              "required": 0,
+              "condition": "Route hazard to avoid, not a kill goal."
+            },
+            {
+              "entity": "Chocos",
+              "operation": "mention",
+              "quantity": null,
+              "required": 0,
+              "condition": "Route hazard to avoid, not a kill goal."
+            }
+          ],
+          "items": [
+            {
+              "entity": "Fly Wing",
+              "quantity": null,
+              "operation": "mention",
+              "required": 0,
+              "condition": "Suggested escape from Chocos; exact inventory ID/count unknown and no compulsory per-attempt fee."
+            }
+          ]
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "On Ymir server, there is now only one possible NPC you need to speak with in order to become an Acolyte and it's Father Yosuke .",
+          "text_ru": "В варианте сервера Ymir источник указывает только одного возможного NPC для получения Acolyte — Father Yosuke."
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Return to the Priest at the Church to change into an Acolyte .",
+      "instruction_sha256": "3f4c07953b416dc15aee27f76b1cde353602f18a90c0afae3335f280ba9eb839",
+      "step_id": "irowiki-classic:Acolyte_Job_Change_Guide/step/3f4c07953b416dc15aee/1",
+      "goal": "job_change",
+      "short_ru": "Вернитесь к Priest и станьте Acolyte.",
+      "short_en": "Return to Priest and become an Acolyte.",
+      "full_ru": "Вернитесь к Priest в церкви, чтобы сменить профессию на Acolyte.",
+      "full_en": "Return to the Priest at the Church to change into an Acolyte .",
+      "npcs": [
+        {
+          "entity": "Priest",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Acolyte"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "change_job",
+          "entity": "Priest"
+        }
+      ],
+      "protected_names": [
+        "Priest"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "acolyte_ascetic_options_and_ymir",
+      "detail": "One assigned ascetic option, not all three. Pinned HTML restores the omitted Ymir-only-Father-Yosuke note; it is a source server variant, not current universal availability. Original stage 1 remains complete and immutable."
+    },
+    {
+      "reason": "acolyte_savepoint_and_travel_scope",
+      "detail": "Talking to the Ascetic changes the save point. Death/Butterfly Wing returns to that Ascetic, not the old save point or church. Teleportation/escape are advice with unknown fees/counts; hazards are not kills. Church point is mapless town context; map codes for named field destinations come from exact own-guide links. No coordinate for Father Rubalkabara is printed."
+    },
+    {
+      "reason": "acolyte_priest_identity",
+      "detail": "The unnamed church Priest is scoped to this guide and is not silently identified with Bishop Paul or the Holy Light Cleric. Episode 12 is a source context note, not another numerical eligibility gate."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Novice",
+        "source_section": "requirements",
+        "evidence": "Class: Novice"
+      }
+    ]
+  }
+}

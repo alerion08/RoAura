@@ -9,10 +9,10 @@ Isolated **research branch**. No changes to the RoAura WPF application, settings
 See [SEMANTIC_PROGRESS.md](./SEMANTIC_PROGRESS.md) for the implementation,
 reproduction commands and exact remaining work. `output/quest_semantic.sqlite`
 (schema 5, generator semantic-5.7.0) has 216 active catalog candidates and 2,750
-preserved steps. **974 steps in 76 guides** have all four RU/EN descriptions, with 137 localized
-conditional branches; **1,776 remain incomplete**. 59 historical events are excluded and 10 ambiguous
+preserved steps. **988 steps in 80 guides** have all four RU/EN descriptions, with 143 localized
+conditional branches; **1,762 remain incomplete**. 59 historical events are excluded and 10 ambiguous
 records quarantined from both usable research projections and the core worklist.
-One reference index (Access Quests) is also excluded; twenty quest routes retain
+One reference index (Access Quests) is also excluded; twenty-one quest routes retain
 exclusive paths (including Piano's prompt paths and Geffen's book/letter paths and Dancer's registration sets) and independent optional activities, including the two Archer skill quests. A normalized prerequisite
 group records Report's minimum two of four eligible quests.
 The full raw archive is retained. This is a partial database, with no RoAura

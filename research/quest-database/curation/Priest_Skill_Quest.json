@@ -1,0 +1,204 @@
+{
+  "quest_id": "irowiki-classic:Priest_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "e18a1ae676993275f856e15a0641e5e313be51cd8bc20da6d47d1847c42c89a7",
+  "snapshot_sha256": "ca88c1d4d9a358e92e1bd6e9dfb4b61f8ee51950e397d24831a62540022f1c9c",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Sister Linus"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Prontera Church"
+    },
+    {
+      "type": "item",
+      "name": "Holy Water",
+      "game_id": 523,
+      "id_source": "http://db.irowiki.org/classic/item-info/523/"
+    },
+    {
+      "type": "item",
+      "name": "Blue Gemstones",
+      "aliases": [
+        "Blue Gemstone"
+      ],
+      "game_id": 717,
+      "id_source": "http://db.irowiki.org/classic/item-info/717/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to the NPC in the Prontera Church \"Sister Linus\". Bring 30 Holy Water and 20 Blue Gemstones to her, although it's recommended that you bring 10 extra Blue Gemstones .",
+      "instruction_sha256": "b7bb2c50427212de46bdd96effec11126c2c815c7f50556a0dc5827471d7aff6",
+      "step_id": "irowiki-classic:Priest_Skill_Quest/step/b7bb2c50427212de46bd/1",
+      "goal": "bring",
+      "short_ru": "У Sister Linus подготовьте 30 Holy Water и 20 Blue Gemstones; ещё 10 Blue Gemstones рекомендованы.",
+      "short_en": "Prepare 30 Holy Water and 20 Blue Gemstones for Sister Linus; 10 extra Blue Gemstones are recommended.",
+      "full_ru": "Поговорите с Sister Linus в Prontera Church. Принесите 30 Holy Water и 20 Blue Gemstones; источник рекомендует взять ещё 10 Blue Gemstones. Необходимое умение: Resurrection Level 1.",
+      "full_en": "Talk to the NPC in the Prontera Church \"Sister Linus\". Bring 30 Holy Water and 20 Blue Gemstones to her, although it's recommended that you bring 10 extra Blue Gemstones . Skill Requirements: Resurrection Level 1",
+      "npcs": [
+        {
+          "entity": "Sister Linus",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Holy Water",
+          "quantity": 30,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Blue Gemstones",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Blue Gemstones",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 0,
+          "condition": "Recommended extra stock above the required twenty, not an additional compulsory fee."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "prepare_learning_stock",
+          "entity": "Sister Linus"
+        }
+      ],
+      "protected_names": [
+        "Sister Linus",
+        "Prontera",
+        "Prontera Church",
+        "Holy Water",
+        "Blue Gemstones"
+      ],
+      "locations": [],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Skill Requirements: Resurrection Level 1",
+          "text_ru": "Необходимое умение: Resurrection Level 1."
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "After bringing her the required items, she will attempt to teach you Redemptio . The chance of this succeeding is random, and each attempt uses 1 Holy Water and 1 Blue Gemstone . Once you succeed, you'll have learned the skill.",
+      "instruction_sha256": "a57f591d27364b744ed13cf8ec25fbcd2aac4ef31637b8f74461148fa8591ab8",
+      "step_id": "irowiki-classic:Priest_Skill_Quest/step/a57f591d27364b744ed1/1",
+      "goal": "retry_until_success",
+      "short_ru": "Повторяйте обучение у Sister Linus до успеха: за попытку расходуются 1 Holy Water и 1 Blue Gemstone.",
+      "short_en": "Repeat Sister Linus's teaching until success: each attempt consumes 1 Holy Water and 1 Blue Gemstone.",
+      "full_ru": "Когда вы принесёте нужные предметы, она попробует обучить вас Redemptio. Успех случаен; каждая попытка расходует 1 Holy Water и 1 Blue Gemstone. После успешной попытки умение будет изучено.",
+      "full_en": "After bringing her the required items, she will attempt to teach you Redemptio . The chance of this succeeding is random, and each attempt uses 1 Holy Water and 1 Blue Gemstone . Once you succeed, you'll have learned the skill.",
+      "npcs": [
+        {
+          "entity": "Sister Linus",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Talk to the NPC in the Prontera Church \"Sister Linus\". Bring 30 Holy Water and 20 Blue Gemstones to her, although it's recommended that you bring 10 extra Blue Gemstones ."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Holy Water",
+          "quantity": 1,
+          "operation": "consume",
+          "required": 1,
+          "condition": "Per teaching attempt, including unsuccessful attempts. Total consumption until success unknown."
+        },
+        {
+          "entity": "Blue Gemstones",
+          "quantity": 1,
+          "operation": "consume",
+          "required": 1,
+          "condition": "Per teaching attempt, including unsuccessful attempts. Total consumption until success unknown."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "attempt_success_probability",
+          "condition": "Random; source gives no numerical probability or expected number of attempts."
+        },
+        {
+          "kind": "total_attempt_consumption_unknown",
+          "condition": "Initial stock is not proof of a fixed total; no guaranteed first-attempt success or extra upfront fee is inferred."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Redemptio",
+          "condition": "Only after a successful random teaching attempt."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "attempt_teaching",
+          "entity": "Sister Linus"
+        },
+        {
+          "operation": "repeat_until_success",
+          "entity": "Sister Linus"
+        }
+      ],
+      "protected_names": [
+        "Holy Water"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "redemptio_stock_versus_retry_consumption",
+      "detail": "Header calls 30 Holy Water/20 Blue Gemstones consumed; body says bring that stock, recommends ten extra gems and explicitly spends one water plus one gem per attempt. Preserve the conflict as source summaries, not a second 30/20 charge. Required stock, optional extra stock and variable per-attempt consumption are separate facts; chance and total attempts remain unknown."
+    },
+    {
+      "reason": "redemptio_skill_and_actor_identity",
+      "detail": "Resurrection Level 1 is restored into the full step text from the source header without guessing a numeric Skill ID. Sister Linus is scoped independently from Sister Cecelia and other church actors. No coordinates are printed."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Priest",
+        "source_section": "requirements",
+        "evidence": "Class: Priest"
+      },
+      {
+        "kind": "required_skill_level",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "Resurrection Level 1",
+        "condition": "Resurrection at Level 1; numeric skill ID not printed."
+      },
+      {
+        "kind": "source_item_cost_summary",
+        "amount": "30",
+        "source_section": "requirements",
+        "evidence": "30 Holy Water",
+        "entity": "Holy Water",
+        "condition": "Header consumed summary; body describes initial stock and per-attempt costs. Not an extra upfront consumption."
+      },
+      {
+        "kind": "source_item_cost_summary",
+        "amount": "20",
+        "source_section": "requirements",
+        "evidence": "20 Blue Gemstones",
+        "entity": "Blue Gemstones",
+        "condition": "Header consumed summary; body describes initial stock and per-attempt costs. Do not add this to per-attempt consumption as a second fee."
+      }
+    ]
+  }
+}
