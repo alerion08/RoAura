@@ -109,8 +109,8 @@
       "instruction_sha256": "8b6fef3d1b9a395d01b772d2848a6d94f76cd8f501597195b87654f5ef918735",
       "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1",
       "goal": "learn_skill",
-      "short_ru": "У Knight De Thomas в Izlude (214,129) узнайте условия HP Recovery While Moving.",
-      "short_en": "Ask Knight De Thomas in Izlude (214,129) about HP Recovery While Moving.",
+      "short_ru": "У Knight De Thomas (Izlude 214,129) передайте 200 Empty Bottles и 1 Moth Wing; покажите 1 Armor для HP Recovery While Moving.",
+      "short_en": "Give Knight De Thomas (Izlude 214,129) 200 Empty Bottles and 1 Moth Wing; show 1 Armor for HP Recovery While Moving.",
       "full_ru": "Поговорите с Knight De Thomas в доме в Izlude (214,129). Для обучения HP Recovery While Moving он попросит следующие предметы. Материалы: 200 Empty Bottles, подходящая для экипировки Armor и 1 Moth Wing. Условия этого умения: Job Level 35, профессия Swordman.",
       "full_en": "Talk to Knight De Thomas inside the house in Izlude (214,129). He'll require the following items to teach you HP Recovery While Moving : Items 200 Empty Bottles An Equippable Armor 1 Moth Wing Job Level: 35 Class: Swordman",
       "npcs": [
@@ -201,8 +201,8 @@
       "instruction_sha256": "fcb2837f13f99b5f1cfaf9c4e0bf3467ce513a3275671435f5a06d4d74412077",
       "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
       "goal": "learn_skill",
-      "short_ru": "У Leon Von Frich (prt_in 75,88) передайте материалы для Fatal Blow.",
-      "short_en": "Give Leon Von Frich (prt_in 75,88) the Fatal Blow materials.",
+      "short_ru": "У Leon Von Frich (prt_in 75,88) передайте 1 Banana Juice, 10 Fire Arrows, 10 Silver Arrows, 30 Tentacles и 5 Royal Jelly для Fatal Blow.",
+      "short_en": "Give Leon Von Frich (prt_in 75,88) 1 Banana Juice, 10 Fire Arrows, 10 Silver Arrows, 30 Tentacles and 5 Royal Jelly for Fatal Blow.",
       "full_ru": "Поговорите с Leon Von Frich (prt_in 75,88) в Prontera Chivalry, в верхнем левом здании Prontera. Передайте перечисленные предметы для изучения Fatal Blow. Материалы: 1 Banana Juice, 10 Fire Arrows, 10 Silver Arrows, 30 Tentacles и 5 Royal Jelly. Условия этого умения: Job Level 30, профессия Swordman.",
       "full_en": "Talk to Leon Von Frich (prt_in 75,88) inside the Prontera Chivalry (top left building in Prontera ), and give him the following items to learn Fatal Blow : Items 1 Banana Juice 10 Fire Arrows 10 Silver Arrows 30 Tentacles 5 Royal Jelly Job Level: 30 Class: Swordman",
       "npcs": [
@@ -305,8 +305,8 @@
       "instruction_sha256": "1b82aea3d23022537426fbe93b73134f9753ec26f2821a8b083b35caee4c3094",
       "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
       "goal": "learn_skill",
-      "short_ru": "У Juan в Prontera Upgrade Shop (178, 185) передайте материалы для Berserk.",
-      "short_en": "Give Juan at Prontera Upgrade Shop (178, 185) the Berserk materials.",
+      "short_ru": "У Juan (Prontera 178,185) передайте 10 Decayed Nails, 10 Honey, 10 Horrendous Mouths и 35 Powder of Butterfly для Berserk.",
+      "short_en": "Give Juan (Prontera 178,185) 10 Decayed Nails, 10 Honey, 10 Horrendous Mouths and 35 Powder of Butterfly for Berserk.",
       "full_ru": "Поговорите с Juan в Prontera Upgrade Shop (178, 185) и передайте перечисленные предметы для изучения Berserk. Материалы: 10 Decayed Nails, 10 Honey, 10 Horrendous Mouths и 35 Powder of Butterfly. Условия этого умения: Job Level 30, профессия Swordman.",
       "full_en": "Talk to Juan inside the Prontera Upgrade Shop (178, 185) and give him the following items to learn Berserk : Items 10 Decayed Nails 10 Honey 10 Horrendous Mouths 35 Powder of Butterfly Job Level: 30 Class: Swordman",
       "npcs": [

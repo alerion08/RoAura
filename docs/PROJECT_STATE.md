@@ -143,7 +143,7 @@ existing Archer guide metadata preserve their first headers as source summaries,
 with NULL whole-guide job_level and explicit stage gates. Source text and schema
 5 remain unchanged; corrupt scope proofs/exports fail validation.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 301 regression tests, full offline rebuild and research CI
+Local validation: 302 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

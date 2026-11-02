@@ -460,6 +460,14 @@ class RealCorpusTests(unittest.TestCase):
         self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind LIKE 'time_limit%'",(q,)).fetchone())
         self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='fall_effect'",(q,)).fetchone()[0],'return_to_beginning')
 
+    def test_swordman_short_descriptions_preserve_all_required_material_counts(self):
+        q='irowiki-classic:Swordman_Skill_Quest'
+        expected={1:['200 Empty Bottles','1 Moth Wing','1 Armor'],2:['1 Banana Juice','10 Fire Arrows','10 Silver Arrows','30 Tentacles','5 Royal Jelly'],3:['10 Decayed Nails','10 Honey','10 Horrendous Mouths','35 Powder of Butterfly']}
+        for n,terms in expected.items():
+            row=self.db.execute('SELECT d.short_ru,d.short_en FROM step_descriptions d JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=?',(q,n)).fetchone()
+            for text in row:
+                for term in terms:self.assertIn(term,text)
+
     def test_swordman_skill_tables_restore_exact_material_sets_and_three_unlocks(self):
         q='irowiki-classic:Swordman_Skill_Quest'
         actual=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
