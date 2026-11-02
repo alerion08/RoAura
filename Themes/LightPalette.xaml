@@ -275,4 +275,5 @@
  <LinearGradientBrush x:Key="RoButtonBrush" StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#FFFFFF" Offset="0.0"/><GradientStop Color="#EDF5FE" Offset="0.5"/><GradientStop Color="#D4E4F6" Offset="1.0"/></LinearGradientBrush>
  <LinearGradientBrush x:Key="RoPrimaryButtonBrush" StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#7FAAE2" Offset="0.0"/><GradientStop Color="#477FC9" Offset="0.5"/><GradientStop Color="#2D64AD" Offset="1.0"/></LinearGradientBrush>
  <LinearGradientBrush x:Key="RoGoldButtonBrush" StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#FFF7D7" Offset="0.0"/><GradientStop Color="#F0D38B" Offset="0.5"/><GradientStop Color="#D7A84E" Offset="1.0"/></LinearGradientBrush>
+ <SolidColorBrush x:Key="UiForeground_0F3066" Color="#0F3066"/>
 </ResourceDictionary>

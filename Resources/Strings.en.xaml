@@ -680,7 +680,6 @@
     <sys:String x:Key="QStepDone">Step completed</sys:String>
     <sys:String x:Key="QExpandQuest">Expand quest</sys:String>
     <sys:String x:Key="QCollapseQuest">Collapse quest</sys:String>
-    <sys:String x:Key="AppearanceTab">Appearance</sys:String>
     <sys:String x:Key="AppearanceTitle">Application and game window themes</sys:String>
     <sys:String x:Key="AppearanceDescription">Choose independent themes for the application and game overlays. Changes apply immediately.</sys:String>
     <sys:String x:Key="ApplicationThemeLabel">Application</sys:String>

@@ -275,4 +275,5 @@
  <LinearGradientBrush x:Key="RoButtonBrush" StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#2A3C56" Offset="0"/><GradientStop Color="#202D40" Offset="1"/></LinearGradientBrush>
  <SolidColorBrush x:Key="RoPrimaryButtonBrush" Color="#315F96"/>
  <SolidColorBrush x:Key="RoGoldButtonBrush" Color="#614D2C"/>
+ <SolidColorBrush x:Key="UiForeground_0F3066" Color="#82BBFF"/>
 </ResourceDictionary>

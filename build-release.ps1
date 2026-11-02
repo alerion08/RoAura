@@ -65,6 +65,11 @@ $ruText = Get-Content -Raw .\Resources\Strings.ru.xaml
 $enText = Get-Content -Raw .\Resources\Strings.en.xaml
 $ruKeys = @([regex]::Matches($ruText, $resourceKeyPattern) | ForEach-Object { $_.Groups[1].Value })
 $enKeys = @([regex]::Matches($enText, $resourceKeyPattern) | ForEach-Object { $_.Groups[1].Value })
+$duplicateRu = @($ruKeys | Group-Object | Where-Object { $_.Count -gt 1 })
+$duplicateEn = @($enKeys | Group-Object | Where-Object { $_.Count -gt 1 })
+if ($duplicateRu.Count -gt 0 -or $duplicateEn.Count -gt 0) {
+    throw "Duplicate localization keys. RU: $($duplicateRu.Name -join ', '); EN: $($duplicateEn.Name -join ', ')."
+}
 $onlyRu = @($ruKeys | Where-Object { $_ -notin $enKeys })
 $onlyEn = @($enKeys | Where-Object { $_ -notin $ruKeys })
 if ($onlyRu.Count -gt 0 -or $onlyEn.Count -gt 0) {
