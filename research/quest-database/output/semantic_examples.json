@@ -50287,7 +50287,7 @@
       {
         "entity_id": "item:b1516311bc22b71c3cdf192d",
         "entity_type": "item",
-        "evidence_id": "ev:12055176d6c26be02afdf8df",
+        "evidence_id": "ev:83eba299fe28b7415eb9c0f8",
         "original_name": "Earthworm Peeling",
         "variant_id": "irowiki-classic"
       },
@@ -89645,7 +89645,7 @@
       {
         "entity_id": "item:cbe03493155e605f28d2a0ee",
         "entity_type": "item",
-        "evidence_id": "ev:02862d392bc81e39f1926a02",
+        "evidence_id": "ev:2ec9a93839b94b0869636e50",
         "original_name": "Bear's Footskin",
         "variant_id": "irowiki-classic"
       },
@@ -132902,7 +132902,7 @@
       {
         "entity_id": "item:8f5e6e8b67838e62f14993e0",
         "entity_type": "item",
-        "evidence_id": "ev:95516615a628fee32655abb6",
+        "evidence_id": "ev:63c16208098116474904cc7b",
         "original_name": "Cobweb",
         "variant_id": "irowiki-classic"
       },
@@ -132930,7 +132930,7 @@
       {
         "entity_id": "item:b1516311bc22b71c3cdf192d",
         "entity_type": "item",
-        "evidence_id": "ev:12055176d6c26be02afdf8df",
+        "evidence_id": "ev:83eba299fe28b7415eb9c0f8",
         "original_name": "Earthworm Peeling",
         "variant_id": "irowiki-classic"
       },
@@ -132951,7 +132951,7 @@
       {
         "entity_id": "item:cbe03493155e605f28d2a0ee",
         "entity_type": "item",
-        "evidence_id": "ev:02862d392bc81e39f1926a02",
+        "evidence_id": "ev:2ec9a93839b94b0869636e50",
         "original_name": "Bear's Footskin",
         "variant_id": "irowiki-classic"
       },
@@ -132986,7 +132986,7 @@
       {
         "entity_id": "item:f894eda1f133a93c942bb1d6",
         "entity_type": "item",
-        "evidence_id": "ev:701b4ed65ad30c760b84c2fa",
+        "evidence_id": "ev:c60a890f1acfba6d92ef1571",
         "original_name": "Zargon",
         "variant_id": "irowiki-classic"
       },
@@ -212137,6 +212137,2819 @@
           {
             "reward_id": "reward:f0c9403043f76d1cbb516099",
             "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "dialogue_options": [],
+    "entities": [
+      {
+        "entity_id": "item:273aa9a271fe6ea3e331f1d5",
+        "entity_type": "item",
+        "evidence_id": "ev:dda3b68759d8b38692e2433c",
+        "original_name": "Orange Gooey Mushroom",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:b8ebb018afe43f696968a909",
+        "entity_type": "item",
+        "evidence_id": "ev:0a55e12ec4ea8b5132691cbc",
+        "original_name": "Mushrooms",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:e8978aa58d1af0666d8deb8a",
+        "entity_type": "item",
+        "evidence_id": "ev:b3dbc4c219f96622a75768c8",
+        "original_name": "Orange Net Mushroom",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:1005f863340ddb1406000e96",
+        "entity_type": "map",
+        "evidence_id": "ev:1b855b462c73c155eca710cf",
+        "original_name": "Pyramids",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:546e456e685f4df61d3c7bcf",
+        "entity_type": "map",
+        "evidence_id": "ev:b49d29b75f9dc81d03cc4c65",
+        "original_name": "Morroc",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:b98b4ee991d8ab12de1e73ec",
+        "entity_type": "map",
+        "evidence_id": "ev:89af513d50fa5b5acea9f779",
+        "original_name": "Thief Guild",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "monster:4d74c8fc09fce576cffc199a",
+        "entity_type": "monster",
+        "evidence_id": "ev:164b20482f5c44f26e0f26bd",
+        "original_name": "Spores",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "monster:a3043b6b55793ea93dc95689",
+        "entity_type": "monster",
+        "evidence_id": "ev:0b9c185196bbe8ba154a7127",
+        "original_name": "Chonchons",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "monster:c1e40e0303b5d81a1b0d7cc2",
+        "entity_type": "monster",
+        "evidence_id": "ev:830d40cbec1fb1e130606cea",
+        "original_name": "Fabres",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:00c4fc547fa840a1b3b4b297",
+        "entity_type": "npc",
+        "evidence_id": "ev:8b8fab0ec0159e9b19a7a0cf",
+        "original_name": "Irrelevant Man",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:f1d5aac9ebb84bd43de556de",
+        "entity_type": "npc",
+        "evidence_id": "ev:5ea6a669b308159adc51e1cb",
+        "original_name": "NPC farthest from the warp portal",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:f77f4e239a3982dda1b97417",
+        "entity_type": "npc",
+        "evidence_id": "ev:085ec55d9c29f26ff16bb6ff",
+        "original_name": "one closest to the portal",
+        "variant_id": "irowiki-classic"
+      }
+    ],
+    "prerequisite_groups": [],
+    "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
+    "quest_relations": [],
+    "rewards": [
+      {
+        "amount": "Thief",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:b537c6f1551b230dfadedf8c",
+        "item_id": null,
+        "kind": "job_change",
+        "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
+        "reward_id": "reward:255363f6994a9b63f04b8acc"
+      }
+    ],
+    "steps": [
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 24,
+            "entity_id": "map:1005f863340ddb1406000e96",
+            "entity_type": "map",
+            "evidence_id": "ev:17a46326a39b0128c0ea645d",
+            "field": "full_en",
+            "mention_id": "mention:ddb1e93d2626934bdcbf9933",
+            "start_offset": 16,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1",
+            "surface": "Pyramids"
+          },
+          {
+            "end_offset": 55,
+            "entity_id": "map:546e456e685f4df61d3c7bcf",
+            "entity_type": "map",
+            "evidence_id": "ev:24f549f54e63fb789a84019e",
+            "field": "full_en",
+            "mention_id": "mention:3205606c1b44a1d6c6d98934",
+            "start_offset": 49,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1",
+            "surface": "Morroc"
+          },
+          {
+            "end_offset": 24,
+            "entity_id": "map:1005f863340ddb1406000e96",
+            "entity_type": "map",
+            "evidence_id": "ev:17a46326a39b0128c0ea645d",
+            "field": "full_ru",
+            "mention_id": "mention:18b7a60adb65eb5115160979",
+            "start_offset": 16,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1",
+            "surface": "Pyramids"
+          },
+          {
+            "end_offset": 51,
+            "entity_id": "map:546e456e685f4df61d3c7bcf",
+            "entity_type": "map",
+            "evidence_id": "ev:24f549f54e63fb789a84019e",
+            "field": "full_ru",
+            "mention_id": "mention:3c7d80528be7c8abc0333fec",
+            "start_offset": 45,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1",
+            "surface": "Morroc"
+          },
+          {
+            "end_offset": 14,
+            "entity_id": "map:1005f863340ddb1406000e96",
+            "entity_type": "map",
+            "evidence_id": "ev:17a46326a39b0128c0ea645d",
+            "field": "short_en",
+            "mention_id": "mention:b0ea09ddf064e35fd650e6de",
+            "start_offset": 6,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1",
+            "surface": "Pyramids"
+          },
+          {
+            "end_offset": 34,
+            "entity_id": "map:546e456e685f4df61d3c7bcf",
+            "entity_type": "map",
+            "evidence_id": "ev:24f549f54e63fb789a84019e",
+            "field": "short_en",
+            "mention_id": "mention:e9dbf8bf0db8969c8b84c357",
+            "start_offset": 28,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1",
+            "surface": "Morroc"
+          },
+          {
+            "end_offset": 16,
+            "entity_id": "map:1005f863340ddb1406000e96",
+            "entity_type": "map",
+            "evidence_id": "ev:17a46326a39b0128c0ea645d",
+            "field": "short_ru",
+            "mention_id": "mention:18cc9a544a7962424e5dce35",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1",
+            "surface": "Pyramids"
+          },
+          {
+            "end_offset": 42,
+            "entity_id": "map:546e456e685f4df61d3c7bcf",
+            "entity_type": "map",
+            "evidence_id": "ev:24f549f54e63fb789a84019e",
+            "field": "short_ru",
+            "mention_id": "mention:cc308ddcc82d1ac024a3325b",
+            "start_offset": 36,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1",
+            "surface": "Morroc"
+          }
+        ],
+        "full_en": "Head off to the Pyramids, which is north-west of Morroc .",
+        "full_ru": "Отправляйтесь к Pyramids, к северо-западу от Morroc.",
+        "instruction_sha256": "7214c34a3abf6a9608f7f7994cba64600fdf96f37e4420ac67f582f2411e7f98",
+        "original_instruction": "Head off to the Pyramids, which is north-west of Morroc .",
+        "primary_goal": "move",
+        "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Go to Pyramids northwest of Morroc.",
+        "short_ru": "Идите к Pyramids к северо-западу от Morroc.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 1,
+        "step_actions": [
+          {
+            "action_id": "action:ce243bdf73e2932a2b9fee12",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "map:1005f863340ddb1406000e96",
+            "evidence_id": "ev:3d2267e3fd615e7f00046114",
+            "operation": "travel_to_pyramids",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [],
+        "step_order": 1,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 85,
+            "entity_id": "map:b98b4ee991d8ab12de1e73ec",
+            "entity_type": "map",
+            "evidence_id": "ev:89af513d50fa5b5acea9f779",
+            "field": "full_en",
+            "mention_id": "mention:2ed97cef8b772802dfcba6af",
+            "start_offset": 74,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1",
+            "surface": "Thief Guild"
+          },
+          {
+            "end_offset": 78,
+            "entity_id": "map:b98b4ee991d8ab12de1e73ec",
+            "entity_type": "map",
+            "evidence_id": "ev:89af513d50fa5b5acea9f779",
+            "field": "full_ru",
+            "mention_id": "mention:041e681e979995f0c9984b5a",
+            "start_offset": 67,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1",
+            "surface": "Thief Guild"
+          },
+          {
+            "end_offset": 44,
+            "entity_id": "map:b98b4ee991d8ab12de1e73ec",
+            "entity_type": "map",
+            "evidence_id": "ev:89af513d50fa5b5acea9f779",
+            "field": "short_en",
+            "mention_id": "mention:069a37193abaf587cdd33566",
+            "start_offset": 33,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1",
+            "surface": "Thief Guild"
+          },
+          {
+            "end_offset": 47,
+            "entity_id": "map:b98b4ee991d8ab12de1e73ec",
+            "entity_type": "map",
+            "evidence_id": "ev:89af513d50fa5b5acea9f779",
+            "field": "short_ru",
+            "mention_id": "mention:673e642ebea6be7defbcde27",
+            "start_offset": 36,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1",
+            "surface": "Thief Guild"
+          }
+        ],
+        "full_en": "At the pyramid (58,159), enter, and head for the middle of the map to the Thief Guild (90,105).",
+        "full_ru": "Войдите в pyramid (58,159), затем идите к центру карты, ко входу в Thief Guild (90,105).",
+        "instruction_sha256": "ab55cfde6229d56b0f1c4c14e4f90492c592fe3d454da9aa129af5bb72b54868",
+        "original_instruction": "At the pyramid (58,159), enter, and head for the middle of the map to the Thief Guild (90,105).",
+        "primary_goal": "move",
+        "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Enter the pyramid (58,159), then Thief Guild (90,105).",
+        "short_ru": "Войдите в pyramid (58,159), затем в Thief Guild (90,105).",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 2,
+        "step_actions": [
+          {
+            "action_id": "action:405482582a8ea3dfea8dce32",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": null,
+            "evidence_id": "ev:6b5e7d1c49fe03a4f3872805",
+            "operation": "enter_pyramid",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1"
+          },
+          {
+            "action_id": "action:0fb36786e9c4d81f9ad23fd7",
+            "action_order": 2,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "map:b98b4ee991d8ab12de1e73ec",
+            "evidence_id": "ev:6b5e7d1c49fe03a4f3872805",
+            "operation": "enter_guild",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:6b5e7d1c49fe03a4f3872805",
+            "location_id": "location:2653eac28df8f4cb0662c933",
+            "location_order": null,
+            "role": "pyramid_entrance",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1"
+          },
+          {
+            "condition_text": null,
+            "evidence_id": "ev:6b5e7d1c49fe03a4f3872805",
+            "location_id": "location:a8951c1aeb11ee4503ac9922",
+            "location_order": null,
+            "role": "guild_entrance",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [],
+        "step_order": 2,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [],
+        "full_en": "Once inside, follow the hallway down and take the left gate (90,115). In here you will see two NPCs that will guide you through the quest.",
+        "full_ru": "Внутри пройдите по коридору вниз и войдите в левый проход (90,115). Там находятся два NPC, которые помогут пройти испытание.",
+        "instruction_sha256": "5f55a65fb6ce4d35d270ce60b6273bfe8e948ef347197f55145217264a9ed7bc",
+        "original_instruction": "Once inside, follow the hallway down and take the left gate (90,115). In here you will see two NPCs that will guide you through the quest.",
+        "primary_goal": "move",
+        "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Follow the hallway down, then enter the left gate (90,115).",
+        "short_ru": "Пройдите вниз по коридору, затем в левый проход (90,115).",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 3,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/5f55a65fb6ce4d35d270/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:486bdc6eba0ff6b3132de874",
+            "location_id": "location:698e0fb12c6236d21143cadd",
+            "location_order": null,
+            "role": "left_gate",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/5f55a65fb6ce4d35d270/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [],
+        "step_order": 3,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 37,
+            "entity_id": "npc:f77f4e239a3982dda1b97417",
+            "entity_type": "npc",
+            "evidence_id": "ev:085ec55d9c29f26ff16bb6ff",
+            "field": "full_en",
+            "mention_id": "mention:5108ae0fa96e8a17e75d3384",
+            "start_offset": 12,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1",
+            "surface": "one closest to the portal"
+          },
+          {
+            "end_offset": 117,
+            "entity_id": "npc:00c4fc547fa840a1b3b4b297",
+            "entity_type": "npc",
+            "evidence_id": "ev:8b8fab0ec0159e9b19a7a0cf",
+            "field": "full_en",
+            "mention_id": "mention:486daa9fe3cb45099c9ca018",
+            "start_offset": 103,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1",
+            "surface": "Irrelevant Man"
+          },
+          {
+            "end_offset": 43,
+            "entity_id": "npc:f77f4e239a3982dda1b97417",
+            "entity_type": "npc",
+            "evidence_id": "ev:085ec55d9c29f26ff16bb6ff",
+            "field": "full_ru",
+            "mention_id": "mention:6c4027b8879b1952d4ab354a",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1",
+            "surface": "one closest to the portal"
+          },
+          {
+            "end_offset": 125,
+            "entity_id": "npc:00c4fc547fa840a1b3b4b297",
+            "entity_type": "npc",
+            "evidence_id": "ev:8b8fab0ec0159e9b19a7a0cf",
+            "field": "full_ru",
+            "mention_id": "mention:28b71b22af3547334bd54e49",
+            "start_offset": 111,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1",
+            "surface": "Irrelevant Man"
+          },
+          {
+            "end_offset": 58,
+            "entity_id": "npc:00c4fc547fa840a1b3b4b297",
+            "entity_type": "npc",
+            "evidence_id": "ev:8b8fab0ec0159e9b19a7a0cf",
+            "field": "short_en",
+            "mention_id": "mention:a2b0a5e638b65a8750ab76f2",
+            "start_offset": 44,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1",
+            "surface": "Irrelevant Man"
+          },
+          {
+            "end_offset": 56,
+            "entity_id": "npc:00c4fc547fa840a1b3b4b297",
+            "entity_type": "npc",
+            "evidence_id": "ev:8b8fab0ec0159e9b19a7a0cf",
+            "field": "short_ru",
+            "mention_id": "mention:d980b990bcd98b5938a7e786",
+            "start_offset": 42,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1",
+            "surface": "Irrelevant Man"
+          }
+        ],
+        "full_en": "Talk to the one closest to the portal. She will ask you a few questions, then instruct you to find an \"Irrelevant Man\" somewhere outside the Pyramid (141, 125) in order to steal mushrooms from a nearby mushroom farm.",
+        "full_ru": "Поговорите с NPC «one closest to the portal», ближайшим к порталу. Она задаст несколько вопросов и отправит к \"Irrelevant Man\" снаружи Pyramid (141, 125), чтобы украсть грибы на ближайшей ферме.",
+        "instruction_sha256": "0e72bf86d71734619d2aa69a267e38dff048c8ef16f04ed5a268eabdb326d426",
+        "original_instruction": "Talk to the one closest to the portal. She will ask you a few questions, then instruct you to find an \"Irrelevant Man\" somewhere outside the Pyramid (141, 125) in order to steal mushrooms from a nearby mushroom farm.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Speak to the NPC near the portal, then find Irrelevant Man (141,125).",
+        "short_ru": "Поговорите с NPC у портала, затем найдите Irrelevant Man (141,125).",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 4,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:241d668edc7389bebd56b400",
+            "location_id": "location:5ec8aa1afe5fe3e37b50eac2",
+            "location_order": null,
+            "role": "outside_pyramid_contact",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:241d668edc7389bebd56b400",
+            "npc_id": "npc:00c4fc547fa840a1b3b4b297",
+            "role": "farm_entry",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1"
+          },
+          {
+            "evidence_id": "ev:241d668edc7389bebd56b400",
+            "npc_id": "npc:f77f4e239a3982dda1b97417",
+            "role": "talk",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1"
+          }
+        ],
+        "step_order": 4,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 86,
+            "entity_id": "monster:c1e40e0303b5d81a1b0d7cc2",
+            "entity_type": "monster",
+            "evidence_id": "ev:830d40cbec1fb1e130606cea",
+            "field": "full_en",
+            "mention_id": "mention:32f46c64ea36571410a556b2",
+            "start_offset": 80,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Fabres"
+          },
+          {
+            "end_offset": 100,
+            "entity_id": "monster:a3043b6b55793ea93dc95689",
+            "entity_type": "monster",
+            "evidence_id": "ev:0b9c185196bbe8ba154a7127",
+            "field": "full_en",
+            "mention_id": "mention:1b942c737f903b35d7a16f74",
+            "start_offset": 91,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Chonchons"
+          },
+          {
+            "end_offset": 112,
+            "entity_id": "monster:4d74c8fc09fce576cffc199a",
+            "entity_type": "monster",
+            "evidence_id": "ev:164b20482f5c44f26e0f26bd",
+            "field": "full_en",
+            "mention_id": "mention:424742bdc316e9e08287c90e",
+            "start_offset": 106,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Spores"
+          },
+          {
+            "end_offset": 307,
+            "entity_id": "npc:00c4fc547fa840a1b3b4b297",
+            "entity_type": "npc",
+            "evidence_id": "ev:8b8fab0ec0159e9b19a7a0cf",
+            "field": "full_en",
+            "mention_id": "mention:5838293b6325e251e09385db",
+            "start_offset": 293,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Mr. Irrelevant"
+          },
+          {
+            "end_offset": 376,
+            "entity_id": "item:273aa9a271fe6ea3e331f1d5",
+            "entity_type": "item",
+            "evidence_id": "ev:dda3b68759d8b38692e2433c",
+            "field": "full_en",
+            "mention_id": "mention:c8e71223da4a5c91c2db3309",
+            "start_offset": 355,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Orange Gooey Mushroom"
+          },
+          {
+            "end_offset": 404,
+            "entity_id": "item:e8978aa58d1af0666d8deb8a",
+            "entity_type": "item",
+            "evidence_id": "ev:b3dbc4c219f96622a75768c8",
+            "field": "full_en",
+            "mention_id": "mention:a2da3af9c275bf5f592b15c4",
+            "start_offset": 385,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Orange Net Mushroom"
+          },
+          {
+            "end_offset": 106,
+            "entity_id": "monster:c1e40e0303b5d81a1b0d7cc2",
+            "entity_type": "monster",
+            "evidence_id": "ev:830d40cbec1fb1e130606cea",
+            "field": "full_ru",
+            "mention_id": "mention:d4bffe4fa77703efe1685de5",
+            "start_offset": 100,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Fabres"
+          },
+          {
+            "end_offset": 118,
+            "entity_id": "monster:a3043b6b55793ea93dc95689",
+            "entity_type": "monster",
+            "evidence_id": "ev:0b9c185196bbe8ba154a7127",
+            "field": "full_ru",
+            "mention_id": "mention:2576ac94a08c3f693da047cf",
+            "start_offset": 109,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Chonchons"
+          },
+          {
+            "end_offset": 148,
+            "entity_id": "monster:4d74c8fc09fce576cffc199a",
+            "entity_type": "monster",
+            "evidence_id": "ev:164b20482f5c44f26e0f26bd",
+            "field": "full_ru",
+            "mention_id": "mention:a4b3d0ca84c73f794c2090b1",
+            "start_offset": 142,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Spores"
+          },
+          {
+            "end_offset": 233,
+            "entity_id": "npc:00c4fc547fa840a1b3b4b297",
+            "entity_type": "npc",
+            "evidence_id": "ev:8b8fab0ec0159e9b19a7a0cf",
+            "field": "full_ru",
+            "mention_id": "mention:ae374dff62c29d6bf39483ab",
+            "start_offset": 219,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Mr. Irrelevant"
+          },
+          {
+            "end_offset": 298,
+            "entity_id": "item:273aa9a271fe6ea3e331f1d5",
+            "entity_type": "item",
+            "evidence_id": "ev:dda3b68759d8b38692e2433c",
+            "field": "full_ru",
+            "mention_id": "mention:34e09c3f898890e39df55996",
+            "start_offset": 277,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Orange Gooey Mushroom"
+          },
+          {
+            "end_offset": 329,
+            "entity_id": "item:e8978aa58d1af0666d8deb8a",
+            "entity_type": "item",
+            "evidence_id": "ev:b3dbc4c219f96622a75768c8",
+            "field": "full_ru",
+            "mention_id": "mention:cb635fb27791d32f3820c1e6",
+            "start_offset": 310,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Orange Net Mushroom"
+          },
+          {
+            "end_offset": 49,
+            "entity_id": "item:273aa9a271fe6ea3e331f1d5",
+            "entity_type": "item",
+            "evidence_id": "ev:dda3b68759d8b38692e2433c",
+            "field": "short_en",
+            "mention_id": "mention:882142a4829e0019cdea0860",
+            "start_offset": 28,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Orange Gooey Mushroom"
+          },
+          {
+            "end_offset": 74,
+            "entity_id": "item:e8978aa58d1af0666d8deb8a",
+            "entity_type": "item",
+            "evidence_id": "ev:b3dbc4c219f96622a75768c8",
+            "field": "short_en",
+            "mention_id": "mention:8b3186bd41ed10c3a7582fd7",
+            "start_offset": 55,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Orange Net Mushroom"
+          },
+          {
+            "end_offset": 49,
+            "entity_id": "item:273aa9a271fe6ea3e331f1d5",
+            "entity_type": "item",
+            "evidence_id": "ev:dda3b68759d8b38692e2433c",
+            "field": "short_ru",
+            "mention_id": "mention:71af4c0eec68e97b5b3b1918",
+            "start_offset": 28,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Orange Gooey Mushroom"
+          },
+          {
+            "end_offset": 74,
+            "entity_id": "item:e8978aa58d1af0666d8deb8a",
+            "entity_type": "item",
+            "evidence_id": "ev:b3dbc4c219f96622a75768c8",
+            "field": "short_ru",
+            "mention_id": "mention:8cbd37d4f6409b3ca8d3d89e",
+            "start_offset": 55,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "surface": "Orange Net Mushroom"
+          }
+        ],
+        "full_en": "At the farm, kill the mushrooms and collect the mushrooms that drop. Aggressive Fabres and Chonchons (and Spores, but they're not aggresive) protect the farm, so you may want to avoid them. Your mission is to collect at least mushrooms worth of 25 points. | Note : If you die, you can talk to Mr. Irrelevant to return to the farm as many times as needed. Orange Gooey Mushroom 1 Point Orange Net Mushroom 3 Points",
+        "full_ru": "На ферме уничтожайте грибы и собирайте выпавшие грибы: нужно набрать не менее 25 очков. Агрессивные Fabres и Chonchons, а также неагрессивные Spores охраняют ферму; их можно избегать. Если погибнете, снова поговорите с Mr. Irrelevant: число возвращений на ферму не ограничено. Orange Gooey Mushroom — 1 Point; Orange Net Mushroom — 3 Points.",
+        "instruction_sha256": "ac9cac9d8bca9877f67a90de6bd2ec2e8817d301c466ab3a9e08fa4ba9f34837",
+        "original_instruction": "At the farm, kill the mushrooms and collect the mushrooms that drop. Aggressive Fabres and Chonchons (and Spores, but they're not aggresive) protect the farm, so you may want to avoid them. Your mission is to collect at least mushrooms worth of 25 points. | Note : If you die, you can talk to Mr. Irrelevant to return to the farm as many times as needed.",
+        "primary_goal": "collect",
+        "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Collect 25 mushroom points: Orange Gooey Mushroom — 1, Orange Net Mushroom — 3.",
+        "short_ru": "Соберите грибы на 25 очков: Orange Gooey Mushroom — 1, Orange Net Mushroom — 3.",
+        "source_additions": [
+          {
+            "addition_id": "addition:78a34286235dab764a79571c",
+            "addition_order": 1,
+            "evidence_id": "ev:ef592097a3ae6dabce8c5a66",
+            "review_state": "source_reviewed",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+            "text_en": "Orange Gooey Mushroom 1 Point Orange Net Mushroom 3 Points",
+            "text_ru": "Orange Gooey Mushroom — 1 Point; Orange Net Mushroom — 3 Points."
+          }
+        ],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 5,
+        "step_actions": [
+          {
+            "action_id": "action:78a34286235dab764a79571c",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": null,
+            "evidence_id": "ev:36f2e1a3062b6c436aac2cb7",
+            "operation": "kill_mushrooms_and_collect_drops",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1"
+          },
+          {
+            "action_id": "action:2e57a53dcb80f2ad5956a273",
+            "action_order": 2,
+            "branch_id": null,
+            "condition_text": "Unlimited retries after death; not mandatory deaths.",
+            "entity_id": "npc:00c4fc547fa840a1b3b4b297",
+            "evidence_id": "ev:36f2e1a3062b6c436aac2cb7",
+            "operation": "optional_return_after_death",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": "Alternative weighted contribution; combined score at least 25.",
+            "evidence_id": "ev:e3e94407b46f9e0ce5f127a4",
+            "fact_id": "item_fact:78a34286235dab764a79571c",
+            "item_id": "item:e8978aa58d1af0666d8deb8a",
+            "operation": "collect",
+            "quantity": null,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": "Alternative weighted contribution; combined score at least 25.",
+            "evidence_id": "ev:a631f0c78399327a1cf3fe40",
+            "fact_id": "item_fact:cde102d6f93e6d949e7986d0",
+            "item_id": "item:273aa9a271fe6ea3e331f1d5",
+            "operation": "collect",
+            "quantity": null,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1"
+          }
+        ],
+        "step_locations": [],
+        "step_monsters": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:36f2e1a3062b6c436aac2cb7",
+            "fact_id": "monster_fact:2e57a53dcb80f2ad5956a273",
+            "monster_id": "monster:4d74c8fc09fce576cffc199a",
+            "operation": "mention",
+            "quantity": null,
+            "required": 0,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:36f2e1a3062b6c436aac2cb7",
+            "fact_id": "monster_fact:78a34286235dab764a79571c",
+            "monster_id": "monster:a3043b6b55793ea93dc95689",
+            "operation": "mention",
+            "quantity": null,
+            "required": 0,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:36f2e1a3062b6c436aac2cb7",
+            "fact_id": "monster_fact:cde102d6f93e6d949e7986d0",
+            "monster_id": "monster:c1e40e0303b5d81a1b0d7cc2",
+            "operation": "mention",
+            "quantity": null,
+            "required": 0,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1"
+          }
+        ],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:36f2e1a3062b6c436aac2cb7",
+            "npc_id": "npc:00c4fc547fa840a1b3b4b297",
+            "role": "retry_contact",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1"
+          }
+        ],
+        "step_order": 5,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 49,
+            "entity_id": "item:b8ebb018afe43f696968a909",
+            "entity_type": "item",
+            "evidence_id": "ev:0a55e12ec4ea8b5132691cbc",
+            "field": "full_en",
+            "mention_id": "mention:3fb30da1927586d437d25d8b",
+            "start_offset": 40,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1",
+            "surface": "Mushrooms"
+          },
+          {
+            "end_offset": 75,
+            "entity_id": "map:b98b4ee991d8ab12de1e73ec",
+            "entity_type": "map",
+            "evidence_id": "ev:89af513d50fa5b5acea9f779",
+            "field": "full_en",
+            "mention_id": "mention:9d77ed2272eeeba51fd3df7b",
+            "start_offset": 64,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1",
+            "surface": "Thief Guild"
+          },
+          {
+            "end_offset": 39,
+            "entity_id": "item:b8ebb018afe43f696968a909",
+            "entity_type": "item",
+            "evidence_id": "ev:0a55e12ec4ea8b5132691cbc",
+            "field": "full_ru",
+            "mention_id": "mention:e293d5adc495f37d9e512961",
+            "start_offset": 30,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1",
+            "surface": "Mushrooms"
+          },
+          {
+            "end_offset": 68,
+            "entity_id": "map:b98b4ee991d8ab12de1e73ec",
+            "entity_type": "map",
+            "evidence_id": "ev:89af513d50fa5b5acea9f779",
+            "field": "full_ru",
+            "mention_id": "mention:20cb604e9df397496c1c102e",
+            "start_offset": 57,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1",
+            "surface": "Thief Guild"
+          },
+          {
+            "end_offset": 21,
+            "entity_id": "map:b98b4ee991d8ab12de1e73ec",
+            "entity_type": "map",
+            "evidence_id": "ev:89af513d50fa5b5acea9f779",
+            "field": "short_en",
+            "mention_id": "mention:cf718362d6e71d193cb4f047",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1",
+            "surface": "Thief Guild"
+          },
+          {
+            "end_offset": 36,
+            "entity_id": "item:b8ebb018afe43f696968a909",
+            "entity_type": "item",
+            "evidence_id": "ev:0a55e12ec4ea8b5132691cbc",
+            "field": "short_en",
+            "mention_id": "mention:328e8b36178672b2d3f94340",
+            "start_offset": 27,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1",
+            "surface": "Mushrooms"
+          },
+          {
+            "end_offset": 23,
+            "entity_id": "map:b98b4ee991d8ab12de1e73ec",
+            "entity_type": "map",
+            "evidence_id": "ev:89af513d50fa5b5acea9f779",
+            "field": "short_ru",
+            "mention_id": "mention:a2d2031ba14d49c4e41d6ef9",
+            "start_offset": 12,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1",
+            "surface": "Thief Guild"
+          },
+          {
+            "end_offset": 35,
+            "entity_id": "item:b8ebb018afe43f696968a909",
+            "entity_type": "item",
+            "evidence_id": "ev:0a55e12ec4ea8b5132691cbc",
+            "field": "short_ru",
+            "mention_id": "mention:4b264991bf12a773942e93bd",
+            "start_offset": 26,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1",
+            "surface": "Mushrooms"
+          }
+        ],
+        "full_en": "After collecting a sufficient amount of Mushrooms, head back to Thief Guild.",
+        "full_ru": "Собрав достаточное количество Mushrooms, возвращайтесь в Thief Guild.",
+        "instruction_sha256": "4fb0b607be5b20b0dcabf39dd000a12e2867f4a8242d76804c2ead1ba6de5e39",
+        "original_instruction": "After collecting a sufficient amount of Mushrooms, head back to Thief Guild.",
+        "primary_goal": "return",
+        "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Return to Thief Guild with Mushrooms.",
+        "short_ru": "Вернитесь в Thief Guild с Mushrooms.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 6,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": "At least 25 combined points, not 25 mandatory copies of each mushroom.",
+            "evidence_id": "ev:587305fe30beb34a71580a41",
+            "fact_id": "item_fact:ecec896208a767e2598b0fe6",
+            "item_id": "item:b8ebb018afe43f696968a909",
+            "operation": "bring",
+            "quantity": null,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1"
+          }
+        ],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [],
+        "step_order": 6,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 41,
+            "entity_id": "npc:f1d5aac9ebb84bd43de556de",
+            "entity_type": "npc",
+            "evidence_id": "ev:5ea6a669b308159adc51e1cb",
+            "field": "full_en",
+            "mention_id": "mention:8aec8a9d024345f3520e8878",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/38469e8badfa98af84cb/1",
+            "surface": "NPC farthest from the warp portal"
+          },
+          {
+            "end_offset": 47,
+            "entity_id": "npc:f1d5aac9ebb84bd43de556de",
+            "entity_type": "npc",
+            "evidence_id": "ev:5ea6a669b308159adc51e1cb",
+            "field": "full_ru",
+            "mention_id": "mention:cd60ff98c95c4cea96629bb2",
+            "start_offset": 14,
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/38469e8badfa98af84cb/1",
+            "surface": "NPC farthest from the warp portal"
+          }
+        ],
+        "full_en": "Talk to NPC farthest from the warp portal. He will count your mushrooms and if you have enough points, he will promote you to a Thief.",
+        "full_ru": "Поговорите с «NPC farthest from the warp portal», наиболее удалённым от warp portal. Он подсчитает ваши грибы и при достаточном числе очков сменит профессию на Thief.",
+        "instruction_sha256": "38469e8badfa98af84cb88fd5860fdd5f866afccf80e44c8cb680fd2d50b39a5",
+        "original_instruction": "Talk to NPC farthest from the warp portal. He will count your mushrooms and if you have enough points, he will promote you to a Thief.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Have the NPC farthest from the portal count the points and become Thief.",
+        "short_ru": "У дальнего от портала NPC проверьте очки и станьте Thief.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 7,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/38469e8badfa98af84cb/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:b537c6f1551b230dfadedf8c",
+            "npc_id": "npc:f1d5aac9ebb84bd43de556de",
+            "role": "talk",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/38469e8badfa98af84cb/1"
+          }
+        ],
+        "step_order": 7,
+        "step_rewards": [
+          {
+            "reward_id": "reward:255363f6994a9b63f04b8acc",
+            "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/38469e8badfa98af84cb/1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "dialogue_options": [],
+    "entities": [
+      {
+        "entity_id": "item:14bee36cc8ce393e8307edec",
+        "entity_type": "item",
+        "evidence_id": "ev:54be3a6aedacf59357b8bd84",
+        "original_name": "Grasshopper's Leg",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:1f46afe083eb71862a0641bf",
+        "entity_type": "item",
+        "evidence_id": "ev:ad422087bea1a7f370af5562",
+        "original_name": "Leather Bag of Infinity",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:665e81d61357bb6a75eb8b52",
+        "entity_type": "item",
+        "evidence_id": "ev:cf982eb1c61769a86d70acd3",
+        "original_name": "Scell",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:8f5e6e8b67838e62f14993e0",
+        "entity_type": "item",
+        "evidence_id": "ev:63c16208098116474904cc7b",
+        "original_name": "Cobweb",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:aa15f303cf8fb7aa6dd080d1",
+        "entity_type": "item",
+        "evidence_id": "ev:ce40f27686b3442b1874d500",
+        "original_name": "Cactus Needle",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:ad476565687d558b826fa201",
+        "entity_type": "item",
+        "evidence_id": "ev:6dce044854288bc5629b6b12",
+        "original_name": "Garlet",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:b1516311bc22b71c3cdf192d",
+        "entity_type": "item",
+        "evidence_id": "ev:83eba299fe28b7415eb9c0f8",
+        "original_name": "Earthworm Peeling",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:cbe03493155e605f28d2a0ee",
+        "entity_type": "item",
+        "evidence_id": "ev:2ec9a93839b94b0869636e50",
+        "original_name": "Bear's Footskin",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:cf40a5689e0e653c33623c55",
+        "entity_type": "item",
+        "evidence_id": "ev:180333718be160f6b6a581f7",
+        "original_name": "Spawn",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:d7c998dfd09cb50dec276956",
+        "entity_type": "item",
+        "evidence_id": "ev:b86142636a0deb169050920e",
+        "original_name": "Fine Grit",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:f894eda1f133a93c942bb1d6",
+        "entity_type": "item",
+        "evidence_id": "ev:c60a890f1acfba6d92ef1571",
+        "original_name": "Zargon",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:04f72918cbffba72f1a79936",
+        "entity_type": "map",
+        "evidence_id": "ev:7a4004708bc34bfe5091dd06",
+        "original_name": "Payon",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:1004c5859a1968224317b549",
+        "entity_type": "map",
+        "evidence_id": "ev:fe989ad2a977deadf6b53892",
+        "original_name": "payon",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:526b1295123c5a64a2c6ec91",
+        "entity_type": "map",
+        "evidence_id": "ev:d40b5edc52938b7c08e83e34",
+        "original_name": "moc_prydb1",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:df92c46ea7ce4105e4b609f7",
+        "entity_type": "npc",
+        "evidence_id": "ev:d71a328babf9f3a6d67282d9",
+        "original_name": "Bag Seller",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+        "entity_type": "npc",
+        "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+        "original_name": "Alcouskou",
+        "variant_id": "irowiki-classic"
+      }
+    ],
+    "prerequisite_groups": [],
+    "quest_id": "irowiki-classic:Thief_Skill_Quest",
+    "quest_relations": [],
+    "rewards": [
+      {
+        "amount": "Sand Attack",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:525585b0b008703ba4307db5",
+        "item_id": null,
+        "kind": "skill_unlock",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "reward_id": "reward:00388646b32297d2468d6554"
+      },
+      {
+        "amount": "Find Stone",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:6d23c789e63a112d7256833f",
+        "item_id": null,
+        "kind": "skill_unlock",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "reward_id": "reward:3ffa16a93627c57e545b7a63"
+      },
+      {
+        "amount": "Back Slide",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:d21118260275bb141ee8dc7b",
+        "item_id": null,
+        "kind": "skill_unlock",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "reward_id": "reward:49f1034f5c90644a148d6473"
+      },
+      {
+        "amount": "1",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:6387e33b2f0c7a1199ca289f",
+        "item_id": "item:1f46afe083eb71862a0641bf",
+        "kind": "item",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "reward_id": "reward:bad8241eb1df793ee8f198bc"
+      },
+      {
+        "amount": "Stone Fling",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:6b06140a1d98ea984ea01417",
+        "item_id": null,
+        "kind": "skill_unlock",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "reward_id": "reward:ed1a3b0dd933251badcee35b"
+      }
+    ],
+    "steps": [
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 17,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "full_en",
+            "mention_id": "mention:0a27463c2043a14f60c91604",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 71,
+            "entity_id": "map:526b1295123c5a64a2c6ec91",
+            "entity_type": "map",
+            "evidence_id": "ev:d52480d8969552d5edd414fb",
+            "field": "full_en",
+            "mention_id": "mention:c1af827e5864d21310c9e499",
+            "start_offset": 61,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+            "surface": "moc_prydb1"
+          },
+          {
+            "end_offset": 160,
+            "entity_id": "item:14bee36cc8ce393e8307edec",
+            "entity_type": "item",
+            "evidence_id": "ev:54be3a6aedacf59357b8bd84",
+            "field": "full_en",
+            "mention_id": "mention:e3a56d92a0799cb5b2f8e60b",
+            "start_offset": 143,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+            "surface": "Grasshopper's Leg"
+          },
+          {
+            "end_offset": 22,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "full_ru",
+            "mention_id": "mention:a5b49412b35de3ae240536fd",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 63,
+            "entity_id": "map:526b1295123c5a64a2c6ec91",
+            "entity_type": "map",
+            "evidence_id": "ev:d52480d8969552d5edd414fb",
+            "field": "full_ru",
+            "mention_id": "mention:a72ba6624cf3d2f884e9d992",
+            "start_offset": 53,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+            "surface": "moc_prydb1"
+          },
+          {
+            "end_offset": 139,
+            "entity_id": "item:14bee36cc8ce393e8307edec",
+            "entity_type": "item",
+            "evidence_id": "ev:54be3a6aedacf59357b8bd84",
+            "field": "full_ru",
+            "mention_id": "mention:a893b8b9af4a4255572a94f9",
+            "start_offset": 122,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+            "surface": "Grasshopper's Leg"
+          },
+          {
+            "end_offset": 15,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "short_en",
+            "mention_id": "mention:e619c5e1f9e173b38aee6192",
+            "start_offset": 6,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 36,
+            "entity_id": "item:14bee36cc8ce393e8307edec",
+            "entity_type": "item",
+            "evidence_id": "ev:54be3a6aedacf59357b8bd84",
+            "field": "short_en",
+            "mention_id": "mention:cabdec43ac3014404cd157a6",
+            "start_offset": 19,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+            "surface": "Grasshopper's Leg"
+          },
+          {
+            "end_offset": 11,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "short_ru",
+            "mention_id": "mention:d8599726f8f1718c01867aaa",
+            "start_offset": 2,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 42,
+            "entity_id": "item:14bee36cc8ce393e8307edec",
+            "entity_type": "item",
+            "evidence_id": "ev:54be3a6aedacf59357b8bd84",
+            "field": "short_ru",
+            "mention_id": "mention:a9668311a96cbd60511b4ac7",
+            "start_offset": 25,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+            "surface": "Grasshopper's Leg"
+          }
+        ],
+        "full_en": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). Ask to learn Back Slide. He will require you to bring him 20 Grasshopper's Leg , then he will teach you the skill. Job Level: 35 Class: Thief",
+        "full_ru": "Поговорите с Alcouskou в правой комнате Thief Guild (moc_prydb1 154,128). Попросите обучить Back Slide и принесите ему 20 Grasshopper's Leg; затем он обучит умению. Для этого умения: Job Level 35, профессия Thief.",
+        "instruction_sha256": "ea7f98a905eea8ad37f4a5b9b9d3ff6f617ca9d68b870bb5cb8acf2350f18e3b",
+        "original_instruction": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). Ask to learn Back Slide. He will require you to bring him 20 Grasshopper's Leg , then he will teach you the skill.",
+        "primary_goal": "learn_skill",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Independent training activity with its own materials and level gate.",
+            "evidence_id": "ev:9eec77bde9519110dfffc477",
+            "kind": "optional",
+            "route_id": "route:97bfb2693b800c29f5cb9468",
+            "route_key": "back_slide",
+            "route_order": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1"
+          }
+        ],
+        "section": "Back Slide Quest",
+        "short_en": "Bring Alcouskou 20 Grasshopper's Leg for Back Slide.",
+        "short_ru": "У Alcouskou принесите 20 Grasshopper's Leg для Back Slide.",
+        "source_additions": [
+          {
+            "addition_id": "addition:58c686c768470be68b1ac99b",
+            "addition_order": 1,
+            "evidence_id": "ev:71fcf851c84a73574c311d0e",
+            "review_state": "source_reviewed",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+            "text_en": "Job Level: 35 Class: Thief",
+            "text_ru": "Для этого умения: Job Level 35, профессия Thief."
+          }
+        ],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 1,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:d21118260275bb141ee8dc7b",
+            "fact_id": "item_fact:49f1034f5c90644a148d6473",
+            "item_id": "item:14bee36cc8ce393e8307edec",
+            "operation": "bring",
+            "quantity": 20,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:d21118260275bb141ee8dc7b",
+            "location_id": "location:619205a0c59b2767497fe85f",
+            "location_order": null,
+            "role": "Alcouskou",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:d21118260275bb141ee8dc7b",
+            "npc_id": "npc:eeade7d3751aa2106bcf50d0",
+            "role": "talk",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1"
+          }
+        ],
+        "step_order": 1,
+        "step_rewards": [
+          {
+            "reward_id": "reward:49f1034f5c90644a148d6473",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1"
+          }
+        ]
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 17,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "full_en",
+            "mention_id": "mention:25e426daab357a5fb25b6d9a",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 71,
+            "entity_id": "map:526b1295123c5a64a2c6ec91",
+            "entity_type": "map",
+            "evidence_id": "ev:e57d427406a29bd4581d5f69",
+            "field": "full_en",
+            "mention_id": "mention:f444abecc628fecbb81dbb3a",
+            "start_offset": 61,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "moc_prydb1"
+          },
+          {
+            "end_offset": 169,
+            "entity_id": "item:cbe03493155e605f28d2a0ee",
+            "entity_type": "item",
+            "evidence_id": "ev:2ec9a93839b94b0869636e50",
+            "field": "full_en",
+            "mention_id": "mention:112d887378566cfe3490409e",
+            "start_offset": 154,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Bear's Footskin"
+          },
+          {
+            "end_offset": 180,
+            "entity_id": "item:f894eda1f133a93c942bb1d6",
+            "entity_type": "item",
+            "evidence_id": "ev:c60a890f1acfba6d92ef1571",
+            "field": "full_en",
+            "mention_id": "mention:57cb798b0859844fd7afa8be",
+            "start_offset": 174,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Zargon"
+          },
+          {
+            "end_offset": 192,
+            "entity_id": "item:cf40a5689e0e653c33623c55",
+            "entity_type": "item",
+            "evidence_id": "ev:180333718be160f6b6a581f7",
+            "field": "full_en",
+            "mention_id": "mention:59199c221ad24c4e50d7b619",
+            "start_offset": 187,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Spawn"
+          },
+          {
+            "end_offset": 22,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "full_ru",
+            "mention_id": "mention:a0bb6b49dbec72ac573cc429",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 63,
+            "entity_id": "map:526b1295123c5a64a2c6ec91",
+            "entity_type": "map",
+            "evidence_id": "ev:e57d427406a29bd4581d5f69",
+            "field": "full_ru",
+            "mention_id": "mention:5e115ae43962b340a5a5ada3",
+            "start_offset": 53,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "moc_prydb1"
+          },
+          {
+            "end_offset": 125,
+            "entity_id": "item:cbe03493155e605f28d2a0ee",
+            "entity_type": "item",
+            "evidence_id": "ev:2ec9a93839b94b0869636e50",
+            "field": "full_ru",
+            "mention_id": "mention:5fe2c1759c5b3bc28f2bf96b",
+            "start_offset": 110,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Bear's Footskin"
+          },
+          {
+            "end_offset": 135,
+            "entity_id": "item:f894eda1f133a93c942bb1d6",
+            "entity_type": "item",
+            "evidence_id": "ev:c60a890f1acfba6d92ef1571",
+            "field": "full_ru",
+            "mention_id": "mention:bbd6e814f0762d2ec9de2784",
+            "start_offset": 129,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Zargon"
+          },
+          {
+            "end_offset": 145,
+            "entity_id": "item:cf40a5689e0e653c33623c55",
+            "entity_type": "item",
+            "evidence_id": "ev:180333718be160f6b6a581f7",
+            "field": "full_ru",
+            "mention_id": "mention:0b14aff0fd4c99d5bd4f5e88",
+            "start_offset": 140,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Spawn"
+          },
+          {
+            "end_offset": 15,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "short_en",
+            "mention_id": "mention:4e0f9f6b54ecfc326e491b7a",
+            "start_offset": 6,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 33,
+            "entity_id": "item:cbe03493155e605f28d2a0ee",
+            "entity_type": "item",
+            "evidence_id": "ev:2ec9a93839b94b0869636e50",
+            "field": "short_en",
+            "mention_id": "mention:6eb8a7bdd9b7634eead9e937",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Bear's Footskin"
+          },
+          {
+            "end_offset": 43,
+            "entity_id": "item:f894eda1f133a93c942bb1d6",
+            "entity_type": "item",
+            "evidence_id": "ev:c60a890f1acfba6d92ef1571",
+            "field": "short_en",
+            "mention_id": "mention:0f98e96a2e9b89cae53d8302",
+            "start_offset": 37,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Zargon"
+          },
+          {
+            "end_offset": 55,
+            "entity_id": "item:cf40a5689e0e653c33623c55",
+            "entity_type": "item",
+            "evidence_id": "ev:180333718be160f6b6a581f7",
+            "field": "short_en",
+            "mention_id": "mention:5cba3dd6e5c7cae1a6f5cf0b",
+            "start_offset": 50,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Spawn"
+          },
+          {
+            "end_offset": 11,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "short_ru",
+            "mention_id": "mention:46d9188d7b566388b4c3c101",
+            "start_offset": 2,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 39,
+            "entity_id": "item:cbe03493155e605f28d2a0ee",
+            "entity_type": "item",
+            "evidence_id": "ev:2ec9a93839b94b0869636e50",
+            "field": "short_ru",
+            "mention_id": "mention:ca74c1a7496b142f8f1db04d",
+            "start_offset": 24,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Bear's Footskin"
+          },
+          {
+            "end_offset": 49,
+            "entity_id": "item:f894eda1f133a93c942bb1d6",
+            "entity_type": "item",
+            "evidence_id": "ev:c60a890f1acfba6d92ef1571",
+            "field": "short_ru",
+            "mention_id": "mention:3909a2d4ca942f1245dea516",
+            "start_offset": 43,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Zargon"
+          },
+          {
+            "end_offset": 59,
+            "entity_id": "item:cf40a5689e0e653c33623c55",
+            "entity_type": "item",
+            "evidence_id": "ev:180333718be160f6b6a581f7",
+            "field": "short_ru",
+            "mention_id": "mention:4b5d5b255ec55c009ed7d867",
+            "start_offset": 54,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "surface": "Spawn"
+          }
+        ],
+        "full_en": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). He will require the following items in order to teach you Find Stone: 1 Bear's Footskin , 1 Zargon and 5 Spawn Job Level: 20 Class: Thief",
+        "full_ru": "Поговорите с Alcouskou в правой комнате Thief Guild (moc_prydb1 154,128). Для изучения Find Stone принесите 1 Bear's Footskin, 1 Zargon и 5 Spawn. Для этого умения: Job Level 20, профессия Thief.",
+        "instruction_sha256": "6d5fc9dc8d704294ac1bd58c81fab5cf2d612f09cc3f2cdc1227fc45fd9b4ddd",
+        "original_instruction": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). He will require the following items in order to teach you Find Stone: 1 Bear's Footskin , 1 Zargon and 5 Spawn",
+        "primary_goal": "learn_skill",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Independent training activity with its own materials and level gate.",
+            "evidence_id": "ev:65dc8323c9989de35be2669c",
+            "kind": "optional",
+            "route_id": "route:83e31f360964bb66a167dc4c",
+            "route_key": "find_stone",
+            "route_order": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1"
+          }
+        ],
+        "section": "Find Stone Quest",
+        "short_en": "Bring Alcouskou 1 Bear's Footskin, 1 Zargon and 5 Spawn for Find Stone.",
+        "short_ru": "У Alcouskou принесите 1 Bear's Footskin, 1 Zargon и 5 Spawn для Find Stone.",
+        "source_additions": [
+          {
+            "addition_id": "addition:0c9f744b04375050ee62ccc7",
+            "addition_order": 1,
+            "evidence_id": "ev:2998c403d0a8924497c0a259",
+            "review_state": "source_reviewed",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+            "text_en": "Job Level: 20 Class: Thief",
+            "text_ru": "Для этого умения: Job Level 20, профессия Thief."
+          }
+        ],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 1,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:6d23c789e63a112d7256833f",
+            "fact_id": "item_fact:0c9f744b04375050ee62ccc7",
+            "item_id": "item:f894eda1f133a93c942bb1d6",
+            "operation": "bring",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:6d23c789e63a112d7256833f",
+            "fact_id": "item_fact:3ffa16a93627c57e545b7a63",
+            "item_id": "item:cbe03493155e605f28d2a0ee",
+            "operation": "bring",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:6d23c789e63a112d7256833f",
+            "fact_id": "item_fact:9d1e06a85b4579969a34f1fb",
+            "item_id": "item:cf40a5689e0e653c33623c55",
+            "operation": "bring",
+            "quantity": 5,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:6d23c789e63a112d7256833f",
+            "location_id": "location:619205a0c59b2767497fe85f",
+            "location_order": null,
+            "role": "Alcouskou",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:6d23c789e63a112d7256833f",
+            "npc_id": "npc:eeade7d3751aa2106bcf50d0",
+            "role": "talk",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1"
+          }
+        ],
+        "step_order": 2,
+        "step_rewards": [
+          {
+            "reward_id": "reward:3ffa16a93627c57e545b7a63",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1"
+          }
+        ]
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 17,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "full_en",
+            "mention_id": "mention:7cc2d4a8eec6548b107d1e31",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 71,
+            "entity_id": "map:526b1295123c5a64a2c6ec91",
+            "entity_type": "map",
+            "evidence_id": "ev:1ebe4b70ff51762755113a03",
+            "field": "full_en",
+            "mention_id": "mention:3362f9b9388ff796e84a9eee",
+            "start_offset": 61,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "moc_prydb1"
+          },
+          {
+            "end_offset": 153,
+            "entity_id": "item:d7c998dfd09cb50dec276956",
+            "entity_type": "item",
+            "evidence_id": "ev:b86142636a0deb169050920e",
+            "field": "full_en",
+            "mention_id": "mention:f058a126858117ac3f580669",
+            "start_offset": 144,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Fine Grit"
+          },
+          {
+            "end_offset": 243,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "full_en",
+            "mention_id": "mention:a5f6805f57fef6e7b40cc2c9",
+            "start_offset": 220,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Leather Bag of Infinity"
+          },
+          {
+            "end_offset": 286,
+            "entity_id": "map:04f72918cbffba72f1a79936",
+            "entity_type": "map",
+            "evidence_id": "ev:cec7ec9e36b35ed57211190a",
+            "field": "full_en",
+            "mention_id": "mention:aad14d3ad1058093d98ac524",
+            "start_offset": 281,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Payon"
+          },
+          {
+            "end_offset": 22,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "full_ru",
+            "mention_id": "mention:9cbee2618954298f9098c987",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 63,
+            "entity_id": "map:526b1295123c5a64a2c6ec91",
+            "entity_type": "map",
+            "evidence_id": "ev:1ebe4b70ff51762755113a03",
+            "field": "full_ru",
+            "mention_id": "mention:a7835106f4371bcc7436907c",
+            "start_offset": 53,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "moc_prydb1"
+          },
+          {
+            "end_offset": 128,
+            "entity_id": "item:d7c998dfd09cb50dec276956",
+            "entity_type": "item",
+            "evidence_id": "ev:b86142636a0deb169050920e",
+            "field": "full_ru",
+            "mention_id": "mention:9b9f52c768952bf15581be58",
+            "start_offset": 119,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Fine Grit"
+          },
+          {
+            "end_offset": 171,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "full_ru",
+            "mention_id": "mention:8a7d4076df1eeef6d486c0ea",
+            "start_offset": 148,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Leather Bag of Infinity"
+          },
+          {
+            "end_offset": 191,
+            "entity_id": "map:04f72918cbffba72f1a79936",
+            "entity_type": "map",
+            "evidence_id": "ev:cec7ec9e36b35ed57211190a",
+            "field": "full_ru",
+            "mention_id": "mention:f5bb55c0d2543b72759abdae",
+            "start_offset": 186,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Payon"
+          },
+          {
+            "end_offset": 15,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "short_en",
+            "mention_id": "mention:c00b62fc23e284055d03a7f4",
+            "start_offset": 6,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 27,
+            "entity_id": "item:d7c998dfd09cb50dec276956",
+            "entity_type": "item",
+            "evidence_id": "ev:b86142636a0deb169050920e",
+            "field": "short_en",
+            "mention_id": "mention:bf362680ce2dca96c77b83be",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Fine Grit"
+          },
+          {
+            "end_offset": 59,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "short_en",
+            "mention_id": "mention:975e0679eb9692f81f958cd8",
+            "start_offset": 36,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Leather Bag of Infinity"
+          },
+          {
+            "end_offset": 68,
+            "entity_id": "map:04f72918cbffba72f1a79936",
+            "entity_type": "map",
+            "evidence_id": "ev:cec7ec9e36b35ed57211190a",
+            "field": "short_en",
+            "mention_id": "mention:55f3ba8fdd17d50d3c503eb5",
+            "start_offset": 63,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Payon"
+          },
+          {
+            "end_offset": 11,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "short_ru",
+            "mention_id": "mention:2d684cfdcbd655208541042a",
+            "start_offset": 2,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 33,
+            "entity_id": "item:d7c998dfd09cb50dec276956",
+            "entity_type": "item",
+            "evidence_id": "ev:b86142636a0deb169050920e",
+            "field": "short_ru",
+            "mention_id": "mention:fc208aa66aec15566855138c",
+            "start_offset": 24,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Fine Grit"
+          },
+          {
+            "end_offset": 82,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "short_ru",
+            "mention_id": "mention:4933e396fcee39af20dcbc0a",
+            "start_offset": 59,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Leather Bag of Infinity"
+          },
+          {
+            "end_offset": 90,
+            "entity_id": "map:04f72918cbffba72f1a79936",
+            "entity_type": "map",
+            "evidence_id": "ev:cec7ec9e36b35ed57211190a",
+            "field": "short_ru",
+            "mention_id": "mention:cc14732777798cc0be301cf8",
+            "start_offset": 85,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "surface": "Payon"
+          }
+        ],
+        "full_en": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1, 154,128). Ask to learn Sand Attack. He will require you to bring him 5 Fine Grit , then he will agree to teach you, but first you must bring him a Leather Bag of Infinity from the merchant that sells them in Payon. Job Level: 25 Class: Thief",
+        "full_ru": "Поговорите с Alcouskou в правой комнате Thief Guild (moc_prydb1, 154,128) и попросите обучить Sand Attack. Принесите 5 Fine Grit; затем потребуется Leather Bag of Infinity от торговца в Payon. Для этого умения: Job Level 25, профессия Thief.",
+        "instruction_sha256": "d851647a5d20efef69e4c6b6f703ad5a0378158fc823f2b9aa7216cee795e95a",
+        "original_instruction": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1, 154,128). Ask to learn Sand Attack. He will require you to bring him 5 Fine Grit , then he will agree to teach you, but first you must bring him a Leather Bag of Infinity from the merchant that sells them in Payon.",
+        "primary_goal": "obtain_materials",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Independent training activity with its own materials and level gate.",
+            "evidence_id": "ev:0f1c427cd38e216509d800e8",
+            "kind": "optional",
+            "route_id": "route:9490ff323497400d96979192",
+            "route_key": "sand_attack",
+            "route_order": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1"
+          }
+        ],
+        "section": "Sand Attack Quest",
+        "short_en": "Bring Alcouskou 5 Fine Grit; obtain Leather Bag of Infinity in Payon for Sand Attack.",
+        "short_ru": "У Alcouskou принесите 5 Fine Grit; для Sand Attack найдите Leather Bag of Infinity в Payon.",
+        "source_additions": [
+          {
+            "addition_id": "addition:9b820d1cc6f055258b247629",
+            "addition_order": 1,
+            "evidence_id": "ev:a2ce655824a69d3abc22b96f",
+            "review_state": "source_reviewed",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+            "text_en": "Job Level: 25 Class: Thief",
+            "text_ru": "Для этого умения: Job Level 25, профессия Thief."
+          }
+        ],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 1,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:b060e65e37c70ebb7db9e0cd",
+            "fact_id": "item_fact:c96a759db896061e5a160e08",
+            "item_id": "item:d7c998dfd09cb50dec276956",
+            "operation": "bring",
+            "quantity": 5,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:b060e65e37c70ebb7db9e0cd",
+            "location_id": "location:619205a0c59b2767497fe85f",
+            "location_order": null,
+            "role": "Alcouskou",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:b060e65e37c70ebb7db9e0cd",
+            "npc_id": "npc:eeade7d3751aa2106bcf50d0",
+            "role": "talk",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1"
+          }
+        ],
+        "step_order": 3,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 18,
+            "entity_id": "npc:df92c46ea7ce4105e4b609f7",
+            "entity_type": "npc",
+            "evidence_id": "ev:d71a328babf9f3a6d67282d9",
+            "field": "full_en",
+            "mention_id": "mention:aac67cf0ed0a75d968ba11b3",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Bag Seller"
+          },
+          {
+            "end_offset": 27,
+            "entity_id": "map:04f72918cbffba72f1a79936",
+            "entity_type": "map",
+            "evidence_id": "ev:cec7ec9e36b35ed57211190a",
+            "field": "full_en",
+            "mention_id": "mention:f7efc0b1b9ed3663f87145bf",
+            "start_offset": 22,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Payon"
+          },
+          {
+            "end_offset": 34,
+            "entity_id": "map:1004c5859a1968224317b549",
+            "entity_type": "map",
+            "evidence_id": "ev:529f286e7e0cfef1d7d7e642",
+            "field": "full_en",
+            "mention_id": "mention:cd5234fe033026cac05af778",
+            "start_offset": 29,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "payon"
+          },
+          {
+            "end_offset": 96,
+            "entity_id": "item:b1516311bc22b71c3cdf192d",
+            "entity_type": "item",
+            "evidence_id": "ev:83eba299fe28b7415eb9c0f8",
+            "field": "full_en",
+            "mention_id": "mention:fd8f6dbab834f165beb25412",
+            "start_offset": 79,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Earthworm Peeling"
+          },
+          {
+            "end_offset": 107,
+            "entity_id": "item:8f5e6e8b67838e62f14993e0",
+            "entity_type": "item",
+            "evidence_id": "ev:63c16208098116474904cc7b",
+            "field": "full_en",
+            "mention_id": "mention:03fc97a782e2bc6d07a5e27e",
+            "start_offset": 101,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Cobweb"
+          },
+          {
+            "end_offset": 127,
+            "entity_id": "item:aa15f303cf8fb7aa6dd080d1",
+            "entity_type": "item",
+            "evidence_id": "ev:ce40f27686b3442b1874d500",
+            "field": "full_en",
+            "mention_id": "mention:b782de8dcdbfcb0a44adcb1b",
+            "start_offset": 114,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Cactus Needle"
+          },
+          {
+            "end_offset": 23,
+            "entity_id": "npc:df92c46ea7ce4105e4b609f7",
+            "entity_type": "npc",
+            "evidence_id": "ev:d71a328babf9f3a6d67282d9",
+            "field": "full_ru",
+            "mention_id": "mention:a96f6a731b234fcb5cc68b0e",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Bag Seller"
+          },
+          {
+            "end_offset": 31,
+            "entity_id": "map:04f72918cbffba72f1a79936",
+            "entity_type": "map",
+            "evidence_id": "ev:cec7ec9e36b35ed57211190a",
+            "field": "full_ru",
+            "mention_id": "mention:063249dcc404230c6165725c",
+            "start_offset": 26,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Payon"
+          },
+          {
+            "end_offset": 38,
+            "entity_id": "map:1004c5859a1968224317b549",
+            "entity_type": "map",
+            "evidence_id": "ev:529f286e7e0cfef1d7d7e642",
+            "field": "full_ru",
+            "mention_id": "mention:c6f4259c862434959bafd25a",
+            "start_offset": 33,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "payon"
+          },
+          {
+            "end_offset": 78,
+            "entity_id": "item:b1516311bc22b71c3cdf192d",
+            "entity_type": "item",
+            "evidence_id": "ev:83eba299fe28b7415eb9c0f8",
+            "field": "full_ru",
+            "mention_id": "mention:ab7d92a39518b7c13a51e4f1",
+            "start_offset": 61,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Earthworm Peeling"
+          },
+          {
+            "end_offset": 88,
+            "entity_id": "item:8f5e6e8b67838e62f14993e0",
+            "entity_type": "item",
+            "evidence_id": "ev:63c16208098116474904cc7b",
+            "field": "full_ru",
+            "mention_id": "mention:7dc2b80877e9bec0a15ef423",
+            "start_offset": 82,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Cobweb"
+          },
+          {
+            "end_offset": 106,
+            "entity_id": "item:aa15f303cf8fb7aa6dd080d1",
+            "entity_type": "item",
+            "evidence_id": "ev:ce40f27686b3442b1874d500",
+            "field": "full_ru",
+            "mention_id": "mention:0637ab5a44f7bb3e136e8d37",
+            "start_offset": 93,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Cactus Needle"
+          },
+          {
+            "end_offset": 27,
+            "entity_id": "item:b1516311bc22b71c3cdf192d",
+            "entity_type": "item",
+            "evidence_id": "ev:83eba299fe28b7415eb9c0f8",
+            "field": "short_en",
+            "mention_id": "mention:45ffa8fdf42e64bd7bff16c0",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Earthworm Peeling"
+          },
+          {
+            "end_offset": 37,
+            "entity_id": "item:8f5e6e8b67838e62f14993e0",
+            "entity_type": "item",
+            "evidence_id": "ev:63c16208098116474904cc7b",
+            "field": "short_en",
+            "mention_id": "mention:98c5a2a17c642d12a3d3a166",
+            "start_offset": 31,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Cobweb"
+          },
+          {
+            "end_offset": 57,
+            "entity_id": "item:aa15f303cf8fb7aa6dd080d1",
+            "entity_type": "item",
+            "evidence_id": "ev:ce40f27686b3442b1874d500",
+            "field": "short_en",
+            "mention_id": "mention:2d05cda747d67ef88a053481",
+            "start_offset": 44,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Cactus Needle"
+          },
+          {
+            "end_offset": 72,
+            "entity_id": "npc:df92c46ea7ce4105e4b609f7",
+            "entity_type": "npc",
+            "evidence_id": "ev:d71a328babf9f3a6d67282d9",
+            "field": "short_en",
+            "mention_id": "mention:8a23239d0604738710c4499e",
+            "start_offset": 62,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Bag Seller"
+          },
+          {
+            "end_offset": 12,
+            "entity_id": "npc:df92c46ea7ce4105e4b609f7",
+            "entity_type": "npc",
+            "evidence_id": "ev:d71a328babf9f3a6d67282d9",
+            "field": "short_ru",
+            "mention_id": "mention:645ea340e704ca8e31c1fb8d",
+            "start_offset": 2,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Bag Seller"
+          },
+          {
+            "end_offset": 44,
+            "entity_id": "item:b1516311bc22b71c3cdf192d",
+            "entity_type": "item",
+            "evidence_id": "ev:83eba299fe28b7415eb9c0f8",
+            "field": "short_ru",
+            "mention_id": "mention:16037d88e2d9a9e309c2b43e",
+            "start_offset": 27,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Earthworm Peeling"
+          },
+          {
+            "end_offset": 54,
+            "entity_id": "item:8f5e6e8b67838e62f14993e0",
+            "entity_type": "item",
+            "evidence_id": "ev:63c16208098116474904cc7b",
+            "field": "short_ru",
+            "mention_id": "mention:b826058b730ee78c0591f81b",
+            "start_offset": 48,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Cobweb"
+          },
+          {
+            "end_offset": 72,
+            "entity_id": "item:aa15f303cf8fb7aa6dd080d1",
+            "entity_type": "item",
+            "evidence_id": "ev:ce40f27686b3442b1874d500",
+            "field": "short_ru",
+            "mention_id": "mention:06512e9fb3a92825012d40b0",
+            "start_offset": 59,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+            "surface": "Cactus Needle"
+          }
+        ],
+        "full_en": "Talk to Bag Seller in Payon (payon 91,77), and he will tell you to bring him 1 Earthworm Peeling , 1 Cobweb and 1 Cactus Needle .",
+        "full_ru": "Поговорите с Bag Seller в Payon (payon 91,77). Он попросит 1 Earthworm Peeling, 1 Cobweb и 1 Cactus Needle.",
+        "instruction_sha256": "54258ed153d5dcb67cb981099abd21ca934ce5bc26d18fa5be73d9cd4f416cf7",
+        "original_instruction": "Talk to Bag Seller in Payon (payon 91,77), and he will tell you to bring him 1 Earthworm Peeling , 1 Cobweb and 1 Cactus Needle .",
+        "primary_goal": "obtain_materials",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Independent training activity with its own materials and level gate.",
+            "evidence_id": "ev:7ebfee5f269db244e6433a9f",
+            "kind": "optional",
+            "route_id": "route:9490ff323497400d96979192",
+            "route_key": "sand_attack",
+            "route_order": 2,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1"
+          }
+        ],
+        "section": "Sand Attack Quest",
+        "short_en": "Prepare 1 Earthworm Peeling, 1 Cobweb and 1 Cactus Needle for Bag Seller.",
+        "short_ru": "У Bag Seller подготовьте 1 Earthworm Peeling, 1 Cobweb и 1 Cactus Needle.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 2,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:718f5fd581f635132c32b081",
+            "fact_id": "item_fact:26754a866e1cb1a2ad691292",
+            "item_id": "item:8f5e6e8b67838e62f14993e0",
+            "operation": "bring",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:718f5fd581f635132c32b081",
+            "fact_id": "item_fact:4cfa9fd3f9780e86e18fdcd1",
+            "item_id": "item:aa15f303cf8fb7aa6dd080d1",
+            "operation": "bring",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:718f5fd581f635132c32b081",
+            "fact_id": "item_fact:c9e582daddef3e3f485696a7",
+            "item_id": "item:b1516311bc22b71c3cdf192d",
+            "operation": "bring",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:718f5fd581f635132c32b081",
+            "location_id": "location:43ce7be2b99a8dc22f5f8c0a",
+            "location_order": null,
+            "role": "Bag Seller",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:718f5fd581f635132c32b081",
+            "npc_id": "npc:df92c46ea7ce4105e4b609f7",
+            "role": "talk",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1"
+          }
+        ],
+        "step_order": 4,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 62,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "full_en",
+            "mention_id": "mention:9b5af6cfd474c1cb1559da05",
+            "start_offset": 39,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1",
+            "surface": "Leather Bag of Infinity"
+          },
+          {
+            "end_offset": 66,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "full_ru",
+            "mention_id": "mention:7e7ed5c5d9a6717b9db32f1e",
+            "start_offset": 43,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1",
+            "surface": "Leather Bag of Infinity"
+          },
+          {
+            "end_offset": 15,
+            "entity_id": "npc:df92c46ea7ce4105e4b609f7",
+            "entity_type": "npc",
+            "evidence_id": "ev:d71a328babf9f3a6d67282d9",
+            "field": "short_en",
+            "mention_id": "mention:b3a24b3b9b13df56528717c8",
+            "start_offset": 5,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1",
+            "surface": "Bag Seller"
+          },
+          {
+            "end_offset": 67,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "short_en",
+            "mention_id": "mention:b34f782c04ab89ac122f7edb",
+            "start_offset": 44,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1",
+            "surface": "Leather Bag of Infinity"
+          },
+          {
+            "end_offset": 30,
+            "entity_id": "npc:df92c46ea7ce4105e4b609f7",
+            "entity_type": "npc",
+            "evidence_id": "ev:d71a328babf9f3a6d67282d9",
+            "field": "short_ru",
+            "mention_id": "mention:6056c9a6411941d311c9b1d4",
+            "start_offset": 20,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1",
+            "surface": "Bag Seller"
+          },
+          {
+            "end_offset": 67,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "short_ru",
+            "mention_id": "mention:870d76b035da0d2b257c25eb",
+            "start_offset": 44,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1",
+            "surface": "Leather Bag of Infinity"
+          }
+        ],
+        "full_en": "Bring him these and he will give you 1 Leather Bag of Infinity. It's probably not a good idea to drop this special quest item on the ground.",
+        "full_ru": "Принесите ему эти материалы, и он выдаст 1 Leather Bag of Infinity. Не бросайте этот особый квестовый предмет на землю.",
+        "instruction_sha256": "2ee67630af9aa9adcdd99e735ce83646cf1cc040dac7e54180339cbacca3550a",
+        "original_instruction": "Bring him these and he will give you 1 Leather Bag of Infinity. It's probably not a good idea to drop this special quest item on the ground.",
+        "primary_goal": "obtain_materials",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Independent training activity with its own materials and level gate.",
+            "evidence_id": "ev:9ecd2a05e6056addc331cced",
+            "kind": "optional",
+            "route_id": "route:9490ff323497400d96979192",
+            "route_key": "sand_attack",
+            "route_order": 3,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1"
+          }
+        ],
+        "section": "Sand Attack Quest",
+        "short_en": "Give Bag Seller the materials and receive 1 Leather Bag of Infinity.",
+        "short_ru": "Передайте материалы Bag Seller и получите 1 Leather Bag of Infinity.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 3,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": "Same requested set from step 4; one hand-in, not additional materials.",
+            "evidence_id": "ev:9370e9eb4afb0a519d77dfe0",
+            "fact_id": "item_fact:482bc6891d41c6ed334293b0",
+            "item_id": "item:8f5e6e8b67838e62f14993e0",
+            "operation": "deliver",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": "Same requested set from step 4; one hand-in, not additional materials.",
+            "evidence_id": "ev:9370e9eb4afb0a519d77dfe0",
+            "fact_id": "item_fact:999d64e338c582b0c83a3199",
+            "item_id": "item:aa15f303cf8fb7aa6dd080d1",
+            "operation": "deliver",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": "Same requested set from step 4; one hand-in, not additional materials.",
+            "evidence_id": "ev:9370e9eb4afb0a519d77dfe0",
+            "fact_id": "item_fact:bad8241eb1df793ee8f198bc",
+            "item_id": "item:b1516311bc22b71c3cdf192d",
+            "operation": "deliver",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1"
+          }
+        ],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:28b5ccaada8d590c95a2ee1d",
+            "npc_id": "npc:df92c46ea7ce4105e4b609f7",
+            "role": "talk",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1"
+          }
+        ],
+        "step_order": 5,
+        "step_rewards": [
+          {
+            "reward_id": "reward:bad8241eb1df793ee8f198bc",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1"
+          }
+        ]
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 31,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "full_en",
+            "mention_id": "mention:68931d12bafe4db26a8c40e2",
+            "start_offset": 22,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 116,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "full_en",
+            "mention_id": "mention:d153bb41d0ee3a1dfde4b78a",
+            "start_offset": 93,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1",
+            "surface": "Leather Bag of Infinity"
+          },
+          {
+            "end_offset": 21,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "full_ru",
+            "mention_id": "mention:801f51b1f07dcc3050889fb0",
+            "start_offset": 12,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 82,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "full_ru",
+            "mention_id": "mention:08f1bdac9865dba1d5d975c8",
+            "start_offset": 59,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1",
+            "surface": "Leather Bag of Infinity"
+          },
+          {
+            "end_offset": 19,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "short_en",
+            "mention_id": "mention:4f7cea5a49e69ba4e2f32a3a",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 48,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "short_en",
+            "mention_id": "mention:1cc2e060a2eed09fba1ad6b9",
+            "start_offset": 25,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1",
+            "surface": "Leather Bag of Infinity"
+          },
+          {
+            "end_offset": 21,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "short_ru",
+            "mention_id": "mention:16cc887722791fca3c98db6c",
+            "start_offset": 12,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 47,
+            "entity_id": "item:1f46afe083eb71862a0641bf",
+            "entity_type": "item",
+            "evidence_id": "ev:ad422087bea1a7f370af5562",
+            "field": "short_ru",
+            "mention_id": "mention:b93043667e97e6a1717d2fff",
+            "start_offset": 24,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1",
+            "surface": "Leather Bag of Infinity"
+          }
+        ],
+        "full_en": "You may now return to Alcouskou and ask him about Sand Attack again. As long as you have the Leather Bag of Infinity in your inventory he will now teach you the skill.",
+        "full_ru": "Вернитесь к Alcouskou и снова спросите о Sand Attack. Если Leather Bag of Infinity находится в вашем инвентаре, он обучит вас умению.",
+        "instruction_sha256": "0534d1343456cdd7f0357300e4d15f34805b84c06d720c53c50bcd748baef2e2",
+        "original_instruction": "You may now return to Alcouskou and ask him about Sand Attack again. As long as you have the Leather Bag of Infinity in your inventory he will now teach you the skill.",
+        "primary_goal": "learn_skill",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Independent training activity with its own materials and level gate.",
+            "evidence_id": "ev:04ca18c250f6f7f4f2bf79d7",
+            "kind": "optional",
+            "route_id": "route:9490ff323497400d96979192",
+            "route_key": "sand_attack",
+            "route_order": 4,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1"
+          }
+        ],
+        "section": "Sand Attack Quest",
+        "short_en": "Return to Alcouskou with Leather Bag of Infinity in inventory for Sand Attack.",
+        "short_ru": "Вернитесь к Alcouskou с Leather Bag of Infinity в инвентаре для Sand Attack.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 4,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": "Inventory possession is stated; removal/consumption is unknown.",
+            "evidence_id": "ev:525585b0b008703ba4307db5",
+            "fact_id": "item_fact:00388646b32297d2468d6554",
+            "item_id": "item:1f46afe083eb71862a0641bf",
+            "operation": "possess",
+            "quantity": null,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1"
+          }
+        ],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:525585b0b008703ba4307db5",
+            "npc_id": "npc:eeade7d3751aa2106bcf50d0",
+            "role": "talk",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1"
+          }
+        ],
+        "step_order": 6,
+        "step_rewards": [
+          {
+            "reward_id": "reward:00388646b32297d2468d6554",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1"
+          }
+        ]
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 17,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "full_en",
+            "mention_id": "mention:bdf1e687c0b09718adce3b37",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 71,
+            "entity_id": "map:526b1295123c5a64a2c6ec91",
+            "entity_type": "map",
+            "evidence_id": "ev:37f237f5a4a7cc3b4ff6dcbd",
+            "field": "full_en",
+            "mention_id": "mention:6d9510e721d0e1c4214b9297",
+            "start_offset": 61,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "moc_prydb1"
+          },
+          {
+            "end_offset": 176,
+            "entity_id": "item:ad476565687d558b826fa201",
+            "entity_type": "item",
+            "evidence_id": "ev:6dce044854288bc5629b6b12",
+            "field": "full_en",
+            "mention_id": "mention:0ae7e610531d8f248b4853a8",
+            "start_offset": 170,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Garlet"
+          },
+          {
+            "end_offset": 188,
+            "entity_id": "item:665e81d61357bb6a75eb8b52",
+            "entity_type": "item",
+            "evidence_id": "ev:cf982eb1c61769a86d70acd3",
+            "field": "full_en",
+            "mention_id": "mention:867a8572d6efa38729378065",
+            "start_offset": 183,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Scell"
+          },
+          {
+            "end_offset": 22,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "full_ru",
+            "mention_id": "mention:b3c88461b697c5dd9454ee40",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 63,
+            "entity_id": "map:526b1295123c5a64a2c6ec91",
+            "entity_type": "map",
+            "evidence_id": "ev:37f237f5a4a7cc3b4ff6dcbd",
+            "field": "full_ru",
+            "mention_id": "mention:7a1ee91c6f67387831d19f7f",
+            "start_offset": 53,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "moc_prydb1"
+          },
+          {
+            "end_offset": 117,
+            "entity_id": "item:ad476565687d558b826fa201",
+            "entity_type": "item",
+            "evidence_id": "ev:6dce044854288bc5629b6b12",
+            "field": "full_ru",
+            "mention_id": "mention:3db3b7ffbec83c0dc7746cce",
+            "start_offset": 111,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Garlet"
+          },
+          {
+            "end_offset": 127,
+            "entity_id": "item:665e81d61357bb6a75eb8b52",
+            "entity_type": "item",
+            "evidence_id": "ev:cf982eb1c61769a86d70acd3",
+            "field": "full_ru",
+            "mention_id": "mention:34d13a866b097bbb625473a9",
+            "start_offset": 122,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Scell"
+          },
+          {
+            "end_offset": 15,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "short_en",
+            "mention_id": "mention:057e54649f9d4f3c28cf1100",
+            "start_offset": 6,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 24,
+            "entity_id": "item:ad476565687d558b826fa201",
+            "entity_type": "item",
+            "evidence_id": "ev:6dce044854288bc5629b6b12",
+            "field": "short_en",
+            "mention_id": "mention:e5ffcdc15862da25c4551a3a",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Garlet"
+          },
+          {
+            "end_offset": 36,
+            "entity_id": "item:665e81d61357bb6a75eb8b52",
+            "entity_type": "item",
+            "evidence_id": "ev:cf982eb1c61769a86d70acd3",
+            "field": "short_en",
+            "mention_id": "mention:f8e1a87d571ee37aa1aabb06",
+            "start_offset": 31,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Scell"
+          },
+          {
+            "end_offset": 11,
+            "entity_id": "npc:eeade7d3751aa2106bcf50d0",
+            "entity_type": "npc",
+            "evidence_id": "ev:b00d699b587a543c79fd2c2b",
+            "field": "short_ru",
+            "mention_id": "mention:d71c1fe669c5cc4a92024d4e",
+            "start_offset": 2,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Alcouskou"
+          },
+          {
+            "end_offset": 30,
+            "entity_id": "item:ad476565687d558b826fa201",
+            "entity_type": "item",
+            "evidence_id": "ev:6dce044854288bc5629b6b12",
+            "field": "short_ru",
+            "mention_id": "mention:7ea8153879f5048f3f8ebc5c",
+            "start_offset": 24,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Garlet"
+          },
+          {
+            "end_offset": 40,
+            "entity_id": "item:665e81d61357bb6a75eb8b52",
+            "entity_type": "item",
+            "evidence_id": "ev:cf982eb1c61769a86d70acd3",
+            "field": "short_ru",
+            "mention_id": "mention:a8a418971d3cd245fc4f0dc3",
+            "start_offset": 35,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "surface": "Scell"
+          }
+        ],
+        "full_en": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). He'll require you to bring him the following items in order to teach you Stone Fling: 2 Garlet and 2 Scell . Job Level: 15 Class: Thief",
+        "full_ru": "Поговорите с Alcouskou в правой комнате Thief Guild (moc_prydb1 154,128). Для изучения Stone Fling принесите 2 Garlet и 2 Scell. Для этого умения: Job Level 15, профессия Thief.",
+        "instruction_sha256": "1502b4757ac41925f9fefffab6b61d8da13e114da738d9c1e251ea82850113d4",
+        "original_instruction": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). He'll require you to bring him the following items in order to teach you Stone Fling: 2 Garlet and 2 Scell .",
+        "primary_goal": "learn_skill",
+        "quest_id": "irowiki-classic:Thief_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Independent training activity with its own materials and level gate.",
+            "evidence_id": "ev:a374a38a6ac3850f9cb15c50",
+            "kind": "optional",
+            "route_id": "route:4f2c2d967144712c1b0cd0e1",
+            "route_key": "stone_fling",
+            "route_order": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1"
+          }
+        ],
+        "section": "Stone Fling Quest",
+        "short_en": "Bring Alcouskou 2 Garlet and 2 Scell for Stone Fling.",
+        "short_ru": "У Alcouskou принесите 2 Garlet и 2 Scell для Stone Fling.",
+        "source_additions": [
+          {
+            "addition_id": "addition:360759e8082da134d67a61bb",
+            "addition_order": 1,
+            "evidence_id": "ev:90e9204fcbd28146df40aa58",
+            "review_state": "source_reviewed",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+            "text_en": "Job Level: 15 Class: Thief",
+            "text_ru": "Для этого умения: Job Level 15, профессия Thief."
+          }
+        ],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 1,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:6b06140a1d98ea984ea01417",
+            "fact_id": "item_fact:360759e8082da134d67a61bb",
+            "item_id": "item:665e81d61357bb6a75eb8b52",
+            "operation": "bring",
+            "quantity": 2,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:6b06140a1d98ea984ea01417",
+            "fact_id": "item_fact:ed1a3b0dd933251badcee35b",
+            "item_id": "item:ad476565687d558b826fa201",
+            "operation": "bring",
+            "quantity": 2,
+            "required": 1,
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:6b06140a1d98ea984ea01417",
+            "location_id": "location:619205a0c59b2767497fe85f",
+            "location_order": null,
+            "role": "Alcouskou",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:6b06140a1d98ea984ea01417",
+            "npc_id": "npc:eeade7d3751aa2106bcf50d0",
+            "role": "talk",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1"
+          }
+        ],
+        "step_order": 7,
+        "step_rewards": [
+          {
+            "reward_id": "reward:ed1a3b0dd933251badcee35b",
+            "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1"
           }
         ]
       }

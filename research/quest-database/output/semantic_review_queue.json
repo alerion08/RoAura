@@ -40655,42 +40655,6 @@
       "step_id": "irowiki-classic:Thief/step/ac9cac9d8bca9877f67a/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
-      "evidence_id": "ev:cc8109c57127dddd8a227123",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:ff5dc711a5e29640e8c1272b",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:cc8109c57127dddd8a227123",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:5056337446d46caefbe31e27",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:f6eb77512895679c0b64564a",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:d1ecc28ea372296cb328eae7",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:ca0d1e337253773b7660937f",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:ca32ea4abecf3d097e6ab892",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
       "evidence_id": "ev:cc8109c57127dddd8a227123",
       "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
@@ -40700,17 +40664,17 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c1b93bc75db747ccbdda5257",
+      "detail": "Two unnamed guild NPCs stay distinct. Irrelevant Man / Mr. Irrelevant denotes the entry/retry contact within this guide. Bare coordinate pairs retain NULL map codes. Mushroom quantities are unknown because mixed weighted totals can satisfy 25 points. Avoidable Fabres/Chonchons/Spores have no kill quota; mushroom target ID and exact questions are unknown. Consumption timing is not inferred from the Varies header.",
+      "evidence_id": "ev:cc8109c57127dddd8a227123",
       "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:8ba0b3287c3212c4466449a1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1"
+      "reason": "thief_points_and_identity_uncertainty",
+      "review_id": "review:24a811dd14311d0119bcfe52",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:8366b1159acf3873a62e715f",
+      "evidence_id": "ev:241d668edc7389bebd56b400",
       "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
       "reason": "map_unknown",
       "review_id": "review:1f15336e2c554231803131b4",
@@ -40718,62 +40682,8 @@
       "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c1b93bc75db747ccbdda5257",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5e0fa4d2e2899cabb91e2824",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0721ef67176b9974300ec68a",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:f4566c5f78de8d4cea1848a2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/38469e8badfa98af84cb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0721ef67176b9974300ec68a",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0445c8e0c81a846c9a076a56",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/38469e8badfa98af84cb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7706186fd95019d1e9c1607e",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:a4bc2a60615e2a19af4f292a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7706186fd95019d1e9c1607e",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e0e03a5f32bf0f9baec93e6a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a4aaf7b4ca1b6440b6fd7324",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:92c735b2220bc153dfd7df9e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/5f55a65fb6ce4d35d270/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:f31489729aeea0fb7dbc20d6",
+      "evidence_id": "ev:486bdc6eba0ff6b3132de874",
       "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
       "reason": "map_unknown",
       "review_id": "review:0091f7be28505ff113315af5",
@@ -40781,112 +40691,13 @@
       "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/5f55a65fb6ce4d35d270/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a4aaf7b4ca1b6440b6fd7324",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b9a85a0e9fa4da0321e65bc0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/5f55a65fb6ce4d35d270/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f9e8f1b76eca354a3457eb91",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:7408ecad9525b216047e29b0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f9e8f1b76eca354a3457eb91",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7d91b40c659bc656b25f1887",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:564bc0f297ebc3d9f6bd83b0",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:fa99255628925969e9118017",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:d28ee70612e77421dfdf59ef",
+      "evidence_id": "ev:6b5e7d1c49fe03a4f3872805",
       "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
       "reason": "map_unknown",
       "review_id": "review:58e95e519d1d904f9aeacb87",
       "severity": "warning",
       "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:564bc0f297ebc3d9f6bd83b0",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1a87ed432f8593c05deb6c3a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3f83d8318ae0a13e1f676763",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:8bfc0aa9b0bcce1033a72a8d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3f83d8318ae0a13e1f676763",
-      "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5b7fcffc299313993d91318a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
-      "evidence_id": "ev:b350670bd4c23f06c1b33130",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:1080685c38714a643d755ca5",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:b350670bd4c23f06c1b33130",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:deff84b642b909c416c164d3",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:9dd2ba7eaef8670ec29de16c",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:244de0b694506d2d524c86c3",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:4cdba678c07090e57778d7f9",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:d8c9dfeb10fde86380567b20",
-      "severity": "warning",
-      "step_id": null
     },
     {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
@@ -40898,175 +40709,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b41dfc4041127db606d8ae81",
+      "detail": "Four independent activities use Job Levels 35/20/25/15, not a global level-35 gate. Sand Attack requests one 5-Fine-Grit set; the Bag Seller requests one 1/1/1 crafting set, handed in at step 5. Step 6 proves bag possession, not consumption. Bag game ID is unknown. No exact menu answers or unseen NPC positions are invented.",
+      "evidence_id": "ev:b350670bd4c23f06c1b33130",
       "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6feb9a3ca601ad1f0e43bc0f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b41dfc4041127db606d8ae81",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:46d8fe42f2028b2013bc5020",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2301d496dc400ee9218230a1",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:51d9f8dd620092ec1d7653e4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2301d496dc400ee9218230a1",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e1629f1cb969b4f384c9fad0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:2301d496dc400ee9218230a1",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:69330a183501842d27579850",
+      "reason": "thief_independent_training_and_bag",
+      "review_id": "review:24cf30bac1fce5c4ad8bea21",
       "severity": "warning",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e995705a394b5fccf134898a",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f492d67fe0a2b2e2649217af",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e995705a394b5fccf134898a",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4a07afbe3a9c790c7a2f8af6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:e995705a394b5fccf134898a",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:f15f23efcd019ead0a08bf20",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:dc7e4d62239f5c3d21bc3089",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7519335e4cdb4c4d1d19a53f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:dc7e4d62239f5c3d21bc3089",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f0e364dca23ed73f66f1db2d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:dc7e4d62239f5c3d21bc3089",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:6e1a5eaca8f4a2ebff7b0289",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:46e04a695c16554a8793fcf1",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d52a774b50abf4f6e1a3a643",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:46e04a695c16554a8793fcf1",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:84724e6afa4e29140138711f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:371bfb60c7f31a77f223b0d2",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8402018d87a8ac22dab11481",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:371bfb60c7f31a77f223b0d2",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d4bc53c75682b15398a2ef0f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:371bfb60c7f31a77f223b0d2",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:e8d310e7d74d5138533b4dda",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f0cc0057b9b9d58f0c238b17",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a348c320af0f2428932fae14",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f0cc0057b9b9d58f0c238b17",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bb62f8ecf7a7313b5956337c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:f0cc0057b9b9d58f0c238b17",
-      "quest_id": "irowiki-classic:Thief_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:18ab132e7947e7cd185eba51",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1"
+      "step_id": null
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
