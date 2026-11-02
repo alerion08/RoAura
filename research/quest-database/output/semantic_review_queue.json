@@ -7733,38 +7733,20 @@
       "step_id": "irowiki-classic:Blacksmith_Job_Change_Guide/step/f73f50f92ac1abba47ca/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "The second 1-Steel/3-Coal/1-Iron-Hammer set is additional to the first set, giving the archived total 2 Steel/8 Coal/2 Iron Hammer/1 Detrimindexta. The 500-Zeny cost belongs only to Dubious Salesmanship, with no invented payment time or repeat charge.",
       "evidence_id": "ev:51d72c37ee0d4be8b466fd73",
       "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:fe536428c47ba64f648a2315",
+      "reason": "blacksmith_additional_materials_and_fee_scope",
+      "review_id": "review:5750a59b9fd16ae93d994ae5",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Greed is an independent activity with Job Level N/A. Cannot add 500 weight means free capacity below 500, not 500 Flowers, 500 Zeny or an invented overweight percentage. Flowers purchase is optional with unknown count/ID, and the unnamed vendor is distinct from Akkie and the dwarf.",
       "evidence_id": "ev:51d72c37ee0d4be8b466fd73",
       "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:891c8b335d8c4cbfe9a980ce",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:ae5936caacf11c9991a65e2f",
-      "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:38e693cbc6cdb8c21ee6ad33",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:5672383b6e61491feccc1309",
-      "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:0171114ce94addce3bc2e699",
+      "reason": "greed_capacity_not_item_cost",
+      "review_id": "review:bc18131c0035cbe935fbeeb8",
       "severity": "warning",
       "step_id": null
     },
@@ -7776,78 +7758,6 @@
       "review_id": "review:21b4edfeaca805398d14be94",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:10c5060943b6365001de926b",
-      "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:42e4ede166a3c17bb2efba39",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/0c107f32534ed6341f06/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:10c5060943b6365001de926b",
-      "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3295df03d25909da4d06aad6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/0c107f32534ed6341f06/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:744f8af70d4d7122b1693e5c",
-      "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ba2e9a082df1bf8f62b1615d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/0d1cea4ea908ae90fedc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:744f8af70d4d7122b1693e5c",
-      "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:62e8bd6b529b97ebf96f947a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/0d1cea4ea908ae90fedc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:20f8f5cf289850a7bc83e3d1",
-      "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2b3ce320b27e1565e0fc3ed9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/2b4ef11f75e5ab4afee2/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:20f8f5cf289850a7bc83e3d1",
-      "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1d799d1cddd576ed28151d19",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/2b4ef11f75e5ab4afee2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0bb4c5c957d50e667dd489b0",
-      "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0b55ee5303dfc529cd003980",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/62945cb9912c8faced9b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0bb4c5c957d50e667dd489b0",
-      "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9156ae1eab7a6105e2521614",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/62945cb9912c8faced9b/1"
     },
     {
       "detail": "Exact Manuk Coin label is present here; its shared ID 6080 is proven by the explicitly pinned Tribe Investigation database link, not guessed from text similarity.",
@@ -24779,38 +24689,29 @@
       "step_id": "irowiki-classic:Merchant/step/75fce2bde914c1f8a9cc/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Bylan and Prontera Kafra Employees are distinct scoped actors. Geffen contact and Morroc recipient remain descriptive unknown identities. Four destinations are alternatives; bare points gain no guessed map codes, and the Morroc point is not asserted as an exact indoor NPC point.",
       "evidence_id": "ev:4c13a45562bdcba93977fe9f",
       "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:02f28de2335ba5d7b5fead60",
+      "reason": "merchant_assigned_recipient_identity",
+      "review_id": "review:757972a68c7911e2df59106a",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "One 1000-Zeny fee has alternative upfront or 500+500 arrangements. Final remaining 500 is conditional, not a second obligation. One parcel leads to one Receipt only on correct delivery; final presentation does not establish inventory consumption.",
       "evidence_id": "ev:4c13a45562bdcba93977fe9f",
       "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:c60df24d7a938463a265c7d7",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:21c36bf4959ba7e7b4a85af1",
-      "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:06ef4c3d9596dcd61abd8322",
+      "reason": "merchant_fee_and_receipt_accounting",
+      "review_id": "review:708023422a0ed79598c88c05",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:995ebac5bb24a6bcfc0166b4",
+      "detail": "The eight serials are possible character-specific inputs, not eight correct answers. No serial/destination mapping is invented. Wrong input still issues a parcel, but the recipient rejects it; the source does not establish an extra fee or exact restart milestone.",
+      "evidence_id": "ev:4c13a45562bdcba93977fe9f",
       "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:bf761a43d409aa21e973bc9a",
+      "reason": "merchant_random_assignment_and_rejection",
+      "review_id": "review:78692acded92f54e9cd11d07",
       "severity": "warning",
       "step_id": null
     },
@@ -24824,137 +24725,29 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7cd5f12aa45f948b1e3f8c64",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:e36ca39dee374e77eed1182f",
       "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:5d874d65470a44d5252f74fa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/1284529a7ab293f6492a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7cd5f12aa45f948b1e3f8c64",
-      "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f367cf00c5f2a0dde0efbe24",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/1284529a7ab293f6492a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:10f0e835f168a5656efc983c",
-      "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:bc2e4e494f48697b7883d09f",
-      "severity": "blocking",
+      "reason": "map_not_reference_known",
+      "review_id": "review:73275999c08dd818497f9214",
+      "severity": "warning",
       "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/1945f1411828654bd495/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:10f0e835f168a5656efc983c",
-      "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ee4c6f301a353fd855d0c874",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/1945f1411828654bd495/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6e3d1e8ef9f30da319bc7893",
-      "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:3ada5305cfcaff85374e15eb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/724a3978db5dba6b05e0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6e3d1e8ef9f30da319bc7893",
-      "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4db261b8804a1f4f1226073b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/724a3978db5dba6b05e0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:91aa37221057300abcfe018d",
-      "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:e565eae0871281c5f3e81261",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/75fce2bde914c1f8a9cc/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:6598075816c92d43dc7e0911",
-      "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "map_unknown",
-      "review_id": "review:b6c69d73dc91788fc6d4f370",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/75fce2bde914c1f8a9cc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:91aa37221057300abcfe018d",
-      "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:61a34f854e4414e993707ad3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/75fce2bde914c1f8a9cc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6c957a70d68a0dcc81220ab3",
-      "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:a8ae74cf685681f24a77644e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/964548670864930bf612/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6c957a70d68a0dcc81220ab3",
-      "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4c5ad27146e8697974f10299",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/964548670864930bf612/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Cart Revolution requires exactly the six stated quantities and fails with excess stock. These are not minimum counts. Bare Alberta trainer points retain NULL map codes.",
       "evidence_id": "ev:07fb8fbd5e1753fbd87e4be1",
       "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:4c2d4aad3fad98a71bea46c8",
+      "reason": "cart_revolution_exact_stock",
+      "review_id": "review:74c86b93f158cfc86ee4ae03",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Three independent skill activities have Job Levels 30/15/35. The first header is a source summary, not a whole-guide minimum that blocks Crazy Uproar below 30. No combined material fee or forced skill sequence is asserted.",
       "evidence_id": "ev:07fb8fbd5e1753fbd87e4be1",
       "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:134e2d269ca1153dc761ea18",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:e3be20f8e4cbe57bdf28e87a",
-      "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:8870fdbe2e2fbddf3139a2c4",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:cc97abf015ad5c5f50e7a817",
-      "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:7016cba27f62c83ebf3acbd0",
+      "reason": "merchant_independent_skill_levels",
+      "review_id": "review:96847a58b478a5c77ab3738c",
       "severity": "warning",
       "step_id": null
     },
@@ -24968,110 +24761,29 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d63e1fe65f2e47f8a7f9b359",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:bcec771ec6bd2d1798759f6b",
       "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d4c95d65ecbd03022eb5c90e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/04b0686c24085d62a208/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:7c26c253eaf0e8e0e0a0cc60",
-      "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:91a03f7ec2703745ad45f252",
+      "reason": "map_not_reference_known",
+      "review_id": "review:53c8b2c95d63c184b27ba894",
       "severity": "warning",
       "step_id": "irowiki-classic:Merchant_Skill_Quest/step/04b0686c24085d62a208/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d63e1fe65f2e47f8a7f9b359",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:685384ee7e939f40a37ed3e9",
       "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a8ace4e824331c53c1558b7c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/04b0686c24085d62a208/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:d63e1fe65f2e47f8a7f9b359",
-      "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:c33071368fd2374456ef240f",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/04b0686c24085d62a208/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:036842a9384048f9510c86dc",
-      "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:551d1ecafaa76bf152ff7f64",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/2c15c533038ecbfdcbb1/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:8d2ad40b6f11b3820898d434",
-      "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:f016d02eea72c5ca02b60550",
+      "reason": "map_not_reference_known",
+      "review_id": "review:ec3f15777673a20f694cd4b7",
       "severity": "warning",
       "step_id": "irowiki-classic:Merchant_Skill_Quest/step/2c15c533038ecbfdcbb1/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:036842a9384048f9510c86dc",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:4844dfff6602cccc776aef99",
       "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bc66e1b19030d3010d2b1480",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/2c15c533038ecbfdcbb1/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:036842a9384048f9510c86dc",
-      "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:0f09590b104684ea33a5e921",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/2c15c533038ecbfdcbb1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d48db3dd0320b6cf4c896bf9",
-      "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:bac9e91e627b3ab0a884097d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/dfc9a30e21aafc66c0b9/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:562e3c36a5f514cf8163896e",
-      "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:5a20333d0b23f128e4358bd0",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/dfc9a30e21aafc66c0b9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d48db3dd0320b6cf4c896bf9",
-      "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:56a1aa670b75112ac4ec9264",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/dfc9a30e21aafc66c0b9/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:d48db3dd0320b6cf4c896bf9",
-      "quest_id": "irowiki-classic:Merchant_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:2c4a6e5d39e8232b9adf65c4",
+      "reason": "map_not_reference_known",
+      "review_id": "review:8846ef28e152bbe4857ace59",
       "severity": "warning",
       "step_id": "irowiki-classic:Merchant_Skill_Quest/step/dfc9a30e21aafc66c0b9/1"
     },
