@@ -26606,38 +26606,38 @@
       "step_id": "irowiki-classic:Monk/step/ec59e8e03fd8ddc6fc85/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Pinned HTML restores seven three-material sets. Only one assigned set is prepared, and return is the same obligation. Three memory passages keep original spelling/Latin text; source does not establish one paste field or line-by-line options. Retry without penalty applies only to the memory test.",
       "evidence_id": "ev:0bc86a0ae1e9df78a07b1417",
       "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:48d80c2bcff663aada2a365b",
+      "reason": "monk_material_table_and_memory",
+      "review_id": "review:cd3d474419705f428944c663",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Source Step 8 refers to the maze represented by archived stage 7. One of three maze variants is picked, not all three completed. Caption layout is not another movement objective. Hazards are not compulsory kills. The printed mushroom exit map/point is retained with scene uncertainty; the Abbey entrance is not an interior actor coordinate.",
       "evidence_id": "ev:0bc86a0ae1e9df78a07b1417",
       "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:e79bcf24d5a93a0cde4ecfd7",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:2c16b4e40618affc6aded2e1",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:45dc42d3d357bb588dbfdcdd",
+      "reason": "monk_maze_and_source_numbering",
+      "review_id": "review:82e443a51cb5b025c0c938d2",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:938db4ceb0360f738d5e5714",
+      "detail": "Green Potion is provided then drunk, not an advance purchase; its ID is not guessed. Knuckle Duster 1804 has an explicit Job Level 50 phrase. Waghnak 1801 has no separately explicit level range, and the whole or/if wording is ambiguous; both are possible source alternatives, not a fabricated deterministic below-50 rule or two rewards.",
+      "evidence_id": "ev:0bc86a0ae1e9df78a07b1417",
       "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:74702507fb4d35d49a414dcb",
+      "reason": "monk_potion_and_weapon_reward_scope",
+      "review_id": "review:164b855edb1f1c3ad3b57544",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Marathon and mushrooms are alternatives and may be changed via Boohae. Approximate ten laps/thirty minutes with Increase Agility are not a fixed exact count, deadline or required buff. Mushrooms need thirty of either one type, not thirty of each or a kill quota; Gooey/Orange item IDs and consumption remain unverified.",
+      "evidence_id": "ev:0bc86a0ae1e9df78a07b1417",
+      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
+      "reason": "monk_stamina_alternatives",
+      "review_id": "review:6b732c97fab6031ffb12b4fa",
       "severity": "warning",
       "step_id": null
     },
@@ -26651,191 +26651,20 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d637ce4cadc3cb0c27b9d63c",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:6e1df0fad89ca3a2472e0f06",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/2664ac0f019cc63e0877/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d637ce4cadc3cb0c27b9d63c",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:69fb63f9f456b310a6743843",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/2664ac0f019cc63e0877/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8c46456443f7cb7b32289b02",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:16c07f164023def9c94e22d6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/902c0646ec677068bb4f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8c46456443f7cb7b32289b02",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d9a7502f28699e09be399c52",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/902c0646ec677068bb4f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ae2a357fff25f166c30dd6a1",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:560090ac85dcdb57cc42b2ad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/9bfd3639a696b13afe67/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:a1d60989524f4de2cffd60a7",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "map_unknown",
-      "review_id": "review:ffd53f37d437e0dcb3ac865e",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/9bfd3639a696b13afe67/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ae2a357fff25f166c30dd6a1",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:edde63bb31e239d16e0b6f05",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/9bfd3639a696b13afe67/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:20710f909aa5db43cd7ca01d",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:1095dcc44b1cdb10b613ffc7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/9d94173ba227d9dec854/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:20710f909aa5db43cd7ca01d",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:efc5ffec3cba83769df48ee8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/9d94173ba227d9dec854/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:07592a8b69c08e0cb86969e9",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:dddce11cc18642617078b8e6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/bff34fb16e1907fb00b6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:07592a8b69c08e0cb86969e9",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b5ccc5df7fea21c9f3f42fd1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/bff34fb16e1907fb00b6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d3d785531c0243608fcc9612",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:0788b8f30332f379c75bc0ec",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/d057979e30cd2844c3f3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d3d785531c0243608fcc9612",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1e596ee32f80ea3adc2810b8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/d057979e30cd2844c3f3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e90049df8bd9202e86b38115",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:7203a757d98838a1f817d5dc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/d565fae4b5ca52df626b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e90049df8bd9202e86b38115",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a54c804ac313a8b990dddeab",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/d565fae4b5ca52df626b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4df8ac5a7768a4e97d1b0d3b",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:5210137c2ddda4e9028aecaa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/f66c367e68a372d027fe/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4df8ac5a7768a4e97d1b0d3b",
-      "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8fc74eae01a5a16cb4f5d61b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/f66c367e68a372d027fe/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Elderly man/old man are the same actor by the identical interior point in this guide. The entrance 192,171 and interior 316,68 remain distinct and ordered; the job guide prints entrance 192,170, which is not silently normalized. The unnamed elder is not merged with Tomoon solely by location.",
       "evidence_id": "ev:418f442d4aa6c8718b9ceffe",
       "quest_id": "irowiki-classic:Monk_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:bbb40244912427d76ad52f82",
+      "reason": "monk_skill_actor_locations",
+      "review_id": "review:a74374eef454bc680628d55b",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Zero Weight applies only when Apprentice Monk teaches Spiritual Bestowment; it cannot apply to the material-carrying Excruciating Palm activity. The latter needs the earlier skill, not this whole guide completed before itself. No Job Level is printed and none is invented.",
       "evidence_id": "ev:418f442d4aa6c8718b9ceffe",
       "quest_id": "irowiki-classic:Monk_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:48808455e48e074b4f658cbf",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:546af032fd7a5ed24d275e80",
-      "quest_id": "irowiki-classic:Monk_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:ceaa8c011cb041f667d472f6",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:79eddc7038264a234e7dab46",
-      "quest_id": "irowiki-classic:Monk_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:d4a0b27936469c71c7fd1cff",
+      "reason": "monk_skill_weight_and_dependency_scope",
+      "review_id": "review:d9ee6d225968616a89fff715",
       "severity": "warning",
       "step_id": null
     },
@@ -26847,69 +26676,6 @@
       "review_id": "review:75a4e3ab73e41b7a079ef493",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:41c55ef721d83df50ff7d8b8",
-      "quest_id": "irowiki-classic:Monk_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:565a6079a41967d8f689cd50",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Skill_Quest/step/32d4659519e10f7a25ce/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:41c55ef721d83df50ff7d8b8",
-      "quest_id": "irowiki-classic:Monk_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bf7d3020fd88c6a9a64c3aec",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Skill_Quest/step/32d4659519e10f7a25ce/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:710ae42b44929597f69a7525",
-      "quest_id": "irowiki-classic:Monk_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c5c855889434b582f45ca904",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Skill_Quest/step/67823549886a84e74b6a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:710ae42b44929597f69a7525",
-      "quest_id": "irowiki-classic:Monk_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f06d9cd0dfe5fd8feb50246d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Skill_Quest/step/67823549886a84e74b6a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:48ac067ea849166a8cdee445",
-      "quest_id": "irowiki-classic:Monk_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b693791e876480d25d3c8c15",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Skill_Quest/step/a42be32dc5319d642891/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:48ac067ea849166a8cdee445",
-      "quest_id": "irowiki-classic:Monk_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:610a7668389e4af4389cb9ab",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Monk_Skill_Quest/step/a42be32dc5319d642891/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:48ac067ea849166a8cdee445",
-      "quest_id": "irowiki-classic:Monk_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:2f57a469bbc93eec1b70680f",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Monk_Skill_Quest/step/a42be32dc5319d642891/1"
     },
     {
       "detail": "Four state/color pairs omitted by the old extractor are restored from pinned HTML. Choose by the live state, not by treating table order as an unconditional sequence.",
