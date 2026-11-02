@@ -368,6 +368,10 @@
     {
       "reason": "archer_skill_euro_variant",
       "detail": "Pointed Scales 906 replaces Tough Scalelike Stem 7012 only on euRO; they are not aliases. Both printed Roberto points are alternatives, not consecutive waypoints. Jason has a display town and bare coordinates; no unprinted map code is inferred."
+    },
+    {
+      "reason": "first_header_job_level_scope",
+      "detail": "First archived Job Level 30 belongs to Arrow Crafting only. Use per-activity 30/35 requirements, not a whole-page first-header eligibility gate."
     }
   ],
   "quest_facts": {
@@ -400,5 +404,6 @@
       ],
       "condition": "Independent Arrow Repel training activity; Job Level 35; not a mandatory follow-up to Arrow Crafting."
     }
-  ]
+  ],
+  "job_level_scope_step": 1
 }

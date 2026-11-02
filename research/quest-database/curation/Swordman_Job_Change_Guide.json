@@ -1,0 +1,245 @@
+{
+  "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "2fc8bd7aa63211e2b7ccf10a898b5b072b7d6a07251730fd08dd9f0174dc21fc",
+  "snapshot_sha256": "3391b9bdc654f81220ac09daa6bd56a2f436f80c18f231e7de78626379315205",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Swordman NPC"
+    },
+    {
+      "type": "npc",
+      "name": "large Swordman"
+    },
+    {
+      "type": "npc",
+      "name": "guard",
+      "ref": "west_guard",
+      "identity": "irowiki-classic:Swordman_Job_Change_Guide:west_guard"
+    },
+    {
+      "type": "npc",
+      "name": "guard",
+      "ref": "test_guard",
+      "identity": "irowiki-classic:Swordman_Job_Change_Guide:test_guard"
+    },
+    {
+      "type": "map",
+      "name": "Izlude"
+    },
+    {
+      "type": "map",
+      "name": "First Map",
+      "identity": "irowiki-classic:Swordman_Job_Change_Guide:course:First Map"
+    },
+    {
+      "type": "map",
+      "name": "Second Map",
+      "identity": "irowiki-classic:Swordman_Job_Change_Guide:course:Second Map"
+    },
+    {
+      "type": "map",
+      "name": "Third Map",
+      "identity": "irowiki-classic:Swordman_Job_Change_Guide:course:Third Map"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In Izlude , enter the Swordman Guild on the west side of town (??,??). Talk to the Swordman NPC in the center room behind the desk, then the guard to the west. This guard will transfer you to a new room.",
+      "instruction_sha256": "c3160a23a1d9865e38e87375dc9ad860ba65a833d0657a6a6fe0a73b8ae018e1",
+      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/c3160a23a1d9865e38e8/1",
+      "goal": "talk",
+      "short_ru": "В Izlude поговорите с Swordman NPC, затем с guard на западе.",
+      "short_en": "In Izlude, talk to Swordman NPC, then the guard to the west.",
+      "full_ru": "В Izlude войдите в Swordman Guild на западе города (??,??). Поговорите с Swordman NPC за столом в центральной комнате, затем с guard на западе: он перенесёт вас в новую комнату.",
+      "full_en": "In Izlude , enter the Swordman Guild on the west side of town (??,??). Talk to the Swordman NPC in the center room behind the desk, then the guard to the west. This guard will transfer you to a new room.",
+      "npcs": [
+        {
+          "entity": "Swordman NPC",
+          "role": "talk"
+        },
+        {
+          "entity": "west_guard",
+          "role": "transfer"
+        }
+      ],
+      "mention_entities": {
+        "guard": "west_guard"
+      },
+      "requirements": [
+        {
+          "kind": "source_coordinate_unknown",
+          "condition": "Source explicitly prints ??,??; no numeric coordinate or map code is inferred."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Swordman NPC"
+        },
+        {
+          "operation": "transfer_to_test_room",
+          "entity": "west_guard"
+        }
+      ],
+      "protected_names": [
+        "Swordman NPC",
+        "guard",
+        "guard",
+        "Izlude"
+      ],
+      "locations": []
+    },
+    "2": {
+      "original_instruction": "Talk to the guard here to initiate the test.",
+      "instruction_sha256": "6c05c6c7b83122b0a3d991bd2991559cd0f8a145a80b3b99768124aacbdfdc6b",
+      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/6c05c6c7b83122b0a3d9/1",
+      "goal": "talk",
+      "short_ru": "В комнате испытания поговорите с guard.",
+      "short_en": "Talk to the guard in the test room.",
+      "full_ru": "В новой комнате поговорите с guard, чтобы начать испытание.",
+      "full_en": "Talk to the guard here to initiate the test.",
+      "npcs": [
+        {
+          "entity": "test_guard",
+          "role": "start_test"
+        }
+      ],
+      "mention_entities": {
+        "guard": "test_guard"
+      },
+      "actions": [
+        {
+          "operation": "start_test",
+          "entity": "test_guard"
+        }
+      ],
+      "protected_names": [
+        "guard",
+        "guard"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "First Map : A simple map. Just walk to the other side. If you fall you will be sent back to the beginning.",
+      "instruction_sha256": "772fa5246fa8960742b8b0ebdb13298c76ee57cb4f6b5765589d94244832a5c9",
+      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/772fa5246fa8960742b8/1",
+      "goal": "move",
+      "short_ru": "Пройдите First Map; падение возвращает к началу.",
+      "short_en": "Cross the First Map; falling returns you to the beginning.",
+      "full_ru": "First Map: пройдите на другую сторону. Если упадёте, вас вернёт к началу.",
+      "full_en": "First Map : A simple map. Just walk to the other side. If you fall you will be sent back to the beginning.",
+      "requirements": [
+        {
+          "kind": "fall_effect",
+          "amount": "return_to_beginning"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "cross_first_test_map"
+        }
+      ],
+      "protected_names": [
+        "First Map"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Second Map : This map involves two parallel bridges. Take your time and be careful not to fall off. You don't have to hold the mouse button down to walk.",
+      "instruction_sha256": "9eb562e322af914fc608babe3b3ac374c1efde34b61ec9d92264235247ee702c",
+      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/9eb562e322af914fc608/1",
+      "goal": "move",
+      "short_ru": "Пройдите мосты Second Map, избегая падения.",
+      "short_en": "Cross the bridges on the Second Map, avoiding falls.",
+      "full_ru": "Second Map: здесь два параллельных моста. Не спешите и старайтесь не упасть. Для ходьбы не нужно удерживать кнопку мыши.",
+      "full_en": "Second Map : This map involves two parallel bridges. Take your time and be careful not to fall off. You don't have to hold the mouse button down to walk.",
+      "actions": [
+        {
+          "operation": "cross_parallel_bridge_section",
+          "condition": "Two parallel bridges are described; no requirement to traverse both independently or invented route coordinates."
+        }
+      ],
+      "protected_names": [
+        "Second Map"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Third Map : Similar to the first map except for the upper and lower levels. The lower level has a darker color than the upper level. Take your time and click carefully to get to the lower level. ~At the point where there is a gap in the top level, simply click on the lower level, and you will jump down. Then do the same to get back up.",
+      "instruction_sha256": "554698b1ed12d9408d18dfbea8a9910def0adb7b41f5e8be90b97c4d9c00ae41",
+      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/554698b1ed12d9408d18/1",
+      "goal": "move",
+      "short_ru": "На Third Map переходите между верхним и нижним уровнями щелчками.",
+      "short_en": "On the Third Map, click between upper and lower levels.",
+      "full_ru": "Third Map похожа на первую, но здесь есть верхний и нижний уровни. Нижний темнее верхнего. Не спешите: щёлкайте по нижнему уровню, чтобы перейти на него. У разрыва верхнего уровня нажмите на нижний и спуститесь; затем таким же способом вернитесь наверх.",
+      "full_en": "Third Map : Similar to the first map except for the upper and lower levels. The lower level has a darker color than the upper level. Take your time and click carefully to get to the lower level. ~At the point where there is a gap in the top level, simply click on the lower level, and you will jump down. Then do the same to get back up.",
+      "actions": [
+        {
+          "operation": "descend_to_lower_level"
+        },
+        {
+          "operation": "return_to_upper_level"
+        }
+      ],
+      "protected_names": [
+        "Third Map"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "After exiting the test maps, speak to the large Swordman in the main room to become a Swordman .",
+      "instruction_sha256": "b52d80aa15b229b931d8910db0ad49a740df4914246124919fe0fd887b2486d9",
+      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/b52d80aa15b229b931d8/1",
+      "goal": "job_change",
+      "short_ru": "Вернитесь к large Swordman и получите профессию Swordman.",
+      "short_en": "Return to the large Swordman and become a Swordman.",
+      "full_ru": "Выйдя с карт испытания, поговорите с large Swordman в главной комнате, чтобы получить профессию Swordman.",
+      "full_en": "After exiting the test maps, speak to the large Swordman in the main room to become a Swordman .",
+      "npcs": [
+        {
+          "entity": "large Swordman",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Swordman"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "change_job",
+          "entity": "large Swordman"
+        }
+      ],
+      "protected_names": [
+        "large Swordman"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "swordman_actor_identity",
+      "detail": "West transfer guard and test-room guard are separate by room/role. Entry Swordman NPC and final large Swordman are not silently merged without identity proof. Descriptive labels retain unknown game IDs."
+    },
+    {
+      "reason": "swordman_course_geometry",
+      "detail": "Source explicitly has ??,??. First/Second/Third Map are scoped course labels with no invented codes or points. Falling restarts the first map; two parallel bridges are not two compulsory independent traversals, and level transitions are ordinary clicks, not an inferred skill or combat task."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Novice",
+        "source_section": "requirements",
+        "evidence": "Class: Novice"
+      }
+    ]
+  }
+}

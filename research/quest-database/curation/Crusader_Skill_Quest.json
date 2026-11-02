@@ -1,0 +1,426 @@
+{
+  "quest_id": "irowiki-classic:Crusader_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "a93de2363ee9f26283b6ae7ddc75baa01496668b6fba49950e6f4e659c9c6a47",
+  "snapshot_sha256": "6af66723971de5bce53591147a356ca931db9f8ec0db36e77ee5b298ff65a369",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Ford"
+    },
+    {
+      "type": "npc",
+      "name": "Soldier",
+      "aliases": [
+        "soldier"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Arther Pastor"
+    },
+    {
+      "type": "map",
+      "name": "geffen",
+      "map_code": "geffen"
+    },
+    {
+      "type": "map",
+      "name": "gef_fild13",
+      "map_code": "gef_fild13"
+    },
+    {
+      "type": "map",
+      "name": "prt_church",
+      "map_code": "prt_church"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "item",
+      "name": "Red Potion",
+      "game_id": 501,
+      "id_source": "http://db.irowiki.org/classic/item-info/501/"
+    },
+    {
+      "type": "item",
+      "name": "Sticky Mucus",
+      "game_id": 938,
+      "id_source": "http://db.irowiki.org/classic/item-info/938/"
+    },
+    {
+      "type": "item",
+      "name": "Empty Bottles",
+      "game_id": 713,
+      "id_source": "http://db.irowiki.org/classic/item-info/713/"
+    },
+    {
+      "type": "item",
+      "name": "Jellopy",
+      "game_id": 909,
+      "id_source": "http://db.irowiki.org/classic/item-info/909/"
+    },
+    {
+      "type": "item",
+      "name": "Coal",
+      "game_id": 1003,
+      "id_source": "http://db.irowiki.org/classic/item-info/1003/"
+    },
+    {
+      "type": "item",
+      "name": "Cyfar",
+      "game_id": 7053,
+      "id_source": "http://db.irowiki.org/classic/item-info/7053/"
+    },
+    {
+      "type": "item",
+      "name": "Grape",
+      "game_id": 514,
+      "id_source": "http://db.irowiki.org/classic/item-info/514/"
+    },
+    {
+      "type": "item",
+      "name": "Unripe Apple",
+      "game_id": 619,
+      "id_source": "http://db.irowiki.org/classic/item-info/619/"
+    },
+    {
+      "type": "item",
+      "name": "antidote",
+      "identity": "irowiki-classic:Crusader_Skill_Quest:source_item:antidote"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Ford in Geffen (geffen 110, 117) and you'll be asked to find a Soldier (gef_fild13 297,242).",
+      "instruction_sha256": "fed2f8c592feb7bf7a282f9c5956ccd4212341ffa0024eeb60b99e3d66dc3e44",
+      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/fed2f8c592feb7bf7a28/1",
+      "goal": "talk",
+      "short_ru": "У Ford (geffen 110, 117) получите направление к Soldier: gef_fild13 297,242.",
+      "short_en": "Ask Ford (geffen 110, 117) about Soldier at gef_fild13 297,242.",
+      "full_ru": "Поговорите с Ford в Geffen (geffen 110, 117): он попросит найти Soldier (gef_fild13 297,242).",
+      "full_en": "Talk to Ford in Geffen (geffen 110, 117) and you'll be asked to find a Soldier (gef_fild13 297,242).",
+      "npcs": [
+        {
+          "entity": "Ford",
+          "role": "talk"
+        },
+        {
+          "entity": "Soldier",
+          "role": "find"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Ford"
+        },
+        {
+          "operation": "find_soldier",
+          "entity": "Soldier"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "geffen",
+          "x": 110,
+          "y": 117,
+          "role": "Ford",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "gef_fild13",
+          "x": 297,
+          "y": 242,
+          "role": "Soldier",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Ford",
+        "Soldier",
+        "geffen",
+        "gef_fild13",
+        "Geffen"
+      ]
+    },
+    "2": {
+      "original_instruction": "Prepare 1 Red Potion for the soldier and return to Ford for further help.",
+      "instruction_sha256": "9813eda60b4aa6db50158437bf3daf7492cacc50e47d4679fe5b90aef7c79362",
+      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/9813eda60b4aa6db5015/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Soldier 1 Red Potion и вернитесь к Ford.",
+      "short_en": "Give Soldier 1 Red Potion and return to Ford.",
+      "full_ru": "Подготовьте 1 Red Potion для soldier, затем вернитесь к Ford за дальнейшей помощью.",
+      "full_en": "Prepare 1 Red Potion for the soldier and return to Ford for further help.",
+      "npcs": [
+        {
+          "entity": "Soldier",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Talk to Ford in Geffen (geffen 110, 117) and you'll be asked to find a Soldier (gef_fild13 297,242)."
+        },
+        {
+          "entity": "Ford",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Talk to Ford in Geffen (geffen 110, 117) and you'll be asked to find a Soldier (gef_fild13 297,242)."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Red Potion",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "One potion for the soldier; not another potion per antidote retry."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "give_red_potion",
+          "entity": "Soldier"
+        },
+        {
+          "operation": "return_for_help",
+          "entity": "Ford"
+        }
+      ],
+      "protected_names": [
+        "Ford",
+        "Red Potion"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Proceed to the Prontera Church to find Arther Pastor (prt_church 87,127) for assistance to cure the soldier.",
+      "instruction_sha256": "85b1ef4d0a0c637da7547ac00334c56334f3cdb3f34fe7c2b51687119dafd87d",
+      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/85b1ef4d0a0c637da754/1",
+      "goal": "talk",
+      "short_ru": "Обратитесь к Arther Pastor: prt_church 87,127.",
+      "short_en": "Ask Arther Pastor at prt_church 87,127 for help.",
+      "full_ru": "Идите в Prontera Church и найдите Arther Pastor (prt_church 87,127), чтобы получить помощь в лечении soldier.",
+      "full_en": "Proceed to the Prontera Church to find Arther Pastor (prt_church 87,127) for assistance to cure the soldier.",
+      "npcs": [
+        {
+          "entity": "Arther Pastor",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "ask_for_cure",
+          "entity": "Arther Pastor"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prt_church",
+          "x": 87,
+          "y": 127,
+          "role": "Arther Pastor",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Arther Pastor",
+        "prt_church",
+        "Prontera"
+      ]
+    },
+    "4": {
+      "original_instruction": "Collect 20 Sticky Mucus , 3 Empty Bottles , 5 Jellopy , 1 Coal , 1 Grape , 3 Cyfar and 1 Unripe Apple to prepare an antidote.",
+      "instruction_sha256": "7719ebbec02725d54ba7f5ba7beb3cdca1a5b348b15c3e1d0d6fccb94890a61f",
+      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/7719ebbec02725d54ba7/1",
+      "goal": "prepare_antidote",
+      "short_ru": "Подготовьте 20 Sticky Mucus, 3 Empty Bottles, 5 Jellopy, 1 Coal, 1 Grape, 3 Cyfar и 1 Unripe Apple для antidote.",
+      "short_en": "Prepare 20 Sticky Mucus, 3 Empty Bottles, 5 Jellopy, 1 Coal, 1 Grape, 3 Cyfar and 1 Unripe Apple for the antidote.",
+      "full_ru": "Соберите 20 Sticky Mucus, 3 Empty Bottles, 5 Jellopy, 1 Coal, 1 Grape, 3 Cyfar и 1 Unripe Apple для приготовления antidote.",
+      "full_en": "Collect 20 Sticky Mucus , 3 Empty Bottles , 5 Jellopy , 1 Coal , 1 Grape , 3 Cyfar and 1 Unripe Apple to prepare an antidote.",
+      "npcs": [
+        {
+          "entity": "Arther Pastor",
+          "role": "preparation_context",
+          "support_step": 3,
+          "evidence": "Proceed to the Prontera Church to find Arther Pastor (prt_church 87,127) for assistance to cure the soldier."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Sticky Mucus",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Empty Bottles",
+          "quantity": 3,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Jellopy",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Coal",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Grape",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Cyfar",
+          "quantity": 3,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Unripe Apple",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_object_reference",
+          "entity": "antidote",
+          "condition": "Prepared antidote; inventory implementation and quantity are not established."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "prepare_antidote"
+        }
+      ],
+      "protected_names": [
+        "Sticky Mucus",
+        "Empty Bottles",
+        "Jellopy",
+        "Coal",
+        "Cyfar",
+        "Grape",
+        "Unripe Apple",
+        "antidote"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Race the antidote back to the Soldier to cure him. If you fail, return to Arther Pastor for another antidote.",
+      "instruction_sha256": "8f77fa30620f545c7619ba7ddae9e427753851f8834beb000690c8ba0bad8505",
+      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/8f77fa30620f545c7619/1",
+      "goal": "retry_delivery",
+      "short_ru": "Доставьте antidote к Soldier; при неудаче получите другой у Arther Pastor.",
+      "short_en": "Bring the antidote to Soldier; on failure, get another from Arther Pastor.",
+      "full_ru": "Быстро доставьте antidote персонажу Soldier, чтобы вылечить его. При неудаче вернитесь к Arther Pastor за другим antidote.",
+      "full_en": "Race the antidote back to the Soldier to cure him. If you fail, return to Arther Pastor for another antidote.",
+      "npcs": [
+        {
+          "entity": "Soldier",
+          "role": "talk"
+        },
+        {
+          "entity": "Arther Pastor",
+          "role": "retry_provider"
+        }
+      ],
+      "items": [
+        {
+          "entity": "antidote",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "No printed inventory ID/count or proof of a new full material set for each failure."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "urgent_delivery",
+          "condition": "Source says race, but gives no exact timer, probability or failure mechanism."
+        },
+        {
+          "kind": "retry_from_npc",
+          "entity": "Arther Pastor",
+          "condition": "Return for another antidote on failure; extra material/potion costs are not printed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_antidote",
+          "entity": "Soldier"
+        },
+        {
+          "operation": "retry_after_failure",
+          "entity": "Arther Pastor"
+        }
+      ],
+      "protected_names": [
+        "Soldier",
+        "Arther Pastor",
+        "antidote"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Once successful, you'll be taught Shrink .",
+      "instruction_sha256": "485e342f7412b38468b243ed29be4f3e690b57e55de87fe3e65adb402b358e85",
+      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/485e342f7412b38468b2/1",
+      "goal": "learn_skill",
+      "short_ru": "Успешно вылечите Soldier и изучите Shrink.",
+      "short_en": "Successfully cure Soldier and learn Shrink.",
+      "full_ru": "После успешного лечения вы изучите Shrink.",
+      "full_en": "Once successful, you'll be taught Shrink .",
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Shrink",
+          "condition": "Only after successful treatment; source does not explicitly identify the teacher."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "learn_shrink"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "shrink_cost_and_retry_scope",
+      "detail": "One Red Potion and one seven-material preparation set are recorded. Failed delivery returns to Arther Pastor for another antidote; no exact time limit, success chance, repeat-potion charge or repeated whole-material cost is printed."
+    },
+    {
+      "reason": "shrink_antidote_and_teacher_unknowns",
+      "detail": "Antidote is a scoped source object with NULL ID/count and uncertain inventory implementation. The final teacher is unspecified; do not assign Ford/Soldier/Arther Pastor or their coordinates to the last stage without evidence."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Crusader",
+        "source_section": "requirements",
+        "evidence": "Class: Crusader"
+      }
+    ]
+  }
+}

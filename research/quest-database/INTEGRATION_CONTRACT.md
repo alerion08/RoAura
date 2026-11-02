@@ -190,6 +190,35 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   do not apply zero Weight to that delivery or create a whole-guide self-cycle.
   Entrance/interior coordinates remain separate and ordered, and source 192,171
   is not silently replaced by the other guide's 192,170.
+- HTML text/link extraction may be cached by the complete immutable HTML
+  contents. Snapshot hashes and curation/ID proofs still run on every build.
+  A reused label/path cannot reuse facts from changed HTML, returned link
+  dictionaries cannot mutate cached evidence, and a missing content root fails.
+- `job_level_scope_step=1` explicitly scopes a composite guide's first archived
+  Job Level header to its first activity. It requires at least two independent
+  optional heading routes covering every step once and a literal HTML level
+  proof on stage 1. Only integer 1 is supported; single-activity guides, wrong
+  types/steps, missing proofs and invalid route scopes fail closed. Semantic
+  schema remains 5, generator is semantic-5.8.0.
+  For Archer/Swordman Skill, `quests.job_level` is NULL and
+  `source_job_level_summary` preserves the archived first value with dedicated
+  evidence. NULL does not remove stage eligibility: use 30/35 for Archer and
+  35/30/30 for Swordman. The summary is not another universal level gate.
+  Stored summary evidence, nullable metadata, first-stage gate and complete
+  optional-route coverage are independently validated.
+- Swordman training Armor is a retained equippable category with unknown ID,
+  not a consumed fixed catalog item or a proven currently-equipped requirement.
+  Three restored skill material sets belong to independent activities. Unknown
+  guild coordinates and scoped course-map names are not navigation points.
+- Charge Attack's three `Knight` identities are positional actors; per-field
+  mention overrides and action order preserve the relay. The group coordinate
+  is not each NPC's absolute point. Requested/handed-in materials are one
+  obligation, and the single literal answer belongs to the Essofeit hand-in.
+  Unprinted preparation time and footer reward contamination remain explicit.
+- Shrink records one potion and one seven-material preparation set. Failure
+  returns to Arther Pastor for another antidote; no repeat fee, exact deadline
+  or probability is established. Antidote ID/count and final teacher remain
+  unknown rather than inferred from the preceding stage.
 - `step_locations.location_order` is a reviewed visit sequence when present,
   not an ordering inferred automatically from every textual occurrence.
   NULL means no established sequence. `condition_text` identifies alternative

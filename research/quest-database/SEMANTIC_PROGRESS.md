@@ -1,4 +1,4 @@
-# Semantic database progress — 2026-11-02
+# Semantic database progress — 2026-11-03
 
 Status: **partial research dataset, not ready for application integration**.
 Scope: database, sources, parsers, curations, exports and research CI only.
@@ -16,11 +16,11 @@ reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
-generator **semantic-5.7.0**. All four description fields are populated for
-**999 steps across 82 curated guides**, up from the previous 80-guide/988-step
+generator **semantic-5.8.0**. All four description fields are populated for
+**1,020 steps across 86 curated guides**, up from the previous 82-guide/999-step
 checkpoint. **158 conditional branches** also have independent RU/EN short and
-full descriptions. Twenty-three quest routes represent nine exclusive expedition/lyric/material paths
-and fourteen conditional/optional activities. **1,751 steps in 134 remaining catalog entries still lack
+full descriptions. Twenty-six quest routes represent nine exclusive expedition/lyric/material paths
+and seventeen conditional/optional activities. **1,730 steps in 130 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -107,6 +107,10 @@ complete localization/context analysis.** `complete` remains false.
 | Priest Skill Quest | 2 | Restored Resurrection prerequisite; initial/extra stock distinct from one-plus-one random teaching-attempt costs |
 | Monk Job Change Guide | 8 | Seven restored material sets; three exact passages; alternative stamina tests and mushroom types; approximate marathon; ambiguous weapon reward |
 | Monk Skill Quest | 3 | Zero Weight at Apprentice only; skill prerequisite without self-cycle; ordered entrance/interior points and one material set |
+| Swordman Job Change Guide | 6 | Separate guards; explicitly unknown coordinates; scoped course maps; ordinary movement versus combat |
+| Swordman Skill Quest | 3 | Three restored material tables; retained Armor category; separate level-35/30/30 training activities |
+| Knight Skill Quest | 6 | Three homonymous Knight actors and ordered mentions; one material set; exact hand-in answer; unknown preparation delay |
+| Crusader Skill Quest | 6 | One potion/material set; unknown antidote identity and retry costs; no invented timer or final teacher |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -115,7 +119,46 @@ verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
 
-- Two Monk guides preserve all 11 original stages. Coverage is now 999 stages /
+- Immutable HTML text/link extraction is cached by full HTML contents. Source
+  hashes and curation proofs are still checked on every build; returned link
+  dictionaries are fresh, so caller mutation cannot poison later ID proofs.
+  Changed HTML gets a new cache entry even if a label/path is reused, and a
+  missing content root still fails closed.
+- Four Swordman-family guides preserve all 21 original stages. Coverage is now
+  1,020 stages / 86 guides, 158 localized branches and twenty-six routes. All
+  prior 999 localized descriptions, 158 branches and original step IDs remain
+  unchanged. Schema remains 5; generator is semantic-5.8.0.
+- The first legacy Job Level header must not become a whole-page eligibility
+  gate for independent skill activities. Explicit `job_level_scope_step=1`
+  requires a literal first-stage level proof and complete independent optional
+  routes. Swordman uses per-activity 35/30/30, and existing Archer uses 30/35.
+  `quests.job_level` is NULL for these composite guides; a non-additive
+  `source_job_level_summary` retains the archived first header. Missing stage
+  proof, wrong scope type/step, unsupported routes or corrupt exported metadata
+  fail closed without replacing a valid export.
+- Swordman job change retains distinct transfer/test guards and unresolved
+  entry/final Swordman identities. Printed ??,?? remains unknown. Course labels
+  are not invented map codes, two parallel bridges do not create two compulsory
+  traversals, and upper/lower transitions are ordinary movement, not a skill.
+- Swordman Skill restores three omitted material tables and stage-specific
+  headers. Armor is an equippable retained category with NULL ID; no equipped
+  state is invented. Fatal Blow's table supplies one Banana Juice omitted by
+  its header. Three skill routes are independent, not one combined material fee.
+- Charge Attack has a separate invisible trigger and three distinct Knight
+  actors at relative positions. Ordered mentions in all four descriptions map
+  to their own IDs. The group point is not copied as each NPC coordinate. One
+  5-Candy-Canes/3-Witherless-Roses set is requested then delivered using the exact
+  hand-in option. Preparation time is unknown. Footer-contaminated legacy reward
+  text does not grant its incidental skills/weapons.
+- Shrink has one Red Potion and one seven-material set. Failed antidote delivery
+  returns to Arther Pastor, without an invented timer, success chance, repeat
+  potion cost or repeated full recipe. Antidote ID/count/inventory mechanics and
+  final teacher remain unknown. Six source additions restore Swordman tables
+  and headers without changing archived original text.
+
+Earlier source-review checkpoints:
+
+- Two Monk guides preserved all 11 original stages. Coverage was 999 stages /
   82 guides, 158 localized branches and twenty-three routes. All prior 988
   localized descriptions, 143 branches and original step IDs remain unchanged.
   Existing schema 5 / semantic-5.7.0 supports this data-only iteration.
@@ -758,7 +801,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **286 tests passed**; complete offline enrichment passed;
+Validated locally: **301 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -822,7 +865,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 ## Next work, in order
 
-1. Review the remaining 134 catalog candidates, separating reference pages,
+1. Review the remaining 130 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

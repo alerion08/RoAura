@@ -1,0 +1,438 @@
+{
+  "quest_id": "irowiki-classic:Knight_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "d2907eaa86d0b1a19bf580b7120f67896f5bbb1a7b39b68e74779548bf36eeca",
+  "snapshot_sha256": "db3d1f33449c2059478b00e4425c80f93c9cf33224774371515ca03626c4d4a9",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Essofeit"
+    },
+    {
+      "type": "npc",
+      "name": "Grand Master"
+    },
+    {
+      "type": "npc",
+      "name": "invisible chat bubble"
+    },
+    {
+      "type": "npc",
+      "name": "Knight Gatack"
+    },
+    {
+      "type": "npc",
+      "name": "Knight",
+      "ref": "bottom_right",
+      "identity": "irowiki-classic:Knight_Skill_Quest:bottom_right"
+    },
+    {
+      "type": "npc",
+      "name": "Knight",
+      "ref": "top_left",
+      "identity": "irowiki-classic:Knight_Skill_Quest:top_left"
+    },
+    {
+      "type": "npc",
+      "name": "Knight",
+      "ref": "top_right",
+      "identity": "irowiki-classic:Knight_Skill_Quest:top_right"
+    },
+    {
+      "type": "map",
+      "name": "prontera",
+      "map_code": "prontera"
+    },
+    {
+      "type": "map",
+      "name": "prt_in",
+      "map_code": "prt_in"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "item",
+      "name": "Candy Canes",
+      "game_id": 530,
+      "id_source": "http://db.irowiki.org/classic/item-info/530/"
+    },
+    {
+      "type": "item",
+      "name": "Witherless Roses",
+      "game_id": 748,
+      "id_source": "http://db.irowiki.org/classic/item-info/748/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Inside the Prontera Chivalry ( prontera 48, 343), Talk to Essofeit (prt_in 85, 99).",
+      "instruction_sha256": "14d6230effcdbef02b2643090bf564741c0ec2c1d45944b003054a9e98a4c7b2",
+      "step_id": "irowiki-classic:Knight_Skill_Quest/step/14d6230effcdbef02b26/1",
+      "goal": "talk",
+      "short_ru": "Войдите через prontera 48, 343 и поговорите с Essofeit: prt_in 85, 99.",
+      "short_en": "Enter at prontera 48, 343 and talk to Essofeit: prt_in 85, 99.",
+      "full_ru": "Войдите в Prontera Chivalry (prontera 48, 343) и поговорите с Essofeit (prt_in 85, 99).",
+      "full_en": "Inside the Prontera Chivalry ( prontera 48, 343), Talk to Essofeit (prt_in 85, 99).",
+      "npcs": [
+        {
+          "entity": "Essofeit",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_chivalry"
+        },
+        {
+          "operation": "talk",
+          "entity": "Essofeit"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prontera",
+          "x": 48,
+          "y": 343,
+          "role": "building_entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "prt_in",
+          "x": 85,
+          "y": 99,
+          "role": "Essofeit",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Essofeit",
+        "prontera",
+        "prt_in",
+        "Prontera"
+      ]
+    },
+    "2": {
+      "original_instruction": "Go outside, talk to each of the knights in the group standing just to the east of the Chivalry (prontera 75, 355). Start with the invisible chat bubble to the left of the Grand Master. After clicking on it, talk to the bottom right \"Knight.\" Then, talk to the top left \"Knight,\" not the one by the tree. Then, talk to the top right \"Knight.\"",
+      "instruction_sha256": "f7738bc4a52211e8e18114e02d352373deadde307bbd93b197cab62fd2c14170",
+      "step_id": "irowiki-classic:Knight_Skill_Quest/step/f7738bc4a52211e8e181/1",
+      "goal": "ordered_talk",
+      "short_ru": "На prontera 75, 355: invisible chat bubble → Knight снизу справа → Knight сверху слева → Knight сверху справа.",
+      "short_en": "At prontera 75, 355: invisible chat bubble → Knight bottom right → Knight top left → Knight top right.",
+      "full_ru": "Снаружи, к востоку от Chivalry (prontera 75, 355), поговорите с группой рыцарей. Сначала активируйте invisible chat bubble слева от Grand Master. Затем поговорите с Knight снизу справа, с Knight сверху слева — не с тем, который у дерева, — и с Knight сверху справа.",
+      "full_en": "Go outside, talk to each of the knights in the group standing just to the east of the Chivalry (prontera 75, 355). Start with the invisible chat bubble to the left of the Grand Master. After clicking on it, talk to the bottom right \"Knight.\" Then, talk to the top left \"Knight,\" not the one by the tree. Then, talk to the top right \"Knight.\"",
+      "npcs": [
+        {
+          "entity": "invisible chat bubble",
+          "role": "trigger"
+        },
+        {
+          "entity": "bottom_right",
+          "role": "bottom_right"
+        },
+        {
+          "entity": "top_left",
+          "role": "top_left"
+        },
+        {
+          "entity": "top_right",
+          "role": "top_right"
+        }
+      ],
+      "mention_entities": {
+        "Knight": "bottom_right"
+      },
+      "mention_overrides": [
+        {
+          "field": "short_ru",
+          "surface": "Knight",
+          "occurrence": 2,
+          "entity": "top_left"
+        },
+        {
+          "field": "short_ru",
+          "surface": "Knight",
+          "occurrence": 3,
+          "entity": "top_right"
+        },
+        {
+          "field": "short_en",
+          "surface": "Knight",
+          "occurrence": 2,
+          "entity": "top_left"
+        },
+        {
+          "field": "short_en",
+          "surface": "Knight",
+          "occurrence": 3,
+          "entity": "top_right"
+        },
+        {
+          "field": "full_ru",
+          "surface": "Knight",
+          "occurrence": 2,
+          "entity": "top_left"
+        },
+        {
+          "field": "full_ru",
+          "surface": "Knight",
+          "occurrence": 3,
+          "entity": "top_right"
+        },
+        {
+          "field": "full_en",
+          "surface": "Knight",
+          "occurrence": 2,
+          "entity": "top_left"
+        },
+        {
+          "field": "full_en",
+          "surface": "Knight",
+          "occurrence": 3,
+          "entity": "top_right"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "activate",
+          "entity": "invisible chat bubble"
+        },
+        {
+          "operation": "talk",
+          "entity": "bottom_right"
+        },
+        {
+          "operation": "talk",
+          "entity": "top_left"
+        },
+        {
+          "operation": "talk",
+          "entity": "top_right"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prontera",
+          "x": 75,
+          "y": 355,
+          "role": "knight_group_area",
+          "known": true,
+          "condition": "Group area, not three individually verified absolute NPC points."
+        }
+      ],
+      "protected_names": [
+        "Grand Master",
+        "invisible chat bubble",
+        "Knight",
+        "Knight",
+        "Knight",
+        "prontera"
+      ]
+    },
+    "3": {
+      "original_instruction": "Go back inside, talk to Essofeit again.",
+      "instruction_sha256": "f85968c33d5c6d817dbcd9e62900d8d5429a8b64b12f56911402ad099aeeedd2",
+      "step_id": "irowiki-classic:Knight_Skill_Quest/step/f85968c33d5c6d817dbc/1",
+      "goal": "talk",
+      "short_ru": "Снова поговорите с Essofeit внутри Chivalry.",
+      "short_en": "Talk to Essofeit again inside the Chivalry.",
+      "full_ru": "Вернитесь внутрь и снова поговорите с Essofeit.",
+      "full_en": "Go back inside, talk to Essofeit again.",
+      "npcs": [
+        {
+          "entity": "Essofeit",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Essofeit"
+        }
+      ],
+      "protected_names": [
+        "Essofeit"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Go back outside, talk to the Knight Gatack (prontera 66, 358). He comments about Essofeit missing training and mentions how Essofeit says that all Knights should be able to obtain 5 Candy Canes and 3 Witherless Roses .",
+      "instruction_sha256": "832550b1380bb2cee6cc4b486aff999e8fea2ff3759cc8bd9c6632a8fa0cf8d6",
+      "step_id": "irowiki-classic:Knight_Skill_Quest/step/832550b1380bb2cee6cc/1",
+      "goal": "bring",
+      "short_ru": "У Knight Gatack (prontera 66, 358) подготовьте 5 Candy Canes и 3 Witherless Roses для Essofeit.",
+      "short_en": "At Knight Gatack (prontera 66, 358), prepare 5 Candy Canes and 3 Witherless Roses for Essofeit.",
+      "full_ru": "Снаружи поговорите с Knight Gatack (prontera 66, 358). Он расскажет о пропусках тренировок Essofeit и о том, что все Knights должны уметь добыть 5 Candy Canes и 3 Witherless Roses.",
+      "full_en": "Go back outside, talk to the Knight Gatack (prontera 66, 358). He comments about Essofeit missing training and mentions how Essofeit says that all Knights should be able to obtain 5 Candy Canes and 3 Witherless Roses .",
+      "npcs": [
+        {
+          "entity": "Knight Gatack",
+          "role": "talk"
+        }
+      ],
+      "non_entity_mentions": {
+        "Knight": "Part of the full Knight Gatack name or class wording, not one of the three positional Knight actors."
+      },
+      "items": [
+        {
+          "entity": "Candy Canes",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Witherless Roses",
+          "quantity": 3,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "ask_about_training",
+          "entity": "Knight Gatack"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prontera",
+          "x": 66,
+          "y": 358,
+          "role": "Knight Gatack",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Essofeit",
+        "Knight Gatack",
+        "Knight",
+        "Knight",
+        "Knight",
+        "prontera",
+        "Candy Canes",
+        "Witherless Roses"
+      ]
+    },
+    "5": {
+      "original_instruction": "With the 3 Witherless Roses and 5 Candy Canes in your inventory, head back inside the Chivalry to talk to Essofeit. Select \"Give him the Witherless Roses and Candy Canes\" at the prompt. He'll tell you that he needs time to make preparations.",
+      "instruction_sha256": "8b27345e2e65b9c45a25bdfeef72624a1736cc8ac33340f4acb31f916f7868fa",
+      "step_id": "irowiki-classic:Knight_Skill_Quest/step/8b27345e2e65b9c45a25/1",
+      "goal": "deliver",
+      "short_ru": "У Essofeit отдайте 3 Witherless Roses и 5 Candy Canes; выберите «Give him the Witherless Roses and Candy Canes».",
+      "short_en": "Give Essofeit 3 Witherless Roses and 5 Candy Canes; choose “Give him the Witherless Roses and Candy Canes”.",
+      "full_ru": "Возьмите 3 Witherless Roses и 5 Candy Canes и вернитесь к Essofeit внутри Chivalry. На вопрос выберите «Give him the Witherless Roses and Candy Canes». Он скажет, что ему нужно время на подготовку.",
+      "full_en": "With the 3 Witherless Roses and 5 Candy Canes in your inventory, head back inside the Chivalry to talk to Essofeit. Select \"Give him the Witherless Roses and Candy Canes\" at the prompt. He'll tell you that he needs time to make preparations.",
+      "npcs": [
+        {
+          "entity": "Essofeit",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Witherless Roses",
+          "quantity": 3,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Same set requested previously, not a second cost."
+        },
+        {
+          "entity": "Candy Canes",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Same set requested previously, not a second cost."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Essofeit",
+          "options": [
+            {
+              "text": "Give him the Witherless Roses and Candy Canes",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "preparation_delay_unknown",
+          "condition": "Needs time to prepare, but no duration or deadline is printed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "give_training_materials",
+          "entity": "Essofeit"
+        }
+      ],
+      "protected_names": [
+        "Essofeit",
+        "Candy Canes",
+        "Witherless Roses"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Talk to Essofeit again and he'll teach you Charge Attack.",
+      "instruction_sha256": "f1073409d5daaf74423df8696e392a378b8fc4838e53238901ed42580d86849a",
+      "step_id": "irowiki-classic:Knight_Skill_Quest/step/f1073409d5daaf74423d/1",
+      "goal": "learn_skill",
+      "short_ru": "Вернитесь к Essofeit и изучите Charge Attack.",
+      "short_en": "Talk to Essofeit again and learn Charge Attack.",
+      "full_ru": "Снова поговорите с Essofeit: он обучит вас Charge Attack.",
+      "full_en": "Talk to Essofeit again and he'll teach you Charge Attack.",
+      "npcs": [
+        {
+          "entity": "Essofeit",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Charge Attack"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "learn_charge_attack",
+          "entity": "Essofeit"
+        }
+      ],
+      "protected_names": [
+        "Essofeit"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "charge_attack_positional_knights",
+      "detail": "Three same-name Knight actors remain distinct by relative position and ordered actions. Mentions in all four localized fields select their own identities. Invisible chat bubble is a separate trigger; the group coordinate is not copied as each actor point. Knight Gatack is not any of these three actors."
+    },
+    {
+      "reason": "charge_attack_material_and_delay_scope",
+      "detail": "One 5-Candy-Canes/3-Witherless-Roses obligation is requested then handed in. The one literal answer belongs to Essofeit hand-in, not the positional NPCs. Preparation duration is unknown, so no fixed wait is invented."
+    },
+    {
+      "reason": "charge_attack_legacy_reward_contamination",
+      "detail": "The legacy reward metadata includes the walkthrough/footer. Those incidental weapons, skills and classes are not extracted as additional rewards or eligibility. The only asserted unlock is Charge Attack."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Knight",
+        "source_section": "requirements",
+        "evidence": "Class: Knight"
+      }
+    ]
+  }
+}

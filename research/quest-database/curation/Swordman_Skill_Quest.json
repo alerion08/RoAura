@@ -1,0 +1,449 @@
+{
+  "quest_id": "irowiki-classic:Swordman_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "a9cea4a73f870515cb46714f500d9ef703e3c34f627e0523f491b8c209b77aa8",
+  "snapshot_sha256": "8511ebb486459a23b72065b1c235b82ca12e6fb70f3f6283458c46092feb93e7",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Knight De Thomas"
+    },
+    {
+      "type": "npc",
+      "name": "Leon Von Frich"
+    },
+    {
+      "type": "npc",
+      "name": "Juan"
+    },
+    {
+      "type": "map",
+      "name": "Izlude"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "prt_in",
+      "map_code": "prt_in"
+    },
+    {
+      "type": "item",
+      "name": "Empty Bottles",
+      "game_id": 713,
+      "id_source": "http://db.irowiki.org/classic/item-info/713/"
+    },
+    {
+      "type": "item",
+      "name": "Moth Wing",
+      "game_id": 1058,
+      "id_source": "http://db.irowiki.org/classic/item-info/1058/"
+    },
+    {
+      "type": "item",
+      "name": "Banana Juice",
+      "game_id": 532,
+      "id_source": "http://db.irowiki.org/classic/item-info/532/"
+    },
+    {
+      "type": "item",
+      "name": "Fire Arrows",
+      "game_id": 1752,
+      "id_source": "http://db.irowiki.org/classic/item-info/1752/"
+    },
+    {
+      "type": "item",
+      "name": "Silver Arrows",
+      "game_id": 1751,
+      "id_source": "http://db.irowiki.org/classic/item-info/1751/"
+    },
+    {
+      "type": "item",
+      "name": "Tentacles",
+      "game_id": 962,
+      "id_source": "http://db.irowiki.org/classic/item-info/962/"
+    },
+    {
+      "type": "item",
+      "name": "Royal Jelly",
+      "game_id": 526,
+      "id_source": "http://db.irowiki.org/classic/item-info/526/"
+    },
+    {
+      "type": "item",
+      "name": "Decayed Nails",
+      "game_id": 957,
+      "id_source": "http://db.irowiki.org/classic/item-info/957/"
+    },
+    {
+      "type": "item",
+      "name": "Honey",
+      "game_id": 518,
+      "id_source": "http://db.irowiki.org/classic/item-info/518/"
+    },
+    {
+      "type": "item",
+      "name": "Horrendous Mouths",
+      "game_id": 958,
+      "id_source": "http://db.irowiki.org/classic/item-info/958/"
+    },
+    {
+      "type": "item",
+      "name": "Powder of Butterfly",
+      "game_id": 924,
+      "id_source": "http://db.irowiki.org/classic/item-info/924/"
+    },
+    {
+      "type": "item",
+      "name": "Armor",
+      "identity": "irowiki-classic:Swordman_Skill_Quest:source_item:armor_category",
+      "ref": "armor_category"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Knight De Thomas inside the house in Izlude (214,129). He'll require the following items to teach you HP Recovery While Moving :",
+      "instruction_sha256": "8b6fef3d1b9a395d01b772d2848a6d94f76cd8f501597195b87654f5ef918735",
+      "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1",
+      "goal": "learn_skill",
+      "short_ru": "У Knight De Thomas в Izlude (214,129) узнайте условия HP Recovery While Moving.",
+      "short_en": "Ask Knight De Thomas in Izlude (214,129) about HP Recovery While Moving.",
+      "full_ru": "Поговорите с Knight De Thomas в доме в Izlude (214,129). Для обучения HP Recovery While Moving он попросит следующие предметы. Материалы: 200 Empty Bottles, подходящая для экипировки Armor и 1 Moth Wing. Условия этого умения: Job Level 35, профессия Swordman.",
+      "full_en": "Talk to Knight De Thomas inside the house in Izlude (214,129). He'll require the following items to teach you HP Recovery While Moving : Items 200 Empty Bottles An Equippable Armor 1 Moth Wing Job Level: 35 Class: Swordman",
+      "npcs": [
+        {
+          "entity": "Knight De Thomas",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Empty Bottles",
+          "quantity": 200,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "200 Empty Bottles"
+        },
+        {
+          "entity": "Moth Wing",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "1 Moth Wing"
+        },
+        {
+          "entity": "armor_category",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "An Equippable Armor",
+          "condition": "Any equippable Armor category; retained, no fixed item ID or currently-equipped requirement established."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "35",
+          "source_section": "html_text",
+          "evidence": "Job Level: 35 Class: Swordman"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "HP Recovery While Moving"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_training_materials",
+          "entity": "Knight De Thomas"
+        },
+        {
+          "operation": "show_equippable_armor",
+          "entity": "armor_category"
+        }
+      ],
+      "locations": [
+        {
+          "x": 214,
+          "y": 129,
+          "role": "house",
+          "known": false,
+          "entity": "Izlude"
+        }
+      ],
+      "protected_names": [
+        "Knight De Thomas",
+        "Izlude"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Items 200 Empty Bottles An Equippable Armor 1 Moth Wing",
+          "text_ru": "Материалы: 200 Empty Bottles, подходящая для экипировки Armor и 1 Moth Wing."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 35 Class: Swordman",
+          "text_ru": "Условия этого умения: Job Level 35, профессия Swordman."
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to Leon Von Frich (prt_in 75,88) inside the Prontera Chivalry (top left building in Prontera ), and give him the following items to learn Fatal Blow :",
+      "instruction_sha256": "fcb2837f13f99b5f1cfaf9c4e0bf3467ce513a3275671435f5a06d4d74412077",
+      "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
+      "goal": "learn_skill",
+      "short_ru": "У Leon Von Frich (prt_in 75,88) передайте материалы для Fatal Blow.",
+      "short_en": "Give Leon Von Frich (prt_in 75,88) the Fatal Blow materials.",
+      "full_ru": "Поговорите с Leon Von Frich (prt_in 75,88) в Prontera Chivalry, в верхнем левом здании Prontera. Передайте перечисленные предметы для изучения Fatal Blow. Материалы: 1 Banana Juice, 10 Fire Arrows, 10 Silver Arrows, 30 Tentacles и 5 Royal Jelly. Условия этого умения: Job Level 30, профессия Swordman.",
+      "full_en": "Talk to Leon Von Frich (prt_in 75,88) inside the Prontera Chivalry (top left building in Prontera ), and give him the following items to learn Fatal Blow : Items 1 Banana Juice 10 Fire Arrows 10 Silver Arrows 30 Tentacles 5 Royal Jelly Job Level: 30 Class: Swordman",
+      "npcs": [
+        {
+          "entity": "Leon Von Frich",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Banana Juice",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "1 Banana Juice"
+        },
+        {
+          "entity": "Fire Arrows",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "10 Fire Arrows"
+        },
+        {
+          "entity": "Silver Arrows",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "10 Silver Arrows"
+        },
+        {
+          "entity": "Tentacles",
+          "quantity": 30,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "30 Tentacles"
+        },
+        {
+          "entity": "Royal Jelly",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "5 Royal Jelly"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "30",
+          "source_section": "html_text",
+          "evidence": "Job Level: 30 Class: Swordman"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Fatal Blow"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_training_materials",
+          "entity": "Leon Von Frich"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prt_in",
+          "x": 75,
+          "y": 88,
+          "role": "npc",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Leon Von Frich",
+        "Prontera",
+        "prt_in"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Items 1 Banana Juice 10 Fire Arrows 10 Silver Arrows 30 Tentacles 5 Royal Jelly",
+          "text_ru": "Материалы: 1 Banana Juice, 10 Fire Arrows, 10 Silver Arrows, 30 Tentacles и 5 Royal Jelly."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 30 Class: Swordman",
+          "text_ru": "Условия этого умения: Job Level 30, профессия Swordman."
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to Juan inside the Prontera Upgrade Shop (178, 185) and give him the following items to learn Berserk :",
+      "instruction_sha256": "1b82aea3d23022537426fbe93b73134f9753ec26f2821a8b083b35caee4c3094",
+      "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
+      "goal": "learn_skill",
+      "short_ru": "У Juan в Prontera Upgrade Shop (178, 185) передайте материалы для Berserk.",
+      "short_en": "Give Juan at Prontera Upgrade Shop (178, 185) the Berserk materials.",
+      "full_ru": "Поговорите с Juan в Prontera Upgrade Shop (178, 185) и передайте перечисленные предметы для изучения Berserk. Материалы: 10 Decayed Nails, 10 Honey, 10 Horrendous Mouths и 35 Powder of Butterfly. Условия этого умения: Job Level 30, профессия Swordman.",
+      "full_en": "Talk to Juan inside the Prontera Upgrade Shop (178, 185) and give him the following items to learn Berserk : Items 10 Decayed Nails 10 Honey 10 Horrendous Mouths 35 Powder of Butterfly Job Level: 30 Class: Swordman",
+      "npcs": [
+        {
+          "entity": "Juan",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Decayed Nails",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "10 Decayed Nails"
+        },
+        {
+          "entity": "Honey",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "10 Honey"
+        },
+        {
+          "entity": "Horrendous Mouths",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "10 Horrendous Mouths"
+        },
+        {
+          "entity": "Powder of Butterfly",
+          "quantity": 35,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "35 Powder of Butterfly"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "30",
+          "source_section": "html_text",
+          "evidence": "Job Level: 30 Class: Swordman"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Berserk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_training_materials",
+          "entity": "Juan"
+        }
+      ],
+      "locations": [
+        {
+          "x": 178,
+          "y": 185,
+          "role": "shop",
+          "known": false,
+          "entity": "Prontera"
+        }
+      ],
+      "protected_names": [
+        "Juan",
+        "Prontera"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Items 10 Decayed Nails 10 Honey 10 Horrendous Mouths 35 Powder of Butterfly",
+          "text_ru": "Материалы: 10 Decayed Nails, 10 Honey, 10 Horrendous Mouths и 35 Powder of Butterfly."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 30 Class: Swordman",
+          "text_ru": "Условия этого умения: Job Level 30, профессия Swordman."
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "swordman_skill_independent_levels",
+      "detail": "Three independent skill activities have Job Levels 35/30/30. Legacy metadata retained only the first header. job_level_scope_step preserves that first value as a non-eligibility source summary while stage requirements govern each activity."
+    },
+    {
+      "reason": "swordman_skill_restored_tables",
+      "detail": "Pinned HTML restores all three omitted material tables. Armor is an equippable retained category, not a consumed fixed item ID. Fatal Blow table establishes one Banana Juice although its header omits quantity. Town house/shop points have no invented interior map codes."
+    }
+  ],
+  "job_level_scope_step": 1,
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Swordman",
+        "source_section": "requirements",
+        "evidence": "Class: Swordman"
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "moving_recovery",
+      "kind": "optional",
+      "source_heading": "HP Recovery While Moving Quest",
+      "steps": [
+        1
+      ],
+      "condition": "Independent HP Recovery While Moving training activity; its own material set and Job Level 35 apply, not a mandatory sequence through all three skills."
+    },
+    {
+      "key": "fatal_blow",
+      "kind": "optional",
+      "source_heading": "Fatal Blow Quest",
+      "steps": [
+        2
+      ],
+      "condition": "Independent Fatal Blow training activity; its own material set and Job Level 30 apply, not a mandatory sequence through all three skills."
+    },
+    {
+      "key": "berserk",
+      "kind": "optional",
+      "source_heading": "Berserk Quest",
+      "steps": [
+        3
+      ],
+      "condition": "Independent Berserk training activity; its own material set and Job Level 30 apply, not a mandatory sequence through all three skills."
+    }
+  ]
+}

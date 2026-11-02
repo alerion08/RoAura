@@ -5,6 +5,7 @@ No emulator code is executed. No application/runtime module is imported or chang
 import argparse
 from collections import Counter
 from contextlib import ExitStack, closing
+from functools import lru_cache
 import gzip
 import hashlib
 import json
@@ -16,7 +17,7 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-5.7.0'
+VERSION = 'semantic-5.8.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
@@ -153,15 +154,29 @@ def load_curations(folder):
     return result
 
 
-def extract_links(snapshot):
+@lru_cache(maxsize=512)
+def _parsed_snapshot(html):
+    """Cache immutable results by HTML contents, never by an unverified label/path."""
+    soup=BeautifulSoup(html,'html.parser')
+    body=soup.select_one('.mw-parser-output')
     result=[]
-    if not snapshot:return result
-    for a in BeautifulSoup(snapshot['html'],'html.parser').select('.mw-parser-output a[href]'):
+    for a in soup.select('.mw-parser-output a[href]'):
         m=re.search(r'db\.irowiki\.org/classic/(item|monster|map)-info/([^/]+)/',a['href'])
         if m and a.get_text(' ',strip=True):
-            result.append({'type':m[1], 'name':a.get_text(' ',strip=True),
-                           'id':int(m[2]) if m[2].isdigit() else m[2], 'url':a['href']})
-    return result
+            result.append((m[1],a.get_text(' ',strip=True),int(m[2]) if m[2].isdigit() else m[2],a['href']))
+    return (body.get_text(' ',strip=True) if body else None),tuple(result)
+
+
+def _snapshot_text(html):
+    text=_parsed_snapshot(html)[0]
+    if text is None:raise ValueError('Missing pinned wiki content root')
+    return text
+
+
+def extract_links(snapshot):
+    if not snapshot:return []
+    # Callers receive fresh dictionaries and cannot poison later ID proofs.
+    return [{'type':kind,'name':name,'id':value,'url':url} for kind,name,value,url in _parsed_snapshot(snapshot['html'])[1]]
 
 
 def guide_payload(page, steps):
@@ -204,6 +219,21 @@ def validate_curation(curation, page, steps, snapshot):
     if len(ids)!=len(set(ids)):raise ValueError('Duplicate curated step identity')
     refs=[e.get('ref',e['name']) for e in curation['entities']]
     if len(refs)!=len(set(refs)):raise ValueError('Duplicate curated entity reference')
+    if 'job_level_scope_step' in curation:
+        n=curation['job_level_scope_step'];routes=curation.get('routes',[])
+        first=next((s for s in steps if s['step_no']==1),{})
+        html=_snapshot_text(snapshot['html'])
+        entry=curation['steps'].get('1',{})
+        members=[i for r in routes for i in r.get('steps',[])]
+        proof=any(r.get('kind')=='job_level' and r.get('amount')==str(page['job_level'])
+                  and r.get('source_section')=='html_text' and isinstance(r.get('evidence'),str)
+                  and 'Job Level: '+str(page['job_level']) in r['evidence'] and r['evidence'] in html
+                  for r in entry.get('requirements',[]))
+        if (type(n) is not int or n!=1 or page['job_level'] is None or not first.get('section')
+            or len(routes)<2 or any(r.get('kind')!='optional' or not r.get('source_heading') for r in routes)
+            or len(members)!=len(steps) or set(members)!={s['step_no'] for s in steps}
+            or not any(1 in r['steps'] and r['source_heading']==first['section'] for r in routes) or not proof):
+            raise ValueError('Invalid first-activity job-level scope')
 
 
 def mention_entities(w, entities, surfaces, entry):
@@ -572,6 +602,18 @@ def validate(db):
     integrity=db.execute('PRAGMA integrity_check').fetchone()[0]
     foreign=db.execute('PRAGMA foreign_key_check').fetchall()
     errors=[]
+    for owner,amount,step_id,eid in db.execute("SELECT quest_id,amount,step_id,evidence_id FROM requirements WHERE kind='source_job_level_summary'"):
+        quest=db.execute('SELECT job_level,source_id,requirements_original FROM quests WHERE quest_id=?',(owner,)).fetchone()
+        proof=db.execute('SELECT quest_id,step_id,source_id,snippet,method FROM evidence WHERE evidence_id=?',(eid,)).fetchone()
+        first=db.execute('SELECT step_id FROM quest_steps WHERE quest_id=? AND step_order=1',(owner,)).fetchone()
+        level=first and db.execute("SELECT 1 FROM requirements WHERE step_id=? AND kind='job_level' AND amount=?",(first[0],amount)).fetchone()
+        memberships=db.execute('''SELECT count(*),count(DISTINCT m.step_id) FROM step_routes m JOIN quest_routes r USING(route_id) WHERE r.quest_id=?''',(owner,)).fetchone()
+        steps=db.execute('SELECT count(*) FROM quest_steps WHERE quest_id=?',(owner,)).fetchone()[0]
+        routes=db.execute("SELECT count(*),sum(kind<>'optional') FROM quest_routes WHERE quest_id=?",(owner,)).fetchone()
+        snippet='Job Level: '+str(amount)
+        if (quest[0] is not None or step_id is not None or not level or tuple(proof)!=(owner,None,quest[1],snippet,'archived_first_activity_level')
+            or snippet not in (quest[2] or '') or tuple(memberships)!=(steps,steps) or routes[0]<2 or routes[1]):
+            errors.append('invalid_scoped_job_level_summary')
     previous={}
     for row in db.execute('SELECT m.step_id,m.field,m.start_offset,m.end_offset,m.surface,d.short_ru,d.short_en,d.full_ru,d.full_en FROM description_mentions m JOIN step_descriptions d USING(step_id) ORDER BY m.step_id,m.field,m.start_offset'):
         sid,field,start,end,surface,*values=row
@@ -760,7 +802,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         page=plan['page'];steps=plan['steps'];curation=plan['curation'];sel=plan['selection']
         w.qid=sel['quest_id'];w.sid=None
         source_text=guide_payload(page,steps)
-        html_text=BeautifulSoup(snap['html'],'html.parser').select_one('.mw-parser-output').get_text(' ',strip=True) if snap else ''
+        html_text=_snapshot_text(snap['html']) if snap else ''
         source_sections={'requirements':page['requirements'] or '', 'rewards':page['rewards'] or '', 'html_text':html_text}
         w.src=stable('source',page['url'],sha(source_text))
         w.add('sources',source_id=w.src,url=page['url'],revision=sha(source_text),kind='archived_extracted_guide',original_text=source_text,
@@ -768,7 +810,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
         category=source.execute('SELECT category FROM wiki_content_categories WHERE page_id=?',(page['id'],)).fetchone()
         w.add('quests',quest_id=w.qid,original_name=page['title'],category=category[0] if category else 'unclassified',
               variant_id='irowiki-classic',source_id=w.src,requirements_original=page['requirements'],rewards_original=page['rewards'],
-              base_level=page['base_level'],job_level=page['job_level'],review_state='source_reviewed_partial' if curation else 'needs_context_review',input_hash=input_hash)
+              base_level=page['base_level'],job_level=None if (curation or {}).get('job_level_scope_step') else page['job_level'],review_state='source_reviewed_partial' if curation else 'needs_context_review',input_hash=input_hash)
         page_ev=w.evidence(source_text,method='archived_guide_metadata')
         if snap:
             html_source=stable('source',snap['url'],snap['sha256'])
@@ -784,7 +826,11 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
             if page[column] and not curation:w.review(kind+'_unstructured','Preserved raw metadata has not been converted to asserted gameplay facts.',w.evidence(page[column]))
         for kind,column in [('base_level','base_level'),('job_level','job_level')]:
             if page[column] is not None:
-                w.add('requirements',requirement_id=stable('requirement',w.qid,kind),quest_id=w.qid,kind=kind,amount=str(page[column]),evidence_id=page_ev)
+                scoped=kind=='job_level' and (curation or {}).get('job_level_scope_step')
+                actual='source_job_level_summary' if scoped else kind
+                ev=w.evidence('Job Level: '+str(page[column]),method='archived_first_activity_level') if scoped else page_ev
+                condition='Archived first header applies only to source step 1; use the separate activity job-level requirements.' if scoped else None
+                w.add('requirements',requirement_id=stable('requirement',w.qid,actual),quest_id=w.qid,kind=actual,amount=str(page[column]),condition_text=condition,evidence_id=ev)
         seen=Counter();previous=None
         for step in steps:
             h=sha(step['instruction']);seen[h]+=1

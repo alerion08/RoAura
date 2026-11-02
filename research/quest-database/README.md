@@ -4,15 +4,15 @@ Isolated **research branch**. No changes to the RoAura WPF application, settings
 
 > **Current scope decision — 2026-10-31:** [SEMANTIC_DATA_SPEC.md](./SEMANTIC_DATA_SPEC.md) is the approved next-phase requirement. Work **only on the quest database**, not on RoAura integration. Require **Russian and English short/full step descriptions**, preserving original in-game names (cities/maps/NPCs/items/monsters) without translation. Remove archived event-only quests from working datasets and usable catalog exports; older notes below about keeping archived events describe prior stages, not current requirements.
 
-## Current semantic implementation — 2026-11-02
+## Current semantic implementation — 2026-11-03
 
 See [SEMANTIC_PROGRESS.md](./SEMANTIC_PROGRESS.md) for the implementation,
 reproduction commands and exact remaining work. `output/quest_semantic.sqlite`
-(schema 5, generator semantic-5.7.0) has 216 active catalog candidates and 2,750
-preserved steps. **999 steps in 82 guides** have all four RU/EN descriptions, with 158 localized
-conditional branches; **1,751 remain incomplete**. 59 historical events are excluded and 10 ambiguous
+(schema 5, generator semantic-5.8.0) has 216 active catalog candidates and 2,750
+preserved steps. **1,020 steps in 86 guides** have all four RU/EN descriptions, with 158 localized
+conditional branches; **1,730 remain incomplete**. 59 historical events are excluded and 10 ambiguous
 records quarantined from both usable research projections and the core worklist.
-One reference index (Access Quests) is also excluded; twenty-three quest routes retain
+One reference index (Access Quests) is also excluded; twenty-six quest routes retain
 exclusive paths (including Piano's prompt paths and Geffen's book/letter paths and Dancer's registration sets) and independent optional activities, including the two Archer skill quests. A normalized prerequisite
 group records Report's minimum two of four eligible quests.
 The full raw archive is retained. This is a partial database, with no RoAura

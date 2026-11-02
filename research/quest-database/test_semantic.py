@@ -12,6 +12,17 @@ from semantic import build, coordinates, resolve_context, item_operation, valida
 
 
 class ParsingTests(unittest.TestCase):
+    def test_cached_snapshot_links_cannot_be_poisoned_or_reused_for_changed_html(self):
+        from semantic import extract_links, _snapshot_text
+        snap={'sha256':'same-label','html':'<div class="mw-parser-output"><a href="http://db.irowiki.org/classic/item-info/713/">Empty Bottles</a></div>'}
+        links=extract_links(snap);links[0]['id']=999
+        with self.assertRaisesRegex(ValueError,'Unverified game ID'):
+            entity_id_proof({'type':'item','name':'Empty Bottles','game_id':999},snap,{})
+        changed={**snap,'html':snap['html'].replace('/713/','/714/')}
+        self.assertEqual(entity_id_proof({'type':'item','name':'Empty Bottles','game_id':714},changed,{})[1]['id'],714)
+        self.assertEqual(extract_links(snap)[0]['id'],713)
+        with self.assertRaisesRegex(ValueError,'Missing pinned wiki content root'):_snapshot_text('<html></html>')
+
     def test_cross_guide_id_uses_exact_pinned_name_type_and_id(self):
         url='http://db.irowiki.org/classic/item-info/6080/'
         donor={'sha256':'pinned','html':f'<div class="mw-parser-output"><a href="{url}">Manuk Coin</a></div>'}
@@ -251,17 +262,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],999)
-        self.assertEqual(self.report['not_fully_localized_steps'],1751)
+        self.assertEqual(self.report['fully_localized_steps'],1020)
+        self.assertEqual(self.report['not_fully_localized_steps'],1730)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],999)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],1020)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1751)
+        self.assertEqual(missing,1730)
         self.assertEqual(self.report['fully_localized_branches'],158)
-        self.assertEqual(self.report['curated_quests'],82)
-        self.assertEqual(self.report['pending_quests'],134)
-        self.assertEqual(self.report['quest_routes'],23)
-        self.assertEqual(self.report['source_additions'],33)
+        self.assertEqual(self.report['curated_quests'],86)
+        self.assertEqual(self.report['pending_quests'],130)
+        self.assertEqual(self.report['quest_routes'],26)
+        self.assertEqual(self.report['source_additions'],39)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_juperos_four_homonymous_books_and_return_scholar_have_typed_links(self):
@@ -398,6 +409,124 @@ class RealCorpusTests(unittest.TestCase):
             destination=self.out/'quest_semantic.sqlite';before=destination.read_bytes()
             with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid optional route context proof'):build(self.source,self.out,curation_dir=folder)
             self.assertEqual(destination.read_bytes(),before)
+
+    def test_first_header_job_level_is_a_scoped_summary_not_a_whole_page_gate(self):
+        for slug,header,levels in [('Swordman_Skill_Quest','35',[(1,'35'),(2,'30'),(3,'30')]),('Archer_Skill_Quest','30',[(1,'30'),(2,'35')])]:
+            q='irowiki-classic:'+slug
+            row=self.db.execute('SELECT job_level,requirements_original FROM quests WHERE quest_id=?',(q,)).fetchone()
+            self.assertIsNone(row[0]);self.assertIn('Job Level: '+header,row[1])
+            summary=self.db.execute("SELECT amount,step_id FROM requirements WHERE quest_id=? AND kind='source_job_level_summary'",(q,)).fetchone()
+            self.assertEqual(tuple(summary),(header,None))
+            self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='job_level' AND step_id IS NULL",(q,)).fetchone())
+            actual=[tuple(r) for r in self.db.execute("SELECT s.step_order,r.amount FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.kind='job_level' ORDER BY s.step_order",(q,))]
+            self.assertEqual(actual,levels)
+
+    def test_first_header_scope_rejects_wrong_type_or_nonfirst_step_atomically(self):
+        for name,value in [('string','1'),('boolean',True),('nonfirst',2)]:
+            folder=self.out/('invalid-level-scope-'+name);shutil.copytree(ROOT/'curation',folder)
+            path=folder/'Swordman_Skill_Quest.json';data=json.loads(path.read_text());data['job_level_scope_step']=value;path.write_text(json.dumps(data))
+            before=(self.out/'quest_semantic.sqlite').read_bytes()
+            with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid first-activity job-level scope'):build(self.source,self.out,curation_dir=folder)
+            self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
+
+    def test_first_header_scope_requires_independent_activities_and_literal_level_proof(self):
+        for slug,mutate,name in [('Acolyte_Skill_Quest',lambda d:d.update(job_level_scope_step=1),'single'),('Swordman_Skill_Quest',lambda d:d['steps']['1'].update(requirements=[]),'no-proof')]:
+            folder=self.out/('invalid-level-scope-'+name);shutil.copytree(ROOT/'curation',folder)
+            path=folder/(slug+'.json');data=json.loads(path.read_text());mutate(data);path.write_text(json.dumps(data))
+            before=(self.out/'quest_semantic.sqlite').read_bytes()
+            with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid first-activity job-level scope'):build(self.source,self.out,curation_dir=folder)
+            self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
+
+    def test_exported_first_header_summary_cannot_become_an_unconditional_level(self):
+        copy=sqlite3.connect(':memory:');self.db.backup(copy)
+        copy.execute("UPDATE quests SET job_level=35 WHERE quest_id='irowiki-classic:Swordman_Skill_Quest'")
+        with self.assertRaisesRegex(ValueError,'invalid_scoped_job_level_summary'):validate(copy)
+        copy.close()
+
+    def test_swordman_guards_are_separate_and_unknown_course_points_stay_unknown(self):
+        q='irowiki-classic:Swordman_Job_Change_Guide'
+        guards=[r[0] for r in self.db.execute('''SELECT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id) JOIN entities e ON e.entity_id=n.npc_id
+          WHERE s.quest_id=? AND e.original_name='guard' ORDER BY s.step_order''',(q,))]
+        self.assertEqual(len(guards),2);self.assertNotEqual(*guards)
+        self.assertFalse(self.db.execute('SELECT 1 FROM step_locations l JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone())
+        self.assertIn('(??,??)',self.db.execute('SELECT original_instruction FROM quest_steps WHERE quest_id=? AND step_order=1',(q,)).fetchone()[0])
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='job_change'",(q,)).fetchone()[0],'Swordman')
+
+    def test_swordman_course_geometry_does_not_invent_combat_or_time_limits(self):
+        q='irowiki-classic:Swordman_Job_Change_Guide'
+        for name in ['First Map','Second Map','Third Map']:
+            self.assertIsNone(self.db.execute('SELECT m.map_code FROM maps m JOIN entities e USING(entity_id) WHERE e.original_name=?',(name,)).fetchone()[0])
+        self.assertFalse(self.db.execute('SELECT 1 FROM step_monsters m JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone())
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind LIKE 'time_limit%'",(q,)).fetchone())
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='fall_effect'",(q,)).fetchone()[0],'return_to_beginning')
+
+    def test_swordman_skill_tables_restore_exact_material_sets_and_three_unlocks(self):
+        q='irowiki-classic:Swordman_Skill_Quest'
+        actual=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND x.game_id IS NOT NULL ORDER BY s.step_order,x.game_id''',(q,))]
+        self.assertEqual(actual,[(1,713,200,'deliver'),(1,1058,1,'deliver'),(2,526,5,'deliver'),(2,532,1,'deliver'),(2,962,30,'deliver'),(2,1751,10,'deliver'),(2,1752,10,'deliver'),(3,518,10,'deliver'),(3,924,35,'deliver'),(3,957,10,'deliver'),(3,958,10,'deliver')])
+        self.assertEqual({r[0] for r in self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='skill_unlock'",(q,))},{'HP Recovery While Moving','Fatal Blow','Berserk'})
+        self.assertEqual(self.db.execute('SELECT count(*) FROM step_source_additions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone()[0],6)
+        self.assertEqual(self.db.execute("SELECT count(*) FROM quest_routes WHERE quest_id=? AND kind='optional'",(q,)).fetchone()[0],3)
+
+    def test_swordman_armor_is_retained_category_without_fixed_id_or_wear_requirement(self):
+        q='irowiki-classic:Swordman_Skill_Quest'
+        armor=self.db.execute('''SELECT x.game_id,i.quantity,i.operation,i.condition_text FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN entities e ON e.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND e.original_name='Armor' ''',(q,)).fetchone()
+        self.assertEqual(tuple(armor[:3]),(None,1,'possess'));self.assertIn('retained',armor[3])
+        points=[tuple(r) for r in self.db.execute('''SELECT s.step_order,l.x,l.y,m.map_code FROM step_locations sl JOIN locations l USING(location_id) JOIN maps m ON m.entity_id=l.map_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(points,[(1,214,129,None),(2,75,88,'prt_in'),(3,178,185,None)])
+
+    def test_charge_attack_three_knights_have_ordered_distinct_mentions_in_all_locales(self):
+        q='irowiki-classic:Knight_Skill_Quest'
+        actions=[tuple(r) for r in self.db.execute('''SELECT a.entity_id,e.original_name FROM step_actions a JOIN entities e USING(entity_id) JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=2 ORDER BY a.action_order''',(q,))]
+        self.assertEqual([r[1] for r in actions],['invisible chat bubble','Knight','Knight','Knight']);self.assertEqual(len({r[0] for r in actions}),4)
+        for field in ['short_ru','short_en','full_ru','full_en']:
+            mentions=[r[0] for r in self.db.execute('''SELECT m.entity_id FROM description_mentions m JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=2 AND m.field=? AND m.surface='Knight' ORDER BY m.start_offset''',(q,field))]
+            self.assertEqual(mentions,[r[0] for r in actions[1:]])
+
+    def test_charge_attack_entrance_interior_and_group_anchor_are_distinct(self):
+        q='irowiki-classic:Knight_Skill_Quest'
+        points=[tuple(r) for r in self.db.execute('''SELECT m.map_code,l.x,l.y FROM step_locations sl JOIN locations l USING(location_id) JOIN maps m ON m.entity_id=l.map_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=1 ORDER BY sl.location_order''',(q,))]
+        self.assertEqual(points,[('prontera',48,343),('prt_in',85,99)])
+        self.assertEqual(self.db.execute('SELECT count(*) FROM step_locations sl JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=2',(q,)).fetchone()[0],1)
+
+    def test_charge_attack_reuses_one_material_set_and_one_literal_choice(self):
+        q='irowiki-classic:Knight_Skill_Quest'
+        items=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? ORDER BY s.step_order,x.game_id''',(q,))]
+        self.assertEqual(items,[(4,530,5,'bring'),(4,748,3,'bring'),(5,530,5,'deliver'),(5,748,3,'deliver')])
+        options=[tuple(r) for r in self.db.execute('''SELECT s.step_order,o.exact_text FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id) JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,))]
+        self.assertEqual(options,[(5,'Give him the Witherless Roses and Candy Canes')])
+        self.assertEqual([r[0] for r in self.db.execute('SELECT amount FROM rewards WHERE quest_id=?',(q,))],['Charge Attack'])
+        self.assertIsNone(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='preparation_delay_unknown'",(q,)).fetchone()[0])
+
+    def test_shrink_has_one_potion_one_set_and_unknown_antidote_retry_costs(self):
+        q='irowiki-classic:Crusader_Skill_Quest'
+        items=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? ORDER BY s.step_order,x.game_id''',(q,))]
+        self.assertEqual(items,[(2,501,1,'deliver'),(4,514,1,'bring'),(4,619,1,'bring'),(4,713,3,'bring'),(4,909,5,'bring'),(4,938,20,'bring'),(4,1003,1,'bring'),(4,7053,3,'bring'),(5,None,None,'deliver')])
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind LIKE 'time_limit%'",(q,)).fetchone())
+        self.assertIsNone(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='urgent_delivery'",(q,)).fetchone()[0])
+
+    def test_shrink_teacher_is_not_inferred_from_the_previous_soldier(self):
+        q='irowiki-classic:Crusader_Skill_Quest'
+        self.assertFalse(self.db.execute('SELECT 1 FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=6',(q,)).fetchone())
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='skill_unlock'",(q,)).fetchone()[0],'Shrink')
+        points=[tuple(r) for r in self.db.execute('''SELECT m.map_code,l.x,l.y FROM step_locations sl JOIN locations l USING(location_id) JOIN maps m ON m.entity_id=l.map_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order,sl.location_order''',(q,))]
+        self.assertEqual(points,[('geffen',110,117),('gef_fild13',297,242),('prt_church',87,127)])
+
+    def test_generic_armor_cannot_be_assigned_an_unrelated_catalog_id(self):
+        folder=self.out/'invalid-swordman-armor-id';shutil.copytree(ROOT/'curation',folder)
+        path=folder/'Swordman_Skill_Quest.json';data=json.loads(path.read_text())
+        armor=next(e for e in data['entities'] if e['name']=='Armor');armor['game_id']=713
+        path.write_text(json.dumps(data));before=(self.out/'quest_semantic.sqlite').read_bytes()
+        with self.assertRaisesRegex(ValueError,'Unverified game ID'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
 
     def test_monk_material_table_is_seven_assigned_three_item_sets(self):
         q='irowiki-classic:Monk_Job_Change_Guide';actual={}

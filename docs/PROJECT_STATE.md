@@ -6,15 +6,15 @@ Authoritative database-phase specification: `research/quest-database/SEMANTIC_DA
 **Active work is the database ONLY**: exclude archived/retired event quests from active quest catalogs; normalize NPCs, map locations, items, monsters, dialogue/answers, rewards, stage descriptions and optional sourced images; analyze each quest/stage in context; produce independent **RU and EN short and full step descriptions**. **Never translate in-game names of cities/maps, NPCs, items or monsters** (nor exact dialogue answers); use typed entity references for future formatting. Preserve original source text, provenance and uncertainty.
 **RoAura app / UI / overlay / runtime / release integration is deferred until user explicitly requests it**; do not treat previous plans as present authorization. The present entry supersedes older historical project references to ROQuestie integration. See linked specification for acceptance criteria and exclusions.
 
-### Database implementation checkpoint — 2026-11-02
+### Database implementation checkpoint — 2026-11-03
 
 Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 999 steps in 82 curated guides and
-158 conditional branches. Thirty-three source additions supplement full descriptions;
-**1,751 steps / 134 remaining catalog entries still need processing**. Twenty-three quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
+is excluded. All four RU/EN fields exist for 1,020 steps in 86 curated guides and
+158 conditional branches. Thirty-nine source additions supplement full descriptions;
+**1,730 steps / 130 remaining catalog entries still need processing**. Twenty-six quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -48,7 +48,7 @@ Continental Guard, Nidhoggur's Nest, Sealed Shrine and Orc Memory are curated.
 Boss combo tables omitted by the legacy extractor are restored as pinned
 additions; Classic entry/availability warnings remain explicit. Timers, leader
 roles, per-visit combat counts, dungeon population and optional headgear costs
-are distinct. Generator semantic-5.7.0 recognizes literal instance map codes
+are distinct. Generator semantic-5.8.0 recognizes literal instance map codes
 and reviewed non-entity homonyms without changing semantic schema 5.
 Muff's Loan, Broken Diamond and Z-Gang are curated. Red Gemstone request
 wording is separate from actual consumption; the machine state/color table
@@ -132,8 +132,18 @@ Zero Weight applies only to Apprentice Monk; Palm needs the earlier skill and
 one material set without a whole-guide self-cycle. Ordered entrance/interior
 points and unknown IDs remain explicit. Two source additions are restored;
 schema/generator remain 5 / 5.7.0.
+Swordman job change and Swordman/Knight/Crusader skill guides are curated:
+four guides / 21 stages. Three omitted material tables and separate 35/30/30
+skill gates are restored; Armor is retained with no fixed ID. Charge Attack
+keeps three positional Knight identities and exact ordered mentions, one
+material set and an unknown preparation delay. Shrink has unknown timer/retry
+costs and no invented final teacher. Six new source additions restore context.
+Generator 5.8.0 supports strict first-activity Job Level scope: Swordman and
+existing Archer guide metadata preserve their first headers as source summaries,
+with NULL whole-guide job_level and explicit stage gates. Source text and schema
+5 remain unchanged; corrupt scope proofs/exports fail validation.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 286 regression tests, full offline rebuild and research CI
+Local validation: 301 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration
