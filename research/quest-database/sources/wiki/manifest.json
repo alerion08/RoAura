@@ -2480,5 +2480,103 @@
       "https://irowiki.org/classic/Prontera",
       "https://irowiki.org/classic/Umbala"
     ]
+  },
+  "Juperos_Ruins_History_Quest": {
+    "url": "https://irowiki.org/classic/Juperos_Ruins_History_Quest",
+    "sha256": "aa4a785bc9902cfc955661d991323965d852b84c373d537856a31fe08714644e",
+    "path": "aa4a785bc9902cfc955661d991323965d852b84c373d537856a31fe08714644e.html.gz",
+    "title": "Juperos Ruins History Quest",
+    "categories": [
+      "Quest Window Quests",
+      "Base Experience Reward",
+      "Level 1~99 Quests",
+      "Quests",
+      "Lighthalzen Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T08:27:34Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/666/",
+      "http://db.irowiki.org/classic/item-info/7355/",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/File:BronzeStatue1.jpg",
+      "https://irowiki.org/classic/File:FileBundle1.jpg",
+      "https://irowiki.org/classic/File:LibraryScholar1.jpg",
+      "https://irowiki.org/classic/File:Transparentplate.jpg",
+      "https://irowiki.org/classic/Juno"
+    ]
+  },
+  "Finding_The_Moving_Island_Quest": {
+    "url": "https://irowiki.org/classic/Finding_The_Moving_Island_Quest",
+    "sha256": "f4d69dcd53e32345c1082348273913f47235bd82677b0b41ab0f5c9f9037897d",
+    "path": "f4d69dcd53e32345c1082348273913f47235bd82677b0b41ab0f5c9f9037897d.html.gz",
+    "title": "Finding The Moving Island Quest",
+    "categories": [
+      "Quest Window Quests",
+      "Base Experience Reward",
+      "Level 1~99 Quests",
+      "Moscovia Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T08:27:35Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/2707/",
+      "http://db.irowiki.org/classic/item-info/603/",
+      "http://db.irowiki.org/classic/item-info/617/",
+      "http://db.irowiki.org/classic/item-info/7065/",
+      "http://db.irowiki.org/classic/item-info/7106/",
+      "http://db.irowiki.org/classic/item-info/7167/",
+      "http://db.irowiki.org/classic/item-info/7197/",
+      "http://db.irowiki.org/classic/item-info/7201/",
+      "http://db.irowiki.org/classic/item-info/7312/",
+      "http://db.irowiki.org/classic/item-info/7317/",
+      "http://db.irowiki.org/classic/item-info/7325/",
+      "http://db.irowiki.org/classic/map-info/mosk_fild02/",
+      "http://db.irowiki.org/classic/monster-info/1044/",
+      "http://db.irowiki.org/classic/monster-info/1068/",
+      "http://db.irowiki.org/classic/monster-info/1069/",
+      "http://db.irowiki.org/classic/monster-info/1144/",
+      "http://db.irowiki.org/classic/monster-info/1254/",
+      "http://db.irowiki.org/classic/monster-info/1264/",
+      "http://db.irowiki.org/classic/monster-info/1406/",
+      "https://irowiki.org/classic/Experience",
+      "https://irowiki.org/classic/Monster"
+    ]
+  },
+  "Eye_of_Hellion_Quest": {
+    "url": "https://irowiki.org/classic/Eye_of_Hellion_Quest",
+    "sha256": "29ea5365c34c7dced3c7872546843397009b6b8a0098834323098bb0dc83a5a7",
+    "path": "29ea5365c34c7dced3c7872546843397009b6b8a0098834323098bb0dc83a5a7.html.gz",
+    "title": "Eye of Hellion Quest",
+    "categories": [
+      "Base Experience Reward",
+      "Level 60~99 Quests",
+      "Quests",
+      "Lighthalzen Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T08:27:36Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/1049/",
+      "http://db.irowiki.org/classic/item-info/2658/",
+      "http://db.irowiki.org/classic/item-info/504/",
+      "http://db.irowiki.org/classic/item-info/511/",
+      "http://db.irowiki.org/classic/item-info/533/",
+      "http://db.irowiki.org/classic/item-info/603/",
+      "http://db.irowiki.org/classic/item-info/7093/",
+      "http://db.irowiki.org/classic/item-info/717/",
+      "http://db.irowiki.org/classic/item-info/7332/",
+      "http://db.irowiki.org/classic/item-info/7333/",
+      "http://db.irowiki.org/classic/item-info/7334/",
+      "http://db.irowiki.org/classic/item-info/7335/",
+      "http://db.irowiki.org/classic/item-info/7336/",
+      "http://db.irowiki.org/classic/item-info/7337/",
+      "http://db.irowiki.org/classic/item-info/953/",
+      "http://db.irowiki.org/classic/map-info/gef_fild09/",
+      "https://irowiki.org/classic/Geffen",
+      "https://irowiki.org/classic/Morroc",
+      "https://irowiki.org/classic/Payon",
+      "https://irowiki.org/classic/Prontera"
+    ]
   }
 }

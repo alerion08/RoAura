@@ -1,0 +1,731 @@
+{
+  "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "62e077d68c3420f01a2e63ac7a8eef73dcdea161a74c60284c578d4a952b27b9",
+  "snapshot_sha256": "aa4a785bc9902cfc955661d991323965d852b84c373d537856a31fe08714644e",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Fayruz",
+      "aliases": [
+        "Feyruz",
+        "Scholar"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Bundle of Files",
+      "aliases": [
+        "Thesis: The fall of Juperos"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Book",
+      "ref": "book_167_127",
+      "identity": "irowiki-classic:Juperos_Ruins_History_Quest:read:yuno_in04:167:127"
+    },
+    {
+      "type": "npc",
+      "name": "Book",
+      "ref": "book_188_117",
+      "identity": "irowiki-classic:Juperos_Ruins_History_Quest:read:yuno_in04:188:117"
+    },
+    {
+      "type": "npc",
+      "name": "Paper",
+      "ref": "paper",
+      "identity": "irowiki-classic:Juperos_Ruins_History_Quest:read:yuno_in04:188:116"
+    },
+    {
+      "type": "npc",
+      "name": "Book",
+      "ref": "book_187_109",
+      "identity": "irowiki-classic:Juperos_Ruins_History_Quest:read:yuno_in04:187:109"
+    },
+    {
+      "type": "npc",
+      "name": "Book",
+      "ref": "book_186_104",
+      "identity": "irowiki-classic:Juperos_Ruins_History_Quest:read:yuno_in04:186:104"
+    },
+    {
+      "type": "npc",
+      "name": "Shwaltzvalt Adventurer",
+      "ref": "north_adventurer",
+      "identity": "irowiki-classic:Juperos_Ruins_History_Quest:read:yuno_in04:118:15"
+    },
+    {
+      "type": "npc",
+      "name": "Aragham Caul Biography",
+      "ref": "north_biography",
+      "identity": "irowiki-classic:Juperos_Ruins_History_Quest:read:yuno_in04:117:6"
+    },
+    {
+      "type": "npc",
+      "name": "Jellopy Soup",
+      "ref": "south_soup",
+      "identity": "irowiki-classic:Juperos_Ruins_History_Quest:read:yuno_in04:116:106"
+    },
+    {
+      "type": "npc",
+      "name": "Popular Feasts",
+      "ref": "south_feasts",
+      "identity": "irowiki-classic:Juperos_Ruins_History_Quest:read:yuno_in04:102:106"
+    },
+    {
+      "type": "npc",
+      "name": "bronze statues"
+    },
+    {
+      "type": "map",
+      "name": "Juno Library"
+    },
+    {
+      "type": "map",
+      "name": "yuno",
+      "map_code": "yuno"
+    },
+    {
+      "type": "map",
+      "name": "yuno_in04",
+      "map_code": "yuno_in04"
+    },
+    {
+      "type": "map",
+      "name": "Juperos"
+    },
+    {
+      "type": "item",
+      "name": "Transparent Plate",
+      "identity": "irowiki-classic:Juperos_Ruins_History_Quest:source_item:plate_category",
+      "ref": "plate_category",
+      "aliases": [
+        "Transparent Plates"
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Transparent Plate",
+      "ref": "linked_plate_example",
+      "game_id": 7355,
+      "id_source": "http://db.irowiki.org/classic/item-info/7355/"
+    },
+    {
+      "type": "item",
+      "name": "Gift Box",
+      "game_id": 666,
+      "id_source": "http://db.irowiki.org/classic/item-info/666/"
+    },
+    {
+      "type": "monster",
+      "name": "Dimiks",
+      "identity": "irowiki-classic:Juperos_Ruins_History_Quest:monster_type_group:Dimiks"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Go inside the Juno Library, located on the northeast island (yuno 341, 293).",
+      "instruction_sha256": "9fac2708cde00a494eb8ff4db94403f80e94655316a29b073b3134ca5ec543f0",
+      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/9fac2708cde00a494eb8/1",
+      "goal": "navigate",
+      "short_ru": "Войдите в Juno Library: yuno 341, 293.",
+      "short_en": "Enter Juno Library: yuno 341, 293.",
+      "full_ru": "Войдите в Juno Library на северо-восточном острове (yuno 341, 293).",
+      "full_en": "Go inside the Juno Library, located on the northeast island (yuno 341, 293).",
+      "actions": [
+        {
+          "operation": "enter_library"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "yuno",
+          "x": 341,
+          "y": 293,
+          "role": "entrance",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Juno Library",
+        "yuno"
+      ],
+      "mention_entities": {
+        "Book": "book_167_127",
+        "Transparent Plate": "plate_category"
+      }
+    },
+    "2": {
+      "original_instruction": "In the Juno Library, talk to the Scholar (Fayruz) located in the farthest room (yuno_in04 190, 125) and then choose the bottom option.",
+      "instruction_sha256": "7573be55e916c28776ad36f0175167861a6f3f467d44db2dc8923d9039f99616",
+      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/7573be55e916c28776ad/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Fayruz в yuno_in04 190, 125 и выберите нижний вариант.",
+      "short_en": "Talk to Fayruz at yuno_in04 190, 125 and choose the bottom option.",
+      "full_ru": "В дальней комнате Juno Library поговорите со Scholar (Fayruz) (yuno_in04 190, 125) и выберите нижний вариант.",
+      "full_en": "In the Juno Library, talk to the Scholar (Fayruz) located in the farthest room (yuno_in04 190, 125) and then choose the bottom option.",
+      "npcs": [
+        {
+          "entity": "Fayruz",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_bottom_option",
+          "entity": "Fayruz",
+          "condition": "Exact label and numeric index of the bottom option are not printed."
+        }
+      ],
+      "protected_names": [
+        "Fayruz",
+        "Juno Library",
+        "yuno_in04"
+      ],
+      "locations": [
+        {
+          "map": "yuno_in04",
+          "x": 190,
+          "y": 125,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_in04 190, 125"
+        }
+      ],
+      "mention_entities": {
+        "Book": "book_167_127",
+        "Transparent Plate": "plate_category"
+      }
+    },
+    "3": {
+      "original_instruction": "On the nearby table, read the \"Bundle of Files\" (yuno_in04 186, 125). You should be reading through the document \"Thesis: The fall of Juperos\".",
+      "instruction_sha256": "7ddbe235bad15791eefeaea1180fbb25822ef94eb3d743dea2981011a9a25cc6",
+      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/7ddbe235bad15791eefe/1",
+      "goal": "read",
+      "short_ru": "Прочитайте Bundle of Files в yuno_in04 186, 125.",
+      "short_en": "Read Bundle of Files at yuno_in04 186, 125.",
+      "full_ru": "На соседнем столе прочитайте «Bundle of Files» (yuno_in04 186, 125). Откройте документ «Thesis: The fall of Juperos».",
+      "full_en": "On the nearby table, read the \"Bundle of Files\" (yuno_in04 186, 125). You should be reading through the document \"Thesis: The fall of Juperos\".",
+      "npcs": [
+        {
+          "entity": "Bundle of Files",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "read",
+          "entity": "Bundle of Files"
+        }
+      ],
+      "protected_names": [
+        "Bundle of Files",
+        "yuno_in04",
+        "Juperos"
+      ],
+      "locations": [
+        {
+          "map": "yuno_in04",
+          "x": 186,
+          "y": 125,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "yuno_in04 186, 125"
+        }
+      ],
+      "mention_entities": {
+        "Book": "book_167_127",
+        "Transparent Plate": "plate_category"
+      }
+    },
+    "4": {
+      "original_instruction": "Next, you'll need to go through the other books in the library: | Book (yuno_in04 167, 127) | Book (yuno_in04 188, 117) | Paper (yuno_in04 188, 116) | Book (yuno_in04 187, 109) | Book (yuno_in04 186, 104) In the north room: | Shwaltzvalt Adventurer (yuno_in04 118 15) | Aragham Caul Biography (yuno_in04 117 6) In the south room: | Jellopy Soup (yuno_in04 116 106) | Popular Feasts(yuno_in04 102 106)",
+      "instruction_sha256": "9e3000a9ae521dfd032d6c78b6a1c1e911d7491e742003ed7c3746c8603f0ff5",
+      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/9e3000a9ae521dfd032d/1",
+      "goal": "read",
+      "short_ru": "Прочитайте перечисленные издания во всех комнатах библиотеки.",
+      "short_en": "Read the listed publications in all library rooms.",
+      "full_ru": "Затем прочитайте остальные издания в библиотеке: Book (yuno_in04 167, 127), Book (yuno_in04 188, 117), Paper (yuno_in04 188, 116), Book (yuno_in04 187, 109), Book (yuno_in04 186, 104). В северной комнате: Shwaltzvalt Adventurer (yuno_in04 118 15), Aragham Caul Biography (yuno_in04 117 6). В южной комнате: Jellopy Soup (yuno_in04 116 106), Popular Feasts (yuno_in04 102 106).",
+      "full_en": "Next, you'll need to go through the other books in the library: | Book (yuno_in04 167, 127) | Book (yuno_in04 188, 117) | Paper (yuno_in04 188, 116) | Book (yuno_in04 187, 109) | Book (yuno_in04 186, 104) In the north room: | Shwaltzvalt Adventurer (yuno_in04 118 15) | Aragham Caul Biography (yuno_in04 117 6) In the south room: | Jellopy Soup (yuno_in04 116 106) | Popular Feasts(yuno_in04 102 106)",
+      "npcs": [
+        {
+          "entity": "book_167_127",
+          "role": "interact"
+        },
+        {
+          "entity": "book_188_117",
+          "role": "interact"
+        },
+        {
+          "entity": "paper",
+          "role": "interact"
+        },
+        {
+          "entity": "book_187_109",
+          "role": "interact"
+        },
+        {
+          "entity": "book_186_104",
+          "role": "interact"
+        },
+        {
+          "entity": "north_adventurer",
+          "role": "interact"
+        },
+        {
+          "entity": "north_biography",
+          "role": "interact"
+        },
+        {
+          "entity": "south_soup",
+          "role": "interact"
+        },
+        {
+          "entity": "south_feasts",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "read_library_documents",
+          "condition": "Listed points, not a proven compulsory reading sequence."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "yuno_in04",
+          "x": 167,
+          "y": 127,
+          "role": "reading_point",
+          "known": true
+        },
+        {
+          "entity": "yuno_in04",
+          "x": 188,
+          "y": 117,
+          "role": "reading_point",
+          "known": true
+        },
+        {
+          "entity": "yuno_in04",
+          "x": 188,
+          "y": 116,
+          "role": "reading_point",
+          "known": true
+        },
+        {
+          "entity": "yuno_in04",
+          "x": 187,
+          "y": 109,
+          "role": "reading_point",
+          "known": true
+        },
+        {
+          "entity": "yuno_in04",
+          "x": 186,
+          "y": 104,
+          "role": "reading_point",
+          "known": true
+        },
+        {
+          "entity": "yuno_in04",
+          "x": 118,
+          "y": 15,
+          "role": "reading_point",
+          "known": true
+        },
+        {
+          "entity": "yuno_in04",
+          "x": 117,
+          "y": 6,
+          "role": "reading_point",
+          "known": true
+        },
+        {
+          "entity": "yuno_in04",
+          "x": 116,
+          "y": 106,
+          "role": "reading_point",
+          "known": true
+        },
+        {
+          "entity": "yuno_in04",
+          "x": 102,
+          "y": 106,
+          "role": "reading_point",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Book",
+        "Book",
+        "Paper",
+        "Book",
+        "Book",
+        "Shwaltzvalt Adventurer",
+        "Aragham Caul Biography",
+        "Jellopy Soup",
+        "Popular Feasts",
+        "yuno_in04"
+      ],
+      "mention_overrides": [
+        {
+          "field": "full_ru",
+          "surface": "Book",
+          "occurrence": 1,
+          "entity": "book_167_127"
+        },
+        {
+          "field": "full_ru",
+          "surface": "Book",
+          "occurrence": 2,
+          "entity": "book_188_117"
+        },
+        {
+          "field": "full_ru",
+          "surface": "Book",
+          "occurrence": 3,
+          "entity": "book_187_109"
+        },
+        {
+          "field": "full_ru",
+          "surface": "Book",
+          "occurrence": 4,
+          "entity": "book_186_104"
+        },
+        {
+          "field": "full_en",
+          "surface": "Book",
+          "occurrence": 1,
+          "entity": "book_167_127"
+        },
+        {
+          "field": "full_en",
+          "surface": "Book",
+          "occurrence": 2,
+          "entity": "book_188_117"
+        },
+        {
+          "field": "full_en",
+          "surface": "Book",
+          "occurrence": 3,
+          "entity": "book_187_109"
+        },
+        {
+          "field": "full_en",
+          "surface": "Book",
+          "occurrence": 4,
+          "entity": "book_186_104"
+        }
+      ],
+      "mention_entities": {
+        "Book": "book_167_127",
+        "Transparent Plate": "plate_category"
+      }
+    },
+    "5": {
+      "original_instruction": "Talk to Fayruz again and choose the second option. She'll ask you to go to Juperos and find some things and bring them to her.",
+      "instruction_sha256": "d9a0e75b8e9f5ac3679073c2d754b6dd8babbaf369b1bcc1a2b42146904e561b",
+      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/d9a0e75b8e9f5ac36790/1",
+      "goal": "talk",
+      "short_ru": "У Fayruz выберите второй вариант и получите задание в Juperos.",
+      "short_en": "Choose the second option at Fayruz and get the Juperos assignment.",
+      "full_ru": "Снова поговорите с Fayruz и выберите второй вариант. Она попросит сходить в Juperos, найти там кое-что и принести ей.",
+      "full_en": "Talk to Fayruz again and choose the second option. She'll ask you to go to Juperos and find some things and bring them to her.",
+      "npcs": [
+        {
+          "entity": "Fayruz",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_second_option",
+          "entity": "Fayruz"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "dialogue_option_position",
+          "amount": "2",
+          "condition": "Second option; exact text is not printed."
+        }
+      ],
+      "protected_names": [
+        "Fayruz",
+        "Juperos"
+      ],
+      "locations": [
+        {
+          "entity": "yuno_in04",
+          "x": 190,
+          "y": 125,
+          "role": "return",
+          "known": true,
+          "support_step": 2,
+          "evidence": "In the Juno Library, talk to the Scholar (Fayruz) located in the farthest room (yuno_in04 190, 125) and then choose the bottom option."
+        }
+      ],
+      "mention_entities": {
+        "Book": "book_167_127",
+        "Transparent Plate": "plate_category"
+      }
+    },
+    "6": {
+      "original_instruction": "Find and talk to the 4 bronze statues near the entrance to the second floor. After you talk to them, your character tells you to go back to Fayruz and tell her about the findings.",
+      "instruction_sha256": "41d7ea0c5a3ce01b1b04b18c4d0bf21202d172722f199bd39eead7e8def41ce6",
+      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/41d7ea0c5a3ce01b1b04/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите 4 bronze statues у входа на второй этаж, затем вернитесь к Fayruz.",
+      "short_en": "Inspect 4 bronze statues near the second-floor entrance, then return to Fayruz.",
+      "full_ru": "Найдите и осмотрите 4 bronze statues у входа на второй этаж. После разговора с ними персонаж предложит вернуться к Fayruz и рассказать о находках.",
+      "full_en": "Find and talk to the 4 bronze statues near the entrance to the second floor. After you talk to them, your character tells you to go back to Fayruz and tell her about the findings.",
+      "npcs": [
+        {
+          "entity": "bronze statues",
+          "role": "interact_group"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "inspect_statues",
+          "entity": "bronze statues"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "interactable_count",
+          "amount": "4",
+          "entity": "bronze statues",
+          "condition": "Four unnamed statues, not monster kills; exact map/positions not provided."
+        }
+      ],
+      "protected_names": [
+        "Fayruz",
+        "bronze statues"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Book": "book_167_127",
+        "Transparent Plate": "plate_category"
+      }
+    },
+    "7": {
+      "original_instruction": "Talk to Feyruz again. She will translate the text you recovered from the statues. She will ask you to take some more documents to her.",
+      "instruction_sha256": "f122c464451e755731edc936e59226262cfe7ebc8c16c5bb807a50336ffd4f24",
+      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/f122c464451e755731ed/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Feyruz с текстом со статуй.",
+      "short_en": "Return to Feyruz with the statue text.",
+      "full_ru": "Снова поговорите с Feyruz. Она переведёт текст, скопированный со статуй, и попросит принести ещё документы.",
+      "full_en": "Talk to Feyruz again. She will translate the text you recovered from the statues. She will ask you to take some more documents to her.",
+      "npcs": [
+        {
+          "entity": "Fayruz",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "report",
+          "entity": "Fayruz"
+        }
+      ],
+      "protected_names": [],
+      "locations": [
+        {
+          "entity": "yuno_in04",
+          "x": 190,
+          "y": 125,
+          "role": "return",
+          "known": true,
+          "support_step": 2,
+          "evidence": "In the Juno Library, talk to the Scholar (Fayruz) located in the farthest room (yuno_in04 190, 125) and then choose the bottom option."
+        }
+      ],
+      "mention_entities": {
+        "Book": "book_167_127",
+        "Transparent Plate": "plate_category"
+      }
+    },
+    "8": {
+      "original_instruction": "You need to kill Dimiks to get the documents required. There are 4 types of Dimiks that will drop 4 types of Transparent Plates . You will need all 4 plates.",
+      "instruction_sha256": "051100227094d0bc1f025832764a86fcd6f62cdcfb3aca44c020aa6f2e0f9a17",
+      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/051100227094d0bc1f02/1",
+      "goal": "collect",
+      "short_ru": "Соберите все 4 типа Transparent Plates из Dimiks.",
+      "short_en": "Collect all 4 Transparent Plates types from Dimiks.",
+      "full_ru": "Для получения документов нужно убивать Dimiks. 4 типа Dimiks дают 4 типа Transparent Plates; нужны все 4 пластины.",
+      "full_en": "You need to kill Dimiks to get the documents required. There are 4 types of Dimiks that will drop 4 types of Transparent Plates . You will need all 4 plates.",
+      "items": [
+        {
+          "entity": "plate_category",
+          "quantity": 4,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One of each distinct type; not four interchangeable copies of example ID 7355."
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Dimiks",
+          "operation": "loot_source",
+          "quantity": null,
+          "required": 0,
+          "condition": "Four source types, unknown kill/drop totals; not a four-monster quota."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_monster_types",
+          "amount": "4",
+          "entity": "Dimiks",
+          "condition": "Four types of drop source, not four required kills."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "hunt_for_plate_types",
+          "entity": "Dimiks"
+        }
+      ],
+      "protected_names": [
+        "Dimiks"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Book": "book_167_127",
+        "Transparent Plate": "plate_category"
+      }
+    },
+    "9": {
+      "original_instruction": "Each time you bring one of the plates back to Feyruz, she will give you a Gift Box as a reward. The quest is over once you bring back all 4 kinds of plates. | You gain 100,000 Base EXP for each plate you turn in. (This has not been confirmed whether or not this works for more than 2 plates, however.)",
+      "instruction_sha256": "d4f0a7cbf2c8def7c6516c05ba107e808c11071e22d7b40944739d96fa8dd6c1",
+      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/d4f0a7cbf2c8def7c651/1",
+      "goal": "deliver",
+      "short_ru": "Сдайте Feyruz все 4 вида пластин; Gift Box выдаётся за сдачу, а опыт после 2 пластин не подтверждён.",
+      "short_en": "Turn in all 4 plate types to Feyruz; Gift Box is awarded per turn-in, while EXP beyond 2 plates is unconfirmed.",
+      "full_ru": "За каждую принесённую Feyruz пластину вы получите Gift Box. Квест закончится после сдачи всех 4 видов. Источник сообщает о 100,000 Base EXP за каждую сданную пластину, но отмечает: не подтверждено, работает ли это для более чем 2 пластин.",
+      "full_en": "Each time you bring one of the plates back to Feyruz, she will give you a Gift Box as a reward. The quest is over once you bring back all 4 kinds of plates. | You gain 100,000 Base EXP for each plate you turn in. (This has not been confirmed whether or not this works for more than 2 plates, however.)",
+      "npcs": [
+        {
+          "entity": "Fayruz",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "plate_category",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Per turn-in, repeated across all four distinct kinds; not one final total or a second four-plate set."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_exp_reported_uncertainty_after_plates",
+          "amount": "2",
+          "condition": "Source uncertainty boundary, not a proven server cap or two guaranteed/verified grants."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_distinct_plates",
+          "entity": "Fayruz"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item_per_turn_in",
+          "amount": "1",
+          "entity": "Gift Box",
+          "condition": "One Gift Box per plate turn-in; source links this variant to ID 666, not generic substitution 644."
+        },
+        {
+          "kind": "reported_base_exp_per_turn_in",
+          "amount": "100000",
+          "condition": "Article report; explicitly unconfirmed beyond two plates. Do not assert a guaranteed 400000 total."
+        }
+      ],
+      "protected_names": [
+        "Gift Box"
+      ],
+      "locations": [
+        {
+          "entity": "yuno_in04",
+          "x": 190,
+          "y": 125,
+          "role": "return",
+          "known": true,
+          "support_step": 2,
+          "evidence": "In the Juno Library, talk to the Scholar (Fayruz) located in the farthest room (yuno_in04 190, 125) and then choose the bottom option."
+        }
+      ],
+      "mention_entities": {
+        "Book": "book_167_127",
+        "Transparent Plate": "plate_category"
+      }
+    }
+  },
+  "reviews": [
+    {
+      "reason": "plate_category_not_single_id",
+      "detail": "Four colors are required, but one generic wiki link only identifies example 7355. Category retains NULL game ID and distinct-kind obligation; example is not all four interchangeable items. Four Dimik types do not imply four kills."
+    },
+    {
+      "reason": "juperos_exp_and_box_uncertainty",
+      "detail": "Header 200000-or-more EXP and four-or-more boxes are summaries, not added payouts. Body reports 100000 EXP per plate but explicitly questions applicability beyond two. No guaranteed 400000 total or unlimited farming is claimed. Gift Box uses literal linked ID 666, not 644."
+    },
+    {
+      "reason": "homonymous_books_and_source_names",
+      "detail": "Four Book labels have distinct map-position identities and per-occurrence bindings. Reading objects/statues are source-qualified interactable references, not invented inventory grants or verified NPC names. Fayruz/Feyruz/Scholar are same-guide source spellings."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "4",
+        "source_section": "requirements",
+        "evidence": "4 Transparent Plate",
+        "entity": "plate_category",
+        "condition": "Four distinct color types, not four copies of linked example 7355."
+      },
+      {
+        "kind": "distinct_item_types",
+        "amount": "4",
+        "source_section": "requirements",
+        "evidence": "4 Transparent Plate (1 of each color)",
+        "entity": "plate_category",
+        "condition": "One of each of four colors; IDs/colors are not enumerated."
+      },
+      {
+        "kind": "source_linked_item_example",
+        "entity": "linked_plate_example",
+        "source_section": "requirements",
+        "evidence": "4 Transparent Plate",
+        "condition": "Wiki link points at 7355 as one example, not proof all four colors have this ID."
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "source_base_exp_summary",
+        "amount": "200,000 or more",
+        "source_section": "rewards",
+        "evidence": "Base Experience: 200,000 or more",
+        "condition": "Non-additive header report; per-plate EXP beyond two is explicitly unconfirmed."
+      },
+      {
+        "kind": "source_item_reward_summary",
+        "amount": "4 or more",
+        "entity": "Gift Box",
+        "source_section": "rewards",
+        "evidence": "4 or more Gift Box",
+        "condition": "Non-additive header report, not an extra payout or proof of unlimited repeatability."
+      }
+    ]
+  }
+}

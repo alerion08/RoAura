@@ -1,0 +1,1201 @@
+{
+  "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "ec2427af0c7939584345b26b6f072d26e9bb05e273c40eb381de57deb670ec67",
+  "snapshot_sha256": "f4d69dcd53e32345c1082348273913f47235bd82677b0b41ab0f5c9f9037897d",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Berbayeff"
+    },
+    {
+      "type": "npc",
+      "name": "Aged Stranger"
+    },
+    {
+      "type": "npc",
+      "name": "Prime Minister Dmitree"
+    },
+    {
+      "type": "npc",
+      "name": "Csar Aleksay"
+    },
+    {
+      "type": "npc",
+      "name": "Mr. Ibanoff",
+      "aliases": [
+        "Ibanoff"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "moscovia",
+      "map_code": "moscovia"
+    },
+    {
+      "type": "map",
+      "name": "Moscovia"
+    },
+    {
+      "type": "map",
+      "name": "Moving Island"
+    },
+    {
+      "type": "map",
+      "name": "Whale Island"
+    },
+    {
+      "type": "map",
+      "name": "mosk_fild01",
+      "map_code": "mosk_fild01"
+    },
+    {
+      "type": "map",
+      "name": "mosk_in",
+      "map_code": "mosk_in"
+    },
+    {
+      "type": "map",
+      "name": "Moscovia Forest Dungeon"
+    },
+    {
+      "type": "item",
+      "name": "Rusty Screws",
+      "game_id": 7317,
+      "id_source": "http://db.irowiki.org/classic/item-info/7317/"
+    },
+    {
+      "type": "item",
+      "name": "Strange Steel Pieces",
+      "game_id": 7167,
+      "id_source": "http://db.irowiki.org/classic/item-info/7167/"
+    },
+    {
+      "type": "item",
+      "name": "Jubilees",
+      "game_id": 7312,
+      "id_source": "http://db.irowiki.org/classic/item-info/7312/"
+    },
+    {
+      "type": "item",
+      "name": "Flexible Tubes",
+      "game_id": 7325,
+      "id_source": "http://db.irowiki.org/classic/item-info/7325/"
+    },
+    {
+      "type": "item",
+      "name": "Logs",
+      "game_id": 7201,
+      "id_source": "http://db.irowiki.org/classic/item-info/7201/"
+    },
+    {
+      "type": "item",
+      "name": "Tough Vines",
+      "game_id": 7197,
+      "id_source": "http://db.irowiki.org/classic/item-info/7197/"
+    },
+    {
+      "type": "item",
+      "name": "Antelope Horns",
+      "game_id": 7106,
+      "id_source": "http://db.irowiki.org/classic/item-info/7106/"
+    },
+    {
+      "type": "item",
+      "name": "Sea-otter Furs",
+      "game_id": 7065,
+      "id_source": "http://db.irowiki.org/classic/item-info/7065/"
+    },
+    {
+      "type": "item",
+      "name": "Gusli",
+      "game_id": 2707,
+      "id_source": "http://db.irowiki.org/classic/item-info/2707/"
+    },
+    {
+      "type": "item",
+      "name": "Old Purple Box",
+      "game_id": 617,
+      "id_source": "http://db.irowiki.org/classic/item-info/617/"
+    },
+    {
+      "type": "item",
+      "name": "Old Blue Box",
+      "game_id": 603,
+      "id_source": "http://db.irowiki.org/classic/item-info/603/"
+    },
+    {
+      "type": "monster",
+      "name": "Obeaune",
+      "game_id": 1044,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1044/"
+    },
+    {
+      "type": "monster",
+      "name": "Raggler",
+      "game_id": 1254,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1254/"
+    },
+    {
+      "type": "monster",
+      "name": "Marse",
+      "game_id": 1144,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1144/"
+    },
+    {
+      "type": "monster",
+      "name": "Hydra",
+      "game_id": 1068,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1068/"
+    },
+    {
+      "type": "monster",
+      "name": "Kapha",
+      "game_id": 1406,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1406/"
+    },
+    {
+      "type": "monster",
+      "name": "Merman",
+      "game_id": 1264,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1264/"
+    },
+    {
+      "type": "monster",
+      "name": "Swordfish",
+      "game_id": 1069,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1069/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Berbayeff (moscovia 171, 71), who tells you a story about his discovery of the Moving Island.",
+      "instruction_sha256": "72ce6e54dd0d55e4a26accf469e1c637b0559c4ff1e3c613d7a0ac87a1ee30b8",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/72ce6e54dd0d55e4a26a/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Berbayeff в moscovia 171, 71.",
+      "short_en": "Talk to Berbayeff at moscovia 171, 71.",
+      "full_ru": "Поговорите с Berbayeff (moscovia 171, 71). Он расскажет, как открыл Moving Island.",
+      "full_en": "Talk to Berbayeff (moscovia 171, 71), who tells you a story about his discovery of the Moving Island.",
+      "npcs": [
+        {
+          "entity": "Berbayeff",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Berbayeff"
+        }
+      ],
+      "protected_names": [
+        "Berbayeff",
+        "moscovia",
+        "Moving Island"
+      ],
+      "locations": [
+        {
+          "map": "moscovia",
+          "x": 171,
+          "y": 71,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "moscovia 171, 71"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to Mr. Ibanoff (moscovia 135, 49) and listen to his stories. Then, choose the option \"Lend me your ship\". He will ask for some items to fix up his ship.",
+      "instruction_sha256": "9309f2acb9f9661eb0f7927b7093bde7ae29f59130a5ebee239d6aee0ef30ddb",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/9309f2acb9f9661eb0f7/1",
+      "goal": "talk",
+      "short_ru": "У Mr. Ibanoff в moscovia 135, 49 выберите «Lend me your ship».",
+      "short_en": "At Mr. Ibanoff in moscovia 135, 49, choose “Lend me your ship”.",
+      "full_ru": "Поговорите с Mr. Ibanoff (moscovia 135, 49), выслушайте его истории и выберите «Lend me your ship». Он попросит предметы для ремонта корабля.",
+      "full_en": "Talk to Mr. Ibanoff (moscovia 135, 49) and listen to his stories. Then, choose the option \"Lend me your ship\". He will ask for some items to fix up his ship.",
+      "npcs": [
+        {
+          "entity": "Mr. Ibanoff",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Mr. Ibanoff",
+          "options": [
+            {
+              "text": "Lend me your ship",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_ship",
+          "entity": "Mr. Ibanoff"
+        }
+      ],
+      "protected_names": [
+        "Mr. Ibanoff",
+        "moscovia"
+      ],
+      "locations": [
+        {
+          "map": "moscovia",
+          "x": 135,
+          "y": 49,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "moscovia 135, 49"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Gather the items for Mr. Ibanoff to complete maintenance of the ship. | 10 Rusty Screws | 10 Strange Steel Pieces | 10 Jubilees | 5 Flexible Tubes | Note: The island can only be accessed during the following times: | 12 AM - 3 AM PST | 6 AM - 9 AM PST | 12 PM - 3 PM PST | 6 PM - 9 PM PST",
+      "instruction_sha256": "73ca08cca8bc612da64e1c3078c5e9b6125a31a761284c98f2d0089976f45e06",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/73ca08cca8bc612da64e/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Mr. Ibanoff 10 Rusty Screws, 10 Strange Steel Pieces, 10 Jubilees и 5 Flexible Tubes; учитывайте окна PST.",
+      "short_en": "Give Mr. Ibanoff 10 Rusty Screws, 10 Strange Steel Pieces, 10 Jubilees and 5 Flexible Tubes; observe the PST windows.",
+      "full_ru": "Соберите предметы для ремонта корабля Mr. Ibanoff: 10 Rusty Screws, 10 Strange Steel Pieces, 10 Jubilees, 5 Flexible Tubes. Примечание: попасть на остров можно в следующие интервалы: 12 AM - 3 AM PST; 6 AM - 9 AM PST; 12 PM - 3 PM PST; 6 PM - 9 PM PST.",
+      "full_en": "Gather the items for Mr. Ibanoff to complete maintenance of the ship. | 10 Rusty Screws | 10 Strange Steel Pieces | 10 Jubilees | 5 Flexible Tubes | Note: The island can only be accessed during the following times: | 12 AM - 3 AM PST | 6 AM - 9 AM PST | 12 PM - 3 PM PST | 6 PM - 9 PM PST",
+      "npcs": [
+        {
+          "entity": "Mr. Ibanoff",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Rusty Screws",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "One initial repair set, not repeated for the second voyage."
+        },
+        {
+          "entity": "Strange Steel Pieces",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "One initial repair set, not repeated for the second voyage."
+        },
+        {
+          "entity": "Jubilees",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "One initial repair set, not repeated for the second voyage."
+        },
+        {
+          "entity": "Flexible Tubes",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "One initial repair set, not repeated for the second voyage."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_departure_window",
+          "amount": "12 AM - 3 AM PST",
+          "condition": "Literal source PST label, no UTC/DST conversion or reset clock inferred.",
+          "evidence": "12 AM - 3 AM PST"
+        },
+        {
+          "kind": "source_departure_window",
+          "amount": "6 AM - 9 AM PST",
+          "condition": "Literal source PST label, no UTC/DST conversion or reset clock inferred.",
+          "evidence": "6 AM - 9 AM PST"
+        },
+        {
+          "kind": "source_departure_window",
+          "amount": "12 PM - 3 PM PST",
+          "condition": "Literal source PST label, no UTC/DST conversion or reset clock inferred.",
+          "evidence": "12 PM - 3 PM PST"
+        },
+        {
+          "kind": "source_departure_window",
+          "amount": "6 PM - 9 PM PST",
+          "condition": "Literal source PST label, no UTC/DST conversion or reset clock inferred.",
+          "evidence": "6 PM - 9 PM PST"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "repair_ship",
+          "entity": "Mr. Ibanoff"
+        }
+      ],
+      "protected_names": [
+        "Mr. Ibanoff",
+        "Rusty Screws",
+        "Strange Steel Pieces",
+        "Jubilees",
+        "Flexible Tubes"
+      ],
+      "locations": [
+        {
+          "entity": "moscovia",
+          "x": 135,
+          "y": 49,
+          "role": "return",
+          "known": true,
+          "support_step": 2,
+          "evidence": "Talk to Mr. Ibanoff (moscovia 135, 49) and listen to his stories. Then, choose the option \"Lend me your ship\". He will ask for some items to fix up his ship."
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Control the steering wheel of the ship depending on Mr. Ibanoff commands. To get the next command talk to Ibanoff repeatedly. Once he gives a command click on the rudder and choose the direction Ibanoff last gave. Monsters might appear and you will have to kill them all to keep the ship running. | Monsters that might spawn include (Level ??) Obeaune and Raggler (Level ??) Marse and Hydra (Level 70) Kapha and Merman (Level 99) Kapha and Swordfish | The ship cannot be controlled while monsters are present. | Monsters will disappear on their own after 5 minutes, but this part of the quest cannot be cleared if the player doesn't kill them manually. | There is no death penalty if you die on the ship. | Monsters do not give Experience or drop items.",
+      "instruction_sha256": "bb82700b63d875f6d7237641e613d94d8396f782a25967e778a4120ebbcd39dc",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/bb82700b63d875f6d723/1",
+      "goal": "sail_combat",
+      "short_ru": "Следуйте последней команде Ibanoff и убивайте всех появившихся монстров; ожидание исчезновения не завершает этап.",
+      "short_en": "Follow Ibanoff's latest command and kill all spawned monsters; waiting for despawn does not complete the stage.",
+      "full_ru": "Управляйте корабельным штурвалом по командам Mr. Ibanoff. Чтобы получить следующую команду, говорите с Ibanoff снова. После команды нажмите на руль и выберите последнее указанное Ibanoff направление. Могут появляться монстры: для продолжения плавания убейте всех появившихся. Возможные сочетания: (Level ??) Obeaune и Raggler; (Level ??) Marse и Hydra; (Level 70) Kapha и Merman; (Level 99) Kapha и Swordfish. Пока есть монстры, кораблём нельзя управлять. Через 5 минут они исчезнут сами, но без убийства игроком этот этап не завершится. За смерть на корабле нет штрафа; монстры не дают Experience и не оставляют предметов.",
+      "full_en": "Control the steering wheel of the ship depending on Mr. Ibanoff commands. To get the next command talk to Ibanoff repeatedly. Once he gives a command click on the rudder and choose the direction Ibanoff last gave. Monsters might appear and you will have to kill them all to keep the ship running. | Monsters that might spawn include (Level ??) Obeaune and Raggler (Level ??) Marse and Hydra (Level 70) Kapha and Merman (Level 99) Kapha and Swordfish | The ship cannot be controlled while monsters are present. | Monsters will disappear on their own after 5 minutes, but this part of the quest cannot be cleared if the player doesn't kill them manually. | There is no death penalty if you die on the ship. | Monsters do not give Experience or drop items.",
+      "npcs": [
+        {
+          "entity": "Mr. Ibanoff",
+          "role": "talk"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Obeaune",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Possible encounter member; kill all actual spawns, not a fixed quota of every listed species."
+        },
+        {
+          "entity": "Raggler",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Possible encounter member; kill all actual spawns, not a fixed quota of every listed species."
+        },
+        {
+          "entity": "Marse",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Possible encounter member; kill all actual spawns, not a fixed quota of every listed species."
+        },
+        {
+          "entity": "Hydra",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Possible encounter member; kill all actual spawns, not a fixed quota of every listed species."
+        },
+        {
+          "entity": "Kapha",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Possible encounter member; kill all actual spawns, not a fixed quota of every listed species."
+        },
+        {
+          "entity": "Merman",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Possible encounter member; kill all actual spawns, not a fixed quota of every listed species."
+        },
+        {
+          "entity": "Swordfish",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Possible encounter member; kill all actual spawns, not a fixed quota of every listed species."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "despawn_minutes",
+          "amount": "5",
+          "condition": "Despawn timer, not a success wait. Manual kills are still required."
+        },
+        {
+          "kind": "death_penalty_exempt",
+          "amount": "1",
+          "condition": "Only the ship encounter; not the whole game or dungeon."
+        },
+        {
+          "kind": "monster_exp_disabled",
+          "amount": "1",
+          "condition": "Ship encounter monsters grant no EXP."
+        },
+        {
+          "kind": "monster_drops_disabled",
+          "amount": "1",
+          "condition": "Ship encounter monsters drop no items."
+        },
+        {
+          "kind": "source_encounter_level_label",
+          "amount": "70",
+          "condition": "Source labels Kapha/Merman pair; not a derived minimum-player-level gate."
+        },
+        {
+          "kind": "source_encounter_level_label",
+          "amount": "99",
+          "condition": "Source labels Kapha/Swordfish pair; other pairs have unknown level labels."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_next_direction",
+          "entity": "Mr. Ibanoff"
+        },
+        {
+          "operation": "steer_by_latest_command"
+        },
+        {
+          "operation": "kill_all_spawned",
+          "condition": "Unknown number/species; no fixed winning directions or wait-only completion."
+        }
+      ],
+      "protected_names": [
+        "Mr. Ibanoff",
+        "Obeaune",
+        "Raggler",
+        "Marse",
+        "Hydra",
+        "Kapha",
+        "Merman",
+        "Swordfish"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "After you've reached the island, talk to the Aged Stranger (mosk_fild01 86, 104). After talking to him three times, he will send you back to Moscovia.",
+      "instruction_sha256": "417f41f3413185d43669d9c9393e2dcfa4d208a4d927b7b46c3a04577feb880b",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/417f41f3413185d43669/1",
+      "goal": "talk",
+      "short_ru": "Трижды поговорите с Aged Stranger в mosk_fild01 86, 104.",
+      "short_en": "Talk three times to Aged Stranger at mosk_fild01 86, 104.",
+      "full_ru": "На острове поговорите с Aged Stranger (mosk_fild01 86, 104). После трёх разговоров он вернёт вас в Moscovia.",
+      "full_en": "After you've reached the island, talk to the Aged Stranger (mosk_fild01 86, 104). After talking to him three times, he will send you back to Moscovia.",
+      "npcs": [
+        {
+          "entity": "Aged Stranger",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "npc_talk_count",
+          "amount": "3",
+          "entity": "Aged Stranger",
+          "condition": "This initial visit only, distinct from the random number of learning talks later."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk_three_times",
+          "entity": "Aged Stranger"
+        },
+        {
+          "operation": "return_to_Moscovia"
+        }
+      ],
+      "protected_names": [
+        "Aged Stranger",
+        "Moscovia",
+        "mosk_fild01"
+      ],
+      "locations": [
+        {
+          "map": "mosk_fild01",
+          "x": 86,
+          "y": 104,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mosk_fild01 86, 104"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Talk to Mr. Ibanoff. He will ask you to report to the palace.",
+      "instruction_sha256": "447ad59594007201f5b718d07f092aa1d8d7ad82f21e539ed2e6a81f7f4238c3",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/447ad59594007201f5b7/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Mr. Ibanoff о докладе во дворце.",
+      "short_en": "Talk to Mr. Ibanoff about reporting to the palace.",
+      "full_ru": "Поговорите с Mr. Ibanoff: он попросит доложить во дворце.",
+      "full_en": "Talk to Mr. Ibanoff. He will ask you to report to the palace.",
+      "npcs": [
+        {
+          "entity": "Mr. Ibanoff",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Mr. Ibanoff"
+        }
+      ],
+      "protected_names": [
+        "Mr. Ibanoff"
+      ],
+      "locations": [
+        {
+          "entity": "moscovia",
+          "x": 135,
+          "y": 49,
+          "role": "return",
+          "known": true,
+          "support_step": 2,
+          "evidence": "Talk to Mr. Ibanoff (moscovia 135, 49) and listen to his stories. Then, choose the option \"Lend me your ship\". He will ask for some items to fix up his ship."
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Talk to Prime Minister Dmitree (mosk_in 128, 89) in the palace (moscovia 255, 140).",
+      "instruction_sha256": "aee9785b224089d28941f92d4ae27a3c21dffe3487c52b489a392d0c9f116d46",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/aee9785b224089d28941/1",
+      "goal": "talk",
+      "short_ru": "Во дворце поговорите с Prime Minister Dmitree: mosk_in 128, 89.",
+      "short_en": "Talk to Prime Minister Dmitree in the palace: mosk_in 128, 89.",
+      "full_ru": "Поговорите с Prime Minister Dmitree (mosk_in 128, 89) во дворце (moscovia 255, 140).",
+      "full_en": "Talk to Prime Minister Dmitree (mosk_in 128, 89) in the palace (moscovia 255, 140).",
+      "npcs": [
+        {
+          "entity": "Prime Minister Dmitree",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_palace"
+        },
+        {
+          "operation": "talk",
+          "entity": "Prime Minister Dmitree"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "moscovia",
+          "x": 255,
+          "y": 140,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "mosk_in",
+          "x": 128,
+          "y": 89,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Prime Minister Dmitree",
+        "moscovia",
+        "mosk_in"
+      ]
+    },
+    "8": {
+      "original_instruction": "Talk to Csar Aleksay (mosk_in 131, 90)",
+      "instruction_sha256": "3274885aa3d858647e65f62662cdc22b64a6bcdbb453c48da902f408e55de6f0",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/3274885aa3d858647e65/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Csar Aleksay в mosk_in 131, 90.",
+      "short_en": "Talk to Csar Aleksay at mosk_in 131, 90.",
+      "full_ru": "Поговорите с Csar Aleksay (mosk_in 131, 90).",
+      "full_en": "Talk to Csar Aleksay (mosk_in 131, 90)",
+      "npcs": [
+        {
+          "entity": "Csar Aleksay",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Csar Aleksay"
+        }
+      ],
+      "protected_names": [
+        "Csar Aleksay",
+        "mosk_in"
+      ],
+      "locations": [
+        {
+          "map": "mosk_in",
+          "x": 131,
+          "y": 90,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mosk_in 131, 90"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Talk to Mr. Ibanoff again to sail to the Moving Island. You will need to defeat monsters on the ship once more. After the monsters are dead, speak with him again.",
+      "instruction_sha256": "4313ccbc454abe964154c8efcc944d14439583211f908d92ffbab1609d99ab4e",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/4313ccbc454abe964154/1",
+      "goal": "sail_combat",
+      "short_ru": "Снова отплывите с Mr. Ibanoff, победите монстров и поговорите с ним.",
+      "short_en": "Sail again with Mr. Ibanoff, defeat the monsters and talk to him.",
+      "full_ru": "Снова поговорите с Mr. Ibanoff, чтобы отплыть к Moving Island. На корабле придётся ещё раз победить монстров. После их смерти снова поговорите с ним.",
+      "full_en": "Talk to Mr. Ibanoff again to sail to the Moving Island. You will need to defeat monsters on the ship once more. After the monsters are dead, speak with him again.",
+      "npcs": [
+        {
+          "entity": "Mr. Ibanoff",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "sail_again",
+          "entity": "Mr. Ibanoff"
+        },
+        {
+          "operation": "kill_all_spawned",
+          "condition": "Second combat, unknown count; no second ship-repair material set."
+        },
+        {
+          "operation": "talk",
+          "entity": "Mr. Ibanoff"
+        }
+      ],
+      "protected_names": [
+        "Mr. Ibanoff",
+        "Moving Island"
+      ],
+      "locations": [
+        {
+          "entity": "moscovia",
+          "x": 135,
+          "y": 49,
+          "role": "return",
+          "known": true,
+          "support_step": 2,
+          "evidence": "Talk to Mr. Ibanoff (moscovia 135, 49) and listen to his stories. Then, choose the option \"Lend me your ship\". He will ask for some items to fix up his ship."
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "Look for the Aged Stranger, and ask him if you can borrow his instrument. He will offer to make you a Gusli for the following materials: | 30 Logs | 20 Tough Vines | 20 Antelope Horns | 10 Sea-otter Furs",
+      "instruction_sha256": "c3b5d59320550cc8ecd5165ada5613921c92908e4e1ac90d54cbdac56c9353c5",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/c3b5d59320550cc8ecd5/1",
+      "goal": "talk",
+      "short_ru": "Принесите Aged Stranger для Gusli 30 Logs, 20 Tough Vines, 20 Antelope Horns и 10 Sea-otter Furs.",
+      "short_en": "Bring Aged Stranger 30 Logs, 20 Tough Vines, 20 Antelope Horns and 10 Sea-otter Furs for Gusli.",
+      "full_ru": "Найдите Aged Stranger и спросите, можно ли одолжить его инструмент. Он предложит изготовить Gusli за материалы: 30 Logs, 20 Tough Vines, 20 Antelope Horns и 10 Sea-otter Furs.",
+      "full_en": "Look for the Aged Stranger, and ask him if you can borrow his instrument. He will offer to make you a Gusli for the following materials: | 30 Logs | 20 Tough Vines | 20 Antelope Horns | 10 Sea-otter Furs",
+      "npcs": [
+        {
+          "entity": "Aged Stranger",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Logs",
+          "quantity": 30,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Tough Vines",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Antelope Horns",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Sea-otter Furs",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_crafting",
+          "entity": "Aged Stranger"
+        }
+      ],
+      "protected_names": [
+        "Aged Stranger",
+        "Logs",
+        "Tough Vines",
+        "Antelope Horns",
+        "Sea-otter Furs",
+        "Gusli"
+      ],
+      "locations": [
+        {
+          "entity": "mosk_fild01",
+          "x": 86,
+          "y": 104,
+          "role": "return",
+          "known": true,
+          "support_step": 5,
+          "evidence": "After you've reached the island, talk to the Aged Stranger (mosk_fild01 86, 104). After talking to him three times, he will send you back to Moscovia."
+        }
+      ]
+    },
+    "11": {
+      "original_instruction": "After all the materials are gathered, talk to Mr. Ibanoff and he will send you to the Whale Island directly.",
+      "instruction_sha256": "9fcd0d68cd1b46a2d5b0f4065719ca390257d6e843ff73ace3071951fc17bd3e",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/9fcd0d68cd1b46a2d5b0/1",
+      "goal": "talk",
+      "short_ru": "С собранными материалами попросите Mr. Ibanoff отправить вас прямо на Whale Island.",
+      "short_en": "With the gathered materials, ask Mr. Ibanoff to send you directly to Whale Island.",
+      "full_ru": "Собрав все материалы, поговорите с Mr. Ibanoff. Он отправит вас прямо на Whale Island.",
+      "full_en": "After all the materials are gathered, talk to Mr. Ibanoff and he will send you to the Whale Island directly.",
+      "npcs": [
+        {
+          "entity": "Mr. Ibanoff",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "direct_warp_to_island",
+          "entity": "Mr. Ibanoff"
+        }
+      ],
+      "protected_names": [
+        "Mr. Ibanoff",
+        "Whale Island"
+      ],
+      "locations": [
+        {
+          "entity": "moscovia",
+          "x": 135,
+          "y": 49,
+          "role": "return",
+          "known": true,
+          "support_step": 2,
+          "evidence": "Talk to Mr. Ibanoff (moscovia 135, 49) and listen to his stories. Then, choose the option \"Lend me your ship\". He will ask for some items to fix up his ship."
+        }
+      ]
+    },
+    "12": {
+      "original_instruction": "Talk to the Aged Stranger, and he will make you a Gusli .",
+      "instruction_sha256": "7c42e5665650d3d829a2b7eb2cbda766b898604bb7b876f679e1ea9a88903b15",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/7c42e5665650d3d829a2/1",
+      "goal": "craft",
+      "short_ru": "Передайте материалы Aged Stranger и получите Gusli.",
+      "short_en": "Give the materials to Aged Stranger and receive Gusli.",
+      "full_ru": "Поговорите с Aged Stranger, чтобы он изготовил Gusli.",
+      "full_en": "Talk to the Aged Stranger, and he will make you a Gusli .",
+      "npcs": [
+        {
+          "entity": "Aged Stranger",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Logs",
+          "quantity": 30,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 10,
+          "evidence": "Look for the Aged Stranger, and ask him if you can borrow his instrument. He will offer to make you a Gusli for the following materials: | 30 Logs | 20 Tough Vines | 20 Antelope Horns | 10 Sea-otter Furs",
+          "condition": "One crafting set requested at stage 10."
+        },
+        {
+          "entity": "Tough Vines",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 10,
+          "evidence": "Look for the Aged Stranger, and ask him if you can borrow his instrument. He will offer to make you a Gusli for the following materials: | 30 Logs | 20 Tough Vines | 20 Antelope Horns | 10 Sea-otter Furs",
+          "condition": "One crafting set requested at stage 10."
+        },
+        {
+          "entity": "Antelope Horns",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 10,
+          "evidence": "Look for the Aged Stranger, and ask him if you can borrow his instrument. He will offer to make you a Gusli for the following materials: | 30 Logs | 20 Tough Vines | 20 Antelope Horns | 10 Sea-otter Furs",
+          "condition": "One crafting set requested at stage 10."
+        },
+        {
+          "entity": "Sea-otter Furs",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 10,
+          "evidence": "Look for the Aged Stranger, and ask him if you can borrow his instrument. He will offer to make you a Gusli for the following materials: | 30 Logs | 20 Tough Vines | 20 Antelope Horns | 10 Sea-otter Furs",
+          "condition": "One crafting set requested at stage 10."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Gusli"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "craft",
+          "entity": "Gusli"
+        }
+      ],
+      "protected_names": [
+        "Aged Stranger",
+        "Gusli"
+      ],
+      "locations": [
+        {
+          "entity": "mosk_fild01",
+          "x": 86,
+          "y": 104,
+          "role": "return",
+          "known": true,
+          "support_step": 5,
+          "evidence": "After you've reached the island, talk to the Aged Stranger (mosk_fild01 86, 104). After talking to him three times, he will send you back to Moscovia."
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Speak with the Aged Stranger again to choose whether or not to learn how to play the Gusli from him. It is recommended that you do learn to play from him. You will need to speak with him several (random) times until he tells you that you've become a master at the instrument.",
+      "instruction_sha256": "1f710471af314edcd420df315565216e8b278b436da68c46463db5e7638d72df",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/1f710471af314edcd420/1",
+      "goal": "optional_learning",
+      "short_ru": "При желании учитесь играть на Gusli у Aged Stranger до сообщения о мастерстве.",
+      "short_en": "Optionally learn Gusli from Aged Stranger until he announces mastery.",
+      "full_ru": "Снова поговорите с Aged Stranger и решите, будете ли учиться играть на Gusli. Источник рекомендует учиться. Говорите с ним несколько раз — число попыток случайное, — пока он не назовёт вас мастером инструмента.",
+      "full_en": "Speak with the Aged Stranger again to choose whether or not to learn how to play the Gusli from him. It is recommended that you do learn to play from him. You will need to speak with him several (random) times until he tells you that you've become a master at the instrument.",
+      "npcs": [
+        {
+          "entity": "Aged Stranger",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_learning",
+          "entity": "Aged Stranger"
+        },
+        {
+          "operation": "repeat_talk_until_mastery",
+          "entity": "Aged Stranger",
+          "condition": "Random/unspecified number of talks; not exactly three."
+        }
+      ],
+      "protected_names": [
+        "Aged Stranger",
+        "Gusli"
+      ],
+      "locations": []
+    },
+    "14": {
+      "original_instruction": "Return to the palace and talk to Csar Aleksay. You have 3 options to choose from: | Play the Gusli after having learned it - Receive 1,200,000 Base EXP and 1 Old Purple Box | Don't play the Gusli - Receive 700,000 Base EXP and 1 Old Blue Box | Play the Gusli without having learned it - Receive 500,000 Base EXP and 1 Old Blue Box (If you pick this path, you will offend the Czar with your bad playing and your reward will be diminished)",
+      "instruction_sha256": "53cfd3696bdd74dbc1506ed14175d7a4dd49df9f0f43b8386067f937432cd154",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/53cfd3696bdd74dbc150/1",
+      "goal": "talk",
+      "short_ru": "Выберите выступление у Csar Aleksay: обучение Gusli влияет на итоговую награду.",
+      "short_en": "Choose the performance at Csar Aleksay; learning Gusli affects the final reward.",
+      "full_ru": "Вернитесь во дворец к Csar Aleksay. Доступны 3 варианта: сыграть на Gusli после обучения — 1,200,000 Base EXP и 1 Old Purple Box; не играть на Gusli — 700,000 Base EXP и 1 Old Blue Box; сыграть на Gusli без обучения — 500,000 Base EXP и 1 Old Blue Box. В последнем случае плохая игра оскорбит Czar, и награда уменьшится.",
+      "full_en": "Return to the palace and talk to Csar Aleksay. You have 3 options to choose from: | Play the Gusli after having learned it - Receive 1,200,000 Base EXP and 1 Old Purple Box | Don't play the Gusli - Receive 700,000 Base EXP and 1 Old Blue Box | Play the Gusli without having learned it - Receive 500,000 Base EXP and 1 Old Blue Box (If you pick this path, you will offend the Czar with your bad playing and your reward will be diminished)",
+      "npcs": [
+        {
+          "entity": "Csar Aleksay",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_performance",
+          "entity": "Csar Aleksay"
+        }
+      ],
+      "protected_names": [
+        "Csar Aleksay",
+        "Gusli",
+        "Old Purple Box",
+        "Old Blue Box"
+      ],
+      "locations": [
+        {
+          "entity": "mosk_in",
+          "x": 131,
+          "y": 90,
+          "role": "return",
+          "known": true,
+          "support_step": 8,
+          "evidence": "Talk to Csar Aleksay (mosk_in 131, 90)"
+        }
+      ],
+      "branches": [
+        {
+          "key": "learned_play",
+          "choice_group": "gusli_performance",
+          "variant_scope": "irowiki-classic",
+          "condition": "Learned Gusli and choose to play.",
+          "section": "",
+          "source_step": 14,
+          "original_instruction": "Play the Gusli after having learned it - Receive 1,200,000 Base EXP and 1 Old Purple Box",
+          "instruction_sha256": "5f00e9fded24cb54705d0ae8269f3a7ced98548c6a4b6ef46f9bdf0d4894cd8f",
+          "short_ru": "После обучения сыграйте на Gusli: 1,200,000 Base EXP и 1 Old Purple Box.",
+          "short_en": "Play learned Gusli: 1,200,000 Base EXP and 1 Old Purple Box.",
+          "full_ru": "Сыграйте на Gusli после обучения: получите 1,200,000 Base EXP и 1 Old Purple Box.",
+          "full_en": "Play the Gusli after having learned it - Receive 1,200,000 Base EXP and 1 Old Purple Box",
+          "protected_names": [
+            "Gusli",
+            "Old Purple Box"
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "1200000"
+            },
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Old Purple Box"
+            }
+          ]
+        },
+        {
+          "key": "do_not_play",
+          "choice_group": "gusli_performance",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose not to play, regardless of learning.",
+          "section": "",
+          "source_step": 14,
+          "original_instruction": "Don't play the Gusli - Receive 700,000 Base EXP and 1 Old Blue Box",
+          "instruction_sha256": "23b49f9c84131fce35af0dc49d3c97889a3c37b49608ee63ae57a322e55408f8",
+          "short_ru": "Не играйте на Gusli: 700,000 Base EXP и 1 Old Blue Box.",
+          "short_en": "Do not play Gusli: 700,000 Base EXP and 1 Old Blue Box.",
+          "full_ru": "Не играйте на Gusli: получите 700,000 Base EXP и 1 Old Blue Box.",
+          "full_en": "Don't play the Gusli - Receive 700,000 Base EXP and 1 Old Blue Box",
+          "protected_names": [
+            "Gusli",
+            "Old Blue Box"
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "700000"
+            },
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Old Blue Box"
+            }
+          ]
+        },
+        {
+          "key": "unlearned_play",
+          "choice_group": "gusli_performance",
+          "variant_scope": "irowiki-classic",
+          "condition": "Did not learn Gusli but choose to play.",
+          "section": "",
+          "source_step": 14,
+          "original_instruction": "Play the Gusli without having learned it - Receive 500,000 Base EXP and 1 Old Blue Box (If you pick this path, you will offend the Czar with your bad playing and your reward will be diminished)",
+          "instruction_sha256": "93886d0941acb1d9be9a4fd25a34dcd046ef3a4613a59014d432749eb190d7e3",
+          "short_ru": "Сыграйте на Gusli без обучения: 500,000 Base EXP и 1 Old Blue Box.",
+          "short_en": "Play unlearned Gusli: 500,000 Base EXP and 1 Old Blue Box.",
+          "full_ru": "Сыграйте на Gusli без обучения: получите 500,000 Base EXP и 1 Old Blue Box. Такой путь оскорбит Czar плохой игрой и уменьшит награду.",
+          "full_en": "Play the Gusli without having learned it - Receive 500,000 Base EXP and 1 Old Blue Box (If you pick this path, you will offend the Czar with your bad playing and your reward will be diminished)",
+          "protected_names": [
+            "Gusli",
+            "Old Blue Box"
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "500000"
+            },
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Old Blue Box"
+            }
+          ]
+        }
+      ]
+    },
+    "15": {
+      "original_instruction": "You can now go to Whale Island any time by talking to Mr. Ibanoff with the Gusli equipped in the accessory slot. Talk with the Aged Stranger on the island to be sent to the Moscovia Forest Dungeon . | Note: In order to get Mr. Ibanoff to take you to the island again during an available time period once you've completed the quest, you must walk to the end of the dock next to him! A dialogue box will pop up, asking if you wish to go to the island.",
+      "instruction_sha256": "3d268ca0cc80dd4a6d91e9f03569e7583d2fc3ce2ff63d8b4dca8d54b03b6f33",
+      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/3d268ca0cc80dd4a6d91/1",
+      "goal": "travel_unlock",
+      "short_ru": "Экипируйте Gusli, подойдите к концу пристани у Mr. Ibanoff и через Aged Stranger отправляйтесь в Moscovia Forest Dungeon.",
+      "short_en": "Equip Gusli, approach the dock end by Mr. Ibanoff and go through Aged Stranger to Moscovia Forest Dungeon.",
+      "full_ru": "Теперь можно попасть на Whale Island в любое время: поговорите с Mr. Ibanoff, экипировав Gusli в слот аксессуара. На острове поговорите с Aged Stranger, чтобы отправиться в Moscovia Forest Dungeon. Примечание: после завершения квеста для повторной поездки в доступный временной интервал нужно дойти до конца пристани рядом с Mr. Ibanoff. Появится окно с вопросом о поездке на остров.",
+      "full_en": "You can now go to Whale Island any time by talking to Mr. Ibanoff with the Gusli equipped in the accessory slot. Talk with the Aged Stranger on the island to be sent to the Moscovia Forest Dungeon . | Note: In order to get Mr. Ibanoff to take you to the island again during an available time period once you've completed the quest, you must walk to the end of the dock next to him! A dialogue box will pop up, asking if you wish to go to the island.",
+      "npcs": [
+        {
+          "entity": "Mr. Ibanoff",
+          "role": "talk"
+        },
+        {
+          "entity": "Aged Stranger",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Gusli",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Equipped in the accessory slot; not consumed on each journey."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "equipped_accessory",
+          "amount": "1",
+          "entity": "Gusli",
+          "condition": "Equipment condition, not an extra item cost."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "dungeon_access",
+          "condition": "Source-described access to Moscovia Forest Dungeon, not server-verified availability."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "equip_accessory",
+          "entity": "Gusli"
+        },
+        {
+          "operation": "walk_to_dock_end"
+        },
+        {
+          "operation": "request_island_trip",
+          "entity": "Mr. Ibanoff"
+        },
+        {
+          "operation": "request_dungeon_warp",
+          "entity": "Aged Stranger"
+        }
+      ],
+      "protected_names": [
+        "Aged Stranger",
+        "Mr. Ibanoff",
+        "Moscovia",
+        "Whale Island",
+        "Moscovia Forest Dungeon",
+        "Gusli"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "ship_encounter_not_wait_only",
+      "detail": "Directions follow the latest live command. Actual spawns must be killed; five-minute despawn does not clear the stage. Possible species/level labels are not fixed kill quotas or proven level gates. No ship EXP/drop rewards or death penalty are invented."
+    },
+    {
+      "reason": "repair_crafting_and_learning_counts",
+      "detail": "Initial repair and later Gusli crafting are separate single sets. Second voyage does not add another repair set. First Stranger visit has three talks; optional learning has a random/unknown count. One Gusli is crafted and retained/equipped for later travel."
+    },
+    {
+      "reason": "three_exclusive_performance_rewards",
+      "detail": "Choose one final performance branch; header is not another payout. Learned play, no play and unlearned play have different EXP/box outcomes."
+    },
+    {
+      "reason": "postquest_time_wording_conflict",
+      "detail": "Stage 15 says any time but its note still mentions an available period; stage 3 prints four PST windows. Preserve the conflict, dock trigger and literal PST label without inventing postquest unlimited hours or UTC/DST conversion."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "source_section": "requirements",
+        "evidence": "10 Rusty Screws",
+        "entity": "Rusty Screws",
+        "condition": "Non-additive summary: first ship repair or later Gusli crafting, not a cost for each voyage."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "source_section": "requirements",
+        "evidence": "10 Strange Steel Pieces",
+        "entity": "Strange Steel Pieces",
+        "condition": "Non-additive summary: first ship repair or later Gusli crafting, not a cost for each voyage."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "source_section": "requirements",
+        "evidence": "10 Jubilees",
+        "entity": "Jubilees",
+        "condition": "Non-additive summary: first ship repair or later Gusli crafting, not a cost for each voyage."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "5",
+        "source_section": "requirements",
+        "evidence": "5 Flexible Tubes",
+        "entity": "Flexible Tubes",
+        "condition": "Non-additive summary: first ship repair or later Gusli crafting, not a cost for each voyage."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "30",
+        "source_section": "requirements",
+        "evidence": "30 Logs",
+        "entity": "Logs",
+        "condition": "Non-additive summary: first ship repair or later Gusli crafting, not a cost for each voyage."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "20",
+        "source_section": "requirements",
+        "evidence": "20 Tough Vines",
+        "entity": "Tough Vines",
+        "condition": "Non-additive summary: first ship repair or later Gusli crafting, not a cost for each voyage."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "20",
+        "source_section": "requirements",
+        "evidence": "20 Antelope Horns",
+        "entity": "Antelope Horns",
+        "condition": "Non-additive summary: first ship repair or later Gusli crafting, not a cost for each voyage."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "source_section": "requirements",
+        "evidence": "10 Sea-otter Furs",
+        "entity": "Sea-otter Furs",
+        "condition": "Non-additive summary: first ship repair or later Gusli crafting, not a cost for each voyage."
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "learn_gusli",
+      "kind": "optional",
+      "source_step": 13,
+      "steps": [
+        13
+      ],
+      "condition": "Choose to learn Gusli playing before the final performance; optional but affects the performance reward."
+    }
+  ]
+}

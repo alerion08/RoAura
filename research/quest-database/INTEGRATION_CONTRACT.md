@@ -85,6 +85,14 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   materials and rewards; do not sum mutually exclusive deliveries/grants.
   `route_order` orders members within a route. These relations supplement
   source order but do not claim a complete executable gameplay graph.
+- Optional routes may instead have `source_step` plus literal `source_evidence`
+  from an existing step in the same guide, including a later explanation.
+  The proof must be nonempty and literal, and this form only supports
+  `kind=optional`. It can govern multiple sorted, distinct member steps.
+  Evidence method `source_optional_activity_context` points to the proof step;
+  membership evidence links each member to that proof. Eye of Hellion's later
+  skip-the-cave clause governs steps 19/20. This is reviewed source context,
+  not a simulated state transition or automatic completion evaluator.
 - `step_locations.location_order` is a reviewed visit sequence when present,
   not an ordering inferred automatically from every textual occurrence.
   NULL means no established sequence. `condition_text` identifies alternative
@@ -234,6 +242,23 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   the payout. Consumed and awarded leaves have different roles. NULL rose
   quantity and HP loss stay unknown; Sorry is only a known wrong answer, with
   no fabricated correct text, lockout duration or success chance.
+- Juperos `Transparent Plate` category has unknown ID and a four-distinct-types
+  obligation. The separately linked example 7355 is not four identical items.
+  `reported_base_exp_per_turn_in` is explicitly uncertain beyond two plates;
+  `source_base_exp_summary`/`source_item_reward_summary` are non-additive source
+  reports, not additional payouts. `item_per_turn_in` uses Gift Box variant 666.
+- Moving Island initial repairs and Gusli crafting are different single sets.
+  Five-minute ship despawn does not finish combat, possible encounter labels
+  are not fixed kill quotas, and ship-only EXP/drop/death rules keep their scope.
+  Gusli learning is optional; one of three performance rewards applies. Keep
+  the literal PST windows and postquest time conflict; do not infer UTC/DST or
+  unlimited-hour access. The equipped Gusli is not consumed per journey.
+- Eye's gem is delivered at 16 and used by the NPC at 18; `required=0` on that
+  use avoids a second player cost. Machine codes are alternatives tied to the
+  obtained code. `answer_unspecified_input` preserves quoted answer text when
+  choose/type method is not established. The optional cave route covers 19/20;
+  the final higher reward allows an already-owned-eye exception, so it is not
+  proof of a personal boss kill. NULL reward-item quantities stay unknown.
 - `ready_steps` currently means **all four localized text fields exist**. It
   is not a readiness claim for the quest, route, server or application.
   Unfinished fields are NULL with blocking review rows; `complete=false` is

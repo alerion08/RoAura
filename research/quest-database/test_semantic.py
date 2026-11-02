@@ -251,18 +251,153 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],846)
-        self.assertEqual(self.report['not_fully_localized_steps'],1904)
+        self.assertEqual(self.report['fully_localized_steps'],892)
+        self.assertEqual(self.report['not_fully_localized_steps'],1858)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],846)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],892)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1904)
-        self.assertEqual(self.report['fully_localized_branches'],87)
-        self.assertEqual(self.report['curated_quests'],64)
-        self.assertEqual(self.report['pending_quests'],152)
-        self.assertEqual(self.report['quest_routes'],10)
+        self.assertEqual(missing,1858)
+        self.assertEqual(self.report['fully_localized_branches'],92)
+        self.assertEqual(self.report['curated_quests'],67)
+        self.assertEqual(self.report['pending_quests'],149)
+        self.assertEqual(self.report['quest_routes'],12)
         self.assertEqual(self.report['source_additions'],13)
         self.assertEqual(self.report['action_reuse_links'],5)
+
+    def test_juperos_four_homonymous_books_and_return_scholar_have_typed_links(self):
+        q='irowiki-classic:Juperos_Ruins_History_Quest'
+        for field in ['full_ru','full_en']:
+            books=[r[0] for r in self.db.execute('''SELECT m.entity_id FROM description_mentions m JOIN quest_steps s USING(step_id)
+              WHERE s.quest_id=? AND s.step_order=4 AND m.field=? AND m.surface='Book' ORDER BY m.start_offset''',(q,field))]
+            self.assertEqual(len(books),4);self.assertEqual(len(set(books)),4)
+        actors=[r[0] for r in self.db.execute('''SELECT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order IN (2,5,7,9) ORDER BY s.step_order''',(q,))]
+        self.assertEqual(len(actors),4);self.assertEqual(len(set(actors)),1)
+        self.assertEqual(self.db.execute('''SELECT count(DISTINCT l.location_id) FROM step_locations l JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=4 AND l.role='reading_point' ''',(q,)).fetchone()[0],9)
+
+    def test_juperos_plate_types_are_not_one_linked_id_or_four_kills(self):
+        q='irowiki-classic:Juperos_Ruins_History_Quest'
+        rows=[tuple(r) for r in self.db.execute('''SELECT s.step_order,i.operation,i.quantity,x.game_id FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(rows,[(8,'collect',4,None),(9,'deliver',1,None)])
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='distinct_item_types'",(q,)).fetchone()[0],'4')
+        example=self.db.execute("SELECT x.game_id FROM requirements r JOIN items x ON x.entity_id=r.entity_id WHERE r.quest_id=? AND r.kind='source_linked_item_example'",(q,)).fetchone()[0]
+        self.assertEqual(example,7355)
+        mob=self.db.execute('''SELECT m.operation,m.quantity,m.required FROM step_monsters m JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,)).fetchone()
+        self.assertEqual(tuple(mob),('loot_source',None,0))
+        box=self.db.execute("SELECT x.game_id,r.amount FROM rewards r JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? AND r.kind='item_per_turn_in'",(q,)).fetchone()
+        self.assertEqual(tuple(box),(666,'1'))
+
+    def test_juperos_exp_report_is_uncertain_and_header_is_not_extra_payout(self):
+        q='irowiki-classic:Juperos_Ruins_History_Quest'
+        xp=[tuple(r) for r in self.db.execute("SELECT kind,amount FROM rewards WHERE quest_id=? AND item_id IS NULL ORDER BY kind",(q,))]
+        self.assertEqual(xp,[('reported_base_exp_per_turn_in','100000'),('source_base_exp_summary','200,000 or more')])
+        self.assertFalse(self.db.execute("SELECT 1 FROM rewards WHERE quest_id=? AND kind='base_exp'",(q,)).fetchone())
+        limit=self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='source_exp_reported_uncertainty_after_plates'",(q,)).fetchone()[0]
+        self.assertEqual(limit,'2')
+        self.assertTrue(self.db.execute("SELECT 1 FROM review_queue WHERE quest_id=? AND reason='juperos_exp_and_box_uncertainty'",(q,)).fetchone())
+
+    def test_moving_island_ship_and_gusli_material_sets_are_single_distinct_costs(self):
+        q='irowiki-classic:Finding_The_Moving_Island_Quest'
+        sets={}
+        for n in [3,12]:
+            sets[n]=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+              JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? AND s.step_order=? AND i.operation='deliver' ORDER BY x.game_id''',(q,n))]
+        self.assertEqual(sets[3],[(7167,10),(7312,10),(7317,10),(7325,5)])
+        self.assertEqual(sets[12],[(7065,10),(7106,20),(7197,20),(7201,30)])
+        self.assertFalse(self.db.execute('SELECT 1 FROM step_items JOIN quest_steps USING(step_id) WHERE quest_id=? AND step_order=9',(q,)).fetchone())
+        gusli=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s USING(step_id) JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? AND x.game_id=2707''',(q,))]
+        self.assertEqual(gusli,[(12,'1')])
+        retained=self.db.execute('''SELECT i.operation,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? AND s.step_order=15 AND x.game_id=2707''',(q,)).fetchone()
+        self.assertEqual(tuple(retained),('possess',1))
+
+    def test_moving_island_despawn_is_not_completion_and_encounters_are_not_fixed_quotas(self):
+        q='irowiki-classic:Finding_The_Moving_Island_Quest'
+        flags={r[0]:r[1] for r in self.db.execute("SELECT kind,amount FROM requirements WHERE quest_id=? AND kind IN ('despawn_minutes','death_penalty_exempt','monster_exp_disabled','monster_drops_disabled')",(q,))}
+        self.assertEqual(flags,{'despawn_minutes':'5','death_penalty_exempt':'1','monster_exp_disabled':'1','monster_drops_disabled':'1'})
+        mobs=[tuple(r) for r in self.db.execute('''SELECT m.operation,m.quantity,m.required FROM step_monsters m JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,))]
+        self.assertEqual(len(mobs),7);self.assertTrue(all(r==('mention',None,0) for r in mobs))
+        action=self.db.execute("SELECT a.condition_text FROM step_actions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=4 AND a.operation='kill_all_spawned'",(q,)).fetchone()[0]
+        self.assertIn('no fixed winning directions or wait-only completion',action)
+
+    def test_moving_island_three_talks_learning_and_pst_windows_keep_separate_scopes(self):
+        q='irowiki-classic:Finding_The_Moving_Island_Quest'
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='npc_talk_count'",(q,)).fetchone()[0],'3')
+        windows=[r[0] for r in self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='source_departure_window' ORDER BY amount",(q,))]
+        self.assertEqual(windows,sorted(['12 AM - 3 AM PST','6 AM - 9 AM PST','12 PM - 3 PM PST','6 PM - 9 PM PST']))
+        self.assertTrue(self.db.execute("SELECT 1 FROM review_queue WHERE quest_id=? AND reason='postquest_time_wording_conflict'",(q,)).fetchone())
+        route=self.db.execute("SELECT route_id,kind FROM quest_routes WHERE quest_id=? AND route_key='learn_gusli'",(q,)).fetchone()
+        self.assertEqual(route[1],'optional')
+        self.assertEqual([r[0] for r in self.db.execute('SELECT s.step_order FROM step_routes r JOIN quest_steps s USING(step_id) WHERE r.route_id=?',(route[0],))],[13])
+
+    def test_moving_island_three_performance_rewards_are_exclusive(self):
+        q='irowiki-classic:Finding_The_Moving_Island_Quest'
+        rows=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,r.kind,r.amount,x.game_id FROM rewards r JOIN step_branches b USING(branch_id)
+          LEFT JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? ORDER BY b.branch_key,r.kind''',(q,))]
+        self.assertEqual(rows,[('do_not_play','base_exp','700000',None),('do_not_play','item','1',603),('learned_play','base_exp','1200000',None),('learned_play','item','1',617),('unlearned_play','base_exp','500000',None),('unlearned_play','item','1',603)])
+        self.assertFalse(self.db.execute("SELECT 1 FROM rewards WHERE quest_id=? AND branch_id IS NULL AND kind IN ('base_exp','item')",(q,)).fetchone())
+
+    def test_hellion_exact_inputs_keep_code_alternatives_and_unknown_input_modes(self):
+        q='irowiki-classic:Eye_of_Hellion_Quest'
+        opts=[tuple(r) for r in self.db.execute('''SELECT s.step_order,o.exact_text,o.operation,o.condition_text FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order,o.option_order''',(q,))]
+        codes=[r for r in opts if r[0]==6]
+        self.assertEqual([r[1] for r in codes],['3847147298','16754213'])
+        self.assertTrue(all(r[2]=='enter_text' and r[3] for r in codes))
+        self.assertIn((5,'BINGO','enter_text',None),opts)
+        self.assertIn((11,"I won't kill, but I'll find a way to live!",'choose',None),opts)
+        self.assertIn((16,'Valaskjalf','answer_unspecified_input',None),opts)
+        self.assertFalse(any(r[1]=='He wants me to help you' for r in opts))
+
+    def test_hellion_one_gem_and_one_clue_payment_are_not_double_charged(self):
+        q='irowiki-classic:Eye_of_Hellion_Quest'
+        gem=[tuple(r) for r in self.db.execute('''SELECT s.step_order,i.operation,i.quantity,i.required FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? AND x.game_id=717 ORDER BY s.step_order''',(q,))]
+        self.assertEqual(gem,[(15,'bring',1,1),(16,'deliver',1,1),(18,'use',1,0)])
+        costs=[tuple(r) for r in self.db.execute("SELECT kind,amount FROM requirements WHERE quest_id=? AND kind IN ('zeny','source_zeny_summary') ORDER BY kind",(q,))]
+        self.assertEqual(costs,[('source_zeny_summary','10000'),('zeny','10000')])
+        potion=self.db.execute('''SELECT i.required,i.condition_text FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? AND x.game_id=504''',(q,)).fetchone()
+        self.assertEqual(potion[0],0);self.assertIn('wrong choice',potion[1])
+
+    def test_hellion_optional_cave_uses_literal_later_context_and_eye_exception(self):
+        q='irowiki-classic:Eye_of_Hellion_Quest'
+        route=self.db.execute('''SELECT r.route_id,r.kind,e.method,s.step_order,e.snippet FROM quest_routes r JOIN evidence e USING(evidence_id)
+          JOIN quest_steps s ON s.step_id=e.step_id WHERE r.quest_id=? AND r.route_key='optional_cave' ''',(q,)).fetchone()
+        self.assertEqual(tuple(route[1:4]),('optional','source_optional_activity_context',22));self.assertIn('skip the Cave',route[4])
+        self.assertEqual([r[0] for r in self.db.execute('SELECT s.step_order FROM step_routes m JOIN quest_steps s USING(step_id) WHERE m.route_id=? ORDER BY m.route_order',(route[0],))],[19,20])
+        boss=self.db.execute('''SELECT m.required,m.quantity,x.game_id FROM step_monsters m JOIN quest_steps s USING(step_id)
+          JOIN monsters x ON x.entity_id=m.monster_id WHERE s.quest_id=?''',(q,)).fetchone()
+        self.assertEqual(tuple(boss),(0,None,None))
+        eye=self.db.execute('''SELECT i.operation,i.required,i.quantity,x.game_id FROM step_items i JOIN step_branches b USING(branch_id)
+          JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? AND b.branch_key='boss_or_owned_eye' ''',(q,)).fetchone()
+        self.assertEqual(tuple(eye),('possess',0,None,7337))
+
+    def test_hellion_tablets_shawn_and_final_rewards_do_not_invent_identity_or_quantity(self):
+        q='irowiki-classic:Eye_of_Hellion_Quest'
+        tablets=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s USING(step_id) JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? AND x.game_id BETWEEN 7332 AND 7336 ORDER BY s.step_order''',(q,))]
+        self.assertEqual(tablets,[(6,7333),(11,7334),(12,7335),(16,7336),(18,7332)])
+        npcs=[r[0] for r in self.db.execute('''SELECT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=18''',(q,))]
+        self.assertEqual(len(npcs),2);self.assertEqual(len(set(npcs)),2)
+        xp=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,r.amount FROM rewards r JOIN step_branches b USING(branch_id) WHERE r.quest_id=? AND r.kind='base_exp' ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(xp,[('boss_or_owned_eye','1200000'),('defeated_or_skip','1000000')])
+        self.assertTrue(all(r[0] is None for r in self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='item'",(q,))))
+        self.assertFalse(self.db.execute("SELECT 1 FROM rewards WHERE quest_id=? AND kind IN ('base_exp','item') AND branch_id IS NULL",(q,)).fetchone())
+
+    def test_optional_context_route_corruption_fails_without_replacing_export(self):
+        original=json.loads((ROOT/'curation/Eye_of_Hellion_Quest.json').read_text())
+        cases=[('nonliteral',{'source_evidence':'invented route proof'}),('missing_step',{'source_step':999}),('alternative',{'kind':'alternative','choice_group':'invalid_context_choice'})]
+        for name,changes in cases:
+            folder=self.out/('invalid-context-route-'+name);shutil.copytree(ROOT/'curation',folder)
+            data=json.loads(json.dumps(original));data['routes'][0].update(changes)
+            (folder/'Eye_of_Hellion_Quest.json').write_text(json.dumps(data))
+            destination=self.out/'quest_semantic.sqlite';before=destination.read_bytes()
+            with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid optional route context proof'):build(self.source,self.out,curation_dir=folder)
+            self.assertEqual(destination.read_bytes(),before)
 
     def test_snowysnow_bard_house_is_conditional_and_only_first_answer_is_literal(self):
         q='irowiki-classic:Snowysnow_Quest'

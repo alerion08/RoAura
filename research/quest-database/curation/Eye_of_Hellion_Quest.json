@@ -1,0 +1,1660 @@
+{
+  "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "a1861f98fbe54e9f282f33c31dc71ce912eacb081e150d55ce54202768842355",
+  "snapshot_sha256": "29ea5365c34c7dced3c7872546843397009b6b8a0098834323098bb0dc83a5a7",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Old Scholar Tyus",
+      "aliases": [
+        "Sir Chilias'Tyus",
+        "Tyus",
+        "Tyrus"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Clanux Heffron",
+      "aliases": [
+        "Craine Hefron",
+        "Craine",
+        "Clanux"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Training Puppet"
+    },
+    {
+      "type": "npc",
+      "name": "Vegetable Gardener"
+    },
+    {
+      "type": "npc",
+      "name": "Unknown Machine"
+    },
+    {
+      "type": "npc",
+      "name": "Item NPC"
+    },
+    {
+      "type": "npc",
+      "name": "Stone Pile"
+    },
+    {
+      "type": "npc",
+      "name": "Dried Fish"
+    },
+    {
+      "type": "npc",
+      "name": "Vat"
+    },
+    {
+      "type": "npc",
+      "name": "Wooden Floor"
+    },
+    {
+      "type": "npc",
+      "name": "Enoz"
+    },
+    {
+      "type": "npc",
+      "name": "Shawn"
+    },
+    {
+      "type": "npc",
+      "name": "Grout'he Tuccok",
+      "aliases": [
+        "Grout'he"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Statue of Buddha",
+      "aliases": [
+        "Buddha Statue"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Sage Welshyun",
+      "aliases": [
+        "Welshyun"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "morocc",
+      "map_code": "morocc"
+    },
+    {
+      "type": "map",
+      "name": "morocc_in",
+      "map_code": "morocc_in"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "prontera",
+      "map_code": "prontera"
+    },
+    {
+      "type": "map",
+      "name": "Swordman's Association"
+    },
+    {
+      "type": "map",
+      "name": "Item Shop"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "payon",
+      "map_code": "payon"
+    },
+    {
+      "type": "map",
+      "name": "Resting Place"
+    },
+    {
+      "type": "map",
+      "name": "Archer Village"
+    },
+    {
+      "type": "map",
+      "name": "pay_arche",
+      "map_code": "pay_arche"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "geffen",
+      "map_code": "geffen"
+    },
+    {
+      "type": "map",
+      "name": "Geffen Tower"
+    },
+    {
+      "type": "map",
+      "name": "gef_tower",
+      "map_code": "gef_tower"
+    },
+    {
+      "type": "map",
+      "name": "Sealed Cave"
+    },
+    {
+      "type": "map",
+      "name": "gef_fild09",
+      "map_code": "gef_fild09"
+    },
+    {
+      "type": "map",
+      "name": "Geffen Dungeon Level 2"
+    },
+    {
+      "type": "map",
+      "name": "gef_dun03",
+      "map_code": "gef_dun03"
+    },
+    {
+      "type": "item",
+      "name": "Blue Gemstone",
+      "game_id": 717,
+      "id_source": "http://db.irowiki.org/classic/item-info/717/"
+    },
+    {
+      "type": "item",
+      "name": "Old Blue Box",
+      "game_id": 603,
+      "id_source": "http://db.irowiki.org/classic/item-info/603/"
+    },
+    {
+      "type": "item",
+      "name": "Nile Rose",
+      "game_id": 2658,
+      "id_source": "http://db.irowiki.org/classic/item-info/2658/"
+    },
+    {
+      "type": "item",
+      "name": "Cogwheel",
+      "game_id": 7093,
+      "id_source": "http://db.irowiki.org/classic/item-info/7093/"
+    },
+    {
+      "type": "item",
+      "name": "Prontera Tablet",
+      "game_id": 7333,
+      "id_source": "http://db.irowiki.org/classic/item-info/7333/"
+    },
+    {
+      "type": "item",
+      "name": "Stone Heart",
+      "game_id": 953,
+      "id_source": "http://db.irowiki.org/classic/item-info/953/"
+    },
+    {
+      "type": "item",
+      "name": "Green Herb",
+      "game_id": 511,
+      "id_source": "http://db.irowiki.org/classic/item-info/511/"
+    },
+    {
+      "type": "item",
+      "name": "Grape Juice",
+      "game_id": 533,
+      "id_source": "http://db.irowiki.org/classic/item-info/533/"
+    },
+    {
+      "type": "item",
+      "name": "Skirt of Virgin",
+      "game_id": 1049,
+      "id_source": "http://db.irowiki.org/classic/item-info/1049/"
+    },
+    {
+      "type": "item",
+      "name": "Payon Tablet",
+      "game_id": 7334,
+      "id_source": "http://db.irowiki.org/classic/item-info/7334/"
+    },
+    {
+      "type": "item",
+      "name": "Morroc Tablet",
+      "game_id": 7335,
+      "id_source": "http://db.irowiki.org/classic/item-info/7335/"
+    },
+    {
+      "type": "item",
+      "name": "White Potion",
+      "game_id": 504,
+      "id_source": "http://db.irowiki.org/classic/item-info/504/"
+    },
+    {
+      "type": "item",
+      "name": "Geffen Tablet",
+      "game_id": 7336,
+      "id_source": "http://db.irowiki.org/classic/item-info/7336/"
+    },
+    {
+      "type": "item",
+      "name": "Eye of Hellion",
+      "game_id": 7337,
+      "id_source": "http://db.irowiki.org/classic/item-info/7337/"
+    },
+    {
+      "type": "item",
+      "name": "Complete Tablet",
+      "aliases": [
+        "Slate"
+      ],
+      "game_id": 7332,
+      "id_source": "http://db.irowiki.org/classic/item-info/7332/"
+    },
+    {
+      "type": "item",
+      "name": "Piece of Slate",
+      "identity": "irowiki-classic:Eye_of_Hellion_Quest:source_item:Piece of Slate",
+      "aliases": [
+        "Pieces of Slate"
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Monster Life in the Geffen Area",
+      "identity": "irowiki-classic:Eye_of_Hellion_Quest:source_item:Monster Life in the Geffen Area"
+    },
+    {
+      "type": "item",
+      "name": "Jewel of Hellion",
+      "identity": "irowiki-classic:Eye_of_Hellion_Quest:source_item:Jewel of Hellion"
+    },
+    {
+      "type": "monster",
+      "name": "Hellion Revenant"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "When you first arrive in Morroc (south Kafra), walk to the right until you see an Inn building (morocc 199,64). Go into the right portal, and talk to Old Scholar Tyus, Sir Chilias'Tyus (morocc_in 116, 101) and he'll tell you he is waiting for someone. He will talk about the Eye of Hellion. You find out he has completed a device that can seal the jewel's evil energy. Sadly, he doesn't know the whereabouts of the jewel. He asks you to find people that have accepted his assignment. Starting from Prontera you need to find Craine Hefron.",
+      "instruction_sha256": "9208e2c9ad8feec50445331129e73edc786940c2b64dbdd4c8fd16a0b29cf090",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/9208e2c9ad8feec50445/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Old Scholar Tyus в morocc_in 116, 101.",
+      "short_en": "Talk to Old Scholar Tyus at morocc_in 116, 101.",
+      "full_ru": "В Morroc у южной Kafra идите вправо до гостиницы (morocc 199,64). Войдите в правый портал и поговорите с Old Scholar Tyus, Sir Chilias'Tyus (morocc_in 116, 101). Он ждёт кого-то и расскажет об Eye of Hellion. У него готово устройство для запечатывания злой силы камня, но сам камень он найти не может. Он попросит разыскать прежних исполнителей поручения: начните с Prontera и Craine Hefron.",
+      "full_en": "When you first arrive in Morroc (south Kafra), walk to the right until you see an Inn building (morocc 199,64). Go into the right portal, and talk to Old Scholar Tyus, Sir Chilias'Tyus (morocc_in 116, 101) and he'll tell you he is waiting for someone. He will talk about the Eye of Hellion. You find out he has completed a device that can seal the jewel's evil energy. Sadly, he doesn't know the whereabouts of the jewel. He asks you to find people that have accepted his assignment. Starting from Prontera you need to find Craine Hefron.",
+      "npcs": [
+        {
+          "entity": "Old Scholar Tyus",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_inn"
+        },
+        {
+          "operation": "talk",
+          "entity": "Old Scholar Tyus"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "morocc",
+          "x": 199,
+          "y": 64,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "morocc_in",
+          "x": 116,
+          "y": 101,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Old Scholar Tyus",
+        "Morroc",
+        "morocc",
+        "morocc_in",
+        "Prontera",
+        "Eye of Hellion"
+      ]
+    },
+    "2": {
+      "original_instruction": "Find Clanux Heffron in Prontera (prontera 269 326) behind the church and tell him your intentions, He wants me to help you. Craine that show you what he have collected so far... a broken sword and a wheel. \"Where did you find it?\" you ask. He tell you the sword found from old Swordman's Association.",
+      "instruction_sha256": "0368ed3c6a40a622e7a512e1aa0bac4cee7cc3fcc3112d64414362e30d300513",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/0368ed3c6a40a622e7a5/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Clanux Heffron в prontera 269 326 о находках.",
+      "short_en": "Talk to Clanux Heffron at prontera 269 326 about the findings.",
+      "full_ru": "Найдите Clanux Heffron за церковью Prontera (prontera 269 326) и объясните, что он отправил вас помочь. Craine покажет собранное: сломанный меч и колесо. Спросите «Where did you find it?»: меч найден у old Swordman's Association.",
+      "full_en": "Find Clanux Heffron in Prontera (prontera 269 326) behind the church and tell him your intentions, He wants me to help you. Craine that show you what he have collected so far... a broken sword and a wheel. \"Where did you find it?\" you ask. He tell you the sword found from old Swordman's Association.",
+      "npcs": [
+        {
+          "entity": "Clanux Heffron",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Clanux Heffron",
+          "options": [
+            {
+              "text": "Where did you find it?",
+              "correct": 1,
+              "operation": "answer_unspecified_input"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "ask_about_findings",
+          "entity": "Clanux Heffron"
+        }
+      ],
+      "protected_names": [
+        "Clanux Heffron",
+        "Prontera",
+        "prontera",
+        "Swordman's Association"
+      ],
+      "locations": [
+        {
+          "map": "prontera",
+          "x": 269,
+          "y": 326,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prontera 269 326"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Near the old Swordman's Association you find a strange hole in one of the Training Puppet (prontera 224 80). | There are some writings on it: Veggie Lady N9 W3 BINGO!",
+      "instruction_sha256": "1b8bdf418cb24e76d30c1d1e5a98de886b809d79f0ac88f2133b5326a1f5381d",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/1b8bdf418cb24e76d30c/1",
+      "goal": "interact",
+      "short_ru": "Осмотрите Training Puppet в prontera 224 80 и запомните Veggie Lady N9 W3 BINGO!",
+      "short_en": "Inspect Training Puppet at prontera 224 80 and note Veggie Lady N9 W3 BINGO!",
+      "full_ru": "Возле old Swordman's Association найдите странное отверстие в Training Puppet (prontera 224 80). На нём написано: Veggie Lady N9 W3 BINGO!",
+      "full_en": "Near the old Swordman's Association you find a strange hole in one of the Training Puppet (prontera 224 80). | There are some writings on it: Veggie Lady N9 W3 BINGO!",
+      "npcs": [
+        {
+          "entity": "Training Puppet",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "read_clue",
+          "entity": "Training Puppet"
+        }
+      ],
+      "protected_names": [
+        "Training Puppet",
+        "prontera",
+        "Swordman's Association"
+      ],
+      "locations": [
+        {
+          "map": "prontera",
+          "x": 224,
+          "y": 80,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prontera 224 80"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Go back to Clanux Heffron and tell him what you found. Then he gives you a Cogwheel that he found inside the Item Shop.",
+      "instruction_sha256": "8d9964859c0708604720135f91dc3055f89fdd64fed966b300e5e93d59383d31",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/8d9964859c0708604720/1",
+      "goal": "talk",
+      "short_ru": "Расскажите Clanux Heffron о находке и получите Cogwheel.",
+      "short_en": "Report the finding to Clanux Heffron and receive Cogwheel.",
+      "full_ru": "Вернитесь к Clanux Heffron и расскажите о находке. Он даст Cogwheel, найденное внутри Item Shop.",
+      "full_en": "Go back to Clanux Heffron and tell him what you found. Then he gives you a Cogwheel that he found inside the Item Shop.",
+      "npcs": [
+        {
+          "entity": "Clanux Heffron",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "entity": "Cogwheel"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_item",
+          "entity": "Cogwheel"
+        }
+      ],
+      "protected_names": [
+        "Clanux Heffron",
+        "Item Shop",
+        "Cogwheel"
+      ],
+      "locations": [
+        {
+          "entity": "prontera",
+          "x": 269,
+          "y": 326,
+          "role": "return",
+          "known": true,
+          "support_step": 2,
+          "evidence": "Find Clanux Heffron in Prontera (prontera 269 326) behind the church and tell him your intentions, He wants me to help you. Craine that show you what he have collected so far... a broken sword and a wheel. \"Where did you find it?\" you ask. He tell you the sword found from old Swordman's Association."
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Go to the Vegetable Gardener at the bottom left of Prontera (49,57). Walk 9 steps to the north and then 3 steps to the west of her (46,66). A dialog box pops up; enter BINGO She will tell you the number 3847147298 (16754213 found to be another number used.).",
+      "instruction_sha256": "f19157d3a12a94eba619ab49901a4688dd38b7d4e8bc40433e07bcb37a9791cc",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/f19157d3a12a94eba619/1",
+      "goal": "enter_text",
+      "short_ru": "У Vegetable Gardener в Prontera дойдите от (49,57) до (46,66) и введите BINGO.",
+      "short_en": "At Vegetable Gardener in Prontera, move from (49,57) to (46,66) and enter BINGO.",
+      "full_ru": "Идите к Vegetable Gardener в нижнем левом углу Prontera (49,57). От неё пройдите 9 клеток на север, затем 3 на запад до (46,66). В появившемся окне введите BINGO. Вы получите число 3847147298; источник также приводит вариант 16754213.",
+      "full_en": "Go to the Vegetable Gardener at the bottom left of Prontera (49,57). Walk 9 steps to the north and then 3 steps to the west of her (46,66). A dialog box pops up; enter BINGO She will tell you the number 3847147298 (16754213 found to be another number used.).",
+      "npcs": [
+        {
+          "entity": "Vegetable Gardener",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Vegetable Gardener",
+          "options": [
+            {
+              "text": "BINGO",
+              "correct": 1,
+              "operation": "enter_text"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "move_from_gardener"
+        },
+        {
+          "operation": "enter_text"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_code_candidate",
+          "amount": "3847147298",
+          "condition": "Record the actual received code; not one universal guaranteed input."
+        },
+        {
+          "kind": "source_code_candidate",
+          "amount": "16754213",
+          "condition": "Alternate value printed by source."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prontera",
+          "x": 49,
+          "y": 57,
+          "role": "landmark",
+          "known": true,
+          "order": 1,
+          "support_step": 2,
+          "evidence": "Find Clanux Heffron in Prontera (prontera 269 326) behind the church and tell him your intentions, He wants me to help you. Craine that show you what he have collected so far... a broken sword and a wheel. \"Where did you find it?\" you ask. He tell you the sword found from old Swordman's Association.",
+          "condition": "Same named Prontera context; display point printed in current step."
+        },
+        {
+          "entity": "prontera",
+          "x": 46,
+          "y": 66,
+          "role": "trigger",
+          "known": true,
+          "order": 2,
+          "support_step": 2,
+          "evidence": "Find Clanux Heffron in Prontera (prontera 269 326) behind the church and tell him your intentions, He wants me to help you. Craine that show you what he have collected so far... a broken sword and a wheel. \"Where did you find it?\" you ask. He tell you the sword found from old Swordman's Association.",
+          "condition": "Nine north, three west from the gardener."
+        }
+      ],
+      "protected_names": [
+        "Vegetable Gardener",
+        "Prontera"
+      ]
+    },
+    "6": {
+      "original_instruction": "Head to the Item Shop where Craine told you and find an Unknown Machine near the Item NPC. It seem the machine is some sort of a wheel so, place the Cogwheel in it. Then the machine ask you to enter the numbers: 3847147298 ( Or 16754213). A shining slate comes out of the machine, the first Piece of Slate, the Prontera Tablet . Go back to Clanux and only tell him a little bit.",
+      "instruction_sha256": "98c00a034392e8723a376876857b97d7f858d2e34eb65c9fd4a76a064fe6ef6a",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/98c00a034392e8723a37/1",
+      "goal": "enter_text",
+      "short_ru": "Вставьте Cogwheel в Unknown Machine и введите полученный код; возьмите Prontera Tablet.",
+      "short_en": "Put Cogwheel in Unknown Machine and enter the received code; take Prontera Tablet.",
+      "full_ru": "Идите в Item Shop, о котором рассказал Craine, и найдите Unknown Machine рядом с Item NPC. Вставьте Cogwheel в похожий на колесо механизм. Он попросит число: 3847147298 или 16754213. Появится первая Piece of Slate — Prontera Tablet. Вернитесь к Clanux и расскажите лишь немного.",
+      "full_en": "Head to the Item Shop where Craine told you and find an Unknown Machine near the Item NPC. It seem the machine is some sort of a wheel so, place the Cogwheel in it. Then the machine ask you to enter the numbers: 3847147298 ( Or 16754213). A shining slate comes out of the machine, the first Piece of Slate, the Prontera Tablet . Go back to Clanux and only tell him a little bit.",
+      "npcs": [
+        {
+          "entity": "Unknown Machine",
+          "role": "interact"
+        },
+        {
+          "entity": "Item NPC",
+          "role": "landmark"
+        },
+        {
+          "entity": "Clanux Heffron",
+          "role": "return"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Cogwheel",
+          "quantity": null,
+          "operation": "use",
+          "required": 1
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Unknown Machine",
+          "options": [
+            {
+              "text": "3847147298",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "If this is the code obtained at stage 5, not a first entry in a two-number sequence."
+            },
+            {
+              "text": "16754213",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Alternate source code, used according to the obtained value."
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Prontera Tablet"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "use",
+          "entity": "Cogwheel"
+        },
+        {
+          "operation": "enter_received_code",
+          "entity": "Unknown Machine"
+        },
+        {
+          "operation": "report",
+          "entity": "Clanux Heffron"
+        }
+      ],
+      "protected_names": [
+        "Unknown Machine",
+        "Item NPC",
+        "Prontera",
+        "Item Shop",
+        "Cogwheel",
+        "Prontera Tablet",
+        "Piece of Slate"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Go back to Tyus and he tells you the dense forest written in the slate refers to Payon . He asks you to look for Grout'he Tuccok there.",
+      "instruction_sha256": "c80e60691dce4277b62df1528d224335cb8425f3c72c8f0d1bc8e219ba21b125",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/c80e60691dce4277b62d/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Tyus и узнайте о Grout'he Tuccok в Payon.",
+      "short_en": "Return to Tyus and learn about Grout'he Tuccok in Payon.",
+      "full_ru": "Вернитесь к Tyus. Он объяснит, что густой лес на плите означает Payon, и попросит найти там Grout'he Tuccok.",
+      "full_en": "Go back to Tyus and he tells you the dense forest written in the slate refers to Payon . He asks you to look for Grout'he Tuccok there.",
+      "npcs": [
+        {
+          "entity": "Old Scholar Tyus",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Old Scholar Tyus"
+        }
+      ],
+      "protected_names": [
+        "Grout'he Tuccok",
+        "Payon"
+      ],
+      "locations": [
+        {
+          "entity": "morocc_in",
+          "x": 116,
+          "y": 101,
+          "role": "return",
+          "known": true,
+          "support_step": 1,
+          "evidence": "When you first arrive in Morroc (south Kafra), walk to the right until you see an Inn building (morocc 199,64). Go into the right portal, and talk to Old Scholar Tyus, Sir Chilias'Tyus (morocc_in 116, 101) and he'll tell you he is waiting for someone. He will talk about the Eye of Hellion. You find out he has completed a device that can seal the jewel's evil energy. Sadly, he doesn't know the whereabouts of the jewel. He asks you to find people that have accepted his assignment. Starting from Prontera you need to find Craine Hefron."
+        }
+      ]
+    },
+    "8": {
+      "original_instruction": "Meet Grout'he Tuccok in Payon (payon 182 132) and he's willing to cooperate if you pay 10k to buy his clues item. He gives you a Stone Heart , Green Herb , Grape Juice & Skirt of Virgin . He'll divulge the location he found those items one at a time. (Marks on the mini map. Try not to teleport or enter portals) | The first item is the Skirt of Virgin near the Resting Place (102,192). (You need to click on the wooden floor in the gazebo for the clue to pop out.) | The second is Stone Heart the hide inside Stone Pile (80,110). | The third for Green Herb is found in the Dried Fish (238,54). | The fourth Grape Juice is inside the Vat, across the wall (233,159).",
+      "instruction_sha256": "91b11e939125fde30216bd48c952b5503fa64dea9d4e0d17e618335ecc0ea59f",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/91b11e939125fde30216/1",
+      "goal": "talk",
+      "short_ru": "Заплатите Grout'he Tuccok в Payon 10k и последовательно осмотрите отмеченные места.",
+      "short_en": "Pay Grout'he Tuccok in Payon 10k and inspect the marked places in order.",
+      "full_ru": "В Payon встретитесь с Grout'he Tuccok (payon 182 132). За 10k он согласится продать подсказки и даст Stone Heart, Green Herb, Grape Juice и Skirt of Virgin. Он покажет места находок по одному, отметив их на мини-карте; старайтесь не телепортироваться и не входить в порталы. Первая подсказка, Skirt of Virgin, находится у Resting Place (102,192): нажмите на деревянный пол беседки. Вторая, Stone Heart, спрятана в Stone Pile (80,110). Третья, Green Herb, связана с Dried Fish (238,54). Четвёртая, Grape Juice, находится в Vat за стеной (233,159).",
+      "full_en": "Meet Grout'he Tuccok in Payon (payon 182 132) and he's willing to cooperate if you pay 10k to buy his clues item. He gives you a Stone Heart , Green Herb , Grape Juice & Skirt of Virgin . He'll divulge the location he found those items one at a time. (Marks on the mini map. Try not to teleport or enter portals) | The first item is the Skirt of Virgin near the Resting Place (102,192). (You need to click on the wooden floor in the gazebo for the clue to pop out.) | The second is Stone Heart the hide inside Stone Pile (80,110). | The third for Green Herb is found in the Dried Fish (238,54). | The fourth Grape Juice is inside the Vat, across the wall (233,159).",
+      "npcs": [
+        {
+          "entity": "Grout'he Tuccok",
+          "role": "talk"
+        },
+        {
+          "entity": "Stone Pile",
+          "role": "interact"
+        },
+        {
+          "entity": "Dried Fish",
+          "role": "interact"
+        },
+        {
+          "entity": "Vat",
+          "role": "interact"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "zeny",
+          "amount": "10000",
+          "condition": "Source 10k clue payment, same cost as header summary."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "clue_item",
+          "entity": "Stone Heart",
+          "condition": "Items given by the NPC as clues; field inspections do not create a second guaranteed set."
+        },
+        {
+          "kind": "clue_item",
+          "entity": "Green Herb",
+          "condition": "Items given by the NPC as clues; field inspections do not create a second guaranteed set."
+        },
+        {
+          "kind": "clue_item",
+          "entity": "Grape Juice",
+          "condition": "Items given by the NPC as clues; field inspections do not create a second guaranteed set."
+        },
+        {
+          "kind": "clue_item",
+          "entity": "Skirt of Virgin",
+          "condition": "Items given by the NPC as clues; field inspections do not create a second guaranteed set."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "buy_clues",
+          "entity": "Grout'he Tuccok"
+        },
+        {
+          "operation": "inspect_marked_points",
+          "condition": "Follow the source first/second/third/fourth sequence; avoid teleports/portals."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "payon",
+          "x": 182,
+          "y": 132,
+          "role": "npc",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "payon",
+          "x": 102,
+          "y": 192,
+          "role": "first_clue",
+          "known": true,
+          "order": 2
+        },
+        {
+          "entity": "payon",
+          "x": 80,
+          "y": 110,
+          "role": "second_clue",
+          "known": true,
+          "order": 3
+        },
+        {
+          "entity": "payon",
+          "x": 238,
+          "y": 54,
+          "role": "third_clue",
+          "known": true,
+          "order": 4
+        },
+        {
+          "entity": "payon",
+          "x": 233,
+          "y": 159,
+          "role": "fourth_clue",
+          "known": true,
+          "order": 5
+        }
+      ],
+      "protected_names": [
+        "Stone Pile",
+        "Dried Fish",
+        "Vat",
+        "Grout'he Tuccok",
+        "Payon",
+        "payon",
+        "Resting Place",
+        "Stone Heart",
+        "Green Herb",
+        "Grape Juice",
+        "Skirt of Virgin"
+      ]
+    },
+    "9": {
+      "original_instruction": "Go back to Grout'he and report to your findings. You try to solve the puzzle together. Then you find that if we link the locations in the minimap, there is a new location in the center of the city more specifically: the Wooden Floor (159,129), specifically the wooden floor of the porch in front of the house Grout'he mentions ( not inside the house). Go to the spot and find message left by Tyus.",
+      "instruction_sha256": "8523270e7148f4d440b8acabb9f06700ba4478956d5726a9c22bb170778432d4",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/8523270e7148f4d440b8/1",
+      "goal": "interact",
+      "short_ru": "Доложите Grout'he и осмотрите Wooden Floor (159,129) перед домом.",
+      "short_en": "Report to Grout'he and inspect Wooden Floor (159,129) in front of the house.",
+      "full_ru": "Вернитесь к Grout'he и доложите о находках. Соединив места на мини-карте, вы определите новую точку в центре города: Wooden Floor (159,129), на крыльце перед упомянутым им домом, а не внутри. Осмотрите это место и найдите сообщение Tyus.",
+      "full_en": "Go back to Grout'he and report to your findings. You try to solve the puzzle together. Then you find that if we link the locations in the minimap, there is a new location in the center of the city more specifically: the Wooden Floor (159,129), specifically the wooden floor of the porch in front of the house Grout'he mentions ( not inside the house). Go to the spot and find message left by Tyus.",
+      "npcs": [
+        {
+          "entity": "Grout'he Tuccok",
+          "role": "talk"
+        },
+        {
+          "entity": "Wooden Floor",
+          "role": "interact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "report",
+          "entity": "Grout'he Tuccok"
+        },
+        {
+          "operation": "inspect",
+          "entity": "Wooden Floor"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "payon",
+          "x": 159,
+          "y": 129,
+          "role": "trigger",
+          "known": true,
+          "support_step": 8,
+          "evidence": "Meet Grout'he Tuccok in Payon (payon 182 132) and he's willing to cooperate if you pay 10k to buy his clues item. He gives you a Stone Heart , Green Herb , Grape Juice & Skirt of Virgin . He'll divulge the location he found those items one at a time. (Marks on the mini map. Try not to teleport or enter portals) | The first item is the Skirt of Virgin near the Resting Place (102,192). (You need to click on the wooden floor in the gazebo for the clue to pop out.) | The second is Stone Heart the hide inside Stone Pile (80,110). | The third for Green Herb is found in the Dried Fish (238,54). | The fourth Grape Juice is inside the Vat, across the wall (233,159).",
+          "condition": "Current step gives the porch coordinate; preceding Payon context provides the literal map code."
+        }
+      ],
+      "protected_names": [
+        "Wooden Floor"
+      ]
+    },
+    "10": {
+      "original_instruction": "Tell him about the hidden message you found and Grout'he thinks the next clue might be in the big stone statue in Archer Village to the north of Payon.",
+      "instruction_sha256": "dd686084621c72f5b0a0decad1d3a057a8671e377c5b4a10827a532155072965",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/dd686084621c72f5b0a0/1",
+      "goal": "talk",
+      "short_ru": "Расскажите Grout'he о сообщении и отправляйтесь к статуе в Archer Village.",
+      "short_en": "Tell Grout'he about the message and go to the statue in Archer Village.",
+      "full_ru": "Расскажите ему о скрытом сообщении. Grout'he предположит, что следующая подсказка находится в большой каменной статуе в Archer Village к северу от Payon.",
+      "full_en": "Tell him about the hidden message you found and Grout'he thinks the next clue might be in the big stone statue in Archer Village to the north of Payon.",
+      "npcs": [
+        {
+          "entity": "Grout'he Tuccok",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Grout'he Tuccok"
+        }
+      ],
+      "protected_names": [
+        "Payon",
+        "Archer Village"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Walk near the Statue of Buddha (pay_arche 135 31) in the lower right corner, the Piece of Slate starts glowing as if it is reacting to something powerful. Click on the Buddha Statue and suddenly the Statue of Buddha talks in your mind. He asks you a question. Choose \"I won't kill, but I'll find a way to live!\" A small opening appears below the statue and you get the second Piece of Slate, the Payon Tablet . | If you choose wrong, you will be killed (no exp loss.)",
+      "instruction_sha256": "8f76e7dd59c82ca4c84d223f25f29ec750514fd823b0e30084f1bc3eb3c36c2f",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/8f76e7dd59c82ca4c84d/1",
+      "goal": "choose",
+      "short_ru": "У Statue of Buddha в pay_arche 135 31 выберите «I won't kill, but I'll find a way to live!».",
+      "short_en": "At Statue of Buddha in pay_arche 135 31, choose “I won't kill, but I'll find a way to live!”.",
+      "full_ru": "Подойдите к Statue of Buddha (pay_arche 135 31) в нижнем правом углу. Piece of Slate начнёт светиться. Нажмите на Buddha Statue: Statue of Buddha мысленно задаст вопрос. Выберите «I won't kill, but I'll find a way to live!». Снизу откроется отверстие, и вы получите вторую Piece of Slate — Payon Tablet. При неправильном ответе персонаж погибнет, но без потери опыта.",
+      "full_en": "Walk near the Statue of Buddha (pay_arche 135 31) in the lower right corner, the Piece of Slate starts glowing as if it is reacting to something powerful. Click on the Buddha Statue and suddenly the Statue of Buddha talks in your mind. He asks you a question. Choose \"I won't kill, but I'll find a way to live!\" A small opening appears below the statue and you get the second Piece of Slate, the Payon Tablet . | If you choose wrong, you will be killed (no exp loss.)",
+      "npcs": [
+        {
+          "entity": "Statue of Buddha",
+          "role": "interact"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Statue of Buddha",
+          "options": [
+            {
+              "text": "I won't kill, but I'll find a way to live!",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "wrong_answer_causes_death",
+          "amount": "1",
+          "condition": "Wrong Buddha response only; no EXP loss for this scripted death."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Payon Tablet"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_correct_response",
+          "entity": "Statue of Buddha"
+        }
+      ],
+      "protected_names": [
+        "Statue of Buddha",
+        "Payon",
+        "pay_arche",
+        "Payon Tablet",
+        "Piece of Slate"
+      ],
+      "locations": [
+        {
+          "map": "pay_arche",
+          "x": 135,
+          "y": 31,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "pay_arche 135 31"
+        }
+      ]
+    },
+    "12": {
+      "original_instruction": "Go back to Tyus and report the good news. Tyus will tell you the 4th Piece of Slate is in the hand of Sage Welshyun, Geffen . Before you depart he hands his 3rd Piece of Slate to you, the Morroc Tablet .",
+      "instruction_sha256": "33dd787200985df135c9524132345e8195b75e01ef2971362e43830af427fcab",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/33dd787200985df135c9/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Tyus, получите Morroc Tablet и узнайте о Sage Welshyun в Geffen.",
+      "short_en": "Return to Tyus, receive Morroc Tablet and learn about Sage Welshyun in Geffen.",
+      "full_ru": "Вернитесь к Tyus и доложите. Он скажет, что 4-я Piece of Slate находится у Sage Welshyun в Geffen. Перед отъездом он отдаст вам свою 3-ю Piece of Slate — Morroc Tablet.",
+      "full_en": "Go back to Tyus and report the good news. Tyus will tell you the 4th Piece of Slate is in the hand of Sage Welshyun, Geffen . Before you depart he hands his 3rd Piece of Slate to you, the Morroc Tablet .",
+      "npcs": [
+        {
+          "entity": "Old Scholar Tyus",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Morroc Tablet"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_item",
+          "entity": "Morroc Tablet"
+        }
+      ],
+      "protected_names": [
+        "Sage Welshyun",
+        "Morroc",
+        "Geffen",
+        "Morroc Tablet",
+        "Piece of Slate"
+      ],
+      "locations": [
+        {
+          "entity": "morocc_in",
+          "x": 116,
+          "y": 101,
+          "role": "return",
+          "known": true,
+          "support_step": 1,
+          "evidence": "When you first arrive in Morroc (south Kafra), walk to the right until you see an Inn building (morocc 199,64). Go into the right portal, and talk to Old Scholar Tyus, Sir Chilias'Tyus (morocc_in 116, 101) and he'll tell you he is waiting for someone. He will talk about the Eye of Hellion. You find out he has completed a device that can seal the jewel's evil energy. Sadly, he doesn't know the whereabouts of the jewel. He asks you to find people that have accepted his assignment. Starting from Prontera you need to find Craine Hefron."
+        }
+      ]
+    },
+    "13": {
+      "original_instruction": "Meet Sage Welshyun (geffen 110 200) and ask him for his help. He asks you do him a favor first by bringing the report of \"Monster Life in the Geffen Area\" from his apprentice, Enoz at the top of Geffen Tower. | If you select wrong, bring a White Potion to him.",
+      "instruction_sha256": "59888c207e87744fd2816f451b5a0d75e25ba9591285047f52892c3154084c66",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/59888c207e87744fd281/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Sage Welshyun в geffen 110 200 об отчёте Monster Life in the Geffen Area.",
+      "short_en": "Talk to Sage Welshyun at geffen 110 200 about Monster Life in the Geffen Area.",
+      "full_ru": "Поговорите с Sage Welshyun (geffen 110 200) и попросите помощи. Сначала он попросит принести отчёт «Monster Life in the Geffen Area» от своего ученика Enoz на вершине Geffen Tower. Если выберете неправильный ответ, принесите ему White Potion.",
+      "full_en": "Meet Sage Welshyun (geffen 110 200) and ask him for his help. He asks you do him a favor first by bringing the report of \"Monster Life in the Geffen Area\" from his apprentice, Enoz at the top of Geffen Tower. | If you select wrong, bring a White Potion to him.",
+      "npcs": [
+        {
+          "entity": "Sage Welshyun",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "White Potion",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 0,
+          "condition": "Only if a wrong choice was made, not a universal quest cost."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "ask_for_help",
+          "entity": "Sage Welshyun"
+        }
+      ],
+      "protected_names": [
+        "Enoz",
+        "Sage Welshyun",
+        "Geffen",
+        "geffen",
+        "Geffen Tower",
+        "White Potion",
+        "Monster Life in the Geffen Area"
+      ],
+      "locations": [
+        {
+          "map": "geffen",
+          "x": 110,
+          "y": 200,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "geffen 110 200"
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "After a long climb to the top of Geffen Tower, you inform Enoz (gef_tower 116 37) \"I'm just a messenger!\" and tell him about \"Monster Life in the Geffen Area\". He insists that Welshyun had taken the report days ago.",
+      "instruction_sha256": "24e35249ac7151e4b6e824a15e32583521bcae15e09addfd4095b8f826f74146",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/24e35249ac7151e4b6e8/1",
+      "goal": "talk",
+      "short_ru": "У Enoz в gef_tower 116 37 ответьте «I'm just a messenger!» и назовите Monster Life in the Geffen Area.",
+      "short_en": "At Enoz in gef_tower 116 37, answer “I'm just a messenger!” and name Monster Life in the Geffen Area.",
+      "full_ru": "Поднимитесь на вершину Geffen Tower к Enoz (gef_tower 116 37). Скажите «I'm just a messenger!» и расскажите о «Monster Life in the Geffen Area». Он будет настаивать, что Welshyun забрал отчёт несколько дней назад.",
+      "full_en": "After a long climb to the top of Geffen Tower, you inform Enoz (gef_tower 116 37) \"I'm just a messenger!\" and tell him about \"Monster Life in the Geffen Area\". He insists that Welshyun had taken the report days ago.",
+      "npcs": [
+        {
+          "entity": "Enoz",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Enoz",
+          "options": [
+            {
+              "text": "I'm just a messenger!",
+              "correct": 1,
+              "operation": "answer_unspecified_input"
+            },
+            {
+              "text": "Monster Life in the Geffen Area",
+              "correct": 1,
+              "operation": "answer_unspecified_input",
+              "condition": "Exact quoted report title; source does not establish choose versus type."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "ask_about_report",
+          "entity": "Enoz"
+        }
+      ],
+      "protected_names": [
+        "Enoz",
+        "Geffen",
+        "Geffen Tower",
+        "gef_tower",
+        "Monster Life in the Geffen Area"
+      ],
+      "locations": [
+        {
+          "map": "gef_tower",
+          "x": 116,
+          "y": 37,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "gef_tower 116 37"
+        }
+      ]
+    },
+    "15": {
+      "original_instruction": "Strangely, Welshyun passes the report he asked you to find and then wants you to pass it back to Enoz. On your way back he asks you to get a Blue Gemstone for him.",
+      "instruction_sha256": "9f4c7d0662f12158b79ce3279c6d6a5dfebf3422114cdd91fcb77bcd88b0a051",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/9f4c7d0662f12158b79c/1",
+      "goal": "talk",
+      "short_ru": "Возьмите у Welshyun отчёт для Enoz и найдите Blue Gemstone.",
+      "short_en": "Take the report for Enoz from Welshyun and get Blue Gemstone.",
+      "full_ru": "Welshyun неожиданно передаст отчёт, который просил найти, и попросит отнести его обратно Enoz. По дороге он также попросит достать Blue Gemstone.",
+      "full_en": "Strangely, Welshyun passes the report he asked you to find and then wants you to pass it back to Enoz. On your way back he asks you to get a Blue Gemstone for him.",
+      "npcs": [
+        {
+          "entity": "Sage Welshyun",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Blue Gemstone",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Blue Gemstone"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_document",
+          "entity": "Monster Life in the Geffen Area"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_report",
+          "entity": "Monster Life in the Geffen Area"
+        }
+      ],
+      "protected_names": [
+        "Enoz",
+        "Blue Gemstone"
+      ],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "Another long climb up the Geffen Tower. After passing the report, bring the Blue Gemstone that asked for and head for Welshyun again. He asks a strange question... \"Where is the abode with a shining silver roof that is mentioned in the third part of the balld of Grimnir?\" You tell him Valaskjalf and he gives you the 4th Piece of Slate, the Geffen Tablet .",
+      "instruction_sha256": "83c3be2c481234f6526d4591eb2e95e427433dd5cedd825555c3af76df643c27",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/83c3be2c481234f6526d/1",
+      "goal": "deliver",
+      "short_ru": "Передайте отчёт Enoz, принесите Welshyun Blue Gemstone и ответьте Valaskjalf.",
+      "short_en": "Give Enoz the report, bring Welshyun Blue Gemstone and answer Valaskjalf.",
+      "full_ru": "Снова поднимитесь в Geffen Tower и передайте отчёт. Затем принесите запрошенный Blue Gemstone и вернитесь к Welshyun. Он спросит, где находится обитель с сияющей серебряной крышей из третьей части баллады Grimnir. Ответьте Valaskjalf: вы получите 4-ю Piece of Slate — Geffen Tablet.",
+      "full_en": "Another long climb up the Geffen Tower. After passing the report, bring the Blue Gemstone that asked for and head for Welshyun again. He asks a strange question... \"Where is the abode with a shining silver roof that is mentioned in the third part of the balld of Grimnir?\" You tell him Valaskjalf and he gives you the 4th Piece of Slate, the Geffen Tablet .",
+      "npcs": [
+        {
+          "entity": "Enoz",
+          "role": "deliver",
+          "support_step": 14,
+          "evidence": "After a long climb to the top of Geffen Tower, you inform Enoz (gef_tower 116 37) \"I'm just a messenger!\" and tell him about \"Monster Life in the Geffen Area\". He insists that Welshyun had taken the report days ago."
+        },
+        {
+          "entity": "Sage Welshyun",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Monster Life in the Geffen Area",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Blue Gemstone",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "source_section": "requirements",
+          "evidence": "1 Blue Gemstone"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Sage Welshyun",
+          "options": [
+            {
+              "text": "Valaskjalf",
+              "correct": 1,
+              "operation": "answer_unspecified_input"
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Geffen Tablet"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_report",
+          "entity": "Enoz"
+        },
+        {
+          "operation": "deliver_gem",
+          "entity": "Sage Welshyun"
+        },
+        {
+          "operation": "answer_Valaskjalf",
+          "entity": "Sage Welshyun"
+        }
+      ],
+      "protected_names": [
+        "Geffen",
+        "Geffen Tower",
+        "Blue Gemstone",
+        "Geffen Tablet",
+        "Piece of Slate"
+      ],
+      "locations": []
+    },
+    "17": {
+      "original_instruction": "After obtaining all 4 Pieces of Slate you go back to Tyus. He tells you each of the slates contains a fragment of the cursed jewel and Sage Welshyun should be able to combine the fragments of jewel into one.",
+      "instruction_sha256": "547d94b032e2c13345a24833a704bb2bb59f3889e782fabce2f764453fe4088b",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/547d94b032e2c13345a2/1",
+      "goal": "talk",
+      "short_ru": "Соберите все 4 Pieces of Slate и вернитесь к Tyus.",
+      "short_en": "Obtain all 4 Pieces of Slate and return to Tyus.",
+      "full_ru": "Получив все 4 Pieces of Slate, вернитесь к Tyus. Он скажет, что в каждой плите находится фрагмент проклятого камня, а Sage Welshyun может соединить фрагменты.",
+      "full_en": "After obtaining all 4 Pieces of Slate you go back to Tyus. He tells you each of the slates contains a fragment of the cursed jewel and Sage Welshyun should be able to combine the fragments of jewel into one.",
+      "npcs": [
+        {
+          "entity": "Old Scholar Tyus",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Prontera Tablet",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Head to the Item Shop where Craine told you and find an Unknown Machine near the Item NPC. It seem the machine is some sort of a wheel so, place the Cogwheel in it. Then the machine ask you to enter the numbers: 3847147298 ( Or 16754213). A shining slate comes out of the machine, the first Piece of Slate, the Prontera Tablet . Go back to Clanux and only tell him a little bit.",
+          "condition": "One previously obtained named tablet, not four extra copies."
+        },
+        {
+          "entity": "Payon Tablet",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "support_step": 11,
+          "evidence": "Walk near the Statue of Buddha (pay_arche 135 31) in the lower right corner, the Piece of Slate starts glowing as if it is reacting to something powerful. Click on the Buddha Statue and suddenly the Statue of Buddha talks in your mind. He asks you a question. Choose \"I won't kill, but I'll find a way to live!\" A small opening appears below the statue and you get the second Piece of Slate, the Payon Tablet . | If you choose wrong, you will be killed (no exp loss.)",
+          "condition": "One previously obtained named tablet, not four extra copies."
+        },
+        {
+          "entity": "Morroc Tablet",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "support_step": 12,
+          "evidence": "Go back to Tyus and report the good news. Tyus will tell you the 4th Piece of Slate is in the hand of Sage Welshyun, Geffen . Before you depart he hands his 3rd Piece of Slate to you, the Morroc Tablet .",
+          "condition": "One previously obtained named tablet, not four extra copies."
+        },
+        {
+          "entity": "Geffen Tablet",
+          "quantity": 1,
+          "operation": "possess",
+          "required": 1,
+          "support_step": 16,
+          "evidence": "Another long climb up the Geffen Tower. After passing the report, bring the Blue Gemstone that asked for and head for Welshyun again. He asks a strange question... \"Where is the abode with a shining silver roof that is mentioned in the third part of the balld of Grimnir?\" You tell him Valaskjalf and he gives you the 4th Piece of Slate, the Geffen Tablet .",
+          "condition": "One previously obtained named tablet, not four extra copies."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "tablet_type_count",
+          "amount": "4",
+          "condition": "The four previously acquired distinct tablets."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "report",
+          "entity": "Old Scholar Tyus"
+        }
+      ],
+      "protected_names": [
+        "Sage Welshyun"
+      ],
+      "locations": []
+    },
+    "18": {
+      "original_instruction": "Welshyun will use the Blue Gemstone you gave him and then combine the 4 Pieces of Slate into a Complete Tablet . Shawn will tell you the Slate belongs to Hellion Revenant and he can send you to the location indicated in the Slate, and he sends you to the Sealed Cave ( gef_fild09 ). The entrance to the cave is a black area in the cliff as you walk west from where you are warped. The Hellion Revenant is a boss-type monster and walks fast. Hellion Revenant uses magic attacks frequently. You cannot use teleport or flywings inside the cave area so if you encounter Hellion Revenant, it will be a fight to the death. | You can complete the quest now by going back to Tyus in Morroc without killing Hellion Revenant.",
+      "instruction_sha256": "bc269031cb60d74ce22d11d81723cb63e9fddf59148dca48b81c205c6382e56b",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/bc269031cb60d74ce22d/1",
+      "goal": "combine",
+      "short_ru": "Соедините плиты у Welshyun; бой с Hellion Revenant необязателен для завершения.",
+      "short_en": "Combine the tablets at Welshyun; fighting Hellion Revenant is optional for completion.",
+      "full_ru": "Welshyun использует отданный ранее Blue Gemstone и соединит 4 Pieces of Slate в Complete Tablet. Shawn скажет, что Slate принадлежит Hellion Revenant, и отправит вас к Sealed Cave (gef_fild09). Вход — тёмный участок скалы к западу от точки переноса. Hellion Revenant — быстрый монстр типа boss, часто применяющий магию. В пещере нельзя телепортироваться или использовать flywings, поэтому столкновение с Hellion Revenant может закончиться боем до смерти. Можно завершить квест уже сейчас: вернитесь к Tyus в Morroc, не убивая Hellion Revenant.",
+      "full_en": "Welshyun will use the Blue Gemstone you gave him and then combine the 4 Pieces of Slate into a Complete Tablet . Shawn will tell you the Slate belongs to Hellion Revenant and he can send you to the location indicated in the Slate, and he sends you to the Sealed Cave ( gef_fild09 ). The entrance to the cave is a black area in the cliff as you walk west from where you are warped. The Hellion Revenant is a boss-type monster and walks fast. Hellion Revenant uses magic attacks frequently. You cannot use teleport or flywings inside the cave area so if you encounter Hellion Revenant, it will be a fight to the death. | You can complete the quest now by going back to Tyus in Morroc without killing Hellion Revenant.",
+      "npcs": [
+        {
+          "entity": "Sage Welshyun",
+          "role": "talk"
+        },
+        {
+          "entity": "Shawn",
+          "role": "unresolved_source_actor"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Blue Gemstone",
+          "quantity": 1,
+          "operation": "use",
+          "required": 0,
+          "source_section": "requirements",
+          "evidence": "1 Blue Gemstone",
+          "condition": "Welshyun uses the gem delivered at 16; not a second player gem cost."
+        },
+        {
+          "entity": "Prontera Tablet",
+          "quantity": 1,
+          "operation": "use",
+          "required": 0,
+          "support_step": 6,
+          "evidence": "Head to the Item Shop where Craine told you and find an Unknown Machine near the Item NPC. It seem the machine is some sort of a wheel so, place the Cogwheel in it. Then the machine ask you to enter the numbers: 3847147298 ( Or 16754213). A shining slate comes out of the machine, the first Piece of Slate, the Prontera Tablet . Go back to Clanux and only tell him a little bit.",
+          "condition": "Existing named tablet combined into Complete Tablet; exact inventory removal implementation unverified."
+        },
+        {
+          "entity": "Payon Tablet",
+          "quantity": 1,
+          "operation": "use",
+          "required": 0,
+          "support_step": 11,
+          "evidence": "Walk near the Statue of Buddha (pay_arche 135 31) in the lower right corner, the Piece of Slate starts glowing as if it is reacting to something powerful. Click on the Buddha Statue and suddenly the Statue of Buddha talks in your mind. He asks you a question. Choose \"I won't kill, but I'll find a way to live!\" A small opening appears below the statue and you get the second Piece of Slate, the Payon Tablet . | If you choose wrong, you will be killed (no exp loss.)",
+          "condition": "Existing named tablet combined into Complete Tablet; exact inventory removal implementation unverified."
+        },
+        {
+          "entity": "Morroc Tablet",
+          "quantity": 1,
+          "operation": "use",
+          "required": 0,
+          "support_step": 12,
+          "evidence": "Go back to Tyus and report the good news. Tyus will tell you the 4th Piece of Slate is in the hand of Sage Welshyun, Geffen . Before you depart he hands his 3rd Piece of Slate to you, the Morroc Tablet .",
+          "condition": "Existing named tablet combined into Complete Tablet; exact inventory removal implementation unverified."
+        },
+        {
+          "entity": "Geffen Tablet",
+          "quantity": 1,
+          "operation": "use",
+          "required": 0,
+          "support_step": 16,
+          "evidence": "Another long climb up the Geffen Tower. After passing the report, bring the Blue Gemstone that asked for and head for Welshyun again. He asks a strange question... \"Where is the abode with a shining silver roof that is mentioned in the third part of the balld of Grimnir?\" You tell him Valaskjalf and he gives you the 4th Piece of Slate, the Geffen Tablet .",
+          "condition": "Existing named tablet combined into Complete Tablet; exact inventory removal implementation unverified."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Complete Tablet"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "teleport_disabled",
+          "amount": "1",
+          "condition": "Inside the cave only; includes flywings, not a whole-quest restriction."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "combine_tablets",
+          "entity": "Sage Welshyun"
+        },
+        {
+          "operation": "warp_to_cave",
+          "condition": "Source names Shawn; identity with Welshyun is not established."
+        },
+        {
+          "operation": "optional_return_without_boss",
+          "entity": "Old Scholar Tyus"
+        }
+      ],
+      "protected_names": [
+        "Shawn",
+        "Morroc",
+        "Sealed Cave",
+        "gef_fild09",
+        "Blue Gemstone",
+        "Complete Tablet",
+        "Hellion Revenant"
+      ],
+      "locations": []
+    },
+    "19": {
+      "original_instruction": "When you near the Sealed Cave, your Slate reacts and starts to glow. You place the Slate in the slot and Tyus's message appears.",
+      "instruction_sha256": "5d36b08e284c80582f36d52e974b76351bb7d7447a612c3395a40bfe16ae2718",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/5d36b08e284c80582f36/1",
+      "goal": "interact",
+      "short_ru": "У Sealed Cave вставьте Slate в прорезь и прочитайте сообщение Tyus.",
+      "short_en": "At Sealed Cave, put Slate in the slot and read Tyus's message.",
+      "full_ru": "При приближении к Sealed Cave ваша Slate начнёт светиться. Вставьте Slate в прорезь: появится сообщение Tyus.",
+      "full_en": "When you near the Sealed Cave, your Slate reacts and starts to glow. You place the Slate in the slot and Tyus's message appears.",
+      "items": [
+        {
+          "entity": "Complete Tablet",
+          "quantity": 1,
+          "operation": "use",
+          "required": 1,
+          "support_step": 18,
+          "evidence": "Welshyun will use the Blue Gemstone you gave him and then combine the 4 Pieces of Slate into a Complete Tablet . Shawn will tell you the Slate belongs to Hellion Revenant and he can send you to the location indicated in the Slate, and he sends you to the Sealed Cave ( gef_fild09 ). The entrance to the cave is a black area in the cliff as you walk west from where you are warped. The Hellion Revenant is a boss-type monster and walks fast. Hellion Revenant uses magic attacks frequently. You cannot use teleport or flywings inside the cave area so if you encounter Hellion Revenant, it will be a fight to the death. | You can complete the quest now by going back to Tyus in Morroc without killing Hellion Revenant.",
+          "condition": "Current Slate reference follows combination; no item removal is stated."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "use_tablet",
+          "entity": "Complete Tablet"
+        },
+        {
+          "operation": "read_message"
+        }
+      ],
+      "protected_names": [
+        "Sealed Cave"
+      ],
+      "locations": []
+    },
+    "20": {
+      "original_instruction": "You find the Hellion Revenant inside Geffen Dungeon Level 2 (gef_dun03) and after beating him, he'll drop Eye of Hellion .",
+      "instruction_sha256": "e7641f8f222c465d0e722d105ebc79f777558023b3c6593c0c5368d8dc3b347f",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/e7641f8f222c465d0e72/1",
+      "goal": "optional_kill",
+      "short_ru": "При выборе боя победите Hellion Revenant в gef_dun03 для Eye of Hellion.",
+      "short_en": "If choosing combat, defeat Hellion Revenant in gef_dun03 for Eye of Hellion.",
+      "full_ru": "Найдите Hellion Revenant в Geffen Dungeon Level 2 (gef_dun03). После победы он оставит Eye of Hellion.",
+      "full_en": "You find the Hellion Revenant inside Geffen Dungeon Level 2 (gef_dun03) and after beating him, he'll drop Eye of Hellion .",
+      "monsters": [
+        {
+          "entity": "Hellion Revenant",
+          "operation": "kill",
+          "quantity": null,
+          "required": 0,
+          "support_step": 18,
+          "evidence": "Welshyun will use the Blue Gemstone you gave him and then combine the 4 Pieces of Slate into a Complete Tablet . Shawn will tell you the Slate belongs to Hellion Revenant and he can send you to the location indicated in the Slate, and he sends you to the Sealed Cave ( gef_fild09 ). The entrance to the cave is a black area in the cliff as you walk west from where you are warped. The Hellion Revenant is a boss-type monster and walks fast. Hellion Revenant uses magic attacks frequently. You cannot use teleport or flywings inside the cave area so if you encounter Hellion Revenant, it will be a fight to the death. | You can complete the quest now by going back to Tyus in Morroc without killing Hellion Revenant.",
+          "condition": "Optional combat; source 18 permits completion without killing. No fixed kill/drop count is invented."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "optional_kill",
+          "entity": "Hellion Revenant",
+          "condition": "Completion without this fight is explicitly allowed at stage 18."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "loot",
+          "entity": "Eye of Hellion",
+          "condition": "Boss drop; source final note allows more than one, no fixed count."
+        }
+      ],
+      "protected_names": [
+        "Geffen",
+        "Geffen Dungeon Level 2",
+        "gef_dun03",
+        "Eye of Hellion",
+        "Hellion Revenant"
+      ],
+      "locations": []
+    },
+    "21": {
+      "original_instruction": "Tell Tyus about the Slate, the message, the Sealed Cave and his grandfather's death (if you beat Hellion Revenant). He'll thank you and start the Sealing Ceremony on the Jewel of Hellion.",
+      "instruction_sha256": "2d20a1fd1016203a014dd8f6de7cb7e6da0d63feb9a0bab993807bbbe10c0417",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/2d20a1fd1016203a014d/1",
+      "goal": "talk",
+      "short_ru": "Доложите Tyus о Sealed Cave и дождитесь запечатывания Jewel of Hellion.",
+      "short_en": "Report to Tyus about Sealed Cave and wait for Jewel of Hellion sealing.",
+      "full_ru": "Расскажите Tyus о Slate, сообщении, Sealed Cave и смерти его деда, если победили Hellion Revenant. Он поблагодарит вас и начнёт церемонию запечатывания Jewel of Hellion.",
+      "full_en": "Tell Tyus about the Slate, the message, the Sealed Cave and his grandfather's death (if you beat Hellion Revenant). He'll thank you and start the Sealing Ceremony on the Jewel of Hellion.",
+      "npcs": [
+        {
+          "entity": "Old Scholar Tyus",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Jewel of Hellion",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0,
+          "condition": "Narrative jewel label is not silently assigned the Eye or Tablet inventory ID."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "report_outcome",
+          "entity": "Old Scholar Tyus"
+        },
+        {
+          "operation": "witness_sealing"
+        }
+      ],
+      "protected_names": [
+        "Sealed Cave",
+        "Jewel of Hellion",
+        "Hellion Revenant"
+      ],
+      "locations": [
+        {
+          "entity": "morocc_in",
+          "x": 116,
+          "y": 101,
+          "role": "return",
+          "known": true,
+          "support_step": 1,
+          "evidence": "When you first arrive in Morroc (south Kafra), walk to the right until you see an Inn building (morocc 199,64). Go into the right portal, and talk to Old Scholar Tyus, Sir Chilias'Tyus (morocc_in 116, 101) and he'll tell you he is waiting for someone. He will talk about the Eye of Hellion. You find out he has completed a device that can seal the jewel's evil energy. Sadly, he doesn't know the whereabouts of the jewel. He asks you to find people that have accepted his assignment. Starting from Prontera you need to find Craine Hefron."
+        }
+      ]
+    },
+    "22": {
+      "original_instruction": "After sealing it, Tyus will reward you. A) Beat Hellion Revenant: 1,200,000 Base EXP, Old Blue Box & Nile Rose | Note: if you go into the cave and already have the eye it will count as killing the revenant when you talk to Tyrus (he has a chance to drop more than 1 when he dies) B) Beaten by Hellion Revenant or skip the Cave: 1,000,000 Base EXP & Nile Rose",
+      "instruction_sha256": "d6d02fbd7be3fe5309ce233e68e3ec1d3271888badab86ed7b873b61a8915209",
+      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/d6d02fbd7be3fe5309ce/1",
+      "goal": "talk",
+      "short_ru": "Получите у Tyus награду по исходу Hellion Revenant; источник допускает уже имеющийся глаз.",
+      "short_en": "Receive Tyus's reward for the Hellion Revenant outcome; the source allows an already-owned eye.",
+      "full_ru": "После запечатывания Tyus выдаст награду. A) Победа над Hellion Revenant: 1,200,000 Base EXP, Old Blue Box и Nile Rose. Примечание: если войти в пещеру уже с глазом, при разговоре с Tyrus это засчитается как убийство revenant; при смерти он может оставить более 1 глаза. B) Поражение от Hellion Revenant или отказ от пещеры: 1,000,000 Base EXP и Nile Rose.",
+      "full_en": "After sealing it, Tyus will reward you. A) Beat Hellion Revenant: 1,200,000 Base EXP, Old Blue Box & Nile Rose | Note: if you go into the cave and already have the eye it will count as killing the revenant when you talk to Tyrus (he has a chance to drop more than 1 when he dies) B) Beaten by Hellion Revenant or skip the Cave: 1,000,000 Base EXP & Nile Rose",
+      "npcs": [
+        {
+          "entity": "Old Scholar Tyus",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_conditional_reward",
+          "entity": "Old Scholar Tyus"
+        }
+      ],
+      "protected_names": [
+        "Old Blue Box",
+        "Nile Rose",
+        "Hellion Revenant"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "boss_or_owned_eye",
+          "choice_group": "hellion_outcome",
+          "variant_scope": "irowiki-classic",
+          "condition": "Beat Hellion Revenant, or source exception: enter the cave already holding an eye, then talk to Tyrus. Not proof this character killed the boss.",
+          "section": "",
+          "source_step": 22,
+          "original_instruction": "Beat Hellion Revenant: 1,200,000 Base EXP, Old Blue Box & Nile Rose | Note: if you go into the cave and already have the eye it will count as killing the revenant when you talk to Tyrus (he has a chance to drop more than 1 when he dies)",
+          "instruction_sha256": "344a455ec8b8e97b8740356f795be317791d8d058350a22cdf77b16404ab1933",
+          "short_ru": "Высшая награда: 1,200,000 Base EXP, Old Blue Box и Nile Rose.",
+          "short_en": "Higher reward: 1,200,000 Base EXP, Old Blue Box and Nile Rose.",
+          "full_ru": "Победа над Hellion Revenant: 1,200,000 Base EXP, Old Blue Box и Nile Rose. Примечание: если войти в пещеру уже с глазом, при разговоре с Tyrus это засчитается как убийство revenant; при смерти он может оставить более 1 глаза.",
+          "full_en": "Beat Hellion Revenant: 1,200,000 Base EXP, Old Blue Box & Nile Rose | Note: if you go into the cave and already have the eye it will count as killing the revenant when you talk to Tyrus (he has a chance to drop more than 1 when he dies)",
+          "protected_names": [
+            "Old Blue Box",
+            "Nile Rose",
+            "Hellion Revenant"
+          ],
+          "items": [
+            {
+              "entity": "Eye of Hellion",
+              "quantity": null,
+              "operation": "possess",
+              "required": 0,
+              "support_step": 20,
+              "evidence": "You find the Hellion Revenant inside Geffen Dungeon Level 2 (gef_dun03) and after beating him, he'll drop Eye of Hellion .",
+              "condition": "Only the already-owned-eye source exception; not asserted as a new guaranteed item cost."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "1200000"
+            },
+            {
+              "kind": "item",
+              "entity": "Old Blue Box"
+            },
+            {
+              "kind": "item",
+              "entity": "Nile Rose"
+            }
+          ]
+        },
+        {
+          "key": "defeated_or_skip",
+          "choice_group": "hellion_outcome",
+          "variant_scope": "irowiki-classic",
+          "condition": "Defeated by Hellion Revenant or skip the cave; no boss kill is required for completion.",
+          "section": "",
+          "source_step": 22,
+          "original_instruction": "Beaten by Hellion Revenant or skip the Cave: 1,000,000 Base EXP & Nile Rose",
+          "instruction_sha256": "d4af119444ff4779550c487e2e6176970b7500435f32aff859d796a1235d9581",
+          "short_ru": "Без победы над Hellion Revenant: 1,000,000 Base EXP и Nile Rose.",
+          "short_en": "Without beating Hellion Revenant: 1,000,000 Base EXP and Nile Rose.",
+          "full_ru": "Поражение от Hellion Revenant или отказ от пещеры: 1,000,000 Base EXP и Nile Rose.",
+          "full_en": "Beaten by Hellion Revenant or skip the Cave: 1,000,000 Base EXP & Nile Rose",
+          "protected_names": [
+            "Nile Rose",
+            "Hellion Revenant"
+          ],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "1000000"
+            },
+            {
+              "kind": "item",
+              "entity": "Nile Rose"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "hellion_aliases_and_shawn_unresolved",
+      "detail": "Tyus/Tyrus and Clanux/Craine variants are same-guide return references, not silent corrections of verified game names. Shawn appears only during warp prose and is not proven to be Welshyun; keep the actor unresolved."
+    },
+    {
+      "reason": "one_gem_and_clue_payment",
+      "detail": "One gem is requested, delivered at 16 and used by the NPC at 18, not two player costs. Ten-thousand Zeny is one clue purchase. Payon clue items are given once; inspections are not a second inventory set. Wrong-choice White Potion is conditional."
+    },
+    {
+      "reason": "hellion_optional_boss_and_eye_exception",
+      "detail": "Stage 18 explicitly permits completion without killing. Higher reward note accepts an already-held eye after cave entry; do not infer a kill flag, mandatory personal kill or fixed eye count. Final item quantities are not printed and remain NULL."
+    },
+    {
+      "reason": "hellion_codes_slates_and_jewel_scope",
+      "detail": "Machine codes are source alternatives linked to the received value, not a two-entry sequence. Four named tablets stay distinct from generic Piece of Slate and narrative Jewel of Hellion. Exact spellings/map labels are retained, including Geffen Dungeon Level 2 with gef_dun03. Some quoted answers have no printed choose/type method."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Blue Gemstone",
+        "entity": "Blue Gemstone",
+        "condition": "One gem delivered at 16, used by Welshyun at 18; not two player payments."
+      },
+      {
+        "kind": "source_zeny_summary",
+        "amount": "10000",
+        "source_section": "requirements",
+        "evidence": "Zeny: 10,000",
+        "condition": "Single clue payment at stage 8, not an additional header charge."
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "optional_cave",
+      "kind": "optional",
+      "source_step": 22,
+      "source_evidence": "B) Beaten by Hellion Revenant or skip the Cave:",
+      "steps": [
+        19,
+        20
+      ],
+      "condition": "Optional cave combat: stage 18 explicitly permits completion by returning to Tyus without killing Hellion Revenant. Final higher reward has an already-owned-eye exception in stage 22."
+    }
+  ]
+}

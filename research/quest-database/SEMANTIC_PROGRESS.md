@@ -16,11 +16,11 @@ reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
-generator **semantic-5.5.0**. All four description fields are populated for
-**846 steps across 64 curated guides**, up from the previous 61-guide/817-step
-checkpoint. **87 conditional branches** also have independent RU/EN short and
-full descriptions. Ten quest routes represent four exclusive expedition/lyric paths
-and six conditional/optional activities. **1,904 steps in 152 remaining catalog entries still lack
+generator **semantic-5.6.0**. All four description fields are populated for
+**892 steps across 67 curated guides**, up from the previous 64-guide/846-step
+checkpoint. **92 conditional branches** also have independent RU/EN short and
+full descriptions. Twelve quest routes represent four exclusive expedition/lyric paths
+and eight conditional/optional activities. **1,858 steps in 149 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -89,6 +89,9 @@ complete localization/context analysis.** `complete` remains false.
 | Snowysnow Quest | 11 | Conditional Bard house; unknown blue text/child identities; salt scope; possible gift ranges |
 | Piano Keys Quest | 13 | Two exclusive source routes; six keys per path; distinct unnamed tomb triggers; prompt-conditioned lyrics |
 | Message Delivery Quest | 5 | Unknown rose count; exact wrong answer; summoning-dependent rewards; source HP uncertainty |
+| Juperos Ruins History Quest | 9 | Four distinct plate colors versus one example ID; homonymous books; uncertain per-plate EXP and box variant |
+| Finding The Moving Island Quest | 15 | Separate repair/crafting sets; manual ship kills; literal PST windows; optional mastery; three reward outcomes |
+| Eye of Hellion Quest | 22 | Actual received code; one reused gem; four tablets; optional cave; already-held-eye exception; source actor uncertainty |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -96,6 +99,41 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Three access/exploration guides preserve all 46 original stages. Coverage is
+  now 892 stages / 67 guides, with 92 localized branches and twelve routes.
+  Earlier 846 localized descriptions, 87 branches and all original step IDs
+  remain unchanged. Semantic schema remains 5; generator is semantic-5.6.0.
+- Juperos has four distinct Book identities at their printed points. The plate
+  category requires four colors but keeps NULL ID; source link 7355 is only a
+  separately recorded example, not proof all colors share one ID. Four Dimik
+  types are not four kills. Gift Box uses the literal linked variant 666, not
+  substituted 644. Header reward summaries are non-additive. Per-plate 100000
+  EXP is reported with explicit uncertainty beyond two plates, so a guaranteed
+  400000 total or unlimited repeated rewards is not invented.
+- Moving Island separates one repair set from one Gusli crafting set; the
+  second voyage does not add another repair. Follow the latest live steering
+  command and kill all actual spawns: five-minute despawn is not success.
+  Possible species/level labels do not define fixed quotas or player gates.
+  Ship-only death, EXP and loot rules keep their scope. The first Stranger
+  visit has three talks, while optional mastery has a random/unknown count.
+  Three performance rewards are exclusive. Gusli is retained and equipped;
+  literal PST windows, the dock trigger and conflicting any-time prose stay
+  explicit without a UTC/DST conversion or invented unlimited access hours.
+- Eye keeps alternate machine codes tied to the actually received value;
+  input modes that the prose does not specify remain unspecified. A single
+  Blue Gemstone is delivered then used by Welshyun, not charged twice. Four
+  named tablets stay distinct, as do their combined Tablet and narrative Jewel.
+  Cave steps 19/20 form one optional route proved by the later stage-22 skip
+  clause. Higher payout has an already-held-eye exception and does not prove
+  this character killed the boss. Final item counts and boss ID remain unknown.
+  Shawn is not silently merged with Welshyun; source spellings stay literal.
+- Optional routes can now cite `source_step` plus a nonempty literal
+  `source_evidence` from the same guide, including later explanatory text.
+  This permits a reviewed multistep optional activity without inventing source
+  headings. Evidence method is source_optional_activity_context; unsupported
+  proof, missing step or alternative-kind misuse fails without replacing a
+  valid export. Route membership remains explanatory, not executable gameplay.
 
 - Three permanent regional guides preserve all 29 original stages, including
   repeated identical Piano Keys instructions with distinct occurrence IDs.
@@ -546,7 +584,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **220 tests passed**; complete offline enrichment passed;
+Validated locally: **232 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -603,9 +641,14 @@ color-only answers, child-label uncertainty, possible gift ranges, shared
 material accounting, exclusive key-route totals, duplicate instruction IDs,
 proximity triggers, prompt-conditioned lyrics and summoning-dependent payouts.
 
+New regressions cover plate categories/example IDs, book identities, box
+variants, uncertain per-turn-in EXP, ship/crafting accounting, despawn scope,
+learning/performance outcomes, PST windows, exact inputs, NPC-held gem reuse,
+optional cave evidence and failed-build preservation under corrupt proofs.
+
 ## Next work, in order
 
-1. Review the remaining 152 catalog candidates, separating reference pages,
+1. Review the remaining 149 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

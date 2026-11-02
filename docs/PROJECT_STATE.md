@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 846 steps in 64 curated guides and
-87 conditional branches. Thirteen source additions supplement full descriptions;
-**1,904 steps / 152 remaining catalog entries still need processing**. Ten quest routes preserve Piano's two source-prompt paths, Odin's
+is excluded. All four RU/EN fields exist for 892 steps in 67 curated guides and
+92 conditional branches. Thirteen source additions supplement full descriptions;
+**1,858 steps / 149 remaining catalog entries still need processing**. Twelve quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -48,7 +48,7 @@ Continental Guard, Nidhoggur's Nest, Sealed Shrine and Orc Memory are curated.
 Boss combo tables omitted by the legacy extractor are restored as pinned
 additions; Classic entry/availability warnings remain explicit. Timers, leader
 roles, per-visit combat counts, dungeon population and optional headgear costs
-are distinct. Generator semantic-5.5.0 recognizes literal instance map codes
+are distinct. Generator semantic-5.6.0 recognizes literal instance map codes
 and reviewed non-entity homonyms without changing semantic schema 5.
 Muff's Loan, Broken Diamond and Z-Gang are curated. Red Gemstone request
 wording is separate from actual consumption; the machine state/color table
@@ -74,8 +74,16 @@ visits, unknown blue labels and gift distributions stay explicit. Piano has
 two exclusive five-key routes plus a shared key, distinct unnamed tomb
 triggers and prompt-conditioned song lines. Message Delivery separates
 summoning outcomes from final answers, with unknown rose count and HP loss.
+Juperos Ruins History, Finding the Moving Island and Eye of Hellion are
+curated. Plate types and an example ID stay distinct; reported per-plate EXP
+keeps its uncertainty. Ship repair, crafting, combat and learning have separate
+scopes; performance rewards are exclusive. Eye cave stages share an optional
+route with literal later evidence; already-owned-eye eligibility does not prove
+a boss kill. One gem is delivered then used, and unresolved actor/item IDs
+remain explicit. Generator 5.6.0 supports reviewed multistep optional routes
+with same-guide literal context proofs; semantic schema remains 5.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 220 regression tests, full offline rebuild and research CI
+Local validation: 232 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

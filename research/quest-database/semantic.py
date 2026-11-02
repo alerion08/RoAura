@@ -16,7 +16,7 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-5.5.0'
+VERSION = 'semantic-5.6.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
@@ -446,6 +446,11 @@ def quest_routes(w,curation,source_sections,html_source):
             if not html_source or heading not in source_sections['html_text']:raise ValueError('Nonliteral route heading')
             if any(rows[n]['section']!=heading for n in members):raise ValueError('Route membership contradicts source heading')
             ev=w.evidence(heading,method='source_route_heading',source=html_source)
+        elif 'source_evidence' in route:
+            n=route.get('source_step');snippet=route['source_evidence']
+            if kind!='optional' or n not in rows or not isinstance(snippet,str) or not snippet.strip() or snippet not in rows[n]['original_instruction']:
+                raise ValueError('Invalid optional route context proof')
+            ev=w.evidence(snippet,method='source_optional_activity_context',step=rows[n]['step_id'])
         else:
             n=route['source_step']
             if members!=[n]:raise ValueError('Optional route needs its own source step')
