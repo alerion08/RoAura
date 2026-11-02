@@ -15901,6 +15901,560 @@
     "dialogue_options": [],
     "entities": [
       {
+        "entity_id": "item:3ac219893e9162cb1e136ad5",
+        "entity_type": "item",
+        "evidence_id": "ev:bc1af02d6032607bcae851b5",
+        "original_name": "Bradium Fragments",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:4ad2d7bbb50de793a8acece4",
+        "entity_type": "item",
+        "evidence_id": "ev:6cca644dce044dc54261e0db",
+        "original_name": "Refined Bradium",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+        "entity_type": "item",
+        "evidence_id": "ev:78c4747a8c2f63a4e160f309",
+        "original_name": "Manuk Coin",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:18043eca28970a2ec94c4d30",
+        "entity_type": "map",
+        "evidence_id": "ev:25214ae3bca5662117325507",
+        "original_name": "manuk",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:e3c1a047edc2e3e0ebeb2e88",
+        "entity_type": "map",
+        "evidence_id": "ev:a0e93cdd5f7360f6090ebd45",
+        "original_name": "Manuk",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "monster:a5cb8f75ef21aa3c6d0da471",
+        "entity_type": "monster",
+        "evidence_id": "ev:f66f08f11a7be426210df8a6",
+        "original_name": "Bradium Golems",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:2233361444991bcae84d1533",
+        "entity_type": "npc",
+        "evidence_id": "ev:de1dcba75c9f996ebf187193",
+        "original_name": "Manuk Engineer",
+        "variant_id": "irowiki-classic"
+      }
+    ],
+    "prerequisite_groups": [],
+    "quest_id": "irowiki-classic:Bradium_Collection",
+    "quest_relations": [
+      {
+        "evidence_id": "ev:b064bdcfee4e4af20cd05655",
+        "kind": "mandatory_prerequisite",
+        "quest_id": "irowiki-classic:Bradium_Collection",
+        "related_id": "irowiki-classic:Ring_of_the_Wise_King"
+      },
+      {
+        "evidence_id": "ev:f2a1c13e43460e61469eff65",
+        "kind": "prerequisite_boolean_unspecified",
+        "quest_id": "irowiki-classic:Bradium_Collection",
+        "related_id": "irowiki-classic:Ring_of_the_Wise_King"
+      }
+    ],
+    "rewards": [
+      {
+        "amount": "40000",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:c1b7bebd8a8cd2c7fb88f042",
+        "item_id": null,
+        "kind": "base_exp",
+        "quest_id": "irowiki-classic:Bradium_Collection",
+        "reward_id": "reward:06b53b10fa4cc357cdff5dfc"
+      },
+      {
+        "amount": "40000",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:c1b7bebd8a8cd2c7fb88f042",
+        "item_id": null,
+        "kind": "job_exp",
+        "quest_id": "irowiki-classic:Bradium_Collection",
+        "reward_id": "reward:155fca594680733e8f649c12"
+      },
+      {
+        "amount": "3",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:c1b7bebd8a8cd2c7fb88f042",
+        "item_id": "item:7f0bdf51359c5f84c3fa5e75",
+        "kind": "item",
+        "quest_id": "irowiki-classic:Bradium_Collection",
+        "reward_id": "reward:a7dd86dc604518af16f2b852"
+      }
+    ],
+    "steps": [
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 8,
+            "entity_id": "map:e3c1a047edc2e3e0ebeb2e88",
+            "entity_type": "map",
+            "evidence_id": "ev:f98aab54930944c6c299a12e",
+            "field": "full_en",
+            "mention_id": "mention:3e8b28451b1019b4bcb79ef0",
+            "start_offset": 3,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Manuk"
+          },
+          {
+            "end_offset": 72,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:c4360265f5657c9d646f8e9c",
+            "field": "full_en",
+            "mention_id": "mention:3856c41a4684d2357ea866ba",
+            "start_offset": 67,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "manuk"
+          },
+          {
+            "end_offset": 113,
+            "entity_id": "npc:2233361444991bcae84d1533",
+            "entity_type": "npc",
+            "evidence_id": "ev:de1dcba75c9f996ebf187193",
+            "field": "full_en",
+            "mention_id": "mention:842d0cd08eb8ef9d201811d8",
+            "start_offset": 99,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Manuk Engineer"
+          },
+          {
+            "end_offset": 159,
+            "entity_id": "item:3ac219893e9162cb1e136ad5",
+            "entity_type": "item",
+            "evidence_id": "ev:bc1af02d6032607bcae851b5",
+            "field": "full_en",
+            "mention_id": "mention:ac3078bf478492efa050913c",
+            "start_offset": 142,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Bradium Fragments"
+          },
+          {
+            "end_offset": 186,
+            "entity_id": "monster:a5cb8f75ef21aa3c6d0da471",
+            "entity_type": "monster",
+            "evidence_id": "ev:f66f08f11a7be426210df8a6",
+            "field": "full_en",
+            "mention_id": "mention:5caa7bee28aaca6baab7e3aa",
+            "start_offset": 172,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Bradium Golems"
+          },
+          {
+            "end_offset": 7,
+            "entity_id": "map:e3c1a047edc2e3e0ebeb2e88",
+            "entity_type": "map",
+            "evidence_id": "ev:f98aab54930944c6c299a12e",
+            "field": "full_ru",
+            "mention_id": "mention:573434c28aab73c3dd637cbb",
+            "start_offset": 2,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Manuk"
+          },
+          {
+            "end_offset": 66,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:c4360265f5657c9d646f8e9c",
+            "field": "full_ru",
+            "mention_id": "mention:6d99904c36ca75563ef9b58d",
+            "start_offset": 61,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "manuk"
+          },
+          {
+            "end_offset": 106,
+            "entity_id": "npc:2233361444991bcae84d1533",
+            "entity_type": "npc",
+            "evidence_id": "ev:de1dcba75c9f996ebf187193",
+            "field": "full_ru",
+            "mention_id": "mention:5542bddd27e1a4b384017272",
+            "start_offset": 92,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Manuk Engineer"
+          },
+          {
+            "end_offset": 149,
+            "entity_id": "item:3ac219893e9162cb1e136ad5",
+            "entity_type": "item",
+            "evidence_id": "ev:bc1af02d6032607bcae851b5",
+            "field": "full_ru",
+            "mention_id": "mention:4699f483d95757fb25ac92d1",
+            "start_offset": 132,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Bradium Fragments"
+          },
+          {
+            "end_offset": 179,
+            "entity_id": "monster:a5cb8f75ef21aa3c6d0da471",
+            "entity_type": "monster",
+            "evidence_id": "ev:f66f08f11a7be426210df8a6",
+            "field": "full_ru",
+            "mention_id": "mention:b1fe41b8cdac8d44b77d9954",
+            "start_offset": 165,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Bradium Golems"
+          },
+          {
+            "end_offset": 40,
+            "entity_id": "item:3ac219893e9162cb1e136ad5",
+            "entity_type": "item",
+            "evidence_id": "ev:bc1af02d6032607bcae851b5",
+            "field": "short_en",
+            "mention_id": "mention:5c81fdd4d5344bf8268d8535",
+            "start_offset": 23,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Bradium Fragments"
+          },
+          {
+            "end_offset": 60,
+            "entity_id": "npc:2233361444991bcae84d1533",
+            "entity_type": "npc",
+            "evidence_id": "ev:de1dcba75c9f996ebf187193",
+            "field": "short_en",
+            "mention_id": "mention:11849b498a60c4ced7995092",
+            "start_offset": 46,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Manuk Engineer"
+          },
+          {
+            "end_offset": 69,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:c4360265f5657c9d646f8e9c",
+            "field": "short_en",
+            "mention_id": "mention:15ec65a5a1813dfdde6ca2b4",
+            "start_offset": 64,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "manuk"
+          },
+          {
+            "end_offset": 25,
+            "entity_id": "npc:2233361444991bcae84d1533",
+            "entity_type": "npc",
+            "evidence_id": "ev:de1dcba75c9f996ebf187193",
+            "field": "short_ru",
+            "mention_id": "mention:02c92385f434118e67e20b9c",
+            "start_offset": 11,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Manuk Engineer"
+          },
+          {
+            "end_offset": 33,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:c4360265f5657c9d646f8e9c",
+            "field": "short_ru",
+            "mention_id": "mention:b32b681912536327ce619e62",
+            "start_offset": 28,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "manuk"
+          },
+          {
+            "end_offset": 79,
+            "entity_id": "item:3ac219893e9162cb1e136ad5",
+            "entity_type": "item",
+            "evidence_id": "ev:bc1af02d6032607bcae851b5",
+            "field": "short_ru",
+            "mention_id": "mention:83ca04b2a2036c3adf7dd8eb",
+            "start_offset": 62,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+            "surface": "Bradium Fragments"
+          }
+        ],
+        "full_en": "In Manuk , go into the last room in the horseshoe-shaped building (manuk 309, 322) and talk to the Manuk Engineer. They ask you to collect 20 Bradium Fragments (Dropped by Bradium Golems ).",
+        "full_ru": "В Manuk войдите в последнюю комнату подковообразного здания (manuk 309, 322) и поговорите с Manuk Engineer. Вас попросят собрать 20 Bradium Fragments, выпадающих из Bradium Golems.",
+        "instruction_sha256": "db9074d35a94862191bb0e4c50a80b8df0dbf9ad654f996be6f10ddf47175325",
+        "original_instruction": "In Manuk , go into the last room in the horseshoe-shaped building (manuk 309, 322) and talk to the Manuk Engineer. They ask you to collect 20 Bradium Fragments (Dropped by Bradium Golems ).",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Bradium_Collection",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Get the request for 20 Bradium Fragments from Manuk Engineer at manuk 309, 322.",
+        "short_ru": "Получите у Manuk Engineer в manuk 309, 322 просьбу собрать 20 Bradium Fragments.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:bfdc04f25c243a1e783a261a",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "npc:2233361444991bcae84d1533",
+            "evidence_id": "ev:2b4aeb1d1cb32fe519dee1e4",
+            "operation": "request_materials",
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:2b4aeb1d1cb32fe519dee1e4",
+            "fact_id": "item_fact:f5cb189ea13cb77ccdfedcdb",
+            "item_id": "item:3ac219893e9162cb1e136ad5",
+            "operation": "bring",
+            "quantity": 20,
+            "required": 1,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": "Building entrance, not proven interior position of the Engineer.",
+            "evidence_id": "ev:2b4aeb1d1cb32fe519dee1e4",
+            "location_id": "location:1ef1776e9a742e816b943474",
+            "location_order": null,
+            "role": "entrance",
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1"
+          }
+        ],
+        "step_monsters": [
+          {
+            "branch_id": null,
+            "condition_text": "Drop source for requested material, not an exact 20-monster kill quota.",
+            "evidence_id": "ev:2b4aeb1d1cb32fe519dee1e4",
+            "fact_id": "monster_fact:f5cb189ea13cb77ccdfedcdb",
+            "monster_id": "monster:a5cb8f75ef21aa3c6d0da471",
+            "operation": "loot_source",
+            "quantity": null,
+            "required": 0,
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1"
+          }
+        ],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:2b4aeb1d1cb32fe519dee1e4",
+            "npc_id": "npc:2233361444991bcae84d1533",
+            "role": "talk",
+            "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1"
+          }
+        ],
+        "step_order": 1,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 30,
+            "entity_id": "item:4ad2d7bbb50de793a8acece4",
+            "entity_type": "item",
+            "evidence_id": "ev:6cca644dce044dc54261e0db",
+            "field": "full_en",
+            "mention_id": "mention:7900bbadc727cc8347447250",
+            "start_offset": 15,
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+            "surface": "Refined Bradium"
+          },
+          {
+            "end_offset": 57,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:fb87589071fe6a3c6305f3bf",
+            "field": "full_en",
+            "mention_id": "mention:fcbb29609ab288c039f4b4c0",
+            "start_offset": 47,
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 30,
+            "entity_id": "item:4ad2d7bbb50de793a8acece4",
+            "entity_type": "item",
+            "evidence_id": "ev:6cca644dce044dc54261e0db",
+            "field": "full_ru",
+            "mention_id": "mention:db7a209e9f0ed3d9a3fc175d",
+            "start_offset": 15,
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+            "surface": "Refined Bradium"
+          },
+          {
+            "end_offset": 54,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:fb87589071fe6a3c6305f3bf",
+            "field": "full_ru",
+            "mention_id": "mention:e52e5e8b462f1cfc0b60e58d",
+            "start_offset": 44,
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 19,
+            "entity_id": "npc:2233361444991bcae84d1533",
+            "entity_type": "npc",
+            "evidence_id": "ev:de1dcba75c9f996ebf187193",
+            "field": "short_en",
+            "mention_id": "mention:41dbe34ead7653b9ba8ec325",
+            "start_offset": 5,
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+            "surface": "Manuk Engineer"
+          },
+          {
+            "end_offset": 38,
+            "entity_id": "item:4ad2d7bbb50de793a8acece4",
+            "entity_type": "item",
+            "evidence_id": "ev:6cca644dce044dc54261e0db",
+            "field": "short_en",
+            "mention_id": "mention:f6f8664f8c769af3fb9f0a32",
+            "start_offset": 23,
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+            "surface": "Refined Bradium"
+          },
+          {
+            "end_offset": 60,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:fb87589071fe6a3c6305f3bf",
+            "field": "short_en",
+            "mention_id": "mention:a633e8565229f12e08a1e763",
+            "start_offset": 50,
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 24,
+            "entity_id": "npc:2233361444991bcae84d1533",
+            "entity_type": "npc",
+            "evidence_id": "ev:de1dcba75c9f996ebf187193",
+            "field": "short_ru",
+            "mention_id": "mention:18b07781c22652c099cf2b67",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+            "surface": "Manuk Engineer"
+          },
+          {
+            "end_offset": 43,
+            "entity_id": "item:4ad2d7bbb50de793a8acece4",
+            "entity_type": "item",
+            "evidence_id": "ev:6cca644dce044dc54261e0db",
+            "field": "short_ru",
+            "mention_id": "mention:1cbcc316665bacad1caa1a8d",
+            "start_offset": 28,
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+            "surface": "Refined Bradium"
+          },
+          {
+            "end_offset": 66,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:fb87589071fe6a3c6305f3bf",
+            "field": "short_ru",
+            "mention_id": "mention:ea5ddd685d22d0a431735ec6",
+            "start_offset": 56,
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+            "surface": "Manuk Coin"
+          }
+        ],
+        "full_en": "Return with 20 Refined Bradium , and receive 3 Manuk Coin, 40,000 Base Experience and 40,000 Job Experience .",
+        "full_ru": "Вернитесь с 20 Refined Bradium и получите 3 Manuk Coin, 40,000 Base Experience и 40,000 Job Experience.",
+        "instruction_sha256": "450c8a6d2608fea27900df73d52073b0d8c6f2c39e1309f35711294049a13870",
+        "original_instruction": "Return with 20 Refined Bradium , and receive 3 Manuk Coin, 40,000 Base Experience and 40,000 Job Experience .",
+        "primary_goal": "deliver",
+        "quest_id": "irowiki-classic:Bradium_Collection",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Give Manuk Engineer 20 Refined Bradium; receive 3 Manuk Coin, 40,000 Base Experience and 40,000 Job Experience.",
+        "short_ru": "Передайте Manuk Engineer 20 Refined Bradium; получите 3 Manuk Coin, 40,000 Base Experience и 40,000 Job Experience.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:06b53b10fa4cc357cdff5dfc",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "item:4ad2d7bbb50de793a8acece4",
+            "evidence_id": "ev:c1b7bebd8a8cd2c7fb88f042",
+            "operation": "deliver",
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1"
+          },
+          {
+            "action_id": "action:155fca594680733e8f649c12",
+            "action_order": 2,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": null,
+            "evidence_id": "ev:c1b7bebd8a8cd2c7fb88f042",
+            "operation": "receive_rewards",
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": "Literal step-2 label, game ID 6090. Not silently equated with unknown-ID Bradium Fragments.",
+            "evidence_id": "ev:c1b7bebd8a8cd2c7fb88f042",
+            "fact_id": "item_fact:a7dd86dc604518af16f2b852",
+            "item_id": "item:4ad2d7bbb50de793a8acece4",
+            "operation": "deliver",
+            "quantity": 20,
+            "required": 1,
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1"
+          }
+        ],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:5cbcb1522c3f251610b04fe4",
+            "npc_id": "npc:2233361444991bcae84d1533",
+            "role": "talk",
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1"
+          }
+        ],
+        "step_order": 2,
+        "step_rewards": [
+          {
+            "reward_id": "reward:06b53b10fa4cc357cdff5dfc",
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1"
+          },
+          {
+            "reward_id": "reward:155fca594680733e8f649c12",
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1"
+          },
+          {
+            "reward_id": "reward:a7dd86dc604518af16f2b852",
+            "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "dialogue_options": [],
+    "entities": [
+      {
         "entity_id": "item:093fe3f9eb0df60ea48fe22c",
         "entity_type": "item",
         "evidence_id": "ev:03d856ed1d22ba07f4c6db7e",
@@ -22452,6 +23006,727 @@
           {
             "reward_id": "reward:f047559f0150e71b8954de52",
             "step_id": "irowiki-classic:Bruspetti_Quest/step/62d103d54b0bc51b865e/1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "dialogue_options": [],
+    "entities": [
+      {
+        "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+        "entity_type": "item",
+        "evidence_id": "ev:78c4747a8c2f63a4e160f309",
+        "original_name": "Manuk Coin",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:b50791533114a5c1a3fdb1f0",
+        "entity_type": "item",
+        "evidence_id": "ev:092578c35b839abc75ab9a7a",
+        "original_name": "Splendide Coin",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:fbd4912e4ae92a13a8f28722",
+        "entity_type": "item",
+        "evidence_id": "ev:62805ef12a52a08050241821",
+        "original_name": "Draco's Egg",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:3af4f139be7894b29f52035d",
+        "entity_type": "map",
+        "evidence_id": "ev:edc48b757f8ee22ee702eec8",
+        "original_name": "mid_camp",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:8716229cae2011aa15ebf22a",
+        "entity_type": "map",
+        "evidence_id": "ev:3bbcea856973106503500196",
+        "original_name": "Yggdrasil Dungeon",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:9435d7e5097a848767f8a315",
+        "entity_type": "npc",
+        "evidence_id": "ev:09b1cedda63267e3964f620d",
+        "original_name": "Pinedel",
+        "variant_id": "irowiki-classic"
+      }
+    ],
+    "prerequisite_groups": [],
+    "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
+    "quest_relations": [
+      {
+        "evidence_id": "ev:7bf8389cdb64da78804ea0ff",
+        "kind": "prerequisite_boolean_unspecified",
+        "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
+        "related_id": "irowiki-classic:Two_Tribes"
+      },
+      {
+        "evidence_id": "ev:85d0fca66e0675bb5683f985",
+        "kind": "required_started_quest",
+        "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
+        "related_id": "irowiki-classic:Two_Tribes"
+      }
+    ],
+    "rewards": [
+      {
+        "amount": "40000",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:df48056bd13f3731f5b3b86e",
+        "item_id": null,
+        "kind": "base_exp",
+        "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
+        "reward_id": "reward:00efdb71af47d313bb36ba33"
+      },
+      {
+        "amount": "1",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:df48056bd13f3731f5b3b86e",
+        "item_id": "item:7f0bdf51359c5f84c3fa5e75",
+        "kind": "item",
+        "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
+        "reward_id": "reward:6c406023336c66369834e1d6"
+      },
+      {
+        "amount": "1",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:df48056bd13f3731f5b3b86e",
+        "item_id": "item:b50791533114a5c1a3fdb1f0",
+        "kind": "item",
+        "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
+        "reward_id": "reward:78a46f03589d4a854c2607bd"
+      },
+      {
+        "amount": "40000",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:df48056bd13f3731f5b3b86e",
+        "item_id": null,
+        "kind": "job_exp",
+        "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
+        "reward_id": "reward:d9f21f2778afbb42d4a71f35"
+      }
+    ],
+    "steps": [
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 15,
+            "entity_id": "npc:9435d7e5097a848767f8a315",
+            "entity_type": "npc",
+            "evidence_id": "ev:09b1cedda63267e3964f620d",
+            "field": "full_en",
+            "mention_id": "mention:75808e93f7ce1e2a38969470",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "Pinedel"
+          },
+          {
+            "end_offset": 25,
+            "entity_id": "map:3af4f139be7894b29f52035d",
+            "entity_type": "map",
+            "evidence_id": "ev:d7a9ddc1f458a1ed05f44655",
+            "field": "full_en",
+            "mention_id": "mention:cd2f9a646c00ca7b36ca7bfe",
+            "start_offset": 17,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "mid_camp"
+          },
+          {
+            "end_offset": 79,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "full_en",
+            "mention_id": "mention:04f9e1d3a81363feb14a516a",
+            "start_offset": 68,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "Draco's Egg"
+          },
+          {
+            "end_offset": 20,
+            "entity_id": "npc:9435d7e5097a848767f8a315",
+            "entity_type": "npc",
+            "evidence_id": "ev:09b1cedda63267e3964f620d",
+            "field": "full_ru",
+            "mention_id": "mention:0191850960e371eddc67c0df",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "Pinedel"
+          },
+          {
+            "end_offset": 30,
+            "entity_id": "map:3af4f139be7894b29f52035d",
+            "entity_type": "map",
+            "evidence_id": "ev:d7a9ddc1f458a1ed05f44655",
+            "field": "full_ru",
+            "mention_id": "mention:3f28cfa212d7e3bd1e0062a2",
+            "start_offset": 22,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "mid_camp"
+          },
+          {
+            "end_offset": 77,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "full_ru",
+            "mention_id": "mention:117ebc39bec7bd1c7f6ab829",
+            "start_offset": 66,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "Draco's Egg"
+          },
+          {
+            "end_offset": 15,
+            "entity_id": "npc:9435d7e5097a848767f8a315",
+            "entity_type": "npc",
+            "evidence_id": "ev:09b1cedda63267e3964f620d",
+            "field": "short_en",
+            "mention_id": "mention:ac7809b49c0ceaee01be6d3e",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "Pinedel"
+          },
+          {
+            "end_offset": 27,
+            "entity_id": "map:3af4f139be7894b29f52035d",
+            "entity_type": "map",
+            "evidence_id": "ev:d7a9ddc1f458a1ed05f44655",
+            "field": "short_en",
+            "mention_id": "mention:d4a6c59e8d86b89d1b05ce9d",
+            "start_offset": 19,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "mid_camp"
+          },
+          {
+            "end_offset": 68,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "short_en",
+            "mention_id": "mention:e13defc0aebc1d5c97b11927",
+            "start_offset": 57,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "Draco's Egg"
+          },
+          {
+            "end_offset": 20,
+            "entity_id": "npc:9435d7e5097a848767f8a315",
+            "entity_type": "npc",
+            "evidence_id": "ev:09b1cedda63267e3964f620d",
+            "field": "short_ru",
+            "mention_id": "mention:86e8c022a2e366b48aec2070",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "Pinedel"
+          },
+          {
+            "end_offset": 31,
+            "entity_id": "map:3af4f139be7894b29f52035d",
+            "entity_type": "map",
+            "evidence_id": "ev:d7a9ddc1f458a1ed05f44655",
+            "field": "short_ru",
+            "mention_id": "mention:bad13c4f1778122007c33f7e",
+            "start_offset": 23,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "mid_camp"
+          },
+          {
+            "end_offset": 63,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "short_ru",
+            "mention_id": "mention:349c524a15cbd199099e25c8",
+            "start_offset": 52,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+            "surface": "Draco's Egg"
+          }
+        ],
+        "full_en": "Talk to Pinedel (mid_camp 146, 306), she requests you to collect 10 Draco's Egg .",
+        "full_ru": "Поговорите с Pinedel (mid_camp 146, 306). Она попросит собрать 10 Draco's Egg.",
+        "instruction_sha256": "3d7421ca311efde76906fd18d1e92ff444fe30a1742c3f1f17a921b92f453929",
+        "original_instruction": "Talk to Pinedel (mid_camp 146, 306), she requests you to collect 10 Draco's Egg .",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Talk to Pinedel at mid_camp 146, 306 about collecting 10 Draco's Egg.",
+        "short_ru": "Поговорите с Pinedel в mid_camp 146, 306 о сборе 10 Draco's Egg.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:64f9275e90a2aa57495edbd1",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "npc:9435d7e5097a848767f8a315",
+            "evidence_id": "ev:1f9ccab296954bb06fcbd6ff",
+            "operation": "request_materials",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:1f9ccab296954bb06fcbd6ff",
+            "fact_id": "item_fact:2bfd3d89b50639cf0c72627e",
+            "item_id": "item:fbd4912e4ae92a13a8f28722",
+            "operation": "bring",
+            "quantity": 10,
+            "required": 1,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:80b65cf9cc1c4b61e8af2f49",
+            "location_id": "location:661ff77c4cdd4aba4b27af5b",
+            "location_order": null,
+            "role": "waypoint",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:1f9ccab296954bb06fcbd6ff",
+            "npc_id": "npc:9435d7e5097a848767f8a315",
+            "role": "talk",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1"
+          }
+        ],
+        "step_order": 1,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 16,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "full_en",
+            "mention_id": "mention:402b2ad39cc3bdd45763677f",
+            "start_offset": 5,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1",
+            "surface": "Draco's Egg"
+          },
+          {
+            "end_offset": 85,
+            "entity_id": "map:8716229cae2011aa15ebf22a",
+            "entity_type": "map",
+            "evidence_id": "ev:24040b30aeb1e21ab287748a",
+            "field": "full_en",
+            "mention_id": "mention:ebf414adc70f129e80d642cf",
+            "start_offset": 68,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1",
+            "surface": "Yggdrasil Dungeon"
+          },
+          {
+            "end_offset": 19,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "full_ru",
+            "mention_id": "mention:5ac76ae7528d80402d6d8a8c",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1",
+            "surface": "Draco's Egg"
+          },
+          {
+            "end_offset": 73,
+            "entity_id": "map:8716229cae2011aa15ebf22a",
+            "entity_type": "map",
+            "evidence_id": "ev:24040b30aeb1e21ab287748a",
+            "field": "full_ru",
+            "mention_id": "mention:5fce5524fce2a45149748a0c",
+            "start_offset": 56,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1",
+            "surface": "Yggdrasil Dungeon"
+          },
+          {
+            "end_offset": 19,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "short_en",
+            "mention_id": "mention:6af66403c8a752c27adf6795",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1",
+            "surface": "Draco's Egg"
+          },
+          {
+            "end_offset": 52,
+            "entity_id": "map:8716229cae2011aa15ebf22a",
+            "entity_type": "map",
+            "evidence_id": "ev:24040b30aeb1e21ab287748a",
+            "field": "short_en",
+            "mention_id": "mention:260e45ca2bc8e10bd34a5b42",
+            "start_offset": 35,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1",
+            "surface": "Yggdrasil Dungeon"
+          },
+          {
+            "end_offset": 21,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "short_ru",
+            "mention_id": "mention:db504001f95326b65a4f0e3f",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1",
+            "surface": "Draco's Egg"
+          },
+          {
+            "end_offset": 54,
+            "entity_id": "map:8716229cae2011aa15ebf22a",
+            "entity_type": "map",
+            "evidence_id": "ev:24040b30aeb1e21ab287748a",
+            "field": "short_ru",
+            "mention_id": "mention:305a4dca660922914a1ed16f",
+            "start_offset": 37,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1",
+            "surface": "Yggdrasil Dungeon"
+          }
+        ],
+        "full_en": "Find Draco's Egg at various locations on the 1st and 2nd map of the Yggdrasil Dungeon",
+        "full_ru": "Найдите Draco's Egg в разных местах на 1-й и 2-й картах Yggdrasil Dungeon.",
+        "instruction_sha256": "bb73cc30e6437bc253dd7fbb64788ce5e1cfa4eada2b3922fdbb48b99e034f52",
+        "original_instruction": "Find Draco's Egg at various locations on the 1st and 2nd map of the Yggdrasil Dungeon",
+        "primary_goal": "collect",
+        "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Collect Draco's Egg across the two Yggdrasil Dungeon maps.",
+        "short_ru": "Собирайте Draco's Egg на двух картах Yggdrasil Dungeon.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:f124a630e6ad7f522d2f1768",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "evidence_id": "ev:83845c6f3278b4c7b78d5272",
+            "operation": "collect",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": "Collect toward the single ten-egg total; no per-floor quota or monster kills stated.",
+            "evidence_id": "ev:83845c6f3278b4c7b78d5272",
+            "fact_id": "item_fact:16d083133ad32e907dddceaf",
+            "item_id": "item:fbd4912e4ae92a13a8f28722",
+            "operation": "collect",
+            "quantity": null,
+            "required": 1,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1"
+          }
+        ],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [],
+        "step_order": 2,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 17,
+            "entity_id": "npc:9435d7e5097a848767f8a315",
+            "entity_type": "npc",
+            "evidence_id": "ev:09b1cedda63267e3964f620d",
+            "field": "full_en",
+            "mention_id": "mention:4a9eed31f655d08c53bfa03a",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Pinedel"
+          },
+          {
+            "end_offset": 46,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "full_en",
+            "mention_id": "mention:2b7e818a74d86b314a74c548",
+            "start_offset": 35,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Draco's Egg"
+          },
+          {
+            "end_offset": 122,
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
+            "entity_type": "item",
+            "evidence_id": "ev:82f2ad1d7e37867a9592b129",
+            "field": "full_en",
+            "mention_id": "mention:34a5871b2756cfc3fed84cad",
+            "start_offset": 108,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Splendide Coin"
+          },
+          {
+            "end_offset": 139,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:66935c0dca0a9dba0eb7a7c5",
+            "field": "full_en",
+            "mention_id": "mention:b1dc269e1906381ebdb23660",
+            "start_offset": 129,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 19,
+            "entity_id": "npc:9435d7e5097a848767f8a315",
+            "entity_type": "npc",
+            "evidence_id": "ev:09b1cedda63267e3964f620d",
+            "field": "full_ru",
+            "mention_id": "mention:94a0f98c4726060a394fecdb",
+            "start_offset": 12,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Pinedel"
+          },
+          {
+            "end_offset": 53,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "full_ru",
+            "mention_id": "mention:3dac040abb41e2635feee2cd",
+            "start_offset": 42,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Draco's Egg"
+          },
+          {
+            "end_offset": 127,
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
+            "entity_type": "item",
+            "evidence_id": "ev:82f2ad1d7e37867a9592b129",
+            "field": "full_ru",
+            "mention_id": "mention:dbf2ad21ac1eca92496fa588",
+            "start_offset": 113,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Splendide Coin"
+          },
+          {
+            "end_offset": 142,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:66935c0dca0a9dba0eb7a7c5",
+            "field": "full_ru",
+            "mention_id": "mention:46baa5f940b0340dc88e1e60",
+            "start_offset": 132,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 12,
+            "entity_id": "npc:9435d7e5097a848767f8a315",
+            "entity_type": "npc",
+            "evidence_id": "ev:09b1cedda63267e3964f620d",
+            "field": "short_en",
+            "mention_id": "mention:e5481d00676ddfd175e02007",
+            "start_offset": 5,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Pinedel"
+          },
+          {
+            "end_offset": 27,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "short_en",
+            "mention_id": "mention:0059328434a7bfeb7ffa9561",
+            "start_offset": 16,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Draco's Egg"
+          },
+          {
+            "end_offset": 100,
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
+            "entity_type": "item",
+            "evidence_id": "ev:82f2ad1d7e37867a9592b129",
+            "field": "short_en",
+            "mention_id": "mention:0b44063250a946428e854b14",
+            "start_offset": 86,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Splendide Coin"
+          },
+          {
+            "end_offset": 117,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:66935c0dca0a9dba0eb7a7c5",
+            "field": "short_en",
+            "mention_id": "mention:5120fc7519c29fa1ae963984",
+            "start_offset": 107,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 17,
+            "entity_id": "npc:9435d7e5097a848767f8a315",
+            "entity_type": "npc",
+            "evidence_id": "ev:09b1cedda63267e3964f620d",
+            "field": "short_ru",
+            "mention_id": "mention:833a29408e81d1aa7fcb49ab",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Pinedel"
+          },
+          {
+            "end_offset": 32,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "entity_type": "item",
+            "evidence_id": "ev:62805ef12a52a08050241821",
+            "field": "short_ru",
+            "mention_id": "mention:61db69ac9f35cbcd361d51db",
+            "start_offset": 21,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Draco's Egg"
+          },
+          {
+            "end_offset": 106,
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
+            "entity_type": "item",
+            "evidence_id": "ev:82f2ad1d7e37867a9592b129",
+            "field": "short_ru",
+            "mention_id": "mention:33d5c190f0975d871f498ac0",
+            "start_offset": 92,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Splendide Coin"
+          },
+          {
+            "end_offset": 121,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:66935c0dca0a9dba0eb7a7c5",
+            "field": "short_ru",
+            "mention_id": "mention:b03b91f0cd16aea6cc15c7d0",
+            "start_offset": 111,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+            "surface": "Manuk Coin"
+          }
+        ],
+        "full_en": "Return to Pinedel when you have 10 Draco's Egg . Receive 40,000 Base Experience , 40,000 Job Experience , 1 Splendide Coin and 1 Manuk Coin.",
+        "full_ru": "Вернитесь к Pinedel, когда у вас будут 10 Draco's Egg. Получите 40,000 Base Experience, 40,000 Job Experience, 1 Splendide Coin и 1 Manuk Coin.",
+        "instruction_sha256": "ce18258f940b8a26579694079adb2dfad2ce0d8cc2df0e18a4a56febe2e827f0",
+        "original_instruction": "Return to Pinedel when you have 10 Draco's Egg . Receive 40,000 Base Experience , 40,000 Job Experience , 1 Splendide Coin and 1 Manuk Coin.",
+        "primary_goal": "deliver",
+        "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Give Pinedel 10 Draco's Egg; receive 40,000 Base Experience, 40,000 Job Experience, 1 Splendide Coin and 1 Manuk Coin.",
+        "short_ru": "Передайте Pinedel 10 Draco's Egg; получите 40,000 Base Experience, 40,000 Job Experience, 1 Splendide Coin и 1 Manuk Coin.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:d9f21f2778afbb42d4a71f35",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "item:fbd4912e4ae92a13a8f28722",
+            "evidence_id": "ev:df48056bd13f3731f5b3b86e",
+            "operation": "deliver",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1"
+          },
+          {
+            "action_id": "action:78a46f03589d4a854c2607bd",
+            "action_order": 2,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": null,
+            "evidence_id": "ev:df48056bd13f3731f5b3b86e",
+            "operation": "receive_rewards",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:df48056bd13f3731f5b3b86e",
+            "fact_id": "item_fact:00efdb71af47d313bb36ba33",
+            "item_id": "item:fbd4912e4ae92a13a8f28722",
+            "operation": "deliver",
+            "quantity": 10,
+            "required": 1,
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:af1f11c52ee9b8d90203a158",
+            "location_id": "location:661ff77c4cdd4aba4b27af5b",
+            "location_order": null,
+            "role": "return",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:df48056bd13f3731f5b3b86e",
+            "npc_id": "npc:9435d7e5097a848767f8a315",
+            "role": "talk",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1"
+          }
+        ],
+        "step_order": 3,
+        "step_rewards": [
+          {
+            "reward_id": "reward:00efdb71af47d313bb36ba33",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1"
+          },
+          {
+            "reward_id": "reward:6c406023336c66369834e1d6",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1"
+          },
+          {
+            "reward_id": "reward:78a46f03589d4a854c2607bd",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1"
+          },
+          {
+            "reward_id": "reward:d9f21f2778afbb42d4a71f35",
+            "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1"
           }
         ]
       }
@@ -75687,6 +76962,619 @@
     "dialogue_options": [],
     "entities": [
       {
+        "entity_id": "item:0b31a5fd8fed451fa8b65267",
+        "entity_type": "item",
+        "evidence_id": "ev:e20838a815df25cf069f36d2",
+        "original_name": "Crystallized Teardrop",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:70240235d60d5efda51b8826",
+        "entity_type": "item",
+        "evidence_id": "ev:3a615d96a59669a8ad6293b3",
+        "original_name": "Florescent Liquid",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:b50791533114a5c1a3fdb1f0",
+        "entity_type": "item",
+        "evidence_id": "ev:092578c35b839abc75ab9a7a",
+        "original_name": "Splendide Coin",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:12eb66e595aa6d0e395bc44f",
+        "entity_type": "map",
+        "evidence_id": "ev:2baa785f476dd3e0528ee5fd",
+        "original_name": "spl_in",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:1eec83ee6832552b6ca2ea34",
+        "entity_type": "map",
+        "evidence_id": "ev:08a07f5abdffc6de94c53273",
+        "original_name": "Splendide",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:b429873a6fead984b7cd7b5c",
+        "entity_type": "map",
+        "evidence_id": "ev:70143f2caa9cdda610e7b19d",
+        "original_name": "splendide",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:266fb034ded1e1e10addd1c9",
+        "entity_type": "npc",
+        "evidence_id": "ev:bf03b87090c1e54ed8cd6682",
+        "original_name": "Laphine",
+        "variant_id": "irowiki-classic"
+      }
+    ],
+    "prerequisite_groups": [],
+    "quest_id": "irowiki-classic:Laphine_Craftsman",
+    "quest_relations": [
+      {
+        "evidence_id": "ev:41cf08a2ebe6b68770acbc13",
+        "kind": "prerequisite_boolean_unspecified",
+        "quest_id": "irowiki-classic:Laphine_Craftsman",
+        "related_id": "irowiki-classic:Two_Tribes"
+      },
+      {
+        "evidence_id": "ev:04acfee45de9fb5a98819a71",
+        "kind": "required_started_quest",
+        "quest_id": "irowiki-classic:Laphine_Craftsman",
+        "related_id": "irowiki-classic:Two_Tribes"
+      }
+    ],
+    "rewards": [
+      {
+        "amount": "30000",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:d8ea0aa96f24d15e99b0d860",
+        "item_id": null,
+        "kind": "job_exp",
+        "quest_id": "irowiki-classic:Laphine_Craftsman",
+        "reward_id": "reward:5bf8dd2f193ff1d0b2a8f6f4"
+      },
+      {
+        "amount": "3",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:d8ea0aa96f24d15e99b0d860",
+        "item_id": "item:b50791533114a5c1a3fdb1f0",
+        "kind": "item",
+        "quest_id": "irowiki-classic:Laphine_Craftsman",
+        "reward_id": "reward:b8200530459fa49f5066d5b8"
+      },
+      {
+        "amount": "30000",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:d8ea0aa96f24d15e99b0d860",
+        "item_id": null,
+        "kind": "base_exp",
+        "quest_id": "irowiki-classic:Laphine_Craftsman",
+        "reward_id": "reward:d630507f533101db1b42ae70"
+      }
+    ],
+    "steps": [
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 12,
+            "entity_id": "map:1eec83ee6832552b6ca2ea34",
+            "entity_type": "map",
+            "evidence_id": "ev:b69a63f74ff9769421675df7",
+            "field": "full_en",
+            "mention_id": "mention:cfd082b3eb0d054b998b07df",
+            "start_offset": 3,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Splendide"
+          },
+          {
+            "end_offset": 52,
+            "entity_id": "map:b429873a6fead984b7cd7b5c",
+            "entity_type": "map",
+            "evidence_id": "ev:5c6b152b4f731893b7b6f301",
+            "field": "full_en",
+            "mention_id": "mention:ab2c750d15c007394fb8b49b",
+            "start_offset": 43,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "splendide"
+          },
+          {
+            "end_offset": 88,
+            "entity_id": "npc:266fb034ded1e1e10addd1c9",
+            "entity_type": "npc",
+            "evidence_id": "ev:bf03b87090c1e54ed8cd6682",
+            "field": "full_en",
+            "mention_id": "mention:26d63ff7fbebf7e077fb6e69",
+            "start_offset": 81,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Laphine"
+          },
+          {
+            "end_offset": 96,
+            "entity_id": "map:12eb66e595aa6d0e395bc44f",
+            "entity_type": "map",
+            "evidence_id": "ev:2baa785f476dd3e0528ee5fd",
+            "field": "full_en",
+            "mention_id": "mention:42de5aee77520be8335d5d58",
+            "start_offset": 90,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "spl_in"
+          },
+          {
+            "end_offset": 157,
+            "entity_id": "item:0b31a5fd8fed451fa8b65267",
+            "entity_type": "item",
+            "evidence_id": "ev:e20838a815df25cf069f36d2",
+            "field": "full_en",
+            "mention_id": "mention:a87421a305a39b21450ff518",
+            "start_offset": 136,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Crystallized Teardrop"
+          },
+          {
+            "end_offset": 182,
+            "entity_id": "item:70240235d60d5efda51b8826",
+            "entity_type": "item",
+            "evidence_id": "ev:3a615d96a59669a8ad6293b3",
+            "field": "full_en",
+            "mention_id": "mention:2053b88d15cb0f9c7b090196",
+            "start_offset": 165,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Florescent Liquid"
+          },
+          {
+            "end_offset": 214,
+            "entity_id": "item:0b31a5fd8fed451fa8b65267",
+            "entity_type": "item",
+            "evidence_id": "ev:e20838a815df25cf069f36d2",
+            "field": "full_en",
+            "mention_id": "mention:cfecd4e41c12e47fbbf29e67",
+            "start_offset": 192,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Crystallized Teardrops"
+          },
+          {
+            "end_offset": 11,
+            "entity_id": "map:1eec83ee6832552b6ca2ea34",
+            "entity_type": "map",
+            "evidence_id": "ev:b69a63f74ff9769421675df7",
+            "field": "full_ru",
+            "mention_id": "mention:92b553c23a3a4b60ce03ac00",
+            "start_offset": 2,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Splendide"
+          },
+          {
+            "end_offset": 39,
+            "entity_id": "map:b429873a6fead984b7cd7b5c",
+            "entity_type": "map",
+            "evidence_id": "ev:5c6b152b4f731893b7b6f301",
+            "field": "full_ru",
+            "mention_id": "mention:f2b6308bd0b90e6e0fe1a7ee",
+            "start_offset": 30,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "splendide"
+          },
+          {
+            "end_offset": 72,
+            "entity_id": "npc:266fb034ded1e1e10addd1c9",
+            "entity_type": "npc",
+            "evidence_id": "ev:bf03b87090c1e54ed8cd6682",
+            "field": "full_ru",
+            "mention_id": "mention:ae23c55030e2c46c365805e6",
+            "start_offset": 65,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Laphine"
+          },
+          {
+            "end_offset": 80,
+            "entity_id": "map:12eb66e595aa6d0e395bc44f",
+            "entity_type": "map",
+            "evidence_id": "ev:2baa785f476dd3e0528ee5fd",
+            "field": "full_ru",
+            "mention_id": "mention:977dbbbaced47093e26990a3",
+            "start_offset": 74,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "spl_in"
+          },
+          {
+            "end_offset": 128,
+            "entity_id": "item:0b31a5fd8fed451fa8b65267",
+            "entity_type": "item",
+            "evidence_id": "ev:e20838a815df25cf069f36d2",
+            "field": "full_ru",
+            "mention_id": "mention:60cb12df8e669cd7293d0885",
+            "start_offset": 107,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Crystallized Teardrop"
+          },
+          {
+            "end_offset": 151,
+            "entity_id": "item:70240235d60d5efda51b8826",
+            "entity_type": "item",
+            "evidence_id": "ev:3a615d96a59669a8ad6293b3",
+            "field": "full_ru",
+            "mention_id": "mention:70ee31d92bf0a78332a39c73",
+            "start_offset": 134,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Florescent Liquid"
+          },
+          {
+            "end_offset": 187,
+            "entity_id": "item:0b31a5fd8fed451fa8b65267",
+            "entity_type": "item",
+            "evidence_id": "ev:e20838a815df25cf069f36d2",
+            "field": "full_ru",
+            "mention_id": "mention:341fe1ec90e0cf261633fb12",
+            "start_offset": 165,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Crystallized Teardrops"
+          },
+          {
+            "end_offset": 13,
+            "entity_id": "npc:266fb034ded1e1e10addd1c9",
+            "entity_type": "npc",
+            "evidence_id": "ev:bf03b87090c1e54ed8cd6682",
+            "field": "short_en",
+            "mention_id": "mention:d406d2db6b7001f08c702930",
+            "start_offset": 6,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Laphine"
+          },
+          {
+            "end_offset": 23,
+            "entity_id": "map:12eb66e595aa6d0e395bc44f",
+            "entity_type": "map",
+            "evidence_id": "ev:2baa785f476dd3e0528ee5fd",
+            "field": "short_en",
+            "mention_id": "mention:7931d7d671ed1aa8be8b1586",
+            "start_offset": 17,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "spl_in"
+          },
+          {
+            "end_offset": 64,
+            "entity_id": "item:0b31a5fd8fed451fa8b65267",
+            "entity_type": "item",
+            "evidence_id": "ev:e20838a815df25cf069f36d2",
+            "field": "short_en",
+            "mention_id": "mention:a078020b9082da1e46641bbb",
+            "start_offset": 43,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Crystallized Teardrop"
+          },
+          {
+            "end_offset": 86,
+            "entity_id": "item:70240235d60d5efda51b8826",
+            "entity_type": "item",
+            "evidence_id": "ev:3a615d96a59669a8ad6293b3",
+            "field": "short_en",
+            "mention_id": "mention:29b96ffb10e57703997a6aba",
+            "start_offset": 69,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Florescent Liquid"
+          },
+          {
+            "end_offset": 17,
+            "entity_id": "npc:266fb034ded1e1e10addd1c9",
+            "entity_type": "npc",
+            "evidence_id": "ev:bf03b87090c1e54ed8cd6682",
+            "field": "short_ru",
+            "mention_id": "mention:0d62e199213a2fae4c7b07c6",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Laphine"
+          },
+          {
+            "end_offset": 26,
+            "entity_id": "map:12eb66e595aa6d0e395bc44f",
+            "entity_type": "map",
+            "evidence_id": "ev:2baa785f476dd3e0528ee5fd",
+            "field": "short_ru",
+            "mention_id": "mention:e1cbc6227edf7401d3e62fad",
+            "start_offset": 20,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "spl_in"
+          },
+          {
+            "end_offset": 62,
+            "entity_id": "item:0b31a5fd8fed451fa8b65267",
+            "entity_type": "item",
+            "evidence_id": "ev:e20838a815df25cf069f36d2",
+            "field": "short_ru",
+            "mention_id": "mention:4e5d6e07d0c64cad7816cef3",
+            "start_offset": 41,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Crystallized Teardrop"
+          },
+          {
+            "end_offset": 82,
+            "entity_id": "item:70240235d60d5efda51b8826",
+            "entity_type": "item",
+            "evidence_id": "ev:3a615d96a59669a8ad6293b3",
+            "field": "short_ru",
+            "mention_id": "mention:05b6a3fe989dea29f5490537",
+            "start_offset": 65,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+            "surface": "Florescent Liquid"
+          }
+        ],
+        "full_en": "In Splendide , go inside the building at ( splendide 198, 238), and speak to the Laphine (spl_in 97, 313). She asks you to bring her 15 Crystallized Teardrop and 15 Florescent Liquid . Note : Crystallized Teardrops are character bound.",
+        "full_ru": "В Splendide войдите в здание (splendide 198, 238) и поговорите с Laphine (spl_in 97, 313). Она попросит 15 Crystallized Teardrop и 15 Florescent Liquid. Примечание: Crystallized Teardrops привязаны к персонажу.",
+        "instruction_sha256": "ba31bab461548b82abe81e07eb28535f70fe9f987b190f6c091927c995a74abc",
+        "original_instruction": "In Splendide , go inside the building at ( splendide 198, 238), and speak to the Laphine (spl_in 97, 313). She asks you to bring her 15 Crystallized Teardrop and 15 Florescent Liquid . Note : Crystallized Teardrops are character bound.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Laphine_Craftsman",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Bring Laphine at spl_in 97, 313 15 each of Crystallized Teardrop and Florescent Liquid.",
+        "short_ru": "Принесите Laphine в spl_in 97, 313 по 15 Crystallized Teardrop и Florescent Liquid.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:0df011d51244460653eed5b3",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": null,
+            "evidence_id": "ev:f8126ed4fa40fa1540e89c9a",
+            "operation": "enter_building",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1"
+          },
+          {
+            "action_id": "action:fc9c24266bedc7794ccd3611",
+            "action_order": 2,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "npc:266fb034ded1e1e10addd1c9",
+            "evidence_id": "ev:f8126ed4fa40fa1540e89c9a",
+            "operation": "request_materials",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:f8126ed4fa40fa1540e89c9a",
+            "fact_id": "item_fact:0df011d51244460653eed5b3",
+            "item_id": "item:70240235d60d5efda51b8826",
+            "operation": "bring",
+            "quantity": 15,
+            "required": 1,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:f8126ed4fa40fa1540e89c9a",
+            "fact_id": "item_fact:1867622b23a5456c1492b6eb",
+            "item_id": "item:0b31a5fd8fed451fa8b65267",
+            "operation": "bring",
+            "quantity": 15,
+            "required": 1,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:f8126ed4fa40fa1540e89c9a",
+            "location_id": "location:4bcc421911084c009108ee4f",
+            "location_order": 1,
+            "role": "entrance",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1"
+          },
+          {
+            "condition_text": null,
+            "evidence_id": "ev:f8126ed4fa40fa1540e89c9a",
+            "location_id": "location:9a9c4382aab918cacf7ae85f",
+            "location_order": 2,
+            "role": "npc",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:f8126ed4fa40fa1540e89c9a",
+            "npc_id": "npc:266fb034ded1e1e10addd1c9",
+            "role": "talk",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1"
+          }
+        ],
+        "step_order": 1,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 66,
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
+            "entity_type": "item",
+            "evidence_id": "ev:2deebab4c152b9cb5b63b8e3",
+            "field": "full_en",
+            "mention_id": "mention:ce957b4e1b167b6c499dc5bd",
+            "start_offset": 52,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1",
+            "surface": "Splendide Coin"
+          },
+          {
+            "end_offset": 63,
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
+            "entity_type": "item",
+            "evidence_id": "ev:2deebab4c152b9cb5b63b8e3",
+            "field": "full_ru",
+            "mention_id": "mention:a482b2a093cabd61eef8f7e3",
+            "start_offset": 49,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1",
+            "surface": "Splendide Coin"
+          },
+          {
+            "end_offset": 15,
+            "entity_id": "npc:266fb034ded1e1e10addd1c9",
+            "entity_type": "npc",
+            "evidence_id": "ev:bf03b87090c1e54ed8cd6682",
+            "field": "short_en",
+            "mention_id": "mention:142a21c92e3de1a7c7192629",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1",
+            "surface": "Laphine"
+          },
+          {
+            "end_offset": 91,
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
+            "entity_type": "item",
+            "evidence_id": "ev:2deebab4c152b9cb5b63b8e3",
+            "field": "short_en",
+            "mention_id": "mention:a88c80777b428e83c39802a3",
+            "start_offset": 77,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1",
+            "surface": "Splendide Coin"
+          },
+          {
+            "end_offset": 14,
+            "entity_id": "npc:266fb034ded1e1e10addd1c9",
+            "entity_type": "npc",
+            "evidence_id": "ev:bf03b87090c1e54ed8cd6682",
+            "field": "short_ru",
+            "mention_id": "mention:b0e4fae88cbf5e9488417a3f",
+            "start_offset": 7,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1",
+            "surface": "Laphine"
+          },
+          {
+            "end_offset": 85,
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
+            "entity_type": "item",
+            "evidence_id": "ev:2deebab4c152b9cb5b63b8e3",
+            "field": "short_ru",
+            "mention_id": "mention:77b146eb7f0b3170ff1a0671",
+            "start_offset": 71,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1",
+            "surface": "Splendide Coin"
+          }
+        ],
+        "full_en": "Return for 30,000 Base EXP , 30,000 Job EXP , and 3 Splendide Coin .",
+        "full_ru": "Вернитесь за 30,000 Base EXP, 30,000 Job EXP и 3 Splendide Coin.",
+        "instruction_sha256": "f3d636d07ff10e0aba9f8966cf48839ad639341e9cc86fbc82eb4b559b643205",
+        "original_instruction": "Return for 30,000 Base EXP , 30,000 Job EXP , and 3 Splendide Coin .",
+        "primary_goal": "deliver",
+        "quest_id": "irowiki-classic:Laphine_Craftsman",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Deliver Laphine the materials: receive 30,000 Base EXP, 30,000 Job EXP and 3 Splendide Coin.",
+        "short_ru": "Сдайте Laphine материалы: получите 30,000 Base EXP, 30,000 Job EXP и 3 Splendide Coin.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:5bf8dd2f193ff1d0b2a8f6f4",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "npc:266fb034ded1e1e10addd1c9",
+            "evidence_id": "ev:d8ea0aa96f24d15e99b0d860",
+            "operation": "deliver_materials",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1"
+          },
+          {
+            "action_id": "action:b8200530459fa49f5066d5b8",
+            "action_order": 2,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": null,
+            "evidence_id": "ev:d8ea0aa96f24d15e99b0d860",
+            "operation": "receive_rewards",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": "The set requested at stage 1; return/consumption interpreted with the header.",
+            "evidence_id": "ev:713596f8ef67ff7b05116247",
+            "fact_id": "item_fact:5bf8dd2f193ff1d0b2a8f6f4",
+            "item_id": "item:70240235d60d5efda51b8826",
+            "operation": "deliver",
+            "quantity": 15,
+            "required": 1,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": "The set requested at stage 1; return/consumption interpreted with the header.",
+            "evidence_id": "ev:713596f8ef67ff7b05116247",
+            "fact_id": "item_fact:d630507f533101db1b42ae70",
+            "item_id": "item:0b31a5fd8fed451fa8b65267",
+            "operation": "deliver",
+            "quantity": 15,
+            "required": 1,
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:244e1d061adbb9743a8e605e",
+            "location_id": "location:9a9c4382aab918cacf7ae85f",
+            "location_order": null,
+            "role": "return",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:244e1d061adbb9743a8e605e",
+            "npc_id": "npc:266fb034ded1e1e10addd1c9",
+            "role": "talk",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1"
+          }
+        ],
+        "step_order": 2,
+        "step_rewards": [
+          {
+            "reward_id": "reward:5bf8dd2f193ff1d0b2a8f6f4",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1"
+          },
+          {
+            "reward_id": "reward:b8200530459fa49f5066d5b8",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1"
+          },
+          {
+            "reward_id": "reward:d630507f533101db1b42ae70",
+            "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "dialogue_options": [],
+    "entities": [
+      {
         "entity_id": "item:6717b2dbfab03cdf2ced3118",
         "entity_type": "item",
         "evidence_id": "ev:26c13333b9577cc7a714a4f8",
@@ -80835,6 +82723,607 @@
           {
             "reward_id": "reward:f470bb417e17c0eb4f578f90",
             "step_id": "irowiki-classic:Lovers_Quest/step/5e780e7e651861dc4637/1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "dialogue_options": [],
+    "entities": [
+      {
+        "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+        "entity_type": "item",
+        "evidence_id": "ev:78c4747a8c2f63a4e160f309",
+        "original_name": "Manuk Coin",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:18043eca28970a2ec94c4d30",
+        "entity_type": "map",
+        "evidence_id": "ev:25214ae3bca5662117325507",
+        "original_name": "manuk",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:e3c1a047edc2e3e0ebeb2e88",
+        "entity_type": "map",
+        "evidence_id": "ev:a0e93cdd5f7360f6090ebd45",
+        "original_name": "Manuk",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "monster:65e989405c5b4c67b46c1001",
+        "entity_type": "monster",
+        "evidence_id": "ev:8755f28f41ea5aa4e83e3aee",
+        "original_name": "Rata",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "monster:bf6531b129e9e3cf3f2e7eac",
+        "entity_type": "monster",
+        "evidence_id": "ev:42bd646fd199c63a9de12a2e",
+        "original_name": "Duneyrr",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:f06308c2fbeddf62e0cc8731",
+        "entity_type": "npc",
+        "evidence_id": "ev:eb015b675528c8407f362d85",
+        "original_name": "Manuk Gardener Strom",
+        "variant_id": "irowiki-classic"
+      }
+    ],
+    "prerequisite_groups": [],
+    "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
+    "quest_relations": [
+      {
+        "evidence_id": "ev:348852356b28c18e3ef2d346",
+        "kind": "mandatory_prerequisite",
+        "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
+        "related_id": "irowiki-classic:Two_Tribes"
+      },
+      {
+        "evidence_id": "ev:5f854c71e731d0475702e752",
+        "kind": "prerequisite_boolean_unspecified",
+        "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
+        "related_id": "irowiki-classic:Two_Tribes"
+      }
+    ],
+    "rewards": [
+      {
+        "amount": "300000",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:c06304766d0ba6c56fb332f8",
+        "item_id": null,
+        "kind": "job_exp",
+        "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
+        "reward_id": "reward:4c94625a2061d34219183087"
+      },
+      {
+        "amount": "10",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:c06304766d0ba6c56fb332f8",
+        "item_id": "item:7f0bdf51359c5f84c3fa5e75",
+        "kind": "item",
+        "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
+        "reward_id": "reward:bebeb5392d50f43dc40c0694"
+      },
+      {
+        "amount": "500000",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:c06304766d0ba6c56fb332f8",
+        "item_id": null,
+        "kind": "base_exp",
+        "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
+        "reward_id": "reward:fb7057fd91059babfd693a03"
+      }
+    ],
+    "steps": [
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 8,
+            "entity_id": "map:e3c1a047edc2e3e0ebeb2e88",
+            "entity_type": "map",
+            "evidence_id": "ev:52338fe00889bceb3078a466",
+            "field": "full_en",
+            "mention_id": "mention:0b869ba4e9ebf20a7e0faf37",
+            "start_offset": 3,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+            "surface": "Manuk"
+          },
+          {
+            "end_offset": 38,
+            "entity_id": "npc:f06308c2fbeddf62e0cc8731",
+            "entity_type": "npc",
+            "evidence_id": "ev:eb015b675528c8407f362d85",
+            "field": "full_en",
+            "mention_id": "mention:35fecfe72d77a50d917182c4",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+            "surface": "Manuk Gardener Strom"
+          },
+          {
+            "end_offset": 45,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:1269f202266f0a47d09a593b",
+            "field": "full_en",
+            "mention_id": "mention:bad66b1b8e198e00250001f5",
+            "start_offset": 40,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+            "surface": "manuk"
+          },
+          {
+            "end_offset": 7,
+            "entity_id": "map:e3c1a047edc2e3e0ebeb2e88",
+            "entity_type": "map",
+            "evidence_id": "ev:52338fe00889bceb3078a466",
+            "field": "full_ru",
+            "mention_id": "mention:c0415c637fdc193d8495be9a",
+            "start_offset": 2,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+            "surface": "Manuk"
+          },
+          {
+            "end_offset": 41,
+            "entity_id": "npc:f06308c2fbeddf62e0cc8731",
+            "entity_type": "npc",
+            "evidence_id": "ev:eb015b675528c8407f362d85",
+            "field": "full_ru",
+            "mention_id": "mention:2d9098dc611921a2ca20b786",
+            "start_offset": 21,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+            "surface": "Manuk Gardener Strom"
+          },
+          {
+            "end_offset": 48,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:1269f202266f0a47d09a593b",
+            "field": "full_ru",
+            "mention_id": "mention:a4e95ec24f76b9c5ff61d4d3",
+            "start_offset": 43,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+            "surface": "manuk"
+          },
+          {
+            "end_offset": 28,
+            "entity_id": "npc:f06308c2fbeddf62e0cc8731",
+            "entity_type": "npc",
+            "evidence_id": "ev:eb015b675528c8407f362d85",
+            "field": "short_en",
+            "mention_id": "mention:033d1c28f81810ea850433fc",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+            "surface": "Manuk Gardener Strom"
+          },
+          {
+            "end_offset": 37,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:1269f202266f0a47d09a593b",
+            "field": "short_en",
+            "mention_id": "mention:6583920ad5a3e66ad511bb9a",
+            "start_offset": 32,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+            "surface": "manuk"
+          },
+          {
+            "end_offset": 33,
+            "entity_id": "npc:f06308c2fbeddf62e0cc8731",
+            "entity_type": "npc",
+            "evidence_id": "ev:eb015b675528c8407f362d85",
+            "field": "short_ru",
+            "mention_id": "mention:33a23523e6d81ff5c5d31da2",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+            "surface": "Manuk Gardener Strom"
+          },
+          {
+            "end_offset": 41,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:1269f202266f0a47d09a593b",
+            "field": "short_ru",
+            "mention_id": "mention:62f471a5690ceb63c2ec6977",
+            "start_offset": 36,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+            "surface": "manuk"
+          }
+        ],
+        "full_en": "In Manuk speak to Manuk Gardener Strom (manuk 252, 116), and challenge him.",
+        "full_ru": "В Manuk поговорите с Manuk Gardener Strom (manuk 252, 116) и бросьте ему вызов.",
+        "instruction_sha256": "f46d8cd6c09c67a04272cad701742b74ca6efb2675ec957cf4bbd4a6c27d6cc4",
+        "original_instruction": "In Manuk speak to Manuk Gardener Strom (manuk 252, 116), and challenge him.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Talk to Manuk Gardener Strom at manuk 252, 116.",
+        "short_ru": "Поговорите с Manuk Gardener Strom в manuk 252, 116.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:bb395dbd90d8a538ffc7b277",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "npc:f06308c2fbeddf62e0cc8731",
+            "evidence_id": "ev:e4c146766723b6edecc6f014",
+            "operation": "challenge",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:1ec1a068b2959ba387db6fb3",
+            "location_id": "location:eac59a8952bd960a5073e88f",
+            "location_order": null,
+            "role": "waypoint",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:e4c146766723b6edecc6f014",
+            "npc_id": "npc:f06308c2fbeddf62e0cc8731",
+            "role": "talk",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1"
+          }
+        ],
+        "step_order": 1,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 27,
+            "entity_id": "monster:65e989405c5b4c67b46c1001",
+            "entity_type": "monster",
+            "evidence_id": "ev:8755f28f41ea5aa4e83e3aee",
+            "field": "full_en",
+            "mention_id": "mention:f7be8c79851043a92040d547",
+            "start_offset": 23,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1",
+            "surface": "Rata"
+          },
+          {
+            "end_offset": 41,
+            "entity_id": "monster:bf6531b129e9e3cf3f2e7eac",
+            "entity_type": "monster",
+            "evidence_id": "ev:42bd646fd199c63a9de12a2e",
+            "field": "full_en",
+            "mention_id": "mention:4d7c01fec58b9aaa1136f8b3",
+            "start_offset": 34,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1",
+            "surface": "Duneyrr"
+          },
+          {
+            "end_offset": 24,
+            "entity_id": "monster:65e989405c5b4c67b46c1001",
+            "entity_type": "monster",
+            "evidence_id": "ev:8755f28f41ea5aa4e83e3aee",
+            "field": "full_ru",
+            "mention_id": "mention:5129362b346e784ef4640ad6",
+            "start_offset": 20,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1",
+            "surface": "Rata"
+          },
+          {
+            "end_offset": 36,
+            "entity_id": "monster:bf6531b129e9e3cf3f2e7eac",
+            "entity_type": "monster",
+            "evidence_id": "ev:42bd646fd199c63a9de12a2e",
+            "field": "full_ru",
+            "mention_id": "mention:fd780f959ef8d9c3967d210b",
+            "start_offset": 29,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1",
+            "surface": "Duneyrr"
+          },
+          {
+            "end_offset": 11,
+            "entity_id": "monster:65e989405c5b4c67b46c1001",
+            "entity_type": "monster",
+            "evidence_id": "ev:8755f28f41ea5aa4e83e3aee",
+            "field": "short_en",
+            "mention_id": "mention:939c320f8a57ea09462e3289",
+            "start_offset": 7,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1",
+            "surface": "Rata"
+          },
+          {
+            "end_offset": 25,
+            "entity_id": "monster:bf6531b129e9e3cf3f2e7eac",
+            "entity_type": "monster",
+            "evidence_id": "ev:42bd646fd199c63a9de12a2e",
+            "field": "short_en",
+            "mention_id": "mention:1697f29520603445461d3c8f",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1",
+            "surface": "Duneyrr"
+          },
+          {
+            "end_offset": 13,
+            "entity_id": "monster:65e989405c5b4c67b46c1001",
+            "entity_type": "monster",
+            "evidence_id": "ev:8755f28f41ea5aa4e83e3aee",
+            "field": "short_ru",
+            "mention_id": "mention:59ec0a785e0d33d49f627215",
+            "start_offset": 9,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1",
+            "surface": "Rata"
+          },
+          {
+            "end_offset": 25,
+            "entity_id": "monster:bf6531b129e9e3cf3f2e7eac",
+            "entity_type": "monster",
+            "evidence_id": "ev:42bd646fd199c63a9de12a2e",
+            "field": "short_ru",
+            "mention_id": "mention:586292a8db8894d96c0983c3",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1",
+            "surface": "Duneyrr"
+          }
+        ],
+        "full_en": "He tells you to kill 1 Rata and 1 Duneyrr .",
+        "full_ru": "Он попросит убить 1 Rata и 1 Duneyrr.",
+        "instruction_sha256": "8b6bc9f4b102964f9fedf1fc74a920b6a7129be5fc70603dae5ee8961ad7d33a",
+        "original_instruction": "He tells you to kill 1 Rata and 1 Duneyrr .",
+        "primary_goal": "kill",
+        "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Kill 1 Rata and 1 Duneyrr.",
+        "short_ru": "Убейте 1 Rata и 1 Duneyrr.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:35b805a3839a9c0e83ef2b8d",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "monster:65e989405c5b4c67b46c1001",
+            "evidence_id": "ev:81eb6d7adc3db7adc0408c07",
+            "operation": "kill",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1"
+          },
+          {
+            "action_id": "action:a4e1fa26ec8ca1ae026a5dc8",
+            "action_order": 2,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "monster:bf6531b129e9e3cf3f2e7eac",
+            "evidence_id": "ev:81eb6d7adc3db7adc0408c07",
+            "operation": "kill",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:81eb6d7adc3db7adc0408c07",
+            "fact_id": "monster_fact:35b805a3839a9c0e83ef2b8d",
+            "monster_id": "monster:bf6531b129e9e3cf3f2e7eac",
+            "operation": "kill",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1"
+          },
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:81eb6d7adc3db7adc0408c07",
+            "fact_id": "monster_fact:598e52fdc098d2f0da27aba4",
+            "monster_id": "monster:65e989405c5b4c67b46c1001",
+            "operation": "kill",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1"
+          }
+        ],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:fc1fd63cf26691348a16cc39",
+            "npc_id": "npc:f06308c2fbeddf62e0cc8731",
+            "role": "talk",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1"
+          }
+        ],
+        "step_order": 2,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 36,
+            "entity_id": "npc:f06308c2fbeddf62e0cc8731",
+            "entity_type": "npc",
+            "evidence_id": "ev:eb015b675528c8407f362d85",
+            "field": "full_en",
+            "mention_id": "mention:7cca2af10b2175d4be98420a",
+            "start_offset": 31,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1",
+            "surface": "Strom"
+          },
+          {
+            "end_offset": 75,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:c06b28f760e3e75df52d5ea8",
+            "field": "full_en",
+            "mention_id": "mention:211b58f054e90064970c58d9",
+            "start_offset": 65,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 26,
+            "entity_id": "npc:f06308c2fbeddf62e0cc8731",
+            "entity_type": "npc",
+            "evidence_id": "ev:eb015b675528c8407f362d85",
+            "field": "full_ru",
+            "mention_id": "mention:0549154b90afcad414ea263f",
+            "start_offset": 21,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1",
+            "surface": "Strom"
+          },
+          {
+            "end_offset": 62,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:c06b28f760e3e75df52d5ea8",
+            "field": "full_ru",
+            "mention_id": "mention:2325d1b2d0d556078653538b",
+            "start_offset": 52,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 15,
+            "entity_id": "npc:f06308c2fbeddf62e0cc8731",
+            "entity_type": "npc",
+            "evidence_id": "ev:eb015b675528c8407f362d85",
+            "field": "short_en",
+            "mention_id": "mention:f84367259e33d7a23e4b373c",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1",
+            "surface": "Strom"
+          },
+          {
+            "end_offset": 38,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:c06b28f760e3e75df52d5ea8",
+            "field": "short_en",
+            "mention_id": "mention:ef570cf753237344655b1aa5",
+            "start_offset": 28,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 17,
+            "entity_id": "npc:f06308c2fbeddf62e0cc8731",
+            "entity_type": "npc",
+            "evidence_id": "ev:eb015b675528c8407f362d85",
+            "field": "short_ru",
+            "mention_id": "mention:ff20eca5b8e4acc34484cf9a",
+            "start_offset": 12,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1",
+            "surface": "Strom"
+          },
+          {
+            "end_offset": 41,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:c06b28f760e3e75df52d5ea8",
+            "field": "short_ru",
+            "mention_id": "mention:9f6eee62327d2911086c42f7",
+            "start_offset": 31,
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1",
+            "surface": "Manuk Coin"
+          }
+        ],
+        "full_en": "After killing those, return to Strom for your reward. Receive 10 Manuk Coin, 500,000 Base Experience , and 300,000 Job Experience .",
+        "full_ru": "Убив их, вернитесь к Strom за наградой. Получите 10 Manuk Coin, 500,000 Base Experience и 300,000 Job Experience.",
+        "instruction_sha256": "51b3a3f31ed510cc726a1d25a6f032b19518d0e3bb328568e9701c3965bdbe13",
+        "original_instruction": "After killing those, return to Strom for your reward. Receive 10 Manuk Coin, 500,000 Base Experience , and 300,000 Job Experience .",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Return to Strom: receive 10 Manuk Coin, 500,000 Base Experience and 300,000 Job Experience.",
+        "short_ru": "Вернитесь к Strom: получите 10 Manuk Coin, 500,000 Base Experience и 300,000 Job Experience.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:fb7057fd91059babfd693a03",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "npc:f06308c2fbeddf62e0cc8731",
+            "evidence_id": "ev:c06304766d0ba6c56fb332f8",
+            "operation": "report_kills",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1"
+          },
+          {
+            "action_id": "action:4c94625a2061d34219183087",
+            "action_order": 2,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": null,
+            "evidence_id": "ev:c06304766d0ba6c56fb332f8",
+            "operation": "receive_rewards",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:f970798ffccf578d52aca959",
+            "location_id": "location:eac59a8952bd960a5073e88f",
+            "location_order": null,
+            "role": "return",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:c06304766d0ba6c56fb332f8",
+            "npc_id": "npc:f06308c2fbeddf62e0cc8731",
+            "role": "talk",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1"
+          }
+        ],
+        "step_order": 3,
+        "step_rewards": [
+          {
+            "reward_id": "reward:4c94625a2061d34219183087",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1"
+          },
+          {
+            "reward_id": "reward:bebeb5392d50f43dc40c0694",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1"
+          },
+          {
+            "reward_id": "reward:fb7057fd91059babfd693a03",
+            "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1"
           }
         ]
       }
@@ -149912,6 +152401,915 @@
     "dialogue_options": [],
     "entities": [
       {
+        "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+        "entity_type": "item",
+        "evidence_id": "ev:78c4747a8c2f63a4e160f309",
+        "original_name": "Manuk Coin",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:8260a266fd22a6b9512bafea",
+        "entity_type": "item",
+        "evidence_id": "ev:c8e7368e9c742d93a5f8241a",
+        "original_name": "Horn of Hillslion",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:18043eca28970a2ec94c4d30",
+        "entity_type": "map",
+        "evidence_id": "ev:25214ae3bca5662117325507",
+        "original_name": "manuk",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:3af4f139be7894b29f52035d",
+        "entity_type": "map",
+        "evidence_id": "ev:edc48b757f8ee22ee702eec8",
+        "original_name": "mid_camp",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:4766bb753d2f7f3ff361d27a",
+        "entity_type": "map",
+        "evidence_id": "ev:afaaa8216535da60d016d5c9",
+        "original_name": "Midgard Expedition Camp",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:86626488b01213a4d33f312d",
+        "entity_type": "map",
+        "evidence_id": "ev:3ffce40c14d475836e69cadf",
+        "original_name": "Manuk Fields",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:e3c1a047edc2e3e0ebeb2e88",
+        "entity_type": "map",
+        "evidence_id": "ev:a0e93cdd5f7360f6090ebd45",
+        "original_name": "Manuk",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:ccf0ddc47134723f43b4a398",
+        "entity_type": "npc",
+        "evidence_id": "ev:6409ad1fa67593eec9c0b54f",
+        "original_name": "Worker",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+        "entity_type": "npc",
+        "evidence_id": "ev:d7a1ce3ceaef63412ea3df45",
+        "original_name": "Bazett Teablack",
+        "variant_id": "irowiki-classic"
+      }
+    ],
+    "prerequisite_groups": [],
+    "quest_id": "irowiki-classic:Tribe_Investigation",
+    "quest_relations": [
+      {
+        "evidence_id": "ev:b6acee02b34a685d1b2e53e9",
+        "kind": "mandatory_prerequisite",
+        "quest_id": "irowiki-classic:Tribe_Investigation",
+        "related_id": "irowiki-classic:Ring_of_the_Wise_King"
+      },
+      {
+        "evidence_id": "ev:ba6f80dd86dc28bd106e1a4c",
+        "kind": "prerequisite_boolean_unspecified",
+        "quest_id": "irowiki-classic:Tribe_Investigation",
+        "related_id": "irowiki-classic:Ring_of_the_Wise_King"
+      }
+    ],
+    "rewards": [
+      {
+        "amount": "1",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:f60ed9384c2e6ce0084344a9",
+        "item_id": "item:7f0bdf51359c5f84c3fa5e75",
+        "kind": "item",
+        "quest_id": "irowiki-classic:Tribe_Investigation",
+        "reward_id": "reward:3b0a163515f20bb05054a114"
+      }
+    ],
+    "steps": [
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 30,
+            "entity_id": "map:4766bb753d2f7f3ff361d27a",
+            "entity_type": "map",
+            "evidence_id": "ev:afaaa8216535da60d016d5c9",
+            "field": "full_en",
+            "mention_id": "mention:e9291cdb3e3070fb1b6d3e3e",
+            "start_offset": 7,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+            "surface": "Midgard Expedition Camp"
+          },
+          {
+            "end_offset": 57,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "entity_type": "npc",
+            "evidence_id": "ev:d7a1ce3ceaef63412ea3df45",
+            "field": "full_en",
+            "mention_id": "mention:3b6b72b83934a2d717b60193",
+            "start_offset": 42,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+            "surface": "Bazett Teablack"
+          },
+          {
+            "end_offset": 68,
+            "entity_id": "map:3af4f139be7894b29f52035d",
+            "entity_type": "map",
+            "evidence_id": "ev:6638336d7080eef448d472dc",
+            "field": "full_en",
+            "mention_id": "mention:6ec83a84eccdfddfe67d3882",
+            "start_offset": 60,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+            "surface": "mid_camp"
+          },
+          {
+            "end_offset": 25,
+            "entity_id": "map:4766bb753d2f7f3ff361d27a",
+            "entity_type": "map",
+            "evidence_id": "ev:afaaa8216535da60d016d5c9",
+            "field": "full_ru",
+            "mention_id": "mention:9a9f90619d768a8837e7299a",
+            "start_offset": 2,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+            "surface": "Midgard Expedition Camp"
+          },
+          {
+            "end_offset": 54,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "entity_type": "npc",
+            "evidence_id": "ev:d7a1ce3ceaef63412ea3df45",
+            "field": "full_ru",
+            "mention_id": "mention:421d730f5ce13a2597373c9d",
+            "start_offset": 39,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+            "surface": "Bazett Teablack"
+          },
+          {
+            "end_offset": 64,
+            "entity_id": "map:3af4f139be7894b29f52035d",
+            "entity_type": "map",
+            "evidence_id": "ev:6638336d7080eef448d472dc",
+            "field": "full_ru",
+            "mention_id": "mention:dcbe52a38d9d31c9bdfc42e8",
+            "start_offset": 56,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+            "surface": "mid_camp"
+          },
+          {
+            "end_offset": 29,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "entity_type": "npc",
+            "evidence_id": "ev:d7a1ce3ceaef63412ea3df45",
+            "field": "short_en",
+            "mention_id": "mention:d167fd2d107f94bae01bba93",
+            "start_offset": 14,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+            "surface": "Bazett Teablack"
+          },
+          {
+            "end_offset": 41,
+            "entity_id": "map:3af4f139be7894b29f52035d",
+            "entity_type": "map",
+            "evidence_id": "ev:6638336d7080eef448d472dc",
+            "field": "short_en",
+            "mention_id": "mention:417b3c713de9a9b18a46c5b5",
+            "start_offset": 33,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+            "surface": "mid_camp"
+          },
+          {
+            "end_offset": 33,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "entity_type": "npc",
+            "evidence_id": "ev:d7a1ce3ceaef63412ea3df45",
+            "field": "short_ru",
+            "mention_id": "mention:d9e6f7558724753302cb4031",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+            "surface": "Bazett Teablack"
+          },
+          {
+            "end_offset": 44,
+            "entity_id": "map:3af4f139be7894b29f52035d",
+            "entity_type": "map",
+            "evidence_id": "ev:6638336d7080eef448d472dc",
+            "field": "short_ru",
+            "mention_id": "mention:400541c3204259cb4e28f530",
+            "start_offset": 36,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+            "surface": "mid_camp"
+          }
+        ],
+        "full_en": "In the Midgard Expedition Camp , speak to Bazett Teablack ( mid_camp 283, 198); he requests your help investigating the local tribes.",
+        "full_ru": "В Midgard Expedition Camp поговорите с Bazett Teablack (mid_camp 283, 198). Он попросит помочь с изучением местных племён.",
+        "instruction_sha256": "ea963cef496786530b677c731f8f64bb8770ab03aad93d249723b198a760fcd6",
+        "original_instruction": "In the Midgard Expedition Camp , speak to Bazett Teablack ( mid_camp 283, 198); he requests your help investigating the local tribes.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Tribe_Investigation",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Offer help to Bazett Teablack at mid_camp 283, 198.",
+        "short_ru": "Предложите помощь Bazett Teablack в mid_camp 283, 198.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:e52f0f9e7ace0981ad0d9441",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "evidence_id": "ev:ed8bc111797492c7094004cb",
+            "operation": "talk",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:1e10330109f42075092de8e5",
+            "location_id": "location:577300a0634b03ec3cc9a5a6",
+            "location_order": null,
+            "role": "waypoint",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:ed8bc111797492c7094004cb",
+            "npc_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "role": "talk",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1"
+          }
+        ],
+        "step_order": 1,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 83,
+            "entity_id": "map:86626488b01213a4d33f312d",
+            "entity_type": "map",
+            "evidence_id": "ev:3ffce40c14d475836e69cadf",
+            "field": "full_en",
+            "mention_id": "mention:19c9c0442f06eedbdca09205",
+            "start_offset": 71,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1",
+            "surface": "Manuk Fields"
+          },
+          {
+            "end_offset": 84,
+            "entity_id": "map:86626488b01213a4d33f312d",
+            "entity_type": "map",
+            "evidence_id": "ev:3ffce40c14d475836e69cadf",
+            "field": "full_ru",
+            "mention_id": "mention:52d15bdb2acbaeaf3d8a7fb1",
+            "start_offset": 72,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1",
+            "surface": "Manuk Fields"
+          },
+          {
+            "end_offset": 23,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "entity_type": "npc",
+            "evidence_id": "ev:d7a1ce3ceaef63412ea3df45",
+            "field": "short_en",
+            "mention_id": "mention:a0e49939657fcc8e8290f88a",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1",
+            "surface": "Bazett Teablack"
+          },
+          {
+            "end_offset": 66,
+            "entity_id": "map:86626488b01213a4d33f312d",
+            "entity_type": "map",
+            "evidence_id": "ev:3ffce40c14d475836e69cadf",
+            "field": "short_en",
+            "mention_id": "mention:ae10525eeeec3b98b9f79dff",
+            "start_offset": 54,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1",
+            "surface": "Manuk Fields"
+          },
+          {
+            "end_offset": 34,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "entity_type": "npc",
+            "evidence_id": "ev:d7a1ce3ceaef63412ea3df45",
+            "field": "short_ru",
+            "mention_id": "mention:331279d2bca8f4ded314f5aa",
+            "start_offset": 19,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1",
+            "surface": "Bazett Teablack"
+          },
+          {
+            "end_offset": 68,
+            "entity_id": "map:86626488b01213a4d33f312d",
+            "entity_type": "map",
+            "evidence_id": "ev:3ffce40c14d475836e69cadf",
+            "field": "short_ru",
+            "mention_id": "mention:29b1587718696d3a5b03ac9f",
+            "start_offset": 56,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1",
+            "surface": "Manuk Fields"
+          }
+        ],
+        "full_en": "Speak to him again, and he will ask you to go search for giants on the Manuk Fields.",
+        "full_ru": "Поговорите с ним ещё раз: он попросит отправиться на поиски великанов в Manuk Fields.",
+        "instruction_sha256": "0317ff3a124cbe101456e1ff7f8d259e3e38ed49ae225c496027a3b55b4963c3",
+        "original_instruction": "Speak to him again, and he will ask you to go search for giants on the Manuk Fields.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Tribe_Investigation",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Talk to Bazett Teablack again about finding giants in Manuk Fields.",
+        "short_ru": "Снова поговорите с Bazett Teablack о поиске великанов в Manuk Fields.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:7819957061ec271161909b8f",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "evidence_id": "ev:c44ccea4c10ea03a3cbe792b",
+            "operation": "request_investigation",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:2df9983aeed89d09c81e4dae",
+            "npc_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "role": "talk",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1"
+          }
+        ],
+        "step_order": 2,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 19,
+            "entity_id": "npc:ccf0ddc47134723f43b4a398",
+            "entity_type": "npc",
+            "evidence_id": "ev:6409ad1fa67593eec9c0b54f",
+            "field": "full_en",
+            "mention_id": "mention:a6ed5bba358c1fd4ab33dccb",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "Worker"
+          },
+          {
+            "end_offset": 28,
+            "entity_id": "map:e3c1a047edc2e3e0ebeb2e88",
+            "entity_type": "map",
+            "evidence_id": "ev:d45852ce585f932243f7414a",
+            "field": "full_en",
+            "mention_id": "mention:2b3c13323f7f7b55e83f4770",
+            "start_offset": 23,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "Manuk"
+          },
+          {
+            "end_offset": 36,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:b53645abe78827c3a8c1c584",
+            "field": "full_en",
+            "mention_id": "mention:761addb7d2f960ca2d855bfa",
+            "start_offset": 31,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "manuk"
+          },
+          {
+            "end_offset": 91,
+            "entity_id": "item:8260a266fd22a6b9512bafea",
+            "entity_type": "item",
+            "evidence_id": "ev:8bd2acfc21c4031d801b7ed1",
+            "field": "full_en",
+            "mention_id": "mention:d30611fe44bf714d18afa55a",
+            "start_offset": 74,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "Horn of Hillslion"
+          },
+          {
+            "end_offset": 19,
+            "entity_id": "npc:ccf0ddc47134723f43b4a398",
+            "entity_type": "npc",
+            "evidence_id": "ev:6409ad1fa67593eec9c0b54f",
+            "field": "full_ru",
+            "mention_id": "mention:37ff9dad353b980cdf3c38e3",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "Worker"
+          },
+          {
+            "end_offset": 27,
+            "entity_id": "map:e3c1a047edc2e3e0ebeb2e88",
+            "entity_type": "map",
+            "evidence_id": "ev:d45852ce585f932243f7414a",
+            "field": "full_ru",
+            "mention_id": "mention:061ae6a3d98acf0162a9c02f",
+            "start_offset": 22,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "Manuk"
+          },
+          {
+            "end_offset": 34,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:b53645abe78827c3a8c1c584",
+            "field": "full_ru",
+            "mention_id": "mention:567e319c3704a17e42552cd5",
+            "start_offset": 29,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "manuk"
+          },
+          {
+            "end_offset": 78,
+            "entity_id": "item:8260a266fd22a6b9512bafea",
+            "entity_type": "item",
+            "evidence_id": "ev:8bd2acfc21c4031d801b7ed1",
+            "field": "full_ru",
+            "mention_id": "mention:4e74e8adb2207a21040095f2",
+            "start_offset": 61,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "Horn of Hillslion"
+          },
+          {
+            "end_offset": 14,
+            "entity_id": "npc:ccf0ddc47134723f43b4a398",
+            "entity_type": "npc",
+            "evidence_id": "ev:6409ad1fa67593eec9c0b54f",
+            "field": "short_en",
+            "mention_id": "mention:b1f4dbbf9ce53cc32c24ccbb",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "Worker"
+          },
+          {
+            "end_offset": 23,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:b53645abe78827c3a8c1c584",
+            "field": "short_en",
+            "mention_id": "mention:b3cb9b7fa9ed6cabde6c923e",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "manuk"
+          },
+          {
+            "end_offset": 65,
+            "entity_id": "item:8260a266fd22a6b9512bafea",
+            "entity_type": "item",
+            "evidence_id": "ev:8bd2acfc21c4031d801b7ed1",
+            "field": "short_en",
+            "mention_id": "mention:f8c4b98fcd968a7c4dd9ad1b",
+            "start_offset": 48,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "Horn of Hillslion"
+          },
+          {
+            "end_offset": 19,
+            "entity_id": "npc:ccf0ddc47134723f43b4a398",
+            "entity_type": "npc",
+            "evidence_id": "ev:6409ad1fa67593eec9c0b54f",
+            "field": "short_ru",
+            "mention_id": "mention:bfde4dc6b86cdc099d27b701",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "Worker"
+          },
+          {
+            "end_offset": 27,
+            "entity_id": "map:18043eca28970a2ec94c4d30",
+            "entity_type": "map",
+            "evidence_id": "ev:b53645abe78827c3a8c1c584",
+            "field": "short_ru",
+            "mention_id": "mention:d013c43876cffbb3bad58d5d",
+            "start_offset": 22,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "manuk"
+          },
+          {
+            "end_offset": 68,
+            "entity_id": "item:8260a266fd22a6b9512bafea",
+            "entity_type": "item",
+            "evidence_id": "ev:8bd2acfc21c4031d801b7ed1",
+            "field": "short_ru",
+            "mention_id": "mention:0653c7dc4a6bab1a5904b6d0",
+            "start_offset": 51,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+            "surface": "Horn of Hillslion"
+          }
+        ],
+        "full_en": "Speak to the Worker in Manuk ( manuk 194, 135). He asks you to get him 30 Horn of Hillslion so that he can make a replacement screw for a building.",
+        "full_ru": "Поговорите с Worker в Manuk (manuk 194, 135). Он попросит 30 Horn of Hillslion, чтобы сделать запасной винт для здания.",
+        "instruction_sha256": "6b3a2c2250175090d57a4303125dd385dd4530b5b68352e9202df17a9988d5a5",
+        "original_instruction": "Speak to the Worker in Manuk ( manuk 194, 135). He asks you to get him 30 Horn of Hillslion so that he can make a replacement screw for a building.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Tribe_Investigation",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Talk to Worker at manuk 194, 135 and collect 30 Horn of Hillslion.",
+        "short_ru": "Поговорите с Worker в manuk 194, 135 и соберите 30 Horn of Hillslion.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:7c096d2822b67c487c726d56",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "npc:ccf0ddc47134723f43b4a398",
+            "evidence_id": "ev:d13efaa3de96826098841750",
+            "operation": "request_materials",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:d13efaa3de96826098841750",
+            "fact_id": "item_fact:e91a133432b151f9034b5eb7",
+            "item_id": "item:8260a266fd22a6b9512bafea",
+            "operation": "bring",
+            "quantity": 30,
+            "required": 1,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:63b9664a179ef76262305bb0",
+            "location_id": "location:e1c7733423fdbb6f9588a96a",
+            "location_order": null,
+            "role": "waypoint",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:d13efaa3de96826098841750",
+            "npc_id": "npc:ccf0ddc47134723f43b4a398",
+            "role": "talk",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1"
+          }
+        ],
+        "step_order": 3,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 32,
+            "entity_id": "item:8260a266fd22a6b9512bafea",
+            "entity_type": "item",
+            "evidence_id": "ev:8bd2acfc21c4031d801b7ed1",
+            "field": "full_en",
+            "mention_id": "mention:a5887edba9ce12341917ee08",
+            "start_offset": 15,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1",
+            "surface": "Horn of Hillslion"
+          },
+          {
+            "end_offset": 32,
+            "entity_id": "item:8260a266fd22a6b9512bafea",
+            "entity_type": "item",
+            "evidence_id": "ev:8bd2acfc21c4031d801b7ed1",
+            "field": "full_ru",
+            "mention_id": "mention:000c25233ec7cfb8c5901edc",
+            "start_offset": 15,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1",
+            "surface": "Horn of Hillslion"
+          },
+          {
+            "end_offset": 28,
+            "entity_id": "item:8260a266fd22a6b9512bafea",
+            "entity_type": "item",
+            "evidence_id": "ev:8bd2acfc21c4031d801b7ed1",
+            "field": "short_en",
+            "mention_id": "mention:536e08f0ac49c992b7f07761",
+            "start_offset": 11,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1",
+            "surface": "Horn of Hillslion"
+          },
+          {
+            "end_offset": 38,
+            "entity_id": "npc:ccf0ddc47134723f43b4a398",
+            "entity_type": "npc",
+            "evidence_id": "ev:6409ad1fa67593eec9c0b54f",
+            "field": "short_en",
+            "mention_id": "mention:c23b4037edc0d192c051aa05",
+            "start_offset": 32,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1",
+            "surface": "Worker"
+          },
+          {
+            "end_offset": 47,
+            "entity_id": "map:e3c1a047edc2e3e0ebeb2e88",
+            "entity_type": "map",
+            "evidence_id": "ev:d45852ce585f932243f7414a",
+            "field": "short_en",
+            "mention_id": "mention:e5216f0e02acefb2db464ac5",
+            "start_offset": 42,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1",
+            "surface": "Manuk"
+          },
+          {
+            "end_offset": 30,
+            "entity_id": "item:8260a266fd22a6b9512bafea",
+            "entity_type": "item",
+            "evidence_id": "ev:8bd2acfc21c4031d801b7ed1",
+            "field": "short_ru",
+            "mention_id": "mention:cb0407a484a534ded0fcefd8",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1",
+            "surface": "Horn of Hillslion"
+          },
+          {
+            "end_offset": 37,
+            "entity_id": "npc:ccf0ddc47134723f43b4a398",
+            "entity_type": "npc",
+            "evidence_id": "ev:6409ad1fa67593eec9c0b54f",
+            "field": "short_ru",
+            "mention_id": "mention:2346877e99a2b80f65a6b594",
+            "start_offset": 31,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1",
+            "surface": "Worker"
+          },
+          {
+            "end_offset": 45,
+            "entity_id": "map:e3c1a047edc2e3e0ebeb2e88",
+            "entity_type": "map",
+            "evidence_id": "ev:d45852ce585f932243f7414a",
+            "field": "short_ru",
+            "mention_id": "mention:0284432181f66107fe242e3c",
+            "start_offset": 40,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1",
+            "surface": "Manuk"
+          }
+        ],
+        "full_en": "Return with 30 Horn of Hillslion .",
+        "full_ru": "Вернитесь с 30 Horn of Hillslion.",
+        "instruction_sha256": "ce820dea7933d05a78f28926ab0976a41676ff72f73385b3237e57b74c2e5922",
+        "original_instruction": "Return with 30 Horn of Hillslion .",
+        "primary_goal": "deliver",
+        "quest_id": "irowiki-classic:Tribe_Investigation",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Deliver 30 Horn of Hillslion to Worker in Manuk.",
+        "short_ru": "Передайте 30 Horn of Hillslion Worker в Manuk.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:e869eba5120b5581a5e082a4",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "item:8260a266fd22a6b9512bafea",
+            "evidence_id": "ev:f5e404cf0548309872cd2c33",
+            "operation": "deliver",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": null,
+            "evidence_id": "ev:f5e404cf0548309872cd2c33",
+            "fact_id": "item_fact:3bda0f31fa10b5345cb17c0e",
+            "item_id": "item:8260a266fd22a6b9512bafea",
+            "operation": "deliver",
+            "quantity": 30,
+            "required": 1,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:3319d50f307e39c8004161f4",
+            "location_id": "location:e1c7733423fdbb6f9588a96a",
+            "location_order": null,
+            "role": "return",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:3319d50f307e39c8004161f4",
+            "npc_id": "npc:ccf0ddc47134723f43b4a398",
+            "role": "talk",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1"
+          }
+        ],
+        "step_order": 4,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 16,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "entity_type": "npc",
+            "evidence_id": "ev:d7a1ce3ceaef63412ea3df45",
+            "field": "full_en",
+            "mention_id": "mention:7b0d117b52cbd65b1635f2c6",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1",
+            "surface": "Bazett"
+          },
+          {
+            "end_offset": 78,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:78afc4ee7481a2f5e944d9fc",
+            "field": "full_en",
+            "mention_id": "mention:6d7571020434c16e4462b13d",
+            "start_offset": 68,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 18,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "entity_type": "npc",
+            "evidence_id": "ev:d7a1ce3ceaef63412ea3df45",
+            "field": "full_ru",
+            "mention_id": "mention:173aaf399e9a14473efcb511",
+            "start_offset": 12,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1",
+            "surface": "Bazett"
+          },
+          {
+            "end_offset": 84,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:78afc4ee7481a2f5e944d9fc",
+            "field": "full_ru",
+            "mention_id": "mention:f64c53cff67d9b9dc838b873",
+            "start_offset": 74,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 25,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "entity_type": "npc",
+            "evidence_id": "ev:d7a1ce3ceaef63412ea3df45",
+            "field": "short_en",
+            "mention_id": "mention:936156ef93b7fc6561ac7a5b",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1",
+            "surface": "Bazett Teablack"
+          },
+          {
+            "end_offset": 50,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:78afc4ee7481a2f5e944d9fc",
+            "field": "short_en",
+            "mention_id": "mention:a4951293365eb57f2807e3ca",
+            "start_offset": 40,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1",
+            "surface": "Manuk Coin"
+          },
+          {
+            "end_offset": 27,
+            "entity_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "entity_type": "npc",
+            "evidence_id": "ev:d7a1ce3ceaef63412ea3df45",
+            "field": "short_ru",
+            "mention_id": "mention:7d8c17db90f474135a52636b",
+            "start_offset": 12,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1",
+            "surface": "Bazett Teablack"
+          },
+          {
+            "end_offset": 51,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "entity_type": "item",
+            "evidence_id": "ev:78afc4ee7481a2f5e944d9fc",
+            "field": "short_ru",
+            "mention_id": "mention:9448068f705cf841b60c5067",
+            "start_offset": 41,
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1",
+            "surface": "Manuk Coin"
+          }
+        ],
+        "full_en": "Return to Bazett, he thanks you and tells you to go rest. Receive 1 Manuk Coin .",
+        "full_ru": "Вернитесь к Bazett. Он поблагодарит вас и предложит отдохнуть. Получите 1 Manuk Coin.",
+        "instruction_sha256": "34cac708297cb9c013bfd6e23eecddeb7fa1f6de3010e17ae238fcdd429efc98",
+        "original_instruction": "Return to Bazett, he thanks you and tells you to go rest. Receive 1 Manuk Coin .",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Tribe_Investigation",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "",
+        "short_en": "Return to Bazett Teablack and receive 1 Manuk Coin.",
+        "short_ru": "Вернитесь к Bazett Teablack и получите 1 Manuk Coin.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "ordered_list",
+        "source_step": null,
+        "step_actions": [
+          {
+            "action_id": "action:a4376ed0a306c247b75385cf",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+            "evidence_id": "ev:f60ed9384c2e6ce0084344a9",
+            "operation": "receive_reward",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:29a96bc141fe9add3d0a34de",
+            "location_id": "location:577300a0634b03ec3cc9a5a6",
+            "location_order": null,
+            "role": "return",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:f60ed9384c2e6ce0084344a9",
+            "npc_id": "npc:d0609c7e940ea4cbbd21a73c",
+            "role": "talk",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1"
+          }
+        ],
+        "step_order": 5,
+        "step_rewards": [
+          {
+            "reward_id": "reward:3b0a163515f20bb05054a114",
+            "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "dialogue_options": [],
+    "entities": [
+      {
         "entity_id": "item:18fd11e139115bd9cd1077e5",
         "entity_type": "item",
         "evidence_id": "ev:94c2b281fc08d548980f8c59",
@@ -154828,20 +158226,6 @@
         "variant_id": "irowiki-classic"
       },
       {
-        "entity_id": "item:191d95cb53359867f2a64d64",
-        "entity_type": "item",
-        "evidence_id": "ev:092578c35b839abc75ab9a7a",
-        "original_name": "Splendide Coin",
-        "variant_id": "irowiki-classic"
-      },
-      {
-        "entity_id": "item:3fa67d5e7fe5235441f6e984",
-        "entity_type": "item",
-        "evidence_id": "ev:78c4747a8c2f63a4e160f309",
-        "original_name": "Manuk Coin",
-        "variant_id": "irowiki-classic"
-      },
-      {
         "entity_id": "item:6092d857f15b0fe8d854a194",
         "entity_type": "item",
         "evidence_id": "ev:9c37b5792dec403093dd59f1",
@@ -154849,10 +158233,24 @@
         "variant_id": "irowiki-classic"
       },
       {
+        "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
+        "entity_type": "item",
+        "evidence_id": "ev:78c4747a8c2f63a4e160f309",
+        "original_name": "Manuk Coin",
+        "variant_id": "irowiki-classic"
+      },
+      {
         "entity_id": "item:a17cf3dbc209fdc0da36e891",
         "entity_type": "item",
         "evidence_id": "ev:72719156513d3c7bd201db32",
         "original_name": "Bradium",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:b50791533114a5c1a3fdb1f0",
+        "entity_type": "item",
+        "evidence_id": "ev:092578c35b839abc75ab9a7a",
+        "original_name": "Splendide Coin",
         "variant_id": "irowiki-classic"
       },
       {
@@ -155079,7 +158477,7 @@
         "branch_id": null,
         "condition_text": null,
         "evidence_id": "ev:ff47b4cb6ed56ea2f06fb4ca",
-        "item_id": "item:3fa67d5e7fe5235441f6e984",
+        "item_id": "item:7f0bdf51359c5f84c3fa5e75",
         "kind": "item",
         "quest_id": "irowiki-classic:Two_Tribes",
         "reward_id": "reward:72887141c4f8846e4846f9f7"
@@ -155099,7 +158497,7 @@
         "branch_id": null,
         "condition_text": null,
         "evidence_id": "ev:0bffa2953b3a70d7a9bc7d0c",
-        "item_id": "item:191d95cb53359867f2a64d64",
+        "item_id": "item:b50791533114a5c1a3fdb1f0",
         "kind": "item",
         "quest_id": "irowiki-classic:Two_Tribes",
         "reward_id": "reward:e4d63a8a412951d94ca3e27d"
@@ -158964,7 +162362,7 @@
           },
           {
             "end_offset": 56,
-            "entity_id": "item:3fa67d5e7fe5235441f6e984",
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
             "entity_type": "item",
             "evidence_id": "ev:78c4747a8c2f63a4e160f309",
             "field": "full_en",
@@ -158986,7 +162384,7 @@
           },
           {
             "end_offset": 44,
-            "entity_id": "item:3fa67d5e7fe5235441f6e984",
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
             "entity_type": "item",
             "evidence_id": "ev:78c4747a8c2f63a4e160f309",
             "field": "full_ru",
@@ -158997,7 +162395,7 @@
           },
           {
             "end_offset": 21,
-            "entity_id": "item:3fa67d5e7fe5235441f6e984",
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
             "entity_type": "item",
             "evidence_id": "ev:78c4747a8c2f63a4e160f309",
             "field": "short_en",
@@ -159030,7 +162428,7 @@
           },
           {
             "end_offset": 32,
-            "entity_id": "item:3fa67d5e7fe5235441f6e984",
+            "entity_id": "item:7f0bdf51359c5f84c3fa5e75",
             "entity_type": "item",
             "evidence_id": "ev:78c4747a8c2f63a4e160f309",
             "field": "short_ru",
@@ -159138,7 +162536,7 @@
           },
           {
             "end_offset": 125,
-            "entity_id": "item:191d95cb53359867f2a64d64",
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
             "entity_type": "item",
             "evidence_id": "ev:092578c35b839abc75ab9a7a",
             "field": "full_en",
@@ -159193,7 +162591,7 @@
           },
           {
             "end_offset": 126,
-            "entity_id": "item:191d95cb53359867f2a64d64",
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
             "entity_type": "item",
             "evidence_id": "ev:092578c35b839abc75ab9a7a",
             "field": "full_ru",
@@ -159237,7 +162635,7 @@
           },
           {
             "end_offset": 68,
-            "entity_id": "item:191d95cb53359867f2a64d64",
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
             "entity_type": "item",
             "evidence_id": "ev:092578c35b839abc75ab9a7a",
             "field": "short_en",
@@ -159281,7 +162679,7 @@
           },
           {
             "end_offset": 77,
-            "entity_id": "item:191d95cb53359867f2a64d64",
+            "entity_id": "item:b50791533114a5c1a3fdb1f0",
             "entity_type": "item",
             "evidence_id": "ev:092578c35b839abc75ab9a7a",
             "field": "short_ru",

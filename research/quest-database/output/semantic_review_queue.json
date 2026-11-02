@@ -8255,38 +8255,20 @@
       "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/62945cb9912c8faced9b/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Exact Manuk Coin label is present here; its shared ID 6080 is proven by the explicitly pinned Tribe Investigation database link, not guessed from text similarity.",
       "evidence_id": "ev:a1c287dafea6cae90d4e1614",
       "quest_id": "irowiki-classic:Bradium_Collection",
-      "reason": "original_html_missing",
-      "review_id": "review:4d50311b52832db097ba1c16",
+      "reason": "bradium_coin_cross_guide_id",
+      "review_id": "review:df285d85ac7cea3e8a977c9d",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Header/stage 1 request 20 Bradium Fragments without an ID link; stage 2 explicitly links 20 Refined Bradium to item 6090. Their equivalence is unproven: separate source referents are not two additive material sets. Bradium Golems 2024 are loot sources, not a fixed kill quota.",
       "evidence_id": "ev:a1c287dafea6cae90d4e1614",
       "quest_id": "irowiki-classic:Bradium_Collection",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:b519d16b9977621b5e7e015d",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:bfbad847f73f3d017dc1b9b5",
-      "quest_id": "irowiki-classic:Bradium_Collection",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:6bd74bf95ed1156f9890b451",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:58d62b7be6223ef68f251b59",
-      "quest_id": "irowiki-classic:Bradium_Collection",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:5aaf2db097bd54a864eaa014",
+      "reason": "bradium_material_name_conflict",
+      "review_id": "review:9b4b48da69adfb289f0eb154",
       "severity": "warning",
       "step_id": null
     },
@@ -8298,42 +8280,6 @@
       "review_id": "review:3645db11f9fc868202de55d6",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:29be1efdbd0f72fea82d59d8",
-      "quest_id": "irowiki-classic:Bradium_Collection",
-      "reason": "localization_missing",
-      "review_id": "review:7bac590d1319b57ed0e05c52",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:29be1efdbd0f72fea82d59d8",
-      "quest_id": "irowiki-classic:Bradium_Collection",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ebacd9fbd5a174acdce21636",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:00a33f10cb6af11e12ecadf7",
-      "quest_id": "irowiki-classic:Bradium_Collection",
-      "reason": "localization_missing",
-      "review_id": "review:8d8c601cf1cb6906e5b68d62",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:00a33f10cb6af11e12ecadf7",
-      "quest_id": "irowiki-classic:Bradium_Collection",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0cc95fd651874a26e419eaf4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1"
     },
     {
       "detail": "Diamond of Destruction, Diamond of Ruin and Diamond refer to the investigated quest object through this source narrative. The identity is quest-scoped with NULL game ID; these are not asserted universal inventory-name synonyms. 3carat Diamond is a separate verified reward item.",
@@ -9182,38 +9128,11 @@
       "step_id": "irowiki-classic:Chief's_Quest/step/fc338ebfd55d847e6a67/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Both collection floors share one ten-egg total. No Draco monster kill objective, exact egg coordinates or unprinted map codes are inferred. Started Two Tribes with dungeon access does not mean full completion; 24-hour reset origin is unknown.",
       "evidence_id": "ev:ab9714baa39d3200fa7ec4a2",
       "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
-      "reason": "original_html_missing",
-      "review_id": "review:acece7a146863c9424a2fde1",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:ab9714baa39d3200fa7ec4a2",
-      "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:b4413aaa7c343923e96aeb43",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:325d38b83f5b54718c9c2269",
-      "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:0281cb530cea32108751d263",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:12dbe9f90c5ed2f3487d2ecd",
-      "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:14fb4ba62f0b4e66f30bdb46",
+      "reason": "draco_eggs_are_items_not_kills",
+      "review_id": "review:21136cd3b4afb12fa6ab1128",
       "severity": "warning",
       "step_id": null
     },
@@ -9225,60 +9144,6 @@
       "review_id": "review:fdfc280f1c07950a53a09f8d",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7306bdb3067fef0bb1c2ed2a",
-      "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
-      "reason": "localization_missing",
-      "review_id": "review:d8c0c232b4e3c1907b013237",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7306bdb3067fef0bb1c2ed2a",
-      "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b566b691ec32cc7eef396f1e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:89774a0783352bc5321cfb6f",
-      "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
-      "reason": "localization_missing",
-      "review_id": "review:c3641bdfc0c3ee268d1207d1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:89774a0783352bc5321cfb6f",
-      "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8af8a65ea8cef28242bf36c7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b18f6a0982fb46ce244d0f54",
-      "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
-      "reason": "localization_missing",
-      "review_id": "review:4eb7e253fdcef615ef08380b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b18f6a0982fb46ce244d0f54",
-      "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2dd4fc49d17695b097617e0a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1"
     },
     {
       "detail": "Seven omitted combat tables are source-pinned additions. Thresholds are boss HP phases; skill levels, recharge times and accessory bonuses are not item counts.",
@@ -26183,38 +26048,11 @@
       "step_id": "irowiki-classic:Language_Quest/step/fa283a79a54b3f3b0c3d/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Laphine is the source label at this building, not a universal shared NPC identity for every Laphine. Started Two Tribes with dungeon access is distinct from full completion. Cooldown timing origin is not given.",
       "evidence_id": "ev:25ef351007479905e76ee0c3",
       "quest_id": "irowiki-classic:Laphine_Craftsman",
-      "reason": "original_html_missing",
-      "review_id": "review:560c006dd8c711e05a694010",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:25ef351007479905e76ee0c3",
-      "quest_id": "irowiki-classic:Laphine_Craftsman",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:aea99661838f2a18a8bc3141",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:4814c67f538569f51ad82c36",
-      "quest_id": "irowiki-classic:Laphine_Craftsman",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:e0fab488243df3694af9f977",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:9e34eb565fa9ccbfd37329a6",
-      "quest_id": "irowiki-classic:Laphine_Craftsman",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:127c99111d308bd63d22dad8",
+      "reason": "laphine_name_not_generic_shared_actor",
+      "review_id": "review:1540c80375e7bc48a8930a6a",
       "severity": "warning",
       "step_id": null
     },
@@ -26228,48 +26066,21 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:38d90736492093dabc12846a",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:f8126ed4fa40fa1540e89c9a",
       "quest_id": "irowiki-classic:Laphine_Craftsman",
-      "reason": "localization_missing",
-      "review_id": "review:118d1651c5b1d58194f57099",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:38d90736492093dabc12846a",
-      "quest_id": "irowiki-classic:Laphine_Craftsman",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5a167eebc8d7d827cbe621a7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:38d90736492093dabc12846a",
-      "quest_id": "irowiki-classic:Laphine_Craftsman",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:dd70037217f58eb2f385dbbb",
+      "reason": "map_not_reference_known",
+      "review_id": "review:ae10c198f16b6cdf41b4f3d2",
       "severity": "warning",
       "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1"
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:bfc3b664962d3e90e9776608",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:244e1d061adbb9743a8e605e",
       "quest_id": "irowiki-classic:Laphine_Craftsman",
-      "reason": "localization_missing",
-      "review_id": "review:1f2b0b08fe4d326c26e1437e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:bfc3b664962d3e90e9776608",
-      "quest_id": "irowiki-classic:Laphine_Craftsman",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7f33fd58ded63a71106b4f8e",
-      "severity": "blocking",
+      "reason": "map_not_reference_known",
+      "review_id": "review:b412b51b3c81111c5e54553a",
+      "severity": "warning",
       "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1"
     },
     {
@@ -27632,42 +27443,6 @@
       "step_id": "irowiki-classic:Mage_Training_Quest/step/f5f50d1e662c0c64672e/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
-      "evidence_id": "ev:800f5577ef9692b2c5a61be3",
-      "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
-      "reason": "original_html_missing",
-      "review_id": "review:31687e85ad8d34ec339d0311",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:800f5577ef9692b2c5a61be3",
-      "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:a860f7535e9e5c38967a896f",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:d3d17feac363295bf88f9147",
-      "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:33484efc30c5013e781b3df7",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:aa4e1f14cace6da9a0ffeb19",
-      "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:4558f54861288fceb4f19d1e",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
       "evidence_id": "ev:800f5577ef9692b2c5a61be3",
       "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
@@ -27677,58 +27452,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a63cd745ae62090938ac663a",
+      "detail": "The page gives Two Tribes without a Started/Finished qualifier and no repeatability/cooldown notice. Do not copy the 24-hour rule from neighboring repeatables. Kill exactly one Rata and one Duneyrr; coin quantity is not a kill quota.",
+      "evidence_id": "ev:800f5577ef9692b2c5a61be3",
       "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
-      "reason": "localization_missing",
-      "review_id": "review:0812f4930f809d8c3060eb55",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a63cd745ae62090938ac663a",
-      "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0fc01fdf3f87997a588d5125",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ab11b4acb0e50e0d511a30d0",
-      "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
-      "reason": "localization_missing",
-      "review_id": "review:cb6cc6f4e02bb6abe51a8cf5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ab11b4acb0e50e0d511a30d0",
-      "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a0632f15715a28fcab215b44",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:bc3e488dbaffe8d10527b143",
-      "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
-      "reason": "localization_missing",
-      "review_id": "review:9f812699bbab91baf480bd48",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:bc3e488dbaffe8d10527b143",
-      "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fcc3ef8399b16d1695def13b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1"
+      "reason": "suppression_repetition_and_prerequisite_phase_unknown",
+      "review_id": "review:927f4d207b292202f962e890",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -46892,42 +46622,6 @@
       "step_id": "irowiki-classic:Training_Grounds_Novice_Test/step/3958899fc72082d7238c/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
-      "evidence_id": "ev:f41c6371bec946d153241fcd",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "original_html_missing",
-      "review_id": "review:4d02170768e9c5b340a576fd",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:f41c6371bec946d153241fcd",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:3dbf17e8a3fff29bcf0d2085",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:2e65dec8185d8449192deb77",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:e3edd025075f3fb7e65ff5f9",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:7aa733f57b42874a1d31c548",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:c1e4398cfa7965634eb90f2a",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
       "evidence_id": "ev:f41c6371bec946d153241fcd",
       "quest_id": "irowiki-classic:Tribe_Investigation",
@@ -46937,94 +46631,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:732987958be0f24127c19215",
+      "detail": "This page does not state repeatability or a cooldown. Rest wording is not a timed gate. No mandatory giant kills, crafted screw item or EXP reward is invented.",
+      "evidence_id": "ev:f41c6371bec946d153241fcd",
       "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "localization_missing",
-      "review_id": "review:2754ecf61aafefdb07df72b9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:732987958be0f24127c19215",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:cf1cada9874c4c6a0b8491e7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1c8adf1cf57741b007579897",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "localization_missing",
-      "review_id": "review:f4161bab1745d778adf5371e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1c8adf1cf57741b007579897",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:700bef96af5ddad26edf28d2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c090e51512fbdcc8d1270b68",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "localization_missing",
-      "review_id": "review:0216d1587518a4fc2e71efb4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c090e51512fbdcc8d1270b68",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3823f9b1ef2901434999947e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e6028a7fde5585db2b43e94e",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "localization_missing",
-      "review_id": "review:f1372049012f33472843dd58",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e6028a7fde5585db2b43e94e",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:527c3885db2c0afb0f5eaba0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:af3e87604bfe885629897bf4",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "localization_missing",
-      "review_id": "review:956dfbc3f0f5c26369ff46d0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:af3e87604bfe885629897bf4",
-      "quest_id": "irowiki-classic:Tribe_Investigation",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1db1a19a3b7da988b9b8dcbb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1"
+      "reason": "tribe_investigation_not_daily_by_assumption",
+      "review_id": "review:513f58cd7d3775bf841e7022",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "The old final step includes a separate Turn-in Follow-up Quests section. Its three repeatable exchanges are branch-scoped optional recipes per transaction; all main completion grants remain common. No follow-up materials are main requirements.",
@@ -47216,11 +46829,20 @@
       "step_id": null
     },
     {
-      "detail": "This article has no database ID links. Muffler, Bradium and coin labels retain NULL IDs; no ordinary equipment/ore IDs are guessed.",
+      "detail": "Manuk Coin 6080 uses the pinned Tribe Investigation link and Splendide Coin 6081 the pinned Laphine Craftsman link. Exact source labels and Classic scope agree; this resolves only those two IDs and does not infer other item identities.",
+      "evidence_id": "ev:6f3c505fecd1283201b21722",
+      "quest_id": "irowiki-classic:Two_Tribes",
+      "reason": "coins_resolved_by_pinned_cross_guide_links",
+      "review_id": "review:8f7e6928edd9c28cc3515ad8",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "This article has no database ID links. Muffler, Bradium and other unlinked labels retain NULL IDs; coins use explicitly pinned exact database links in other Classic guides.",
       "evidence_id": "ev:6f3c505fecd1283201b21722",
       "quest_id": "irowiki-classic:Two_Tribes",
       "reason": "generic_item_ids_unknown",
-      "review_id": "review:7de5cd31de1088a6322bf6b6",
+      "review_id": "review:ddfda3267b1cfab4405adb73",
       "severity": "warning",
       "step_id": null
     },
