@@ -1,0 +1,233 @@
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Threading;
+using RoAura.Models;
+using RoAura.Services;
+
+namespace RoAura;
+
+public sealed record QuestCategoryChoice(string Caption, string? Key)
+{ public override string ToString() => Caption; }
+public sealed record QuestCatalogListRow(QuestGuide Guide, bool Tracked, bool CanTrack)
+{
+    public string Title => Guide.Title;
+    public string CategoryTag=>LocalizationService.Get("QCategory"+Guide.Category);
+    public string LevelTag=>LocalizationService.Get("QBaseLevel")+" "+(Guide.BaseLevel?.ToString()??LocalizationService.Get("QUnknown"));
+    public string StepsTag=>Guide.Steps.Count+" "+LocalizationService.Get("QSteps");
+}
+
+public partial class QuestsPage : UserControl
+{
+    private QuestWorkspace? _workspace;
+    private Func<CharacterSessionSnapshot>? _observed;
+    private Action? _saveVisuals;
+    private bool _updating;
+    private readonly DispatcherTimer _semanticRefresh=new(){Interval=TimeSpan.FromSeconds(2)};
+    private readonly DispatcherTimer _searchTimer = new() { Interval = TimeSpan.FromMilliseconds(250) };
+    private double _filterLevel = 99;
+    public double FilterLevel { get => _filterLevel; set => _filterLevel = double.IsFinite(value) ? Math.Clamp(value, 1, 1000) : _filterLevel; }
+    public bool CanEdit => _workspace?.CanEdit == true;
+    public QuestsPage()
+    {
+        InitializeComponent();
+        CatalogDetails.GuideRequested += ShowGuide;
+        CatalogDetails.CatalogChanged += Render;
+        _searchTimer.Tick += (_, _) => { _searchTimer.Stop(); Filter(); };
+        _semanticRefresh.Tick+=async(_,_)=>await CatalogDetails.RefreshDataAsync();
+        Loaded += async (_, _) => {_semanticRefresh.Start();await CatalogDetails.RefreshDataAsync(); if (_workspace?.Settings.QuestOverlay.AutoLoadCatalog == true && _workspace.Catalog is null && _workspace?.IsLoadingCatalog == false) await _workspace.LoadCatalogAsync(); Render(); };
+        Unloaded += (_, _) => {_searchTimer.Stop();_semanticRefresh.Stop();};
+    }
+    public void Initialize(QuestWorkspace workspace, Func<CharacterSessionSnapshot> observed, Action saveVisuals)
+    {
+        _workspace = workspace; _observed = observed; _saveVisuals = saveVisuals;
+        WorkspaceRoot.DataContext = workspace;
+        workspace.Changed += Render;
+
+        Render();
+    }
+    public void Detach()
+    {
+        _searchTimer.Stop();_semanticRefresh.Stop();
+        if (_workspace is null) return;
+        _workspace.Changed -= Render;
+
+    }
+    private static string T(string key) => LocalizationService.Get(key);
+    private void Render()
+    {
+        if (_workspace is null) return;
+        _updating = true;
+        try
+        {
+            var category = (CategoryChoice.SelectedItem as QuestCategoryChoice)?.Key;
+            ProfileChoice.ItemsSource = _workspace.ProfileChoices();
+            ProfileChoice.SelectedItem = ((IReadOnlyList<QuestProfileChoice>)ProfileChoice.ItemsSource).FirstOrDefault(p => p.Key == _workspace.ManualProfile);
+            CategoryChoice.ItemsSource = new[] { new QuestCategoryChoice(T("QAllCategories"), null) }.Concat(
+                ReadyGuides().Select(q => q.Category).Distinct().OrderBy(x => x)
+                    .Select(c => new QuestCategoryChoice(T("QCategory" + c), c)) ).ToArray();
+            CategoryChoice.SelectedItem = ((IEnumerable<QuestCategoryChoice>)CategoryChoice.ItemsSource).FirstOrDefault(c => c.Key == category)
+                ?? ((IEnumerable<QuestCategoryChoice>)CategoryChoice.ItemsSource).First();
+            ActiveEmpty.Visibility = _workspace.Active.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            HistoryEmpty.Visibility = _workspace.History.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            CatalogDetails.Render(_workspace);
+            Filter();
+        }
+        finally { _updating = false; }
+    }
+    private IReadOnlyList<QuestGuide> ReadyGuides()=>QuestReadyCatalog.Build(CatalogDetails.ReadyCatalog,_workspace?.Catalog);
+    private void Filter()
+    {
+        if (_workspace is null) return;
+        var old = _updating; _updating = true;
+        try
+        {
+            var rows = new QuestCatalog(ReadyGuides()).Search(SearchInput.Text, (CategoryChoice.SelectedItem as QuestCategoryChoice)?.Key,
+                UseLevel.IsChecked == true ? (int)FilterLevel : null).Select(g => new QuestCatalogListRow(g, _workspace.IsActive(g), _workspace.CanEdit && _workspace.Catalog?.Guides.GetValueOrDefault(g.Key)==g && g.Steps.Count > 0)).ToList();
+            CatalogList.ItemsSource = rows;
+            CatalogList.SelectedItem = rows.FirstOrDefault(r => r.Guide.Key == _workspace.SelectedGuide?.Key);
+            CatalogEmpty.Visibility = rows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+        }
+        finally { _updating = old; }
+    }
+    private void Track_Click(object sender, RoutedEventArgs e)
+    { if (sender is Button { DataContext: QuestCatalogListRow row }) { _workspace?.ToggleTracking(row.Guide); e.Handled=true; } }
+    private void Guide_Changed(object sender, SelectionChangedEventArgs e)
+    { if (!_updating && _workspace is not null && CatalogList.SelectedItem is QuestCatalogListRow row) _workspace.SelectedGuide = row.Guide; }
+    private void Search_Changed(object sender, TextChangedEventArgs e) { _searchTimer.Stop(); _searchTimer.Start(); }
+    private void Filter_Changed(object sender, SelectionChangedEventArgs e) { if (!_updating) Filter(); }
+    private void Filter_Click(object sender, RoutedEventArgs e) => Filter();
+    private void Level_Changed(object sender, KeyboardFocusChangedEventArgs e) => Filter();
+    private void Level_KeyUp(object sender, KeyEventArgs e) { if (e.Key == Key.Enter) Filter(); }
+    private async void Profile_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if (!_updating && _workspace is not null && ProfileChoice.SelectedItem is QuestProfileChoice choice &&
+            (choice.Key is null || string.Equals(choice.Key.Server, _workspace.Settings.ServerProfile, StringComparison.OrdinalIgnoreCase)))
+            await _workspace.SelectProfileAsync(choice.Key, _observed!());
+    }
+    private async void Reload_Click(object sender, RoutedEventArgs e) { if (_workspace is not null) await _workspace.LoadCatalogAsync(); }
+    private async void Save_Click(object sender, RoutedEventArgs e) { if (_workspace is not null) {await _workspace.SaveAndRefreshAsync(_observed!());if(QuestTabs.SelectedIndex==3)CatalogDetails.ReportSave(string.IsNullOrEmpty(_workspace.Error));} }
+    private void Visibility_Click(object sender, RoutedEventArgs e)
+    { if (sender is CheckBox { DataContext: QuestListRow row } box) _workspace?.SetVisibility(row, box.IsChecked == true); }
+    private void QuestAction_Click(object sender, RoutedEventArgs e)
+    {
+        if (_workspace is null || sender is not Button { Tag: string action, DataContext: QuestListRow row }) return;
+        switch (action)
+        {
+            case "prev": _workspace.Move(row, -1); break;
+            case "next": _workspace.Move(row, 1); break;
+            case "more": ShowGuide(row.Guide); break;
+            case "up": _workspace.Reorder(row, -1); break;
+            case "down": _workspace.Reorder(row, 1); break;
+            case "pause": _workspace.SetState(row, QuestManualState.Paused); break;
+            case "remove": _workspace.SetState(row, QuestManualState.Removed); break;
+            case "restore": _workspace.SetState(row, QuestManualState.Active); break;
+            case "complete":
+                if (MessageBox.Show(Window.GetWindow(this), T("QCompleteConfirm"), "ROQuestie", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    _workspace.SetState(row, QuestManualState.Completed, true);
+                break;
+        }
+    }
+    public void ShowGuide(RoAura.Models.QuestGuide? guide)
+    { if (_workspace is null) return; CatalogDetails.ResetSemanticChoice(); _workspace.SelectedGuide=guide; QuestTabs.SelectedIndex=3; CatalogDetails.ShowCurrentStep(); }
+    private void OpenGuide_Click(object sender,RoutedEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
+    private void OpenGuide_DoubleClick(object sender,MouseButtonEventArgs e)=>ShowGuide(_workspace?.SelectedGuide);
+    internal ComboBox ReadyQuestChoice=>CatalogDetails.QuestChoice;
+    internal bool CopyToastVisible=>CatalogDetails.CopyToastVisible;
+    internal Button? CurrentNavigationButton=>CatalogDetails.CurrentNavigationButton;
+    internal bool CurrentStepInView=>CatalogDetails.CurrentStepInView;
+    public void FocusSearch() {if(QuestTabs.SelectedIndex==0)SearchInput.Focus();}
+    internal void ShowFacts(RoAura.Models.QuestGuide guide) {ShowGuide(guide);CatalogDetails.ShowFacts();}
+    internal async Task ValidateSmokeAsync(QuestWorkspace workspace)
+    {
+        _workspace = workspace;
+        await CatalogDetails.RefreshDataAsync(true);
+        SearchInput.Text="";_searchTimer.Stop();Filter();
+        if(CatalogList.Items.Count!=CatalogDetails.ReadyCatalog?.Quests.Count)throw new InvalidOperationException("Catalog and walkthrough readiness disagree.");
+        SearchInput.Text = "Lost Child"; _searchTimer.Stop(); Filter();
+        if (CatalogList.Items.Count != 1) throw new InvalidOperationException("Quest title search failed.");
+        CatalogList.SelectedIndex = 0;
+        await CatalogDetails.RefreshDataAsync(true);
+        CatalogDetails.Render(workspace);
+        if (!CatalogDetails.HasStepCount(13)) throw new InvalidOperationException("Quest details lost source instructions.");
+        CatalogDetails.ValidateSelectionSmoke();
+        var output = Environment.GetEnvironmentVariable("ROAURA_QUEST_UI_SNAPSHOTS");
+        if (string.IsNullOrWhiteSpace(output)) return;
+        Directory.CreateDirectory(output);
+        foreach (var language in new[] { "ru", "en" })
+        {
+            workspace.Settings.Language = language;
+            LocalizationService.ApplyLanguage(language); workspace.RefreshLanguage();
+            foreach (var scale in new[] { 1d, 1.25d, 1.5d })
+            {
+                QuestTabs.SelectedIndex = 0;
+                await SaveSnapshot(output, language + "-catalog-" + (int)(scale * 100), scale);
+            }
+            foreach (var (tab, name) in new[] { (1, "active"), (2, "history"), (3, "walkthrough") })
+            {
+                QuestTabs.SelectedIndex = tab;
+                await SaveSnapshot(output, language + "-" + name, 1);
+            }
+        }
+        var restore=workspace.SelectedGuide;
+        if(workspace.Catalog?.Guides.GetValueOrDefault("irowiki-classic:Ayothaya_Dungeon_Entrance_Quest") is {} ayothaya)
+        {
+            ShowGuide(ayothaya);workspace.ToggleTracking(ayothaya);workspace.SelectStep(2);
+            workspace.SetStepDone(ayothaya,ayothaya.Steps[0],true);
+            foreach(var language in new[]{"ru","en"})
+            {
+                workspace.Settings.Language=language;LocalizationService.ApplyLanguage(language);workspace.RefreshLanguage();
+                CatalogDetails.ShowCurrentStep();UpdateLayout();
+                await SaveSnapshot(output,language+"-ayothaya-semantic",1);
+                await SaveSnapshot(output,language+"-ayothaya-dark",1,false,1450,900,"Dark");
+                CatalogDetails.ShowFacts();
+                await SaveSnapshot(output,language+"-ayothaya-facts",1,true,1450,900);
+            }
+            workspace.ToggleTracking(ayothaya);workspace.SelectedGuide=restore;CatalogDetails.ShowCurrentStep();
+        }
+        foreach(var (key,number,name) in new[]{("irowiki-classic:Cursed_Spirit_Quest",2,"cursed-coordinates"),("irowiki-classic:Biolabs_Entrance_Quest",20,"biolabs-answers")})
+        {
+            if(workspace.Catalog?.Guides.GetValueOrDefault(key) is not {} example)continue;
+            ShowGuide(example);workspace.ToggleTracking(example);workspace.SelectStep(number);CatalogDetails.ShowCurrentStep();UpdateLayout();
+            CatalogDetails.ValidateDetailLayoutSmoke();
+            await SaveSnapshot(output,name,1,false,1450,900);
+            if(name=="cursed-coordinates")
+            {
+                workspace.Settings.Language="ru";LocalizationService.ApplyLanguage("ru");workspace.RefreshLanguage();
+                CatalogDetails.ShowFacts();await SaveSnapshot(output,"ru-cursed-facts",1,true,1450,1000);
+                await SaveSnapshot(output,"ru-cursed-facts-dark",1,true,1450,1000,"Dark");
+                workspace.Settings.Language="en";LocalizationService.ApplyLanguage("en");workspace.RefreshLanguage();
+            }
+            workspace.ToggleTracking(example);
+        }
+        workspace.SelectedGuide=restore;CatalogDetails.ShowCurrentStep();
+        await workspace.FlushAsync();
+    }
+    private async Task SaveSnapshot(string directory, string name, double scale,bool facts=false,double width=840,double height=560,string? theme=null)
+    {
+        // A detached view cannot be re-arranged by MainWindow's larger parent slot.
+        // Equivalent pixel densities are not real mixed-monitor OS DPI acceptance.
+        var view = new QuestsPage();
+        AppearanceService.ApplyPalette(view,theme??AppearanceService.Resolve(_workspace!.Settings.ApplicationTheme,_workspace.Settings.GameOverlayTheme,true));
+        view.Initialize(_workspace!, () => default, () => { });
+        await view.CatalogDetails.RefreshDataAsync();
+        try
+        {
+            view.SearchInput.Text = SearchInput.Text; view._searchTimer.Stop(); view.Filter();
+            view.QuestTabs.SelectedIndex = QuestTabs.SelectedIndex;
+            view.Measure(new Size(width, height)); view.Arrange(new Rect(0, 0, width, height)); view.UpdateLayout();
+            if(view.QuestTabs.SelectedIndex==3){view.CatalogDetails.ShowCurrentStep();if(facts)view.CatalogDetails.ShowFacts();}
+            await view.Dispatcher.InvokeAsync(()=>{},DispatcherPriority.ContextIdle);
+            view.UpdateLayout();
+            var bitmap = new System.Windows.Media.Imaging.RenderTargetBitmap((int)(width * scale), (int)(height * scale), 96 * scale, 96 * scale, PixelFormats.Pbgra32);
+            bitmap.Render(view);
+            var encoder = new System.Windows.Media.Imaging.PngBitmapEncoder();
+            encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bitmap));
+            using var file = File.Create(Path.Combine(directory, name + ".png")); encoder.Save(file);
+        }
+        finally { view.Detach(); }
+    }
+
+}

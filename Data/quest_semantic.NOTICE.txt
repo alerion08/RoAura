@@ -1,0 +1,21 @@
+ROQuestie semantic reference snapshot — schema 5
+
+Source: alerion08/RoAura research/quest-database
+Pinned revision: e3206beccbdd414c6d6f31d146d168247634c578
+SQLite SHA256: af4de49aa11587dc6ec971aa019c6ff60e6ed4aa3fee802c61282db65ac7091d
+
+Original guide text: iRO Wiki Classic contributors, https://irowiki.org/classic/
+The sources table retains original URLs, revisions and license fields.
+Consult the source page for its applicable attribution/license notices.
+Structured facts retain evidence and source IDs; manual descriptions do not
+create a server-verified route. Description readiness and server verification
+are separate. User progress is never stored in the distributed SQLite file.
+
+This reference compilation and its adapted RU/EN guide text are distributed under
+GNU Free Documentation License 1.3 or later, with no Invariant Sections, no
+Front-Cover Texts and no Back-Cover Texts. See GFDL-1.3.txt and QUEST_SOURCES.txt.
+Original guide authors: iRO Wiki contributors; page and revision history links
+are retained in the source index and SQLite. Adaptation: RoAura contributors,
+2026 (structured facts, localized short/full descriptions and display comments).
+The SQLite is the editable, machine-readable source form of this data compilation.
+Source records and evidence remain available; this is not server certification.

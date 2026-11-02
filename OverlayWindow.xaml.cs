@@ -1411,7 +1411,9 @@ public partial class OverlayWindow : Window
         // clients can silently move their own HWND ahead of us in the topmost
         // band without changing our WS_EX_TOPMOST flag. Reissuing this
         // non-activating call is what keeps the click-through overlay visible.
-        SetWindowPos(hwnd, HwndTopmost, 0, 0, 0, 0,
+        var browser = Application.Current?.Windows.OfType<QuestBrowserWindow>().FirstOrDefault(w=>w.IsVisible);
+        var after = browser is null ? HwndTopmost : new WindowInteropHelper(browser).Handle;
+        SetWindowPos(hwnd, after, 0, 0, 0, 0,
             SwpNoMove | SwpNoSize | SwpNoActivate);
         _isTopmost = true;
     }
@@ -1511,11 +1513,11 @@ public partial class OverlayWindow : Window
         {
             var gameIsForeground = ForegroundProcess.IsForegroundAllowed(_settings.AllowedProcesses);
             var controlWindows = Application.Current?.Windows.OfType<Window>()
-                .Where(window => window != this && window is not DatabaseOverlayWindow && window is not DatabaseDetailWindow &&
+                .Where(window => window != this && (window is not QuestPassiveWindow || window is QuestPassiveWindow {IsTargetChooser:true}) &&
                     window.IsVisible && window.WindowState != WindowState.Minimized).ToArray() ?? [];
             var settingsIsForeground = controlWindows.Any(window =>
                 ForegroundProcess.IsForegroundWindow(new WindowInteropHelper(window).Handle));
-            UpdateSettingsOcclusion(settingsIsForeground ? controlWindows : []);
+            UpdateSettingsOcclusion((settingsIsForeground ? controlWindows : controlWindows.Where(w=>w is DatabaseOverlayWindow or DatabaseDetailWindow || w is QuestPassiveWindow {IsTargetChooser:true})).Where(w=>w is not QuestBrowserWindow));
             if (gameIsForeground)
             {
                 if (!IsVisible) Show();

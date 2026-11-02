@@ -55,7 +55,7 @@ public sealed class MarketWatchStar : Button
         var existing = _settings?.MarketWatchRules.FirstOrDefault(r => r.ItemId == id);
         var active = existing?.Enabled == true;
         Opacity = active ? 1 : .4;
-        Foreground = new SolidColorBrush(Color.FromRgb(15, 48, 102));
+        SetResourceReference(ForegroundProperty,"UiForeground_0F3066");
         ToolTip = LocalizationService.Get(active ? "WatchStop" : existing is not null ? "WatchResume" : "WatchAddTitle");
     }
 }

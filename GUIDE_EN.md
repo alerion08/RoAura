@@ -1,4 +1,4 @@
-# RoAura 3.2.0 — user guide
+# RoAura 3.3.0 — user guide
 
 ## Gold Goblin
 
@@ -182,3 +182,12 @@ no selection means all characters. Start RoAura before map login to observe CID.
 ToC provides an offline catalog, MVP data and NPC/manual Gold Goblin valuation; Market is
 SpringRO-only. The Home packet switch stops capture and disables dependent sections while
 leaving offline Database and manual timers available. Packet reading may conflict with server rules.
+
+
+## ROQuestie
+
+F6 opens the quest browser; F5 toggles the compact tracker. Catalog entries require fully prepared RU/EN descriptions. Select step chooses the current instruction; checkboxes confirm completion. Coordinate and answer buttons copy text without sending game input. The tracker displays at most five quests. Select a character/local profile to save progress. Quest settings include optional automatic catalog loading and tracker appearance.
+
+## Light and dark appearance
+
+Settings → Appearance independently selects the application theme and the game-window theme (Follow application / Light / Dark). Changes apply immediately. Custom transparent HUD colors, opacity and positions are preserved.

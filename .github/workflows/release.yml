@@ -57,13 +57,50 @@ jobs:
           python tools/inspect_toc_database.py Data/database.toc.sqlite
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: Prepare pinned ROQuestie consumer for reader tests
+        shell: python
+        run: |
+          import hashlib, os, pathlib, subprocess
+          revision = '41bfc483311fa0e24ee84d1b1edcb0b4558914bd'
+          subprocess.run(['git', 'fetch', '--depth=1', 'origin', revision], check=True)
+          payload = subprocess.check_output(['git', 'show', revision + ':research/quest-database/output/questie_catalog.sqlite'])
+          assert hashlib.sha256(payload).hexdigest() == '7c89954c66b90603467ee4b645979fe4bad46ff0003ebaf9073e32c18d748745'
+          (pathlib.Path(os.environ['RUNNER_TEMP']) / 'questie_catalog.sqlite').write_bytes(payload)
+          pathlib.Path('Data/questie_catalog.sqlite').write_bytes(payload)
+          semantic_revision = 'e3206beccbdd414c6d6f31d146d168247634c578'
+          subprocess.run(['git', 'fetch', '--depth=1', 'origin', semantic_revision], check=True)
+          semantic = subprocess.check_output(['git', 'show', semantic_revision + ':research/quest-database/output/quest_semantic.sqlite'])
+          assert hashlib.sha256(semantic).hexdigest() == 'af4de49aa11587dc6ec971aa019c6ff60e6ed4aa3fee802c61282db65ac7091d'
+          pathlib.Path('Data/quest_semantic.sqlite').write_bytes(semantic)
+
       - name: Run logic tests
+        env:
+          ROAURA_QUEST_SEMANTIC_TEST_PATH: ${{ format('{0}/Data/quest_semantic.sqlite', github.workspace) }}
+          ROAURA_QUEST_CATALOG_TEST_PATH: ${{ format('{0}/questie_catalog.sqlite', runner.temp) }}
         shell: pwsh
         run: dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release
 
       - name: Build portable package and installer
+        env:
+          ROAURA_QUEST_UI_SNAPSHOTS: ${{ format('{0}/artifacts/roquestie-ui', github.workspace) }}
         shell: pwsh
         run: .\build-installer.ps1
+
+      - name: Verify installed database payload
+        shell: pwsh
+        run: |
+          [xml]$project = Get-Content -Raw .\RoAura.csproj
+          $version = [string]$project.Project.PropertyGroup.Version
+          $installRoot = Join-Path $env:RUNNER_TEMP 'RoAura-install-check'
+          $setup = Start-Process -FilePath (Resolve-Path ".\artifacts\RoAura-$version-Setup.exe") -ArgumentList @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', "/DIR=`"$installRoot`"") -PassThru
+          if (-not $setup.WaitForExit(60000)) { Stop-Process -Id $setup.Id -Force; throw 'Installer verification timed out.' }
+          if ($setup.ExitCode -ne 0) { throw "Installer failed: $($setup.ExitCode)" }
+          foreach ($file in @('database.toc.sqlite', 'questie_catalog.sqlite', 'quest_semantic.sqlite', 'quest_fact_comments.ru.json', 'GFDL-1.3.txt', 'GPL-3.0.txt', 'QUEST_SOURCES.txt', 'questie_catalog.NOTICE.txt', 'quest_semantic.NOTICE.txt')) {
+            $installed = Join-Path $installRoot "Data/$file"
+            if (-not (Test-Path $installed -PathType Leaf)) { throw "Installer is missing Data/$file" }
+            $expected = (Get-FileHash ".\artifacts\publish\Data\$file" -Algorithm SHA256).Hash
+            if ((Get-FileHash $installed -Algorithm SHA256).Hash -ne $expected) { throw "Installed file differs: $file" }
+          }
 
       - name: Verify clean release contents
         shell: pwsh
@@ -77,6 +114,11 @@ jobs:
             '.\artifacts\publish\Data\item-prices.springro.json',
             '.\artifacts\publish\Data\database.toc.sqlite',
             '.\artifacts\publish\Data\database.toc.manifest.json',
+            '.\artifacts\publish\Data\questie_catalog.sqlite',
+            '.\artifacts\publish\Data\quest_semantic.sqlite',
+            '.\artifacts\publish\Data\quest_fact_comments.ru.json',
+            '.\artifacts\publish\Data\GFDL-1.3.txt',
+            '.\artifacts\publish\Data\QUEST_SOURCES.txt',
             ".\artifacts\RoAura-$version-portable.zip",
             ".\artifacts\RoAura-$version-Setup.exe"
           )
@@ -132,6 +174,13 @@ jobs:
           path: |
             artifacts/*-Setup.exe
             artifacts/SHA256SUMS.txt
+          if-no-files-found: error
+
+      - name: Upload UI validation snapshots
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: RoAura-ui-${{ github.run_number }}-${{ github.sha }}
+          path: artifacts/roquestie-ui/*.png
           if-no-files-found: error
 
       - name: Create version tag from main

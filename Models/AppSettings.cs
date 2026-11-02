@@ -23,11 +23,14 @@ public sealed class AppSettings : INotifyPropertyChanged
     private double _notificationSize = 72;
     private double _notificationGap = 10;
     private string _language = "ru";
+    private string _applicationTheme="Light",_gameOverlayTheme="Application";
     private string _settingsHotkey = "F8";
     private string _overlaysHotkey = "F9";
     private string _finishMoveHotkey = "Escape";
     private string _timersHotkey = "F10";
     private string _databaseHotkey = "F7";
+    private string _questBrowserHotkey = "F6";
+    private string _questTrackerHotkey = "F5";
     private double _marketBackgroundRefreshMinutes = 10;
     private int _marketWatchHistoryRetentionDays = 30;
     private bool _timersOverlayVisible = true;
@@ -82,12 +85,17 @@ public sealed class AppSettings : INotifyPropertyChanged
     public double NotificationY { get => _notificationY; set => Set(ref _notificationY, value); }
     public double NotificationSize { get => _notificationSize; set => Set(ref _notificationSize, Math.Clamp(value, 40, 180)); }
     public double NotificationGap { get => _notificationGap; set => Set(ref _notificationGap, Math.Clamp(value, 0, 40)); }
+    public string ApplicationTheme {get=>_applicationTheme;set=>Set(ref _applicationTheme,Services.AppearanceService.NormalizeApplication(value));}
+    public string GameOverlayTheme {get=>_gameOverlayTheme;set=>Set(ref _gameOverlayTheme,Services.AppearanceService.NormalizeOverlays(value));}
     public string Language { get => _language; set => Set(ref _language, value is "en" ? "en" : "ru"); }
     public string SettingsHotkey { get => _settingsHotkey; set => Set(ref _settingsHotkey, NormalizeHotkey(value, "F8")); }
     public string OverlaysHotkey { get => _overlaysHotkey; set => Set(ref _overlaysHotkey, NormalizeHotkey(value, "F9")); }
     public string FinishMoveHotkey { get => _finishMoveHotkey; set => Set(ref _finishMoveHotkey, NormalizeHotkey(value, "Escape")); }
     public string TimersHotkey { get => _timersHotkey; set => Set(ref _timersHotkey, NormalizeHotkey(value, "F10")); }
     public string DatabaseHotkey { get => _databaseHotkey; set => Set(ref _databaseHotkey, NormalizeHotkey(value, "F7")); }
+    public string QuestBrowserHotkey { get => _questBrowserHotkey; set => Set(ref _questBrowserHotkey, NormalizeHotkey(value,"F6")); }
+    public string QuestTrackerHotkey { get => _questTrackerHotkey; set => Set(ref _questTrackerHotkey, NormalizeHotkey(value,"F5")); }
+    [JsonIgnore] public bool QuestHotkeyConflict { get { var enabled=Services.QuestHotkeys.Enabled(this); return !enabled.Browser || !enabled.Tracker; } }
     public int MarketWatchHistoryRetentionDays
     {
         get => _marketWatchHistoryRetentionDays;
@@ -183,6 +191,7 @@ public sealed class AppSettings : INotifyPropertyChanged
         set => AllowedProcesses = (value ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
     public ObservableCollection<CharacterProfile> Characters { get; set; } = [];
+    public QuestOverlaySettings QuestOverlay { get; set; } = new();
     public ObservableCollection<NavigationPreference> NavigationSections { get; set; } = new(
         Enum.GetValues<AppFeature>().Where(f => f is not (AppFeature.Home or AppFeature.Settings))
             .Select(f => new NavigationPreference { Feature = f }));
@@ -363,5 +372,7 @@ public sealed class AppSettings : INotifyPropertyChanged
         if (EqualityComparer<T>.Default.Equals(field, value)) return;
         field = value;
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        if (propertyName?.EndsWith("Hotkey", StringComparison.Ordinal) == true)
+            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(QuestHotkeyConflict)));
     }
 }

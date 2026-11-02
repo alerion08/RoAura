@@ -224,3 +224,359 @@ Before merging to `main` or publishing:
 - [ ] Header Settings button replaces hotkey legend; no Settings sidebar entry. Return to each sidebar section works.
 - [ ] Overlay help cards share Equipment's border/icon/padding/text color in RU and EN.
 - [ ] About icon remains colored across server and packet-switch changes.
+
+## ROQuestie stage 2
+
+- [ ] Quests follows Database; compact sidebar retains every destination; Settings
+      still opens from the header and About remains colored.
+- [ ] RTM/SpringRO/ToC/Other, packets off: Quests is readable and enabled.
+- [ ] Catalog missing/corrupt/unsupported: only Quests reports an error; retry works.
+- [ ] Original-title search, provisional categories, unknown/known level filters;
+      Lost Child shows 13 original rows and Friendship 14, including source details.
+- [ ] Unknown CID needs explicit profile choice; manual mode is clearly labeled.
+      Switch CID/server/relog; immutable detected server and aliases do not mix state.
+- [ ] Prev/Next/More, reorder, visibility, pause/remove, confirmed manual completion,
+      history and restore retain each quest's independent position through restart.
+- [ ] Save failure/backup-only recovery: no silent overwrite, no unsaved scope/exit
+      loss; explicit retry remains possible.
+- [ ] Schema 13 -> 14 and presets preserve all old overlay coordinates, exact
+      equipment data and external quest progress; only quest visuals follow presets.
+- [ ] RU/EN empty/loading/error/populated states at minimum window size; actual
+      Windows 100/125/150% and long guide names. CI PNGs are supporting evidence only.
+- [ ] Settings preview remains inside RoAura; game overlay/drag/F9/navi acceptance
+      stays pending for stages 3/4, without changing existing overlay behavior.
+
+## ROQuestie two game windows (owner priority override)
+
+- [ ] Main Quests section has settings only; no main-app quest search dependency.
+- [ ] F6 browser and F5 tracker toggle independently; remapping/presets and new-key
+      conflicts preserve legacy F7/F8/F9/F10/finish assignments.
+- [ ] Browser catalog/active/history/full-width walkthrough work over the exact
+      game client; More highlights that quest's current instruction.
+- [ ] Combined requirements/rewards has clear source-labeled blocks/lists/values;
+      unknown text, numeric separators, branches and original source remain intact.
+- [ ] Tracker Prev/Next affect only that quest; no automatic completion. Navi copy
+      identifies wiki uncertainty and requires a choice for multiple targets.
+- [ ] Real OS clicks on tracker buttons do not activate it or reach the game;
+      text, blank margins and transparent corners pass through to the game.
+- [ ] Ctrl/Shift/Alt/Windows, movement, typing, F9 and finish-drag remain usable.
+      Browser typing stays in browser; close returns to the exact game HWND.
+- [ ] Settings, Database and native/modal dialogs are not covered by tracker
+      buttons; ordinary overlays are not hidden by the passive full-client HWND.
+- [ ] Resize/minimize/client switch, mixed/negative monitors and 100/125/150% DPI
+      retain every saved coordinate. Dragging/resizing saves only explicit changes.
+- [ ] Cross-client automatic CID stays suspended until a fresh observed session;
+      manual profile stays explicit; logout/server switch never inherits old state.
+- [ ] Run fake-game CI input checks and inspect native captures. Separately test
+      actual SpringRO protected/fullscreen, 2K, multi-client/relog and paste navi.
+
+## ROQuestie interaction refinements (2026-10-30, feature only)
+
+Owner feedback: one ROQuestie tracker header owns the only drag handle. Quest rows
+keep Prev/Next/More/navi and replace their drag handle with Done. Done is explicit
+manual confirmation: advances one instruction or completes the last and moves to
+history. Navigation alone still never completes. Missing/review/readonly/inactive
+rows and stale step actions cannot confirm. Progress/history stays per server/CID.
+Catalog stars toggle active tracking without deleting saved progress; reactivation
+retains the instruction and restores tracker visibility. Active is dark blue,
+inactive light gray/translucent. Exact unambiguous catalog titles in facts become
+internal quest links; unknown/ambiguous names remain original text.
+Catalog status/reload belongs in RoAura quest settings only. Game browser has
+larger edge spacing; navi chooser has rounded border and internal padding.
+Tests cover confirmation, history persistence/isolation, stars and literal links;
+native input smoke now selects header/quest surfaces by action and checks Done
+and the rounded multi-target chooser. CI fake client fits the desktop for captures.
+Automated verification: 294 tests and eight ToC checks pass; real-game acceptance remains open.
+
+- [ ] Real SpringRO: header-only drag; Done/last-step history; star toggle/restore; internal quest links; rounded navi chooser; settings-only catalog reload.
+
+## ROQuestie feedback and current-step navigation (2026-10-30)
+
+Feature-only owner feedback: the details Active button now toggles tracking via
+the same progress-preserving action as a catalog star. Navi success is per entry
+and current instruction: four seconds of green/white checkmark, including hover;
+no repeated copied-command text in tracker cards. A map-pin glyph replaces Wiki
+while the tooltip retains source uncertainty. DescriptionLines defaults to 3,
+clamps to 1–20 and participates in settings/presets and the live preview.
+Explicit quoted input or short literal capitalized names after "type in" receive
+Copy text/Copy controls in walkthrough/tracker. Variable passwords, menu choices
+and research candidate answers are not inferred or promoted to verified progress.
+More always selects Walkthrough, updates layout and scrolls to the active row,
+even after the same guide was left on Facts. Native smoke checks this path and
+successful navi feedback. Automated validation passed on c6065b2 (302 tests, eight ToC checks, Windows portable startup);
+real SpringRO/DPI/input acceptance remains manual.
+
+## ROQuestie action occlusion and detail navigation (2026-10-30)
+
+Owner-reported disappearing tracker buttons were caused by whole-strip hiding
+when the browser/settings intersected only its transparent edge. Action content
+now uses a render/input alpha clip for covered pixels only; uncovered buttons
+remain visible. Existing game bounds, visibility toggles and passive focus remain.
+Walkthrough literal usable map points are coordinate-labeled copy buttons using
+the same filtered /navi command and success feedback; Other remains reference-only.
+Coordinate warning prose is removed from point labels/tooltips/chooser. Original
+catalog/source assurance is retained internally; no new server verification claim.
+Regression smoke checks clipped painted button centers rather than demanding
+nonintersecting transparent HWND rectangles. Windows validation passed: 303 tests, eight ToC checks and portable startup; real-game acceptance remains open.
+
+## ROQuestie emphasis, compact actions and database priority (2026-10-30)
+
+Owner priority: catalog is a general quest reference. Availability-on-server
+labels are removed from catalog and details without rewriting source assurance.
+Explicit answer literals use bold purple; exact bundled item names use bold green,
+with source text preserved. Unknown names are not inferred. The tracker uses
+lighter colors over the game; walkthrough uses darker colors on its light cards.
+Step navigation buttons share a compact wrapping row (22 DIP, minimal padding).
+Step selection/copy buttons share their own wrapping row. No category headings.
+MaxTrackedQuests is 1–50 (default 20, preserving practical screen-fit behavior),
+saved with visuals/presets; extra quests stay active and accessible in the browser.
+Database search/details permanently occlude lower tracker and ordinary/statistics
+pixels while visible, even with game focus. No capture/parser changes or window
+ownership; shared clipping keeps other visible areas and input behavior intact.
+Native smoke checks quest limit and database priority for tracker/statistics;
+focused tests cover literal emphasis/source preservation and limit persistence.
+Automated validation passed: 305 tests, eight ToC checks and Windows portable startup; actual SpringRO/mixed-DPI acceptance remains open.
+
+## ROQuestie copied feedback, collapsed tracker and step marks (2026-10-31)
+
+Owner feedback supersedes earlier checkmarks/20-row tracker behavior. Navi has a
+64-DIP width and green white-text copied state. Coordinate/text copy buttons restore
+the exact original caption/template after four seconds; repeated clicks restart the
+timer. Tracker feedback is scoped to its entry/step and survives card rebuilds.
+Active-list reorder controls move to the top right; Prev/Next are removed there,
+More shares the lower action row. Tracker Prev/Next remain independent.
+MaxTrackedQuests clamps legacy values to 1–5 (default 5). Excess visible active
+quests are reachable with a separate persistent nonactivating vertical scrollbar;
+card rebuilds do not destroy its captured thumb. Screen-fit may expose fewer rows
+on small clients, with overflow still reachable. Collapse state is per quest/profile;
+a collapsed row shows title/position and expand control only. Header drag remains.
+Step checkboxes persist explicit completion keys (instruction number + content
+anchor), independently of current navigation; identical text at another step is
+not automatically marked. Done marks the current step; checking the current step
+advances/completes like Done. Other step marks do not advance, and unchecking does
+not rewind or reopen a completed quest. Marked cards have green outlines.
+These are manual user confirmations, never inferred game progress. Additive fields
+retain external progress schema 1, with bounded/validated completion keys. Marks
+remain stored when source changes; changed instructions no longer match a mark.
+The details Active button is green; explicit restore-to-active is red. New guides
+retain the ordinary style. Native smoke checks copied expiry, fold/unfold and
+scroll overflow; focused tests check mark/collapse persistence and CID isolation.
+Automated validation passed: 306 tests, eight ToC checks and Windows portable startup; real SpringRO/fullscreen/DPI acceptance remains open.
+
+## ROQuestie stable tracker and catalog tags (2026-10-31)
+
+Owner video revealed window destruction/recreation after each action and scrollbar
+geometry derived from currently displayed card heights. Action HWNDs are now pooled
+and reused; card text swaps in one UI batch. Unused surfaces hide and are reused,
+not destroyed. Existing focus/click-through/occlusion behavior remains in place.
+Scrollbar has a transparent track and fixed 36-DIP thumb. Track height and page
+range depend on configured capacity, text options and available client space,
+not which cards happen to be expanded/on screen. A native thumb-drag smoke checks
+geometry invariance and game focus; Next checks action HWND identity retention.
+Historical_or_seasonal guides are excluded from the working catalog, links and
+saved-row presentation. The pinned research snapshot and saved progress are not
+modified/deleted; archived keys remain known for safe suppression and recovery.
+Catalog metadata is three compact outlined light-navy tags with 3x1-DIP padding:
+category, base level and stage count. RU wording is now этапов, EN steps.
+A generated edit of the exact selected screenshot is a styling reference only;
+shipped tags are WPF controls and are validated in actual app captures.
+Automated validation passed: 307 tests, eight ToC checks and Windows portable startup; real SpringRO/mixed-DPI acceptance remains open.
+
+## ROQuestie actual-visual clipping, whitespace waypoints and no scrollbar (2026-10-31)
+
+Owner supersedes scrolling: tracker shows at most the configured first 1–5 quests;
+all others remain in the browser. Scroll HWND, template, state and input path are
+removed. Pooled tracker surfaces remain to avoid destruction/recreation flicker.
+Tracker masks now convert physical control-window rectangles through each actual
+WPF visual's PointFromScreen (including its own DPI/layout/render transforms),
+instead of dividing them by the game HWND DPI. This fixes premature clipping when
+game and WPF scales differ. The native smoke includes a transformed visual mask
+regression with points just inside/outside the browser edge.
+Research head was checked: 48c9dd28b9c0986ae391f31939fc8961772fbdf7 only changes
+README/enrich.py/test_enrich.py, not the shipped schema-v5 SQLite. The integration
+contract is unchanged. The application supplements literal wiki locations at read
+time using that parser's qualified map+X/Y rule, accepting comma or whitespace.
+Map names are checked against sourced NPC/map identifiers or the parser's map-code
+and navigation-context rule; numeric prose and bare cells never get guessed maps.
+Source NPC map identifiers are a whitelist only, not NPC-position verification.
+Bounds, deduplication and original assurance remain; no script candidates/progress
+are promoted. The pinned catalog remains read-only and research is not modified.
+Focused tests cover niflheim/nif_in and rejection cases plus catalog immutability.
+Automated validation passed: 318 tests, eight ToC checks and Windows portable startup; real SpringRO/mixed-DPI acceptance remains open.
+
+## Quest tracker layout and startup catalog — 2026-10-31
+
+The previous clipping fix is not accepted in SpringRO: the user still observes
+truncated text/actions. Keep WPF Width/Height synchronized with native layered
+window placement; native smoke checks their agreement after dispatcher/layout.
+Tracker buttons share template geometry and lowercase captions, including copied.
+Quest settings preview sits left of controls and uses read-only examples when no
+tracked quests exist. AutoLoadCatalog defaults true, persists with quest settings,
+loads at application startup and gates browser/page implicit loading; manual reload
+remains available. Check disabled startup, saved option, empty-profile preview,
+button heights, monitor DPI, clipping after actions and database/browser priority.
+Validation: [Windows run 41182802140](https://github.com/alerion08/RoAura/actions/runs/41182802140)
+passed on `ed06d76e16da2be063f1d1f44411ba7a24abd414`: 318 tests, zero failed/skipped,
+eight ToC validation/import checks, portable startup and package privacy/resource
+checks. Native smoke includes post-layout WPF/HWND size agreement, equal tracker
+button heights/lowercase captions, focus/click-through, copied expiry, collapse,
+current-step navigation and database priority. The first run failed to compile due
+to a probe variable-name collision, corrected before this successful run.
+Artifact: [RoAura-development-81-ed06d76](https://github.com/alerion08/RoAura/actions/runs/41182802140/artifacts/13034954377).
+Portable SHA256: `ae502ff9067fdca7fa14497bea00d50769ce82315d7bf2a2f3ab4c4f315cb02f`.
+Real SpringRO clipping/mixed-DPI and settings preview acceptance remain manual.
+No main/research writes, version changes, merge, tag or release.
+
+## Semantic walkthrough redesign — 2026-11-01
+
+Owner specification v1.1: docs/ROQUESTIE_WALKTHROUGH_SPEC.md and the user-attached
+Ayothaya HTML are design references only. The production view reads exclusively
+Data/quest_semantic.sqlite, semantic schema 5 (not the legacy schema-5 catalog).
+Pinned research e3206beccbdd414c6d6f31d146d168247634c578 has 28 fully localized
+quests / 420 ready steps. Research and main remain untouched; version stays 3.2.0.
+The whole-quest gate compares distinct (quest_id,step_id) membership in ready_steps
+and requires all four fields to contain non-whitespace text. A zero-step or
+partially translated quest is absent; partial source review is not an exclusion.
+
+Two panels separate selected/read step from current/manual progress. Left short
+texts, right full texts, independent scroll, right-only detail/facts/source tabs,
+RU/EN, compact coordinate copy, completion and tracking use the existing profile
+and progress system. All 28 ready quests match original stage number/kind/text
+with the legacy catalog: source anchors remain compatible. Mismatching source
+revisions fail closed for editing rather than moving marks by row position.
+Descriptions never fall back to old prose. The old catalog/active/history/tracker
+are not filtered by semantic readiness. The new view has its own ready selector. Newly ready content absent from the old
+progress catalog remains readable, with editing disabled until source alignment;
+it never inherits the old selected quest's current/completed/tracking state.
+
+Read-only SQLite uses the existing Windows SQLite reader, schema/integrity guards.
+Typed entity spans convert Unicode code-point offsets to UTF-16 and verify exact
+surfaces. Coordinates/NPCs/materials/dialogue options/facts/images come from typed
+relations. Unknown maps stay unknown; no regular-expression extraction or guessed
+NPC identity. Requirements and conditional/branch rewards are displayed as
+separate facts, never summed across alternatives. Untranslated original fact
+conditions remain verbatim. Server assurance is explicitly unknown for this data,
+separate from RU/EN readiness. No game completion is detected automatically.
+
+Reopening, file replacement/change notifications and an active two-second file
+revision probe reload the semantic view;
+newly ready quests appear without a whitelist, removed entries do not delete
+progress. Source screenshots are step-specific; the snapshot currently has zero
+images, so neutral placeholders are correct. User image uploads are not enabled.
+Feature CI provisions SHA-pinned read-only semantic/legacy fixtures and notices.
+
+Acceptance: readiness 0/1/10/9-of-10, whitespace/NULL, cross-quest membership,
+duplicate IDs, newly ready membership, partial source review, Unicode spans,
+SQLite immutability; native More/current, copy toast (coordinates retain caption),
+focus/input, F9, database priority and snapshots.
+Windows validation SUCCESS on `826a2b2ef842f6fe3086efabb484fb0ac3d022bb`:
+[run 41320367177](https://github.com/alerion08/RoAura/actions/runs/41320367177),
+329 tests, zero failed/skipped, eight ToC checks, startup/native input smoke and
+clean portable/resource validation. Actual pinned semantic spans and all 28 legacy
+stage mappings pass. Native smoke additionally verifies reading versus current,
+right-tab retention and standalone newly-ready content without legacy progress.
+RU/EN Ayothaya step-2 snapshots use the actual semantic source, not the HTML data.
+All implementation iterations passed Windows CI; visual QA corrected the ready
+selector caption, asynchronous snapshot/loading race, checkbox/segment states.
+[Development artifact 85](https://github.com/alerion08/RoAura/actions/runs/41320367177/artifacts/13088629427).
+Portable SHA256: `d014ac9e39ebe782ea8a256f88b0cbffd2779ecf1023512bbb055ed4b665fcca`.
+Actual game/mixed-DPI/narrow-layout acceptance remains manual, not release-ready.
+
+Manual acceptance: real SpringRO mixed-DPI, narrow layout, long/conditional quests,
+RU/EN/selected/current/completed/profile isolation, live database replacement.
+
+Manual acceptance: real SpringRO mixed-DPI, narrow layout, long/conditional quests,
+RU/EN/selected/current/completed/profile isolation, live database replacement.
+
+
+## Walkthrough feedback — 2026-11-02
+
+Owner supersedes browser occlusion: opening QuestBrowserWindow must not exclude
+pixels from the tracker or ordinary overlay surface. Settings and database
+occlusion remain in force. Native smoke checks the browser intersection after
+a WPF scale transform; actual SpringRO mixed-DPI acceptance remains manual.
+
+Walkthrough metadata/quality lines and the instruction helper are hidden.
+The action is “Выбрать этап” / “Select step”. Legend follows the screenshot.
+Compact exact-answer buttons sit in a separate bottom row of the detail pane.
+Requirements/rewards use two compact columns and per-step material rows below;
+source conditions and alternative branches are preserved, never summed.
+Explicit localized map/cell literals supplement missing step_locations without
+writing the DB or guessing cells. Both panels share the same coordinate list;
+map highlights include numeric cells. Whole-quest readiness and progress guards
+remain unchanged. Focused tests cover all 11 Cursed Spirit positions, deduplication,
+full numeric highlights, known maps without underscores and invalid cells.
+
+Validation: pending Windows CI for this change; no release/version/main changes.
+
+
+## Ready catalog and localized quest facts — 2026-11-02
+
+Owner feedback supersedes the previous walkthrough-only readiness filter and
+bottom answer footer. Catalog and walkthrough now share whole-quest semantic
+readiness; missing/incomplete semantic data produces no legacy catalog fallback.
+Active/history/progress storage remain intact. Newly ready IDs without legacy
+progress are readable, with editing disabled until matching legacy data exists.
+Catalog refresh follows semantic replacement while the catalog tab is open.
+
+Answer options are compact single-button rows in their own card between
+coordinates and materials below the screenshot. Stage actions have explicit zero
+left margin and align with the instruction and coordinate panel. Quest selector
+opens from its entire field; the shared ComboBox theme is unchanged.
+
+Requirements sort level, prerequisites, then materials. Rewards sort Base/Job EXP,
+access/unlocks, then items. Numeric alternative-branch experience uses a min/max
+range, never sums; unconditional sequential or unknown grants remain separate.
+A reviewed exact-source RU dictionary covers all 154 distinct requirement/reward
+and step-material comments in the pinned 28-ready-quest snapshot. EN keeps the
+original text; SQLite source/evidence is not rewritten. Future unknown comments
+retain source text and require a dictionary update rather than guessed translation.
+Raw branch IDs are not rendered as user-facing labels.
+
+Checks: focused range/sequential reward, requirement order, ready catalog and
+translation coverage tests; native content-area selector click; RU Cursed Spirit
+facts and Biolabs answer-card snapshots. Windows CI pending for this block.
+Main/research/version/release remain unchanged.
+
+
+## Independent application and game themes — 2026-11-02
+
+Feature work remains on feature/roquestie-mvp, without a version/release change.
+Settings > Appearance adds Application Light/Dark and Game overlays
+Follow application/Light/Dark with independent live previews. Additive properties
+default to Light/Application for older settings; existing presets/snapshots
+serialize them through the existing settings pipeline. No coordinates or custom
+HUD colors are rewritten.
+
+Window-scoped palettes and dynamic brush references cover main UI, dialogs,
+settings, database search/detail, quest browser and passive quest action surfaces.
+Owned dialogs inherit the owning interface's scope. Ordinary transparent HUD
+windows retain configured colors. Programmatic quest highlights and database
+statistics use the matching palette; cached database presentation redraws without
+re-requesting item descriptions. Source game images/minimaps/color swatches are
+not recolored. No window ownership, z-order, packet or input-hook changes.
+
+Validation planned: palette key parity, normalization/defaults, independent
+resolution, settings/preset and custom-color preservation; real native copy in
+dark quests, live mixed scope checks, dark database native capture, RU/EN dark
+walkthrough and facts plus Appearance preview PNGs. Full Windows CI pending.
+Real SpringRO/mixed-monitor readability remains manual acceptance.
+
+
+## Release 3.3.0 preparation — 2026-11-02
+
+Owner explicitly requested footer centering and publication of the current feature
+work. Twitch/Discord/Donate content, icon and label centers are explicit; startup
+smoke checks their measured center alignment in both themes and captures the footer.
+Version/manifest are 3.3.0. Release includes ROQuestie and independent themes from
+the verified feature line, retaining the exact pinned catalogs used by test build 95.
+
+Release CI now prepares hash-pinned quest data before reader tests and packaging;
+installer includes Data/*.sqlite and attribution/license text, and CI silently
+installs it into an isolated runner directory to compare installed data hashes.
+Silent setup does not display the interactive Npcap notice or launch the app.
+Both distributions retain source/license notices and full GFDL/GPL references;
+per-page wiki/history and upstream script provenance remain available.
+Full release Windows tests, native input and installer verification are pending.
+Publishing is authorized by the owner; merge/tag/release will follow successful checks.
+Remaining real-game/mixed-DPI acceptance is documented in release notes.

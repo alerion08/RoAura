@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using RoAura.Models;
+using RoAura.Services;
 
 namespace RoAura;
 
@@ -22,9 +23,23 @@ public partial class SettingsPage : UserControl
         if (_observed is not null) _observed.PropertyChanged -= SettingsChanged;
         _observed = DataContext as AppSettings;
         if (_observed is not null) _observed.PropertyChanged += SettingsChanged;
+        RefreshAppearance();
+    }
+    internal void ShowAppearancePreview(){SettingsTabs.SelectedIndex=0;RefreshAppearance();}
+    private void RefreshAppearance()
+    {
+        if(DataContext is not AppSettings settings)return;
+        AppearanceService.ApplyPalette(ApplicationPreview,settings.ApplicationTheme);
+        AppearanceService.ApplyPalette(OverlayPreview,AppearanceService.Resolve(settings.ApplicationTheme,settings.GameOverlayTheme,true));
+    }
+    private void Appearance_Changed(object sender,SelectionChangedEventArgs e)
+    {
+        if(!IsLoaded)return;
+        Dispatcher.BeginInvoke(()=>{RefreshAppearance();Host?.SaveSharedSettings();});
     }
     private void SettingsChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
+        if(e.PropertyName is nameof(AppSettings.ApplicationTheme) or nameof(AppSettings.GameOverlayTheme) or "")RefreshAppearance();
         if (e.PropertyName is nameof(AppSettings.ServerProfile) or nameof(AppSettings.PacketCaptureEnabled) or "") RefreshNavigation();
     }
     private void Server_Changed(object sender, SelectionChangedEventArgs e) { if (IsLoaded && ServerChoice.SelectedValue is string value) Host?.SelectSettingsServer(value); }
@@ -37,7 +52,7 @@ public partial class SettingsPage : UserControl
         if (DataContext is not AppSettings settings || NavigationChoices is null) return;
         settings.EnsureNavigationSections();
         NavigationChoices.Children.Clear();
-        string[] labels = ["Home", "Cooldowns", "Effects", "Reminders", "Equipment", "MvpTimers", "LootRewards", "GoldGoblin", "Database", "SettingsTitle"];
+        string[] labels = ["Home", "Cooldowns", "Effects", "Reminders", "Equipment", "MvpTimers", "LootRewards", "GoldGoblin", "Database", "SettingsTitle", "Quests"];
         foreach (var preference in settings.NavigationSections.Where(p => p.Feature is not (AppFeature.Home or AppFeature.Settings) && (int)p.Feature < labels.Length))
         {
             var box = new CheckBox { Margin = new Thickness(0, 6, 0, 6), DataContext = preference,

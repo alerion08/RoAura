@@ -3,16 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="RoAura — Npcap" Icon="Assets/roaura.ico" Width="500" Height="270"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
-        Background="{StaticResource RoWindowBrush}" Foreground="{StaticResource RoTextBrush}"
+        Background="{DynamicResource RoWindowBrush}" Foreground="{DynamicResource RoTextBrush}"
         ShowInTaskbar="False">
-    <Border BorderBrush="{StaticResource RoBorderBrush}" BorderThickness="1" Margin="8">
+    <Border BorderBrush="{DynamicResource RoBorderBrush}" BorderThickness="1" Margin="8">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="24" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Border Background="{StaticResource RoTitleBrush}" BorderBrush="{StaticResource RoPinkBrush}"
+            <Border Background="{DynamicResource RoTitleBrush}" BorderBrush="{DynamicResource RoPinkBrush}"
                     BorderThickness="0,0,0,2">
                 <TextBlock Text="  Npcap" VerticalAlignment="Center" FontWeight="SemiBold" />
             </Border>
@@ -21,9 +21,9 @@
                            FontWeight="SemiBold" FontSize="14" TextWrapping="Wrap" />
                 <TextBlock Margin="0,10,0,0" TextWrapping="Wrap"
                            Text="{DynamicResource NpcapInstructions}" />
-                <Border Margin="0,14,0,0" Padding="8" Background="#FFEAF4FF" BorderBrush="#FF9DB8D6" BorderThickness="1">
+                <Border Margin="0,14,0,0" Padding="8" Background="{DynamicResource UiBackground_FFEAF4FF}" BorderBrush="{DynamicResource UiBorder_FF9DB8D6}" BorderThickness="1">
                     <TextBlock Text="{DynamicResource NpcapAdminHint}"
-                               Foreground="#FF34465A" TextWrapping="Wrap" />
+                               Foreground="{DynamicResource UiForeground_FF34465A}" TextWrapping="Wrap" />
                 </Border>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="12">

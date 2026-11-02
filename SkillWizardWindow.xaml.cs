@@ -128,7 +128,7 @@ public partial class SkillWizardWindow : Window
         Step3Panel.Visibility = _step == 3 ? Visibility.Visible : Visibility.Collapsed;
         Step4Panel.Visibility = _step == 4 ? Visibility.Visible : Visibility.Collapsed;
         var bars = new[] { Step1Bar, Step2Bar, Step3Bar, Step4Bar };
-        for (var index = 0; index < bars.Length; index++) bars[index].Background = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(index < _step ? "#3477C7" : "#DCE6F1"));
+        for (var index = 0; index < bars.Length; index++) bars[index].SetResourceReference(System.Windows.Controls.Border.BackgroundProperty,index < _step ? "UiBackground_3477C7" : "UiBackground_DCE6F1");
         SkillIdBox.IsReadOnly = DetectRadio.IsChecked == true;
         DetectAgainButton.Visibility = DetectRadio.IsChecked == true ? Visibility.Visible : Visibility.Collapsed;
         BackButton.IsEnabled = _step > 1;

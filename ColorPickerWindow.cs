@@ -23,6 +23,7 @@ public sealed class ColorPickerWindow : Window
         Width = 430; SizeToContent = SizeToContent.Height; ResizeMode = ResizeMode.NoResize;
         WindowStartupLocation = WindowStartupLocation.CenterOwner; ShowInTaskbar = false;
         SetResourceReference(BackgroundProperty, "RoWindowBrush");
+        _error.SetResourceReference(TextBlock.ForegroundProperty,"UiForeground_B64B55");
         var root = new StackPanel { Margin = new Thickness(18) };
         Content = root;
         var palette = new UniformGrid { Columns = 12 };

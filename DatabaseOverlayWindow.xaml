@@ -3,15 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:RoAura.Controls"
         WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="False"
-        AllowsTransparency="True" Background="Transparent" Foreground="#17365F" FontFamily="Trebuchet MS"
+        AllowsTransparency="True" Background="Transparent" Foreground="{DynamicResource UiForeground_17365F}" FontFamily="Trebuchet MS"
         Width="360" MinWidth="320" MinHeight="460">
-    <Border BorderBrush="#5E86BD" BorderThickness="2" CornerRadius="9" Background="#F6F9FE">
+    <Border BorderBrush="{DynamicResource UiBorder_5E86BD}" BorderThickness="2" CornerRadius="9" Background="{DynamicResource UiBackground_F6F9FE}">
         <Grid>
             <Grid.RowDefinitions><RowDefinition Height="54"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="30"/></Grid.RowDefinitions>
-            <Border Background="#DCEBFA" BorderBrush="#7DA2D1" BorderThickness="0,0,0,2" CornerRadius="7,7,0,0">
+            <Border Background="{DynamicResource UiBackground_DCEBFA}" BorderBrush="{DynamicResource UiBorder_7DA2D1}" BorderThickness="0,0,0,2" CornerRadius="7,7,0,0">
                 <Grid Margin="12,7"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <StackPanel><TextBlock x:Name="OverlayTitle" Text="База SpringRO" FontFamily="Georgia" FontWeight="Bold" FontSize="19" Foreground="#174D92"/>
-                        <TextBlock Text="Monsters · Items · Maps · Market" FontSize="10" Foreground="#55739A"/></StackPanel>
+                    <StackPanel><TextBlock x:Name="OverlayTitle" Text="База SpringRO" FontFamily="Georgia" FontWeight="Bold" FontSize="19" Foreground="{DynamicResource UiForeground_174D92}"/>
+                        <TextBlock Text="Monsters · Items · Maps · Market" FontSize="10" Foreground="{DynamicResource UiForeground_55739A}"/></StackPanel>
                     <Button x:Name="CloseButton" Grid.Column="1" Content="&#x2715;" Width="34" Height="30" MinHeight="0"
                             Margin="0" Padding="0" FontSize="15" Click="Close_Click"
                             ToolTip="Закрыть базу данных"/>
@@ -62,17 +62,17 @@
                     <CheckBox x:Name="MvpFilter" Grid.Row="6" Content="MVP" Margin="0,2,0,2" Checked="AdvancedFilter_Changed" Unchecked="AdvancedFilter_Changed"/>
                 </Grid>
             </Expander>
-            <Border Grid.Row="4" Margin="10,0,10,8" BorderBrush="#A9C0DD" BorderThickness="1" Background="#F8FBFF" CornerRadius="5">
+            <Border Grid.Row="4" Margin="10,0,10,8" BorderBrush="{DynamicResource UiBorder_A9C0DD}" BorderThickness="1" Background="{DynamicResource UiBackground_F8FBFF}" CornerRadius="5">
                 <ListBox x:Name="ResultsList" HorizontalContentAlignment="Stretch" BorderThickness="0" Background="Transparent" SelectionChanged="Results_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemTemplate><DataTemplate><Grid Margin="4,3"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition/><RowDefinition/></Grid.RowDefinitions>
                         <controls:MarketWatchStar Grid.Column="1" Grid.RowSpan="2" Item="{Binding Value}"/>
                         <TextBlock Text="{Binding Caption}" FontWeight="Bold" FontSize="13" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock Grid.Row="1" Text="{Binding Meta}" FontSize="10" Foreground="#637B9B" Margin="0,2,0,0" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Grid.Row="1" Text="{Binding Meta}" FontSize="10" Foreground="{DynamicResource UiForeground_637B9B}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis"/>
                     </Grid></DataTemplate></ListBox.ItemTemplate>
                 </ListBox>
             </Border>
-            <Border Grid.Row="5" Background="#E6F0FB" BorderBrush="#A9C0DD" BorderThickness="0,1,0,0" CornerRadius="0,0,7,7">
-                <TextBlock x:Name="FooterText" Margin="9,5" Text="Введите название или ID" FontSize="10" Foreground="#55739A" TextTrimming="CharacterEllipsis"/>
+            <Border Grid.Row="5" Background="{DynamicResource UiBackground_E6F0FB}" BorderBrush="{DynamicResource UiBorder_A9C0DD}" BorderThickness="0,1,0,0" CornerRadius="0,0,7,7">
+                <TextBlock x:Name="FooterText" Margin="9,5" Text="Введите название или ID" FontSize="10" Foreground="{DynamicResource UiForeground_55739A}" TextTrimming="CharacterEllipsis"/>
             </Border>
         </Grid>
     </Border>

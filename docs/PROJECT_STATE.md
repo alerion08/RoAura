@@ -1,5 +1,188 @@
 # Project state
 
+## ROQuestie game-first windows (2026-10-30)
+
+Owner explicitly superseded conflicting stage-2/original UX: all normal quest
+work belongs in a large game window, plus an independently toggled edge tracker.
+Main RoAura contains settings only. See `ROQUESTIE_PRODUCT_DIRECTION.md`.
+
+Development remains `feature/roquestie-mvp`, stable main `10adb870` / 3.2.0,
+based on stage-2 documentation `2fddd08`. Product version/manifest unchanged.
+
+Implemented in this block:
+- Large activating game browser, full-width walkthrough/current-step highlight,
+  catalog/active/history and structured combined requirements/rewards with raw
+  source retention. Main-app quest settings are separated from the browser.
+- Independent F6/F5 hotkeys in the existing service/Settings UI, collision-safe
+  new bindings, and a shared F9 mask that retains independent requested states.
+  Legacy hotkey values remain intact; Windows modifiers join the existing bypass.
+- Transparent text tracker and tiny nonactivating mouse-action surfaces, independent
+  per-quest controls and drag handle. DPI/physical client positioning, game lifecycle,
+  settings/browser occlusion and exact-client focus restoration. No cross-process
+  owner or ordinary-overlay interactivity. Passive quest HWNDs are excluded from
+  existing overlay control masks to preserve other overlays.
+- Same-step wiki-only navigation with explicit multi-target choice and shared bounded
+  clipboard behavior; no SendInput command path. Other stays reference-only.
+- Settings schema 15 adds hotkeys/browser geometry; external progress schema stays 1.
+  Client switches invalidate stale automatic CID display until a fresh revision;
+  manual selection remains labeled. Capture/parser/market/ToC behavior unchanged.
+- Focused source-format/navigation/hotkey/preset tests; optional portable startup
+  launches a separate explicit fake-game probe and uses real OS mouse/keyboard input.
+  Native captures supplement browser RU/EN snapshots. Probe/injected input is gated
+  by --smoke-test/explicit probe flag and never used for normal game interaction.
+
+Local validation: Windows-targeted app/test cross-build, XAML XML and RU/EN
+key/reference checks. Exact implementation Windows CI result is the authority
+for full tests, portable startup and cross-process input. Real SpringRO 2K,
+protected/fullscreen, relog/multiple clients, long-session focus and actual mixed-DPI
+acceptance remain unverified. This is a test branch, not a release candidate.
+No main/research changes, merges, tags, product version bump or public release.
+
+Game-first verification: [Actions #41056398770](https://github.com/alerion08/RoAura/actions/runs/41056398770)
+SUCCESS on `87b3d5c84b183fae985e880d7793e2e5473e1277`: 290 tests passed,
+zero skipped/failed, plus eight ToC checks. `build-release.ps1`, portable startup,
+RU/EN resources and clean payload passed. The startup includes real cross-process
+mouse/keyboard delivery: Next without activation/click leakage, transparent
+margins/text, Shift/Ctrl/Alt and ordinary keys, independent F5/F6, browser typing
+isolation/exact-client focus restore, F9, drag beyond the handle, production Escape
+handler, settings occlusion, resize-coordinate retention and minimized-client hiding.
+The fake game's native Alt system menu is suppressed in the probe only; all game
+input assertions remain enabled. The probe begins with main settings hidden.
+
+Artifact: [RoAura-development-70-87b3d5c](https://github.com/alerion08/RoAura/actions/runs/41056398770/artifacts/12977186474),
+one portable archive and 15 UI PNGs. Portable SHA256:
+`83b9517226ef42de3d482b4da1d3a44f989f5f0c614d78b75daa7a8a4b4afa4b`.
+Native browser/facts/tracker and Russian walkthrough rasters were inspected:
+full-width steps/current highlight, structured facts and compact multiple quest
+rows are present. The CI fake client exceeds its desktop width/height, so native
+captures clip the right/bottom desktop edge; these do not establish real screen-fit
+or mixed-DPI acceptance. Offscreen scale variants are rendering checks only.
+Real SpringRO checks listed above remain open; no release readiness is claimed.
+
+## ROQuestie stage 2 — application UI and persistence lifecycle (2026-10-30)
+
+Branch `feature/roquestie-mvp`, based on stage 1 / audit documentation `7f7c2ce`;
+stable base remains `10adb870` / 3.2.0. No product version/release change.
+
+- Added the supplied scroll icon and Quests after Database in Services. Shared
+  sidebar spacing is slightly tighter. Explicit destination mapping preserves
+  Settings index 9 and all prior feature IDs; Quests is appended as 10 and works
+  without packets on every server, including reference-only Other.
+- Added four theme-consistent RU/EN tabs: local catalog search/provisional filters,
+  active guides, manual history/restore and visual settings with an in-app preview.
+  Full details preserve all source rows, original requirements/rewards, wiki
+  coordinates, freshness/hash/URL and unverified-server labels. More currently
+  uses the application's detail pane; game overlay/More/navi follow in stages 3/4.
+- QuestWorkspace observes existing session snapshots independently of the statistics
+  health gate. Explicit offline choices include saved CID records/backup-only files
+  and one local profile per server. Mutable aliases do not move history. Unknown
+  identity never inherits a CID; switching server clears manual profile selection.
+- Debounced saves (400ms), scope flush and normal-exit flush use independent document
+  copies for background writes. Failed saves preserve pending state and block silent
+  scope/exit loss. Settings schema 14 adds only nested visual options; presets retain
+  live references and do not replace quest history or other overlay coordinates.
+- Feature CI provisions the pinned v5 snapshot to Data (not committed a second time)
+  and includes provenance notices. Source builds can extract the same research blob;
+  absent catalog remains a nonfatal Quests-only error. Source/license/package final
+  review remains a stage-5 public-release gate.
+- Added controller/scope/preset/migration regressions. Full app/test cross-build and
+  XML/RU-EN key parity/reference validation pass locally. Windows full tests,
+  portable startup and RU/EN UI captures are checked on the implementation commit.
+  No actual in-game, mixed-monitor DPI or new overlay-input checks are claimed.
+
+Only data/UI/persistence lifecycle changed. Capture/parser, Gold Goblin, ToC adapter,
+ordinary overlay host, global input hook and hotkey implementations are untouched.
+The existing startup smoke now tests offline quest navigation/catalog and exports
+optional UI PNGs; it still runs in isolated data directories with real capture off.
+
+
+Stage-2 verification: [Actions #41046358448](https://github.com/alerion08/RoAura/actions/runs/41046358448)
+SUCCESS on `4323935aa818acc6f6e75f9f3df683a9ab147f5d`: 276 tests passed,
+zero skipped/failed, plus eight ToC checks. Portable startup, clean payload and
+real-app offline quest/catalog smoke passed. Artifact:
+`RoAura-development-65-4323935aa818acc6f6e75f9f3df683a9ab147f5d`
+([download](https://github.com/alerion08/RoAura/actions/runs/41046358448/artifacts/12972392809)).
+Its single CI archive contains the portable and 12 optional RU/EN PNGs. Source
+catalog is still the pinned schema-v5 snapshot, not a new research revision.
+
+Visual review corrected technical record captions and default Windows tabs to
+shared RoAura styles, collapsed empty errors and detached screenshot layout from
+the larger parent window. Catalog/active/settings/history rasters were inspected.
+Some offscreen History/Settings captures show top glyph baseline cropping after
+mixed-density rendering; these are not accepted as real-window DPI verification.
+Actual Windows minimum-size, 100/125/150% / mixed-monitor visual acceptance remains
+open. No game overlay/focus/F9/navi acceptance or release readiness is claimed.
+
+## ROQuestie stage 1 — catalog and manual progress (2026-10-30)
+
+Branch: `feature/roquestie-mvp`, stable base `10adb870` / 3.2.0,
+implementation starts after stage-0 audit `bd3d152`. Version metadata unchanged.
+
+- Added an isolated asynchronous/cancellable consumer schema-v5 reader using
+  Windows system SQLite. It validates schema/integrity/foreign keys, required
+  columns, bounded rows/text, identities and stored step counts. Original wiki
+  text, NULL values, narrative kinds, freshness and location assurance remain
+  distinct. Search is local; no packet/network activity or new dependency.
+- Added manual progress and history keyed by canonical server + CID or explicitly
+  selected local-profile GUID. Observed identity requires ActiveObserved and
+  matching server with packets enabled; unknown/logout/off never inherit CID/AID.
+- New independent `LocalDirectory/ROQuestie` JSON schema 1 store uses atomic
+  replacement, flushed writes, backups, stale-writer checks and read-only recovery.
+  Invalid/future data cannot be overwritten. No old quest format exists: unknown
+  versions are rejected, not implicitly migrated. Presets/settings are untouched.
+- Stable quest keys and instruction anchors preserve missing quests/history.
+  Unique text matches can remap changed catalog steps; missing/ambiguous matches
+  retain the saved position and require explicit selection. Unchanged repeated
+  text retains the chosen row. Next never completes a quest; completion requires
+  an explicit manual confirmation and retains timestamped history.
+- Added 31 focused C# cases, including real pinned schema-v5 catalog tests.
+  Local execution passed all 31 using actual source/tests and xUnit assertions,
+  with Linux system SQLite substituted only for native Windows SQLite. Full
+  Windows-targeted app + test project cross-build succeeded (existing warnings).
+- Development Windows workflow now includes this branch, extracts the exact
+  research catalog at `41bfc483` to RUNNER_TEMP and verifies its SHA before the
+  real Windows reader test. It runs the full suite and existing portable checks.
+  The workflow result for the implementation commit is the Windows authority.
+
+This is the data layer only: no navigation/page/overlay/input/capture/ToC edits,
+no user-visible quest UI yet, no runtime catalog payload bundled in this stage.
+UI/controller stages will schedule debounced saves and flush on scope/close;
+store methods are explicit now and not attached to the application's lifecycle.
+No gameplay, DPI, hotkey or focus acceptance is claimed. No merge/tag/release.
+See `ROQUESTIE_DATA.md` for APIs and validation boundaries.
+
+Stage-1 Windows verification: [Actions #41041421010](https://github.com/alerion08/RoAura/actions/runs/41041421010)
+SUCCESS on `b6524ae3a7fbd50f220251a6806c9863221a74ca`: 264 app tests
+passed, zero skipped/failed (31 new quest cases included); eight ToC Python
+checks passed; actual pinned quest catalog read through Windows SQLite passed.
+Portable startup smoke, build and clean-payload verification passed. One test
+artifact: `RoAura-development-62-b6524ae3a7fbd50f220251a6806c9863221a74ca`.
+This is a CI test portable with unchanged 3.2.0 metadata, not a new public release;
+it has no quest UI/catalog distribution yet. In-game/manual checks remain pending.
+
+## ROQuestie stage 0 audit (2026-10-30)
+
+Active scoped branch: `feature/roquestie-mvp`, created from stable main
+`10adb870f760f080711fb29d9d77fd32d1ff120c` (3.2.0). Research stays at
+`41bfc483311fa0e24ee84d1b1edcb0b4558914bd`; consumer SQLite schema v5.
+These match the approved specification. Read-only integrity and foreign-key
+checks passed on the actual catalog (286 quests / 3,420 guide rows).
+See [integration audit](ROQUESTIE_INTEGRATION_AUDIT.md) for the pinned catalog
+hash, actual APIs, planned touch points, sample navigation ambiguities and risks.
+
+No application behavior changes in this stage. Implementation stages 1–5 are
+pending. Existing Navi is clipboard-only; no verified send-to-game API was
+found. The ordinary overlay is click-through, while Database intentionally
+takes focus: neither may be copied blindly for interactive quest buttons.
+Progress must remain separate from presets and use server-qualified CID or an
+explicit manual local profile. No automatic quest completion from research.
+
+Current development workflow does not auto-trigger on this branch; wire or
+dispatch Windows validation after a coherent implementation block. This host
+has no dotnet executable; no app tests, portable or Windows/game validation
+were performed for this documentation-only audit. No release/merge/tag/version
+change is authorized. Stable main and the research branch are unchanged.
+
 ## RoAura 3.2.0 publication (2026-10-30)
 
 User explicitly authorized preparation and publication of this release. Release branch:
@@ -650,3 +833,472 @@ identity/lifetime decisions. The client sampler reports aggregate status
 opcode and stable-frame counts every 15 seconds. No raw actors or memory
 contents are added. The next Windows build and SpringRO test must identify
 the missing step before changing the generic decoder or attribution rules.
+
+## ROQuestie interaction refinements (2026-10-30, feature only)
+
+Owner feedback: one ROQuestie tracker header owns the only drag handle. Quest rows
+keep Prev/Next/More/navi and replace their drag handle with Done. Done is explicit
+manual confirmation: advances one instruction or completes the last and moves to
+history. Navigation alone still never completes. Missing/review/readonly/inactive
+rows and stale step actions cannot confirm. Progress/history stays per server/CID.
+Catalog stars toggle active tracking without deleting saved progress; reactivation
+retains the instruction and restores tracker visibility. Active is dark blue,
+inactive light gray/translucent. Exact unambiguous catalog titles in facts become
+internal quest links; unknown/ambiguous names remain original text.
+Catalog status/reload belongs in RoAura quest settings only. Game browser has
+larger edge spacing; navi chooser has rounded border and internal padding.
+Tests cover confirmation, history persistence/isolation, stars and literal links;
+native input smoke now selects header/quest surfaces by action and checks Done
+and the rounded multi-target chooser. CI fake client fits the desktop for captures.
+Automated verification: 294 tests and eight ToC checks pass; real-game acceptance remains open.
+
+Interaction verification: [Actions #41066780089](https://github.com/alerion08/RoAura/actions/runs/41066780089)
+SUCCESS on `7fcce0062a4e866111190b2a11f742daa3245798`: 294 tests passed,
+zero skipped/failed, eight ToC checks, portable startup, RU/EN and clean package.
+Native input additionally passed Done/next instruction without focus loss,
+multi-target chooser open/cancel, and the single header drag with production Escape.
+The fake client now fits the desktop; tracker, navigation chooser, catalog star
+and facts/link rasters were inspected. The native browser edge is no longer clipped
+by the oversized test fixture. These are still not real SpringRO/mixed-DPI checks.
+Artifact: [RoAura-development-71-7fcce00](https://github.com/alerion08/RoAura/actions/runs/41066780089/artifacts/12983925091),
+one portable and 16 PNGs. Portable SHA256:
+`a3d58e98484db5ede04dd9adac11ea4ebf4c286d904bfb4183090a49ef1b3aea`.
+No main/research changes, version bump, merge, tag or release.
+
+## ROQuestie feedback and current-step navigation (2026-10-30)
+
+Feature-only owner feedback: the details Active button now toggles tracking via
+the same progress-preserving action as a catalog star. Navi success is per entry
+and current instruction: four seconds of green/white checkmark, including hover;
+no repeated copied-command text in tracker cards. A map-pin glyph replaces Wiki
+while the tooltip retains source uncertainty. DescriptionLines defaults to 3,
+clamps to 1–20 and participates in settings/presets and the live preview.
+Explicit quoted input or short literal capitalized names after "type in" receive
+Copy text/Copy controls in walkthrough/tracker. Variable passwords, menu choices
+and research candidate answers are not inferred or promoted to verified progress.
+More always selects Walkthrough, updates layout and scrolls to the active row,
+even after the same guide was left on Facts. Native smoke checks this path and
+successful navi feedback. Automated validation passed on c6065b2 (302 tests, eight ToC checks, Windows portable startup);
+real SpringRO/DPI/input acceptance remains manual.
+
+Feedback verification: [Actions #41070762636](https://github.com/alerion08/RoAura/actions/runs/41070762636)
+SUCCESS on `c6065b29ce5762e88c74f41dc2dede948a5799e4`: 302 tests,
+zero skipped/failed, eight ToC checks, resources/package checks and portable startup.
+Native input checked successful navi copy/checkmark and More returning from Facts
+to a visible current instruction. Native rasters inspected: no repeated toast,
+per-row green button with white checkmark, location glyph, active details toggle,
+and walkthrough scrolled to the current highlighted step. The shared theme initially
+overrode the checkmark color; its success template now sets the glyph foreground
+explicitly, confirmed in the final native capture.
+Answer-copy behavior is literal-source only; no guarantee of server-specific
+dialogue compatibility or variable password inference. Real SpringRO acceptance
+remains open. Linux build tooling intermittently failed in process metadata;
+the final Windows CI compilation and checks are the validation authority.
+Artifact: [RoAura-development-73-c6065b2](https://github.com/alerion08/RoAura/actions/runs/41070762636/artifacts/12985270376),
+portable plus 17 UI PNGs. Portable SHA256:
+`2274a41fbf6a21c20404cfa78dc603086c505da47bcc284797bf7449fc62ff9a`.
+No release/version/main/research mutation.
+
+## ROQuestie action occlusion and detail navigation (2026-10-30)
+
+Owner-reported disappearing tracker buttons were caused by whole-strip hiding
+when the browser/settings intersected only its transparent edge. Action content
+now uses a render/input alpha clip for covered pixels only; uncovered buttons
+remain visible. Existing game bounds, visibility toggles and passive focus remain.
+Walkthrough literal usable map points are coordinate-labeled copy buttons using
+the same filtered /navi command and success feedback; Other remains reference-only.
+Coordinate warning prose is removed from point labels/tooltips/chooser. Original
+catalog/source assurance is retained internally; no new server verification claim.
+Regression smoke checks clipped painted button centers rather than demanding
+nonintersecting transparent HWND rectangles. Windows validation passed: 303 tests, eight ToC checks and portable startup; real-game acceptance remains open.
+
+Occlusion/navigation verification: [Actions #41073669338](https://github.com/alerion08/RoAura/actions/runs/41073669338)
+SUCCESS on `aa0fd9b3581847ad05bcb59dd82587241afe3ece`: 303 tests,
+zero failed/skipped, eight ToC checks, portable startup and clean package checks.
+The partial-overlap regression checks uncovered/covered action points; native smoke
+checks settings exclusion against painted button centers while preserving prior
+focus/click-through/keyboard checks. Native walkthrough raster inspected: usable
+map points are buttons and coordinate-warning lines are absent. The user-reported
+SpringRO partial-window placement and actual coordinate paste still need manual
+verification. General catalog availability/source metadata is unchanged.
+Artifact: [RoAura-development-74-aa0fd9b](https://github.com/alerion08/RoAura/actions/runs/41073669338/artifacts/12986003102).
+Portable SHA256: `b94bb96d5ec76efbfc6aff3e8f28eb12b8f0ea28a349feda7d4b79548aa1fb99`.
+No main/research changes, product version bump, merge, tag or release.
+
+## ROQuestie emphasis, compact actions and database priority (2026-10-30)
+
+Owner priority: catalog is a general quest reference. Availability-on-server
+labels are removed from catalog and details without rewriting source assurance.
+Explicit answer literals use bold purple; exact bundled item names use bold green,
+with source text preserved. Unknown names are not inferred. The tracker uses
+lighter colors over the game; walkthrough uses darker colors on its light cards.
+Step navigation buttons share a compact wrapping row (22 DIP, minimal padding).
+Step selection/copy buttons share their own wrapping row. No category headings.
+MaxTrackedQuests is 1–50 (default 20, preserving practical screen-fit behavior),
+saved with visuals/presets; extra quests stay active and accessible in the browser.
+Database search/details permanently occlude lower tracker and ordinary/statistics
+pixels while visible, even with game focus. No capture/parser changes or window
+ownership; shared clipping keeps other visible areas and input behavior intact.
+Native smoke checks quest limit and database priority for tracker/statistics;
+focused tests cover literal emphasis/source preservation and limit persistence.
+Automated validation passed: 305 tests, eight ToC checks and Windows portable startup; actual SpringRO/mixed-DPI acceptance remains open.
+
+Emphasis/priority verification: [Actions #41089927571](https://github.com/alerion08/RoAura/actions/runs/41089927571)
+SUCCESS on `9cbdc3a754a354f4627b1349763dc04edc038fe6`: 305 tests,
+zero skipped/failed, eight ToC checks, RU/EN/package validation and portable startup.
+Native smoke applies the one-quest limit, opens the actual Database overlay, returns
+focus to the fake game and verifies that both quest and ordinary/statistics surfaces
+exclude the database center. Prior input/focus/drag tests continue to pass.
+Native browser/database and RU catalog rasters inspected: compact point controls,
+separate action row, no availability label and unobstructed database panel. Literal
+highlight matching/source preservation and maximum-limit persistence are covered by
+focused tests. Real SpringRO, mixed-DPI and broad item-name coverage remain manual;
+unrecognized item names remain plain rather than guessed.
+Artifact: [RoAura-development-75-9cbdc3a](https://github.com/alerion08/RoAura/actions/runs/41089927571/artifacts/12992839460).
+Portable SHA256: `2fdd096f155e155e5f12c306adeaef45e6b3ea7593e61f25b7514edbece8a238`.
+No main/research write, version bump, merge, tag or public release.
+
+## ROQuestie copied feedback, collapsed tracker and step marks (2026-10-31)
+
+Owner feedback supersedes earlier checkmarks/20-row tracker behavior. Navi has a
+64-DIP width and green white-text copied state. Coordinate/text copy buttons restore
+the exact original caption/template after four seconds; repeated clicks restart the
+timer. Tracker feedback is scoped to its entry/step and survives card rebuilds.
+Active-list reorder controls move to the top right; Prev/Next are removed there,
+More shares the lower action row. Tracker Prev/Next remain independent.
+MaxTrackedQuests clamps legacy values to 1–5 (default 5). Excess visible active
+quests are reachable with a separate persistent nonactivating vertical scrollbar;
+card rebuilds do not destroy its captured thumb. Screen-fit may expose fewer rows
+on small clients, with overflow still reachable. Collapse state is per quest/profile;
+a collapsed row shows title/position and expand control only. Header drag remains.
+Step checkboxes persist explicit completion keys (instruction number + content
+anchor), independently of current navigation; identical text at another step is
+not automatically marked. Done marks the current step; checking the current step
+advances/completes like Done. Other step marks do not advance, and unchecking does
+not rewind or reopen a completed quest. Marked cards have green outlines.
+These are manual user confirmations, never inferred game progress. Additive fields
+retain external progress schema 1, with bounded/validated completion keys. Marks
+remain stored when source changes; changed instructions no longer match a mark.
+The details Active button is green; explicit restore-to-active is red. New guides
+retain the ordinary style. Native smoke checks copied expiry, fold/unfold and
+scroll overflow; focused tests check mark/collapse persistence and CID isolation.
+Automated validation passed: 306 tests, eight ToC checks and Windows portable startup; real SpringRO/fullscreen/DPI acceptance remains open.
+
+Fold/scroll/marks verification: [Actions #41130006660](https://github.com/alerion08/RoAura/actions/runs/41130006660)
+SUCCESS on `5dd23348254823752127518be7c69ced21592b0c`: 306 tests,
+zero failed/skipped, eight ToC checks, RU/EN and clean portable validation.
+Native smoke clicks collapse/expand, checks copied coordinate caption and its
+four-second restoration, applies overflow/scrollbar value and preserves prior
+input/focus/database-priority checks. Persistence tests cover completion marks,
+duplicate instruction isolation, collapse state, unchecking and CID separation.
+Active list, copied coordinate/tracker and scrolled native rasters inspected.
+Colored button padding and title alignment were corrected after visual review.
+Actual scrollbar-thumb dragging in SpringRO, fullscreen/mixed-DPI and broad manual
+regression remain open; CI scrollbar value checks do not establish those behaviors.
+Artifact: [RoAura-development-77-5dd2334](https://github.com/alerion08/RoAura/actions/runs/41130006660/artifacts/13013395165).
+Portable SHA256: `5b46c9800c6350be7f45007d94e13cfe9e1ae80d42223668a7032b3a3d551049`.
+No main/research write, product version bump, merge, tag or release.
+
+## ROQuestie stable tracker and catalog tags (2026-10-31)
+
+Owner video revealed window destruction/recreation after each action and scrollbar
+geometry derived from currently displayed card heights. Action HWNDs are now pooled
+and reused; card text swaps in one UI batch. Unused surfaces hide and are reused,
+not destroyed. Existing focus/click-through/occlusion behavior remains in place.
+Scrollbar has a transparent track and fixed 36-DIP thumb. Track height and page
+range depend on configured capacity, text options and available client space,
+not which cards happen to be expanded/on screen. A native thumb-drag smoke checks
+geometry invariance and game focus; Next checks action HWND identity retention.
+Historical_or_seasonal guides are excluded from the working catalog, links and
+saved-row presentation. The pinned research snapshot and saved progress are not
+modified/deleted; archived keys remain known for safe suppression and recovery.
+Catalog metadata is three compact outlined light-navy tags with 3x1-DIP padding:
+category, base level and stage count. RU wording is now этапов, EN steps.
+A generated edit of the exact selected screenshot is a styling reference only;
+shipped tags are WPF controls and are validated in actual app captures.
+Automated validation passed: 307 tests, eight ToC checks and Windows portable startup; real SpringRO/mixed-DPI acceptance remains open.
+
+Stable tracker/catalog verification: [Actions #41177368036](https://github.com/alerion08/RoAura/actions/runs/41177368036)
+SUCCESS on `0dfceaa638fcb30fa96c8ce4c4be552737f076c8`: 307 tests,
+zero failed/skipped, eight ToC checks, resources/package validation and startup.
+Native smoke verifies identical action HWND after Next and actual mouse thumb drag:
+thumb/track dimensions remain constant and game focus stays unchanged. This improves
+the previous value-only scroll test. Archival exclusion tests preserve existing
+saved progress while keeping old events out of active/history/catalog presentation.
+RU catalog and scrolled native captures inspected: outlined compact tags and only
+the fixed blue thumb visible, with no filled track background.
+The user video was sampled and reviewed. Eliminating action HWND destruction
+addresses its visible rebuild blink; long-session SpringRO frame stability,
+protected/fullscreen behavior and mixed-DPI still require real-game acceptance.
+Artifact: [RoAura-development-78-0dfceaa](https://github.com/alerion08/RoAura/actions/runs/41177368036/artifacts/13033272615).
+Portable SHA256: `6a8f9a5fad8538be37b20f88825208ba9dfe6e378bb7a3bd4573ddd40a93015a`.
+No main/research write, product version bump, merge, tag or public release.
+
+## ROQuestie actual-visual clipping, whitespace waypoints and no scrollbar (2026-10-31)
+
+Owner supersedes scrolling: tracker shows at most the configured first 1–5 quests;
+all others remain in the browser. Scroll HWND, template, state and input path are
+removed. Pooled tracker surfaces remain to avoid destruction/recreation flicker.
+Tracker masks now convert physical control-window rectangles through each actual
+WPF visual's PointFromScreen (including its own DPI/layout/render transforms),
+instead of dividing them by the game HWND DPI. This fixes premature clipping when
+game and WPF scales differ. The native smoke includes a transformed visual mask
+regression with points just inside/outside the browser edge.
+Research head was checked: 48c9dd28b9c0986ae391f31939fc8961772fbdf7 only changes
+README/enrich.py/test_enrich.py, not the shipped schema-v5 SQLite. The integration
+contract is unchanged. The application supplements literal wiki locations at read
+time using that parser's qualified map+X/Y rule, accepting comma or whitespace.
+Map names are checked against sourced NPC/map identifiers or the parser's map-code
+and navigation-context rule; numeric prose and bare cells never get guessed maps.
+Source NPC map identifiers are a whitelist only, not NPC-position verification.
+Bounds, deduplication and original assurance remain; no script candidates/progress
+are promoted. The pinned catalog remains read-only and research is not modified.
+Focused tests cover niflheim/nif_in and rejection cases plus catalog immutability.
+Automated validation passed: 318 tests, eight ToC checks and Windows portable startup; real SpringRO/mixed-DPI acceptance remains open.
+
+Visual-clip/waypoint verification: [Actions #41180900987](https://github.com/alerion08/RoAura/actions/runs/41180900987)
+SUCCESS on `1e4722014384608f1fb831c424563f6a7c4758d4`: 318 tests,
+zero failed/skipped, eight ToC checks, resources/clean-package and portable startup.
+Native smoke tests browser-edge exclusion with the tracker visual transformed to
+125%, requiring the inside point to be clipped and the outside point to remain.
+Prior focus, click-through, copied expiry, collapse and database priority pass.
+Parser/reader tests cover comma/whitespace qualified coordinates (niflheim 313 70,
+niflheim 187 241 and nif_in 105 81), numeric-prose rejection and SQLite immutability.
+Tracker scrolling code/template/window is removed, not merely hidden. Maximum
+visible count remains 1–5 and all other quests stay in the browser/order controls.
+The source rule update is research 48c9dd2; the pinned binary remains 41bfc483's
+schema-v5 projection. No source-supported script evidence was promoted to gameplay.
+Actual SpringRO monitor DPI and the user's exact window arrangement remain manual.
+Artifact: [RoAura-development-79-1e47220](https://github.com/alerion08/RoAura/actions/runs/41180900987/artifacts/13034911842).
+Portable SHA256: `eabf910bc41266c6526be749009e8ba51ed6f28f291143f55062cefd32a08e2f`.
+No main/research write, version bump, merge, tag or release.
+
+## Quest tracker layout and startup catalog — 2026-10-31
+
+The previous clipping fix is not accepted in SpringRO: the user still observes
+truncated text/actions. Keep WPF Width/Height synchronized with native layered
+window placement; native smoke checks their agreement after dispatcher/layout.
+Tracker buttons share template geometry and lowercase captions, including copied.
+Quest settings preview sits left of controls and uses read-only examples when no
+tracked quests exist. AutoLoadCatalog defaults true, persists with quest settings,
+loads at application startup and gates browser/page implicit loading; manual reload
+remains available. Check disabled startup, saved option, empty-profile preview,
+button heights, monitor DPI, clipping after actions and database/browser priority.
+Validation: [Windows run 41182802140](https://github.com/alerion08/RoAura/actions/runs/41182802140)
+passed on `ed06d76e16da2be063f1d1f44411ba7a24abd414`: 318 tests, zero failed/skipped,
+eight ToC validation/import checks, portable startup and package privacy/resource
+checks. Native smoke includes post-layout WPF/HWND size agreement, equal tracker
+button heights/lowercase captions, focus/click-through, copied expiry, collapse,
+current-step navigation and database priority. The first run failed to compile due
+to a probe variable-name collision, corrected before this successful run.
+Artifact: [RoAura-development-81-ed06d76](https://github.com/alerion08/RoAura/actions/runs/41182802140/artifacts/13034954377).
+Portable SHA256: `ae502ff9067fdca7fa14497bea00d50769ce82315d7bf2a2f3ab4c4f315cb02f`.
+Real SpringRO clipping/mixed-DPI and settings preview acceptance remain manual.
+No main/research writes, version changes, merge, tag or release.
+
+## Semantic walkthrough redesign — 2026-11-01
+
+Owner specification v1.1: docs/ROQUESTIE_WALKTHROUGH_SPEC.md and the user-attached
+Ayothaya HTML are design references only. The production view reads exclusively
+Data/quest_semantic.sqlite, semantic schema 5 (not the legacy schema-5 catalog).
+Pinned research e3206beccbdd414c6d6f31d146d168247634c578 has 28 fully localized
+quests / 420 ready steps. Research and main remain untouched; version stays 3.2.0.
+The whole-quest gate compares distinct (quest_id,step_id) membership in ready_steps
+and requires all four fields to contain non-whitespace text. A zero-step or
+partially translated quest is absent; partial source review is not an exclusion.
+
+Two panels separate selected/read step from current/manual progress. Left short
+texts, right full texts, independent scroll, right-only detail/facts/source tabs,
+RU/EN, compact coordinate copy, completion and tracking use the existing profile
+and progress system. All 28 ready quests match original stage number/kind/text
+with the legacy catalog: source anchors remain compatible. Mismatching source
+revisions fail closed for editing rather than moving marks by row position.
+Descriptions never fall back to old prose. The old catalog/active/history/tracker
+are not filtered by semantic readiness. The new view has its own ready selector. Newly ready content absent from the old
+progress catalog remains readable, with editing disabled until source alignment;
+it never inherits the old selected quest's current/completed/tracking state.
+
+Read-only SQLite uses the existing Windows SQLite reader, schema/integrity guards.
+Typed entity spans convert Unicode code-point offsets to UTF-16 and verify exact
+surfaces. Coordinates/NPCs/materials/dialogue options/facts/images come from typed
+relations. Unknown maps stay unknown; no regular-expression extraction or guessed
+NPC identity. Requirements and conditional/branch rewards are displayed as
+separate facts, never summed across alternatives. Untranslated original fact
+conditions remain verbatim. Server assurance is explicitly unknown for this data,
+separate from RU/EN readiness. No game completion is detected automatically.
+
+Reopening, file replacement/change notifications and an active two-second file
+revision probe reload the semantic view;
+newly ready quests appear without a whitelist, removed entries do not delete
+progress. Source screenshots are step-specific; the snapshot currently has zero
+images, so neutral placeholders are correct. User image uploads are not enabled.
+Feature CI provisions SHA-pinned read-only semantic/legacy fixtures and notices.
+
+Acceptance: readiness 0/1/10/9-of-10, whitespace/NULL, cross-quest membership,
+duplicate IDs, newly ready membership, partial source review, Unicode spans,
+SQLite immutability; native More/current, copy toast (coordinates retain caption),
+focus/input, F9, database priority and snapshots.
+Windows validation SUCCESS on `826a2b2ef842f6fe3086efabb484fb0ac3d022bb`:
+[run 41320367177](https://github.com/alerion08/RoAura/actions/runs/41320367177),
+329 tests, zero failed/skipped, eight ToC checks, startup/native input smoke and
+clean portable/resource validation. Actual pinned semantic spans and all 28 legacy
+stage mappings pass. Native smoke additionally verifies reading versus current,
+right-tab retention and standalone newly-ready content without legacy progress.
+RU/EN Ayothaya step-2 snapshots use the actual semantic source, not the HTML data.
+All implementation iterations passed Windows CI; visual QA corrected the ready
+selector caption, asynchronous snapshot/loading race, checkbox/segment states.
+[Development artifact 85](https://github.com/alerion08/RoAura/actions/runs/41320367177/artifacts/13088629427).
+Portable SHA256: `d014ac9e39ebe782ea8a256f88b0cbffd2779ecf1023512bbb055ed4b665fcca`.
+Actual game/mixed-DPI/narrow-layout acceptance remains manual, not release-ready.
+
+Manual acceptance: real SpringRO mixed-DPI, narrow layout, long/conditional quests,
+RU/EN/selected/current/completed/profile isolation, live database replacement.
+
+Manual acceptance: real SpringRO mixed-DPI, narrow layout, long/conditional quests,
+RU/EN/selected/current/completed/profile isolation, live database replacement.
+
+
+## Walkthrough feedback — 2026-11-02
+
+Owner supersedes browser occlusion: opening QuestBrowserWindow must not exclude
+pixels from the tracker or ordinary overlay surface. Settings and database
+occlusion remain in force. Native smoke checks the browser intersection after
+a WPF scale transform; actual SpringRO mixed-DPI acceptance remains manual.
+
+Walkthrough metadata/quality lines and the instruction helper are hidden.
+The action is “Выбрать этап” / “Select step”. Legend follows the screenshot.
+Compact exact-answer buttons sit in a separate bottom row of the detail pane.
+Requirements/rewards use two compact columns and per-step material rows below;
+source conditions and alternative branches are preserved, never summed.
+Explicit localized map/cell literals supplement missing step_locations without
+writing the DB or guessing cells. Both panels share the same coordinate list;
+map highlights include numeric cells. Whole-quest readiness and progress guards
+remain unchanged. Focused tests cover all 11 Cursed Spirit positions, deduplication,
+full numeric highlights, known maps without underscores and invalid cells.
+
+Validation: pending Windows CI for this change; no release/version/main changes.
+
+
+Windows verification SUCCESS for `daaf1eeab4efa91b632bd64dc44f009fcc36ed53`:
+https://github.com/alerion08/RoAura/actions/runs/41338810202 — 332 tests,
+eight ToC checks, portable startup/native input and clean package validation.
+The initial no-clip change exposed tracker actions intercepting browser clicks;
+native stacking now places the browser above tracker actions and ordinary overlays,
+without adding browser exclusion geometry. Coordinate copying passed afterward.
+RU Ayothaya facts, all 11 Cursed Spirit points and Biolabs answer-footer snapshots
+were visually inspected at 1450x900; compact and native snapshots also reviewed.
+Artifact 89: https://github.com/alerion08/RoAura/actions/runs/41338810202/artifacts/13096247167
+Portable SHA256: `2cf919a059459da40bdded20eead6d3fb85691bf1ce471d988633ee42b7f524a`.
+Actual SpringRO overlap/mixed-DPI acceptance remains manual. Main/research,
+version metadata and release state unchanged.
+
+
+## Ready catalog and localized quest facts — 2026-11-02
+
+Owner feedback supersedes the previous walkthrough-only readiness filter and
+bottom answer footer. Catalog and walkthrough now share whole-quest semantic
+readiness; missing/incomplete semantic data produces no legacy catalog fallback.
+Active/history/progress storage remain intact. Newly ready IDs without legacy
+progress are readable, with editing disabled until matching legacy data exists.
+Catalog refresh follows semantic replacement while the catalog tab is open.
+
+Answer options are compact single-button rows in their own card between
+coordinates and materials below the screenshot. Stage actions have explicit zero
+left margin and align with the instruction and coordinate panel. Quest selector
+opens from its entire field; the shared ComboBox theme is unchanged.
+
+Requirements sort level, prerequisites, then materials. Rewards sort Base/Job EXP,
+access/unlocks, then items. Numeric alternative-branch experience uses a min/max
+range, never sums; unconditional sequential or unknown grants remain separate.
+A reviewed exact-source RU dictionary covers all 154 distinct requirement/reward
+and step-material comments in the pinned 28-ready-quest snapshot. EN keeps the
+original text; SQLite source/evidence is not rewritten. Future unknown comments
+retain source text and require a dictionary update rather than guessed translation.
+Raw branch IDs are not rendered as user-facing labels.
+
+Checks: focused range/sequential reward, requirement order, ready catalog and
+translation coverage tests; native content-area selector click; RU Cursed Spirit
+facts and Biolabs answer-card snapshots. Windows CI pending for this block.
+Main/research/version/release remain unchanged.
+
+
+Verification SUCCESS on `373a63d5342a18fadc8bb15db9a7fdbb87e90b02`:
+https://github.com/alerion08/RoAura/actions/runs/41383797815 — 338 tests,
+eight ToC checks, native input/startup and portable package validation passed.
+All 154 distinct comments in the pinned ready snapshot have exact-source Russian
+translations; English originals and semantic SQLite immutability are retained.
+Native smoke verifies opening the quest chooser from its content area and equal
+catalog/walkthrough readiness sets. RU Cursed Spirit facts and Biolabs answer-card
+snapshots were inspected. Visual QA additionally promoted step-linked prerequisite
+quests to the header immediately after level, without a quantity multiplier.
+Sequential experience grants are preserved; only numeric alternative grants use ranges.
+Artifact 91: https://github.com/alerion08/RoAura/actions/runs/41383797815/artifacts/13113904744
+Portable SHA256: `9db691093c5a9e3349a07e581d7657a367671f6d5860aaabd7fbd9d95235865f`.
+Real SpringRO mixed-DPI, narrow-screen usability and long-session acceptance remain
+manual. Main/research, version metadata, tags and public release remain unchanged.
+
+
+## Independent application and game themes — 2026-11-02
+
+Feature work remains on feature/roquestie-mvp, without a version/release change.
+Settings > Appearance adds Application Light/Dark and Game overlays
+Follow application/Light/Dark with independent live previews. Additive properties
+default to Light/Application for older settings; existing presets/snapshots
+serialize them through the existing settings pipeline. No coordinates or custom
+HUD colors are rewritten.
+
+Window-scoped palettes and dynamic brush references cover main UI, dialogs,
+settings, database search/detail, quest browser and passive quest action surfaces.
+Owned dialogs inherit the owning interface's scope. Ordinary transparent HUD
+windows retain configured colors. Programmatic quest highlights and database
+statistics use the matching palette; cached database presentation redraws without
+re-requesting item descriptions. Source game images/minimaps/color swatches are
+not recolored. No window ownership, z-order, packet or input-hook changes.
+
+Validation planned: palette key parity, normalization/defaults, independent
+resolution, settings/preset and custom-color preservation; real native copy in
+dark quests, live mixed scope checks, dark database native capture, RU/EN dark
+walkthrough and facts plus Appearance preview PNGs. Full Windows CI pending.
+Real SpringRO/mixed-monitor readability remains manual acceptance.
+
+
+Appearance verification SUCCESS on `87c3e07cf2a76d2da7e3ca6d9d0161432f7eb196`:
+https://github.com/alerion08/RoAura/actions/runs/41423274253 — 345 tests,
+eight ToC checks, startup/native input and clean portable validation passed.
+Verified all four application/game combinations, default normalization, settings
+and preset round trips, custom HUD color/opacity/position retention and palette
+key parity. Native smoke copies coordinates in a dark quest window, checks mixed
+scope isolation and applies the dark database theme live. RU/EN dark walkthrough,
+dark requirements/rewards, both Appearance previews, native dark database and
+native dark/light quest windows were visually reviewed. Detached Settings preview
+PNGs have transparent page margins; the live window supplies its themed background.
+
+Integration fixes: layout assertions no longer depend on a literal light color;
+resource validation distinguishes declared palette resources from translated
+strings and now rejects duplicate localization keys. The existing AppearanceTab
+translation is reused. Window creation applies its palette without broadcasting
+unrelated card redraws. Tracking-star colors follow the interface palette.
+
+Artifact 95: https://github.com/alerion08/RoAura/actions/runs/41423274253/artifacts/13131715002
+Portable SHA256: `f98a476e21fa5ad36d31d2dc161d2e31689b27d1a5033767c012669bbcf56bbe`.
+Actual SpringRO mixed-DPI and subjective readability remain manual acceptance.
+No main/research changes, version bump, merge, tag or public release.
+
+
+## Release 3.3.0 preparation — 2026-11-02
+
+Owner explicitly requested footer centering and publication of the current feature
+work. Twitch/Discord/Donate content, icon and label centers are explicit; startup
+smoke checks their measured center alignment in both themes and captures the footer.
+Version/manifest are 3.3.0. Release includes ROQuestie and independent themes from
+the verified feature line, retaining the exact pinned catalogs used by test build 95.
+
+Release CI now prepares hash-pinned quest data before reader tests and packaging;
+installer includes Data/*.sqlite and attribution/license text, and CI silently
+installs it into an isolated runner directory to compare installed data hashes.
+Silent setup does not display the interactive Npcap notice or launch the app.
+Both distributions retain source/license notices and full GFDL/GPL references;
+per-page wiki/history and upstream script provenance remain available.
+Full release Windows tests, native input and installer verification are pending.
+Publishing is authorized by the owner; merge/tag/release will follow successful checks.
+Remaining real-game/mixed-DPI acceptance is documented in release notes.
