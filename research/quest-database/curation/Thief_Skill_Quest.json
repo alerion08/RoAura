@@ -1,0 +1,553 @@
+{
+  "quest_id": "irowiki-classic:Thief_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "2b881ca809b06394c70cc5550d54617503362d1d8f0ecab1ee709cdd3c7666cd",
+  "snapshot_sha256": "033e2a751781eb34d84bd4a9dd05e89c0d1e8e0583228f75f35de02940f21f8e",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Alcouskou"
+    },
+    {
+      "type": "npc",
+      "name": "Bag Seller"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "moc_prydb1",
+      "map_code": "moc_prydb1"
+    },
+    {
+      "type": "map",
+      "name": "payon",
+      "map_code": "payon"
+    },
+    {
+      "type": "item",
+      "name": "Grasshopper's Leg",
+      "game_id": 940,
+      "id_source": "http://db.irowiki.org/classic/item-info/940/"
+    },
+    {
+      "type": "item",
+      "name": "Bear's Footskin",
+      "game_id": 948,
+      "id_source": "http://db.irowiki.org/classic/item-info/948/"
+    },
+    {
+      "type": "item",
+      "name": "Zargon",
+      "game_id": 912,
+      "id_source": "http://db.irowiki.org/classic/item-info/912/"
+    },
+    {
+      "type": "item",
+      "name": "Spawn",
+      "game_id": 908,
+      "id_source": "http://db.irowiki.org/classic/item-info/908/"
+    },
+    {
+      "type": "item",
+      "name": "Fine Grit",
+      "game_id": 7041,
+      "id_source": "http://db.irowiki.org/classic/item-info/7041/"
+    },
+    {
+      "type": "item",
+      "name": "Earthworm Peeling",
+      "game_id": 1055,
+      "id_source": "http://db.irowiki.org/classic/item-info/1055/"
+    },
+    {
+      "type": "item",
+      "name": "Cobweb",
+      "game_id": 1025,
+      "id_source": "http://db.irowiki.org/classic/item-info/1025/"
+    },
+    {
+      "type": "item",
+      "name": "Cactus Needle",
+      "game_id": 952,
+      "id_source": "http://db.irowiki.org/classic/item-info/952/"
+    },
+    {
+      "type": "item",
+      "name": "Garlet",
+      "game_id": 910,
+      "id_source": "http://db.irowiki.org/classic/item-info/910/"
+    },
+    {
+      "type": "item",
+      "name": "Scell",
+      "game_id": 911,
+      "id_source": "http://db.irowiki.org/classic/item-info/911/"
+    },
+    {
+      "type": "item",
+      "name": "Leather Bag of Infinity"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). Ask to learn Back Slide. He will require you to bring him 20 Grasshopper's Leg , then he will teach you the skill.",
+      "instruction_sha256": "ea7f98a905eea8ad37f4a5b9b9d3ff6f617ca9d68b870bb5cb8acf2350f18e3b",
+      "step_id": "irowiki-classic:Thief_Skill_Quest/step/ea7f98a905eea8ad37f4/1",
+      "goal": "learn_skill",
+      "full_en": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). Ask to learn Back Slide. He will require you to bring him 20 Grasshopper's Leg , then he will teach you the skill. Job Level: 35 Class: Thief",
+      "full_ru": "Поговорите с Alcouskou в правой комнате Thief Guild (moc_prydb1 154,128). Попросите обучить Back Slide и принесите ему 20 Grasshopper's Leg; затем он обучит умению. Для этого умения: Job Level 35, профессия Thief.",
+      "short_ru": "У Alcouskou принесите 20 Grasshopper's Leg для Back Slide.",
+      "short_en": "Bring Alcouskou 20 Grasshopper's Leg for Back Slide.",
+      "npcs": [
+        {
+          "entity": "Alcouskou",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "moc_prydb1",
+          "x": 154,
+          "y": 128,
+          "known": true,
+          "role": "Alcouskou"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Grasshopper's Leg",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Back Slide"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "35",
+          "source_section": "html_text",
+          "evidence": "Job Level: 35 Class: Thief"
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 35 Class: Thief",
+          "text_ru": "Для этого умения: Job Level 35, профессия Thief."
+        }
+      ],
+      "protected_names": [
+        "Alcouskou",
+        "moc_prydb1",
+        "Grasshopper's Leg"
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). He will require the following items in order to teach you Find Stone: 1 Bear's Footskin , 1 Zargon and 5 Spawn",
+      "instruction_sha256": "6d5fc9dc8d704294ac1bd58c81fab5cf2d612f09cc3f2cdc1227fc45fd9b4ddd",
+      "step_id": "irowiki-classic:Thief_Skill_Quest/step/6d5fc9dc8d704294ac1b/1",
+      "goal": "learn_skill",
+      "full_en": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). He will require the following items in order to teach you Find Stone: 1 Bear's Footskin , 1 Zargon and 5 Spawn Job Level: 20 Class: Thief",
+      "full_ru": "Поговорите с Alcouskou в правой комнате Thief Guild (moc_prydb1 154,128). Для изучения Find Stone принесите 1 Bear's Footskin, 1 Zargon и 5 Spawn. Для этого умения: Job Level 20, профессия Thief.",
+      "short_ru": "У Alcouskou принесите 1 Bear's Footskin, 1 Zargon и 5 Spawn для Find Stone.",
+      "short_en": "Bring Alcouskou 1 Bear's Footskin, 1 Zargon and 5 Spawn for Find Stone.",
+      "npcs": [
+        {
+          "entity": "Alcouskou",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "moc_prydb1",
+          "x": 154,
+          "y": 128,
+          "known": true,
+          "role": "Alcouskou"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Bear's Footskin",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Zargon",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Spawn",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Find Stone"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "20",
+          "source_section": "html_text",
+          "evidence": "Job Level: 20 Class: Thief"
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 20 Class: Thief",
+          "text_ru": "Для этого умения: Job Level 20, профессия Thief."
+        }
+      ],
+      "protected_names": [
+        "Alcouskou",
+        "moc_prydb1",
+        "Bear's Footskin",
+        "Zargon",
+        "Spawn"
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1, 154,128). Ask to learn Sand Attack. He will require you to bring him 5 Fine Grit , then he will agree to teach you, but first you must bring him a Leather Bag of Infinity from the merchant that sells them in Payon.",
+      "instruction_sha256": "d851647a5d20efef69e4c6b6f703ad5a0378158fc823f2b9aa7216cee795e95a",
+      "step_id": "irowiki-classic:Thief_Skill_Quest/step/d851647a5d20efef69e4/1",
+      "goal": "obtain_materials",
+      "full_en": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1, 154,128). Ask to learn Sand Attack. He will require you to bring him 5 Fine Grit , then he will agree to teach you, but first you must bring him a Leather Bag of Infinity from the merchant that sells them in Payon. Job Level: 25 Class: Thief",
+      "full_ru": "Поговорите с Alcouskou в правой комнате Thief Guild (moc_prydb1, 154,128) и попросите обучить Sand Attack. Принесите 5 Fine Grit; затем потребуется Leather Bag of Infinity от торговца в Payon. Для этого умения: Job Level 25, профессия Thief.",
+      "short_ru": "У Alcouskou принесите 5 Fine Grit; для Sand Attack найдите Leather Bag of Infinity в Payon.",
+      "short_en": "Bring Alcouskou 5 Fine Grit; obtain Leather Bag of Infinity in Payon for Sand Attack.",
+      "npcs": [
+        {
+          "entity": "Alcouskou",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "moc_prydb1",
+          "x": 154,
+          "y": 128,
+          "known": true,
+          "role": "Alcouskou"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Fine Grit",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "25",
+          "source_section": "html_text",
+          "evidence": "Job Level: 25 Class: Thief"
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 25 Class: Thief",
+          "text_ru": "Для этого умения: Job Level 25, профессия Thief."
+        }
+      ],
+      "protected_names": [
+        "Alcouskou",
+        "Payon",
+        "moc_prydb1",
+        "Fine Grit",
+        "Leather Bag of Infinity"
+      ]
+    },
+    "4": {
+      "original_instruction": "Talk to Bag Seller in Payon (payon 91,77), and he will tell you to bring him 1 Earthworm Peeling , 1 Cobweb and 1 Cactus Needle .",
+      "instruction_sha256": "54258ed153d5dcb67cb981099abd21ca934ce5bc26d18fa5be73d9cd4f416cf7",
+      "step_id": "irowiki-classic:Thief_Skill_Quest/step/54258ed153d5dcb67cb9/1",
+      "goal": "obtain_materials",
+      "full_en": "Talk to Bag Seller in Payon (payon 91,77), and he will tell you to bring him 1 Earthworm Peeling , 1 Cobweb and 1 Cactus Needle .",
+      "full_ru": "Поговорите с Bag Seller в Payon (payon 91,77). Он попросит 1 Earthworm Peeling, 1 Cobweb и 1 Cactus Needle.",
+      "short_ru": "У Bag Seller подготовьте 1 Earthworm Peeling, 1 Cobweb и 1 Cactus Needle.",
+      "short_en": "Prepare 1 Earthworm Peeling, 1 Cobweb and 1 Cactus Needle for Bag Seller.",
+      "npcs": [
+        {
+          "entity": "Bag Seller",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "payon",
+          "x": 91,
+          "y": 77,
+          "known": true,
+          "role": "Bag Seller"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Earthworm Peeling",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Cobweb",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Cactus Needle",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "protected_names": [
+        "Bag Seller",
+        "Payon",
+        "payon",
+        "Earthworm Peeling",
+        "Cobweb",
+        "Cactus Needle"
+      ]
+    },
+    "5": {
+      "original_instruction": "Bring him these and he will give you 1 Leather Bag of Infinity. It's probably not a good idea to drop this special quest item on the ground.",
+      "instruction_sha256": "2ee67630af9aa9adcdd99e735ce83646cf1cc040dac7e54180339cbacca3550a",
+      "step_id": "irowiki-classic:Thief_Skill_Quest/step/2ee67630af9aa9adcdd9/1",
+      "goal": "obtain_materials",
+      "full_en": "Bring him these and he will give you 1 Leather Bag of Infinity. It's probably not a good idea to drop this special quest item on the ground.",
+      "full_ru": "Принесите ему эти материалы, и он выдаст 1 Leather Bag of Infinity. Не бросайте этот особый квестовый предмет на землю.",
+      "short_ru": "Передайте материалы Bag Seller и получите 1 Leather Bag of Infinity.",
+      "short_en": "Give Bag Seller the materials and receive 1 Leather Bag of Infinity.",
+      "npcs": [
+        {
+          "entity": "Bag Seller",
+          "role": "talk",
+          "support_step": 4,
+          "evidence": "Talk to Bag Seller in Payon (payon 91,77), and he will tell you to bring him 1 Earthworm Peeling , 1 Cobweb and 1 Cactus Needle ."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Earthworm Peeling",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Talk to Bag Seller in Payon (payon 91,77), and he will tell you to bring him 1 Earthworm Peeling , 1 Cobweb and 1 Cactus Needle .",
+          "condition": "Same requested set from step 4; one hand-in, not additional materials."
+        },
+        {
+          "entity": "Cobweb",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Talk to Bag Seller in Payon (payon 91,77), and he will tell you to bring him 1 Earthworm Peeling , 1 Cobweb and 1 Cactus Needle .",
+          "condition": "Same requested set from step 4; one hand-in, not additional materials."
+        },
+        {
+          "entity": "Cactus Needle",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Talk to Bag Seller in Payon (payon 91,77), and he will tell you to bring him 1 Earthworm Peeling , 1 Cobweb and 1 Cactus Needle .",
+          "condition": "Same requested set from step 4; one hand-in, not additional materials."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "entity": "Leather Bag of Infinity",
+          "amount": "1"
+        }
+      ],
+      "protected_names": [
+        "Leather Bag of Infinity"
+      ]
+    },
+    "6": {
+      "original_instruction": "You may now return to Alcouskou and ask him about Sand Attack again. As long as you have the Leather Bag of Infinity in your inventory he will now teach you the skill.",
+      "instruction_sha256": "0534d1343456cdd7f0357300e4d15f34805b84c06d720c53c50bcd748baef2e2",
+      "step_id": "irowiki-classic:Thief_Skill_Quest/step/0534d1343456cdd7f035/1",
+      "goal": "learn_skill",
+      "full_en": "You may now return to Alcouskou and ask him about Sand Attack again. As long as you have the Leather Bag of Infinity in your inventory he will now teach you the skill.",
+      "full_ru": "Вернитесь к Alcouskou и снова спросите о Sand Attack. Если Leather Bag of Infinity находится в вашем инвентаре, он обучит вас умению.",
+      "short_ru": "Вернитесь к Alcouskou с Leather Bag of Infinity в инвентаре для Sand Attack.",
+      "short_en": "Return to Alcouskou with Leather Bag of Infinity in inventory for Sand Attack.",
+      "npcs": [
+        {
+          "entity": "Alcouskou",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Sand Attack"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Leather Bag of Infinity",
+          "quantity": null,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Inventory possession is stated; removal/consumption is unknown."
+        }
+      ],
+      "protected_names": [
+        "Alcouskou",
+        "Leather Bag of Infinity"
+      ]
+    },
+    "7": {
+      "original_instruction": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). He'll require you to bring him the following items in order to teach you Stone Fling: 2 Garlet and 2 Scell .",
+      "instruction_sha256": "1502b4757ac41925f9fefffab6b61d8da13e114da738d9c1e251ea82850113d4",
+      "step_id": "irowiki-classic:Thief_Skill_Quest/step/1502b4757ac41925f9fe/1",
+      "goal": "learn_skill",
+      "full_en": "Talk to Alcouskou in the right-hand room of the Thief Guild (moc_prydb1 154,128). He'll require you to bring him the following items in order to teach you Stone Fling: 2 Garlet and 2 Scell . Job Level: 15 Class: Thief",
+      "full_ru": "Поговорите с Alcouskou в правой комнате Thief Guild (moc_prydb1 154,128). Для изучения Stone Fling принесите 2 Garlet и 2 Scell. Для этого умения: Job Level 15, профессия Thief.",
+      "short_ru": "У Alcouskou принесите 2 Garlet и 2 Scell для Stone Fling.",
+      "short_en": "Bring Alcouskou 2 Garlet and 2 Scell for Stone Fling.",
+      "npcs": [
+        {
+          "entity": "Alcouskou",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "moc_prydb1",
+          "x": 154,
+          "y": 128,
+          "known": true,
+          "role": "Alcouskou"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Garlet",
+          "quantity": 2,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Scell",
+          "quantity": 2,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Stone Fling"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "15",
+          "source_section": "html_text",
+          "evidence": "Job Level: 15 Class: Thief"
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 15 Class: Thief",
+          "text_ru": "Для этого умения: Job Level 15, профессия Thief."
+        }
+      ],
+      "protected_names": [
+        "Alcouskou",
+        "moc_prydb1",
+        "Garlet",
+        "Scell"
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "thief_independent_training_and_bag",
+      "detail": "Four independent activities use Job Levels 35/20/25/15, not a global level-35 gate. Sand Attack requests one 5-Fine-Grit set; the Bag Seller requests one 1/1/1 crafting set, handed in at step 5. Step 6 proves bag possession, not consumption. Bag game ID is unknown. No exact menu answers or unseen NPC positions are invented."
+    }
+  ],
+  "job_level_scope_step": 1,
+  "routes": [
+    {
+      "key": "back_slide",
+      "kind": "optional",
+      "source_heading": "Back Slide Quest",
+      "steps": [
+        1
+      ],
+      "condition": "Independent training activity with its own materials and level gate."
+    },
+    {
+      "key": "find_stone",
+      "kind": "optional",
+      "source_heading": "Find Stone Quest",
+      "steps": [
+        2
+      ],
+      "condition": "Independent training activity with its own materials and level gate."
+    },
+    {
+      "key": "sand_attack",
+      "kind": "optional",
+      "source_heading": "Sand Attack Quest",
+      "steps": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "condition": "Independent training activity with its own materials and level gate."
+    },
+    {
+      "key": "stone_fling",
+      "kind": "optional",
+      "source_heading": "Stone Fling Quest",
+      "steps": [
+        7
+      ],
+      "condition": "Independent training activity with its own materials and level gate."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Thief",
+        "source_section": "requirements",
+        "evidence": "Class: Thief"
+      }
+    ]
+  }
+}

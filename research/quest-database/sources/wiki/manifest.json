@@ -4000,5 +4000,87 @@
       "https://irowiki.org/classic/Weapons",
       "https://irowiki.org/classic/Weight"
     ]
+  },
+  "Thief_Job_Change_Guide": {
+    "url": "https://irowiki.org/classic/Thief_Job_Change_Guide",
+    "sha256": "168b6dcbd399279ff03304b8d922e9071b92373204ce6663f4aa5df3b7281e7c",
+    "path": "168b6dcbd399279ff03304b8d922e9071b92373204ce6663f4aa5df3b7281e7c.html.gz",
+    "title": "Thief Job Change Guide",
+    "categories": [
+      "Novice",
+      "Level 1~99 Quests",
+      "Thief",
+      "Job Change Guide"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T21:52:17Z",
+    "page_links": [
+      "https://irowiki.org/classic/Back_Slide",
+      "https://irowiki.org/classic/Bow",
+      "https://irowiki.org/classic/Dagger",
+      "https://irowiki.org/classic/Detoxify",
+      "https://irowiki.org/classic/Envenom",
+      "https://irowiki.org/classic/File:Thiefmap.JPG",
+      "https://irowiki.org/classic/Find_Stone",
+      "https://irowiki.org/classic/Hiding",
+      "https://irowiki.org/classic/Improve_Dodge",
+      "https://irowiki.org/classic/Morroc",
+      "https://irowiki.org/classic/Novice",
+      "https://irowiki.org/classic/Quests",
+      "https://irowiki.org/classic/Sand_Attack",
+      "https://irowiki.org/classic/Skills",
+      "https://irowiki.org/classic/Steal",
+      "https://irowiki.org/classic/Stone_Fling",
+      "https://irowiki.org/classic/Thief",
+      "https://irowiki.org/classic/Thief_Skill_Quest",
+      "https://irowiki.org/classic/Thief_Training_Quest",
+      "https://irowiki.org/classic/Weapons"
+    ]
+  },
+  "Thief_Skill_Quest": {
+    "url": "https://irowiki.org/classic/Thief_Skill_Quest",
+    "sha256": "033e2a751781eb34d84bd4a9dd05e89c0d1e8e0583228f75f35de02940f21f8e",
+    "path": "033e2a751781eb34d84bd4a9dd05e89c0d1e8e0583228f75f35de02940f21f8e.html.gz",
+    "title": "Thief Skill Quest",
+    "categories": [
+      "Thief",
+      "Level 1~99 Quests",
+      "Skill Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T21:52:18Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/1025/",
+      "http://db.irowiki.org/classic/item-info/1055/",
+      "http://db.irowiki.org/classic/item-info/7041/",
+      "http://db.irowiki.org/classic/item-info/908/",
+      "http://db.irowiki.org/classic/item-info/910/",
+      "http://db.irowiki.org/classic/item-info/911/",
+      "http://db.irowiki.org/classic/item-info/912/",
+      "http://db.irowiki.org/classic/item-info/940/",
+      "http://db.irowiki.org/classic/item-info/948/",
+      "http://db.irowiki.org/classic/item-info/952/",
+      "https://irowiki.org/classic/Back_Slide",
+      "https://irowiki.org/classic/Bow",
+      "https://irowiki.org/classic/Dagger",
+      "https://irowiki.org/classic/Detoxify",
+      "https://irowiki.org/classic/Envenom",
+      "https://irowiki.org/classic/Find_Stone",
+      "https://irowiki.org/classic/Hiding",
+      "https://irowiki.org/classic/Improve_Dodge",
+      "https://irowiki.org/classic/Quests",
+      "https://irowiki.org/classic/Sand_Attack",
+      "https://irowiki.org/classic/Skills",
+      "https://irowiki.org/classic/Steal",
+      "https://irowiki.org/classic/Stone_Fling",
+      "https://irowiki.org/classic/Thief",
+      "https://irowiki.org/classic/Thief_Job_Change_Guide",
+      "https://irowiki.org/classic/Thief_Skill_Quest#Back_Slide_Quest",
+      "https://irowiki.org/classic/Thief_Skill_Quest#Find_Stone_Quest",
+      "https://irowiki.org/classic/Thief_Skill_Quest#Sand_Attack_Quest",
+      "https://irowiki.org/classic/Thief_Skill_Quest#Stone_Fling_Quest",
+      "https://irowiki.org/classic/Thief_Training_Quest",
+      "https://irowiki.org/classic/Weapons"
+    ]
   }
 }

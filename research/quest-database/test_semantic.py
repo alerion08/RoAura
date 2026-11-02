@@ -267,18 +267,52 @@ class RealCorpusTests(unittest.TestCase):
         exported=json.loads((self.out/'active_quests.json').read_text())['quests']
         self.assertTrue(all(r['state']=='included' for r in exported))
 
+    def test_thief_independent_skill_levels(self):
+        q='irowiki-classic:Thief_Skill_Quest'
+        self.assertIsNone(self.db.execute('SELECT job_level FROM quests WHERE quest_id=?',(q,)).fetchone()[0])
+        rows=self.db.execute("SELECT s.step_order,r.amount FROM requirements r JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND r.kind='job_level' ORDER BY s.step_order",(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(1,'35'),(2,'20'),(3,'25'),(7,'15')])
+        self.assertEqual(self.db.execute('SELECT count(*) FROM quest_routes WHERE quest_id=?',(q,)).fetchone()[0],4)
+
+    def test_thief_sand_bag_requires_possession_without_consumption(self):
+        q='irowiki-classic:Thief_Skill_Quest'
+        rows=self.db.execute("SELECT s.step_order,i.operation,i.quantity FROM step_items i JOIN quest_steps s USING(step_id) JOIN entities e ON e.entity_id=i.item_id WHERE s.quest_id=? AND e.original_name='Leather Bag of Infinity'",(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(6,'possess',None)])
+        rows=self.db.execute("SELECT s.step_order,r.amount FROM rewards r JOIN step_rewards sr USING(reward_id) JOIN quest_steps s USING(step_id) JOIN entities e ON e.entity_id=r.item_id WHERE s.quest_id=? AND e.original_name='Leather Bag of Infinity'",(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(5,'1')])
+
+    def test_thief_bag_material_handin_uses_previous_request(self):
+        q='irowiki-classic:Thief_Skill_Quest'
+        rows=self.db.execute("SELECT s.step_order,e.original_name,i.quantity,i.operation FROM step_items i JOIN quest_steps s USING(step_id) JOIN entities e ON e.entity_id=i.item_id WHERE s.quest_id=? AND s.step_order IN (4,5) ORDER BY s.step_order,e.original_name",(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(n,name,1,op) for n,op in [(4,'bring'),(5,'deliver')] for name in ['Cactus Needle','Cobweb','Earthworm Peeling']])
+
+    def test_thief_mushroom_weights_are_not_fixed_quotas(self):
+        q='irowiki-classic:Thief_Job_Change_Guide'
+        rows=self.db.execute("SELECT r.kind,r.amount FROM requirements r WHERE r.quest_id=? AND r.kind IN ('minimum_combined_mushroom_points','points_per_item') ORDER BY r.kind,r.amount",(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[('minimum_combined_mushroom_points','25'),('points_per_item','1'),('points_per_item','3')])
+        self.assertFalse(self.db.execute("SELECT 1 FROM step_items i JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=5 AND i.quantity IS NOT NULL",(q,)).fetchone())
+        self.assertFalse(self.db.execute("SELECT 1 FROM step_monsters i JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND i.operation='kill'",(q,)).fetchone())
+
+    def test_thief_unnamed_contacts_are_distinct_and_maps_unknown(self):
+        q='irowiki-classic:Thief_Job_Change_Guide'
+        rows=self.db.execute('SELECT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order IN (4,7)',(q,)).fetchall()
+        self.assertEqual(len({r[0] for r in rows}),3)
+        rows=self.db.execute('SELECT l.map_id FROM step_locations sl JOIN quest_steps s USING(step_id) JOIN locations l USING(location_id) WHERE s.quest_id=?',(q,)).fetchall()
+        self.assertEqual(len(rows),4)
+        self.assertTrue(all(r[0] is None for r in rows))
+
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],1045)
-        self.assertEqual(self.report['not_fully_localized_steps'],1705)
+        self.assertEqual(self.report['fully_localized_steps'],1059)
+        self.assertEqual(self.report['not_fully_localized_steps'],1691)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],1045)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],1059)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1705)
+        self.assertEqual(missing,1691)
         self.assertEqual(self.report['fully_localized_branches'],172)
-        self.assertEqual(self.report['curated_quests'],93)
-        self.assertEqual(self.report['pending_quests'],123)
-        self.assertEqual(self.report['quest_routes'],33)
-        self.assertEqual(self.report['source_additions'],49)
+        self.assertEqual(self.report['curated_quests'],95)
+        self.assertEqual(self.report['pending_quests'],121)
+        self.assertEqual(self.report['quest_routes'],37)
+        self.assertEqual(self.report['source_additions'],54)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_juperos_four_homonymous_books_and_return_scholar_have_typed_links(self):

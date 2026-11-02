@@ -1,0 +1,332 @@
+{
+  "quest_id": "irowiki-classic:Thief_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "f138fcc4342720101f4e798bd66a876fa19dc69646d86624c39be5ea38b5e6c8",
+  "snapshot_sha256": "168b6dcbd399279ff03304b8d922e9071b92373204ce6663f4aa5df3b7281e7c",
+  "entities": [
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "Pyramids"
+    },
+    {
+      "type": "map",
+      "name": "Thief Guild"
+    },
+    {
+      "type": "npc",
+      "name": "one closest to the portal",
+      "ref": "registrar"
+    },
+    {
+      "type": "npc",
+      "name": "NPC farthest from the warp portal",
+      "ref": "promoter"
+    },
+    {
+      "type": "npc",
+      "name": "Irrelevant Man",
+      "aliases": [
+        "Mr. Irrelevant"
+      ]
+    },
+    {
+      "type": "monster",
+      "name": "Fabres"
+    },
+    {
+      "type": "monster",
+      "name": "Chonchons"
+    },
+    {
+      "type": "monster",
+      "name": "Spores"
+    },
+    {
+      "type": "item",
+      "name": "Orange Gooey Mushroom"
+    },
+    {
+      "type": "item",
+      "name": "Orange Net Mushroom"
+    },
+    {
+      "type": "item",
+      "name": "Mushrooms"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Head off to the Pyramids, which is north-west of Morroc .",
+      "instruction_sha256": "7214c34a3abf6a9608f7f7994cba64600fdf96f37e4420ac67f582f2411e7f98",
+      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/7214c34a3abf6a9608f7/1",
+      "goal": "move",
+      "full_en": "Head off to the Pyramids, which is north-west of Morroc .",
+      "full_ru": "Отправляйтесь к Pyramids, к северо-западу от Morroc.",
+      "short_ru": "Идите к Pyramids к северо-западу от Morroc.",
+      "short_en": "Go to Pyramids northwest of Morroc.",
+      "actions": [
+        {
+          "operation": "travel_to_pyramids",
+          "entity": "Pyramids"
+        }
+      ],
+      "protected_names": [
+        "Morroc",
+        "Pyramids"
+      ]
+    },
+    "2": {
+      "original_instruction": "At the pyramid (58,159), enter, and head for the middle of the map to the Thief Guild (90,105).",
+      "instruction_sha256": "ab55cfde6229d56b0f1c4c14e4f90492c592fe3d454da9aa129af5bb72b54868",
+      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ab55cfde6229d56b0f1c/1",
+      "goal": "move",
+      "full_en": "At the pyramid (58,159), enter, and head for the middle of the map to the Thief Guild (90,105).",
+      "full_ru": "Войдите в pyramid (58,159), затем идите к центру карты, ко входу в Thief Guild (90,105).",
+      "short_ru": "Войдите в pyramid (58,159), затем в Thief Guild (90,105).",
+      "short_en": "Enter the pyramid (58,159), then Thief Guild (90,105).",
+      "locations": [
+        {
+          "x": 58,
+          "y": 159,
+          "role": "pyramid_entrance",
+          "known": false
+        },
+        {
+          "x": 90,
+          "y": 105,
+          "role": "guild_entrance",
+          "known": false
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_pyramid"
+        },
+        {
+          "operation": "enter_guild",
+          "entity": "Thief Guild"
+        }
+      ],
+      "protected_names": [
+        "Thief Guild"
+      ]
+    },
+    "3": {
+      "original_instruction": "Once inside, follow the hallway down and take the left gate (90,115). In here you will see two NPCs that will guide you through the quest.",
+      "instruction_sha256": "5f55a65fb6ce4d35d270ce60b6273bfe8e948ef347197f55145217264a9ed7bc",
+      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/5f55a65fb6ce4d35d270/1",
+      "goal": "move",
+      "full_en": "Once inside, follow the hallway down and take the left gate (90,115). In here you will see two NPCs that will guide you through the quest.",
+      "full_ru": "Внутри пройдите по коридору вниз и войдите в левый проход (90,115). Там находятся два NPC, которые помогут пройти испытание.",
+      "short_ru": "Пройдите вниз по коридору, затем в левый проход (90,115).",
+      "short_en": "Follow the hallway down, then enter the left gate (90,115).",
+      "locations": [
+        {
+          "x": 90,
+          "y": 115,
+          "role": "left_gate",
+          "known": false
+        }
+      ],
+      "protected_names": []
+    },
+    "4": {
+      "original_instruction": "Talk to the one closest to the portal. She will ask you a few questions, then instruct you to find an \"Irrelevant Man\" somewhere outside the Pyramid (141, 125) in order to steal mushrooms from a nearby mushroom farm.",
+      "instruction_sha256": "0e72bf86d71734619d2aa69a267e38dff048c8ef16f04ed5a268eabdb326d426",
+      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/0e72bf86d71734619d2a/1",
+      "goal": "talk",
+      "full_en": "Talk to the one closest to the portal. She will ask you a few questions, then instruct you to find an \"Irrelevant Man\" somewhere outside the Pyramid (141, 125) in order to steal mushrooms from a nearby mushroom farm.",
+      "full_ru": "Поговорите с NPC «one closest to the portal», ближайшим к порталу. Она задаст несколько вопросов и отправит к \"Irrelevant Man\" снаружи Pyramid (141, 125), чтобы украсть грибы на ближайшей ферме.",
+      "short_ru": "Поговорите с NPC у портала, затем найдите Irrelevant Man (141,125).",
+      "short_en": "Speak to the NPC near the portal, then find Irrelevant Man (141,125).",
+      "npcs": [
+        {
+          "entity": "registrar",
+          "role": "talk"
+        },
+        {
+          "entity": "Irrelevant Man",
+          "role": "farm_entry"
+        }
+      ],
+      "locations": [
+        {
+          "x": 141,
+          "y": 125,
+          "role": "outside_pyramid_contact",
+          "known": false
+        }
+      ],
+      "protected_names": [
+        "one closest to the portal",
+        "Irrelevant Man"
+      ]
+    },
+    "5": {
+      "original_instruction": "At the farm, kill the mushrooms and collect the mushrooms that drop. Aggressive Fabres and Chonchons (and Spores, but they're not aggresive) protect the farm, so you may want to avoid them. Your mission is to collect at least mushrooms worth of 25 points. | Note : If you die, you can talk to Mr. Irrelevant to return to the farm as many times as needed.",
+      "instruction_sha256": "ac9cac9d8bca9877f67a90de6bd2ec2e8817d301c466ab3a9e08fa4ba9f34837",
+      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/ac9cac9d8bca9877f67a/1",
+      "goal": "collect",
+      "full_en": "At the farm, kill the mushrooms and collect the mushrooms that drop. Aggressive Fabres and Chonchons (and Spores, but they're not aggresive) protect the farm, so you may want to avoid them. Your mission is to collect at least mushrooms worth of 25 points. | Note : If you die, you can talk to Mr. Irrelevant to return to the farm as many times as needed. Orange Gooey Mushroom 1 Point Orange Net Mushroom 3 Points",
+      "full_ru": "На ферме уничтожайте грибы и собирайте выпавшие грибы: нужно набрать не менее 25 очков. Агрессивные Fabres и Chonchons, а также неагрессивные Spores охраняют ферму; их можно избегать. Если погибнете, снова поговорите с Mr. Irrelevant: число возвращений на ферму не ограничено. Orange Gooey Mushroom — 1 Point; Orange Net Mushroom — 3 Points.",
+      "short_ru": "Соберите грибы на 25 очков: Orange Gooey Mushroom — 1, Orange Net Mushroom — 3.",
+      "short_en": "Collect 25 mushroom points: Orange Gooey Mushroom — 1, Orange Net Mushroom — 3.",
+      "npcs": [
+        {
+          "entity": "Irrelevant Man",
+          "role": "retry_contact"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Fabres",
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "Chonchons",
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "Spores",
+          "operation": "mention",
+          "required": 0
+        }
+      ],
+      "items": [
+        {
+          "entity": "Orange Gooey Mushroom",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Alternative weighted contribution; combined score at least 25.",
+          "source_section": "html_text",
+          "evidence": "Orange Gooey Mushroom 1 Point"
+        },
+        {
+          "entity": "Orange Net Mushroom",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Alternative weighted contribution; combined score at least 25.",
+          "source_section": "html_text",
+          "evidence": "Orange Net Mushroom 3 Points"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum_combined_mushroom_points",
+          "amount": "25"
+        },
+        {
+          "kind": "points_per_item",
+          "amount": "1",
+          "entity": "Orange Gooey Mushroom",
+          "source_section": "html_text",
+          "evidence": "Orange Gooey Mushroom 1 Point"
+        },
+        {
+          "kind": "points_per_item",
+          "amount": "3",
+          "entity": "Orange Net Mushroom",
+          "source_section": "html_text",
+          "evidence": "Orange Net Mushroom 3 Points"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill_mushrooms_and_collect_drops"
+        },
+        {
+          "operation": "optional_return_after_death",
+          "entity": "Irrelevant Man",
+          "condition": "Unlimited retries after death; not mandatory deaths."
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Orange Gooey Mushroom 1 Point Orange Net Mushroom 3 Points",
+          "text_ru": "Orange Gooey Mushroom — 1 Point; Orange Net Mushroom — 3 Points."
+        }
+      ],
+      "protected_names": [
+        "Fabres",
+        "Chonchons",
+        "Spores",
+        "Orange Gooey Mushroom",
+        "Orange Net Mushroom"
+      ]
+    },
+    "6": {
+      "original_instruction": "After collecting a sufficient amount of Mushrooms, head back to Thief Guild.",
+      "instruction_sha256": "4fb0b607be5b20b0dcabf39dd000a12e2867f4a8242d76804c2ead1ba6de5e39",
+      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/4fb0b607be5b20b0dcab/1",
+      "goal": "return",
+      "full_en": "After collecting a sufficient amount of Mushrooms, head back to Thief Guild.",
+      "full_ru": "Собрав достаточное количество Mushrooms, возвращайтесь в Thief Guild.",
+      "short_ru": "Вернитесь в Thief Guild с Mushrooms.",
+      "short_en": "Return to Thief Guild with Mushrooms.",
+      "items": [
+        {
+          "entity": "Mushrooms",
+          "quantity": null,
+          "operation": "bring",
+          "required": 1,
+          "condition": "At least 25 combined points, not 25 mandatory copies of each mushroom."
+        }
+      ],
+      "protected_names": [
+        "Thief Guild",
+        "Mushrooms"
+      ]
+    },
+    "7": {
+      "original_instruction": "Talk to NPC farthest from the warp portal. He will count your mushrooms and if you have enough points, he will promote you to a Thief.",
+      "instruction_sha256": "38469e8badfa98af84cb88fd5860fdd5f866afccf80e44c8cb680fd2d50b39a5",
+      "step_id": "irowiki-classic:Thief_Job_Change_Guide/step/38469e8badfa98af84cb/1",
+      "goal": "talk",
+      "full_en": "Talk to NPC farthest from the warp portal. He will count your mushrooms and if you have enough points, he will promote you to a Thief.",
+      "full_ru": "Поговорите с «NPC farthest from the warp portal», наиболее удалённым от warp portal. Он подсчитает ваши грибы и при достаточном числе очков сменит профессию на Thief.",
+      "short_ru": "У дальнего от портала NPC проверьте очки и станьте Thief.",
+      "short_en": "Have the NPC farthest from the portal count the points and become Thief.",
+      "npcs": [
+        {
+          "entity": "promoter",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Thief"
+        }
+      ],
+      "protected_names": [
+        "NPC farthest from the warp portal"
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "thief_points_and_identity_uncertainty",
+      "detail": "Two unnamed guild NPCs stay distinct. Irrelevant Man / Mr. Irrelevant denotes the entry/retry contact within this guide. Bare coordinate pairs retain NULL map codes. Mushroom quantities are unknown because mixed weighted totals can satisfy 25 points. Avoidable Fabres/Chonchons/Spores have no kill quota; mushroom target ID and exact questions are unknown. Consumption timing is not inferred from the Varies header."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Novice",
+        "source_section": "requirements",
+        "evidence": "Class: Novice"
+      }
+    ]
+  }
+}

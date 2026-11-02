@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 1,045 steps in 93 curated guides and
-172 conditional branches. Forty-nine source additions supplement full descriptions;
-**1,705 steps / 123 remaining catalog entries still need processing**. Thirty-three quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
+is excluded. All four RU/EN fields exist for 1,059 steps in 95 curated guides and
+172 conditional branches. Fifty-four source additions supplement full descriptions;
+**1,691 steps / 121 remaining catalog entries still need processing**. Thirty-seven quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -167,8 +167,17 @@ capacity below 500, with optional Flowers and no invented item count/fee.
 Seven source additions restore serial inputs, activity headers and rewards.
 Previous 1,033 localized descriptions and 166 branches remain unchanged;
 schema/generator remain 5 / 5.9.0.
+Thief job change and skill guides are curated: two guides / 14 stages.
+The restored mushroom table uses a combined 25-point minimum with weights 1/3,
+not fixed per-item quotas. Avoidable farm protectors have no kill quota; two
+unnamed guild contacts stay distinct and bare coordinate maps stay unknown.
+Four independent skills use Job Levels 35/20/25/15. Sand Attack has one crafting
+set requested and delivered, one bag grant and a later inventory-possession
+requirement without invented consumption or Item ID. Five source additions
+restore the table and four headers. Previous 1,045 texts and 172 branches remain
+unchanged; schema/generator remain 5 / 5.9.0.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 325 regression tests, full offline rebuild and research CI
+Local validation: 330 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

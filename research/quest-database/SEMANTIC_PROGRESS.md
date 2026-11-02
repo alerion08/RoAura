@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.9.0**. All four description fields are populated for
-**1,045 steps across 93 curated guides**, up from the previous 90-guide/1,033-step
+**1,059 steps across 95 curated guides**, up from the previous 93-guide/1,045-step
 checkpoint. **172 conditional branches** also have independent RU/EN short and
-full descriptions. Thirty-three quest routes represent nine exclusive expedition/lyric/material paths
-and twenty-four conditional/optional activities. **1,705 steps in 123 remaining catalog entries still lack
+full descriptions. Thirty-seven quest routes represent nine exclusive expedition/lyric/material paths
+and twenty-eight conditional/optional activities. **1,691 steps in 121 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -118,6 +118,8 @@ complete localization/context analysis.** `complete` remains false.
 | Merchant Job Change Guide | 5 | One fee/two payment modes; character-specific serials; four destinations and distinct Kafras; conditional Receipt |
 | Merchant Skill Quest | 3 | Independent 30/15/35 gates; exact Cart Revolution inventory; unqualified trainer points |
 | Blacksmith Skill Quest | 4 | Additional material set; scoped fee/level; Greed free-capacity condition and optional Flowers |
+| Thief Job Change Guide | 7 | Restored weighted mushroom table; distinct unnamed contacts; bare maps and unlimited death retries |
+| Thief Skill Quest | 7 | Four independent level gates; one bag crafting set; possession versus unproven consumption |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -125,6 +127,24 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Thief Job Change and Thief Skill add 14 preserved stages, four independent
+  training routes and five source additions. Coverage is 1,059 stages / 95 guides,
+  172 branches, 37 routes and 54 source additions. Previous 1,045 descriptions,
+  172 branches and original source rows/IDs remain unchanged; schema/generator
+  remain 5 / 5.9.0.
+- Restored the omitted mushroom table: Orange Gooey Mushroom contributes one
+  point and Orange Net Mushroom three to a combined minimum of 25. Fixed item
+  quantities and a kill quota for the avoidable farm protectors are not invented.
+  Two unnamed guild contacts retain separate source descriptors; bare coordinates
+  have unknown map codes. Death permits another farm visit, not a required loop.
+- Thief training has independent Job Level 35/20/25/15 activities. Sand Attack
+  uses one Fine Grit set and one Bag Seller crafting set, with context evidence
+  linking the request and hand-in. Leather Bag of Infinity is granted once and
+  later held in inventory; consumption and Item ID remain unknown. No literal
+  dialogue answers are supplied by these sources, so none are fabricated.
+
+Previous Merchant-family checkpoint:
 
 - Merchant job change and Merchant/Blacksmith skill training add 12 stages,
   six conditional branches, five independent activity routes and seven source
@@ -868,7 +888,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **325 tests passed**; complete offline enrichment passed;
+Validated locally: **330 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -932,7 +952,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 ## Next work, in order
 
-1. Review the remaining 123 catalog candidates, separating reference pages,
+1. Review the remaining 121 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World
@@ -956,3 +976,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 No in-game check was performed. No quest is promised to work on SpringRO or
 any other server solely because it appears in wiki/emulator sources.
+
+New regressions cover Thief activity levels, route independence, bag possession,
+context-supported material hand-in, weighted mushroom points, avoidable monsters,
+unnamed guild contact separation and unknown map codes. No in-game check performed.
