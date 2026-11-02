@@ -119,38 +119,29 @@
       "step_id": "irowiki-classic:Acolyte/step/e80f85261c31df008fef/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "One assigned ascetic option, not all three. Pinned HTML restores the omitted Ymir-only-Father-Yosuke note; it is a source server variant, not current universal availability. Original stage 1 remains complete and immutable.",
       "evidence_id": "ev:8ceb9816ae972c4f3ee88053",
       "quest_id": "irowiki-classic:Acolyte_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:589025d69fa242c1ebfdc438",
+      "reason": "acolyte_ascetic_options_and_ymir",
+      "review_id": "review:b0dd89c2b17783b17caf3dde",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The unnamed church Priest is scoped to this guide and is not silently identified with Bishop Paul or the Holy Light Cleric. Episode 12 is a source context note, not another numerical eligibility gate.",
       "evidence_id": "ev:8ceb9816ae972c4f3ee88053",
       "quest_id": "irowiki-classic:Acolyte_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:9cb51252347fe63913da963e",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:f3d99d6b8f00ea3e50dc685e",
-      "quest_id": "irowiki-classic:Acolyte_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:bdaa6d5029695359d5e62633",
+      "reason": "acolyte_priest_identity",
+      "review_id": "review:0621569f72ad6315b8b5543f",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:cc93cb45d71941ce192673bd",
+      "detail": "Talking to the Ascetic changes the save point. Death/Butterfly Wing returns to that Ascetic, not the old save point or church. Teleportation/escape are advice with unknown fees/counts; hazards are not kills. Church point is mapless town context; map codes for named field destinations come from exact own-guide links. No coordinate for Father Rubalkabara is printed.",
+      "evidence_id": "ev:8ceb9816ae972c4f3ee88053",
       "quest_id": "irowiki-classic:Acolyte_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:44fa12cdca9378d7a122f72d",
+      "reason": "acolyte_savepoint_and_travel_scope",
+      "review_id": "review:a5817aa0656345abe2b8fa2c",
       "severity": "warning",
       "step_id": null
     },
@@ -164,83 +155,20 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3b18e2ed21815b0ac87b7f13",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:c90f97ae4eb666737c838428",
       "quest_id": "irowiki-classic:Acolyte_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:6149250a73723810bdc88754",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Acolyte_Job_Change_Guide/step/33379974982e9ae14e11/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:2cd46197a3cec912b9384183",
-      "quest_id": "irowiki-classic:Acolyte_Job_Change_Guide",
-      "reason": "map_unknown",
-      "review_id": "review:cb222b26103f6941210b6931",
+      "reason": "map_not_reference_known",
+      "review_id": "review:730e50c330e66b347cb050bb",
       "severity": "warning",
       "step_id": "irowiki-classic:Acolyte_Job_Change_Guide/step/33379974982e9ae14e11/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3b18e2ed21815b0ac87b7f13",
-      "quest_id": "irowiki-classic:Acolyte_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6353693a731bd666afb9cd15",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Acolyte_Job_Change_Guide/step/33379974982e9ae14e11/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5d9ff74ebe395c4e9374c14c",
-      "quest_id": "irowiki-classic:Acolyte_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:ed90ffb8e44018cede2fa206",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Acolyte_Job_Change_Guide/step/3f4c07953b416dc15aee/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5d9ff74ebe395c4e9374c14c",
-      "quest_id": "irowiki-classic:Acolyte_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:72bf23a005c8248d84f344ad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Acolyte_Job_Change_Guide/step/3f4c07953b416dc15aee/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Rosary 2608 is delivered for this skill. It is not the optional assisting Priest inventory requirement from the other guide. Cleric has no printed coordinates and is not merged with other church actors.",
       "evidence_id": "ev:974d38a40933316e62330e2b",
       "quest_id": "irowiki-classic:Acolyte_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:f49b2915400ca6d39e390f75",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:974d38a40933316e62330e2b",
-      "quest_id": "irowiki-classic:Acolyte_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:19cd2513ae0f7bde6c1875f2",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:4dbcace137701c36a5be81f9",
-      "quest_id": "irowiki-classic:Acolyte_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:df1d5ded30b71bd2047860a3",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:b2f51ea6566bd41d63910da3",
-      "quest_id": "irowiki-classic:Acolyte_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:74c880689b44106ccca0be4e",
+      "reason": "holy_light_rosary_role",
+      "review_id": "review:dcd96876533408dcaa052b3c",
       "severity": "warning",
       "step_id": null
     },
@@ -252,33 +180,6 @@
       "review_id": "review:4e94721d11274922af6a4615",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2307e304ec713a8d36e5887c",
-      "quest_id": "irowiki-classic:Acolyte_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d7b2c2984b6afb4f8621109d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Acolyte_Skill_Quest/step/94e7a336f27729ae4c2c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2307e304ec713a8d36e5887c",
-      "quest_id": "irowiki-classic:Acolyte_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2830f58eb0b3b66c679d74d7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Acolyte_Skill_Quest/step/94e7a336f27729ae4c2c/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:2307e304ec713a8d36e5887c",
-      "quest_id": "irowiki-classic:Acolyte_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:abffff33f7bc3b51c60e14d1",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Acolyte_Skill_Quest/step/94e7a336f27729ae4c2c/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -32015,38 +31916,38 @@
       "step_id": "irowiki-classic:Priest/step/eab6a4e4bc1c8add20de/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "All three Ascetics are required unless Job Level 50. This differs from the one assigned option in Acolyte job change. The own-guide HTML Acolyte Job Quest link resolves Acolyte_Job_Change_Guide, but this is a visit-group reference, not a newly asserted mandatory quest-completion relation. Actor names/points are not copied without own-guide evidence. The following test-room step preserves the skip context.",
       "evidence_id": "ev:3c9cc048cdd08cbe99403e3b",
       "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:5f4243581da1252c4dd34fd1",
+      "reason": "priest_ascetic_group_and_skip",
+      "review_id": "review:e14d94bc5d23574db7975a97",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Exorcism clears all actual Zombie spawns with unknown totals. Later Zombie/Mummies rooms can be run through. Deviruchi, Doppleganger, Dark Lord and Baphomet are ordered temptation NPCs, not four mandatory bosses. Exact rejection and Sister Cecelia answers are absent; no literal dialogue is fabricated.",
       "evidence_id": "ev:3c9cc048cdd08cbe99403e3b",
       "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:0d768734c85471f5d5d29f00",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:4f29ef13a41f1fd7a33c0ff2",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:e1b41adf7b931266a81cd2f8",
+      "reason": "priest_combat_and_temptation_roles",
+      "review_id": "review:3be840ee491c6fe599ccb8fc",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:50ceb772b34ae17a80bca63d",
+      "detail": "The optional assisting character must be Priest and keep Rosary 2608 in inventory, not equipped. It is neither consumed nor an extra applicant cost; Holy Light uses the same linked item with a different role. Peter S. Alberto repeated clicks are intentional with unknown count.",
+      "evidence_id": "ev:3c9cc048cdd08cbe99403e3b",
       "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:0efe3625f39d072ad4c63354",
+      "reason": "priest_helper_and_rosary",
+      "review_id": "review:3a6897a20ee4b5fdf7f60fbd",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Bible 1551 and Book 1550 are exact own-guide links with exclusive job-level rewards. Bishop Paul is not automatically merged with the unnamed Acolyte church Priest or Holy Light Cleric; only his own interior map point is asserted.",
+      "evidence_id": "ev:3c9cc048cdd08cbe99403e3b",
+      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
+      "reason": "priest_reward_and_identity_scope",
+      "review_id": "review:48d639049e7276d3c3a2c343",
       "severity": "warning",
       "step_id": null
     },
@@ -32060,200 +31961,20 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:475b14ef6e56f957cedc1be1",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:e5965ed3f9655c66220a30ab",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/2f1ac5fdcf465262c750/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:475b14ef6e56f957cedc1be1",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:49648ec2ddb532291822d569",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/2f1ac5fdcf465262c750/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a150cfffbc49c69eff5f05dd",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:d99afc802db2e2c46a042c74",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/5ea5c777034617c41193/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a150cfffbc49c69eff5f05dd",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4a64a6eedc1518fd242116fc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/5ea5c777034617c41193/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1e8ec323cc7fcb849c0248c9",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:bce9783fd6635f45a2d6b63e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/5eccee778ed3eb32f6a4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1e8ec323cc7fcb849c0248c9",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:cc26d41ccb59f5567af69e13",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/5eccee778ed3eb32f6a4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5ca56a5e57eed621a1e5f598",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:680f8a4db9fde9a879508773",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/851f4ba3ddd513a45e2e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5ca56a5e57eed621a1e5f598",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5d55c42ff1acac461ca48362",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/851f4ba3ddd513a45e2e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:05c45a1fc669c01481fb1add",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:e83d1ab7593b6c642569b665",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/928c9cb67d4e74ed2bf8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:05c45a1fc669c01481fb1add",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:754a23e2f71fc4c945d5cf44",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/928c9cb67d4e74ed2bf8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3fa748c33cdc0b3b4004030b",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:e26b87bf8959c78625271951",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/a8f73b70fe0dbdc51bb8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3fa748c33cdc0b3b4004030b",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a06b71cd7b507dbde4e2a97f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/a8f73b70fe0dbdc51bb8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:64906733c12d0df06363840e",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:07a861338064970aa6c10194",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/a9f6a8821209a09e670f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:64906733c12d0df06363840e",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1d55e24cad79c688a2b3c950",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/a9f6a8821209a09e670f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:acbc8d85539d15f7c578a889",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:e9925054094ed7bc97cec248",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/b9d40ed02db944e46b12/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:acbc8d85539d15f7c578a889",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a1f9bd0ceaff3f795d5262ba",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/b9d40ed02db944e46b12/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:668a721340f5054d45464e06",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:58511be77e238ed2f16d9e4d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/c487b4fae8e5d9924dac/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:668a721340f5054d45464e06",
-      "quest_id": "irowiki-classic:Priest_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:769738c9b8aa4841a2b4ba06",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Job_Change_Guide/step/c487b4fae8e5d9924dac/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Resurrection Level 1 is restored into the full step text from the source header without guessing a numeric Skill ID. Sister Linus is scoped independently from Sister Cecelia and other church actors. No coordinates are printed.",
       "evidence_id": "ev:8210c99ad0320814b8666f12",
       "quest_id": "irowiki-classic:Priest_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:b6d70c834eae179d4038ef64",
+      "reason": "redemptio_skill_and_actor_identity",
+      "review_id": "review:fdb9a7b770dfbdf6c389f10f",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Header calls 30 Holy Water/20 Blue Gemstones consumed; body says bring that stock, recommends ten extra gems and explicitly spends one water plus one gem per attempt. Preserve the conflict as source summaries, not a second 30/20 charge. Required stock, optional extra stock and variable per-attempt consumption are separate facts; chance and total attempts remain unknown.",
       "evidence_id": "ev:8210c99ad0320814b8666f12",
       "quest_id": "irowiki-classic:Priest_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:049c08a4f8c37aaee0ca7871",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:64903be79c123e5e2a9cbf1d",
-      "quest_id": "irowiki-classic:Priest_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:13f663a8789b9a9067e0c6e8",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:7e4fcfc8ff2a574767f332a4",
-      "quest_id": "irowiki-classic:Priest_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:ea301b682e9ba2a7f4c5ad23",
+      "reason": "redemptio_stock_versus_retry_consumption",
+      "review_id": "review:f858163f8736f3c067936d74",
       "severity": "warning",
       "step_id": null
     },
@@ -32265,42 +31986,6 @@
       "review_id": "review:54178c019a3a9e2bc22c942e",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b9df844ed13923289067ab82",
-      "quest_id": "irowiki-classic:Priest_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c3697bae62e57b84f86bab07",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Skill_Quest/step/a57f591d27364b744ed1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b9df844ed13923289067ab82",
-      "quest_id": "irowiki-classic:Priest_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:47aee834373892845275c9fa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Skill_Quest/step/a57f591d27364b744ed1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8b825152642e3f8cb4c9f768",
-      "quest_id": "irowiki-classic:Priest_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:512ad718aeed6897683b5c90",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Skill_Quest/step/b7bb2c50427212de46bd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8b825152642e3f8cb4c9f768",
-      "quest_id": "irowiki-classic:Priest_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b60c56ba8d0a0c5ab7d391c4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Priest_Skill_Quest/step/b7bb2c50427212de46bd/1"
     },
     {
       "detail": "Wiki quotes Volunteer. including punctuation; preserve exactly. Exact in-client spelling still needs verification.",
