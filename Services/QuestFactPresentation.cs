@@ -4,12 +4,13 @@ namespace RoAura.Services;
 
 public static class QuestFactPresentation
 {
+ public static bool IsTopRequirement(SemanticFact fact)=>fact.StepId is null || fact.Kind is "base_level" or "job_level" or "quest_completed" or "conditional_quest_steps";
  public static IReadOnlyList<SemanticFact> Requirements(SemanticQuest quest)
  {
-  var facts=quest.Requirements.Where(f=>f.StepId is null).ToList();
+  var facts=quest.Requirements.Where(IsTopRequirement).Select(f=>f.Kind=="quest_completed" && f.Name is null && !string.IsNullOrWhiteSpace(f.Amount) && !long.TryParse(f.Amount,out _)?f with{Name=f.Amount,Amount=null}:f).ToList();
   if(quest.BaseLevel is {} level && !facts.Any(f=>f.Kind=="base_level"))facts.Add(new("header:base_level","base_level",null,level.ToString(CultureInfo.InvariantCulture),null,null,null));
   if(quest.JobLevel is {} job && !facts.Any(f=>f.Kind=="job_level"))facts.Add(new("header:job_level","job_level",null,job.ToString(CultureInfo.InvariantCulture),null,null,null));
-  return facts.OrderBy(f=>f.Kind switch{"base_level"=>0,"job_level"=>1,"quest_completed"=>2,_=>3}).ToList();
+  return facts.OrderBy(f=>f.Kind switch{"base_level"=>0,"job_level"=>1,"quest_completed" or "conditional_quest_steps"=>2,_=>3}).ToList();
  }
  public static IReadOnlyList<SemanticFact> Rewards(IReadOnlyList<SemanticFact> source)
  {
@@ -24,7 +25,7 @@ public static class QuestFactPresentation
     var amounts=group.Select(f=>long.Parse(f.Amount!,CultureInfo.InvariantCulture)).ToList();
     var min=amounts.Min();var max=amounts.Max();
     result.Add(new("range:"+kind,kind,null,min==max?min.ToString(CultureInfo.InvariantCulture):$"{min}–{max}",
-      string.Join("\n",group.Select(f=>f.Condition).Where(s=>!string.IsNullOrWhiteSpace(s)).Distinct()),null,null));
+      "Reward varies by route or character level.\n"+string.Join("\n",group.Select(f=>f.Condition).Where(s=>!string.IsNullOrWhiteSpace(s)).Distinct()),null,null));
    }
    else result.AddRange(group);
   }

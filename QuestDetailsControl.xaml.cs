@@ -231,7 +231,7 @@ public partial class QuestDetailsControl : UserControl
   // Preserve source totals and branch conditions. Never add alternative branches together.
   foreach(var step in _quest.Steps)
   {
-   var facts=_quest.Requirements.Where(f=>f.StepId==step.Id).ToList();
+   var facts=_quest.Requirements.Where(f=>f.StepId==step.Id && !QuestFactPresentation.IsTopRequirement(f)).ToList();
    if(facts.Count>0)body.Children.Add(Info(L("Материалы и требования — этап ","Materials and requirements — step ")+step.Order,FactRows(facts)));
    else
    {

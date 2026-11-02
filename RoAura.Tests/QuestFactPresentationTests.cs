@@ -24,6 +24,14 @@ public sealed class QuestFactPresentationTests
   var q=new SemanticQuest("q","Quest",60,null,"ready","unknown",new("url","revision","wiki",null),[],[Fact("item","5"),Fact("quest_completed","1"),Fact("base_level","60")],[]);
   Assert.Equal(new[]{"base_level","quest_completed","item"},QuestFactPresentation.Requirements(q).Select(f=>f.Kind));
  }
+ [Fact] public void StepPrerequisitesJoinHeaderBeforeLootAndAreNotItemCounts()
+ {
+  var prerequisite=Fact("quest_completed","Biolabs Entrance Quest") with{StepId="s1"};
+  var q=new SemanticQuest("q","Quest",60,null,"ready","unknown",new("url","rev","wiki",null),[],[Fact("item","5"),prerequisite],[]);
+  var rows=QuestFactPresentation.Requirements(q);
+  Assert.Equal(new[]{"base_level","quest_completed","item"},rows.Select(f=>f.Kind));
+  Assert.Equal("Biolabs Entrance Quest",rows[1].Name);Assert.Null(rows[1].Amount);
+ }
  [Fact] public void CatalogUsesOnlyReadyIdsAndKeepsNewReadyQuestsReadable()
  {
   var q=new SemanticQuest("new","New",60,null,"ready","unknown",new("url","revision","wiki",null),[],[],[]);
