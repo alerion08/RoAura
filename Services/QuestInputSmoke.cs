@@ -152,6 +152,7 @@ internal static class QuestInputSmoke
                 {
                     workspace.Settings.ApplicationTheme="Dark";workspace.Settings.GameOverlayTheme="Dark";
                     host.Browser.Page.ShowGuide(row.Guide);await Pause();
+                    await Until(()=>!host.Browser.Page.CopyToastVisible,"previous coordinate toast expiry before dark input");
                     var darkPoint=host.Browser.Page.CurrentNavigationButton??throw new InvalidOperationException("Dark coordinate button missing.");
                     Click(darkPoint.PointToScreen(new Point(darkPoint.ActualWidth/2,darkPoint.ActualHeight/2)));
                     await Until(()=>host.Browser.Page.CopyToastVisible,"dark theme coordinate copy");

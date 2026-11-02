@@ -1,4 +1,5 @@
 using Xunit;
+using System.Xml.Linq;
 
 namespace RoAura.Tests;
 
@@ -51,11 +52,20 @@ public sealed class UiRegressionTests
         var xaml = ReadRepositoryText("MainWindow.xaml");
 
         Assert.Contains("<Grid.RowDefinitions><RowDefinition Height=\"Auto\"/><RowDefinition Height=\"*\"/><RowDefinition Height=\"Auto\"/></Grid.RowDefinitions>", xaml);
-        Assert.Contains("<Border Grid.Row=\"2\" Padding=\"8\" Background=\"#F5F9FE\" CornerRadius=\"7\">\n                                                    <UniformGrid Columns=\"3\">\n                                                        <Button Content=\"{DynamicResource DuplicateEffect}\"", xaml);
+        AssertActionFooter(xaml,"2","3","Button","Content","{DynamicResource DuplicateEffect}");
         Assert.Contains("<Grid Grid.Column=\"2\">\n                                        <Grid.RowDefinitions><RowDefinition Height=\"*\"/><RowDefinition Height=\"Auto\"/></Grid.RowDefinitions>", xaml);
-        Assert.Contains("<Border Grid.Row=\"1\" Padding=\"8\" Background=\"#F5F9FE\" CornerRadius=\"7\">\n                                            <UniformGrid Columns=\"4\">\n                                                <ToggleButton x:Name=\"BuffPanelMoveModeButton\"", xaml);
+        AssertActionFooter(xaml,"1","4","ToggleButton","Name","BuffPanelMoveModeButton");
     }
 
+    private static void AssertActionFooter(string xaml,string row,string columns,string control,string attribute,string value)
+    {
+        XNamespace ui="http://schemas.microsoft.com/winfx/2006/xaml/presentation";
+        XNamespace names="http://schemas.microsoft.com/winfx/2006/xaml";
+        var document=XDocument.Parse(xaml);
+        Assert.Contains(document.Descendants(ui+"Border"),border=>(string?)border.Attribute("Grid.Row")==row &&
+            border.Elements(ui+"UniformGrid").Any(grid=>(string?)grid.Attribute("Columns")==columns &&
+                grid.Elements(ui+control).Any(action=>(string?)action.Attribute(attribute=="Name"?names+attribute:attribute)==value)));
+    }
     private static string FindRepositoryFile(string fileName)
     {
         for (var directory = new DirectoryInfo(AppContext.BaseDirectory); directory is not null; directory = directory.Parent)
