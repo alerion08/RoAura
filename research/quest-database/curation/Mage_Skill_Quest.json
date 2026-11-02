@@ -1,0 +1,230 @@
+{
+  "quest_id": "irowiki-classic:Mage_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "eaae153778678cec87334f53c9487604550a152d5cb35a5c359acda065fd157a",
+  "snapshot_sha256": "3d79f68b89a9885e2f11e3d2954dc5412d2e6d56e05e38e53f4b3c705537252a",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Great Wizard"
+    },
+    {
+      "type": "npc",
+      "name": "Prontera Gift Merchant"
+    },
+    {
+      "type": "npc",
+      "name": "Lighthalzen Gift Merchant"
+    },
+    {
+      "type": "npc",
+      "name": "Lutie Gift Merchant"
+    },
+    {
+      "type": "npc",
+      "name": "Morroc Ruins Jeweler"
+    },
+    {
+      "type": "npc",
+      "name": "Lighthalzen Jeweler"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Lighthalzen"
+    },
+    {
+      "type": "map",
+      "name": "Morroc Ruins"
+    },
+    {
+      "type": "map",
+      "name": "prontera",
+      "map_code": "prontera"
+    },
+    {
+      "type": "map",
+      "name": "moc_ruins",
+      "map_code": "moc_ruins"
+    },
+    {
+      "type": "item",
+      "name": "Glass Beads",
+      "game_id": 746,
+      "id_source": "http://db.irowiki.org/classic/item-info/746/"
+    },
+    {
+      "type": "item",
+      "name": "1 Carat Diamond",
+      "game_id": 730,
+      "id_source": "http://db.irowiki.org/classic/item-info/730/",
+      "aliases": [
+        "1 Carat Diamonds"
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Shells",
+      "game_id": 935,
+      "id_source": "http://db.irowiki.org/classic/item-info/935/"
+    },
+    {
+      "type": "item",
+      "name": "Solid Shell",
+      "game_id": 943,
+      "id_source": "http://db.irowiki.org/classic/item-info/943/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to the Great Wizard in the Geffen Mage Guild. He'll require the following items in order to teach you Energy Coat: 3 Glass Beads , 1 1 Carat Diamond , 5 Shells , 1 Solid Shell . | Glass Beads can be purchased from the Prontera Gift Merchant (prontera 105, 87), Lighthalzen Gift Merchant, or Lutie Gift Merchant for 1,400 Zeny each. | 1 Carat Diamonds can be purchased from the Morroc Ruins Jeweler (moc_ruins 52, 85) or the Lighthalzen Jeweler for 10,000 Zeny each.",
+      "instruction_sha256": "cf6f367b745f1fb77660d601e25ef06dc0c63f2e536fd99603c9f7ee8caf7e0e",
+      "step_id": "irowiki-classic:Mage_Skill_Quest/step/cf6f367b745f1fb77660/1",
+      "goal": "learn_skill",
+      "short_ru": "У Great Wizard передайте 3 Glass Beads, 1 1 Carat Diamond, 5 Shells и 1 Solid Shell для Energy Coat.",
+      "short_en": "Give Great Wizard 3 Glass Beads, 1 1 Carat Diamond, 5 Shells and 1 Solid Shell for Energy Coat.",
+      "full_ru": "Поговорите с Great Wizard в Geffen Mage Guild. Для изучения Energy Coat передайте 3 Glass Beads, 1 1 Carat Diamond, 5 Shells, 1 Solid Shell. Glass Beads можно купить у Prontera Gift Merchant (prontera 105, 87), Lighthalzen Gift Merchant или Lutie Gift Merchant за 1,400 Zeny за штуку. 1 Carat Diamonds продаются у Morroc Ruins Jeweler (moc_ruins 52, 85) или Lighthalzen Jeweler за 10,000 Zeny за штуку.",
+      "full_en": "Talk to the Great Wizard in the Geffen Mage Guild. He'll require the following items in order to teach you Energy Coat: 3 Glass Beads , 1 1 Carat Diamond , 5 Shells , 1 Solid Shell . | Glass Beads can be purchased from the Prontera Gift Merchant (prontera 105, 87), Lighthalzen Gift Merchant, or Lutie Gift Merchant for 1,400 Zeny each. | 1 Carat Diamonds can be purchased from the Morroc Ruins Jeweler (moc_ruins 52, 85) or the Lighthalzen Jeweler for 10,000 Zeny each.",
+      "npcs": [
+        {
+          "entity": "Great Wizard",
+          "role": "talk"
+        },
+        {
+          "entity": "Prontera Gift Merchant",
+          "role": "optional_vendor"
+        },
+        {
+          "entity": "Lighthalzen Gift Merchant",
+          "role": "optional_vendor"
+        },
+        {
+          "entity": "Lutie Gift Merchant",
+          "role": "optional_vendor"
+        },
+        {
+          "entity": "Morroc Ruins Jeweler",
+          "role": "optional_vendor"
+        },
+        {
+          "entity": "Lighthalzen Jeweler",
+          "role": "optional_vendor"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Glass Beads",
+          "quantity": 3,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "1 Carat Diamond",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Shells",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Solid Shell",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prontera",
+          "x": 105,
+          "y": 87,
+          "role": "Prontera Gift Merchant",
+          "known": true
+        },
+        {
+          "entity": "moc_ruins",
+          "x": 52,
+          "y": 85,
+          "role": "Morroc Ruins Jeweler",
+          "known": true
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "optional_unit_purchase_price",
+          "amount": "1400",
+          "entity": "Glass Beads",
+          "condition": "Each bead; any listed Gift Merchant is an alternative source, buying is optional."
+        },
+        {
+          "kind": "optional_unit_purchase_price",
+          "amount": "10000",
+          "entity": "1 Carat Diamond",
+          "condition": "Each diamond; either Jeweler is an alternative source, not an additional training fee."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Energy Coat"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_training_materials",
+          "entity": "Great Wizard"
+        },
+        {
+          "operation": "learn_energy_coat",
+          "entity": "Great Wizard"
+        }
+      ],
+      "protected_names": [
+        "Great Wizard",
+        "Prontera Gift Merchant",
+        "Lighthalzen Gift Merchant",
+        "Lutie Gift Merchant",
+        "Morroc Ruins Jeweler",
+        "Lighthalzen Jeweler",
+        "Geffen",
+        "Prontera",
+        "Lighthalzen",
+        "Morroc Ruins",
+        "prontera",
+        "moc_ruins",
+        "Glass Beads",
+        "1 Carat Diamond",
+        "Shells",
+        "Solid Shell"
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "energy_coat_optional_purchase_sources",
+      "detail": "Five merchants are optional alternative sources, distinct from the Great Wizard trainer. Prices are per item, not mandatory Zeny fees or separate sets per merchant. No trainer coordinates are supplied by this guide; no other-guide point is copied."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Mage",
+        "source_section": "requirements",
+        "evidence": "Class: Mage"
+      }
+    ]
+  }
+}

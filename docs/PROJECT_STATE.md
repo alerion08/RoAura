@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 1,020 steps in 86 curated guides and
-158 conditional branches. Thirty-nine source additions supplement full descriptions;
-**1,730 steps / 130 remaining catalog entries still need processing**. Twenty-six quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
+is excluded. All four RU/EN fields exist for 1,033 steps in 90 curated guides and
+166 conditional branches. Forty-two source additions supplement full descriptions;
+**1,717 steps / 126 remaining catalog entries still need processing**. Twenty-eight quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -142,8 +142,20 @@ Generator 5.8.0 supports strict first-activity Job Level scope: Swordman and
 existing Archer guide metadata preserve their first headers as source summaries,
 with NULL whole-guide job_level and explicit stage gates. Source text and schema
 5 remain unchanged; corrupt scope proofs/exports fail validation.
+Mage job change and Mage/Wizard/Sage skill guides are curated: four guides /
+13 stages. Four assigned Mage recipes have separate material sets, exact menu
+catalysts and mixing-code inputs; catalysts are not inventory fees. Energy Coat
+has one material set and optional per-item purchase prices. Sight Blaster keeps
+one return set and unknown coordinates. Sage has independent converter/change
+routes, different Endow prerequisites and four exclusive 20-stone choices plus
+two solutions. Unnamed teachers remain scoped rather than silently merged.
+Generator 5.9.0 scopes any proved activity header, not just the first: Sage's
+archived numeric 40 comes from the second header, while its preserved first
+requirements say N/A. NULL whole-guide eligibility and a pinned HTML summary
+linked to the actual stage gate preserve both facts. Three source additions
+restore recipes and Sage headers; previous 1,020 texts and 158 branches remain.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 302 regression tests, full offline rebuild and research CI
+Local validation: 315 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

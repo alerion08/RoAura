@@ -1,0 +1,516 @@
+{
+  "quest_id": "irowiki-classic:Sage_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "359ba94c8cd6b01e4869482273d52a150ce7cfde90fb2459890bde34f994eb85",
+  "snapshot_sha256": "67f68f0d683c064a99506bc90d3d2d1cdcc7439819822c906f4a568c14a4434a",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "NPC",
+      "ref": "converter_teacher",
+      "identity": "irowiki-classic:Sage_Skill_Quest:converter_teacher"
+    },
+    {
+      "type": "npc",
+      "name": "NPC",
+      "ref": "change_teacher",
+      "identity": "irowiki-classic:Sage_Skill_Quest:change_teacher"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "item",
+      "name": "Scorpion Tails",
+      "game_id": 904,
+      "id_source": "http://db.irowiki.org/classic/item-info/904/"
+    },
+    {
+      "type": "item",
+      "name": "Rainbow Shells",
+      "game_id": 1013,
+      "id_source": "http://db.irowiki.org/classic/item-info/1013/"
+    },
+    {
+      "type": "item",
+      "name": "Horns",
+      "game_id": 947,
+      "id_source": "http://db.irowiki.org/classic/item-info/947/"
+    },
+    {
+      "type": "item",
+      "name": "Snail Shells",
+      "game_id": 946,
+      "id_source": "http://db.irowiki.org/classic/item-info/946/"
+    },
+    {
+      "type": "item",
+      "name": "Blank Scrolls",
+      "game_id": 7433,
+      "id_source": "http://db.irowiki.org/classic/item-info/7433/"
+    },
+    {
+      "type": "item",
+      "name": "Green Lives",
+      "game_id": 993,
+      "id_source": "http://db.irowiki.org/classic/item-info/993/"
+    },
+    {
+      "type": "item",
+      "name": "Wind of Verdures",
+      "game_id": 992,
+      "id_source": "http://db.irowiki.org/classic/item-info/992/"
+    },
+    {
+      "type": "item",
+      "name": "Red Bloods",
+      "game_id": 990,
+      "id_source": "http://db.irowiki.org/classic/item-info/990/"
+    },
+    {
+      "type": "item",
+      "name": "Crystal Blues",
+      "game_id": 991,
+      "id_source": "http://db.irowiki.org/classic/item-info/991/"
+    },
+    {
+      "type": "item",
+      "name": "Payon Solution",
+      "game_id": 1089,
+      "id_source": "http://db.irowiki.org/classic/item-info/1089/"
+    },
+    {
+      "type": "item",
+      "name": "Morroc Solution",
+      "game_id": 1088,
+      "id_source": "http://db.irowiki.org/classic/item-info/1088/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In the 1 o'clock direction in Juno , in the Sage Acadamy, there should be an NPC near the entrance to talk to. He will require some items: | 10 Scorpion Tails | 12 Rainbow Shells | 7 Horns | 10 Snail Shells | 4 Blank Scrolls",
+      "instruction_sha256": "6b2aeec293474f73fc602dddaa16ea012b96c594babfc3a19b390d4028bcb50a",
+      "step_id": "irowiki-classic:Sage_Skill_Quest/step/6b2aeec293474f73fc60/1",
+      "goal": "bring",
+      "short_ru": "В Juno подготовьте для NPC в Sage Acadamy 10 Scorpion Tails, 12 Rainbow Shells, 7 Horns, 10 Snail Shells и 4 Blank Scrolls.",
+      "short_en": "In Juno, prepare 10 Scorpion Tails, 12 Rainbow Shells, 7 Horns, 10 Snail Shells and 4 Blank Scrolls for the NPC in Sage Acadamy.",
+      "full_ru": "В Juno, в направлении 1 часа, найдите NPC возле входа в Sage Acadamy. Он попросит 10 Scorpion Tails, 12 Rainbow Shells, 7 Horns, 10 Snail Shells и 4 Blank Scrolls. Условия: Job Level N/A, профессия Sage; необходим уровень 1 каждого Endow.",
+      "full_en": "In the 1 o'clock direction in Juno , in the Sage Acadamy, there should be an NPC near the entrance to talk to. He will require some items: | 10 Scorpion Tails | 12 Rainbow Shells | 7 Horns | 10 Snail Shells | 4 Blank Scrolls Job Level: N/A Class: Sage Skill Requirements: Level 1 of each Endow",
+      "npcs": [
+        {
+          "entity": "converter_teacher",
+          "role": "talk"
+        }
+      ],
+      "mention_entities": {
+        "NPC": "converter_teacher"
+      },
+      "locations": [],
+      "items": [
+        {
+          "entity": "Scorpion Tails",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Rainbow Shells",
+          "quantity": 12,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Horns",
+          "quantity": 7,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Snail Shells",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Blank Scrolls",
+          "quantity": 4,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level_not_applicable",
+          "amount": "N/A",
+          "source_section": "html_text",
+          "evidence": "Job Level: N/A Class: Sage"
+        },
+        {
+          "kind": "skill_level",
+          "amount": "1",
+          "source_section": "html_text",
+          "evidence": "Skill Requirements: Level 1 of each Endow",
+          "condition": "Level 1 of each Endow; no fixed list of skill IDs is provided."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "ask_for_converter_training",
+          "entity": "converter_teacher"
+        }
+      ],
+      "protected_names": [
+        "NPC",
+        "NPC",
+        "Juno",
+        "Scorpion Tails",
+        "Rainbow Shells",
+        "Horns",
+        "Snail Shells",
+        "Blank Scrolls"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: N/A Class: Sage Skill Requirements: Level 1 of each Endow",
+          "text_ru": "Условия: Job Level N/A, профессия Sage; необходим уровень 1 каждого Endow."
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Once you bring the required items, he will teach the skill to you.",
+      "instruction_sha256": "b3e29a04a6292a5b0841b2bb5221e9932a342e2ec1a3a5b2fdbadb226747e90c",
+      "step_id": "irowiki-classic:Sage_Skill_Quest/step/b3e29a04a6292a5b0841/1",
+      "goal": "learn_skill",
+      "short_ru": "Передайте NPC тот же набор материалов и изучите Create Elemental Converter.",
+      "short_en": "Give the NPC the same material set and learn Create Elemental Converter.",
+      "full_ru": "Когда вы принесёте нужные предметы, он обучит вас умению.",
+      "full_en": "Once you bring the required items, he will teach the skill to you.",
+      "npcs": [
+        {
+          "entity": "converter_teacher",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "In the 1 o'clock direction in Juno , in the Sage Acadamy, there should be an NPC near the entrance to talk to. He will require some items: | 10 Scorpion Tails | 12 Rainbow Shells | 7 Horns | 10 Snail Shells | 4 Blank Scrolls"
+        }
+      ],
+      "mention_entities": {
+        "NPC": "converter_teacher"
+      },
+      "locations": [],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Create Elemental Converter",
+          "source_section": "html_text",
+          "evidence": "Ability to use Create Elemental Converter"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "hand_in_prepared_material_set",
+          "entity": "converter_teacher"
+        },
+        {
+          "operation": "learn_converter",
+          "entity": "converter_teacher"
+        }
+      ],
+      "protected_names": []
+    },
+    "3": {
+      "original_instruction": "In the 1 o'clock direction in Juno , in the Sage Acadamy, there should be an NPC near the entrance to talk to. He will require some items. The items required to learn elemental change depends on which element you elect to learn. Depending on which you chose, you will be required to gather 20 stones of that element. | Earth Elemental Change : 20 Green Lives | Wind Elemental Change : 20 Wind of Verdures | Fire Elemental Change : 20 Red Bloods | Water Elemental Change : 20 Crystal Blues",
+      "instruction_sha256": "153d0e694bc185351b2f0d4db234b1830fa40da91bf74f81e94eb59d31f60605",
+      "step_id": "irowiki-classic:Sage_Skill_Quest/step/153d0e694bc185351b2f/1",
+      "goal": "choose_element",
+      "short_ru": "У NPC в Juno выберите один вариант: 20 Green Lives для Earth, 20 Wind of Verdures для Wind, 20 Red Bloods для Fire или 20 Crystal Blues для Water.",
+      "short_en": "At the NPC in Juno, choose one: 20 Green Lives for Earth, 20 Wind of Verdures for Wind, 20 Red Bloods for Fire or 20 Crystal Blues for Water.",
+      "full_ru": "В Juno, в направлении 1 часа, найдите NPC возле входа в Sage Acadamy. Нужные предметы зависят от выбранного элемента Elemental Change: соберите 20 камней этого элемента. Earth Elemental Change: 20 Green Lives; Wind Elemental Change: 20 Wind of Verdures; Fire Elemental Change: 20 Red Bloods; Water Elemental Change: 20 Crystal Blues. Условия: Job Level 40, профессия Sage; необходим уровень 1 Endow выбранного элемента.",
+      "full_en": "In the 1 o'clock direction in Juno , in the Sage Acadamy, there should be an NPC near the entrance to talk to. He will require some items. The items required to learn elemental change depends on which element you elect to learn. Depending on which you chose, you will be required to gather 20 stones of that element. | Earth Elemental Change : 20 Green Lives | Wind Elemental Change : 20 Wind of Verdures | Fire Elemental Change : 20 Red Bloods | Water Elemental Change : 20 Crystal Blues Job Level: 40 Class: Sage Skill Requirements: Level 1 of Wanted Endow",
+      "npcs": [
+        {
+          "entity": "change_teacher",
+          "role": "talk"
+        }
+      ],
+      "mention_entities": {
+        "NPC": "change_teacher"
+      },
+      "locations": [],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "40",
+          "source_section": "html_text",
+          "evidence": "Job Level: 40 Class: Sage"
+        },
+        {
+          "kind": "skill_level",
+          "amount": "1",
+          "source_section": "html_text",
+          "evidence": "Skill Requirements: Level 1 of Wanted Endow",
+          "condition": "Level 1 of the selected element's Endow only; not all four Endows for this activity."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "select_one_training_element",
+          "entity": "change_teacher"
+        }
+      ],
+      "protected_names": [
+        "NPC",
+        "NPC",
+        "Juno",
+        "Green Lives",
+        "Wind of Verdures",
+        "Red Bloods",
+        "Crystal Blues"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 40 Class: Sage Skill Requirements: Level 1 of Wanted Endow",
+          "text_ru": "Условия: Job Level 40, профессия Sage; необходим уровень 1 Endow выбранного элемента."
+        }
+      ],
+      "branches": [
+        {
+          "key": "earth",
+          "choice_group": "chosen_element",
+          "variant_scope": "iRO Classic",
+          "condition": "Only if Earth is the selected training element.",
+          "section": "Elemental Change Quest",
+          "source_step": 3,
+          "original_instruction": "Earth Elemental Change : 20 Green Lives",
+          "instruction_sha256": "53a247ed652d71d05580b1a6b0c30095259978e69777006ea512da420313509d",
+          "short_ru": "Для Earth Elemental Change соберите только 20 Green Lives; другие наборы камней относятся к альтернативным элементам.",
+          "short_en": "For Earth Elemental Change, gather only 20 Green Lives; the other stone sets belong to alternative elements.",
+          "full_ru": "Для Earth Elemental Change соберите только 20 Green Lives; другие наборы камней относятся к альтернативным элементам.",
+          "full_en": "For Earth Elemental Change, gather only 20 Green Lives; the other stone sets belong to alternative elements.",
+          "protected_names": [
+            "Green Lives"
+          ],
+          "items": [
+            {
+              "entity": "Green Lives",
+              "quantity": 20,
+              "operation": "collect",
+              "required": 1
+            }
+          ],
+          "actions": [
+            {
+              "operation": "collect_chosen_element_stones",
+              "entity": "Green Lives"
+            }
+          ]
+        },
+        {
+          "key": "wind",
+          "choice_group": "chosen_element",
+          "variant_scope": "iRO Classic",
+          "condition": "Only if Wind is the selected training element.",
+          "section": "Elemental Change Quest",
+          "source_step": 3,
+          "original_instruction": "Wind Elemental Change : 20 Wind of Verdures",
+          "instruction_sha256": "9f7281a352cf919cbb80c5feb7f9985b664b0371ffabc29c56c521ee8bd74f48",
+          "short_ru": "Для Wind Elemental Change соберите только 20 Wind of Verdures; другие наборы камней относятся к альтернативным элементам.",
+          "short_en": "For Wind Elemental Change, gather only 20 Wind of Verdures; the other stone sets belong to alternative elements.",
+          "full_ru": "Для Wind Elemental Change соберите только 20 Wind of Verdures; другие наборы камней относятся к альтернативным элементам.",
+          "full_en": "For Wind Elemental Change, gather only 20 Wind of Verdures; the other stone sets belong to alternative elements.",
+          "protected_names": [
+            "Wind of Verdures"
+          ],
+          "items": [
+            {
+              "entity": "Wind of Verdures",
+              "quantity": 20,
+              "operation": "collect",
+              "required": 1
+            }
+          ],
+          "actions": [
+            {
+              "operation": "collect_chosen_element_stones",
+              "entity": "Wind of Verdures"
+            }
+          ]
+        },
+        {
+          "key": "fire",
+          "choice_group": "chosen_element",
+          "variant_scope": "iRO Classic",
+          "condition": "Only if Fire is the selected training element.",
+          "section": "Elemental Change Quest",
+          "source_step": 3,
+          "original_instruction": "Fire Elemental Change : 20 Red Bloods",
+          "instruction_sha256": "45c717554ae2954ded31546715afeddc9febf224c0da8a73572143b176ced1fa",
+          "short_ru": "Для Fire Elemental Change соберите только 20 Red Bloods; другие наборы камней относятся к альтернативным элементам.",
+          "short_en": "For Fire Elemental Change, gather only 20 Red Bloods; the other stone sets belong to alternative elements.",
+          "full_ru": "Для Fire Elemental Change соберите только 20 Red Bloods; другие наборы камней относятся к альтернативным элементам.",
+          "full_en": "For Fire Elemental Change, gather only 20 Red Bloods; the other stone sets belong to alternative elements.",
+          "protected_names": [
+            "Red Bloods"
+          ],
+          "items": [
+            {
+              "entity": "Red Bloods",
+              "quantity": 20,
+              "operation": "collect",
+              "required": 1
+            }
+          ],
+          "actions": [
+            {
+              "operation": "collect_chosen_element_stones",
+              "entity": "Red Bloods"
+            }
+          ]
+        },
+        {
+          "key": "water",
+          "choice_group": "chosen_element",
+          "variant_scope": "iRO Classic",
+          "condition": "Only if Water is the selected training element.",
+          "section": "Elemental Change Quest",
+          "source_step": 3,
+          "original_instruction": "Water Elemental Change : 20 Crystal Blues",
+          "instruction_sha256": "5c6c7adfefa208b74c51480bdaa6cf4928288276cb529f07fab49f2f848a7d7a",
+          "short_ru": "Для Water Elemental Change соберите только 20 Crystal Blues; другие наборы камней относятся к альтернативным элементам.",
+          "short_en": "For Water Elemental Change, gather only 20 Crystal Blues; the other stone sets belong to alternative elements.",
+          "full_ru": "Для Water Elemental Change соберите только 20 Crystal Blues; другие наборы камней относятся к альтернативным элементам.",
+          "full_en": "For Water Elemental Change, gather only 20 Crystal Blues; the other stone sets belong to alternative elements.",
+          "protected_names": [
+            "Crystal Blues"
+          ],
+          "items": [
+            {
+              "entity": "Crystal Blues",
+              "quantity": 20,
+              "operation": "collect",
+              "required": 1
+            }
+          ],
+          "actions": [
+            {
+              "operation": "collect_chosen_element_stones",
+              "entity": "Crystal Blues"
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "In addition to the stones, you will also need one Payon Solution and one Morroc Solution . Once you have the required items, you will be taught the Elemental Change skill corresponding to the element you picked.",
+      "instruction_sha256": "1ebdf264709d6281fb28f54e90f00149d80140cf58c8891b028cabd2dbf4230d",
+      "step_id": "irowiki-classic:Sage_Skill_Quest/step/1ebdf264709d6281fb28/1",
+      "goal": "learn_skill",
+      "short_ru": "Принесите выбранные 20 камней, 1 Payon Solution и 1 Morroc Solution для Elemental Change выбранного элемента.",
+      "short_en": "Bring the chosen 20 stones, 1 Payon Solution and 1 Morroc Solution for the selected Elemental Change.",
+      "full_ru": "Кроме выбранных камней, нужны один Payon Solution и один Morroc Solution. Когда у вас будут необходимые предметы, вас обучат Elemental Change выбранного элемента.",
+      "full_en": "In addition to the stones, you will also need one Payon Solution and one Morroc Solution . Once you have the required items, you will be taught the Elemental Change skill corresponding to the element you picked.",
+      "npcs": [
+        {
+          "entity": "change_teacher",
+          "role": "talk",
+          "support_step": 3,
+          "evidence": "In the 1 o'clock direction in Juno , in the Sage Acadamy, there should be an NPC near the entrance to talk to. He will require some items. The items required to learn elemental change depends on which element you elect to learn. Depending on which you chose, you will be required to gather 20 stones of that element. | Earth Elemental Change : 20 Green Lives | Wind Elemental Change : 20 Wind of Verdures | Fire Elemental Change : 20 Red Bloods | Water Elemental Change : 20 Crystal Blues"
+        }
+      ],
+      "mention_entities": {
+        "NPC": "change_teacher"
+      },
+      "locations": [],
+      "items": [
+        {
+          "entity": "Payon Solution",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Morroc Solution",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "chosen_element_material_set",
+          "amount": "20",
+          "support_step": 3,
+          "evidence": "In the 1 o'clock direction in Juno , in the Sage Acadamy, there should be an NPC near the entrance to talk to. He will require some items. The items required to learn elemental change depends on which element you elect to learn. Depending on which you chose, you will be required to gather 20 stones of that element. | Earth Elemental Change : 20 Green Lives | Wind Elemental Change : 20 Wind of Verdures | Fire Elemental Change : 20 Red Bloods | Water Elemental Change : 20 Crystal Blues",
+          "condition": "Exactly one of the four stage-3 stone sets, plus these two solutions; no 80-stone combined cost."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Elemental Change",
+          "condition": "Only the skill corresponding to the chosen element; no claim to unlock all four at once."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "hand_in_selected_element_materials",
+          "entity": "change_teacher"
+        },
+        {
+          "operation": "learn_selected_element_change",
+          "entity": "change_teacher"
+        }
+      ],
+      "protected_names": [
+        "Payon Solution",
+        "Morroc Solution"
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "sage_independent_activity_header_scope",
+      "detail": "The archive incorrectly carries numeric Job Level 40 from the second header alongside first-header N/A requirements. Preserve both source views; whole-guide eligibility is NULL, with 40 scoped to stage 3. Converter needs Level 1 of each Endow; Elemental Change needs Level 1 of Wanted Endow. Neither activity is stated as a prerequisite for the other."
+    },
+    {
+      "reason": "sage_chosen_element_cost_and_teacher_unknown",
+      "detail": "Only one 20-stone set plus one Payon Solution and one Morroc Solution is needed for the chosen Elemental Change. Converter materials are a separate one-time set requested then handed in. Unnamed entrance teachers retain separate scoped identities because this page supplies no names, coordinates or proof that they are the same actor."
+    }
+  ],
+  "job_level_scope_step": 3,
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Sage",
+        "source_section": "requirements",
+        "evidence": "Class: Sage"
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "converter",
+      "kind": "optional",
+      "source_heading": "Create Elemental Converter Quest",
+      "steps": [
+        1,
+        2
+      ],
+      "condition": "Independent converter-training activity; Job Level is N/A and Level 1 of each Endow is required."
+    },
+    {
+      "key": "elemental_change",
+      "kind": "optional",
+      "source_heading": "Elemental Change Quest",
+      "steps": [
+        3,
+        4
+      ],
+      "condition": "Independent chosen-element training activity; Job Level 40 and Level 1 of Wanted Endow apply only here. No converter completion prerequisite is stated."
+    }
+  ]
+}

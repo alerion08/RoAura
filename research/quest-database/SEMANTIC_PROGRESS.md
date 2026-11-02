@@ -16,11 +16,11 @@ reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
-generator **semantic-5.8.0**. All four description fields are populated for
-**1,020 steps across 86 curated guides**, up from the previous 82-guide/999-step
-checkpoint. **158 conditional branches** also have independent RU/EN short and
-full descriptions. Twenty-six quest routes represent nine exclusive expedition/lyric/material paths
-and seventeen conditional/optional activities. **1,730 steps in 130 remaining catalog entries still lack
+generator **semantic-5.9.0**. All four description fields are populated for
+**1,033 steps across 90 curated guides**, up from the previous 86-guide/1,020-step
+checkpoint. **166 conditional branches** also have independent RU/EN short and
+full descriptions. Twenty-eight quest routes represent nine exclusive expedition/lyric/material paths
+and nineteen conditional/optional activities. **1,717 steps in 126 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -111,6 +111,10 @@ complete localization/context analysis.** `complete` remains false.
 | Swordman Skill Quest | 3 | Three restored material tables; retained Armor category; separate level-35/30/30 training activities |
 | Knight Skill Quest | 6 | Three homonymous Knight actors and ordered mentions; one material set; exact hand-in answer; unknown preparation delay |
 | Crusader Skill Quest | 6 | One potion/material set; unknown antidote identity and retry costs; no invented timer or final teacher |
+| Mage Job Change Guide | 4 | Four assigned recipes; menu-only catalysts; exact code inputs; mixing failure and unqualified provider coordinates |
+| Mage Skill Quest | 1 | One Energy Coat set; optional per-item merchant prices; no invented trainer point |
+| Wizard Skill Quest | 4 | Cat/Simon Meyas sequence; one four-stone return set; no invented coordinates or final teacher |
+| Sage Skill Quest | 4 | Independent converter/change activities; N/A versus level 40; different Endows; four exclusive stone sets |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -119,21 +123,51 @@ verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
 
+- Four Mage-family guides add 13 stages and eight conditional branches.
+  Coverage is now 1,033 stages / 90 guides, 166 localized branches, twenty-eight
+  routes and forty-two source additions. All previous 1,020 descriptions,
+  158 branches and 2,750 original step IDs/order/text remain unchanged.
+- Generator semantic-5.9.0 generalizes `job_level_scope_step` to an activity's
+  first stage, proved by the literal Job Level row under that exact HTML heading.
+  Independent optional routes must cover every step exactly once. Exported
+  summaries cite pinned HTML and link to the corresponding stage gate; corrupt
+  eligibility, missing context links and misplaced headers fail validation.
+  Sage's archived numeric 40 belongs to Elemental Change (stage 3), while the
+  first archived requirements still say N/A. Converter has no numeric level gate.
+- Mage job change restores all four recipes without altering original prose.
+  Assigned recipe numbers are not free choices. Yellow/Red/Blue Gemstone and
+  1carat Diamond are exact machine-menu selections, not inventory costs. Mixing
+  codes are separate exact inputs. Town-solution counts, machine coordinates
+  and personal names of the job-change contact remain unknown. Mixing errors
+  require gathering the materials again. Vendor/provider bare points do not
+  gain guessed map codes; the guild entrance is not an interior NPC point.
+- Energy Coat's five optional merchants and their per-item prices are separate
+  from the trainer and one required material set. Sight Blaster keeps the Cat /
+  Simon Meyas order and one return set, with unknown numeric locations.
+- Sage uses two independent training routes. Converter needs Level 1 of each
+  Endow; Elemental Change needs Level 1 of Wanted Endow. Four 20-stone sets are
+  alternatives, with one Payon Solution and one Morroc Solution for the chosen
+  element. No 80-stone combined cost, all-element unlock or converter prerequisite
+  is invented. Two unnamed teachers retain separate scoped identities. Three
+  source additions restore the recipe table and both Sage activity headers.
+
+Earlier implementation retained by this checkpoint:
+
 - Immutable HTML text/link extraction is cached by full HTML contents. Source
   hashes and curation proofs are still checked on every build; returned link
   dictionaries are fresh, so caller mutation cannot poison later ID proofs.
   Changed HTML gets a new cache entry even if a label/path is reused, and a
   missing content root still fails closed.
-- Four Swordman-family guides preserve all 21 original stages. Coverage is now
+- Four Swordman-family guides preserve all 21 original stages. Coverage at that checkpoint was
   1,020 stages / 86 guides, 158 localized branches and twenty-six routes. All
   prior 999 localized descriptions, 158 branches and original step IDs remain
   unchanged. Schema remains 5; generator is semantic-5.8.0.
-- The first legacy Job Level header must not become a whole-page eligibility
+- A legacy Job Level header must not become a whole-page eligibility
   gate for independent skill activities. Explicit `job_level_scope_step=1`
-  requires a literal first-stage level proof and complete independent optional
+  originally required a literal first-stage proof and complete independent optional
   routes. Swordman uses per-activity 35/30/30, and existing Archer uses 30/35.
   `quests.job_level` is NULL for these composite guides; a non-additive
-  `source_job_level_summary` retains the archived first header. Missing stage
+  `source_job_level_summary` retains the archived value. Missing stage
   proof, wrong scope type/step, unsupported routes or corrupt exported metadata
   fail closed without replacing a valid export.
 - Swordman job change retains distinct transfer/test guards and unresolved
@@ -801,7 +835,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **302 tests passed**; complete offline enrichment passed;
+Validated locally: **315 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -865,7 +899,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 ## Next work, in order
 
-1. Review the remaining 130 catalog candidates, separating reference pages,
+1. Review the remaining 126 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

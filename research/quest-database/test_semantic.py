@@ -12,6 +12,12 @@ from semantic import build, coordinates, resolve_context, item_operation, valida
 
 
 class ParsingTests(unittest.TestCase):
+    def test_activity_levels_cannot_leak_from_a_later_header(self):
+        from semantic import activity_level_headers
+        html='<div class="mw-parser-output"><h2>Converter</h2><table><tr><td>Job Level:</td><td>N/A</td></tr></table><h2>Change</h2><table><tr><td>Job Level:</td><td>40</td></tr></table></div>'
+        self.assertEqual(activity_level_headers(html),(('Converter','N/A','Job Level: N/A'),('Change','40','Job Level: 40')))
+        self.assertEqual(activity_level_headers(html.replace('<td>40</td>','<td>41</td>'))[-1][1],'41')
+
     def test_cached_snapshot_links_cannot_be_poisoned_or_reused_for_changed_html(self):
         from semantic import extract_links, _snapshot_text
         snap={'sha256':'same-label','html':'<div class="mw-parser-output"><a href="http://db.irowiki.org/classic/item-info/713/">Empty Bottles</a></div>'}
@@ -262,17 +268,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],1020)
-        self.assertEqual(self.report['not_fully_localized_steps'],1730)
+        self.assertEqual(self.report['fully_localized_steps'],1033)
+        self.assertEqual(self.report['not_fully_localized_steps'],1717)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],1020)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],1033)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1730)
-        self.assertEqual(self.report['fully_localized_branches'],158)
-        self.assertEqual(self.report['curated_quests'],86)
-        self.assertEqual(self.report['pending_quests'],130)
-        self.assertEqual(self.report['quest_routes'],26)
-        self.assertEqual(self.report['source_additions'],39)
+        self.assertEqual(missing,1717)
+        self.assertEqual(self.report['fully_localized_branches'],166)
+        self.assertEqual(self.report['curated_quests'],90)
+        self.assertEqual(self.report['pending_quests'],126)
+        self.assertEqual(self.report['quest_routes'],28)
+        self.assertEqual(self.report['source_additions'],42)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_juperos_four_homonymous_books_and_return_scholar_have_typed_links(self):
@@ -421,12 +427,111 @@ class RealCorpusTests(unittest.TestCase):
             actual=[tuple(r) for r in self.db.execute("SELECT s.step_order,r.amount FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.kind='job_level' ORDER BY s.step_order",(q,))]
             self.assertEqual(actual,levels)
 
-    def test_first_header_scope_rejects_wrong_type_or_nonfirst_step_atomically(self):
-        for name,value in [('string','1'),('boolean',True),('nonfirst',2)]:
+    def test_sage_later_header_is_scoped_without_overwriting_archived_na(self):
+        q='irowiki-classic:Sage_Skill_Quest'
+        row=self.db.execute('SELECT job_level,requirements_original FROM quests WHERE quest_id=?',(q,)).fetchone()
+        self.assertIsNone(row[0]);self.assertIn('Job Level: N/A',row[1])
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='job_level' AND step_id IS NULL",(q,)).fetchone())
+        actual=[tuple(r) for r in self.db.execute("SELECT s.step_order,r.kind,r.amount FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.kind LIKE 'job_level%' ORDER BY s.step_order",(q,))]
+        self.assertEqual(actual,[(1,'job_level_not_applicable','N/A'),(3,'job_level','40')])
+        scoped=self.db.execute("SELECT s.step_order,e.method,src.kind FROM requirements r JOIN evidence_context c ON c.evidence_id=r.evidence_id JOIN requirements gate ON gate.evidence_id=c.supporting_id JOIN quest_steps s ON s.step_id=gate.step_id JOIN evidence e ON e.evidence_id=r.evidence_id JOIN sources src ON src.source_id=e.source_id WHERE r.quest_id=? AND r.kind='source_job_level_summary'",(q,)).fetchone()
+        self.assertEqual(tuple(scoped),(3,'archived_activity_level','html_snapshot'))
+
+    def test_sage_level_scope_rejects_wrong_activity_and_middle_of_activity(self):
+        for name,n in [('converter',1),('middle',4)]:
+            folder=self.out/('invalid-sage-scope-'+name);shutil.copytree(ROOT/'curation',folder)
+            path=folder/'Sage_Skill_Quest.json';data=json.loads(path.read_text());data['job_level_scope_step']=n
+            data['steps'][str(n)].setdefault('requirements',[]).append({'kind':'job_level','amount':'40','source_section':'html_text','evidence':'Job Level: 40 Class: Sage'})
+            path.write_text(json.dumps(data));before=(self.out/'quest_semantic.sqlite').read_bytes()
+            with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid activity job-level scope'):build(self.source,self.out,curation_dir=folder)
+            self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
+
+    def test_scoped_level_export_requires_its_activity_evidence_link(self):
+        copy=sqlite3.connect(':memory:');self.db.backup(copy)
+        copy.execute("DELETE FROM evidence_context WHERE evidence_id IN (SELECT evidence_id FROM requirements WHERE quest_id='irowiki-classic:Sage_Skill_Quest' AND kind='source_job_level_summary')")
+        with self.assertRaisesRegex(ValueError,'invalid_scoped_job_level_summary'):validate(copy)
+        copy.close()
+
+    def test_mage_job_recipes_are_four_assigned_alternatives_with_exact_materials(self):
+        q='irowiki-classic:Mage_Job_Change_Guide'
+        actual={}
+        for key,gid,n,op in self.db.execute('''SELECT b.branch_key,i.game_id,x.quantity,x.operation FROM step_items x JOIN items i ON i.entity_id=x.item_id JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? ORDER BY b.branch_key,i.game_id''',(q,)):
+            actual.setdefault(key,[]).append((gid,n,op))
+        self.assertEqual(actual,{'solution_1':[(519,1,'consume'),(909,2,'consume'),(914,3,'consume'),(1089,None,'consume')],'solution_2':[(519,1,'consume'),(909,3,'consume'),(914,1,'consume')],'solution_3':[(909,6,'consume'),(914,1,'consume'),(1089,None,'consume')],'solution_4':[(909,2,'consume'),(914,3,'consume'),(1088,None,'consume')]})
+        self.assertFalse(self.db.execute('''SELECT 1 FROM step_items x JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=3 AND x.branch_id IS NULL''',(q,)).fetchone())
+        self.assertEqual(self.db.execute('SELECT count(DISTINCT choice_group) FROM step_branches b JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone()[0],1)
+
+    def test_mage_catalysts_are_menu_options_and_codes_are_inputs(self):
+        q='irowiki-classic:Mage_Job_Change_Guide'
+        actual=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,o.option_order,o.exact_text,o.operation FROM dialogue_options o JOIN dialogues d USING(dialogue_id) JOIN step_branches b ON b.branch_id=d.branch_id JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? ORDER BY b.branch_key,o.option_order''',(q,))]
+        self.assertEqual(actual,[('solution_1',1,'Yellow Gemstone','choose'),('solution_1',2,'8472','input'),('solution_2',1,'Red Gemstone','choose'),('solution_2',2,'3735','input'),('solution_3',1,'Blue Gemstone','choose'),('solution_3',2,'2750','input'),('solution_4',1,'1carat Diamond','choose'),('solution_4',2,'5429','input')])
+        self.assertFalse(self.db.execute('''SELECT 1 FROM step_items x JOIN entities e ON e.entity_id=x.item_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND (e.original_name LIKE '%Gemstone%' OR e.original_name LIKE '%Diamond%')''',(q,)).fetchone())
+
+    def test_mage_recipe_table_is_restored_and_failure_cost_is_explicit(self):
+        q='irowiki-classic:Mage_Job_Change_Guide'
+        row=self.db.execute('''SELECT s.original_instruction,a.text_en,d.full_ru,d.full_en FROM step_source_additions a JOIN quest_steps s USING(step_id) JOIN step_descriptions d USING(step_id) WHERE s.quest_id=? AND s.step_order=2''',(q,)).fetchone()
+        self.assertNotIn('8472',row[0]);self.assertIn('8472',row[1])
+        for code in ['8472','3735','2750','5429']:
+            self.assertIn(code,row[2]);self.assertIn(code,row[3])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM requirements WHERE quest_id=? AND kind='failure_requires_new_materials'",(q,)).fetchone()[0],1)
+        for key,ru,en in self.db.execute('''SELECT b.branch_key,d.short_ru,d.short_en FROM branch_descriptions d JOIN step_branches b USING(branch_id) JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,)):
+            code={'solution_1':'8472','solution_2':'3735','solution_3':'2750','solution_4':'5429'}[key]
+            self.assertIn(code,ru);self.assertIn(code,en)
+
+    def test_mage_provider_points_keep_unknown_codes_and_machine_point_unknown(self):
+        q='irowiki-classic:Mage_Job_Change_Guide'
+        points=[tuple(r) for r in self.db.execute('''SELECT s.step_order,m.map_code,l.x,l.y FROM step_locations x JOIN locations l USING(location_id) LEFT JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order,l.x''',(q,))]
+        self.assertEqual(points,[(1,'geffen',63,177),(2,None,76,133),(2,None,88,147),(2,None,118,100)])
+        ids=[r[0] for r in self.db.execute('''SELECT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order IN (1,4)''',(q,))]
+        self.assertEqual(len(ids),2);self.assertEqual(len(set(ids)),1)
+
+    def test_energy_coat_has_one_material_set_and_optional_unit_prices(self):
+        q='irowiki-classic:Mage_Skill_Quest'
+        items=[tuple(r) for r in self.db.execute('''SELECT i.game_id,x.quantity,x.operation FROM step_items x JOIN items i ON i.entity_id=x.item_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY i.game_id''',(q,))]
+        self.assertEqual(items,[(730,1,'deliver'),(746,3,'deliver'),(935,5,'deliver'),(943,1,'deliver')])
+        prices=[tuple(r) for r in self.db.execute("SELECT i.game_id,r.amount FROM requirements r JOIN items i ON i.entity_id=r.entity_id WHERE r.quest_id=? AND r.kind='optional_unit_purchase_price' ORDER BY i.game_id",(q,))]
+        self.assertEqual(prices,[(730,'10000'),(746,'1400')])
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='zeny'",(q,)).fetchone())
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='skill_unlock'",(q,)).fetchone()[0],'Energy Coat')
+
+    def test_sight_blaster_keeps_one_return_material_set_and_unknown_points(self):
+        q='irowiki-classic:Wizard_Skill_Quest'
+        items=[tuple(r) for r in self.db.execute('''SELECT s.step_order,i.game_id,x.quantity FROM step_items x JOIN items i ON i.entity_id=x.item_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY i.game_id''',(q,))]
+        self.assertEqual(items,[(3,990,10),(3,991,10),(3,992,10),(3,993,10)])
+        self.assertEqual(self.db.execute('SELECT count(*) FROM step_locations x JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone()[0],0)
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='skill_unlock'",(q,)).fetchone()[0],'Sight Blaster')
+
+    def test_sage_independent_routes_preserve_different_endow_requirements(self):
+        q='irowiki-classic:Sage_Skill_Quest'
+        rows=[tuple(r) for r in self.db.execute('''SELECT r.route_key,r.kind,s.step_order FROM quest_routes r JOIN step_routes m USING(route_id) JOIN quest_steps s USING(step_id) WHERE r.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(rows,[('converter','optional',1),('converter','optional',2),('elemental_change','optional',3),('elemental_change','optional',4)])
+        endows=[tuple(r) for r in self.db.execute("SELECT s.step_order,r.amount,e.snippet FROM requirements r JOIN quest_steps s USING(step_id) JOIN evidence e USING(evidence_id) WHERE r.quest_id=? AND r.kind='skill_level' ORDER BY s.step_order",(q,))]
+        self.assertEqual(endows,[(1,'1','Skill Requirements: Level 1 of each Endow'),(3,'1','Skill Requirements: Level 1 of Wanted Endow')])
+        for text, in self.db.execute('SELECT d.full_ru FROM step_descriptions d JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order IN (1,3)',(q,)):
+            self.assertIn('необходим уровень 1',text);self.assertNotIn('Level 1 of',text)
+        self.assertFalse(self.db.execute('SELECT 1 FROM quest_relations WHERE quest_id=?',(q,)).fetchone())
+
+    def test_sage_selected_element_is_one_twenty_stone_set_plus_two_solutions(self):
+        q='irowiki-classic:Sage_Skill_Quest'
+        branches=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,i.game_id,x.quantity FROM step_items x JOIN items i ON i.entity_id=x.item_id JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(branches,[('earth',993,20),('fire',990,20),('water',991,20),('wind',992,20)])
+        common=[tuple(r) for r in self.db.execute('''SELECT s.step_order,i.game_id,x.quantity FROM step_items x JOIN items i ON i.entity_id=x.item_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order>=3 AND x.branch_id IS NULL ORDER BY i.game_id''',(q,))]
+        self.assertEqual(common,[(4,1088,1),(4,1089,1)])
+        rewards=[r[0] for r in self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='skill_unlock' ORDER BY amount",(q,))]
+        self.assertEqual(rewards,['Create Elemental Converter','Elemental Change'])
+
+    def test_sage_unnamed_teachers_stay_separate_without_invented_locations(self):
+        q='irowiki-classic:Sage_Skill_Quest'
+        rows=self.db.execute('''SELECT s.step_order,x.npc_id FROM step_npcs x JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order''',(q,)).fetchall()
+        self.assertEqual([r[0] for r in rows],[1,2,3,4]);self.assertEqual(rows[0][1],rows[1][1]);self.assertEqual(rows[2][1],rows[3][1]);self.assertNotEqual(rows[0][1],rows[2][1])
+        self.assertFalse(self.db.execute('SELECT 1 FROM step_locations x JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone())
+
+    def test_activity_scope_rejects_wrong_type_or_wrong_header_atomically(self):
+        for name,value in [('string','1'),('boolean',True),('wrong-header',2)]:
             folder=self.out/('invalid-level-scope-'+name);shutil.copytree(ROOT/'curation',folder)
             path=folder/'Swordman_Skill_Quest.json';data=json.loads(path.read_text());data['job_level_scope_step']=value;path.write_text(json.dumps(data))
             before=(self.out/'quest_semantic.sqlite').read_bytes()
-            with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid first-activity job-level scope'):build(self.source,self.out,curation_dir=folder)
+            with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid activity job-level scope'):build(self.source,self.out,curation_dir=folder)
             self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
 
     def test_first_header_scope_requires_independent_activities_and_literal_level_proof(self):
@@ -434,7 +539,7 @@ class RealCorpusTests(unittest.TestCase):
             folder=self.out/('invalid-level-scope-'+name);shutil.copytree(ROOT/'curation',folder)
             path=folder/(slug+'.json');data=json.loads(path.read_text());mutate(data);path.write_text(json.dumps(data))
             before=(self.out/'quest_semantic.sqlite').read_bytes()
-            with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid first-activity job-level scope'):build(self.source,self.out,curation_dir=folder)
+            with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid activity job-level scope'):build(self.source,self.out,curation_dir=folder)
             self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
 
     def test_exported_first_header_summary_cannot_become_an_unconditional_level(self):

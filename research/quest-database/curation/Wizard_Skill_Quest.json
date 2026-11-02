@@ -1,0 +1,206 @@
+{
+  "quest_id": "irowiki-classic:Wizard_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "440ec8be395eb8b827f5673377b91c1e31bbaf872a19e04abee8746a62b59a05",
+  "snapshot_sha256": "9f56f5c114bc327f83158df5f3e8081c062d239cb81773c78d0cb8c077842efe",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Cat"
+    },
+    {
+      "type": "npc",
+      "name": "Simon Meyas"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "item",
+      "name": "Crystal Blue",
+      "game_id": 991,
+      "id_source": "http://db.irowiki.org/classic/item-info/991/"
+    },
+    {
+      "type": "item",
+      "name": "Green Live",
+      "game_id": 993,
+      "id_source": "http://db.irowiki.org/classic/item-info/993/"
+    },
+    {
+      "type": "item",
+      "name": "Red Blood",
+      "game_id": 990,
+      "id_source": "http://db.irowiki.org/classic/item-info/990/"
+    },
+    {
+      "type": "item",
+      "name": "Wind of Verdure",
+      "game_id": 992,
+      "id_source": "http://db.irowiki.org/classic/item-info/992/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Go to the very top floor of the Geffen Tower, there will be a Cat you need to talk to. He will ask you to go to the Prontera Knight Guild.",
+      "instruction_sha256": "62e2b50f1ae619aaee6af4da1987bad36f1d7583db3891aacbe1a311bc8ed8df",
+      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/62e2b50f1ae619aaee6a/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Cat на вершине Geffen Tower; затем идите в Prontera Knight Guild.",
+      "short_en": "Talk to Cat at the top of Geffen Tower, then go to Prontera Knight Guild.",
+      "full_ru": "Поднимитесь на самый верхний этаж Geffen Tower и поговорите с Cat. Он отправит вас в Prontera Knight Guild.",
+      "full_en": "Go to the very top floor of the Geffen Tower, there will be a Cat you need to talk to. He will ask you to go to the Prontera Knight Guild.",
+      "npcs": [
+        {
+          "entity": "Cat",
+          "role": "talk"
+        }
+      ],
+      "locations": [],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Cat"
+        },
+        {
+          "operation": "go_to_knight_guild"
+        }
+      ],
+      "protected_names": [
+        "Cat",
+        "Geffen",
+        "Prontera"
+      ]
+    },
+    "2": {
+      "original_instruction": "In the Knight Guild, located in northwest Prontera, you'll need to introduce yourself to Simon Meyas.",
+      "instruction_sha256": "e35816f22f3956f3a78795c4398590d16e5221f562dade12809f089bc662dc7a",
+      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/e35816f22f3956f3a787/1",
+      "goal": "talk",
+      "short_ru": "В Knight Guild на северо-западе Prontera поговорите с Simon Meyas.",
+      "short_en": "Talk to Simon Meyas in the Knight Guild in northwest Prontera.",
+      "full_ru": "В Knight Guild на северо-западе Prontera представьтесь Simon Meyas.",
+      "full_en": "In the Knight Guild, located in northwest Prontera, you'll need to introduce yourself to Simon Meyas.",
+      "npcs": [
+        {
+          "entity": "Simon Meyas",
+          "role": "talk"
+        }
+      ],
+      "locations": [],
+      "actions": [
+        {
+          "operation": "introduce_yourself",
+          "entity": "Simon Meyas"
+        }
+      ],
+      "protected_names": [
+        "Simon Meyas",
+        "Prontera"
+      ]
+    },
+    "3": {
+      "original_instruction": "Return to the highest floor of the Geffen Tower again, with specific items: | 10 Crystal Blue | 10 Green Live | 10 Red Blood | 10 Wind of Verdure",
+      "instruction_sha256": "b8f6e3963952e8ba30a3baf247f663f4d4149e5735b94df9d0d64f252bf2968d",
+      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/b8f6e3963952e8ba30a3/1",
+      "goal": "bring",
+      "short_ru": "Вернитесь в Geffen Tower с 10 Crystal Blue, 10 Green Live, 10 Red Blood и 10 Wind of Verdure.",
+      "short_en": "Return to Geffen Tower with 10 Crystal Blue, 10 Green Live, 10 Red Blood and 10 Wind of Verdure.",
+      "full_ru": "Вернитесь на самый верхний этаж Geffen Tower с материалами: 10 Crystal Blue, 10 Green Live, 10 Red Blood, 10 Wind of Verdure.",
+      "full_en": "Return to the highest floor of the Geffen Tower again, with specific items: | 10 Crystal Blue | 10 Green Live | 10 Red Blood | 10 Wind of Verdure",
+      "npcs": [
+        {
+          "entity": "Cat",
+          "role": "return_context",
+          "support_step": 1,
+          "evidence": "Go to the very top floor of the Geffen Tower, there will be a Cat you need to talk to. He will ask you to go to the Prontera Knight Guild."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Crystal Blue",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Green Live",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Red Blood",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Wind of Verdure",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "locations": [],
+      "actions": [
+        {
+          "operation": "return_with_training_materials",
+          "entity": "Cat"
+        }
+      ],
+      "protected_names": [
+        "Geffen",
+        "Crystal Blue",
+        "Green Live",
+        "Red Blood",
+        "Wind of Verdure"
+      ]
+    },
+    "4": {
+      "original_instruction": "Now you've learned Sight Blaster!",
+      "instruction_sha256": "e462de6e7aea2e0de87254d3705d5d5f338625f1269592f74a8b5be660cee642",
+      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/e462de6e7aea2e0de872/1",
+      "goal": "learn_skill",
+      "short_ru": "Завершите обучение Sight Blaster.",
+      "short_en": "Complete Sight Blaster training.",
+      "full_ru": "Теперь вы изучили Sight Blaster!",
+      "full_en": "Now you've learned Sight Blaster!",
+      "locations": [],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Sight Blaster"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "learn_sight_blaster"
+        }
+      ],
+      "protected_names": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "sight_blaster_actor_and_material_scope",
+      "detail": "Cat and Simon Meyas are distinct contacts. One four-material set belongs to the return stage. Neither NPC has numeric coordinates in this guide; the final completion sentence does not identify a separate teacher or create a second material hand-in."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Wizard",
+        "source_section": "requirements",
+        "evidence": "Class: Wizard"
+      }
+    ]
+  }
+}

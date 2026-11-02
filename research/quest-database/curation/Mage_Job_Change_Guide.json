@@ -1,0 +1,707 @@
+{
+  "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "b03e75fbf12d65b1f61a2a71647562d76de0a94b38b5be0419716fad53c9fba0",
+  "snapshot_sha256": "88613a1bab69e63713642f48d201fa1e367542563bf789f1f9ec616326eb0a72",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "girl by the blackboard",
+      "aliases": [
+        "main quest NPC",
+        "mage job quest NPC"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "mixing machine"
+    },
+    {
+      "type": "npc",
+      "name": "Milk Merchant"
+    },
+    {
+      "type": "npc",
+      "name": "Dollshoi"
+    },
+    {
+      "type": "npc",
+      "name": "Ponka-Hontas"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "geffen",
+      "map_code": "geffen"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "Payon Archer Village"
+    },
+    {
+      "type": "map",
+      "name": "Pyramids map"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "item",
+      "name": "Jellopy",
+      "game_id": 909,
+      "id_source": "http://db.irowiki.org/classic/item-info/909/"
+    },
+    {
+      "type": "item",
+      "name": "Fluff",
+      "game_id": 914,
+      "id_source": "http://db.irowiki.org/classic/item-info/914/"
+    },
+    {
+      "type": "item",
+      "name": "Milk",
+      "game_id": 519,
+      "id_source": "http://db.irowiki.org/classic/item-info/519/"
+    },
+    {
+      "type": "item",
+      "name": "Payon Solution",
+      "game_id": 1089,
+      "id_source": "http://db.irowiki.org/classic/item-info/1089/"
+    },
+    {
+      "type": "item",
+      "name": "Morroc Solution",
+      "game_id": 1088,
+      "id_source": "http://db.irowiki.org/classic/item-info/1088/"
+    },
+    {
+      "type": "item",
+      "name": "Unknown Solution",
+      "identity": "irowiki-classic:Mage_Job_Change_Guide:source_item:Unknown Solution"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "The mage job quest NPC is located in Geffen in the northwest building ( geffen 63, 177).",
+      "instruction_sha256": "1e314d11423d545cbf86cc0b80581e142a448232f8eda594058365dff6d8a6af",
+      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/1e314d11423d545cbf86/1",
+      "goal": "move",
+      "short_ru": "Войдите в северо-западное здание Geffen: geffen 63, 177.",
+      "short_en": "Enter the northwest building in Geffen: geffen 63, 177.",
+      "full_ru": "mage job quest NPC находится в Geffen, в северо-западном здании (geffen 63, 177).",
+      "full_en": "The mage job quest NPC is located in Geffen in the northwest building ( geffen 63, 177).",
+      "npcs": [
+        {
+          "entity": "girl by the blackboard",
+          "role": "quest_contact"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "geffen",
+          "x": 63,
+          "y": 177,
+          "role": "guild_entrance",
+          "known": true
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_mage_guild"
+        }
+      ],
+      "protected_names": [
+        "Geffen",
+        "geffen"
+      ]
+    },
+    "2": {
+      "original_instruction": "Once inside, talk to the girl by the blackboard. She will tell you what solution number you need. The solution number you get determines what items you need and what you need to input in to the mixing machine. You can look up the ingredients you need at the book shelf located inside of the same room. Note: The catalyst item isn't needed, it is just a selection from the mixing machine list. [1] Milk can be obtained in Prontera at the Milk Merchant (76, 133) for 25z. [2] The Payon Solution is found in the Payon Archer Village (the Archer Village is accessible through the top right portal of Payon ). The NPC, named Dollshoi, is located at (118, 100). [3] The Morroc Solution is found in the Pyramids map located in the north west corner of Morroc . The NPC, named Ponka-Hontas can be found at (88, 147).",
+      "instruction_sha256": "f2c734087ab0788019f7a78957c0fef8032b1e45d5aada525fd8dc79c6c87c73",
+      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/f2c734087ab0788019f7/1",
+      "goal": "prepare_recipe",
+      "short_ru": "У girl by the blackboard узнайте назначенный рецепт и соберите его материалы; катализатор — только выбор меню.",
+      "short_en": "Ask the girl by the blackboard for your assigned recipe and gather its materials; the catalyst is only a menu choice.",
+      "full_ru": "Внутри поговорите с girl by the blackboard. Она назовёт номер нужного раствора: от него зависят материалы и ввод в mixing machine. Рецепт можно посмотреть на book shelf в той же комнате. Катализатор не требуется как предмет: это только выбор в меню mixing machine. [1] Milk продаётся в Prontera у Milk Merchant (76, 133) за 25z. [2] Payon Solution можно получить в Payon Archer Village, куда ведёт верхний правый портал Payon, у Dollshoi (118, 100). [3] Morroc Solution можно получить на Pyramids map к северо-западу от Morroc у Ponka-Hontas (88, 147). Таблица рецептов: Solution # 1 — 2 Jellopy, 3 Fluff, 1 Milk; выбор Yellow Gemstone; Payon Solution; код 8472. Solution # 2 — 3 Jellopy, 1 Fluff, 1 Milk; выбор Red Gemstone; Town Solution не нужен; код 3735. Solution # 3 — 6 Jellopy, 1 Fluff; выбор Blue Gemstone; Payon Solution; код 2750. Solution # 4 — 2 Jellopy, 3 Fluff; выбор 1carat Diamond; Morroc Solution; код 5429. Ссылки таблицы: [1], [1], [2], [2], [3].",
+      "full_en": "Once inside, talk to the girl by the blackboard. She will tell you what solution number you need. The solution number you get determines what items you need and what you need to input in to the mixing machine. You can look up the ingredients you need at the book shelf located inside of the same room. Note: The catalyst item isn't needed, it is just a selection from the mixing machine list. [1] Milk can be obtained in Prontera at the Milk Merchant (76, 133) for 25z. [2] The Payon Solution is found in the Payon Archer Village (the Archer Village is accessible through the top right portal of Payon ). The NPC, named Dollshoi, is located at (118, 100). [3] The Morroc Solution is found in the Pyramids map located in the north west corner of Morroc . The NPC, named Ponka-Hontas can be found at (88, 147). Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429",
+      "npcs": [
+        {
+          "entity": "girl by the blackboard",
+          "role": "talk"
+        },
+        {
+          "entity": "Milk Merchant",
+          "role": "optional_vendor"
+        },
+        {
+          "entity": "Dollshoi",
+          "role": "conditional_solution_provider"
+        },
+        {
+          "entity": "Ponka-Hontas",
+          "role": "conditional_solution_provider"
+        }
+      ],
+      "locations": [
+        {
+          "x": 76,
+          "y": 133,
+          "role": "Milk Merchant",
+          "known": false,
+          "entity": "Prontera"
+        },
+        {
+          "x": 118,
+          "y": 100,
+          "role": "Dollshoi",
+          "known": false,
+          "entity": "Payon Archer Village"
+        },
+        {
+          "x": 88,
+          "y": 147,
+          "role": "Ponka-Hontas",
+          "known": false,
+          "entity": "Pyramids map"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "recipe_assignment",
+          "condition": "The girl assigns the solution number; these four recipes are alternatives, not four mandatory fees."
+        },
+        {
+          "kind": "catalyst_menu_only",
+          "condition": "The catalyst item isn't needed; select its name in the mixing machine list."
+        },
+        {
+          "kind": "optional_unit_purchase_price",
+          "amount": "25",
+          "entity": "Milk",
+          "condition": "25z per Milk at Milk Merchant, only if buying Milk for an assigned recipe."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "obtain_assigned_solution_number",
+          "entity": "girl by the blackboard"
+        },
+        {
+          "operation": "consult_recipe_book"
+        }
+      ],
+      "protected_names": [
+        "girl by the blackboard",
+        "mixing machine",
+        "Milk Merchant",
+        "Dollshoi",
+        "Ponka-Hontas",
+        "Prontera",
+        "Payon",
+        "Payon Archer Village",
+        "Pyramids map",
+        "Morroc",
+        "Milk",
+        "Payon Solution",
+        "Morroc Solution"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429",
+          "text_ru": "Таблица рецептов: Solution # 1 — 2 Jellopy, 3 Fluff, 1 Milk; выбор Yellow Gemstone; Payon Solution; код 8472. Solution # 2 — 3 Jellopy, 1 Fluff, 1 Milk; выбор Red Gemstone; Town Solution не нужен; код 3735. Solution # 3 — 6 Jellopy, 1 Fluff; выбор Blue Gemstone; Payon Solution; код 2750. Solution # 4 — 2 Jellopy, 3 Fluff; выбор 1carat Diamond; Morroc Solution; код 5429. Ссылки таблицы: [1], [1], [2], [2], [3]."
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "After obtaining all of the ingredients, mix them in the the mixing machine (??, ??) back at the Mage Guild. Make sure to double check the ingredients, catalyst, and mixing code. If a mistake is made at this time, all of the items will have to be gathered again.",
+      "instruction_sha256": "a17a1d5530a6ce2cdb987009645e35e7f12c65540b2f1d26e8dbb623aafe84da",
+      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/a17a1d5530a6ce2cdb98/1",
+      "goal": "mix",
+      "short_ru": "В mixing machine примените назначенный рецепт, его катализатор и код; при ошибке соберите материалы заново.",
+      "short_en": "At the mixing machine, use the assigned recipe, catalyst and code; on error, gather all materials again.",
+      "full_ru": "Собрав ингредиенты, смешайте их в mixing machine (??, ??) в Mage Guild. Перепроверьте ингредиенты, катализатор и код. При ошибке все материалы придётся собирать заново.",
+      "full_en": "After obtaining all of the ingredients, mix them in the the mixing machine (??, ??) back at the Mage Guild. Make sure to double check the ingredients, catalyst, and mixing code. If a mistake is made at this time, all of the items will have to be gathered again.",
+      "npcs": [
+        {
+          "entity": "mixing machine",
+          "role": "interact"
+        }
+      ],
+      "locations": [],
+      "requirements": [
+        {
+          "kind": "source_coordinate_unknown",
+          "condition": "Machine coordinates are explicitly ??, ??."
+        },
+        {
+          "kind": "failure_requires_new_materials",
+          "condition": "A mixing error requires gathering all ingredients again; no extra fixed fee or duration is printed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "mix_assigned_solution",
+          "entity": "mixing machine"
+        }
+      ],
+      "protected_names": [
+        "mixing machine"
+      ],
+      "branches": [
+        {
+          "key": "solution_1",
+          "choice_group": "assigned_mage_solution",
+          "variant_scope": "iRO Classic",
+          "condition": "Only when the girl assigned Solution # 1; not a freely interchangeable recipe.",
+          "section": "",
+          "source_step": 3,
+          "original_instruction": "After obtaining all of the ingredients, mix them in the the mixing machine (??, ??) back at the Mage Guild. Make sure to double check the ingredients, catalyst, and mixing code. If a mistake is made at this time, all of the items will have to be gathered again.",
+          "instruction_sha256": "a17a1d5530a6ce2cdb987009645e35e7f12c65540b2f1d26e8dbb623aafe84da",
+          "short_ru": "Для назначенного Solution # 1: используйте 2 Jellopy, 3 Fluff, 1 Milk и Payon Solution; в mixing machine выберите «Yellow Gemstone» и введите «8472». Сам предмет-катализатор не нужен. При ошибке соберите материалы заново.",
+          "short_en": "For assigned Solution # 1: use 2 Jellopy, 3 Fluff, 1 Milk and Payon Solution; at the mixing machine select “Yellow Gemstone” and enter “8472”. The catalyst item itself is not needed. On error, gather the materials again.",
+          "full_ru": "Для назначенного Solution # 1: используйте 2 Jellopy, 3 Fluff, 1 Milk и Payon Solution; в mixing machine выберите «Yellow Gemstone» и введите «8472». Сам предмет-катализатор не нужен. При ошибке соберите материалы заново.",
+          "full_en": "For assigned Solution # 1: use 2 Jellopy, 3 Fluff, 1 Milk and Payon Solution; at the mixing machine select “Yellow Gemstone” and enter “8472”. The catalyst item itself is not needed. On error, gather the materials again.",
+          "protected_names": [
+            "mixing machine"
+          ],
+          "items": [
+            {
+              "entity": "Jellopy",
+              "quantity": 2,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "entity": "Fluff",
+              "quantity": 3,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "entity": "Milk",
+              "quantity": 1,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "entity": "Payon Solution",
+              "quantity": null,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Payon Solution",
+              "condition": "Recipe requires this town solution; table does not print a quantity."
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "assigned_solution_number",
+              "amount": "1",
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "kind": "mixing_code",
+              "amount": "8472",
+              "source_section": "html_text",
+              "evidence": "8472"
+            }
+          ],
+          "dialogues": [
+            {
+              "npc": "mixing machine",
+              "options": [
+                {
+                  "text": "Yellow Gemstone",
+                  "correct": 1
+                },
+                {
+                  "text": "8472",
+                  "correct": 1,
+                  "operation": "input"
+                }
+              ],
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            }
+          ],
+          "actions": [
+            {
+              "operation": "select_catalyst",
+              "entity": "mixing machine",
+              "source_section": "html_text",
+              "evidence": "Yellow Gemstone",
+              "condition": "Menu selection only; no catalyst inventory requirement."
+            },
+            {
+              "operation": "enter_mixing_code",
+              "entity": "mixing machine",
+              "source_section": "html_text",
+              "evidence": "8472"
+            }
+          ]
+        },
+        {
+          "key": "solution_2",
+          "choice_group": "assigned_mage_solution",
+          "variant_scope": "iRO Classic",
+          "condition": "Only when the girl assigned Solution # 2; not a freely interchangeable recipe.",
+          "section": "",
+          "source_step": 3,
+          "original_instruction": "After obtaining all of the ingredients, mix them in the the mixing machine (??, ??) back at the Mage Guild. Make sure to double check the ingredients, catalyst, and mixing code. If a mistake is made at this time, all of the items will have to be gathered again.",
+          "instruction_sha256": "a17a1d5530a6ce2cdb987009645e35e7f12c65540b2f1d26e8dbb623aafe84da",
+          "short_ru": "Для назначенного Solution # 2: используйте 3 Jellopy, 1 Fluff, 1 Milk; Town Solution не нужен; в mixing machine выберите «Red Gemstone» и введите «3735». Сам предмет-катализатор не нужен. При ошибке соберите материалы заново.",
+          "short_en": "For assigned Solution # 2: use 3 Jellopy, 1 Fluff, 1 Milk; no Town Solution; at the mixing machine select “Red Gemstone” and enter “3735”. The catalyst item itself is not needed. On error, gather the materials again.",
+          "full_ru": "Для назначенного Solution # 2: используйте 3 Jellopy, 1 Fluff, 1 Milk; Town Solution не нужен; в mixing machine выберите «Red Gemstone» и введите «3735». Сам предмет-катализатор не нужен. При ошибке соберите материалы заново.",
+          "full_en": "For assigned Solution # 2: use 3 Jellopy, 1 Fluff, 1 Milk; no Town Solution; at the mixing machine select “Red Gemstone” and enter “3735”. The catalyst item itself is not needed. On error, gather the materials again.",
+          "protected_names": [
+            "mixing machine"
+          ],
+          "items": [
+            {
+              "entity": "Jellopy",
+              "quantity": 3,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "entity": "Fluff",
+              "quantity": 1,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "entity": "Milk",
+              "quantity": 1,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "assigned_solution_number",
+              "amount": "2",
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "kind": "mixing_code",
+              "amount": "3735",
+              "source_section": "html_text",
+              "evidence": "3735"
+            }
+          ],
+          "dialogues": [
+            {
+              "npc": "mixing machine",
+              "options": [
+                {
+                  "text": "Red Gemstone",
+                  "correct": 1
+                },
+                {
+                  "text": "3735",
+                  "correct": 1,
+                  "operation": "input"
+                }
+              ],
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            }
+          ],
+          "actions": [
+            {
+              "operation": "select_catalyst",
+              "entity": "mixing machine",
+              "source_section": "html_text",
+              "evidence": "Red Gemstone",
+              "condition": "Menu selection only; no catalyst inventory requirement."
+            },
+            {
+              "operation": "enter_mixing_code",
+              "entity": "mixing machine",
+              "source_section": "html_text",
+              "evidence": "3735"
+            }
+          ]
+        },
+        {
+          "key": "solution_3",
+          "choice_group": "assigned_mage_solution",
+          "variant_scope": "iRO Classic",
+          "condition": "Only when the girl assigned Solution # 3; not a freely interchangeable recipe.",
+          "section": "",
+          "source_step": 3,
+          "original_instruction": "After obtaining all of the ingredients, mix them in the the mixing machine (??, ??) back at the Mage Guild. Make sure to double check the ingredients, catalyst, and mixing code. If a mistake is made at this time, all of the items will have to be gathered again.",
+          "instruction_sha256": "a17a1d5530a6ce2cdb987009645e35e7f12c65540b2f1d26e8dbb623aafe84da",
+          "short_ru": "Для назначенного Solution # 3: используйте 6 Jellopy, 1 Fluff и Payon Solution; в mixing machine выберите «Blue Gemstone» и введите «2750». Сам предмет-катализатор не нужен. При ошибке соберите материалы заново.",
+          "short_en": "For assigned Solution # 3: use 6 Jellopy, 1 Fluff and Payon Solution; at the mixing machine select “Blue Gemstone” and enter “2750”. The catalyst item itself is not needed. On error, gather the materials again.",
+          "full_ru": "Для назначенного Solution # 3: используйте 6 Jellopy, 1 Fluff и Payon Solution; в mixing machine выберите «Blue Gemstone» и введите «2750». Сам предмет-катализатор не нужен. При ошибке соберите материалы заново.",
+          "full_en": "For assigned Solution # 3: use 6 Jellopy, 1 Fluff and Payon Solution; at the mixing machine select “Blue Gemstone” and enter “2750”. The catalyst item itself is not needed. On error, gather the materials again.",
+          "protected_names": [
+            "mixing machine"
+          ],
+          "items": [
+            {
+              "entity": "Jellopy",
+              "quantity": 6,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "entity": "Fluff",
+              "quantity": 1,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "entity": "Payon Solution",
+              "quantity": null,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Payon Solution",
+              "condition": "Recipe requires this town solution; table does not print a quantity."
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "assigned_solution_number",
+              "amount": "3",
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "kind": "mixing_code",
+              "amount": "2750",
+              "source_section": "html_text",
+              "evidence": "2750"
+            }
+          ],
+          "dialogues": [
+            {
+              "npc": "mixing machine",
+              "options": [
+                {
+                  "text": "Blue Gemstone",
+                  "correct": 1
+                },
+                {
+                  "text": "2750",
+                  "correct": 1,
+                  "operation": "input"
+                }
+              ],
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            }
+          ],
+          "actions": [
+            {
+              "operation": "select_catalyst",
+              "entity": "mixing machine",
+              "source_section": "html_text",
+              "evidence": "Blue Gemstone",
+              "condition": "Menu selection only; no catalyst inventory requirement."
+            },
+            {
+              "operation": "enter_mixing_code",
+              "entity": "mixing machine",
+              "source_section": "html_text",
+              "evidence": "2750"
+            }
+          ]
+        },
+        {
+          "key": "solution_4",
+          "choice_group": "assigned_mage_solution",
+          "variant_scope": "iRO Classic",
+          "condition": "Only when the girl assigned Solution # 4; not a freely interchangeable recipe.",
+          "section": "",
+          "source_step": 3,
+          "original_instruction": "After obtaining all of the ingredients, mix them in the the mixing machine (??, ??) back at the Mage Guild. Make sure to double check the ingredients, catalyst, and mixing code. If a mistake is made at this time, all of the items will have to be gathered again.",
+          "instruction_sha256": "a17a1d5530a6ce2cdb987009645e35e7f12c65540b2f1d26e8dbb623aafe84da",
+          "short_ru": "Для назначенного Solution # 4: используйте 2 Jellopy, 3 Fluff и Morroc Solution; в mixing machine выберите «1carat Diamond» и введите «5429». Сам предмет-катализатор не нужен. При ошибке соберите материалы заново.",
+          "short_en": "For assigned Solution # 4: use 2 Jellopy, 3 Fluff and Morroc Solution; at the mixing machine select “1carat Diamond” and enter “5429”. The catalyst item itself is not needed. On error, gather the materials again.",
+          "full_ru": "Для назначенного Solution # 4: используйте 2 Jellopy, 3 Fluff и Morroc Solution; в mixing machine выберите «1carat Diamond» и введите «5429». Сам предмет-катализатор не нужен. При ошибке соберите материалы заново.",
+          "full_en": "For assigned Solution # 4: use 2 Jellopy, 3 Fluff and Morroc Solution; at the mixing machine select “1carat Diamond” and enter “5429”. The catalyst item itself is not needed. On error, gather the materials again.",
+          "protected_names": [
+            "mixing machine"
+          ],
+          "items": [
+            {
+              "entity": "Jellopy",
+              "quantity": 2,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "entity": "Fluff",
+              "quantity": 3,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "entity": "Morroc Solution",
+              "quantity": null,
+              "operation": "consume",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Morroc Solution",
+              "condition": "Recipe requires this town solution; table does not print a quantity."
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "assigned_solution_number",
+              "amount": "4",
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            },
+            {
+              "kind": "mixing_code",
+              "amount": "5429",
+              "source_section": "html_text",
+              "evidence": "5429"
+            }
+          ],
+          "dialogues": [
+            {
+              "npc": "mixing machine",
+              "options": [
+                {
+                  "text": "1carat Diamond",
+                  "correct": 1
+                },
+                {
+                  "text": "5429",
+                  "correct": 1,
+                  "operation": "input"
+                }
+              ],
+              "source_section": "html_text",
+              "evidence": "Solution # Items Catalyst Item Town Solution Mixing Code 1 2 Jellopy , 3 Fluff , 1 Milk [1] Yellow Gemstone Payon Solution [2] 8472 2 3 Jellopy , 1 Fluff , 1 Milk [1] Red Gemstone None 3735 3 6 Jellopy , 1 Fluff Blue Gemstone Payon Solution [2] 2750 4 2 Jellopy , 3 Fluff 1carat Diamond Morroc Solution [3] 5429"
+            }
+          ],
+          "actions": [
+            {
+              "operation": "select_catalyst",
+              "entity": "mixing machine",
+              "source_section": "html_text",
+              "evidence": "1carat Diamond",
+              "condition": "Menu selection only; no catalyst inventory requirement."
+            },
+            {
+              "operation": "enter_mixing_code",
+              "entity": "mixing machine",
+              "source_section": "html_text",
+              "evidence": "5429"
+            }
+          ]
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Once the Unknown Solution is made talk to the main quest NPC again. If you give her the correct solution, she will change your job to Mage.",
+      "instruction_sha256": "2d7b1534a88be6063012e4559c91b1d8eda44d35930f8d964121c36cd8f7d129",
+      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/2d7b1534a88be6063012/1",
+      "goal": "job_change",
+      "short_ru": "Передайте правильный Unknown Solution персонажу main quest NPC и получите профессию Mage.",
+      "short_en": "Give the correct Unknown Solution to the main quest NPC and become a Mage.",
+      "full_ru": "Когда Unknown Solution готов, снова поговорите с main quest NPC. Передав правильный раствор, вы получите профессию Mage.",
+      "full_en": "Once the Unknown Solution is made talk to the main quest NPC again. If you give her the correct solution, she will change your job to Mage.",
+      "npcs": [
+        {
+          "entity": "girl by the blackboard",
+          "role": "return",
+          "support_step": 2,
+          "evidence": "Once inside, talk to the girl by the blackboard. She will tell you what solution number you need. The solution number you get determines what items you need and what you need to input in to the mixing machine. You can look up the ingredients you need at the book shelf located inside of the same room. Note: The catalyst item isn't needed, it is just a selection from the mixing machine list. [1] Milk can be obtained in Prontera at the Milk Merchant (76, 133) for 25z. [2] The Payon Solution is found in the Payon Archer Village (the Archer Village is accessible through the top right portal of Payon ). The NPC, named Dollshoi, is located at (118, 100). [3] The Morroc Solution is found in the Pyramids map located in the north west corner of Morroc . The NPC, named Ponka-Hontas can be found at (88, 147)."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Unknown Solution",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Correct prepared solution; source does not establish a game ID or inventory quantity."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Mage"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "hand_in_correct_solution",
+          "entity": "girl by the blackboard"
+        },
+        {
+          "operation": "change_job",
+          "entity": "girl by the blackboard"
+        }
+      ],
+      "protected_names": [
+        "Unknown Solution"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "mage_recipe_assignment_and_virtual_catalysts",
+      "detail": "Four assigned recipes and mixing codes are alternatives. Catalyst labels are exact machine options, never inventory fees. Table is restored separately without changing the archived instructions; town-solution counts are not printed."
+    },
+    {
+      "reason": "mage_unnamed_contact_and_navigation",
+      "detail": "The girl by the blackboard and returning main quest NPC are resolved within this guide; no personal name or Great Wizard identity is invented. Guild entrance is not an interior NPC point. Bare vendor/provider points retain display-name maps without inferred codes. Machine coordinates remain unknown."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Novice",
+        "source_section": "requirements",
+        "evidence": "Class: Novice"
+      }
+    ]
+  }
+}

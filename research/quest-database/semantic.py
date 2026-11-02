@@ -17,7 +17,7 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-5.8.0'
+VERSION = 'semantic-5.9.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
@@ -208,6 +208,22 @@ def entity_id_proof(entity, snapshot, snapshot_index):
     return snapshot,link
 
 
+@lru_cache(maxsize=128)
+def activity_level_headers(html):
+    """Read each literal Job Level row under its own activity heading."""
+    area=BeautifulSoup(html,'html.parser').select_one('.mw-parser-output')
+    if area is None:raise ValueError('Missing pinned wiki content root')
+    headings=area.find_all(['h2','h3'])
+    result=[]
+    for row in area.find_all('tr'):
+        cells=row.find_all(['td','th'],recursive=False)
+        if len(cells)!=2 or cells[0].get_text(' ',strip=True)!='Job Level:':continue
+        heading=row.find_previous(['h2','h3'])
+        if heading is not None and any(heading is h for h in headings):
+            result.append((heading.get_text(' ',strip=True),cells[1].get_text(' ',strip=True),row.get_text(' ',strip=True)))
+    return tuple(result)
+
+
 def validate_curation(curation, page, steps, snapshot):
     if curation['source_sha256'] != sha(guide_payload(page, steps)):
         raise ValueError('Curated quest metadata/source changed; re-review required: '+curation['quest_id'])
@@ -221,19 +237,21 @@ def validate_curation(curation, page, steps, snapshot):
     if len(refs)!=len(set(refs)):raise ValueError('Duplicate curated entity reference')
     if 'job_level_scope_step' in curation:
         n=curation['job_level_scope_step'];routes=curation.get('routes',[])
-        first=next((s for s in steps if s['step_no']==1),{})
+        scoped=next((s for s in steps if type(n) is int and s['step_no']==n),{})
         html=_snapshot_text(snapshot['html'])
-        entry=curation['steps'].get('1',{})
+        entry=curation['steps'].get(str(n),{})
         members=[i for r in routes for i in r.get('steps',[])]
+        headers=[level for heading,level,_ in activity_level_headers(snapshot['html']) if heading==scoped.get('section')]
         proof=any(r.get('kind')=='job_level' and r.get('amount')==str(page['job_level'])
                   and r.get('source_section')=='html_text' and isinstance(r.get('evidence'),str)
                   and 'Job Level: '+str(page['job_level']) in r['evidence'] and r['evidence'] in html
                   for r in entry.get('requirements',[]))
-        if (type(n) is not int or n!=1 or page['job_level'] is None or not first.get('section')
+        if (type(n) is not int or n<1 or page['job_level'] is None or not scoped.get('section')
+            or headers!=[str(page['job_level'])]
             or len(routes)<2 or any(r.get('kind')!='optional' or not r.get('source_heading') for r in routes)
             or len(members)!=len(steps) or set(members)!={s['step_no'] for s in steps}
-            or not any(1 in r['steps'] and r['source_heading']==first['section'] for r in routes) or not proof):
-            raise ValueError('Invalid first-activity job-level scope')
+            or not any(r.get('steps') and r['steps'][0]==n and r['source_heading']==scoped['section'] for r in routes) or not proof):
+            raise ValueError('Invalid activity job-level scope')
 
 
 def mention_entities(w, entities, surfaces, entry):
@@ -605,14 +623,26 @@ def validate(db):
     for owner,amount,step_id,eid in db.execute("SELECT quest_id,amount,step_id,evidence_id FROM requirements WHERE kind='source_job_level_summary'"):
         quest=db.execute('SELECT job_level,source_id,requirements_original FROM quests WHERE quest_id=?',(owner,)).fetchone()
         proof=db.execute('SELECT quest_id,step_id,source_id,snippet,method FROM evidence WHERE evidence_id=?',(eid,)).fetchone()
-        first=db.execute('SELECT step_id FROM quest_steps WHERE quest_id=? AND step_order=1',(owner,)).fetchone()
-        level=first and db.execute("SELECT 1 FROM requirements WHERE step_id=? AND kind='job_level' AND amount=?",(first[0],amount)).fetchone()
+        levels=db.execute('''SELECT s.step_id,s.section,e.source_id,e.snippet,e.method
+          FROM evidence_context c JOIN requirements r ON r.evidence_id=c.supporting_id
+          JOIN quest_steps s ON s.step_id=r.step_id JOIN evidence e ON e.evidence_id=r.evidence_id
+          WHERE c.evidence_id=? AND r.quest_id=? AND r.kind='job_level' AND r.amount=?''',(eid,owner,amount)).fetchall()
+        source=db.execute('SELECT kind,url FROM sources WHERE source_id=?',(proof[2],)).fetchone()
+        original_url=db.execute('SELECT url FROM sources WHERE source_id=?',(quest[1],)).fetchone()[0]
+        level=levels[0] if len(levels)==1 else None
+        route=level and db.execute('''SELECT 1 FROM step_routes m JOIN quest_routes r USING(route_id)
+          JOIN evidence e ON e.evidence_id=r.evidence_id
+          WHERE m.step_id=? AND m.route_order=1 AND r.quest_id=? AND r.kind='optional'
+            AND e.method='source_route_heading' AND e.snippet=?''',(level[0],owner,level[1])).fetchone()
         memberships=db.execute('''SELECT count(*),count(DISTINCT m.step_id) FROM step_routes m JOIN quest_routes r USING(route_id) WHERE r.quest_id=?''',(owner,)).fetchone()
         steps=db.execute('SELECT count(*) FROM quest_steps WHERE quest_id=?',(owner,)).fetchone()[0]
         routes=db.execute("SELECT count(*),sum(kind<>'optional') FROM quest_routes WHERE quest_id=?",(owner,)).fetchone()
         snippet='Job Level: '+str(amount)
-        if (quest[0] is not None or step_id is not None or not level or tuple(proof)!=(owner,None,quest[1],snippet,'archived_first_activity_level')
-            or snippet not in (quest[2] or '') or tuple(memberships)!=(steps,steps) or routes[0]<2 or routes[1]):
+        if (quest[0] is not None or step_id is not None or not level or not route
+            or tuple(proof)!=(owner,None,level[2],snippet,'archived_activity_level')
+            or not source or tuple(source)!=('html_snapshot',original_url)
+            or snippet not in level[3] or level[4]!='curated_html_text'
+            or tuple(memberships)!=(steps,steps) or routes[0]<2 or routes[1]):
             errors.append('invalid_scoped_job_level_summary')
     previous={}
     for row in db.execute('SELECT m.step_id,m.field,m.start_offset,m.end_offset,m.surface,d.short_ru,d.short_en,d.full_ru,d.full_en FROM description_mentions m JOIN step_descriptions d USING(step_id) ORDER BY m.step_id,m.field,m.start_offset'):
@@ -828,8 +858,8 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
             if page[column] is not None:
                 scoped=kind=='job_level' and (curation or {}).get('job_level_scope_step')
                 actual='source_job_level_summary' if scoped else kind
-                ev=w.evidence('Job Level: '+str(page[column]),method='archived_first_activity_level') if scoped else page_ev
-                condition='Archived first header applies only to source step 1; use the separate activity job-level requirements.' if scoped else None
+                ev=w.evidence('Job Level: '+str(page[column]),method='archived_activity_level',source=html_source) if scoped else page_ev
+                condition='Archived parsed level applies only to the activity beginning at source step '+str(scoped)+'; use the separate activity requirements.' if scoped else None
                 w.add('requirements',requirement_id=stable('requirement',w.qid,actual),quest_id=w.qid,kind=actual,amount=str(page[column]),condition_text=condition,evidence_id=ev)
         seen=Counter();previous=None
         for step in steps:
@@ -896,6 +926,11 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
             contextual_branches(w,curation,entities,surfaces,source_sections,html_source)
             w.sid=None
             quest_routes(w,curation,source_sections,html_source)
+            if curation.get('job_level_scope_step'):
+                summary=db.execute("SELECT evidence_id FROM requirements WHERE quest_id=? AND kind='source_job_level_summary'",(w.qid,)).fetchone()[0]
+                gate=db.execute("SELECT r.evidence_id FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND s.step_order=? AND r.kind='job_level' AND r.amount=?",(w.qid,curation['job_level_scope_step'],str(page['job_level']))).fetchall()
+                if len(gate)!=1:raise ValueError('Ambiguous activity job-level proof')
+                w.add('evidence_context',evidence_id=summary,supporting_id=gate[0][0])
             for issue in curation.get('reviews',[]):w.review(issue['reason'],issue['detail'],page_ev,issue.get('severity','warning'))
     w.qid=None;w.sid=None
     for plan,_,_ in plans:
