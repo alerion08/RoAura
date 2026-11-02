@@ -28379,38 +28379,20 @@
       "step_id": "irowiki-classic:Merchant_Training_Quest/step/fc55852b070cc2b230d6/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Eriuous and Erious are source spellings of the initial/return interlocutor in this single quest. No Pub coordinate, HP percentage, irreversible lockout duration or summoning probability is invented.",
       "evidence_id": "ev:3049df83870370bcb24ef53f",
       "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:763fb2f8ac011f6a521f06c4",
+      "reason": "eriouus_spelling_and_failure_scope",
+      "review_id": "review:7157c21cdd99ac11514972c6",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Witherless Rose is consumed in the header and required for conversation in the body, but quantity/removal timing is not printed. Do not invent a count or per-attempt rose consumption.",
       "evidence_id": "ev:3049df83870370bcb24ef53f",
       "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:3cc01a64b1241cb89fd3d545",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:61a7d79e70bc3c6e9b7c42f7",
-      "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:15d396bf09e9e647330f2af8",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:c45032fff452335c1601effc",
-      "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:7addd0f0787faa73ed356238",
+      "reason": "rose_count_and_removal_unknown",
+      "review_id": "review:e289e1b2a181ba00fe29540e",
       "severity": "warning",
       "step_id": null
     },
@@ -28424,94 +28406,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2ef94aaf63e8942568df452c",
+      "detail": "Both final answers are allowed, with no exact text printed. Rewards depend on summoning success/failure, not a fabricated answer. Ten consumed leaves and ten granted leaves are different roles, not zero cost or two simultaneous grants.",
+      "evidence_id": "ev:3049df83870370bcb24ef53f",
       "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4b2d946abf09f2a2168b707b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Message_Delivery_Quest/step/51f9cd63bc01327faafe/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2ef94aaf63e8942568df452c",
-      "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:53e77d41bd9f66de5d431a8d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Message_Delivery_Quest/step/51f9cd63bc01327faafe/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f1a1a25d23741391cb227e85",
-      "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:24b0675fd210434b9e8dba17",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Message_Delivery_Quest/step/c2a121a73d1cc80254f9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f1a1a25d23741391cb227e85",
-      "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fa21611da961696e212e6fae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Message_Delivery_Quest/step/c2a121a73d1cc80254f9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9b167c0e46bab6d829429b52",
-      "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:93734a3bcd96ca3f1a8274d9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Message_Delivery_Quest/step/d20bfe6bb18763306372/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9b167c0e46bab6d829429b52",
-      "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3022ea588e9b2b243686d1a7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Message_Delivery_Quest/step/d20bfe6bb18763306372/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:131daaa448ca817316346892",
-      "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:87c3300e241d22c7a7839740",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Message_Delivery_Quest/step/df35ea5dfdcafdf9c83b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:131daaa448ca817316346892",
-      "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:598bc55daba91e423fc6d111",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Message_Delivery_Quest/step/df35ea5dfdcafdf9c83b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8f6b36e333895bdfaf3527ab",
-      "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:623e1fbe24548314bdb7e8ed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Message_Delivery_Quest/step/f51f77c739803f7b4bd3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8f6b36e333895bdfaf3527ab",
-      "quest_id": "irowiki-classic:Message_Delivery_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0923c674bbfb751f295c7485",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Message_Delivery_Quest/step/f51f77c739803f7b4bd3/1"
+      "reason": "summoning_outcome_not_final_answer",
+      "review_id": "review:cf6e581f41a2d50d46f08f60",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -33176,38 +33077,29 @@
       "step_id": "irowiki-classic:Peace_for_Arunafeltz_Quest/step/de84dd662afbcaa0d527/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Shared Alreg key plus one five-key Part 2 route yields six. Part 2a and Part 2b are source-prompt alternatives, not both required; no player-choice/random mechanism is invented.",
       "evidence_id": "ev:55621f9e7fd6c745d77423df",
       "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:11141eb9d18c5077ea178723",
+      "reason": "exclusive_routes_not_eleven_keys",
+      "review_id": "review:13fed092b322fa547ac0b5cf",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Header says six Piano Keys consumed but body does not identify the removal step. Original header says Sign Quest Part 1 while pinned HTML simply links Sign Quest. This is not a completed Sign quest or server-verified unlock.",
       "evidence_id": "ev:55621f9e7fd6c745d77423df",
       "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:d7b312869017763b8fc022f1",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:c46950abd70d107a29337fa3",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:938bc563138d9a48d62529fa",
+      "reason": "key_removal_and_sign_reference_scope",
+      "review_id": "review:2edc836555cea09885300f49",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:19734aa451370aa94e239b56",
+      "detail": "Exact four lines are preserved at stages 3 and 8. Stage 8 asks for a line; neither printed list order nor option order proves an unconditional four-input sequence. Use the actual prompt.",
+      "evidence_id": "ev:55621f9e7fd6c745d77423df",
       "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:e6487a3a0f523112112d6b29",
+      "reason": "lyrics_prompt_mapping_unknown",
+      "review_id": "review:6dbd5ebcdd8aa71d9ca503cb",
       "severity": "warning",
       "step_id": null
     },
@@ -33221,247 +33113,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fc8e957005831f05cef91038",
+      "detail": "The two Tombstone labels denote different map positions. Source says they have no names; they are modeled as interactable NPC-type trigger references, not verified named NPCs. Walking activates them; talking does nothing.",
+      "evidence_id": "ev:55621f9e7fd6c745d77423df",
       "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:eb1e4ff430dd8972d37c8b81",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/01f10812e082d6e17fe9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fc8e957005831f05cef91038",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:77da25fc8538658449d70aaa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/01f10812e082d6e17fe9/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:fc8e957005831f05cef91038",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:6e8b5d9f69abc15f95e6c0fc",
+      "reason": "tombstones_are_unnamed_proximity_triggers",
+      "review_id": "review:da490f6c80649e7fef136b49",
       "severity": "warning",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/01f10812e082d6e17fe9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:84366c77f1998d0bf52aebeb",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9ea93874ea14df14f1f9385b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/262a25f5ed48e45dd5a0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:84366c77f1998d0bf52aebeb",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d82ecd013cbefd252fc276f5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/262a25f5ed48e45dd5a0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2c2dd1fe7294210ef5e066df",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9583fbdcd3947aebb1112fae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/266febebce2aa38f8f25/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2c2dd1fe7294210ef5e066df",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a6f9c83c9f55a1cea7335d39",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/266febebce2aa38f8f25/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:dd21597b0ef7edd5a64ae18b",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:cf5db9b7b1bd2d72a14cfd1c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/2eccba4c89c47773004d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:dd21597b0ef7edd5a64ae18b",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5dd07288d6a20e13586c91bc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/2eccba4c89c47773004d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8d5ae0f534380c126514e173",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:07495b736d3e3a82fe7db11d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/3a150584a56a093d7db4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8d5ae0f534380c126514e173",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5c01f69a430034aac9dbc863",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/3a150584a56a093d7db4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:65b121fb480e18604e62a23e",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5dc0ae4329bb0dc6bca0f395",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/3e4abb6733ac6bf2d1aa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:65b121fb480e18604e62a23e",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0a547117cba5500863f27869",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/3e4abb6733ac6bf2d1aa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:af3ca32adce15f4f5c9481eb",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:83c7a11ff2b9c870d234b3ef",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/7c9f0095b03d9d71ad12/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:af3ca32adce15f4f5c9481eb",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3842f1505aed3d937a89cd0c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/7c9f0095b03d9d71ad12/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:42ad29dca28d732280cf9553",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3629f0b12b5eda67a9005808",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/bd0bb0008b0201c3ca32/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:42ad29dca28d732280cf9553",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0f4cb4efa116bb780bf4acbd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/bd0bb0008b0201c3ca32/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ef03aaa29e6e0ccc89c13f0f",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:43981f07b00bbf051fab21ba",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/bd0bb0008b0201c3ca32/2"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ef03aaa29e6e0ccc89c13f0f",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:61de0d74e8b69a6138e73ff7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/bd0bb0008b0201c3ca32/2"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0a065976b9cf4395a2716bba",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:58eb1900653ed64f34766f83",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/c94e70d276249bde1cc7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0a065976b9cf4395a2716bba",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7a5f442694ec578cf40096fc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/c94e70d276249bde1cc7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2c80b0dfb829f5ed6011447c",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a2931e2960037dfae53013ad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/cc1f67ae77ebae607b9d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2c80b0dfb829f5ed6011447c",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:47cc12fcaedcd98b979e687e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/cc1f67ae77ebae607b9d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:aa200c20935209878c479bf7",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f28369ce1e519dc293069333",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/d6bdc6ab096de17684e2/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:aa200c20935209878c479bf7",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f18dbd512cedf5b2858b9764",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/d6bdc6ab096de17684e2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e372413cdcdec3b4d721fbbe",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2460e23644b5a1a6e49fa3fe",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/fcc568c6ef3dfdb95a04/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e372413cdcdec3b4d721fbbe",
-      "quest_id": "irowiki-classic:Piano_Keys_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:33700c0088336a1e73102541",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Piano_Keys_Quest/step/fcc568c6ef3dfdb95a04/1"
+      "step_id": null
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -40196,38 +39854,38 @@
       "step_id": "irowiki-classic:Sign_Quest/step/fc8653ed799590196411/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Bare Lutie/house coordinate pairs are preserved without guessing xmas/interior map codes. House coordinates are entrances rather than invented positions of interior NPCs.",
       "evidence_id": "ev:684a62e9b86b278df1522143",
       "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:d1565c620e4c6a6ac072bd87",
+      "reason": "lutie_map_codes_unknown",
+      "review_id": "review:94158149d3273f56a6e11f87",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The source explicitly supports Bard Job Change use and has no limited-event dates. Christmas scenery/clothing alone is not evidence of a retired event. No current server availability is asserted.",
       "evidence_id": "ev:684a62e9b86b278df1522143",
       "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:ae0812abd9af2e347df80c54",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:748aea2f8cedb3e9a40a4818",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:557375d3ba9c85ea5abf7f02",
+      "reason": "permanent_bard_related_not_dated_event",
+      "review_id": "review:6c66df006f28fbe4860df640",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:3db3bdf10c43823420dac34c",
+      "detail": "Four listed reward ranges are possible_item candidates, not four guaranteed grants. No probabilities or exclusive/mixed distribution is invented. Gift items and Roughest Salt have unknown database IDs.",
+      "evidence_id": "ev:684a62e9b86b278df1522143",
       "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:327763bbf6df703d51abdf6c",
+      "reason": "random_present_distribution_and_ids_unknown",
+      "review_id": "review:566ef0e5954c626301855071",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Receiving salt is stated, but count/inventory implementation and later removal are not. Only Snowysnow? is printed exactly; later blue choices keep positional/color instructions without fabricated text.",
+      "evidence_id": "ev:684a62e9b86b278df1522143",
+      "quest_id": "irowiki-classic:Snowysnow_Quest",
+      "reason": "salt_consumption_and_blue_text_unknown",
+      "review_id": "review:7c092947682d233358b8adc8",
       "severity": "warning",
       "step_id": null
     },
@@ -40241,17 +39899,8 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a2e6c35b0553d897fba1de29",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3fd107df937131e92b9d9e1f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/17616d062271cbc75235/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:53849f98320930e25ef59888",
+      "evidence_id": "ev:4fb02c953e22cb74f475fdb9",
       "quest_id": "irowiki-classic:Snowysnow_Quest",
       "reason": "map_unknown",
       "review_id": "review:c4fa2bccb343568e471492f2",
@@ -40259,53 +39908,17 @@
       "step_id": "irowiki-classic:Snowysnow_Quest/step/17616d062271cbc75235/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a2e6c35b0553d897fba1de29",
+      "detail": "Coordinate pair has no established map code; not navigable.",
+      "evidence_id": "ev:2c68b5b6e14ca7e8077cb032",
       "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d5c50509c361dc535a7cc150",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/17616d062271cbc75235/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:a2e6c35b0553d897fba1de29",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:4a134d4a093444c4f514e171",
+      "reason": "map_unknown",
+      "review_id": "review:7a499cb5584e48ede9bbf215",
       "severity": "warning",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/17616d062271cbc75235/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5d4b71d6a93319906ec2c516",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:98055f1a0087f36b04e0bb40",
-      "severity": "blocking",
       "step_id": "irowiki-classic:Snowysnow_Quest/step/2081182a0e214e85810b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5d4b71d6a93319906ec2c516",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3efd0db71b44308eebc1b361",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/2081182a0e214e85810b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:514ea0c5744cc0581f0d74ee",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:47607a4f473f8a8d1fc86826",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/2bf80a13ac84354a7397/1"
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:57e59105e744d4925dea67ee",
+      "evidence_id": "ev:30384e3c8b3077cf750d9b70",
       "quest_id": "irowiki-classic:Snowysnow_Quest",
       "reason": "map_unknown",
       "review_id": "review:0f6d91baac529c3ba64b00dd",
@@ -40313,35 +39926,8 @@
       "step_id": "irowiki-classic:Snowysnow_Quest/step/2bf80a13ac84354a7397/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:514ea0c5744cc0581f0d74ee",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:61717b264abadc8863305d58",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/2bf80a13ac84354a7397/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:514ea0c5744cc0581f0d74ee",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:55a50e26251af9dacf8698d2",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/2bf80a13ac84354a7397/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7789206c5e2556f429c65788",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:fbf4e1902c8f4ea2b6f21136",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/6c5a9419e10e8359fdc4/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:c77a1bebbe4f84ba22676374",
+      "evidence_id": "ev:cd9fc18df766fb9f222199be",
       "quest_id": "irowiki-classic:Snowysnow_Quest",
       "reason": "map_unknown",
       "review_id": "review:0a49cb02101faadbce320f6d",
@@ -40349,35 +39935,8 @@
       "step_id": "irowiki-classic:Snowysnow_Quest/step/6c5a9419e10e8359fdc4/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7789206c5e2556f429c65788",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5db8de57b9179d142a07c8b5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/6c5a9419e10e8359fdc4/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:7789206c5e2556f429c65788",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:750dafdc24135bae6a304857",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/6c5a9419e10e8359fdc4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7948a98663eedf6fa554559f",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:18ab1bc42775d3d13d1c8492",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/78171e64d96ed66070d8/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:8de1271444bc02e65e09b650",
+      "evidence_id": "ev:f4c667e08b58db34c4a3fe23",
       "quest_id": "irowiki-classic:Snowysnow_Quest",
       "reason": "map_unknown",
       "review_id": "review:9ea6125108194a6ac5a31177",
@@ -40385,35 +39944,8 @@
       "step_id": "irowiki-classic:Snowysnow_Quest/step/78171e64d96ed66070d8/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7948a98663eedf6fa554559f",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0766b9846db36c943e0082a5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/78171e64d96ed66070d8/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:7948a98663eedf6fa554559f",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:644c4e2cdef3f905c0d0619c",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/78171e64d96ed66070d8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:bce7aebd73f8ea43aeafbece",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:68c08bd7c37d70c69cb3d3cc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/7afbb38bc2e8138609c1/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:6ec229dbcea0cf7964404303",
+      "evidence_id": "ev:3aed034ec8af3171720903af",
       "quest_id": "irowiki-classic:Snowysnow_Quest",
       "reason": "map_unknown",
       "review_id": "review:a2dd348c5598c97d1ec03db9",
@@ -40421,130 +39953,31 @@
       "step_id": "irowiki-classic:Snowysnow_Quest/step/7afbb38bc2e8138609c1/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:bce7aebd73f8ea43aeafbece",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9d6015f7357b95cec2dcc765",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/7afbb38bc2e8138609c1/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:bce7aebd73f8ea43aeafbece",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:a4ec401e613b902f4c422103",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/7afbb38bc2e8138609c1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
+      "detail": "The article names Charu Charu and Marcell but does not say which is the little boy or girl. Interaction order is known; named/gender identities are not silently merged.",
       "evidence_id": "ev:953423e3bce4b34af502f3eb",
       "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:419101017a6c88c063b304e3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/81314db691bb457402cb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:953423e3bce4b34af502f3eb",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dbf35f5fe78bc79b8c35044e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/81314db691bb457402cb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ba22b11707b10b76e8b1f143",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:bc2df339e86576f227ed583c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/9480e459315ab744ae7f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ba22b11707b10b76e8b1f143",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ee9c89453212ae08eee8578e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/9480e459315ab744ae7f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4799337a46bea88ef6d29ba4",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:954efa7108490bd241467cb1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/a4836d0d0958d7b0df3f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4799337a46bea88ef6d29ba4",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fa042c7d6a0b941a47723c15",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/a4836d0d0958d7b0df3f/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:4799337a46bea88ef6d29ba4",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:afa67f8af7e72adc70bc198b",
+      "reason": "child_names_not_mapped_to_gender",
+      "review_id": "review:9883153b606c6dc641c459ce",
       "severity": "warning",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/a4836d0d0958d7b0df3f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:894156fef763ff0cb5afa9e5",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e246822ffbe026a87be22cad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/d5aa6ecc94a96a77fab0/1"
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/81314db691bb457402cb/1"
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:2ecd89c013776aa46f1033e1",
+      "evidence_id": "ev:0f9e61d8a670965798e6765e",
+      "quest_id": "irowiki-classic:Snowysnow_Quest",
+      "reason": "map_unknown",
+      "review_id": "review:d3239efaff4b6d739b26ecc5",
+      "severity": "warning",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/a4836d0d0958d7b0df3f/1"
+    },
+    {
+      "detail": "Coordinate pair has no established map code; not navigable.",
+      "evidence_id": "ev:2c824e037e6ef8fd524aac2f",
       "quest_id": "irowiki-classic:Snowysnow_Quest",
       "reason": "map_unknown",
       "review_id": "review:18b44f07b55a3e2b8c1c29a2",
       "severity": "warning",
       "step_id": "irowiki-classic:Snowysnow_Quest/step/d5aa6ecc94a96a77fab0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:894156fef763ff0cb5afa9e5",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:aaf04708d8e1ae64f46f12b0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/d5aa6ecc94a96a77fab0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:16484ea71c2526413b2c8070",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:de6e0e93a74c08ee309d6d50",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/ef7db47f7ccf25332d01/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:16484ea71c2526413b2c8070",
-      "quest_id": "irowiki-classic:Snowysnow_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:10418f112100bd4c0e79439d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Snowysnow_Quest/step/ef7db47f7ccf25332d01/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
