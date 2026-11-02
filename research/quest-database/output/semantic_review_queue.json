@@ -9713,38 +9713,11 @@
       "step_id": "irowiki-classic:Counteragent_and_Mixture_Quest/step/ff77c33300616c6d9f41/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Book, album, feather, Memo and Autograph retain unknown inventory IDs. Two shown photos are not two album rewards. Library/vision/cave interior coordinate pairs lack confirmed map codes.",
       "evidence_id": "ev:75abafb165ad99ed45a60cff",
       "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:bb37c2d197b605d5a1f2ef51",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:75abafb165ad99ed45a60cff",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:b5b0c81d40dade655eaceef5",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:afe2f7107b04000874774fd9",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:612bf347a7279248773c6a82",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:b6b9a2cdbc56e29840e82e56",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:b6d9e4d7a6cbfa33069afcab",
+      "reason": "documents_and_scene_maps_unverified",
+      "review_id": "review:04ca03d8179a4b987dc6fd02",
       "severity": "warning",
       "step_id": null
     },
@@ -9758,35 +9731,26 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1fbdcdac7f83f9cd78dc5477",
+      "detail": "Eva, Jaeda and vision participants are narrative actors. Grotesque people and the crow are not mandatory monster kills. Female Researcher is not silently merged with Eva.",
+      "evidence_id": "ev:75abafb165ad99ed45a60cff",
       "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b89324dc22ebd7caa42cfdd1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/0248ef70c8dfbec9e1ec/1"
+      "reason": "story_characters_not_kill_targets",
+      "review_id": "review:d982cc5caffd95e14361c9ca",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1fbdcdac7f83f9cd78dc5477",
+      "detail": "Stage 20 returns a note that Oliver tears, but stage 21 still asks for an autograph and note. Final note is a distinct unresolved source referent, not a fabricated replacement Memo grant; no inventory recovery or removal is inferred.",
+      "evidence_id": "ev:75abafb165ad99ed45a60cff",
       "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:18a074faa9652fb9bd4b68ad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/0248ef70c8dfbec9e1ec/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:dbb614b8c6faab8a8da3795d",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:83531aa2f7d78c0fc3ce0061",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/1077e94a57a5769ccd0a/1"
+      "reason": "torn_and_final_note_identity_unresolved",
+      "review_id": "review:3343d6266211d5b51f86fb99",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:868221e5ee96dbc946e5292e",
+      "evidence_id": "ev:a10e1faeab1c1853155cd91f",
       "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
       "reason": "map_unknown",
       "review_id": "review:15b3399de39633296199ccc0",
@@ -9794,26 +9758,8 @@
       "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/1077e94a57a5769ccd0a/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:dbb614b8c6faab8a8da3795d",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3693e9836df0505296768a8c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/1077e94a57a5769ccd0a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fb398cb8dc5fb92dfe1749b0",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:cdfe21b696738ce51645bf65",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/12c662ed6d421d4ecc0c/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:327b33bc58d6a6906ae07afd",
+      "evidence_id": "ev:3463e57cd6a58fc8c6dc1d95",
       "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
       "reason": "map_unknown",
       "review_id": "review:986ea9227b17b2b3496429a1",
@@ -9821,26 +9767,8 @@
       "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/12c662ed6d421d4ecc0c/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fb398cb8dc5fb92dfe1749b0",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e5936475d9185f1a7af38f93",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/12c662ed6d421d4ecc0c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e3b14ca63623fbfb5106a771",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:313cbd22de5d1c5325dadf96",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/2376604ad1042b131123/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:446a49b1effd75b3d79029ed",
+      "evidence_id": "ev:670a0e3ea4025b0bcd223c33",
       "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
       "reason": "map_unknown",
       "review_id": "review:5f5ad501d728fb02c058077a",
@@ -9848,346 +9776,13 @@
       "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/2376604ad1042b131123/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e3b14ca63623fbfb5106a771",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2c33eedb7b36f0efafa71fc4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/2376604ad1042b131123/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:063b3e12bdd82a88e4edd10f",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ac99fe9e21cafa941cfea54e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/25e798c94f89d2c975e9/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:1e5785bd29d87a07d2654540",
+      "evidence_id": "ev:df738deb7731ef32b390fa82",
       "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
       "reason": "map_unknown",
       "review_id": "review:c57462233a83dc55387573e0",
       "severity": "warning",
       "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/25e798c94f89d2c975e9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:063b3e12bdd82a88e4edd10f",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e7d62968c7a4d2de977891d2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/25e798c94f89d2c975e9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:aa6e8c27da0eebce98388138",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f2d507ad716668e90f46e583",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/36d733d252f71c395bf0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:aa6e8c27da0eebce98388138",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:79613a0090474a17f629ff29",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/36d733d252f71c395bf0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a2aa56aae1aea3fca33c14d9",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:36c9cefab2b409d3e8346187",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/3a4999aa4f610a67f90c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a2aa56aae1aea3fca33c14d9",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d0a1695dd60291c1642b46e5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/3a4999aa4f610a67f90c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f2d38e16bbbc701f3f803b4b",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5dccd2d18d2c0d33f92ad9d1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/3ed2b1a5e93a54ba1e68/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f2d38e16bbbc701f3f803b4b",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5c3fb380672ff6aa2a099ce7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/3ed2b1a5e93a54ba1e68/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8f74146fbb42cc85a13291d6",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f5c4390eeb10ae576cfd9a6a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/4fa68d96bd12dee5c870/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8f74146fbb42cc85a13291d6",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c482827d9400c85e28c328ca",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/4fa68d96bd12dee5c870/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:760d765f9601c8574932de08",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:eac75e8977452e4baabdd756",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/51ad70c32c46f024c843/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:760d765f9601c8574932de08",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a3a242047ada3b45a581970f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/51ad70c32c46f024c843/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:331c80f1b6c846abf1f55226",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:032f5781a14c3e0b5229be95",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/5bf9aa0fed249ee77fd6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:331c80f1b6c846abf1f55226",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:37915d6faaef6965acc41d67",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/5bf9aa0fed249ee77fd6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:94f6a346765238fe2445e19d",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b5078b60ce0375aaf0076b62",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/66ba9e7a330e8293ce7c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:94f6a346765238fe2445e19d",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6c1f6964c93aa41432f81fb0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/66ba9e7a330e8293ce7c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:acf0000fbb28f46ac2d1b826",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9a26906584de53bb0c4146b1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/6cd09f9e55081b528efc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:acf0000fbb28f46ac2d1b826",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bef7b3708b5012e72ae6ad66",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/6cd09f9e55081b528efc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0bcde76583b94b3614cb73e4",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:efbee140f64d7b475bb863fd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/6ff691a5ed87fd798cc6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0bcde76583b94b3614cb73e4",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d49a4b10248ddd8e0d24bf2d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/6ff691a5ed87fd798cc6/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:0bcde76583b94b3614cb73e4",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:1032219ecd355721dafa1268",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/6ff691a5ed87fd798cc6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2df471d7c242e9e9147fd12d",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:70a40685443a6672248f8197",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/7275e1f2c46960361e1b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2df471d7c242e9e9147fd12d",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7ea90343cec9e264c3d45e1e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/7275e1f2c46960361e1b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4fd9c789eac9e72da940e2fd",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:059efc88755068959f90ea44",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/a18d35982dd3c793dbca/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4fd9c789eac9e72da940e2fd",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d66eb3b16a98e7a9ef6b93af",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/a18d35982dd3c793dbca/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:702357814bea5bee92714bc6",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:65e7026616af743f465ef97d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/a385dbe983978dc1be8a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:702357814bea5bee92714bc6",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ffb2cb8e873b1929fe110c39",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/a385dbe983978dc1be8a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:80cc9fe3afb3e6ef4d30909f",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:54094cd067e10db7b9011e02",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/a948d8f59aadb3f389d4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:80cc9fe3afb3e6ef4d30909f",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:05e9b8111c7e00a4c30f4975",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/a948d8f59aadb3f389d4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:51589f763640366beed08bc1",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2a733e818207bd1770bea947",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/d3b308f8f33b5411806b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:51589f763640366beed08bc1",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8e0dae5c8a3cd79cb12806b4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/d3b308f8f33b5411806b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c721bbead3e71639e8346b30",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1621485d7d23a12316efe13a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/e7785a82d53f566ebb71/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c721bbead3e71639e8346b30",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1af02400c529ccbc614dfce0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/e7785a82d53f566ebb71/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:c721bbead3e71639e8346b30",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:cc84abfa83a0459cfb5ee80a",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/e7785a82d53f566ebb71/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:60fb02330fb8af8ff5233338",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d8f8e3e56e551751b98e229d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/ef98899b66923e12a42c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:60fb02330fb8af8ff5233338",
-      "quest_id": "irowiki-classic:Crow_of_Destiny_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:764a4932b2aa5e39df889c1e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crow_of_Destiny_Quest/step/ef98899b66923e12a42c/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -15995,38 +15590,29 @@
       "step_id": "irowiki-classic:Fishing_Quest_(08/12/2015)/step/a2d0f036264580b9a99e/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Anon/Annon refer to the same bridegroom in this guide; source spelling remains unchanged per step. Ten Random Potions are a category reward at the footprint trigger; final EXP selects one of nine level bands. Old Blue Box belongs to prerequisite completion, not another Footprint payout.",
       "evidence_id": "ev:104f3aea8ca17c60acdc6676",
       "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:963e381e7d5ff44cbcb1c20c",
+      "reason": "anon_spelling_and_rewards",
+      "review_id": "review:35c8cba55b243b58d21a4ae8",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "50 Zeny is a fishing-tool rental price; only one Monster Feed is per attempt. Number of attempts and ring-removal behavior are not given. Holy/Holier Threads quantities are unspecified and they are not consumed.",
       "evidence_id": "ev:104f3aea8ca17c60acdc6676",
       "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:bdf834577807a03c19fc20ea",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:f0a6d72b4b2abc43c5b4ec08",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:edf078b85774e04482645cd2",
+      "reason": "fishing_costs_and_inventory_unknown",
+      "review_id": "review:571820a8bfbe62115a9744fc",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:644d1365fcc1c8453890cc92",
+      "detail": "Nine footprint points comprise four first-floor and five second-floor points. Final footprint at 89,262 and exact rescue tile 91,262 are distinct. No compulsory visit order is inferred from list order.",
+      "evidence_id": "ev:104f3aea8ca17c60acdc6676",
       "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:6696edc04c8ae9f35798256c",
+      "reason": "footprints_vs_rescue_tile",
+      "review_id": "review:dfd88836073c7c31ae6dde09",
       "severity": "warning",
       "step_id": null
     },
@@ -16038,132 +15624,6 @@
       "review_id": "review:108f4d52b658d13cde3e57cc",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:20bebb41c1fac6ef63ba9a77",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:be5b36e7fbca1bf8941e793b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/412c1b68e5c5e53cd911/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:20bebb41c1fac6ef63ba9a77",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f62e061b8e78d450e5e8350c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/412c1b68e5c5e53cd911/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c340148dda1946d4b40c9730",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:92f34b14f27ff261c2555e89",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/650960f4c40828774897/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c340148dda1946d4b40c9730",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:73a3f6028aee134a7fba92be",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/650960f4c40828774897/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:033590b5ebbb7848044fdff7",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b4547327886c8d3ea7913638",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/8a93b44100c95ceb6b41/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:033590b5ebbb7848044fdff7",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:aa0abadd95c2e62850e5d847",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/8a93b44100c95ceb6b41/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b226e6d8edc8dcb4e3b527fe",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c34ac6acf84bed66b65a4d66",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/a09df021bb3520b9761a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b226e6d8edc8dcb4e3b527fe",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:591bcab4365d36504ac2a572",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/a09df021bb3520b9761a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9856cf63031a001a8d503f2e",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a0ae9161bef6d2641ef4de40",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/a0a3d8c1eccd3e89df12/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9856cf63031a001a8d503f2e",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:598d6527ecd11c8597cff537",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/a0a3d8c1eccd3e89df12/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e5fa965ccc542501685c63af",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:eadb6489734decbfb3cad86a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/cfcca6ac281fadd150ed/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e5fa965ccc542501685c63af",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dec47e703ff699fbb9420f83",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/cfcca6ac281fadd150ed/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c00b10f84cda4cfa05314ee4",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0b705e3b1cd1c9cf76dc7743",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/fdaa966086577246e926/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c00b10f84cda4cfa05314ee4",
-      "quest_id": "irowiki-classic:Footprint_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fbae80fbc21c9838c64fa996",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Footprint_Quest/step/fdaa966086577246e926/1"
     },
     {
       "detail": "The source does not quote Maku’s return message at step 6. No exact input is invented or copied from Digotz’s outgoing six lines.",
@@ -37127,38 +36587,29 @@
       "step_id": "irowiki-classic:Rogue/step/d36346eba705ecbef1a9/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Agents in Geffen, Payon, Comodo and Morroc are distinct. The returning guild agent shares the stage-2 identity. The two notes remain separate quest-scoped documents; requested onward delivery does not prove inventory removal.",
       "evidence_id": "ev:59b17d9161f348d47078d984",
       "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:6ac63afbd8c65e7f77297463",
+      "reason": "homonymous_agents_and_notes",
+      "review_id": "review:f7941f872bf296714d6e388e",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "All bare city/interior points remain map-code unknown; no town map code is guessed for a guild interior.",
       "evidence_id": "ev:59b17d9161f348d47078d984",
       "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:c8644c0ad8f33dea9be23276",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:4dd961ab466b6e23aabadd10",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:922138173aac2ff76f08b886",
+      "reason": "interior_maps_unknown",
+      "review_id": "review:7a3e19508a4aa2a0c1414403",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:ab8229f8858c01c7606a9764",
+      "detail": "Two one-Alcohol deliveries total two. Red Herbs is a withdrawn request. Two requested Masks are not two consumed items: the note requires one retained Mask. Level 4 describes one random food, not quantity.",
+      "evidence_id": "ev:59b17d9161f348d47078d984",
       "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:31fc613d7caa0f874be4d0cf",
+      "reason": "mask_and_alcohol_accounting",
+      "review_id": "review:63b580fed953206af1c35694",
       "severity": "warning",
       "step_id": null
     },
@@ -37172,71 +36623,8 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f69bfdd0bcb8ab05176ad090",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9b37714295010ad14795983a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/012d9b0a719276eb6055/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f69bfdd0bcb8ab05176ad090",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b1adbe412b6ae0887fcc7637",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/012d9b0a719276eb6055/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:f69bfdd0bcb8ab05176ad090",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:d8adba81fa7dc778286c6c7d",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/012d9b0a719276eb6055/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4d41695556e93585190c7408",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a097d070e18af96df91a762f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/0203a2d3889a8694fb23/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4d41695556e93585190c7408",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ddcd250767b1e34f892ef521",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/0203a2d3889a8694fb23/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:4d41695556e93585190c7408",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:ef3002f66a03e7744f506bdd",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/0203a2d3889a8694fb23/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b50385fbd5f645467524c0cd",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:226ce305cd4a96722b236e9e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/08661fd98e2126ac007c/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:f9d3ec03f6601b85f6eafaa8",
+      "evidence_id": "ev:9f9e2bc21849b885350015c0",
       "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
       "reason": "map_unknown",
       "review_id": "review:2500e139fe704780e4ece954",
@@ -37244,116 +36632,8 @@
       "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/08661fd98e2126ac007c/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b50385fbd5f645467524c0cd",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:345e563792a96ed8186fe5ae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/08661fd98e2126ac007c/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:b50385fbd5f645467524c0cd",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:84d8a0c51f8f8c35d141afae",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/08661fd98e2126ac007c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c5b1d6cb6f466ac04f9a843b",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0eedad0b62cd7c34c689beae",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/088a90b6d33751e1134c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c5b1d6cb6f466ac04f9a843b",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:85a5230b55173bb617ddfcd0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/088a90b6d33751e1134c/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:c5b1d6cb6f466ac04f9a843b",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:11ba0f768c5ed81861767bf7",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/088a90b6d33751e1134c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c63cd03d9b49632f4919da5f",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:60dea9e48f554b0e19931bfa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/228a89d8d5bcb58eea5c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c63cd03d9b49632f4919da5f",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:144fc271dc56eeb9a8277e7f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/228a89d8d5bcb58eea5c/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:c63cd03d9b49632f4919da5f",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:8dac6d9a184eaa034b58b8dd",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/228a89d8d5bcb58eea5c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:26ef83168c9e63779675bf52",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:164f473f76fbf3d112c14e0a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/3bac32994125dd0ae353/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:26ef83168c9e63779675bf52",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:57fd5f00af18db0cf843ecb6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/3bac32994125dd0ae353/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:26ef83168c9e63779675bf52",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:705a1401a80dda0eda14eae5",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/3bac32994125dd0ae353/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:81d754384b0a57ece8d35871",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d0eecbbc97540c2d26d8b6d1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/6f186ec08362754271c7/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:1582f116e9f7444c8e91527c",
+      "evidence_id": "ev:6540de7f5695f0034a3dd2cf",
       "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
       "reason": "map_unknown",
       "review_id": "review:eb72955961af550f6936916c",
@@ -37361,44 +36641,17 @@
       "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/6f186ec08362754271c7/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:81d754384b0a57ece8d35871",
+      "detail": "Coordinate pair has no established map code; not navigable.",
+      "evidence_id": "ev:c353d9acd791209e268076b0",
       "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:129ee1d1cfbe23c4f01011c0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/6f186ec08362754271c7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8a9c898a52c5098988b2f25f",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d2aa83f60f923a2eefd40485",
-      "severity": "blocking",
+      "reason": "map_unknown",
+      "review_id": "review:efc4b55aeca62e4feb159a4e",
+      "severity": "warning",
       "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/8796a46825a2d6cfed51/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8a9c898a52c5098988b2f25f",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2747a0467ca4389329450c11",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/8796a46825a2d6cfed51/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5bcfdd0d06eb80f1d6bf0006",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d803967a6eefbb64fb4fbc36",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/8a8851c32353cb068938/1"
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:e4e9f2eb65be75f9724f87d2",
+      "evidence_id": "ev:1d5df3ec0dc8cfd1078bcf4c",
       "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
       "reason": "map_unknown",
       "review_id": "review:9251bb948b99f3294c0902d8",
@@ -37406,26 +36659,8 @@
       "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/8a8851c32353cb068938/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5bcfdd0d06eb80f1d6bf0006",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2cd6ab5bfaeb817be7c45896",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/8a8851c32353cb068938/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:caa81a4d9a386ff7fefbe5d3",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f00faf3b6f7892f961035dca",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/9fb9a4e83f09cd76d52b/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:2614d46794927a5032d671aa",
+      "evidence_id": "ev:8bf4482becc3bdb3d96554ee",
       "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
       "reason": "map_unknown",
       "review_id": "review:4c3a42842a13421e0e2ae261",
@@ -37433,44 +36668,8 @@
       "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/9fb9a4e83f09cd76d52b/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:caa81a4d9a386ff7fefbe5d3",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:32f8bc3cd55bca8b21d15869",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/9fb9a4e83f09cd76d52b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:290630958ddad09285bc5ce2",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:faaaa7fceb0e479dc4bb6d8a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/a3f49962a6984fd838c3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:290630958ddad09285bc5ce2",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1477a9e129bc4adc9bbbe03a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/a3f49962a6984fd838c3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5afe3f5abf6e31f7c310adee",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e4a7b9210d85f6949bdd72af",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/a82e33966f83525bb977/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:a0e118ca91106d4cb85df863",
+      "evidence_id": "ev:6c659a6a72dac29e4a375511",
       "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
       "reason": "map_unknown",
       "review_id": "review:8b5bf638cea3d75ff83a5fea",
@@ -37478,71 +36677,8 @@
       "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/a82e33966f83525bb977/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5afe3f5abf6e31f7c310adee",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d2fa8b696ac416b2a29e7cd1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/a82e33966f83525bb977/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:bfeec0f19bb5d60548c33b69",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a8414d4e02aa9584f749c43e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/ad7a9a47458c560e33a0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:bfeec0f19bb5d60548c33b69",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ac244a7b6674b6ff63ff4d5b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/ad7a9a47458c560e33a0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:040e7627e89b9e97ecd10e50",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:994d25c989c52a73a4b9b01d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/b65505f4c84859fa38a8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:040e7627e89b9e97ecd10e50",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:06a5f6d48c418e1c6227ac71",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/b65505f4c84859fa38a8/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:040e7627e89b9e97ecd10e50",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:fe98a924ce5524448e4381e2",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/b65505f4c84859fa38a8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0cfb479c8964a108fa4b22ad",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b338244ba0f269cbfa14528f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/b973aadd13c9794e04bd/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:6a894a2837922cf22f106c0f",
+      "evidence_id": "ev:4413582681ec5a7449cd0c24",
       "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
       "reason": "map_unknown",
       "review_id": "review:ede08d295c6aba2ed73373ce",
@@ -37550,67 +36686,13 @@
       "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/b973aadd13c9794e04bd/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0cfb479c8964a108fa4b22ad",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:24ad5b70132cbfe1f1116422",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/b973aadd13c9794e04bd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8e1d2534df1f264c575b7e68",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c29a6771d0e5851d04b5bfcb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/d8d50e318a8ec4f6efb4/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:4fa6d7ce82e22db18a31150b",
+      "evidence_id": "ev:4b9e67bf0151e7484d54cdba",
       "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
       "reason": "map_unknown",
       "review_id": "review:5bdf000f6248fca95e2f93d4",
       "severity": "warning",
       "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/d8d50e318a8ec4f6efb4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8e1d2534df1f264c575b7e68",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b9831574ea3ca3cfc04a4f5d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/d8d50e318a8ec4f6efb4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:788f968284399d00a00794fa",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:648692142cf149b706bf852a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/e9203cf30b71312d0b60/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:788f968284399d00a00794fa",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b4ec9e207493a535c6d003e4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/e9203cf30b71312d0b60/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:788f968284399d00a00794fa",
-      "quest_id": "irowiki-classic:Rogue_Guild_Investigation_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:677fbf1faf55d377d2bc61a7",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/e9203cf30b71312d0b60/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
