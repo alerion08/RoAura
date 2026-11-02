@@ -23843,38 +23843,20 @@
       "step_id": "irowiki-classic:Mage/step/f2c734087ab0788019f7/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Four assigned recipes and mixing codes are alternatives. Catalyst labels are exact machine options, never inventory fees. Table is restored separately without changing the archived instructions; town-solution counts are not printed.",
       "evidence_id": "ev:821dfe67b80897eafa1c98a8",
       "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:3f3e3dcb1153574a192d7156",
+      "reason": "mage_recipe_assignment_and_virtual_catalysts",
+      "review_id": "review:a86244dfd66113fc4eb5d08d",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The girl by the blackboard and returning main quest NPC are resolved within this guide; no personal name or Great Wizard identity is invented. Guild entrance is not an interior NPC point. Bare vendor/provider points retain display-name maps without inferred codes. Machine coordinates remain unknown.",
       "evidence_id": "ev:821dfe67b80897eafa1c98a8",
       "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:3410fd2c1edb9d58318bdb1b",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:348f503ee3b92101c287e41b",
-      "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:f84a55dc220af6a1bbb28a78",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:f288101b0f65dd315ea13414",
-      "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:eb1e4630a96ed87ca4c2402f",
+      "reason": "mage_unnamed_contact_and_navigation",
+      "review_id": "review:8882d6590ed12c10c7aa8b49",
       "severity": "warning",
       "step_id": null
     },
@@ -23888,128 +23870,20 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5f667aacfefe0d723186840d",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:b0b866204be3863131aa2854",
       "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:e53dc1ec6163e758ed8f6a21",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/1e314d11423d545cbf86/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5f667aacfefe0d723186840d",
-      "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:38f7c8447c0aec2da73d459a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/1e314d11423d545cbf86/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2bae4139c3e842e5abe26122",
-      "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:95b0f72e02d2617a22658e37",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/2d7b1534a88be6063012/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2bae4139c3e842e5abe26122",
-      "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b5173b491a24d7542633c352",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/2d7b1534a88be6063012/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:2bae4139c3e842e5abe26122",
-      "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:b72123232bf96d28bf73c4bf",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/2d7b1534a88be6063012/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d31cce848f0b6bae648d0a1f",
-      "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:11ee16dbe68c4ad764050cb6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/a17a1d5530a6ce2cdb98/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d31cce848f0b6bae648d0a1f",
-      "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:00dc25cea28fa80ef06a3df5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/a17a1d5530a6ce2cdb98/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6f69e7e2112d15ab134e42ff",
-      "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:78adc5b34f578dc28bf02603",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/f2c734087ab0788019f7/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:ae239232c86e540349e7bb0c",
-      "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "map_unknown",
-      "review_id": "review:38975897ec2056e0e1e92f4e",
+      "reason": "map_not_reference_known",
+      "review_id": "review:09e84db16f81fcf0d5c21c5c",
       "severity": "warning",
       "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/f2c734087ab0788019f7/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6f69e7e2112d15ab134e42ff",
-      "quest_id": "irowiki-classic:Mage_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:daee036071e7e984989e7600",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Mage_Job_Change_Guide/step/f2c734087ab0788019f7/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Five merchants are optional alternative sources, distinct from the Great Wizard trainer. Prices are per item, not mandatory Zeny fees or separate sets per merchant. No trainer coordinates are supplied by this guide; no other-guide point is copied.",
       "evidence_id": "ev:b8e190fedfb04df97638df16",
       "quest_id": "irowiki-classic:Mage_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:bf245c698db5e13ce857a27d",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:b8e190fedfb04df97638df16",
-      "quest_id": "irowiki-classic:Mage_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:1a7b134bc669fa41bccd5460",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:590510f35010ff4e277765c5",
-      "quest_id": "irowiki-classic:Mage_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:ede02a7f7f93dbfaa8855bc3",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:8e7528da9292b2726bae8313",
-      "quest_id": "irowiki-classic:Mage_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:c6472e010169c389b3e591d0",
+      "reason": "energy_coat_optional_purchase_sources",
+      "review_id": "review:61a52a251361fe675612ea07",
       "severity": "warning",
       "step_id": null
     },
@@ -24021,24 +23895,6 @@
       "review_id": "review:8498d2c19688b1b052f3c23c",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:01c264bf24390e98a74a20bb",
-      "quest_id": "irowiki-classic:Mage_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:86473d0b9e7ec089a87fed2c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Mage_Skill_Quest/step/cf6f367b745f1fb77660/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:01c264bf24390e98a74a20bb",
-      "quest_id": "irowiki-classic:Mage_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ebb16e4d41c63a5a69dcb752",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Mage_Skill_Quest/step/cf6f367b745f1fb77660/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -34454,38 +34310,20 @@
       "step_id": "irowiki-classic:Sage_Job_Change_Guide/step/e2951af18d7f978f0ed0/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Only one 20-stone set plus one Payon Solution and one Morroc Solution is needed for the chosen Elemental Change. Converter materials are a separate one-time set requested then handed in. Unnamed entrance teachers retain separate scoped identities because this page supplies no names, coordinates or proof that they are the same actor.",
       "evidence_id": "ev:f39ef896e562e5c286565ea8",
       "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:4fe13c2469755bb2ba330a93",
+      "reason": "sage_chosen_element_cost_and_teacher_unknown",
+      "review_id": "review:f299a9531eb7a98e459e500d",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The archive incorrectly carries numeric Job Level 40 from the second header alongside first-header N/A requirements. Preserve both source views; whole-guide eligibility is NULL, with 40 scoped to stage 3. Converter needs Level 1 of each Endow; Elemental Change needs Level 1 of Wanted Endow. Neither activity is stated as a prerequisite for the other.",
       "evidence_id": "ev:f39ef896e562e5c286565ea8",
       "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:7a43752776f39a3bcf7c212f",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:73d9fbc3b1e1657ca53d930d",
-      "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:023b6875ed4ebc3993914bd5",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:1a5431e6064efa5a81e09b65",
-      "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:a0262236acf955c9197fa542",
+      "reason": "sage_independent_activity_header_scope",
+      "review_id": "review:082bed8c5bfcbcecc6d0d588",
       "severity": "warning",
       "step_id": null
     },
@@ -34497,78 +34335,6 @@
       "review_id": "review:bbc34cd6b32f771c8c60e1c0",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e23d3b9a907ff74135bc6730",
-      "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:67c9dfe185d0999ba9d9eb2c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Sage_Skill_Quest/step/153d0e694bc185351b2f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e23d3b9a907ff74135bc6730",
-      "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e5098422bf8d6fd1afbdf98d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Sage_Skill_Quest/step/153d0e694bc185351b2f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e0e76d60529bcf7fd6fc49b2",
-      "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:93bf876586fd6a6eaa5da273",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Sage_Skill_Quest/step/1ebdf264709d6281fb28/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e0e76d60529bcf7fd6fc49b2",
-      "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1c617adba7a874e4a4547f5b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Sage_Skill_Quest/step/1ebdf264709d6281fb28/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:132bc6379d2873cac3916c8f",
-      "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:86bffc83928010459bf21052",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Sage_Skill_Quest/step/6b2aeec293474f73fc60/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:132bc6379d2873cac3916c8f",
-      "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2f5b3585530a433c1555dd65",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Sage_Skill_Quest/step/6b2aeec293474f73fc60/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0c816163c3744c77e5e4fe94",
-      "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:cb0600adb3469cbe7eb1e430",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Sage_Skill_Quest/step/b3e29a04a6292a5b0841/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0c816163c3744c77e5e4fe94",
-      "quest_id": "irowiki-classic:Sage_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:be3dc4bcb378ff83c5f9ce28",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Sage_Skill_Quest/step/b3e29a04a6292a5b0841/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -43823,42 +43589,6 @@
       "step_id": "irowiki-classic:Wizard_Job_Change_Guide/step/f8b0d70a08b7fdfe002e/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
-      "evidence_id": "ev:a1cdb4b7713d5579d62cf789",
-      "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:d032b5cc2f6bea14d2c559e8",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:a1cdb4b7713d5579d62cf789",
-      "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:5523747d29e3acc5e7d3562a",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:e9ec864b21939ab2d920bedb",
-      "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:61d278562956eb8539ec1b4c",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:2707d9a5fb535ecfef6736cb",
-      "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:673a4f07e1a11a64169a1882",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
       "evidence_id": "ev:a1cdb4b7713d5579d62cf789",
       "quest_id": "irowiki-classic:Wizard_Skill_Quest",
@@ -43868,76 +43598,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:bbb4c2a592a35e626c0b8cf5",
+      "detail": "Cat and Simon Meyas are distinct contacts. One four-material set belongs to the return stage. Neither NPC has numeric coordinates in this guide; the final completion sentence does not identify a separate teacher or create a second material hand-in.",
+      "evidence_id": "ev:a1cdb4b7713d5579d62cf789",
       "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5b37f6b2fe6208aa2f5f89e8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/62e2b50f1ae619aaee6a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:bbb4c2a592a35e626c0b8cf5",
-      "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:85335429d6cb3eb795513ab0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/62e2b50f1ae619aaee6a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c5d4c68f46b1ee638641046f",
-      "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b49b3c6c79148c47f86b04fb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/b8f6e3963952e8ba30a3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c5d4c68f46b1ee638641046f",
-      "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a2c37a831dbe9eba288e8154",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/b8f6e3963952e8ba30a3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9f8b2308a60daaff34bf624f",
-      "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:fe509734861e759a15a099ff",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/e35816f22f3956f3a787/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9f8b2308a60daaff34bf624f",
-      "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:74c885393125197f181b58eb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/e35816f22f3956f3a787/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ee805fb0f3a1cddda166d8c3",
-      "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7a79592f04feec5487cd0e6a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/e462de6e7aea2e0de872/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ee805fb0f3a1cddda166d8c3",
-      "quest_id": "irowiki-classic:Wizard_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bb3a8b9489c6339d4fb68cd0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Wizard_Skill_Quest/step/e462de6e7aea2e0de872/1"
+      "reason": "sight_blaster_actor_and_material_scope",
+      "review_id": "review:ac1658642aa05dd887f480a5",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
