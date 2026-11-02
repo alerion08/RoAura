@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 802 steps in 56 curated guides and
+is excluded. All four RU/EN fields exist for 817 steps in 61 curated guides and
 84 conditional branches. Thirteen source additions supplement full descriptions;
-**1,948 steps / 160 remaining catalog entries still need processing**. Eight quest routes preserve Odin's
+**1,933 steps / 155 remaining catalog entries still need processing**. Eight quest routes preserve Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -48,7 +48,7 @@ Continental Guard, Nidhoggur's Nest, Sealed Shrine and Orc Memory are curated.
 Boss combo tables omitted by the legacy extractor are restored as pinned
 additions; Classic entry/availability warnings remain explicit. Timers, leader
 roles, per-visit combat counts, dungeon population and optional headgear costs
-are distinct. Generator semantic-5.4.0 recognizes literal instance map codes
+are distinct. Generator semantic-5.5.0 recognizes literal instance map codes
 and reviewed non-entity homonyms without changing semantic schema 5.
 Muff's Loan, Broken Diamond and Z-Gang are curated. Red Gemstone request
 wording is separate from actual consumption; the machine state/color table
@@ -62,8 +62,15 @@ for two, and Alcohol has two one-item installments. Crow preserves exact
 alternative catalog inputs and the torn/final-note uncertainty. Footprint
 separates rental from per-attempt bait, nine triggers from the exact rescue
 tile, and intermediate potions from nine alternative final EXP bands.
+Five New World side guides are curated: Tribe Investigation, Laphine Craftsman,
+Bradium Collection, Collecting Draco Eggs and Manuk's Monster Suppression.
+Started/access prerequisites, 24-hour notices for only three repeatables,
+character binding, a single egg total and explicit kill quotas are preserved.
+Bradium's requested/delivered name conflict stays unresolved. Generator 5.5.0
+supports explicit cross-guide item-ID proofs with exact links and source pins;
+Bradium and Two Tribes coins now share canonical IDs without altering text.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 200 regression tests, full offline rebuild and research CI
+Local validation: 211 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

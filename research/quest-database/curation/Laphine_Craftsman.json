@@ -1,0 +1,248 @@
+{
+  "quest_id": "irowiki-classic:Laphine_Craftsman",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "7d9e62970b8df74429c58b70d7b90595399102253ec05378ad69b30f6b9549d2",
+  "snapshot_sha256": "a3fa3a95e5e834d5fc92e109e479408980d8c52352eeed5002c8726494542928",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Laphine"
+    },
+    {
+      "type": "map",
+      "name": "Splendide"
+    },
+    {
+      "type": "map",
+      "name": "splendide",
+      "map_code": "splendide"
+    },
+    {
+      "type": "map",
+      "name": "spl_in",
+      "map_code": "spl_in"
+    },
+    {
+      "type": "item",
+      "name": "Crystallized Teardrop",
+      "aliases": [
+        "Crystallized Teardrops"
+      ],
+      "game_id": 6075,
+      "id_source": "http://db.irowiki.org/classic/item-info/6075/"
+    },
+    {
+      "type": "item",
+      "name": "Florescent Liquid",
+      "game_id": 7326,
+      "id_source": "http://db.irowiki.org/classic/item-info/7326/"
+    },
+    {
+      "type": "item",
+      "name": "Splendide Coin",
+      "game_id": 6081,
+      "id_source": "http://db.irowiki.org/classic/item-info/6081/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In Splendide , go inside the building at ( splendide 198, 238), and speak to the Laphine (spl_in 97, 313). She asks you to bring her 15 Crystallized Teardrop and 15 Florescent Liquid . Note : Crystallized Teardrops are character bound.",
+      "instruction_sha256": "ba31bab461548b82abe81e07eb28535f70fe9f987b190f6c091927c995a74abc",
+      "step_id": "irowiki-classic:Laphine_Craftsman/step/ba31bab461548b82abe8/1",
+      "goal": "talk",
+      "short_ru": "Принесите Laphine в spl_in 97, 313 по 15 Crystallized Teardrop и Florescent Liquid.",
+      "short_en": "Bring Laphine at spl_in 97, 313 15 each of Crystallized Teardrop and Florescent Liquid.",
+      "full_ru": "В Splendide войдите в здание (splendide 198, 238) и поговорите с Laphine (spl_in 97, 313). Она попросит 15 Crystallized Teardrop и 15 Florescent Liquid. Примечание: Crystallized Teardrops привязаны к персонажу.",
+      "full_en": "In Splendide , go inside the building at ( splendide 198, 238), and speak to the Laphine (spl_in 97, 313). She asks you to bring her 15 Crystallized Teardrop and 15 Florescent Liquid . Note : Crystallized Teardrops are character bound.",
+      "npcs": [
+        {
+          "entity": "Laphine",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Crystallized Teardrop",
+          "quantity": 15,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Florescent Liquid",
+          "quantity": 15,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "item_character_bound",
+          "amount": "1",
+          "entity": "Crystallized Teardrop",
+          "evidence": "Crystallized Teardrops are character bound.",
+          "condition": "Item binding flag, not the required material quantity."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_building"
+        },
+        {
+          "operation": "request_materials",
+          "entity": "Laphine"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "splendide",
+          "x": 198,
+          "y": 238,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "spl_in",
+          "x": 97,
+          "y": 313,
+          "role": "npc",
+          "known": false,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Laphine",
+        "Splendide",
+        "splendide",
+        "spl_in",
+        "Crystallized Teardrop",
+        "Florescent Liquid"
+      ]
+    },
+    "2": {
+      "original_instruction": "Return for 30,000 Base EXP , 30,000 Job EXP , and 3 Splendide Coin .",
+      "instruction_sha256": "f3d636d07ff10e0aba9f8966cf48839ad639341e9cc86fbc82eb4b559b643205",
+      "step_id": "irowiki-classic:Laphine_Craftsman/step/f3d636d07ff10e0aba9f/1",
+      "goal": "deliver",
+      "short_ru": "Сдайте Laphine материалы: получите 30,000 Base EXP, 30,000 Job EXP и 3 Splendide Coin.",
+      "short_en": "Deliver Laphine the materials: receive 30,000 Base EXP, 30,000 Job EXP and 3 Splendide Coin.",
+      "full_ru": "Вернитесь за 30,000 Base EXP, 30,000 Job EXP и 3 Splendide Coin.",
+      "full_en": "Return for 30,000 Base EXP , 30,000 Job EXP , and 3 Splendide Coin .",
+      "npcs": [
+        {
+          "entity": "Laphine",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "In Splendide , go inside the building at ( splendide 198, 238), and speak to the Laphine (spl_in 97, 313). She asks you to bring her 15 Crystallized Teardrop and 15 Florescent Liquid . Note : Crystallized Teardrops are character bound."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Crystallized Teardrop",
+          "quantity": 15,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 1,
+          "evidence": "In Splendide , go inside the building at ( splendide 198, 238), and speak to the Laphine (spl_in 97, 313). She asks you to bring her 15 Crystallized Teardrop and 15 Florescent Liquid . Note : Crystallized Teardrops are character bound.",
+          "condition": "The set requested at stage 1; return/consumption interpreted with the header."
+        },
+        {
+          "entity": "Florescent Liquid",
+          "quantity": 15,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 1,
+          "evidence": "In Splendide , go inside the building at ( splendide 198, 238), and speak to the Laphine (spl_in 97, 313). She asks you to bring her 15 Crystallized Teardrop and 15 Florescent Liquid . Note : Crystallized Teardrops are character bound.",
+          "condition": "The set requested at stage 1; return/consumption interpreted with the header."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_materials",
+          "entity": "Laphine"
+        },
+        {
+          "operation": "receive_rewards"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "30000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "30000"
+        },
+        {
+          "kind": "item",
+          "amount": "3",
+          "entity": "Splendide Coin"
+        }
+      ],
+      "protected_names": [
+        "Splendide",
+        "Splendide Coin"
+      ],
+      "locations": [
+        {
+          "entity": "spl_in",
+          "x": 97,
+          "y": 313,
+          "role": "return",
+          "known": false,
+          "support_step": 1,
+          "evidence": "In Splendide , go inside the building at ( splendide 198, 238), and speak to the Laphine (spl_in 97, 313). She asks you to bring her 15 Crystallized Teardrop and 15 Florescent Liquid . Note : Crystallized Teardrops are character bound."
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "laphine_name_not_generic_shared_actor",
+      "detail": "Laphine is the source label at this building, not a universal shared NPC identity for every Laphine. Started Two Tribes with dungeon access is distinct from full completion. Cooldown timing origin is not given."
+    }
+  ],
+  "prerequisite_clauses": [
+    {
+      "kind": "required_started_quest",
+      "related_quest_id": "irowiki-classic:Two_Tribes",
+      "evidence": "Started Two Tribes (access to Yggdrasil Dungeon)"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "15",
+        "source_section": "requirements",
+        "evidence": "15 Crystallized Teardrop",
+        "entity": "Crystallized Teardrop",
+        "condition": "One set per completion; summary is not another delivery."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "15",
+        "source_section": "requirements",
+        "evidence": "15 Florescent Liquid",
+        "entity": "Florescent Liquid",
+        "condition": "One set per completion; summary is not another delivery."
+      },
+      {
+        "kind": "quest_repeatable",
+        "amount": "1",
+        "source_section": "html_text",
+        "evidence": "This quest or instance can be repeated.",
+        "condition": "Source allows repeats; not server verified."
+      },
+      {
+        "kind": "quest_cooldown_hours",
+        "amount": "24",
+        "source_section": "html_text",
+        "evidence": "This quest or instance has a 24 Hour cooldown period.",
+        "condition": "Source repeat cooldown; origin/reset clock is not stated, not a stage wait."
+      }
+    ]
+  }
+}

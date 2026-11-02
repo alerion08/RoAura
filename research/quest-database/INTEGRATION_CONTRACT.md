@@ -19,6 +19,15 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   explicitly pinned and must be preserved during approved source revisions.
 - `entities` plus `npcs`/`maps`/`items`/`monsters` provide typed IDs. Unknown game
   IDs are NULL. Same spelling is not sufficient to merge NPC identities.
+- An entity may use `id_evidence_snapshot: {page, sha256}` to cite another
+  pinned Classic guide's exact database link. Its name must still occur in the
+  owning guide; donor name/type/ID and `id_source` URL must agree exactly. Donor
+  aliases cannot substitute for its exact canonical name. Evidence method
+  `wiki_database_id_link_pinned_cross_guide` points at donor HTML, while role
+  evidence stays with the owner. Missing/changed pins or mismatches stop builds.
+  This is source-backed catalog identity, not game/server verification. It
+  resolves Bradium's Manuk Coin and the two Two Tribes coin IDs; other unknown
+  item IDs are not inferred from spelling alone.
 - Curation `non_entity_mentions` suppresses a reviewed surface throughout one
   entry when it names an organization/quest rather than a catalog entity. A
   reason and actual matching text are required; it cannot conflict with
@@ -200,6 +209,15 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   final EXP selects one of nine `final_level_reward` branches. NULL retained
   thread quantities stay unknown. Prerequisite box receipt is a completion
   milestone and not another reward from the owning quest.
+- `quest_repeatable=1` and `quest_cooldown_hours=24` describe the source notice
+  on Laphine Craftsman, Bradium Collection and Collecting Draco Eggs. They are
+  not stage waits and do not establish reset clock/origin. Tribe Investigation
+  and Monster Suppression have no such notice. `item_character_bound=1` is a
+  binding flag, separate from a 15-item material quantity.
+- Bradium Fragments and Refined Bradium remain unresolved request/delivery
+  source labels; do not sum them into two material sets. Bradium Golems is a
+  loot source of unknown kill quantity. Draco eggs share one ten-item target
+  across two floors; Monster Suppression has distinct one-each kill targets.
 - `ready_steps` currently means **all four localized text fields exist**. It
   is not a readiness claim for the quest, route, server or application.
   Unfinished fields are NULL with blocking review rows; `complete=false` is

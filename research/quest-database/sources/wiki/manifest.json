@@ -2278,5 +2278,133 @@
       "https://irowiki.org/classic/File:Ayodng01.png",
       "https://irowiki.org/classic/File:Ayodng02.png"
     ]
+  },
+  "Tribe_Investigation": {
+    "url": "https://irowiki.org/classic/Tribe_Investigation",
+    "sha256": "56233b1e1bbaa2f1fd115cf708a1930bea3757d256e4b002a1a54d94940a9cd5",
+    "path": "56233b1e1bbaa2f1fd115cf708a1930bea3757d256e4b002a1a54d94940a9cd5.html.gz",
+    "title": "Tribe Investigation",
+    "categories": [
+      "Quest Window Quests",
+      "Level 70~99 Quests",
+      "Into the Unknown Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T06:29:46Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/6032/",
+      "http://db.irowiki.org/classic/item-info/6080/",
+      "http://db.irowiki.org/classic/map-info/manuk/",
+      "http://db.irowiki.org/classic/map-info/mid_camp/",
+      "https://irowiki.org/cl/index.php?title=Midgard_Expedition_Camp&action=edit&redlink=1",
+      "https://irowiki.org/classic/Manuk",
+      "https://irowiki.org/classic/Ring_of_the_Wise_King"
+    ]
+  },
+  "Laphine_Craftsman": {
+    "url": "https://irowiki.org/classic/Laphine_Craftsman",
+    "sha256": "a3fa3a95e5e834d5fc92e109e479408980d8c52352eeed5002c8726494542928",
+    "path": "a3fa3a95e5e834d5fc92e109e479408980d8c52352eeed5002c8726494542928.html.gz",
+    "title": "Laphine Craftsman",
+    "categories": [
+      "Repeatable Quests",
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Into the Unknown Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T06:29:47Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/6075/",
+      "http://db.irowiki.org/classic/item-info/6081/",
+      "http://db.irowiki.org/classic/item-info/7326/",
+      "http://db.irowiki.org/classic/map-info/splendide/",
+      "https://irowiki.org/cl/index.php?title=Splendide&action=edit&redlink=1",
+      "https://irowiki.org/classic/Base_EXP",
+      "https://irowiki.org/classic/File:I_CounterKickStance.png",
+      "https://irowiki.org/classic/Job_EXP",
+      "https://irowiki.org/classic/Two_Tribes"
+    ]
+  },
+  "Bradium_Collection": {
+    "url": "https://irowiki.org/classic/Bradium_Collection",
+    "sha256": "7057025691fd3ca3e8f645f10eea442542a9fd8c8a6f80e995cd4f177c839294",
+    "path": "7057025691fd3ca3e8f645f10eea442542a9fd8c8a6f80e995cd4f177c839294.html.gz",
+    "title": "Bradium Collection",
+    "categories": [
+      "Repeatable Quests",
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Into the Unknown Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T06:29:48Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/6090/",
+      "http://db.irowiki.org/classic/monster-info/2024/",
+      "https://irowiki.org/classic/Base_Experience",
+      "https://irowiki.org/classic/File:I_CounterKickStance.png",
+      "https://irowiki.org/classic/Job_Experience",
+      "https://irowiki.org/classic/Manuk",
+      "https://irowiki.org/classic/Ring_of_the_Wise_King"
+    ]
+  },
+  "Collecting_Draco_Eggs": {
+    "url": "https://irowiki.org/classic/Collecting_Draco_Eggs",
+    "sha256": "bbf6a8f5ded4e004e7486275e6c7cc5540c59adbe88d2913a17e7cb121fa8760",
+    "path": "bbf6a8f5ded4e004e7486275e6c7cc5540c59adbe88d2913a17e7cb121fa8760.html.gz",
+    "title": "Collecting Draco Eggs",
+    "categories": [
+      "Repeatable Quests",
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Into the Unknown Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T06:29:50Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/6080/",
+      "http://db.irowiki.org/classic/item-info/6081/",
+      "http://db.irowiki.org/classic/item-info/6093/",
+      "https://irowiki.org/classic/Base_Experience",
+      "https://irowiki.org/classic/File:I_CounterKickStance.png",
+      "https://irowiki.org/classic/Job_Experience",
+      "https://irowiki.org/classic/Two_Tribes"
+    ]
+  },
+  "Manuk's_Monster_Suppression": {
+    "url": "https://irowiki.org/classic/Manuk%27s_Monster_Suppression",
+    "sha256": "3b8b0bbd111017e3a7d1c0aa3bd244b02d3bc46e8e7ae1ebb0db0ec1efcd5fdb",
+    "path": "3b8b0bbd111017e3a7d1c0aa3bd244b02d3bc46e8e7ae1ebb0db0ec1efcd5fdb.html.gz",
+    "title": "Manuk's Monster Suppression",
+    "categories": [
+      "Quest Window Quests",
+      "Job Experience Reward",
+      "Base Experience Reward",
+      "Level 70~99 Quests",
+      "Into the Unknown Quests",
+      "New World Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T06:29:51Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/6080/",
+      "http://db.irowiki.org/classic/monster-info/2017/",
+      "http://db.irowiki.org/classic/monster-info/2018/",
+      "https://irowiki.org/classic/Base_Experience",
+      "https://irowiki.org/classic/Job_Experience",
+      "https://irowiki.org/classic/Manuk",
+      "https://irowiki.org/classic/Two_Tribes"
+    ]
   }
 }

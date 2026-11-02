@@ -1,6 +1,6 @@
 {
   "quest_id": "irowiki-classic:Two_Tribes",
-  "reviewer": "Codex source review, 2026-11-01",
+  "reviewer": "Codex source review, 2026-11-02",
   "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
   "source_sha256": "caca842f6c4ac750d9a5bc051bb8de8acb2da593abe288df6e0cbc5a69deb3a9",
   "snapshot_sha256": "578611953478cc7419ce0676de2e626a8b13f0e2649fa427170d9dc7d0889885",
@@ -154,11 +154,23 @@
     },
     {
       "type": "item",
-      "name": "Manuk Coin"
+      "name": "Manuk Coin",
+      "game_id": 6080,
+      "id_source": "http://db.irowiki.org/classic/item-info/6080/",
+      "id_evidence_snapshot": {
+        "page": "Tribe_Investigation",
+        "sha256": "56233b1e1bbaa2f1fd115cf708a1930bea3757d256e4b002a1a54d94940a9cd5"
+      }
     },
     {
       "type": "item",
-      "name": "Splendide Coin"
+      "name": "Splendide Coin",
+      "game_id": 6081,
+      "id_source": "http://db.irowiki.org/classic/item-info/6081/",
+      "id_evidence_snapshot": {
+        "page": "Laphine_Craftsman",
+        "sha256": "a3fa3a95e5e834d5fc92e109e479408980d8c52352eeed5002c8726494542928"
+      }
     }
   ],
   "steps": {
@@ -1197,11 +1209,15 @@
     },
     {
       "reason": "generic_item_ids_unknown",
-      "detail": "This article has no database ID links. Muffler, Bradium and coin labels retain NULL IDs; no ordinary equipment/ore IDs are guessed."
+      "detail": "This article has no database ID links. Muffler, Bradium and other unlinked labels retain NULL IDs; coins use explicitly pinned exact database links in other Classic guides."
     },
     {
       "reason": "captured_laphine_identity_unresolved",
       "detail": "Captured Laphine and named Terra remain separate source labels until identity is corroborated. Bare-coordinate map inheritance has explicit earlier-step witnesses."
+    },
+    {
+      "reason": "coins_resolved_by_pinned_cross_guide_links",
+      "detail": "Manuk Coin 6080 uses the pinned Tribe Investigation link and Splendide Coin 6081 the pinned Laphine Craftsman link. Exact source labels and Classic scope agree; this resolves only those two IDs and does not infer other item identities."
     }
   ],
   "relations": [

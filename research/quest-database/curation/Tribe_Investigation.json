@@ -1,0 +1,282 @@
+{
+  "quest_id": "irowiki-classic:Tribe_Investigation",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "458555bcd71fe5f40e19d4d4f7f580d7eff63c33c517b8693e1f47604c7e5a3b",
+  "snapshot_sha256": "56233b1e1bbaa2f1fd115cf708a1930bea3757d256e4b002a1a54d94940a9cd5",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Bazett Teablack",
+      "aliases": [
+        "Bazett"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Worker"
+    },
+    {
+      "type": "map",
+      "name": "Midgard Expedition Camp"
+    },
+    {
+      "type": "map",
+      "name": "mid_camp",
+      "map_code": "mid_camp"
+    },
+    {
+      "type": "map",
+      "name": "Manuk Fields"
+    },
+    {
+      "type": "map",
+      "name": "Manuk"
+    },
+    {
+      "type": "map",
+      "name": "manuk",
+      "map_code": "manuk"
+    },
+    {
+      "type": "item",
+      "name": "Horn of Hillslion",
+      "game_id": 6032,
+      "id_source": "http://db.irowiki.org/classic/item-info/6032/"
+    },
+    {
+      "type": "item",
+      "name": "Manuk Coin",
+      "game_id": 6080,
+      "id_source": "http://db.irowiki.org/classic/item-info/6080/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In the Midgard Expedition Camp , speak to Bazett Teablack ( mid_camp 283, 198); he requests your help investigating the local tribes.",
+      "instruction_sha256": "ea963cef496786530b677c731f8f64bb8770ab03aad93d249723b198a760fcd6",
+      "step_id": "irowiki-classic:Tribe_Investigation/step/ea963cef496786530b67/1",
+      "goal": "talk",
+      "short_ru": "Предложите помощь Bazett Teablack в mid_camp 283, 198.",
+      "short_en": "Offer help to Bazett Teablack at mid_camp 283, 198.",
+      "full_ru": "В Midgard Expedition Camp поговорите с Bazett Teablack (mid_camp 283, 198). Он попросит помочь с изучением местных племён.",
+      "full_en": "In the Midgard Expedition Camp , speak to Bazett Teablack ( mid_camp 283, 198); he requests your help investigating the local tribes.",
+      "npcs": [
+        {
+          "entity": "Bazett Teablack",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Bazett Teablack"
+        }
+      ],
+      "protected_names": [
+        "Bazett Teablack",
+        "Midgard Expedition Camp",
+        "mid_camp"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 283,
+          "y": 198,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 283, 198"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Speak to him again, and he will ask you to go search for giants on the Manuk Fields.",
+      "instruction_sha256": "0317ff3a124cbe101456e1ff7f8d259e3e38ed49ae225c496027a3b55b4963c3",
+      "step_id": "irowiki-classic:Tribe_Investigation/step/0317ff3a124cbe101456/1",
+      "goal": "talk",
+      "short_ru": "Снова поговорите с Bazett Teablack о поиске великанов в Manuk Fields.",
+      "short_en": "Talk to Bazett Teablack again about finding giants in Manuk Fields.",
+      "full_ru": "Поговорите с ним ещё раз: он попросит отправиться на поиски великанов в Manuk Fields.",
+      "full_en": "Speak to him again, and he will ask you to go search for giants on the Manuk Fields.",
+      "npcs": [
+        {
+          "entity": "Bazett Teablack",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "In the Midgard Expedition Camp , speak to Bazett Teablack ( mid_camp 283, 198); he requests your help investigating the local tribes."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_investigation",
+          "entity": "Bazett Teablack"
+        }
+      ],
+      "protected_names": [
+        "Manuk Fields",
+        "Manuk"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Speak to the Worker in Manuk ( manuk 194, 135). He asks you to get him 30 Horn of Hillslion so that he can make a replacement screw for a building.",
+      "instruction_sha256": "6b3a2c2250175090d57a4303125dd385dd4530b5b68352e9202df17a9988d5a5",
+      "step_id": "irowiki-classic:Tribe_Investigation/step/6b3a2c2250175090d57a/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Worker в manuk 194, 135 и соберите 30 Horn of Hillslion.",
+      "short_en": "Talk to Worker at manuk 194, 135 and collect 30 Horn of Hillslion.",
+      "full_ru": "Поговорите с Worker в Manuk (manuk 194, 135). Он попросит 30 Horn of Hillslion, чтобы сделать запасной винт для здания.",
+      "full_en": "Speak to the Worker in Manuk ( manuk 194, 135). He asks you to get him 30 Horn of Hillslion so that he can make a replacement screw for a building.",
+      "npcs": [
+        {
+          "entity": "Worker",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Horn of Hillslion",
+          "quantity": 30,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_materials",
+          "entity": "Worker"
+        }
+      ],
+      "protected_names": [
+        "Worker",
+        "Manuk",
+        "manuk",
+        "Horn of Hillslion"
+      ],
+      "locations": [
+        {
+          "map": "manuk",
+          "x": 194,
+          "y": 135,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "manuk 194, 135"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Return with 30 Horn of Hillslion .",
+      "instruction_sha256": "ce820dea7933d05a78f28926ab0976a41676ff72f73385b3237e57b74c2e5922",
+      "step_id": "irowiki-classic:Tribe_Investigation/step/ce820dea7933d05a78f2/1",
+      "goal": "deliver",
+      "short_ru": "Передайте 30 Horn of Hillslion Worker в Manuk.",
+      "short_en": "Deliver 30 Horn of Hillslion to Worker in Manuk.",
+      "full_ru": "Вернитесь с 30 Horn of Hillslion.",
+      "full_en": "Return with 30 Horn of Hillslion .",
+      "npcs": [
+        {
+          "entity": "Worker",
+          "role": "talk",
+          "support_step": 3,
+          "evidence": "Speak to the Worker in Manuk ( manuk 194, 135). He asks you to get him 30 Horn of Hillslion so that he can make a replacement screw for a building."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Horn of Hillslion",
+          "quantity": 30,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Horn of Hillslion"
+        }
+      ],
+      "protected_names": [
+        "Horn of Hillslion"
+      ],
+      "locations": [
+        {
+          "entity": "manuk",
+          "x": 194,
+          "y": 135,
+          "role": "return",
+          "known": true,
+          "support_step": 3,
+          "evidence": "Speak to the Worker in Manuk ( manuk 194, 135). He asks you to get him 30 Horn of Hillslion so that he can make a replacement screw for a building."
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Return to Bazett, he thanks you and tells you to go rest. Receive 1 Manuk Coin .",
+      "instruction_sha256": "34cac708297cb9c013bfd6e23eecddeb7fa1f6de3010e17ae238fcdd429efc98",
+      "step_id": "irowiki-classic:Tribe_Investigation/step/34cac708297cb9c013bf/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Bazett Teablack и получите 1 Manuk Coin.",
+      "short_en": "Return to Bazett Teablack and receive 1 Manuk Coin.",
+      "full_ru": "Вернитесь к Bazett. Он поблагодарит вас и предложит отдохнуть. Получите 1 Manuk Coin.",
+      "full_en": "Return to Bazett, he thanks you and tells you to go rest. Receive 1 Manuk Coin .",
+      "npcs": [
+        {
+          "entity": "Bazett Teablack",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_reward",
+          "entity": "Manuk Coin"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Manuk Coin"
+        }
+      ],
+      "protected_names": [
+        "Manuk",
+        "Manuk Coin"
+      ],
+      "locations": [
+        {
+          "entity": "mid_camp",
+          "x": 283,
+          "y": 198,
+          "role": "return",
+          "known": true,
+          "support_step": 1,
+          "evidence": "In the Midgard Expedition Camp , speak to Bazett Teablack ( mid_camp 283, 198); he requests your help investigating the local tribes."
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "tribe_investigation_not_daily_by_assumption",
+      "detail": "This page does not state repeatability or a cooldown. Rest wording is not a timed gate. No mandatory giant kills, crafted screw item or EXP reward is invented."
+    }
+  ],
+  "relations": [
+    {
+      "kind": "mandatory_prerequisite",
+      "related_quest_id": "irowiki-classic:Ring_of_the_Wise_King"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "30",
+        "source_section": "requirements",
+        "evidence": "30 Horn of Hillslion",
+        "entity": "Horn of Hillslion",
+        "condition": "Summary of the single set delivered to Worker, not a second set."
+      }
+    ]
+  }
+}

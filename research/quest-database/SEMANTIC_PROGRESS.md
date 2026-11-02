@@ -16,11 +16,11 @@ reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
-generator **semantic-5.4.0**. All four description fields are populated for
-**802 steps across 56 curated guides**, up from the previous 53-guide/757-step
+generator **semantic-5.5.0**. All four description fields are populated for
+**817 steps across 61 curated guides**, up from the previous 56-guide/802-step
 checkpoint. **84 conditional branches** also have independent RU/EN short and
 full descriptions. Eight quest routes represent two exclusive expedition paths
-and six conditional/optional activities. **1,948 steps in 160 remaining catalog entries still lack
+and six conditional/optional activities. **1,933 steps in 155 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -81,6 +81,11 @@ complete localization/context analysis.** `complete` remains false.
 | Rogue Guild Investigation Quest | 17 | Distinct city agents; two Alcohol installments; one retained Mask; food level versus count |
 | Crow of Destiny Quest | 21 | Alternative title/author search; story scenes; album versus displayed photos; torn-note uncertainty |
 | Footprint Quest | 7 | Per-attempt bait versus rental fee; nine footprint triggers and exact rescue tile; nine EXP bands |
+| Tribe Investigation | 5 | One horn set; contextual return actors; no invented cooldown or giant kills |
+| Laphine Craftsman | 2 | Started/access prerequisite; character-bound material; separate entrance/interior; 24-hour repeat |
+| Bradium Collection | 2 | Fragments/Refined material conflict; loot source versus kill quota; pinned shared coin ID |
+| Collecting Draco Eggs | 3 | One ten-egg total across two floors; no kill objective; both coin rewards |
+| Manuk's Monster Suppression | 3 | One Rata and one Duneyrr; unqualified prerequisite; no borrowed daily timer |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -88,6 +93,33 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Five New World side guides preserve all 15 original stages and add complete
+  RU/EN descriptions and typed facts. Coverage is now 817 stages / 61 guides;
+  earlier 802 descriptions/IDs and all 84 branches remain intact. Semantic
+  schema stays 5; generator is now semantic-5.5.0.
+- Tribe Investigation returns one 30-horn set to Worker and then one Manuk Coin
+  at Bazett. Rest wording is not a timer; giants are not invented kill targets.
+  Laphine and Draco require Started Two Tribes with Yggdrasil Dungeon access,
+  not full completion. Laphine has one 15+15 set and an independent character-
+  binding flag. Its literal spl_in code is retained even though absent from
+  the sampled NPC-map reference; the entrance precedes the interior NPC.
+- Laphine, Bradium and Draco each have a pinned 24-hour repeat notice. Tribe
+  Investigation and Monster Suppression have no such notice; no daily timer
+  is borrowed. Reset clock/origin is unspecified. Draco has one ten-egg total
+  across two floors; egg collection is not a Draco monster kill requirement.
+- Bradium requests Bradium Fragments with no ID link but delivers Refined
+  Bradium 6090. This unresolved source-label conflict is explicit; two labels
+  are not two additive sets. Bradium Golems 2024 are loot sources, not a fixed
+  kill quota. Monster Suppression instead requires exactly one Rata 2017 and
+  one Duneyrr 2018, then grants ten coins and one EXP payout.
+- Explicit cross-guide ID proofs require a donor page/hash pin, exact same
+  canonical name/type/ID and matching database URL. Donor HTML is retained as
+  the ID evidence source, while the owning guide supplies the item role.
+  Bradium's Manuk Coin and Two Tribes' two coin labels now share verified
+  catalog identities (6080/6081) with the other Classic guides. Other unknown
+  Two Tribes items stay unknown. Stale/missing/mismatched proofs fail closed;
+  same spelling alone never establishes a game ID or NPC identity.
 
 - Three permanent story/regional guides preserve all 45 original stages and
   add nine localized Footprint reward branches. No schema/generator change or
@@ -483,7 +515,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **200 tests passed**; complete offline enrichment passed;
+Validated locally: **211 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -530,9 +562,14 @@ normal integrity/FK and exact CI assertions. The source archive and semantic
 export use their normal builders. Isolated CI runs the unmodified offline
 command above; partial files from failed local attempts are never published.
 
+New regression cases cover cross-guide ID pins and URL/name/type mismatches,
+failed-build preservation, coin canonicalization, started/access prerequisites,
+material conflicts, literal non-reference maps, character binding, repeat
+cooldown scope, collection floors and loot-source versus kill quotas.
+
 ## Next work, in order
 
-1. Review the remaining 160 catalog candidates, separating reference pages,
+1. Review the remaining 155 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

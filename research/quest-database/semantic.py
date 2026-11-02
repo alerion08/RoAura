@@ -16,7 +16,7 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-5.4.0'
+VERSION = 'semantic-5.5.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
@@ -168,6 +168,29 @@ def guide_payload(page, steps):
     """Pinned semantic inputs, independent of crawl timestamps and SQL row IDs."""
     return json.dumps({'title':page['title'],'requirements':page['requirements'],
                        'rewards':page['rewards'],'steps':[s['instruction'] for s in steps]},ensure_ascii=False)
+
+
+def entity_id_proof(entity, snapshot, snapshot_index):
+    """An explicit cross-guide ID proof needs an exact name/link and a pinned donor."""
+    donor=entity.get('id_evidence_snapshot')
+    if entity.get('game_id') is None:
+        if donor is not None:raise ValueError('ID evidence requires a game ID')
+        return None
+    if donor is not None:
+        if not isinstance(donor,dict) or set(donor)!={'page','sha256'} or not all(isinstance(v,str) and v for v in donor.values()):
+            raise ValueError('Invalid ID evidence snapshot')
+        snapshot=snapshot_index.get(donor['page'])
+        if not snapshot or snapshot['sha256']!=donor['sha256']:
+            raise ValueError('ID evidence snapshot changed or missing')
+        names=[entity['name']]
+    else:
+        names=[entity['name']]+entity.get('aliases',[])
+    matches=[a for a in extract_links(snapshot) if a['name'] in names and a['id']==entity['game_id'] and a['type']==entity['type']]
+    if not matches or not snapshot:raise ValueError('Unverified game ID for '+entity['name'])
+    link=matches[0]
+    if donor is not None and entity.get('id_source')!=link['url']:
+        raise ValueError('ID source contradicts pinned database link')
+    return snapshot,link
 
 
 def validate_curation(curation, page, steps, snapshot):
@@ -760,6 +783,7 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
             # All names must have literal support somewhere in this complete quest.
             for e in curation['entities']:
                 if e['name'] not in source_text and e['name'] not in html_text:raise ValueError('Entity absent from quest '+e['name'])
+                id_proof=entity_id_proof(e,snap,data)
                 ref=e.get('ref',e['name'])
                 ev=w.evidence(e['name'],method='curated_entity_in_quest',source=html_source if e['name'] not in source_text else None)
                 eid=w.entity(e['type'],e['name'],ev,identity=e.get('identity') or (w.qid+':'+ref if e['type']=='npc' else None),
@@ -770,10 +794,13 @@ def _build(source_path,output,curation_dir,cache_dir,resources):
                     if alias not in source_text:raise ValueError('Unproven alias')
                     w.add('entity_aliases',entity_id=eid,alias=alias,evidence_id=ev);entities[alias]=(eid,e['type'],ev)
                     surfaces.setdefault(alias,[]).append(alias)
-                if e.get('game_id') is not None:
-                    matches=[a for a in extract_links(snap) if a['name'] in [e['name']]+e.get('aliases',[]) and a['id']==e['game_id'] and a['type']==e['type']]
-                    if not matches or not html_source:raise ValueError('Unverified game ID for '+e['name'])
-                    iev=w.evidence(matches[0]['url'],method='wiki_database_id_link',source=html_source)
+                if id_proof:
+                    proof,link=id_proof
+                    proof_source=stable('source',proof['url'],proof['sha256'])
+                    w.add('sources',source_id=proof_source,url=proof['url'],revision=proof['sha256'],kind='html_snapshot',
+                          archive_path='sources/wiki/'+proof['path'],license=proof['license'])
+                    method='wiki_database_id_link_pinned_cross_guide' if e.get('id_evidence_snapshot') is not None else 'wiki_database_id_link'
+                    iev=w.evidence(link['url'],method=method,source=proof_source)
                     w.add('entity_evidence',entity_id=eid,evidence_id=iev)
             if curation.get('quest_facts'):
                 curated_facts(w,curation['quest_facts'],entities,page_ev,source_sections,html_source)

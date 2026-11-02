@@ -1,0 +1,196 @@
+{
+  "quest_id": "irowiki-classic:Manuk's_Monster_Suppression",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "73ec70ca80529a2bc5d106e2a9634f4a3f16b01d3398990cd9fd76330cf72060",
+  "snapshot_sha256": "3b8b0bbd111017e3a7d1c0aa3bd244b02d3bc46e8e7ae1ebb0db0ec1efcd5fdb",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Manuk Gardener Strom",
+      "aliases": [
+        "Strom"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Manuk"
+    },
+    {
+      "type": "map",
+      "name": "manuk",
+      "map_code": "manuk"
+    },
+    {
+      "type": "item",
+      "name": "Manuk Coin",
+      "game_id": 6080,
+      "id_source": "http://db.irowiki.org/classic/item-info/6080/"
+    },
+    {
+      "type": "monster",
+      "name": "Rata",
+      "game_id": 2017,
+      "id_source": "http://db.irowiki.org/classic/monster-info/2017/"
+    },
+    {
+      "type": "monster",
+      "name": "Duneyrr",
+      "game_id": 2018,
+      "id_source": "http://db.irowiki.org/classic/monster-info/2018/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In Manuk speak to Manuk Gardener Strom (manuk 252, 116), and challenge him.",
+      "instruction_sha256": "f46d8cd6c09c67a04272cad701742b74ca6efb2675ec957cf4bbd4a6c27d6cc4",
+      "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/f46d8cd6c09c67a04272/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Manuk Gardener Strom в manuk 252, 116.",
+      "short_en": "Talk to Manuk Gardener Strom at manuk 252, 116.",
+      "full_ru": "В Manuk поговорите с Manuk Gardener Strom (manuk 252, 116) и бросьте ему вызов.",
+      "full_en": "In Manuk speak to Manuk Gardener Strom (manuk 252, 116), and challenge him.",
+      "npcs": [
+        {
+          "entity": "Manuk Gardener Strom",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "challenge",
+          "entity": "Manuk Gardener Strom"
+        }
+      ],
+      "protected_names": [
+        "Manuk Gardener Strom",
+        "Manuk",
+        "manuk"
+      ],
+      "locations": [
+        {
+          "map": "manuk",
+          "x": 252,
+          "y": 116,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "manuk 252, 116"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "He tells you to kill 1 Rata and 1 Duneyrr .",
+      "instruction_sha256": "8b6bc9f4b102964f9fedf1fc74a920b6a7129be5fc70603dae5ee8961ad7d33a",
+      "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/8b6bc9f4b102964f9fed/1",
+      "goal": "kill",
+      "short_ru": "Убейте 1 Rata и 1 Duneyrr.",
+      "short_en": "Kill 1 Rata and 1 Duneyrr.",
+      "full_ru": "Он попросит убить 1 Rata и 1 Duneyrr.",
+      "full_en": "He tells you to kill 1 Rata and 1 Duneyrr .",
+      "npcs": [
+        {
+          "entity": "Manuk Gardener Strom",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "In Manuk speak to Manuk Gardener Strom (manuk 252, 116), and challenge him."
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Rata",
+          "operation": "kill",
+          "quantity": 1,
+          "required": 1
+        },
+        {
+          "entity": "Duneyrr",
+          "operation": "kill",
+          "quantity": 1,
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill",
+          "entity": "Rata"
+        },
+        {
+          "operation": "kill",
+          "entity": "Duneyrr"
+        }
+      ],
+      "protected_names": [
+        "Rata",
+        "Duneyrr"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "After killing those, return to Strom for your reward. Receive 10 Manuk Coin, 500,000 Base Experience , and 300,000 Job Experience .",
+      "instruction_sha256": "51b3a3f31ed510cc726a1d25a6f032b19518d0e3bb328568e9701c3965bdbe13",
+      "step_id": "irowiki-classic:Manuk's_Monster_Suppression/step/51b3a3f31ed510cc726a/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Strom: получите 10 Manuk Coin, 500,000 Base Experience и 300,000 Job Experience.",
+      "short_en": "Return to Strom: receive 10 Manuk Coin, 500,000 Base Experience and 300,000 Job Experience.",
+      "full_ru": "Убив их, вернитесь к Strom за наградой. Получите 10 Manuk Coin, 500,000 Base Experience и 300,000 Job Experience.",
+      "full_en": "After killing those, return to Strom for your reward. Receive 10 Manuk Coin, 500,000 Base Experience , and 300,000 Job Experience .",
+      "npcs": [
+        {
+          "entity": "Manuk Gardener Strom",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "10",
+          "entity": "Manuk Coin"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "500000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "300000"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "report_kills",
+          "entity": "Manuk Gardener Strom"
+        },
+        {
+          "operation": "receive_rewards"
+        }
+      ],
+      "protected_names": [
+        "Manuk",
+        "Manuk Coin"
+      ],
+      "locations": [
+        {
+          "entity": "manuk",
+          "x": 252,
+          "y": 116,
+          "role": "return",
+          "known": true,
+          "support_step": 1,
+          "evidence": "In Manuk speak to Manuk Gardener Strom (manuk 252, 116), and challenge him."
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "suppression_repetition_and_prerequisite_phase_unknown",
+      "detail": "The page gives Two Tribes without a Started/Finished qualifier and no repeatability/cooldown notice. Do not copy the 24-hour rule from neighboring repeatables. Kill exactly one Rata and one Duneyrr; coin quantity is not a kill quota."
+    }
+  ],
+  "relations": [
+    {
+      "kind": "mandatory_prerequisite",
+      "related_quest_id": "irowiki-classic:Two_Tribes"
+    }
+  ]
+}

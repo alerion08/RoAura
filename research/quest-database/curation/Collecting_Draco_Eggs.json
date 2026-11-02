@@ -1,0 +1,238 @@
+{
+  "quest_id": "irowiki-classic:Collecting_Draco_Eggs",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "21ad8445b7a8c097822a2aa3b38a6475027e136939821e6672fcd1ef30722830",
+  "snapshot_sha256": "bbf6a8f5ded4e004e7486275e6c7cc5540c59adbe88d2913a17e7cb121fa8760",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Pinedel"
+    },
+    {
+      "type": "map",
+      "name": "mid_camp",
+      "map_code": "mid_camp"
+    },
+    {
+      "type": "map",
+      "name": "Yggdrasil Dungeon"
+    },
+    {
+      "type": "item",
+      "name": "Draco's Egg",
+      "game_id": 6093,
+      "id_source": "http://db.irowiki.org/classic/item-info/6093/"
+    },
+    {
+      "type": "item",
+      "name": "Splendide Coin",
+      "game_id": 6081,
+      "id_source": "http://db.irowiki.org/classic/item-info/6081/"
+    },
+    {
+      "type": "item",
+      "name": "Manuk Coin",
+      "game_id": 6080,
+      "id_source": "http://db.irowiki.org/classic/item-info/6080/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Pinedel (mid_camp 146, 306), she requests you to collect 10 Draco's Egg .",
+      "instruction_sha256": "3d7421ca311efde76906fd18d1e92ff444fe30a1742c3f1f17a921b92f453929",
+      "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/3d7421ca311efde76906/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Pinedel в mid_camp 146, 306 о сборе 10 Draco's Egg.",
+      "short_en": "Talk to Pinedel at mid_camp 146, 306 about collecting 10 Draco's Egg.",
+      "full_ru": "Поговорите с Pinedel (mid_camp 146, 306). Она попросит собрать 10 Draco's Egg.",
+      "full_en": "Talk to Pinedel (mid_camp 146, 306), she requests you to collect 10 Draco's Egg .",
+      "npcs": [
+        {
+          "entity": "Pinedel",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Draco's Egg",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_materials",
+          "entity": "Pinedel"
+        }
+      ],
+      "protected_names": [
+        "Pinedel",
+        "mid_camp",
+        "Draco's Egg"
+      ],
+      "locations": [
+        {
+          "map": "mid_camp",
+          "x": 146,
+          "y": 306,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "mid_camp 146, 306"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Find Draco's Egg at various locations on the 1st and 2nd map of the Yggdrasil Dungeon",
+      "instruction_sha256": "bb73cc30e6437bc253dd7fbb64788ce5e1cfa4eada2b3922fdbb48b99e034f52",
+      "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/bb73cc30e6437bc253dd/1",
+      "goal": "collect",
+      "short_ru": "Собирайте Draco's Egg на двух картах Yggdrasil Dungeon.",
+      "short_en": "Collect Draco's Egg across the two Yggdrasil Dungeon maps.",
+      "full_ru": "Найдите Draco's Egg в разных местах на 1-й и 2-й картах Yggdrasil Dungeon.",
+      "full_en": "Find Draco's Egg at various locations on the 1st and 2nd map of the Yggdrasil Dungeon",
+      "items": [
+        {
+          "entity": "Draco's Egg",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Collect toward the single ten-egg total; no per-floor quota or monster kills stated."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_collection_floor",
+          "amount": "1",
+          "entity": "Yggdrasil Dungeon"
+        },
+        {
+          "kind": "source_collection_floor",
+          "amount": "2",
+          "entity": "Yggdrasil Dungeon"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "collect",
+          "entity": "Draco's Egg"
+        }
+      ],
+      "protected_names": [
+        "Yggdrasil Dungeon",
+        "Draco's Egg"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Return to Pinedel when you have 10 Draco's Egg . Receive 40,000 Base Experience , 40,000 Job Experience , 1 Splendide Coin and 1 Manuk Coin.",
+      "instruction_sha256": "ce18258f940b8a26579694079adb2dfad2ce0d8cc2df0e18a4a56febe2e827f0",
+      "step_id": "irowiki-classic:Collecting_Draco_Eggs/step/ce18258f940b8a265796/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Pinedel 10 Draco's Egg; получите 40,000 Base Experience, 40,000 Job Experience, 1 Splendide Coin и 1 Manuk Coin.",
+      "short_en": "Give Pinedel 10 Draco's Egg; receive 40,000 Base Experience, 40,000 Job Experience, 1 Splendide Coin and 1 Manuk Coin.",
+      "full_ru": "Вернитесь к Pinedel, когда у вас будут 10 Draco's Egg. Получите 40,000 Base Experience, 40,000 Job Experience, 1 Splendide Coin и 1 Manuk Coin.",
+      "full_en": "Return to Pinedel when you have 10 Draco's Egg . Receive 40,000 Base Experience , 40,000 Job Experience , 1 Splendide Coin and 1 Manuk Coin.",
+      "npcs": [
+        {
+          "entity": "Pinedel",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Draco's Egg",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Draco's Egg"
+        },
+        {
+          "operation": "receive_rewards"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "40000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "40000"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Splendide Coin"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Manuk Coin"
+        }
+      ],
+      "protected_names": [
+        "Pinedel",
+        "Draco's Egg",
+        "Splendide Coin",
+        "Manuk Coin"
+      ],
+      "locations": [
+        {
+          "entity": "mid_camp",
+          "x": 146,
+          "y": 306,
+          "role": "return",
+          "known": true,
+          "support_step": 1,
+          "evidence": "Talk to Pinedel (mid_camp 146, 306), she requests you to collect 10 Draco's Egg ."
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "draco_eggs_are_items_not_kills",
+      "detail": "Both collection floors share one ten-egg total. No Draco monster kill objective, exact egg coordinates or unprinted map codes are inferred. Started Two Tribes with dungeon access does not mean full completion; 24-hour reset origin is unknown."
+    }
+  ],
+  "prerequisite_clauses": [
+    {
+      "kind": "required_started_quest",
+      "related_quest_id": "irowiki-classic:Two_Tribes",
+      "evidence": "Started Two Tribes (Access to Yggdrasil Dungeon)"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "source_section": "requirements",
+        "evidence": "10 Draco's Egg",
+        "entity": "Draco's Egg",
+        "condition": "One combined total across the first and second map, not ten per floor."
+      },
+      {
+        "kind": "quest_repeatable",
+        "amount": "1",
+        "source_section": "html_text",
+        "evidence": "This quest or instance can be repeated.",
+        "condition": "Source allows repeats; not server verified."
+      },
+      {
+        "kind": "quest_cooldown_hours",
+        "amount": "24",
+        "source_section": "html_text",
+        "evidence": "This quest or instance has a 24 Hour cooldown period.",
+        "condition": "Source repeat cooldown; origin/reset clock is not stated, not a stage wait."
+      }
+    ]
+  }
+}

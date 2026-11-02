@@ -8,10 +8,40 @@ import tempfile
 import unittest
 
 from selection import quest_key, select_pages, filter_catalog, snapshots
-from semantic import build, coordinates, resolve_context, item_operation, validate, sha, ROOT, SCHEMA, BRANCH_SCHEMA, ADDITION_SCHEMA, ROUTE_SCHEMA, migrate_semantic, mention_entities, Writer
+from semantic import build, coordinates, resolve_context, item_operation, validate, sha, ROOT, SCHEMA, BRANCH_SCHEMA, ADDITION_SCHEMA, ROUTE_SCHEMA, migrate_semantic, mention_entities, entity_id_proof, Writer
 
 
 class ParsingTests(unittest.TestCase):
+    def test_cross_guide_id_uses_exact_pinned_name_type_and_id(self):
+        url='http://db.irowiki.org/classic/item-info/6080/'
+        donor={'sha256':'pinned','html':f'<div class="mw-parser-output"><a href="{url}">Manuk Coin</a></div>'}
+        owner={'html':'<div class="mw-parser-output">Manuk Coin without a link</div>'}
+        entity={'type':'item','name':'Manuk Coin','game_id':6080,'id_source':url,'id_evidence_snapshot':{'page':'Tribe_Investigation','sha256':'pinned'}}
+        proof,link=entity_id_proof(entity,owner,{'Tribe_Investigation':donor})
+        self.assertIs(proof,donor);self.assertEqual((link['type'],link['id'],link['name']),('item',6080,'Manuk Coin'))
+        for changes in [{'type':'monster'},{'game_id':6081},{'name':'Splendide Coin'},{'name':'Unknown Coin','aliases':['Manuk Coin']}]:
+            with self.subTest(changes=changes),self.assertRaisesRegex(ValueError,'Unverified game ID'):
+                entity_id_proof(dict(entity,**changes),owner,{'Tribe_Investigation':donor})
+
+    def test_cross_guide_id_rejects_stale_missing_and_malformed_proof(self):
+        url='http://db.irowiki.org/classic/item-info/6080/'
+        donor={'sha256':'pinned','html':f'<div class="mw-parser-output"><a href="{url}">Manuk Coin</a></div>'}
+        entity={'type':'item','name':'Manuk Coin','game_id':6080,'id_source':url,'id_evidence_snapshot':{'page':'Tribe','sha256':'pinned'}}
+        for proof in [{'page':'Missing','sha256':'pinned'},{'page':'Tribe','sha256':'stale'},{'page':[],'sha256':'pinned'},None,{}]:
+            candidate=dict(entity,id_evidence_snapshot=proof)
+            with self.subTest(proof=proof),self.assertRaises(ValueError):entity_id_proof(candidate,None,{'Tribe':donor})
+        with self.assertRaisesRegex(ValueError,'ID source contradicts'):
+            entity_id_proof(dict(entity,id_source='wrong'),None,{'Tribe':donor})
+        with self.assertRaisesRegex(ValueError,'requires a game ID'):
+            entity_id_proof(dict(entity,game_id=None),None,{'Tribe':donor})
+
+    def test_own_snapshot_id_alias_proof_remains_compatible(self):
+        snapshot={'html':'<div class="mw-parser-output"><a href="http://db.irowiki.org/classic/item-info/6075/">Crystallized Teardrops</a></div>'}
+        entity={'type':'item','name':'Crystallized Teardrop','aliases':['Crystallized Teardrops'],'game_id':6075}
+        proof,link=entity_id_proof(entity,snapshot,{})
+        self.assertIs(proof,snapshot);self.assertEqual(link['id'],6075)
+        self.assertIsNone(entity_id_proof({'type':'item','name':'Unknown'},None,{}))
+
     def test_writer_ignores_duplicates_but_never_check_constraint_failures(self):
         with contextlib.closing(sqlite3.connect(':memory:')) as db:
             db.execute('CREATE TABLE facts(id TEXT PRIMARY KEY,n INTEGER CHECK(n>0))')
@@ -221,18 +251,111 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],802)
-        self.assertEqual(self.report['not_fully_localized_steps'],1948)
+        self.assertEqual(self.report['fully_localized_steps'],817)
+        self.assertEqual(self.report['not_fully_localized_steps'],1933)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],802)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],817)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1948)
+        self.assertEqual(missing,1933)
         self.assertEqual(self.report['fully_localized_branches'],84)
-        self.assertEqual(self.report['curated_quests'],56)
-        self.assertEqual(self.report['pending_quests'],160)
+        self.assertEqual(self.report['curated_quests'],61)
+        self.assertEqual(self.report['pending_quests'],155)
         self.assertEqual(self.report['quest_routes'],8)
         self.assertEqual(self.report['source_additions'],13)
         self.assertEqual(self.report['action_reuse_links'],5)
+
+    def test_new_world_sidequest_prerequisites_preserve_started_access(self):
+        for slug in ['Laphine_Craftsman','Collecting_Draco_Eggs']:
+            q='irowiki-classic:'+slug
+            rows=[tuple(r) for r in self.db.execute("SELECT related_id,kind FROM quest_relations WHERE quest_id=? AND kind LIKE 'required_%'",(q,))]
+            self.assertEqual(rows,[('irowiki-classic:Two_Tribes','required_started_quest')])
+            evidence=self.db.execute("SELECT e.snippet FROM quest_relations r JOIN evidence e USING(evidence_id) WHERE r.quest_id=? AND r.kind='required_started_quest'",(q,)).fetchone()[0]
+            self.assertIn('Yggdrasil Dungeon',evidence)
+        for slug,target in [('Tribe_Investigation','Ring_of_the_Wise_King'),('Bradium_Collection','Ring_of_the_Wise_King'),("Manuk's_Monster_Suppression",'Two_Tribes')]:
+            self.assertTrue(self.db.execute("SELECT 1 FROM quest_relations WHERE quest_id=? AND related_id=? AND kind='mandatory_prerequisite'",('irowiki-classic:'+slug,'irowiki-classic:'+target)).fetchone())
+
+    def test_new_world_repeatability_is_only_for_three_source_notices(self):
+        group=['Tribe_Investigation','Laphine_Craftsman','Bradium_Collection','Collecting_Draco_Eggs',"Manuk's_Monster_Suppression"]
+        for slug in group:
+            q='irowiki-classic:'+slug
+            rows=[tuple(r) for r in self.db.execute("SELECT r.kind,r.amount,e.method,e.snippet FROM requirements r JOIN evidence e USING(evidence_id) WHERE r.quest_id=? AND r.kind IN ('quest_repeatable','quest_cooldown_hours') ORDER BY r.kind",(q,))]
+            if slug in group[1:4]:
+                self.assertEqual([(r[0],r[1]) for r in rows],[('quest_cooldown_hours','24'),('quest_repeatable','1')])
+                self.assertTrue(all(r[2]=='curated_html_text' for r in rows))
+                self.assertIn('24 Hour cooldown',rows[0][3])
+            else:self.assertEqual(rows,[])
+
+    def test_tribe_investigation_has_one_horn_set_and_one_coin(self):
+        q='irowiki-classic:Tribe_Investigation'
+        items=[tuple(r) for r in self.db.execute('''SELECT s.step_order,i.operation,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? AND x.game_id=6032 ORDER BY s.step_order''',(q,))]
+        self.assertEqual(items,[(3,'bring',30),(4,'deliver',30)])
+        grants=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.kind,r.amount,x.game_id FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s USING(step_id) LEFT JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=?''',(q,))]
+        self.assertEqual(grants,[(5,'item','1',6080)])
+        self.assertFalse(self.db.execute('SELECT 1 FROM step_monsters JOIN quest_steps USING(step_id) WHERE quest_id=?',(q,)).fetchone())
+        npc_ids=[r[0] for r in self.db.execute('''SELECT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order IN (1,5) ORDER BY s.step_order''',(q,))]
+        self.assertEqual(npc_ids[0],npc_ids[1])
+
+    def test_laphine_bound_flag_is_not_quantity_and_entrance_precedes_npc(self):
+        q='irowiki-classic:Laphine_Craftsman'
+        delivered=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? AND s.step_order=2 ORDER BY x.game_id''',(q,))]
+        self.assertEqual(delivered,[(6075,15),(7326,15)])
+        bound=self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='item_character_bound'",(q,)).fetchone()[0]
+        self.assertEqual(bound,'1')
+        points=[tuple(r) for r in self.db.execute('''SELECT m.map_code,l.x,l.y,sl.role,sl.location_order FROM step_locations sl JOIN locations l USING(location_id)
+          JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=1 AND sl.role IN ('entrance','npc') ORDER BY sl.location_order''',(q,))]
+        self.assertEqual(points,[('splendide',198,238,'entrance',1),('spl_in',97,313,'npc',2)])
+
+    def test_bradium_conflicting_materials_and_pinned_shared_coin(self):
+        q='irowiki-classic:Bradium_Collection'
+        rows=[tuple(r) for r in self.db.execute('''SELECT s.step_order,e.original_name,x.game_id,i.operation,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id JOIN entities e ON e.entity_id=i.item_id WHERE s.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(rows,[(1,'Bradium Fragments',None,'bring',20),(2,'Refined Bradium',6090,'deliver',20)])
+        self.assertTrue(self.db.execute("SELECT 1 FROM review_queue WHERE quest_id=? AND reason='bradium_material_name_conflict'",(q,)).fetchone())
+        loot=self.db.execute('''SELECT m.operation,m.quantity,m.required,x.game_id FROM step_monsters m JOIN quest_steps s USING(step_id)
+          JOIN monsters x ON x.entity_id=m.monster_id WHERE s.quest_id=?''',(q,)).fetchone()
+        self.assertEqual(tuple(loot),('loot_source',None,0,2024))
+        donor=self.db.execute('''SELECT src.url,e.snippet FROM entity_evidence ee JOIN evidence e USING(evidence_id) JOIN sources src USING(source_id)
+          JOIN items x ON x.entity_id=ee.entity_id WHERE e.quest_id=? AND x.game_id=6080 AND e.method='wiki_database_id_link_pinned_cross_guide' ''',(q,)).fetchone()
+        self.assertEqual(tuple(donor),('https://irowiki.org/classic/Tribe_Investigation','http://db.irowiki.org/classic/item-info/6080/'))
+        self.assertEqual(self.db.execute("SELECT count(*) FROM entities WHERE entity_type='item' AND original_name='Manuk Coin'").fetchone()[0],1)
+        self.assertEqual(self.db.execute("SELECT count(*) FROM entities WHERE entity_type='item' AND original_name='Splendide Coin'").fetchone()[0],1)
+        resolved=[tuple(r) for r in self.db.execute('''SELECT x.game_id,src.url FROM entity_evidence ee JOIN items x ON x.entity_id=ee.entity_id
+          JOIN evidence e USING(evidence_id) JOIN sources src USING(source_id) WHERE e.quest_id='irowiki-classic:Two_Tribes'
+          AND e.method='wiki_database_id_link_pinned_cross_guide' ORDER BY x.game_id''')]
+        self.assertEqual(resolved,[(6080,'https://irowiki.org/classic/Tribe_Investigation'),(6081,'https://irowiki.org/classic/Laphine_Craftsman')])
+
+    def test_draco_eggs_have_one_total_across_two_floors_and_no_kills(self):
+        q='irowiki-classic:Collecting_Draco_Eggs'
+        rows=[tuple(r) for r in self.db.execute('''SELECT s.step_order,i.operation,i.quantity,x.game_id FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(rows,[(1,'bring',10,6093),(2,'collect',None,6093),(3,'deliver',10,6093)])
+        self.assertEqual([r[0] for r in self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='source_collection_floor' ORDER BY amount",(q,))],['1','2'])
+        self.assertFalse(self.db.execute('SELECT 1 FROM step_monsters JOIN quest_steps USING(step_id) WHERE quest_id=?',(q,)).fetchone())
+        coins=[tuple(r) for r in self.db.execute('SELECT x.game_id,r.amount FROM rewards r JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? ORDER BY x.game_id',(q,))]
+        self.assertEqual(coins,[(6080,'1'),(6081,'1')])
+
+    def test_manuk_suppression_kill_counts_do_not_use_coin_quantity(self):
+        q="irowiki-classic:Manuk's_Monster_Suppression"
+        mobs=[tuple(r) for r in self.db.execute('''SELECT x.game_id,m.operation,m.quantity,m.required FROM step_monsters m JOIN quest_steps s USING(step_id)
+          JOIN monsters x ON x.entity_id=m.monster_id WHERE s.quest_id=? ORDER BY x.game_id''',(q,))]
+        self.assertEqual(mobs,[(2017,'kill',1,1),(2018,'kill',1,1)])
+        grants=[tuple(r) for r in self.db.execute('SELECT kind,amount FROM rewards WHERE quest_id=? ORDER BY kind',(q,))]
+        self.assertEqual(grants,[('base_exp','500000'),('item','10'),('job_exp','300000')])
+        for slug,base,job in [('Laphine_Craftsman','30000','30000'),('Bradium_Collection','40000','40000'),('Collecting_Draco_Eggs','40000','40000')]:
+            xp=[tuple(r) for r in self.db.execute("SELECT kind,amount FROM rewards WHERE quest_id=? AND kind IN ('base_exp','job_exp') ORDER BY kind",('irowiki-classic:'+slug,))]
+            self.assertEqual(xp,[('base_exp',base),('job_exp',job)])
+
+    def test_cross_guide_stale_pin_fails_without_replacing_database(self):
+        folder=self.out/'invalid-cross-guide-pin';shutil.copytree(ROOT/'curation',folder)
+        path=folder/'Bradium_Collection.json';data=json.loads(path.read_text())
+        next(e for e in data['entities'] if e['name']=='Manuk Coin')['id_evidence_snapshot']['sha256']='stale'
+        path.write_text(json.dumps(data))
+        destination=self.out/'quest_semantic.sqlite';before=destination.read_bytes()
+        with self.assertRaisesRegex(ValueError,'ID evidence snapshot changed or missing'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual(destination.read_bytes(),before)
 
     def test_rogue_agents_are_distinct_and_return_to_same_guild_actor(self):
         q='irowiki-classic:Rogue_Guild_Investigation_Quest'
@@ -580,7 +703,7 @@ class RealCorpusTests(unittest.TestCase):
           (p+'Ring_of_the_Wise_King',p+'Report_from_the_New_World','required_started_quest','Started Report from the New World')])
         stage=self.db.execute('''SELECT s.step_order FROM quest_relations r JOIN evidence e USING(evidence_id)
           JOIN quest_steps s ON s.step_id=e.step_id WHERE r.quest_id=? AND r.related_id=? AND r.kind='stage_required_to_start' ''',(p+'Two_Tribes',p+'Guardian_of_Yggdrasil')).fetchone()[0]
-        self.assertEqual(stage,7);self.assertEqual(self.report['phase_prerequisites'],10)
+        self.assertEqual(stage,7);self.assertEqual(self.report['phase_prerequisites'],12)
 
     def test_ring_literal_language_inputs_and_separate_gem_objects(self):
         q='irowiki-classic:Ring_of_the_Wise_King'

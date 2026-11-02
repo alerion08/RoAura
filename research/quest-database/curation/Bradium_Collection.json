@@ -1,0 +1,206 @@
+{
+  "quest_id": "irowiki-classic:Bradium_Collection",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "a1d6e2cd400d0e91e048e23e75d385b4222f5819a2fcb6f030ac1875ba04c51b",
+  "snapshot_sha256": "7057025691fd3ca3e8f645f10eea442542a9fd8c8a6f80e995cd4f177c839294",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Manuk Engineer"
+    },
+    {
+      "type": "map",
+      "name": "Manuk"
+    },
+    {
+      "type": "map",
+      "name": "manuk",
+      "map_code": "manuk"
+    },
+    {
+      "type": "item",
+      "name": "Bradium Fragments",
+      "identity": "irowiki-classic:Bradium_Collection:source_item:Bradium Fragments"
+    },
+    {
+      "type": "item",
+      "name": "Refined Bradium",
+      "game_id": 6090,
+      "id_source": "http://db.irowiki.org/classic/item-info/6090/"
+    },
+    {
+      "type": "monster",
+      "name": "Bradium Golems",
+      "game_id": 2024,
+      "id_source": "http://db.irowiki.org/classic/monster-info/2024/"
+    },
+    {
+      "type": "item",
+      "name": "Manuk Coin",
+      "game_id": 6080,
+      "id_source": "http://db.irowiki.org/classic/item-info/6080/",
+      "id_evidence_snapshot": {
+        "page": "Tribe_Investigation",
+        "sha256": "56233b1e1bbaa2f1fd115cf708a1930bea3757d256e4b002a1a54d94940a9cd5"
+      }
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In Manuk , go into the last room in the horseshoe-shaped building (manuk 309, 322) and talk to the Manuk Engineer. They ask you to collect 20 Bradium Fragments (Dropped by Bradium Golems ).",
+      "instruction_sha256": "db9074d35a94862191bb0e4c50a80b8df0dbf9ad654f996be6f10ddf47175325",
+      "step_id": "irowiki-classic:Bradium_Collection/step/db9074d35a94862191bb/1",
+      "goal": "talk",
+      "short_ru": "Получите у Manuk Engineer в manuk 309, 322 просьбу собрать 20 Bradium Fragments.",
+      "short_en": "Get the request for 20 Bradium Fragments from Manuk Engineer at manuk 309, 322.",
+      "full_ru": "В Manuk войдите в последнюю комнату подковообразного здания (manuk 309, 322) и поговорите с Manuk Engineer. Вас попросят собрать 20 Bradium Fragments, выпадающих из Bradium Golems.",
+      "full_en": "In Manuk , go into the last room in the horseshoe-shaped building (manuk 309, 322) and talk to the Manuk Engineer. They ask you to collect 20 Bradium Fragments (Dropped by Bradium Golems ).",
+      "npcs": [
+        {
+          "entity": "Manuk Engineer",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Bradium Fragments",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Bradium Golems",
+          "operation": "loot_source",
+          "quantity": null,
+          "required": 0,
+          "condition": "Drop source for requested material, not an exact 20-monster kill quota."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_materials",
+          "entity": "Manuk Engineer"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "manuk",
+          "x": 309,
+          "y": 322,
+          "role": "entrance",
+          "known": true,
+          "condition": "Building entrance, not proven interior position of the Engineer."
+        }
+      ],
+      "protected_names": [
+        "Manuk Engineer",
+        "Manuk",
+        "manuk",
+        "Bradium Fragments",
+        "Bradium Golems"
+      ]
+    },
+    "2": {
+      "original_instruction": "Return with 20 Refined Bradium , and receive 3 Manuk Coin, 40,000 Base Experience and 40,000 Job Experience .",
+      "instruction_sha256": "450c8a6d2608fea27900df73d52073b0d8c6f2c39e1309f35711294049a13870",
+      "step_id": "irowiki-classic:Bradium_Collection/step/450c8a6d2608fea27900/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Manuk Engineer 20 Refined Bradium; получите 3 Manuk Coin, 40,000 Base Experience и 40,000 Job Experience.",
+      "short_en": "Give Manuk Engineer 20 Refined Bradium; receive 3 Manuk Coin, 40,000 Base Experience and 40,000 Job Experience.",
+      "full_ru": "Вернитесь с 20 Refined Bradium и получите 3 Manuk Coin, 40,000 Base Experience и 40,000 Job Experience.",
+      "full_en": "Return with 20 Refined Bradium , and receive 3 Manuk Coin, 40,000 Base Experience and 40,000 Job Experience .",
+      "npcs": [
+        {
+          "entity": "Manuk Engineer",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "In Manuk , go into the last room in the horseshoe-shaped building (manuk 309, 322) and talk to the Manuk Engineer. They ask you to collect 20 Bradium Fragments (Dropped by Bradium Golems )."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Refined Bradium",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Literal step-2 label, game ID 6090. Not silently equated with unknown-ID Bradium Fragments."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Refined Bradium"
+        },
+        {
+          "operation": "receive_rewards"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "3",
+          "entity": "Manuk Coin"
+        },
+        {
+          "kind": "base_exp",
+          "amount": "40000"
+        },
+        {
+          "kind": "job_exp",
+          "amount": "40000"
+        }
+      ],
+      "protected_names": [
+        "Manuk",
+        "Refined Bradium",
+        "Manuk Coin"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "bradium_material_name_conflict",
+      "detail": "Header/stage 1 request 20 Bradium Fragments without an ID link; stage 2 explicitly links 20 Refined Bradium to item 6090. Their equivalence is unproven: separate source referents are not two additive material sets. Bradium Golems 2024 are loot sources, not a fixed kill quota."
+    },
+    {
+      "reason": "bradium_coin_cross_guide_id",
+      "detail": "Exact Manuk Coin label is present here; its shared ID 6080 is proven by the explicitly pinned Tribe Investigation database link, not guessed from text similarity."
+    }
+  ],
+  "relations": [
+    {
+      "kind": "mandatory_prerequisite",
+      "related_quest_id": "irowiki-classic:Ring_of_the_Wise_King"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "source_requested_item_count",
+        "amount": "20",
+        "source_section": "requirements",
+        "evidence": "20 Bradium Fragments",
+        "entity": "Bradium Fragments",
+        "condition": "Source header/request name differs from actual step-2 delivery label; do not add two independent sets."
+      },
+      {
+        "kind": "quest_repeatable",
+        "amount": "1",
+        "source_section": "html_text",
+        "evidence": "This quest or instance can be repeated.",
+        "condition": "Source allows repeats; not server verified."
+      },
+      {
+        "kind": "quest_cooldown_hours",
+        "amount": "24",
+        "source_section": "html_text",
+        "evidence": "This quest or instance has a 24 Hour cooldown period.",
+        "condition": "Source repeat cooldown; origin/reset clock is not stated, not a stage wait."
+      }
+    ]
+  }
+}
