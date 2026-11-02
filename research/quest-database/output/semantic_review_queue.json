@@ -3071,6 +3071,15 @@
       "step_id": null
     },
     {
+      "detail": "First archived Job Level 30 belongs to Arrow Crafting only. Use per-activity 30/35 requirements, not a whole-page first-header eligibility gate.",
+      "evidence_id": "ev:58cc8d42eb1fbcf7539e4b9d",
+      "quest_id": "irowiki-classic:Archer_Skill_Quest",
+      "reason": "first_header_job_level_scope",
+      "review_id": "review:99639e387d2e72b0cd70a87c",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
       "evidence_id": "ev:58cc8d42eb1fbcf7539e4b9d",
       "quest_id": "irowiki-classic:Archer_Skill_Quest",
@@ -9794,42 +9803,6 @@
       "step_id": "irowiki-classic:Crusader_Job_Change_Guide/step/c640840768dc1d9f95dd/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
-      "evidence_id": "ev:17797e10172f65c3ab8142ad",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:04317dd661b35f5663d954a2",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:17797e10172f65c3ab8142ad",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:1f833aa511bfdbd1f6f5ab00",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:d766c232d19b55ba17e06090",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:52d3308cf045db973d14e01e",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:a41d7d8bbfc2f0c5aeed9b8a",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:b0b1d864b50f1f65e094c3ef",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
       "evidence_id": "ev:17797e10172f65c3ab8142ad",
       "quest_id": "irowiki-classic:Crusader_Skill_Quest",
@@ -9839,112 +9812,22 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6b02b8e2242b84b5ca50414f",
+      "detail": "Antidote is a scoped source object with NULL ID/count and uncertain inventory implementation. The final teacher is unspecified; do not assign Ford/Soldier/Arther Pastor or their coordinates to the last stage without evidence.",
+      "evidence_id": "ev:17797e10172f65c3ab8142ad",
       "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7292ec0cd8e9c1fac1d673c7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/485e342f7412b38468b2/1"
+      "reason": "shrink_antidote_and_teacher_unknowns",
+      "review_id": "review:14c24b598258b04cdf0e76d9",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6b02b8e2242b84b5ca50414f",
+      "detail": "One Red Potion and one seven-material preparation set are recorded. Failed delivery returns to Arther Pastor for another antidote; no exact time limit, success chance, repeat-potion charge or repeated whole-material cost is printed.",
+      "evidence_id": "ev:17797e10172f65c3ab8142ad",
       "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e5487630432b0039559cd16c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/485e342f7412b38468b2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:849c96a0893b040616323bc0",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7a131ef7f0e962100ad65f50",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/7719ebbec02725d54ba7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:849c96a0893b040616323bc0",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:09bb9b76f65fdd6d123c3f2d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/7719ebbec02725d54ba7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:01defefec7e5febb0df9f9c7",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:69dbb72bf6edb1efb31ed18f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/85b1ef4d0a0c637da754/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:01defefec7e5febb0df9f9c7",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f70869fbfa85aa3c70176a33",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/85b1ef4d0a0c637da754/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e6e5941f5a52917660707b1d",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:228bb821b3057fd9faa0b3b5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/8f77fa30620f545c7619/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e6e5941f5a52917660707b1d",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:31a3db0e1f3657ff9f72de6f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/8f77fa30620f545c7619/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7811cb3b236572cad4e7d52f",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ebcbc672fde9808b9f38c4e0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/9813eda60b4aa6db5015/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7811cb3b236572cad4e7d52f",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c16fa7597705d48a6bb555ed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/9813eda60b4aa6db5015/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:04609a02b416b70b0d029c5d",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:b4fa7a37172ccbb2a1534225",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/fed2f8c592feb7bf7a28/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:04609a02b416b70b0d029c5d",
-      "quest_id": "irowiki-classic:Crusader_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bb6d36ae90a8213759a2dcdd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Crusader_Skill_Quest/step/fed2f8c592feb7bf7a28/1"
+      "reason": "shrink_cost_and_retry_scope",
+      "review_id": "review:1b43e0d4fbbefd69f89184f9",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Step 14 contains three mutually exclusive routes. Route A has a further conditional final return, and historian disclosure has a no-EXP failure path. Action conditions must be respected; source-order edges alone cannot execute these routes.",
@@ -22871,38 +22754,29 @@
       "step_id": "irowiki-classic:Knight_Job_Change_Guide/step/f20bd1c2965b9aec22a2/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "The legacy reward metadata includes the walkthrough/footer. Those incidental weapons, skills and classes are not extracted as additional rewards or eligibility. The only asserted unlock is Charge Attack.",
       "evidence_id": "ev:1f90dec4b3b05b7c0fc572da",
       "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:b488e15f771d9d1d34928e35",
+      "reason": "charge_attack_legacy_reward_contamination",
+      "review_id": "review:762f0b9710e10e443ace9813",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "One 5-Candy-Canes/3-Witherless-Roses obligation is requested then handed in. The one literal answer belongs to Essofeit hand-in, not the positional NPCs. Preparation duration is unknown, so no fixed wait is invented.",
       "evidence_id": "ev:1f90dec4b3b05b7c0fc572da",
       "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:00e535c797d09fc078bf2825",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:ce70c660179ae9e9e1fa8d15",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:b25b41f816d407bcd14faaa1",
+      "reason": "charge_attack_material_and_delay_scope",
+      "review_id": "review:b815e00682516395fa9face2",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:a7c8d15a9328c9250446793f",
+      "detail": "Three same-name Knight actors remain distinct by relative position and ordered actions. Mentions in all four localized fields select their own identities. Invisible chat bubble is a separate trigger; the group coordinate is not copied as each actor point. Knight Gatack is not any of these three actors.",
+      "evidence_id": "ev:1f90dec4b3b05b7c0fc572da",
       "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:2752e600f4c6194312c8765b",
+      "reason": "charge_attack_positional_knights",
+      "review_id": "review:a40db45f80e0aa3a00b2dbea",
       "severity": "warning",
       "step_id": null
     },
@@ -22914,123 +22788,6 @@
       "review_id": "review:cf2d862aafd63d5e1f1695cd",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d359a863392c3c5b21ee945a",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:34289754188f6ceee0bce789",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/14d6230effcdbef02b26/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d359a863392c3c5b21ee945a",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:846447e29972e8a630298890",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/14d6230effcdbef02b26/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4ec6c0068e9bbe704a7b935f",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:fd7b663eaf3959bc7face675",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/832550b1380bb2cee6cc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4ec6c0068e9bbe704a7b935f",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8e6b0d48780e379046683f2e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/832550b1380bb2cee6cc/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c7955b54f40f099bd6d13cad",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:80b22c7c3b146e9a8b5c57e5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/8b27345e2e65b9c45a25/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c7955b54f40f099bd6d13cad",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a3cc67ed30cfe1e9ed6744c8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/8b27345e2e65b9c45a25/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:c7955b54f40f099bd6d13cad",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:03324d7102b423c1d126c75e",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/8b27345e2e65b9c45a25/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:87508883fa7fc920038f4f63",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:5ab54040f67af4b85b507aa4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/f1073409d5daaf74423d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:87508883fa7fc920038f4f63",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9a67157ef15e9563260e817b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/f1073409d5daaf74423d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:59e68c1ddc5ecbc435d55b2d",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2c424f3f840a800c4a779624",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/f7738bc4a52211e8e181/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:59e68c1ddc5ecbc435d55b2d",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0830efc74f724bf82c49f379",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/f7738bc4a52211e8e181/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:96a28d2be332f4d9d1b0d4de",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:021686a442fa7a9bf636f7b8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/f85968c33d5c6d817dbc/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:96a28d2be332f4d9d1b0d4de",
-      "quest_id": "irowiki-classic:Knight_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:475bcb4a34aff68e5119535a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Knight_Skill_Quest/step/f85968c33d5c6d817dbc/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -38900,42 +38657,6 @@
       "step_id": "irowiki-classic:Swordman/step/c3160a23a1d9865e38e8/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
-      "evidence_id": "ev:f682a959f4167314508f4300",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:6c4943a1a3399ddae816f7a8",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:f682a959f4167314508f4300",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:a3f4e84011ca914b93c1ce54",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:a35f3b1dff080f2e6f11ba01",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:6afb750c9e63a55a6f02f489",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:4ce76da0b1379eea092f8197",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:272289c8e4847203e1f00c6e",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
       "evidence_id": "ev:f682a959f4167314508f4300",
       "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
@@ -38945,146 +38666,20 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6f04658bfa3aa3edaa03eaf1",
+      "detail": "West transfer guard and test-room guard are separate by room/role. Entry Swordman NPC and final large Swordman are not silently merged without identity proof. Descriptive labels retain unknown game IDs.",
+      "evidence_id": "ev:f682a959f4167314508f4300",
       "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:72a79edc7a54f4070698f57d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/554698b1ed12d9408d18/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6f04658bfa3aa3edaa03eaf1",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:234594358bcbbe8b310ad240",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/554698b1ed12d9408d18/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2111b52f7e85c806c2a612d3",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:4a0badcf0abbb765695164a3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/6c05c6c7b83122b0a3d9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2111b52f7e85c806c2a612d3",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6abcb3548be3a717f705a645",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/6c05c6c7b83122b0a3d9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f1a3f95d01592b51614c6b53",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:cc1adc2f3292ced5d9dacf72",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/772fa5246fa8960742b8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f1a3f95d01592b51614c6b53",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:42d1f1815424aea6cc084bb9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/772fa5246fa8960742b8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a959c7d599ac6eff5c066d62",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:dd41a0eb38ccaa9e2b5faf42",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/9eb562e322af914fc608/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a959c7d599ac6eff5c066d62",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ccca43dd2776a4ff2adbb964",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/9eb562e322af914fc608/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a2174d96b491a30bf29ca4de",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:c3e391564b9e2d111cfd3632",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/b52d80aa15b229b931d8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a2174d96b491a30bf29ca4de",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0d226c58dba9346e560ef866",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/b52d80aa15b229b931d8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:97e5adf93a5f084bbf66f65c",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:c1f3ac9fe9d9f036fea193f0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/c3160a23a1d9865e38e8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:97e5adf93a5f084bbf66f65c",
-      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d9c5551b8208cfa8c6af125c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Job_Change_Guide/step/c3160a23a1d9865e38e8/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
-      "evidence_id": "ev:4356945bd8a26824af2eba56",
-      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:4945edbed53c1eca7e2c1a04",
+      "reason": "swordman_actor_identity",
+      "review_id": "review:1b110372511cdfa6361bc6bd",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:4356945bd8a26824af2eba56",
-      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:16d75cd0fa492e322e1867dc",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:b3d93dcec0596ae29cc12277",
-      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:e04b9dd9a6607d8087d4e5a1",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:840355d048578fc712ac8848",
-      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:2516c0ce0054c6a0152e0c58",
+      "detail": "Source explicitly has ??,??. First/Second/Third Map are scoped course labels with no invented codes or points. Falling restarts the first map; two parallel bridges are not two compulsory independent traversals, and level transitions are ordinary clicks, not an inferred skill or combat task.",
+      "evidence_id": "ev:f682a959f4167314508f4300",
+      "quest_id": "irowiki-classic:Swordman_Job_Change_Guide",
+      "reason": "swordman_course_geometry",
+      "review_id": "review:b0cf0ad24b562ebe142c6859",
       "severity": "warning",
       "step_id": null
     },
@@ -39098,94 +38693,40 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:746df0a5f61f31e8b5e4d668",
+      "detail": "Three independent skill activities have Job Levels 35/30/30. Legacy metadata retained only the first header. job_level_scope_step preserves that first value as a non-eligibility source summary while stage requirements govern each activity.",
+      "evidence_id": "ev:4356945bd8a26824af2eba56",
       "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4cda5d30ebf386dfcc1be8e0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1"
+      "reason": "swordman_skill_independent_levels",
+      "review_id": "review:db688ced7434d6320ea60c7d",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:116b0a18c1c1e228e4177215",
+      "detail": "Pinned HTML restores all three omitted material tables. Armor is an equippable retained category, not a consumed fixed item ID. Fatal Blow table establishes one Banana Juice although its header omits quantity. Town house/shop points have no invented interior map codes.",
+      "evidence_id": "ev:4356945bd8a26824af2eba56",
       "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:f096514eb8d41b003e280411",
+      "reason": "swordman_skill_restored_tables",
+      "review_id": "review:e748b93afc1e9fdf5eb0ed6d",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:2476daa564df80a8f5b90d07",
+      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
+      "reason": "map_not_reference_known",
+      "review_id": "review:c9941d20a476f34da18d074a",
       "severity": "warning",
       "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:746df0a5f61f31e8b5e4d668",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:da4f76e20ffe838f2692dc2c",
       "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fcb998ac71da20f78fe8a194",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:746df0a5f61f31e8b5e4d668",
-      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:299d982994d7108432cc9a9b",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0e615a06cdb5ae8fab455732",
-      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a30c66585330bf9814c1d8ba",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:0ccb6e6df5189b45acddddf7",
-      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:1002b7e1e613dd0d90e8e60a",
+      "reason": "map_not_reference_known",
+      "review_id": "review:9ad5f350023c8d7696555fb3",
       "severity": "warning",
       "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0e615a06cdb5ae8fab455732",
-      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:80ecf876c7628820dbef43bc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5545be418045e888800900ca",
-      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:68a2fc7c1a799f49a54bddb1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5545be418045e888800900ca",
-      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0f4c625063c37c0ea215b797",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:5545be418045e888800900ca",
-      "quest_id": "irowiki-classic:Swordman_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:43c8f93501905b8162c2e27e",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
