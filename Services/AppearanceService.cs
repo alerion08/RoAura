@@ -35,7 +35,7 @@ public static class AppearanceService
  private static void WindowLoaded(object sender,RoutedEventArgs e)
  {
   if(!ReferenceEquals(sender,e.OriginalSource) || sender is not Window window)return;
-  ApplyWindow(window);Changed?.Invoke();
+  ApplyWindow(window);
  }
  private static void SettingsChanged(object? sender,PropertyChangedEventArgs e)
  {if(e.PropertyName is nameof(AppSettings.ApplicationTheme) or nameof(AppSettings.GameOverlayTheme) or "")Refresh();}

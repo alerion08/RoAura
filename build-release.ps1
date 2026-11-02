@@ -57,8 +57,8 @@ if (-not $manifestVersionMatch.Success -or $manifestVersionMatch.Groups[1].Value
 }
 
 # RU and EN dictionaries must expose exactly the same keys. Also verify every
-# DynamicResource used by a WPF view against both dictionaries so a missing
-# translation fails before a user sees an empty label at runtime.
+# DynamicResource used by a WPF view against either both string dictionaries or
+# declared theme resources. Dynamic colors are window-scoped, not translations.
 $resourceKeyPattern = 'x:Key="([^"]+)"'
 $dynamicKeyPattern = 'DynamicResource\s+([^\s\}]+)'
 $ruText = Get-Content -Raw .\Resources\Strings.ru.xaml
@@ -70,11 +70,19 @@ $onlyEn = @($enKeys | Where-Object { $_ -notin $ruKeys })
 if ($onlyRu.Count -gt 0 -or $onlyEn.Count -gt 0) {
     throw "Localization dictionaries differ. RU-only: $($onlyRu -join ', '); EN-only: $($onlyEn -join ', ')."
 }
-$dynamicKeys = @(Get-ChildItem . -Filter *.xaml -File | ForEach-Object {
+$themeKeys = @(Get-ChildItem .\Themes -Filter *.xaml -File | ForEach-Object {
+    [regex]::Matches((Get-Content -Raw $_.FullName), $resourceKeyPattern) | ForEach-Object { $_.Groups[1].Value }
+} | Sort-Object -Unique)
+$lightPaletteKeys = @([regex]::Matches((Get-Content -Raw .\Themes\LightPalette.xaml), $resourceKeyPattern) | ForEach-Object { $_.Groups[1].Value })
+$darkPaletteKeys = @([regex]::Matches((Get-Content -Raw .\Themes\DarkPalette.xaml), $resourceKeyPattern) | ForEach-Object { $_.Groups[1].Value })
+$paletteDifference = @(Compare-Object ($lightPaletteKeys | Sort-Object) ($darkPaletteKeys | Sort-Object))
+if ($paletteDifference.Count -gt 0) { throw 'Light and dark palettes must expose the same keys.' }
+$xamlInputs = @(Get-ChildItem . -Filter *.xaml -File) + @(Get-ChildItem .\Themes -Filter *.xaml -File) + @(Get-ChildItem .\Controls -Filter *.xaml -File)
+$dynamicKeys = @($xamlInputs | ForEach-Object {
     [regex]::Matches((Get-Content -Raw $_.FullName), $dynamicKeyPattern) | ForEach-Object { $_.Groups[1].Value }
 } | Sort-Object -Unique)
-$missingRu = @($dynamicKeys | Where-Object { $_ -notin $ruKeys })
-$missingEn = @($dynamicKeys | Where-Object { $_ -notin $enKeys })
+$missingRu = @($dynamicKeys | Where-Object { $_ -notin $ruKeys -and $_ -notin $themeKeys })
+$missingEn = @($dynamicKeys | Where-Object { $_ -notin $enKeys -and $_ -notin $themeKeys })
 if ($missingRu.Count -gt 0 -or $missingEn.Count -gt 0) {
     throw "Missing localized DynamicResource. RU: $($missingRu -join ', '); EN: $($missingEn -join ', ')."
 }

@@ -29,7 +29,7 @@ public partial class QuestDetailsControl : UserControl
  public QuestDetailsControl()
  {
   InitializeComponent();_refresh.Tick+=async(_,_)=>await RefreshDataAsync();
-  Loaded+=async(_,_)=>{AppearanceService.Changed+=AppearanceChanged;WatchDatabase();_refresh.Start();await RefreshDataAsync(true);};Unloaded+=(_,_)=>{AppearanceService.Changed-=AppearanceChanged;_refresh.Stop();_watcher?.Dispose();_watcher=null;};
+  Loaded+=async(_,_)=>{AppearanceService.Changed+=AppearanceChanged;AppearanceChanged();WatchDatabase();_refresh.Start();await RefreshDataAsync(true);};Unloaded+=(_,_)=>{AppearanceService.Changed-=AppearanceChanged;_refresh.Stop();_watcher?.Dispose();_watcher=null;};
   _toast.Tick+=(_,_)=>{_toast.Stop();Toast.Visibility=Visibility.Collapsed;};
  }
  private void AppearanceChanged(){if(_workspace is not null)Render(_workspace);}

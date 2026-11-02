@@ -308,7 +308,7 @@ public sealed class QuestOverlayHost : IDisposable
         layout.Children.Add(new TextBlock {Text=T("QChooseNavigation"),TextWrapping=TextWrapping.Wrap,Margin=new Thickness(8)});
         var scroll=new ScrollViewer {MaxHeight=220,Content=list,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,Focusable=false};Grid.SetRow(scroll,1);layout.Children.Add(scroll);
         var cancel=ActionButton("×",CloseChoices);Grid.SetRow(cancel,2);layout.Children.Add(cancel);
-        _choices.Content=new Border {Child=layout,CornerRadius=new CornerRadius(8),BorderThickness=new Thickness(1),BorderBrush=(Brush)Browser.FindResource("RoSoftBorderBrush"),Background=(Brush)Browser.FindResource("RoCardBrush")};var anchor=QuestWindowNative.Bounds(new WindowInteropHelper(strip).Handle);
+        var chooserCard=new Border {Child=layout,CornerRadius=new CornerRadius(8),BorderThickness=new Thickness(1)};chooserCard.SetResourceReference(Border.BorderBrushProperty,"RoSoftBorderBrush");chooserCard.SetResourceReference(Border.BackgroundProperty,"RoCardBrush");_choices.Content=chooserCard;var anchor=QuestWindowNative.Bounds(new WindowInteropHelper(strip).Handle);
         var width=Math.Min(340*_dpi,_gamePixels.Width);var height=Math.Min((Math.Min(targets.Count*26,220)+100)*_dpi,_gamePixels.Height);
         var x=Math.Clamp(anchor.Left,_gamePixels.Left,Math.Max(_gamePixels.Left,_gamePixels.Right-width));
         var top=Math.Clamp(anchor.Bottom,_gamePixels.Top,Math.Max(_gamePixels.Top,_gamePixels.Bottom-height));
