@@ -1,0 +1,1098 @@
+{
+  "quest_id": "irowiki-classic:Sealed_Shrine_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "a6412d7dca947e12e6f88d42cf498d7b7e0d2c4fcb858bcd8988faba6d90032a",
+  "snapshot_sha256": "354750834b9e3d3c0ae4e972c2850e0b0ce368ee40bd32c798927efbc1bb997d",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Friar Patrick"
+    },
+    {
+      "type": "npc",
+      "name": "Falling Grave"
+    },
+    {
+      "type": "npc",
+      "name": "Falling Graves"
+    },
+    {
+      "type": "npc",
+      "name": "Soul of Ancient Hero"
+    },
+    {
+      "type": "npc",
+      "name": "The Main Altar"
+    },
+    {
+      "type": "npc",
+      "name": "Torches"
+    },
+    {
+      "type": "npc",
+      "name": "Rust Blackhand"
+    },
+    {
+      "type": "map",
+      "name": "St. Capitolina Abbey"
+    },
+    {
+      "type": "map",
+      "name": "prt_monk",
+      "map_code": "prt_monk"
+    },
+    {
+      "type": "map",
+      "name": "monk_test",
+      "map_code": "monk_test"
+    },
+    {
+      "type": "map",
+      "name": "Shrine"
+    },
+    {
+      "type": "map",
+      "name": "Catacomb"
+    },
+    {
+      "type": "item",
+      "name": "Pendant of Spirit",
+      "aliases": [
+        "pendant"
+      ],
+      "game_id": 6003,
+      "id_source": "http://db.irowiki.org/classic/item-info/6003/"
+    },
+    {
+      "type": "item",
+      "name": "Essence of Fires",
+      "aliases": [
+        "Essence of Fire"
+      ],
+      "game_id": 6001,
+      "id_source": "http://db.irowiki.org/classic/item-info/6001/"
+    },
+    {
+      "type": "item",
+      "name": "Token of Apostle",
+      "game_id": 6002,
+      "id_source": "http://db.irowiki.org/classic/item-info/6002/"
+    },
+    {
+      "type": "item",
+      "name": "Cursed Baphomet Doll",
+      "game_id": 6004,
+      "id_source": "http://db.irowiki.org/classic/item-info/6004/"
+    },
+    {
+      "type": "item",
+      "name": "Magestic Goat",
+      "game_id": 2256,
+      "id_source": "http://db.irowiki.org/classic/item-info/2256/"
+    },
+    {
+      "type": "item",
+      "name": "Crystal of Darkness",
+      "game_id": 7799,
+      "id_source": "http://db.irowiki.org/classic/item-info/7799/"
+    },
+    {
+      "type": "item",
+      "name": "Fragment of Darkness",
+      "game_id": 7798,
+      "id_source": "http://db.irowiki.org/classic/item-info/7798/"
+    },
+    {
+      "type": "item",
+      "name": "Baphomet Horns",
+      "game_id": 5374,
+      "id_source": "http://db.irowiki.org/classic/item-info/5374/"
+    },
+    {
+      "type": "item",
+      "name": "Giant Majestic Goat",
+      "identity": "irowiki-classic:Sealed_Shrine_Quest:source_item:Giant Majestic Goat"
+    },
+    {
+      "type": "item",
+      "name": "Fly Wings",
+      "identity": "irowiki-classic:Sealed_Shrine_Quest:source_item:Fly Wings"
+    },
+    {
+      "type": "item",
+      "name": "Assumptio Scrolls",
+      "identity": "irowiki-classic:Sealed_Shrine_Quest:source_item:Assumptio Scrolls"
+    },
+    {
+      "type": "monster",
+      "name": "Wraith Dead",
+      "game_id": 1291,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1291/"
+    },
+    {
+      "type": "monster",
+      "name": "Flame Skull",
+      "game_id": 1869,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1869/"
+    },
+    {
+      "type": "monster",
+      "name": "Khalitzburg",
+      "game_id": 1132,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1132/"
+    },
+    {
+      "type": "monster",
+      "name": "Skeleton General",
+      "game_id": 1290,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1290/"
+    },
+    {
+      "type": "monster",
+      "name": "Evil Druid",
+      "game_id": 1117,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1117/"
+    },
+    {
+      "type": "monster",
+      "name": "Wind Ghost",
+      "game_id": 1263,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1263/"
+    },
+    {
+      "type": "monster",
+      "name": "Lude",
+      "game_id": 1509,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1509/"
+    },
+    {
+      "type": "monster",
+      "name": "Banshee",
+      "game_id": 1867,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1867/"
+    },
+    {
+      "type": "monster",
+      "name": "Ancient Mimic",
+      "game_id": 1699,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1699/"
+    },
+    {
+      "type": "monster",
+      "name": "Zombie Master",
+      "game_id": 1298,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1298/"
+    },
+    {
+      "type": "monster",
+      "name": "Great Demon Baphomet",
+      "aliases": [
+        "Baphomet"
+      ],
+      "game_id": 1929,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1929/"
+    },
+    {
+      "type": "monster",
+      "name": "Apostle of Baphomet"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "At St. Capitolina Abbey, enter the building at ( prt_monk 192, 170). Inside, your Party leader must speak with Friar Patrick (monk_test 309, 146).",
+      "instruction_sha256": "aab005722e688cc8e17f40ffb6aa6dad289ec63c7bdd32d389e219f7b4366964",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/aab005722e688cc8e17f/1",
+      "goal": "talk",
+      "short_ru": "Лидер: Friar Patrick, prt_monk 192, 170 → monk_test 309, 146.",
+      "short_en": "Leader: Friar Patrick, prt_monk 192, 170 → monk_test 309, 146.",
+      "full_ru": "В St. Capitolina Abbey войдите в здание (prt_monk 192, 170). Внутри лидер должен поговорить с Friar Patrick (monk_test 309, 146).",
+      "full_en": "At St. Capitolina Abbey, enter the building at ( prt_monk 192, 170). Inside, your Party leader must speak with Friar Patrick (monk_test 309, 146).",
+      "npcs": [
+        {
+          "entity": "Friar Patrick",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum_party_members",
+          "amount": "2",
+          "source_section": "requirements",
+          "evidence": "2+ People"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prt_monk",
+          "x": 192,
+          "y": 170,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "monk_test",
+          "x": 309,
+          "y": 146,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "actions": [
+        {
+          "operation": "leader_requests_entry",
+          "entity": "Friar Patrick"
+        }
+      ],
+      "protected_names": [
+        "Friar Patrick",
+        "St. Capitolina Abbey",
+        "prt_monk",
+        "monk_test"
+      ]
+    },
+    "2": {
+      "original_instruction": "After asking to enter, the party must wait for the instance to be created. The party will have 5 minutes to enter the dungeon, or else the dungeon will be destroyed. If the dungeon is destroyed, the party may request another one immediately. A party may leave the shrine, but they must return to the shrine in 5 minutes. The party will have 2 hours to finish the dungeon. After the instance expires, the party leader and anyone that participated in the party will be unable to create a new instance for 12 hours. (Party members can go with another party leader who can create the dungeon, however.) | Note: A window will appear showing pertinent time limits for the dungeon. If it is closed, it can be opened again using the shortcut Alt+B.",
+      "instruction_sha256": "a4e6d9f77b2b1e39cd75b5ef6a85f12d1d68331850d9769568ca10ef4b036bff",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/a4e6d9f77b2b1e39cd75/1",
+      "goal": "enter",
+      "short_ru": "Войдите за 5 минут; лимит — 2 часа. Создание ограничено 12 часами, возвращение после выхода — 5 минутами.",
+      "short_en": "Enter within 5 minutes; limit is 2 hours. Creation cooldown is 12 hours, return after leaving is within 5 minutes.",
+      "full_ru": "После запроса дождитесь создания инстанса. На вход даётся 5 минут, иначе он уничтожается; тогда можно сразу запросить новый. Покинув святилище, группа должна вернуться за 5 минут. На прохождение даётся 2 часа. После истечения инстанса лидер и участвовавшие игроки не могут создавать новый 12 часов; участники могут пойти с другим лидером, у которого создание доступно. Окно таймеров открывается через Alt+B.",
+      "full_en": "After asking to enter, the party must wait for the instance to be created. The party will have 5 minutes to enter the dungeon, or else the dungeon will be destroyed. If the dungeon is destroyed, the party may request another one immediately. A party may leave the shrine, but they must return to the shrine in 5 minutes. The party will have 2 hours to finish the dungeon. After the instance expires, the party leader and anyone that participated in the party will be unable to create a new instance for 12 hours. (Party members can go with another party leader who can create the dungeon, however.) | Note: A window will appear showing pertinent time limits for the dungeon. If it is closed, it can be opened again using the shortcut Alt+B.",
+      "requirements": [
+        {
+          "kind": "initial_entry_window_minutes",
+          "amount": "5"
+        },
+        {
+          "kind": "return_after_exit_window_minutes",
+          "amount": "5"
+        },
+        {
+          "kind": "instance_duration_hours",
+          "amount": "2"
+        },
+        {
+          "kind": "instance_creation_cooldown_hours",
+          "amount": "12",
+          "condition": "After expiry; members may join another eligible leader."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "wait_for_instance"
+        },
+        {
+          "operation": "enter_within_window"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Once inside, the party leader must talk to the Falling Grave NPC to begin the quest in the Shrine (141, 221). Snatch , Teleport /Fly Wings, Safety Wall and Assumptio are disabled in the dungeon. Assumptio Scrolls can be used, however. | Dungeon Monsters 40 Wraith Dead 40 Flame Skull 20 Khalitzburg 40 Skeleton General 30 Evil Druid 30 Wind Ghost 20 Lude 10 Banshee 20 Ancient Mimic 40 Zombie Master Monsters DO respawn here, and give both Experience and Drops. Experience is also lost upon death on both levels of the dungeon.",
+      "instruction_sha256": "8487bffa4ba195609a3d6fdbf7b682f41c47795204d5b19b41f57300c0dc0fee",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/8487bffa4ba195609a3d/1",
+      "goal": "talk",
+      "short_ru": "Лидер: Falling Grave (141, 221); учтите запрет умений и потерю опыта при смерти.",
+      "short_en": "Leader: Falling Grave (141, 221); account for disabled skills and EXP loss on death.",
+      "full_ru": "Внутри лидер должен поговорить с Falling Grave (141, 221) и начать квест в Shrine. Snatch, Teleport / Fly Wings, Safety Wall и Assumptio отключены; Assumptio Scrolls разрешены. Монстры: 40 Wraith Dead; 40 Flame Skull; 20 Khalitzburg; 40 Skeleton General; 30 Evil Druid; 30 Wind Ghost; 20 Lude; 10 Banshee; 20 Ancient Mimic; 40 Zombie Master. Они возрождаются и дают опыт и добычу. При смерти опыт теряется на обоих этажах.",
+      "full_en": "Once inside, the party leader must talk to the Falling Grave NPC to begin the quest in the Shrine (141, 221). Snatch , Teleport /Fly Wings, Safety Wall and Assumptio are disabled in the dungeon. Assumptio Scrolls can be used, however. | Dungeon Monsters 40 Wraith Dead 40 Flame Skull 20 Khalitzburg 40 Skeleton General 30 Evil Druid 30 Wind Ghost 20 Lude 10 Banshee 20 Ancient Mimic 40 Zombie Master Monsters DO respawn here, and give both Experience and Drops. Experience is also lost upon death on both levels of the dungeon.",
+      "npcs": [
+        {
+          "entity": "Falling Grave",
+          "role": "talk"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Wraith Dead",
+          "quantity": 40,
+          "operation": "mention",
+          "required": null,
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "entity": "Flame Skull",
+          "quantity": 40,
+          "operation": "mention",
+          "required": null,
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "entity": "Khalitzburg",
+          "quantity": 20,
+          "operation": "mention",
+          "required": null,
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "entity": "Skeleton General",
+          "quantity": 40,
+          "operation": "mention",
+          "required": null,
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "entity": "Evil Druid",
+          "quantity": 30,
+          "operation": "mention",
+          "required": null,
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "entity": "Wind Ghost",
+          "quantity": 30,
+          "operation": "mention",
+          "required": null,
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "entity": "Lude",
+          "quantity": 20,
+          "operation": "mention",
+          "required": null,
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "entity": "Banshee",
+          "quantity": 10,
+          "operation": "mention",
+          "required": null,
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "entity": "Ancient Mimic",
+          "quantity": 20,
+          "operation": "mention",
+          "required": null,
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "entity": "Zombie Master",
+          "quantity": 40,
+          "operation": "mention",
+          "required": null,
+          "condition": "Respawning population, not a kill quota."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Fly Wings",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "Assumptio Scrolls",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "disabled_skill",
+          "condition": "Snatch"
+        },
+        {
+          "kind": "disabled_skill",
+          "condition": "Teleport"
+        },
+        {
+          "kind": "disabled_skill",
+          "condition": "Safety Wall"
+        },
+        {
+          "kind": "disabled_skill",
+          "condition": "Assumptio"
+        },
+        {
+          "kind": "death_exp_loss",
+          "condition": "Both floors; loss percentage unspecified."
+        },
+        {
+          "kind": "item_disabled",
+          "entity": "Fly Wings",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "item_allowed",
+          "entity": "Assumptio Scrolls",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "40",
+          "entity": "Wraith Dead",
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "40",
+          "entity": "Flame Skull",
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "20",
+          "entity": "Khalitzburg",
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "40",
+          "entity": "Skeleton General",
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "30",
+          "entity": "Evil Druid",
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "30",
+          "entity": "Wind Ghost",
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "20",
+          "entity": "Lude",
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "10",
+          "entity": "Banshee",
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "20",
+          "entity": "Ancient Mimic",
+          "condition": "Respawning population, not a kill quota."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "40",
+          "entity": "Zombie Master",
+          "condition": "Respawning population, not a kill quota."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "leader_talk",
+          "entity": "Falling Grave"
+        }
+      ],
+      "protected_names": [
+        "Falling Grave",
+        "Shrine",
+        "Fly Wings",
+        "Assumptio Scrolls",
+        "Wraith Dead",
+        "Flame Skull",
+        "Khalitzburg",
+        "Skeleton General",
+        "Evil Druid",
+        "Wind Ghost",
+        "Lude",
+        "Banshee",
+        "Ancient Mimic",
+        "Zombie Master"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 141,
+          "y": 221,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "141, 221"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Talk to the Falling Graves. The correct one will give a pendant . Only the Party Leader can obtain and return the pendant to the Falling Grave (141, 221).",
+      "instruction_sha256": "146f65d4dd25ceed97e1539a0a79692a481f94954c89219507d8850748436005",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/146f65d4dd25ceed97e1/1",
+      "goal": "collect",
+      "short_ru": "Лидер: найдите правильную Falling Graves и получите pendant.",
+      "short_en": "Leader: find the correct Falling Graves and collect the pendant.",
+      "full_ru": "Разговаривайте с Falling Graves: только правильная даст pendant. Получить pendant и вернуть его к Falling Grave (141, 221) может лишь лидер группы.",
+      "full_en": "Talk to the Falling Graves. The correct one will give a pendant . Only the Party Leader can obtain and return the pendant to the Falling Grave (141, 221).",
+      "npcs": [
+        {
+          "entity": "Falling Graves",
+          "role": "search_candidates"
+        },
+        {
+          "entity": "Falling Grave",
+          "role": "return_contact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Pendant of Spirit",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Only leader; correct grave, not every grave."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "leader_searches_graves"
+        }
+      ],
+      "protected_names": [
+        "Falling Grave",
+        "Falling Graves"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 141,
+          "y": 221,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "141, 221"
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Return the Pendant of Spirit to the first Falling Grave. The [[[NPC]] will instruct you to meet him in the center of the Catacomb.",
+      "instruction_sha256": "f116be02ab7016668da280adfb80c4c2cb7f6a8723323027022c1b703927b7f6",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/f116be02ab7016668da2/1",
+      "goal": "deliver",
+      "short_ru": "Верните Pendant of Spirit к первой Falling Grave.",
+      "short_en": "Return Pendant of Spirit to the first Falling Grave.",
+      "full_ru": "Верните Pendant of Spirit к первой Falling Grave. В источнике есть повреждённая разметка [[[NPC]]; собеседник направит вас в центр Catacomb.",
+      "full_en": "Return the Pendant of Spirit to the first Falling Grave. The [[[NPC]] will instruct you to meet him in the center of the Catacomb.",
+      "npcs": [
+        {
+          "entity": "Falling Grave",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Pendant of Spirit",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 4,
+          "evidence": "Talk to the Falling Graves. The correct one will give a pendant . Only the Party Leader can obtain and return the pendant to the Falling Grave (141, 221)."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "leader_returns_pendant",
+          "entity": "Falling Grave"
+        }
+      ],
+      "protected_names": [
+        "Falling Grave",
+        "Catacomb",
+        "Pendant of Spirit"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Now talk to the Soul of Ancient Hero in the middle of the map. He will require one representative of the party (the party leader) to get 10 Essence of Fires . He will also instruct you to gather Token of Apostle . Only the party leader and anyone who left the dungeon during the quest needs to have a Token of Apostle to progress to the next floor. You will have 1 hour to finish his task. | Essence of Fire are obtained from Torches. | Token of Apostle are obtained automatically by killing any monster named Apostle of Baphomet . These are tradable among party members, but only the party leader and anyone who left the dungeon during the course of the quest are required to have them in order to progress to the next floor. | If the party leader disconnects, respawns, or otherwise leaves the dungeon while collecting Essence of Fire , the Soul of Ancient Hero will no longer correctly recognize the party leader, and the quest cannot be continued.",
+      "instruction_sha256": "307cf3553a1b1f450963686774cc196ce8e4ae97007268c732df04e73f9d2f89",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/307cf3553a1b1f450963/1",
+      "goal": "collect",
+      "short_ru": "Лидер: 10 Essence of Fires за 1 час; Token of Apostle нужен лидеру и возвращающимся участникам.",
+      "short_en": "Leader: 10 Essence of Fires within 1 hour; Token of Apostle is needed by the leader and returning members.",
+      "full_ru": "Поговорите с Soul of Ancient Hero в центре. Представитель группы, её лидер, должен собрать 10 Essence of Fires; также нужны Token of Apostle. Свой Token of Apostle для перехода дальше требуется только лидеру и тем, кто выходил из подземелья. На задание даётся 1 час. Essence of Fire берутся из Torches, а Token of Apostle автоматически выдаются за убийство любого Apostle of Baphomet и передаются между участниками. Если лидер отключится, возродится снаружи или иначе покинет подземелье во время сбора Essence of Fire, Soul of Ancient Hero перестанет корректно узнавать его, и продолжить квест не получится.",
+      "full_en": "Now talk to the Soul of Ancient Hero in the middle of the map. He will require one representative of the party (the party leader) to get 10 Essence of Fires . He will also instruct you to gather Token of Apostle . Only the party leader and anyone who left the dungeon during the quest needs to have a Token of Apostle to progress to the next floor. You will have 1 hour to finish his task. | Essence of Fire are obtained from Torches. | Token of Apostle are obtained automatically by killing any monster named Apostle of Baphomet . These are tradable among party members, but only the party leader and anyone who left the dungeon during the course of the quest are required to have them in order to progress to the next floor. | If the party leader disconnects, respawns, or otherwise leaves the dungeon while collecting Essence of Fire , the Soul of Ancient Hero will no longer correctly recognize the party leader, and the quest cannot be continued.",
+      "npcs": [
+        {
+          "entity": "Soul of Ancient Hero",
+          "role": "talk"
+        },
+        {
+          "entity": "Torches",
+          "role": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Essence of Fires",
+          "quantity": 10,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One leader total, not ten per member."
+        },
+        {
+          "entity": "Token of Apostle",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Leader and returners only; tradable; quantity unspecified."
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Apostle of Baphomet",
+          "quantity": null,
+          "operation": "loot_source",
+          "required": 1,
+          "condition": "Automatic token grant; kill total unknown."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "leader_collection_time_limit_hours",
+          "amount": "1"
+        },
+        {
+          "kind": "token_required_roles",
+          "condition": "Leader and members who left, not every first-time entrant."
+        },
+        {
+          "kind": "leader_must_remain",
+          "condition": "Leaving/disconnect/respawn during collection prevents continuation."
+        },
+        {
+          "kind": "monster_token_source",
+          "entity": "Apostle of Baphomet",
+          "condition": "Automatic token grant; kill total unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "leader_collects",
+          "entity": "Essence of Fires"
+        },
+        {
+          "operation": "obtain_role_conditional_tokens"
+        }
+      ],
+      "protected_names": [
+        "Soul of Ancient Hero",
+        "Torches",
+        "Essence of Fires",
+        "Token of Apostle",
+        "Apostle of Baphomet"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "After returning with the items, Soul of Ancient Hero will open the portal to the second floor. The portal can be found at the lower right side of the floor.",
+      "instruction_sha256": "307d87440ad4f90995845c911d93b8c88d97607ec07e3c005e4f444233561f79",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/307d87440ad4f9099584/1",
+      "goal": "unlock_access",
+      "short_ru": "Вернитесь с предметами к Soul of Ancient Hero и пройдите на второй этаж.",
+      "short_en": "Return with the items to Soul of Ancient Hero and go to the second floor.",
+      "full_ru": "Вернитесь с предметами к Soul of Ancient Hero: он откроет портал на второй этаж в правой нижней части первого.",
+      "full_en": "After returning with the items, Soul of Ancient Hero will open the portal to the second floor. The portal can be found at the lower right side of the floor.",
+      "npcs": [
+        {
+          "entity": "Soul of Ancient Hero",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Essence of Fires",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Now talk to the Soul of Ancient Hero in the middle of the map. He will require one representative of the party (the party leader) to get 10 Essence of Fires . He will also instruct you to gather Token of Apostle . Only the party leader and anyone who left the dungeon during the quest needs to have a Token of Apostle to progress to the next floor. You will have 1 hour to finish his task. | Essence of Fire are obtained from Torches. | Token of Apostle are obtained automatically by killing any monster named Apostle of Baphomet . These are tradable among party members, but only the party leader and anyone who left the dungeon during the course of the quest are required to have them in order to progress to the next floor. | If the party leader disconnects, respawns, or otherwise leaves the dungeon while collecting Essence of Fire , the Soul of Ancient Hero will no longer correctly recognize the party leader, and the quest cannot be continued.",
+          "condition": "Same ten, not another payment."
+        },
+        {
+          "entity": "Token of Apostle",
+          "quantity": null,
+          "operation": "possess",
+          "required": 1,
+          "support_step": 6,
+          "evidence": "Now talk to the Soul of Ancient Hero in the middle of the map. He will require one representative of the party (the party leader) to get 10 Essence of Fires . He will also instruct you to gather Token of Apostle . Only the party leader and anyone who left the dungeon during the quest needs to have a Token of Apostle to progress to the next floor. You will have 1 hour to finish his task. | Essence of Fire are obtained from Torches. | Token of Apostle are obtained automatically by killing any monster named Apostle of Baphomet . These are tradable among party members, but only the party leader and anyone who left the dungeon during the course of the quest are required to have them in order to progress to the next floor. | If the party leader disconnects, respawns, or otherwise leaves the dungeon while collecting Essence of Fire , the Soul of Ancient Hero will no longer correctly recognize the party leader, and the quest cannot be continued.",
+          "condition": "Role-conditional; consumption count not established."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return_with_items",
+          "entity": "Soul of Ancient Hero"
+        },
+        {
+          "operation": "enter_second_floor"
+        }
+      ],
+      "protected_names": [
+        "Soul of Ancient Hero"
+      ],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Once on the second floor, talk to The Main Altar to summon Great Demon Baphomet . Great Demon Baphomet is invulnerable to your attacks.",
+      "instruction_sha256": "a7808f2f15d590b79a284c19970957ce75a640cf648fae781e78b810284a7eb7",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/a7808f2f15d590b79a28/1",
+      "goal": "summon",
+      "short_ru": "Активируйте The Main Altar и призовите Great Demon Baphomet; без печати он неуязвим.",
+      "short_en": "Activate The Main Altar to summon Great Demon Baphomet; he is invulnerable without a seal.",
+      "full_ru": "На втором этаже поговорите с The Main Altar, чтобы призвать Great Demon Baphomet. Great Demon Baphomet неуязвим к вашим атакам.",
+      "full_en": "Once on the second floor, talk to The Main Altar to summon Great Demon Baphomet . Great Demon Baphomet is invulnerable to your attacks.",
+      "npcs": [
+        {
+          "entity": "The Main Altar",
+          "role": "interact"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Great Demon Baphomet",
+          "quantity": null,
+          "operation": "mention",
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "boss_initial_invulnerability",
+          "condition": "Must be weakened with a seal; no damage amount supplied."
+        },
+        {
+          "kind": "monster_summon",
+          "entity": "Great Demon Baphomet",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "summon",
+          "entity": "Great Demon Baphomet"
+        }
+      ],
+      "protected_names": [
+        "The Main Altar",
+        "Great Demon Baphomet"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "The Soul of Ancient Hero will tell you of seals that will weaken Baphomet. He will instruct you to go to 5 seal locations on the map. The locations are: 2 o'clock, 4 o'clock, 8 o'clock, 10 o'clock and the middle (above The Main Altar). The light blue dots show the locations of the seals. | Note: Currently the only Seal working is the one in the middle (above The Main Altar).",
+      "instruction_sha256": "f254dedd75b7d6af2bcacd7599f563c04165dcded0655fbf9e91cf206e2ebc44",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/f254dedd75b7d6af2bca/1",
+      "goal": "listen",
+      "short_ru": "Следуйте указаниям Soul of Ancient Hero; источник помечает рабочей центральную печать над The Main Altar.",
+      "short_en": "Follow Soul of Ancient Hero; the source marks the central seal above The Main Altar as working.",
+      "full_ru": "Soul of Ancient Hero расскажет о печатях, ослабляющих Baphomet. Указаны 5 мест: направления 2, 4, 8 и 10 часов и центр над The Main Altar; на схеме это светло-голубые точки. Примечание источника: сейчас работает только центральная Seal над The Main Altar.",
+      "full_en": "The Soul of Ancient Hero will tell you of seals that will weaken Baphomet. He will instruct you to go to 5 seal locations on the map. The locations are: 2 o'clock, 4 o'clock, 8 o'clock, 10 o'clock and the middle (above The Main Altar). The light blue dots show the locations of the seals. | Note: Currently the only Seal working is the one in the middle (above The Main Altar).",
+      "npcs": [
+        {
+          "entity": "Soul of Ancient Hero",
+          "role": "talk"
+        },
+        {
+          "entity": "The Main Altar",
+          "role": "location_reference"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Great Demon Baphomet",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "listed_seal_location_count",
+          "amount": "5"
+        },
+        {
+          "kind": "source_working_seal_note",
+          "condition": "Undated source says only middle seal works; not a universal current-server claim."
+        },
+        {
+          "kind": "monster_combat_reference",
+          "entity": "Great Demon Baphomet",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "listen_for_seal_instructions",
+          "entity": "Soul of Ancient Hero"
+        }
+      ],
+      "protected_names": [
+        "Soul of Ancient Hero",
+        "The Main Altar"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Great Demon Baphomet must be brought to the seal and the seal must be activated to weaken Baphomet. Upon activating a seal, your party has a few seconds to damage Baphomet. The Soul of Ancient Hero will tell your party which seal to activate next. The party member who activates a seal will be Stone Cursed for approximately 30 seconds. It is during this time that the other party members must attack and damage Baphomet. The party member who activates a seal cannot activate two seals in a row. Thus, a party must have a rotation for members who will activate seals. | Warning: If triggered by a player (by standing in an area near the exits to the outer path), mobs of monsters will spawn near them. At 5 minute intervals, the trigger is reset. These can make it difficult to drag Baphomet around and should be killed as soon as possible after they spawn. Note : the 5 min timer is independent of the spawn actually being activated. for example, it is possible to active the spawn point at 4 min 59 sec, and then again at 5 min 1 sec, yielding two mobs in the space of 2 seconds Upon killing Great Demon Baphomet , one can gather items to make the headgear, Baphomet Horns . Required to make the Baphomet Horns are:",
+      "instruction_sha256": "b942da61bd3cbbf21409a2c19e4825330e3be9146f5d919e15858a0290b44ed8",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/b942da61bd3cbbf21409/1",
+      "goal": "fight",
+      "short_ru": "Подводите Great Demon Baphomet к указанной печати и чередуйте активаторов; остальные атакуют после ослабления.",
+      "short_en": "Bring Great Demon Baphomet to the announced seal and rotate activators; others attack while he is weakened.",
+      "full_ru": "Подведите Great Demon Baphomet к печати и активируйте её, чтобы ослабить Baphomet. Для нанесения урона будет лишь несколько секунд; следующую печать называет Soul of Ancient Hero. Активировавший участник получает Stone Cursed примерно на 30 секунд, пока остальные атакуют Baphomet. Один игрок не может активировать две печати подряд: чередуйте участников. У выходов на внешний путь игроки могут вызвать дополнительные группы монстров. Триггер сбрасывается с интервалом 5 минут независимо от фактического появления; убивайте появившихся врагов. Источник подчёркивает независимость таймера 5 мин: активации на 4 мин 59 сек и на 5 мин 1 сек могут дать две группы за 2 секунды. После убийства Great Demon Baphomet можно собрать материалы для Baphomet Horns; далее приведены требования изготовления Baphomet Horns.",
+      "full_en": "Great Demon Baphomet must be brought to the seal and the seal must be activated to weaken Baphomet. Upon activating a seal, your party has a few seconds to damage Baphomet. The Soul of Ancient Hero will tell your party which seal to activate next. The party member who activates a seal will be Stone Cursed for approximately 30 seconds. It is during this time that the other party members must attack and damage Baphomet. The party member who activates a seal cannot activate two seals in a row. Thus, a party must have a rotation for members who will activate seals. | Warning: If triggered by a player (by standing in an area near the exits to the outer path), mobs of monsters will spawn near them. At 5 minute intervals, the trigger is reset. These can make it difficult to drag Baphomet around and should be killed as soon as possible after they spawn. Note : the 5 min timer is independent of the spawn actually being activated. for example, it is possible to active the spawn point at 4 min 59 sec, and then again at 5 min 1 sec, yielding two mobs in the space of 2 seconds Upon killing Great Demon Baphomet , one can gather items to make the headgear, Baphomet Horns . Required to make the Baphomet Horns are:",
+      "npcs": [
+        {
+          "entity": "Soul of Ancient Hero",
+          "role": "talk"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Great Demon Baphomet",
+          "quantity": null,
+          "operation": "mention",
+          "required": 1
+        }
+      ],
+      "items": [
+        {
+          "entity": "Baphomet Horns",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "seal_activator_stone_curse_seconds_approx",
+          "amount": "30"
+        },
+        {
+          "kind": "seal_damage_window_seconds",
+          "condition": "A few seconds, exact duration unknown."
+        },
+        {
+          "kind": "consecutive_seal_activation_prohibited",
+          "condition": "Rotate members; one person cannot activate twice in succession."
+        },
+        {
+          "kind": "outer_area_trigger_reset_minutes",
+          "amount": "5",
+          "condition": "Independent reset schedule, not time since last spawn."
+        },
+        {
+          "kind": "item_craft_goal_reference",
+          "entity": "Baphomet Horns",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_fight",
+          "entity": "Great Demon Baphomet",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "lure_to_seal",
+          "entity": "Great Demon Baphomet"
+        },
+        {
+          "operation": "rotate_seal_activators"
+        },
+        {
+          "operation": "attack_while_weakened",
+          "entity": "Great Demon Baphomet"
+        }
+      ],
+      "protected_names": [
+        "Soul of Ancient Hero",
+        "Baphomet Horns",
+        "Great Demon Baphomet"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "With a Cursed Baphomet Doll in your inventory, speak with Friar Patrick,",
+      "instruction_sha256": "a63972cfeea085d069359f80b9738c0ce504228b071d1b9aca661cdd48f331fb",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/a63972cfeea085d06935/1",
+      "goal": "craft",
+      "short_ru": "Для изготовления поговорите с Friar Patrick, имея Cursed Baphomet Doll.",
+      "short_en": "For crafting, talk to Friar Patrick while carrying Cursed Baphomet Doll.",
+      "full_ru": "Имея Cursed Baphomet Doll в инвентаре, поговорите с Friar Patrick.",
+      "full_en": "With a Cursed Baphomet Doll in your inventory, speak with Friar Patrick,",
+      "npcs": [
+        {
+          "entity": "Friar Patrick",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Cursed Baphomet Doll",
+          "quantity": null,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Possession before recipe, not another doll consumption."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Friar Patrick"
+        }
+      ],
+      "protected_names": [
+        "Friar Patrick",
+        "Cursed Baphomet Doll"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Speak with Rust Blackhand ( prt_monk 261,91) with the following items to make a Giant Majestic Goat. | 1 Cursed Baphomet Doll | 1 Magestic Goat | 30 Crystal of Darkness | 50 Fragment of Darkness | 990,000 Zeny",
+      "instruction_sha256": "624202a85cc466d83e598fd39918011a7594804641d8aa6bba97afd303b3e5cf",
+      "step_id": "irowiki-classic:Sealed_Shrine_Quest/step/624202a85cc466d83e59/1",
+      "goal": "craft",
+      "short_ru": "Rust Blackhand, prt_monk 261,91: 1 Cursed Baphomet Doll, 1 Magestic Goat, 30 Crystal of Darkness, 50 Fragment of Darkness и 990,000 Zeny.",
+      "short_en": "Rust Blackhand, prt_monk 261,91: 1 Cursed Baphomet Doll, 1 Magestic Goat, 30 Crystal of Darkness, 50 Fragment of Darkness and 990,000 Zeny.",
+      "full_ru": "Поговорите с Rust Blackhand (prt_monk 261,91), чтобы изготовить Giant Majestic Goat. Нужны: 1 Cursed Baphomet Doll, 1 Magestic Goat, 30 Crystal of Darkness, 50 Fragment of Darkness и 990,000 Zeny.",
+      "full_en": "Speak with Rust Blackhand ( prt_monk 261,91) with the following items to make a Giant Majestic Goat. | 1 Cursed Baphomet Doll | 1 Magestic Goat | 30 Crystal of Darkness | 50 Fragment of Darkness | 990,000 Zeny",
+      "npcs": [
+        {
+          "entity": "Rust Blackhand",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Cursed Baphomet Doll",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Optional headgear recipe, not entrance materials or guaranteed drops."
+        },
+        {
+          "entity": "Magestic Goat",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Optional headgear recipe, not entrance materials or guaranteed drops."
+        },
+        {
+          "entity": "Crystal of Darkness",
+          "quantity": 30,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Optional headgear recipe, not entrance materials or guaranteed drops."
+        },
+        {
+          "entity": "Fragment of Darkness",
+          "quantity": 50,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Optional headgear recipe, not entrance materials or guaranteed drops."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "crafting_zeny",
+          "amount": "990000",
+          "condition": "Optional Rewards recipe only."
+        },
+        {
+          "kind": "item_craft_input",
+          "amount": "1",
+          "entity": "Cursed Baphomet Doll",
+          "condition": "Optional headgear recipe, not entrance materials or guaranteed drops."
+        },
+        {
+          "kind": "item_craft_input",
+          "amount": "1",
+          "entity": "Magestic Goat",
+          "condition": "Optional headgear recipe, not entrance materials or guaranteed drops."
+        },
+        {
+          "kind": "item_craft_input",
+          "amount": "30",
+          "entity": "Crystal of Darkness",
+          "condition": "Optional headgear recipe, not entrance materials or guaranteed drops."
+        },
+        {
+          "kind": "item_craft_input",
+          "amount": "50",
+          "entity": "Fragment of Darkness",
+          "condition": "Optional headgear recipe, not entrance materials or guaranteed drops."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "crafted_item",
+          "amount": "1",
+          "entity": "Giant Majestic Goat",
+          "condition": "Recipe output name has no verified ID link here."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "craft",
+          "entity": "Giant Majestic Goat"
+        }
+      ],
+      "protected_names": [
+        "Rust Blackhand",
+        "prt_monk",
+        "Cursed Baphomet Doll",
+        "Magestic Goat",
+        "Crystal of Darkness",
+        "Fragment of Darkness",
+        "Giant Majestic Goat"
+      ],
+      "locations": [
+        {
+          "map": "prt_monk",
+          "x": 261,
+          "y": 91,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prt_monk 261,91"
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "dungeon_population_not_kill_quota",
+      "detail": "Stage 3 is respawning population, not kill objectives. Apostle of Baphomet is a token source with unknown required kills."
+    },
+    {
+      "reason": "leader_and_returner_requirements",
+      "detail": "Pendant and ten-fire tasks are leader-only; tokens apply to leader and returning members, not every entrant."
+    },
+    {
+      "reason": "timers_have_distinct_scopes",
+      "detail": "Entry/return windows, instance/task duration, creation cooldown and trigger resets differ; joining another eligible leader is allowed."
+    },
+    {
+      "reason": "source_center_seal_and_map_image",
+      "detail": "Only middle seal works per undated source note. Clock directions/image dots are not coordinates or a fixed activation order; images/rights remain unbound."
+    },
+    {
+      "reason": "crafted_headgear_labels_and_drop_uncertainty",
+      "detail": "Baphomet Horns links to 5374; Giant Majestic Goat output has no own link and is not silently aliased. Magestic Goat retains linked spelling 2256. Doll is a crafting requirement, not a guaranteed boss drop."
+    }
+  ],
+  "routes": [
+    {
+      "key": "headgear_crafting",
+      "kind": "optional",
+      "condition": "Rewards subsection: crafting after the boss, not mandatory entrance/combat costs.",
+      "source_heading": "Rewards",
+      "steps": [
+        11,
+        12
+      ]
+    }
+  ]
+}

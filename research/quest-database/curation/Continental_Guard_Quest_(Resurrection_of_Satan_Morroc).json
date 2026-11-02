@@ -1,0 +1,790 @@
+{
+  "quest_id": "irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "343294a67e65038a875b2779aa6449ab0bcb01902bc74b60eef30d69535b072f",
+  "snapshot_sha256": "dc21d107c93d4abf63f8d925173df9765478d1a2fc096c6476dd9259dbf19f18",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Continental Messenger"
+    },
+    {
+      "type": "npc",
+      "name": "Continental Official"
+    },
+    {
+      "type": "npc",
+      "name": "Chief Balrog"
+    },
+    {
+      "type": "npc",
+      "name": "Continental Guard"
+    },
+    {
+      "type": "npc",
+      "name": "Group of Evil"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "Alberta"
+    },
+    {
+      "type": "map",
+      "name": "Al De Baran"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "Dimensional Gorge"
+    },
+    {
+      "type": "map",
+      "name": "moc_fild20",
+      "map_code": "moc_fild20"
+    },
+    {
+      "type": "map",
+      "name": "moc_fild21",
+      "map_code": "moc_fild21"
+    },
+    {
+      "type": "item",
+      "name": "Live Coal",
+      "game_id": 7098,
+      "id_source": "http://db.irowiki.org/classic/item-info/7098/"
+    },
+    {
+      "type": "item",
+      "name": "Glacial Heart",
+      "game_id": 7561,
+      "id_source": "http://db.irowiki.org/classic/item-info/7561/"
+    },
+    {
+      "type": "item",
+      "name": "Continental Guard Paper",
+      "game_id": 7826,
+      "id_source": "http://db.irowiki.org/classic/item-info/7826/"
+    },
+    {
+      "type": "item",
+      "name": "Piece of Morocc Skin",
+      "game_id": 7820,
+      "id_source": "http://db.irowiki.org/classic/item-info/7820/"
+    },
+    {
+      "type": "item",
+      "name": "Seal of Continental Guard",
+      "game_id": 2730,
+      "id_source": "http://db.irowiki.org/classic/item-info/2730/"
+    },
+    {
+      "type": "item",
+      "name": "Death Loop",
+      "game_id": 2732,
+      "id_source": "http://db.irowiki.org/classic/item-info/2732/"
+    },
+    {
+      "type": "item",
+      "name": "Rune Spellstone",
+      "game_id": 2731,
+      "id_source": "http://db.irowiki.org/classic/item-info/2731/"
+    },
+    {
+      "type": "monster",
+      "name": "Satan Morroc",
+      "game_id": 1916,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1916/"
+    },
+    {
+      "type": "monster",
+      "name": "Injured Satan Morroc"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Approach any Continental Messenger and he will ask for your help. He can be found at any of the following locations: | Prontera (164, 304) | Geffen (128, 90) | Payon (200, 113) | Alberta (128, 64) | Al De Baran (136, 138)",
+      "instruction_sha256": "8fee4c4b694e4650a2fe120e731aa1e708fbf2a6dddeaa486ac795e5f10dcc6f",
+      "step_id": "irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)/step/8fee4c4b694e4650a2fe/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с любым Continental Messenger в одном из указанных городов.",
+      "short_en": "Talk to any Continental Messenger in one of the listed towns.",
+      "full_ru": "Подойдите к любому Continental Messenger и согласитесь помочь. Альтернативные места: Prontera (164, 304), Geffen (128, 90), Payon (200, 113), Alberta (128, 64), Al De Baran (136, 138). Источник помечает этот квест/событие как пока не реализованный; пометка должна быть снята после возвращения доступности. Примечание: на iRO Classic для доступа в Dimensional Gorge и боя с Satan Morocc требуется Dandelion's_Request, а не Continental Guard.",
+      "full_en": "Approach any Continental Messenger and he will ask for your help. He can be found at any of the following locations: | Prontera (164, 304) | Geffen (128, 90) | Payon (200, 113) | Alberta (128, 64) | Al De Baran (136, 138) This quest or event is currently not implemented. If it becomes available again, this notice will be removed. Note: On iRO Classic to access Dimensional Gorge and fight Satan Morocc, the character must complete the Dandelion's_Request quest, not Continental Guard.",
+      "npcs": [
+        {
+          "entity": "Continental Messenger",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "approach_any_messenger",
+          "condition": "Choose one listed town, not five mandatory visits."
+        }
+      ],
+      "protected_names": [
+        "Continental Messenger",
+        "Prontera",
+        "Geffen",
+        "Payon",
+        "Alberta",
+        "Al De Baran"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 164,
+          "y": 304,
+          "known": false,
+          "role": "alternative_messenger",
+          "evidence": "164, 304",
+          "condition": "One alternative messenger contact; city display labels do not establish map codes."
+        },
+        {
+          "map": null,
+          "x": 128,
+          "y": 90,
+          "known": false,
+          "role": "alternative_messenger",
+          "evidence": "128, 90",
+          "condition": "One alternative messenger contact; city display labels do not establish map codes."
+        },
+        {
+          "map": null,
+          "x": 200,
+          "y": 113,
+          "known": false,
+          "role": "alternative_messenger",
+          "evidence": "200, 113",
+          "condition": "One alternative messenger contact; city display labels do not establish map codes."
+        },
+        {
+          "map": null,
+          "x": 128,
+          "y": 64,
+          "known": false,
+          "role": "alternative_messenger",
+          "evidence": "128, 64",
+          "condition": "One alternative messenger contact; city display labels do not establish map codes."
+        },
+        {
+          "map": null,
+          "x": 136,
+          "y": 138,
+          "known": false,
+          "role": "alternative_messenger",
+          "evidence": "136, 138",
+          "condition": "One alternative messenger contact; city display labels do not establish map codes."
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "This quest or event is currently not implemented. If it becomes available again, this notice will be removed. Note: On iRO Classic to access Dimensional Gorge and fight Satan Morocc, the character must complete the Dandelion's_Request quest, not Continental Guard.",
+          "text_ru": "Источник помечает этот квест/событие как пока не реализованный; пометка должна быть снята после возвращения доступности. Примечание: на iRO Classic для доступа в Dimensional Gorge и боя с Satan Morocc требуется Dandelion's_Request, а не Continental Guard."
+        }
+      ],
+      "non_entity_mentions": {
+        "Continental Guard": "The added notice names the quest/organization, not the stage-5 NPC."
+      }
+    },
+    "2": {
+      "original_instruction": "In Morroc , Talk to the Continental Official (176, 103), and tell him that you want to volunteer.",
+      "instruction_sha256": "1431f82128a9992ee09a3cc98dc0979f5f240afabffcfa2f50feb4aee63fe339",
+      "step_id": "irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)/step/1431f82128a9992ee09a/1",
+      "goal": "talk",
+      "short_ru": "В Morroc поговорите с Continental Official (176, 103).",
+      "short_en": "In Morroc, talk to Continental Official (176, 103).",
+      "full_ru": "В Morroc поговорите с Continental Official (176, 103) и скажите, что хотите стать добровольцем.",
+      "full_en": "In Morroc , Talk to the Continental Official (176, 103), and tell him that you want to volunteer.",
+      "npcs": [
+        {
+          "entity": "Continental Official",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "volunteer",
+          "entity": "Continental Official"
+        }
+      ],
+      "protected_names": [
+        "Continental Official",
+        "Morroc"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 176,
+          "y": 103,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "176, 103"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to Chief Balrog in Morroc (159, 113) and tell him that you want to join the Continental Guard. He'll ask you to bring him 50 Glacial Heart and 30 Live Coal .",
+      "instruction_sha256": "a227dd52a815c9d8ef151d2f3eb17ff01869d0f2eb5ea2a6276de85616d771c4",
+      "step_id": "irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)/step/a227dd52a815c9d8ef15/1",
+      "goal": "collect",
+      "short_ru": "Chief Balrog в Morroc (159, 113): соберите 50 Glacial Heart и 30 Live Coal.",
+      "short_en": "Chief Balrog in Morroc (159, 113): collect 50 Glacial Heart and 30 Live Coal.",
+      "full_ru": "В Morroc поговорите с Chief Balrog (159, 113) и вступите в Continental Guard. Он попросит 50 Glacial Heart и 30 Live Coal.",
+      "full_en": "Talk to Chief Balrog in Morroc (159, 113) and tell him that you want to join the Continental Guard. He'll ask you to bring him 50 Glacial Heart and 30 Live Coal .",
+      "npcs": [
+        {
+          "entity": "Chief Balrog",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Glacial Heart",
+          "quantity": 50,
+          "operation": "collect",
+          "required": 1
+        },
+        {
+          "entity": "Live Coal",
+          "quantity": 30,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Chief Balrog"
+        },
+        {
+          "operation": "collect_materials"
+        }
+      ],
+      "non_entity_mentions": {
+        "Continental Guard": "The player joins the organization here; this is not the stage-5 NPC."
+      },
+      "protected_names": [
+        "Chief Balrog",
+        "Continental Guard",
+        "Morroc",
+        "Live Coal",
+        "Glacial Heart"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 159,
+          "y": 113,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "159, 113"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Once you bring him the items, he'll give you a Continental Guard Paper .",
+      "instruction_sha256": "b59b1f337caecf2e17f7d013436e8d7ab6f2654420d30e6fa7f287e2289279a8",
+      "step_id": "irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)/step/b59b1f337caecf2e17f7/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Chief Balrog 50 Glacial Heart и 30 Live Coal; получите Continental Guard Paper.",
+      "short_en": "Give Chief Balrog 50 Glacial Heart and 30 Live Coal; receive Continental Guard Paper.",
+      "full_ru": "Передайте ему запрошенные предметы и получите Continental Guard Paper.",
+      "full_en": "Once you bring him the items, he'll give you a Continental Guard Paper .",
+      "npcs": [
+        {
+          "entity": "Chief Balrog",
+          "role": "talk",
+          "support_step": 3,
+          "evidence": "Talk to Chief Balrog in Morroc (159, 113) and tell him that you want to join the Continental Guard. He'll ask you to bring him 50 Glacial Heart and 30 Live Coal ."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Glacial Heart",
+          "quantity": 50,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Talk to Chief Balrog in Morroc (159, 113) and tell him that you want to join the Continental Guard. He'll ask you to bring him 50 Glacial Heart and 30 Live Coal .",
+          "condition": "Same single set requested at stage 3."
+        },
+        {
+          "entity": "Live Coal",
+          "quantity": 30,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Talk to Chief Balrog in Morroc (159, 113) and tell him that you want to join the Continental Guard. He'll ask you to bring him 50 Glacial Heart and 30 Live Coal .",
+          "condition": "Same single set requested at stage 3."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "entity": "Continental Guard Paper",
+          "condition": "Paper granted; numerical inventory count not specified."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_materials",
+          "entity": "Chief Balrog"
+        }
+      ],
+      "protected_names": [
+        "Continental Guard",
+        "Continental Guard Paper"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Exit Morroc to the East. Talk to the Continental Guard there ( moc_fild20 38, 174), and tell him that you have to enter the field to investigate. Being in a party of at least two people is required to enter the field.",
+      "instruction_sha256": "a4d3b56a2160648c5a3c8c09c6c6c580cbe9dec719ee6fca2e0c39aeb66a2c62",
+      "step_id": "irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)/step/a4d3b56a2160648c5a3c/1",
+      "goal": "enter",
+      "short_ru": "Continental Guard: moc_fild20 38, 174; вход в группе минимум из 2 человек.",
+      "short_en": "Continental Guard: moc_fild20 38, 174; entry requires a party of at least 2.",
+      "full_ru": "Выйдите из Morroc на восток. Поговорите с Continental Guard (moc_fild20 38, 174) и сообщите, что должны исследовать поле. Для входа нужна группа минимум из двух человек.",
+      "full_en": "Exit Morroc to the East. Talk to the Continental Guard there ( moc_fild20 38, 174), and tell him that you have to enter the field to investigate. Being in a party of at least two people is required to enter the field.",
+      "npcs": [
+        {
+          "entity": "Continental Guard",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum_party_members",
+          "amount": "2",
+          "condition": "Field-entry gate, not the first messenger conversation."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_field_entry",
+          "entity": "Continental Guard"
+        }
+      ],
+      "protected_names": [
+        "Continental Guard",
+        "Morroc",
+        "moc_fild20"
+      ],
+      "locations": [
+        {
+          "map": "moc_fild20",
+          "x": 38,
+          "y": 174,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "moc_fild20 38, 174"
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Look for the Group of Evil in the Dimensional Gorge ( moc_fild21 171, 227).",
+      "instruction_sha256": "c227b341637c109a3dddac53bb3ac0964fc39d2fe925c83f7158b34ab389d665",
+      "step_id": "irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)/step/c227b341637c109a3ddd/1",
+      "goal": "find",
+      "short_ru": "Найдите Group of Evil: moc_fild21 171, 227.",
+      "short_en": "Find Group of Evil: moc_fild21 171, 227.",
+      "full_ru": "Найдите Group of Evil в Dimensional Gorge (moc_fild21 171, 227).",
+      "full_en": "Look for the Group of Evil in the Dimensional Gorge ( moc_fild21 171, 227).",
+      "npcs": [
+        {
+          "entity": "Group of Evil",
+          "role": "locate"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "find",
+          "entity": "Group of Evil"
+        }
+      ],
+      "protected_names": [
+        "Group of Evil",
+        "Dimensional Gorge",
+        "moc_fild21"
+      ],
+      "locations": [
+        {
+          "map": "moc_fild21",
+          "x": 171,
+          "y": 227,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "moc_fild21 171, 227"
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Once you defeat Satan Morroc , the Group of Evil will change. Each party member must click on it to receive Piece of Morocc Skin . Any player who was on the map can receive the skin regardless of whether or not they were in the party that killed Satan Morroc . | Satan Morroc will announce his defeat with \"I'll let live just a little longer. You'll never find me through this time-space gap!\"",
+      "instruction_sha256": "692e7f3745c9081a07345308d3bbd72e291df04546dc703dd42f84f8bab076f2",
+      "step_id": "irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)/step/692e7f3745c9081a0734/1",
+      "goal": "collect",
+      "short_ru": "После поражения Satan Morroc лично нажмите Group of Evil и получите Piece of Morocc Skin.",
+      "short_en": "After Satan Morroc is defeated, click Group of Evil yourself to receive Piece of Morocc Skin.",
+      "full_ru": "После поражения Satan Morroc объект Group of Evil изменится. Каждый участник должен сам нажать на него, чтобы получить Piece of Morocc Skin. Кожу может получить любой игрок, находившийся на карте, даже если он не состоял в группе, убившей Satan Morroc. Реплика о поражении: «I'll let live just a little longer. You'll never find me through this time-space gap!».",
+      "full_en": "Once you defeat Satan Morroc , the Group of Evil will change. Each party member must click on it to receive Piece of Morocc Skin . Any player who was on the map can receive the skin regardless of whether or not they were in the party that killed Satan Morroc . | Satan Morroc will announce his defeat with \"I'll let live just a little longer. You'll never find me through this time-space gap!\"",
+      "npcs": [
+        {
+          "entity": "Group of Evil",
+          "role": "interact"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Satan Morroc",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0,
+          "condition": "Map occupants outside the killing party may collect skin."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Piece of Morocc Skin",
+          "quantity": null,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Each eligible player clicks individually; no verified count or killing-party requirement."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "wait_for_defeat_event",
+          "entity": "Satan Morroc"
+        },
+        {
+          "operation": "interact",
+          "entity": "Group of Evil"
+        }
+      ],
+      "protected_names": [
+        "Group of Evil",
+        "Morroc",
+        "Piece of Morocc Skin",
+        "Satan Morroc"
+      ],
+      "locations": [],
+      "requirements": [
+        {
+          "kind": "monster_defeat_event",
+          "entity": "Satan Morroc",
+          "condition": "Map occupants outside the killing party may collect skin."
+        }
+      ]
+    },
+    "8": {
+      "original_instruction": "The Piece of Morocc Skin can be given to Chief Balrog, in exchange for one of the following accessories of choice: | Seal of Continental Guard (+50 HP , +3% ASPD ) | Death Loop (+5 Crit ) | Rune Spellstone (+50 SP , -1% skill delay) The best strategy is to have one or two tanks for Satan Morroc , with Biochemists and others attcking him. Avoiding the mob is crucial to success, as by hitting them, their AI is activated, and they will then run loose and use their skills, which can easily wipe a party . Satan Morroc functions by using combos. At specific times he will make an announcement, which is the start of a skill combo. He always speaks when casting the first skill of the combo, and the combos are all the same order of skills cast. These combos are as follows: 80% HP - Magic Combo 60% HP - Hell Combo 50% HP - Vampire Combo 40% HP - Mixed Combo 30% HP - Earthquake Combo 10% HP 5% HP",
+      "instruction_sha256": "fae9f54dbb6f8df328b5b6d8b0ae1c5b374486321005fe2bc7f7221aed6f69b5",
+      "step_id": "irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)/step/fae9f54dbb6f8df328b5/1",
+      "goal": "receive_reward",
+      "short_ru": "Отдайте Piece of Morocc Skin для Chief Balrog и выберите один аксессуар; получите 2,000,000 Base Experience.",
+      "short_en": "Give Piece of Morocc Skin to Chief Balrog and choose one accessory; receive 2,000,000 Base Experience.",
+      "full_ru": "Отдайте Piece of Morocc Skin для Chief Balrog и выберите один аксессуар: Seal of Continental Guard (+50 HP, +3% ASPD), Death Loop (+5 Crit) либо Rune Spellstone (+50 SP, -1% skill delay). Для боя с Satan Morroc источник советует одного-двух танков и атакующих, включая Biochemists. Не задевайте сопровождающих монстров: это активирует их AI и опасные умения. Satan Morroc объявляет начало комбинации перед первым умением; порядок умений в каждой комбинации фиксирован. Пороговые фазы: 80% HP — Magic Combo; 60% HP — Hell Combo; 50% HP — Vampire Combo; 40% HP — Mixed Combo; 30% HP — Earthquake Combo; 10% HP; 5% HP. 80% HP — Magic Combo. Перезарядка: 20 секунд. Реплика: \"Impressive! I wonder how far your recklessness will take you.\" Умения по порядку: Stone Curse 10, Firebolt 10, Frost Diver 10, Jupitel Thunder 10. 60% HP — Hell Combo. Перезарядка: 35 секунд. Реплика: \"I almost pity how outmatched you are against me.\" Умения по порядку: Area Sleep 5, Hell's Power 1, Hell's Judgement 5. 50% HP — Vampire Combo. Перезарядка: 50 секунд. Реплика: \"It's time to finish the game!\" Умения по порядку: Vampire's Gift 9, Area Soul Drain 10, Evil Land 10. 40% HP — Mixed Combo. Перезарядка: 1 минута. Реплика: \"This is how you attack? Watch and learn, weaklings!\" Умения по порядку: Pulse Strike 5, Area Stone Curse 5, Meteor Storm 5. 30% HP — Earthquake Combo. Перезарядка: 3 минуты. Реплика: \"You worthless humans. Your so-called holy powers have no effect on me!\" Умения по порядку: Area Hell's Power 1, Area Stun 5, Earthquake 10. 10% HP. Реплика: \"Oh, you're stronger than I thought!\" Умения: None. 5% HP. Реплика: \"No, this can't be happening! I'm Satan Morroc, Demon King of Destruction!\" Умение: Dragon Fear 10.",
+      "full_en": "The Piece of Morocc Skin can be given to Chief Balrog, in exchange for one of the following accessories of choice: | Seal of Continental Guard (+50 HP , +3% ASPD ) | Death Loop (+5 Crit ) | Rune Spellstone (+50 SP , -1% skill delay) The best strategy is to have one or two tanks for Satan Morroc , with Biochemists and others attcking him. Avoiding the mob is crucial to success, as by hitting them, their AI is activated, and they will then run loose and use their skills, which can easily wipe a party . Satan Morroc functions by using combos. At specific times he will make an announcement, which is the start of a skill combo. He always speaks when casting the first skill of the combo, and the combos are all the same order of skills cast. These combos are as follows: 80% HP - Magic Combo 60% HP - Hell Combo 50% HP - Vampire Combo 40% HP - Mixed Combo 30% HP - Earthquake Combo 10% HP 5% HP 80% HP - Magic Combo Recharge Time: 20 seconds Announcement: \"Impressive! I wonder how far your recklessness will take you.\" Skills: Stone Curse 10, Firebolt 10, Frost Diver 10, Jupitel Thunder 10 60% HP - Hell Combo Recharge Time: 35 seconds Announcement: \"I almost pity how outmatched you are against me.\" Skills: Area Sleep 5, Hell's Power 1, Hell's Judgement 5 50% HP - Vampire Combo Recharge Time: 50 seconds Announcement: \"It's time to finish the game!\" Skills: Vampire's Gift 9, Area Soul Drain 10, Evil Land 10 40% HP - Mixed Combo Recharge Time: 1 Minute Announcement: \"This is how you attack? Watch and learn, weaklings!\" Skills: Pulse Strike 5, Area Stone Curse 5, Meteor Storm 5 30% HP - Earthquake Combo Recharge Time: 3 Minutes Announcement: \"You worthless humans. Your so-called holy powers have no effect on me!\" Skills: Area Hell's Power 1, Area Stun 5, Earthquake 10 10% HP Announcement: \"Oh, you're stronger than I thought!\" Skills: None 5% HP Announcement: \"No, this can't be happening! I'm Satan Morroc, Demon King of Destruction!\" Skills: Dragon Fear 10",
+      "npcs": [
+        {
+          "entity": "Chief Balrog",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Piece of Morocc Skin",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Satan Morroc",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "Injured Satan Morroc",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0,
+          "source_section": "rewards",
+          "evidence": "Access to fight Injured Satan Morroc",
+          "condition": "Distinct reward target with no verified second monster ID."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "amount": "2000000",
+          "source_section": "rewards",
+          "evidence": "Base Experience: 2,000,000"
+        },
+        {
+          "kind": "access",
+          "source_section": "rewards",
+          "evidence": "Access to fight Injured Satan Morroc",
+          "condition": "Source reward statement, subject to the pinned Classic availability warning."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "Piece of Morocc Skin"
+        },
+        {
+          "operation": "choose_one_accessory"
+        }
+      ],
+      "protected_names": [
+        "Chief Balrog",
+        "Continental Guard",
+        "Morroc",
+        "Piece of Morocc Skin",
+        "Seal of Continental Guard",
+        "Death Loop",
+        "Rune Spellstone",
+        "Satan Morroc"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "guard_seal",
+          "choice_group": "accessory_choice",
+          "variant_scope": "Pinned source variant; server applicability unverified",
+          "condition": "Choose one accessory; stat modifiers are not quantities.",
+          "section": "",
+          "original_instruction": "Seal of Continental Guard (+50 HP , +3% ASPD )",
+          "instruction_sha256": "2e65724b76a1359126f2d53748352dae4ab3171aa603b8672911d5d93ab29657",
+          "short_ru": "Seal of Continental Guard: +50 HP, +3% ASPD.",
+          "short_en": "Seal of Continental Guard (+50 HP , +3% ASPD )",
+          "full_ru": "Seal of Continental Guard: +50 HP, +3% ASPD.",
+          "full_en": "Seal of Continental Guard (+50 HP , +3% ASPD )",
+          "protected_names": [
+            "Continental Guard",
+            "Seal of Continental Guard"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Seal of Continental Guard",
+              "condition": "One of three player-selected alternatives."
+            }
+          ]
+        },
+        {
+          "key": "death_loop",
+          "choice_group": "accessory_choice",
+          "variant_scope": "Pinned source variant; server applicability unverified",
+          "condition": "Choose one accessory; stat modifiers are not quantities.",
+          "section": "",
+          "original_instruction": "Death Loop (+5 Crit )",
+          "instruction_sha256": "2e2cfabfca9b3ece8b7241561b5a1813a7d11740f10d25c9079c87762848b213",
+          "short_ru": "Death Loop: +5 Crit.",
+          "short_en": "Death Loop (+5 Crit )",
+          "full_ru": "Death Loop: +5 Crit.",
+          "full_en": "Death Loop (+5 Crit )",
+          "protected_names": [
+            "Death Loop"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Death Loop",
+              "condition": "One of three player-selected alternatives."
+            }
+          ]
+        },
+        {
+          "key": "rune_stone",
+          "choice_group": "accessory_choice",
+          "variant_scope": "Pinned source variant; server applicability unverified",
+          "condition": "Choose one accessory; stat modifiers are not quantities.",
+          "section": "",
+          "original_instruction": "Rune Spellstone (+50 SP , -1% skill delay)",
+          "instruction_sha256": "2c00cfbb682d4aa5822fda6f561d9caac9a1cf8b47be86bae2c6529c7d65a6a6",
+          "short_ru": "Rune Spellstone: +50 SP, -1% skill delay.",
+          "short_en": "Rune Spellstone (+50 SP , -1% skill delay)",
+          "full_ru": "Rune Spellstone: +50 SP, -1% skill delay.",
+          "full_en": "Rune Spellstone (+50 SP , -1% skill delay)",
+          "protected_names": [
+            "Rune Spellstone"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Rune Spellstone",
+              "condition": "One of three player-selected alternatives."
+            }
+          ]
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "80% HP - Magic Combo Recharge Time: 20 seconds Announcement: \"Impressive! I wonder how far your recklessness will take you.\" Skills: Stone Curse 10, Firebolt 10, Frost Diver 10, Jupitel Thunder 10",
+          "text_ru": "80% HP — Magic Combo. Перезарядка: 20 секунд. Реплика: \"Impressive! I wonder how far your recklessness will take you.\" Умения по порядку: Stone Curse 10, Firebolt 10, Frost Diver 10, Jupitel Thunder 10."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "60% HP - Hell Combo Recharge Time: 35 seconds Announcement: \"I almost pity how outmatched you are against me.\" Skills: Area Sleep 5, Hell's Power 1, Hell's Judgement 5",
+          "text_ru": "60% HP — Hell Combo. Перезарядка: 35 секунд. Реплика: \"I almost pity how outmatched you are against me.\" Умения по порядку: Area Sleep 5, Hell's Power 1, Hell's Judgement 5."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "50% HP - Vampire Combo Recharge Time: 50 seconds Announcement: \"It's time to finish the game!\" Skills: Vampire's Gift 9, Area Soul Drain 10, Evil Land 10",
+          "text_ru": "50% HP — Vampire Combo. Перезарядка: 50 секунд. Реплика: \"It's time to finish the game!\" Умения по порядку: Vampire's Gift 9, Area Soul Drain 10, Evil Land 10."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "40% HP - Mixed Combo Recharge Time: 1 Minute Announcement: \"This is how you attack? Watch and learn, weaklings!\" Skills: Pulse Strike 5, Area Stone Curse 5, Meteor Storm 5",
+          "text_ru": "40% HP — Mixed Combo. Перезарядка: 1 минута. Реплика: \"This is how you attack? Watch and learn, weaklings!\" Умения по порядку: Pulse Strike 5, Area Stone Curse 5, Meteor Storm 5."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "30% HP - Earthquake Combo Recharge Time: 3 Minutes Announcement: \"You worthless humans. Your so-called holy powers have no effect on me!\" Skills: Area Hell's Power 1, Area Stun 5, Earthquake 10",
+          "text_ru": "30% HP — Earthquake Combo. Перезарядка: 3 минуты. Реплика: \"You worthless humans. Your so-called holy powers have no effect on me!\" Умения по порядку: Area Hell's Power 1, Area Stun 5, Earthquake 10."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "10% HP Announcement: \"Oh, you're stronger than I thought!\" Skills: None",
+          "text_ru": "10% HP. Реплика: \"Oh, you're stronger than I thought!\" Умения: None."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "5% HP Announcement: \"No, this can't be happening! I'm Satan Morroc, Demon King of Destruction!\" Skills: Dragon Fear 10",
+          "text_ru": "5% HP. Реплика: \"No, this can't be happening! I'm Satan Morroc, Demon King of Destruction!\" Умение: Dragon Fear 10."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "boss_combo_hp_threshold_percent",
+          "amount": "80",
+          "source_section": "html_text",
+          "evidence": "80% HP - Magic Combo Recharge Time: 20 seconds Announcement: \"Impressive! I wonder how far your recklessness will take you.\" Skills: Stone Curse 10, Firebolt 10, Frost Diver 10, Jupitel Thunder 10",
+          "condition": "Boss HP phase, not a player minimum or material quantity; see ordered source addition."
+        },
+        {
+          "kind": "boss_combo_hp_threshold_percent",
+          "amount": "60",
+          "source_section": "html_text",
+          "evidence": "60% HP - Hell Combo Recharge Time: 35 seconds Announcement: \"I almost pity how outmatched you are against me.\" Skills: Area Sleep 5, Hell's Power 1, Hell's Judgement 5",
+          "condition": "Boss HP phase, not a player minimum or material quantity; see ordered source addition."
+        },
+        {
+          "kind": "boss_combo_hp_threshold_percent",
+          "amount": "50",
+          "source_section": "html_text",
+          "evidence": "50% HP - Vampire Combo Recharge Time: 50 seconds Announcement: \"It's time to finish the game!\" Skills: Vampire's Gift 9, Area Soul Drain 10, Evil Land 10",
+          "condition": "Boss HP phase, not a player minimum or material quantity; see ordered source addition."
+        },
+        {
+          "kind": "boss_combo_hp_threshold_percent",
+          "amount": "40",
+          "source_section": "html_text",
+          "evidence": "40% HP - Mixed Combo Recharge Time: 1 Minute Announcement: \"This is how you attack? Watch and learn, weaklings!\" Skills: Pulse Strike 5, Area Stone Curse 5, Meteor Storm 5",
+          "condition": "Boss HP phase, not a player minimum or material quantity; see ordered source addition."
+        },
+        {
+          "kind": "boss_combo_hp_threshold_percent",
+          "amount": "30",
+          "source_section": "html_text",
+          "evidence": "30% HP - Earthquake Combo Recharge Time: 3 Minutes Announcement: \"You worthless humans. Your so-called holy powers have no effect on me!\" Skills: Area Hell's Power 1, Area Stun 5, Earthquake 10",
+          "condition": "Boss HP phase, not a player minimum or material quantity; see ordered source addition."
+        },
+        {
+          "kind": "boss_combo_hp_threshold_percent",
+          "amount": "10",
+          "source_section": "html_text",
+          "evidence": "10% HP Announcement: \"Oh, you're stronger than I thought!\" Skills: None",
+          "condition": "Boss HP phase, not a player minimum or material quantity; see ordered source addition."
+        },
+        {
+          "kind": "boss_combo_hp_threshold_percent",
+          "amount": "5",
+          "source_section": "html_text",
+          "evidence": "5% HP Announcement: \"No, this can't be happening! I'm Satan Morroc, Demon King of Destruction!\" Skills: Dragon Fear 10",
+          "condition": "Boss HP phase, not a player minimum or material quantity; see ordered source addition."
+        },
+        {
+          "kind": "monster_combat_reference",
+          "entity": "Satan Morroc",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_unlocked_target",
+          "entity": "Injured Satan Morroc",
+          "condition": "Distinct reward target with no verified second monster ID.",
+          "source_section": "rewards",
+          "evidence": "Access to fight Injured Satan Morroc"
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "source_classic_unimplemented_and_replacement_notice",
+      "detail": "This quest or event is currently not implemented. If it becomes available again, this notice will be removed. Note: On iRO Classic to access Dimensional Gorge and fight Satan Morocc, the character must complete the Dandelion's_Request quest, not Continental Guard. This is a source-variant notice, not a universal retired-event classification or mandatory prerequisite for this guide."
+    },
+    {
+      "reason": "boss_combos_restored_from_html",
+      "detail": "Seven omitted combat tables are source-pinned additions. Thresholds are boss HP phases; skill levels, recharge times and accessory bonuses are not item counts."
+    },
+    {
+      "reason": "skin_not_restricted_to_killing_party",
+      "detail": "Any player on the map may collect skin, including outside the killing party; field admission is a separate gate."
+    },
+    {
+      "reason": "injured_boss_id_unverified",
+      "detail": "Satan Morroc is linked to 1916; Injured Satan Morroc has no verified ID in this page and remains distinct."
+    },
+    {
+      "reason": "organization_and_quest_label_not_npc",
+      "detail": "Continental Guard at stages 1/3 names the quest/organization, not the NPC. Stage 5 and longer item labels keep typed references."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "30",
+        "entity": "Live Coal",
+        "source_section": "requirements",
+        "evidence": "30 Live Coal",
+        "condition": "Summary of the single stage-4 delivery."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "50",
+        "entity": "Glacial Heart",
+        "source_section": "requirements",
+        "evidence": "50 Glacial Heart",
+        "condition": "Summary of the single stage-4 delivery."
+      }
+    ]
+  }
+}

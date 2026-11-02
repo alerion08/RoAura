@@ -698,7 +698,7 @@
         {
           "entity": "goods",
           "quantity": null,
-          "operation": "inspect",
+          "operation": "mention",
           "required": 1,
           "condition": "Damaged cargo inspection target, not an inventory delivery or an additional cost."
         }
@@ -892,6 +892,10 @@
     {
       "reason": "rewards_not_terminal_trigger",
       "detail": "Three Base EXP grants sum to the 1400000 header; the White Potion header is not an extra grant. The final flashback at stage 17 follows the last payout and is the stated completion trigger."
+    },
+    {
+      "reason": "cargo_inspection_fact_preserved",
+      "detail": "Cargo is an inspection target, not an inventory delivery. The typed inspect action already carries that role; the item fact uses the schema-supported mention operation, preventing silent omission."
     }
   ]
 }

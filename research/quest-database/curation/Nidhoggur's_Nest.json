@@ -1,0 +1,504 @@
+{
+  "quest_id": "irowiki-classic:Nidhoggur's_Nest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "9ba4c65b2a947b30ec6ebe0517300c7f943f65c79c9dcc2024dc887bab32b72d",
+  "snapshot_sha256": "4e13426414ae98349d0433ccfe87bbb73ec6df9c4e663cb4ea9d2052bb744675",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Matt Roy Shka"
+    },
+    {
+      "type": "npc",
+      "name": "Murdered Yggdrasilid"
+    },
+    {
+      "type": "map",
+      "name": "Geffen Tower"
+    },
+    {
+      "type": "map",
+      "name": "geffen",
+      "map_code": "geffen"
+    },
+    {
+      "type": "monster",
+      "name": "Nidhoggur's Shadow",
+      "game_id": 2022,
+      "id_source": "http://db.irowiki.org/classic/monster-info/2022/"
+    },
+    {
+      "type": "monster",
+      "name": "Nidhoggur's Guardian"
+    },
+    {
+      "type": "monster",
+      "name": "Phylla Guardian"
+    },
+    {
+      "type": "monster",
+      "name": "Rhyncho Guardian"
+    },
+    {
+      "type": "monster",
+      "name": "Ryncho"
+    },
+    {
+      "type": "monster",
+      "name": "Phylla"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "With 2 or more people in your Party , the party leader must speak with Matt Roy Shka outside the Geffen Tower at (geffen 119, 99) and \"Accept Admission\".",
+      "instruction_sha256": "e1a5f48c6b346129feec3708c1f9c145dbea59d5a00a13d1b784cc2e1d345f93",
+      "step_id": "irowiki-classic:Nidhoggur's_Nest/step/e1a5f48c6b346129feec/1",
+      "goal": "create_instance",
+      "short_ru": "Лидер группы от 2 человек: Matt Roy Shka, geffen 119, 99 → «Accept Admission».",
+      "short_en": "Party leader with at least 2 members: Matt Roy Shka, geffen 119, 99 → “Accept Admission”.",
+      "full_ru": "В группе из 2 или более человек лидер должен поговорить с Matt Roy Shka у Geffen Tower (geffen 119, 99) и выбрать «Accept Admission».",
+      "full_en": "With 2 or more people in your Party , the party leader must speak with Matt Roy Shka outside the Geffen Tower at (geffen 119, 99) and \"Accept Admission\".",
+      "npcs": [
+        {
+          "entity": "Matt Roy Shka",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum_party_members",
+          "amount": "2"
+        },
+        {
+          "kind": "requester_role",
+          "condition": "Party leader creates the instance."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Matt Roy Shka",
+          "options": [
+            {
+              "text": "Accept Admission",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_instance",
+          "entity": "Matt Roy Shka"
+        }
+      ],
+      "protected_names": [
+        "Matt Roy Shka",
+        "Geffen Tower",
+        "geffen"
+      ],
+      "locations": [
+        {
+          "map": "geffen",
+          "x": 119,
+          "y": 99,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "geffen 119, 99"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "After the dungeon is created, speak to the NPC again to enter the dungeon. Note: A window will appear showing pertinent time limits for the dungeon. If it is closed, it can be opened again with with the shortcut Alt+B. Note 2 : There is a 2.5 hour time limit for completing the quest before the instance is destroyed.",
+      "instruction_sha256": "a5953665f15cd6a27a6225239b483b73480780ad632db842b56b36d5acc497e9",
+      "step_id": "irowiki-classic:Nidhoggur's_Nest/step/a5953665f15cd6a27a62/1",
+      "goal": "enter",
+      "short_ru": "Войдите через Matt Roy Shka; лимит — 2.5 часа, таймер — Alt+B.",
+      "short_en": "Enter through Matt Roy Shka; limit is 2.5 hours, timer is Alt+B.",
+      "full_ru": "После создания подземелья снова поговорите с NPC и войдите. Окно таймеров открывается сочетанием Alt+B. Примечание 2: на прохождение отведено 2.5 часа, затем инстанс уничтожается.",
+      "full_en": "After the dungeon is created, speak to the NPC again to enter the dungeon. Note: A window will appear showing pertinent time limits for the dungeon. If it is closed, it can be opened again with with the shortcut Alt+B. Note 2 : There is a 2.5 hour time limit for completing the quest before the instance is destroyed.",
+      "npcs": [
+        {
+          "entity": "Matt Roy Shka",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "With 2 or more people in your Party , the party leader must speak with Matt Roy Shka outside the Geffen Tower at (geffen 119, 99) and \"Accept Admission\"."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "instance_duration_hours",
+          "amount": "2.5"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_instance",
+          "entity": "Matt Roy Shka"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Speak to the Murdered Yggdrasilid near the center of the main room. (213,277)",
+      "instruction_sha256": "75e87c0de1d32f17ef3d539c31b4b252da84d016e6733cdc85ad980ae6a84276",
+      "step_id": "irowiki-classic:Nidhoggur's_Nest/step/75e87c0de1d32f17ef3d/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Murdered Yggdrasilid (213,277).",
+      "short_en": "Talk to Murdered Yggdrasilid (213,277).",
+      "full_ru": "В центре главного зала поговорите с Murdered Yggdrasilid (213,277).",
+      "full_en": "Speak to the Murdered Yggdrasilid near the center of the main room. (213,277)",
+      "npcs": [
+        {
+          "entity": "Murdered Yggdrasilid",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Murdered Yggdrasilid"
+        }
+      ],
+      "protected_names": [
+        "Murdered Yggdrasilid"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 213,
+          "y": 277,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "213,277"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Kill 12 monsters named \"Nidhoggur's Guardian\". (Phylla Guardian: red, Rhyncho Guardian: green, yggdrasilid npc : yellow)",
+      "instruction_sha256": "8d3ba3c7e9e193b9c7977219db7fd224e472015331594af6042b4c4fc2bd88e0",
+      "step_id": "irowiki-classic:Nidhoggur's_Nest/step/8d3ba3c7e9e193b9c797/1",
+      "goal": "kill",
+      "short_ru": "Убейте 12 Nidhoggur's Guardian всего, а не по 12 каждого типа.",
+      "short_en": "Kill 12 Nidhoggur's Guardian in total, not 12 of each type.",
+      "full_ru": "Убейте 12 монстров с именем Nidhoggur's Guardian. На схеме Phylla Guardian обозначены красным, Rhyncho Guardian — зелёным, а yggdrasilid npc — жёлтым.",
+      "full_en": "Kill 12 monsters named \"Nidhoggur's Guardian\". (Phylla Guardian: red, Rhyncho Guardian: green, yggdrasilid npc : yellow)",
+      "monsters": [
+        {
+          "entity": "Nidhoggur's Guardian",
+          "quantity": 12,
+          "operation": "kill",
+          "required": 1,
+          "condition": "Collective total, not twelve of each type."
+        },
+        {
+          "entity": "Phylla Guardian",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "Rhyncho Guardian",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill_guardian_total",
+          "entity": "Nidhoggur's Guardian"
+        }
+      ],
+      "protected_names": [
+        "Nidhoggur's Guardian",
+        "Phylla Guardian",
+        "Rhyncho Guardian",
+        "Phylla"
+      ],
+      "locations": [],
+      "requirements": [
+        {
+          "kind": "monster_type_reference",
+          "entity": "Phylla Guardian",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_type_reference",
+          "entity": "Rhyncho Guardian",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Go to floor 2 via the portal at the north end of the room. Note : If you get disconnected at anytime after going to the 2nd floor, you will be unable to re-enter the instance until the cool down has expired. Shortest path through the maze",
+      "instruction_sha256": "14b6e7fcff695f6d585065dfadabae2a51ea3de315eb1393f458ed9b570fdb7b",
+      "step_id": "irowiki-classic:Nidhoggur's_Nest/step/14b6e7fcff695f6d5850/1",
+      "goal": "travel",
+      "short_ru": "Пройдите на 2-й этаж; после перехода на 2-й этаж отключение блокирует повторный вход до cooldown.",
+      "short_en": "Go to floor 2; after reaching floor 2, disconnection blocks re-entry until cooldown ends.",
+      "full_ru": "Идите на 2-й этаж через северный портал. После попадания на 2-й этаж разрыв соединения не позволит вернуться в инстанс до окончания cooldown. Источник ссылается на схему кратчайшего пути через лабиринт.",
+      "full_en": "Go to floor 2 via the portal at the north end of the room. Note : If you get disconnected at anytime after going to the 2nd floor, you will be unable to re-enter the instance until the cool down has expired. Shortest path through the maze",
+      "requirements": [
+        {
+          "kind": "disconnect_reentry_block_from_floor",
+          "amount": "2",
+          "condition": "After reaching floor two; until cooldown expires."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "go_to_second_floor"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "maze_image_unbound",
+          "detail": "Source refers to an unbound shortest-path image; no invented route coordinates or licensed image are provided."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Work your way through a short maze.",
+      "instruction_sha256": "1cd6ea2b00eb36dfd6598e779b41401a31a17a608755d2b5964119443cb9e0be",
+      "step_id": "irowiki-classic:Nidhoggur's_Nest/step/1cd6ea2b00eb36dfd659/1",
+      "goal": "navigate",
+      "short_ru": "Пройдите лабиринт.",
+      "short_en": "Work through the maze.",
+      "full_ru": "Пройдите короткий лабиринт.",
+      "full_en": "Work your way through a short maze.",
+      "actions": [
+        {
+          "operation": "navigate_maze"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "At the end of the maze, you will warp to the boss room. Once the party leader steps forward Nidhoggur's Shadow will spawn at the center of the room.",
+      "instruction_sha256": "2dc5ef4ddb1ddfd3f2cfdcf8b41c56d945d389277ab187829dfc55a9b8a94e51",
+      "step_id": "irowiki-classic:Nidhoggur's_Nest/step/2dc5ef4ddb1ddfd3f2cf/1",
+      "goal": "summon",
+      "short_ru": "Лидер должен шагнуть вперёд, чтобы появился Nidhoggur's Shadow.",
+      "short_en": "The leader must step forward to spawn Nidhoggur's Shadow.",
+      "full_ru": "В конце лабиринта вас перенесёт в зал босса. Когда лидер шагнёт вперёд, в центре появится Nidhoggur's Shadow.",
+      "full_en": "At the end of the maze, you will warp to the boss room. Once the party leader steps forward Nidhoggur's Shadow will spawn at the center of the room.",
+      "monsters": [
+        {
+          "entity": "Nidhoggur's Shadow",
+          "quantity": null,
+          "operation": "mention",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "leader_steps_forward"
+        },
+        {
+          "operation": "summon",
+          "entity": "Nidhoggur's Shadow"
+        }
+      ],
+      "protected_names": [
+        "Nidhoggur's Shadow"
+      ],
+      "locations": [],
+      "requirements": [
+        {
+          "kind": "monster_spawn",
+          "entity": "Nidhoggur's Shadow",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        }
+      ]
+    },
+    "8": {
+      "original_instruction": "Approximately every 3 min while fighting Nidhoggur's Shadow, the entire party will be warped to 1 of 4 side rooms. They will receive several Status Effects that last for 30 seconds and ignore all resistances/immunities. 3 Ryncho and 2 Phylla will spawn in the side room with the party, they must be defeated before the party can leave the room. Southwest ( red ) room: HP-75%, Bleeding Ailment (icon does not show) Northwest ( blue ) room: HP-50%, Frozen Ailment Southeast ( yellow ) room: SP-50%, Sleep and Chaos Ailments Northeast ( green ) room: HP-25%(?), SP-50%, Poison Aliment Note : The monsters are able to leave the room before they party is, which makes them impossible to be killed. Be sure not to let this happen. Players will not be able to enter another Nidhoggur's Nest instance until after three days .",
+      "instruction_sha256": "aaee220641b143eadbbce770e92b06518445727bd6d3f4b253e6b4eb48ecaeea",
+      "step_id": "irowiki-classic:Nidhoggur's_Nest/step/aaee220641b143eadbbc/1",
+      "goal": "fight",
+      "short_ru": "При переносе убейте 3 Ryncho и 2 Phylla; эффекты длятся 30 секунд, перенос — примерно каждые 3 мин.",
+      "short_en": "On each warp, kill 3 Ryncho and 2 Phylla; effects last 30 seconds, warps occur roughly every 3 min.",
+      "full_ru": "Примерно каждые 3 мин боя с Nidhoggur's Shadow всю группу переносит в 1 из 4 боковых комнат. Эффекты длятся 30 секунд и игнорируют сопротивления и иммунитеты. Появятся 3 Ryncho и 2 Phylla; их нужно убить до выхода. Southwest (red): HP-75%, Bleeding Ailment, значок не показывается. Northwest (blue): HP-50%, Frozen Ailment. Southeast (yellow): SP-50%, Sleep и Chaos Ailments. Northeast (green): HP-25%(?), SP-50%, Poison Aliment. Не выпускайте монстров из комнаты раньше группы, иначе их невозможно будет добить. В другой Nidhoggur's Nest нельзя войти до истечения трёх дней.",
+      "full_en": "Approximately every 3 min while fighting Nidhoggur's Shadow, the entire party will be warped to 1 of 4 side rooms. They will receive several Status Effects that last for 30 seconds and ignore all resistances/immunities. 3 Ryncho and 2 Phylla will spawn in the side room with the party, they must be defeated before the party can leave the room. Southwest ( red ) room: HP-75%, Bleeding Ailment (icon does not show) Northwest ( blue ) room: HP-50%, Frozen Ailment Southeast ( yellow ) room: SP-50%, Sleep and Chaos Ailments Northeast ( green ) room: HP-25%(?), SP-50%, Poison Aliment Note : The monsters are able to leave the room before they party is, which makes them impossible to be killed. Be sure not to let this happen. Players will not be able to enter another Nidhoggur's Nest instance until after three days .",
+      "monsters": [
+        {
+          "entity": "Nidhoggur's Shadow",
+          "quantity": null,
+          "operation": "mention",
+          "required": 1
+        },
+        {
+          "entity": "Ryncho",
+          "quantity": 3,
+          "operation": "kill",
+          "required": 1,
+          "condition": "Per side-room visit; whole-fight total unknown."
+        },
+        {
+          "entity": "Phylla",
+          "quantity": 2,
+          "operation": "kill",
+          "required": 1,
+          "condition": "Per side-room visit, not a one-time whole-instance quota."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "side_room_interval_minutes_approx",
+          "amount": "3"
+        },
+        {
+          "kind": "side_room_effect_duration_seconds",
+          "amount": "30"
+        },
+        {
+          "kind": "instance_reentry_cooldown_days",
+          "amount": "3",
+          "condition": "Distinct from the 2.5-hour instance duration."
+        },
+        {
+          "kind": "monster_fight",
+          "entity": "Nidhoggur's Shadow",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "fight",
+          "entity": "Nidhoggur's Shadow"
+        },
+        {
+          "operation": "clear_current_side_room",
+          "condition": "Do not let monsters escape before the party."
+        }
+      ],
+      "protected_names": [
+        "Nidhoggur's Shadow",
+        "Ryncho",
+        "Phylla"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "southwest",
+          "choice_group": "current_side_room",
+          "variant_scope": "Pinned source variant; server applicability unverified",
+          "condition": "One room per warp; different visits may choose different rooms, not a permanent route.",
+          "section": "",
+          "original_instruction": "Southwest ( red ) room: HP-75%, Bleeding Ailment (icon does not show)",
+          "instruction_sha256": "9de981834b3349232cc254aaf665e69c96a006ff628ba0b4ca77671c4256eb38",
+          "short_ru": "Southwest (red): HP-75%, Bleeding Ailment; значок не показывается.",
+          "short_en": "Southwest ( red ) room: HP-75%, Bleeding Ailment (icon does not show)",
+          "full_ru": "Southwest (red): HP-75%, Bleeding Ailment; значок не показывается.",
+          "full_en": "Southwest ( red ) room: HP-75%, Bleeding Ailment (icon does not show)",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "hp_loss_percent",
+              "amount": "75"
+            },
+            {
+              "kind": "applied_status",
+              "condition": "Bleeding Ailment; icon absent."
+            }
+          ]
+        },
+        {
+          "key": "northwest",
+          "choice_group": "current_side_room",
+          "variant_scope": "Pinned source variant; server applicability unverified",
+          "condition": "One room per warp; different visits may choose different rooms, not a permanent route.",
+          "section": "",
+          "original_instruction": "Northwest ( blue ) room: HP-50%, Frozen Ailment",
+          "instruction_sha256": "d78cee2be04da4aebc1fde2409a446a323fa8ef1fcd8474be2c4abebf36e43ad",
+          "short_ru": "Northwest (blue): HP-50%, Frozen Ailment.",
+          "short_en": "Northwest ( blue ) room: HP-50%, Frozen Ailment",
+          "full_ru": "Northwest (blue): HP-50%, Frozen Ailment.",
+          "full_en": "Northwest ( blue ) room: HP-50%, Frozen Ailment",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "hp_loss_percent",
+              "amount": "50"
+            },
+            {
+              "kind": "applied_status",
+              "condition": "Frozen Ailment"
+            }
+          ]
+        },
+        {
+          "key": "southeast",
+          "choice_group": "current_side_room",
+          "variant_scope": "Pinned source variant; server applicability unverified",
+          "condition": "One room per warp; different visits may choose different rooms, not a permanent route.",
+          "section": "",
+          "original_instruction": "Southeast ( yellow ) room: SP-50%, Sleep and Chaos Ailments",
+          "instruction_sha256": "2eeeb16b9809f2212f7219211b237d7a12a0f4f8e4898a3952020d40a9f9de8c",
+          "short_ru": "Southeast (yellow): SP-50%, Sleep и Chaos Ailments.",
+          "short_en": "Southeast ( yellow ) room: SP-50%, Sleep and Chaos Ailments",
+          "full_ru": "Southeast (yellow): SP-50%, Sleep и Chaos Ailments.",
+          "full_en": "Southeast ( yellow ) room: SP-50%, Sleep and Chaos Ailments",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "sp_loss_percent",
+              "amount": "50"
+            },
+            {
+              "kind": "applied_status",
+              "condition": "Sleep and Chaos Ailments"
+            }
+          ]
+        },
+        {
+          "key": "northeast",
+          "choice_group": "current_side_room",
+          "variant_scope": "Pinned source variant; server applicability unverified",
+          "condition": "One room per warp; different visits may choose different rooms, not a permanent route.",
+          "section": "",
+          "original_instruction": "Northeast ( green ) room: HP-25%(?), SP-50%, Poison Aliment",
+          "instruction_sha256": "379859bb720abb74f0e6166cf793417d48fffddcacb2676a04e21f85f907c437",
+          "short_ru": "Northeast (green): HP-25%(?), SP-50%, Poison Aliment.",
+          "short_en": "Northeast ( green ) room: HP-25%(?), SP-50%, Poison Aliment",
+          "full_ru": "Northeast (green): HP-25%(?), SP-50%, Poison Aliment.",
+          "full_en": "Northeast ( green ) room: HP-25%(?), SP-50%, Poison Aliment",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "source_uncertain_hp_loss",
+              "condition": "Source HP-25%(?) is uncertain, not an asserted numeric loss."
+            },
+            {
+              "kind": "sp_loss_percent",
+              "amount": "50"
+            },
+            {
+              "kind": "applied_status",
+              "condition": "Poison Aliment"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "source_geffen_entry_variant",
+      "detail": "Pinned Classic source says Matt Roy Shka at geffen 119,99 and prerequisites None. Do not import Guardian of Yggdrasil entry conditions from another variant."
+    },
+    {
+      "reason": "guardian_types_and_spelling_unverified",
+      "detail": "Twelve guardians is a collective count. Guardian forms and side-room Ryncho/Phylla have no verified IDs here; spelling and normal/guardian identities are not merged."
+    },
+    {
+      "reason": "side_room_hp_uncertain_and_repeat_counts_unknown",
+      "detail": "Northeast HP-25%(?) remains uncertain; three Ryncho and two Phylla are per visit, with no invented total number of visits."
+    }
+  ]
+}

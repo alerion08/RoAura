@@ -16,7 +16,7 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-5.3.0'
+VERSION = 'semantic-5.4.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
@@ -24,7 +24,7 @@ ROUTE_SCHEMA = ROOT/'migrations/004_quest_routes.sql'
 PREREQUISITE_SCHEMA = ROOT/'migrations/005_prerequisite_groups.sql'
 SCHEMA_VERSION = 5
 FIELDS = ('short_ru','short_en','full_ru','full_en')
-MAP_COORD = re.compile(r'\b([a-zA-Z][a-zA-Z0-9_]{2,24})\s*(?:\)\)?\s*:\s*|[, ]?\s*\(?\s*)(\d{1,3})\s*(?:,\s*|\s+)(\d{1,3})(?!\d)')
+MAP_COORD = re.compile(r'(?<![\w@])(\d{1,3}@[a-zA-Z][a-zA-Z0-9_]{1,23}|[a-zA-Z][a-zA-Z0-9_]{2,24})(?=\s|[,():])\s*(?:\)\)?\s*:\s*|[, ]?\s*\(?\s*)(\d{1,3})\s*(?:,\s*|\s+)(\d{1,3})(?!\d)')
 BARE_COORD = re.compile(r'(?<![\d,])\b(\d{1,3})\s*,\s*(\d{1,3})(?![\d,])')
 PRONOUN = re.compile(r'\b(?:return to|talk (?:with|to)|give|bring)\s+(?:him|her|them|the same NPC)\b',re.I)
 ACTION = re.compile(r'\b(talk|speak|return|give|bring|collect|kill|choose|select|buy|use|receive|go|walk|find|show|check)\b', re.I)
@@ -49,7 +49,8 @@ def coordinates(text, known):
         name,x,y=m[1],int(m[2]),int(m[3])
         # Capitalized town labels are not silently normalized to map codes.
         known_code = name in known
-        explicit_code = '_' in name and bool(re.search(r'\b(at|in|to|inside|visit|enter)\s*\(?\s*$',text[max(0,m.start()-35):m.start()],re.I))
+        instance_code = bool(re.fullmatch(r'\d{1,3}@[a-zA-Z][a-zA-Z0-9_]{1,23}',name))
+        explicit_code = instance_code or ('_' in name and bool(re.search(r'\b(at|in|to|inside|visit|enter)\s*\(?\s*$',text[max(0,m.start()-35):m.start()],re.I)))
         if (known_code or explicit_code) and 0<=x<=400 and 0<=y<=400:
             matches.append({'map':name,'x':x,'y':y,'start':m.start(),'end':m.end(),
                             'snippet':m[0],'known':known_code})
@@ -104,7 +105,7 @@ class Writer:
 
     def add(self,table,**row):
         cols=','.join(row); placeholders=','.join('?' for _ in row)
-        self.db.execute(f'INSERT OR IGNORE INTO {table}({cols}) VALUES({placeholders})',tuple(row.values()))
+        self.db.execute(f'INSERT INTO {table}({cols}) VALUES({placeholders}) ON CONFLICT DO NOTHING',tuple(row.values()))
 
     def evidence(self,snippet,method='literal_guide',status='source_literal',note=None,source=None,step=None):
         src=source or self.src; sid=self.sid if step is None else step
@@ -185,7 +186,16 @@ def validate_curation(curation, page, steps, snapshot):
 def mention_entities(w, entities, surfaces, entry):
     """Same-spelling NPCs require an explicit per-step choice, never first-match wins."""
     result={}
+    excluded=(entry or {}).get('non_entity_mentions',{})
+    if not isinstance(excluded,dict):raise ValueError('Invalid non-entity mention review')
+    for name,reason in excluded.items():
+        if name not in surfaces or not isinstance(reason,str) or not reason.strip():
+            raise ValueError('Non-entity mention needs a known surface and review reason')
+        if name in (entry or {}).get('mention_entities',{}):raise ValueError('Conflicting mention selection and exclusion')
+        pattern=r'(?<!\w)'+re.escape(name)+r'(?!\w)'
+        if not any(re.search(pattern,entry[field]) for field in FIELDS):raise ValueError('Unused non-entity mention review')
     for name,refs in surfaces.items():
+        if name in excluded:continue
         choices={entities[ref] for ref in refs}
         selected=(entry or {}).get('mention_entities',{}).get(name)
         if selected is not None:
@@ -292,10 +302,14 @@ def curated_facts(w,entry,entities,ev,source_sections=None,html_source=None,bran
         if isinstance(f,str):f={'entity':f,'role':'talk'}
         w.add('step_npcs',step_id=w.sid,npc_id=entity(f['entity']),role=f['role'],evidence_id=evidence_for(f))
     for i,f in enumerate(entry.get('items',[])):
+        if f['operation'] not in ('collect','bring','deliver','buy','use','consume','possess','show','decline','mention'):
+            raise ValueError('Unsupported curated item operation: '+f['operation'])
         w.add('step_items',fact_id=stable('item_fact',scope,i),step_id=w.sid,item_id=entity(f['entity']),branch_id=branch_id,
               operation=f['operation'],quantity=f.get('quantity'),required=f.get('required'),
               condition_text=f.get('condition'),evidence_id=evidence_for(f))
     for i,f in enumerate(entry.get('monsters',[])):
+        if f['operation'] not in ('kill','loot_source','mention'):
+            raise ValueError('Unsupported curated monster operation: '+f['operation'])
         w.add('step_monsters',fact_id=stable('monster_fact',scope,i),step_id=w.sid,monster_id=entity(f['entity']),branch_id=branch_id,
               operation=f['operation'],quantity=f.get('quantity'),required=f.get('required'),
               condition_text=f.get('condition'),evidence_id=evidence_for(f))

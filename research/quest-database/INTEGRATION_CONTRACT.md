@@ -19,6 +19,20 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   explicitly pinned and must be preserved during approved source revisions.
 - `entities` plus `npcs`/`maps`/`items`/`monsters` provide typed IDs. Unknown game
   IDs are NULL. Same spelling is not sufficient to merge NPC identities.
+- Curation `non_entity_mentions` suppresses a reviewed surface throughout one
+  entry when it names an organization/quest rather than a catalog entity. A
+  reason and actual matching text are required; it cannot conflict with
+  `mention_entities`. This controls stored spans, not UI keyword matching.
+- Literal instance map codes can include a numeric floor and `@`. Recognition
+  does not imply the map exists in the sampled emulator or selected server.
+- Supplemental typed requirements such as `monster_population`,
+  `monster_spawn` and `item_disabled` describe context, not compulsory player
+  costs. Companion item/monster relations use schema-supported operations;
+  unsupported curated operations stop the build rather than disappearing.
+- Dungeon population, conditional extra spawns and per-visit combat counts
+  are distinct from total kill objectives. Timers retain their typed scope;
+  crafting-route costs are not entrance requirements. Read source-variant
+  warnings and uncertainty before offering server-specific directions.
 - `step_descriptions` holds four independent fields. `description_mentions`
   uses half-open Unicode code-point offsets `[start_offset, end_offset)` in
   the indicated field, not UTF-16 offsets or byte indices. A future C# reader

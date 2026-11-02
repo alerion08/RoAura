@@ -16,11 +16,11 @@ reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
-generator **semantic-5.3.0**. All four description fields are populated for
-**670 steps across 46 curated guides**, up from the previous 43-guide/632-step
-checkpoint. **64 conditional branches** also have independent RU/EN short and
-full descriptions. Seven quest routes represent two exclusive expedition paths
-and five conditional/optional activities. **2,080 steps in 170 remaining catalog entries still lack
+generator **semantic-5.4.0**. All four description fields are populated for
+**712 steps across 50 curated guides**, up from the previous 46-guide/670-step
+checkpoint. **75 conditional branches** also have independent RU/EN short and
+full descriptions. Eight quest routes represent two exclusive expedition paths
+and six conditional/optional activities. **2,038 steps in 166 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -71,6 +71,10 @@ complete localization/context analysis.** `complete` remains false.
 | Shadow Quest (Rekenber Job Quest) | 17 | Alternative guard sequences; wrong return answer; work versus quest-log gate; two attack counts; final flashback after reward |
 | Lovers Quest | 9 | Two independent level-band payouts; 40 Coal in four batches; player-specific name input; unknown random ore category |
 | Juno Remedy Quest | 12 | Five Bingo participants without winning; shared captain identity; contextual scene location; one rune set and header-evidenced final EXP |
+| Continental Guard Quest | 8 | Classic availability warning; restored boss tables; accessory choice; skin eligibility outside killing party |
+| Nidhoggur's Nest | 8 | Source Geffen entry; collective guardian count; per-visit side rooms; uncertain HP effect; distinct timers |
+| Sealed Shrine Quest | 12 | Leader/returner roles; population versus kills; seal timing; optional crafting route |
+| Orc Memory Dungeon | 14 | Literal instance maps; ordered braziers; lookalikes versus objectives; conditional spawns and cleanup |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -78,6 +82,52 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Writer conflict handling ignores duplicate keys only; CHECK/NOT NULL errors
+  cannot silently discard facts. Curated item/monster operations are checked
+  against schema-supported values. Context roles such as monster_population,
+  monster_spawn and item_disabled use typed requirements alongside supported
+  mention/loot-source/delivery relations. The old Shadow cargo item relation
+  now uses mention while its inspect action preserves the exact role.
+
+- Four access/instance guides retain all 42 archived stages and add eleven
+  localized branches. Semantic schema remains 5; generator is semantic-5.4.0.
+  Literal instance map codes (1@orcs/2@orcs) preserve their floor and spelling,
+  with false reference-known status when absent from the sampled scripts.
+  Email suffixes and missing separators do not create navigation targets.
+- `non_entity_mentions` is a reviewed per-entry surface exclusion, with a
+  mandatory reason. It prevents Continental Guard as an organization/quest
+  label from becoming a false NPC span, while keeping the actual NPC and
+  longer item labels typed. Unknown, unused or conflicting exclusions fail.
+- Continental Guard retains its pinned unimplemented/Classic-replacement
+  notice. The notice is not a universal archived-event classification or a
+  prerequisite imported into this guide. Seven combat tables omitted by the
+  old extractor are restored as ordered bilingual source additions. Boss HP
+  phases, skill levels and accessory bonuses are not player/item requirements.
+  One accessory choice and one EXP payout are distinct; any map occupant may
+  collect the skin even outside the killing party. Injured boss ID is unknown.
+- Nidhoggur's Nest keeps its source-specific Geffen/Matt Roy Shka entrance
+  and None prerequisite header. Twelve guardians are a collective objective;
+  three Ryncho/two Phylla are per side-room visit, with no fixed fight total.
+  Four room branches are selected per visit. Northeast HP-25%(?) stays
+  uncertain. Instance duration, approximate room interval, status duration and
+  three-day re-entry cooldown retain separate typed facts.
+- Sealed Shrine separates leader-only pendant/fire tasks, role-conditional
+  tokens, respawning population (not kill quotas), entry/return/task/instance
+  timers and creation cooldown. The source permits joining another eligible
+  leader. Seal rotation and independent area-reset timing are explicit. The
+  undated center-seal note is not universal server verification. Rewards
+  stages 11–12 are an optional crafting route; 990000 Zeny and materials are
+  not entry costs. Linked Baphomet Horns and the unlinked Giant Majestic Goat
+  output retain their source names; no guaranteed doll drop or output ID is
+  invented.
+- Orc Memory retains four ordered first-floor targets and three four-brazier
+  sequences with context-backed map inheritance. Lookalike Orc Warriors are
+  not the unverified-ID Enchanted Orc. Full clears/extra spawns are conditional
+  and thresholds unknown. Two-hour duration and repeat cooldown are distinct;
+  the latter is restored from the pinned notice. Depraved Orc Hero is not
+  silently aliased to the cleanup exception Orc Hero. No payout is invented.
+
 
 - Three further Schwartzvald/airship story guides preserve all 38 original
   stages and add fourteen localized branches. Shadow's guard test offers
@@ -375,7 +425,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **168 tests passed**; complete offline enrichment passed;
+Validated locally: **182 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -424,7 +474,7 @@ command above; partial files from failed local attempts are never published.
 
 ## Next work, in order
 
-1. Review the remaining 170 catalog candidates, separating reference pages,
+1. Review the remaining 166 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

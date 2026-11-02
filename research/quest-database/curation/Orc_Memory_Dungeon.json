@@ -1,0 +1,1225 @@
+{
+  "quest_id": "irowiki-classic:Orc_Memory_Dungeon",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "89770f1fe1cccb458ceb5a8de2e7ec7199cfd61afb868354afd57a9bf1cde044",
+  "snapshot_sha256": "a09f83e810dfd648d7c423a02eac6e526954d02cd1a84ae5caf0b8d6eae8356e",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Dimensional Gorge Piece"
+    },
+    {
+      "type": "npc",
+      "name": "Kruger"
+    },
+    {
+      "type": "npc",
+      "name": "Braziers"
+    },
+    {
+      "type": "map",
+      "name": "gef_fild10",
+      "map_code": "gef_fild10"
+    },
+    {
+      "type": "map",
+      "name": "1@orcs",
+      "map_code": "1@orcs"
+    },
+    {
+      "type": "map",
+      "name": "2@orcs",
+      "map_code": "2@orcs"
+    },
+    {
+      "type": "monster",
+      "name": "Enchanted Orc",
+      "aliases": [
+        "Enchanted Orcs"
+      ]
+    },
+    {
+      "type": "monster",
+      "name": "Orc Warriors",
+      "game_id": 1023,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1023/"
+    },
+    {
+      "type": "monster",
+      "name": "High Orc",
+      "game_id": 1213,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1213/"
+    },
+    {
+      "type": "monster",
+      "name": "Stalatic Golem",
+      "game_id": 1278,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1278/"
+    },
+    {
+      "type": "monster",
+      "name": "Wraiths",
+      "game_id": 1192,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1192/"
+    },
+    {
+      "type": "monster",
+      "name": "Orc Zombie",
+      "game_id": 1153,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1153/"
+    },
+    {
+      "type": "monster",
+      "name": "Orc Archer",
+      "game_id": 1189,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1189/"
+    },
+    {
+      "type": "monster",
+      "name": "Orc Skeleton",
+      "game_id": 1152,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1152/"
+    },
+    {
+      "type": "monster",
+      "name": "The Chief Orc of Safeguards"
+    },
+    {
+      "type": "monster",
+      "name": "Orc Sniper"
+    },
+    {
+      "type": "monster",
+      "name": "Depraved Vengeful Orc Spirit"
+    },
+    {
+      "type": "monster",
+      "name": "Depraved Orc Hero"
+    },
+    {
+      "type": "monster",
+      "name": "Shaman Cargalache"
+    },
+    {
+      "type": "monster",
+      "name": "Anophles"
+    },
+    {
+      "type": "monster",
+      "name": "Orc Hero",
+      "game_id": 1087,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1087/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "With 2 or more people in your Party , the party leader needs speak with Dimensional Gorge Piece (gef_fild10 242, 202) to \"Reserve the Orc's Memory\".",
+      "instruction_sha256": "848d40f2eb6bb4ea02ccc8430806a2bdf492618ea25f31398af9dd184bd4606e",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/848d40f2eb6bb4ea02cc/1",
+      "goal": "create_instance",
+      "short_ru": "Лидер группы от 2 человек: Dimensional Gorge Piece, gef_fild10 242, 202 → «Reserve the Orc's Memory».",
+      "short_en": "Party leader with at least 2 members: Dimensional Gorge Piece, gef_fild10 242, 202 → “Reserve the Orc's Memory”.",
+      "full_ru": "В группе из 2 или более человек лидер должен поговорить с Dimensional Gorge Piece (gef_fild10 242, 202) и выбрать «Reserve the Orc's Memory».",
+      "full_en": "With 2 or more people in your Party , the party leader needs speak with Dimensional Gorge Piece (gef_fild10 242, 202) to \"Reserve the Orc's Memory\".",
+      "npcs": [
+        {
+          "entity": "Dimensional Gorge Piece",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "minimum_party_members",
+          "amount": "2"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Dimensional Gorge Piece",
+          "options": [
+            {
+              "text": "Reserve the Orc's Memory",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_instance",
+          "entity": "Dimensional Gorge Piece"
+        }
+      ],
+      "protected_names": [
+        "Dimensional Gorge Piece",
+        "gef_fild10"
+      ],
+      "locations": [
+        {
+          "map": "gef_fild10",
+          "x": 242,
+          "y": 202,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "gef_fild10 242, 202"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "After the dungeon is created, speak to the Dimensional Gorge Piece to \"Enter the Dungeon\". Note: A window will appear showing pertinent time limits for the dungeon. If it is closed, it can be opened again with with the shortcut Alt+B. Note 2 : There is a 2 hour time limit for completing the quest before the instance is destroyed.",
+      "instruction_sha256": "5a1e1f596e360e80eb11c48dd9be861af9f6a9d460d3bb4d44a64fa20b6f06f9",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/5a1e1f596e360e80eb11/1",
+      "goal": "enter",
+      "short_ru": "Dimensional Gorge Piece → «Enter the Dungeon»; лимит — 2 часа, таймер — Alt+B.",
+      "short_en": "Dimensional Gorge Piece → “Enter the Dungeon”; limit is 2 hours, timer is Alt+B.",
+      "full_ru": "После создания подземелья поговорите с Dimensional Gorge Piece и выберите «Enter the Dungeon». Окно таймеров открывается через Alt+B. Примечание 2: на прохождение отведено 2 часа, затем инстанс уничтожается. Период повторного входа этого квеста/инстанса составляет два (2) часа.",
+      "full_en": "After the dungeon is created, speak to the Dimensional Gorge Piece to \"Enter the Dungeon\". Note: A window will appear showing pertinent time limits for the dungeon. If it is closed, it can be opened again with with the shortcut Alt+B. Note 2 : There is a 2 hour time limit for completing the quest before the instance is destroyed. This quest or instance has a two (2) hour cooldown period.",
+      "npcs": [
+        {
+          "entity": "Dimensional Gorge Piece",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "instance_duration_hours",
+          "amount": "2"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Dimensional Gorge Piece",
+          "options": [
+            {
+              "text": "Enter the Dungeon",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_instance",
+          "entity": "Dimensional Gorge Piece"
+        }
+      ],
+      "protected_names": [
+        "Dimensional Gorge Piece"
+      ],
+      "locations": [],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "This quest or instance has a two (2) hour cooldown period.",
+          "text_ru": "Период повторного входа этого квеста/инстанса составляет два (2) часа."
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Once inside, the party leader must speak to Kruger (1@orcs 180,29) to start the instance. Enchanted Orcs shown in blue",
+      "instruction_sha256": "4f1bc0c49b68fa74c471722f693f501c7f0d34563ed4cc0497d920967613c571",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/4f1bc0c49b68fa74c471/1",
+      "goal": "talk",
+      "short_ru": "Лидер: поговорите с Kruger, 1@orcs 180,29.",
+      "short_en": "Leader: talk to Kruger, 1@orcs 180,29.",
+      "full_ru": "Внутри лидер должен поговорить с Kruger (1@orcs 180,29), чтобы начать инстанс. На схеме Enchanted Orcs отмечены синим.",
+      "full_en": "Once inside, the party leader must speak to Kruger (1@orcs 180,29) to start the instance. Enchanted Orcs shown in blue",
+      "npcs": [
+        {
+          "entity": "Kruger",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "leader_talk",
+          "entity": "Kruger"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "1@orcs",
+          "x": 180,
+          "y": 29,
+          "role": "npc",
+          "known": false
+        }
+      ],
+      "protected_names": [
+        "Kruger",
+        "1@orcs",
+        "Enchanted Orc"
+      ]
+    },
+    "4": {
+      "original_instruction": "To pass each zone on the first map, you must kill the Enchanted Orc in that zone (Enchanted Orcs are identical to Orc Warriors ). Kruger explains that each non-enchanted orc you kill will cause a High Orc to spawn near the exit. Depending on the challenge you wish to face, you may kill only the Enchanted Orc, or instead kill everything. If enough Orcs are killed, a large mob of Stalatic Golem will spawn at the end of the 4th zone.",
+      "instruction_sha256": "0d45dd63c222f38603c1a620891163dc3a0ba20a8455721122fdf34675e46054",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/0d45dd63c222f38603c1/1",
+      "goal": "kill",
+      "short_ru": "Убивайте Enchanted Orc в каждой зоне; лишние убийства вызывают High Orc и могут вызвать Stalatic Golem.",
+      "short_en": "Kill Enchanted Orc in each zone; extra kills spawn High Orc and may trigger Stalatic Golem.",
+      "full_ru": "Для прохода каждой зоны на первой карте нужно убить местного Enchanted Orc; внешне Enchanted Orcs совпадают с Orc Warriors. Kruger предупреждает: каждый убитый незачарованный орк вызывает High Orc у выхода. Можно убивать только Enchanted Orc либо всех противников ради сложности. Если орков убито достаточно, в конце 4-й зоны появится большая группа Stalatic Golem.",
+      "full_en": "To pass each zone on the first map, you must kill the Enchanted Orc in that zone (Enchanted Orcs are identical to Orc Warriors ). Kruger explains that each non-enchanted orc you kill will cause a High Orc to spawn near the exit. Depending on the challenge you wish to face, you may kill only the Enchanted Orc, or instead kill everything. If enough Orcs are killed, a large mob of Stalatic Golem will spawn at the end of the 4th zone.",
+      "npcs": [
+        {
+          "entity": "Kruger",
+          "role": "instruction_reference"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Enchanted Orc",
+          "quantity": null,
+          "operation": "mention",
+          "required": 1
+        },
+        {
+          "entity": "Orc Warriors",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "High Orc",
+          "quantity": 1,
+          "operation": "mention",
+          "required": 0,
+          "condition": "Extra spawn per non-enchanted orc killed, not a mandatory kill."
+        },
+        {
+          "entity": "Stalatic Golem",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0,
+          "condition": "Threshold and mob size unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill_zone_target",
+          "entity": "Enchanted Orc"
+        }
+      ],
+      "protected_names": [
+        "Kruger",
+        "Enchanted Orc",
+        "Orc Warriors",
+        "High Orc",
+        "Stalatic Golem"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "enchanted_only",
+          "choice_group": "first_floor_kill_style",
+          "variant_scope": "Pinned source variant; server applicability unverified",
+          "condition": "Minimal required targets.",
+          "section": "",
+          "original_instruction": "you may kill only the Enchanted Orc",
+          "instruction_sha256": "6d52fa06464620654d1d8c69b5697217274541a009ffb897cd7b9bae0c23654f",
+          "short_ru": "Убивайте только Enchanted Orc.",
+          "short_en": "Kill only the Enchanted Orc.",
+          "full_ru": "Можно убивать только Enchanted Orc.",
+          "full_en": "you may kill only the Enchanted Orc",
+          "protected_names": [
+            "Enchanted Orc"
+          ],
+          "actions": [
+            {
+              "operation": "kill_only_required_targets"
+            }
+          ]
+        },
+        {
+          "key": "all_enemies",
+          "choice_group": "first_floor_kill_style",
+          "variant_scope": "Pinned source variant; server applicability unverified",
+          "condition": "Optional harder approach with extra spawns.",
+          "section": "",
+          "original_instruction": "or instead kill everything.",
+          "instruction_sha256": "e536269d2b00e85d538d561dc0eb8a5577fb810de3b76a52e4ed384ed634757d",
+          "short_ru": "По желанию уничтожайте всех противников.",
+          "short_en": "Optionally kill all enemies.",
+          "full_ru": "Либо уничтожайте всех противников.",
+          "full_en": "or instead kill everything.",
+          "protected_names": [],
+          "actions": [
+            {
+              "operation": "optional_full_clear"
+            }
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "monster_progression_target",
+          "entity": "Enchanted Orc",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_appearance_reference",
+          "entity": "Orc Warriors",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_spawn_per_other_orc_kill",
+          "amount": "1",
+          "entity": "High Orc",
+          "condition": "Extra spawn per non-enchanted orc killed, not a mandatory kill."
+        },
+        {
+          "kind": "monster_threshold_spawn",
+          "entity": "Stalatic Golem",
+          "condition": "Threshold and mob size unknown."
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "The first Enchanted Orc spawns at (142, 87). Killing it opens a portal at (168, 125).",
+      "instruction_sha256": "5bc8b29f004b0b1a6468bd6151f9805433de8ec4df33dfa1cc386e3b66c9bd39",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/5bc8b29f004b0b1a6468/1",
+      "goal": "kill",
+      "short_ru": "Убейте Enchanted Orc (142, 87), затем войдите в портал (168, 125).",
+      "short_en": "Kill Enchanted Orc (142, 87), then enter the portal (168, 125).",
+      "full_ru": "Первый Enchanted Orc появляется (142, 87). После убийства откроется портал (168, 125).",
+      "full_en": "The first Enchanted Orc spawns at (142, 87). Killing it opens a portal at (168, 125).",
+      "monsters": [
+        {
+          "entity": "Enchanted Orc",
+          "quantity": 1,
+          "operation": "kill",
+          "required": 1,
+          "condition": "One required target in this zone, not a normal lookalike Orc Warrior."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "1@orcs",
+          "x": 142,
+          "y": 87,
+          "role": "enemy_spawn",
+          "known": false,
+          "order": 1,
+          "support_step": 3,
+          "evidence": "Once inside, the party leader must speak to Kruger (1@orcs 180,29) to start the instance. Enchanted Orcs shown in blue",
+          "condition": "Floor map inherited from stage 3."
+        },
+        {
+          "entity": "1@orcs",
+          "x": 168,
+          "y": 125,
+          "role": "opened_portal",
+          "known": false,
+          "order": 2,
+          "support_step": 3,
+          "evidence": "Once inside, the party leader must speak to Kruger (1@orcs 180,29) to start the instance. Enchanted Orcs shown in blue",
+          "condition": "Same floor; opens after target dies."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill",
+          "entity": "Enchanted Orc"
+        },
+        {
+          "operation": "enter_opened_portal"
+        }
+      ],
+      "protected_names": [
+        "Enchanted Orc"
+      ]
+    },
+    "6": {
+      "original_instruction": "The second Enchanted Orc spawns near (106, 108). Killing it opens a portal at (89, 94).",
+      "instruction_sha256": "b14ebfc9d626f3af8f395843816ac428d28d2a2082481164228bd97b23b96136",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/b14ebfc9d626f3af8f39/1",
+      "goal": "kill",
+      "short_ru": "Убейте Enchanted Orc (106, 108), затем войдите в портал (89, 94).",
+      "short_en": "Kill Enchanted Orc (106, 108), then enter the portal (89, 94).",
+      "full_ru": "Второй Enchanted Orc появляется около (106, 108). После убийства откроется портал (89, 94).",
+      "full_en": "The second Enchanted Orc spawns near (106, 108). Killing it opens a portal at (89, 94).",
+      "monsters": [
+        {
+          "entity": "Enchanted Orc",
+          "quantity": 1,
+          "operation": "kill",
+          "required": 1,
+          "condition": "One required target in this zone, not a normal lookalike Orc Warrior."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "1@orcs",
+          "x": 106,
+          "y": 108,
+          "role": "enemy_spawn",
+          "known": false,
+          "order": 1,
+          "support_step": 3,
+          "evidence": "Once inside, the party leader must speak to Kruger (1@orcs 180,29) to start the instance. Enchanted Orcs shown in blue",
+          "condition": "Floor map inherited from stage 3."
+        },
+        {
+          "entity": "1@orcs",
+          "x": 89,
+          "y": 94,
+          "role": "opened_portal",
+          "known": false,
+          "order": 2,
+          "support_step": 3,
+          "evidence": "Once inside, the party leader must speak to Kruger (1@orcs 180,29) to start the instance. Enchanted Orcs shown in blue",
+          "condition": "Same floor; opens after target dies."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill",
+          "entity": "Enchanted Orc"
+        },
+        {
+          "operation": "enter_opened_portal"
+        }
+      ],
+      "protected_names": [
+        "Enchanted Orc"
+      ]
+    },
+    "7": {
+      "original_instruction": "The third Enchanted Orc spawns at (32, 44). Killing it opens a portal at (38, 105).",
+      "instruction_sha256": "196db0ea94e289d98250346596f92f90b1974a3df49d5806d52dea55e147153a",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/196db0ea94e289d98250/1",
+      "goal": "kill",
+      "short_ru": "Убейте Enchanted Orc (32, 44), затем войдите в портал (38, 105).",
+      "short_en": "Kill Enchanted Orc (32, 44), then enter the portal (38, 105).",
+      "full_ru": "Третий Enchanted Orc появляется (32, 44). После убийства откроется портал (38, 105).",
+      "full_en": "The third Enchanted Orc spawns at (32, 44). Killing it opens a portal at (38, 105).",
+      "monsters": [
+        {
+          "entity": "Enchanted Orc",
+          "quantity": 1,
+          "operation": "kill",
+          "required": 1,
+          "condition": "One required target in this zone, not a normal lookalike Orc Warrior."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "1@orcs",
+          "x": 32,
+          "y": 44,
+          "role": "enemy_spawn",
+          "known": false,
+          "order": 1,
+          "support_step": 3,
+          "evidence": "Once inside, the party leader must speak to Kruger (1@orcs 180,29) to start the instance. Enchanted Orcs shown in blue",
+          "condition": "Floor map inherited from stage 3."
+        },
+        {
+          "entity": "1@orcs",
+          "x": 38,
+          "y": 105,
+          "role": "opened_portal",
+          "known": false,
+          "order": 2,
+          "support_step": 3,
+          "evidence": "Once inside, the party leader must speak to Kruger (1@orcs 180,29) to start the instance. Enchanted Orcs shown in blue",
+          "condition": "Same floor; opens after target dies."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill",
+          "entity": "Enchanted Orc"
+        },
+        {
+          "operation": "enter_opened_portal"
+        }
+      ],
+      "protected_names": [
+        "Enchanted Orc"
+      ]
+    },
+    "8": {
+      "original_instruction": "The fourth Enchanted Orc spawns near (24, 178). Killing it opens a portal at (21, 189). All monsters on 1@orcs will de-spawn as soon as the last Enchanted Orc dies.",
+      "instruction_sha256": "2a5d38faa4970826b13ebfe3ab1aebd7a57322c12c161810d297d9358e6aa846",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/2a5d38faa4970826b13e/1",
+      "goal": "kill",
+      "short_ru": "Убейте Enchanted Orc (24, 178), затем войдите в портал (21, 189).",
+      "short_en": "Kill Enchanted Orc (24, 178), then enter the portal (21, 189).",
+      "full_ru": "Четвёртый Enchanted Orc появляется около (24, 178). После убийства откроется портал (21, 189). После смерти последнего Enchanted Orc все монстры на 1@orcs исчезнут.",
+      "full_en": "The fourth Enchanted Orc spawns near (24, 178). Killing it opens a portal at (21, 189). All monsters on 1@orcs will de-spawn as soon as the last Enchanted Orc dies.",
+      "monsters": [
+        {
+          "entity": "Enchanted Orc",
+          "quantity": 1,
+          "operation": "kill",
+          "required": 1,
+          "condition": "One required target in this zone, not a normal lookalike Orc Warrior."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "1@orcs",
+          "x": 24,
+          "y": 178,
+          "role": "enemy_spawn",
+          "known": false,
+          "order": 1,
+          "support_step": 3,
+          "evidence": "Once inside, the party leader must speak to Kruger (1@orcs 180,29) to start the instance. Enchanted Orcs shown in blue",
+          "condition": "Floor map inherited from stage 3."
+        },
+        {
+          "entity": "1@orcs",
+          "x": 21,
+          "y": 189,
+          "role": "opened_portal",
+          "known": false,
+          "order": 2,
+          "support_step": 3,
+          "evidence": "Once inside, the party leader must speak to Kruger (1@orcs 180,29) to start the instance. Enchanted Orcs shown in blue",
+          "condition": "Same floor; opens after target dies."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill",
+          "entity": "Enchanted Orc"
+        },
+        {
+          "operation": "enter_opened_portal"
+        }
+      ],
+      "protected_names": [
+        "1@orcs",
+        "Enchanted Orc"
+      ]
+    },
+    "9": {
+      "original_instruction": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+      "instruction_sha256": "10bd0a3cead3fc89d52794dc77b51cba2b23fd3d964b794708c90bb2be9f33db",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/10bd0a3cead3fc89d527/1",
+      "goal": "interact",
+      "short_ru": "Поговорите с Kruger, 2@orcs 35, 169; активируйте Braziers и убивайте нужных охранников.",
+      "short_en": "Talk to Kruger, 2@orcs 35, 169; activate Braziers and kill the required guards.",
+      "full_ru": "На второй карте снова поговорите с Kruger (2@orcs 35, 169). Для прохода нужно погасить Braziers: на схеме они жёлтые, а «bosses» — синие. Можно убивать только нужных охранников либо всех противников. Если орков убито достаточно, в конце 4-й зоны появится большая группа Wraiths. Каждый убитый Orc Zombie возрождается как Orc Archer, а Orc Skeleton — как High Orc.",
+      "full_en": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+      "npcs": [
+        {
+          "entity": "Kruger",
+          "role": "talk"
+        },
+        {
+          "entity": "Braziers",
+          "role": "interact"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Wraiths",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0,
+          "condition": "Unknown mob size/kill threshold."
+        },
+        {
+          "entity": "Orc Zombie",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "Orc Archer",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "Orc Skeleton",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "High Orc",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kruger"
+        },
+        {
+          "operation": "extinguish_braziers",
+          "entity": "Braziers"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "2@orcs",
+          "x": 35,
+          "y": 169,
+          "role": "npc",
+          "known": false
+        }
+      ],
+      "protected_names": [
+        "Kruger",
+        "Braziers",
+        "2@orcs",
+        "High Orc",
+        "Wraiths",
+        "Orc Zombie",
+        "Orc Archer",
+        "Orc Skeleton"
+      ],
+      "branches": [
+        {
+          "key": "guards_only",
+          "choice_group": "second_floor_kill_style",
+          "variant_scope": "Pinned source variant; server applicability unverified",
+          "condition": "Minimal progression targets.",
+          "section": "",
+          "original_instruction": "you may kill only the specific guards",
+          "instruction_sha256": "099d4299a8fea1853d4430268d2bdde61f279dbb4ce74f5d9e990ce657c96bd4",
+          "short_ru": "Убивайте только нужных охранников.",
+          "short_en": "Kill only the required guards.",
+          "full_ru": "Можно убивать только указанных охранников.",
+          "full_en": "you may kill only the specific guards",
+          "protected_names": [],
+          "actions": [
+            {
+              "operation": "kill_only_required_guards"
+            }
+          ]
+        },
+        {
+          "key": "all_enemies",
+          "choice_group": "second_floor_kill_style",
+          "variant_scope": "Pinned source variant; server applicability unverified",
+          "condition": "Optional harder approach.",
+          "section": "",
+          "original_instruction": "or instead kill everything.",
+          "instruction_sha256": "e536269d2b00e85d538d561dc0eb8a5577fb810de3b76a52e4ed384ed634757d",
+          "short_ru": "По желанию уничтожайте всех противников.",
+          "short_en": "Optionally kill all enemies.",
+          "full_ru": "Либо уничтожайте всех противников.",
+          "full_en": "or instead kill everything.",
+          "protected_names": [],
+          "actions": [
+            {
+              "operation": "optional_full_clear"
+            }
+          ]
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "monster_threshold_spawn",
+          "entity": "Wraiths",
+          "condition": "Unknown mob size/kill threshold."
+        },
+        {
+          "kind": "monster_replacement_trigger",
+          "entity": "Orc Zombie",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_replacement_spawn",
+          "entity": "Orc Archer",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_replacement_trigger",
+          "entity": "Orc Skeleton",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_replacement_spawn",
+          "entity": "High Orc",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "The Braziers in the first zone are at (27, 164), (55, 154), (108, 145), and (99, 179). After being activated in order, The Chief Orc of Safeguards will spawn at (110, 156). Killing him will open a portal at (48, 100).",
+      "instruction_sha256": "368dd987dfdef134f8570865a22f1cb64cbc506b5335e149489a3804a386353d",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/368dd987dfdef134f857/1",
+      "goal": "interact",
+      "short_ru": "Активируйте Braziers по порядку (27, 164) → (55, 154) → (108, 145) → (99, 179); затем убейте The Chief Orc of Safeguards.",
+      "short_en": "Activate Braziers in order (27, 164) → (55, 154) → (108, 145) → (99, 179); then kill The Chief Orc of Safeguards.",
+      "full_ru": "В первой зоне последовательно активируйте Braziers: (27, 164) → (55, 154) → (108, 145) → (99, 179). Появится The Chief Orc of Safeguards (110, 156). Убейте его, чтобы открыть портал (48, 100).",
+      "full_en": "The Braziers in the first zone are at (27, 164), (55, 154), (108, 145), and (99, 179). After being activated in order, The Chief Orc of Safeguards will spawn at (110, 156). Killing him will open a portal at (48, 100).",
+      "npcs": [
+        {
+          "entity": "Braziers",
+          "role": "interact"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "The Chief Orc of Safeguards",
+          "quantity": 1,
+          "operation": "kill",
+          "required": 1
+        }
+      ],
+      "locations": [
+        {
+          "entity": "2@orcs",
+          "x": 27,
+          "y": 164,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 1,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 55,
+          "y": 154,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 2,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 108,
+          "y": 145,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 3,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 99,
+          "y": 179,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 4,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 110,
+          "y": 156,
+          "role": "guard_spawn",
+          "known": false,
+          "order": 5,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "After four braziers."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 48,
+          "y": 100,
+          "role": "opened_portal",
+          "known": false,
+          "order": 6,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "After guard dies."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "activate_ordered_braziers",
+          "entity": "Braziers"
+        },
+        {
+          "operation": "kill",
+          "entity": "The Chief Orc of Safeguards"
+        },
+        {
+          "operation": "enter_opened_portal"
+        }
+      ],
+      "protected_names": [
+        "Braziers",
+        "The Chief Orc of Safeguards"
+      ]
+    },
+    "11": {
+      "original_instruction": "The Braziers in the second zone are at (35, 92), (33, 70), (71, 30), and (84, 50). After being activated in order, Orc Sniper will spawn at (67, 64). Killing him will open a portal at (101, 55).",
+      "instruction_sha256": "9ffc370a16bac93f08198acb916dad1848a950d688c297f9e10053cc537a6640",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/9ffc370a16bac93f0819/1",
+      "goal": "interact",
+      "short_ru": "Активируйте Braziers по порядку (35, 92) → (33, 70) → (71, 30) → (84, 50); затем убейте Orc Sniper.",
+      "short_en": "Activate Braziers in order (35, 92) → (33, 70) → (71, 30) → (84, 50); then kill Orc Sniper.",
+      "full_ru": "В второй зоне последовательно активируйте Braziers: (35, 92) → (33, 70) → (71, 30) → (84, 50). Появится Orc Sniper (67, 64). Убейте его, чтобы открыть портал (101, 55).",
+      "full_en": "The Braziers in the second zone are at (35, 92), (33, 70), (71, 30), and (84, 50). After being activated in order, Orc Sniper will spawn at (67, 64). Killing him will open a portal at (101, 55).",
+      "npcs": [
+        {
+          "entity": "Braziers",
+          "role": "interact"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Orc Sniper",
+          "quantity": 1,
+          "operation": "kill",
+          "required": 1
+        }
+      ],
+      "locations": [
+        {
+          "entity": "2@orcs",
+          "x": 35,
+          "y": 92,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 1,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 33,
+          "y": 70,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 2,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 71,
+          "y": 30,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 3,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 84,
+          "y": 50,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 4,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 67,
+          "y": 64,
+          "role": "guard_spawn",
+          "known": false,
+          "order": 5,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "After four braziers."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 101,
+          "y": 55,
+          "role": "opened_portal",
+          "known": false,
+          "order": 6,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "After guard dies."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "activate_ordered_braziers",
+          "entity": "Braziers"
+        },
+        {
+          "operation": "kill",
+          "entity": "Orc Sniper"
+        },
+        {
+          "operation": "enter_opened_portal"
+        }
+      ],
+      "protected_names": [
+        "Braziers",
+        "Orc Sniper"
+      ]
+    },
+    "12": {
+      "original_instruction": "The Braziers in the third zone are at (143, 144), (162, 134), (145, 116), and (137, 98). After being activated in order, Depraved Vengeful Orc Spirit will spawn at (156, 147). Killing him will open a portal at (167, 104).",
+      "instruction_sha256": "22eff57b96f03a59e51805086edbe25393e09d03000a37993f743fe66f47d5ba",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/22eff57b96f03a59e518/1",
+      "goal": "interact",
+      "short_ru": "Активируйте Braziers по порядку (143, 144) → (162, 134) → (145, 116) → (137, 98); затем убейте Depraved Vengeful Orc Spirit.",
+      "short_en": "Activate Braziers in order (143, 144) → (162, 134) → (145, 116) → (137, 98); then kill Depraved Vengeful Orc Spirit.",
+      "full_ru": "В третьей зоне последовательно активируйте Braziers: (143, 144) → (162, 134) → (145, 116) → (137, 98). Появится Depraved Vengeful Orc Spirit (156, 147). Убейте его, чтобы открыть портал (167, 104).",
+      "full_en": "The Braziers in the third zone are at (143, 144), (162, 134), (145, 116), and (137, 98). After being activated in order, Depraved Vengeful Orc Spirit will spawn at (156, 147). Killing him will open a portal at (167, 104).",
+      "npcs": [
+        {
+          "entity": "Braziers",
+          "role": "interact"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Depraved Vengeful Orc Spirit",
+          "quantity": 1,
+          "operation": "kill",
+          "required": 1
+        }
+      ],
+      "locations": [
+        {
+          "entity": "2@orcs",
+          "x": 143,
+          "y": 144,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 1,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 162,
+          "y": 134,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 2,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 145,
+          "y": 116,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 3,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 137,
+          "y": 98,
+          "role": "brazier_sequence",
+          "known": false,
+          "order": 4,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "Ordered brazier; floor map inherited from stage 9."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 156,
+          "y": 147,
+          "role": "guard_spawn",
+          "known": false,
+          "order": 5,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "After four braziers."
+        },
+        {
+          "entity": "2@orcs",
+          "x": 167,
+          "y": 104,
+          "role": "opened_portal",
+          "known": false,
+          "order": 6,
+          "support_step": 9,
+          "evidence": "On the second map, speak to Kruger again (2@orcs 35, 169). He explains that you will need to extinguish the Braziers to proceed to the next zone. braziers in yellow, \"bosses\" in blue As before, depending on the challenge you wish to face, you may kill only the specific guards, or instead kill everything. If enough Orcs are killed, a large mob of Wraiths will spawn at the end of the 4th zone. Each Orc Zombie killed will respawn as an Orc Archer . Each Orc Skeleton killed will respawn as a High Orc .",
+          "condition": "After guard dies."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "activate_ordered_braziers",
+          "entity": "Braziers"
+        },
+        {
+          "operation": "kill",
+          "entity": "Depraved Vengeful Orc Spirit"
+        },
+        {
+          "operation": "enter_opened_portal"
+        }
+      ],
+      "protected_names": [
+        "Braziers",
+        "Depraved Vengeful Orc Spirit"
+      ]
+    },
+    "13": {
+      "original_instruction": "After the Depraved Vengeful Orc Spirit dies, a Depraved Orc Hero and Shaman Cargalache will spawn in the 4th zone.",
+      "instruction_sha256": "17ece32237ce86bf47a4022bce6500c279288368f928582e80f49665d67b3fa7",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/17ece32237ce86bf47a4/1",
+      "goal": "spawn",
+      "short_ru": "После Depraved Vengeful Orc Spirit в 4-й зоне появятся Depraved Orc Hero и Shaman Cargalache.",
+      "short_en": "After Depraved Vengeful Orc Spirit dies, Depraved Orc Hero and Shaman Cargalache appear in zone 4.",
+      "full_ru": "После смерти Depraved Vengeful Orc Spirit в 4-й зоне появятся Depraved Orc Hero и Shaman Cargalache.",
+      "full_en": "After the Depraved Vengeful Orc Spirit dies, a Depraved Orc Hero and Shaman Cargalache will spawn in the 4th zone.",
+      "monsters": [
+        {
+          "entity": "Depraved Vengeful Orc Spirit",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "Depraved Orc Hero",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "Shaman Cargalache",
+          "quantity": null,
+          "operation": "mention",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "wait_for_final_zone_spawns"
+        }
+      ],
+      "protected_names": [
+        "Depraved Vengeful Orc Spirit",
+        "Depraved Orc Hero",
+        "Shaman Cargalache",
+        "Orc Hero"
+      ],
+      "locations": [],
+      "requirements": [
+        {
+          "kind": "monster_previous_target",
+          "entity": "Depraved Vengeful Orc Spirit",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_spawn",
+          "entity": "Depraved Orc Hero",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_spawn",
+          "entity": "Shaman Cargalache",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "When Shaman Cargalache dies, all monsters on 2@orcs will de-spawn (except the Anophles and Orc Hero). Note : If Shaman Cargalache dies at the same moment as another Orc, a bug may prevent the de-spawn.",
+      "instruction_sha256": "23bec5f7a8a704bcb484f710faf1050c59032dec5018ee83b6e7c584412f46e7",
+      "step_id": "irowiki-classic:Orc_Memory_Dungeon/step/23bec5f7a8a704bcb484/1",
+      "goal": "kill",
+      "short_ru": "Победите Shaman Cargalache; на 2@orcs останутся Anophles и Orc Hero, если не возникнет описанная ошибка.",
+      "short_en": "Defeat Shaman Cargalache; Anophles and Orc Hero remain on 2@orcs unless the described bug prevents cleanup.",
+      "full_ru": "После смерти Shaman Cargalache все монстры на 2@orcs исчезают, кроме Anophles и Orc Hero. Одновременная смерть Shaman Cargalache и другого Orc может вызвать ошибку и помешать исчезновению монстров.",
+      "full_en": "When Shaman Cargalache dies, all monsters on 2@orcs will de-spawn (except the Anophles and Orc Hero). Note : If Shaman Cargalache dies at the same moment as another Orc, a bug may prevent the de-spawn.",
+      "monsters": [
+        {
+          "entity": "Shaman Cargalache",
+          "quantity": 1,
+          "operation": "kill",
+          "required": 1
+        },
+        {
+          "entity": "Anophles",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        },
+        {
+          "entity": "Orc Hero",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill",
+          "entity": "Shaman Cargalache"
+        }
+      ],
+      "protected_names": [
+        "2@orcs",
+        "Shaman Cargalache",
+        "Anophles",
+        "Orc Hero"
+      ],
+      "locations": [],
+      "requirements": [
+        {
+          "kind": "monster_cleanup_exception",
+          "entity": "Anophles",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        },
+        {
+          "kind": "monster_cleanup_exception",
+          "entity": "Orc Hero",
+          "condition": "Source context role, not a compulsory inventory or kill cost."
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "instance_maps_literal_but_not_reference_verified",
+      "detail": "Literal 1@orcs/2@orcs are absent from sampled emulator maps. Keep known_in_reference false; later zones inherit floor maps with context evidence."
+    },
+    {
+      "reason": "enchanted_not_normal_orc_warrior",
+      "detail": "Appearance matches Orc Warriors 1023, but Enchanted Orc has no verified ID; only the latter is mandatory in each first-floor zone."
+    },
+    {
+      "reason": "extra_spawn_thresholds_unknown",
+      "detail": "Full clears are optional; enough Orcs has no numeric threshold, and extra mob sizes/total replacement spawns are unknown."
+    },
+    {
+      "reason": "final_hero_names_not_silently_aliased",
+      "detail": "Stage 13 Depraved Orc Hero has no verified ID; stage 14 Orc Hero 1087 is a cleanup exception. Do not merge or invent a required hero kill/reward. No item/EXP payout is stated."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "base_level_range",
+        "amount": "30-80",
+        "source_section": "requirements",
+        "evidence": "30 ~ 80"
+      },
+      {
+        "kind": "instance_reentry_cooldown_hours",
+        "amount": "2",
+        "source_section": "html_text",
+        "evidence": "This quest or instance has a two (2) hour cooldown period.",
+        "condition": "Distinct from two-hour instance duration."
+      }
+    ]
+  }
+}

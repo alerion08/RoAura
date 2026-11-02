@@ -8,10 +8,38 @@ import tempfile
 import unittest
 
 from selection import quest_key, select_pages, filter_catalog, snapshots
-from semantic import build, coordinates, resolve_context, item_operation, validate, sha, ROOT, SCHEMA, BRANCH_SCHEMA, ADDITION_SCHEMA, ROUTE_SCHEMA, migrate_semantic
+from semantic import build, coordinates, resolve_context, item_operation, validate, sha, ROOT, SCHEMA, BRANCH_SCHEMA, ADDITION_SCHEMA, ROUTE_SCHEMA, migrate_semantic, mention_entities, Writer
 
 
 class ParsingTests(unittest.TestCase):
+    def test_writer_ignores_duplicates_but_never_check_constraint_failures(self):
+        with contextlib.closing(sqlite3.connect(':memory:')) as db:
+            db.execute('CREATE TABLE facts(id TEXT PRIMARY KEY,n INTEGER CHECK(n>0))')
+            w=Writer(db);w.add('facts',id='a',n=1);w.add('facts',id='a',n=2)
+            self.assertEqual(db.execute('SELECT n FROM facts').fetchone()[0],1)
+            with self.assertRaises(sqlite3.IntegrityError):w.add('facts',id='bad',n=0)
+
+    def test_literal_instance_maps_preserve_floor_and_reference_status(self):
+        for text,name,x,y in [('Kruger (1@orcs 180,29)','1@orcs',180,29),('2@orcs 35 169','2@orcs',35,169),('at 2@orcs (35,169)','2@orcs',35,169)]:
+            self.assertEqual([(p['map'],p['x'],p['y'],p['known']) for p in coordinates(text,set())],[(name,x,y,False)])
+        self.assertTrue(coordinates('1@orcs 180,29',{'1@orcs'})[0]['known'])
+
+    def test_instance_map_parser_rejects_email_suffixes_and_missing_separators(self):
+        for text in ['user1@orcs 180,29','user@orcs 180,29','1@orcs180,29','1@orcs 999,29','2 members 180 29']:
+            with self.subTest(text=text):self.assertEqual(coordinates(text,set()),[])
+
+    def test_non_entity_surface_exclusion_requires_review_and_no_conflicting_selection(self):
+        entities={'guard':('npc-id','npc','ev')};surfaces={'Continental Guard':['guard']}
+        entry={field:'Join Continental Guard.' for field in ['short_ru','short_en','full_ru','full_en']}
+        self.assertIn('Continental Guard',mention_entities(None,entities,surfaces,entry))
+        entry['non_entity_mentions']={'Continental Guard':'Organization in this entry, not the named NPC.'}
+        self.assertEqual(mention_entities(None,entities,surfaces,entry),{})
+        for exclusion in [{'Unknown':'Not known.'},{'Continental Guard':''}]:
+            entry['non_entity_mentions']=exclusion
+            with self.assertRaises(ValueError):mention_entities(None,entities,surfaces,entry)
+        entry['non_entity_mentions']={'Continental Guard':'Organization.'};entry['mention_entities']={'Continental Guard':'guard'}
+        with self.assertRaisesRegex(ValueError,'Conflicting'):mention_entities(None,entities,surfaces,entry)
+
     def test_coordinate_formats_and_original_case(self):
         for text in ['prontera 249,132','prontera 249 132','prontera (249, 132)',
                      'prontera (249 132)','prontera, 249 132','(prontera): 249,132',
@@ -193,16 +221,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],670)
-        self.assertEqual(self.report['not_fully_localized_steps'],2080)
+        self.assertEqual(self.report['fully_localized_steps'],712)
+        self.assertEqual(self.report['not_fully_localized_steps'],2038)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],670)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],712)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,2080)
-        self.assertEqual(self.report['fully_localized_branches'],64)
-        self.assertEqual(self.report['curated_quests'],46)
-        self.assertEqual(self.report['pending_quests'],170)
-        self.assertEqual(self.report['quest_routes'],7)
+        self.assertEqual(missing,2038)
+        self.assertEqual(self.report['fully_localized_branches'],75)
+        self.assertEqual(self.report['curated_quests'],50)
+        self.assertEqual(self.report['pending_quests'],166)
+        self.assertEqual(self.report['quest_routes'],8)
+        self.assertEqual(self.report['source_additions'],10)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_new_world_staff_identity_and_source_availability(self):
@@ -924,6 +953,131 @@ class RealCorpusTests(unittest.TestCase):
         rewards=self.db.execute('''SELECT r.kind,r.amount,s.step_order,e.method FROM rewards r JOIN evidence e USING(evidence_id)
           JOIN step_rewards sr USING(reward_id) JOIN quest_steps s ON s.step_id=sr.step_id WHERE r.quest_id=? ORDER BY r.kind''',(q,)).fetchall()
         self.assertEqual([tuple(r) for r in rewards],[('base_exp','900000',12,'curated_rewards'),('job_exp','600000',12,'curated_rewards')])
+
+    def test_continental_material_set_accessory_choice_and_skin_eligibility(self):
+        q='irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)'
+        rows=self.db.execute('''SELECT x.game_id,i.quantity FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=4 ORDER BY x.game_id''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(7098,30),(7561,50)])
+        rows=self.db.execute('''SELECT x.game_id,r.amount,b.choice_group FROM rewards r JOIN items x ON x.entity_id=r.item_id
+          JOIN step_branches b USING(branch_id) WHERE r.quest_id=? ORDER BY x.game_id''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(2730,'1','accessory_choice'),(2731,'1','accessory_choice'),(2732,'1','accessory_choice')])
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='base_exp'",(q,)).fetchone()[0],'2000000')
+        self.assertEqual(self.db.execute('''SELECT m.required FROM step_monsters m JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=7 AND m.operation='mention' ''',(q,)).fetchone()[0],0)
+        self.assertIsNotNone(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='monster_defeat_event'",(q,)).fetchone())
+
+    def test_continental_combo_tables_and_classic_notice_have_pinned_additions(self):
+        q='irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)'
+        rows=self.db.execute('''SELECT s.step_order,count(*) FROM step_source_additions a JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? GROUP BY s.step_order ORDER BY s.step_order''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(1,1),(8,7)])
+        row=self.db.execute('SELECT original_instruction,full_en FROM localized_steps WHERE quest_id=? AND step_order=8',(q,)).fetchone()
+        self.assertNotIn('Recharge Time: 20 seconds',row[0]);self.assertIn('Recharge Time: 20 seconds',row[1]);self.assertIn('Dragon Fear 10',row[1])
+        self.assertEqual({int(r[0]) for r in self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='boss_combo_hp_threshold_percent'",(q,))},{80,60,50,40,30,10,5})
+        notice=self.db.execute('SELECT full_en FROM localized_steps WHERE quest_id=? AND step_order=1',(q,)).fetchone()[0]
+        self.assertIn("Dandelion's_Request",notice);self.assertIn('currently not implemented',notice)
+
+    def test_continental_organization_is_not_a_false_npc_span(self):
+        q='irowiki-classic:Continental_Guard_Quest_(Resurrection_of_Satan_Morroc)'
+        count=self.db.execute('''SELECT count(*) FROM description_mentions m JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order IN (1,3) AND m.surface='Continental Guard' ''',(q,)).fetchone()[0]
+        self.assertEqual(count,0)
+        count=self.db.execute('''SELECT count(*) FROM description_mentions m JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=5 AND m.surface='Continental Guard' AND m.entity_type='npc' ''',(q,)).fetchone()[0]
+        self.assertEqual(count,4)
+        rows=self.db.execute('''SELECT DISTINCT entity_type FROM description_mentions m JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=4 AND m.surface='Continental Guard Paper' ''',(q,)).fetchall()
+        self.assertEqual([r[0] for r in rows],['item'])
+
+    def test_nidhoggur_source_entry_and_collective_guardians_are_variant_scoped(self):
+        q="irowiki-classic:Nidhoggur's_Nest"
+        self.assertIn('Quest Prerequisite(s): None',self.db.execute('SELECT requirements_original FROM quests WHERE quest_id=?',(q,)).fetchone()[0])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM quest_relations WHERE quest_id=? AND kind='mandatory_prerequisite'",(q,)).fetchone()[0],0)
+        name=self.db.execute('''SELECT e.original_name FROM step_npcs n JOIN entities e ON e.entity_id=n.npc_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=1''',(q,)).fetchone()[0]
+        self.assertEqual(name,'Matt Roy Shka')
+        rows=self.db.execute('''SELECT m.quantity,x.game_id FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=4 AND m.operation='kill' ''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(12,None)])
+
+    def test_nidhoggur_side_rooms_do_not_assert_uncertain_hp_or_fixed_totals(self):
+        q="irowiki-classic:Nidhoggur's_Nest"
+        keys=['instance_duration_hours','side_room_interval_minutes_approx','side_room_effect_duration_seconds','instance_reentry_cooldown_days']
+        facts=dict(self.db.execute('SELECT kind,amount FROM requirements WHERE quest_id=? AND kind IN (?,?,?,?)',(q,*keys)).fetchall())
+        self.assertEqual(facts,dict(zip(keys,['2.5','3','30','3'])))
+        rows=self.db.execute('''SELECT b.branch_key,b.choice_group FROM step_branches b JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? ORDER BY b.branch_key''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(x,'current_side_room') for x in ['northeast','northwest','southeast','southwest']])
+        self.assertIsNone(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='source_uncertain_hp_loss'",(q,)).fetchone()[0])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM requirements WHERE quest_id=? AND kind='hp_loss_percent' AND amount='25'",(q,)).fetchone()[0],0)
+        rows=self.db.execute('''SELECT e.original_name,m.quantity,x.game_id FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN entities e ON e.entity_id=m.monster_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=8 AND m.operation='kill' ORDER BY e.original_name''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[('Phylla',2,None),('Ryncho',3,None)])
+
+    def test_shrine_population_and_leader_roles_are_not_per_player_costs(self):
+        q='irowiki-classic:Sealed_Shrine_Quest'
+        rows=self.db.execute('''SELECT m.operation,m.required,sum(m.quantity),count(*) FROM step_monsters m JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=3 GROUP BY m.operation,m.required''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[('mention',None,290,10)])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM requirements WHERE quest_id=? AND kind='monster_population'",(q,)).fetchone()[0],10)
+        row=self.db.execute('''SELECT i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=6 AND x.game_id=6001''',(q,)).fetchone()
+        self.assertEqual(tuple(row),(10,'collect'))
+        self.assertIn('not every first-time entrant',self.db.execute("SELECT condition_text FROM requirements WHERE quest_id=? AND kind='token_required_roles'",(q,)).fetchone()[0])
+        facts=dict(self.db.execute("SELECT kind,amount FROM requirements WHERE quest_id=? AND kind IN ('initial_entry_window_minutes','return_after_exit_window_minutes','instance_duration_hours','instance_creation_cooldown_hours','leader_collection_time_limit_hours','outer_area_trigger_reset_minutes')",(q,)).fetchall())
+        self.assertEqual(facts,{'initial_entry_window_minutes':'5','return_after_exit_window_minutes':'5','instance_duration_hours':'2','instance_creation_cooldown_hours':'12','leader_collection_time_limit_hours':'1','outer_area_trigger_reset_minutes':'5'})
+
+    def test_shrine_recipe_is_optional_and_output_id_not_guessed(self):
+        q='irowiki-classic:Sealed_Shrine_Quest'
+        route=self.db.execute('SELECT route_id,kind,choice_group FROM quest_routes WHERE quest_id=?',(q,)).fetchone()
+        self.assertEqual(tuple(route[1:]),('optional',None))
+        rows=self.db.execute('SELECT s.step_order FROM step_routes r JOIN quest_steps s USING(step_id) WHERE r.route_id=? ORDER BY r.route_order',(route[0],)).fetchall()
+        self.assertEqual([r[0] for r in rows],[11,12])
+        rows=self.db.execute('''SELECT x.game_id,i.quantity FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=12 ORDER BY x.game_id''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(2256,1),(6004,1),(7798,50),(7799,30)])
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='crafting_zeny'",(q,)).fetchone()[0],'990000')
+        row=self.db.execute('''SELECT e.original_name,x.game_id FROM rewards r JOIN items x ON x.entity_id=r.item_id
+          JOIN entities e ON e.entity_id=r.item_id WHERE r.quest_id=? AND r.kind='crafted_item' ''',(q,)).fetchone()
+        self.assertEqual(tuple(row),('Giant Majestic Goat',None))
+
+    def test_orc_instance_map_order_and_context_evidence(self):
+        q='irowiki-classic:Orc_Memory_Dungeon'
+        rows=self.db.execute('''SELECT DISTINCT m.map_code,m.known_in_reference FROM step_locations a JOIN quest_steps s USING(step_id)
+          JOIN locations l USING(location_id) JOIN maps m ON m.entity_id=l.map_id WHERE s.quest_id=? AND m.map_code LIKE '%@%' ORDER BY m.map_code''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[('1@orcs',0),('2@orcs',0)])
+        for stage,first in [(10,(27,164)),(11,(35,92)),(12,(143,144))]:
+            rows=self.db.execute('''SELECT l.x,l.y,a.location_order,a.role,e.status FROM step_locations a JOIN quest_steps s USING(step_id)
+              JOIN locations l USING(location_id) JOIN evidence e ON e.evidence_id=a.evidence_id WHERE s.quest_id=? AND s.step_order=? ORDER BY a.location_order''',(q,stage)).fetchall()
+            self.assertEqual(len(rows),6);self.assertEqual(tuple(rows[0][:2]),first)
+            self.assertEqual([r[2] for r in rows],[1,2,3,4,5,6]);self.assertTrue(all(r[4]=='context_inferred' for r in rows))
+            self.assertEqual([r[3] for r in rows],['brazier_sequence']*4+['guard_spawn','opened_portal'])
+
+    def test_orc_targets_lookalikes_cleanup_and_repeat_cooldown_are_distinct(self):
+        q='irowiki-classic:Orc_Memory_Dungeon'
+        rows=self.db.execute('''SELECT s.step_order,m.quantity,x.game_id FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order IN (5,6,7,8) AND m.required=1 ORDER BY s.step_order''',(q,)).fetchall()
+        self.assertEqual([tuple(r) for r in rows],[(i,1,None) for i in [5,6,7,8]])
+        row=self.db.execute('''SELECT m.operation,m.required FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=4 AND x.game_id=1023''',(q,)).fetchone()
+        self.assertEqual(tuple(row),('mention',0))
+        self.assertIsNotNone(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='monster_appearance_reference'",(q,)).fetchone())
+        facts=dict(self.db.execute("SELECT kind,amount FROM requirements WHERE quest_id=? AND kind IN ('instance_duration_hours','instance_reentry_cooldown_hours','base_level_range')",(q,)).fetchall())
+        self.assertEqual(facts,{'instance_duration_hours':'2','instance_reentry_cooldown_hours':'2','base_level_range':'30-80'})
+        self.assertEqual(self.db.execute('SELECT count(*) FROM rewards WHERE quest_id=?',(q,)).fetchone()[0],0)
+
+    def test_unsupported_curated_operations_fail_without_replacing_valid_export(self):
+        q='irowiki-classic:Shadow_Quest_(Rekenber_Job_Quest)'
+        cargo=self.db.execute('''SELECT i.operation FROM step_items i JOIN entities e ON e.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=13 AND e.original_name='goods' ''',(q,)).fetchone()
+        self.assertEqual(cargo[0],'mention')
+        folder=self.out/'unsupported-operation';shutil.copytree(ROOT/'curation',folder)
+        path=folder/'Shadow_Quest_(Rekenber_Job_Quest).json';data=json.loads(path.read_text())
+        data['steps']['13']['items'][0]['operation']='unsupported-inspect'
+        path.write_text(json.dumps(data));before=(self.out/'quest_semantic.sqlite').read_bytes()
+        with self.assertRaisesRegex(ValueError,'Unsupported curated item operation'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual(before,(self.out/'quest_semantic.sqlite').read_bytes())
 
     def test_reference_index_is_excluded_with_pinned_evidence(self):
         key='irowiki-classic:Access_Quests'
