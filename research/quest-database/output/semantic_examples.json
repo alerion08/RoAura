@@ -201536,26 +201536,59 @@
             "surface": "Moth Wing"
           },
           {
-            "end_offset": 20,
+            "end_offset": 21,
             "entity_id": "npc:d2e4270bd59f0baaf2c54fa8",
             "entity_type": "npc",
             "evidence_id": "ev:f7bc617e9a77799e962bc25d",
             "field": "short_en",
-            "mention_id": "mention:9e2759b2356af06f5f652805",
-            "start_offset": 4,
+            "mention_id": "mention:52cb3ff4e4d90af809cdd334",
+            "start_offset": 5,
             "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1",
             "surface": "Knight De Thomas"
           },
           {
-            "end_offset": 30,
+            "end_offset": 29,
             "entity_id": "map:2ff5416f7cdc9008e393d911",
             "entity_type": "map",
             "evidence_id": "ev:bbda077f23af599fc76f7cf5",
             "field": "short_en",
-            "mention_id": "mention:dac5461129c520a81ecedcc6",
-            "start_offset": 24,
+            "mention_id": "mention:2b05d09e2c2b8064f17c381f",
+            "start_offset": 23,
             "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1",
             "surface": "Izlude"
+          },
+          {
+            "end_offset": 56,
+            "entity_id": "item:093fe3f9eb0df60ea48fe22c",
+            "entity_type": "item",
+            "evidence_id": "ev:b4e224c54876f1f031c83c66",
+            "field": "short_en",
+            "mention_id": "mention:1a3af587728244d115ce6c01",
+            "start_offset": 43,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1",
+            "surface": "Empty Bottles"
+          },
+          {
+            "end_offset": 72,
+            "entity_id": "item:cf7e34bb941984ea03c84fb4",
+            "entity_type": "item",
+            "evidence_id": "ev:4785b0555d54015da0470506",
+            "field": "short_en",
+            "mention_id": "mention:5b40a85d8b1196df21f07fa8",
+            "start_offset": 63,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1",
+            "surface": "Moth Wing"
+          },
+          {
+            "end_offset": 86,
+            "entity_id": "item:9a261560313cf0d6d8bdfd00",
+            "entity_type": "item",
+            "evidence_id": "ev:d900990ec4aaf0047b9c510b",
+            "field": "short_en",
+            "mention_id": "mention:291492621d13cc73239e9064",
+            "start_offset": 81,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1",
+            "surface": "Armor"
           },
           {
             "end_offset": 18,
@@ -201569,15 +201602,48 @@
             "surface": "Knight De Thomas"
           },
           {
-            "end_offset": 27,
+            "end_offset": 26,
             "entity_id": "map:2ff5416f7cdc9008e393d911",
             "entity_type": "map",
             "evidence_id": "ev:bbda077f23af599fc76f7cf5",
             "field": "short_ru",
-            "mention_id": "mention:700b8dea497cfa226d423c97",
-            "start_offset": 21,
+            "mention_id": "mention:b8bb267960bb7e407671bc86",
+            "start_offset": 20,
             "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1",
             "surface": "Izlude"
+          },
+          {
+            "end_offset": 63,
+            "entity_id": "item:093fe3f9eb0df60ea48fe22c",
+            "entity_type": "item",
+            "evidence_id": "ev:b4e224c54876f1f031c83c66",
+            "field": "short_ru",
+            "mention_id": "mention:483a3a2c93faa39b3f716a6e",
+            "start_offset": 50,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1",
+            "surface": "Empty Bottles"
+          },
+          {
+            "end_offset": 77,
+            "entity_id": "item:cf7e34bb941984ea03c84fb4",
+            "entity_type": "item",
+            "evidence_id": "ev:4785b0555d54015da0470506",
+            "field": "short_ru",
+            "mention_id": "mention:23cfe03ca9f038931168181e",
+            "start_offset": 68,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1",
+            "surface": "Moth Wing"
+          },
+          {
+            "end_offset": 95,
+            "entity_id": "item:9a261560313cf0d6d8bdfd00",
+            "entity_type": "item",
+            "evidence_id": "ev:d900990ec4aaf0047b9c510b",
+            "field": "short_ru",
+            "mention_id": "mention:28c8648da576c9625ce4b879",
+            "start_offset": 90,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/8b6fef3d1b9a395d01b7/1",
+            "surface": "Armor"
           }
         ],
         "full_en": "Talk to Knight De Thomas inside the house in Izlude (214,129). He'll require the following items to teach you HP Recovery While Moving : Items 200 Empty Bottles An Equippable Armor 1 Moth Wing Job Level: 35 Class: Swordman",
@@ -201600,8 +201666,8 @@
           }
         ],
         "section": "HP Recovery While Moving Quest",
-        "short_en": "Ask Knight De Thomas in Izlude (214,129) about HP Recovery While Moving.",
-        "short_ru": "У Knight De Thomas в Izlude (214,129) узнайте условия HP Recovery While Moving.",
+        "short_en": "Give Knight De Thomas (Izlude 214,129) 200 Empty Bottles and 1 Moth Wing; show 1 Armor for HP Recovery While Moving.",
+        "short_ru": "У Knight De Thomas (Izlude 214,129) передайте 200 Empty Bottles и 1 Moth Wing; покажите 1 Armor для HP Recovery While Moving.",
         "source_additions": [
           {
             "addition_id": "addition:3b0c1957d63187cf0451a915",
@@ -201936,6 +202002,61 @@
             "surface": "prt_in"
           },
           {
+            "end_offset": 49,
+            "entity_id": "item:b4edced020e1abb40b84b093",
+            "entity_type": "item",
+            "evidence_id": "ev:5f0a22deb706e01266dc67e4",
+            "field": "short_en",
+            "mention_id": "mention:35c865b65cd5d99130138a00",
+            "start_offset": 37,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
+            "surface": "Banana Juice"
+          },
+          {
+            "end_offset": 65,
+            "entity_id": "item:b2a40b704d7009124f7f9e35",
+            "entity_type": "item",
+            "evidence_id": "ev:059d75b412457064937f9453",
+            "field": "short_en",
+            "mention_id": "mention:d0bf81ba55a146faea493eee",
+            "start_offset": 54,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
+            "surface": "Fire Arrows"
+          },
+          {
+            "end_offset": 83,
+            "entity_id": "item:a3fca891b223d8dd6f3948e1",
+            "entity_type": "item",
+            "evidence_id": "ev:b707dbd34b3dbf10919d3f09",
+            "field": "short_en",
+            "mention_id": "mention:3ba971d6f6971c01a8ec19f0",
+            "start_offset": 70,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
+            "surface": "Silver Arrows"
+          },
+          {
+            "end_offset": 97,
+            "entity_id": "item:df28002903b8bc7baa0fff1d",
+            "entity_type": "item",
+            "evidence_id": "ev:a95ccfd7eb9b23772692bbd5",
+            "field": "short_en",
+            "mention_id": "mention:eb0d6c58f3db5087fd4452a0",
+            "start_offset": 88,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
+            "surface": "Tentacles"
+          },
+          {
+            "end_offset": 115,
+            "entity_id": "item:059eb5a93cdfb2222bb633fb",
+            "entity_type": "item",
+            "evidence_id": "ev:fd3db27142c85b25f5168f4b",
+            "field": "short_en",
+            "mention_id": "mention:8efc8947a215857367d5c494",
+            "start_offset": 104,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
+            "surface": "Royal Jelly"
+          },
+          {
             "end_offset": 16,
             "entity_id": "npc:75768dcf30f27de5786704c9",
             "entity_type": "npc",
@@ -201956,6 +202077,61 @@
             "start_offset": 18,
             "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
             "surface": "prt_in"
+          },
+          {
+            "end_offset": 56,
+            "entity_id": "item:b4edced020e1abb40b84b093",
+            "entity_type": "item",
+            "evidence_id": "ev:5f0a22deb706e01266dc67e4",
+            "field": "short_ru",
+            "mention_id": "mention:e5f970d792fa61c7b391c001",
+            "start_offset": 44,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
+            "surface": "Banana Juice"
+          },
+          {
+            "end_offset": 72,
+            "entity_id": "item:b2a40b704d7009124f7f9e35",
+            "entity_type": "item",
+            "evidence_id": "ev:059d75b412457064937f9453",
+            "field": "short_ru",
+            "mention_id": "mention:ddbcbb2e5755b90608b54b27",
+            "start_offset": 61,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
+            "surface": "Fire Arrows"
+          },
+          {
+            "end_offset": 90,
+            "entity_id": "item:a3fca891b223d8dd6f3948e1",
+            "entity_type": "item",
+            "evidence_id": "ev:b707dbd34b3dbf10919d3f09",
+            "field": "short_ru",
+            "mention_id": "mention:72dcbf5f217445054b9bc719",
+            "start_offset": 77,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
+            "surface": "Silver Arrows"
+          },
+          {
+            "end_offset": 104,
+            "entity_id": "item:df28002903b8bc7baa0fff1d",
+            "entity_type": "item",
+            "evidence_id": "ev:a95ccfd7eb9b23772692bbd5",
+            "field": "short_ru",
+            "mention_id": "mention:8bda4d1d6cdc6b9ef1dfd8fc",
+            "start_offset": 95,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
+            "surface": "Tentacles"
+          },
+          {
+            "end_offset": 120,
+            "entity_id": "item:059eb5a93cdfb2222bb633fb",
+            "entity_type": "item",
+            "evidence_id": "ev:fd3db27142c85b25f5168f4b",
+            "field": "short_ru",
+            "mention_id": "mention:abec827fa37bf50dabecae06",
+            "start_offset": 109,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/fcb2837f13f99b5f1cfa/1",
+            "surface": "Royal Jelly"
           }
         ],
         "full_en": "Talk to Leon Von Frich (prt_in 75,88) inside the Prontera Chivalry (top left building in Prontera ), and give him the following items to learn Fatal Blow : Items 1 Banana Juice 10 Fire Arrows 10 Silver Arrows 30 Tentacles 5 Royal Jelly Job Level: 30 Class: Swordman",
@@ -201978,8 +202154,8 @@
           }
         ],
         "section": "Fatal Blow Quest",
-        "short_en": "Give Leon Von Frich (prt_in 75,88) the Fatal Blow materials.",
-        "short_ru": "У Leon Von Frich (prt_in 75,88) передайте материалы для Fatal Blow.",
+        "short_en": "Give Leon Von Frich (prt_in 75,88) 1 Banana Juice, 10 Fire Arrows, 10 Silver Arrows, 30 Tentacles and 5 Royal Jelly for Fatal Blow.",
+        "short_ru": "У Leon Von Frich (prt_in 75,88) передайте 1 Banana Juice, 10 Fire Arrows, 10 Silver Arrows, 30 Tentacles и 5 Royal Jelly для Fatal Blow.",
         "source_additions": [
           {
             "addition_id": "addition:7c604d75a5481fd90d56d950",
@@ -202249,15 +202425,59 @@
             "surface": "Juan"
           },
           {
-            "end_offset": 21,
+            "end_offset": 19,
             "entity_id": "map:f11d6187a99f6f85b72db8cd",
             "entity_type": "map",
             "evidence_id": "ev:57bbcb152eb08f99a47efcce",
             "field": "short_en",
-            "mention_id": "mention:ad9d8f5220af33789d2326e6",
-            "start_offset": 13,
+            "mention_id": "mention:5b9e91729e336aaf1b2c0ddf",
+            "start_offset": 11,
             "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
             "surface": "Prontera"
+          },
+          {
+            "end_offset": 45,
+            "entity_id": "item:9f5f58d396a0617a5ed9c1a9",
+            "entity_type": "item",
+            "evidence_id": "ev:3120e6443e6afa66f8bc018f",
+            "field": "short_en",
+            "mention_id": "mention:59b16996101a56c6cd7a8504",
+            "start_offset": 32,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
+            "surface": "Decayed Nails"
+          },
+          {
+            "end_offset": 55,
+            "entity_id": "item:ff119a8b3317d5d2c25e671e",
+            "entity_type": "item",
+            "evidence_id": "ev:0f5214e867cadbbea6667d1c",
+            "field": "short_en",
+            "mention_id": "mention:0aaf3305620820ef882e68d5",
+            "start_offset": 50,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
+            "surface": "Honey"
+          },
+          {
+            "end_offset": 77,
+            "entity_id": "item:cfd43cb19320ccd0c1d194cd",
+            "entity_type": "item",
+            "evidence_id": "ev:42e29811adb7a3cf5464f120",
+            "field": "short_en",
+            "mention_id": "mention:213ecd5378801a7251af5144",
+            "start_offset": 60,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
+            "surface": "Horrendous Mouths"
+          },
+          {
+            "end_offset": 104,
+            "entity_id": "item:5f7262cbdf2088d2fe1a56bc",
+            "entity_type": "item",
+            "evidence_id": "ev:611a8acb641723607e3d5e47",
+            "field": "short_en",
+            "mention_id": "mention:425bcb817b1461b0077a8cf5",
+            "start_offset": 85,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
+            "surface": "Powder of Butterfly"
           },
           {
             "end_offset": 6,
@@ -202271,15 +202491,59 @@
             "surface": "Juan"
           },
           {
-            "end_offset": 17,
+            "end_offset": 16,
             "entity_id": "map:f11d6187a99f6f85b72db8cd",
             "entity_type": "map",
             "evidence_id": "ev:57bbcb152eb08f99a47efcce",
             "field": "short_ru",
-            "mention_id": "mention:f95bfb057ed8904faddedc76",
-            "start_offset": 9,
+            "mention_id": "mention:2c2cb03f4e29cc3ce32eab09",
+            "start_offset": 8,
             "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
             "surface": "Prontera"
+          },
+          {
+            "end_offset": 52,
+            "entity_id": "item:9f5f58d396a0617a5ed9c1a9",
+            "entity_type": "item",
+            "evidence_id": "ev:3120e6443e6afa66f8bc018f",
+            "field": "short_ru",
+            "mention_id": "mention:ca180efec465968b0f10c571",
+            "start_offset": 39,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
+            "surface": "Decayed Nails"
+          },
+          {
+            "end_offset": 62,
+            "entity_id": "item:ff119a8b3317d5d2c25e671e",
+            "entity_type": "item",
+            "evidence_id": "ev:0f5214e867cadbbea6667d1c",
+            "field": "short_ru",
+            "mention_id": "mention:fe737f832ca38c608fb7ecec",
+            "start_offset": 57,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
+            "surface": "Honey"
+          },
+          {
+            "end_offset": 84,
+            "entity_id": "item:cfd43cb19320ccd0c1d194cd",
+            "entity_type": "item",
+            "evidence_id": "ev:42e29811adb7a3cf5464f120",
+            "field": "short_ru",
+            "mention_id": "mention:ce56a60ca632e4452f4e0670",
+            "start_offset": 67,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
+            "surface": "Horrendous Mouths"
+          },
+          {
+            "end_offset": 109,
+            "entity_id": "item:5f7262cbdf2088d2fe1a56bc",
+            "entity_type": "item",
+            "evidence_id": "ev:611a8acb641723607e3d5e47",
+            "field": "short_ru",
+            "mention_id": "mention:335c94869336c20a37db56de",
+            "start_offset": 90,
+            "step_id": "irowiki-classic:Swordman_Skill_Quest/step/1b82aea3d23022537426/1",
+            "surface": "Powder of Butterfly"
           }
         ],
         "full_en": "Talk to Juan inside the Prontera Upgrade Shop (178, 185) and give him the following items to learn Berserk : Items 10 Decayed Nails 10 Honey 10 Horrendous Mouths 35 Powder of Butterfly Job Level: 30 Class: Swordman",
@@ -202302,8 +202566,8 @@
           }
         ],
         "section": "Berserk Quest",
-        "short_en": "Give Juan at Prontera Upgrade Shop (178, 185) the Berserk materials.",
-        "short_ru": "У Juan в Prontera Upgrade Shop (178, 185) передайте материалы для Berserk.",
+        "short_en": "Give Juan (Prontera 178,185) 10 Decayed Nails, 10 Honey, 10 Horrendous Mouths and 35 Powder of Butterfly for Berserk.",
+        "short_ru": "У Juan (Prontera 178,185) передайте 10 Decayed Nails, 10 Honey, 10 Horrendous Mouths и 35 Powder of Butterfly для Berserk.",
         "source_additions": [
           {
             "addition_id": "addition:e38876fc1d8f8241717f7692",

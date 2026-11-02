@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-11-02T19:33:01.303272+00:00",
+  "created_utc": "2026-11-02T19:46:16.700309+00:00",
   "scope": "wiki Classic + rAthena scripts + Hercules quest scripts",
   "limitations": [
     "Wiki quest list is not necessarily exhaustive",
@@ -334,7 +334,7 @@
   },
   "semantic_export": {
     "schema_version": 5,
-    "data_version": "757059b9e431a9e61bd7ece21b3711078cae1e068647facf51aff5e949998074",
+    "data_version": "52db13b6585db4a2be98716e11ca752b54018481c290f9c585ae0a31abf8f9be",
     "generator_version": "semantic-5.8.0",
     "complete": false,
     "source_pages": 286,
@@ -355,7 +355,7 @@
     "counts": {
       "branch_descriptions": 158,
       "branch_mentions": 997,
-      "description_mentions": 11081,
+      "description_mentions": 11105,
       "dialogue_options": 233,
       "dialogues": 170,
       "entities": 1325,
