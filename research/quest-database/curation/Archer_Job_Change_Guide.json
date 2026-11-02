@@ -1,0 +1,339 @@
+{
+  "quest_id": "irowiki-classic:Archer_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "b2d4becbffaf1e3f7e6c76cd42b65c17ec4f83bbd64d6bd0259b127b6a612fba",
+  "snapshot_sha256": "a4fe34c1cc683d04972fbf15278c5166d46979930f0a0775bdbe55096e39319e",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Archer Guildsman"
+    },
+    {
+      "type": "map",
+      "name": "pay_arche",
+      "map_code": "pay_arche"
+    },
+    {
+      "type": "map",
+      "name": "payon_in02",
+      "map_code": "payon_in02"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "Archer Village"
+    },
+    {
+      "type": "item",
+      "name": "Trunk",
+      "game_id": 1019,
+      "id_source": "http://db.irowiki.org/classic/item-info/1019/"
+    },
+    {
+      "type": "item",
+      "name": "Barren Trunk",
+      "game_id": 1068,
+      "id_source": "http://db.irowiki.org/classic/item-info/1068/"
+    },
+    {
+      "type": "item",
+      "name": "Solid Trunk",
+      "game_id": 1067,
+      "id_source": "http://db.irowiki.org/classic/item-info/1067/"
+    },
+    {
+      "type": "item",
+      "name": "Fine-grained Trunk",
+      "game_id": 1066,
+      "id_source": "http://db.irowiki.org/classic/item-info/1066/"
+    },
+    {
+      "type": "item",
+      "name": "Bow",
+      "game_id": 1702,
+      "id_source": "http://db.irowiki.org/classic/item-info/1702/"
+    },
+    {
+      "type": "item",
+      "name": "Arrows",
+      "game_id": 1750,
+      "id_source": "http://db.irowiki.org/classic/item-info/1750/"
+    },
+    {
+      "type": "item",
+      "name": "Trunks",
+      "identity": "irowiki-classic:Archer_Job_Change_Guide:source_item:trunk_category",
+      "ref": "trunk_category"
+    },
+    {
+      "type": "monster",
+      "name": "Willow",
+      "game_id": 1010,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1010/"
+    },
+    {
+      "type": "monster",
+      "name": "Elder Willows",
+      "game_id": 1033,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1033/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Head to the Archer Guild ( pay_arche 145, 164) in the Archer Village north of Payon .",
+      "instruction_sha256": "b74685281d5b255224adb532bcedfd777f5982bc1c2f9eefcc195f50eca1d261",
+      "step_id": "irowiki-classic:Archer_Job_Change_Guide/step/b74685281d5b255224ad/1",
+      "goal": "move",
+      "short_ru": "Идите в Archer Guild: pay_arche 145, 164.",
+      "short_en": "Go to the Archer Guild: pay_arche 145, 164.",
+      "full_ru": "Отправляйтесь в Archer Guild (pay_arche 145, 164), в Archer Village к северу от Payon.",
+      "full_en": "Head to the Archer Guild ( pay_arche 145, 164) in the Archer Village north of Payon .",
+      "actions": [
+        {
+          "operation": "enter_archer_guild"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "pay_arche",
+          "x": 145,
+          "y": 164,
+          "role": "guild_entrance",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "pay_arche",
+        "Payon",
+        "Archer Village"
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to the Archer Guildsman (payon_in02 64,71). You will be told to collect different type of Trunks for a minimum of 25 points. There are 4 types of Trunks: | Note : Trunks can be obtained by the monster Willow , found near Payon on some maps (a good start is one east of Payon). Beware of Elder Willows , as they look similar but are strong at this point. Time can be saved by leveling off of Willow from 10/8 to 12/10 or so because the Trunks are needed anyway.",
+      "instruction_sha256": "64a76a63c823293e5f173555e180c7c98cdba88141f6ebd1532867be69b39fac",
+      "step_id": "irowiki-classic:Archer_Job_Change_Guide/step/64a76a63c823293e5f17/1",
+      "goal": "collect",
+      "short_ru": "У Archer Guildsman (payon_in02 64,71) соберите Trunks минимум на 25 очков.",
+      "short_en": "For Archer Guildsman (payon_in02 64,71), collect Trunks worth at least 25 points.",
+      "full_ru": "Поговорите с Archer Guildsman (payon_in02 64,71). Нужно собрать Trunks разных типов на минимум 25 очков. Всего есть 4 типа Trunks. Примечание: их можно добыть с Willow рядом с Payon; начните с карты к востоку от Payon. Остерегайтесь Elder Willows: они похожи, но пока слишком сильны. Для экономии времени можно сражаться с Willow примерно с 10/8 до 12/10, поскольку Trunks всё равно понадобятся. Очки за предмет: Trunk — 1; Barren Trunk — 2; Solid Trunk — 3; Fine-grained Trunk — 5.",
+      "full_en": "Talk to the Archer Guildsman (payon_in02 64,71). You will be told to collect different type of Trunks for a minimum of 25 points. There are 4 types of Trunks: | Note : Trunks can be obtained by the monster Willow , found near Payon on some maps (a good start is one east of Payon). Beware of Elder Willows , as they look similar but are strong at this point. Time can be saved by leveling off of Willow from 10/8 to 12/10 or so because the Trunks are needed anyway. Trunk Type Point Value Trunk 1 Point Barren Trunk 2 Points Solid Trunk 3 Points Fine-grained Trunk 5 Points",
+      "npcs": [
+        {
+          "entity": "Archer Guildsman",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "weighted_item_points_minimum",
+          "amount": "25",
+          "condition": "Shared weighted total across any eligible trunk mix, not 25 of each type."
+        },
+        {
+          "kind": "item_point_value",
+          "amount": "1",
+          "entity": "Trunk",
+          "condition": "Value per eligible trunk; combine types to meet the shared minimum.",
+          "source_section": "html_text",
+          "evidence": "Trunk 1 Point"
+        },
+        {
+          "kind": "item_point_value",
+          "amount": "2",
+          "entity": "Barren Trunk",
+          "condition": "Value per eligible trunk; combine types to meet the shared minimum.",
+          "source_section": "html_text",
+          "evidence": "Barren Trunk 2 Points"
+        },
+        {
+          "kind": "item_point_value",
+          "amount": "3",
+          "entity": "Solid Trunk",
+          "condition": "Value per eligible trunk; combine types to meet the shared minimum.",
+          "source_section": "html_text",
+          "evidence": "Solid Trunk 3 Points"
+        },
+        {
+          "kind": "item_point_value",
+          "amount": "5",
+          "entity": "Fine-grained Trunk",
+          "condition": "Value per eligible trunk; combine types to meet the shared minimum.",
+          "source_section": "html_text",
+          "evidence": "Fine-grained Trunk 5 Points"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_weighted_trunks",
+          "entity": "Archer Guildsman"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Willow",
+          "operation": "loot_source",
+          "quantity": null,
+          "required": 0,
+          "condition": "Suggested trunk source, not a kill quota or a mandatory leveling range."
+        },
+        {
+          "entity": "Elder Willows",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Avoid the stronger lookalike; no kill objective."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "payon_in02",
+          "x": 64,
+          "y": 71,
+          "role": "npc",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Archer Guildsman",
+        "payon_in02",
+        "Payon",
+        "Trunks",
+        "Willow",
+        "Elder Willows"
+      ],
+      "items": [
+        {
+          "entity": "Trunk",
+          "quantity": null,
+          "operation": "collect",
+          "required": 0,
+          "condition": "Eligible contributor to the weighted total; all four types are not required.",
+          "source_section": "html_text",
+          "evidence": "Trunk 1 Point"
+        },
+        {
+          "entity": "Barren Trunk",
+          "quantity": null,
+          "operation": "collect",
+          "required": 0,
+          "condition": "Eligible contributor to the weighted total; all four types are not required.",
+          "source_section": "html_text",
+          "evidence": "Barren Trunk 2 Points"
+        },
+        {
+          "entity": "Solid Trunk",
+          "quantity": null,
+          "operation": "collect",
+          "required": 0,
+          "condition": "Eligible contributor to the weighted total; all four types are not required.",
+          "source_section": "html_text",
+          "evidence": "Solid Trunk 3 Points"
+        },
+        {
+          "entity": "Fine-grained Trunk",
+          "quantity": null,
+          "operation": "collect",
+          "required": 0,
+          "condition": "Eligible contributor to the weighted total; all four types are not required.",
+          "source_section": "html_text",
+          "evidence": "Fine-grained Trunk 5 Points"
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Trunk Type Point Value Trunk 1 Point Barren Trunk 2 Points Solid Trunk 3 Points Fine-grained Trunk 5 Points",
+          "text_ru": "Очки за предмет: Trunk — 1; Barren Trunk — 2; Solid Trunk — 3; Fine-grained Trunk — 5."
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "After enough Trunks are brought back, the player will have their job changed to an Archer .",
+      "instruction_sha256": "e5e87d5f0827c10ee2d099f110ba7daae4087e4eeffc331e28f66ad0468dee30",
+      "step_id": "irowiki-classic:Archer_Job_Change_Guide/step/e5e87d5f0827c10ee2d0/1",
+      "goal": "job_change",
+      "short_ru": "Верните Trunks на 25 очков и станьте Archer.",
+      "short_en": "Return Trunks worth 25 points and become an Archer.",
+      "full_ru": "Верните достаточное количество Trunks: после этого ваша профессия сменится на Archer. Награды по заголовку источника: Bow, Arrows; количество не указано.",
+      "full_en": "After enough Trunks are brought back, the player will have their job changed to an Archer . Item(s): Bow , Arrows",
+      "npcs": [
+        {
+          "entity": "Archer Guildsman",
+          "role": "talk",
+          "support_step": 2,
+          "evidence": "Talk to the Archer Guildsman (payon_in02 64,71). You will be told to collect different type of Trunks for a minimum of 25 points. There are 4 types of Trunks: | Note : Trunks can be obtained by the monster Willow , found near Payon on some maps (a good start is one east of Payon). Beware of Elder Willows , as they look similar but are strong at this point. Time can be saved by leveling off of Willow from 10/8 to 12/10 or so because the Trunks are needed anyway."
+        }
+      ],
+      "items": [
+        {
+          "entity": "trunk_category",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 2,
+          "evidence": "Talk to the Archer Guildsman (payon_in02 64,71). You will be told to collect different type of Trunks for a minimum of 25 points. There are 4 types of Trunks: | Note : Trunks can be obtained by the monster Willow , found near Payon on some maps (a good start is one east of Payon). Beware of Elder Willows , as they look similar but are strong at this point. Time can be saved by leveling off of Willow from 10/8 to 12/10 or so because the Trunks are needed anyway.",
+          "condition": "One mixed trunk submission meeting the weighted minimum; no fixed quantity or all-type requirement."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Archer"
+        },
+        {
+          "kind": "item",
+          "entity": "Bow",
+          "source_section": "rewards",
+          "evidence": "Bow",
+          "condition": "Listed in the reward header; quantity not printed."
+        },
+        {
+          "kind": "item",
+          "entity": "Arrows",
+          "source_section": "rewards",
+          "evidence": "Arrows",
+          "condition": "Listed in the reward header; quantity not printed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_weighted_trunks",
+          "entity": "trunk_category"
+        },
+        {
+          "operation": "change_job",
+          "entity": "Archer Guildsman"
+        }
+      ],
+      "protected_names": [
+        "Trunks"
+      ],
+      "locations": [],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Item(s): Bow , Arrows",
+          "text_ru": "Награды по заголовку источника: Bow, Arrows; количество не указано."
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "archer_weighted_materials",
+      "detail": "The legacy extractor omitted the four-row point table. Pinned HTML restores values 1/2/3/5; any eligible mix must total at least 25. No fixed trunk count, all-four-types cost or Willow kill quota is invented."
+    },
+    {
+      "reason": "archer_leveling_tip_not_gate",
+      "detail": "The 10/8 to 12/10 range is a suggested leveling tactic, not a base/job eligibility requirement. Job Level 10 is the source header gate."
+    },
+    {
+      "reason": "archer_reward_counts_unknown",
+      "detail": "Bow 1702 and Arrows 1750 are exact own-guide links; reward quantities remain NULL. Original archive rows and stable IDs are preserved."
+    }
+  ]
+}

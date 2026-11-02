@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.7.0**. All four description fields are populated for
-**915 steps across 70 curated guides**, up from the previous 67-guide/892-step
-checkpoint. **114 conditional branches** also have independent RU/EN short and
-full descriptions. Fifteen quest routes represent six exclusive expedition/lyric paths
-and nine conditional/optional activities. **1,835 steps in 146 remaining catalog entries still lack
+**942 steps across 74 curated guides**, up from the previous 70-guide/915-step
+checkpoint. **124 conditional branches** also have independent RU/EN short and
+full descriptions. Seventeen quest routes represent six exclusive expedition/lyric paths
+and eleven conditional/optional activities. **1,808 steps in 142 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -95,6 +95,10 @@ complete localization/context analysis.** `complete` remains false.
 | Geffen Bard Quest | 13 | Optional author discovery; exclusive book/letter paths; nine letter-only EXP bands; uncertain Magnifier consumption |
 | Bard Job Change Guide | 4 | Eight alternative flowers; Snowysnow corequisite; live song copying; five optional trunk/instrument offers |
 | Bard Skill Quest | 6 | Geffen completion gate at Riott; positional answers; five-egg total and ordered pursuit cycle; unknown item IDs |
+| Archer Job Change Guide | 3 | Restored weighted trunk table; mixed 25-point minimum; optional Willow leveling tip; unknown reward counts |
+| Archer Skill Quest | 2 | Independent level-30/35 activities; restored headers/unlocks; euRO material/location alternatives |
+| Hunter Job Change Guide | 20 | Ten exact personality answers; seven restored random sets; four kills versus six targets; shared timer and preparation context |
+| Hunter Skill Quest | 2 | One 5/5/30 material set; two participants; only Arpesto has printed coordinates |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -103,7 +107,41 @@ verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
 
-- Three Bard-related guides preserve all 23 original stages. Coverage is now
+- Four Archer/Hunter guides preserve all 27 original stages. Coverage is now
+  942 stages / 74 guides, 124 localized branches and seventeen routes. All prior
+  915 localized descriptions, 114 branches and original step IDs remain unchanged.
+  This is data curation using the existing schema 5 / semantic-5.7.0 generator.
+- Archer Job Change restores the omitted four-row trunk point table from pinned
+  HTML. Any mix must total at least 25 points; values are 1/2/3/5 per eligible
+  item. Four eligible types are not four compulsory quotas. Willow is a suggested
+  loot source, and the 10/8–12/10 leveling tip is not another eligibility gate.
+  Bow/Arrows reward IDs follow this guide's links; their quantities remain NULL.
+- Archer Skill has two independent optional routes. Arrow Crafting needs Job
+  Level 30; Arrow Repel needs 35, recovered from its own omitted header. Each
+  unlock and header is restored with pinned additions. Four common crafting
+  materials are shared by two server variants: 41 Tough Scalelike Stem (7012)
+  or euRO Pointed Scales (906), never both. Roberto's two points are alternative
+  locations; Jason's map code remains unknown despite a printed town/point.
+- Hunter's ten personality answers are exact choices, not movement/heal tasks;
+  question stems are absent. Its omitted table has seven exclusive random
+  three-material sets. Branch narratives are authored from the unchanged
+  assignment paragraph and the pinned table; each material fact cites its
+  literal HTML row. Do not require all sets or independently mix their items.
+- The Hunter test requires any four labelled targets, followed by switch and
+  exit, within one shared three-minute limit. Six listed targets are population,
+  not a kill quota. Regular source-linked species IDs do not verify special
+  exam actors, whose IDs remain NULL. Waiting-chat preparation is linked to
+  stage 15 with later stage-18 evidence and a literal addition, so it is not an
+  instruction to restart after success. Silver Arrows are a 200-item grant;
+  Necklace of Wisdom is one received/returned proof. Falcon rental remains
+  an optional post-job branch, with an unnamed receptionist kept distinct.
+- Hunter Skill requests then accepts one 5/5/30 material set, not a separate
+  set per NPC or a doubled total. Arpesto has the only printed point; Reidin
+  Corse's coordinate and the skill's numeric ID remain unknown.
+
+Earlier source-review checkpoints:
+
+- Three Bard-related guides preserved all 23 original stages. Coverage was
   915 stages / 70 guides, 114 localized branches and fifteen routes. All prior
   892 localized descriptions, 92 branches and original step IDs remain unchanged.
   Semantic schema stays 5; generator is semantic-5.7.0.
@@ -616,7 +654,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **242 tests passed**; complete offline enrichment passed;
+Validated locally: **254 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -680,7 +718,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 ## Next work, in order
 
-1. Review the remaining 146 catalog candidates, separating reference pages,
+1. Review the remaining 142 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

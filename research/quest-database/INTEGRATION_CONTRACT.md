@@ -112,6 +112,28 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   Five eggs is a shared collection goal across request/collection steps, not
   ten items, five per attempt, or a monster kill quota. The five map points
   form a cycle with unknown starting point; final egg consumption is unproven.
+- Archer/Hunter curation uses existing schema 5 fields. A
+  `weighted_item_points_minimum` and per-item `item_point_value` requirements
+  describe a mixed weighted total: eligible trunk rows (`required=0`, unknown
+  individual quantities) must not become four compulsory quotas. Source reward
+  quantities remain NULL when only labels are printed.
+- Archer Skill's two optional routes are independent activities, not a required
+  progression. Stage-level Job Level 30/35 gates and their own skill unlocks
+  override any assumption that the legacy first header describes both stages.
+  euRO Pointed Scales replaces Tough Scalelike Stem; Roberto's points are also
+  alternatives, not sequential visits.
+- Hunter's random material branches share `random_arrow_material_set`. Choose
+  only the assigned set. Each typed item cites the literal pinned HTML row;
+  the branch's immutable source instruction/hash identifies the archived
+  assignment paragraph, while bilingual narratives summarize that table.
+  Six target population facts are not extra kills: any four labelled targets
+  satisfy the quota, then switch and exit share one three-minute limit. Linked
+  regular species IDs are separate from unverified exam actor identities.
+- Later source instructions can establish earlier preparation through explicit
+  `evidence_context`: Hunter's waiting-chat action belongs to stage 15 and cites
+  stage 18. The retained stage-18 prose does not require restarting after exit.
+  Hunter Skill's request/return rows are one material obligation, and a point
+  printed only for Arpesto is not a verified Reidin Corse coordinate.
 - `step_locations.location_order` is a reviewed visit sequence when present,
   not an ordering inferred automatically from every textual occurrence.
   NULL means no established sequence. `condition_text` identifies alternative

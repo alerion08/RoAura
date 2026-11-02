@@ -251,17 +251,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],915)
-        self.assertEqual(self.report['not_fully_localized_steps'],1835)
+        self.assertEqual(self.report['fully_localized_steps'],942)
+        self.assertEqual(self.report['not_fully_localized_steps'],1808)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],915)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],942)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1835)
-        self.assertEqual(self.report['fully_localized_branches'],114)
-        self.assertEqual(self.report['curated_quests'],70)
-        self.assertEqual(self.report['pending_quests'],146)
-        self.assertEqual(self.report['quest_routes'],15)
-        self.assertEqual(self.report['source_additions'],13)
+        self.assertEqual(missing,1808)
+        self.assertEqual(self.report['fully_localized_branches'],124)
+        self.assertEqual(self.report['curated_quests'],74)
+        self.assertEqual(self.report['pending_quests'],142)
+        self.assertEqual(self.report['quest_routes'],17)
+        self.assertEqual(self.report['source_additions'],21)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_juperos_four_homonymous_books_and_return_scholar_have_typed_links(self):
@@ -398,6 +398,130 @@ class RealCorpusTests(unittest.TestCase):
             destination=self.out/'quest_semantic.sqlite';before=destination.read_bytes()
             with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid optional route context proof'):build(self.source,self.out,curation_dir=folder)
             self.assertEqual(destination.read_bytes(),before)
+
+    def test_archer_trunk_point_table_restores_a_mixed_threshold_not_four_quotas(self):
+        q='irowiki-classic:Archer_Job_Change_Guide'
+        values=[tuple(r) for r in self.db.execute('''SELECT i.game_id,r.amount,e.method FROM requirements r JOIN items i ON i.entity_id=r.entity_id
+          JOIN evidence e USING(evidence_id) WHERE r.quest_id=? AND r.kind='item_point_value' ORDER BY i.game_id''',(q,))]
+        self.assertEqual(values,[(1019,'1','curated_html_text'),(1066,'5','curated_html_text'),(1067,'3','curated_html_text'),(1068,'2','curated_html_text')])
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='weighted_item_points_minimum'",(q,)).fetchone()[0],'25')
+        contributors=[tuple(r) for r in self.db.execute('''SELECT quantity,required FROM step_items i JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=2''',(q,))]
+        self.assertEqual(contributors,[(None,0)]*4)
+        kills=[r[0] for r in self.db.execute('''SELECT operation FROM step_monsters m JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY operation''',(q,))]
+        self.assertEqual(kills,['loot_source','mention'])
+
+    def test_archer_job_level_and_reward_headers_do_not_invent_counts_or_leveling_gates(self):
+        q='irowiki-classic:Archer_Job_Change_Guide'
+        levels=[tuple(r) for r in self.db.execute("SELECT kind,amount FROM requirements WHERE quest_id=? AND kind IN ('base_level','job_level')",(q,))]
+        self.assertEqual(levels,[('job_level','10')])
+        rewards=[tuple(r) for r in self.db.execute('''SELECT x.game_id,r.amount,s.step_order FROM rewards r JOIN items x ON x.entity_id=r.item_id
+          JOIN step_rewards sr USING(reward_id) JOIN quest_steps s USING(step_id) WHERE r.quest_id=? ORDER BY x.game_id''',(q,))]
+        self.assertEqual(rewards,[(1702,None,3),(1750,None,3)])
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='job_change'",(q,)).fetchone()[0],'Archer')
+
+    def test_archer_skill_activities_have_separate_routes_levels_and_unlocks(self):
+        q='irowiki-classic:Archer_Skill_Quest'
+        routes=[tuple(r) for r in self.db.execute('''SELECT r.route_key,r.kind,s.step_order FROM quest_routes r JOIN step_routes m USING(route_id)
+          JOIN quest_steps s USING(step_id) WHERE r.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(routes,[('arrow_crafting','optional',1),('arrow_repel','optional',2)])
+        gates=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.kind='job_level' ORDER BY s.step_order''',(q,))]
+        self.assertEqual(gates,[(1,'30'),(2,'35')])
+        skills=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount FROM rewards r JOIN step_rewards sr USING(reward_id) JOIN quest_steps s USING(step_id)
+          WHERE r.quest_id=? AND r.kind='skill_unlock' ORDER BY s.step_order''',(q,))]
+        self.assertEqual(skills,[(1,'Arrow Crafting'),(2,'Arrow Repel')])
+        self.assertEqual(self.db.execute('SELECT count(*) FROM step_source_additions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone()[0],4)
+
+    def test_archer_crafting_euro_scales_replace_stems_and_location(self):
+        q='irowiki-classic:Archer_Skill_Quest'
+        materials=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,x.game_id,i.quantity,b.choice_group FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(materials,[('classic_stem',7012,41,'crafting_material_variant'),('euro_scales',906,41,'crafting_material_variant')])
+        common=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=1 AND i.branch_id IS NULL ORDER BY x.game_id''',(q,))]
+        self.assertEqual(common,[(501,1),(907,20),(921,7),(1019,13)])
+        points=[tuple(r) for r in self.db.execute('''SELECT m.map_code,l.x,l.y,sl.condition_text FROM step_locations sl JOIN locations l USING(location_id)
+          JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=1 AND sl.role='npc' ORDER BY m.map_code''',(q,))]
+        self.assertEqual([(r[0],r[1],r[2]) for r in points],[('moc_ruins',118,99),('morocc',121,109)])
+        self.assertTrue(all('alternative' in r[3] for r in points))
+
+    def test_hunter_personality_answers_are_exact_choices_not_world_tasks(self):
+        q='irowiki-classic:Hunter_Job_Change_Guide'
+        choices=[tuple(r) for r in self.db.execute('''SELECT s.step_order,o.exact_text,o.operation,d.original_text FROM dialogue_options o JOIN dialogues d USING(dialogue_id)
+          JOIN step_dialogues sd USING(dialogue_id) JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order''',(q,))]
+        expected=['Wander around alone and search for a place.','Walk with a friend.','Hunt at a nearby field.','Go back to town.','Would it be possible to get a heal, please?','Open a chat room and wait.','Tell the person about a good place to hunt.','Guide them to their destination.','Watch, then attack when asked for help.','Try to find the owner.']
+        self.assertEqual(choices,[(n,text,'choose',None) for n,text in enumerate(expected,3)])
+        self.assertFalse(self.db.execute('''SELECT 1 FROM step_monsters m JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order BETWEEN 3 AND 12''',(q,)).fetchone())
+
+    def test_hunter_random_table_is_seven_exclusive_three_item_sets(self):
+        q='irowiki-classic:Hunter_Job_Change_Guide'
+        actual={}
+        for row in self.db.execute('''SELECT b.branch_key,x.game_id,i.quantity,e.method,b.choice_group FROM step_items i JOIN step_branches b USING(branch_id)
+          JOIN items x ON x.entity_id=i.item_id JOIN evidence e ON e.evidence_id=i.evidence_id JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? AND s.step_order=13 ORDER BY b.branch_key,x.game_id''',(q,)):
+            actual.setdefault(row[0],[]).append((row[1],row[2]));self.assertEqual(row[3],'curated_html_text');self.assertEqual(row[4],'random_arrow_material_set')
+        expected=[[(7030,5),(1019,5),(509,3)],[(955,9),(935,9),(508,9)],[(1021,3),(7032,3),(914,10)],[(937,3),(507,5),(919,3)],[(925,3),(932,5),(511,3)],[(913,3),(938,1),(948,1)],[(1027,2),(942,1),(1026,1)]]
+        self.assertEqual(actual,{'material_set_'+str(i):sorted(v) for i,v in enumerate(expected,1)})
+        self.assertFalse(self.db.execute('''SELECT 1 FROM step_items i JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=13 AND i.branch_id IS NULL''',(q,)).fetchone())
+
+    def test_hunter_four_kills_do_not_become_six_population_kills_or_regular_ids(self):
+        q='irowiki-classic:Hunter_Job_Change_Guide'
+        kills=[tuple(r) for r in self.db.execute('''SELECT s.step_order,m.quantity,x.game_id,e.original_name FROM step_monsters m JOIN quest_steps s USING(step_id)
+          JOIN monsters x ON x.entity_id=m.monster_id JOIN entities e ON e.entity_id=m.monster_id WHERE s.quest_id=? AND m.operation='kill' ''',(q,))]
+        self.assertEqual(kills,[(16,4,None,'Job Change Monster')])
+        counts=[tuple(r) for r in self.db.execute('''SELECT CAST(r.amount AS INTEGER),x.game_id FROM requirements r JOIN monsters x ON x.entity_id=r.entity_id
+          WHERE r.quest_id=? AND r.kind='monster_population' ORDER BY CAST(r.amount AS INTEGER)''',(q,))]
+        self.assertEqual(counts,[(1,None),(1,None),(1,None),(3,None)])
+        species={r[0] for r in self.db.execute('''SELECT x.game_id FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=15''',(q,))}
+        self.assertEqual(species,{1002,1015,1016,1041})
+
+    def test_hunter_one_shared_timer_and_preparation_relocated_before_objectives(self):
+        q='irowiki-classic:Hunter_Job_Change_Guide'
+        timers=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.kind='time_limit_minutes' ''',(q,))]
+        self.assertEqual(timers,[(15,'3')])
+        prep=[tuple(r) for r in self.db.execute('''SELECT s.step_order,support.step_order FROM step_actions a JOIN quest_steps s USING(step_id)
+          JOIN evidence_context c ON c.evidence_id=a.evidence_id JOIN evidence e ON e.evidence_id=c.supporting_id JOIN quest_steps support ON support.step_id=e.step_id
+          WHERE s.quest_id=? AND a.operation='join_waiting_chat' ''',(q,))]
+        self.assertEqual(prep,[(15,18)])
+        failures=[r[0] for r in self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='test_failure_condition'",(q,))]
+        self.assertEqual(set(failures),{'kill_unlabelled_target','enter_water_puddle','exceed_shared_time_limit','player_death'})
+
+    def test_hunter_silver_arrows_are_reward_and_necklace_is_one_returned_proof(self):
+        q='irowiki-classic:Hunter_Job_Change_Guide'
+        granted=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,r.amount FROM rewards r JOIN items x ON x.entity_id=r.item_id
+          JOIN step_rewards sr USING(reward_id) JOIN quest_steps s USING(step_id) WHERE r.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(granted,[(15,1751,'200'),(19,1007,'1')])
+        consumed=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,i.quantity FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND i.branch_id IS NULL''',(q,))]
+        self.assertEqual(consumed,[(20,1007,1)])
+        self.assertEqual(tuple(self.db.execute("SELECT amount,branch_id FROM rewards WHERE quest_id=? AND kind='job_change'",(q,)).fetchone()),('Hunter',None))
+
+    def test_hunter_falcon_tip_and_receptionist_identities_keep_their_scope(self):
+        q='irowiki-classic:Hunter_Job_Change_Guide'
+        people=[r[0] for r in self.db.execute('''SELECT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order IN (13,15)''',(q,))]
+        demon=self.db.execute("SELECT npc_id FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=13",(q,)).fetchone()[0]
+        receptionist=self.db.execute("SELECT entity_id FROM entities WHERE original_name='receptionist' AND entity_id IN (SELECT npc_id FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=?)",(q,)).fetchone()[0]
+        self.assertIn(demon,people);self.assertIn(receptionist,people);self.assertNotEqual(demon,receptionist)
+        branch=self.db.execute('''SELECT branch_id,condition_text FROM step_branches b JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND branch_key='optional_falcon_rental' ''',(q,)).fetchone()
+        self.assertIn('Optional',branch[1])
+        self.assertEqual([r[0] for r in self.db.execute('SELECT operation FROM step_actions WHERE branch_id=? ORDER BY action_order',(branch[0],))],['gain_experience_for_falconry_mastery','learn_falconry_mastery','rent_falcon'])
+
+    def test_hunter_skill_request_and_return_share_one_set_and_only_arpesto_has_point(self):
+        q='irowiki-classic:Hunter_Skill_Quest'
+        facts=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order,x.game_id''',(q,))]
+        self.assertEqual(facts,[(n,game_id,amount,op) for n,op in [(1,'bring'),(2,'deliver')] for game_id,amount in [(537,30),(724,5),(7115,5)]])
+        points=[tuple(r) for r in self.db.execute('''SELECT l.x,l.y,sl.role FROM step_locations sl JOIN locations l USING(location_id) JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND sl.role='Arpesto' ''',(q,))]
+        self.assertEqual(points,[(109,169,'Arpesto')])
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='skill_unlock'",(q,)).fetchone()[0],'Phantasmic Arrow')
+
+    def test_restored_hunter_material_proof_corruption_preserves_valid_export(self):
+        folder=self.out/'invalid-hunter-table-proof';shutil.copytree(ROOT/'curation',folder)
+        path=folder/'Hunter_Job_Change_Guide.json';data=json.loads(path.read_text())
+        data['steps']['13']['branches'][0]['items'][0]['evidence']='1 999 Claw of Desert Wolf'
+        path.write_text(json.dumps(data));before=(self.out/'quest_semantic.sqlite').read_bytes()
+        with self.assertRaisesRegex(ValueError,'Nonliteral curated section evidence'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
 
     def test_geffen_bard_route_choices_and_discovery_shortcut_are_separate(self):
         q='irowiki-classic:Geffen_Bard_Quest'

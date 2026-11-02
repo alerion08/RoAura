@@ -1,0 +1,202 @@
+{
+  "quest_id": "irowiki-classic:Hunter_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "a9ec8fd10a2eb729f7a2b0dcdcb7bbb01f4b95d81cb993b01e7f2979295b55e9",
+  "snapshot_sha256": "06ded9ce8d6dd31d00871483b1ad6511b470a24c22a1efc9949b4559474b5f07",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Arpesto"
+    },
+    {
+      "type": "npc",
+      "name": "Reidin Corse"
+    },
+    {
+      "type": "map",
+      "name": "pay_arche",
+      "map_code": "pay_arche"
+    },
+    {
+      "type": "map",
+      "name": "Archer Village"
+    },
+    {
+      "type": "item",
+      "name": "Cursed Rubies",
+      "game_id": 724,
+      "id_source": "http://db.irowiki.org/classic/item-info/724/"
+    },
+    {
+      "type": "item",
+      "name": "Harpy Feathers",
+      "game_id": 7115,
+      "id_source": "http://db.irowiki.org/classic/item-info/7115/"
+    },
+    {
+      "type": "item",
+      "name": "Pet Food",
+      "game_id": 537,
+      "id_source": "http://db.irowiki.org/classic/item-info/537/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In the north end of the Archer Village , you need to talk to two NPCs , Arpesto ( pay_arche , 109,169) and Reidin Corse. They will request the following items: 5 Cursed Rubies , 5 Harpy Feathers , 30 Pet Food .",
+      "instruction_sha256": "fb3c5de8072f25cd5a9e82db1800f5c5b977cf80fcf3f8c19bf1793d7398a251",
+      "step_id": "irowiki-classic:Hunter_Skill_Quest/step/fb3c5de8072f25cd5a9e/1",
+      "goal": "collect",
+      "short_ru": "Поговорите с Arpesto (pay_arche 109,169) и Reidin Corse; соберите 5 Cursed Rubies, 5 Harpy Feathers, 30 Pet Food.",
+      "short_en": "Talk to Arpesto (pay_arche 109,169) and Reidin Corse; gather 5 Cursed Rubies, 5 Harpy Feathers, 30 Pet Food.",
+      "full_ru": "В северной части Archer Village поговорите с двумя NPC: Arpesto (pay_arche, 109,169) и Reidin Corse. Они попросят 5 Cursed Rubies, 5 Harpy Feathers и 30 Pet Food.",
+      "full_en": "In the north end of the Archer Village , you need to talk to two NPCs , Arpesto ( pay_arche , 109,169) and Reidin Corse. They will request the following items: 5 Cursed Rubies , 5 Harpy Feathers , 30 Pet Food .",
+      "npcs": [
+        {
+          "entity": "Arpesto",
+          "role": "talk"
+        },
+        {
+          "entity": "Reidin Corse",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Cursed Rubies",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Harpy Feathers",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Pet Food",
+          "quantity": 30,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Arpesto"
+        },
+        {
+          "operation": "talk",
+          "entity": "Reidin Corse"
+        },
+        {
+          "operation": "gather_requested_materials"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "pay_arche",
+          "x": 109,
+          "y": 169,
+          "role": "Arpesto",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Arpesto",
+        "Reidin Corse",
+        "pay_arche",
+        "Archer Village",
+        "Cursed Rubies",
+        "Harpy Feathers",
+        "Pet Food"
+      ]
+    },
+    "2": {
+      "original_instruction": "Bring them these items, and they will teach you Phantasmic Arrow .",
+      "instruction_sha256": "42324ad7000248f5a6143c13bd72c15c8e3e415d8705bbc4b8ad3f343d419e2a",
+      "step_id": "irowiki-classic:Hunter_Skill_Quest/step/42324ad7000248f5a614/1",
+      "goal": "learn_skill",
+      "short_ru": "Отдайте 5 Cursed Rubies, 5 Harpy Feathers и 30 Pet Food; изучите Phantasmic Arrow.",
+      "short_en": "Deliver 5 Cursed Rubies, 5 Harpy Feathers and 30 Pet Food; learn Phantasmic Arrow.",
+      "full_ru": "Принесите им эти предметы: они обучат вас Phantasmic Arrow.",
+      "full_en": "Bring them these items, and they will teach you Phantasmic Arrow .",
+      "npcs": [
+        {
+          "entity": "Arpesto",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "In the north end of the Archer Village , you need to talk to two NPCs , Arpesto ( pay_arche , 109,169) and Reidin Corse. They will request the following items: 5 Cursed Rubies , 5 Harpy Feathers , 30 Pet Food ."
+        },
+        {
+          "entity": "Reidin Corse",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "In the north end of the Archer Village , you need to talk to two NPCs , Arpesto ( pay_arche , 109,169) and Reidin Corse. They will request the following items: 5 Cursed Rubies , 5 Harpy Feathers , 30 Pet Food ."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Cursed Rubies",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 1,
+          "evidence": "In the north end of the Archer Village , you need to talk to two NPCs , Arpesto ( pay_arche , 109,169) and Reidin Corse. They will request the following items: 5 Cursed Rubies , 5 Harpy Feathers , 30 Pet Food .",
+          "condition": "Same set requested previously, not another set."
+        },
+        {
+          "entity": "Harpy Feathers",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 1,
+          "evidence": "In the north end of the Archer Village , you need to talk to two NPCs , Arpesto ( pay_arche , 109,169) and Reidin Corse. They will request the following items: 5 Cursed Rubies , 5 Harpy Feathers , 30 Pet Food .",
+          "condition": "Same set requested previously, not another set."
+        },
+        {
+          "entity": "Pet Food",
+          "quantity": 30,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 1,
+          "evidence": "In the north end of the Archer Village , you need to talk to two NPCs , Arpesto ( pay_arche , 109,169) and Reidin Corse. They will request the following items: 5 Cursed Rubies , 5 Harpy Feathers , 30 Pet Food .",
+          "condition": "Same set requested previously, not another set."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Phantasmic Arrow"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_requested_materials"
+        },
+        {
+          "operation": "learn_phantasmic_arrow"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "hunter_skill_materials_and_actor_points",
+      "detail": "The request and return describe one 5/5/30 material obligation. Only Arpesto has an explicit coordinate; do not copy it as a verified Reidin Corse point. Both named NPCs participate, but the source does not assign a separate hand-in quantity to each."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Hunter",
+        "source_section": "requirements",
+        "evidence": "Class: Hunter"
+      }
+    ]
+  }
+}

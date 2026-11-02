@@ -1,0 +1,1543 @@
+{
+  "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "65f88c32bd1cd6ca2c6c46d36d11a9d9b5effc9b2d28563abbda6f72b1b684bb",
+  "snapshot_sha256": "23054392f14a0e5850eb1a9c1cd6a7b659ef36b940026e148138c3ec08fb7135",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Sherin"
+    },
+    {
+      "type": "npc",
+      "name": "guild member"
+    },
+    {
+      "type": "npc",
+      "name": "examiner"
+    },
+    {
+      "type": "npc",
+      "name": "receptionist"
+    },
+    {
+      "type": "npc",
+      "name": "Falcon Breeder"
+    },
+    {
+      "type": "npc",
+      "name": "switch"
+    },
+    {
+      "type": "npc",
+      "name": "Demon Hunter",
+      "aliases": [
+        "Guild Receptionist"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "pay_fild10",
+      "map_code": "pay_fild10"
+    },
+    {
+      "type": "map",
+      "name": "payon",
+      "map_code": "payon"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "Payon Field 10"
+    },
+    {
+      "type": "item",
+      "name": "Claw of Desert Wolf",
+      "game_id": 7030,
+      "id_source": "http://db.irowiki.org/classic/item-info/7030/"
+    },
+    {
+      "type": "item",
+      "name": "Trunk",
+      "game_id": 1019,
+      "id_source": "http://db.irowiki.org/classic/item-info/1019/"
+    },
+    {
+      "type": "item",
+      "name": "White Herb",
+      "game_id": 509,
+      "id_source": "http://db.irowiki.org/classic/item-info/509/"
+    },
+    {
+      "type": "item",
+      "name": "Worm Peeling",
+      "game_id": 955,
+      "id_source": "http://db.irowiki.org/classic/item-info/955/"
+    },
+    {
+      "type": "item",
+      "name": "Shell",
+      "game_id": 935,
+      "id_source": "http://db.irowiki.org/classic/item-info/935/"
+    },
+    {
+      "type": "item",
+      "name": "Yellow Herb",
+      "game_id": 508,
+      "id_source": "http://db.irowiki.org/classic/item-info/508/"
+    },
+    {
+      "type": "item",
+      "name": "Dokebi Horn",
+      "game_id": 1021,
+      "id_source": "http://db.irowiki.org/classic/item-info/1021/"
+    },
+    {
+      "type": "item",
+      "name": "Piece of Egg Shell",
+      "game_id": 7032,
+      "id_source": "http://db.irowiki.org/classic/item-info/7032/"
+    },
+    {
+      "type": "item",
+      "name": "Fluff",
+      "game_id": 914,
+      "id_source": "http://db.irowiki.org/classic/item-info/914/"
+    },
+    {
+      "type": "item",
+      "name": "Venom Canine",
+      "game_id": 937,
+      "id_source": "http://db.irowiki.org/classic/item-info/937/"
+    },
+    {
+      "type": "item",
+      "name": "Red Herb",
+      "game_id": 507,
+      "id_source": "http://db.irowiki.org/classic/item-info/507/"
+    },
+    {
+      "type": "item",
+      "name": "Animal Skin",
+      "game_id": 919,
+      "id_source": "http://db.irowiki.org/classic/item-info/919/"
+    },
+    {
+      "type": "item",
+      "name": "Bill of Birds",
+      "game_id": 925,
+      "id_source": "http://db.irowiki.org/classic/item-info/925/"
+    },
+    {
+      "type": "item",
+      "name": "Skel-bone",
+      "game_id": 932,
+      "id_source": "http://db.irowiki.org/classic/item-info/932/"
+    },
+    {
+      "type": "item",
+      "name": "Green Herb",
+      "game_id": 511,
+      "id_source": "http://db.irowiki.org/classic/item-info/511/"
+    },
+    {
+      "type": "item",
+      "name": "Tooth of Bat",
+      "game_id": 913,
+      "id_source": "http://db.irowiki.org/classic/item-info/913/"
+    },
+    {
+      "type": "item",
+      "name": "Sticky Mucus",
+      "game_id": 938,
+      "id_source": "http://db.irowiki.org/classic/item-info/938/"
+    },
+    {
+      "type": "item",
+      "name": "Bear's Footskin",
+      "game_id": 948,
+      "id_source": "http://db.irowiki.org/classic/item-info/948/"
+    },
+    {
+      "type": "item",
+      "name": "Porcupine Quill",
+      "game_id": 1027,
+      "id_source": "http://db.irowiki.org/classic/item-info/1027/"
+    },
+    {
+      "type": "item",
+      "name": "Yoyo Tail",
+      "game_id": 942,
+      "id_source": "http://db.irowiki.org/classic/item-info/942/"
+    },
+    {
+      "type": "item",
+      "name": "Acorn",
+      "game_id": 1026,
+      "id_source": "http://db.irowiki.org/classic/item-info/1026/"
+    },
+    {
+      "type": "item",
+      "name": "Silver Arrows",
+      "game_id": 1751,
+      "id_source": "http://db.irowiki.org/classic/item-info/1751/"
+    },
+    {
+      "type": "item",
+      "name": "Necklace of Wisdom",
+      "game_id": 1007,
+      "id_source": "http://db.irowiki.org/classic/item-info/1007/"
+    },
+    {
+      "type": "monster",
+      "name": "Porings",
+      "ref": "population_poring",
+      "game_id": 1002,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1002/"
+    },
+    {
+      "type": "monster",
+      "name": "Zombies",
+      "ref": "population_zombie",
+      "game_id": 1015,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1015/"
+    },
+    {
+      "type": "monster",
+      "name": "Archer Skeletons",
+      "ref": "population_skeleton",
+      "game_id": 1016,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1016/"
+    },
+    {
+      "type": "monster",
+      "name": "Mummies",
+      "ref": "population_mummy",
+      "game_id": 1041,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1041/"
+    },
+    {
+      "type": "monster",
+      "name": "Poring",
+      "ref": "target_poring",
+      "identity": "irowiki-classic:Hunter_Job_Change_Guide:exam_target_species:poring"
+    },
+    {
+      "type": "monster",
+      "name": "Zombies",
+      "ref": "target_zombie",
+      "identity": "irowiki-classic:Hunter_Job_Change_Guide:exam_target_species:zombie"
+    },
+    {
+      "type": "monster",
+      "name": "Archer Skeleton",
+      "ref": "target_skeleton",
+      "identity": "irowiki-classic:Hunter_Job_Change_Guide:exam_target_species:skeleton"
+    },
+    {
+      "type": "monster",
+      "name": "Mummy",
+      "ref": "target_mummy",
+      "identity": "irowiki-classic:Hunter_Job_Change_Guide:exam_target_species:mummy"
+    },
+    {
+      "type": "monster",
+      "name": "Job Change Monster",
+      "identity": "irowiki-classic:Hunter_Job_Change_Guide:exam_label"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter.",
+      "instruction_sha256": "7b393f4909681e8ef96b7e0a76981e2701926177a0a9fc601f5d4263fcf56806",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/7b393f4909681e8ef96b/1",
+      "goal": "talk",
+      "short_ru": "Подайте заявку у Sherin в Hunter Guild: pay_fild10 148, 252.",
+      "short_en": "Apply to Sherin at the Hunter Guild: pay_fild10 148, 252.",
+      "full_ru": "Отправляйтесь в Hunter Guild на Payon Field 10 (pay_fild10 (148, 252)): это 2 карты к востоку и 1 к югу от Payon. Поговорите с главой гильдии Sherin и подайте заявку на профессию hunter. Sherin объяснит, что нужно пройти три испытания.",
+      "full_en": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "apply_for_hunter",
+          "entity": "Sherin"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "pay_fild10",
+          "x": 148,
+          "y": 252,
+          "role": "guild_entrance",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Sherin",
+        "pay_fild10",
+        "Payon",
+        "Payon Field 10"
+      ]
+    },
+    "2": {
+      "original_instruction": "The first test is a personality assessment. The following are the answers to the test:",
+      "instruction_sha256": "88678fd1adccfebb18b06f545dbc9fefdd2f8797c1668ee3a9f5e5aded8a08ce",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/88678fd1adccfebb18b0/1",
+      "goal": "choose",
+      "short_ru": "Начните у Sherin испытание характера; далее следуют ответы по порядку.",
+      "short_en": "Begin Sherin's personality test; the following answers are in source order.",
+      "full_ru": "Первое испытание — оценка характера. Далее перечислены ответы в порядке источника.",
+      "full_en": "The first test is a personality assessment. The following are the answers to the test:",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "begin_personality_test",
+          "entity": "Sherin"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Wander around alone and search for a place.",
+      "instruction_sha256": "5468b282ce06424749eb699bb680f64ce65245296e1bbc0e82ce490c6fc5ae1e",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/5468b282ce06424749eb/1",
+      "goal": "choose",
+      "short_ru": "Ответьте: «Wander around alone and search for a place.».",
+      "short_en": "Choose: “Wander around alone and search for a place.”.",
+      "full_ru": "Выберите ответ: «Wander around alone and search for a place.».",
+      "full_en": "Wander around alone and search for a place.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Sherin",
+          "options": [
+            {
+              "text": "Wander around alone and search for a place.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_personality_answer",
+          "entity": "Sherin",
+          "condition": "Exact answer in the source-ordered personality test; question wording is not printed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Walk with a friend.",
+      "instruction_sha256": "c4f810fd70677dc9499efc43740e5e72a8477ed883b4d8a6f66fe09ad69020e6",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/c4f810fd70677dc9499e/1",
+      "goal": "choose",
+      "short_ru": "Ответьте: «Walk with a friend.».",
+      "short_en": "Choose: “Walk with a friend.”.",
+      "full_ru": "Выберите ответ: «Walk with a friend.».",
+      "full_en": "Walk with a friend.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Sherin",
+          "options": [
+            {
+              "text": "Walk with a friend.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_personality_answer",
+          "entity": "Sherin",
+          "condition": "Exact answer in the source-ordered personality test; question wording is not printed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Hunt at a nearby field.",
+      "instruction_sha256": "46441eb27932fadb101607dbb3e6d20d9aed22bc0989042b873ba66a06dc867d",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/46441eb27932fadb1016/1",
+      "goal": "choose",
+      "short_ru": "Ответьте: «Hunt at a nearby field.».",
+      "short_en": "Choose: “Hunt at a nearby field.”.",
+      "full_ru": "Выберите ответ: «Hunt at a nearby field.».",
+      "full_en": "Hunt at a nearby field.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Sherin",
+          "options": [
+            {
+              "text": "Hunt at a nearby field.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_personality_answer",
+          "entity": "Sherin",
+          "condition": "Exact answer in the source-ordered personality test; question wording is not printed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Go back to town.",
+      "instruction_sha256": "aaffde8f270025715185f8345b32558db5d9de89aa240cb2839eab3b4587fad7",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/aaffde8f270025715185/1",
+      "goal": "choose",
+      "short_ru": "Ответьте: «Go back to town.».",
+      "short_en": "Choose: “Go back to town.”.",
+      "full_ru": "Выберите ответ: «Go back to town.».",
+      "full_en": "Go back to town.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Sherin",
+          "options": [
+            {
+              "text": "Go back to town.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_personality_answer",
+          "entity": "Sherin",
+          "condition": "Exact answer in the source-ordered personality test; question wording is not printed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "Would it be possible to get a heal, please?",
+      "instruction_sha256": "8c9e29023dc85949d7fe065cdd1d5f9664db5461ce533b5118830066d6f397b2",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/8c9e29023dc85949d7fe/1",
+      "goal": "choose",
+      "short_ru": "Ответьте: «Would it be possible to get a heal, please?».",
+      "short_en": "Choose: “Would it be possible to get a heal, please?”.",
+      "full_ru": "Выберите ответ: «Would it be possible to get a heal, please?».",
+      "full_en": "Would it be possible to get a heal, please?",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Sherin",
+          "options": [
+            {
+              "text": "Would it be possible to get a heal, please?",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_personality_answer",
+          "entity": "Sherin",
+          "condition": "Exact answer in the source-ordered personality test; question wording is not printed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Open a chat room and wait.",
+      "instruction_sha256": "34f884c1a164901aa4c00eea34668608557c8d553b76f9965aad528a27c643c3",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/34f884c1a164901aa4c0/1",
+      "goal": "choose",
+      "short_ru": "Ответьте: «Open a chat room and wait.».",
+      "short_en": "Choose: “Open a chat room and wait.”.",
+      "full_ru": "Выберите ответ: «Open a chat room and wait.».",
+      "full_en": "Open a chat room and wait.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Sherin",
+          "options": [
+            {
+              "text": "Open a chat room and wait.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_personality_answer",
+          "entity": "Sherin",
+          "condition": "Exact answer in the source-ordered personality test; question wording is not printed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Tell the person about a good place to hunt.",
+      "instruction_sha256": "7cdc11c6ee9a5fa996fa05192b397da849bad026a9214f26d5f135746de7644a",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/7cdc11c6ee9a5fa996fa/1",
+      "goal": "choose",
+      "short_ru": "Ответьте: «Tell the person about a good place to hunt.».",
+      "short_en": "Choose: “Tell the person about a good place to hunt.”.",
+      "full_ru": "Выберите ответ: «Tell the person about a good place to hunt.».",
+      "full_en": "Tell the person about a good place to hunt.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Sherin",
+          "options": [
+            {
+              "text": "Tell the person about a good place to hunt.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_personality_answer",
+          "entity": "Sherin",
+          "condition": "Exact answer in the source-ordered personality test; question wording is not printed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Guide them to their destination.",
+      "instruction_sha256": "998ffa2d1f2907f9c13027f36b392e0fea8ddd798cfb8a78d7c246bd378c866a",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/998ffa2d1f2907f9c130/1",
+      "goal": "choose",
+      "short_ru": "Ответьте: «Guide them to their destination.».",
+      "short_en": "Choose: “Guide them to their destination.”.",
+      "full_ru": "Выберите ответ: «Guide them to their destination.».",
+      "full_en": "Guide them to their destination.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Sherin",
+          "options": [
+            {
+              "text": "Guide them to their destination.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_personality_answer",
+          "entity": "Sherin",
+          "condition": "Exact answer in the source-ordered personality test; question wording is not printed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Watch, then attack when asked for help.",
+      "instruction_sha256": "704be4620ea19ca0c15d509bfadfb7f750f39f7b18f55a611d651b399175620e",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/704be4620ea19ca0c15d/1",
+      "goal": "choose",
+      "short_ru": "Ответьте: «Watch, then attack when asked for help.».",
+      "short_en": "Choose: “Watch, then attack when asked for help.”.",
+      "full_ru": "Выберите ответ: «Watch, then attack when asked for help.».",
+      "full_en": "Watch, then attack when asked for help.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Sherin",
+          "options": [
+            {
+              "text": "Watch, then attack when asked for help.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_personality_answer",
+          "entity": "Sherin",
+          "condition": "Exact answer in the source-ordered personality test; question wording is not printed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Try to find the owner.",
+      "instruction_sha256": "017d88c300f178899dc64d40b2bcc72b86266a47e42e75b9b61a2e7ca432a1b7",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/017d88c300f178899dc6/1",
+      "goal": "choose",
+      "short_ru": "Ответьте: «Try to find the owner.».",
+      "short_en": "Choose: “Try to find the owner.”.",
+      "full_ru": "Выберите ответ: «Try to find the owner.».",
+      "full_en": "Try to find the owner.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Go to the Hunter Guild on Payon Field 10 (pay_fild10 (148, 252)) (which is situated 2 maps east, and 1 south of Payon). Talk with the guildmaster, Sherin, and apply to become a hunter . Sherin tells you that candidates are required to pass three tests before they can become a hunter."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Sherin",
+          "options": [
+            {
+              "text": "Try to find the owner.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_personality_answer",
+          "entity": "Sherin",
+          "condition": "Exact answer in the source-ordered personality test; question wording is not printed."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Talk with the Guild Receptionist, \"Demon Hunter\", on the left, who tells you that the second test consists of gathering items to make arrows. Gather the items he requests, then talk with him again. Demon Hunter will request one of the following sets of items, chosen randomly:",
+      "instruction_sha256": "b6d8e660c11cd724af1b1a00d684a168b211dc0de2bc7f2fe651f5d80acc77a5",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/b6d8e660c11cd724af1b/1",
+      "goal": "deliver",
+      "short_ru": "У Demon Hunter соберите и сдайте только выданный случайный набор материалов.",
+      "short_en": "Collect and return only the random material set assigned by Demon Hunter.",
+      "full_ru": "Поговорите с Guild Receptionist по имени Demon Hunter слева. Второе испытание — сбор материалов для стрел. Соберите запрошенные предметы и снова поговорите с ним. Demon Hunter случайно выбирает один из перечисленных ниже наборов. Наборы материалов: 1 — 5 Claw of Desert Wolf, 5 Trunk, 3 White Herb; 2 — 9 Worm Peeling, 9 Shell, 9 Yellow Herb; 3 — 3 Dokebi Horn, 3 Piece of Egg Shell, 10 Fluff; 4 — 3 Venom Canine, 5 Red Herb, 3 Animal Skin; 5 — 3 Bill of Birds, 5 Skel-bone, 3 Green Herb; 6 — 3 Tooth of Bat, 1 Sticky Mucus, 1 Bear's Footskin; 7 — 2 Porcupine Quill, 1 Yoyo Tail, 1 Acorn.",
+      "full_en": "Talk with the Guild Receptionist, \"Demon Hunter\", on the left, who tells you that the second test consists of gathering items to make arrows. Gather the items he requests, then talk with him again. Demon Hunter will request one of the following sets of items, chosen randomly: Set Items 1 5 Claw of Desert Wolf 5 Trunk 3 White Herb 2 9 Worm Peeling 9 Shell 9 Yellow Herb 3 3 Dokebi Horn 3 Piece of Egg Shell 10 Fluff 4 3 Venom Canine 5 Red Herb 3 Animal Skin 5 3 Bill of Birds 5 Skel-bone 3 Green Herb 6 3 Tooth of Bat 1 Sticky Mucus 1 Bear's Footskin 7 2 Porcupine Quill 1 Yoyo Tail 1 Acorn",
+      "npcs": [
+        {
+          "entity": "Demon Hunter",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_random_material_set",
+          "entity": "Demon Hunter"
+        },
+        {
+          "operation": "return_assigned_materials",
+          "entity": "Demon Hunter"
+        }
+      ],
+      "protected_names": [
+        "Demon Hunter"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "material_set_1",
+          "choice_group": "random_arrow_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Demon Hunter assigns source Set 1; one random set, not all seven.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "Talk with the Guild Receptionist, \"Demon Hunter\", on the left, who tells you that the second test consists of gathering items to make arrows. Gather the items he requests, then talk with him again. Demon Hunter will request one of the following sets of items, chosen randomly:",
+          "instruction_sha256": "b6d8e660c11cd724af1b1a00d684a168b211dc0de2bc7f2fe651f5d80acc77a5",
+          "short_ru": "Набор 1: 5 Claw of Desert Wolf, 5 Trunk, 3 White Herb.",
+          "short_en": "Set 1: 5 Claw of Desert Wolf, 5 Trunk, 3 White Herb.",
+          "full_ru": "Demon Hunter: набор 1 — 5 Claw of Desert Wolf, 5 Trunk, 3 White Herb. Соберите эти предметы и вернитесь к нему.",
+          "full_en": "Demon Hunter: Set 1 — 5 Claw of Desert Wolf, 5 Trunk, 3 White Herb. Gather these items and return to him.",
+          "protected_names": [
+            "Demon Hunter"
+          ],
+          "items": [
+            {
+              "entity": "Claw of Desert Wolf",
+              "quantity": 5,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "1 5 Claw of Desert Wolf 5 Trunk 3 White Herb",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Trunk",
+              "quantity": 5,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "1 5 Claw of Desert Wolf 5 Trunk 3 White Herb",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "White Herb",
+              "quantity": 3,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "1 5 Claw of Desert Wolf 5 Trunk 3 White Herb",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            }
+          ]
+        },
+        {
+          "key": "material_set_2",
+          "choice_group": "random_arrow_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Demon Hunter assigns source Set 2; one random set, not all seven.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "Talk with the Guild Receptionist, \"Demon Hunter\", on the left, who tells you that the second test consists of gathering items to make arrows. Gather the items he requests, then talk with him again. Demon Hunter will request one of the following sets of items, chosen randomly:",
+          "instruction_sha256": "b6d8e660c11cd724af1b1a00d684a168b211dc0de2bc7f2fe651f5d80acc77a5",
+          "short_ru": "Набор 2: 9 Worm Peeling, 9 Shell, 9 Yellow Herb.",
+          "short_en": "Set 2: 9 Worm Peeling, 9 Shell, 9 Yellow Herb.",
+          "full_ru": "Demon Hunter: набор 2 — 9 Worm Peeling, 9 Shell, 9 Yellow Herb. Соберите эти предметы и вернитесь к нему.",
+          "full_en": "Demon Hunter: Set 2 — 9 Worm Peeling, 9 Shell, 9 Yellow Herb. Gather these items and return to him.",
+          "protected_names": [
+            "Demon Hunter"
+          ],
+          "items": [
+            {
+              "entity": "Worm Peeling",
+              "quantity": 9,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "2 9 Worm Peeling 9 Shell 9 Yellow Herb",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Shell",
+              "quantity": 9,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "2 9 Worm Peeling 9 Shell 9 Yellow Herb",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Yellow Herb",
+              "quantity": 9,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "2 9 Worm Peeling 9 Shell 9 Yellow Herb",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            }
+          ]
+        },
+        {
+          "key": "material_set_3",
+          "choice_group": "random_arrow_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Demon Hunter assigns source Set 3; one random set, not all seven.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "Talk with the Guild Receptionist, \"Demon Hunter\", on the left, who tells you that the second test consists of gathering items to make arrows. Gather the items he requests, then talk with him again. Demon Hunter will request one of the following sets of items, chosen randomly:",
+          "instruction_sha256": "b6d8e660c11cd724af1b1a00d684a168b211dc0de2bc7f2fe651f5d80acc77a5",
+          "short_ru": "Набор 3: 3 Dokebi Horn, 3 Piece of Egg Shell, 10 Fluff.",
+          "short_en": "Set 3: 3 Dokebi Horn, 3 Piece of Egg Shell, 10 Fluff.",
+          "full_ru": "Demon Hunter: набор 3 — 3 Dokebi Horn, 3 Piece of Egg Shell, 10 Fluff. Соберите эти предметы и вернитесь к нему.",
+          "full_en": "Demon Hunter: Set 3 — 3 Dokebi Horn, 3 Piece of Egg Shell, 10 Fluff. Gather these items and return to him.",
+          "protected_names": [
+            "Demon Hunter"
+          ],
+          "items": [
+            {
+              "entity": "Dokebi Horn",
+              "quantity": 3,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "3 3 Dokebi Horn 3 Piece of Egg Shell 10 Fluff",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Piece of Egg Shell",
+              "quantity": 3,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "3 3 Dokebi Horn 3 Piece of Egg Shell 10 Fluff",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Fluff",
+              "quantity": 10,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "3 3 Dokebi Horn 3 Piece of Egg Shell 10 Fluff",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            }
+          ]
+        },
+        {
+          "key": "material_set_4",
+          "choice_group": "random_arrow_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Demon Hunter assigns source Set 4; one random set, not all seven.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "Talk with the Guild Receptionist, \"Demon Hunter\", on the left, who tells you that the second test consists of gathering items to make arrows. Gather the items he requests, then talk with him again. Demon Hunter will request one of the following sets of items, chosen randomly:",
+          "instruction_sha256": "b6d8e660c11cd724af1b1a00d684a168b211dc0de2bc7f2fe651f5d80acc77a5",
+          "short_ru": "Набор 4: 3 Venom Canine, 5 Red Herb, 3 Animal Skin.",
+          "short_en": "Set 4: 3 Venom Canine, 5 Red Herb, 3 Animal Skin.",
+          "full_ru": "Demon Hunter: набор 4 — 3 Venom Canine, 5 Red Herb, 3 Animal Skin. Соберите эти предметы и вернитесь к нему.",
+          "full_en": "Demon Hunter: Set 4 — 3 Venom Canine, 5 Red Herb, 3 Animal Skin. Gather these items and return to him.",
+          "protected_names": [
+            "Demon Hunter"
+          ],
+          "items": [
+            {
+              "entity": "Venom Canine",
+              "quantity": 3,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "4 3 Venom Canine 5 Red Herb 3 Animal Skin",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Red Herb",
+              "quantity": 5,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "4 3 Venom Canine 5 Red Herb 3 Animal Skin",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Animal Skin",
+              "quantity": 3,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "4 3 Venom Canine 5 Red Herb 3 Animal Skin",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            }
+          ]
+        },
+        {
+          "key": "material_set_5",
+          "choice_group": "random_arrow_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Demon Hunter assigns source Set 5; one random set, not all seven.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "Talk with the Guild Receptionist, \"Demon Hunter\", on the left, who tells you that the second test consists of gathering items to make arrows. Gather the items he requests, then talk with him again. Demon Hunter will request one of the following sets of items, chosen randomly:",
+          "instruction_sha256": "b6d8e660c11cd724af1b1a00d684a168b211dc0de2bc7f2fe651f5d80acc77a5",
+          "short_ru": "Набор 5: 3 Bill of Birds, 5 Skel-bone, 3 Green Herb.",
+          "short_en": "Set 5: 3 Bill of Birds, 5 Skel-bone, 3 Green Herb.",
+          "full_ru": "Demon Hunter: набор 5 — 3 Bill of Birds, 5 Skel-bone, 3 Green Herb. Соберите эти предметы и вернитесь к нему.",
+          "full_en": "Demon Hunter: Set 5 — 3 Bill of Birds, 5 Skel-bone, 3 Green Herb. Gather these items and return to him.",
+          "protected_names": [
+            "Demon Hunter"
+          ],
+          "items": [
+            {
+              "entity": "Bill of Birds",
+              "quantity": 3,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "5 3 Bill of Birds 5 Skel-bone 3 Green Herb",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Skel-bone",
+              "quantity": 5,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "5 3 Bill of Birds 5 Skel-bone 3 Green Herb",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Green Herb",
+              "quantity": 3,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "5 3 Bill of Birds 5 Skel-bone 3 Green Herb",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            }
+          ]
+        },
+        {
+          "key": "material_set_6",
+          "choice_group": "random_arrow_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Demon Hunter assigns source Set 6; one random set, not all seven.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "Talk with the Guild Receptionist, \"Demon Hunter\", on the left, who tells you that the second test consists of gathering items to make arrows. Gather the items he requests, then talk with him again. Demon Hunter will request one of the following sets of items, chosen randomly:",
+          "instruction_sha256": "b6d8e660c11cd724af1b1a00d684a168b211dc0de2bc7f2fe651f5d80acc77a5",
+          "short_ru": "Набор 6: 3 Tooth of Bat, 1 Sticky Mucus, 1 Bear's Footskin.",
+          "short_en": "Set 6: 3 Tooth of Bat, 1 Sticky Mucus, 1 Bear's Footskin.",
+          "full_ru": "Demon Hunter: набор 6 — 3 Tooth of Bat, 1 Sticky Mucus, 1 Bear's Footskin. Соберите эти предметы и вернитесь к нему.",
+          "full_en": "Demon Hunter: Set 6 — 3 Tooth of Bat, 1 Sticky Mucus, 1 Bear's Footskin. Gather these items and return to him.",
+          "protected_names": [
+            "Demon Hunter"
+          ],
+          "items": [
+            {
+              "entity": "Tooth of Bat",
+              "quantity": 3,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "6 3 Tooth of Bat 1 Sticky Mucus 1 Bear's Footskin",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Sticky Mucus",
+              "quantity": 1,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "6 3 Tooth of Bat 1 Sticky Mucus 1 Bear's Footskin",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Bear's Footskin",
+              "quantity": 1,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "6 3 Tooth of Bat 1 Sticky Mucus 1 Bear's Footskin",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            }
+          ]
+        },
+        {
+          "key": "material_set_7",
+          "choice_group": "random_arrow_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Demon Hunter assigns source Set 7; one random set, not all seven.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "Talk with the Guild Receptionist, \"Demon Hunter\", on the left, who tells you that the second test consists of gathering items to make arrows. Gather the items he requests, then talk with him again. Demon Hunter will request one of the following sets of items, chosen randomly:",
+          "instruction_sha256": "b6d8e660c11cd724af1b1a00d684a168b211dc0de2bc7f2fe651f5d80acc77a5",
+          "short_ru": "Набор 7: 2 Porcupine Quill, 1 Yoyo Tail, 1 Acorn.",
+          "short_en": "Set 7: 2 Porcupine Quill, 1 Yoyo Tail, 1 Acorn.",
+          "full_ru": "Demon Hunter: набор 7 — 2 Porcupine Quill, 1 Yoyo Tail, 1 Acorn. Соберите эти предметы и вернитесь к нему.",
+          "full_en": "Demon Hunter: Set 7 — 2 Porcupine Quill, 1 Yoyo Tail, 1 Acorn. Gather these items and return to him.",
+          "protected_names": [
+            "Demon Hunter"
+          ],
+          "items": [
+            {
+              "entity": "Porcupine Quill",
+              "quantity": 2,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "7 2 Porcupine Quill 1 Yoyo Tail 1 Acorn",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Yoyo Tail",
+              "quantity": 1,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "7 2 Porcupine Quill 1 Yoyo Tail 1 Acorn",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            },
+            {
+              "entity": "Acorn",
+              "quantity": 1,
+              "operation": "deliver",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "7 2 Porcupine Quill 1 Yoyo Tail 1 Acorn",
+              "condition": "Only the assigned random set; collection and hand-in are one material obligation."
+            }
+          ]
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Set Items 1 5 Claw of Desert Wolf 5 Trunk 3 White Herb 2 9 Worm Peeling 9 Shell 9 Yellow Herb 3 3 Dokebi Horn 3 Piece of Egg Shell 10 Fluff 4 3 Venom Canine 5 Red Herb 3 Animal Skin 5 3 Bill of Birds 5 Skel-bone 3 Green Herb 6 3 Tooth of Bat 1 Sticky Mucus 1 Bear's Footskin 7 2 Porcupine Quill 1 Yoyo Tail 1 Acorn",
+          "text_ru": "Наборы материалов: 1 — 5 Claw of Desert Wolf, 5 Trunk, 3 White Herb; 2 — 9 Worm Peeling, 9 Shell, 9 Yellow Herb; 3 — 3 Dokebi Horn, 3 Piece of Egg Shell, 10 Fluff; 4 — 3 Venom Canine, 5 Red Herb, 3 Animal Skin; 5 — 3 Bill of Birds, 5 Skel-bone, 3 Green Herb; 6 — 3 Tooth of Bat, 1 Sticky Mucus, 1 Bear's Footskin; 7 — 2 Porcupine Quill, 1 Yoyo Tail, 1 Acorn."
+        }
+      ]
+    },
+    "14": {
+      "original_instruction": "Talk with Sherin again, who instructs you to meet another guild member in Payon to take the final test. Tip : Bring enough healing items to recover all of your HP at least once for the final test.",
+      "instruction_sha256": "ed58bb40e959ab1f92873b5515b1d92951ceffe724348283db08a70bddbb70a2",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/ed58bb40e959ab1f9287/1",
+      "goal": "talk",
+      "short_ru": "Получите у Sherin направление в Payon; возьмите лечение хотя бы на полное восстановление HP.",
+      "short_en": "Get Sherin's referral to Payon; bring healing for at least one full HP recovery.",
+      "full_ru": "Снова поговорите с Sherin: она направит вас к другому NPC (guild member) в Payon на финальное испытание. Совет: возьмите достаточно лечения, чтобы хотя бы раз полностью восстановить HP во время финального испытания.",
+      "full_en": "Talk with Sherin again, who instructs you to meet another guild member in Payon to take the final test. Tip : Bring enough healing items to recover all of your HP at least once for the final test.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "recommended_healing_capacity",
+          "amount": "full_HP_once",
+          "condition": "Recommendation for the final test, not a fixed item cost or a requirement to consume a particular potion."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_final_test_referral",
+          "entity": "Sherin"
+        }
+      ],
+      "protected_names": [
+        "Sherin",
+        "guild member",
+        "Payon"
+      ],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "Go to the building in Payon situated to the east of the central castle (payon (185, 233)). Enter the first room on your right, then talk with the guild member and ask to take the final test. The guild member will give you 200 Silver Arrows and transfer you to a waiting room. Walk forward and the examiner will explain the test to you. The test area is a maze populated with Porings , Zombies , Archer Skeletons , and Mummies , and scattered with puddles of water. You are required to complete three objectives in order and within 3 minutes to pass the test:",
+      "instruction_sha256": "a868eac166655b8f2ae381d1c08d5d343a51226b8c8ece4842c1008b5aabbb61",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/a868eac166655b8f2ae3/1",
+      "goal": "enter_test",
+      "short_ru": "В здании Payon (payon 185, 233) получите 200 Silver Arrows и инструкции к трём целям за 3 минуты.",
+      "short_en": "In the Payon building (payon 185, 233), receive 200 Silver Arrows and instructions for three ordered objectives within 3 minutes.",
+      "full_ru": "Идите к зданию в Payon к востоку от центрального замка (payon (185, 233)). Войдите в первую комнату справа, поговорите с guild member и попросите финальное испытание. Он выдаст 200 Silver Arrows и перенесёт вас в комнату ожидания. Пройдите вперёд: examiner объяснит правила. В лабиринте находятся Porings, Zombies, Archer Skeletons и Mummies, а также лужи. Для успеха нужно выполнить три цели по порядку за 3 минуты. Когда будете готовы начать испытание, войдите в чат receptionist и дождитесь переноса в зону испытания.",
+      "full_en": "Go to the building in Payon situated to the east of the central castle (payon (185, 233)). Enter the first room on your right, then talk with the guild member and ask to take the final test. The guild member will give you 200 Silver Arrows and transfer you to a waiting room. Walk forward and the examiner will explain the test to you. The test area is a maze populated with Porings , Zombies , Archer Skeletons , and Mummies , and scattered with puddles of water. You are required to complete three objectives in order and within 3 minutes to pass the test: When you are ready to begin the test, enter the receptionist's chat room and wait until you are transferred to the test area.",
+      "npcs": [
+        {
+          "entity": "guild member",
+          "role": "talk"
+        },
+        {
+          "entity": "examiner",
+          "role": "instruct"
+        },
+        {
+          "entity": "receptionist",
+          "role": "waiting_room",
+          "support_step": 18,
+          "evidence": "Exit the maze. All of the monsters will die once the required number of target monsters have been killed. The six target monsters are comprised of: | 1 Poring, located in the north. | 3 Zombies, each located in the east, west, and center respectively. | 1 Archer Skeleton, located in the east. | 1 Mummy, located in the south-west. The switch is located at the center of the maze, and can be activated by clicking it. The exit is located in the north. Tip : You can activate the switch from a distance; you don't need to stand next to it. You will fail the test if any of the following happens: | You kill any monster that is not labelled \"Job Change Monster\". | You walk in any of the puddles of water. | You fail to complete the objectives within the allocated time. | You are killed. When you are ready to begin the test, enter the receptionist's chat room and wait until you are transferred to the test area."
+        }
+      ],
+      "mention_entities": {
+        "Zombies": "population_zombie"
+      },
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "200",
+          "entity": "Silver Arrows"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "time_limit_minutes",
+          "amount": "3",
+          "condition": "One shared limit for the ordered kill/switch/exit objectives, not a fresh timer per source step."
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "population_poring",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Source-linked species in the maze; these regular species IDs do not verify the exam clone IDs."
+        },
+        {
+          "entity": "population_zombie",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Source-linked species in the maze; these regular species IDs do not verify the exam clone IDs."
+        },
+        {
+          "entity": "population_skeleton",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Source-linked species in the maze; these regular species IDs do not verify the exam clone IDs."
+        },
+        {
+          "entity": "population_mummy",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Source-linked species in the maze; these regular species IDs do not verify the exam clone IDs."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_building"
+        },
+        {
+          "operation": "request_final_test",
+          "entity": "guild member"
+        },
+        {
+          "operation": "receive_silver_arrows",
+          "entity": "guild member"
+        },
+        {
+          "operation": "enter_waiting_room"
+        },
+        {
+          "operation": "hear_test_rules",
+          "entity": "examiner"
+        },
+        {
+          "operation": "join_waiting_chat",
+          "entity": "receptionist",
+          "support_step": 18,
+          "evidence": "Exit the maze. All of the monsters will die once the required number of target monsters have been killed. The six target monsters are comprised of: | 1 Poring, located in the north. | 3 Zombies, each located in the east, west, and center respectively. | 1 Archer Skeleton, located in the east. | 1 Mummy, located in the south-west. The switch is located at the center of the maze, and can be activated by clicking it. The exit is located in the north. Tip : You can activate the switch from a distance; you don't need to stand next to it. You will fail the test if any of the following happens: | You kill any monster that is not labelled \"Job Change Monster\". | You walk in any of the puddles of water. | You fail to complete the objectives within the allocated time. | You are killed. When you are ready to begin the test, enter the receptionist's chat room and wait until you are transferred to the test area.",
+          "condition": "Preparation before the kill/switch/exit attempt; explanatory sentence appears later in source step 18."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "payon",
+          "x": 185,
+          "y": 233,
+          "role": "building_entrance",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "guild member",
+        "examiner",
+        "payon",
+        "Payon",
+        "Silver Arrows",
+        "Porings",
+        "Zombies",
+        "Archer Skeletons",
+        "Mummies",
+        "Zombies"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "When you are ready to begin the test, enter the receptionist's chat room and wait until you are transferred to the test area.",
+          "text_ru": "Когда будете готовы начать испытание, войдите в чат receptionist и дождитесь переноса в зону испытания."
+        }
+      ]
+    },
+    "16": {
+      "original_instruction": "Kill any 4 of the monsters labelled \"Job Change Monster\".",
+      "instruction_sha256": "6087946a7b965af26810c7f75332fd38b764eb7871a902d0f496c0ea7ed56d80",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/6087946a7b965af26810/1",
+      "goal": "kill",
+      "short_ru": "Убейте любых 4 целей «Job Change Monster».",
+      "short_en": "Kill any 4 targets labelled “Job Change Monster”.",
+      "full_ru": "Убейте любых 4 монстров с меткой «Job Change Monster».",
+      "full_en": "Kill any 4 of the monsters labelled \"Job Change Monster\".",
+      "monsters": [
+        {
+          "entity": "Job Change Monster",
+          "operation": "kill",
+          "quantity": 4,
+          "required": 1,
+          "condition": "Any four eligible labelled targets; never kill an unlabelled lookalike."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "kill_labelled_targets",
+          "entity": "Job Change Monster"
+        }
+      ],
+      "protected_names": [
+        "Job Change Monster"
+      ],
+      "locations": []
+    },
+    "17": {
+      "original_instruction": "Open the exit by activating a switch.",
+      "instruction_sha256": "33ac48b2c68ebb0d9c90011df67cd12ff2376baf230674337d61c67675acff79",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/33ac48b2c68ebb0d9c90/1",
+      "goal": "interact",
+      "short_ru": "После целей активируйте switch, чтобы открыть выход.",
+      "short_en": "After the targets, activate the switch to open the exit.",
+      "full_ru": "Откройте выход, активировав switch.",
+      "full_en": "Open the exit by activating a switch.",
+      "npcs": [
+        {
+          "entity": "switch",
+          "role": "activate"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "activate",
+          "entity": "switch"
+        }
+      ],
+      "protected_names": [
+        "switch"
+      ],
+      "locations": []
+    },
+    "18": {
+      "original_instruction": "Exit the maze. All of the monsters will die once the required number of target monsters have been killed. The six target monsters are comprised of: | 1 Poring, located in the north. | 3 Zombies, each located in the east, west, and center respectively. | 1 Archer Skeleton, located in the east. | 1 Mummy, located in the south-west. The switch is located at the center of the maze, and can be activated by clicking it. The exit is located in the north. Tip : You can activate the switch from a distance; you don't need to stand next to it. You will fail the test if any of the following happens: | You kill any monster that is not labelled \"Job Change Monster\". | You walk in any of the puddles of water. | You fail to complete the objectives within the allocated time. | You are killed. When you are ready to begin the test, enter the receptionist's chat room and wait until you are transferred to the test area.",
+      "instruction_sha256": "275b65886345feae855b129b28cc01a875ef8c3ee72e8a2550fbdde428404b99",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/275b65886345feae855b/1",
+      "goal": "exit_test",
+      "short_ru": "Выйдите на севере лабиринта; избегайте луж, чужих целей, смерти и превышения времени.",
+      "short_en": "Exit at the north of the maze; avoid puddles, unlabelled kills, death and the time limit.",
+      "full_ru": "Выйдите из лабиринта. Когда нужное число целей будет убито, все монстры погибнут. Всего шесть целей: 1 Poring на севере; 3 Zombies на востоке, западе и в центре соответственно; 1 Archer Skeleton на востоке; 1 Mummy на юго-западе. switch расположен в центре лабиринта и активируется щелчком; выход — на севере. switch можно активировать издалека, подходить вплотную не нужно. Испытание провалится, если убить монстра без метки «Job Change Monster», наступить в лужу, не уложиться в отведённое время или погибнуть. Когда будете готовы начать, войдите в чат receptionist и дождитесь переноса в зону испытания.",
+      "full_en": "Exit the maze. All of the monsters will die once the required number of target monsters have been killed. The six target monsters are comprised of: | 1 Poring, located in the north. | 3 Zombies, each located in the east, west, and center respectively. | 1 Archer Skeleton, located in the east. | 1 Mummy, located in the south-west. The switch is located at the center of the maze, and can be activated by clicking it. The exit is located in the north. Tip : You can activate the switch from a distance; you don't need to stand next to it. You will fail the test if any of the following happens: | You kill any monster that is not labelled \"Job Change Monster\". | You walk in any of the puddles of water. | You fail to complete the objectives within the allocated time. | You are killed. When you are ready to begin the test, enter the receptionist's chat room and wait until you are transferred to the test area.",
+      "npcs": [
+        {
+          "entity": "switch",
+          "role": "activate"
+        },
+        {
+          "entity": "receptionist",
+          "role": "referenced_preparation"
+        }
+      ],
+      "mention_entities": {
+        "Zombies": "target_zombie"
+      },
+      "requirements": [
+        {
+          "kind": "monster_population",
+          "amount": "1",
+          "entity": "target_poring",
+          "condition": "Composition of all six labelled targets, not a per-species kill quota; only four total kills are required."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "3",
+          "entity": "target_zombie",
+          "condition": "Composition of all six labelled targets, not a per-species kill quota; only four total kills are required."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "1",
+          "entity": "target_skeleton",
+          "condition": "Composition of all six labelled targets, not a per-species kill quota; only four total kills are required."
+        },
+        {
+          "kind": "monster_population",
+          "amount": "1",
+          "entity": "target_mummy",
+          "condition": "Composition of all six labelled targets, not a per-species kill quota; only four total kills are required."
+        },
+        {
+          "kind": "test_failure_condition",
+          "amount": "kill_unlabelled_target"
+        },
+        {
+          "kind": "test_failure_condition",
+          "amount": "enter_water_puddle"
+        },
+        {
+          "kind": "test_failure_condition",
+          "amount": "exceed_shared_time_limit"
+        },
+        {
+          "kind": "test_failure_condition",
+          "amount": "player_death"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "target_poring",
+          "operation": "mention",
+          "quantity": 1,
+          "required": 0,
+          "condition": "Labelled target population, not an additional kill objective; exact exam actor IDs unknown."
+        },
+        {
+          "entity": "target_zombie",
+          "operation": "mention",
+          "quantity": 3,
+          "required": 0,
+          "condition": "Labelled target population, not an additional kill objective; exact exam actor IDs unknown."
+        },
+        {
+          "entity": "target_skeleton",
+          "operation": "mention",
+          "quantity": 1,
+          "required": 0,
+          "condition": "Labelled target population, not an additional kill objective; exact exam actor IDs unknown."
+        },
+        {
+          "entity": "target_mummy",
+          "operation": "mention",
+          "quantity": 1,
+          "required": 0,
+          "condition": "Labelled target population, not an additional kill objective; exact exam actor IDs unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "exit_maze",
+          "condition": "North exit after four eligible kills and switch activation."
+        }
+      ],
+      "protected_names": [
+        "receptionist",
+        "switch",
+        "Zombies",
+        "Poring",
+        "Zombies",
+        "Archer Skeleton",
+        "Mummy",
+        "Job Change Monster"
+      ],
+      "locations": []
+    },
+    "19": {
+      "original_instruction": "You are awarded a Necklace of Wisdom as proof of passing the final test.",
+      "instruction_sha256": "d82e2ef1ab1695f14fdd85e1ca58c5d0eb28595e1ebf95f7031ce5d1fcc4c97a",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/d82e2ef1ab1695f14fdd/1",
+      "goal": "receive_reward",
+      "short_ru": "Получите 1 Necklace of Wisdom за финальное испытание.",
+      "short_en": "Receive 1 Necklace of Wisdom for passing the final test.",
+      "full_ru": "За успешное финальное испытание вы получите Necklace of Wisdom как подтверждение.",
+      "full_en": "You are awarded a Necklace of Wisdom as proof of passing the final test.",
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Necklace of Wisdom"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_proof",
+          "entity": "Necklace of Wisdom"
+        }
+      ],
+      "protected_names": [
+        "Necklace of Wisdom"
+      ],
+      "locations": []
+    },
+    "20": {
+      "original_instruction": "Return to the Hunter Guild. Give the Necklace of Wisdom to Sherin and she will make you a hunter. Tip : Before leaving the area, exit the Hunter Guild and kill enough monsters to learn Falconry Mastery , then return to the Hunter Guild and rent a falcon from the Falcon Breeder in the right wing of the building.",
+      "instruction_sha256": "ed1831e5b9d316cc96330555064dbf56a234626447196b3bcf167a1c66fd2957",
+      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/ed1831e5b9d316cc9633/1",
+      "goal": "job_change",
+      "short_ru": "Отдайте Sherin Necklace of Wisdom и станьте hunter; аренда у Falcon Breeder — отдельный совет.",
+      "short_en": "Give Sherin the Necklace of Wisdom and become a hunter; Falcon Breeder rental is a separate tip.",
+      "full_ru": "Вернитесь в Hunter Guild. Передайте Necklace of Wisdom персонажу Sherin, и она сменит вашу профессию на hunter. Совет: перед уходом из этой области можно выйти из Hunter Guild, набрать в боях достаточно опыта для изучения Falconry Mastery, затем вернуться и арендовать сокола у Falcon Breeder в правом крыле здания.",
+      "full_en": "Return to the Hunter Guild. Give the Necklace of Wisdom to Sherin and she will make you a hunter. Tip : Before leaving the area, exit the Hunter Guild and kill enough monsters to learn Falconry Mastery , then return to the Hunter Guild and rent a falcon from the Falcon Breeder in the right wing of the building.",
+      "npcs": [
+        {
+          "entity": "Sherin",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Necklace of Wisdom",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 19,
+          "evidence": "You are awarded a Necklace of Wisdom as proof of passing the final test."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Hunter"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_proof",
+          "entity": "Necklace of Wisdom"
+        },
+        {
+          "operation": "change_job",
+          "entity": "Sherin"
+        }
+      ],
+      "protected_names": [
+        "Sherin",
+        "Falcon Breeder",
+        "Necklace of Wisdom"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "optional_falcon_rental",
+          "choice_group": "post_job_falcon_activity",
+          "variant_scope": "irowiki-classic",
+          "condition": "Optional post-job-change tip; not an extra requirement to become Hunter.",
+          "section": "",
+          "source_step": 20,
+          "original_instruction": "Return to the Hunter Guild. Give the Necklace of Wisdom to Sherin and she will make you a hunter. Tip : Before leaving the area, exit the Hunter Guild and kill enough monsters to learn Falconry Mastery , then return to the Hunter Guild and rent a falcon from the Falcon Breeder in the right wing of the building.",
+          "instruction_sha256": "ed1831e5b9d316cc96330555064dbf56a234626447196b3bcf167a1c66fd2957",
+          "short_ru": "По желанию изучите Falconry Mastery и арендуйте сокола у Falcon Breeder.",
+          "short_en": "Optionally learn Falconry Mastery and rent a falcon from Falcon Breeder.",
+          "full_ru": "Вернитесь в Hunter Guild. Передайте Necklace of Wisdom персонажу Sherin, и она сменит вашу профессию на hunter. Совет: перед уходом из этой области можно выйти из Hunter Guild, набрать в боях достаточно опыта для изучения Falconry Mastery, затем вернуться и арендовать сокола у Falcon Breeder в правом крыле здания.",
+          "full_en": "Return to the Hunter Guild. Give the Necklace of Wisdom to Sherin and she will make you a hunter. Tip : Before leaving the area, exit the Hunter Guild and kill enough monsters to learn Falconry Mastery , then return to the Hunter Guild and rent a falcon from the Falcon Breeder in the right wing of the building.",
+          "protected_names": [
+            "Sherin",
+            "Falcon Breeder",
+            "Necklace of Wisdom"
+          ],
+          "npcs": [
+            {
+              "entity": "Falcon Breeder",
+              "role": "rental"
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "skill_to_rent",
+              "amount": "Falconry Mastery"
+            }
+          ],
+          "actions": [
+            {
+              "operation": "gain_experience_for_falconry_mastery",
+              "condition": "No species, kill count, target level or time is printed."
+            },
+            {
+              "operation": "learn_falconry_mastery"
+            },
+            {
+              "operation": "rent_falcon",
+              "entity": "Falcon Breeder",
+              "condition": "Rental fee/duration not printed."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "hunter_personality_answers_only",
+      "detail": "The source supplies ten exact answers in order without question stems. Keep them as dialogue choices, not world movement/healing/trading objectives. No invented question wording or input mode."
+    },
+    {
+      "reason": "hunter_random_sets_restored",
+      "detail": "Pinned HTML restores seven random three-item sets omitted by the extractor. One assigned branch governs all three items; never require all sets or independently mix items. Branch narrative is authored from that table and the unchanged assignment instruction, with each typed material citing the literal HTML row."
+    },
+    {
+      "reason": "hunter_four_kills_six_targets",
+      "detail": "Kill any four labelled targets. Six target population entries 1+3+1+1 are not six required kills. Regular species database links describe the maze, not verified IDs for special exam clones; target identities remain scoped with NULL IDs. Shared three-minute timer governs all ordered objectives."
+    },
+    {
+      "reason": "hunter_test_preparation_scope",
+      "detail": "The waiting-room chat instruction printed at the end of stage 18 is preparation before an attempt. It is an explicitly conditioned action, not a requirement to restart after a successful exit. Water, unlabelled kills, death and timeout are independent failure conditions."
+    },
+    {
+      "reason": "hunter_actor_and_optional_rental_scope",
+      "detail": "Demon Hunter and the unnamed waiting-room receptionist are not merged by occupation. Guild member and examiner remain distinct; building entrance is not an invented interior NPC point. Falcon rental is an optional post-job tip with unknown fee/duration, not another job-change cost."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Archer",
+        "source_section": "requirements",
+        "evidence": "Class: Archer"
+      }
+    ]
+  }
+}

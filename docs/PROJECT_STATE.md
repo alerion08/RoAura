@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 915 steps in 70 curated guides and
-114 conditional branches. Thirteen source additions supplement full descriptions;
-**1,835 steps / 146 remaining catalog entries still need processing**. Fifteen quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
+is excluded. All four RU/EN fields exist for 942 steps in 74 curated guides and
+124 conditional branches. Twenty-one source additions supplement full descriptions;
+**1,808 steps / 142 remaining catalog entries still need processing**. Seventeen quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -91,8 +91,19 @@ Pang Voice gates Geffen completion at stage 3, retains positional answers and
 five cyclic pursuit points, and does not turn egg collection into a kill quota.
 Generator 5.7.0 supports literal alternative-route choice proofs and strict
 single-corequisite header proofs; semantic schema remains 5.
+Archer/Hunter job changes and skill quests are curated: four guides / 27 stages.
+Archer's restored trunk weights support a mixed 25-point minimum. Its skill
+activities are independent with separate level-30/35 gates, exact unlocks and
+euRO material/location alternatives. Hunter retains ten exact answers and
+seven exclusive restored material sets. Four labelled kills are separate from
+six target population, and one three-minute timer spans kill/switch/exit.
+Waiting-chat preparation is restored at stage 15 with later source evidence;
+Silver Arrows are a grant, the Necklace is one proof, and falcon rental is
+optional. Hunter Skill has one material set and no invented Reidin Corse point.
+Schema/generator stay 5 / 5.7.0; eight new source additions restore omitted
+headers, tables, reward details and preparation without changing the archive.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 242 regression tests, full offline rebuild and research CI
+Local validation: 254 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

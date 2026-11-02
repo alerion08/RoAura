@@ -1,0 +1,404 @@
+{
+  "quest_id": "irowiki-classic:Archer_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "b2cf0e4c2c6c759e573e6842c4d705b1e50b36f31ccc7efb6ac622e64e0c2d3c",
+  "snapshot_sha256": "efbd13845dcc5c288e1b9f24a72bfbb64c8680891977bcdc699410a298e34be7",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Roberto"
+    },
+    {
+      "type": "npc",
+      "name": "Jason"
+    },
+    {
+      "type": "map",
+      "name": "moc_ruins",
+      "map_code": "moc_ruins"
+    },
+    {
+      "type": "map",
+      "name": "morocc",
+      "map_code": "morocc"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "Morroc Ruins"
+    },
+    {
+      "type": "item",
+      "name": "Mushroom Spore",
+      "game_id": 921,
+      "id_source": "http://db.irowiki.org/classic/item-info/921/"
+    },
+    {
+      "type": "item",
+      "name": "Red Potion",
+      "game_id": 501,
+      "id_source": "http://db.irowiki.org/classic/item-info/501/"
+    },
+    {
+      "type": "item",
+      "name": "Resin",
+      "game_id": 907,
+      "id_source": "http://db.irowiki.org/classic/item-info/907/"
+    },
+    {
+      "type": "item",
+      "name": "Tough Scalelike Stem",
+      "game_id": 7012,
+      "id_source": "http://db.irowiki.org/classic/item-info/7012/"
+    },
+    {
+      "type": "item",
+      "name": "Pointed Scales",
+      "game_id": 906,
+      "id_source": "http://db.irowiki.org/classic/item-info/906/"
+    },
+    {
+      "type": "item",
+      "name": "Trunk",
+      "game_id": 1019,
+      "id_source": "http://db.irowiki.org/classic/item-info/1019/"
+    },
+    {
+      "type": "item",
+      "name": "Banana Juice",
+      "game_id": 532,
+      "id_source": "http://db.irowiki.org/classic/item-info/532/"
+    },
+    {
+      "type": "item",
+      "name": "Bill of Birds",
+      "game_id": 925,
+      "id_source": "http://db.irowiki.org/classic/item-info/925/"
+    },
+    {
+      "type": "item",
+      "name": "Emerald",
+      "game_id": 721,
+      "id_source": "http://db.irowiki.org/classic/item-info/721/"
+    },
+    {
+      "type": "item",
+      "name": "Tentacle",
+      "game_id": 962,
+      "id_source": "http://db.irowiki.org/classic/item-info/962/"
+    },
+    {
+      "type": "item",
+      "name": "Yoyo Tail",
+      "game_id": 942,
+      "id_source": "http://db.irowiki.org/classic/item-info/942/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Roberto at the Morroc Ruins ( moc_ruins 118, 99) ( morocc 121, 109, euRO). Deliver the following items to him: | 7 Mushroom Spore | 1 Red Potion | 20 Resin | 41 Tough Scalelike Stem ( Pointed Scales , euRO) | 13 Trunk",
+      "instruction_sha256": "89f18e48e9f821ce8ea71265c815de4f8567829a541426e90d100198e07c2fc3",
+      "step_id": "irowiki-classic:Archer_Skill_Quest/step/89f18e48e9f821ce8ea7/1",
+      "goal": "deliver",
+      "short_ru": "У Roberto передайте 7 Mushroom Spore, 1 Red Potion, 20 Resin, 13 Trunk и 41 Tough Scalelike Stem; в euRO вместо последнего нужны Pointed Scales.",
+      "short_en": "Give Roberto 7 Mushroom Spore, 1 Red Potion, 20 Resin, 13 Trunk and 41 Tough Scalelike Stem; euRO uses Pointed Scales instead.",
+      "full_ru": "Поговорите с Roberto в Morroc Ruins (moc_ruins 118, 99); вариант euRO — morocc 121, 109. Передайте ему: 7 Mushroom Spore, 1 Red Potion, 20 Resin, 41 Tough Scalelike Stem (в euRO — Pointed Scales), 13 Trunk. Условия этого умения: Job Level 30, профессия Archer. Награда этого квеста: возможность использовать Arrow Crafting.",
+      "full_en": "Talk to Roberto at the Morroc Ruins ( moc_ruins 118, 99) ( morocc 121, 109, euRO). Deliver the following items to him: | 7 Mushroom Spore | 1 Red Potion | 20 Resin | 41 Tough Scalelike Stem ( Pointed Scales , euRO) | 13 Trunk Job Level: 30 Class: Archer Quest Reward(s): Ability to use Arrow Crafting",
+      "npcs": [
+        {
+          "entity": "Roberto",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Mushroom Spore",
+          "quantity": 7,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Red Potion",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Resin",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Trunk",
+          "quantity": 13,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "30",
+          "source_section": "html_text",
+          "evidence": "Job Level: 30 Class: Archer"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Arrow Crafting",
+          "source_section": "html_text",
+          "evidence": "Ability to use Arrow Crafting"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_variant_materials",
+          "entity": "Roberto"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "moc_ruins",
+          "x": 118,
+          "y": 99,
+          "role": "npc",
+          "known": true,
+          "condition": "Default Classic location; alternative to euRO, not an extra visit."
+        },
+        {
+          "entity": "morocc",
+          "x": 121,
+          "y": 109,
+          "role": "npc",
+          "known": true,
+          "condition": "euRO variant location only; alternative to moc_ruins."
+        }
+      ],
+      "protected_names": [
+        "Roberto",
+        "moc_ruins",
+        "morocc",
+        "Morroc Ruins",
+        "Mushroom Spore",
+        "Red Potion",
+        "Resin",
+        "Tough Scalelike Stem",
+        "Pointed Scales",
+        "Trunk"
+      ],
+      "branches": [
+        {
+          "key": "classic_stem",
+          "choice_group": "crafting_material_variant",
+          "variant_scope": "irowiki-classic",
+          "condition": "Default Classic: use Tough Scalelike Stem, not the euRO alternative.",
+          "section": "Arrow Crafting Quest",
+          "source_step": 1,
+          "original_instruction": "41 Tough Scalelike Stem ( Pointed Scales , euRO)",
+          "instruction_sha256": "330164b57c3d1e139d5768851d86d3f449947e9b05dabe036b3a0770423e2b55",
+          "short_ru": "Передайте 41 Tough Scalelike Stem.",
+          "short_en": "Deliver 41 Tough Scalelike Stem.",
+          "full_ru": "41 Tough Scalelike Stem; в варианте euRO вместо него используется Pointed Scales.",
+          "full_en": "41 Tough Scalelike Stem ( Pointed Scales , euRO)",
+          "protected_names": [
+            "Tough Scalelike Stem",
+            "Pointed Scales"
+          ],
+          "items": [
+            {
+              "entity": "Tough Scalelike Stem",
+              "quantity": 41,
+              "operation": "deliver",
+              "required": 1
+            }
+          ]
+        },
+        {
+          "key": "euro_scales",
+          "choice_group": "crafting_material_variant",
+          "variant_scope": "euRO",
+          "condition": "euRO only: replace Tough Scalelike Stem with Pointed Scales.",
+          "section": "Arrow Crafting Quest",
+          "source_step": 1,
+          "original_instruction": "41 Tough Scalelike Stem ( Pointed Scales , euRO)",
+          "instruction_sha256": "330164b57c3d1e139d5768851d86d3f449947e9b05dabe036b3a0770423e2b55",
+          "short_ru": "В euRO передайте 41 Pointed Scales.",
+          "short_en": "On euRO, deliver 41 Pointed Scales.",
+          "full_ru": "41 Tough Scalelike Stem; в варианте euRO вместо него используется Pointed Scales.",
+          "full_en": "41 Tough Scalelike Stem ( Pointed Scales , euRO)",
+          "protected_names": [
+            "Tough Scalelike Stem",
+            "Pointed Scales"
+          ],
+          "items": [
+            {
+              "entity": "Pointed Scales",
+              "quantity": 41,
+              "operation": "deliver",
+              "required": 1
+            }
+          ]
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 30 Class: Archer",
+          "text_ru": "Условия этого умения: Job Level 30, профессия Archer."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "Quest Reward(s): Ability to use Arrow Crafting",
+          "text_ru": "Награда этого квеста: возможность использовать Arrow Crafting."
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to Jason (103, 63) in Payon . Deliver him the following items to learn the skill: | 36 Banana Juice | 10 Bill of Birds | 2 Emerald | 10 Tentacle | 3 Yoyo Tail",
+      "instruction_sha256": "439111e7cf3248459bbfb0a0f1bf61ba54b1a677717e134d69162adc2453a5cf",
+      "step_id": "irowiki-classic:Archer_Skill_Quest/step/439111e7cf3248459bbf/1",
+      "goal": "deliver",
+      "short_ru": "У Jason в Payon (103, 63) передайте 36 Banana Juice, 10 Bill of Birds, 2 Emerald, 10 Tentacle и 3 Yoyo Tail.",
+      "short_en": "At Jason in Payon (103, 63), deliver 36 Banana Juice, 10 Bill of Birds, 2 Emerald, 10 Tentacle and 3 Yoyo Tail.",
+      "full_ru": "Поговорите с Jason (103, 63) в Payon. Чтобы изучить умение, передайте ему: 36 Banana Juice, 10 Bill of Birds, 2 Emerald, 10 Tentacle, 3 Yoyo Tail. Условия этого умения: Job Level 35, профессия Archer. Награда этого квеста: возможность использовать Arrow Repel.",
+      "full_en": "Talk to Jason (103, 63) in Payon . Deliver him the following items to learn the skill: | 36 Banana Juice | 10 Bill of Birds | 2 Emerald | 10 Tentacle | 3 Yoyo Tail Job Level: 35 Class: Archer Quest Reward(s): Ability to use Arrow Repel",
+      "npcs": [
+        {
+          "entity": "Jason",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Banana Juice",
+          "quantity": 36,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Bill of Birds",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Emerald",
+          "quantity": 2,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Tentacle",
+          "quantity": 10,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Yoyo Tail",
+          "quantity": 3,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "35",
+          "source_section": "html_text",
+          "evidence": "Job Level: 35 Class: Archer"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Arrow Repel",
+          "source_section": "html_text",
+          "evidence": "Ability to use Arrow Repel"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_materials",
+          "entity": "Jason"
+        }
+      ],
+      "locations": [
+        {
+          "x": 103,
+          "y": 63,
+          "role": "npc",
+          "known": false,
+          "entity": "Payon"
+        }
+      ],
+      "protected_names": [
+        "Jason",
+        "Payon",
+        "Banana Juice",
+        "Bill of Birds",
+        "Emerald",
+        "Tentacle",
+        "Yoyo Tail"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 35 Class: Archer",
+          "text_ru": "Условия этого умения: Job Level 35, профессия Archer."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "Quest Reward(s): Ability to use Arrow Repel",
+          "text_ru": "Награда этого квеста: возможность использовать Arrow Repel."
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "archer_skills_independent_headers",
+      "detail": "The page contains two independent activities with separate headers. Archived page metadata only retained the first Job Level 30 header; Arrow Repel explicitly needs 35 at its own step. Source order is not a prerequisite chain and materials/rewards must not be summed as one obligation."
+    },
+    {
+      "reason": "archer_skill_euro_variant",
+      "detail": "Pointed Scales 906 replaces Tough Scalelike Stem 7012 only on euRO; they are not aliases. Both printed Roberto points are alternatives, not consecutive waypoints. Jason has a display town and bare coordinates; no unprinted map code is inferred."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Archer",
+        "source_section": "requirements",
+        "evidence": "Class: Archer",
+        "condition": "Both independent skill activities list Archer; do not treat their material sets as one mandatory quest cost."
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "arrow_crafting",
+      "kind": "optional",
+      "source_heading": "Arrow Crafting Quest",
+      "steps": [
+        1
+      ],
+      "condition": "Independent Arrow Crafting training activity; Job Level 30; not a prerequisite for Arrow Repel."
+    },
+    {
+      "key": "arrow_repel",
+      "kind": "optional",
+      "source_heading": "Arrow Repel Quest",
+      "steps": [
+        2
+      ],
+      "condition": "Independent Arrow Repel training activity; Job Level 35; not a mandatory follow-up to Arrow Crafting."
+    }
+  ]
+}
