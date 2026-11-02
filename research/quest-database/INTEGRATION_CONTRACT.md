@@ -173,6 +173,23 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   conflict, not a second upfront charge. Random success has no known percentage
   or fixed total attempts/cost. `required_skill_level=1` names Resurrection in
   its condition; no numeric Skill ID is established.
+- Monk `assigned_material_set` selects one seven-set alternative. Memory passage
+  options retain source spelling, with `answer_unspecified_input` because the
+  source does not establish a paste field or line sequence. Penalty-free retries
+  apply only to that memory test.
+- Monk `stamina_test` branches are Marathon or one of two mushroom-type collection
+  variants. Thirty of either one type meets the source threshold; do not require
+  both types or add Marathon. `approximate_laps`/`approximate_duration_minutes`
+  are estimates, not limits. Source Step 8 refers to the maze at archived stage 7;
+  its three layout variants are not three required completions or kill quotas.
+- The final Green Potion is provided, not an advance cost. Monk weapon rewards
+  are `possible_item` alternatives because the or/Job-50 wording is ambiguous.
+  Do not infer a below-50 Waghnak rule, a selection menu or stacked rewards.
+- Monk Skill's `inventory_weight=0` is scoped to Apprentice Monk teaching at
+  stage 1. Excruciating Palm requires Spiritual Bestowment and a material set;
+  do not apply zero Weight to that delivery or create a whole-guide self-cycle.
+  Entrance/interior coordinates remain separate and ordered, and source 192,171
+  is not silently replaced by the other guide's 192,170.
 - `step_locations.location_order` is a reviewed visit sequence when present,
   not an ordering inferred automatically from every textual occurrence.
   NULL means no established sequence. `condition_text` identifies alternative

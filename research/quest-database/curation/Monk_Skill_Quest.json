@@ -1,0 +1,303 @@
+{
+  "quest_id": "irowiki-classic:Monk_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "9ba2f7f7de462cc0aeba91398099a36bcdf1e7f8087108155dfd43b13ad946f0",
+  "snapshot_sha256": "e61be5abc48451cd522ccaee53617e3b3ad957c38c9b6f71d907ba6fbc619e87",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "elderly man",
+      "aliases": [
+        "old man"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Apprentice Monk"
+    },
+    {
+      "type": "map",
+      "name": "prt_monk",
+      "map_code": "prt_monk"
+    },
+    {
+      "type": "map",
+      "name": "monk_test",
+      "map_code": "monk_test"
+    },
+    {
+      "type": "map",
+      "name": "St. Capitolina Abbey",
+      "map_code": "prt_monk"
+    },
+    {
+      "type": "item",
+      "name": "Stems",
+      "game_id": 905,
+      "id_source": "http://db.irowiki.org/classic/item-info/905/"
+    },
+    {
+      "type": "item",
+      "name": "Shoots",
+      "game_id": 711,
+      "id_source": "http://db.irowiki.org/classic/item-info/711/"
+    },
+    {
+      "type": "monster",
+      "name": "Mandragoras",
+      "game_id": 1020,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1020/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Enter the building at the center of the St. Capitolina Abbey (prt_monk 192, 171), and greet the elderly man there (monk_test 316, 68). Next, a 3 o'clock from here, outside the building, you should see an NPC \"Apprentice Monk\" (prt_monk 270, 197). If you talk to him with 0 Weight, he will teach you Spiritual Bestowment .",
+      "instruction_sha256": "a42be32dc5319d642891e4bf1d272e254b87801b384c82bce0eb1338d3b311c7",
+      "step_id": "irowiki-classic:Monk_Skill_Quest/step/a42be32dc5319d642891/1",
+      "goal": "learn_skill",
+      "short_ru": "Посетите elderly man, затем Apprentice Monk (prt_monk 270, 197) при 0 Weight, чтобы изучить Spiritual Bestowment.",
+      "short_en": "Visit the elderly man, then Apprentice Monk (prt_monk 270, 197) at 0 Weight to learn Spiritual Bestowment.",
+      "full_ru": "Войдите в центральное здание St. Capitolina Abbey (prt_monk 192, 171) и поприветствуйте elderly man (monk_test 316, 68). Затем справа, в направлении 3 часов, снаружи здания найдите Apprentice Monk (prt_monk 270, 197). Если поговорить с ним при 0 Weight, он обучит вас Spiritual Bestowment.",
+      "full_en": "Enter the building at the center of the St. Capitolina Abbey (prt_monk 192, 171), and greet the elderly man there (monk_test 316, 68). Next, a 3 o'clock from here, outside the building, you should see an NPC \"Apprentice Monk\" (prt_monk 270, 197). If you talk to him with 0 Weight, he will teach you Spiritual Bestowment .",
+      "npcs": [
+        {
+          "entity": "elderly man",
+          "role": "talk"
+        },
+        {
+          "entity": "Apprentice Monk",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "inventory_weight",
+          "amount": "0",
+          "condition": "At the Apprentice Monk teaching interaction only, not the separate Excruciating Palm materials."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Spiritual Bestowment"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "greet_elder",
+          "entity": "elderly man"
+        },
+        {
+          "operation": "talk_at_zero_weight",
+          "entity": "Apprentice Monk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prt_monk",
+          "x": 192,
+          "y": 171,
+          "role": "building_entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "monk_test",
+          "x": 316,
+          "y": 68,
+          "role": "elderly man",
+          "known": true,
+          "order": 2
+        },
+        {
+          "entity": "prt_monk",
+          "x": 270,
+          "y": 197,
+          "role": "Apprentice Monk",
+          "known": true,
+          "order": 3
+        }
+      ],
+      "protected_names": [
+        "elderly man",
+        "Apprentice Monk",
+        "prt_monk",
+        "monk_test",
+        "St. Capitolina Abbey"
+      ]
+    },
+    "2": {
+      "original_instruction": "Head to the old man (monk_test 316, 68) in the center building of the St. Capitolina Abbey (prt_monk 192, 171). He requires two things before he will teach you the skill.",
+      "instruction_sha256": "32d4659519e10f7a25ceed5c007b56a32a0d02526fea0db3b8b50257d8d62676",
+      "step_id": "irowiki-classic:Monk_Skill_Quest/step/32d4659519e10f7a25ce/1",
+      "goal": "talk",
+      "short_ru": "У old man в monk_test 316, 68 узнайте условия Excruciating Palm.",
+      "short_en": "Ask the old man at monk_test 316, 68 about Excruciating Palm requirements.",
+      "full_ru": "Идите к old man (monk_test 316, 68) в центральном здании St. Capitolina Abbey (prt_monk 192, 171). Прежде чем обучить вас умению, он потребует выполнить два условия. Предварительное условие: завершить Spiritual Bestowment Quest.",
+      "full_en": "Head to the old man (monk_test 316, 68) in the center building of the St. Capitolina Abbey (prt_monk 192, 171). He requires two things before he will teach you the skill. Quest Prerequisite(s): Completed Spiritual Bestowment Quest",
+      "npcs": [
+        {
+          "entity": "elderly man",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "required_skill",
+          "amount": "Spiritual Bestowment",
+          "source_section": "html_text",
+          "evidence": "Quest Prerequisite(s): Completed Spiritual Bestowment Quest",
+          "condition": "Learn the skill from the earlier activity; not a self-prerequisite on this whole multi-skill guide."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_palm_training",
+          "entity": "elderly man"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prt_monk",
+          "x": 192,
+          "y": 171,
+          "role": "building_entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "monk_test",
+          "x": 316,
+          "y": 68,
+          "role": "elderly man",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "prt_monk",
+        "monk_test",
+        "St. Capitolina Abbey"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Quest Prerequisite(s): Completed Spiritual Bestowment Quest",
+          "text_ru": "Предварительное условие: завершить Spiritual Bestowment Quest."
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "First, you must learn Spiritual Bestowment , and second, you must gather items dropped by Mandragoras . Return to the man with 20 Stems and 3 Shoots , and he will then teach you Excruciating Palm .",
+      "instruction_sha256": "67823549886a84e74b6a37a9c65f15759100c3e57144dba2ce0e5def61ad502d",
+      "step_id": "irowiki-classic:Monk_Skill_Quest/step/67823549886a84e74b6a/1",
+      "goal": "learn_skill",
+      "short_ru": "Изучив Spiritual Bestowment, принесите 20 Stems и 3 Shoots для Excruciating Palm.",
+      "short_en": "After learning Spiritual Bestowment, bring 20 Stems and 3 Shoots for Excruciating Palm.",
+      "full_ru": "Сначала изучите Spiritual Bestowment, затем соберите предметы, выпадающие с Mandragoras. Принесите этому человеку 20 Stems и 3 Shoots: он обучит вас Excruciating Palm.",
+      "full_en": "First, you must learn Spiritual Bestowment , and second, you must gather items dropped by Mandragoras . Return to the man with 20 Stems and 3 Shoots , and he will then teach you Excruciating Palm .",
+      "npcs": [
+        {
+          "entity": "elderly man",
+          "role": "talk",
+          "support_step": 2,
+          "evidence": "Head to the old man (monk_test 316, 68) in the center building of the St. Capitolina Abbey (prt_monk 192, 171). He requires two things before he will teach you the skill."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Stems",
+          "quantity": 20,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Shoots",
+          "quantity": 3,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Mandragoras",
+          "operation": "loot_source",
+          "quantity": null,
+          "required": 0,
+          "condition": "Suggested material source, not twenty or three mandatory kills."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "required_skill",
+          "amount": "Spiritual Bestowment",
+          "condition": "Same skill prerequisite, not another unlock or whole-guide completion cycle."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Excruciating Palm"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_palm_materials",
+          "entity": "elderly man"
+        },
+        {
+          "operation": "learn_excruciating_palm",
+          "entity": "elderly man"
+        }
+      ],
+      "protected_names": [
+        "Stems",
+        "Shoots",
+        "Mandragoras"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "monk_skill_weight_and_dependency_scope",
+      "detail": "Zero Weight applies only when Apprentice Monk teaches Spiritual Bestowment; it cannot apply to the material-carrying Excruciating Palm activity. The latter needs the earlier skill, not this whole guide completed before itself. No Job Level is printed and none is invented."
+    },
+    {
+      "reason": "monk_skill_actor_locations",
+      "detail": "Elderly man/old man are the same actor by the identical interior point in this guide. The entrance 192,171 and interior 316,68 remain distinct and ordered; the job guide prints entrance 192,170, which is not silently normalized. The unnamed elder is not merged with Tomoon solely by location."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Monk",
+        "source_section": "requirements",
+        "evidence": "Class: Monk"
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "spiritual_bestowment",
+      "kind": "optional",
+      "source_heading": "Spiritual Bestowment Quest",
+      "steps": [
+        1
+      ],
+      "condition": "Spiritual Bestowment training. Exact zero Weight applies at the Apprentice Monk interaction only."
+    },
+    {
+      "key": "excruciating_palm",
+      "kind": "optional",
+      "source_heading": "Excruciating Palm Quest",
+      "steps": [
+        2,
+        3
+      ],
+      "condition": "Excruciating Palm training requires learned Spiritual Bestowment, then the material set. Do not apply zero Weight to this hand-in."
+    }
+  ]
+}

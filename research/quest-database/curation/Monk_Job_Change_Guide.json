@@ -1,0 +1,1383 @@
+{
+  "quest_id": "irowiki-classic:Monk_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "5a82c2aa0d6a9c2f74963002c31f9d92729a65215e0ecd35531a9be2d6ff0b2b",
+  "snapshot_sha256": "68bdb2d43299ac6682e33f4cf419da8c3066e952c65ea85fe618cb075c5565ab",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Sensei Moohae",
+      "aliases": [
+        "Moohae"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Guarding Monk"
+    },
+    {
+      "type": "npc",
+      "name": "Elder Touha"
+    },
+    {
+      "type": "npc",
+      "name": "Boohae"
+    },
+    {
+      "type": "npc",
+      "name": "Bashu"
+    },
+    {
+      "type": "npc",
+      "name": "door keeper"
+    },
+    {
+      "type": "npc",
+      "name": "Tomoon"
+    },
+    {
+      "type": "map",
+      "name": "prt_monk",
+      "map_code": "prt_monk"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "item",
+      "name": "Cyfar",
+      "game_id": 7053,
+      "id_source": "http://db.irowiki.org/classic/item-info/7053/"
+    },
+    {
+      "type": "item",
+      "name": "Yellow Herb",
+      "game_id": 508,
+      "id_source": "http://db.irowiki.org/classic/item-info/508/"
+    },
+    {
+      "type": "item",
+      "name": "White Herb",
+      "game_id": 509,
+      "id_source": "http://db.irowiki.org/classic/item-info/509/"
+    },
+    {
+      "type": "item",
+      "name": "Solid Shell",
+      "game_id": 943,
+      "id_source": "http://db.irowiki.org/classic/item-info/943/"
+    },
+    {
+      "type": "item",
+      "name": "Shell",
+      "game_id": 935,
+      "id_source": "http://db.irowiki.org/classic/item-info/935/"
+    },
+    {
+      "type": "item",
+      "name": "Zargon",
+      "game_id": 912,
+      "id_source": "http://db.irowiki.org/classic/item-info/912/"
+    },
+    {
+      "type": "item",
+      "name": "Porcupine Quill",
+      "game_id": 1027,
+      "id_source": "http://db.irowiki.org/classic/item-info/1027/"
+    },
+    {
+      "type": "item",
+      "name": "Bug Leg",
+      "game_id": 1042,
+      "id_source": "http://db.irowiki.org/classic/item-info/1042/"
+    },
+    {
+      "type": "item",
+      "name": "Cobweb",
+      "game_id": 1025,
+      "id_source": "http://db.irowiki.org/classic/item-info/1025/"
+    },
+    {
+      "type": "item",
+      "name": "Sticky Mucus",
+      "game_id": 938,
+      "id_source": "http://db.irowiki.org/classic/item-info/938/"
+    },
+    {
+      "type": "item",
+      "name": "Earthworm Peeling",
+      "game_id": 1055,
+      "id_source": "http://db.irowiki.org/classic/item-info/1055/"
+    },
+    {
+      "type": "item",
+      "name": "Green Herb",
+      "game_id": 511,
+      "id_source": "http://db.irowiki.org/classic/item-info/511/"
+    },
+    {
+      "type": "item",
+      "name": "Tooth of Bat",
+      "game_id": 913,
+      "id_source": "http://db.irowiki.org/classic/item-info/913/"
+    },
+    {
+      "type": "item",
+      "name": "Bear Footskin",
+      "game_id": 948,
+      "id_source": "http://db.irowiki.org/classic/item-info/948/"
+    },
+    {
+      "type": "item",
+      "name": "Poison Spore",
+      "game_id": 7033,
+      "id_source": "http://db.irowiki.org/classic/item-info/7033/"
+    },
+    {
+      "type": "item",
+      "name": "Stem",
+      "game_id": 905,
+      "id_source": "http://db.irowiki.org/classic/item-info/905/"
+    },
+    {
+      "type": "item",
+      "name": "Jellopy",
+      "game_id": 909,
+      "id_source": "http://db.irowiki.org/classic/item-info/909/"
+    },
+    {
+      "type": "item",
+      "name": "Worm Peelings",
+      "game_id": 955,
+      "id_source": "http://db.irowiki.org/classic/item-info/955/"
+    },
+    {
+      "type": "item",
+      "name": "Yoyo Tail",
+      "game_id": 942,
+      "id_source": "http://db.irowiki.org/classic/item-info/942/"
+    },
+    {
+      "type": "item",
+      "name": "Iron Ore",
+      "game_id": 1002,
+      "id_source": "http://db.irowiki.org/classic/item-info/1002/"
+    },
+    {
+      "type": "item",
+      "name": "Blue Herb",
+      "game_id": 510,
+      "id_source": "http://db.irowiki.org/classic/item-info/510/"
+    },
+    {
+      "type": "item",
+      "name": "Waghnak",
+      "game_id": 1801,
+      "id_source": "http://db.irowiki.org/classic/item-info/1801/"
+    },
+    {
+      "type": "item",
+      "name": "Knuckle Duster",
+      "game_id": 1804,
+      "id_source": "http://db.irowiki.org/classic/item-info/1804/"
+    },
+    {
+      "type": "item",
+      "name": "Gooey",
+      "identity": "irowiki-classic:Monk_Job_Change_Guide:source_item:Gooey"
+    },
+    {
+      "type": "item",
+      "name": "Orange",
+      "identity": "irowiki-classic:Monk_Job_Change_Guide:source_item:Orange"
+    },
+    {
+      "type": "item",
+      "name": "Green Potion",
+      "identity": "irowiki-classic:Monk_Job_Change_Guide:source_item:Green Potion"
+    },
+    {
+      "type": "monster",
+      "name": "Zombies",
+      "identity": "irowiki-classic:Monk_Job_Change_Guide:maze_hazard:Zombies"
+    },
+    {
+      "type": "monster",
+      "name": "Mummies",
+      "identity": "irowiki-classic:Monk_Job_Change_Guide:maze_hazard:Mummies"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Visit the Monk Abbey (prt_monk), located one map East, one map North and two maps East of Prontera .",
+      "instruction_sha256": "bff34fb16e1907fb00b6b1d2387b22e642ee2da9e2adc30c3d3a1f4ea3f036a7",
+      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/bff34fb16e1907fb00b6/1",
+      "goal": "move",
+      "short_ru": "Идите в Monk Abbey на prt_monk.",
+      "short_en": "Go to the Monk Abbey on prt_monk.",
+      "full_ru": "Идите в Monk Abbey (prt_monk): от Prontera пройдите одну карту на восток, одну на север и ещё две на восток.",
+      "full_en": "Visit the Monk Abbey (prt_monk), located one map East, one map North and two maps East of Prontera .",
+      "actions": [
+        {
+          "operation": "travel_to_monk_abbey"
+        }
+      ],
+      "protected_names": [
+        "prt_monk",
+        "Prontera"
+      ],
+      "locations": []
+    },
+    "2": {
+      "original_instruction": "Talk to Guarding Monk (58,247) then to Sensei Moohae (245,104). If you meet the qualifications, he will give you the first test, item collecting.",
+      "instruction_sha256": "9bfd3639a696b13afe67f112efa60dc604712b2cfaf73b8040ebbe2b488cd6a2",
+      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/9bfd3639a696b13afe67/1",
+      "goal": "talk",
+      "short_ru": "На prt_monk поговорите с Guarding Monk (58,247), затем Sensei Moohae (245,104).",
+      "short_en": "On prt_monk, talk to Guarding Monk (58,247), then Sensei Moohae (245,104).",
+      "full_ru": "Поговорите с Guarding Monk (58,247), затем с Sensei Moohae (245,104). Если требования выполнены, он даст первое испытание — сбор предметов.",
+      "full_en": "Talk to Guarding Monk (58,247) then to Sensei Moohae (245,104). If you meet the qualifications, he will give you the first test, item collecting.",
+      "npcs": [
+        {
+          "entity": "Guarding Monk",
+          "role": "talk"
+        },
+        {
+          "entity": "Sensei Moohae",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Guarding Monk"
+        },
+        {
+          "operation": "receive_item_test",
+          "entity": "Sensei Moohae"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prt_monk",
+          "x": 58,
+          "y": 247,
+          "role": "Guarding Monk",
+          "known": true,
+          "order": 1,
+          "support_step": 1,
+          "evidence": "Visit the Monk Abbey (prt_monk), located one map East, one map North and two maps East of Prontera .",
+          "condition": "Abbey map from source step 1; coordinate and actor from current step."
+        },
+        {
+          "entity": "prt_monk",
+          "x": 245,
+          "y": 104,
+          "role": "Sensei Moohae",
+          "known": true,
+          "order": 2,
+          "support_step": 1,
+          "evidence": "Visit the Monk Abbey (prt_monk), located one map East, one map North and two maps East of Prontera .",
+          "condition": "Abbey map from source step 1; coordinate and actor from current step."
+        }
+      ],
+      "protected_names": [
+        "Sensei Moohae",
+        "Guarding Monk"
+      ]
+    },
+    "3": {
+      "original_instruction": "Sensei Moohae will assign you one of the following quests:",
+      "instruction_sha256": "f66c367e68a372d027fe1870bf70e9af6e5bbcad68904f6b30918f3624eb3362",
+      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/f66c367e68a372d027fe/1",
+      "goal": "collect",
+      "short_ru": "У Sensei Moohae соберите только назначенный набор материалов.",
+      "short_en": "Collect only the material set assigned by Sensei Moohae.",
+      "full_ru": "Sensei Moohae назначит один из следующих наборов для сбора. Наборы: 1 — 5 Cyfar, 10 Yellow Herb, 10 White Herb; 2 — 5 Solid Shell, 20 Shell, 5 Zargon; 3 — 5 Porcupine Quill, 10 Bug Leg, 20 Cobweb; 4 — 5 Sticky Mucus, 10 Earthworm Peeling, 20 Green Herb; 5 — 10 Tooth of Bat, 5 Bear Footskin, 20 Poison Spore; 6 — 30 Stem, 5 Jellopy, 10 Worm Peelings; 7 — 20 Yoyo Tail, 5 Iron Ore, 3 Blue Herb.",
+      "full_en": "Sensei Moohae will assign you one of the following quests: Set Items Set 1 5 Cyfar , 10 Yellow Herb , 10 White Herb Set 2 5 Solid Shell , 20 Shell , 5 Zargon Set 3 5 Porcupine Quill , 10 Bug Leg , 20 Cobweb Set 4 5 Sticky Mucus , 10 Earthworm Peeling , 20 Green Herb Set 5 10 Tooth of Bat , 5 Bear Footskin , 20 Poison Spore Set 6 30 Stem , 5 Jellopy , 10 Worm Peelings Set 7 20 Yoyo Tail , 5 Iron Ore , 3 Blue Herb",
+      "npcs": [
+        {
+          "entity": "Sensei Moohae",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_assigned_material_set",
+          "entity": "Sensei Moohae"
+        }
+      ],
+      "protected_names": [
+        "Sensei Moohae"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "material_set_1",
+          "choice_group": "assigned_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Sensei Moohae assigns Set 1; do not require all seven sets or invent assignment probability.",
+          "section": "",
+          "source_step": 3,
+          "original_instruction": "Sensei Moohae will assign you one of the following quests:",
+          "instruction_sha256": "f66c367e68a372d027fe1870bf70e9af6e5bbcad68904f6b30918f3624eb3362",
+          "short_ru": "Набор 1: 5 Cyfar, 10 Yellow Herb, 10 White Herb.",
+          "short_en": "Set 1: 5 Cyfar, 10 Yellow Herb, 10 White Herb.",
+          "full_ru": "Sensei Moohae: набор 1 — 5 Cyfar, 10 Yellow Herb, 10 White Herb.",
+          "full_en": "Sensei Moohae: Set 1 — 5 Cyfar, 10 Yellow Herb, 10 White Herb.",
+          "protected_names": [
+            "Sensei Moohae"
+          ],
+          "items": [
+            {
+              "entity": "Cyfar",
+              "quantity": 5,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 1 5 Cyfar , 10 Yellow Herb , 10 White Herb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Yellow Herb",
+              "quantity": 10,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 1 5 Cyfar , 10 Yellow Herb , 10 White Herb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "White Herb",
+              "quantity": 10,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 1 5 Cyfar , 10 Yellow Herb , 10 White Herb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            }
+          ]
+        },
+        {
+          "key": "material_set_2",
+          "choice_group": "assigned_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Sensei Moohae assigns Set 2; do not require all seven sets or invent assignment probability.",
+          "section": "",
+          "source_step": 3,
+          "original_instruction": "Sensei Moohae will assign you one of the following quests:",
+          "instruction_sha256": "f66c367e68a372d027fe1870bf70e9af6e5bbcad68904f6b30918f3624eb3362",
+          "short_ru": "Набор 2: 5 Solid Shell, 20 Shell, 5 Zargon.",
+          "short_en": "Set 2: 5 Solid Shell, 20 Shell, 5 Zargon.",
+          "full_ru": "Sensei Moohae: набор 2 — 5 Solid Shell, 20 Shell, 5 Zargon.",
+          "full_en": "Sensei Moohae: Set 2 — 5 Solid Shell, 20 Shell, 5 Zargon.",
+          "protected_names": [
+            "Sensei Moohae"
+          ],
+          "items": [
+            {
+              "entity": "Solid Shell",
+              "quantity": 5,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 2 5 Solid Shell , 20 Shell , 5 Zargon",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Shell",
+              "quantity": 20,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 2 5 Solid Shell , 20 Shell , 5 Zargon",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Zargon",
+              "quantity": 5,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 2 5 Solid Shell , 20 Shell , 5 Zargon",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            }
+          ]
+        },
+        {
+          "key": "material_set_3",
+          "choice_group": "assigned_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Sensei Moohae assigns Set 3; do not require all seven sets or invent assignment probability.",
+          "section": "",
+          "source_step": 3,
+          "original_instruction": "Sensei Moohae will assign you one of the following quests:",
+          "instruction_sha256": "f66c367e68a372d027fe1870bf70e9af6e5bbcad68904f6b30918f3624eb3362",
+          "short_ru": "Набор 3: 5 Porcupine Quill, 10 Bug Leg, 20 Cobweb.",
+          "short_en": "Set 3: 5 Porcupine Quill, 10 Bug Leg, 20 Cobweb.",
+          "full_ru": "Sensei Moohae: набор 3 — 5 Porcupine Quill, 10 Bug Leg, 20 Cobweb.",
+          "full_en": "Sensei Moohae: Set 3 — 5 Porcupine Quill, 10 Bug Leg, 20 Cobweb.",
+          "protected_names": [
+            "Sensei Moohae"
+          ],
+          "items": [
+            {
+              "entity": "Porcupine Quill",
+              "quantity": 5,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 3 5 Porcupine Quill , 10 Bug Leg , 20 Cobweb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Bug Leg",
+              "quantity": 10,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 3 5 Porcupine Quill , 10 Bug Leg , 20 Cobweb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Cobweb",
+              "quantity": 20,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 3 5 Porcupine Quill , 10 Bug Leg , 20 Cobweb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            }
+          ]
+        },
+        {
+          "key": "material_set_4",
+          "choice_group": "assigned_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Sensei Moohae assigns Set 4; do not require all seven sets or invent assignment probability.",
+          "section": "",
+          "source_step": 3,
+          "original_instruction": "Sensei Moohae will assign you one of the following quests:",
+          "instruction_sha256": "f66c367e68a372d027fe1870bf70e9af6e5bbcad68904f6b30918f3624eb3362",
+          "short_ru": "Набор 4: 5 Sticky Mucus, 10 Earthworm Peeling, 20 Green Herb.",
+          "short_en": "Set 4: 5 Sticky Mucus, 10 Earthworm Peeling, 20 Green Herb.",
+          "full_ru": "Sensei Moohae: набор 4 — 5 Sticky Mucus, 10 Earthworm Peeling, 20 Green Herb.",
+          "full_en": "Sensei Moohae: Set 4 — 5 Sticky Mucus, 10 Earthworm Peeling, 20 Green Herb.",
+          "protected_names": [
+            "Sensei Moohae"
+          ],
+          "items": [
+            {
+              "entity": "Sticky Mucus",
+              "quantity": 5,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 4 5 Sticky Mucus , 10 Earthworm Peeling , 20 Green Herb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Earthworm Peeling",
+              "quantity": 10,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 4 5 Sticky Mucus , 10 Earthworm Peeling , 20 Green Herb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Green Herb",
+              "quantity": 20,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 4 5 Sticky Mucus , 10 Earthworm Peeling , 20 Green Herb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            }
+          ]
+        },
+        {
+          "key": "material_set_5",
+          "choice_group": "assigned_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Sensei Moohae assigns Set 5; do not require all seven sets or invent assignment probability.",
+          "section": "",
+          "source_step": 3,
+          "original_instruction": "Sensei Moohae will assign you one of the following quests:",
+          "instruction_sha256": "f66c367e68a372d027fe1870bf70e9af6e5bbcad68904f6b30918f3624eb3362",
+          "short_ru": "Набор 5: 10 Tooth of Bat, 5 Bear Footskin, 20 Poison Spore.",
+          "short_en": "Set 5: 10 Tooth of Bat, 5 Bear Footskin, 20 Poison Spore.",
+          "full_ru": "Sensei Moohae: набор 5 — 10 Tooth of Bat, 5 Bear Footskin, 20 Poison Spore.",
+          "full_en": "Sensei Moohae: Set 5 — 10 Tooth of Bat, 5 Bear Footskin, 20 Poison Spore.",
+          "protected_names": [
+            "Sensei Moohae"
+          ],
+          "items": [
+            {
+              "entity": "Tooth of Bat",
+              "quantity": 10,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 5 10 Tooth of Bat , 5 Bear Footskin , 20 Poison Spore",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Bear Footskin",
+              "quantity": 5,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 5 10 Tooth of Bat , 5 Bear Footskin , 20 Poison Spore",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Poison Spore",
+              "quantity": 20,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 5 10 Tooth of Bat , 5 Bear Footskin , 20 Poison Spore",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            }
+          ]
+        },
+        {
+          "key": "material_set_6",
+          "choice_group": "assigned_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Sensei Moohae assigns Set 6; do not require all seven sets or invent assignment probability.",
+          "section": "",
+          "source_step": 3,
+          "original_instruction": "Sensei Moohae will assign you one of the following quests:",
+          "instruction_sha256": "f66c367e68a372d027fe1870bf70e9af6e5bbcad68904f6b30918f3624eb3362",
+          "short_ru": "Набор 6: 30 Stem, 5 Jellopy, 10 Worm Peelings.",
+          "short_en": "Set 6: 30 Stem, 5 Jellopy, 10 Worm Peelings.",
+          "full_ru": "Sensei Moohae: набор 6 — 30 Stem, 5 Jellopy, 10 Worm Peelings.",
+          "full_en": "Sensei Moohae: Set 6 — 30 Stem, 5 Jellopy, 10 Worm Peelings.",
+          "protected_names": [
+            "Sensei Moohae"
+          ],
+          "items": [
+            {
+              "entity": "Stem",
+              "quantity": 30,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 6 30 Stem , 5 Jellopy , 10 Worm Peelings",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Jellopy",
+              "quantity": 5,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 6 30 Stem , 5 Jellopy , 10 Worm Peelings",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Worm Peelings",
+              "quantity": 10,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 6 30 Stem , 5 Jellopy , 10 Worm Peelings",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            }
+          ]
+        },
+        {
+          "key": "material_set_7",
+          "choice_group": "assigned_material_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only if Sensei Moohae assigns Set 7; do not require all seven sets or invent assignment probability.",
+          "section": "",
+          "source_step": 3,
+          "original_instruction": "Sensei Moohae will assign you one of the following quests:",
+          "instruction_sha256": "f66c367e68a372d027fe1870bf70e9af6e5bbcad68904f6b30918f3624eb3362",
+          "short_ru": "Набор 7: 20 Yoyo Tail, 5 Iron Ore, 3 Blue Herb.",
+          "short_en": "Set 7: 20 Yoyo Tail, 5 Iron Ore, 3 Blue Herb.",
+          "full_ru": "Sensei Moohae: набор 7 — 20 Yoyo Tail, 5 Iron Ore, 3 Blue Herb.",
+          "full_en": "Sensei Moohae: Set 7 — 20 Yoyo Tail, 5 Iron Ore, 3 Blue Herb.",
+          "protected_names": [
+            "Sensei Moohae"
+          ],
+          "items": [
+            {
+              "entity": "Yoyo Tail",
+              "quantity": 20,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 7 20 Yoyo Tail , 5 Iron Ore , 3 Blue Herb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Iron Ore",
+              "quantity": 5,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 7 20 Yoyo Tail , 5 Iron Ore , 3 Blue Herb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            },
+            {
+              "entity": "Blue Herb",
+              "quantity": 3,
+              "operation": "bring",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Set 7 20 Yoyo Tail , 5 Iron Ore , 3 Blue Herb",
+              "condition": "Assigned set only; return with this same set at the next stage, not another material set."
+            }
+          ]
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Set Items Set 1 5 Cyfar , 10 Yellow Herb , 10 White Herb Set 2 5 Solid Shell , 20 Shell , 5 Zargon Set 3 5 Porcupine Quill , 10 Bug Leg , 20 Cobweb Set 4 5 Sticky Mucus , 10 Earthworm Peeling , 20 Green Herb Set 5 10 Tooth of Bat , 5 Bear Footskin , 20 Poison Spore Set 6 30 Stem , 5 Jellopy , 10 Worm Peelings Set 7 20 Yoyo Tail , 5 Iron Ore , 3 Blue Herb",
+          "text_ru": "Наборы: 1 — 5 Cyfar, 10 Yellow Herb, 10 White Herb; 2 — 5 Solid Shell, 20 Shell, 5 Zargon; 3 — 5 Porcupine Quill, 10 Bug Leg, 20 Cobweb; 4 — 5 Sticky Mucus, 10 Earthworm Peeling, 20 Green Herb; 5 — 10 Tooth of Bat, 5 Bear Footskin, 20 Poison Spore; 6 — 30 Stem, 5 Jellopy, 10 Worm Peelings; 7 — 20 Yoyo Tail, 5 Iron Ore, 3 Blue Herb."
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Once the items have been collected, return to Sensei Moohae. You will be directed to Elder Touha, located at (prt_monk 251, 255), in the top right area, for the memory test.",
+      "instruction_sha256": "2664ac0f019cc63e0877894bb654ee95de0d382b221fa1a64ede98a6f4504c47",
+      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/2664ac0f019cc63e0877/1",
+      "goal": "return_with_materials",
+      "short_ru": "Вернитесь с назначенным набором к Sensei Moohae, затем идите к Elder Touha: prt_monk 251, 255.",
+      "short_en": "Return with the assigned set to Sensei Moohae, then visit Elder Touha: prt_monk 251, 255.",
+      "full_ru": "Собрав предметы, вернитесь к Sensei Moohae. Он направит к Elder Touha (prt_monk 251, 255), в правой верхней части карты, на испытание памяти.",
+      "full_en": "Once the items have been collected, return to Sensei Moohae. You will be directed to Elder Touha, located at (prt_monk 251, 255), in the top right area, for the memory test.",
+      "npcs": [
+        {
+          "entity": "Sensei Moohae",
+          "role": "talk"
+        },
+        {
+          "entity": "Elder Touha",
+          "role": "memory_test"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "return_assigned_material_set",
+          "condition": "The same one set prepared previously; no second material obligation or unprinted per-item hand-in split."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return_with_assigned_materials",
+          "entity": "Sensei Moohae"
+        },
+        {
+          "operation": "visit_memory_examiner",
+          "entity": "Elder Touha"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prt_monk",
+          "x": 251,
+          "y": 255,
+          "role": "Elder Touha",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Sensei Moohae",
+        "Elder Touha",
+        "prt_monk"
+      ]
+    },
+    "5": {
+      "original_instruction": "Elder Touha will have you remember one of the following: | And sheperds we shall be, for thee my lord for thee. Power path decended forth from the hand so our feet may swiftly carry out thy command and we shall flow a river forth thee and teeming with souls shall it ever be. In nomine Patris, et Filii et Spiritus Sancti. | I seek the path of enlightenment. We monks shall hold true to what we believe and will help protect others through the teachings we learn through our lives. In nomine Patris, et Filii et Spiritus Sancti. | I commit myself to veritas and aequitas. I will follow my path to enlightenment and purity. I will protect my brothers with life. Evil shall never be victorious while I breathe. In nomine Patris, et Filii et Spiritus Sancti. She will read entire passage out before allowing you to recite it. There is no penalty for failing; you can simply retry the test. Once complete, you will be sent to Boohae, located at (prt_monk 57, 179), on the bottom left side of the map.",
+      "instruction_sha256": "9d94173ba227d9dec85466a42ef9e48f7edce8ec918829b6a6580ee3d4b8e353",
+      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/9d94173ba227d9dec854/1",
+      "goal": "recite",
+      "short_ru": "Запомните и воспроизведите текст Elder Touha; после успеха идите к Boohae (prt_monk 57, 179).",
+      "short_en": "Memorize and recite Elder Touha's passage; after success, visit Boohae (prt_monk 57, 179).",
+      "full_ru": "Elder Touha попросит запомнить один из следующих текстов: And sheperds we shall be, for thee my lord for thee. Power path decended forth from the hand so our feet may swiftly carry out thy command and we shall flow a river forth thee and teeming with souls shall it ever be. In nomine Patris, et Filii et Spiritus Sancti. | I seek the path of enlightenment. We monks shall hold true to what we believe and will help protect others through the teachings we learn through our lives. In nomine Patris, et Filii et Spiritus Sancti. | I commit myself to veritas and aequitas. I will follow my path to enlightenment and purity. I will protect my brothers with life. Evil shall never be victorious while I breathe. In nomine Patris, et Filii et Spiritus Sancti.. Она прочтёт текст целиком, прежде чем вы сможете воспроизвести его. За ошибку штрафа нет: испытание можно повторить. После успеха вас направят к Boohae (prt_monk 57, 179), в левой нижней части карты.",
+      "full_en": "Elder Touha will have you remember one of the following: | And sheperds we shall be, for thee my lord for thee. Power path decended forth from the hand so our feet may swiftly carry out thy command and we shall flow a river forth thee and teeming with souls shall it ever be. In nomine Patris, et Filii et Spiritus Sancti. | I seek the path of enlightenment. We monks shall hold true to what we believe and will help protect others through the teachings we learn through our lives. In nomine Patris, et Filii et Spiritus Sancti. | I commit myself to veritas and aequitas. I will follow my path to enlightenment and purity. I will protect my brothers with life. Evil shall never be victorious while I breathe. In nomine Patris, et Filii et Spiritus Sancti. She will read entire passage out before allowing you to recite it. There is no penalty for failing; you can simply retry the test. Once complete, you will be sent to Boohae, located at (prt_monk 57, 179), on the bottom left side of the map.",
+      "npcs": [
+        {
+          "entity": "Elder Touha",
+          "role": "talk"
+        },
+        {
+          "entity": "Boohae",
+          "role": "after_success"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "memory_retry_penalty",
+          "amount": "none",
+          "condition": "Source says there is no penalty for failing this memory test; no penalty-free claim for other activities."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "listen_to_assigned_passage",
+          "entity": "Elder Touha"
+        },
+        {
+          "operation": "recite_assigned_passage",
+          "entity": "Elder Touha"
+        },
+        {
+          "operation": "visit_boohae_after_success",
+          "entity": "Boohae"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prt_monk",
+          "x": 251,
+          "y": 255,
+          "role": "memory_examiner",
+          "known": true,
+          "order": 1,
+          "support_step": 4,
+          "evidence": "Once the items have been collected, return to Sensei Moohae. You will be directed to Elder Touha, located at (prt_monk 251, 255), in the top right area, for the memory test."
+        },
+        {
+          "entity": "prt_monk",
+          "x": 57,
+          "y": 179,
+          "role": "Boohae",
+          "known": true,
+          "order": 2,
+          "condition": "After passing the memory test only."
+        }
+      ],
+      "protected_names": [
+        "Elder Touha",
+        "Boohae",
+        "prt_monk"
+      ],
+      "branches": [
+        {
+          "key": "passage_1",
+          "choice_group": "assigned_memory_passage",
+          "variant_scope": "irowiki-classic",
+          "condition": "Recite only this passage if assigned; spelling and punctuation are kept verbatim. Source does not establish one paste field versus line-by-line choices.",
+          "section": "",
+          "source_step": 5,
+          "original_instruction": "And sheperds we shall be, for thee my lord for thee. Power path decended forth from the hand so our feet may swiftly carry out thy command and we shall flow a river forth thee and teeming with souls shall it ever be. In nomine Patris, et Filii et Spiritus Sancti.",
+          "instruction_sha256": "748082d93bf158d468d5c34261f30da03e14d23643474d5e2771102522d69beb",
+          "short_ru": "Воспроизведите назначенный текст 1.",
+          "short_en": "Recite assigned passage 1.",
+          "full_ru": "Запомните и воспроизведите: «And sheperds we shall be, for thee my lord for thee. Power path decended forth from the hand so our feet may swiftly carry out thy command and we shall flow a river forth thee and teeming with souls shall it ever be. In nomine Patris, et Filii et Spiritus Sancti.»",
+          "full_en": "And sheperds we shall be, for thee my lord for thee. Power path decended forth from the hand so our feet may swiftly carry out thy command and we shall flow a river forth thee and teeming with souls shall it ever be. In nomine Patris, et Filii et Spiritus Sancti.",
+          "protected_names": [],
+          "dialogues": [
+            {
+              "npc": "Elder Touha",
+              "options": [
+                {
+                  "text": "And sheperds we shall be, for thee my lord for thee. Power path decended forth from the hand so our feet may swiftly carry out thy command and we shall flow a river forth thee and teeming with souls shall it ever be. In nomine Patris, et Filii et Spiritus Sancti.",
+                  "correct": 1,
+                  "operation": "answer_unspecified_input",
+                  "condition": "Exact assigned source passage; input mode/line boundaries not established."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "passage_2",
+          "choice_group": "assigned_memory_passage",
+          "variant_scope": "irowiki-classic",
+          "condition": "Recite only this passage if assigned; spelling and punctuation are kept verbatim. Source does not establish one paste field versus line-by-line choices.",
+          "section": "",
+          "source_step": 5,
+          "original_instruction": "I seek the path of enlightenment. We monks shall hold true to what we believe and will help protect others through the teachings we learn through our lives. In nomine Patris, et Filii et Spiritus Sancti.",
+          "instruction_sha256": "c6ef20e413a21e9d308d1d7c496e183686065fd9ec33270d91be30b2cbc33790",
+          "short_ru": "Воспроизведите назначенный текст 2.",
+          "short_en": "Recite assigned passage 2.",
+          "full_ru": "Запомните и воспроизведите: «I seek the path of enlightenment. We monks shall hold true to what we believe and will help protect others through the teachings we learn through our lives. In nomine Patris, et Filii et Spiritus Sancti.»",
+          "full_en": "I seek the path of enlightenment. We monks shall hold true to what we believe and will help protect others through the teachings we learn through our lives. In nomine Patris, et Filii et Spiritus Sancti.",
+          "protected_names": [],
+          "dialogues": [
+            {
+              "npc": "Elder Touha",
+              "options": [
+                {
+                  "text": "I seek the path of enlightenment. We monks shall hold true to what we believe and will help protect others through the teachings we learn through our lives. In nomine Patris, et Filii et Spiritus Sancti.",
+                  "correct": 1,
+                  "operation": "answer_unspecified_input",
+                  "condition": "Exact assigned source passage; input mode/line boundaries not established."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "passage_3",
+          "choice_group": "assigned_memory_passage",
+          "variant_scope": "irowiki-classic",
+          "condition": "Recite only this passage if assigned; spelling and punctuation are kept verbatim. Source does not establish one paste field versus line-by-line choices.",
+          "section": "",
+          "source_step": 5,
+          "original_instruction": "I commit myself to veritas and aequitas. I will follow my path to enlightenment and purity. I will protect my brothers with life. Evil shall never be victorious while I breathe. In nomine Patris, et Filii et Spiritus Sancti.",
+          "instruction_sha256": "a904ee03ddf2aeabf3d052da0f3753ec91025ebee090694ca9a396d7d96a309d",
+          "short_ru": "Воспроизведите назначенный текст 3.",
+          "short_en": "Recite assigned passage 3.",
+          "full_ru": "Запомните и воспроизведите: «I commit myself to veritas and aequitas. I will follow my path to enlightenment and purity. I will protect my brothers with life. Evil shall never be victorious while I breathe. In nomine Patris, et Filii et Spiritus Sancti.»",
+          "full_en": "I commit myself to veritas and aequitas. I will follow my path to enlightenment and purity. I will protect my brothers with life. Evil shall never be victorious while I breathe. In nomine Patris, et Filii et Spiritus Sancti.",
+          "protected_names": [],
+          "dialogues": [
+            {
+              "npc": "Elder Touha",
+              "options": [
+                {
+                  "text": "I commit myself to veritas and aequitas. I will follow my path to enlightenment and purity. I will protect my brothers with life. Evil shall never be victorious while I breathe. In nomine Patris, et Filii et Spiritus Sancti.",
+                  "correct": 1,
+                  "operation": "answer_unspecified_input",
+                  "condition": "Exact assigned source passage; input mode/line boundaries not established."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "6": {
+      "original_instruction": "Boohae will give you the option of two tests: Marathon and Mushroom collecting ( This test is recommended over the Marathon, because is less risky. ). Later, the player may return to Boohae to change the test, if it is needed. Left : The Marathon track for step 7a including the holes. Right : The Maze for Step 8. Randomly picks 1 of the 3 mazes. 7a. If you choose \"Marathon\": Talk to the door keeper in front of the Abby at (prt_monk 192,170). After, enter the building and find Bashu. Tell him \"Marathon\". He will then send you to another area. Run around this map without falling into the pits for many laps (about 10) to complete the Marathon test. The map is shaped like a ring, with occasional holes that players can fall into. This test is easier to complete by lowering the camera angle very low (Ctrl+Shift+mouse wheel up), allowing pits far ahead to be seen easily. Note that disconnecting will send you back to your save point. After the test is completed with the needed amount of laps,you will automatically be sent out. It takes approximately 30 minutes with Increase Agility to complete. Skip to Step 8. 7b. Talk to Bashu in the bottom left building. Building door is at (prt_monk 192, 170). Choose \"Collect Mushrooms\": you will be sent to another map where you must hunt two types of mushrooms (Gooey & Orange). The NPC does not tell the player that they have enough mushrooms until they have 30 of either type of mushroom. The mushrooms from the Thief test can also be used. While it is possible to have a prospective Thief gather the mushrooms, it should be easier to have an Acolyte with high agility and buffs to complete this test faster. It is best to do this bare-handed for maximum ASPD (since the damage is 1 even with a weapon). The NPC to exit is located at (prt_monk 224, 180)",
+      "instruction_sha256": "d565fae4b5ca52df626b7ee53a8a388aabde3ef3f162c947a01ee0f2e48304ef",
+      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/d565fae4b5ca52df626b/1",
+      "goal": "choose_test",
+      "short_ru": "У Boohae выберите Marathon или сбор 30 грибов одного типа: Gooey или Orange.",
+      "short_en": "Choose Marathon with Boohae or collect 30 mushrooms of one type: Gooey or Orange.",
+      "full_ru": "Boohae предложит два испытания: Marathon или сбор грибов Mushroom collecting; сбор грибов рекомендуется как менее рискованный. При необходимости можно вернуться к Boohae и сменить испытание. Слева показана трасса Marathon для этапа 7a с ямами, справа — лабиринт для Step 8. Случайно выбирается 1 из 3 лабиринтов. 7a. Если выбран Marathon, поговорите с door keeper перед Abby (prt_monk 192,170), затем войдите и найдите Bashu. Скажите ему «Marathon»: он перенесёт вас в другую область. Нужно пройти много кругов, примерно 10, не падая в ямы на кольцевой трассе. Для обзора ям рекомендуется опустить камеру сочетанием Ctrl+Shift+mouse wheel up. Отключение вернёт вас в точку сохранения. После нужного числа кругов вас автоматически выведет. С Increase Agility прохождение занимает примерно 30 минут. Перейдите к Step 8 исходного руководства. 7b. Поговорите с Bashu в здании снизу слева; вход — prt_monk 192, 170. Выберите «Collect Mushrooms»: вас отправят на другую карту собирать грибы двух типов, Gooey и Orange. NPC сообщит о достаточном количестве, когда у вас будет 30 грибов одного из этих типов. Подойдут и грибы из Thief test. Их может собрать будущий Thief, но Acolyte с высокой ловкостью и усилениями, вероятно, справится быстрее. Лучше действовать без оружия ради максимальной ASPD: даже с оружием урон равен 1. NPC для выхода находится на prt_monk 224, 180.",
+      "full_en": "Boohae will give you the option of two tests: Marathon and Mushroom collecting ( This test is recommended over the Marathon, because is less risky. ). Later, the player may return to Boohae to change the test, if it is needed. Left : The Marathon track for step 7a including the holes. Right : The Maze for Step 8. Randomly picks 1 of the 3 mazes. 7a. If you choose \"Marathon\": Talk to the door keeper in front of the Abby at (prt_monk 192,170). After, enter the building and find Bashu. Tell him \"Marathon\". He will then send you to another area. Run around this map without falling into the pits for many laps (about 10) to complete the Marathon test. The map is shaped like a ring, with occasional holes that players can fall into. This test is easier to complete by lowering the camera angle very low (Ctrl+Shift+mouse wheel up), allowing pits far ahead to be seen easily. Note that disconnecting will send you back to your save point. After the test is completed with the needed amount of laps,you will automatically be sent out. It takes approximately 30 minutes with Increase Agility to complete. Skip to Step 8. 7b. Talk to Bashu in the bottom left building. Building door is at (prt_monk 192, 170). Choose \"Collect Mushrooms\": you will be sent to another map where you must hunt two types of mushrooms (Gooey & Orange). The NPC does not tell the player that they have enough mushrooms until they have 30 of either type of mushroom. The mushrooms from the Thief test can also be used. While it is possible to have a prospective Thief gather the mushrooms, it should be easier to have an Acolyte with high agility and buffs to complete this test faster. It is best to do this bare-handed for maximum ASPD (since the damage is 1 even with a weapon). The NPC to exit is located at (prt_monk 224, 180)",
+      "npcs": [
+        {
+          "entity": "Boohae",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_stamina_test",
+          "entity": "Boohae"
+        },
+        {
+          "operation": "change_stamina_test",
+          "entity": "Boohae",
+          "condition": "Optional: return to change the test if needed; no invented switching fee."
+        }
+      ],
+      "protected_names": [
+        "Boohae",
+        "Bashu",
+        "door keeper",
+        "prt_monk",
+        "Gooey",
+        "Orange"
+      ],
+      "locations": [
+        {
+          "map": "prt_monk",
+          "x": 192,
+          "y": 170,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prt_monk 192,170"
+        },
+        {
+          "map": "prt_monk",
+          "x": 192,
+          "y": 170,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prt_monk 192, 170"
+        },
+        {
+          "map": "prt_monk",
+          "x": 224,
+          "y": 180,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "prt_monk 224, 180"
+        }
+      ],
+      "branches": [
+        {
+          "key": "marathon",
+          "choice_group": "stamina_test",
+          "variant_scope": "irowiki-classic",
+          "condition": "Marathon instead of mushroom collecting; source Step 8 means the maze at archived stage 7, not skipping that maze.",
+          "section": "",
+          "source_step": 6,
+          "original_instruction": "7a. If you choose \"Marathon\": Talk to the door keeper in front of the Abby at (prt_monk 192,170). After, enter the building and find Bashu. Tell him \"Marathon\". He will then send you to another area. Run around this map without falling into the pits for many laps (about 10) to complete the Marathon test. The map is shaped like a ring, with occasional holes that players can fall into. This test is easier to complete by lowering the camera angle very low (Ctrl+Shift+mouse wheel up), allowing pits far ahead to be seen easily. Note that disconnecting will send you back to your save point. After the test is completed with the needed amount of laps,you will automatically be sent out. It takes approximately 30 minutes with Increase Agility to complete. Skip to Step 8.",
+          "instruction_sha256": "7b1cc6ec2161cafb11236d68527c9a04152e5d4464838dc4704342e67c369d8a",
+          "short_ru": "Marathon: примерно 10 кругов и 30 минут с Increase Agility.",
+          "short_en": "Marathon: about 10 laps and 30 minutes with Increase Agility.",
+          "full_ru": "7a. Если выбран Marathon, поговорите с door keeper перед Abby (prt_monk 192,170), затем войдите и найдите Bashu. Скажите ему «Marathon»: он перенесёт вас в другую область. Нужно пройти много кругов, примерно 10, не падая в ямы на кольцевой трассе. Для обзора ям рекомендуется опустить камеру сочетанием Ctrl+Shift+mouse wheel up. Отключение вернёт вас в точку сохранения. После нужного числа кругов вас автоматически выведет. С Increase Agility прохождение занимает примерно 30 минут. Перейдите к Step 8 исходного руководства.",
+          "full_en": "7a. If you choose \"Marathon\": Talk to the door keeper in front of the Abby at (prt_monk 192,170). After, enter the building and find Bashu. Tell him \"Marathon\". He will then send you to another area. Run around this map without falling into the pits for many laps (about 10) to complete the Marathon test. The map is shaped like a ring, with occasional holes that players can fall into. This test is easier to complete by lowering the camera angle very low (Ctrl+Shift+mouse wheel up), allowing pits far ahead to be seen easily. Note that disconnecting will send you back to your save point. After the test is completed with the needed amount of laps,you will automatically be sent out. It takes approximately 30 minutes with Increase Agility to complete. Skip to Step 8.",
+          "protected_names": [
+            "Bashu",
+            "door keeper",
+            "prt_monk"
+          ],
+          "npcs": [
+            {
+              "entity": "door keeper",
+              "role": "talk"
+            },
+            {
+              "entity": "Bashu",
+              "role": "talk"
+            }
+          ],
+          "dialogues": [
+            {
+              "npc": "Bashu",
+              "options": [
+                {
+                  "text": "Marathon",
+                  "correct": 1,
+                  "operation": "answer_unspecified_input"
+                }
+              ]
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "approximate_laps",
+              "amount": "10"
+            },
+            {
+              "kind": "approximate_duration_minutes",
+              "amount": "30",
+              "condition": "Estimate with Increase Agility, not a time limit or required skill."
+            },
+            {
+              "kind": "disconnect_effect",
+              "amount": "return_to_savepoint"
+            }
+          ],
+          "actions": [
+            {
+              "operation": "enter_marathon",
+              "entity": "Bashu"
+            },
+            {
+              "operation": "run_laps",
+              "condition": "About ten laps; avoid pits. No fixed exact lap requirement is proven."
+            }
+          ],
+          "locations": [
+            {
+              "entity": "prt_monk",
+              "x": 192,
+              "y": 170,
+              "role": "building_entrance",
+              "known": true,
+              "condition": "Marathon branch only."
+            }
+          ]
+        },
+        {
+          "key": "mushrooms_gooey",
+          "choice_group": "stamina_test",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose Collect Mushrooms and satisfy the thirty-of-one-type threshold using Gooey; alternative to Marathon and the other mushroom type, not both totals.",
+          "section": "",
+          "source_step": 6,
+          "original_instruction": "7b. Talk to Bashu in the bottom left building. Building door is at (prt_monk 192, 170). Choose \"Collect Mushrooms\": you will be sent to another map where you must hunt two types of mushrooms (Gooey & Orange). The NPC does not tell the player that they have enough mushrooms until they have 30 of either type of mushroom. The mushrooms from the Thief test can also be used. While it is possible to have a prospective Thief gather the mushrooms, it should be easier to have an Acolyte with high agility and buffs to complete this test faster. It is best to do this bare-handed for maximum ASPD (since the damage is 1 even with a weapon). The NPC to exit is located at (prt_monk 224, 180)",
+          "instruction_sha256": "17ed486f3d22cddc77a3544bfc545c6689f56d67a3d9dafd35255a0fcb80757b",
+          "short_ru": "Соберите 30 Gooey; второй тип не обязателен.",
+          "short_en": "Collect 30 Gooey; the other type is not required.",
+          "full_ru": "7b. Поговорите с Bashu в здании снизу слева; вход — prt_monk 192, 170. Выберите «Collect Mushrooms»: вас отправят на другую карту собирать грибы двух типов, Gooey и Orange. NPC сообщит о достаточном количестве, когда у вас будет 30 грибов одного из этих типов. Подойдут и грибы из Thief test. Их может собрать будущий Thief, но Acolyte с высокой ловкостью и усилениями, вероятно, справится быстрее. Лучше действовать без оружия ради максимальной ASPD: даже с оружием урон равен 1. NPC для выхода находится на prt_monk 224, 180.",
+          "full_en": "7b. Talk to Bashu in the bottom left building. Building door is at (prt_monk 192, 170). Choose \"Collect Mushrooms\": you will be sent to another map where you must hunt two types of mushrooms (Gooey & Orange). The NPC does not tell the player that they have enough mushrooms until they have 30 of either type of mushroom. The mushrooms from the Thief test can also be used. While it is possible to have a prospective Thief gather the mushrooms, it should be easier to have an Acolyte with high agility and buffs to complete this test faster. It is best to do this bare-handed for maximum ASPD (since the damage is 1 even with a weapon). The NPC to exit is located at (prt_monk 224, 180)",
+          "protected_names": [
+            "Bashu",
+            "prt_monk",
+            "Gooey",
+            "Orange"
+          ],
+          "npcs": [
+            {
+              "entity": "Bashu",
+              "role": "talk"
+            }
+          ],
+          "dialogues": [
+            {
+              "npc": "Bashu",
+              "options": [
+                {
+                  "text": "Collect Mushrooms",
+                  "correct": 1
+                }
+              ]
+            }
+          ],
+          "items": [
+            {
+              "entity": "Gooey",
+              "quantity": 30,
+              "operation": "collect",
+              "required": 1,
+              "condition": "One type alone meets the threshold; not thirty per kill or proof of item consumption."
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "collection_threshold",
+              "amount": "30",
+              "entity": "Gooey"
+            },
+            {
+              "kind": "suggested_bare_handed",
+              "condition": "ASPD advice; source says damage is one even with a weapon, not another eligibility requirement."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "choose_mushroom_test",
+              "entity": "Bashu"
+            },
+            {
+              "operation": "collect_until_threshold",
+              "entity": "Gooey"
+            }
+          ],
+          "locations": [
+            {
+              "entity": "prt_monk",
+              "x": 192,
+              "y": 170,
+              "role": "building_entrance",
+              "known": true,
+              "order": 1,
+              "condition": "Collect Mushrooms branch."
+            },
+            {
+              "entity": "prt_monk",
+              "x": 224,
+              "y": 180,
+              "role": "printed_exit",
+              "known": true,
+              "order": 2,
+              "condition": "Literal source exit point; map/scene consistency remains unverified."
+            }
+          ]
+        },
+        {
+          "key": "mushrooms_orange",
+          "choice_group": "stamina_test",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose Collect Mushrooms and satisfy the thirty-of-one-type threshold using Orange; alternative to Marathon and the other mushroom type, not both totals.",
+          "section": "",
+          "source_step": 6,
+          "original_instruction": "7b. Talk to Bashu in the bottom left building. Building door is at (prt_monk 192, 170). Choose \"Collect Mushrooms\": you will be sent to another map where you must hunt two types of mushrooms (Gooey & Orange). The NPC does not tell the player that they have enough mushrooms until they have 30 of either type of mushroom. The mushrooms from the Thief test can also be used. While it is possible to have a prospective Thief gather the mushrooms, it should be easier to have an Acolyte with high agility and buffs to complete this test faster. It is best to do this bare-handed for maximum ASPD (since the damage is 1 even with a weapon). The NPC to exit is located at (prt_monk 224, 180)",
+          "instruction_sha256": "17ed486f3d22cddc77a3544bfc545c6689f56d67a3d9dafd35255a0fcb80757b",
+          "short_ru": "Соберите 30 Orange; второй тип не обязателен.",
+          "short_en": "Collect 30 Orange; the other type is not required.",
+          "full_ru": "7b. Поговорите с Bashu в здании снизу слева; вход — prt_monk 192, 170. Выберите «Collect Mushrooms»: вас отправят на другую карту собирать грибы двух типов, Gooey и Orange. NPC сообщит о достаточном количестве, когда у вас будет 30 грибов одного из этих типов. Подойдут и грибы из Thief test. Их может собрать будущий Thief, но Acolyte с высокой ловкостью и усилениями, вероятно, справится быстрее. Лучше действовать без оружия ради максимальной ASPD: даже с оружием урон равен 1. NPC для выхода находится на prt_monk 224, 180.",
+          "full_en": "7b. Talk to Bashu in the bottom left building. Building door is at (prt_monk 192, 170). Choose \"Collect Mushrooms\": you will be sent to another map where you must hunt two types of mushrooms (Gooey & Orange). The NPC does not tell the player that they have enough mushrooms until they have 30 of either type of mushroom. The mushrooms from the Thief test can also be used. While it is possible to have a prospective Thief gather the mushrooms, it should be easier to have an Acolyte with high agility and buffs to complete this test faster. It is best to do this bare-handed for maximum ASPD (since the damage is 1 even with a weapon). The NPC to exit is located at (prt_monk 224, 180)",
+          "protected_names": [
+            "Bashu",
+            "prt_monk",
+            "Gooey",
+            "Orange"
+          ],
+          "npcs": [
+            {
+              "entity": "Bashu",
+              "role": "talk"
+            }
+          ],
+          "dialogues": [
+            {
+              "npc": "Bashu",
+              "options": [
+                {
+                  "text": "Collect Mushrooms",
+                  "correct": 1
+                }
+              ]
+            }
+          ],
+          "items": [
+            {
+              "entity": "Orange",
+              "quantity": 30,
+              "operation": "collect",
+              "required": 1,
+              "condition": "One type alone meets the threshold; not thirty per kill or proof of item consumption."
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "collection_threshold",
+              "amount": "30",
+              "entity": "Orange"
+            },
+            {
+              "kind": "suggested_bare_handed",
+              "condition": "ASPD advice; source says damage is one even with a weapon, not another eligibility requirement."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "choose_mushroom_test",
+              "entity": "Bashu"
+            },
+            {
+              "operation": "collect_until_threshold",
+              "entity": "Orange"
+            }
+          ],
+          "locations": [
+            {
+              "entity": "prt_monk",
+              "x": 192,
+              "y": 170,
+              "role": "building_entrance",
+              "known": true,
+              "order": 1,
+              "condition": "Collect Mushrooms branch."
+            },
+            {
+              "entity": "prt_monk",
+              "x": 224,
+              "y": 180,
+              "role": "printed_exit",
+              "known": true,
+              "order": 2,
+              "condition": "Literal source exit point; map/scene consistency remains unverified."
+            }
+          ]
+        }
+      ]
+    },
+    "7": {
+      "original_instruction": "Now locate Tomoon, also found indoors within the Abbey (prt_monk 192, 170) inside what appears to be a glowing cross. He sends you to an invisible maze. Be warned that during this test, monsters will spawn, such as Zombies and Mummies. They should not be much of a challenge, but keep in mind that you don't have much maneuvering area here. It is possible to check if a certain cell is passable by pointing the cursor at it. Walkable cells will have the usual green walk marker; if there is none, then that cell is blocked. Generally, try sticking to a straight line from the door to the exit. If there is a choice of routes, take the one that goes closer to the center line. Patience is highly required. Disconnecting in this test will send a player back to their save point.",
+      "instruction_sha256": "902c0646ec677068bb4fc0013d18d38402654b13e5f2787568f44edec6a9e53c",
+      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/902c0646ec677068bb4f/1",
+      "goal": "navigate_maze",
+      "short_ru": "У Tomoon войдите в невидимый лабиринт; проверяйте проходимость клеток зелёным маркером.",
+      "short_en": "Enter Tomoon's invisible maze; use the green walk marker to check passable cells.",
+      "full_ru": "Найдите Tomoon внутри Abbey (prt_monk 192, 170), в месте, похожем на светящийся крест. Он отправит вас в невидимый лабиринт. Там появляются Zombies и Mummies: они не должны быть большой проблемой, но места для манёвра мало. Наведите курсор на клетку: проходимая клетка показывает обычный зелёный маркер, непроходимая — нет. Старайтесь двигаться прямо от входа к выходу; при выборе пути держитесь ближе к центральной линии. Потребуется терпение. Отключение вернёт вас в точку сохранения.",
+      "full_en": "Now locate Tomoon, also found indoors within the Abbey (prt_monk 192, 170) inside what appears to be a glowing cross. He sends you to an invisible maze. Be warned that during this test, monsters will spawn, such as Zombies and Mummies. They should not be much of a challenge, but keep in mind that you don't have much maneuvering area here. It is possible to check if a certain cell is passable by pointing the cursor at it. Walkable cells will have the usual green walk marker; if there is none, then that cell is blocked. Generally, try sticking to a straight line from the door to the exit. If there is a choice of routes, take the one that goes closer to the center line. Patience is highly required. Disconnecting in this test will send a player back to their save point.",
+      "npcs": [
+        {
+          "entity": "Tomoon",
+          "role": "talk"
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Zombies",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Possible maze hazards; no fixed kill objective or verified actor ID."
+        },
+        {
+          "entity": "Mummies",
+          "operation": "mention",
+          "quantity": null,
+          "required": 0,
+          "condition": "Possible maze hazards; no fixed kill objective or verified actor ID."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_maze_variants",
+          "amount": "3",
+          "support_step": 6,
+          "evidence": "Boohae will give you the option of two tests: Marathon and Mushroom collecting ( This test is recommended over the Marathon, because is less risky. ). Later, the player may return to Boohae to change the test, if it is needed. Left : The Marathon track for step 7a including the holes. Right : The Maze for Step 8. Randomly picks 1 of the 3 mazes. 7a. If you choose \"Marathon\": Talk to the door keeper in front of the Abby at (prt_monk 192,170). After, enter the building and find Bashu. Tell him \"Marathon\". He will then send you to another area. Run around this map without falling into the pits for many laps (about 10) to complete the Marathon test. The map is shaped like a ring, with occasional holes that players can fall into. This test is easier to complete by lowering the camera angle very low (Ctrl+Shift+mouse wheel up), allowing pits far ahead to be seen easily. Note that disconnecting will send you back to your save point. After the test is completed with the needed amount of laps,you will automatically be sent out. It takes approximately 30 minutes with Increase Agility to complete. Skip to Step 8. 7b. Talk to Bashu in the bottom left building. Building door is at (prt_monk 192, 170). Choose \"Collect Mushrooms\": you will be sent to another map where you must hunt two types of mushrooms (Gooey & Orange). The NPC does not tell the player that they have enough mushrooms until they have 30 of either type of mushroom. The mushrooms from the Thief test can also be used. While it is possible to have a prospective Thief gather the mushrooms, it should be easier to have an Acolyte with high agility and buffs to complete this test faster. It is best to do this bare-handed for maximum ASPD (since the damage is 1 even with a weapon). The NPC to exit is located at (prt_monk 224, 180)",
+          "condition": "Caption says one of three mazes is randomly picked; not three compulsory completions."
+        },
+        {
+          "kind": "disconnect_effect",
+          "amount": "return_to_savepoint"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_invisible_maze",
+          "entity": "Tomoon"
+        },
+        {
+          "operation": "navigate_passable_cells"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "prt_monk",
+          "x": 192,
+          "y": 170,
+          "role": "building_entrance",
+          "known": true,
+          "condition": "Abbey entrance, not a verified interior Tomoon or maze coordinate."
+        }
+      ],
+      "protected_names": [
+        "Tomoon",
+        "prt_monk",
+        "Zombies",
+        "Mummies"
+      ]
+    },
+    "8": {
+      "original_instruction": "Once out of the maze, talk to Tomoon again and drink the Green Potion he hands over. Then return to Moohae who, after giving a lengthy speech, job changes you into a Monk. As a reward, he'll give you a Waghnak or a Knuckle Duster if your job level is 50.",
+      "instruction_sha256": "d057979e30cd2844c3f32febd8b5d539901cd64b11ee6c03899faee85bda2151",
+      "step_id": "irowiki-classic:Monk_Job_Change_Guide/step/d057979e30cd2844c3f3/1",
+      "goal": "job_change",
+      "short_ru": "У Tomoon выпейте выданный Green Potion, затем вернитесь к Moohae и станьте Monk.",
+      "short_en": "Drink Tomoon's provided Green Potion, then return to Moohae and become a Monk.",
+      "full_ru": "Выйдя из лабиринта, снова поговорите с Tomoon и выпейте выданный Green Potion. Затем вернитесь к Moohae: после длинной речи он сменит вашу профессию на Monk. В награду источник указывает Waghnak или Knuckle Duster, если Job Level равен 50.",
+      "full_en": "Once out of the maze, talk to Tomoon again and drink the Green Potion he hands over. Then return to Moohae who, after giving a lengthy speech, job changes you into a Monk. As a reward, he'll give you a Waghnak or a Knuckle Duster if your job level is 50.",
+      "npcs": [
+        {
+          "entity": "Tomoon",
+          "role": "talk"
+        },
+        {
+          "entity": "Sensei Moohae",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Green Potion",
+          "quantity": 1,
+          "operation": "consume",
+          "required": 1,
+          "condition": "Given by Tomoon at this stage, not a required advance purchase."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Green Potion",
+          "condition": "Provided by Tomoon to drink before returning to Moohae."
+        },
+        {
+          "kind": "job_change",
+          "amount": "Monk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_and_drink_potion",
+          "entity": "Tomoon"
+        },
+        {
+          "operation": "change_job",
+          "entity": "Sensei Moohae"
+        }
+      ],
+      "protected_names": [
+        "Tomoon",
+        "Waghnak",
+        "Knuckle Duster",
+        "Green Potion"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "waghnak_unspecified",
+          "choice_group": "source_weapon_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Source lists Waghnak as an alternative reward but exact level condition is unclear; do not infer a below-50 mapping or a player selection menu.",
+          "section": "",
+          "source_step": 8,
+          "original_instruction": "Once out of the maze, talk to Tomoon again and drink the Green Potion he hands over. Then return to Moohae who, after giving a lengthy speech, job changes you into a Monk. As a reward, he'll give you a Waghnak or a Knuckle Duster if your job level is 50.",
+          "instruction_sha256": "d057979e30cd2844c3f32febd8b5d539901cd64b11ee6c03899faee85bda2151",
+          "short_ru": "Возможная награда Waghnak; условие уровня не уточнено.",
+          "short_en": "Possible Waghnak reward; exact level condition unclear.",
+          "full_ru": "Выйдя из лабиринта, снова поговорите с Tomoon и выпейте выданный Green Potion. Затем вернитесь к Moohae: после длинной речи он сменит вашу профессию на Monk. В награду источник указывает Waghnak или Knuckle Duster, если Job Level равен 50.",
+          "full_en": "Once out of the maze, talk to Tomoon again and drink the Green Potion he hands over. Then return to Moohae who, after giving a lengthy speech, job changes you into a Monk. As a reward, he'll give you a Waghnak or a Knuckle Duster if your job level is 50.",
+          "protected_names": [
+            "Tomoon",
+            "Waghnak",
+            "Knuckle Duster",
+            "Green Potion"
+          ],
+          "rewards": [
+            {
+              "kind": "possible_item",
+              "amount": "1",
+              "entity": "Waghnak"
+            }
+          ]
+        },
+        {
+          "key": "job50_knuckle",
+          "choice_group": "source_weapon_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Source explicitly mentions Job Level 50 with Knuckle Duster; overall alternative-reward wording is ambiguous. Do not stack both items.",
+          "section": "",
+          "source_step": 8,
+          "original_instruction": "Once out of the maze, talk to Tomoon again and drink the Green Potion he hands over. Then return to Moohae who, after giving a lengthy speech, job changes you into a Monk. As a reward, he'll give you a Waghnak or a Knuckle Duster if your job level is 50.",
+          "instruction_sha256": "d057979e30cd2844c3f32febd8b5d539901cd64b11ee6c03899faee85bda2151",
+          "short_ru": "Возможная награда Knuckle Duster при Job Level 50.",
+          "short_en": "Possible Knuckle Duster reward at Job Level 50.",
+          "full_ru": "Выйдя из лабиринта, снова поговорите с Tomoon и выпейте выданный Green Potion. Затем вернитесь к Moohae: после длинной речи он сменит вашу профессию на Monk. В награду источник указывает Waghnak или Knuckle Duster, если Job Level равен 50.",
+          "full_en": "Once out of the maze, talk to Tomoon again and drink the Green Potion he hands over. Then return to Moohae who, after giving a lengthy speech, job changes you into a Monk. As a reward, he'll give you a Waghnak or a Knuckle Duster if your job level is 50.",
+          "protected_names": [
+            "Tomoon",
+            "Waghnak",
+            "Knuckle Duster",
+            "Green Potion"
+          ],
+          "requirements": [
+            {
+              "kind": "job_level",
+              "amount": "50"
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "possible_item",
+              "amount": "1",
+              "entity": "Knuckle Duster"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "monk_material_table_and_memory",
+      "detail": "Pinned HTML restores seven three-material sets. Only one assigned set is prepared, and return is the same obligation. Three memory passages keep original spelling/Latin text; source does not establish one paste field or line-by-line options. Retry without penalty applies only to the memory test."
+    },
+    {
+      "reason": "monk_stamina_alternatives",
+      "detail": "Marathon and mushrooms are alternatives and may be changed via Boohae. Approximate ten laps/thirty minutes with Increase Agility are not a fixed exact count, deadline or required buff. Mushrooms need thirty of either one type, not thirty of each or a kill quota; Gooey/Orange item IDs and consumption remain unverified."
+    },
+    {
+      "reason": "monk_maze_and_source_numbering",
+      "detail": "Source Step 8 refers to the maze represented by archived stage 7. One of three maze variants is picked, not all three completed. Caption layout is not another movement objective. Hazards are not compulsory kills. The printed mushroom exit map/point is retained with scene uncertainty; the Abbey entrance is not an interior actor coordinate."
+    },
+    {
+      "reason": "monk_potion_and_weapon_reward_scope",
+      "detail": "Green Potion is provided then drunk, not an advance purchase; its ID is not guessed. Knuckle Duster 1804 has an explicit Job Level 50 phrase. Waghnak 1801 has no separately explicit level range, and the whole or/if wording is ambiguous; both are possible source alternatives, not a fabricated deterministic below-50 rule or two rewards."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Acolyte",
+        "source_section": "requirements",
+        "evidence": "Class: Acolyte"
+      }
+    ]
+  }
+}

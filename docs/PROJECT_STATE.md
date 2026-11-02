@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 988 steps in 80 curated guides and
-143 conditional branches. Thirty-one source additions supplement full descriptions;
-**1,762 steps / 136 remaining catalog entries still need processing**. Twenty-one quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
+is excluded. All four RU/EN fields exist for 999 steps in 82 curated guides and
+158 conditional branches. Thirty-three source additions supplement full descriptions;
+**1,751 steps / 134 remaining catalog entries still need processing**. Twenty-three quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -122,8 +122,18 @@ rewards are exclusive; unknown exact answers are not invented. Redemptio has
 restored Resurrection Level 1, distinct initial/extra stock and one-plus-one
 per-attempt costs with unknown success chance/totals. Three new source additions
 preserve context; schema/generator remain 5 / 5.7.0.
+Monk job and skill guides are curated: two guides / 11 stages. Seven restored
+material sets, three exact memory passages and alternative stamina tests are
+separate. Approximate marathon laps/time are not deadlines; mushroom collection
+needs thirty of one type. Maze variants/hazards and source numbering retain
+scope. Green Potion is provided, and ambiguous Waghnak/Knuckle Duster reward
+conditions remain possible outcomes rather than invented level mappings.
+Zero Weight applies only to Apprentice Monk; Palm needs the earlier skill and
+one material set without a whole-guide self-cycle. Ordered entrance/interior
+points and unknown IDs remain explicit. Two source additions are restored;
+schema/generator remain 5 / 5.7.0.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 276 regression tests, full offline rebuild and research CI
+Local validation: 286 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

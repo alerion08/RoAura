@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.7.0**. All four description fields are populated for
-**988 steps across 80 curated guides**, up from the previous 76-guide/974-step
-checkpoint. **143 conditional branches** also have independent RU/EN short and
-full descriptions. Twenty-one quest routes represent nine exclusive expedition/lyric/material paths
-and twelve conditional/optional activities. **1,762 steps in 136 remaining catalog entries still lack
+**999 steps across 82 curated guides**, up from the previous 80-guide/988-step
+checkpoint. **158 conditional branches** also have independent RU/EN short and
+full descriptions. Twenty-three quest routes represent nine exclusive expedition/lyric/material paths
+and fourteen conditional/optional activities. **1,751 steps in 134 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -105,6 +105,8 @@ complete localization/context analysis.** `complete` remains false.
 | Acolyte Skill Quest | 1 | One Holy Light material set; Rosary delivery distinct from helper possession |
 | Priest Job Change Guide | 9 | Three visits with Job-50 exemption; optional unequipped Rosary helper; Exorcism versus pass rooms; temptation NPCs and exclusive books |
 | Priest Skill Quest | 2 | Restored Resurrection prerequisite; initial/extra stock distinct from one-plus-one random teaching-attempt costs |
+| Monk Job Change Guide | 8 | Seven restored material sets; three exact passages; alternative stamina tests and mushroom types; approximate marathon; ambiguous weapon reward |
+| Monk Skill Quest | 3 | Zero Weight at Apprentice only; skill prerequisite without self-cycle; ordered entrance/interior points and one material set |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -113,7 +115,37 @@ verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
 
-- Four Acolyte/Priest guides preserve all 14 original stages. Coverage is now
+- Two Monk guides preserve all 11 original stages. Coverage is now 999 stages /
+  82 guides, 158 localized branches and twenty-three routes. All prior 988
+  localized descriptions, 143 branches and original step IDs remain unchanged.
+  Existing schema 5 / semantic-5.7.0 supports this data-only iteration.
+- Monk restores seven assigned three-material sets from the pinned table.
+  Return uses the same set, not a second obligation. Three memory passages
+  retain exact spelling and punctuation, including source typos and Latin.
+  The source does not establish a paste field versus line-by-line input;
+  penalty-free retry applies to this memory test only.
+- Marathon and mushroom collection are alternative tests, switchable via Boohae.
+  The Marathon's roughly ten laps/thirty minutes with Increase Agility are
+  estimates, not an exact lap quota, deadline or required buff. Collection needs
+  thirty of one of Gooey/Orange, not thirty of each; IDs and consumption remain
+  unknown. Source Step 8 points to the maze at archived stage 7. One of three
+  maze variants is chosen, and incidental monsters are not mandatory kills.
+- Green Potion is given and drunk at the final stage, not purchased in advance.
+  Its ID is unknown. Waghnak 1801 and Knuckle Duster 1804 remain possible
+  exclusive source alternatives: the latter has a Job Level 50 phrase, while
+  Waghnak's exact level condition is unclear. Do not invent a deterministic
+  below-50 mapping, player selection menu or two weapon grants.
+- Monk Skill has two optional training routes with an explicit skill dependency.
+  Zero Weight applies only when Apprentice Monk teaches Spiritual Bestowment,
+  not to Excruciating Palm's material hand-in. Palm requires the earlier skill,
+  not completion of this multi-skill guide before itself. The 20 Stems/3 Shoots
+  set is one delivery, and Mandragoras are a loot source, not a kill quota.
+  Entrance/interior/outside points retain their order; 192,171 in the skill
+  guide is not normalized to 192,170 in the job guide. No Job Level is invented.
+
+Earlier source-review checkpoints:
+
+- Four Acolyte/Priest guides preserved all 14 original stages. Coverage was
   988 stages / 80 guides, 143 localized branches and twenty-one routes. All prior
   974 localized descriptions, 137 branches and original step IDs remain unchanged.
   Existing schema 5 / semantic-5.7.0 supports this data-only iteration.
@@ -726,7 +758,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **276 tests passed**; complete offline enrichment passed;
+Validated locally: **286 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -790,7 +822,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 ## Next work, in order
 
-1. Review the remaining 136 catalog candidates, separating reference pages,
+1. Review the remaining 134 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

@@ -251,17 +251,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],988)
-        self.assertEqual(self.report['not_fully_localized_steps'],1762)
+        self.assertEqual(self.report['fully_localized_steps'],999)
+        self.assertEqual(self.report['not_fully_localized_steps'],1751)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],988)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],999)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1762)
-        self.assertEqual(self.report['fully_localized_branches'],143)
-        self.assertEqual(self.report['curated_quests'],80)
-        self.assertEqual(self.report['pending_quests'],136)
-        self.assertEqual(self.report['quest_routes'],21)
-        self.assertEqual(self.report['source_additions'],31)
+        self.assertEqual(missing,1751)
+        self.assertEqual(self.report['fully_localized_branches'],158)
+        self.assertEqual(self.report['curated_quests'],82)
+        self.assertEqual(self.report['pending_quests'],134)
+        self.assertEqual(self.report['quest_routes'],23)
+        self.assertEqual(self.report['source_additions'],33)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_juperos_four_homonymous_books_and_return_scholar_have_typed_links(self):
@@ -398,6 +398,100 @@ class RealCorpusTests(unittest.TestCase):
             destination=self.out/'quest_semantic.sqlite';before=destination.read_bytes()
             with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid optional route context proof'):build(self.source,self.out,curation_dir=folder)
             self.assertEqual(destination.read_bytes(),before)
+
+    def test_monk_material_table_is_seven_assigned_three_item_sets(self):
+        q='irowiki-classic:Monk_Job_Change_Guide';actual={}
+        for row in self.db.execute('''SELECT b.branch_key,x.game_id,i.quantity,i.operation,e.method FROM step_items i JOIN step_branches b USING(branch_id)
+          JOIN items x ON x.entity_id=i.item_id JOIN evidence e ON e.evidence_id=i.evidence_id JOIN quest_steps s ON s.step_id=b.step_id
+          WHERE s.quest_id=? AND s.step_order=3 ORDER BY b.branch_key,x.game_id''',(q,)):
+            actual.setdefault(row[0],[]).append((row[1],row[2]));self.assertEqual((row[3],row[4]),('bring','curated_html_text'))
+        expected=[[(7053,5),(508,10),(509,10)],[(943,5),(935,20),(912,5)],[(1027,5),(1042,10),(1025,20)],[(938,5),(1055,10),(511,20)],[(913,10),(948,5),(7033,20)],[(905,30),(909,5),(955,10)],[(942,20),(1002,5),(510,3)]]
+        self.assertEqual(actual,{'material_set_'+str(i):sorted(v) for i,v in enumerate(expected,1)})
+        self.assertFalse(self.db.execute('''SELECT 1 FROM step_items i JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=4''',(q,)).fetchone())
+
+    def test_monk_gatekeeper_and_sensei_points_preserve_order_and_map_context(self):
+        q='irowiki-classic:Monk_Job_Change_Guide'
+        actors=[r[0] for r in self.db.execute('''SELECT e.original_name FROM step_actions a JOIN entities e USING(entity_id) JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=2 ORDER BY a.action_order''',(q,))]
+        self.assertEqual(actors,['Guarding Monk','Sensei Moohae'])
+        points=[tuple(r) for r in self.db.execute('''SELECT l.x,l.y,m.map_code FROM step_locations sl JOIN locations l USING(location_id) JOIN maps m ON m.entity_id=l.map_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=2 ORDER BY sl.location_order''',(q,))]
+        self.assertEqual(points,[(58,247,'prt_monk'),(245,104,'prt_monk')])
+
+    def test_monk_memory_keeps_three_exact_passages_and_unknown_input_mode(self):
+        q='irowiki-classic:Monk_Job_Change_Guide'
+        opts=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,o.exact_text,o.operation FROM dialogue_options o JOIN dialogues d USING(dialogue_id)
+          JOIN step_branches b ON b.branch_id=d.branch_id JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? AND s.step_order=5 ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(len(opts),3);self.assertTrue(opts[0][1].startswith('And sheperds we shall be'))
+        self.assertTrue(all(r[2]=='answer_unspecified_input' for r in opts))
+        self.assertTrue(all(r[1].endswith('In nomine Patris, et Filii et Spiritus Sancti.') for r in opts))
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='memory_retry_penalty'",(q,)).fetchone()[0],'none')
+
+    def test_monk_stamina_choices_do_not_sum_marathon_and_both_mushroom_types(self):
+        q='irowiki-classic:Monk_Job_Change_Guide'
+        choices=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,b.choice_group FROM step_branches b JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=6 ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(choices,[(k,'stamina_test') for k in ['marathon','mushrooms_gooey','mushrooms_orange']])
+        mushrooms=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,e.original_name,i.quantity,x.game_id FROM step_items i JOIN step_branches b USING(branch_id)
+          JOIN entities e ON e.entity_id=i.item_id JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? AND s.step_order=6 ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(mushrooms,[('mushrooms_gooey','Gooey',30,None),('mushrooms_orange','Orange',30,None)])
+        estimates={r[0]:r[1] for r in self.db.execute("SELECT kind,amount FROM requirements WHERE quest_id=? AND kind IN ('approximate_laps','approximate_duration_minutes')",(q,))}
+        self.assertEqual(estimates,{'approximate_laps':'10','approximate_duration_minutes':'30'})
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind LIKE 'time_limit%'",(q,)).fetchone())
+
+    def test_monk_maze_has_one_of_three_layouts_and_no_fabricated_kill_quotas(self):
+        q='irowiki-classic:Monk_Job_Change_Guide'
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='source_maze_variants'",(q,)).fetchone()[0],'3')
+        monsters=[tuple(r) for r in self.db.execute('''SELECT s.step_order,m.operation,m.quantity,m.required,x.game_id FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,))]
+        self.assertEqual(monsters,[(7,'mention',None,0,None)]*2)
+        self.assertEqual(self.db.execute("SELECT count(*) FROM requirements WHERE quest_id=? AND kind='disconnect_effect'",(q,)).fetchone()[0],2)
+
+    def test_monk_provided_potion_and_ambiguous_weapon_rewards_keep_scope(self):
+        q='irowiki-classic:Monk_Job_Change_Guide'
+        potion=self.db.execute('''SELECT i.quantity,i.operation,x.game_id FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=8''',(q,)).fetchone()
+        self.assertEqual(tuple(potion),(1,'consume',None))
+        weapons=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,r.kind,x.game_id,r.amount FROM rewards r JOIN step_branches b USING(branch_id)
+          JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(weapons,[('job50_knuckle','possible_item',1804,'1'),('waghnak_unspecified','possible_item',1801,'1')])
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='job_level_below'",(q,)).fetchone())
+        self.assertEqual(tuple(self.db.execute("SELECT amount,branch_id FROM rewards WHERE quest_id=? AND kind='job_change'",(q,)).fetchone()),('Monk',None))
+
+    def test_monk_skill_zero_weight_is_only_first_activity_not_material_handin(self):
+        q='irowiki-classic:Monk_Skill_Quest'
+        weights=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.kind='inventory_weight' ''',(q,))]
+        self.assertEqual(weights,[(1,'0')])
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='job_level'",(q,)).fetchone())
+        self.assertFalse(self.db.execute('SELECT 1 FROM quest_relations WHERE quest_id=? AND related_id=?',(q,q)).fetchone())
+        skills=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.kind='required_skill' ORDER BY s.step_order''',(q,))]
+        self.assertEqual(skills,[(2,'Spiritual Bestowment'),(3,'Spiritual Bestowment')])
+
+    def test_monk_skill_locations_keep_entrance_interior_and_outside_order(self):
+        q='irowiki-classic:Monk_Skill_Quest'
+        points=[tuple(r) for r in self.db.execute('''SELECT m.map_code,l.x,l.y FROM step_locations sl JOIN locations l USING(location_id) JOIN maps m ON m.entity_id=l.map_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=1 AND sl.location_order IS NOT NULL ORDER BY sl.location_order''',(q,))]
+        self.assertEqual(points,[('prt_monk',192,171),('monk_test',316,68),('prt_monk',270,197)])
+        self.assertTrue(self.db.execute('''SELECT 1 FROM step_locations sl JOIN locations l USING(location_id) JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id='irowiki-classic:Monk_Job_Change_Guide' AND l.x=192 AND l.y=170''').fetchone())
+
+    def test_monk_palm_material_set_is_one_delivery_not_mandragora_kill_count(self):
+        q='irowiki-classic:Monk_Skill_Quest'
+        materials=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY x.game_id''',(q,))]
+        self.assertEqual(materials,[(711,3,'deliver'),(905,20,'deliver')])
+        monster=self.db.execute('''SELECT x.game_id,m.operation,m.quantity,m.required FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,)).fetchone()
+        self.assertEqual(tuple(monster),(1020,'loot_source',None,0))
+        self.assertEqual({r[0] for r in self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='skill_unlock'",(q,))},{'Spiritual Bestowment','Excruciating Palm'})
+
+    def test_monk_memory_spelling_correction_cannot_override_literal_passage(self):
+        folder=self.out/'invalid-monk-memory-spelling';shutil.copytree(ROOT/'curation',folder)
+        path=folder/'Monk_Job_Change_Guide.json';data=json.loads(path.read_text());b=data['steps']['5']['branches'][0]
+        for field in ['full_ru','full_en']:b[field]=b[field].replace('sheperds','shepherds')
+        b['dialogues'][0]['options'][0]['text']=b['dialogues'][0]['options'][0]['text'].replace('sheperds','shepherds')
+        path.write_text(json.dumps(data));before=(self.out/'quest_semantic.sqlite').read_bytes()
+        with self.assertRaisesRegex(ValueError,'Invented dialogue text'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
 
     def test_acolyte_ascetics_are_one_assigned_branch_not_three_required_visits(self):
         q='irowiki-classic:Acolyte_Job_Change_Guide'
