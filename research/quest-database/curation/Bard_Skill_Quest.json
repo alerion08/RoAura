@@ -1,0 +1,411 @@
+{
+  "quest_id": "irowiki-classic:Bard_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "45fad427fc760790f9efb17179130d244448326267755ac2bbb39d416523dc02",
+  "snapshot_sha256": "d87a6aec8cbd83747a9250a0d7fbe3bd9efd558cbbcb8c0710a19bf09c954a4d",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Timid Young Man",
+      "aliases": [
+        "Young Man"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "bartender"
+    },
+    {
+      "type": "npc",
+      "name": "Riott",
+      "aliases": [
+        "Spiteful-Looking Bard"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Errende"
+    },
+    {
+      "type": "npc",
+      "name": "Islis Chicken",
+      "aliases": [
+        "Chicken"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "Nifflheim"
+    },
+    {
+      "type": "item",
+      "name": "Tropical Sograt",
+      "identity": "irowiki-classic:Bard_Skill_Quest:source_item:Tropical Sograt"
+    },
+    {
+      "type": "item",
+      "name": "Islis Eggs",
+      "identity": "irowiki-classic:Bard_Skill_Quest:source_item:Islis Eggs",
+      "aliases": [
+        "Eggs",
+        "Egg"
+      ]
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In northen Prontera , just east of the castle entrance, you'll see a Timid Young Man (174, 328). When you walk near him, he'll do an emotion. Talk to him. During the dialog, chose the second, and then first options.",
+      "instruction_sha256": "4146e3ca3c012b9229442e96d3f1867d4cc67c5cfd5bd52f68571466f33f8135",
+      "step_id": "irowiki-classic:Bard_Skill_Quest/step/4146e3ca3c012b922944/1",
+      "goal": "talk",
+      "short_ru": "У Timid Young Man в Prontera (174, 328) выберите второй, затем первый ответ.",
+      "short_en": "At Timid Young Man in Prontera (174, 328), choose the second then first answer.",
+      "full_ru": "В северной Prontera, к востоку от входа в замок, найдите Timid Young Man (174, 328). При приближении он покажет эмоцию. Поговорите с ним: выберите второй вариант, затем первый.",
+      "full_en": "In northen Prontera , just east of the castle entrance, you'll see a Timid Young Man (174, 328). When you walk near him, he'll do an emotion. Talk to him. During the dialog, chose the second, and then first options.",
+      "npcs": [
+        {
+          "entity": "Timid Young Man",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "dialogue_option_position",
+          "amount": "2",
+          "condition": "First selection in the ordered conversation; literal label unknown."
+        },
+        {
+          "kind": "dialogue_option_position",
+          "amount": "1",
+          "condition": "Second selection in the ordered conversation; literal label unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_position",
+          "entity": "Timid Young Man",
+          "condition": "second option; literal label not printed"
+        },
+        {
+          "operation": "choose_position",
+          "entity": "Timid Young Man",
+          "condition": "first option; literal label not printed"
+        }
+      ],
+      "protected_names": [
+        "Timid Young Man",
+        "Prontera"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 174,
+          "y": 328,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "174, 328"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "In the very northwest section of Morroc , near the access to the pyramids, there'll be a bar. Buy a Tropical Sograt from the bartender, and return it to the Young Man in Prontera.",
+      "instruction_sha256": "cc3f085d966932b0620d3a09ad383eb731d8bab4631a4d2915ef5c3914d53584",
+      "step_id": "irowiki-classic:Bard_Skill_Quest/step/cc3f085d966932b0620d/1",
+      "goal": "deliver",
+      "short_ru": "Купите 1 Tropical Sograt в баре Morroc и отнесите Young Man в Prontera.",
+      "short_en": "Buy 1 Tropical Sograt in the Morroc bar and bring it to Young Man in Prontera.",
+      "full_ru": "На самом северо-западе Morroc, рядом с проходом к пирамидам, найдите бар. Купите у bartender напиток Tropical Sograt и отнесите его Young Man в Prontera.",
+      "full_en": "In the very northwest section of Morroc , near the access to the pyramids, there'll be a bar. Buy a Tropical Sograt from the bartender, and return it to the Young Man in Prontera.",
+      "npcs": [
+        {
+          "entity": "bartender",
+          "role": "vendor"
+        },
+        {
+          "entity": "Timid Young Man",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "In northen Prontera , just east of the castle entrance, you'll see a Timid Young Man (174, 328). When you walk near him, he'll do an emotion. Talk to him. During the dialog, chose the second, and then first options."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Tropical Sograt",
+          "quantity": 1,
+          "operation": "buy",
+          "required": 1
+        },
+        {
+          "entity": "Tropical Sograt",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "buy",
+          "entity": "Tropical Sograt"
+        },
+        {
+          "operation": "deliver",
+          "entity": "Tropical Sograt"
+        }
+      ],
+      "protected_names": [
+        "bartender",
+        "Prontera",
+        "Morroc",
+        "Tropical Sograt"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Return to the Bar in Morroc. You'll see Riott, a Spiteful-Looking Bard. Talk to Riott. At this point, if you have not completed the Geffen Bard Quest, you will have to do this now. Riott will send you to the bard Errende in Geffen, who you can find just east of the fountain. You will have to complete Errende's quest before you can continue.",
+      "instruction_sha256": "49e526b549e2578f34180fc94e45162c9d1a139024686681304f1300da3cde69",
+      "step_id": "irowiki-classic:Bard_Skill_Quest/step/49e526b549e2578f3418/1",
+      "goal": "talk",
+      "short_ru": "У Riott в баре Morroc завершите Geffen Bard Quest перед продолжением.",
+      "short_en": "At Riott in the Morroc bar, complete Geffen Bard Quest before continuing.",
+      "full_ru": "Вернитесь в бар Morroc и поговорите с Riott, бардом Spiteful-Looking Bard. Теперь, если Geffen Bard Quest ещё не завершён, выполните его: Riott направит вас к барду Errende в Geffen, к востоку от фонтана. Завершите квест Errende, прежде чем продолжать.",
+      "full_en": "Return to the Bar in Morroc. You'll see Riott, a Spiteful-Looking Bard. Talk to Riott. At this point, if you have not completed the Geffen Bard Quest, you will have to do this now. Riott will send you to the bard Errende in Geffen, who you can find just east of the fountain. You will have to complete Errende's quest before you can continue.",
+      "npcs": [
+        {
+          "entity": "Riott",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "completion_gate",
+          "condition": "Complete Geffen Bard Quest before continuing beyond this Riott conversation; earlier stages remain possible."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "check_quest_completion",
+          "entity": "Riott"
+        }
+      ],
+      "protected_names": [
+        "Riott",
+        "Errende",
+        "Morroc",
+        "Geffen"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "If you have done the Geffen Bard Quest , Riott will send you to Nifflheim to gather 5 Islis Eggs.",
+      "instruction_sha256": "cd55dd2f421ebdaf861f123e6013b9fc0a710b655e1ca7d710de8b60179699d0",
+      "step_id": "irowiki-classic:Bard_Skill_Quest/step/cd55dd2f421ebdaf861f/1",
+      "goal": "talk",
+      "short_ru": "Получите у Riott задание собрать 5 Islis Eggs в Nifflheim.",
+      "short_en": "Accept Riott's task to collect 5 Islis Eggs in Nifflheim.",
+      "full_ru": "После завершения Geffen Bard Quest Riott отправит вас в Nifflheim собрать 5 Islis Eggs.",
+      "full_en": "If you have done the Geffen Bard Quest , Riott will send you to Nifflheim to gather 5 Islis Eggs.",
+      "npcs": [
+        {
+          "entity": "Riott",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Islis Eggs",
+          "quantity": 5,
+          "operation": "collect",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_eggs",
+          "entity": "Riott"
+        }
+      ],
+      "protected_names": [
+        "Riott",
+        "Geffen",
+        "Nifflheim",
+        "Islis Eggs"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "In Nifflheim , the Islis Chicken will appear in one of several random locations. When you go near the Chicken, you will have a chance to obtain an Egg before it runs away. You'll have to track it down until you have 5 Eggs. Likely locations for the Chicken can be seen here. The actual locations for the chicken cycles in order, and the actual locations are: | (239, 68) | (186, 204) | (83, 204) | (147,81) | (211, 143)",
+      "instruction_sha256": "195501678b73e75065ace75ea46bc6487cd8b1b4b1a4602e3a9b3cc8f7ed9827",
+      "step_id": "irowiki-classic:Bard_Skill_Quest/step/195501678b73e75065ac/1",
+      "goal": "collect",
+      "short_ru": "Следуйте за Islis Chicken по циклу точек в Nifflheim, пока не соберёте 5 Eggs.",
+      "short_en": "Follow Islis Chicken through the location cycle in Nifflheim until you collect 5 Eggs.",
+      "full_ru": "В Nifflheim найдите Islis Chicken: начальная точка может быть одной из случайных. При приближении к Chicken есть шанс получить Egg, прежде чем птица убежит. Ищите её, пока не соберёте 5 Eggs. Возможные места показаны в источнике; фактические точки сменяются по циклу в следующем порядке: (239, 68), (186, 204), (83, 204), (147,81), (211, 143).",
+      "full_en": "In Nifflheim , the Islis Chicken will appear in one of several random locations. When you go near the Chicken, you will have a chance to obtain an Egg before it runs away. You'll have to track it down until you have 5 Eggs. Likely locations for the Chicken can be seen here. The actual locations for the chicken cycles in order, and the actual locations are: | (239, 68) | (186, 204) | (83, 204) | (147,81) | (211, 143)",
+      "npcs": [
+        {
+          "entity": "Islis Chicken",
+          "role": "approach"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Islis Eggs",
+          "quantity": 5,
+          "operation": "collect",
+          "required": 1,
+          "condition": "Total collection goal, not five eggs per approach. Success chance and number of attempts unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "approach",
+          "entity": "Islis Chicken",
+          "condition": "Chance to obtain an Egg before it runs away; repeat until total five."
+        },
+        {
+          "operation": "follow_location_cycle",
+          "entity": "Islis Chicken",
+          "condition": "Printed cyclic order; starting point unknown."
+        }
+      ],
+      "locations": [
+        {
+          "x": 239,
+          "y": 68,
+          "role": "pursuit_point",
+          "known": false,
+          "entity": "Nifflheim",
+          "order": 1,
+          "condition": "Cycle position 1; starting point unknown."
+        },
+        {
+          "x": 186,
+          "y": 204,
+          "role": "pursuit_point",
+          "known": false,
+          "entity": "Nifflheim",
+          "order": 2,
+          "condition": "Cycle position 2; starting point unknown."
+        },
+        {
+          "x": 83,
+          "y": 204,
+          "role": "pursuit_point",
+          "known": false,
+          "entity": "Nifflheim",
+          "order": 3,
+          "condition": "Cycle position 3; starting point unknown."
+        },
+        {
+          "x": 147,
+          "y": 81,
+          "role": "pursuit_point",
+          "known": false,
+          "entity": "Nifflheim",
+          "order": 4,
+          "condition": "Cycle position 4; starting point unknown."
+        },
+        {
+          "x": 211,
+          "y": 143,
+          "role": "pursuit_point",
+          "known": false,
+          "entity": "Nifflheim",
+          "order": 5,
+          "condition": "Cycle position 5; starting point unknown."
+        }
+      ],
+      "protected_names": [
+        "Islis Chicken",
+        "Nifflheim"
+      ]
+    },
+    "6": {
+      "original_instruction": "Return to Riott in the Morroc bar and he will teach you Pang Voice.",
+      "instruction_sha256": "29cf5356e4ae3c7bc7a3885525b0b4567594c73e788eb9f6a96e86caf6c3f106",
+      "step_id": "irowiki-classic:Bard_Skill_Quest/step/29cf5356e4ae3c7bc7a3/1",
+      "goal": "learn_skill",
+      "short_ru": "Вернитесь к Riott в Morroc и изучите Pang Voice.",
+      "short_en": "Return to Riott in Morroc and learn Pang Voice.",
+      "full_ru": "Вернитесь к Riott в бар Morroc: он научит вас Pang Voice.",
+      "full_en": "Return to Riott in the Morroc bar and he will teach you Pang Voice.",
+      "npcs": [
+        {
+          "entity": "Riott",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "collected_items",
+          "amount": "5",
+          "entity": "Islis Eggs",
+          "support_step": 4,
+          "evidence": "If you have done the Geffen Bard Quest , Riott will send you to Nifflheim to gather 5 Islis Eggs.",
+          "condition": "Previous goal must be met; source does not explicitly prove egg removal on this final talk."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Pang Voice"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "learn_pang_voice",
+          "entity": "Riott"
+        }
+      ],
+      "protected_names": [
+        "Riott",
+        "Morroc"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "pang_voice_completion_gate",
+      "detail": "Header Completed Geffen Bard Quest is implemented as a completion_required_at_step relation backed by the explicit stage-3 Riott gate. Do not block earlier drink stages or invent a reverse availability condition."
+    },
+    {
+      "reason": "pang_voice_egg_collection",
+      "detail": "Five eggs is the total goal; approaching a moving Chicken has an unknown chance. No kill objective, fixed attempt count, guaranteed per-approach yield or final egg consumption is established. Coordinates preserve the printed cycle with unknown starting point."
+    },
+    {
+      "reason": "pang_voice_source_identity_unknowns",
+      "detail": "This HTML prints no item database links for Tropical Sograt/Islis Eggs. Item IDs, drink price, skill ID and map codes remain unknown. Timid Young Man answers are positional without invented literal labels. Errende is a scoped prerequisite landmark, not a speculative cross-guide NPC ID."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Bard",
+        "source_section": "requirements",
+        "evidence": "Class: Bard"
+      }
+    ]
+  },
+  "relations": [
+    {
+      "kind": "completion_required_at_step",
+      "related_quest_id": "irowiki-classic:Geffen_Bard_Quest",
+      "source_step": 3
+    }
+  ]
+}

@@ -1,0 +1,779 @@
+{
+  "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "d19c7850a268384b3b7b32436cb81dedf660f3b7b7dccb48bb7eb3f65f76d4d1",
+  "snapshot_sha256": "d285e1065fb2615dd407cde0131b0e70a9cfbd19be959dbfc791add7304b764c",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Lalo",
+      "aliases": [
+        "Roaming Bard"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Mr. Snowman",
+      "aliases": [
+        "Snowman"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Comodo"
+    },
+    {
+      "type": "map",
+      "name": "Lutie"
+    },
+    {
+      "type": "item",
+      "name": "Hinalle",
+      "game_id": 703,
+      "id_source": "http://db.irowiki.org/classic/item-info/703/"
+    },
+    {
+      "type": "item",
+      "name": "Ment",
+      "game_id": 708,
+      "id_source": "http://db.irowiki.org/classic/item-info/708/"
+    },
+    {
+      "type": "item",
+      "name": "Aloe",
+      "game_id": 704,
+      "id_source": "http://db.irowiki.org/classic/item-info/704/"
+    },
+    {
+      "type": "item",
+      "name": "Illusion Flower",
+      "game_id": 710,
+      "id_source": "http://db.irowiki.org/classic/item-info/710/"
+    },
+    {
+      "type": "item",
+      "name": "Witherless Rose",
+      "game_id": 748,
+      "id_source": "http://db.irowiki.org/classic/item-info/748/"
+    },
+    {
+      "type": "item",
+      "name": "Singing Flower",
+      "game_id": 629,
+      "id_source": "http://db.irowiki.org/classic/item-info/629/"
+    },
+    {
+      "type": "item",
+      "name": "Izidor",
+      "game_id": 709,
+      "id_source": "http://db.irowiki.org/classic/item-info/709/"
+    },
+    {
+      "type": "item",
+      "name": "Frozen Rose",
+      "game_id": 749,
+      "id_source": "http://db.irowiki.org/classic/item-info/749/"
+    },
+    {
+      "type": "item",
+      "name": "Sticky Mucus",
+      "game_id": 938,
+      "id_source": "http://db.irowiki.org/classic/item-info/938/"
+    },
+    {
+      "type": "item",
+      "name": "Squid Ink",
+      "game_id": 1024,
+      "id_source": "http://db.irowiki.org/classic/item-info/1024/"
+    },
+    {
+      "type": "item",
+      "name": "Trunk",
+      "game_id": 1019,
+      "id_source": "http://db.irowiki.org/classic/item-info/1019/"
+    },
+    {
+      "type": "item",
+      "name": "Solid Trunk",
+      "game_id": 1067,
+      "id_source": "http://db.irowiki.org/classic/item-info/1067/"
+    },
+    {
+      "type": "item",
+      "name": "Barren Trunk",
+      "game_id": 1068,
+      "id_source": "http://db.irowiki.org/classic/item-info/1068/"
+    },
+    {
+      "type": "item",
+      "name": "Fine Trunk",
+      "game_id": 1066,
+      "id_source": "http://db.irowiki.org/classic/item-info/1066/"
+    },
+    {
+      "type": "item",
+      "name": "Violin",
+      "game_id": 1901,
+      "id_source": "http://db.irowiki.org/classic/item-info/1901/"
+    },
+    {
+      "type": "item",
+      "name": "Mandolin",
+      "game_id": 1903,
+      "id_source": "http://db.irowiki.org/classic/item-info/1903/"
+    },
+    {
+      "type": "item",
+      "name": "Lute",
+      "game_id": 1905,
+      "id_source": "http://db.irowiki.org/classic/item-info/1905/"
+    },
+    {
+      "type": "item",
+      "name": "Harp",
+      "game_id": 1910,
+      "id_source": "http://db.irowiki.org/classic/item-info/1910/"
+    },
+    {
+      "type": "item",
+      "name": "Type of Flower",
+      "identity": "irowiki-classic:Bard_Job_Change_Guide:source_item:flower_category",
+      "ref": "flower_category"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose",
+      "instruction_sha256": "5a9ea9563554683a4a5fd6c974f3dd1296ad0c0b35936f97b3ea43628ced65d8",
+      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/5a9ea9563554683a4a5f/1",
+      "goal": "talk",
+      "short_ru": "Найдите Lalo в Comodo (226,123) и выберите один подходящий цветок.",
+      "short_en": "Find Lalo in Comodo (226,123) and choose one eligible flower.",
+      "full_ru": "Найдите Roaming Bard по имени Lalo в Comodo (226,123), немного ниже и правее Kafra. После короткого разговора он попросит принести цветок одного из следующих видов: Hinalle, Ment, Aloe, Illusion Flower, Witherless Rose, Singing Flower, Izidor или Frozen Rose.",
+      "full_en": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose",
+      "npcs": [
+        {
+          "entity": "Lalo",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_flower",
+          "entity": "Lalo"
+        }
+      ],
+      "protected_names": [
+        "Lalo",
+        "Comodo",
+        "Hinalle",
+        "Ment",
+        "Aloe",
+        "Illusion Flower",
+        "Witherless Rose",
+        "Singing Flower",
+        "Izidor",
+        "Frozen Rose"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 226,
+          "y": 123,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "226,123"
+        }
+      ],
+      "branches": [
+        {
+          "key": "hinalle",
+          "choice_group": "flower_choice",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose one flower, not all eight.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "Hinalle",
+          "instruction_sha256": "fdef98c343473a3b91b4b29de646edf5503b20637c69820da2a6504cef9667a1",
+          "short_ru": "Принесите 1 Hinalle.",
+          "short_en": "Bring 1 Hinalle.",
+          "full_ru": "Подойдёт Hinalle.",
+          "full_en": "Hinalle",
+          "protected_names": [
+            "Hinalle"
+          ],
+          "items": [
+            {
+              "entity": "Hinalle",
+              "quantity": 1,
+              "operation": "bring",
+              "required": 1,
+              "support_step": 1,
+              "evidence": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose"
+            }
+          ]
+        },
+        {
+          "key": "ment",
+          "choice_group": "flower_choice",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose one flower, not all eight.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "Ment",
+          "instruction_sha256": "0356d706be58bfb286113b85df9a5a4027e45e1f4848dca08382d4a47b277699",
+          "short_ru": "Принесите 1 Ment.",
+          "short_en": "Bring 1 Ment.",
+          "full_ru": "Подойдёт Ment.",
+          "full_en": "Ment",
+          "protected_names": [
+            "Ment"
+          ],
+          "items": [
+            {
+              "entity": "Ment",
+              "quantity": 1,
+              "operation": "bring",
+              "required": 1,
+              "support_step": 1,
+              "evidence": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose"
+            }
+          ]
+        },
+        {
+          "key": "aloe",
+          "choice_group": "flower_choice",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose one flower, not all eight.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "Aloe",
+          "instruction_sha256": "81b2d6b85e31330c8043d9f3053e5d7f029fe70103c2643c6c47b7f15e238ec9",
+          "short_ru": "Принесите 1 Aloe.",
+          "short_en": "Bring 1 Aloe.",
+          "full_ru": "Подойдёт Aloe.",
+          "full_en": "Aloe",
+          "protected_names": [
+            "Aloe"
+          ],
+          "items": [
+            {
+              "entity": "Aloe",
+              "quantity": 1,
+              "operation": "bring",
+              "required": 1,
+              "support_step": 1,
+              "evidence": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose"
+            }
+          ]
+        },
+        {
+          "key": "illusion_flower",
+          "choice_group": "flower_choice",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose one flower, not all eight.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "Illusion Flower",
+          "instruction_sha256": "b632722e0f2e074e726a8537b0211cdea95ebaec4959806f5288be901c619d25",
+          "short_ru": "Принесите 1 Illusion Flower.",
+          "short_en": "Bring 1 Illusion Flower.",
+          "full_ru": "Подойдёт Illusion Flower.",
+          "full_en": "Illusion Flower",
+          "protected_names": [
+            "Illusion Flower"
+          ],
+          "items": [
+            {
+              "entity": "Illusion Flower",
+              "quantity": 1,
+              "operation": "bring",
+              "required": 1,
+              "support_step": 1,
+              "evidence": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose"
+            }
+          ]
+        },
+        {
+          "key": "witherless_rose",
+          "choice_group": "flower_choice",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose one flower, not all eight.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "Witherless Rose",
+          "instruction_sha256": "5d338abe3cad1e200c0ecb1a3e91d010034ec6da988f9cd41648647aa4b77f50",
+          "short_ru": "Принесите 1 Witherless Rose.",
+          "short_en": "Bring 1 Witherless Rose.",
+          "full_ru": "Подойдёт Witherless Rose.",
+          "full_en": "Witherless Rose",
+          "protected_names": [
+            "Witherless Rose"
+          ],
+          "items": [
+            {
+              "entity": "Witherless Rose",
+              "quantity": 1,
+              "operation": "bring",
+              "required": 1,
+              "support_step": 1,
+              "evidence": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose"
+            }
+          ]
+        },
+        {
+          "key": "singing_flower",
+          "choice_group": "flower_choice",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose one flower, not all eight.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "Singing Flower",
+          "instruction_sha256": "5cc73df14211273cae3bef07c709a6f87dd5e0dacc76a6fd1c2a521779a4f29d",
+          "short_ru": "Принесите 1 Singing Flower.",
+          "short_en": "Bring 1 Singing Flower.",
+          "full_ru": "Подойдёт Singing Flower.",
+          "full_en": "Singing Flower",
+          "protected_names": [
+            "Singing Flower"
+          ],
+          "items": [
+            {
+              "entity": "Singing Flower",
+              "quantity": 1,
+              "operation": "bring",
+              "required": 1,
+              "support_step": 1,
+              "evidence": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose"
+            }
+          ]
+        },
+        {
+          "key": "izidor",
+          "choice_group": "flower_choice",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose one flower, not all eight.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "Izidor",
+          "instruction_sha256": "5bb1b38bd7521be3bf911aa34ead15636e527e7cb923e6a774d5c2d2d8047173",
+          "short_ru": "Принесите 1 Izidor.",
+          "short_en": "Bring 1 Izidor.",
+          "full_ru": "Подойдёт Izidor.",
+          "full_en": "Izidor",
+          "protected_names": [
+            "Izidor"
+          ],
+          "items": [
+            {
+              "entity": "Izidor",
+              "quantity": 1,
+              "operation": "bring",
+              "required": 1,
+              "support_step": 1,
+              "evidence": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose"
+            }
+          ]
+        },
+        {
+          "key": "frozen_rose",
+          "choice_group": "flower_choice",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose one flower, not all eight.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "Frozen Rose",
+          "instruction_sha256": "705db7c60aab98fb494e0f84f0555d07f317b56864fa81d392a775647c5382a9",
+          "short_ru": "Принесите 1 Frozen Rose.",
+          "short_en": "Bring 1 Frozen Rose.",
+          "full_ru": "Подойдёт Frozen Rose.",
+          "full_en": "Frozen Rose",
+          "protected_names": [
+            "Frozen Rose"
+          ],
+          "items": [
+            {
+              "entity": "Frozen Rose",
+              "quantity": 1,
+              "operation": "bring",
+              "required": 1,
+              "support_step": 1,
+              "evidence": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose"
+            }
+          ]
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Once you have given the bard a flower, he will tell you to go to Lutie to become friends with the Snowman in Lutie:",
+      "instruction_sha256": "99638c7d466e9d51a9c387d862df4dbedb5a93b9bb96fe6d016410ef0f3f887d",
+      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/99638c7d466e9d51a9c3/1",
+      "goal": "deliver",
+      "short_ru": "Отдайте выбранный цветок и подружитесь со Snowman в Lutie.",
+      "short_en": "Give the chosen flower and befriend Snowman in Lutie.",
+      "full_ru": "Отдав барду цветок, отправляйтесь по его просьбе в Lutie и подружитесь со Snowman в Lutie.",
+      "full_en": "Once you have given the bard a flower, he will tell you to go to Lutie to become friends with the Snowman in Lutie:",
+      "npcs": [
+        {
+          "entity": "Lalo",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose"
+        }
+      ],
+      "items": [
+        {
+          "entity": "flower_category",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "One previously selected eligible flower; Type of Flower is a category, not a guessed item ID."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_chosen_flower",
+          "entity": "flower_category"
+        },
+        {
+          "operation": "befriend_snowman",
+          "entity": "Mr. Snowman"
+        }
+      ],
+      "protected_names": [
+        "Lutie"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "Once you become friends with Mr. Snowman, return to the bard to finish the quest. He will require the player to type exactly what he sings.",
+      "instruction_sha256": "fe28a7c6851320dc073068f8286eebeda4bb15263c02ccb744c0034a8290764a",
+      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/fe28a7c6851320dc0730/1",
+      "goal": "enter_text",
+      "short_ru": "После дружбы с Mr. Snowman вернитесь к Lalo и точно повторите его текущую песню.",
+      "short_en": "After befriending Mr. Snowman, return to Lalo and exactly copy his current song.",
+      "full_ru": "Подружившись с Mr. Snowman, вернитесь к барду для завершения квеста. Он попросит в точности напечатать то, что споёт.",
+      "full_en": "Once you become friends with Mr. Snowman, return to the bard to finish the quest. He will require the player to type exactly what he sings.",
+      "npcs": [
+        {
+          "entity": "Lalo",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "befriend_snowman",
+          "condition": "Complete the friendship task; source corequisite is Snowysnow Quest."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "copy_live_lyrics",
+          "entity": "Lalo",
+          "condition": "Copy exactly the song shown in the current dialogue. This guide provides no static lyrics/answers."
+        }
+      ],
+      "protected_names": [
+        "Mr. Snowman"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "After successfully copying the bard's lyrics, he will change your job to Bard . Upon job change, the bard offers to give you a weapon if you have 60 trunks. Each type of trunk gives the player a different weapon. | Trunk : Violin | Solid Trunk or Barren Trunk : Mandolin | Fine Trunk : Lute | Fine Trunk + Job Level 50 : Harp",
+      "instruction_sha256": "9a199afff6667f9c3363ed335f29309681e8b2850d178713432e5efeb42eefca",
+      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/9a199afff6667f9c3363/1",
+      "goal": "job_change",
+      "short_ru": "Станьте Bard; при желании обменяйте 60 стволов на соответствующий инструмент.",
+      "short_en": "Become a Bard; optionally exchange 60 trunks for the corresponding instrument.",
+      "full_ru": "Правильно повторив текст песни, вы смените профессию на Bard. При смене профессии бард также предлагает оружие, если у вас есть 60 стволов. Вид награды зависит от вида стволов: Trunk — Violin; Solid Trunk или Barren Trunk — Mandolin; Fine Trunk — Lute; Fine Trunk и Job Level 50 — Harp.",
+      "full_en": "After successfully copying the bard's lyrics, he will change your job to Bard . Upon job change, the bard offers to give you a weapon if you have 60 trunks. Each type of trunk gives the player a different weapon. | Trunk : Violin | Solid Trunk or Barren Trunk : Mandolin | Fine Trunk : Lute | Fine Trunk + Job Level 50 : Harp",
+      "npcs": [
+        {
+          "entity": "Lalo",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Find the Roaming Bard, Lalo, who is at (226,123) on the Comodo town map. This is a short distance from the bottom right of the Kafra. After a short conversation with the bard he will request that the player brings him a flower. The flower must be one of the following: | Hinalle | Ment | Aloe | Illusion Flower | Witherless Rose | Singing Flower | Izidor | Frozen Rose"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Bard"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "change_job",
+          "entity": "Lalo"
+        }
+      ],
+      "protected_names": [
+        "Trunk",
+        "Solid Trunk",
+        "Barren Trunk",
+        "Fine Trunk",
+        "Violin",
+        "Mandolin",
+        "Lute",
+        "Harp"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "instrument_0",
+          "choice_group": "optional_instrument",
+          "variant_scope": "irowiki-classic",
+          "condition": "Optional weapon offer: 60 Trunk. Choose this trunk type only.",
+          "section": "",
+          "source_step": 4,
+          "original_instruction": "Trunk : Violin",
+          "instruction_sha256": "32fadd9bfdb4311b2dba087e2b792d7c352b9038dfb1a32fb78735d8274a3268",
+          "short_ru": "По желанию: 60 Trunk → Violin.",
+          "short_en": "Optional: 60 Trunk → Violin.",
+          "full_ru": "Trunk — Violin.",
+          "full_en": "Trunk : Violin",
+          "protected_names": [
+            "Trunk",
+            "Violin"
+          ],
+          "items": [
+            {
+              "entity": "Trunk",
+              "quantity": 60,
+              "operation": "deliver",
+              "required": 1,
+              "support_step": 4,
+              "evidence": "After successfully copying the bard's lyrics, he will change your job to Bard . Upon job change, the bard offers to give you a weapon if you have 60 trunks. Each type of trunk gives the player a different weapon. | Trunk : Violin | Solid Trunk or Barren Trunk : Mandolin | Fine Trunk : Lute | Fine Trunk + Job Level 50 : Harp",
+              "condition": "Optional weapon offer: 60 Trunk. Choose this trunk type only."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Violin",
+              "condition": "Optional weapon offer: 60 Trunk. Choose this trunk type only."
+            }
+          ],
+          "requirements": []
+        },
+        {
+          "key": "instrument_1",
+          "choice_group": "optional_instrument",
+          "variant_scope": "irowiki-classic",
+          "condition": "Optional weapon offer: 60 Solid Trunk. Choose this trunk type only.",
+          "section": "",
+          "source_step": 4,
+          "original_instruction": "Solid Trunk or Barren Trunk : Mandolin",
+          "instruction_sha256": "5609e86906b068a707990f2057ccbd615e02d65d68409047c10c2777afffd0ed",
+          "short_ru": "По желанию: 60 Solid Trunk → Mandolin.",
+          "short_en": "Optional: 60 Solid Trunk → Mandolin.",
+          "full_ru": "Solid Trunk или Barren Trunk — Mandolin.",
+          "full_en": "Solid Trunk or Barren Trunk : Mandolin",
+          "protected_names": [
+            "Trunk",
+            "Solid Trunk",
+            "Barren Trunk",
+            "Mandolin"
+          ],
+          "items": [
+            {
+              "entity": "Solid Trunk",
+              "quantity": 60,
+              "operation": "deliver",
+              "required": 1,
+              "support_step": 4,
+              "evidence": "After successfully copying the bard's lyrics, he will change your job to Bard . Upon job change, the bard offers to give you a weapon if you have 60 trunks. Each type of trunk gives the player a different weapon. | Trunk : Violin | Solid Trunk or Barren Trunk : Mandolin | Fine Trunk : Lute | Fine Trunk + Job Level 50 : Harp",
+              "condition": "Optional weapon offer: 60 Solid Trunk. Choose this trunk type only."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Mandolin",
+              "condition": "Optional weapon offer: 60 Solid Trunk. Choose this trunk type only."
+            }
+          ],
+          "requirements": []
+        },
+        {
+          "key": "instrument_2",
+          "choice_group": "optional_instrument",
+          "variant_scope": "irowiki-classic",
+          "condition": "Optional weapon offer: 60 Barren Trunk. Choose this trunk type only.",
+          "section": "",
+          "source_step": 4,
+          "original_instruction": "Solid Trunk or Barren Trunk : Mandolin",
+          "instruction_sha256": "5609e86906b068a707990f2057ccbd615e02d65d68409047c10c2777afffd0ed",
+          "short_ru": "По желанию: 60 Barren Trunk → Mandolin.",
+          "short_en": "Optional: 60 Barren Trunk → Mandolin.",
+          "full_ru": "Solid Trunk или Barren Trunk — Mandolin.",
+          "full_en": "Solid Trunk or Barren Trunk : Mandolin",
+          "protected_names": [
+            "Trunk",
+            "Solid Trunk",
+            "Barren Trunk",
+            "Mandolin"
+          ],
+          "items": [
+            {
+              "entity": "Barren Trunk",
+              "quantity": 60,
+              "operation": "deliver",
+              "required": 1,
+              "support_step": 4,
+              "evidence": "After successfully copying the bard's lyrics, he will change your job to Bard . Upon job change, the bard offers to give you a weapon if you have 60 trunks. Each type of trunk gives the player a different weapon. | Trunk : Violin | Solid Trunk or Barren Trunk : Mandolin | Fine Trunk : Lute | Fine Trunk + Job Level 50 : Harp",
+              "condition": "Optional weapon offer: 60 Barren Trunk. Choose this trunk type only."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Mandolin",
+              "condition": "Optional weapon offer: 60 Barren Trunk. Choose this trunk type only."
+            }
+          ],
+          "requirements": []
+        },
+        {
+          "key": "instrument_3",
+          "choice_group": "optional_instrument",
+          "variant_scope": "irowiki-classic",
+          "condition": "Optional weapon offer: 60 Fine Trunk. General Fine Trunk row; source separately selects Harp at Job Level 50, so do not stack both rewards.",
+          "section": "",
+          "source_step": 4,
+          "original_instruction": "Fine Trunk : Lute",
+          "instruction_sha256": "854348b6934775585d62e55d968061343ed649cba0f89d30966079f3f80e6a77",
+          "short_ru": "По желанию: 60 Fine Trunk → Lute.",
+          "short_en": "Optional: 60 Fine Trunk → Lute.",
+          "full_ru": "Fine Trunk — Lute.",
+          "full_en": "Fine Trunk : Lute",
+          "protected_names": [
+            "Trunk",
+            "Fine Trunk",
+            "Lute"
+          ],
+          "items": [
+            {
+              "entity": "Fine Trunk",
+              "quantity": 60,
+              "operation": "deliver",
+              "required": 1,
+              "support_step": 4,
+              "evidence": "After successfully copying the bard's lyrics, he will change your job to Bard . Upon job change, the bard offers to give you a weapon if you have 60 trunks. Each type of trunk gives the player a different weapon. | Trunk : Violin | Solid Trunk or Barren Trunk : Mandolin | Fine Trunk : Lute | Fine Trunk + Job Level 50 : Harp",
+              "condition": "Optional weapon offer: 60 Fine Trunk. General Fine Trunk row; source separately selects Harp at Job Level 50, so do not stack both rewards."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Lute",
+              "condition": "Optional weapon offer: 60 Fine Trunk. General Fine Trunk row; source separately selects Harp at Job Level 50, so do not stack both rewards."
+            }
+          ],
+          "requirements": []
+        },
+        {
+          "key": "instrument_4",
+          "choice_group": "optional_instrument",
+          "variant_scope": "irowiki-classic",
+          "condition": "Optional weapon offer: 60 Fine Trunk. Job Level 50 explicitly selects Harp.",
+          "section": "",
+          "source_step": 4,
+          "original_instruction": "Fine Trunk + Job Level 50 : Harp",
+          "instruction_sha256": "aabe1f6fe53166f9560498a8e579e8f86b780e84802abfb0819fed47f0c43a53",
+          "short_ru": "По желанию: 60 Fine Trunk → Harp.",
+          "short_en": "Optional: 60 Fine Trunk → Harp.",
+          "full_ru": "Fine Trunk и Job Level 50 — Harp.",
+          "full_en": "Fine Trunk + Job Level 50 : Harp",
+          "protected_names": [
+            "Trunk",
+            "Fine Trunk",
+            "Harp"
+          ],
+          "items": [
+            {
+              "entity": "Fine Trunk",
+              "quantity": 60,
+              "operation": "deliver",
+              "required": 1,
+              "support_step": 4,
+              "evidence": "After successfully copying the bard's lyrics, he will change your job to Bard . Upon job change, the bard offers to give you a weapon if you have 60 trunks. Each type of trunk gives the player a different weapon. | Trunk : Violin | Solid Trunk or Barren Trunk : Mandolin | Fine Trunk : Lute | Fine Trunk + Job Level 50 : Harp",
+              "condition": "Optional weapon offer: 60 Fine Trunk. Job Level 50 explicitly selects Harp."
+            }
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Harp",
+              "condition": "Optional weapon offer: 60 Fine Trunk. Job Level 50 explicitly selects Harp."
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "job_level",
+              "amount": "50"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "bard_job_live_lyrics",
+      "detail": "The guide requires exact copying but prints no lyrics or literal menu answers. No answers from Geffen or another source are transplanted."
+    },
+    {
+      "reason": "bard_job_corequisite_and_costs",
+      "detail": "Snowysnow is explicitly a corequisite, not a reversed prerequisite. Sticky Mucus/Squid Ink remain header summaries without a fabricated second delivery to Lalo. Snowman identity is scoped to this guide."
+    },
+    {
+      "reason": "bard_job_optional_instruments",
+      "detail": "The job change does not require 60 trunks. Five conditional offers retain separate trunk identities; Fine Trunk at Job Level 50 selects Harp rather than stacking Lute and Harp. Harp ID 1910 comes from this guide HTML link."
+    },
+    {
+      "reason": "bard_job_flower_choice",
+      "detail": "One of eight flowers is required; the category has no guessed game ID. Comodo coordinates have no inferred map code/interior coordinate."
+    }
+  ],
+  "relations": [
+    {
+      "kind": "source_corequisite",
+      "related_quest_id": "irowiki-classic:Snowysnow_Quest"
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Archer",
+        "source_section": "requirements",
+        "evidence": "Class: Archer"
+      },
+      {
+        "kind": "corequisite_item_summary",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Sticky Mucus",
+        "entity": "Sticky Mucus",
+        "condition": "Header cost associated with the Snowysnow corequisite; no additional hand-in to Lalo is stated."
+      },
+      {
+        "kind": "corequisite_item_summary",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Squid Ink",
+        "entity": "Squid Ink",
+        "condition": "Header cost associated with the Snowysnow corequisite; no additional hand-in to Lalo is stated."
+      }
+    ]
+  }
+}

@@ -16,11 +16,11 @@ reference pages and unreviewed candidates; 216 is not a count of independently
 verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
-generator **semantic-5.6.0**. All four description fields are populated for
-**892 steps across 67 curated guides**, up from the previous 64-guide/846-step
-checkpoint. **92 conditional branches** also have independent RU/EN short and
-full descriptions. Twelve quest routes represent four exclusive expedition/lyric paths
-and eight conditional/optional activities. **1,858 steps in 149 remaining catalog entries still lack
+generator **semantic-5.7.0**. All four description fields are populated for
+**915 steps across 70 curated guides**, up from the previous 67-guide/892-step
+checkpoint. **114 conditional branches** also have independent RU/EN short and
+full descriptions. Fifteen quest routes represent six exclusive expedition/lyric paths
+and nine conditional/optional activities. **1,835 steps in 146 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -92,6 +92,9 @@ complete localization/context analysis.** `complete` remains false.
 | Juperos Ruins History Quest | 9 | Four distinct plate colors versus one example ID; homonymous books; uncertain per-plate EXP and box variant |
 | Finding The Moving Island Quest | 15 | Separate repair/crafting sets; manual ship kills; literal PST windows; optional mastery; three reward outcomes |
 | Eye of Hellion Quest | 22 | Actual received code; one reused gem; four tablets; optional cave; already-held-eye exception; source actor uncertainty |
+| Geffen Bard Quest | 13 | Optional author discovery; exclusive book/letter paths; nine letter-only EXP bands; uncertain Magnifier consumption |
+| Bard Job Change Guide | 4 | Eight alternative flowers; Snowysnow corequisite; live song copying; five optional trunk/instrument offers |
+| Bard Skill Quest | 6 | Geffen completion gate at Riott; positional answers; five-egg total and ordered pursuit cycle; unknown item IDs |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -100,8 +103,37 @@ verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
 
-- Three access/exploration guides preserve all 46 original stages. Coverage is
-  now 892 stages / 67 guides, with 92 localized branches and twelve routes.
+- Three Bard-related guides preserve all 23 original stages. Coverage is now
+  915 stages / 70 guides, 114 localized branches and fifteen routes. All prior
+  892 localized descriptions, 92 branches and original step IDs remain unchanged.
+  Semantic schema stays 5; generator is semantic-5.7.0.
+- Geffen separates optional author discovery from two exclusive completion paths.
+  The nine level EXP bands belong to the letter path; the book payout stays NULL.
+  Hand/back marks are not fabricated inventory items. Exact typed inputs/menu
+  answers retain punctuation; the displayed book lyric is not a proven answer.
+  Magnifier header consumption conflicts with the possible inventory-drop note,
+  so it is a source-cost summary rather than a shared fixed charge.
+- Bard Job Change requires one of eight flowers, not all eight. Snowysnow has a
+  literal `source_corequisite` relation, not an inferred reversed prerequisite.
+  Header mucus/ink costs are summaries, not another hand-in to Lalo. Copy the
+  live song: the source prints no static answer. Five optional 60-trunk offers
+  have separate item identities; the Job Level 50 Fine Trunk offer uses linked
+  Harp ID 1910 and does not stack with the general Lute offer.
+- Pang Voice has its Geffen completion gate at Riott's stage 3, permitting the
+  earlier drink conversations. Positional choices remain second then first.
+  Five eggs is one collection goal, not a kill quota or per-attempt yield. Five
+  pursuit points retain the printed cycle with unknown starting point; final
+  egg removal, item IDs, price, map codes and skill ID are not invented.
+- Alternative routes can use `choice_evidence` plus `source_step` for a literal
+  same-guide choice proof. This is distinct from optional `source_evidence`;
+  conflicting proofs and wrong route kinds fail without replacing a valid export.
+  A single corequisite must exactly match its source header and target title;
+  corrupted stored relations also fail validation.
+
+Earlier source-review checkpoints:
+
+- Three access/exploration guides preserved all 46 original stages. Coverage was
+  892 stages / 67 guides, with 92 localized branches and twelve routes.
   Earlier 846 localized descriptions, 87 branches and all original step IDs
   remain unchanged. Semantic schema remains 5; generator is semantic-5.6.0.
 - Juperos has four distinct Book identities at their printed points. The plate
@@ -584,7 +616,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **232 tests passed**; complete offline enrichment passed;
+Validated locally: **242 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -648,7 +680,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 ## Next work, in order
 
-1. Review the remaining 149 catalog candidates, separating reference pages,
+1. Review the remaining 146 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

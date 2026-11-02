@@ -251,16 +251,16 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],892)
-        self.assertEqual(self.report['not_fully_localized_steps'],1858)
+        self.assertEqual(self.report['fully_localized_steps'],915)
+        self.assertEqual(self.report['not_fully_localized_steps'],1835)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],892)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],915)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1858)
-        self.assertEqual(self.report['fully_localized_branches'],92)
-        self.assertEqual(self.report['curated_quests'],67)
-        self.assertEqual(self.report['pending_quests'],149)
-        self.assertEqual(self.report['quest_routes'],12)
+        self.assertEqual(missing,1835)
+        self.assertEqual(self.report['fully_localized_branches'],114)
+        self.assertEqual(self.report['curated_quests'],70)
+        self.assertEqual(self.report['pending_quests'],146)
+        self.assertEqual(self.report['quest_routes'],15)
         self.assertEqual(self.report['source_additions'],13)
         self.assertEqual(self.report['action_reuse_links'],5)
 
@@ -398,6 +398,96 @@ class RealCorpusTests(unittest.TestCase):
             destination=self.out/'quest_semantic.sqlite';before=destination.read_bytes()
             with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid optional route context proof'):build(self.source,self.out,curation_dir=folder)
             self.assertEqual(destination.read_bytes(),before)
+
+    def test_geffen_bard_route_choices_and_discovery_shortcut_are_separate(self):
+        q='irowiki-classic:Geffen_Bard_Quest'
+        actual={}
+        for r in self.db.execute('SELECT route_id,route_key,kind,choice_group,e.method FROM quest_routes JOIN evidence e USING(evidence_id) WHERE quest_routes.quest_id=?',(q,)):
+            members=[x[0] for x in self.db.execute('SELECT s.step_order FROM step_routes m JOIN quest_steps s USING(step_id) WHERE m.route_id=? ORDER BY m.route_order',(r[0],))]
+            actual[r[1]]=(r[2],r[3],r[4],members)
+        self.assertEqual(actual,{'learn_author':('optional',None,'source_optional_activity_context',[4,5]),'read_book':('alternative','lyrics_solution','source_alternative_activity_context',[10,11]),'kino_letter':('alternative','lyrics_solution','source_alternative_activity_context',[12,13])})
+
+    def test_geffen_bard_exact_inputs_do_not_turn_book_lyric_into_an_answer(self):
+        opts=[tuple(r) for r in self.db.execute('''SELECT s.step_order,o.exact_text,o.operation FROM dialogue_options o JOIN step_dialogues sd USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id='irowiki-classic:Geffen_Bard_Quest' ORDER BY s.step_order,o.option_order''')]
+        self.assertEqual(opts,[(1,'Sure, no problem.','choose'),(2,'At One, I Fall in Love','enter_text'),(2,'Minty Errende','enter_text'),(3,'Kino Kitty','answer_unspecified_input'),(5,'Kino Kitty','enter_text'),(5,'I can, so stop crying.','choose'),(7,'Sorry for interrupting,','choose'),(7,"I'm looking for Kino Kitty.",'choose')])
+        self.assertFalse(any("At Eight" in r[1] for r in opts))
+
+    def test_geffen_bard_exp_bands_belong_only_to_letter_route(self):
+        rows=[tuple(r) for r in self.db.execute('''SELECT s.step_order,r.amount,b.choice_group FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s USING(step_id) LEFT JOIN step_branches b ON b.branch_id=r.branch_id
+          WHERE r.quest_id='irowiki-classic:Geffen_Bard_Quest' AND r.kind='base_exp' ORDER BY s.step_order,CAST(r.amount AS INTEGER)''')]
+        self.assertEqual(rows,[(11,None,None)]+[(13,str(n),'letter_level_reward') for n in [4500,5500,9684,13411,35757,60246,70340,92052,156786]])
+        magnifier=self.db.execute('''SELECT i.quantity,i.operation,i.required FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id='irowiki-classic:Geffen_Bard_Quest' AND x.game_id=611''').fetchall()
+        self.assertEqual([tuple(r) for r in magnifier],[(None,'mention',0)])
+
+    def test_bard_job_flower_is_one_of_eight_not_eight_mandatory_costs(self):
+        flowers=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity,i.operation,b.choice_group FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id='irowiki-classic:Bard_Job_Change_Guide' AND s.step_order=1 ORDER BY x.game_id''')]
+        self.assertEqual(flowers,[(n,1,'bring','flower_choice') for n in sorted([703,708,704,710,748,629,709,749])])
+        shared=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id='irowiki-classic:Bard_Job_Change_Guide' AND i.branch_id IS NULL''')]
+        self.assertEqual(shared,[(None,1,'deliver')])
+
+    def test_bard_job_optional_trunks_and_harp_keep_exact_item_identity(self):
+        offers=[tuple(r) for r in self.db.execute('''SELECT material.game_id,i.quantity,instrument.game_id,r.amount FROM step_items i JOIN step_branches b USING(branch_id)
+          JOIN items material ON material.entity_id=i.item_id JOIN rewards r ON r.branch_id=b.branch_id JOIN items instrument ON instrument.entity_id=r.item_id
+          JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id='irowiki-classic:Bard_Job_Change_Guide' AND b.choice_group='optional_instrument' ORDER BY b.branch_key''')]
+        self.assertEqual(offers,[(1019,60,1901,'1'),(1067,60,1903,'1'),(1068,60,1903,'1'),(1066,60,1905,'1'),(1066,60,1910,'1')])
+        job=self.db.execute("SELECT amount,branch_id FROM rewards WHERE quest_id='irowiki-classic:Bard_Job_Change_Guide' AND kind='job_change'").fetchone()
+        self.assertEqual(tuple(job),('Bard',None))
+        self.assertFalse(self.db.execute("SELECT 1 FROM dialogue_options o JOIN step_dialogues sd USING(dialogue_id) JOIN quest_steps s USING(step_id) WHERE s.quest_id='irowiki-classic:Bard_Job_Change_Guide'").fetchone())
+
+    def test_bard_job_snowysnow_is_corequisite_with_literal_header_proof(self):
+        rows=[tuple(r) for r in self.db.execute('''SELECT r.related_id,r.kind,e.snippet,e.method FROM quest_relations r JOIN evidence e USING(evidence_id)
+          WHERE r.quest_id='irowiki-classic:Bard_Job_Change_Guide' AND r.kind='source_corequisite' ''')]
+        self.assertEqual(rows,[('irowiki-classic:Snowysnow_Quest','source_corequisite','Quest Corequisite(s): Snowysnow Quest','curated_single_corequisite')])
+        with tempfile.TemporaryDirectory() as tmp:
+            copy=sqlite3.connect(Path(tmp)/'corequisite.sqlite');self.db.backup(copy)
+            copy.execute("UPDATE quest_relations SET related_id='irowiki-classic:Geffen_Bard_Quest' WHERE kind='source_corequisite'")
+            with self.assertRaisesRegex(ValueError,'invalid_source_corequisite'):validate(copy)
+            copy.close()
+
+    def test_pang_voice_gate_is_at_riott_not_the_earlier_drink_stages(self):
+        row=self.db.execute('''SELECT r.related_id,e.method,s.step_order FROM quest_relations r JOIN evidence e USING(evidence_id)
+          JOIN quest_steps s ON s.step_id=e.step_id WHERE r.quest_id='irowiki-classic:Bard_Skill_Quest' AND r.kind='completion_required_at_step' ''').fetchone()
+        self.assertEqual(tuple(row),('irowiki-classic:Geffen_Bard_Quest','curated_quest_relation',3))
+        positions={r[0] for r in self.db.execute("SELECT amount FROM requirements WHERE quest_id='irowiki-classic:Bard_Skill_Quest' AND kind='dialogue_option_position'")}
+        self.assertEqual(positions,{'2','1'})
+        ordered=[r[0] for r in self.db.execute("SELECT condition_text FROM step_actions a JOIN quest_steps s USING(step_id) WHERE s.quest_id='irowiki-classic:Bard_Skill_Quest' AND s.step_order=1 ORDER BY a.action_order")]
+        self.assertTrue(ordered[0].startswith('second option'));self.assertTrue(ordered[1].startswith('first option'))
+        self.assertFalse(self.db.execute("SELECT 1 FROM dialogue_options o JOIN step_dialogues sd USING(dialogue_id) JOIN quest_steps s USING(step_id) WHERE s.quest_id='irowiki-classic:Bard_Skill_Quest'").fetchone())
+
+    def test_pang_voice_chicken_cycle_is_collection_without_invented_ids_or_kills(self):
+        points=[tuple(r) for r in self.db.execute('''SELECT l.x,l.y,l.map_id FROM step_locations sl JOIN locations l USING(location_id) JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id='irowiki-classic:Bard_Skill_Quest' AND s.step_order=5 ORDER BY sl.location_order''')]
+        self.assertEqual([(r[0],r[1]) for r in points],[(239,68),(186,204),(83,204),(147,81),(211,143)])
+        self.assertTrue(all(self.db.execute('SELECT map_code FROM maps WHERE entity_id=?',(r[2],)).fetchone()[0] is None for r in points))
+        self.assertFalse(self.db.execute("SELECT 1 FROM step_monsters m JOIN quest_steps s USING(step_id) WHERE s.quest_id='irowiki-classic:Bard_Skill_Quest'").fetchone())
+        eggs=[tuple(r) for r in self.db.execute('''SELECT s.step_order,i.quantity,i.operation,x.game_id FROM step_items i JOIN items x ON x.entity_id=i.item_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id='irowiki-classic:Bard_Skill_Quest' AND s.step_order>=4 ORDER BY s.step_order''')]
+        self.assertEqual(eggs,[(4,5,'collect',None),(5,5,'collect',None)])
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id='irowiki-classic:Bard_Skill_Quest' AND kind='skill_unlock'").fetchone()[0],'Pang Voice')
+
+    def test_alternative_route_context_proof_corruption_fails_atomically(self):
+        original=json.loads((ROOT/'curation/Geffen_Bard_Quest.json').read_text())
+        cases=[('nonliteral',{'choice_evidence':'invented choice'}),('missing_step',{'source_step':999}),('optional',{'kind':'optional','choice_group':None}),('conflict',{'source_evidence':'book'})]
+        for name,changes in cases:
+            folder=self.out/('invalid-alternative-proof-'+name);shutil.copytree(ROOT/'curation',folder)
+            data=json.loads(json.dumps(original));data['routes'][1].update(changes)
+            (folder/'Geffen_Bard_Quest.json').write_text(json.dumps(data))
+            before=(self.out/'quest_semantic.sqlite').read_bytes()
+            with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid alternative route context proof|Conflicting route context proofs'):build(self.source,self.out,curation_dir=folder)
+            self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
+
+    def test_corequisite_header_cannot_be_replaced_with_another_quest(self):
+        folder=self.out/'invalid-corequisite-header';shutil.copytree(ROOT/'curation',folder)
+        path=folder/'Bard_Job_Change_Guide.json';data=json.loads(path.read_text())
+        data['relations'][0]['related_quest_id']='irowiki-classic:Geffen_Bard_Quest';path.write_text(json.dumps(data))
+        before=(self.out/'quest_semantic.sqlite').read_bytes()
+        with self.assertRaisesRegex(ValueError,'Header does not establish a single corequisite'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
 
     def test_snowysnow_bard_house_is_conditional_and_only_first_answer_is_literal(self):
         q='irowiki-classic:Snowysnow_Quest'

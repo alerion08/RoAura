@@ -93,6 +93,25 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   membership evidence links each member to that proof. Eye of Hellion's later
   skip-the-cave clause governs steps 19/20. This is reviewed source context,
   not a simulated state transition or automatic completion evaluator.
+- Alternative routes may use `choice_evidence` plus `source_step` for an
+  explicit literal same-guide choice clause. Evidence method is
+  `source_alternative_activity_context`. This form is only for alternatives;
+  optional `source_evidence` remains optional-only. Conflicting proof forms fail.
+  Geffen's book and letter paths are exclusive: its printed level reward table
+  belongs to the letter path, while the book path retains an unknown EXP amount.
+- `source_corequisite` is distinct from prerequisite/completion relations. Its
+  exact target title must be the single `Quest Corequisite(s):` header value,
+  with evidence method `curated_single_corequisite`. Bard Job Change links
+  Snowysnow this way. Header `corequisite_item_summary` and
+  `source_item_cost_summary` facts must not be charged again as stage costs.
+  Eight flowers are alternatives; the 60-trunk weapon offers are optional and
+  do not gate the Bard job change. Dynamic lyrics are not static exact answers.
+- Pang Voice's `completion_required_at_step` is backed by Riott's stage-3
+  instruction; earlier drink stages remain possible. Positional answers have
+  typed `dialogue_option_position` requirements without invented literal labels.
+  Five eggs is a shared collection goal across request/collection steps, not
+  ten items, five per attempt, or a monster kill quota. The five map points
+  form a cycle with unknown starting point; final egg consumption is unproven.
 - `step_locations.location_order` is a reviewed visit sequence when present,
   not an ordering inferred automatically from every textual occurrence.
   NULL means no established sequence. `condition_text` identifies alternative

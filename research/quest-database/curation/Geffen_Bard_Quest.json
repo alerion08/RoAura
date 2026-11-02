@@ -1,0 +1,901 @@
+{
+  "quest_id": "irowiki-classic:Geffen_Bard_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "febf5ba794ba0e25f87b781dabe3fc87fb831ee771c8b4e68ce0a8c40b9c6b31",
+  "snapshot_sha256": "be51f356554b62fef4112dc163c7e431c2d17e46386dec347ac85aefb3eb500a",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Minty Errende",
+      "aliases": [
+        "Mint Errende",
+        "Minty",
+        "Errende"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Gunther Doubleharmony",
+      "aliases": [
+        "Doubleharmony"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Kino Kitty"
+    },
+    {
+      "type": "npc",
+      "name": "Representative"
+    },
+    {
+      "type": "npc",
+      "name": "Old Book"
+    },
+    {
+      "type": "npc",
+      "name": "Mr Sketzi",
+      "aliases": [
+        "Mr. Sketzi"
+      ]
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "Juno"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "item",
+      "name": "Magnifier",
+      "game_id": 611,
+      "id_source": "http://db.irowiki.org/classic/item-info/611/"
+    },
+    {
+      "type": "item",
+      "name": "letter",
+      "identity": "irowiki-classic:Geffen_Bard_Quest:source_item:letter"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Go to the bard in Geffen , just east of the spawn point (132, 38). Ask him to play a song. When he asks what kind, choose upbeat song. He'll sing the song, but then will say that he forgot one line (Note: you may have to ask him many times since it is random). Eventually, he'll ask you for help. Choose \"Sure, no problem.\" He'll tell you to find Gunther Doubleharmony and tell him that Minty Errende forgot the line of the song \"At One, I Fall in Love,\" and the line is called the \"Eighth Love.\" Talk to him again and he'll tell you that he's lost his heart to sing.",
+      "instruction_sha256": "b6c31733f8967c7b8e3094c699d6eee4b2c172fc14eb40ff722d1dd3eb9b4ac9",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/b6c31733f8967c7b8e30/1",
+      "goal": "repeat_talk",
+      "short_ru": "Просите Minty Errende в Geffen (132, 38) о песне до просьбы помочь; выберите «Sure, no problem.».",
+      "short_en": "Ask Minty Errende in Geffen (132, 38) for the song until he requests help; choose “Sure, no problem.”.",
+      "full_ru": "В Geffen найдите барда к востоку от точки появления (132, 38) и попросите сыграть живую песню — upbeat song. Он споёт, но скажет, что забыл строку; из-за случайности, возможно, придётся просить многократно. Когда он попросит помощи, выберите «Sure, no problem.». Найдите Gunther Doubleharmony и передайте, что Minty Errende забыл строку «Eighth Love» из «At One, I Fall in Love». Поговорите с ним ещё раз: он скажет, что потерял желание петь.",
+      "full_en": "Go to the bard in Geffen , just east of the spawn point (132, 38). Ask him to play a song. When he asks what kind, choose upbeat song. He'll sing the song, but then will say that he forgot one line (Note: you may have to ask him many times since it is random). Eventually, he'll ask you for help. Choose \"Sure, no problem.\" He'll tell you to find Gunther Doubleharmony and tell him that Minty Errende forgot the line of the song \"At One, I Fall in Love,\" and the line is called the \"Eighth Love.\" Talk to him again and he'll tell you that he's lost his heart to sing.",
+      "npcs": [
+        {
+          "entity": "Minty Errende",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Minty Errende",
+          "options": [
+            {
+              "text": "Sure, no problem.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_upbeat_song",
+          "entity": "Minty Errende",
+          "condition": "Source describes the song style without a confirmed literal menu label; repeat count is random/unknown."
+        },
+        {
+          "operation": "accept_help",
+          "entity": "Minty Errende"
+        }
+      ],
+      "protected_names": [
+        "Minty Errende",
+        "Gunther Doubleharmony",
+        "Geffen"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 132,
+          "y": 38,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "132, 38"
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Go to Payon town and find Gunther Doubleharmony at (180, 172). He'll ask you to type in the name of the song exactly (At One, I Fall in Love) and who sent you to ask (Minty Errende). He'll then scribble something on your back.",
+      "instruction_sha256": "928702f4ae1b3567c42a245eb864d09372ac5ca3d291e52751e8ba1ef1e08564",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/928702f4ae1b3567c42a/1",
+      "goal": "enter_text",
+      "short_ru": "У Gunther Doubleharmony в Payon (180, 172) введите At One, I Fall in Love и Minty Errende.",
+      "short_en": "At Gunther Doubleharmony in Payon (180, 172), type At One, I Fall in Love and Minty Errende.",
+      "full_ru": "В Payon найдите Gunther Doubleharmony (180, 172). Он попросит точно ввести название песни — At One, I Fall in Love — и имя отправителя — Minty Errende. Затем он что-то напишет у вас на спине.",
+      "full_en": "Go to Payon town and find Gunther Doubleharmony at (180, 172). He'll ask you to type in the name of the song exactly (At One, I Fall in Love) and who sent you to ask (Minty Errende). He'll then scribble something on your back.",
+      "npcs": [
+        {
+          "entity": "Gunther Doubleharmony",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Gunther Doubleharmony",
+          "options": [
+            {
+              "text": "At One, I Fall in Love",
+              "correct": 1,
+              "operation": "enter_text"
+            },
+            {
+              "text": "Minty Errende",
+              "correct": 1,
+              "operation": "enter_text"
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_song_title",
+          "entity": "Gunther Doubleharmony"
+        },
+        {
+          "operation": "enter_sender",
+          "entity": "Gunther Doubleharmony"
+        },
+        {
+          "operation": "receive_back_mark",
+          "condition": "Writing on the character, not a proven inventory document."
+        }
+      ],
+      "protected_names": [
+        "Minty Errende",
+        "Gunther Doubleharmony",
+        "Payon"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 180,
+          "y": 172,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "180, 172"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Go back to Minty Errende in Geffen, and he'll say the lyric was changed, and can't remember who changed it. He'll ask you for the lyric, but you don't have it yet. (When prompted to answer who changed the lyrics, you can answer Kino Kitty. By doing this, instead of directing you back to Doubleharmony, he'll direct you to Kino Kitty and you can skip to step 6).",
+      "instruction_sha256": "733f568d56737253a188c4f7b377479b0cb6d9cab2e602c99b22f0810eb568cb",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/733f568d56737253a188/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Minty Errende; ответ Kino Kitty позволяет перейти к этапу 6.",
+      "short_en": "Return to Minty Errende; answering Kino Kitty lets you skip to step 6.",
+      "full_ru": "Вернитесь к Minty Errende в Geffen. Он скажет, что текст изменили, но не вспомнит автора изменений. Он попросит строку, которой у вас ещё нет. Если на вопрос об авторе ответить Kino Kitty, он направит вас сразу к Kino Kitty вместо Doubleharmony: можно перейти к этапу 6.",
+      "full_en": "Go back to Minty Errende in Geffen, and he'll say the lyric was changed, and can't remember who changed it. He'll ask you for the lyric, but you don't have it yet. (When prompted to answer who changed the lyrics, you can answer Kino Kitty. By doing this, instead of directing you back to Doubleharmony, he'll direct you to Kino Kitty and you can skip to step 6).",
+      "npcs": [
+        {
+          "entity": "Minty Errende",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Minty Errende",
+          "options": [
+            {
+              "text": "Kino Kitty",
+              "correct": 1,
+              "operation": "answer_unspecified_input",
+              "condition": "Optional early author answer, skipping source steps 4/5."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "report",
+          "entity": "Minty Errende"
+        }
+      ],
+      "protected_names": [
+        "Minty Errende",
+        "Kino Kitty",
+        "Geffen"
+      ],
+      "locations": []
+    },
+    "4": {
+      "original_instruction": "Go back to Gunther Doubleharmony in Payon, and he'll tell you that the song was changed by Kino Kitty.",
+      "instruction_sha256": "c64c369925d3e902a2d48fb1925e6c0999264cb6dc32a0ec8682a02e78080964",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/c64c369925d3e902a2d4/1",
+      "goal": "talk",
+      "short_ru": "Спросите Gunther Doubleharmony в Payon об авторе изменений.",
+      "short_en": "Ask Gunther Doubleharmony in Payon who changed the lyrics.",
+      "full_ru": "Вернитесь к Gunther Doubleharmony в Payon: он скажет, что песню изменил Kino Kitty.",
+      "full_en": "Go back to Gunther Doubleharmony in Payon, and he'll tell you that the song was changed by Kino Kitty.",
+      "npcs": [
+        {
+          "entity": "Gunther Doubleharmony",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "ask_about_author",
+          "entity": "Gunther Doubleharmony"
+        }
+      ],
+      "protected_names": [
+        "Gunther Doubleharmony",
+        "Kino Kitty",
+        "Payon"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Go back to Minty Errende, and type in the name of the person who changed the lyrics (Kino Kitty). He'll ask for your help again, choose \"I can, so stop crying.\" He'll then tell you that someone in Juno can help you find Kino Kitty.",
+      "instruction_sha256": "9a090ba6b04c6e525b11385b6da972d211f3bfc9e9f09b0753e99c83dfdab131",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/9a090ba6b04c6e525b11/1",
+      "goal": "enter_text",
+      "short_ru": "У Minty Errende введите Kino Kitty и выберите «I can, so stop crying.».",
+      "short_en": "At Minty Errende, type Kino Kitty and choose “I can, so stop crying.”.",
+      "full_ru": "Вернитесь к Minty Errende и введите имя автора изменений — Kino Kitty. Он снова попросит помощи: выберите «I can, so stop crying.». Затем он расскажет о человеке в Juno, который поможет найти Kino Kitty.",
+      "full_en": "Go back to Minty Errende, and type in the name of the person who changed the lyrics (Kino Kitty). He'll ask for your help again, choose \"I can, so stop crying.\" He'll then tell you that someone in Juno can help you find Kino Kitty.",
+      "npcs": [
+        {
+          "entity": "Minty Errende",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Minty Errende",
+          "options": [
+            {
+              "text": "Kino Kitty",
+              "correct": 1,
+              "operation": "enter_text"
+            },
+            {
+              "text": "I can, so stop crying.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_author",
+          "entity": "Minty Errende"
+        },
+        {
+          "operation": "agree_to_help",
+          "entity": "Minty Errende"
+        }
+      ],
+      "protected_names": [
+        "Minty Errende",
+        "Kino Kitty",
+        "Juno"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Go to Juno (93, 180) west of the central circle and enter the building there. Speak to \"Representative\" and he'll tell you that Kino Kitty is in Morroc .",
+      "instruction_sha256": "566df87a6a77feadcc802f6c6117e41b1a77436bc2afa4898f8fb5867cb6a2d2",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/566df87a6a77feadcc80/1",
+      "goal": "talk",
+      "short_ru": "Войдите в здание Juno (93, 180) и поговорите с Representative.",
+      "short_en": "Enter the Juno building (93, 180) and talk to Representative.",
+      "full_ru": "В Juno войдите в здание к западу от центрального круга (93, 180). Поговорите с Representative: он скажет, что Kino Kitty находится в Morroc.",
+      "full_en": "Go to Juno (93, 180) west of the central circle and enter the building there. Speak to \"Representative\" and he'll tell you that Kino Kitty is in Morroc .",
+      "npcs": [
+        {
+          "entity": "Representative",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_building"
+        },
+        {
+          "operation": "talk",
+          "entity": "Representative"
+        }
+      ],
+      "locations": [
+        {
+          "x": 93,
+          "y": 180,
+          "role": "entrance",
+          "known": false
+        }
+      ],
+      "protected_names": [
+        "Kino Kitty",
+        "Representative",
+        "Juno",
+        "Morroc"
+      ]
+    },
+    "7": {
+      "original_instruction": "Go to Morroc and Kino Kitty is at (134, 110), standing next to a little girl. Talk to him, and choose \"Sorry for interrupting,\" then \"I'm looking for Kino Kitty.\" He'll tell you that you need a old book of edda for the original lyrics, and that the bookstore is in Juno.",
+      "instruction_sha256": "ca3baf6fa2e656b0f04c3e3d396d9e66656a9babda9324c8358bedb8f4fdf0f2",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/ca3baf6fa2e656b0f04c/1",
+      "goal": "talk",
+      "short_ru": "У Kino Kitty в Morroc (134, 110) выберите «Sorry for interrupting,» затем «I'm looking for Kino Kitty.».",
+      "short_en": "At Kino Kitty in Morroc (134, 110), choose “Sorry for interrupting,” then “I'm looking for Kino Kitty.”.",
+      "full_ru": "В Morroc найдите Kino Kitty (134, 110) рядом с девочкой. Выберите по порядку «Sorry for interrupting,» и «I'm looking for Kino Kitty.». Он объяснит, что исходный текст есть в старой книге edda, а книжный магазин находится в Juno.",
+      "full_en": "Go to Morroc and Kino Kitty is at (134, 110), standing next to a little girl. Talk to him, and choose \"Sorry for interrupting,\" then \"I'm looking for Kino Kitty.\" He'll tell you that you need a old book of edda for the original lyrics, and that the bookstore is in Juno.",
+      "npcs": [
+        {
+          "entity": "Kino Kitty",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Kino Kitty",
+          "options": [
+            {
+              "text": "Sorry for interrupting,",
+              "correct": 1
+            },
+            {
+              "text": "I'm looking for Kino Kitty.",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kino Kitty"
+        }
+      ],
+      "protected_names": [
+        "Kino Kitty",
+        "Juno",
+        "Morroc"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 134,
+          "y": 110,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "134, 110"
+        }
+      ]
+    },
+    "8": {
+      "original_instruction": "Go back to Minty Errende in Geffen, and he'll give you a Seal of Friendship mark on your LEFT hand, and then tell you to go to Mr. Sketzi's bookstore in Juno.",
+      "instruction_sha256": "f1bac7999011037bceb9be5a9687798b203a38bfe578f7e37d1de344528e3b31",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/f1bac7999011037bceb9/1",
+      "goal": "talk",
+      "short_ru": "Получите у Minty Errende Seal of Friendship на LEFT руке и идите к Mr. Sketzi в Juno.",
+      "short_en": "Get Minty Errende's Seal of Friendship on your LEFT hand and go to Mr. Sketzi in Juno.",
+      "full_ru": "Вернитесь к Minty Errende в Geffen. Он поставит Seal of Friendship на вашу LEFT руку и направит в книжный магазин Mr. Sketzi в Juno.",
+      "full_en": "Go back to Minty Errende in Geffen, and he'll give you a Seal of Friendship mark on your LEFT hand, and then tell you to go to Mr. Sketzi's bookstore in Juno.",
+      "npcs": [
+        {
+          "entity": "Minty Errende",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_hand_mark",
+          "amount": "LEFT",
+          "condition": "Seal of Friendship is a mark, not a proven inventory item."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_left_hand_mark",
+          "entity": "Minty Errende"
+        }
+      ],
+      "protected_names": [
+        "Minty Errende",
+        "Geffen",
+        "Juno"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "Go to Juno and Mr Sketzi's bookstore is at (264, 87) a little west of the southeast kafra. Talk to the man behind the counter, and show him your LEFT hand. He'll then let you read the books in the shop. You can have two choices now: read the old book and go to Minty Errende or visit Kino Kitty after talking to Mr Sketzi. Option A : Read the book.",
+      "instruction_sha256": "30dbe53b9e7708bcdde221c20a6ebee69696126c0d8dd39a7cd66538ead80158",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/30dbe53b9e7708bcdde2/1",
+      "goal": "talk",
+      "short_ru": "Покажите Mr Sketzi в Juno (264, 87) LEFT руку и выберите путь: книга или Kino Kitty.",
+      "short_en": "Show Mr Sketzi in Juno (264, 87) your LEFT hand and choose the book or Kino Kitty route.",
+      "full_ru": "В Juno найдите магазин Mr Sketzi (264, 87), чуть западнее юго-восточной kafra. Поговорите с мужчиной за стойкой и покажите LEFT руку. Он разрешит читать книги. Затем можно выбрать: прочитать старую книгу и вернуться к Minty Errende либо после разговора с Mr Sketzi посетить Kino Kitty. Option A: прочитать книгу.",
+      "full_en": "Go to Juno and Mr Sketzi's bookstore is at (264, 87) a little west of the southeast kafra. Talk to the man behind the counter, and show him your LEFT hand. He'll then let you read the books in the shop. You can have two choices now: read the old book and go to Minty Errende or visit Kino Kitty after talking to Mr Sketzi. Option A : Read the book.",
+      "npcs": [
+        {
+          "entity": "Mr Sketzi",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "show_marked_hand",
+          "amount": "LEFT",
+          "condition": "Show the hand marked at stage 8; not an item delivery."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "show_left_hand",
+          "entity": "Mr Sketzi"
+        },
+        {
+          "operation": "choose_lyrics_route"
+        }
+      ],
+      "locations": [
+        {
+          "x": 264,
+          "y": 87,
+          "role": "bookstore_entrance",
+          "known": false
+        }
+      ],
+      "protected_names": [
+        "Minty Errende",
+        "Kino Kitty",
+        "Mr Sketzi",
+        "Juno"
+      ]
+    },
+    "10": {
+      "original_instruction": "Look for the Old Book in the corner and read it. You might want to repeat attempt to read it several times. Upon success, it will tell you the 8th line is \"At Eight, we're both in love.\" Your character will make a note of this. | Note: You may need to drop the Magnifier /s in your inventory so that you can read the Old Book.",
+      "instruction_sha256": "44fdc4e3789ca4e622eb22abfb47ca57a4b74c66ca97cd95dd73a03c219cdcc2",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/44fdc4e3789ca4e622eb/1",
+      "goal": "read",
+      "short_ru": "Прочитайте Old Book и запомните At Eight, we're both in love.; при необходимости уберите Magnifier.",
+      "short_en": "Read Old Book and note At Eight, we're both in love.; remove Magnifier if necessary.",
+      "full_ru": "Найдите Old Book в углу и прочитайте; может потребоваться несколько попыток. При успехе вы узнаете 8-ю строку: «At Eight, we're both in love.». Персонаж запомнит её. Примечание: для чтения Old Book, возможно, придётся выбросить находящиеся в инвентаре Magnifier.",
+      "full_en": "Look for the Old Book in the corner and read it. You might want to repeat attempt to read it several times. Upon success, it will tell you the 8th line is \"At Eight, we're both in love.\" Your character will make a note of this. | Note: You may need to drop the Magnifier /s in your inventory so that you can read the Old Book.",
+      "npcs": [
+        {
+          "entity": "Old Book",
+          "role": "interact"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Magnifier",
+          "quantity": null,
+          "operation": "mention",
+          "required": 0,
+          "condition": "May need to drop held Magnifiers; no guaranteed one-item consumption or mandatory cost on letter route."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_possible_inventory_absence",
+          "entity": "Magnifier",
+          "condition": "Source may require dropping held Magnifiers to read; no fixed count/removal mechanism verified."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Old Book",
+          "options": [],
+          "text": "At Eight, we're both in love."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "repeat_read",
+          "entity": "Old Book"
+        },
+        {
+          "operation": "record_lyric"
+        }
+      ],
+      "protected_names": [
+        "Old Book",
+        "Magnifier"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Go back to Minty Errende in Geffen, and he'll go through his song and give you EXP in exchange for completing the quest. Option B : Visit Kino Kitty.",
+      "instruction_sha256": "57d99078dc0528e103a60cf5f4c9b16a0f6a28b554823716458bad5d9710f6f6",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/57d99078dc0528e103a6/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Minty Errende в Geffen за опытом по книжному пути.",
+      "short_en": "Return to Minty Errende in Geffen for the book-route EXP.",
+      "full_ru": "Вернитесь к Minty Errende в Geffen: он исполнит песню и даст опыт за завершение квеста. Далее в источнике начинается другой путь: Option B — посетить Kino Kitty.",
+      "full_en": "Go back to Minty Errende in Geffen, and he'll go through his song and give you EXP in exchange for completing the quest. Option B : Visit Kino Kitty.",
+      "npcs": [
+        {
+          "entity": "Minty Errende",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "base_exp",
+          "condition": "Book-route amount not stated here; table after letter route is not silently copied."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_book_route_exp",
+          "entity": "Minty Errende"
+        }
+      ],
+      "protected_names": [
+        "Minty Errende",
+        "Kino Kitty",
+        "Geffen"
+      ],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "After Mr Sketzi let you to see the book, just go back to Morroc and talk to Kino Kitty. He will replace Mint Errende's friendship mark with his own and then ask you to deliever letter for Errende.",
+      "instruction_sha256": "1c5bae9ce9b9666cbc95c8b6f1f3e9df62cf1713a35780e0f69c190ec9f8fac0",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/1c5bae9ce9b9666cbc95/1",
+      "goal": "talk",
+      "short_ru": "Посетите Kino Kitty в Morroc и возьмите letter для Errende.",
+      "short_en": "Visit Kino Kitty in Morroc and take the letter for Errende.",
+      "full_ru": "Получив разрешение Mr Sketzi читать книгу, вместо этого вернитесь в Morroc и поговорите с Kino Kitty. Он заменит метку дружбы Mint Errende своей и попросит передать письмо (letter) для Errende.",
+      "full_en": "After Mr Sketzi let you to see the book, just go back to Morroc and talk to Kino Kitty. He will replace Mint Errende's friendship mark with his own and then ask you to deliever letter for Errende.",
+      "npcs": [
+        {
+          "entity": "Kino Kitty",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_document",
+          "entity": "letter",
+          "condition": "Source delivery letter; inventory implementation and quantity are not printed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "replace_friendship_mark",
+          "entity": "Kino Kitty"
+        },
+        {
+          "operation": "receive_letter",
+          "entity": "letter"
+        }
+      ],
+      "protected_names": [
+        "Kino Kitty",
+        "Mr Sketzi",
+        "Morroc",
+        "letter"
+      ],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Upon visiting Minty Errende again, you will learn the letter contains correct lyrics. After that Minty will sing the song for you and give you EXP reward. | BaseLevel < 56 = 4500 | BaseLevel > 55 and BaseLevel < 61 = 5500 | BaseLevel > 60 and BaseLevel < 66 = 9684 | BaseLevel > 65 and BaseLevel < 71 = 13411 | BaseLevel > 70 and BaseLevel < 76 = 35757 | BaseLevel > 75 and BaseLevel < 81 = 60246 | BaseLevel > 80 and BaseLevel < 86 = 70340 | BaseLevel > 85 and BaseLevel < 91 = 92052 | BaseLevel > 90 = 156786",
+      "instruction_sha256": "6c9426f94b0a1ceaf0bd277f1b57f747abef23823bc65c2c4b0870ea4c6897ca",
+      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/6c9426f94b0a1ceaf0bd/1",
+      "goal": "deliver",
+      "short_ru": "Вернитесь к Minty Errende с letter и получите опыт по уровню.",
+      "short_en": "Return to Minty Errende with the letter and receive level-based EXP.",
+      "full_ru": "Вернитесь к Minty Errende: письмо (letter) содержит правильный текст. Minty споёт песню и выдаст опыт. Базовый уровень < 56 = 4500; базовый уровень > 55 и < 61 = 5500; > 60 и < 66 = 9684; > 65 и < 71 = 13411; > 70 и < 76 = 35757; > 75 и < 81 = 60246; > 80 и < 86 = 70340; > 85 и < 91 = 92052; > 90 = 156786.",
+      "full_en": "Upon visiting Minty Errende again, you will learn the letter contains correct lyrics. After that Minty will sing the song for you and give you EXP reward. | BaseLevel < 56 = 4500 | BaseLevel > 55 and BaseLevel < 61 = 5500 | BaseLevel > 60 and BaseLevel < 66 = 9684 | BaseLevel > 65 and BaseLevel < 71 = 13411 | BaseLevel > 70 and BaseLevel < 76 = 35757 | BaseLevel > 75 and BaseLevel < 81 = 60246 | BaseLevel > 80 and BaseLevel < 86 = 70340 | BaseLevel > 85 and BaseLevel < 91 = 92052 | BaseLevel > 90 = 156786",
+      "npcs": [
+        {
+          "entity": "Minty Errende",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "letter",
+          "quantity": null,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver",
+          "entity": "letter"
+        },
+        {
+          "operation": "receive_letter_route_exp",
+          "entity": "Minty Errende"
+        }
+      ],
+      "protected_names": [
+        "Minty Errende",
+        "letter"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "below_56",
+          "choice_group": "letter_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "BaseLevel < 56; letter route only; choose one band.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "BaseLevel < 56 = 4500",
+          "instruction_sha256": "5b8bdf2d92fe43cdd9e4e6c9163bae92820c6c100328c15137db2f59f8c51491",
+          "short_ru": "Уровень ниже 56: 4500 базового опыта.",
+          "short_en": "Level below 56: 4500 Base EXP.",
+          "full_ru": "базовый уровень < 56: 4500 базового опыта.",
+          "full_en": "BaseLevel < 56 = 4500",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "4500"
+            }
+          ]
+        },
+        {
+          "key": "56_60",
+          "choice_group": "letter_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "BaseLevel > 55 and BaseLevel < 61; letter route only; choose one band.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "BaseLevel > 55 and BaseLevel < 61 = 5500",
+          "instruction_sha256": "4e74e18fb4c3eaa97c97f0b8deaadcca94ca398205193dc9a40082b5f8130238",
+          "short_ru": "Уровень 56-60: 5500 базового опыта.",
+          "short_en": "Level 56-60: 5500 Base EXP.",
+          "full_ru": "базовый уровень > 55 и базовый уровень < 61: 5500 базового опыта.",
+          "full_en": "BaseLevel > 55 and BaseLevel < 61 = 5500",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "5500"
+            }
+          ]
+        },
+        {
+          "key": "61_65",
+          "choice_group": "letter_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "BaseLevel > 60 and BaseLevel < 66; letter route only; choose one band.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "BaseLevel > 60 and BaseLevel < 66 = 9684",
+          "instruction_sha256": "a6260d7920c8b5d53ec110bf84d0e2b95f4b53dd0e8b145a912f80a3eccb18bf",
+          "short_ru": "Уровень 61-65: 9684 базового опыта.",
+          "short_en": "Level 61-65: 9684 Base EXP.",
+          "full_ru": "базовый уровень > 60 и базовый уровень < 66: 9684 базового опыта.",
+          "full_en": "BaseLevel > 60 and BaseLevel < 66 = 9684",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "9684"
+            }
+          ]
+        },
+        {
+          "key": "66_70",
+          "choice_group": "letter_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "BaseLevel > 65 and BaseLevel < 71; letter route only; choose one band.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "BaseLevel > 65 and BaseLevel < 71 = 13411",
+          "instruction_sha256": "efad3dc16183e00e8d1839d79340fa5fc0c679e8ffff8408e8af1a573e5980f3",
+          "short_ru": "Уровень 66-70: 13411 базового опыта.",
+          "short_en": "Level 66-70: 13411 Base EXP.",
+          "full_ru": "базовый уровень > 65 и базовый уровень < 71: 13411 базового опыта.",
+          "full_en": "BaseLevel > 65 and BaseLevel < 71 = 13411",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "13411"
+            }
+          ]
+        },
+        {
+          "key": "71_75",
+          "choice_group": "letter_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "BaseLevel > 70 and BaseLevel < 76; letter route only; choose one band.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "BaseLevel > 70 and BaseLevel < 76 = 35757",
+          "instruction_sha256": "76d2ab1a6a20851aee825739bdf08ff8279be6594fe653a82ce69e9550f186b7",
+          "short_ru": "Уровень 71-75: 35757 базового опыта.",
+          "short_en": "Level 71-75: 35757 Base EXP.",
+          "full_ru": "базовый уровень > 70 и базовый уровень < 76: 35757 базового опыта.",
+          "full_en": "BaseLevel > 70 and BaseLevel < 76 = 35757",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "35757"
+            }
+          ]
+        },
+        {
+          "key": "76_80",
+          "choice_group": "letter_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "BaseLevel > 75 and BaseLevel < 81; letter route only; choose one band.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "BaseLevel > 75 and BaseLevel < 81 = 60246",
+          "instruction_sha256": "2fb540bcb4226c483731395b50511091461f12bb697e738713460a5844788759",
+          "short_ru": "Уровень 76-80: 60246 базового опыта.",
+          "short_en": "Level 76-80: 60246 Base EXP.",
+          "full_ru": "базовый уровень > 75 и базовый уровень < 81: 60246 базового опыта.",
+          "full_en": "BaseLevel > 75 and BaseLevel < 81 = 60246",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "60246"
+            }
+          ]
+        },
+        {
+          "key": "81_85",
+          "choice_group": "letter_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "BaseLevel > 80 and BaseLevel < 86; letter route only; choose one band.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "BaseLevel > 80 and BaseLevel < 86 = 70340",
+          "instruction_sha256": "55d32ff68ca71f15d405ec362d3918a37b884cd21bc9d1fc59d5b8f0fd555821",
+          "short_ru": "Уровень 81-85: 70340 базового опыта.",
+          "short_en": "Level 81-85: 70340 Base EXP.",
+          "full_ru": "базовый уровень > 80 и базовый уровень < 86: 70340 базового опыта.",
+          "full_en": "BaseLevel > 80 and BaseLevel < 86 = 70340",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "70340"
+            }
+          ]
+        },
+        {
+          "key": "86_90",
+          "choice_group": "letter_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "BaseLevel > 85 and BaseLevel < 91; letter route only; choose one band.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "BaseLevel > 85 and BaseLevel < 91 = 92052",
+          "instruction_sha256": "4a454815f8daf6ed6863c1ae691f1adc80f705f6390d6a235fd20bf3697437ab",
+          "short_ru": "Уровень 86-90: 92052 базового опыта.",
+          "short_en": "Level 86-90: 92052 Base EXP.",
+          "full_ru": "базовый уровень > 85 и базовый уровень < 91: 92052 базового опыта.",
+          "full_en": "BaseLevel > 85 and BaseLevel < 91 = 92052",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "92052"
+            }
+          ]
+        },
+        {
+          "key": "above_90",
+          "choice_group": "letter_level_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "BaseLevel > 90; letter route only; choose one band.",
+          "section": "",
+          "source_step": 13,
+          "original_instruction": "BaseLevel > 90 = 156786",
+          "instruction_sha256": "fc0dd1a40a453d6bc6f0c026368527a4132bf2773f13c07936172de2e785890c",
+          "short_ru": "Уровень выше 90: 156786 базового опыта.",
+          "short_en": "Level above 90: 156786 Base EXP.",
+          "full_ru": "базовый уровень > 90: 156786 базового опыта.",
+          "full_en": "BaseLevel > 90 = 156786",
+          "protected_names": [],
+          "rewards": [
+            {
+              "kind": "base_exp",
+              "amount": "156786"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "geffen_magnifier_and_path_scope",
+      "detail": "Header says one consumed Magnifier, while the book path says held Magnifiers may need dropping. It is a source-cost summary, not a forced shared cost or invented per-attempt use. Letter path has no printed Magnifier obligation."
+    },
+    {
+      "reason": "geffen_reward_table_scope_unknown",
+      "detail": "Table follows the letter-route reward. Preserve its nine conditional bands there; book-route EXP amount remains NULL without proof the same table applies. Do not add two route payouts or infer a minimum level from uncertain header prose."
+    },
+    {
+      "reason": "geffen_marks_and_song_input_scope",
+      "detail": "Back/LEFT-hand friendship marks are not inventory objects. Printed quoted options preserve source punctuation. Upbeat song is a descriptive choice, not fabricated exact menu text. The book lyric is displayed text, not a proven required input at final reward."
+    },
+    {
+      "reason": "geffen_npc_identity_and_maps",
+      "detail": "Minty/Mint Errende/Errende are same-guide spellings. Representative remains quest-scoped; town/building coordinates have no invented map code or interior NPC position. Physical letter item ID/count are unknown."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "source_item_cost_summary",
+        "amount": "1",
+        "entity": "Magnifier",
+        "source_section": "requirements",
+        "evidence": "1 Magnifier",
+        "condition": "Header lists consumption, but the book route says held Magnifiers may need dropping. Not a mandatory shared one-item cost for both routes."
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "learn_author",
+      "kind": "optional",
+      "source_step": 3,
+      "source_evidence": "you can skip to step 6",
+      "steps": [
+        4,
+        5
+      ],
+      "condition": "Use these discovery conversations only if not taking the stage-3 Kino Kitty shortcut to step 6."
+    },
+    {
+      "key": "read_book",
+      "kind": "alternative",
+      "choice_group": "lyrics_solution",
+      "source_step": 9,
+      "choice_evidence": "You can have two choices now: read the old book and go to Minty Errende or visit Kino Kitty after talking to Mr Sketzi.",
+      "steps": [
+        10,
+        11
+      ],
+      "condition": "After bookstore permission, read the Old Book and return directly to Minty Errende."
+    },
+    {
+      "key": "kino_letter",
+      "kind": "alternative",
+      "choice_group": "lyrics_solution",
+      "source_step": 9,
+      "choice_evidence": "You can have two choices now: read the old book and go to Minty Errende or visit Kino Kitty after talking to Mr Sketzi.",
+      "steps": [
+        12,
+        13
+      ],
+      "condition": "After bookstore permission, visit Kino Kitty and deliver his letter to Minty Errende instead."
+    }
+  ]
+}

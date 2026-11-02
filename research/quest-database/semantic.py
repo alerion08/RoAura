@@ -16,7 +16,7 @@ from urllib.parse import unquote, urlparse
 from bs4 import BeautifulSoup
 from selection import ROOT, snapshots, select_pages, quest_key
 
-VERSION = 'semantic-5.6.0'
+VERSION = 'semantic-5.7.0'
 SCHEMA = ROOT/'migrations/001_semantic.sql'
 BRANCH_SCHEMA = ROOT/'migrations/002_step_branches.sql'
 ADDITION_SCHEMA = ROOT/'migrations/003_source_additions.sql'
@@ -438,6 +438,8 @@ def quest_routes(w,curation,source_sections,html_source):
     for route in curation.get('routes',[]):
         key=route['key'];members=route['steps'];heading=route.get('source_heading')
         kind=route['kind'];group=route.get('choice_group')
+        if int(bool(heading))+int('choice_evidence' in route)+int('source_evidence' in route)>1:
+            raise ValueError('Conflicting route context proofs')
         if not route.get('condition') or kind not in ('alternative','optional') or (kind=='alternative' and not group) or (kind=='optional' and group is not None):raise ValueError('Invalid quest route kind/condition')
         if key in seen or not members or len(set(members))!=len(members):raise ValueError('Invalid duplicate/empty quest route')
         seen.add(key)
@@ -446,6 +448,11 @@ def quest_routes(w,curation,source_sections,html_source):
             if not html_source or heading not in source_sections['html_text']:raise ValueError('Nonliteral route heading')
             if any(rows[n]['section']!=heading for n in members):raise ValueError('Route membership contradicts source heading')
             ev=w.evidence(heading,method='source_route_heading',source=html_source)
+        elif 'choice_evidence' in route:
+            n=route.get('source_step');snippet=route['choice_evidence']
+            if kind!='alternative' or n not in rows or not isinstance(snippet,str) or not snippet.strip() or snippet not in rows[n]['original_instruction']:
+                raise ValueError('Invalid alternative route context proof')
+            ev=w.evidence(snippet,method='source_alternative_activity_context',step=rows[n]['step_id'])
         elif 'source_evidence' in route:
             n=route.get('source_step');snippet=route['source_evidence']
             if kind!='optional' or n not in rows or not isinstance(snippet,str) or not snippet.strip() or snippet not in rows[n]['original_instruction']:
@@ -469,6 +476,14 @@ def quest_routes(w,curation,source_sections,html_source):
 def curated_relations(w,curation):
     for relation in curation.get('relations',[]):
         target=w.db.execute('SELECT original_name FROM quests WHERE quest_id=?',(relation['related_quest_id'],)).fetchone()
+        if relation['kind']=='source_corequisite':
+            original=w.db.execute('SELECT requirements_original FROM quests WHERE quest_id=?',(w.qid,)).fetchone()[0] or ''
+            prefix='Quest Corequisite(s): '
+            if not target or prefix not in original or original.split(prefix,1)[1].strip()!=target[0]:
+                raise ValueError('Header does not establish a single corequisite')
+            ev=w.evidence(prefix+target[0],method='curated_single_corequisite')
+            w.add('quest_relations',quest_id=w.qid,related_id=relation['related_quest_id'],kind=relation['kind'],evidence_id=ev)
+            continue
         if relation['kind']=='mandatory_prerequisite':
             original=w.db.execute('SELECT requirements_original FROM quests WHERE quest_id=?',(w.qid,)).fetchone()[0] or ''
             prefix='Quest Prerequisite(s): '
@@ -655,13 +670,13 @@ def validate(db):
       WHERE r.kind IN ('source_concurrency_constraint','extra_stage_required_for_prerequisite','stage_required_to_start','completion_required_at_step')
       AND (e.method<>'curated_quest_relation' OR e.quest_id IS NOT r.quest_id OR s.quest_id IS NOT r.quest_id
       OR instr(s.original_instruction,e.snippet)=0 OR instr(e.snippet,target.original_name)=0) LIMIT 1''').fetchone():errors.append('invalid_curated_quest_relation')
-    for owner,kind,related,eid in db.execute("SELECT quest_id,kind,related_id,evidence_id FROM quest_relations WHERE kind='mandatory_prerequisite'"):
+    for owner,kind,related,eid in db.execute("SELECT quest_id,kind,related_id,evidence_id FROM quest_relations WHERE kind IN ('mandatory_prerequisite','source_corequisite')"):
         proof=db.execute('SELECT quest_id,step_id,snippet,method FROM evidence WHERE evidence_id=?',(eid,)).fetchone()
         requirement=db.execute('SELECT requirements_original FROM quests WHERE quest_id=?',(owner,)).fetchone()[0] or ''
         name=db.execute('SELECT original_name FROM quests WHERE quest_id=?',(related,)).fetchone()[0]
-        prefix='Quest Prerequisite(s): '
-        if proof[0]!=owner or proof[1] is not None or proof[2]!=prefix+name or proof[3]!='curated_single_prerequisite' or prefix not in requirement or requirement.split(prefix,1)[1].strip()!=name:
-            errors.append('invalid_mandatory_prerequisite')
+        prefix,method=('Quest Corequisite(s): ','curated_single_corequisite') if kind=='source_corequisite' else ('Quest Prerequisite(s): ','curated_single_prerequisite')
+        if proof[0]!=owner or proof[1] is not None or proof[2]!=prefix+name or proof[3]!=method or prefix not in requirement or requirement.split(prefix,1)[1].strip()!=name:
+            errors.append('invalid_'+kind)
     owners={r[0] for r in db.execute("SELECT quest_id FROM quest_relations WHERE kind IN ('required_quest','required_started_quest','required_completed_quest') UNION SELECT quest_id FROM evidence WHERE method='curated_prerequisite_clause'")}
     for owner in owners:
         clauses=[]
