@@ -512,3 +512,32 @@ remain unchanged. Focused tests cover all 11 Cursed Spirit positions, deduplicat
 full numeric highlights, known maps without underscores and invalid cells.
 
 Validation: pending Windows CI for this change; no release/version/main changes.
+
+
+## Ready catalog and localized quest facts — 2026-11-02
+
+Owner feedback supersedes the previous walkthrough-only readiness filter and
+bottom answer footer. Catalog and walkthrough now share whole-quest semantic
+readiness; missing/incomplete semantic data produces no legacy catalog fallback.
+Active/history/progress storage remain intact. Newly ready IDs without legacy
+progress are readable, with editing disabled until matching legacy data exists.
+Catalog refresh follows semantic replacement while the catalog tab is open.
+
+Answer options are compact single-button rows in their own card between
+coordinates and materials below the screenshot. Stage actions have explicit zero
+left margin and align with the instruction and coordinate panel. Quest selector
+opens from its entire field; the shared ComboBox theme is unchanged.
+
+Requirements sort level, prerequisites, then materials. Rewards sort Base/Job EXP,
+access/unlocks, then items. Numeric alternative-branch experience uses a min/max
+range, never sums; unconditional sequential or unknown grants remain separate.
+A reviewed exact-source RU dictionary covers all 154 distinct requirement/reward
+and step-material comments in the pinned 28-ready-quest snapshot. EN keeps the
+original text; SQLite source/evidence is not rewritten. Future unknown comments
+retain source text and require a dictionary update rather than guessed translation.
+Raw branch IDs are not rendered as user-facing labels.
+
+Checks: focused range/sequential reward, requirement order, ready catalog and
+translation coverage tests; native content-area selector click; RU Cursed Spirit
+facts and Biolabs answer-card snapshots. Windows CI pending for this block.
+Main/research/version/release remain unchanged.

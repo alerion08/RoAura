@@ -57,7 +57,10 @@ public sealed class QuestSemanticTests
   var path=Environment.GetEnvironmentVariable("ROAURA_QUEST_SEMANTIC_TEST_PATH")??Path.Combine(AppContext.BaseDirectory,"Data","quest_semantic.sqlite");
   Assert.True(File.Exists(path),"Pinned semantic fixture must be installed by CI.");
   var hash=SHA256.HashData(File.ReadAllBytes(path));var result=await new QuestSemanticService(path).LoadAsync();
-  Assert.NotEmpty(result.Quests);var ayothaya=result.Quests["irowiki-classic:Ayothaya_Dungeon_Entrance_Quest"];
+  Assert.NotEmpty(result.Quests);
+  var comments=result.Quests.Values.SelectMany(q=>q.Requirements.Concat(q.Rewards).Select(f=>f.Condition)
+   .Concat(q.Steps.SelectMany(s=>s.Items.Select(i=>i.Condition)))).Where(s=>!string.IsNullOrWhiteSpace(s)).Distinct();
+  Assert.All(comments,s=>Assert.True(QuestFactText.HasRussian(s!),"Missing Russian comment: "+s));var ayothaya=result.Quests["irowiki-classic:Ayothaya_Dungeon_Entrance_Quest"];
   var cursed=result.Quests["irowiki-classic:Cursed_Spirit_Quest"].Steps.Single(s=>s.Order==2);
   Assert.Equal(11,SemanticCoordinates.All(cursed).Count);
   Assert.Equal(10,ayothaya.Steps.Count);Assert.Contains("partial",ayothaya.Review);Assert.Equal("unknown",ayothaya.Availability);

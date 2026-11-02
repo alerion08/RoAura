@@ -136,6 +136,10 @@ internal static class QuestInputSmoke
                 await Until(()=>host.BrowserShowing && host.Browser.IsActive,"browser hotkey/focus");
                 if(!host.TrackerRequested)throw new InvalidOperationException("Browser toggle changed tracker preference.");
                 host.Browser.Page.ShowGuide(row.Guide);await Pause();SaveDesktop(host.Browser,"browser-native");
+                var selector=host.Browser.Page.ReadyQuestChoice;
+                Click(selector.PointToScreen(new Point(15,selector.ActualHeight/2)));
+                await Until(()=>selector.IsDropDownOpen,"quest selector opens from its content area");
+                selector.IsDropDownOpen=false;await Pause();
                 var pointButton=host.Browser.Page.CurrentNavigationButton ?? throw new InvalidOperationException("Current navigation button missing.");
                 var coordinateCaption=pointButton.Content;
                 Click(pointButton.PointToScreen(new Point(pointButton.ActualWidth/2,pointButton.ActualHeight/2)));

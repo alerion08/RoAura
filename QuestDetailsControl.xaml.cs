@@ -14,13 +14,18 @@ namespace RoAura;
 public partial class QuestDetailsControl : UserControl
 {
  public event Action<QuestGuide?>? GuideRequested;
+ public event Action? CatalogChanged;
+ internal SemanticCatalog? ReadyCatalog=>_catalog;
+ internal ComboBox QuestChoice=>ReadyChoice;
+
  private readonly QuestSemanticService _reader=new();
  private readonly DispatcherTimer _refresh=new(){Interval=TimeSpan.FromSeconds(2)};
  private readonly DispatcherTimer _toast=new(){Interval=TimeSpan.FromSeconds(3)};
  private SemanticCatalog? _catalog;private SemanticQuest? _quest;private QuestWorkspace? _workspace;
  private string? _selectedId,_semanticChoice,_workspaceKey;private string _language="ru",_fingerprint="";private bool _loading,_rendering;private Task? _loadTask;private FileSystemWatcher? _watcher;
  private readonly Dictionary<string,Border> _cards=new();
- private bool Editable=>_workspace?.CanEdit==true && _quest is not null && SemanticReadiness.MatchesProgress(_quest,_workspace.SelectedGuide);
+ private Border? _answerCard;
+ private bool Editable=>_workspace?.CanEdit==true && _quest is not null && _workspace.Catalog?.Guides.GetValueOrDefault(_quest.Id)==_workspace.SelectedGuide && SemanticReadiness.MatchesProgress(_quest,_workspace.SelectedGuide);
  public QuestDetailsControl()
  {
   InitializeComponent();_refresh.Tick+=async(_,_)=>await RefreshDataAsync();
@@ -51,7 +56,7 @@ public partial class QuestDetailsControl : UserControl
   try{_catalog=await _reader.LoadAsync();_fingerprint=fingerprint;DataStatus.Text="";}
   catch(Exception ex) when(ex is IOException or UnauthorizedAccessException or InvalidDataException)
   {_catalog=null;_fingerprint=fingerprint;DataStatus.Text=L("Семантическая база недоступна: ","Semantic database unavailable: ")+ex.Message;}
-  finally{_loading=false;if(_workspace is not null)Render(_workspace);}
+  finally{_loading=false;if(_workspace is not null)Render(_workspace);CatalogChanged?.Invoke();}
  }
  public void Render(QuestWorkspace workspace)
  {
@@ -103,11 +108,11 @@ public partial class QuestDetailsControl : UserControl
    var done=Done(step);var selected=step.Id==_selectedId;
    var grid=new Grid();grid.ColumnDefinitions.Add(new(){Width=new GridLength(22)});grid.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});grid.ColumnDefinitions.Add(new(){Width=new GridLength(19)});
    var number=Text(step.Order+".",12,true);number.Foreground=B(done?"#5E6D80":"#0D3268");grid.Children.Add(number);
-   var content=new StackPanel {Margin=new Thickness(7,0,7,0),Opacity=done ? 0.62 : 1};Grid.SetColumn(content,1);grid.Children.Add(content);
+   var content=new StackPanel {Margin=new Thickness(0,0,7,0),Opacity=done ? 0.62 : 1};Grid.SetColumn(content,1);grid.Children.Add(content);
    var excerpt=Text("");ApplyText(excerpt,step,false,done);content.Children.Add(excerpt);
    if(SemanticCoordinates.All(step).Count>0)content.Children.Add(Coordinates(step,done));
    var actions=new WrapPanel{Margin=new Thickness(0,5,0,0)};
-   var use=new Button {Content=L("Выбрать этап","Select step"),FontSize=11,Height=24,MinHeight=24,Padding=new Thickness(10,0,10,0),IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide)};
+   var use=new Button {Content=L("Выбрать этап","Select step"),FontSize=11,Height=24,MinHeight=24,Padding=new Thickness(10,0,10,0),Margin=new Thickness(0),HorizontalAlignment=HorizontalAlignment.Left,IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide)};
    use.Click+=(_,e)=>{e.Handled=true;_selectedId=step.Id;_workspace!.SelectStep(step.Order);DetailsTabs.SelectedIndex=0;};actions.Children.Add(use);
    if(Current()?.Id==step.Id)actions.Children.Add(Tag(L("Текущий этап","Current step"),done?"#687787":"#1764CC"));content.Children.Add(actions);
    if(done){QuestCopyFeedback.ApplyTemplate(use,B("#E4E7EB"));use.Foreground=B("#3E4954");}
@@ -164,7 +169,7 @@ public partial class QuestDetailsControl : UserControl
  }
  private void RenderDetail()
  {
-  DetailPanel.Children.Clear();AnswerPanel.Children.Clear();var step=_quest?.Steps.FirstOrDefault(s=>s.Id==_selectedId);if(step is null)return;
+  DetailPanel.Children.Clear();_answerCard=null;var step=_quest?.Steps.FirstOrDefault(s=>s.Id==_selectedId);if(step is null)return;
   var layout=new Grid();layout.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});layout.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});
   var prose=new StackPanel{Margin=new Thickness(0,0,12,0)};layout.Children.Add(prose);
   prose.Children.Add(Text(L("Этап ","Step ")+step.Order+(Done(step)?L(" ✓ Завершено"," ✓ Completed"):""),15,true));prose.Children.Add(Text(L("Полное описание","Full description"),18,true));
@@ -190,13 +195,22 @@ public partial class QuestDetailsControl : UserControl
   foreach(var item in items)
   {
    var line=Text(item.Name+(item.Quantity is {} n?" ×"+n:" ×?")+" · "+Operation(item.Operation),12,true);line.Foreground=B("#087747");materials.Children.Add(line);
-   if(item.Condition is not null || item.Branch is not null)materials.Children.Add(Text(string.Join(" · ",new[]{item.Condition,item.Branch}.Where(x=>x is not null)),11));
+   if(item.Condition is not null || item.Branch is not null)materials.Children.Add(Text(Comment(item.Condition),11));
+  }
+  if(step.Answers.Count>0)
+  {
+   var answers=new StackPanel();
+   foreach(var answer in step.Answers)
+   {
+    var button=new Button{Content=answer.Text,FontSize=10,Height=20,MinHeight=16,Padding=new Thickness(4,1,4,1),Margin=new Thickness(0,0,0,4),HorizontalAlignment=HorizontalAlignment.Left,ToolTip=Comment(answer.Condition)};
+    button.Click+=(_,_)=>Notify(ClipboardService.TryCopy(answer.Text)?L("Текст скопирован","Text copied"):L("Ошибка копирования","Copy failed"));answers.Children.Add(button);
+   }
+   _answerCard=Info(L("Варианты ответов","Answer options"),answers);aside.Children.Add(_answerCard);
   }
   aside.Children.Add(Info(L("Необходимые предметы","Required items"),materials));
   if(ActualWidth<760){layout.ColumnDefinitions[1].Width=new GridLength(0);layout.RowDefinitions.Add(new(){Height=GridLength.Auto});layout.RowDefinitions.Add(new(){Height=GridLength.Auto});Grid.SetColumn(aside,0);Grid.SetRow(aside,1);}
   DetailPanel.Children.Add(layout);
-  foreach(var answer in step.Answers)
-  {var button=new Button{Content=answer.Text,FontSize=11,Height=24,MinHeight=24,Padding=new Thickness(7,0,7,0),Margin=new Thickness(0,0,5,5),ToolTip=string.Join(" · ",new[]{answer.Operation,answer.Condition,answer.Branch}.Where(x=>x is not null)),HorizontalAlignment=HorizontalAlignment.Left};button.Click+=(_,_)=>Notify(ClipboardService.TryCopy(answer.Text)?L("Текст скопирован","Text copied"):L("Ошибка копирования","Copy failed"));AnswerPanel.Children.Add(button);}
+
  }
  private Border Info(string title,UIElement content)
  {var stack=new StackPanel();stack.Children.Add(Text(title,12,true));stack.Children.Add(content);return new(){Child=stack,Background=B("#FAFCFF"),BorderBrush=B("#D6E4F3"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),Padding=new Thickness(10),Margin=new Thickness(0,10,0,0)};}
@@ -209,12 +223,10 @@ public partial class QuestDetailsControl : UserControl
   body.Children.Add(Text(_quest.Title,11));
   var columns=new Grid{Margin=new Thickness(0,12,0,0)};
   columns.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});columns.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});
-  var requirements=FactRows(_quest.Requirements.Where(f=>f.StepId is null).ToList());
+  var requirements=FactRows(QuestFactPresentation.Requirements(_quest));
   var left=Info(L("Суммарные материалы и требования","Total materials and requirements"),requirements);left.Margin=new Thickness(0,0,7,0);columns.Children.Add(left);
   var rewards=new StackPanel();
-  var received=_quest.Rewards.Where(f=>f.Kind!="access").ToList();rewards.Children.Add(FactRows(received));
-  var access=_quest.Rewards.Where(f=>f.Kind=="access").ToList();
-  if(access.Count>0){rewards.Children.Add(Text(L("Доступ","Access"),15,true));rewards.Children.Add(FactRows(access));}
+  rewards.Children.Add(FactRows(QuestFactPresentation.Rewards(_quest.Rewards)));
   var right=Info(L("Получаемые предметы и награды","Received items and rewards"),rewards);right.Margin=new Thickness(7,0,0,0);Grid.SetColumn(right,1);columns.Children.Add(right);body.Children.Add(columns);
   // Preserve source totals and branch conditions. Never add alternative branches together.
   foreach(var step in _quest.Steps)
@@ -223,7 +235,7 @@ public partial class QuestDetailsControl : UserControl
    if(facts.Count>0)body.Children.Add(Info(L("Материалы и требования — этап ","Materials and requirements — step ")+step.Order,FactRows(facts)));
    else
    {
-    var materials=step.Items.Where(i=>i.Operation is "collect" or "bring" or "deliver" or "buy" or "use" or "consume").Select(i=>new SemanticFact(i.Id,"item",i.Name,i.Quantity?.ToString(),string.Join(" · ",new[]{Operation(i.Operation),i.Condition}.Where(v=>!string.IsNullOrWhiteSpace(v))),i.Branch,step.Id)).ToList();
+    var materials=step.Items.Where(i=>i.Operation is "collect" or "bring" or "deliver" or "buy" or "use" or "consume").Select(i=>new SemanticFact(i.Id,"item",i.Name,i.Quantity?.ToString(),string.Join(" · ",new[]{Operation(i.Operation),Comment(i.Condition)}.Where(v=>!string.IsNullOrWhiteSpace(v))),i.Branch,step.Id)).ToList();
     if(materials.Count>0)body.Children.Add(Info(L("Материалы — этап ","Materials — step ")+step.Order,FactRows(materials)));
    }
   }
@@ -236,20 +248,21 @@ public partial class QuestDetailsControl : UserControl
   foreach(var fact in facts)
   {
    var row=new DockPanel();
-   if(fact.Amount is not null){var amount=Text("×"+fact.Amount,12,true);amount.Margin=new Thickness(8,2,0,4);DockPanel.SetDock(amount,Dock.Right);row.Children.Add(amount);}
+   if(fact.Amount is not null){var amount=Text((fact.Kind.Contains("exp") || fact.Kind.EndsWith("level")?"":"×")+fact.Amount,12,true);amount.Margin=new Thickness(8,2,0,4);DockPanel.SetDock(amount,Dock.Right);row.Children.Add(amount);}
    var label=Text(fact.Name??FactLabel(fact.Kind),12,true);if(fact.Name is not null && fact.Kind.Contains("item"))label.Foreground=B("#087747");row.Children.Add(label);
    var content=new StackPanel();content.Children.Add(row);
-   if(fact.Condition is not null && fact.Condition!=sharedCondition)content.Children.Add(Text(fact.Condition,11));
-   if(fact.Branch is not null)content.Children.Add(Text(L("Вариант: ","Branch: ")+fact.Branch,11));
+   if(fact.Condition is not null && fact.Condition!=sharedCondition)content.Children.Add(Text(Comment(fact.Condition),11));
+
    rows.Children.Add(new Border{Child=content,BorderBrush=B("#E2EAF4"),BorderThickness=new Thickness(0,1,0,0),Padding=new Thickness(0,7,0,5)});
   }
-  if(!string.IsNullOrWhiteSpace(sharedCondition))rows.Children.Add(Text(sharedCondition,11));
+  if(!string.IsNullOrWhiteSpace(sharedCondition))rows.Children.Add(Text(Comment(sharedCondition),11));
   return rows;
  }
+ private string Comment(string? value)=>QuestFactText.Localize(value,_language);
  private string Operation(string value)=>value switch
  {"collect"=>L("собрать","collect"),"bring"=>L("принести","bring"),"deliver"=>L("передать","deliver"),"buy"=>L("купить","buy"),"use"=>L("использовать","use"),"consume"=>L("расходуется","consumed"),"possess"=>L("иметь при себе","possess"),"show"=>L("показать","show"),_=>value};
  private string FactLabel(string value)=>value switch
- {"base_level"=>L("Базовый уровень","Base level"),"job_level"=>L("Уровень профессии","Job level"),"base_exp"=>L("Базовый опыт","Base experience"),"job_exp"=>L("Опыт профессии","Job experience"),"item"=>L("Предмет","Item"),"item_consumed_total"=>L("Суммарные расходуемые материалы","Total consumed materials"),"item_not_consumed"=>L("Нерасходуемый предмет","Retained item"),"quest_completed"=>L("Предварительный квест","Prerequisite quest"),"zeny" or "zeny_total"=>L("Зени","Zeny"),_=>value.Replace('_',' ')};
+ {"base_level"=>L("Базовый уровень","Base level"),"job_level"=>L("Уровень профессии","Job level"),"base_exp" or "base_exp_total"=>L("Базовый опыт","Base experience"),"job_exp"=>L("Опыт профессии","Job experience"),"item"=>L("Предмет","Item"),"item_consumed_total"=>L("Суммарные расходуемые материалы","Total consumed materials"),"item_not_consumed"=>L("Нерасходуемый предмет","Retained item"),"conditional_quest_steps"=>L("Этапы предварительного квеста","Prerequisite quest steps"),"quest_completed"=>L("Предварительный квест","Prerequisite quest"),"access"=>L("Доступ к подземелью","Dungeon access"),"service_unlock" or "unlock"=>L("Открываемая возможность","Unlocked feature"),"quest_object" or "quest_item" or "quest_document" or "puzzle_item"=>L("Квестовый предмет","Quest item"),"none"=>L("Нет награды","No reward"),"story_information"=>L("Сведения","Information"),"zeny_per_item"=>L("Зени за предмет","Zeny per item"),"zeny" or "zeny_total"=>L("Зени","Zeny"),"zeny_per_trip"=>L("Зени за поездку","Zeny per trip"),"maximum_trigger_count"=>L("Максимум срабатываний","Maximum triggers"),"door_attempts"=>L("Попытки открытия двери","Door attempts"),"server_donation_count"=>L("Число пожертвований сервера","Server donation count"),"time_limit_seconds"=>L("Лимит времени, секунд","Time limit, seconds"),"approximate_time_limit_minutes"=>L("Примерный лимит времени, минут","Approximate time limit, minutes"),"attempts_per_first_set"=>L("Попытки на первый набор","Attempts per first set"),"search_interval_minutes"=>L("Интервал поиска, минут","Search interval, minutes"),"item_consumed_minimum"=>L("Минимальный расход предмета","Minimum item consumption"),"restart_source_step"=>L("Этап повторного начала","Restart step"),"server_donation_total_zeny"=>L("Общая сумма пожертвований сервера","Server donation total"),"distinct_report_volumes"=>L("Различные тома отчёта","Distinct report volumes"),"concurrent_stage_blocker"=>L("Несовместимый этап","Concurrent stage blocker"),"battle_time_limit"=>L("Ограничение времени боя","Battle time limit"),"room_clear"=>L("Зачистка комнаты","Room clear"),"collection_goal"=>L("Цель сбора","Collection goal"),"completed_source_steps"=>L("Завершённые этапы","Completed steps"),"visit_required"=>L("Обязательное посещение","Required visit"),"repaired_post_total"=>L("Всего отремонтированных опор","Total repaired posts"),"time_limit_minutes"=>L("Лимит времени, минут","Time limit, minutes"),"required_for_prerequisite_use"=>L("Условие для следующего квеста","Required for follow-up quest"),"pry_attempts"=>L("Попытки вскрытия","Pry attempts"),"helper_minimum_source_step"=>L("Минимальный этап помощника","Minimum helper step"),"dialogue_initiators"=>L("Инициаторы диалога","Dialogue initiators"),_=>value.Replace('_',' ')};
  private void RenderSources()
  {
   SourcePanel.Children.Clear();if(_quest is null)return;
@@ -260,6 +273,10 @@ public partial class QuestDetailsControl : UserControl
  }
  private static void OpenUrl(string value){if(Uri.TryCreate(value,UriKind.Absolute,out var uri) && uri.Scheme is "http" or "https")try{Process.Start(new ProcessStartInfo(uri.AbsoluteUri){UseShellExecute=true});}catch(Exception ex){DebugLog.Write(ex.Message);}}
  internal void ResetSemanticChoice()=>_semanticChoice=null;
+ private void Ready_Down(object sender,MouseButtonEventArgs e)
+ {
+  if(!ReadyChoice.IsDropDownOpen){ReadyChoice.Focus();ReadyChoice.IsDropDownOpen=true;e.Handled=true;}
+ }
  private void Ready_Changed(object sender,SelectionChangedEventArgs e)
  {
   if(_rendering || ReadyChoice.SelectedItem is not SemanticQuest quest || _workspace is null)return;
@@ -286,8 +303,7 @@ public partial class QuestDetailsControl : UserControl
   if(Metadata.Visibility!=Visibility.Collapsed || Quality.Visibility!=Visibility.Collapsed)throw new InvalidOperationException("Walkthrough metadata must stay hidden.");
   var current=Current()?.Id;var selected=_selectedId;
   var other=_quest.Steps.First(s=>s.Id!=current);Select(other);
-  if(AnswerPanel.Children.Count!=other.Answers.Count || Grid.GetRow((UIElement)AnswerPanel.Parent)!=1)
-   throw new InvalidOperationException("Answer actions must stay in the detail footer.");
+
   if(_cards.TryGetValue(other.Id,out var selectedCard))
   {
    var pointButtons=((Grid)selectedCard.Child).Children.OfType<StackPanel>().SelectMany(p=>p.Children.OfType<WrapPanel>()).SelectMany(p=>p.Children.OfType<Button>()).Count(b=>b.Tag is QuestNavigationTarget);
@@ -299,6 +315,19 @@ public partial class QuestDetailsControl : UserControl
   _selectedId=selected;ShowCurrentStep();
  }
 
+ internal void ValidateDetailLayoutSmoke()
+ {
+  var step=_quest?.Steps.FirstOrDefault(s=>s.Id==_selectedId);if(step is null)return;
+  if(step.Answers.Count>0)
+  {
+   if(_answerCard?.Parent is not StackPanel aside || aside.Children.IndexOf(_answerCard)!=3)
+    throw new InvalidOperationException("Answer card must follow screenshot, legend and coordinates.");
+   var content=(StackPanel)_answerCard.Child;
+   var answers=content.Children.OfType<StackPanel>().Single();
+   if(answers.Children.Count!=step.Answers.Count || answers.Children.OfType<Button>().Any(b=>b.Height!=20 || b.FontSize!=10))
+    throw new InvalidOperationException("Answer card must use one compact button per row.");
+  }
+ }
  internal bool HasStepCount(int count)=>_quest?.Steps.Count==count && _cards.Count==count;
  internal Button? CurrentNavigationButton=>Current() is {} step && _cards.TryGetValue(step.Id,out var card)?((Grid)card.Child).Children.OfType<StackPanel>().SelectMany(p=>p.Children.OfType<WrapPanel>()).SelectMany(p=>p.Children.OfType<Button>()).FirstOrDefault(b=>b.Tag is QuestNavigationTarget):null;
  internal bool CurrentStepInView
