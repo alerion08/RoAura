@@ -3116,38 +3116,29 @@
       "step_id": "irowiki-classic:Archer/step/b74685281d5b255224ad/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "The 10/8 to 12/10 range is a suggested leveling tactic, not a base/job eligibility requirement. Job Level 10 is the source header gate.",
       "evidence_id": "ev:ffeaeee73af92b7d41dd1c17",
       "quest_id": "irowiki-classic:Archer_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:535fed987e7678babb84d140",
+      "reason": "archer_leveling_tip_not_gate",
+      "review_id": "review:9e2c2fdd9a75e62bef03c6e0",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Bow 1702 and Arrows 1750 are exact own-guide links; reward quantities remain NULL. Original archive rows and stable IDs are preserved.",
       "evidence_id": "ev:ffeaeee73af92b7d41dd1c17",
       "quest_id": "irowiki-classic:Archer_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:af3a97345abb475cfba19787",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:e83d5e702119e339ea3b9671",
-      "quest_id": "irowiki-classic:Archer_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:920b68cf77526f14a36270a5",
+      "reason": "archer_reward_counts_unknown",
+      "review_id": "review:d988597d52a858acc105c961",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:cf8988963e539ff7fb452d75",
+      "detail": "The legacy extractor omitted the four-row point table. Pinned HTML restores values 1/2/3/5; any eligible mix must total at least 25. No fixed trunk count, all-four-types cost or Willow kill quota is invented.",
+      "evidence_id": "ev:ffeaeee73af92b7d41dd1c17",
       "quest_id": "irowiki-classic:Archer_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:82419d9b7ce168e4c2ff4711",
+      "reason": "archer_weighted_materials",
+      "review_id": "review:4d986f57c83b15edf370d1ea",
       "severity": "warning",
       "step_id": null
     },
@@ -3161,92 +3152,20 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b55659ee6294908777ff47e7",
-      "quest_id": "irowiki-classic:Archer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:feb8bdf173f44e9745a6ce9a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Archer_Job_Change_Guide/step/64a76a63c823293e5f17/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b55659ee6294908777ff47e7",
-      "quest_id": "irowiki-classic:Archer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:be1155f848620edbeafea7be",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Archer_Job_Change_Guide/step/64a76a63c823293e5f17/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:dbd62463e594f40a16144732",
-      "quest_id": "irowiki-classic:Archer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:2763fe8f6742f17954f308b3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Archer_Job_Change_Guide/step/b74685281d5b255224ad/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:dbd62463e594f40a16144732",
-      "quest_id": "irowiki-classic:Archer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0f8c1c623fdb9ff9749fe9e9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Archer_Job_Change_Guide/step/b74685281d5b255224ad/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:60bddcf9298f151538741126",
-      "quest_id": "irowiki-classic:Archer_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:7c9f86073a6ae3acbb4dcaa0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Archer_Job_Change_Guide/step/e5e87d5f0827c10ee2d0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:60bddcf9298f151538741126",
-      "quest_id": "irowiki-classic:Archer_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3c0067bdd5130a4adc22fccb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Archer_Job_Change_Guide/step/e5e87d5f0827c10ee2d0/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Pointed Scales 906 replaces Tough Scalelike Stem 7012 only on euRO; they are not aliases. Both printed Roberto points are alternatives, not consecutive waypoints. Jason has a display town and bare coordinates; no unprinted map code is inferred.",
       "evidence_id": "ev:58cc8d42eb1fbcf7539e4b9d",
       "quest_id": "irowiki-classic:Archer_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:3acb325420b50b0a6a1c4c8b",
+      "reason": "archer_skill_euro_variant",
+      "review_id": "review:366a933d18e165905f0a88f4",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The page contains two independent activities with separate headers. Archived page metadata only retained the first Job Level 30 header; Arrow Repel explicitly needs 35 at its own step. Source order is not a prerequisite chain and materials/rewards must not be summed as one obligation.",
       "evidence_id": "ev:58cc8d42eb1fbcf7539e4b9d",
       "quest_id": "irowiki-classic:Archer_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:6bcecceecf1ebd5dc4e4059b",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:9cb37831146854eb967f9d91",
-      "quest_id": "irowiki-classic:Archer_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:ffa6a6d6045af22b05877614",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:30f74e92f1db6bdb98d8d701",
-      "quest_id": "irowiki-classic:Archer_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:d138904bdc1a338b7a6785ec",
+      "reason": "archer_skills_independent_headers",
+      "review_id": "review:091b27f807c1a0088bad5fbd",
       "severity": "warning",
       "step_id": null
     },
@@ -3260,49 +3179,13 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6e4ab89486fb6cd0b81b55bd",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:b31a8837d5c78bf830b2c5cc",
       "quest_id": "irowiki-classic:Archer_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:28d55708e3bb430375c42942",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Archer_Skill_Quest/step/439111e7cf3248459bbf/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:078039a4b1129b2c301a5ba5",
-      "quest_id": "irowiki-classic:Archer_Skill_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:b8487322285e3eea6b3675ee",
+      "reason": "map_not_reference_known",
+      "review_id": "review:30d39ec0567bae4ee26b96e7",
       "severity": "warning",
       "step_id": "irowiki-classic:Archer_Skill_Quest/step/439111e7cf3248459bbf/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6e4ab89486fb6cd0b81b55bd",
-      "quest_id": "irowiki-classic:Archer_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b34ed5400e148752687e2e1d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Archer_Skill_Quest/step/439111e7cf3248459bbf/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e949775565c7a1fd94d3b48e",
-      "quest_id": "irowiki-classic:Archer_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:55304dfff537549104bd5eea",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Archer_Skill_Quest/step/89f18e48e9f821ce8ea7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e949775565c7a1fd94d3b48e",
-      "quest_id": "irowiki-classic:Archer_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:eb57804cb5af109fb45b1bb9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Archer_Skill_Quest/step/89f18e48e9f821ce8ea7/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -22034,38 +21917,47 @@
       "step_id": "irowiki-classic:Hunter/step/f04e1a42419405e494d5/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Demon Hunter and the unnamed waiting-room receptionist are not merged by occupation. Guild member and examiner remain distinct; building entrance is not an invented interior NPC point. Falcon rental is an optional post-job tip with unknown fee/duration, not another job-change cost.",
       "evidence_id": "ev:6832195169f3ccd0746efdc0",
       "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:2121705788b318c0ec288397",
+      "reason": "hunter_actor_and_optional_rental_scope",
+      "review_id": "review:6a5485d2c815861ffcaeffd7",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Kill any four labelled targets. Six target population entries 1+3+1+1 are not six required kills. Regular species database links describe the maze, not verified IDs for special exam clones; target identities remain scoped with NULL IDs. Shared three-minute timer governs all ordered objectives.",
       "evidence_id": "ev:6832195169f3ccd0746efdc0",
       "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:8051a223258caed16dd504f3",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:6cd04d8d58792040c26c902d",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:67fc214c9a19e88462be8400",
+      "reason": "hunter_four_kills_six_targets",
+      "review_id": "review:3a18c00ba79b104f20dfcb27",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:3d70852c0646df51de2401fd",
+      "detail": "The source supplies ten exact answers in order without question stems. Keep them as dialogue choices, not world movement/healing/trading objectives. No invented question wording or input mode.",
+      "evidence_id": "ev:6832195169f3ccd0746efdc0",
       "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:5e38ed064f10923458a15cfa",
+      "reason": "hunter_personality_answers_only",
+      "review_id": "review:7db76444e81c617d14f0e1f0",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Pinned HTML restores seven random three-item sets omitted by the extractor. One assigned branch governs all three items; never require all sets or independently mix items. Branch narrative is authored from that table and the unchanged assignment instruction, with each typed material citing the literal HTML row.",
+      "evidence_id": "ev:6832195169f3ccd0746efdc0",
+      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
+      "reason": "hunter_random_sets_restored",
+      "review_id": "review:69e28cf56fe73da92e0840b2",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "The waiting-room chat instruction printed at the end of stage 18 is preparation before an attempt. It is an explicitly conditioned action, not a requirement to restart after a successful exit. Water, unlabelled kills, death and timeout are independent failure conditions.",
+      "evidence_id": "ev:6832195169f3ccd0746efdc0",
+      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
+      "reason": "hunter_test_preparation_scope",
+      "review_id": "review:2f9aa802fcd56c4262713039",
       "severity": "warning",
       "step_id": null
     },
@@ -22079,407 +21971,11 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8f1089cf0618b328cd473e95",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:8d161172fb436d624f9d5f68",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/017d88c300f178899dc6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8f1089cf0618b328cd473e95",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:feece6968d210043793f5398",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/017d88c300f178899dc6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fd464ad1a6184bd997c0c0d3",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:3724b8b7990457d217112d30",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/275b65886345feae855b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fd464ad1a6184bd997c0c0d3",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a52b08bb99d6140d2ec4f5b0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/275b65886345feae855b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b495907ad91a1f55e14803f6",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:57e1b74b58a21ab61fdc7b45",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/33ac48b2c68ebb0d9c90/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b495907ad91a1f55e14803f6",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:263a19db55b917e99fb1c32b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/33ac48b2c68ebb0d9c90/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7752f7837398645a6d4b777d",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:ef6e8653aa46c3e3ada33097",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/34f884c1a164901aa4c0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7752f7837398645a6d4b777d",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2e459e9b3d3e9d84f9e96ebc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/34f884c1a164901aa4c0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:93f250dff821ce186f8dce20",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:6f081841882484c82a829465",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/46441eb27932fadb1016/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:93f250dff821ce186f8dce20",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d12157740756789f1c963d90",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/46441eb27932fadb1016/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0f62527f76d8499627b84ba2",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:c0dd425bac97e1187a0d5084",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/5468b282ce06424749eb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0f62527f76d8499627b84ba2",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:864a96103c8afe77f7b04586",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/5468b282ce06424749eb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8ada602bbac4efd6a13c4998",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:53a118a32097d8f3fa82d43b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/6087946a7b965af26810/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8ada602bbac4efd6a13c4998",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:533ddce20105518cf138141e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/6087946a7b965af26810/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ba151ddd66def1ef006dd2fe",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:d4bb17b17d27c1487944fc57",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/704be4620ea19ca0c15d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ba151ddd66def1ef006dd2fe",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:43c99da194437db670215cc6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/704be4620ea19ca0c15d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:990cf95c5aa4e53b3591a65e",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:2bf955ab2e3ab768700229f5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/7b393f4909681e8ef96b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:990cf95c5aa4e53b3591a65e",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ede56da238f32114beeb1e9a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/7b393f4909681e8ef96b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:84335ffb2873e97997b35d5e",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:4c73e53d814732bc32830a07",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/7cdc11c6ee9a5fa996fa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:84335ffb2873e97997b35d5e",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6f1a0f4e4ee3a7eac03b72f9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/7cdc11c6ee9a5fa996fa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:48eba5093a117130be7613e5",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:6394b204c7a9ec69b62331ff",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/88678fd1adccfebb18b0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:48eba5093a117130be7613e5",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0e7424571ce12a4b2087bc00",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/88678fd1adccfebb18b0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2b23a93eeb69021ef2bebfbd",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:b3e5cb765ceea0fec35f9301",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/8c9e29023dc85949d7fe/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2b23a93eeb69021ef2bebfbd",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:daac6e76f63eaffd94f8d451",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/8c9e29023dc85949d7fe/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a98fcfa380ad14655983213a",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:7ab4ae4291746489e5aef255",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/998ffa2d1f2907f9c130/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a98fcfa380ad14655983213a",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b3bd01d873471cb7fc85102d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/998ffa2d1f2907f9c130/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fb302e5f4d73f1d9a5087f2d",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:91cdfb88a4b53d2fc40f5814",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/a868eac166655b8f2ae3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fb302e5f4d73f1d9a5087f2d",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:08694ba0eb069af77c46b9bc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/a868eac166655b8f2ae3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:90116c31c596d001804fd1d4",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:ecb7f8a2a2b3df3786916e81",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/aaffde8f270025715185/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:90116c31c596d001804fd1d4",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:709f734dd503beb3ec25df0a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/aaffde8f270025715185/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:38a1c29bee22ef8721723b7d",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:9cc8f75d7cbeb0eceb3a4423",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/b6d8e660c11cd724af1b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:38a1c29bee22ef8721723b7d",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:517ff7aa99ee39dc20470cc5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/b6d8e660c11cd724af1b/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:38a1c29bee22ef8721723b7d",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:07b0b5e94994515f9b787632",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/b6d8e660c11cd724af1b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:79937555b8fa062f73cd39d5",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:b1fe269a841c7f0ed63d7cf3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/c4f810fd70677dc9499e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:79937555b8fa062f73cd39d5",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0e4ee1b45e6dd0b9a6936e32",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/c4f810fd70677dc9499e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d441d9f9f85abe50b95da867",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:96b4d0aa78c5a1b817b62590",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/d82e2ef1ab1695f14fdd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d441d9f9f85abe50b95da867",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2bce4f6fee2182499bc4a52a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/d82e2ef1ab1695f14fdd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c27337f5be4dd035d5d9661e",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:92991c6455cde87729efd172",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/ed1831e5b9d316cc9633/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c27337f5be4dd035d5d9661e",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:34fae6cb222ebfce8e9ec77f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/ed1831e5b9d316cc9633/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:86a25cb19ed5b5979ef8d3ab",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:e921f9fa0795eb9e3ae530d0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/ed58bb40e959ab1f9287/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:86a25cb19ed5b5979ef8d3ab",
-      "quest_id": "irowiki-classic:Hunter_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ece9af513f78795ded91440e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Job_Change_Guide/step/ed58bb40e959ab1f9287/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "The request and return describe one 5/5/30 material obligation. Only Arpesto has an explicit coordinate; do not copy it as a verified Reidin Corse point. Both named NPCs participate, but the source does not assign a separate hand-in quantity to each.",
       "evidence_id": "ev:ec89d2a493991657dd51b7ef",
       "quest_id": "irowiki-classic:Hunter_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:55fd2f37270b4bbf63f49052",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:ec89d2a493991657dd51b7ef",
-      "quest_id": "irowiki-classic:Hunter_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:8e6d56301db1e862e8318b39",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:e9fd4007627244b399ebfde3",
-      "quest_id": "irowiki-classic:Hunter_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:3a517e27d7cae508b83114c1",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:4a7ea2462a2bab7faab01a4e",
-      "quest_id": "irowiki-classic:Hunter_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:5ac358129f2cd7f688920aac",
+      "reason": "hunter_skill_materials_and_actor_points",
+      "review_id": "review:54bb376a174f6812bf4b3b0d",
       "severity": "warning",
       "step_id": null
     },
@@ -22491,51 +21987,6 @@
       "review_id": "review:b23d1af76f4651e28575a4bf",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:01ce992665f97f90206ba10c",
-      "quest_id": "irowiki-classic:Hunter_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c866e4ff9a86ffdfafda9f98",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Skill_Quest/step/42324ad7000248f5a614/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:01ce992665f97f90206ba10c",
-      "quest_id": "irowiki-classic:Hunter_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ac33ea021b5eefa053ea1d78",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Skill_Quest/step/42324ad7000248f5a614/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:01ce992665f97f90206ba10c",
-      "quest_id": "irowiki-classic:Hunter_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:47962e27b51dbcd5ce27afad",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Hunter_Skill_Quest/step/42324ad7000248f5a614/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6b8d2bb4366f245b8d4b1816",
-      "quest_id": "irowiki-classic:Hunter_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2fa8457b3235e45a27e13fce",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Skill_Quest/step/fb3c5de8072f25cd5a9e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6b8d2bb4366f245b8d4b1816",
-      "quest_id": "irowiki-classic:Hunter_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:527a4734cb35043754815116",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Hunter_Skill_Quest/step/fb3c5de8072f25cd5a9e/1"
     },
     {
       "detail": "Ashy Necklace has linked item ID 7572. The source does not link Sparkling Necklace or the narrative Urstia's Necklace label to verified IDs; no ID is guessed.",
