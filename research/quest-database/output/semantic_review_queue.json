@@ -13430,38 +13430,38 @@
       "step_id": "irowiki-classic:Experience/step/ceb501c84299781aa779/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Tyus/Tyrus and Clanux/Craine variants are same-guide return references, not silent corrections of verified game names. Shawn appears only during warp prose and is not proven to be Welshyun; keep the actor unresolved.",
       "evidence_id": "ev:4a2e696f55a0c7817bd5a4cb",
       "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:b6e52e3ef17e31d934bc29c9",
+      "reason": "hellion_aliases_and_shawn_unresolved",
+      "review_id": "review:67585354e05c830d67d2170b",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Machine codes are source alternatives linked to the received value, not a two-entry sequence. Four named tablets stay distinct from generic Piece of Slate and narrative Jewel of Hellion. Exact spellings/map labels are retained, including Geffen Dungeon Level 2 with gef_dun03. Some quoted answers have no printed choose/type method.",
       "evidence_id": "ev:4a2e696f55a0c7817bd5a4cb",
       "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:20c770d8b031e188dcad00df",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:901fbf4287ab087e575dd2bc",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:1ebc98afae970dcb8eee9d6e",
+      "reason": "hellion_codes_slates_and_jewel_scope",
+      "review_id": "review:cbb5d54f63670cea11414eb2",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:df38e051b8d53fe395652ab9",
+      "detail": "Stage 18 explicitly permits completion without killing. Higher reward note accepts an already-held eye after cave entry; do not infer a kill flag, mandatory personal kill or fixed eye count. Final item quantities are not printed and remain NULL.",
+      "evidence_id": "ev:4a2e696f55a0c7817bd5a4cb",
       "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:f46c30d2d9182f1ebe3bd223",
+      "reason": "hellion_optional_boss_and_eye_exception",
+      "review_id": "review:6cff8462d81bca8340170c82",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "One gem is requested, delivered at 16 and used by the NPC at 18, not two player costs. Ten-thousand Zeny is one clue purchase. Payon clue items are given once; inspections are not a second inventory set. Wrong-choice White Potion is conditional.",
+      "evidence_id": "ev:4a2e696f55a0c7817bd5a4cb",
+      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
+      "reason": "one_gem_and_clue_payment",
+      "review_id": "review:a89e82df2f824d09a71d5131",
       "severity": "warning",
       "step_id": null
     },
@@ -13473,429 +13473,6 @@
       "review_id": "review:2e86fa31393f2dc214949d32",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ef2050023030761fd34badc6",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:567223caa3acfaa6c8d9611c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/0368ed3c6a40a622e7a5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ef2050023030761fd34badc6",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6fb6dd7718d33a83e52face9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/0368ed3c6a40a622e7a5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7aacf09fcc78542660536071",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d03b3d620876e2ed2f7400f7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/1b8bdf418cb24e76d30c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7aacf09fcc78542660536071",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f7e0de309dab7b3cf3f78bc0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/1b8bdf418cb24e76d30c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d56d778bd711afb3d9c55e07",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3ed652b46f2348edba83ec2d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/24e35249ac7151e4b6e8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d56d778bd711afb3d9c55e07",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9c24bc8258e8ff9ee44800fe",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/24e35249ac7151e4b6e8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:90a710816a94d610360d1576",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0e543372f7748db66dbe085b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/2d20a1fd1016203a014d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:90a710816a94d610360d1576",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ae96f1e5384b65a6ec6c635f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/2d20a1fd1016203a014d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1089940fa8dffbe922eb8989",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:917b9bdea33362d87ce9c8a9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/33dd787200985df135c9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1089940fa8dffbe922eb8989",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:cd375f20452fd4779778f5a7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/33dd787200985df135c9/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9e57b83fee09148eb1c223d5",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:22daeaccfd401ce689d7229d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/547d94b032e2c13345a2/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9e57b83fee09148eb1c223d5",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4cd6fe96c2003847413a5ac9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/547d94b032e2c13345a2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6021fa993340b1b21fd866d2",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:487cc4c885a7af4764bc7be7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/59888c207e87744fd281/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6021fa993340b1b21fd866d2",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b9e5b974bbb43568d5eb01b4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/59888c207e87744fd281/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:019eb1b57a9a8e17912322cc",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d60b869ef5f9660626716a45",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/5d36b08e284c80582f36/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:019eb1b57a9a8e17912322cc",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5335e1bc7c6fc0348f0d1c08",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/5d36b08e284c80582f36/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:138c3ae3f4549635ec021c15",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9ca42fad9bdd3d015a5fbe35",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/83c3be2c481234f6526d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:138c3ae3f4549635ec021c15",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fc3f69eb023579427b7e13c8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/83c3be2c481234f6526d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:19d0189064ced3b6d8b428df",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3879117bcb90af4ac854b90c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/8523270e7148f4d440b8/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:c57b2beacd376de32affc3b8",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:00cf3c7aab6beb9be70be7eb",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/8523270e7148f4d440b8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:19d0189064ced3b6d8b428df",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:092b5763152c912d47487e5e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/8523270e7148f4d440b8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c7369d64df5335fa1a8f2e9b",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:848f8ca9ed57d3aae4b2b0f9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/8d9964859c0708604720/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c7369d64df5335fa1a8f2e9b",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:32702502ebd55164f486edfb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/8d9964859c0708604720/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0a7ed7b87d39960277fb3757",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:dca55c51ceff17c2d653b4cb",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/8f76e7dd59c82ca4c84d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0a7ed7b87d39960277fb3757",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:791bae9e698feb8a7b5ca554",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/8f76e7dd59c82ca4c84d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1286493f053fe462a98aaef5",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:307bf2579ac5a74d39c90337",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/91b11e939125fde30216/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:67805c8a677e27ba65246bd7",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:fbf4f6231e3f8e24a92d2772",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/91b11e939125fde30216/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1286493f053fe462a98aaef5",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:28dcdab101c45b569b9a64dc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/91b11e939125fde30216/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5a39389028d85861a635cfdf",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f8eba4b472a38242f56a17e3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/9208e2c9ad8feec50445/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5a39389028d85861a635cfdf",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4c25980fd83ca3bc64cbfd38",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/9208e2c9ad8feec50445/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:eb008a747da2ca3abb968ea5",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4a29fccb10aa80620d91a585",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/98c00a034392e8723a37/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:eb008a747da2ca3abb968ea5",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6214be0728c4a2733387dd21",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/98c00a034392e8723a37/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f39f37aa12981f348ce78c74",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ca81021cfb2b2db23beae664",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/9f4c7d0662f12158b79c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f39f37aa12981f348ce78c74",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b9108121234469b4744ce258",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/9f4c7d0662f12158b79c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4d9f2f2479ff2fb2beb7de55",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:bfde456229eae490a5ff141a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/bc269031cb60d74ce22d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4d9f2f2479ff2fb2beb7de55",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9cb65f1702d493733c398734",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/bc269031cb60d74ce22d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:52b00cb3b3b5af922e664991",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:47375142e4e2dfad200a4fff",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/c80e60691dce4277b62d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:52b00cb3b3b5af922e664991",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:746fdb2731c52123b5cf0e1a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/c80e60691dce4277b62d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ab023376252651323251a133",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:07febe0d764a2c6e8c9bf05c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/d6d02fbd7be3fe5309ce/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ab023376252651323251a133",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5bd01eb3df0db72e62c175f1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/d6d02fbd7be3fe5309ce/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:4a9d759b414a25921a89b991",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1d0a767944e91d2e67db7cfe",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/dd686084621c72f5b0a0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:4a9d759b414a25921a89b991",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:610ac5b12f65fc231d0aa91a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/dd686084621c72f5b0a0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ab6bc076d44b7c7cd5aa872e",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3bdb4081eb47c42ffac3f496",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/e7641f8f222c465d0e72/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ab6bc076d44b7c7cd5aa872e",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:bc24a452ed7f2b633018a793",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/e7641f8f222c465d0e72/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0071f6264cc914fb4765b6c0",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:316cf492c0d4324a00c9d943",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/f19157d3a12a94eba619/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:6c9226a3fc6625a115f4e13e",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:404a04b114f5a0cd317af11d",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/f19157d3a12a94eba619/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0071f6264cc914fb4765b6c0",
-      "quest_id": "irowiki-classic:Eye_of_Hellion_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6a72715c4156b96f88074c59",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Eye_of_Hellion_Quest/step/f19157d3a12a94eba619/1"
     },
     {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
@@ -13925,38 +13502,20 @@
       "step_id": "irowiki-classic:Factory_Quest/step/37400a7228f962ffa9d6/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Stage 15 says any time but its note still mentions an available period; stage 3 prints four PST windows. Preserve the conflict, dock trigger and literal PST label without inventing postquest unlimited hours or UTC/DST conversion.",
       "evidence_id": "ev:a907fa9a9e52e2045ceb4913",
       "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:1f2f08945f447966164abeb1",
+      "reason": "postquest_time_wording_conflict",
+      "review_id": "review:6c2cfc4b8b831bb06fa554d7",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Initial repair and later Gusli crafting are separate single sets. Second voyage does not add another repair set. First Stranger visit has three talks; optional learning has a random/unknown count. One Gusli is crafted and retained/equipped for later travel.",
       "evidence_id": "ev:a907fa9a9e52e2045ceb4913",
       "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:2e2dd42d3093ed0e2b610c86",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:ec02eebaee5df9008ed95344",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:39cea97ecb7622ae301c709b",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:d0ca9882da627132e48df485",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:b0dcd50b925dac3eaae4d861",
+      "reason": "repair_crafting_and_learning_counts",
+      "review_id": "review:949ca1f48f52a8b284f9ba89",
       "severity": "warning",
       "step_id": null
     },
@@ -13970,274 +13529,22 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:bf692dd74a4953357e0fbc68",
+      "detail": "Directions follow the latest live command. Actual spawns must be killed; five-minute despawn does not clear the stage. Possible species/level labels are not fixed kill quotas or proven level gates. No ship EXP/drop rewards or death penalty are invented.",
+      "evidence_id": "ev:a907fa9a9e52e2045ceb4913",
       "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:61b70b4b0fa91ea2847bebe7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/1f710471af314edcd420/1"
+      "reason": "ship_encounter_not_wait_only",
+      "review_id": "review:4edb8911a53d93b92e78044b",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:bf692dd74a4953357e0fbc68",
+      "detail": "Choose one final performance branch; header is not another payout. Learned play, no play and unlearned play have different EXP/box outcomes.",
+      "evidence_id": "ev:a907fa9a9e52e2045ceb4913",
       "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:194729d9e9ca05cf5d0626f5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/1f710471af314edcd420/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a065433556a7cba60bffb51a",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ca9b89fd94d9c679899835d9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/3274885aa3d858647e65/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a065433556a7cba60bffb51a",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:59876053da34ade3c01a4340",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/3274885aa3d858647e65/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8a8ffb505f712e3cad1e4214",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f2a13d86fc3282c026833920",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/3d268ca0cc80dd4a6d91/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8a8ffb505f712e3cad1e4214",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:29ce52b50a236423ee1eb4a0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/3d268ca0cc80dd4a6d91/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8532ed2f1e7dea11b3698d00",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7e521b90b86b6fe151c40a12",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/417f41f3413185d43669/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8532ed2f1e7dea11b3698d00",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7511cb747ce18ad81fcbbf6f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/417f41f3413185d43669/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e8aad1d26700258d7d08f2c5",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:16f414de3f6fdd766ddec977",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/4313ccbc454abe964154/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e8aad1d26700258d7d08f2c5",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:37b9e69de4bee44881d3f63d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/4313ccbc454abe964154/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2309cc99530985e57eb6a642",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9c015e138eb628f510aac3b4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/447ad59594007201f5b7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2309cc99530985e57eb6a642",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b17f7a2e0a9ba0a31293cbad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/447ad59594007201f5b7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:110e36c890dc7468db591ec6",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:25168bef1a25a3956df9df77",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/53cfd3696bdd74dbc150/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:110e36c890dc7468db591ec6",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:cdff1cd378779ada8384f9e0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/53cfd3696bdd74dbc150/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:110d5ae5f53d77ac54965129",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c96c3783319752b2a81aaf66",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/72ce6e54dd0d55e4a26a/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:110d5ae5f53d77ac54965129",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0fecde4c7560acf83ecb178a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/72ce6e54dd0d55e4a26a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6a67593b7554704ff4a14fd2",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4e68b2353a41ca103116a9cc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/73ca08cca8bc612da64e/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6a67593b7554704ff4a14fd2",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1c98202ae82b0790f820a9f0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/73ca08cca8bc612da64e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e1fdb4ba199a48d536ee4dd0",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:698f172545c6acf2f18b94a8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/7c42e5665650d3d829a2/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e1fdb4ba199a48d536ee4dd0",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c5ae0fed3fa715eb9e346e0a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/7c42e5665650d3d829a2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8e67ce2ac8768c5f727d933e",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a5401d5f2766cff434fac041",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/9309f2acb9f9661eb0f7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8e67ce2ac8768c5f727d933e",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:47637e893dc7059641869ff7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/9309f2acb9f9661eb0f7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b421b337887ae26eaa28a46d",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8d43582bcddb04fef26f9eb4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/9fcd0d68cd1b46a2d5b0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b421b337887ae26eaa28a46d",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:23d679a8d9a0936bbd484068",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/9fcd0d68cd1b46a2d5b0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1bdd46d2701d003c58e40ecf",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:db69aa0ea0aeaa7c87350465",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/aee9785b224089d28941/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1bdd46d2701d003c58e40ecf",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d66ed8620beaef250130f338",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/aee9785b224089d28941/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:54fd63a369100a5655bfaa19",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:421e8688d1ad63a1ce3a2e5b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/bb82700b63d875f6d723/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:54fd63a369100a5655bfaa19",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:788ce3af1aabaad774936fad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/bb82700b63d875f6d723/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:cde29e4e90a4d53845414c9c",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9c17abc8995ba18fbe93bd09",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/c3b5d59320550cc8ecd5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:cde29e4e90a4d53845414c9c",
-      "quest_id": "irowiki-classic:Finding_The_Moving_Island_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:95d04004a00e73665d75e4f6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Finding_The_Moving_Island_Quest/step/c3b5d59320550cc8ecd5/1"
+      "reason": "three_exclusive_performance_rewards",
+      "review_id": "review:53cad133e6cf7db2fb58dba2",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Two 700000 installments total the 1400000 header reward; no third header grant is emitted.",
@@ -24005,38 +23312,29 @@
       "step_id": "irowiki-classic:Juperos_Quest/step/ecb611d150715fb79e95/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Four Book labels have distinct map-position identities and per-occurrence bindings. Reading objects/statues are source-qualified interactable references, not invented inventory grants or verified NPC names. Fayruz/Feyruz/Scholar are same-guide source spellings.",
       "evidence_id": "ev:c6ea945f7523baa25a50e3a3",
       "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:bce5e550454a18113731e873",
+      "reason": "homonymous_books_and_source_names",
+      "review_id": "review:1570fcbbbf234ca9de8e2a5b",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Header 200000-or-more EXP and four-or-more boxes are summaries, not added payouts. Body reports 100000 EXP per plate but explicitly questions applicability beyond two. No guaranteed 400000 total or unlimited farming is claimed. Gift Box uses literal linked ID 666, not 644.",
       "evidence_id": "ev:c6ea945f7523baa25a50e3a3",
       "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:1d48aab7be62c26b31cb585b",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:41be8b5b99ba5673bc12ebcf",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:598518708c22285163077a1d",
+      "reason": "juperos_exp_and_box_uncertainty",
+      "review_id": "review:22434788214108f88dd3be26",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:b267b333b2201e0feaedc378",
+      "detail": "Four colors are required, but one generic wiki link only identifies example 7355. Category retains NULL game ID and distinct-kind obligation; example is not all four interchangeable items. Four Dimik types do not imply four kills.",
+      "evidence_id": "ev:c6ea945f7523baa25a50e3a3",
       "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:89d42ed320240426480a7855",
+      "reason": "plate_category_not_single_id",
+      "review_id": "review:bb0515da1b46fee9cd8eea15",
       "severity": "warning",
       "step_id": null
     },
@@ -24048,186 +23346,6 @@
       "review_id": "review:f246762c07ca0bbf9039ca23",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d44c00736ffeb0fb404e5c8b",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:03f436094c956feb2ffaffa8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/051100227094d0bc1f02/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d44c00736ffeb0fb404e5c8b",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f159a6ad4ca56ca0c0d8d0c5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/051100227094d0bc1f02/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6f6fb72504d5fcc6160e52d4",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:2846d4451c6709a055f282c8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/41d7ea0c5a3ce01b1b04/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6f6fb72504d5fcc6160e52d4",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2ff6f84eeb333c7963e92570",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/41d7ea0c5a3ce01b1b04/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:6f6fb72504d5fcc6160e52d4",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:9e09b4a1d48ff1bc284bb0b4",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/41d7ea0c5a3ce01b1b04/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:27db63f6ece98be2449ed3ae",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7b4e75364c55083b8c786cff",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/7573be55e916c28776ad/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:27db63f6ece98be2449ed3ae",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5e4862ec806012349e1f1ffa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/7573be55e916c28776ad/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3aa222bd8033a5a76bbdb4dd",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:972aee1a3627fbd3c8ed4ebc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/7ddbe235bad15791eefe/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3aa222bd8033a5a76bbdb4dd",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:33cc61a77a274c97dc910710",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/7ddbe235bad15791eefe/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8e2d90174279b770bde48ac8",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6d10d37d4ef03b4969538051",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/9e3000a9ae521dfd032d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8e2d90174279b770bde48ac8",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8e6edebb38d7d7d6b5feda02",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/9e3000a9ae521dfd032d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7b7595bafbe40e842935f2ce",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:e3a34edf5c2d1e5f6ac6eef3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/9fac2708cde00a494eb8/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7b7595bafbe40e842935f2ce",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:68b1227ee5744fe97b25b0e6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/9fac2708cde00a494eb8/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:59ff254a6b908fabef3ac9b5",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7d492ce0ea1a6d1f25686658",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/d4f0a7cbf2c8def7c651/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:59ff254a6b908fabef3ac9b5",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fc5d0799fec2a048db5e94d9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/d4f0a7cbf2c8def7c651/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e7e4e2713cf67a4d17d4737f",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1ff13a4154201f9fbcfc97a8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/d9a0e75b8e9f5ac36790/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e7e4e2713cf67a4d17d4737f",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:daffb2b6836ceff024ca60b0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/d9a0e75b8e9f5ac36790/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:e7e4e2713cf67a4d17d4737f",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:c09dfc58638235a047674749",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/d9a0e75b8e9f5ac36790/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8f7fc6abc11ceaa9781dae4c",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:951b2eb1f13e6a09438adb60",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/f122c464451e755731ed/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8f7fc6abc11ceaa9781dae4c",
-      "quest_id": "irowiki-classic:Juperos_Ruins_History_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7297b9937527cdc44b4fb5ed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Juperos_Ruins_History_Quest/step/f122c464451e755731ed/1"
     },
     {
       "detail": "Kiel at the restricted door, Kiel in the mansion, and uncertain narrative Kiel mentions retain separate identities. Kiehl dialogue and combat references are typed separately; optional Kiel-D-01 is not the mandatory encounter.",
