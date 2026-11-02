@@ -1,0 +1,423 @@
+{
+  "quest_id": "irowiki-classic:Merchant_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "af7c9c6b8696dd339f31f8fd3e9b9bc8b0d38c97050bc4fc16b64c9ca511fcdc",
+  "snapshot_sha256": "aa90011fa40dc582d55e5d700c9515cecdd38a29adbe5db2a6791ba1e5eb669e",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Charlron"
+    },
+    {
+      "type": "npc",
+      "name": "Necko"
+    },
+    {
+      "type": "npc",
+      "name": "Gershaun"
+    },
+    {
+      "type": "map",
+      "name": "Alberta"
+    },
+    {
+      "type": "item",
+      "name": "Animal Skins",
+      "game_id": 919,
+      "id_source": "http://db.irowiki.org/classic/item-info/919/"
+    },
+    {
+      "type": "item",
+      "name": "Iron",
+      "game_id": 998,
+      "id_source": "http://db.irowiki.org/classic/item-info/998/"
+    },
+    {
+      "type": "item",
+      "name": "Trunks",
+      "game_id": 1019,
+      "id_source": "http://db.irowiki.org/classic/item-info/1019/"
+    },
+    {
+      "type": "item",
+      "name": "Pearls",
+      "game_id": 722,
+      "id_source": "http://db.irowiki.org/classic/item-info/722/"
+    },
+    {
+      "type": "item",
+      "name": "Mushroom Spores",
+      "game_id": 921,
+      "id_source": "http://db.irowiki.org/classic/item-info/921/"
+    },
+    {
+      "type": "item",
+      "name": "Banana Juice",
+      "game_id": 532,
+      "id_source": "http://db.irowiki.org/classic/item-info/532/"
+    },
+    {
+      "type": "item",
+      "name": "Sticky Mucus",
+      "game_id": 938,
+      "id_source": "http://db.irowiki.org/classic/item-info/938/"
+    },
+    {
+      "type": "item",
+      "name": "Fly Wings",
+      "game_id": 601,
+      "id_source": "http://db.irowiki.org/classic/item-info/601/"
+    },
+    {
+      "type": "item",
+      "name": "Tentacles",
+      "game_id": 962,
+      "id_source": "http://db.irowiki.org/classic/item-info/962/"
+    },
+    {
+      "type": "item",
+      "name": "Grape Juice",
+      "game_id": 533,
+      "id_source": "http://db.irowiki.org/classic/item-info/533/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Charlron in Alberta (119,221). Bring him the following items to learn Change Cart : 20 Animal Skins , 10 Iron , and 50 Trunks .",
+      "instruction_sha256": "dfc9a30e21aafc66c0b944db2fc7a41128f2d79e24aac487c9263e70bfc1bbac",
+      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/dfc9a30e21aafc66c0b9/1",
+      "goal": "learn_skill",
+      "short_ru": "У Charlron (Alberta 119,221) подготовьте 20 Animal Skins, 10 Iron, 50 Trunks для Change Cart.",
+      "short_en": "At Charlron (Alberta 119,221), prepare 20 Animal Skins, 10 Iron, 50 Trunks for Change Cart.",
+      "full_ru": "Поговорите с Charlron в Alberta (119,221). Принесите 20 Animal Skins, 10 Iron, 50 Trunks для изучения Change Cart. Условия этого умения: Job Level 30, профессия Merchant.",
+      "full_en": "Talk to Charlron in Alberta (119,221). Bring him the following items to learn Change Cart : 20 Animal Skins , 10 Iron , and 50 Trunks . Job Level: 30 Class: Merchant",
+      "npcs": [
+        {
+          "entity": "Charlron",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Animal Skins",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Only this independent skill material set."
+        },
+        {
+          "entity": "Iron",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Only this independent skill material set."
+        },
+        {
+          "entity": "Trunks",
+          "quantity": 50,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Only this independent skill material set."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "30",
+          "source_section": "html_text",
+          "evidence": "Job Level: 30 Class: Merchant"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Change Cart"
+        }
+      ],
+      "locations": [
+        {
+          "x": 119,
+          "y": 221,
+          "role": "trainer",
+          "known": false,
+          "entity": "Alberta"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "bring_training_materials",
+          "entity": "Charlron"
+        },
+        {
+          "operation": "learn_skill",
+          "entity": "Charlron"
+        }
+      ],
+      "protected_names": [
+        "Charlron",
+        "Alberta",
+        "Animal Skins",
+        "Iron",
+        "Trunks"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 30 Class: Merchant",
+          "text_ru": "Условия этого умения: Job Level 30, профессия Merchant."
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Talk to Necko in Alberta (83,96). Bring him the following items to learn Crazy Uproar : 7 Pearls , 50 Mushroom Spores , and 1 Banana Juice .",
+      "instruction_sha256": "04b0686c24085d62a208786dd172b011fa415d0c7a09b76698a26433b46d9292",
+      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/04b0686c24085d62a208/1",
+      "goal": "learn_skill",
+      "short_ru": "У Necko (Alberta 83,96) подготовьте 7 Pearls, 50 Mushroom Spores, 1 Banana Juice для Crazy Uproar.",
+      "short_en": "At Necko (Alberta 83,96), prepare 7 Pearls, 50 Mushroom Spores, 1 Banana Juice for Crazy Uproar.",
+      "full_ru": "Поговорите с Necko в Alberta (83,96). Принесите 7 Pearls, 50 Mushroom Spores, 1 Banana Juice для изучения Crazy Uproar. Условия этого умения: Job Level 15, профессия Merchant.",
+      "full_en": "Talk to Necko in Alberta (83,96). Bring him the following items to learn Crazy Uproar : 7 Pearls , 50 Mushroom Spores , and 1 Banana Juice . Job Level: 15 Class: Merchant",
+      "npcs": [
+        {
+          "entity": "Necko",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Pearls",
+          "quantity": 7,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Only this independent skill material set."
+        },
+        {
+          "entity": "Mushroom Spores",
+          "quantity": 50,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Only this independent skill material set."
+        },
+        {
+          "entity": "Banana Juice",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Only this independent skill material set."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "15",
+          "source_section": "html_text",
+          "evidence": "Job Level: 15 Class: Merchant"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Crazy Uproar"
+        }
+      ],
+      "locations": [
+        {
+          "x": 83,
+          "y": 96,
+          "role": "trainer",
+          "known": false,
+          "entity": "Alberta"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "bring_training_materials",
+          "entity": "Necko"
+        },
+        {
+          "operation": "learn_skill",
+          "entity": "Necko"
+        }
+      ],
+      "protected_names": [
+        "Necko",
+        "Alberta",
+        "Pearls",
+        "Mushroom Spores",
+        "Banana Juice"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 15 Class: Merchant",
+          "text_ru": "Условия этого умения: Job Level 15, профессия Merchant."
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to Gershaun in Alberta (232,106). Bring him exactly 1 Banana Juice , 20 Iron , 30 Sticky Mucus , 20 Fly Wings , 5 Tentacles , and 2 Grape Juice to learn Cart Revolution . It will fail if you bring more items than requested.",
+      "instruction_sha256": "2c15c533038ecbfdcbb16b3ea67f79504097673b76268dda3bed8dc438b8c89f",
+      "step_id": "irowiki-classic:Merchant_Skill_Quest/step/2c15c533038ecbfdcbb1/1",
+      "goal": "learn_skill",
+      "short_ru": "У Gershaun (Alberta 232,106) подготовьте ровно 1 Banana Juice, 20 Iron, 30 Sticky Mucus, 20 Fly Wings, 5 Tentacles, 2 Grape Juice для Cart Revolution.",
+      "short_en": "At Gershaun (Alberta 232,106), prepare exactly 1 Banana Juice, 20 Iron, 30 Sticky Mucus, 20 Fly Wings, 5 Tentacles, 2 Grape Juice for Cart Revolution.",
+      "full_ru": "Поговорите с Gershaun в Alberta (232,106). Принесите ровно 1 Banana Juice, 20 Iron, 30 Sticky Mucus, 20 Fly Wings, 5 Tentacles, 2 Grape Juice для изучения Cart Revolution. Если принести больше запрошенного, обучение не удастся. Условия этого умения: Job Level 35, профессия Merchant.",
+      "full_en": "Talk to Gershaun in Alberta (232,106). Bring him exactly 1 Banana Juice , 20 Iron , 30 Sticky Mucus , 20 Fly Wings , 5 Tentacles , and 2 Grape Juice to learn Cart Revolution . It will fail if you bring more items than requested. Job Level: 35 Class: Merchant",
+      "npcs": [
+        {
+          "entity": "Gershaun",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Banana Juice",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Exact requested count, not a minimum."
+        },
+        {
+          "entity": "Iron",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Exact requested count, not a minimum."
+        },
+        {
+          "entity": "Sticky Mucus",
+          "quantity": 30,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Exact requested count, not a minimum."
+        },
+        {
+          "entity": "Fly Wings",
+          "quantity": 20,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Exact requested count, not a minimum."
+        },
+        {
+          "entity": "Tentacles",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Exact requested count, not a minimum."
+        },
+        {
+          "entity": "Grape Juice",
+          "quantity": 2,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Exact requested count, not a minimum."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "35",
+          "source_section": "html_text",
+          "evidence": "Job Level: 35 Class: Merchant"
+        },
+        {
+          "kind": "exact_material_quantities",
+          "condition": "Bringing more than the requested amounts makes the training fail; do not treat these as minimum counts."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Cart Revolution"
+        }
+      ],
+      "locations": [
+        {
+          "x": 232,
+          "y": 106,
+          "role": "trainer",
+          "known": false,
+          "entity": "Alberta"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "bring_training_materials",
+          "entity": "Gershaun"
+        },
+        {
+          "operation": "learn_skill",
+          "entity": "Gershaun"
+        }
+      ],
+      "protected_names": [
+        "Gershaun",
+        "Alberta",
+        "Iron",
+        "Banana Juice",
+        "Sticky Mucus",
+        "Fly Wings",
+        "Tentacles",
+        "Grape Juice"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 35 Class: Merchant",
+          "text_ru": "Условия этого умения: Job Level 35, профессия Merchant."
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "merchant_independent_skill_levels",
+      "detail": "Three independent skill activities have Job Levels 30/15/35. The first header is a source summary, not a whole-guide minimum that blocks Crazy Uproar below 30. No combined material fee or forced skill sequence is asserted."
+    },
+    {
+      "reason": "cart_revolution_exact_stock",
+      "detail": "Cart Revolution requires exactly the six stated quantities and fails with excess stock. These are not minimum counts. Bare Alberta trainer points retain NULL map codes."
+    }
+  ],
+  "job_level_scope_step": 1,
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Merchant",
+        "source_section": "requirements",
+        "evidence": "Class: Merchant"
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "change_cart",
+      "kind": "optional",
+      "source_heading": "Change Cart Quest",
+      "steps": [
+        1
+      ],
+      "condition": "Independent Change Cart training; Job Level 30 and only its own material set apply."
+    },
+    {
+      "key": "crazy_uproar",
+      "kind": "optional",
+      "source_heading": "Crazy Uproar Quest",
+      "steps": [
+        2
+      ],
+      "condition": "Independent Crazy Uproar training; Job Level 15 and only its own material set apply."
+    },
+    {
+      "key": "cart_revolution",
+      "kind": "optional",
+      "source_heading": "Cart Revolution Quest",
+      "steps": [
+        3
+      ],
+      "condition": "Independent Cart Revolution training; Job Level 35 and only its own material set apply."
+    }
+  ]
+}

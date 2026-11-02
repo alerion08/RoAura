@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 1,033 steps in 90 curated guides and
-166 conditional branches. Forty-two source additions supplement full descriptions;
-**1,717 steps / 126 remaining catalog entries still need processing**. Twenty-eight quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
+is excluded. All four RU/EN fields exist for 1,045 steps in 93 curated guides and
+172 conditional branches. Forty-nine source additions supplement full descriptions;
+**1,705 steps / 123 remaining catalog entries still need processing**. Thirty-three quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -154,8 +154,21 @@ archived numeric 40 comes from the second header, while its preserved first
 requirements say N/A. NULL whole-guide eligibility and a pinned HTML summary
 linked to the actual stage gate preserve both facts. Three source additions
 restore recipes and Sage headers; previous 1,020 texts and 158 branches remain.
+Merchant job change and Merchant/Blacksmith skill guides are curated:
+three guides / 12 stages. One 1000-Zeny fee has upfront or 500+500 arrangements;
+eight serial candidates are character-assigned inputs, not universal answers.
+Four delivery contacts include distinct Bylan/Prontera Kafra Employees. Wrong
+input still creates a parcel but prevents acceptance; receipt/restart and bare
+point uncertainty remain explicit. Merchant skills have independent 30/15/35
+levels; Cart Revolution quantities are exact, with excess-stock failure.
+Blacksmith's second material set is additional; the 500-Zeny cost and level 35
+apply only to Dubious Salesmanship. Greed has Job Level N/A and requires free
+capacity below 500, with optional Flowers and no invented item count/fee.
+Seven source additions restore serial inputs, activity headers and rewards.
+Previous 1,033 localized descriptions and 166 branches remain unchanged;
+schema/generator remain 5 / 5.9.0.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 315 regression tests, full offline rebuild and research CI
+Local validation: 325 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration

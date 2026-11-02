@@ -1,0 +1,380 @@
+{
+  "quest_id": "irowiki-classic:Blacksmith_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "65be8b42c71396d693b4fa75488f2fffd00cdde969e6c44387b0bb7403f1f480",
+  "snapshot_sha256": "eb0a8f6a21edcdccb0f177ce73901e01c8a57dc9bf80f9b4cd5a45242be1aa49",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Akkie"
+    },
+    {
+      "type": "npc",
+      "name": "dwarf"
+    },
+    {
+      "type": "npc",
+      "name": "NPC",
+      "ref": "flower_vendor",
+      "identity": "irowiki-classic:Blacksmith_Skill_Quest:optional_flower_vendor"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "geffen",
+      "map_code": "geffen"
+    },
+    {
+      "type": "item",
+      "name": "Steel",
+      "game_id": 999,
+      "id_source": "http://db.irowiki.org/classic/item-info/999/"
+    },
+    {
+      "type": "item",
+      "name": "Coal",
+      "game_id": 1003,
+      "id_source": "http://db.irowiki.org/classic/item-info/1003/"
+    },
+    {
+      "type": "item",
+      "name": "Iron Hammer",
+      "game_id": 613,
+      "id_source": "http://db.irowiki.org/classic/item-info/613/"
+    },
+    {
+      "type": "item",
+      "name": "Detrimindexta",
+      "game_id": 971,
+      "id_source": "http://db.irowiki.org/classic/item-info/971/"
+    },
+    {
+      "type": "item",
+      "name": "Flowers",
+      "identity": "irowiki-classic:Blacksmith_Skill_Quest:source_item:Flowers"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "In Geffen , near the Blacksmith Guild, talk to the NPC Akkie ( geffen 173,72). She will ask you to bring the following items: 1 Steel , 5 Coal , 1 Iron Hammer , 1 Detrimindexta .",
+      "instruction_sha256": "62945cb9912c8faced9bd5d247526b500bbe0750cf26a23ed199a743b662824d",
+      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/62945cb9912c8faced9b/1",
+      "goal": "bring",
+      "short_ru": "У Akkie (geffen 173,72) подготовьте 1 Steel, 5 Coal, 1 Iron Hammer, 1 Detrimindexta и общий взнос 500 Zeny.",
+      "short_en": "At Akkie (geffen 173,72), prepare 1 Steel, 5 Coal, 1 Iron Hammer, 1 Detrimindexta and the total 500 Zeny fee.",
+      "full_ru": "В Geffen возле Blacksmith Guild поговорите с NPC Akkie (geffen 173,72). Она попросит 1 Steel, 5 Coal, 1 Iron Hammer и 1 Detrimindexta. Условия этого умения: Job Level 35, профессия Blacksmith. Общий взнос за это обучение: 500 Zeny; момент оплаты в описании не указан.",
+      "full_en": "In Geffen , near the Blacksmith Guild, talk to the NPC Akkie ( geffen 173,72). She will ask you to bring the following items: 1 Steel , 5 Coal , 1 Iron Hammer , 1 Detrimindexta . Job Level: 35 Class: Blacksmith Zeny: 500",
+      "npcs": [
+        {
+          "entity": "Akkie",
+          "role": "talk"
+        }
+      ],
+      "non_entity_mentions": {
+        "NPC": "Generic role before Akkie, not the unnamed optional flower vendor."
+      },
+      "items": [
+        {
+          "entity": "Steel",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "First material request; the later request is additional, not a replacement."
+        },
+        {
+          "entity": "Coal",
+          "quantity": 5,
+          "operation": "bring",
+          "required": 1,
+          "condition": "First material request; the later request is additional, not a replacement."
+        },
+        {
+          "entity": "Iron Hammer",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "First material request; the later request is additional, not a replacement."
+        },
+        {
+          "entity": "Detrimindexta",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "First material request; the later request is additional, not a replacement."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "35",
+          "source_section": "html_text",
+          "evidence": "Job Level: 35 Class: Blacksmith"
+        },
+        {
+          "kind": "zeny_training_cost",
+          "amount": "500",
+          "source_section": "html_text",
+          "evidence": "Zeny: 500",
+          "condition": "Total cost from the Dubious Salesmanship header only; precise payment timing is not printed."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "geffen",
+          "x": 173,
+          "y": 72,
+          "role": "Akkie",
+          "known": true
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_dubious_salesmanship",
+          "entity": "Akkie"
+        }
+      ],
+      "protected_names": [
+        "Akkie",
+        "NPC",
+        "Geffen",
+        "geffen",
+        "Steel",
+        "Coal",
+        "Iron Hammer",
+        "Detrimindexta"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 35 Class: Blacksmith",
+          "text_ru": "Условия этого умения: Job Level 35, профессия Blacksmith."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "Zeny: 500",
+          "text_ru": "Общий взнос за это обучение: 500 Zeny; момент оплаты в описании не указан."
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "When you return to Akkie with the ingredients she will again ask you for more items. The items are as follows: 1 Steel , 3 Coal , 1 Iron Hammer .",
+      "instruction_sha256": "0c107f32534ed6341f06b2514df23a360ddcc2ba1c93375e8808547eaae24107",
+      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/0c107f32534ed6341f06/1",
+      "goal": "bring",
+      "short_ru": "Вернитесь к Akkie и дополнительно подготовьте 1 Steel, 3 Coal и 1 Iron Hammer.",
+      "short_en": "Return to Akkie and additionally prepare 1 Steel, 3 Coal and 1 Iron Hammer.",
+      "full_ru": "Когда вы вернётесь к Akkie с ингредиентами, она попросит ещё предметы: 1 Steel, 3 Coal и 1 Iron Hammer.",
+      "full_en": "When you return to Akkie with the ingredients she will again ask you for more items. The items are as follows: 1 Steel , 3 Coal , 1 Iron Hammer .",
+      "npcs": [
+        {
+          "entity": "Akkie",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Steel",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Additional request, on top of stage 1; do not replace the initial materials."
+        },
+        {
+          "entity": "Coal",
+          "quantity": 3,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Additional request, on top of stage 1; do not replace the initial materials."
+        },
+        {
+          "entity": "Iron Hammer",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Additional request, on top of stage 1; do not replace the initial materials."
+        }
+      ],
+      "locations": [],
+      "actions": [
+        {
+          "operation": "obtain_additional_material_request",
+          "entity": "Akkie"
+        }
+      ],
+      "protected_names": [
+        "Akkie",
+        "Steel",
+        "Coal",
+        "Iron Hammer"
+      ]
+    },
+    "3": {
+      "original_instruction": "After giving her the items, Akkie will teach you Dubious Salesmanship .",
+      "instruction_sha256": "2b4ef11f75e5ab4afee29cac539456e75178851bc65cc6176f7cd15d949c135d",
+      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/2b4ef11f75e5ab4afee2/1",
+      "goal": "learn_skill",
+      "short_ru": "Передайте Akkie подготовленные предметы и изучите Dubious Salesmanship.",
+      "short_en": "Give Akkie the prepared items and learn Dubious Salesmanship.",
+      "full_ru": "После передачи предметов Akkie обучит вас Dubious Salesmanship.",
+      "full_en": "After giving her the items, Akkie will teach you Dubious Salesmanship .",
+      "npcs": [
+        {
+          "entity": "Akkie",
+          "role": "talk"
+        }
+      ],
+      "locations": [],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Dubious Salesmanship"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "hand_in_prepared_material_sets",
+          "entity": "Akkie"
+        },
+        {
+          "operation": "learn_dubious_salesmanship",
+          "entity": "Akkie"
+        }
+      ],
+      "protected_names": [
+        "Akkie"
+      ]
+    },
+    "4": {
+      "original_instruction": "Talk to the dwarf right outside the old Blacksmith Guild in Geffen ( geffen , 169,52). All he requires you to do is to make your Weight high to the point where you cannot add 500 weight. The simplest way to do this is by buying Flowers from an NPC until the required amount is achieved.",
+      "instruction_sha256": "0d1cea4ea908ae90fedccd9bb358d2483958814039c97d5bf0649490fdba8d9a",
+      "step_id": "irowiki-classic:Blacksmith_Skill_Quest/step/0d1cea4ea908ae90fedc/1",
+      "goal": "learn_skill",
+      "short_ru": "У dwarf (geffen 169,52) оставьте менее 500 свободного веса; покупка Flowers — необязательный способ выполнить условие.",
+      "short_en": "At the dwarf (geffen 169,52), leave less than 500 free weight; buying Flowers is an optional way to meet the condition.",
+      "full_ru": "Поговорите с dwarf снаружи старой Blacksmith Guild в Geffen (geffen, 169,52). Нужно повысить Weight так, чтобы нельзя было добавить ещё 500 веса. Самый простой способ — покупать Flowers у NPC, пока условие не будет выполнено. Условия этого умения: Job Level N/A, профессия Blacksmith. Награда: возможность использовать Greed.",
+      "full_en": "Talk to the dwarf right outside the old Blacksmith Guild in Geffen ( geffen , 169,52). All he requires you to do is to make your Weight high to the point where you cannot add 500 weight. The simplest way to do this is by buying Flowers from an NPC until the required amount is achieved. Job Level: N/A Class: Blacksmith Rewards Quest Reward(s): Ability to use Greed",
+      "npcs": [
+        {
+          "entity": "dwarf",
+          "role": "talk"
+        },
+        {
+          "entity": "flower_vendor",
+          "role": "optional_vendor"
+        }
+      ],
+      "mention_entities": {
+        "NPC": "flower_vendor"
+      },
+      "items": [
+        {
+          "entity": "Flowers",
+          "quantity": null,
+          "operation": "buy",
+          "required": 0,
+          "condition": "Optional method for increasing Weight, not a required fixed-count hand-in. No item ID is established here."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level_not_applicable",
+          "amount": "N/A",
+          "source_section": "html_text",
+          "evidence": "Job Level: N/A Class: Blacksmith"
+        },
+        {
+          "kind": "free_weight_capacity_below",
+          "amount": "500",
+          "condition": "Cannot add 500 weight: remaining capacity must be below 500. No 500-item count, 500-Zeny fee or percentage threshold is stated."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Greed",
+          "source_section": "html_text",
+          "evidence": "Ability to use Greed"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "geffen",
+          "x": 169,
+          "y": 52,
+          "role": "dwarf",
+          "known": true
+        }
+      ],
+      "actions": [
+        {
+          "operation": "increase_weight_until_condition"
+        },
+        {
+          "operation": "learn_greed",
+          "entity": "dwarf"
+        }
+      ],
+      "protected_names": [
+        "dwarf",
+        "NPC",
+        "Geffen",
+        "geffen",
+        "Flowers"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: N/A Class: Blacksmith Rewards Quest Reward(s): Ability to use Greed",
+          "text_ru": "Условия этого умения: Job Level N/A, профессия Blacksmith. Награда: возможность использовать Greed."
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "blacksmith_additional_materials_and_fee_scope",
+      "detail": "The second 1-Steel/3-Coal/1-Iron-Hammer set is additional to the first set, giving the archived total 2 Steel/8 Coal/2 Iron Hammer/1 Detrimindexta. The 500-Zeny cost belongs only to Dubious Salesmanship, with no invented payment time or repeat charge."
+    },
+    {
+      "reason": "greed_capacity_not_item_cost",
+      "detail": "Greed is an independent activity with Job Level N/A. Cannot add 500 weight means free capacity below 500, not 500 Flowers, 500 Zeny or an invented overweight percentage. Flowers purchase is optional with unknown count/ID, and the unnamed vendor is distinct from Akkie and the dwarf."
+    }
+  ],
+  "job_level_scope_step": 1,
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Blacksmith",
+        "source_section": "requirements",
+        "evidence": "Class: Blacksmith"
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "dubious_salesmanship",
+      "kind": "optional",
+      "source_heading": "Dubious Salesmanship Quest",
+      "steps": [
+        1,
+        2,
+        3
+      ],
+      "condition": "Independent training activity; Job Level 35, the two successive material sets and a total 500-Zeny header cost apply here."
+    },
+    {
+      "key": "greed",
+      "kind": "optional",
+      "source_heading": "Greed Quest",
+      "steps": [
+        4
+      ],
+      "condition": "Independent Greed training; Job Level N/A and a free-capacity condition, with optional Flowers as one way to increase Weight."
+    }
+  ]
+}

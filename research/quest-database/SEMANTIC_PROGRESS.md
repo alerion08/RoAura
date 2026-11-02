@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.9.0**. All four description fields are populated for
-**1,033 steps across 90 curated guides**, up from the previous 86-guide/1,020-step
-checkpoint. **166 conditional branches** also have independent RU/EN short and
-full descriptions. Twenty-eight quest routes represent nine exclusive expedition/lyric/material paths
-and nineteen conditional/optional activities. **1,717 steps in 126 remaining catalog entries still lack
+**1,045 steps across 93 curated guides**, up from the previous 90-guide/1,033-step
+checkpoint. **172 conditional branches** also have independent RU/EN short and
+full descriptions. Thirty-three quest routes represent nine exclusive expedition/lyric/material paths
+and twenty-four conditional/optional activities. **1,705 steps in 123 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -115,6 +115,9 @@ complete localization/context analysis.** `complete` remains false.
 | Mage Skill Quest | 1 | One Energy Coat set; optional per-item merchant prices; no invented trainer point |
 | Wizard Skill Quest | 4 | Cat/Simon Meyas sequence; one four-stone return set; no invented coordinates or final teacher |
 | Sage Skill Quest | 4 | Independent converter/change activities; N/A versus level 40; different Endows; four exclusive stone sets |
+| Merchant Job Change Guide | 5 | One fee/two payment modes; character-specific serials; four destinations and distinct Kafras; conditional Receipt |
+| Merchant Skill Quest | 3 | Independent 30/15/35 gates; exact Cart Revolution inventory; unqualified trainer points |
+| Blacksmith Skill Quest | 4 | Additional material set; scoped fee/level; Greed free-capacity condition and optional Flowers |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -123,8 +126,38 @@ verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
 
+- Merchant job change and Merchant/Blacksmith skill training add 12 stages,
+  six conditional branches, five independent activity routes and seven source
+  additions. Coverage is 1,045 stages / 93 guides, 172 branches, thirty-three
+  routes and forty-nine source additions. Prior 1,033 texts, 166 branches and
+  original step IDs/order/text are unchanged; schema/generator stay 5 / 5.9.0.
+- Merchant's fee is one 1000-Zeny total, paid upfront or in two 500z installments.
+  Final outstanding 500 is conditional, not another fee. Eight serial values are
+  possible assigned inputs with unknown correctness until the character's own
+  assignment is known. Destination/serial pairing is not invented. Wrong input
+  can still produce a parcel but blocks acceptance; neither exact restart stage
+  nor repeat fee is asserted. A Receipt is conditional on correct delivery and
+  its final presentation does not establish consumption.
+- Four destination branches retain different Kafra Employee identities for
+  Bylan and Prontera, an unnamed Geffen glasses-wearing contact and an unnamed
+  Morroc recipient. Generic receiving-NPC prose does not bind all deliveries to
+  Morroc. Unqualified points get no guessed map codes; the Morroc point remains
+  ambiguous between house/contact rather than a verified indoor NPC position.
+- Merchant skill activities have separate Job Levels 30/15/35. Cart Revolution
+  requires exactly the six stated quantities and fails with excess stock. No
+  combined material fee or compulsory sequence through all three skills exists.
+- Blacksmith's second material request is additional: together the two sets
+  total 2 Steel, 8 Coal, 2 Iron Hammer and 1 Detrimindexta. No third hand-in cost
+  is added at completion. The 500-Zeny header cost and Job Level 35 belong only
+  to Dubious Salesmanship, with unknown payment timing. Greed has Job Level N/A
+  and requires free capacity below 500, not 500 Flowers or a 500-Zeny fee.
+  Flowers purchase is optional, with unknown item ID/count and a separate
+  unnamed vendor. Seven additions restore serial candidates and skill headers.
+
+Previous Mage-family checkpoint:
+
 - Four Mage-family guides add 13 stages and eight conditional branches.
-  Coverage is now 1,033 stages / 90 guides, 166 localized branches, twenty-eight
+  Coverage at that checkpoint was 1,033 stages / 90 guides, 166 localized branches, twenty-eight
   routes and forty-two source additions. All previous 1,020 descriptions,
   158 branches and 2,750 original step IDs/order/text remain unchanged.
 - Generator semantic-5.9.0 generalizes `job_level_scope_step` to an activity's
@@ -835,7 +868,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **315 tests passed**; complete offline enrichment passed;
+Validated locally: **325 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -899,7 +932,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 ## Next work, in order
 
-1. Review the remaining 126 catalog candidates, separating reference pages,
+1. Review the remaining 123 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

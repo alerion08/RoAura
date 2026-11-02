@@ -268,17 +268,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],1033)
-        self.assertEqual(self.report['not_fully_localized_steps'],1717)
+        self.assertEqual(self.report['fully_localized_steps'],1045)
+        self.assertEqual(self.report['not_fully_localized_steps'],1705)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],1033)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],1045)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1717)
-        self.assertEqual(self.report['fully_localized_branches'],166)
-        self.assertEqual(self.report['curated_quests'],90)
-        self.assertEqual(self.report['pending_quests'],126)
-        self.assertEqual(self.report['quest_routes'],28)
-        self.assertEqual(self.report['source_additions'],42)
+        self.assertEqual(missing,1705)
+        self.assertEqual(self.report['fully_localized_branches'],172)
+        self.assertEqual(self.report['curated_quests'],93)
+        self.assertEqual(self.report['pending_quests'],123)
+        self.assertEqual(self.report['quest_routes'],33)
+        self.assertEqual(self.report['source_additions'],49)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_juperos_four_homonymous_books_and_return_scholar_have_typed_links(self):
@@ -415,6 +415,89 @@ class RealCorpusTests(unittest.TestCase):
             destination=self.out/'quest_semantic.sqlite';before=destination.read_bytes()
             with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid optional route context proof'):build(self.source,self.out,curation_dir=folder)
             self.assertEqual(destination.read_bytes(),before)
+
+    def test_merchant_fee_is_one_total_with_two_alternative_payment_arrangements(self):
+        q='irowiki-classic:Merchant_Job_Change_Guide'
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='zeny_total'",(q,)).fetchone()[0],'1000')
+        payments=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,r.kind,r.amount FROM requirements r JOIN step_branches b USING(branch_id) WHERE r.quest_id=? ORDER BY b.branch_key,r.kind''',(q,))]
+        self.assertEqual(payments,[('installments','zeny_after','500'),('installments','zeny_before','500'),('upfront','zeny_before','1000')])
+        remaining=self.db.execute("SELECT s.step_order,r.amount,r.condition_text FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND kind='zeny_remaining_due'",(q,)).fetchone()
+        self.assertEqual(tuple(remaining[:2]),(5,'500'));self.assertIn('installments',remaining[2])
+
+    def test_merchant_serial_inputs_are_character_specific_candidates_not_all_correct(self):
+        q='irowiki-classic:Merchant_Job_Change_Guide'
+        rows=self.db.execute('''SELECT o.exact_text,o.correct,o.operation,o.condition_text FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id) JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY o.option_order''',(q,)).fetchall()
+        self.assertEqual([r[0] for r in rows],['2485741','2328137','2989396','2191737','3012685','3487372','3318702','3543625'])
+        self.assertTrue(all(r[1] is None and r[2]=='input' and 'assigned' in r[3] for r in rows))
+        text=self.db.execute('''SELECT a.text_en,d.full_ru,d.full_en FROM step_source_additions a JOIN quest_steps s USING(step_id) JOIN step_descriptions d USING(step_id) WHERE s.quest_id=? AND s.step_order=3''',(q,)).fetchone()
+        for code in [r[0] for r in rows]:
+            for field in text:self.assertIn(code,field)
+
+    def test_wrong_merchant_parcel_requires_restart_and_receipt_is_conditional(self):
+        q='irowiki-classic:Merchant_Job_Change_Guide'
+        self.assertEqual(self.db.execute("SELECT count(*) FROM requirements WHERE quest_id=? AND kind='restart_on_wrong_assignment'",(q,)).fetchone()[0],1)
+        objects=[tuple(r) for r in self.db.execute('''SELECT s.step_order,e.original_name,r.amount,r.condition_text FROM rewards r JOIN step_rewards x USING(reward_id) JOIN quest_steps s USING(step_id) JOIN entities e ON e.entity_id=r.item_id WHERE r.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual([(r[0],r[1],r[2]) for r in objects],[(3,'parcel','1'),(4,'Receipt','1')])
+        self.assertIn('correct',objects[1][3])
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind IN ('retry_fee','restart_fee')",(q,)).fetchone())
+
+    def test_merchant_destinations_keep_distinct_kafras_and_unqualified_points(self):
+        q='irowiki-classic:Merchant_Job_Change_Guide'
+        contacts=self.db.execute('''SELECT b.branch_key,a.entity_id FROM step_actions a JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? ORDER BY b.branch_key''',(q,)).fetchall()
+        self.assertEqual([r[0] for r in contacts],['bylan','geffen','morroc','prontera']);self.assertEqual(len({r[1] for r in contacts}),4)
+        points=[tuple(r) for r in self.db.execute('''SELECT m.map_code,l.x,l.y FROM step_locations x JOIN locations l USING(location_id) LEFT JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=4 ORDER BY l.x''',(q,))]
+        self.assertEqual(points,[(None,106,58),(None,155,122),(None,248,42),(None,271,269)])
+        morroc=dict(contacts)['morroc']
+        self.assertFalse(self.db.execute('''SELECT 1 FROM description_mentions m JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=3 AND m.entity_id=?''',(q,morroc)).fetchone())
+
+    def test_merchant_receipt_and_warehouse_identity_survive_the_return(self):
+        q='irowiki-classic:Merchant_Job_Change_Guide'
+        items=[tuple(r) for r in self.db.execute('''SELECT s.step_order,e.original_name,i.game_id,x.operation,x.quantity FROM step_items x JOIN items i ON i.entity_id=x.item_id JOIN entities e ON e.entity_id=x.item_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(items,[(4,'parcel',None,'deliver',1),(5,'Receipt',None,'show',1)])
+        warehouse=self.db.execute('''SELECT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=3''',(q,)).fetchone()[0]
+        self.assertTrue(self.db.execute('''SELECT 1 FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=5 AND n.npc_id=?''',(q,warehouse)).fetchone())
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='job_change'",(q,)).fetchone()[0],'Merchant')
+
+    def test_merchant_skill_levels_are_three_independent_activity_gates(self):
+        q='irowiki-classic:Merchant_Skill_Quest'
+        self.assertIsNone(self.db.execute('SELECT job_level FROM quests WHERE quest_id=?',(q,)).fetchone()[0])
+        levels=[tuple(r) for r in self.db.execute("SELECT s.step_order,r.amount FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.kind='job_level' ORDER BY s.step_order",(q,))]
+        self.assertEqual(levels,[(1,'30'),(2,'15'),(3,'35')])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM quest_routes WHERE quest_id=? AND kind='optional'",(q,)).fetchone()[0],3)
+
+    def test_merchant_skill_material_counts_and_cart_exact_stock_are_preserved(self):
+        q='irowiki-classic:Merchant_Skill_Quest'
+        actual=[tuple(r) for r in self.db.execute('''SELECT s.step_order,i.game_id,x.quantity FROM step_items x JOIN items i ON i.entity_id=x.item_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order,i.game_id''',(q,))]
+        self.assertEqual(actual,[(1,919,20),(1,998,10),(1,1019,50),(2,532,1),(2,722,7),(2,921,50),(3,532,1),(3,533,2),(3,601,20),(3,938,30),(3,962,5),(3,998,20)])
+        exact=self.db.execute("SELECT s.step_order FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.kind='exact_material_quantities'",(q,)).fetchall();self.assertEqual([r[0] for r in exact],[3])
+        for ru,en in self.db.execute('''SELECT d.short_ru,d.short_en FROM step_descriptions d JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=3''',(q,)):
+            for value in ['1 Banana Juice','20 Iron','30 Sticky Mucus','20 Fly Wings','5 Tentacles','2 Grape Juice']:
+                self.assertIn(value,ru);self.assertIn(value,en)
+
+    def test_blacksmith_second_material_set_is_additional_and_not_a_third_fee(self):
+        q='irowiki-classic:Blacksmith_Skill_Quest'
+        actual=[tuple(r) for r in self.db.execute('''SELECT s.step_order,i.game_id,x.quantity FROM step_items x JOIN items i ON i.entity_id=x.item_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order<=3 ORDER BY s.step_order,i.game_id''',(q,))]
+        self.assertEqual(actual,[(1,613,1),(1,971,1),(1,999,1),(1,1003,5),(2,613,1),(2,999,1),(2,1003,3)])
+        totals={}
+        for _,gid,n in actual:totals[gid]=totals.get(gid,0)+n
+        self.assertEqual(totals,{613:2,971:1,999:2,1003:8})
+
+    def test_blacksmith_level_and_zeny_cost_do_not_apply_to_greed(self):
+        q='irowiki-classic:Blacksmith_Skill_Quest'
+        self.assertIsNone(self.db.execute('SELECT job_level FROM quests WHERE quest_id=?',(q,)).fetchone()[0])
+        rows=[tuple(r) for r in self.db.execute("SELECT s.step_order,r.kind,r.amount FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND (r.kind LIKE 'job_level%' OR r.kind='zeny_training_cost') ORDER BY s.step_order,r.kind",(q,))]
+        self.assertEqual(rows,[(1,'job_level','35'),(1,'zeny_training_cost','500'),(4,'job_level_not_applicable','N/A')])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM quest_routes WHERE quest_id=? AND kind='optional'",(q,)).fetchone()[0],2)
+        self.assertEqual([r[0] for r in self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='skill_unlock' ORDER BY amount",(q,))],['Dubious Salesmanship','Greed'])
+
+    def test_greed_is_free_capacity_below_five_hundred_not_fixed_flower_stock(self):
+        q='irowiki-classic:Blacksmith_Skill_Quest'
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='free_weight_capacity_below'",(q,)).fetchone()[0],'500')
+        flower=self.db.execute('''SELECT i.game_id,x.quantity,x.required,x.operation FROM step_items x JOIN items i ON i.entity_id=x.item_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=4''',(q,)).fetchone()
+        self.assertEqual(tuple(flower),(None,None,0,'buy'))
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements r JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND s.step_order=4 AND (kind LIKE 'zeny%' OR kind LIKE '%percent%')",(q,)).fetchone())
+        vendor=self.db.execute('''SELECT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=4 AND n.role='optional_vendor' ''',(q,)).fetchone()[0]
+        self.assertFalse(self.db.execute('''SELECT 1 FROM description_mentions m JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=1 AND m.entity_id=?''',(q,vendor)).fetchone())
 
     def test_first_header_job_level_is_a_scoped_summary_not_a_whole_page_gate(self):
         for slug,header,levels in [('Swordman_Skill_Quest','35',[(1,'35'),(2,'30'),(3,'30')]),('Archer_Skill_Quest','30',[(1,'30'),(2,'35')])]:

@@ -1,0 +1,661 @@
+{
+  "quest_id": "irowiki-classic:Merchant_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "c333b23abb2a9c8b203ffb50c784db9b08e8b79dcdf6332ae0fdc737c1cf3a9b",
+  "snapshot_sha256": "779190655d2e31ee7400b6767b99e03fdd13d197a652bd2ad292872486145681",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Chief Mahnsoo"
+    },
+    {
+      "type": "npc",
+      "name": "warehouse supervisor",
+      "aliases": [
+        "supervisor"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Kafra Employee",
+      "ref": "bylan_kafra",
+      "identity": "irowiki-classic:Merchant_Job_Change_Guide:bylan_kafra"
+    },
+    {
+      "type": "npc",
+      "name": "Kafra Employee",
+      "ref": "prontera_kafra",
+      "identity": "irowiki-classic:Merchant_Job_Change_Guide:prontera_kafra"
+    },
+    {
+      "type": "npc",
+      "name": "man with glasses"
+    },
+    {
+      "type": "npc",
+      "name": "receiving NPC",
+      "ref": "morroc_recipient",
+      "identity": "irowiki-classic:Merchant_Job_Change_Guide:morroc_recipient"
+    },
+    {
+      "type": "map",
+      "name": "Alberta"
+    },
+    {
+      "type": "map",
+      "name": "alberta",
+      "map_code": "alberta"
+    },
+    {
+      "type": "map",
+      "name": "alberta_in",
+      "map_code": "alberta_in"
+    },
+    {
+      "type": "map",
+      "name": "Izlude Dungeon"
+    },
+    {
+      "type": "map",
+      "name": "Bylan Island"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Geffen"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "item",
+      "name": "parcel",
+      "identity": "irowiki-classic:Merchant_Job_Change_Guide:source_item:parcel"
+    },
+    {
+      "type": "item",
+      "name": "Receipt",
+      "identity": "irowiki-classic:Merchant_Job_Change_Guide:source_item:Receipt",
+      "aliases": [
+        "receipt"
+      ]
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Head to Alberta and enter the Merchant Guild in the southwest corner (alberta 36,42). Inside talk to Chief Mahnsoo (Merchant) behind the desk to sign up to become a Merchant.",
+      "instruction_sha256": "1284529a7ab293f6492a5b2709cf9a064b0d4c76f7dc1e39ab143d8391d5fbf6",
+      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/1284529a7ab293f6492a/1",
+      "goal": "talk",
+      "short_ru": "Войдите в Merchant Guild (alberta 36,42) и поговорите с Chief Mahnsoo.",
+      "short_en": "Enter Merchant Guild (alberta 36,42) and talk to Chief Mahnsoo.",
+      "full_ru": "Идите в Alberta и войдите в Merchant Guild в юго-западном углу (alberta 36,42). Внутри поговорите с Chief Mahnsoo (Merchant) за столом и запишитесь на получение профессии Merchant.",
+      "full_en": "Head to Alberta and enter the Merchant Guild in the southwest corner (alberta 36,42). Inside talk to Chief Mahnsoo (Merchant) behind the desk to sign up to become a Merchant.",
+      "npcs": [
+        {
+          "entity": "Chief Mahnsoo",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "alberta",
+          "x": 36,
+          "y": 42,
+          "role": "guild_entrance",
+          "known": true
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_merchant_guild"
+        },
+        {
+          "operation": "register_for_job_change",
+          "entity": "Chief Mahnsoo"
+        }
+      ],
+      "protected_names": [
+        "Chief Mahnsoo",
+        "Alberta",
+        "alberta"
+      ]
+    },
+    "2": {
+      "original_instruction": "He will ask you to pay a fee of 1,000 Zeny before beginning the quest. You can pay half (500z) before and half (500z) after the quest if you lack the funds. You will also be given a serial number and destination. Do not forget them! The serial number is randomly chosen between one of these: | 2485741 | 2328137 | 2989396 | 2191737 | 3012685 | 3487372 | 3318702 | 3543625 The destination is one of the following: | Izlude Dungeon (Bylan Island) - Kafra Employee (106,58) | Prontera - Southeastern corner, Kafra Employee (248,42) | Geffen - Mage Guild in the northwest building, to the man with glasses (in: 155,122) | Morroc - Dyemaker's house in the northeastern house, he is located in the room directly to the right after you enter the house (271,269)",
+      "instruction_sha256": "75fce2bde914c1f8a9ccf835a1480247ba9c1f52a647481deb95cb3ee82c2dea",
+      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/75fce2bde914c1f8a9cc/1",
+      "goal": "register_delivery",
+      "short_ru": "Заплатите 1,000 Zeny сразу или по 500z до и после задания; запомните назначенные номер и пункт доставки.",
+      "short_en": "Pay 1,000 Zeny now or 500z before and after the quest; remember the assigned serial number and destination.",
+      "full_ru": "Он попросит заплатить 1,000 Zeny перед началом задания. Если денег не хватает, можно внести половину (500z) до задания и половину (500z) после. Вам также назначат серийный номер и пункт доставки — запомните их. Случайно назначается один из номеров: 2485741, 2328137, 2989396, 2191737, 3012685, 3487372, 3318702, 3543625. Возможен один пункт доставки: Izlude Dungeon (Bylan Island) — Kafra Employee (106,58); Prontera, юго-восточный угол — Kafra Employee (248,42); Geffen, Mage Guild в северо-западном здании — man with glasses (in: 155,122); Morroc, Dyemaker's house в северо-восточном доме, в комнате справа от входа (271,269).",
+      "full_en": "He will ask you to pay a fee of 1,000 Zeny before beginning the quest. You can pay half (500z) before and half (500z) after the quest if you lack the funds. You will also be given a serial number and destination. Do not forget them! The serial number is randomly chosen between one of these: | 2485741 | 2328137 | 2989396 | 2191737 | 3012685 | 3487372 | 3318702 | 3543625 The destination is one of the following: | Izlude Dungeon (Bylan Island) - Kafra Employee (106,58) | Prontera - Southeastern corner, Kafra Employee (248,42) | Geffen - Mage Guild in the northwest building, to the man with glasses (in: 155,122) | Morroc - Dyemaker's house in the northeastern house, he is located in the room directly to the right after you enter the house (271,269)",
+      "npcs": [
+        {
+          "entity": "Chief Mahnsoo",
+          "role": "assignment_provider",
+          "support_step": 1,
+          "evidence": "Head to Alberta and enter the Merchant Guild in the southwest corner (alberta 36,42). Inside talk to Chief Mahnsoo (Merchant) behind the desk to sign up to become a Merchant."
+        }
+      ],
+      "mention_entities": {
+        "Kafra Employee": "bylan_kafra"
+      },
+      "mention_overrides": [
+        {
+          "field": "full_ru",
+          "surface": "Kafra Employee",
+          "occurrence": 2,
+          "entity": "prontera_kafra"
+        },
+        {
+          "field": "full_en",
+          "surface": "Kafra Employee",
+          "occurrence": 2,
+          "entity": "prontera_kafra"
+        }
+      ],
+      "locations": [],
+      "requirements": [
+        {
+          "kind": "zeny_total",
+          "amount": "1000",
+          "condition": "One total fee: either all before the quest or two 500z installments; not 1000 plus installments."
+        },
+        {
+          "kind": "assigned_serial_and_destination",
+          "condition": "Use the randomly assigned pair; no fixed serial-to-destination mapping is supplied."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "obtain_delivery_assignment",
+          "entity": "Chief Mahnsoo"
+        }
+      ],
+      "protected_names": [
+        "Kafra Employee",
+        "Kafra Employee",
+        "man with glasses",
+        "Izlude Dungeon",
+        "Bylan Island",
+        "Prontera",
+        "Geffen",
+        "Morroc"
+      ],
+      "branches": [
+        {
+          "key": "upfront",
+          "choice_group": "merchant_fee_payment",
+          "variant_scope": "iRO Classic",
+          "condition": "Use this payment arrangement only; the two arrangements are alternatives.",
+          "section": "",
+          "source_step": 2,
+          "original_instruction": "He will ask you to pay a fee of 1,000 Zeny before beginning the quest. You can pay half (500z) before and half (500z) after the quest if you lack the funds.",
+          "instruction_sha256": "2088cd42d6f0422c0aa998d5fab1ce321614f01a443f432eb087d7be08f49791",
+          "short_ru": "Внесите 1,000 Zeny перед началом задания; это весь взнос.",
+          "short_en": "Pay 1,000 Zeny before starting; this is the entire fee.",
+          "full_ru": "Внесите 1,000 Zeny перед началом задания; это весь взнос.",
+          "full_en": "Pay 1,000 Zeny before starting; this is the entire fee.",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "zeny_before",
+              "amount": "1000"
+            }
+          ]
+        },
+        {
+          "key": "installments",
+          "choice_group": "merchant_fee_payment",
+          "variant_scope": "iRO Classic",
+          "condition": "Use this payment arrangement only; the two arrangements are alternatives.",
+          "section": "",
+          "source_step": 2,
+          "original_instruction": "He will ask you to pay a fee of 1,000 Zeny before beginning the quest. You can pay half (500z) before and half (500z) after the quest if you lack the funds.",
+          "instruction_sha256": "2088cd42d6f0422c0aa998d5fab1ce321614f01a443f432eb087d7be08f49791",
+          "short_ru": "Внесите 500z перед заданием и 500z после; это две части одного взноса.",
+          "short_en": "Pay 500z before the quest and 500z after; these are two parts of one fee.",
+          "full_ru": "Внесите 500z перед заданием и 500z после; это две части одного взноса.",
+          "full_en": "Pay 500z before the quest and 500z after; these are two parts of one fee.",
+          "protected_names": [],
+          "requirements": [
+            {
+              "kind": "zeny_before",
+              "amount": "500"
+            },
+            {
+              "kind": "zeny_after",
+              "amount": "500"
+            }
+          ]
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Head down into the warehouse and speak with the warehouse supervisor (alberta_in 28,29). You must the enter the serial number as well as the destination of the parcel. The supervisor will give you a parcel even if you enter the wrong serial number and/or destination, but the receiving NPC will not accept it, thus requiring the player to start over.",
+      "instruction_sha256": "724a3978db5dba6b05e0416bf7cfc838f074cb0d20f083d39de620441da02d2e",
+      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/724a3978db5dba6b05e0/1",
+      "goal": "input_assignment",
+      "short_ru": "У warehouse supervisor (alberta_in 28,29) введите назначенные номер и пункт доставки; ошибочный parcel не примут.",
+      "short_en": "At the warehouse supervisor (alberta_in 28,29), enter the assigned serial and destination; an incorrect parcel will be rejected.",
+      "full_ru": "Спуститесь в склад и поговорите с warehouse supervisor (alberta_in 28,29). Введите назначенные серийный номер и пункт доставки parcel. Даже при ошибке в номере или пункте вы получите parcel, но receiving NPC его не примет и придётся начать заново. Возможные серийные номера: 2485741, 2328137, 2989396, 2191737, 3012685, 3487372, 3318702, 3543625. Введите только назначенный вам номер.",
+      "full_en": "Head down into the warehouse and speak with the warehouse supervisor (alberta_in 28,29). You must the enter the serial number as well as the destination of the parcel. The supervisor will give you a parcel even if you enter the wrong serial number and/or destination, but the receiving NPC will not accept it, thus requiring the player to start over. 2485741 2328137 2989396 2191737 3012685 3487372 3318702 3543625",
+      "non_entity_mentions": {
+        "receiving NPC": "Generic role for whichever recipient was assigned, not specifically the Morroc recipient."
+      },
+      "npcs": [
+        {
+          "entity": "warehouse supervisor",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "alberta_in",
+          "x": 28,
+          "y": 29,
+          "role": "warehouse supervisor",
+          "known": true
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "restart_on_wrong_assignment",
+          "condition": "A parcel is issued even for wrong input but cannot be accepted; source says start over without specifying a new fee or exact restart stage."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_object",
+          "amount": "1",
+          "entity": "parcel",
+          "condition": "Issuance alone does not establish that its serial/destination is correct."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "input_assigned_serial",
+          "entity": "warehouse supervisor"
+        },
+        {
+          "operation": "input_assigned_destination",
+          "entity": "warehouse supervisor"
+        },
+        {
+          "operation": "receive_parcel",
+          "entity": "warehouse supervisor"
+        }
+      ],
+      "protected_names": [
+        "warehouse supervisor",
+        "receiving NPC",
+        "alberta_in",
+        "parcel"
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "2485741 2328137 2989396 2191737 3012685 3487372 3318702 3543625",
+          "text_ru": "Возможные серийные номера: 2485741, 2328137, 2989396, 2191737, 3012685, 3487372, 3318702, 3543625. Введите только назначенный вам номер."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "warehouse supervisor",
+          "options": [
+            {
+              "text": "2485741",
+              "correct": null,
+              "operation": "input",
+              "condition": "Correct only if this is the serial assigned to this character; the list is not eight universally valid answers."
+            },
+            {
+              "text": "2328137",
+              "correct": null,
+              "operation": "input",
+              "condition": "Correct only if this is the serial assigned to this character; the list is not eight universally valid answers."
+            },
+            {
+              "text": "2989396",
+              "correct": null,
+              "operation": "input",
+              "condition": "Correct only if this is the serial assigned to this character; the list is not eight universally valid answers."
+            },
+            {
+              "text": "2191737",
+              "correct": null,
+              "operation": "input",
+              "condition": "Correct only if this is the serial assigned to this character; the list is not eight universally valid answers."
+            },
+            {
+              "text": "3012685",
+              "correct": null,
+              "operation": "input",
+              "condition": "Correct only if this is the serial assigned to this character; the list is not eight universally valid answers."
+            },
+            {
+              "text": "3487372",
+              "correct": null,
+              "operation": "input",
+              "condition": "Correct only if this is the serial assigned to this character; the list is not eight universally valid answers."
+            },
+            {
+              "text": "3318702",
+              "correct": null,
+              "operation": "input",
+              "condition": "Correct only if this is the serial assigned to this character; the list is not eight universally valid answers."
+            },
+            {
+              "text": "3543625",
+              "correct": null,
+              "operation": "input",
+              "condition": "Correct only if this is the serial assigned to this character; the list is not eight universally valid answers."
+            }
+          ],
+          "source_section": "html_text",
+          "evidence": "2485741 2328137 2989396 2191737 3012685 3487372 3318702 3543625"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Deliver the parcel to the appropriate NPC. You will receive a Receipt from them if step 3 was done correctly.",
+      "instruction_sha256": "1945f1411828654bd495766678a909b7119fa9e43474ddd55acb0a50403af01f",
+      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/1945f1411828654bd495/1",
+      "goal": "deliver",
+      "short_ru": "Доставьте parcel назначенному получателю и получите Receipt, если номер и пункт указаны верно.",
+      "short_en": "Deliver the parcel to the assigned recipient and receive a Receipt if the serial and destination are correct.",
+      "full_ru": "Доставьте parcel нужному NPC. Если этап 3 выполнен правильно, он выдаст Receipt.",
+      "full_en": "Deliver the parcel to the appropriate NPC. You will receive a Receipt from them if step 3 was done correctly.",
+      "items": [
+        {
+          "entity": "parcel",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "condition": "Only to the assigned recipient; an incorrectly entered assignment is rejected."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_object",
+          "amount": "1",
+          "entity": "Receipt",
+          "condition": "Only if the serial and destination were entered correctly."
+        }
+      ],
+      "locations": [],
+      "actions": [
+        {
+          "operation": "deliver_assigned_parcel"
+        }
+      ],
+      "protected_names": [
+        "parcel",
+        "Receipt"
+      ],
+      "branches": [
+        {
+          "key": "bylan",
+          "choice_group": "assigned_delivery_destination",
+          "variant_scope": "iRO Classic",
+          "condition": "Only when Izlude Dungeon (Bylan Island) is the assigned destination; no serial-to-city mapping is inferred.",
+          "section": "",
+          "source_step": 2,
+          "original_instruction": "Izlude Dungeon (Bylan Island) - Kafra Employee (106,58)",
+          "instruction_sha256": "4378883667e620751ecc2d21a950749782353dff60454c790e2b63d1b81eca48",
+          "short_ru": "Если назначен Izlude Dungeon (Bylan Island), доставьте parcel персонажу Kafra Employee (106,58).",
+          "short_en": "If assigned Izlude Dungeon (Bylan Island), deliver the parcel to Kafra Employee (106,58).",
+          "full_ru": "Если назначен Izlude Dungeon (Bylan Island), доставьте parcel персонажу Kafra Employee (106,58).",
+          "full_en": "If assigned Izlude Dungeon (Bylan Island), deliver the parcel to Kafra Employee (106,58).",
+          "protected_names": [
+            "Kafra Employee",
+            "Kafra Employee",
+            "Izlude Dungeon",
+            "Bylan Island"
+          ],
+          "npcs": [
+            {
+              "entity": "bylan_kafra",
+              "role": "assigned_recipient"
+            }
+          ],
+          "mention_entities": {
+            "Kafra Employee": "bylan_kafra"
+          },
+          "locations": [
+            {
+              "x": 106,
+              "y": 58,
+              "role": "assigned_recipient",
+              "known": false,
+              "entity": "Bylan Island",
+              "condition": "Literal unqualified point; no map code is inferred from a town or destination label."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "deliver_to_assigned_recipient",
+              "entity": "bylan_kafra"
+            }
+          ]
+        },
+        {
+          "key": "prontera",
+          "choice_group": "assigned_delivery_destination",
+          "variant_scope": "iRO Classic",
+          "condition": "Only when Prontera is the assigned destination; no serial-to-city mapping is inferred.",
+          "section": "",
+          "source_step": 2,
+          "original_instruction": "Prontera - Southeastern corner, Kafra Employee (248,42)",
+          "instruction_sha256": "a893b54e97ffa73cd17faf4db94216217305fbd5f89d8dd8263380faa04b1d20",
+          "short_ru": "Если назначен Prontera, доставьте parcel персонажу Kafra Employee (248,42).",
+          "short_en": "If assigned Prontera, deliver the parcel to Kafra Employee (248,42).",
+          "full_ru": "Если назначен Prontera, доставьте parcel персонажу Kafra Employee (248,42).",
+          "full_en": "If assigned Prontera, deliver the parcel to Kafra Employee (248,42).",
+          "protected_names": [
+            "Kafra Employee",
+            "Kafra Employee",
+            "Prontera"
+          ],
+          "npcs": [
+            {
+              "entity": "prontera_kafra",
+              "role": "assigned_recipient"
+            }
+          ],
+          "mention_entities": {
+            "Kafra Employee": "prontera_kafra"
+          },
+          "locations": [
+            {
+              "x": 248,
+              "y": 42,
+              "role": "assigned_recipient",
+              "known": false,
+              "entity": "Prontera",
+              "condition": "Literal unqualified point; no map code is inferred from a town or destination label."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "deliver_to_assigned_recipient",
+              "entity": "prontera_kafra"
+            }
+          ]
+        },
+        {
+          "key": "geffen",
+          "choice_group": "assigned_delivery_destination",
+          "variant_scope": "iRO Classic",
+          "condition": "Only when Geffen is the assigned destination; no serial-to-city mapping is inferred.",
+          "section": "",
+          "source_step": 2,
+          "original_instruction": "Geffen - Mage Guild in the northwest building, to the man with glasses (in: 155,122)",
+          "instruction_sha256": "6a2a21b5e45a583d8c7ff00dbb5e005cf0cbdadf8e579e9c7c46c9025ff037e4",
+          "short_ru": "Если назначен Geffen, доставьте parcel персонажу man with glasses внутри Mage Guild в северо-западном здании (in: 155,122).",
+          "short_en": "If assigned Geffen, deliver the parcel to the man with glasses inside the northwest Mage Guild (in: 155,122).",
+          "full_ru": "Если назначен Geffen, доставьте parcel персонажу man with glasses внутри Mage Guild в северо-западном здании (in: 155,122).",
+          "full_en": "If assigned Geffen, deliver the parcel to the man with glasses inside the northwest Mage Guild (in: 155,122).",
+          "protected_names": [
+            "man with glasses",
+            "Geffen"
+          ],
+          "npcs": [
+            {
+              "entity": "man with glasses",
+              "role": "assigned_recipient"
+            }
+          ],
+          "mention_entities": {},
+          "locations": [
+            {
+              "x": 155,
+              "y": 122,
+              "role": "interior_contact_unknown_map",
+              "known": false,
+              "entity": "Geffen",
+              "condition": "Literal unqualified point; no map code is inferred from a town or destination label."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "deliver_to_assigned_recipient",
+              "entity": "man with glasses"
+            }
+          ]
+        },
+        {
+          "key": "morroc",
+          "choice_group": "assigned_delivery_destination",
+          "variant_scope": "iRO Classic",
+          "condition": "Only when Morroc is the assigned destination; no serial-to-city mapping is inferred.",
+          "section": "",
+          "source_step": 2,
+          "original_instruction": "Morroc - Dyemaker's house in the northeastern house, he is located in the room directly to the right after you enter the house (271,269)",
+          "instruction_sha256": "7b70bb3bdea4be6fd41f4aa5d7f25d8cb37e22fd394683dd61576ee877d6d888",
+          "short_ru": "Если назначен Morroc, доставьте parcel персонажу receiving NPC в Dyemaker's house на северо-востоке, в комнате справа от входа (271,269).",
+          "short_en": "If assigned Morroc, deliver the parcel to the receiving NPC in the northeastern Dyemaker's house, in the room right of the entrance (271,269).",
+          "full_ru": "Если назначен Morroc, доставьте parcel персонажу receiving NPC в Dyemaker's house на северо-востоке, в комнате справа от входа (271,269).",
+          "full_en": "If assigned Morroc, deliver the parcel to the receiving NPC in the northeastern Dyemaker's house, in the room right of the entrance (271,269).",
+          "protected_names": [
+            "Morroc"
+          ],
+          "npcs": [
+            {
+              "entity": "morroc_recipient",
+              "role": "assigned_recipient"
+            }
+          ],
+          "mention_entities": {},
+          "locations": [
+            {
+              "x": 271,
+              "y": 269,
+              "role": "house_or_contact_point_unresolved",
+              "known": false,
+              "entity": "Morroc",
+              "condition": "Literal unqualified point; no map code is inferred from a town or destination label."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "deliver_to_assigned_recipient",
+              "entity": "morroc_recipient"
+            }
+          ]
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "Return to Alberta and present the supervisor with the receipt, then speak with Chief Mahnsoo again to become a Merchant.",
+      "instruction_sha256": "964548670864930bf6129d272a0b65eeaf3409e95ad5cd3c17c200757f7a66c3",
+      "step_id": "irowiki-classic:Merchant_Job_Change_Guide/step/964548670864930bf612/1",
+      "goal": "job_change",
+      "short_ru": "В Alberta предъявите receipt персонажу supervisor, погасите оставшиеся 500z при оплате частями и вернитесь к Chief Mahnsoo.",
+      "short_en": "In Alberta, show the receipt to the supervisor, pay the remaining 500z if using installments, then return to Chief Mahnsoo.",
+      "full_ru": "Вернитесь в Alberta и предъявите supervisor полученную receipt, затем снова поговорите с Chief Mahnsoo, чтобы стать Merchant.",
+      "full_en": "Return to Alberta and present the supervisor with the receipt, then speak with Chief Mahnsoo again to become a Merchant.",
+      "npcs": [
+        {
+          "entity": "warehouse supervisor",
+          "role": "show_receipt",
+          "support_step": 3,
+          "evidence": "Head down into the warehouse and speak with the warehouse supervisor (alberta_in 28,29). You must the enter the serial number as well as the destination of the parcel. The supervisor will give you a parcel even if you enter the wrong serial number and/or destination, but the receiving NPC will not accept it, thus requiring the player to start over."
+        },
+        {
+          "entity": "Chief Mahnsoo",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Receipt",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "condition": "Same Receipt received for the accepted parcel; consumption is not explicitly specified."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "zeny_remaining_due",
+          "amount": "500",
+          "support_step": 2,
+          "evidence": "He will ask you to pay a fee of 1,000 Zeny before beginning the quest. You can pay half (500z) before and half (500z) after the quest if you lack the funds. You will also be given a serial number and destination. Do not forget them! The serial number is randomly chosen between one of these: | 2485741 | 2328137 | 2989396 | 2191737 | 3012685 | 3487372 | 3318702 | 3543625 The destination is one of the following: | Izlude Dungeon (Bylan Island) - Kafra Employee (106,58) | Prontera - Southeastern corner, Kafra Employee (248,42) | Geffen - Mage Guild in the northwest building, to the man with glasses (in: 155,122) | Morroc - Dyemaker's house in the northeastern house, he is located in the room directly to the right after you enter the house (271,269)",
+          "condition": "Only the unpaid half of the original fee if using installments; no extra fee after an upfront payment."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Merchant"
+        }
+      ],
+      "locations": [],
+      "actions": [
+        {
+          "operation": "show_delivery_receipt",
+          "entity": "warehouse supervisor"
+        },
+        {
+          "operation": "complete_job_change",
+          "entity": "Chief Mahnsoo"
+        }
+      ],
+      "protected_names": [
+        "Chief Mahnsoo",
+        "Alberta"
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "merchant_random_assignment_and_rejection",
+      "detail": "The eight serials are possible character-specific inputs, not eight correct answers. No serial/destination mapping is invented. Wrong input still issues a parcel, but the recipient rejects it; the source does not establish an extra fee or exact restart milestone."
+    },
+    {
+      "reason": "merchant_fee_and_receipt_accounting",
+      "detail": "One 1000-Zeny fee has alternative upfront or 500+500 arrangements. Final remaining 500 is conditional, not a second obligation. One parcel leads to one Receipt only on correct delivery; final presentation does not establish inventory consumption."
+    },
+    {
+      "reason": "merchant_assigned_recipient_identity",
+      "detail": "Bylan and Prontera Kafra Employees are distinct scoped actors. Geffen contact and Morroc recipient remain descriptive unknown identities. Four destinations are alternatives; bare points gain no guessed map codes, and the Morroc point is not asserted as an exact indoor NPC point."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Novice",
+        "source_section": "requirements",
+        "evidence": "Class: Novice"
+      }
+    ]
+  }
+}
