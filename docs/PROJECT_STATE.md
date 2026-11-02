@@ -1260,3 +1260,26 @@ resolution, settings/preset and custom-color preservation; real native copy in
 dark quests, live mixed scope checks, dark database native capture, RU/EN dark
 walkthrough and facts plus Appearance preview PNGs. Full Windows CI pending.
 Real SpringRO/mixed-monitor readability remains manual acceptance.
+
+
+Appearance verification SUCCESS on `87c3e07cf2a76d2da7e3ca6d9d0161432f7eb196`:
+https://github.com/alerion08/RoAura/actions/runs/41423274253 — 345 tests,
+eight ToC checks, startup/native input and clean portable validation passed.
+Verified all four application/game combinations, default normalization, settings
+and preset round trips, custom HUD color/opacity/position retention and palette
+key parity. Native smoke copies coordinates in a dark quest window, checks mixed
+scope isolation and applies the dark database theme live. RU/EN dark walkthrough,
+dark requirements/rewards, both Appearance previews, native dark database and
+native dark/light quest windows were visually reviewed. Detached Settings preview
+PNGs have transparent page margins; the live window supplies its themed background.
+
+Integration fixes: layout assertions no longer depend on a literal light color;
+resource validation distinguishes declared palette resources from translated
+strings and now rejects duplicate localization keys. The existing AppearanceTab
+translation is reused. Window creation applies its palette without broadcasting
+unrelated card redraws. Tracking-star colors follow the interface palette.
+
+Artifact 95: https://github.com/alerion08/RoAura/actions/runs/41423274253/artifacts/13131715002
+Portable SHA256: `f98a476e21fa5ad36d31d2dc161d2e31689b27d1a5033767c012669bbcf56bbe`.
+Actual SpringRO mixed-DPI and subjective readability remain manual acceptance.
+No main/research changes, version bump, merge, tag or public release.
