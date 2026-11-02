@@ -1,0 +1,811 @@
+{
+  "quest_id": "irowiki-classic:Piano_Keys_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "ea65e7e534d68258401995c107f8c6271fadfd84d1e2e091fbb3dc062ba39ad0",
+  "snapshot_sha256": "c72ed116c1b514d57741031362abc71a6253e93ff6b73b96a850a3a376377505",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Alreg"
+    },
+    {
+      "type": "npc",
+      "name": "Crayu"
+    },
+    {
+      "type": "npc",
+      "name": "Kuzkahina"
+    },
+    {
+      "type": "npc",
+      "name": "Witch"
+    },
+    {
+      "type": "npc",
+      "name": "Tombstone",
+      "ref": "tomb_208_103",
+      "identity": "irowiki-classic:Piano_Keys_Quest:trigger:niflheim:208:103"
+    },
+    {
+      "type": "npc",
+      "name": "Tombstone",
+      "ref": "tomb_169_71",
+      "identity": "irowiki-classic:Piano_Keys_Quest:trigger:niflheim:169:71"
+    },
+    {
+      "type": "map",
+      "name": "Nifflheim"
+    },
+    {
+      "type": "map",
+      "name": "niflheim",
+      "map_code": "niflheim"
+    },
+    {
+      "type": "map",
+      "name": "nif_in",
+      "map_code": "nif_in"
+    },
+    {
+      "type": "map",
+      "name": "Witch Tower"
+    },
+    {
+      "type": "map",
+      "name": "Umbala"
+    },
+    {
+      "type": "item",
+      "name": "Piano Key",
+      "aliases": [
+        "Piano Keys"
+      ],
+      "game_id": 7184,
+      "id_source": "http://db.irowiki.org/classic/item-info/7184/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Alreg in Nifflheim (niflheim 224, 243) and you will receive a Piano Key . He will bite you, and take a lot of HP , so be prepared.",
+      "instruction_sha256": "262a25f5ed48e45dd5a08da92f1b71141bba62d691ebd8521000ec581a3464fb",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/262a25f5ed48e45dd5a0/1",
+      "goal": "talk",
+      "short_ru": "Получите Piano Key у Alreg в niflheim 224, 243; будьте готовы к потере HP.",
+      "short_en": "Get Piano Key from Alreg at niflheim 224, 243; expect HP loss.",
+      "full_ru": "Поговорите с Alreg в Nifflheim (niflheim 224, 243), чтобы получить Piano Key. Будьте готовы: он укусит вас и отнимет много HP.",
+      "full_en": "Talk to Alreg in Nifflheim (niflheim 224, 243) and you will receive a Piano Key . He will bite you, and take a lot of HP , so be prepared.",
+      "npcs": [
+        {
+          "entity": "Alreg",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Alreg"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Piano Key"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_hp_loss",
+          "condition": "Alreg bite causes substantial HP loss; no amount, percentage or death rule is printed."
+        }
+      ],
+      "protected_names": [
+        "Alreg",
+        "Nifflheim",
+        "niflheim",
+        "Piano Key"
+      ],
+      "locations": [
+        {
+          "map": "niflheim",
+          "x": 224,
+          "y": 243,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "niflheim 224, 243"
+        }
+      ],
+      "mention_entities": {
+        "Tombstone": "tomb_169_71"
+      }
+    },
+    "2": {
+      "original_instruction": "Talk to Crayu (nif_in 105, 81) in the building (niflheim 187, 241). He will sing a song for you. | Note : If you talk to him again, he may or may not ask you to repeat some sentences. If he asks you to, go to Part 2a. If he does not, go to Part 2b.",
+      "instruction_sha256": "01f10812e082d6e17fe9c579653b2ac8cc756a8cc4eb23dfb0862b52f347760d",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/01f10812e082d6e17fe9/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Crayu в nif_in 105, 81; выберите Part 2a или Part 2b по его просьбе.",
+      "short_en": "Talk to Crayu at nif_in 105, 81; use Part 2a or Part 2b according to his request.",
+      "full_ru": "Поговорите с Crayu (nif_in 105, 81) в здании (niflheim 187, 241): он споёт песню. Примечание: при следующем разговоре он может попросить повторить строки, а может и не попросить. Если попросит, идите по Part 2a; иначе по Part 2b.",
+      "full_en": "Talk to Crayu (nif_in 105, 81) in the building (niflheim 187, 241). He will sing a song for you. | Note : If you talk to him again, he may or may not ask you to repeat some sentences. If he asks you to, go to Part 2a. If he does not, go to Part 2b.",
+      "npcs": [
+        {
+          "entity": "Crayu",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Crayu"
+        },
+        {
+          "operation": "inspect_song_prompt",
+          "condition": "Conditional source path, not a proven player-selected or random branch."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "niflheim",
+          "x": 187,
+          "y": 241,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "nif_in",
+          "x": 105,
+          "y": 81,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Crayu",
+        "niflheim",
+        "nif_in"
+      ],
+      "mention_entities": {
+        "Tombstone": "tomb_169_71"
+      }
+    },
+    "3": {
+      "original_instruction": "The sentences are: | Mountain sunset to the west | Where the purple dusk falls | Surrounded by beautiful melody | You become the key that ignores its master He will give you a Piano Key if you did it right.",
+      "instruction_sha256": "266febebce2aa38f8f2575170279953d87e5d44bf899698fa4dfe4ece1cd36c2",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/266febebce2aa38f8f25/1",
+      "goal": "enter_text",
+      "short_ru": "Повторите запрошенную строку песни Crayu и получите Piano Key.",
+      "short_en": "Repeat the song line requested by Crayu and receive Piano Key.",
+      "full_ru": "Строки песни: «Mountain sunset to the west»; «Where the purple dusk falls»; «Surrounded by beautiful melody»; «You become the key that ignores its master». При правильном ответе он даст Piano Key.",
+      "full_en": "The sentences are: | Mountain sunset to the west | Where the purple dusk falls | Surrounded by beautiful melody | You become the key that ignores its master He will give you a Piano Key if you did it right.",
+      "npcs": [
+        {
+          "entity": "Crayu",
+          "role": "talk",
+          "support_step": 2,
+          "evidence": "Talk to Crayu (nif_in 105, 81) in the building (niflheim 187, 241). He will sing a song for you. | Note : If you talk to him again, he may or may not ask you to repeat some sentences. If he asks you to, go to Part 2a. If he does not, go to Part 2b."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Crayu",
+          "options": [
+            {
+              "text": "Mountain sunset to the west",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Use when prompted for this line; printed song order does not prove all four are always requested."
+            },
+            {
+              "text": "Where the purple dusk falls",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Use when prompted for this line; printed song order does not prove all four are always requested."
+            },
+            {
+              "text": "Surrounded by beautiful melody",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Use when prompted for this line; printed song order does not prove all four are always requested."
+            },
+            {
+              "text": "You become the key that ignores its master",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Use when prompted for this line; printed song order does not prove all four are always requested."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_prompted_lyrics",
+          "entity": "Crayu"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Piano Key"
+        }
+      ],
+      "protected_names": [
+        "Piano Key"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Tombstone": "tomb_169_71"
+      }
+    },
+    "4": {
+      "original_instruction": "Talk to Kuzkahina (nif_in 31, 20) in the building (niflheim 188, 212). He will give you a Piano Key .",
+      "instruction_sha256": "bd0bb0008b0201c3ca32ddf0437c6f81e0bf0c5fab65931ef7221feb83da632c",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/bd0bb0008b0201c3ca32/1",
+      "goal": "talk",
+      "short_ru": "Получите Piano Key у Kuzkahina в nif_in 31, 20.",
+      "short_en": "Receive Piano Key from Kuzkahina at nif_in 31, 20.",
+      "full_ru": "Поговорите с Kuzkahina (nif_in 31, 20) в здании (niflheim 188, 212). Он даст Piano Key.",
+      "full_en": "Talk to Kuzkahina (nif_in 31, 20) in the building (niflheim 188, 212). He will give you a Piano Key .",
+      "npcs": [
+        {
+          "entity": "Kuzkahina",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kuzkahina"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Piano Key"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "niflheim",
+          "x": 188,
+          "y": 212,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "nif_in",
+          "x": 31,
+          "y": 20,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Kuzkahina",
+        "niflheim",
+        "nif_in",
+        "Piano Key"
+      ],
+      "mention_entities": {
+        "Tombstone": "tomb_169_71"
+      }
+    },
+    "5": {
+      "original_instruction": "Walk past the Tombstone twice (niflheim 208, 103). It will give you 2 Piano Keys .",
+      "instruction_sha256": "3a150584a56a093d7db4eb36e42d40a0f2f413bace33474421b152980d37f19d",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/3a150584a56a093d7db4/1",
+      "goal": "walk_trigger",
+      "short_ru": "Дважды пройдите мимо Tombstone в niflheim 208, 103, чтобы получить 2 Piano Keys.",
+      "short_en": "Pass Tombstone at niflheim 208, 103 twice to receive 2 Piano Keys.",
+      "full_ru": "Пройдите мимо Tombstone дважды (niflheim 208, 103). Вы получите 2 Piano Keys.",
+      "full_en": "Walk past the Tombstone twice (niflheim 208, 103). It will give you 2 Piano Keys .",
+      "npcs": [
+        {
+          "entity": "tomb_208_103",
+          "role": "proximity_trigger"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk_past_twice",
+          "entity": "tomb_208_103"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "trigger_pass_count",
+          "amount": "2",
+          "condition": "Two passes together yield two keys, not two keys on each pass."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "2",
+          "entity": "Piano Key"
+        }
+      ],
+      "protected_names": [
+        "Tombstone",
+        "Tombstone",
+        "niflheim"
+      ],
+      "locations": [
+        {
+          "map": "niflheim",
+          "x": 208,
+          "y": 103,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "niflheim 208, 103"
+        }
+      ],
+      "mention_entities": {
+        "Tombstone": "tomb_208_103"
+      }
+    },
+    "6": {
+      "original_instruction": "Walk past the Tombstone (niflheim 169, 71). It will give you a Piano Key . | Note : Talking to the tombstones will do nothing. | Note : The Tombstones don’t have names.",
+      "instruction_sha256": "c94e70d276249bde1cc725465147d5b454dec05d43fdfecc83f95c16038e0b56",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/c94e70d276249bde1cc7/1",
+      "goal": "walk_trigger",
+      "short_ru": "Пройдите мимо Tombstone в niflheim 169, 71 и получите Piano Key; говорить с ним не нужно.",
+      "short_en": "Pass Tombstone at niflheim 169, 71 to receive Piano Key; talking does nothing.",
+      "full_ru": "Пройдите мимо Tombstone (niflheim 169, 71), чтобы получить Piano Key. Примечания: разговор с надгробиями ничего не даст; сами Tombstones не имеют названий.",
+      "full_en": "Walk past the Tombstone (niflheim 169, 71). It will give you a Piano Key . | Note : Talking to the tombstones will do nothing. | Note : The Tombstones don’t have names.",
+      "npcs": [
+        {
+          "entity": "tomb_169_71",
+          "role": "proximity_trigger"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk_past",
+          "entity": "tomb_169_71"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Piano Key"
+        }
+      ],
+      "protected_names": [
+        "Tombstone",
+        "Tombstone",
+        "niflheim",
+        "Piano Key"
+      ],
+      "locations": [
+        {
+          "map": "niflheim",
+          "x": 169,
+          "y": 71,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "niflheim 169, 71"
+        }
+      ],
+      "mention_entities": {
+        "Tombstone": "tomb_169_71"
+      }
+    },
+    "7": {
+      "original_instruction": "Talk to Kuzkahina (nif_in 31, 20) in the building (niflheim 188, 212). He will give you a Piano Key .",
+      "instruction_sha256": "bd0bb0008b0201c3ca32ddf0437c6f81e0bf0c5fab65931ef7221feb83da632c",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/bd0bb0008b0201c3ca32/2",
+      "goal": "talk",
+      "short_ru": "Получите Piano Key у Kuzkahina в nif_in 31, 20.",
+      "short_en": "Receive Piano Key from Kuzkahina at nif_in 31, 20.",
+      "full_ru": "Поговорите с Kuzkahina (nif_in 31, 20) в здании (niflheim 188, 212). Он даст Piano Key.",
+      "full_en": "Talk to Kuzkahina (nif_in 31, 20) in the building (niflheim 188, 212). He will give you a Piano Key .",
+      "npcs": [
+        {
+          "entity": "Kuzkahina",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Kuzkahina"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Piano Key"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "niflheim",
+          "x": 188,
+          "y": 212,
+          "role": "entrance",
+          "known": true,
+          "order": 1
+        },
+        {
+          "entity": "nif_in",
+          "x": 31,
+          "y": 20,
+          "role": "npc",
+          "known": true,
+          "order": 2
+        }
+      ],
+      "protected_names": [
+        "Kuzkahina",
+        "niflheim",
+        "nif_in",
+        "Piano Key"
+      ],
+      "mention_entities": {
+        "Tombstone": "tomb_169_71"
+      }
+    },
+    "8": {
+      "original_instruction": "Return to Crayu. He will ask you to write down a line of the song. The sentences are: | Mountain sunset to the west | Where the purple dusk falls | Surrounded by beautiful melody | You become the key that ignores its master He’ll give you a key if you did it right.",
+      "instruction_sha256": "3e4abb6733ac6bf2d1aa733f2409673407da66f4d828242a782f582db2c94f5b",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/3e4abb6733ac6bf2d1aa/1",
+      "goal": "enter_text",
+      "short_ru": "Вернитесь к Crayu и введите запрошенную строку песни.",
+      "short_en": "Return to Crayu and enter the requested song line.",
+      "full_ru": "Вернитесь к Crayu: он попросит записать строку песни. Возможные строки: «Mountain sunset to the west»; «Where the purple dusk falls»; «Surrounded by beautiful melody»; «You become the key that ignores its master». При правильном ответе он даст клавишу.",
+      "full_en": "Return to Crayu. He will ask you to write down a line of the song. The sentences are: | Mountain sunset to the west | Where the purple dusk falls | Surrounded by beautiful melody | You become the key that ignores its master He’ll give you a key if you did it right.",
+      "npcs": [
+        {
+          "entity": "Crayu",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Crayu",
+          "options": [
+            {
+              "text": "Mountain sunset to the west",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Use when prompted for this line; printed song order does not prove all four are always requested."
+            },
+            {
+              "text": "Where the purple dusk falls",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Use when prompted for this line; printed song order does not prove all four are always requested."
+            },
+            {
+              "text": "Surrounded by beautiful melody",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Use when prompted for this line; printed song order does not prove all four are always requested."
+            },
+            {
+              "text": "You become the key that ignores its master",
+              "correct": 1,
+              "operation": "enter_text",
+              "condition": "Use when prompted for this line; printed song order does not prove all four are always requested."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_prompted_line",
+          "entity": "Crayu"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Piano Key"
+        }
+      ],
+      "protected_names": [
+        "Crayu"
+      ],
+      "locations": [
+        {
+          "entity": "nif_in",
+          "x": 105,
+          "y": 81,
+          "role": "return",
+          "known": true,
+          "support_step": 2,
+          "evidence": "Talk to Crayu (nif_in 105, 81) in the building (niflheim 187, 241). He will sing a song for you. | Note : If you talk to him again, he may or may not ask you to repeat some sentences. If he asks you to, go to Part 2a. If he does not, go to Part 2b."
+        }
+      ],
+      "mention_entities": {
+        "Tombstone": "tomb_169_71"
+      }
+    },
+    "9": {
+      "original_instruction": "Walk past the Tombstone (niflheim 169, 71). It will give you a Piano Key .",
+      "instruction_sha256": "2eccba4c89c47773004d8cd5f801402da66052e2310f19e1e8251f5803a9f4cf",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/2eccba4c89c47773004d/1",
+      "goal": "walk_trigger",
+      "short_ru": "Пройдите мимо Tombstone в niflheim 169, 71 и получите Piano Key.",
+      "short_en": "Pass Tombstone at niflheim 169, 71 to receive Piano Key.",
+      "full_ru": "Пройдите мимо Tombstone (niflheim 169, 71), чтобы получить Piano Key.",
+      "full_en": "Walk past the Tombstone (niflheim 169, 71). It will give you a Piano Key .",
+      "npcs": [
+        {
+          "entity": "tomb_169_71",
+          "role": "proximity_trigger"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk_past",
+          "entity": "tomb_169_71"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "1",
+          "entity": "Piano Key"
+        }
+      ],
+      "protected_names": [
+        "Tombstone",
+        "Tombstone",
+        "niflheim",
+        "Piano Key"
+      ],
+      "locations": [
+        {
+          "map": "niflheim",
+          "x": 169,
+          "y": 71,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "niflheim 169, 71"
+        }
+      ],
+      "mention_entities": {
+        "Tombstone": "tomb_169_71"
+      }
+    },
+    "10": {
+      "original_instruction": "Walk past the Tombstone twice (niflheim 208, 103). It will give you 2 Piano Keys . | Note : Talking to the tombstones will do nothing. | Note : The Tombstones don’t have names.",
+      "instruction_sha256": "d6bdc6ab096de17684e2f7fd11512d7ee0531a18a210f71c397111c815c60b16",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/d6bdc6ab096de17684e2/1",
+      "goal": "walk_trigger",
+      "short_ru": "Дважды пройдите мимо Tombstone в niflheim 208, 103, чтобы получить 2 Piano Keys.",
+      "short_en": "Pass Tombstone at niflheim 208, 103 twice to receive 2 Piano Keys.",
+      "full_ru": "Пройдите мимо Tombstone дважды (niflheim 208, 103). Вы получите 2 Piano Keys. Примечания: разговор с надгробиями ничего не даст; сами Tombstones не имеют названий.",
+      "full_en": "Walk past the Tombstone twice (niflheim 208, 103). It will give you 2 Piano Keys . | Note : Talking to the tombstones will do nothing. | Note : The Tombstones don’t have names.",
+      "npcs": [
+        {
+          "entity": "tomb_208_103",
+          "role": "proximity_trigger"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk_past_twice",
+          "entity": "tomb_208_103"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "trigger_pass_count",
+          "amount": "2",
+          "condition": "Two passes together yield two keys, not two keys on each pass."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_item",
+          "amount": "2",
+          "entity": "Piano Key"
+        }
+      ],
+      "protected_names": [
+        "Tombstone",
+        "Tombstone",
+        "niflheim"
+      ],
+      "locations": [
+        {
+          "map": "niflheim",
+          "x": 208,
+          "y": 103,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "niflheim 208, 103"
+        }
+      ],
+      "mention_entities": {
+        "Tombstone": "tomb_208_103"
+      }
+    },
+    "11": {
+      "original_instruction": "Go to the Witch Tower (niflheim 254, 191) and go up the stairs to the second floor from the portal.",
+      "instruction_sha256": "fcc568c6ef3dfdb95a0488e072e0c909a0a5084e861ae52860a59979dbb707f9",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/fcc568c6ef3dfdb95a04/1",
+      "goal": "navigate",
+      "short_ru": "Войдите в Witch Tower в niflheim 254, 191 и поднимитесь на второй этаж.",
+      "short_en": "Enter Witch Tower at niflheim 254, 191 and go upstairs to the second floor.",
+      "full_ru": "Идите в Witch Tower (niflheim 254, 191). От портала поднимитесь по лестнице на второй этаж.",
+      "full_en": "Go to the Witch Tower (niflheim 254, 191) and go up the stairs to the second floor from the portal.",
+      "actions": [
+        {
+          "operation": "enter_tower"
+        },
+        {
+          "operation": "go_upstairs"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "niflheim",
+          "x": 254,
+          "y": 191,
+          "role": "entrance",
+          "known": true
+        }
+      ],
+      "protected_names": [
+        "Witch",
+        "niflheim",
+        "Witch Tower"
+      ],
+      "mention_entities": {
+        "Tombstone": "tomb_169_71"
+      }
+    },
+    "12": {
+      "original_instruction": "Walk by the wall on left side of the piano. There will be a pop-up and you will be warped to a small room with the Witch in the center.",
+      "instruction_sha256": "cc1f67ae77ebae607b9db5009e3df232080eeb385d31e1e64a9de1a717862c5c",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/cc1f67ae77ebae607b9d/1",
+      "goal": "walk_trigger",
+      "short_ru": "Пройдите слева от пианино, чтобы попасть к Witch.",
+      "short_en": "Walk left of the piano to reach Witch.",
+      "full_ru": "Пройдите вдоль стены слева от пианино. Появится окно, и вас перенесёт в небольшую комнату, в центре которой стоит Witch.",
+      "full_en": "Walk by the wall on left side of the piano. There will be a pop-up and you will be warped to a small room with the Witch in the center.",
+      "npcs": [
+        {
+          "entity": "Witch",
+          "role": "destination"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "walk_left_of_piano"
+        },
+        {
+          "operation": "trigger_warp"
+        }
+      ],
+      "protected_names": [
+        "Witch"
+      ],
+      "locations": [],
+      "mention_entities": {
+        "Tombstone": "tomb_169_71"
+      }
+    },
+    "13": {
+      "original_instruction": "Talk to the Witch (nif_in 188, 168). You will be warped to Umbala . | Note : The Witch will always warp you to Umbala every time you talk her.",
+      "instruction_sha256": "7c9f0095b03d9d71ad12845424927d96d05199aa29b20d1e56225e79fdd09ad7",
+      "step_id": "irowiki-classic:Piano_Keys_Quest/step/7c9f0095b03d9d71ad12/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Witch в nif_in 188, 168 для переноса в Umbala.",
+      "short_en": "Talk to Witch at nif_in 188, 168 to warp to Umbala.",
+      "full_ru": "Поговорите с Witch (nif_in 188, 168), чтобы перенестись в Umbala. Примечание: Witch будет отправлять вас в Umbala при каждом разговоре.",
+      "full_en": "Talk to the Witch (nif_in 188, 168). You will be warped to Umbala . | Note : The Witch will always warp you to Umbala every time you talk her.",
+      "npcs": [
+        {
+          "entity": "Witch",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "warp_to_Umbala",
+          "entity": "Witch",
+          "condition": "Each conversation; this does not make the entire quest repeatable."
+        }
+      ],
+      "protected_names": [
+        "Witch",
+        "nif_in",
+        "Umbala"
+      ],
+      "locations": [
+        {
+          "map": "nif_in",
+          "x": 188,
+          "y": 168,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "nif_in 188, 168"
+        }
+      ],
+      "mention_entities": {
+        "Tombstone": "tomb_169_71"
+      }
+    }
+  },
+  "reviews": [
+    {
+      "reason": "exclusive_routes_not_eleven_keys",
+      "detail": "Shared Alreg key plus one five-key Part 2 route yields six. Part 2a and Part 2b are source-prompt alternatives, not both required; no player-choice/random mechanism is invented."
+    },
+    {
+      "reason": "tombstones_are_unnamed_proximity_triggers",
+      "detail": "The two Tombstone labels denote different map positions. Source says they have no names; they are modeled as interactable NPC-type trigger references, not verified named NPCs. Walking activates them; talking does nothing."
+    },
+    {
+      "reason": "lyrics_prompt_mapping_unknown",
+      "detail": "Exact four lines are preserved at stages 3 and 8. Stage 8 asks for a line; neither printed list order nor option order proves an unconditional four-input sequence. Use the actual prompt."
+    },
+    {
+      "reason": "key_removal_and_sign_reference_scope",
+      "detail": "Header says six Piano Keys consumed but body does not identify the removal step. Original header says Sign Quest Part 1 while pinned HTML simply links Sign Quest. This is not a completed Sign quest or server-verified unlock."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "6",
+        "source_section": "requirements",
+        "evidence": "6 Piano Keys",
+        "entity": "Piano Key",
+        "condition": "Six keys from shared stage 1 plus one selected five-key route; exact removal stage unspecified."
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "source_quest_reference",
+        "source_section": "rewards",
+        "evidence": "Quest Reward(s): Sign Quest Part 1",
+        "condition": "Original header reference to Sign Quest Part 1, not full Sign Quest completion or a verified prerequisite flag."
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "part_2a",
+      "kind": "alternative",
+      "choice_group": "crayu_prompt",
+      "source_heading": "Part 2a",
+      "steps": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "condition": "At stage 2 Crayu asks for the song immediately; use only this Part 2 route."
+    },
+    {
+      "key": "part_2b",
+      "kind": "alternative",
+      "choice_group": "crayu_prompt",
+      "source_heading": "Part 2b",
+      "steps": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "condition": "At stage 2 Crayu does not ask for the song immediately; use only this Part 2 route."
+    }
+  ]
+}

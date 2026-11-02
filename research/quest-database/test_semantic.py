@@ -251,18 +251,125 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],817)
-        self.assertEqual(self.report['not_fully_localized_steps'],1933)
+        self.assertEqual(self.report['fully_localized_steps'],846)
+        self.assertEqual(self.report['not_fully_localized_steps'],1904)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],817)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],846)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1933)
-        self.assertEqual(self.report['fully_localized_branches'],84)
-        self.assertEqual(self.report['curated_quests'],61)
-        self.assertEqual(self.report['pending_quests'],155)
-        self.assertEqual(self.report['quest_routes'],8)
+        self.assertEqual(missing,1904)
+        self.assertEqual(self.report['fully_localized_branches'],87)
+        self.assertEqual(self.report['curated_quests'],64)
+        self.assertEqual(self.report['pending_quests'],152)
+        self.assertEqual(self.report['quest_routes'],10)
         self.assertEqual(self.report['source_additions'],13)
         self.assertEqual(self.report['action_reuse_links'],5)
+
+    def test_snowysnow_bard_house_is_conditional_and_only_first_answer_is_literal(self):
+        q='irowiki-classic:Snowysnow_Quest'
+        b=self.db.execute('''SELECT b.branch_id,b.condition_text,s.step_order FROM step_branches b JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND b.branch_key='bard_house_trigger' ''',(q,)).fetchone()
+        self.assertEqual(b[2],1);self.assertIn('Bard Job Change',b[1])
+        actions=[r[0] for r in self.db.execute('SELECT operation FROM step_actions WHERE branch_id=? ORDER BY action_order',(b[0],))]
+        self.assertEqual(actions,['talk','talk'])
+        options=[tuple(r) for r in self.db.execute('''SELECT s.step_order,o.exact_text FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(options,[(1,'Snowysnow?')])
+        first=self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='dialogue_option_position'",(q,)).fetchone()[0]
+        self.assertEqual(first,'1')
+        self.assertTrue(self.db.execute('SELECT 1 FROM quests WHERE quest_id=?',(q,)).fetchone())
+
+    def test_snowysnow_material_pair_and_salt_do_not_create_extra_consumption(self):
+        q='irowiki-classic:Snowysnow_Quest'
+        materials=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,i.operation,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? ORDER BY s.step_order,x.game_id''',(q,))]
+        self.assertEqual(materials,[(3,938,'bring',1),(3,1024,'bring',1),(4,938,'deliver',1),(4,1024,'deliver',1)])
+        salt=self.db.execute('''SELECT s.step_order,r.kind,r.amount,x.game_id FROM rewards r JOIN step_rewards sr USING(reward_id)
+          JOIN quest_steps s USING(step_id) JOIN items x ON x.entity_id=r.item_id JOIN entities e ON e.entity_id=r.item_id
+          WHERE r.quest_id=? AND e.original_name='Roughest Salt' ''',(q,)).fetchone()
+        self.assertEqual(tuple(salt),(7,'quest_object_reference',None,None))
+        self.assertFalse(self.db.execute('''SELECT 1 FROM step_items i JOIN quest_steps s USING(step_id) JOIN entities e ON e.entity_id=i.item_id
+          WHERE s.quest_id=? AND e.original_name='Roughest Salt' ''',(q,)).fetchone())
+
+    def test_snowysnow_children_order_and_possible_reward_ranges_keep_unknowns(self):
+        q='irowiki-classic:Snowysnow_Quest'
+        order=[r[0] for r in self.db.execute('''SELECT e.original_name FROM step_actions a JOIN entities e USING(entity_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=10 ORDER BY a.action_order''',(q,))]
+        self.assertEqual(order,['little boy','girl'])
+        identities={r[0] for r in self.db.execute('''SELECT npc_id FROM step_npcs n JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=10''',(q,))}
+        named={r[0] for r in self.db.execute('''SELECT entity_id FROM entities WHERE original_name IN ('Charu Charu','Marcell')''')}
+        self.assertTrue(identities.isdisjoint(named))
+        presents=[tuple(r) for r in self.db.execute('''SELECT e.original_name,r.kind,r.amount,x.game_id FROM rewards r JOIN items x ON x.entity_id=r.item_id
+          JOIN entities e ON e.entity_id=r.item_id WHERE r.quest_id=? AND r.kind='possible_item' ORDER BY e.original_name''',(q,))]
+        self.assertEqual(presents,[('Candy','possible_item','5-10',None),('Candy Cane','possible_item','5-10',None),('Piece of Cake','possible_item','1-2',None),('Well-baked Cookie','possible_item','5-10',None)])
+        self.assertFalse(self.db.execute("SELECT 1 FROM rewards WHERE quest_id=? AND kind='item'",(q,)).fetchone())
+
+    def test_piano_exclusive_source_routes_each_produce_six_keys(self):
+        q='irowiki-classic:Piano_Keys_Quest'
+        routes=[tuple(r) for r in self.db.execute('SELECT route_id,route_key,choice_group FROM quest_routes WHERE quest_id=? ORDER BY route_key',(q,))]
+        self.assertEqual([(r[1],r[2]) for r in routes],[('part_2a','crayu_prompt'),('part_2b','crayu_prompt')])
+        for route,steps in zip(routes,[[3,4,5,6],[7,8,9,10]]):
+            actual=[r[0] for r in self.db.execute('SELECT s.step_order FROM step_routes m JOIN quest_steps s USING(step_id) WHERE m.route_id=? ORDER BY m.route_order',(route[0],))]
+            self.assertEqual(actual,steps)
+            amount=self.db.execute('''SELECT sum(CAST(r.amount AS INTEGER)) FROM rewards r JOIN step_rewards sr USING(reward_id)
+              JOIN step_routes m ON m.step_id=sr.step_id JOIN items x ON x.entity_id=r.item_id WHERE m.route_id=? AND x.game_id=7184''',(route[0],)).fetchone()[0]
+            self.assertEqual(amount,5)
+        shared=self.db.execute('''SELECT r.amount FROM rewards r JOIN step_rewards sr USING(reward_id) JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? AND s.step_order=1 AND x.game_id=7184''',(q,)).fetchone()[0]
+        self.assertEqual(shared,'1')
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='item_consumed_total'",(q,)).fetchone()[0],'6')
+
+    def test_piano_tombstone_triggers_and_duplicate_original_steps_are_distinct(self):
+        q='irowiki-classic:Piano_Keys_Quest'
+        actors={r[0]:r[1] for r in self.db.execute('''SELECT s.step_order,n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order IN (5,6,9,10)''',(q,))}
+        self.assertEqual(actors[5],actors[10]);self.assertEqual(actors[6],actors[9]);self.assertNotEqual(actors[5],actors[6])
+        ops=[tuple(r) for r in self.db.execute('''SELECT s.step_order,a.operation FROM step_actions a JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order IN (5,6,9,10) ORDER BY s.step_order''',(q,))]
+        self.assertEqual(ops,[(5,'walk_past_twice'),(6,'walk_past'),(9,'walk_past'),(10,'walk_past_twice')])
+        duplicate=[tuple(r) for r in self.db.execute('SELECT step_id,original_instruction FROM quest_steps WHERE quest_id=? AND step_order IN (4,7) ORDER BY step_order',(q,))]
+        self.assertEqual(duplicate[0][1],duplicate[1][1]);self.assertNotEqual(duplicate[0][0],duplicate[1][0])
+        self.assertTrue(duplicate[0][0].endswith('/1'));self.assertTrue(duplicate[1][0].endswith('/2'))
+
+    def test_piano_exact_lyrics_are_prompt_conditioned_not_unconditional_inputs(self):
+        q='irowiki-classic:Piano_Keys_Quest'
+        lines=['Mountain sunset to the west','Where the purple dusk falls','Surrounded by beautiful melody','You become the key that ignores its master']
+        for n in [3,8]:
+            options=[tuple(r) for r in self.db.execute('''SELECT o.exact_text,o.operation,o.condition_text FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id)
+              JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=? ORDER BY o.option_order''',(q,n))]
+            self.assertEqual([(r[0],r[1]) for r in options],[(line,'enter_text') for line in lines])
+            self.assertTrue(all('when prompted' in r[2] for r in options))
+        self.assertFalse(self.db.execute('''SELECT 1 FROM description_mentions m JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND m.surface='key' AND m.entity_type='item' ''',(q,)).fetchone())
+        self.assertTrue(self.db.execute("SELECT 1 FROM step_actions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=13 AND a.condition_text LIKE 'Each conversation%'",(q,)).fetchone())
+
+    def test_message_rose_quantity_unknown_and_leaves_have_separate_input_output_roles(self):
+        q='irowiki-classic:Message_Delivery_Quest'
+        costs=[tuple(r) for r in self.db.execute('''SELECT x.game_id,r.amount FROM requirements r JOIN items x ON x.entity_id=r.entity_id
+          WHERE r.quest_id=? AND r.kind='item_consumed_total' ORDER BY x.game_id''',(q,))]
+        self.assertEqual(costs,[(610,'10'),(748,None)])
+        inputs=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.operation,i.quantity FROM step_items i JOIN quest_steps s USING(step_id)
+          JOIN items x ON x.entity_id=i.item_id WHERE s.quest_id=? AND s.step_order=3 ORDER BY x.game_id''',(q,))]
+        self.assertEqual(inputs,[(610,'bring',10),(748,'possess',None)])
+        self.assertFalse(self.db.execute('SELECT 1 FROM step_items JOIN quest_steps USING(step_id) WHERE quest_id=? AND step_order=5',(q,)).fetchone())
+
+    def test_message_success_failure_rewards_are_not_summed_or_answer_selected(self):
+        q='irowiki-classic:Message_Delivery_Quest'
+        rows=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,x.game_id,r.amount FROM rewards r JOIN step_branches b USING(branch_id)
+          JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? ORDER BY b.branch_key,x.game_id''',(q,))]
+        self.assertEqual(rows,[('summon_failure',610,'10'),('summon_success',607,'2'),('summon_success',608,'3'),('summon_success',610,'10')])
+        self.assertFalse(self.db.execute('SELECT 1 FROM rewards WHERE quest_id=? AND branch_id IS NULL',(q,)).fetchone())
+        self.assertTrue(self.db.execute("SELECT 1 FROM step_actions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=5 AND a.operation='choose_either_response'",(q,)).fetchone())
+
+    def test_message_return_actor_wrong_answer_and_failure_hp_keep_source_scope(self):
+        q='irowiki-classic:Message_Delivery_Quest'
+        actors=[r[0] for r in self.db.execute("SELECT n.npc_id FROM step_npcs n JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order IN (1,5) AND n.role='talk' ORDER BY s.step_order",(q,))]
+        self.assertEqual(len(actors),2);self.assertEqual(actors[0],actors[1])
+        options=[tuple(r) for r in self.db.execute('''SELECT o.exact_text,o.correct FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id)
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,))]
+        self.assertEqual(options,[('Sorry',0)])
+        hp=self.db.execute("SELECT amount,condition_text FROM requirements WHERE quest_id=? AND kind='source_hp_loss'",(q,)).fetchone()
+        self.assertIsNone(hp[0]);self.assertIn('Only on failed summoning',hp[1])
 
     def test_new_world_sidequest_prerequisites_preserve_started_access(self):
         for slug in ['Laphine_Craftsman','Collecting_Draco_Eggs']:

@@ -1,0 +1,388 @@
+{
+  "quest_id": "irowiki-classic:Message_Delivery_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "874cef15436e253544481b3882f4a78828515a9410a2db9616052bb0812622fb",
+  "snapshot_sha256": "a979d000f08e20091823f27869a641022a4c3e5f964a5d1046248f559023d997",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Eriuous",
+      "aliases": [
+        "Erious"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Elly"
+    },
+    {
+      "type": "npc",
+      "name": "Billik"
+    },
+    {
+      "type": "npc",
+      "name": "Feylin"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "map",
+      "name": "Umbala"
+    },
+    {
+      "type": "map",
+      "name": "umbala",
+      "map_code": "umbala"
+    },
+    {
+      "type": "map",
+      "name": "City of the Dead"
+    },
+    {
+      "type": "map",
+      "name": "Nifflheim"
+    },
+    {
+      "type": "map",
+      "name": "niflheim",
+      "map_code": "niflheim"
+    },
+    {
+      "type": "item",
+      "name": "Witherless Rose",
+      "game_id": 748,
+      "id_source": "http://db.irowiki.org/classic/item-info/748/"
+    },
+    {
+      "type": "item",
+      "name": "Yggdrasil Leaf",
+      "game_id": 610,
+      "id_source": "http://db.irowiki.org/classic/item-info/610/"
+    },
+    {
+      "type": "item",
+      "name": "Yggdrasil Seed",
+      "game_id": 608,
+      "id_source": "http://db.irowiki.org/classic/item-info/608/"
+    },
+    {
+      "type": "item",
+      "name": "Yggdrasilberry",
+      "game_id": 607,
+      "id_source": "http://db.irowiki.org/classic/item-info/607/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Eriuous in the Prontera Pub. He asks you deliver a message to his lost love, Elly.",
+      "instruction_sha256": "d20bfe6bb1876330637230160b782759d53cd710f7a0d65519005f51380d20be",
+      "step_id": "irowiki-classic:Message_Delivery_Quest/step/d20bfe6bb18763306372/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Eriuous в Prontera о сообщении для Elly.",
+      "short_en": "Talk to Eriuous in Prontera about the message for Elly.",
+      "full_ru": "Поговорите с Eriuous в трактире Prontera. Он попросит доставить сообщение его пропавшей возлюбленной Elly.",
+      "full_en": "Talk to Eriuous in the Prontera Pub. He asks you deliver a message to his lost love, Elly.",
+      "npcs": [
+        {
+          "entity": "Eriuous",
+          "role": "talk"
+        },
+        {
+          "entity": "Elly",
+          "role": "message_recipient_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "accept_message",
+          "entity": "Eriuous"
+        }
+      ],
+      "protected_names": [
+        "Eriuous",
+        "Elly",
+        "Prontera"
+      ],
+      "locations": []
+    },
+    "2": {
+      "original_instruction": "Find Billik in Umbala ( umbala 216, 182) and he will tell you about someone in the City of the Dead, aka Nifflheim .",
+      "instruction_sha256": "f51f77c739803f7b4bd36f5c6e79173d3540350f170c828e723eb03965158077",
+      "step_id": "irowiki-classic:Message_Delivery_Quest/step/f51f77c739803f7b4bd3/1",
+      "goal": "talk",
+      "short_ru": "Расспросите Billik в umbala 216, 182.",
+      "short_en": "Question Billik at umbala 216, 182.",
+      "full_ru": "Найдите Billik в Umbala (umbala 216, 182). Он расскажет о ком-то в City of the Dead, то есть Nifflheim.",
+      "full_en": "Find Billik in Umbala ( umbala 216, 182) and he will tell you about someone in the City of the Dead, aka Nifflheim .",
+      "npcs": [
+        {
+          "entity": "Billik",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Billik"
+        }
+      ],
+      "protected_names": [
+        "Billik",
+        "Umbala",
+        "umbala",
+        "City of the Dead",
+        "Nifflheim"
+      ],
+      "locations": [
+        {
+          "map": "umbala",
+          "x": 216,
+          "y": 182,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "umbala 216, 182"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Talk to Feylin ( niflheim 152, 215). After talking to him several times he will try to make contact with the one you're searching for, but he'll need 10 Yggdrasil Leaf . When two options appear do not choose Sorry otherwise he will NOT talk to you. | Note: You must bring a Witherless Rose to get Feylin to talk to you.",
+      "instruction_sha256": "df35ea5dfdcafdf9c83bd26e051a5184824a1019b410302b30ca9c9a6effd38d",
+      "step_id": "irowiki-classic:Message_Delivery_Quest/step/df35ea5dfdcafdf9c83b/1",
+      "goal": "repeat_talk",
+      "short_ru": "Принесите Feylin в niflheim 152, 215 Witherless Rose и 10 Yggdrasil Leaf; не выбирайте Sorry.",
+      "short_en": "Bring Feylin at niflheim 152, 215 Witherless Rose and 10 Yggdrasil Leaf; do not choose Sorry.",
+      "full_ru": "Поговорите с Feylin (niflheim 152, 215) несколько раз. Он попробует связаться с тем, кого вы ищете, но ему потребуются 10 Yggdrasil Leaf. Когда появятся два варианта, не выбирайте Sorry, иначе он НЕ станет с вами разговаривать. Примечание: чтобы Feylin начал разговор, нужно принести Witherless Rose.",
+      "full_en": "Talk to Feylin ( niflheim 152, 215). After talking to him several times he will try to make contact with the one you're searching for, but he'll need 10 Yggdrasil Leaf . When two options appear do not choose Sorry otherwise he will NOT talk to you. | Note: You must bring a Witherless Rose to get Feylin to talk to you.",
+      "npcs": [
+        {
+          "entity": "Feylin",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Witherless Rose",
+          "quantity": null,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Must be brought to initiate conversation; count/removal timing not established."
+        },
+        {
+          "entity": "Yggdrasil Leaf",
+          "quantity": 10,
+          "operation": "bring",
+          "required": 1,
+          "condition": "Material request for summoning; consumed total is separately in the source header."
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Feylin",
+          "options": [
+            {
+              "text": "Sorry",
+              "correct": 0,
+              "condition": "Avoid; source says he will not talk afterward. Correct alternative text is not printed."
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "repeat_talk",
+          "entity": "Feylin"
+        },
+        {
+          "operation": "avoid_Sorry",
+          "entity": "Feylin"
+        }
+      ],
+      "protected_names": [
+        "Feylin",
+        "niflheim",
+        "Witherless Rose",
+        "Yggdrasil Leaf"
+      ],
+      "locations": [
+        {
+          "map": "niflheim",
+          "x": 152,
+          "y": 215,
+          "known": true,
+          "role": "waypoint",
+          "evidence": "niflheim 152, 215"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Depending on how things turn out, he'll either succeed or fail at summoning Elly. | If he fails, you will lose most of your HP.",
+      "instruction_sha256": "51f9cd63bc01327faafecdf2330dba85029af81a4b8e883797be0b328fb46ff3",
+      "step_id": "irowiki-classic:Message_Delivery_Quest/step/51f9cd63bc01327faafe/1",
+      "goal": "witness_outcome",
+      "short_ru": "Дождитесь результата вызова Elly; при неудаче возможна большая потеря HP.",
+      "short_en": "Wait for the Elly summoning result; failure causes major HP loss.",
+      "full_ru": "В зависимости от исхода ему либо удастся вызвать Elly, либо нет. При неудаче вы потеряете большую часть HP.",
+      "full_en": "Depending on how things turn out, he'll either succeed or fail at summoning Elly. | If he fails, you will lose most of your HP.",
+      "npcs": [
+        {
+          "entity": "Feylin",
+          "role": "talk",
+          "support_step": 3,
+          "evidence": "Talk to Feylin ( niflheim 152, 215). After talking to him several times he will try to make contact with the one you're searching for, but he'll need 10 Yggdrasil Leaf . When two options appear do not choose Sorry otherwise he will NOT talk to you. | Note: You must bring a Witherless Rose to get Feylin to talk to you."
+        },
+        {
+          "entity": "Elly",
+          "role": "summoning_target_reference"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_hp_loss",
+          "condition": "Only on failed summoning; exact HP amount/percentage, death rule and success probability are not given."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "attempt_summon",
+          "entity": "Elly",
+          "condition": "Success/failure mechanism unspecified; no additional material set or fixed retry cost is invented."
+        }
+      ],
+      "protected_names": [
+        "Elly"
+      ],
+      "locations": []
+    },
+    "5": {
+      "original_instruction": "Talk to Erious again. He asks if you met Elly. Choose either answer. | If Feylin succeeded, you will be given 10 Yggdrasil Leaf , 3 Yggdrasil Seed , and 2 Yggdrasilberry . | If Feylin failed, you will be given 10 Yggdrasil Leaf .",
+      "instruction_sha256": "c2a121a73d1cc80254f93ce976e8cb1b6322619cff9bc0af9034a50c4e81564b",
+      "step_id": "irowiki-classic:Message_Delivery_Quest/step/c2a121a73d1cc80254f9/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Erious: награда зависит от результата Feylin, ответ можно выбрать любой.",
+      "short_en": "Return to Erious: the reward depends on Feylin's result; either answer is allowed.",
+      "full_ru": "Снова поговорите с Erious. Он спросит, встретили ли вы Elly: можно выбрать любой ответ. Если Feylin удалось её вызвать, вы получите 10 Yggdrasil Leaf, 3 Yggdrasil Seed и 2 Yggdrasilberry. Если Feylin потерпел неудачу, получите 10 Yggdrasil Leaf.",
+      "full_en": "Talk to Erious again. He asks if you met Elly. Choose either answer. | If Feylin succeeded, you will be given 10 Yggdrasil Leaf , 3 Yggdrasil Seed , and 2 Yggdrasilberry . | If Feylin failed, you will be given 10 Yggdrasil Leaf .",
+      "npcs": [
+        {
+          "entity": "Eriuous",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_either_response",
+          "entity": "Eriuous",
+          "condition": "Answer text not printed; summoning result, not an invented final answer, controls listed rewards."
+        }
+      ],
+      "protected_names": [
+        "Elly",
+        "Feylin",
+        "Yggdrasil Leaf",
+        "Yggdrasil Seed",
+        "Yggdrasilberry"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "summon_success",
+          "choice_group": "summoning_result",
+          "variant_scope": "irowiki-classic",
+          "condition": "Feylin succeeded at summoning Elly; either final response is allowed.",
+          "section": "",
+          "source_step": 5,
+          "original_instruction": "If Feylin succeeded, you will be given 10 Yggdrasil Leaf , 3 Yggdrasil Seed , and 2 Yggdrasilberry .",
+          "instruction_sha256": "7ddc5702961a9e9ff4d9458dd78f88cf127e07c4460726a947150e700227ace4",
+          "short_ru": "При успехе Feylin получите 10 Yggdrasil Leaf, 3 Yggdrasil Seed и 2 Yggdrasilberry.",
+          "short_en": "If Feylin succeeded, receive 10 Yggdrasil Leaf, 3 Yggdrasil Seed and 2 Yggdrasilberry.",
+          "full_ru": "Если Feylin добился успеха, вы получите 10 Yggdrasil Leaf, 3 Yggdrasil Seed и 2 Yggdrasilberry.",
+          "full_en": "If Feylin succeeded, you will be given 10 Yggdrasil Leaf , 3 Yggdrasil Seed , and 2 Yggdrasilberry .",
+          "protected_names": [
+            "Feylin",
+            "Yggdrasil Leaf",
+            "Yggdrasil Seed",
+            "Yggdrasilberry"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "10",
+              "entity": "Yggdrasil Leaf"
+            },
+            {
+              "kind": "item",
+              "amount": "3",
+              "entity": "Yggdrasil Seed"
+            },
+            {
+              "kind": "item",
+              "amount": "2",
+              "entity": "Yggdrasilberry"
+            }
+          ]
+        },
+        {
+          "key": "summon_failure",
+          "choice_group": "summoning_result",
+          "variant_scope": "irowiki-classic",
+          "condition": "Feylin failed at summoning Elly; either final response is allowed.",
+          "section": "",
+          "source_step": 5,
+          "original_instruction": "If Feylin failed, you will be given 10 Yggdrasil Leaf .",
+          "instruction_sha256": "1612a3a243f92f298cc4eb9db5681f6418ff09ca26d63b87aa9b19e6e8bb066e",
+          "short_ru": "При неудаче Feylin получите 10 Yggdrasil Leaf.",
+          "short_en": "If Feylin failed, receive 10 Yggdrasil Leaf.",
+          "full_ru": "Если Feylin потерпел неудачу, вы получите 10 Yggdrasil Leaf.",
+          "full_en": "If Feylin failed, you will be given 10 Yggdrasil Leaf .",
+          "protected_names": [
+            "Feylin",
+            "Yggdrasil Leaf"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "10",
+              "entity": "Yggdrasil Leaf"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "rose_count_and_removal_unknown",
+      "detail": "Witherless Rose is consumed in the header and required for conversation in the body, but quantity/removal timing is not printed. Do not invent a count or per-attempt rose consumption."
+    },
+    {
+      "reason": "summoning_outcome_not_final_answer",
+      "detail": "Both final answers are allowed, with no exact text printed. Rewards depend on summoning success/failure, not a fabricated answer. Ten consumed leaves and ten granted leaves are different roles, not zero cost or two simultaneous grants."
+    },
+    {
+      "reason": "eriouus_spelling_and_failure_scope",
+      "detail": "Eriuous and Erious are source spellings of the initial/return interlocutor in this single quest. No Pub coordinate, HP percentage, irreversible lockout duration or summoning probability is invented."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "entity": "Witherless Rose",
+        "source_section": "requirements",
+        "evidence": "Item(s) (Consumed): Witherless Rose",
+        "condition": "Header lists consumption but no count; body only says to bring the rose before Feylin talks. Removal timing is unknown."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "10",
+        "source_section": "requirements",
+        "evidence": "10 Yggdrasil Leaf",
+        "entity": "Yggdrasil Leaf",
+        "condition": "Summoning materials, distinct from the later ten-leaf reward; no retry/refund total inferred."
+      }
+    ]
+  }
+}

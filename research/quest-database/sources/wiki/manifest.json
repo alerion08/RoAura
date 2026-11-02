@@ -2406,5 +2406,79 @@
       "https://irowiki.org/classic/Manuk",
       "https://irowiki.org/classic/Two_Tribes"
     ]
+  },
+  "Snowysnow_Quest": {
+    "url": "https://irowiki.org/classic/Snowysnow_Quest",
+    "sha256": "f3d76b6f7a19ff5b6741f15f4aa25354888d97334122100acc4ed19d8aa087cd",
+    "path": "f3d76b6f7a19ff5b6741f15f4aa25354888d97334122100acc4ed19d8aa087cd.html.gz",
+    "title": "Snowysnow Quest",
+    "categories": [
+      "Articles Needing DB Links",
+      "Level 1~99 Quests",
+      "Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T07:39:25Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/1024/",
+      "http://db.irowiki.org/classic/item-info/938/",
+      "https://irowiki.org/classic/Bard",
+      "https://irowiki.org/classic/Bard_Job_Change_Guide",
+      "https://irowiki.org/classic/Lutie",
+      "https://irowiki.org/classic/NPC",
+      "https://irowiki.org/classic/Template:Item",
+      "https://irowiki.org/classic/Template:Map",
+      "https://irowiki.org/classic/Template:Monster"
+    ]
+  },
+  "Piano_Keys_Quest": {
+    "url": "https://irowiki.org/classic/Piano_Keys_Quest",
+    "sha256": "c72ed116c1b514d57741031362abc71a6253e93ff6b73b96a850a3a376377505",
+    "path": "c72ed116c1b514d57741031362abc71a6253e93ff6b73b96a850a3a376377505.html.gz",
+    "title": "Piano Keys Quest",
+    "categories": [
+      "Level 1~99 Quests",
+      "Quests",
+      "Nifflheim Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T07:39:27Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/7184/",
+      "https://irowiki.org/classic/File:Niffle_pianokeys_quest_1.jpg",
+      "https://irowiki.org/classic/File:Niffle_pianokeys_quest_2.jpg",
+      "https://irowiki.org/classic/HP",
+      "https://irowiki.org/classic/Nifflheim",
+      "https://irowiki.org/classic/Piano_Keys_Quest#Part_1",
+      "https://irowiki.org/classic/Piano_Keys_Quest#Part_2a",
+      "https://irowiki.org/classic/Piano_Keys_Quest#Part_2b",
+      "https://irowiki.org/classic/Piano_Keys_Quest#Part_3",
+      "https://irowiki.org/classic/Sign_Quest",
+      "https://irowiki.org/classic/Umbala"
+    ]
+  },
+  "Message_Delivery_Quest": {
+    "url": "https://irowiki.org/classic/Message_Delivery_Quest",
+    "sha256": "a979d000f08e20091823f27869a641022a4c3e5f964a5d1046248f559023d997",
+    "path": "a979d000f08e20091823f27869a641022a4c3e5f964a5d1046248f559023d997.html.gz",
+    "title": "Message Delivery Quest",
+    "categories": [
+      "Level 80~99 Quests",
+      "Quests",
+      "Nifflheim Quests"
+    ],
+    "license": "Content is available under GNU Free Documentation License 1.3 or later unless otherwise noted.",
+    "captured_utc": "2026-11-02T07:39:28Z",
+    "page_links": [
+      "http://db.irowiki.org/classic/item-info/607/",
+      "http://db.irowiki.org/classic/item-info/608/",
+      "http://db.irowiki.org/classic/item-info/610/",
+      "http://db.irowiki.org/classic/item-info/748/",
+      "http://db.irowiki.org/classic/map-info/niflheim/",
+      "http://db.irowiki.org/classic/map-info/umbala/",
+      "https://irowiki.org/classic/Nifflheim",
+      "https://irowiki.org/classic/Prontera",
+      "https://irowiki.org/classic/Umbala"
+    ]
   }
 }

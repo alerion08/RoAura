@@ -218,6 +218,22 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   source labels; do not sum them into two material sets. Bradium Golems is a
   loot source of unknown kill quantity. Draco eggs share one ten-item target
   across two floors; Monster Suppression has distinct one-each kill targets.
+- Snowysnow `possible_item` rewards list candidate present contents and ranges,
+  not guaranteed additive grants or a proven exclusive/mixed distribution.
+  `quest_object_reference` for salt does not verify an inventory item, count or
+  removal. A conditional Bard house branch is separate from common actions;
+  unknown gender-to-name child bindings and unprinted blue answers stay unknown.
+- Piano Part 2 routes share `choice_group=crayu_prompt`: select one according
+  to the source prompt. Shared Alreg key plus five in that route totals six.
+  Tombstone labels are unnamed proximity trigger references at distinct points;
+  two passes yield two keys total. Printed song-line order is not a guaranteed
+  four-input sequence; read per-option conditions. `source_quest_reference`
+  does not mark Sign complete. Witch's repeatable warp is not quest repeatability.
+- Message Delivery rewards share `choice_group=summoning_result` at the final
+  stage. Either final response is allowed; earlier summoning outcome controls
+  the payout. Consumed and awarded leaves have different roles. NULL rose
+  quantity and HP loss stay unknown; Sorry is only a known wrong answer, with
+  no fabricated correct text, lockout duration or success chance.
 - `ready_steps` currently means **all four localized text fields exist**. It
   is not a readiness claim for the quest, route, server or application.
   Unfinished fields are NULL with blocking review rows; `complete=false` is

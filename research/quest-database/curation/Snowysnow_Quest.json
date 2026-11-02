@@ -1,0 +1,690 @@
+{
+  "quest_id": "irowiki-classic:Snowysnow_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "297130c20def510bfc1cf478f88f576ecd088a47fb03d5e05dd787edfd1e6d7b",
+  "snapshot_sha256": "f3d76b6f7a19ff5b6741f15f4aa25354888d97334122100acc4ed19d8aa087cd",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Snowysnow"
+    },
+    {
+      "type": "npc",
+      "name": "Poze"
+    },
+    {
+      "type": "npc",
+      "name": "Hashokii"
+    },
+    {
+      "type": "npc",
+      "name": "Charu Charu"
+    },
+    {
+      "type": "npc",
+      "name": "Marcell"
+    },
+    {
+      "type": "npc",
+      "name": "little boy"
+    },
+    {
+      "type": "npc",
+      "name": "girl"
+    },
+    {
+      "type": "npc",
+      "name": "Uncle Hairy Cantata",
+      "aliases": [
+        "Uncle Hairy",
+        "Hairy"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Thachentze",
+      "aliases": [
+        "Lenient Aunt"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "NPC",
+      "ref": "bard_house_npc"
+    },
+    {
+      "type": "map",
+      "name": "Lutie"
+    },
+    {
+      "type": "map",
+      "name": "Toy Factory"
+    },
+    {
+      "type": "item",
+      "name": "Squid Ink",
+      "game_id": 1024,
+      "id_source": "http://db.irowiki.org/classic/item-info/1024/"
+    },
+    {
+      "type": "item",
+      "name": "Sticky Mucus",
+      "game_id": 938,
+      "id_source": "http://db.irowiki.org/classic/item-info/938/"
+    },
+    {
+      "type": "item",
+      "name": "Roughest Salt",
+      "identity": "irowiki-classic:Snowysnow_Quest:source_item:Roughest Salt"
+    },
+    {
+      "type": "item",
+      "name": "Candy",
+      "identity": "irowiki-classic:Snowysnow_Quest:source_item:Candy"
+    },
+    {
+      "type": "item",
+      "name": "Candy Cane",
+      "identity": "irowiki-classic:Snowysnow_Quest:source_item:Candy Cane"
+    },
+    {
+      "type": "item",
+      "name": "Well-baked Cookie",
+      "identity": "irowiki-classic:Snowysnow_Quest:source_item:Well-baked Cookie"
+    },
+    {
+      "type": "item",
+      "name": "Piece of Cake",
+      "identity": "irowiki-classic:Snowysnow_Quest:source_item:Piece of Cake"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Find Snowysnow the snowman in Lutie (133,112). Select the option in blue that reads \"Snowysnow?\" You may need to talk to him a couple of times, but when he is immersed in thought about Poze, you need to find him. | Note: If you are doing this quest as part of the Bard Job Change , you have to speak to an NPC inside the top right house (189,275) and then talk to Snowysnow again to activate Poze.",
+      "instruction_sha256": "78171e64d96ed66070d89164676607b4c40d4975d8af8120318663cc91dbc42c",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/78171e64d96ed66070d8/1",
+      "goal": "repeat_talk",
+      "short_ru": "Говорите с Snowysnow в Lutie (133,112), выбирая «Snowysnow?», до упоминания Poze.",
+      "short_en": "Talk to Snowysnow in Lutie (133,112), choosing “Snowysnow?”, until he mentions Poze.",
+      "full_ru": "Найдите Snowysnow, снеговика в Lutie (133,112). Выберите синий ответ «Snowysnow?». Возможно, придётся поговорить несколько раз. Когда он задумается о Poze, найдите того. Примечание: если выполняете этот квест для Bard Job Change, поговорите с NPC внутри верхнего правого дома (189,275), а затем снова со Snowysnow, чтобы активировать Poze.",
+      "full_en": "Find Snowysnow the snowman in Lutie (133,112). Select the option in blue that reads \"Snowysnow?\" You may need to talk to him a couple of times, but when he is immersed in thought about Poze, you need to find him. | Note: If you are doing this quest as part of the Bard Job Change , you have to speak to an NPC inside the top right house (189,275) and then talk to Snowysnow again to activate Poze.",
+      "npcs": [
+        {
+          "entity": "Snowysnow",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Snowysnow",
+          "options": [
+            {
+              "text": "Snowysnow?",
+              "correct": 1
+            }
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "operation": "repeat_talk",
+          "entity": "Snowysnow",
+          "condition": "Repeat until he thinks about Poze; number of talks unspecified."
+        }
+      ],
+      "locations": [
+        {
+          "x": 133,
+          "y": 112,
+          "role": "npc",
+          "known": false
+        }
+      ],
+      "protected_names": [
+        "Snowysnow",
+        "Poze",
+        "NPC",
+        "Lutie"
+      ],
+      "branches": [
+        {
+          "key": "bard_house_trigger",
+          "choice_group": "bard_context",
+          "variant_scope": "irowiki-classic",
+          "condition": "Only while doing this as part of Bard Job Change; this is not required for every standalone visitor.",
+          "section": "",
+          "source_step": 1,
+          "original_instruction": "If you are doing this quest as part of the Bard Job Change , you have to speak to an NPC inside the top right house (189,275) and then talk to Snowysnow again to activate Poze.",
+          "instruction_sha256": "42745d43f2dce4c109945de36685c8d63da6e0165b7887c7b0f33785ea03470e",
+          "short_ru": "Для Bard Job Change поговорите с NPC в доме (189,275), затем со Snowysnow.",
+          "short_en": "For Bard Job Change, talk to the NPC in the house (189,275), then to Snowysnow.",
+          "full_ru": "Если выполняете квест для Bard Job Change, поговорите с NPC внутри верхнего правого дома (189,275), затем снова со Snowysnow, чтобы активировать Poze.",
+          "full_en": "If you are doing this quest as part of the Bard Job Change , you have to speak to an NPC inside the top right house (189,275) and then talk to Snowysnow again to activate Poze.",
+          "protected_names": [
+            "Snowysnow",
+            "Poze",
+            "NPC"
+          ],
+          "npcs": [
+            {
+              "entity": "bard_house_npc",
+              "role": "talk"
+            },
+            {
+              "entity": "Snowysnow",
+              "role": "talk"
+            }
+          ],
+          "actions": [
+            {
+              "operation": "talk",
+              "entity": "bard_house_npc"
+            },
+            {
+              "operation": "talk",
+              "entity": "Snowysnow"
+            }
+          ],
+          "locations": [
+            {
+              "x": 189,
+              "y": 275,
+              "role": "entrance",
+              "known": false,
+              "condition": "Conditional Bard Job Change house; interior NPC name/map/position unspecified."
+            }
+          ]
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Poze is located to the west of the Toy Factory entrance, he is wearing a red Christmas coat (117,303). Talk to Poze and he will send you to talk to Uncle Hairy Cantata.",
+      "instruction_sha256": "d5aa6ecc94a96a77fab0a5bb503b3bc430e478449e5f31b14d4cdef2883ffcbf",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/d5aa6ecc94a96a77fab0/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Poze у Toy Factory (117,303).",
+      "short_en": "Talk to Poze near Toy Factory (117,303).",
+      "full_ru": "Poze стоит к западу от входа в Toy Factory и носит красный рождественский плащ (117,303). Поговорите с ним: он направит вас к Uncle Hairy Cantata.",
+      "full_en": "Poze is located to the west of the Toy Factory entrance, he is wearing a red Christmas coat (117,303). Talk to Poze and he will send you to talk to Uncle Hairy Cantata.",
+      "npcs": [
+        {
+          "entity": "Poze",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Poze"
+        }
+      ],
+      "protected_names": [
+        "Poze",
+        "Uncle Hairy Cantata",
+        "Toy Factory"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 117,
+          "y": 303,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "117,303"
+        }
+      ]
+    },
+    "3": {
+      "original_instruction": "Uncle Hairy is located to the southeast of the Toy Factory entrance, outside a house (177,236). When you talk to him, he will want you to bring two items to him before he will talk to you. Bring 1 Squid Ink and 1 Sticky Mucus .",
+      "instruction_sha256": "6c5a9419e10e8359fdc4986d1a9d87444cba3e948c30a26402dc5ad76950dc1e",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/6c5a9419e10e8359fdc4/1",
+      "goal": "talk",
+      "short_ru": "Принесите Uncle Hairy (177,236) 1 Squid Ink и 1 Sticky Mucus.",
+      "short_en": "Bring Uncle Hairy (177,236) 1 Squid Ink and 1 Sticky Mucus.",
+      "full_ru": "Uncle Hairy стоит к юго-востоку от входа в Toy Factory, снаружи дома (177,236). Прежде чем продолжить разговор, он попросит два предмета: принесите 1 Squid Ink и 1 Sticky Mucus.",
+      "full_en": "Uncle Hairy is located to the southeast of the Toy Factory entrance, outside a house (177,236). When you talk to him, he will want you to bring two items to him before he will talk to you. Bring 1 Squid Ink and 1 Sticky Mucus .",
+      "npcs": [
+        {
+          "entity": "Uncle Hairy Cantata",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Squid Ink",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        },
+        {
+          "entity": "Sticky Mucus",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_materials",
+          "entity": "Uncle Hairy Cantata"
+        }
+      ],
+      "protected_names": [
+        "Toy Factory",
+        "Squid Ink",
+        "Sticky Mucus"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 177,
+          "y": 236,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "177,236"
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "Return to Hairy with these items and he will talk to you about the snowman, and suggests that you talk to Thachentze to learn more.",
+      "instruction_sha256": "2081182a0e214e85810bd975a280766ae20ba0d48251720364ce4dc688f7a00f",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/2081182a0e214e85810b/1",
+      "goal": "deliver",
+      "short_ru": "Передайте Hairy Squid Ink и Sticky Mucus, затем найдите Thachentze.",
+      "short_en": "Give Hairy Squid Ink and Sticky Mucus, then find Thachentze.",
+      "full_ru": "Вернитесь к Hairy с предметами. Он расскажет о снеговике и посоветует поговорить с Thachentze.",
+      "full_en": "Return to Hairy with these items and he will talk to you about the snowman, and suggests that you talk to Thachentze to learn more.",
+      "npcs": [
+        {
+          "entity": "Uncle Hairy Cantata",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Squid Ink",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Uncle Hairy is located to the southeast of the Toy Factory entrance, outside a house (177,236). When you talk to him, he will want you to bring two items to him before he will talk to you. Bring 1 Squid Ink and 1 Sticky Mucus ."
+        },
+        {
+          "entity": "Sticky Mucus",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 3,
+          "evidence": "Uncle Hairy is located to the southeast of the Toy Factory entrance, outside a house (177,236). When you talk to him, he will want you to bring two items to him before he will talk to you. Bring 1 Squid Ink and 1 Sticky Mucus ."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_materials",
+          "entity": "Uncle Hairy Cantata"
+        }
+      ],
+      "locations": [
+        {
+          "x": 177,
+          "y": 236,
+          "role": "return",
+          "known": false,
+          "support_step": 3,
+          "evidence": "Uncle Hairy is located to the southeast of the Toy Factory entrance, outside a house (177,236). When you talk to him, he will want you to bring two items to him before he will talk to you. Bring 1 Squid Ink and 1 Sticky Mucus ."
+        }
+      ],
+      "protected_names": [
+        "Thachentze"
+      ]
+    },
+    "5": {
+      "original_instruction": "Thachentze is in a house to the west of the large Christmas tree (122,159). In the house you'll find a Lenient Aunt. This is Thachentze, talk to her.",
+      "instruction_sha256": "17616d062271cbc75235cc3ff43cee42c77eb35a8461c72e4084dca29dff63a5",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/17616d062271cbc75235/1",
+      "goal": "talk",
+      "short_ru": "Войдите в дом (122,159) и поговорите с Thachentze, она же Lenient Aunt.",
+      "short_en": "Enter the house (122,159) and talk to Thachentze, also called Lenient Aunt.",
+      "full_ru": "Thachentze находится в доме к западу от большой рождественской ёлки (122,159). Внутри вы найдёте Lenient Aunt — это Thachentze. Поговорите с ней.",
+      "full_en": "Thachentze is in a house to the west of the large Christmas tree (122,159). In the house you'll find a Lenient Aunt. This is Thachentze, talk to her.",
+      "npcs": [
+        {
+          "entity": "Thachentze",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_house"
+        },
+        {
+          "operation": "talk",
+          "entity": "Thachentze"
+        }
+      ],
+      "locations": [
+        {
+          "x": 122,
+          "y": 159,
+          "role": "entrance",
+          "known": false
+        }
+      ],
+      "protected_names": [
+        "Thachentze"
+      ]
+    },
+    "6": {
+      "original_instruction": "She will send you to get the Roughest Salt in the world from the snowman. So return to the snowman and talk to him again.",
+      "instruction_sha256": "a4836d0d0958d7b0df3f2583056360c83f0bb3c2f6de3b8b59242b4396882ef5",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/a4836d0d0958d7b0df3f/1",
+      "goal": "talk",
+      "short_ru": "Вернитесь к Snowysnow за Roughest Salt для Thachentze.",
+      "short_en": "Return to Snowysnow for Roughest Salt for Thachentze.",
+      "full_ru": "Она попросит добыть у снеговика самый грубый в мире Roughest Salt. Вернитесь к снеговику и поговорите снова.",
+      "full_en": "She will send you to get the Roughest Salt in the world from the snowman. So return to the snowman and talk to him again.",
+      "npcs": [
+        {
+          "entity": "Thachentze",
+          "role": "requester",
+          "support_step": 5,
+          "evidence": "Thachentze is in a house to the west of the large Christmas tree (122,159). In the house you'll find a Lenient Aunt. This is Thachentze, talk to her."
+        },
+        {
+          "entity": "Snowysnow",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Find Snowysnow the snowman in Lutie (133,112). Select the option in blue that reads \"Snowysnow?\" You may need to talk to him a couple of times, but when he is immersed in thought about Poze, you need to find him. | Note: If you are doing this quest as part of the Bard Job Change , you have to speak to an NPC inside the top right house (189,275) and then talk to Snowysnow again to activate Poze."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Snowysnow"
+        }
+      ],
+      "locations": [
+        {
+          "x": 133,
+          "y": 112,
+          "role": "return",
+          "known": false,
+          "support_step": 1,
+          "evidence": "Find Snowysnow the snowman in Lutie (133,112). Select the option in blue that reads \"Snowysnow?\" You may need to talk to him a couple of times, but when he is immersed in thought about Poze, you need to find him. | Note: If you are doing this quest as part of the Bard Job Change , you have to speak to an NPC inside the top right house (189,275) and then talk to Snowysnow again to activate Poze."
+        }
+      ],
+      "protected_names": [
+        "Roughest Salt"
+      ]
+    },
+    "7": {
+      "original_instruction": "When you talk to the snowman again, select the first option, the one in blue. This will lead you though a dialogue, and at the end, you get the salt.",
+      "instruction_sha256": "9480e459315ab744ae7f07ba01ff60b75fb316531e581d6b81b795b57eef0e14",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/9480e459315ab744ae7f/1",
+      "goal": "choose",
+      "short_ru": "У Snowysnow выберите первый синий вариант и получите соль.",
+      "short_en": "At Snowysnow, select the first blue option and obtain the salt.",
+      "full_ru": "Снова поговорите со снеговиком и выберите первый, синий вариант. Продолжите диалог до получения соли.",
+      "full_en": "When you talk to the snowman again, select the first option, the one in blue. This will lead you though a dialogue, and at the end, you get the salt.",
+      "npcs": [
+        {
+          "entity": "Snowysnow",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Find Snowysnow the snowman in Lutie (133,112). Select the option in blue that reads \"Snowysnow?\" You may need to talk to him a couple of times, but when he is immersed in thought about Poze, you need to find him. | Note: If you are doing this quest as part of the Bard Job Change , you have to speak to an NPC inside the top right house (189,275) and then talk to Snowysnow again to activate Poze."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "dialogue_option_position",
+          "amount": "1",
+          "condition": "First option, described as blue; exact option text is not printed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_first_blue_option",
+          "entity": "Snowysnow"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "quest_object_reference",
+          "entity": "Roughest Salt",
+          "condition": "Source says salt is obtained; item ID/count and inventory implementation unverified."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "8": {
+      "original_instruction": "Return to Thachentze and talk to her again, she will then send you to talk to the clown Hashokii (147,136).",
+      "instruction_sha256": "2bf80a13ac84354a73979844b07f000ee256d0aad35cbbcb2bb26aed951bee88",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/2bf80a13ac84354a7397/1",
+      "goal": "talk",
+      "short_ru": "Поговорите с Thachentze, затем найдите Hashokii (147,136).",
+      "short_en": "Talk to Thachentze, then find Hashokii (147,136).",
+      "full_ru": "Вернитесь к Thachentze и снова поговорите: она направит вас к клоуну Hashokii (147,136).",
+      "full_en": "Return to Thachentze and talk to her again, she will then send you to talk to the clown Hashokii (147,136).",
+      "npcs": [
+        {
+          "entity": "Thachentze",
+          "role": "talk"
+        },
+        {
+          "entity": "Hashokii",
+          "role": "destination"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Thachentze"
+        }
+      ],
+      "protected_names": [
+        "Hashokii",
+        "Thachentze"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 147,
+          "y": 136,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "147,136"
+        }
+      ]
+    },
+    "9": {
+      "original_instruction": "Hashokii is just to the south of the big Christmas tree. Talk to him and ask him about the snowman. He will then send you to talk to two children, Charu Charu and Marcell (207,167).",
+      "instruction_sha256": "7afbb38bc2e8138609c193e5cffdc5f9dbaf3d9faa198daf8167623312b31bd7",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/7afbb38bc2e8138609c1/1",
+      "goal": "talk",
+      "short_ru": "Спросите Hashokii о снеговике и найдите Charu Charu и Marcell (207,167).",
+      "short_en": "Ask Hashokii about the snowman and find Charu Charu and Marcell (207,167).",
+      "full_ru": "Hashokii стоит к югу от большой рождественской ёлки. Расспросите его о снеговике. Он направит вас к двум детям, Charu Charu и Marcell (207,167).",
+      "full_en": "Hashokii is just to the south of the big Christmas tree. Talk to him and ask him about the snowman. He will then send you to talk to two children, Charu Charu and Marcell (207,167).",
+      "npcs": [
+        {
+          "entity": "Hashokii",
+          "role": "talk"
+        },
+        {
+          "entity": "Charu Charu",
+          "role": "destination_reference"
+        },
+        {
+          "entity": "Marcell",
+          "role": "destination_reference"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "Hashokii"
+        },
+        {
+          "operation": "find_children"
+        }
+      ],
+      "protected_names": [
+        "Hashokii",
+        "Charu Charu",
+        "Marcell"
+      ],
+      "locations": [
+        {
+          "map": null,
+          "x": 207,
+          "y": 167,
+          "known": false,
+          "role": "waypoint",
+          "evidence": "207,167"
+        }
+      ]
+    },
+    "10": {
+      "original_instruction": "The two children are east of the tree. Be sure to talk to the \"little boy\" first. He will then tell you to talk to the girl next to him.",
+      "instruction_sha256": "81314db691bb457402cb30b8a3c1cd98c475cf36caf6b65f4e2df57432562147",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/81314db691bb457402cb/1",
+      "goal": "talk",
+      "short_ru": "Сначала поговорите с little boy, затем с girl.",
+      "short_en": "Talk to the little boy first, then to the girl.",
+      "full_ru": "Дети стоят к востоку от ёлки. Обязательно сначала поговорите с «little boy»: он скажет поговорить с girl рядом с ним.",
+      "full_en": "The two children are east of the tree. Be sure to talk to the \"little boy\" first. He will then tell you to talk to the girl next to him.",
+      "npcs": [
+        {
+          "entity": "little boy",
+          "role": "talk"
+        },
+        {
+          "entity": "girl",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk",
+          "entity": "little boy"
+        },
+        {
+          "operation": "talk",
+          "entity": "girl"
+        }
+      ],
+      "reviews": [
+        {
+          "reason": "child_names_not_mapped_to_gender",
+          "detail": "The article names Charu Charu and Marcell but does not say which is the little boy or girl. Interaction order is known; named/gender identities are not silently merged."
+        }
+      ],
+      "protected_names": [
+        "little boy",
+        "girl"
+      ],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "At the end of the girl's monologue, she will send you back once more to talk to the snowman. Again, select the blue option. The snowman will give you a gift from his bag; reach in and you get a present! | 5-10 Candy | 5-10 Candy Cane | 5-10 Well-baked Cookie | 1-2 Piece of Cake",
+      "instruction_sha256": "ef7db47f7ccf25332d012dea244f8e19e218c331fa14d0733b400e7b97274603",
+      "step_id": "irowiki-classic:Snowysnow_Quest/step/ef7db47f7ccf25332d01/1",
+      "goal": "receive_random_reward",
+      "short_ru": "Вернитесь к Snowysnow, выберите синий вариант и получите случайный подарок.",
+      "short_en": "Return to Snowysnow, choose the blue option and receive a random present.",
+      "full_ru": "В конце монолога girl отправит вас снова поговорить со снеговиком. Снова выберите синий вариант. Снеговик предложит взять подарок из мешка; вы получите случайный подарок. В списке возможного: 5-10 Candy, 5-10 Candy Cane, 5-10 Well-baked Cookie или 1-2 Piece of Cake.",
+      "full_en": "At the end of the girl's monologue, she will send you back once more to talk to the snowman. Again, select the blue option. The snowman will give you a gift from his bag; reach in and you get a present! | 5-10 Candy | 5-10 Candy Cane | 5-10 Well-baked Cookie | 1-2 Piece of Cake",
+      "npcs": [
+        {
+          "entity": "Snowysnow",
+          "role": "talk",
+          "support_step": 1,
+          "evidence": "Find Snowysnow the snowman in Lutie (133,112). Select the option in blue that reads \"Snowysnow?\" You may need to talk to him a couple of times, but when he is immersed in thought about Poze, you need to find him. | Note: If you are doing this quest as part of the Bard Job Change , you have to speak to an NPC inside the top right house (189,275) and then talk to Snowysnow again to activate Poze."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "choose_blue_option",
+          "entity": "Snowysnow"
+        },
+        {
+          "operation": "receive_random_present"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "possible_item",
+          "amount": "5-10",
+          "entity": "Candy",
+          "condition": "Listed possible random-present content, not a guaranteed additive grant; probabilities/mixing rules unknown."
+        },
+        {
+          "kind": "possible_item",
+          "amount": "5-10",
+          "entity": "Candy Cane",
+          "condition": "Listed possible random-present content, not a guaranteed additive grant; probabilities/mixing rules unknown."
+        },
+        {
+          "kind": "possible_item",
+          "amount": "5-10",
+          "entity": "Well-baked Cookie",
+          "condition": "Listed possible random-present content, not a guaranteed additive grant; probabilities/mixing rules unknown."
+        },
+        {
+          "kind": "possible_item",
+          "amount": "1-2",
+          "entity": "Piece of Cake",
+          "condition": "Listed possible random-present content, not a guaranteed additive grant; probabilities/mixing rules unknown."
+        }
+      ],
+      "protected_names": [
+        "girl",
+        "Candy",
+        "Candy Cane",
+        "Well-baked Cookie",
+        "Piece of Cake"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "permanent_bard_related_not_dated_event",
+      "detail": "The source explicitly supports Bard Job Change use and has no limited-event dates. Christmas scenery/clothing alone is not evidence of a retired event. No current server availability is asserted."
+    },
+    {
+      "reason": "random_present_distribution_and_ids_unknown",
+      "detail": "Four listed reward ranges are possible_item candidates, not four guaranteed grants. No probabilities or exclusive/mixed distribution is invented. Gift items and Roughest Salt have unknown database IDs."
+    },
+    {
+      "reason": "salt_consumption_and_blue_text_unknown",
+      "detail": "Receiving salt is stated, but count/inventory implementation and later removal are not. Only Snowysnow? is printed exactly; later blue choices keep positional/color instructions without fabricated text."
+    },
+    {
+      "reason": "lutie_map_codes_unknown",
+      "detail": "Bare Lutie/house coordinate pairs are preserved without guessing xmas/interior map codes. House coordinates are entrances rather than invented positions of interior NPCs."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Squid Ink",
+        "entity": "Squid Ink",
+        "condition": "One shared pair of materials requested at stage 3 and delivered at stage 4, not two pairs."
+      },
+      {
+        "kind": "item_consumed_total",
+        "amount": "1",
+        "source_section": "requirements",
+        "evidence": "1 Sticky Mucus",
+        "entity": "Sticky Mucus",
+        "condition": "One shared pair of materials requested at stage 3 and delivered at stage 4, not two pairs."
+      }
+    ]
+  }
+}

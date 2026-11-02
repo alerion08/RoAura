@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.5.0**. All four description fields are populated for
-**817 steps across 61 curated guides**, up from the previous 56-guide/802-step
-checkpoint. **84 conditional branches** also have independent RU/EN short and
-full descriptions. Eight quest routes represent two exclusive expedition paths
-and six conditional/optional activities. **1,933 steps in 155 remaining catalog entries still lack
+**846 steps across 64 curated guides**, up from the previous 61-guide/817-step
+checkpoint. **87 conditional branches** also have independent RU/EN short and
+full descriptions. Ten quest routes represent four exclusive expedition/lyric paths
+and six conditional/optional activities. **1,904 steps in 152 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -86,6 +86,9 @@ complete localization/context analysis.** `complete` remains false.
 | Bradium Collection | 2 | Fragments/Refined material conflict; loot source versus kill quota; pinned shared coin ID |
 | Collecting Draco Eggs | 3 | One ten-egg total across two floors; no kill objective; both coin rewards |
 | Manuk's Monster Suppression | 3 | One Rata and one Duneyrr; unqualified prerequisite; no borrowed daily timer |
+| Snowysnow Quest | 11 | Conditional Bard house; unknown blue text/child identities; salt scope; possible gift ranges |
+| Piano Keys Quest | 13 | Two exclusive source routes; six keys per path; distinct unnamed tomb triggers; prompt-conditioned lyrics |
+| Message Delivery Quest | 5 | Unknown rose count; exact wrong answer; summoning-dependent rewards; source HP uncertainty |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -93,6 +96,34 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Three permanent regional guides preserve all 29 original stages, including
+  repeated identical Piano Keys instructions with distinct occurrence IDs.
+  Coverage is 846 stages / 64 guides, with 87 localized branches and ten routes.
+  Earlier 817 descriptions and all 84 earlier branches remain intact. Semantic
+  schema 5 and generator semantic-5.5.0 are unchanged; source additions stay 13.
+- Snowysnow has a conditional Bard Job Change house trigger; it is not a
+  universal extra visit. Only Snowysnow? has printed exact answer text; later
+  blue choices retain position/color instructions without fabricated labels.
+  One Ink/Mucus pair is delivered once. Salt ID/count, inventory implementation
+  and removal stay unverified. Charu Charu/Marcell are not guessed into boy/girl
+  identities; boy-before-girl order is explicit. Four possible gift ranges are
+  possible_item rows, not four guaranteed payouts or invented probabilities.
+  Christmas scenery alone does not reclassify this Bard-related quest as retired.
+- Piano Part 2a and Part 2b are exclusive source-prompt routes. Each gives five
+  keys plus shared Alreg's key, for six; eleven is not the quest requirement.
+  Distinct Tombstone references identify two unnamed proximity triggers, not
+  named NPCs. Two passes yield two keys in total; talking does nothing. Four
+  exact song lines are prompt-conditioned candidates, not an unconditional
+  four-input sequence. Header consumption has no proven removal stage. Witch's
+  every-talk warp does not make the entire quest repeatable. The original Sign
+  Part 1 header reference is not a completed Sign quest or verified unlock.
+- Message Delivery keeps Eriuous/Erious as source spellings of one return actor.
+  Rose quantity/removal timing are unknown; ten consumed leaves are separate
+  from ten awarded leaves. Sorry is a printed wrong option with no invented
+  correct alternative. Either final answer is allowed. Two reward branches
+  depend on Feylin's summoning result, not a fabricated final response. Failure
+  HP loss has no stated amount/percentage or success probability.
 
 - Five New World side guides preserve all 15 original stages and add complete
   RU/EN descriptions and typed facts. Coverage is now 817 stages / 61 guides;
@@ -515,7 +546,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **211 tests passed**; complete offline enrichment passed;
+Validated locally: **220 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -567,9 +598,14 @@ failed-build preservation, coin canonicalization, started/access prerequisites,
 material conflicts, literal non-reference maps, character binding, repeat
 cooldown scope, collection floors and loot-source versus kill quotas.
 
+New regression cases cover the conditional Bard trigger, exact versus
+color-only answers, child-label uncertainty, possible gift ranges, shared
+material accounting, exclusive key-route totals, duplicate instruction IDs,
+proximity triggers, prompt-conditioned lyrics and summoning-dependent payouts.
+
 ## Next work, in order
 
-1. Review the remaining 155 catalog candidates, separating reference pages,
+1. Review the remaining 152 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World
