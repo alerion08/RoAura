@@ -6,6 +6,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Strings.ru.xaml" />
+                <ResourceDictionary Source="Themes/LightPalette.xaml" />
                 <ResourceDictionary Source="Themes/RagnarokTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

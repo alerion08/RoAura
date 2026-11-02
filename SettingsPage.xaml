@@ -4,7 +4,7 @@
  <UserControl.Resources>
   <BooleanToVisibilityConverter x:Key="QuestBoolVisibility"/>
         <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource RoTextBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource RoTextBrush}"/>
             <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -23,6 +23,21 @@
  <Grid Margin="8,4,8,8"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
   <Border Style="{StaticResource SectionHeaderCardStyle}"><StackPanel><TextBlock Text="{DynamicResource SettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource SettingsDescription}" Style="{StaticResource RoCaptionTextStyle}" TextWrapping="Wrap"/></StackPanel></Border>
   <TabControl x:Name="SettingsTabs" Grid.Row="1" Style="{StaticResource SectionTabControlStyle}">
+   <TabItem Header="{DynamicResource AppearanceTab}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="18" MaxWidth="920" HorizontalAlignment="Left">
+    <TextBlock Text="{DynamicResource AppearanceTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
+    <TextBlock Text="{DynamicResource AppearanceDescription}" TextWrapping="Wrap" Margin="0,6,0,18"/>
+    <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="200"/><ColumnDefinition Width="260"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <TextBlock Text="{DynamicResource ApplicationThemeLabel}" VerticalAlignment="Center"/>
+     <ComboBox Grid.Column="1" SelectedValuePath="Tag" SelectedValue="{Binding ApplicationTheme,Mode=TwoWay}" SelectionChanged="Appearance_Changed" Margin="0,4"><ComboBoxItem Tag="Light" Content="{DynamicResource LightTheme}"/><ComboBoxItem Tag="Dark" Content="{DynamicResource DarkTheme}"/></ComboBox>
+     <TextBlock Grid.Row="1" Text="{DynamicResource GameOverlayThemeLabel}" VerticalAlignment="Center"/>
+     <ComboBox Grid.Row="1" Grid.Column="1" SelectedValuePath="Tag" SelectedValue="{Binding GameOverlayTheme,Mode=TwoWay}" SelectionChanged="Appearance_Changed" Margin="0,4"><ComboBoxItem Tag="Application" Content="{DynamicResource FollowApplicationTheme}"/><ComboBoxItem Tag="Light" Content="{DynamicResource LightTheme}"/><ComboBoxItem Tag="Dark" Content="{DynamicResource DarkTheme}"/></ComboBox>
+    </Grid>
+    <TextBlock Text="{DynamicResource AppearancePreserveCustom}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,14,0,18"/>
+    <UniformGrid Columns="2">
+     <Border x:Name="ApplicationPreview" Background="{DynamicResource RoWindowBrush}" BorderBrush="{DynamicResource RoBorderBrush}" BorderThickness="1" CornerRadius="7" Padding="14" Margin="0,0,12,0"><StackPanel><TextBlock Text="{DynamicResource ApplicationThemeLabel}" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><Border Background="{DynamicResource RoCardBrush}" CornerRadius="5" Padding="12" Margin="0,12,0,0"><StackPanel><TextBlock Text="RoAura" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><TextBlock Text="{DynamicResource AppearancePreviewText}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,6"/><TextBox Text="RoAura" IsReadOnly="True"/><Button Content="{DynamicResource SettingsTitle}" IsHitTestVisible="False" Focusable="False"/></StackPanel></Border></StackPanel></Border>
+     <Border x:Name="OverlayPreview" Background="{DynamicResource RoWindowBrush}" BorderBrush="{DynamicResource RoBorderBrush}" BorderThickness="1" CornerRadius="7" Padding="14"><StackPanel><TextBlock Text="{DynamicResource GameOverlayThemeLabel}" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><Border Background="{DynamicResource RoCardBrush}" CornerRadius="5" Padding="12" Margin="0,12,0,0"><StackPanel><TextBlock Text="ROQuestie" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><TextBlock Text="{DynamicResource AppearancePreviewText}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,6"/><TextBox Text="ra_in01 384,246" IsReadOnly="True"/><Button Content="navi" IsHitTestVisible="False" Focusable="False"/></StackPanel></Border></StackPanel></Border>
+    </UniformGrid>
+   </StackPanel></ScrollViewer></TabItem>
    <TabItem Header="{DynamicResource BasicTab}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="18" MaxWidth="880" HorizontalAlignment="Left">
     <UniformGrid Columns="2" Margin="0,0,0,14">
      <StackPanel Margin="0,0,20,0"><TextBlock Text="{DynamicResource Server}"/><ComboBox x:Name="ServerChoice" SelectedValuePath="Tag" SelectedValue="{Binding ServerProfile, Mode=OneWay}" SelectionChanged="Server_Changed"><ComboBoxItem Content="RTM" Tag="RTM"/><ComboBoxItem Content="SpringRO" Tag="SpringRO"/><ComboBoxItem Content="ToC" Tag="ToC"/><ComboBoxItem Content="{DynamicResource OtherServer}" Tag="Other"/></ComboBox></StackPanel>
@@ -37,7 +52,7 @@
     </Grid>
     <CheckBox Content="{DynamicResource AutoDetectConnection}" IsChecked="{Binding AutoDetectConnection}" Margin="0,12"/>
     <WrapPanel><Button Content="{DynamicResource DetectConnectionNow}" Tag="detect" Click="Connection_Click"/><Button Content="{DynamicResource CheckNpcap}" Tag="npcap" Click="Connection_Click"/><Button Content="{DynamicResource ResetAid}" Tag="aid" Click="Connection_Click"/></WrapPanel>
-    <Border Background="#EAF4FF" Padding="12" Margin="0,12,0,0" CornerRadius="6"><TextBlock Text="{Binding PacketCaptureStateText}" TextWrapping="Wrap"/></Border>
+    <Border Background="{DynamicResource UiBackground_EAF4FF}" Padding="12" Margin="0,12,0,0" CornerRadius="6"><TextBlock Text="{Binding PacketCaptureStateText}" TextWrapping="Wrap"/></Border>
    </StackPanel></ScrollViewer></TabItem>
    <TabItem Header="{DynamicResource Hotkeys}"><ScrollViewer><StackPanel Margin="18" MaxWidth="720" HorizontalAlignment="Left">
     <TextBlock Text="{DynamicResource AllHotkeysHint}" TextWrapping="Wrap" Margin="0,0,0,12"/>
@@ -51,17 +66,17 @@
      <TextBlock Grid.Row="6" Text="{DynamicResource QTrackerHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding QuestTrackerHotkey}"/>
 
     </Grid>
-    <TextBlock Text="{DynamicResource QHotkeyConflict}" Visibility="{Binding QuestHotkeyConflict, Converter={StaticResource QuestBoolVisibility}}" Foreground="#B42318" TextWrapping="Wrap" Margin="0,12,0,0"/>
+    <TextBlock Text="{DynamicResource QHotkeyConflict}" Visibility="{Binding QuestHotkeyConflict, Converter={StaticResource QuestBoolVisibility}}" Foreground="{DynamicResource UiForeground_B42318}" TextWrapping="Wrap" Margin="0,12,0,0"/>
    </StackPanel></ScrollViewer></TabItem>
    <TabItem Header="{DynamicResource CharacterManager}"><Grid Margin="18"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
-    <TextBlock Text="{DynamicResource CharacterManagerHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,0,0,12"/>
+    <TextBlock Text="{DynamicResource CharacterManagerHint}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,0,0,12"/>
     <DataGrid Grid.Row="1" ItemsSource="{Binding Characters}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CellEditEnding="Character_EditEnding">
      <DataGrid.Columns><DataGridTextColumn Header="CID" Binding="{Binding CharacterId}" IsReadOnly="True" Width="140"/><DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
       <DataGridTemplateColumn Header="{DynamicResource Server}" Width="180"><DataGridTemplateColumn.CellTemplate><DataTemplate><ComboBox SelectedValuePath="Tag" SelectedValue="{Binding ServerProfile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"><ComboBoxItem Content="RTM" Tag="RTM"/><ComboBoxItem Content="SpringRO" Tag="SpringRO"/><ComboBoxItem Content="ToC" Tag="ToC"/><ComboBoxItem Content="{DynamicResource OtherServer}" Tag="Other"/></ComboBox></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
      </DataGrid.Columns>
     </DataGrid>
    </Grid></TabItem>
-   <TabItem Header="{DynamicResource NavigationTitle}"><StackPanel Margin="18"><TextBlock Text="{DynamicResource NavigationHint}" TextWrapping="Wrap" Foreground="{StaticResource RoMutedBrush}" Margin="0,0,0,12"/><StackPanel x:Name="NavigationChoices"/></StackPanel></TabItem>
+   <TabItem Header="{DynamicResource NavigationTitle}"><StackPanel Margin="18"><TextBlock Text="{DynamicResource NavigationHint}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,0,0,12"/><StackPanel x:Name="NavigationChoices"/></StackPanel></TabItem>
   </TabControl>
  </Grid>
 </UserControl>

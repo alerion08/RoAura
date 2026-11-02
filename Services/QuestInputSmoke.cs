@@ -147,6 +147,21 @@ internal static class QuestInputSmoke
                 SaveDesktop(host.Browser,"detail-copied-native");
                 if(!Equals(pointButton.Content,coordinateCaption))throw new InvalidOperationException("Semantic coordinate caption changed after copy.");
                 if(row.Guide is not null){host.Browser.Page.ShowFacts(row.Guide);await Pause();SaveDesktop(host.Browser,"facts-native");}
+                var oldApplicationTheme=workspace.Settings.ApplicationTheme;var oldGameTheme=workspace.Settings.GameOverlayTheme;
+                try
+                {
+                    workspace.Settings.ApplicationTheme="Dark";workspace.Settings.GameOverlayTheme="Dark";
+                    host.Browser.Page.ShowGuide(row.Guide);await Pause();
+                    var darkPoint=host.Browser.Page.CurrentNavigationButton??throw new InvalidOperationException("Dark coordinate button missing.");
+                    Click(darkPoint.PointToScreen(new Point(darkPoint.ActualWidth/2,darkPoint.ActualHeight/2)));
+                    await Until(()=>host.Browser.Page.CopyToastVisible,"dark theme coordinate copy");
+                    SaveDesktop(host.Browser,"browser-dark-native");
+                    workspace.Settings.GameOverlayTheme="Light";await Pause();
+                    if(host.Browser.Resources["AppearancePaletteName"] as string!="Light" || settingsWindow.Resources["AppearancePaletteName"] as string!="Dark")
+                        throw new InvalidOperationException("Mixed application/game themes leaked across windows.");
+                    SaveDesktop(host.Browser,"browser-light-app-dark-native");
+                }
+                finally{workspace.Settings.ApplicationTheme=oldApplicationTheme;workspace.Settings.GameOverlayTheme=oldGameTheme;}
                 var keys=Read(reportPath)!.Keys;Key(0x5A,true);Key(0x5A,false);await Pause();
                 if(Read(reportPath)!.Keys!=keys)throw new InvalidOperationException("Quest search typing reached the game.");
                 await Press(workspace.Settings.QuestBrowserHotkey);
@@ -198,6 +213,14 @@ internal static class QuestInputSmoke
                 if(surface.Clip?.FillContains(ordinary.PointFromScreen(dbCenter))!=false)
                     throw new InvalidOperationException("Statistics/ordinary overlays paint above the database.");
                 SaveDesktop(database,"database-priority-native");
+                var databaseTheme=workspace.Settings.GameOverlayTheme;
+                try
+                {
+                    workspace.Settings.GameOverlayTheme="Dark";await Pause();
+                    if(database.Resources["AppearancePaletteName"] as string!="Dark")throw new InvalidOperationException("Database overlay did not apply its theme live.");
+                    SaveDesktop(database,"database-dark-native");
+                }
+                finally{workspace.Settings.GameOverlayTheme=databaseTheme;}
                 ((App)Application.Current).CloseDatabaseOverlay();await Pause();
                 SetWindowPos(game,IntPtr.Zero,20,20,340,240,0x14);await Pause();host.RefreshNow();
                 if(workspace.Settings.QuestOverlay.X!=x || workspace.Settings.QuestOverlay.Y!=y)

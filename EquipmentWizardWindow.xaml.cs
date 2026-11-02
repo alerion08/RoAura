@@ -51,7 +51,7 @@ public partial class EquipmentWizardWindow : Window, INotifyPropertyChanged
         LearnStep.Visibility = Visibility.Visible;
         StepLabel.Text = LocalizationService.Get("EquipmentWizardStep2");
         TitleLabel.Text = LocalizationService.Get("EquipmentWizardLearnTitle");
-        ProgressStepTwo.Background = FindResource("RoBlueBrush") as Brush;
+        ProgressStepTwo.SetResourceReference(System.Windows.Controls.Border.BackgroundProperty,"RoBlueBrush");
         BackButton.Visibility = Visibility.Visible;
         CancelButton.Visibility = Visibility.Collapsed;
         NextButton.Visibility = Visibility.Collapsed;

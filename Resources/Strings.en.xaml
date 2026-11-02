@@ -680,4 +680,14 @@
     <sys:String x:Key="QStepDone">Step completed</sys:String>
     <sys:String x:Key="QExpandQuest">Expand quest</sys:String>
     <sys:String x:Key="QCollapseQuest">Collapse quest</sys:String>
+    <sys:String x:Key="AppearanceTab">Appearance</sys:String>
+    <sys:String x:Key="AppearanceTitle">Application and game window themes</sys:String>
+    <sys:String x:Key="AppearanceDescription">Choose independent themes for the application and game overlays. Changes apply immediately.</sys:String>
+    <sys:String x:Key="ApplicationThemeLabel">Application</sys:String>
+    <sys:String x:Key="GameOverlayThemeLabel">Game overlays</sys:String>
+    <sys:String x:Key="LightTheme">Light</sys:String>
+    <sys:String x:Key="DarkTheme">Dark</sys:String>
+    <sys:String x:Key="FollowApplicationTheme">Follow application</sys:String>
+    <sys:String x:Key="AppearancePreserveCustom">Game window themes apply to the database, ROQuestie and controls. Custom transparent-overlay colors, opacity and positions are preserved.</sys:String>
+    <sys:String x:Key="AppearancePreviewText">Preview of a panel, text and controls</sys:String>
 </ResourceDictionary>

@@ -39,7 +39,7 @@ public partial class ReminderWizardWindow : Window
     private void SetCardState(System.Windows.Controls.Border card, bool selected)
     {
         card.BorderThickness = new Thickness(selected ? 2 : 1);
-        card.BorderBrush = FindResource(selected ? "RoBlueBrush" : "RoSoftBorderBrush") as Brush;
+        card.SetResourceReference(System.Windows.Controls.Border.BorderBrushProperty,selected ? "RoBlueBrush" : "RoSoftBorderBrush");
         card.Background = new SolidColorBrush(selected
             ? Color.FromRgb(234, 243, 255)
             : Color.FromRgb(248, 251, 255));
@@ -48,7 +48,7 @@ public partial class ReminderWizardWindow : Window
     private void StartSearch_Click(object sender, RoutedEventArgs e)
     {
         Draft.StatusId = 0;
-        ValidationText.Foreground = FindResource("RoBlueBrush") as Brush;
+        ValidationText.SetResourceReference(System.Windows.Controls.TextBlock.ForegroundProperty,"RoBlueBrush");
         ValidationText.Text = LocalizationService.Get("WizardSearchRunning");
         _startLearning(Draft);
     }
@@ -115,6 +115,6 @@ public partial class ReminderWizardWindow : Window
         CancelButton.Visibility = Visibility.Collapsed;
         NextButton.Visibility = Visibility.Collapsed;
         CreateButton.Visibility = Visibility.Visible;
-        ProgressStepTwo.Background = FindResource("RoBlueBrush") as Brush;
+        ProgressStepTwo.SetResourceReference(System.Windows.Controls.Border.BackgroundProperty,"RoBlueBrush");
     }
 }

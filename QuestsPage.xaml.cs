@@ -181,6 +181,7 @@ public partial class QuestsPage : UserControl
                 workspace.Settings.Language=language;LocalizationService.ApplyLanguage(language);workspace.RefreshLanguage();
                 CatalogDetails.ShowCurrentStep();UpdateLayout();
                 await SaveSnapshot(output,language+"-ayothaya-semantic",1);
+                await SaveSnapshot(output,language+"-ayothaya-dark",1,false,1450,900,"Dark");
                 CatalogDetails.ShowFacts();
                 await SaveSnapshot(output,language+"-ayothaya-facts",1,true,1450,900);
             }
@@ -196,6 +197,7 @@ public partial class QuestsPage : UserControl
             {
                 workspace.Settings.Language="ru";LocalizationService.ApplyLanguage("ru");workspace.RefreshLanguage();
                 CatalogDetails.ShowFacts();await SaveSnapshot(output,"ru-cursed-facts",1,true,1450,1000);
+                await SaveSnapshot(output,"ru-cursed-facts-dark",1,true,1450,1000,"Dark");
                 workspace.Settings.Language="en";LocalizationService.ApplyLanguage("en");workspace.RefreshLanguage();
             }
             workspace.ToggleTracking(example);
@@ -203,11 +205,12 @@ public partial class QuestsPage : UserControl
         workspace.SelectedGuide=restore;CatalogDetails.ShowCurrentStep();
         await workspace.FlushAsync();
     }
-    private async Task SaveSnapshot(string directory, string name, double scale,bool facts=false,double width=840,double height=560)
+    private async Task SaveSnapshot(string directory, string name, double scale,bool facts=false,double width=840,double height=560,string? theme=null)
     {
         // A detached view cannot be re-arranged by MainWindow's larger parent slot.
         // Equivalent pixel densities are not real mixed-monitor OS DPI acceptance.
         var view = new QuestsPage();
+        AppearanceService.ApplyPalette(view,theme??AppearanceService.Resolve(_workspace!.Settings.ApplicationTheme,_workspace.Settings.GameOverlayTheme,true));
         view.Initialize(_workspace!, () => default, () => { });
         await view.CatalogDetails.RefreshDataAsync();
         try

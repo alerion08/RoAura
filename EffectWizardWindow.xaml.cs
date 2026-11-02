@@ -39,10 +39,10 @@ public partial class EffectWizardWindow : Window
         ManualIdArea.Visibility = manual ? Visibility.Visible : Visibility.Collapsed;
         FindInGameArea.Visibility = manual ? Visibility.Collapsed : Visibility.Visible;
         ManualIdCard.BorderThickness = manual ? new Thickness(2) : new Thickness(1);
-        ManualIdCard.BorderBrush = manual ? FindResource("RoBlueBrush") as System.Windows.Media.Brush : FindResource("RoSoftBorderBrush") as System.Windows.Media.Brush;
-        ManualIdCard.Background = manual ? new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(234, 243, 255)) : new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(248, 251, 255));
+        ManualIdCard.SetResourceReference(System.Windows.Controls.Border.BorderBrushProperty,manual?"RoBlueBrush":"RoSoftBorderBrush");
+        ManualIdCard.SetResourceReference(System.Windows.Controls.Border.BackgroundProperty,manual?"UiBackground_EAF3FF":"UiBackground_F8FBFF");
         FindInGameCard.BorderThickness = manual ? new Thickness(1) : new Thickness(2);
-        FindInGameCard.BorderBrush = manual ? FindResource("RoSoftBorderBrush") as System.Windows.Media.Brush : FindResource("RoBlueBrush") as System.Windows.Media.Brush;
+        FindInGameCard.SetResourceReference(System.Windows.Controls.Border.BorderBrushProperty,manual?"RoSoftBorderBrush":"RoBlueBrush");
         ValidationText.Text = "";
     }
 
@@ -50,7 +50,7 @@ public partial class EffectWizardWindow : Window
     {
         Draft.StatusId = 0;
         Draft.CurrentStateText = LocalizationService.Get("WizardWaitingForEffect");
-        ValidationText.Foreground = FindResource("RoBlueBrush") as System.Windows.Media.Brush;
+        ValidationText.SetResourceReference(System.Windows.Controls.TextBlock.ForegroundProperty,"RoBlueBrush");
         ValidationText.Text = LocalizationService.Get("WizardSearchRunning");
         _startLearning(Draft);
     }
@@ -59,7 +59,7 @@ public partial class EffectWizardWindow : Window
     {
         if (Draft.StatusId <= 0)
         {
-            ValidationText.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(182, 75, 85));
+            ValidationText.SetResourceReference(System.Windows.Controls.TextBlock.ForegroundProperty,"UiForeground_B64B55");
             ValidationText.Text = LocalizationService.Get(_manualMode ? "WizardInvalidId" : "WizardEffectNotFound");
             return;
         }
@@ -95,7 +95,7 @@ public partial class EffectWizardWindow : Window
         CancelButton.Visibility = Visibility.Visible;
         NextButton.Visibility = Visibility.Visible;
         CreateButton.Visibility = Visibility.Collapsed;
-        ProgressStepTwo.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(216, 226, 240));
+        ProgressStepTwo.SetResourceReference(System.Windows.Controls.Border.BackgroundProperty,"UiBackground_D8E2F0");
     }
 
     private void ShowSetupStep()
@@ -108,7 +108,7 @@ public partial class EffectWizardWindow : Window
         CancelButton.Visibility = Visibility.Collapsed;
         NextButton.Visibility = Visibility.Collapsed;
         CreateButton.Visibility = Visibility.Visible;
-        ProgressStepTwo.Background = FindResource("RoBlueBrush") as System.Windows.Media.Brush;
+        ProgressStepTwo.SetResourceReference(System.Windows.Controls.Border.BackgroundProperty,"RoBlueBrush");
     }
 
     public sealed record PanelChoice(int GroupNumber, string Label);

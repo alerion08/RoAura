@@ -325,6 +325,7 @@ public partial class App : Application
 
         _settingsStore = new SettingsStore();
         var settings = _settingsStore.Load();
+        AppearanceService.Initialize(settings);
         _settingsLoaded = true;
         _itemCatalog = ItemCatalogService.Load(settings.LootDatabaseVersion);
         LocalizationService.ApplyLanguage(settings.Language);

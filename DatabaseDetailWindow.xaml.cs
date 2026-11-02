@@ -15,6 +15,7 @@ public partial class DatabaseDetailWindow : Window
     private readonly GameDatabaseService _database;
     private readonly SpringRoItemDetailService _itemDetails = new();
     private int _detailVersion;
+    private Action? _appearanceRedraw;
     public IntPtr Handle => new WindowInteropHelper(this).Handle;
 
     public DatabaseDetailWindow(AppSettings settings, GameDatabaseService database)
@@ -23,6 +24,8 @@ public partial class DatabaseDetailWindow : Window
         _settings = settings;
         _database = database;
         RefreshLanguage();
+        Loaded+=(_,_)=>{AppearanceService.Changed-=AppearanceChanged;AppearanceService.Changed+=AppearanceChanged;AppearanceChanged();};
+        Closed+=(_,_)=>AppearanceService.Changed-=AppearanceChanged;
     }
 
     public void RefreshLanguage()
@@ -43,7 +46,8 @@ public partial class DatabaseDetailWindow : Window
 
     public void ResetServer() { _detailVersion++; Clear(); }
 
-    public void Clear() => DetailsPanel.Children.Clear();
+    public void Clear() {_appearanceRedraw=null;DetailsPanel.Children.Clear();}
+    private void AppearanceChanged()=>_appearanceRedraw?.Invoke();
 
     public async void ShowDetails(object value)
     {
@@ -80,6 +84,7 @@ public partial class DatabaseDetailWindow : Window
 
     private void ShowMonster(DatabaseMonster monster)
     {
+        _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowMonster(monster);};
         var header = new StackPanel { Orientation = Orientation.Horizontal };
         if (Uri.TryCreate(monster.ImageUrl, UriKind.Absolute, out var uri))
             header.Children.Add(new Image { Source = new BitmapImage(uri), Width = 58, Height = 58, Stretch = Stretch.Uniform, Margin = new Thickness(0,0,10,0) });
@@ -98,6 +103,7 @@ public partial class DatabaseDetailWindow : Window
 
     private void ShowItem(DatabaseItem item, SpringRoItemDetails? detail, bool loading)
     {
+        _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowItem(item,detail,loading);};
         var header = new StackPanel { Orientation = Orientation.Horizontal };
         var imageUrl = detail?.ImageUrl;
         if (string.IsNullOrWhiteSpace(imageUrl)) imageUrl = item.ImageUrl;
@@ -143,6 +149,7 @@ public partial class DatabaseDetailWindow : Window
 
     private void ShowMap(DatabaseMap map)
     {
+        _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowMap(map);};
         var density = _database.GetMapExperienceDensity(map);
         DetailsPanel.Children.Add(Heading(map.Name, 20));
         DetailsPanel.Children.Add(Meta(map.Code));
@@ -157,6 +164,7 @@ public partial class DatabaseDetailWindow : Window
 
     private void ShowMarketListing(MarketListing listing)
     {
+        _appearanceRedraw=()=>{DetailsPanel.Children.Clear();ShowMarketListing(listing);};
         DetailsPanel.Children.Add(Heading(listing.ItemName, 20));
         DetailsPanel.Children.Add(Meta($"Item ID #{listing.ItemId} · {(listing.ShopType == "BUY" ? T("Покупка", "Buying") : T("Продажа", "Selling"))}"));
         AddSection(T("Предложение", "Listing"));
@@ -209,7 +217,7 @@ public partial class DatabaseDetailWindow : Window
 
         DetailsPanel.Children.Add(new Border
         {
-            Child = canvas, BorderBrush = new SolidColorBrush(Color.FromRgb(169, 192, 221)),
+            Child = canvas, BorderBrush = AppearanceService.Brush(this,"#A9C0DD","Border"),
             BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(4),
             Padding = new Thickness(3), Margin = new Thickness(0, 7, 0, 5), HorizontalAlignment = HorizontalAlignment.Center
         });
@@ -218,11 +226,11 @@ public partial class DatabaseDetailWindow : Window
     private void OpenMonster(int id) { var value = _database.Monster(id); if (value is not null) ShowDetails(value); }
     private void OpenItem(int id) { var value = _database.Item(id); if (value is not null) ShowDetails(value); }
     private void OpenMap(string code) { var value = _database.Map(code); if (value is not null) ShowDetails(value); }
-    private void AddSection(string text) => DetailsPanel.Children.Add(new TextBlock { Text = text, FontFamily = new FontFamily("Georgia"), FontWeight = FontWeights.Bold, FontSize = 16, Foreground = new SolidColorBrush(Color.FromRgb(23,78,145)), Margin = new Thickness(0,15,0,5) });
+    private void AddSection(string text) => DetailsPanel.Children.Add(new TextBlock { Text = text, FontFamily = new FontFamily("Georgia"), FontWeight = FontWeights.Bold, FontSize = 16, Foreground = AppearanceService.Brush(this,"#174E91","Foreground"), Margin = new Thickness(0,15,0,5) });
     private void AddLine(string name, string value) => DetailsPanel.Children.Add(new TextBlock { Text = $"{name}: {value}", TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0,2,0,2), FontSize = 12 });
     private void AddLink(string text, Action action) { var label = new TextBlock { Text = text, TextWrapping = TextWrapping.Wrap }; var button = new Button { Content = label, HorizontalContentAlignment = HorizontalAlignment.Left, Margin = new Thickness(0,2,0,2), Padding = new Thickness(7,4,7,4), FontSize = 11 }; button.Click += (_, _) => action(); DetailsPanel.Children.Add(button); }
-    private static TextBlock Heading(string text, double size) => new() { Text = text, FontFamily = new FontFamily("Georgia"), FontWeight = FontWeights.Bold, FontSize = size, Foreground = new SolidColorBrush(Color.FromRgb(23,78,145)), TextWrapping = TextWrapping.Wrap, MaxWidth = 260 };
-    private static TextBlock Meta(string text) => new() { Text = text, Foreground = new SolidColorBrush(Color.FromRgb(91,116,150)), Margin = new Thickness(0,4,0,4), TextWrapping = TextWrapping.Wrap };
+    private TextBlock Heading(string text, double size) => new() { Text = text, FontFamily = new FontFamily("Georgia"), FontWeight = FontWeights.Bold, FontSize = size, Foreground = AppearanceService.Brush(this,"#174E91","Foreground"), TextWrapping = TextWrapping.Wrap, MaxWidth = 260 };
+    private TextBlock Meta(string text) => new() { Text = text, Foreground = AppearanceService.Brush(this,"#5B7496","Foreground"), Margin = new Thickness(0,4,0,4), TextWrapping = TextWrapping.Wrap };
     private static double ParseRate(string value) => double.TryParse(value.TrimEnd('%'), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var n) ? n : 0;
     private static int ParseCount(string value) => int.TryParse(value, out var n) ? n : 0;
     private string MonsterField(string value)

@@ -541,3 +541,27 @@ Checks: focused range/sequential reward, requirement order, ready catalog and
 translation coverage tests; native content-area selector click; RU Cursed Spirit
 facts and Biolabs answer-card snapshots. Windows CI pending for this block.
 Main/research/version/release remain unchanged.
+
+
+## Independent application and game themes — 2026-11-02
+
+Feature work remains on feature/roquestie-mvp, without a version/release change.
+Settings > Appearance adds Application Light/Dark and Game overlays
+Follow application/Light/Dark with independent live previews. Additive properties
+default to Light/Application for older settings; existing presets/snapshots
+serialize them through the existing settings pipeline. No coordinates or custom
+HUD colors are rewritten.
+
+Window-scoped palettes and dynamic brush references cover main UI, dialogs,
+settings, database search/detail, quest browser and passive quest action surfaces.
+Owned dialogs inherit the owning interface's scope. Ordinary transparent HUD
+windows retain configured colors. Programmatic quest highlights and database
+statistics use the matching palette; cached database presentation redraws without
+re-requesting item descriptions. Source game images/minimaps/color swatches are
+not recolored. No window ownership, z-order, packet or input-hook changes.
+
+Validation planned: palette key parity, normalization/defaults, independent
+resolution, settings/preset and custom-color preservation; real native copy in
+dark quests, live mixed scope checks, dark database native capture, RU/EN dark
+walkthrough and facts plus Appearance preview PNGs. Full Windows CI pending.
+Real SpringRO/mixed-monitor readability remains manual acceptance.

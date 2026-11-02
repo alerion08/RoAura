@@ -2,13 +2,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="{DynamicResource AboutTitle}"
         Icon="Assets/roaura.ico" Width="550" Height="650" MinHeight="560" ResizeMode="CanResize"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
-        Background="{StaticResource RoWindowBrush}" Foreground="{StaticResource RoTextBrush}">
-    <Border BorderBrush="{StaticResource RoBorderBrush}" BorderThickness="1" Margin="7">
+        Background="{DynamicResource RoWindowBrush}" Foreground="{DynamicResource RoTextBrush}">
+    <Border BorderBrush="{DynamicResource RoBorderBrush}" BorderThickness="1" Margin="7">
         <Grid><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <StackPanel HorizontalAlignment="Center" Margin="20,16">
                     <Image Source="Assets/roaura-icon.png" Width="150" Height="150" Stretch="Uniform"/>
-                    <TextBlock Text="RoAura" FontSize="25" FontWeight="Bold" Foreground="#FF7E4054" HorizontalAlignment="Center" Margin="0,8,0,3"/>
+                    <TextBlock Text="RoAura" FontSize="25" FontWeight="Bold" Foreground="{DynamicResource UiForeground_FF7E4054}" HorizontalAlignment="Center" Margin="0,8,0,3"/>
                     <TextBlock HorizontalAlignment="Center"><Run Text="{DynamicResource VersionLabel}"/><Run x:Name="VersionRun" Text=""/></TextBlock>
                     <TextBlock Text="2026" HorizontalAlignment="Center" />
                     <Separator Margin="0,14" Width="360"/>

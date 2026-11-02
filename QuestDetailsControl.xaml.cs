@@ -29,9 +29,10 @@ public partial class QuestDetailsControl : UserControl
  public QuestDetailsControl()
  {
   InitializeComponent();_refresh.Tick+=async(_,_)=>await RefreshDataAsync();
-  Loaded+=async(_,_)=>{WatchDatabase();_refresh.Start();await RefreshDataAsync(true);};Unloaded+=(_,_)=>{_refresh.Stop();_watcher?.Dispose();_watcher=null;};
+  Loaded+=async(_,_)=>{AppearanceService.Changed+=AppearanceChanged;WatchDatabase();_refresh.Start();await RefreshDataAsync(true);};Unloaded+=(_,_)=>{AppearanceService.Changed-=AppearanceChanged;_refresh.Stop();_watcher?.Dispose();_watcher=null;};
   _toast.Tick+=(_,_)=>{_toast.Stop();Toast.Visibility=Visibility.Collapsed;};
  }
+ private void AppearanceChanged(){if(_workspace is not null)Render(_workspace);}
  private void WatchDatabase()
  {
   _watcher?.Dispose();var directory=Path.GetDirectoryName(_reader.Path);
@@ -41,7 +42,9 @@ public partial class QuestDetailsControl : UserControl
   _watcher.Changed+=(_,_)=>Invalidate();_watcher.Created+=(_,_)=>Invalidate();_watcher.Deleted+=(_,_)=>Invalidate();_watcher.Renamed+=(_,_)=>Invalidate();_watcher.Error+=(_,_)=>Invalidate();_watcher.EnableRaisingEvents=true;
  }
  private string L(string ru,string en)=>_language=="ru"?ru:en;
- private static Brush B(string color)=>(Brush)new BrushConverter().ConvertFromString(color)!;
+ private Brush B(string color)=>AppearanceService.Brush(this,color);
+ private Brush BB(string color)=>AppearanceService.Brush(this,color,"Background");
+ private Brush BorderB(string color)=>AppearanceService.Brush(this,color,"Border");
  private static TextBlock Text(string value,double size=12,bool bold=false)=>new(){Text=value,FontSize=size,FontWeight=bold?FontWeights.SemiBold:FontWeights.Normal,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,2,0,4)};
  public Task RefreshDataAsync(bool force=false)
  {
@@ -91,13 +94,13 @@ public partial class QuestDetailsControl : UserControl
   if(_quest is not null && !Editable)Quality.Text+="\n"+L("Изменение прогресса недоступно: выберите профиль; при несовпадении этапов требуется сверка каталога.","Progress editing unavailable: select a profile; mismatching steps require catalog review.");
   var active=_quest is not null && _workspace?.SelectedGuide?.Key==_quest.Id && _workspace.IsActive(_workspace.SelectedGuide);
   AddButton.Content=active?L("✓ Активен","✓ Active"):L("+ Добавить в активные","+ Add to active");AddButton.IsEnabled=Editable;
-  if(active)QuestCopyFeedback.ColorState(AddButton,B("#298E38"));else{AddButton.ClearValue(Button.TemplateProperty);AddButton.ClearValue(Button.ForegroundProperty);}
+  if(active)QuestCopyFeedback.ColorState(AddButton,BB("#298E38"));else{AddButton.ClearValue(Button.TemplateProperty);AddButton.ClearValue(Button.ForegroundProperty);}
   GoCurrentButton.Content=L("К текущему этапу","Go to current step");GoCurrentButton.IsEnabled=Current() is not null;
   WalkTab.Header=L("Прохождение","Walkthrough");FactsTab.Header=L("Требования и награды","Requirements and rewards");SourcesTab.Header=L("Источники","Sources");
   var done=_quest?.Steps.Count(Done)??0;var count=_quest?.Steps.Count??0;
   ProgressText.Text=L("Выполнено: ","Completed: ")+$"{done}/{count}";ProgressBar.Value=count==0?0:(double)done/count;
   foreach(var (button,language) in new[]{(RuButton,"ru"),(EnButton,"en")})
-  {button.Background=B(language==_language?"#1F67C2":"#F3F7FD");button.Foreground=language==_language?Brushes.White:B("#1C4782");}
+  {button.Background=BB(language==_language?"#1F67C2":"#F3F7FD");button.Foreground=language==_language?Brushes.White:B("#1C4782");}
  }
  private void RenderSteps()
  {
@@ -115,16 +118,16 @@ public partial class QuestDetailsControl : UserControl
    var use=new Button {Content=L("Выбрать этап","Select step"),FontSize=11,Height=24,MinHeight=24,Padding=new Thickness(10,0,10,0),Margin=new Thickness(0),HorizontalAlignment=HorizontalAlignment.Left,IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide)};
    use.Click+=(_,e)=>{e.Handled=true;_selectedId=step.Id;_workspace!.SelectStep(step.Order);DetailsTabs.SelectedIndex=0;};actions.Children.Add(use);
    if(Current()?.Id==step.Id)actions.Children.Add(Tag(L("Текущий этап","Current step"),done?"#687787":"#1764CC"));content.Children.Add(actions);
-   if(done){QuestCopyFeedback.ApplyTemplate(use,B("#E4E7EB"));use.Foreground=B("#3E4954");}
+   if(done){QuestCopyFeedback.ApplyTemplate(use,BB("#E4E7EB"));use.Foreground=B("#3E4954");}
    var check=new CheckBox{Style=(Style)FindResource("SemanticCheck"),IsChecked=done,IsEnabled=Editable && _workspace!.HasProgress(_workspace.SelectedGuide),VerticalAlignment=VerticalAlignment.Top,Foreground=B("#228842"),ToolTip=L("Отметить выполнение этапа","Mark step complete")};Grid.SetColumn(check,2);AutomationProperties.SetName(check,L("Выполнен этап ","Completed step ")+step.Order);
    check.Click+=(_,e)=>{e.Handled=true;if(Legacy(step) is {} legacy)_workspace!.SetStepDone(_workspace.SelectedGuide!,legacy,check.IsChecked==true);};grid.Children.Add(check);
    var card=new Border {Child=grid,Tag=step.Id,CornerRadius=new CornerRadius(5),Padding=new Thickness(10,9,10,9),Margin=new Thickness(0,0,0,5),BorderThickness=new Thickness(1),
-    Background=B(done?(selected?"#EDF2F7":"#F6F8FB"):(selected?"#E9F2FF":"#FBFDFF")),BorderBrush=B(selected?(done?"#9AB3CF":"#6CA6F1"):"#D5E4F4"),Focusable=true,Cursor=Cursors.Hand};
+    Background=BB(done?(selected?"#EDF2F7":"#F6F8FB"):(selected?"#E9F2FF":"#FBFDFF")),BorderBrush=BorderB(selected?(done?"#9AB3CF":"#6CA6F1"):"#D5E4F4"),Focusable=true,Cursor=Cursors.Hand};
    var accent=new Border {BorderBrush=selected?B("#2D78DB"):Brushes.Transparent,BorderThickness=new Thickness(2,0,0,0),Margin=new Thickness(-8,-7,0,-7),IsHitTestVisible=false};Grid.SetColumnSpan(accent,3);grid.Children.Add(accent);
    AutomationProperties.SetName(card,L("Этап ","Step ")+step.Order);
    card.MouseLeftButtonUp+=(_,e)=>{if(InteractiveAncestor(e.OriginalSource as DependencyObject,card))return;Select(step);e.Handled=true;};
    card.KeyDown+=(_,e)=>{if(e.Key is Key.Enter or Key.Space && ReferenceEquals(Keyboard.FocusedElement,card)){Select(step);e.Handled=true;}};
-   card.GotKeyboardFocus+=(_,_)=>card.BorderBrush=B("#1764CC");card.LostKeyboardFocus+=(_,_)=>card.BorderBrush=B(selected?(done?"#9AB3CF":"#6CA6F1"):"#D5E4F4");
+   card.GotKeyboardFocus+=(_,_)=>card.BorderBrush=BorderB("#1764CC");card.LostKeyboardFocus+=(_,_)=>card.BorderBrush=BorderB(selected?(done?"#9AB3CF":"#6CA6F1"):"#D5E4F4");
    _cards[step.Id]=card;StepsPanel.Children.Add(card);
   }
   WalkScroll.ScrollToVerticalOffset(offset);
@@ -134,7 +137,7 @@ public partial class QuestDetailsControl : UserControl
   while(node is not null && node!=stop){if(node is Button or CheckBox)return true;node=node is Visual?VisualTreeHelper.GetParent(node):LogicalTreeHelper.GetParent(node);}return false;
  }
  private void Select(SemanticStep step){_selectedId=step.Id;DetailsTabs.SelectedIndex=0;RenderSteps();RenderDetail();}
- private Border Tag(string text,string color)=>new(){Background=B(color),BorderBrush=B(color),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(3),Padding=new Thickness(6,1,6,1),VerticalAlignment=VerticalAlignment.Center,Margin=new Thickness(8,0,0,0),Child=new TextBlock {Text=text,Foreground=Brushes.White,FontSize=10,FontWeight=FontWeights.Bold}};
+ private Border Tag(string text,string color)=>new(){Background=BB(color),BorderBrush=BorderB(color),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(3),Padding=new Thickness(6,1,6,1),VerticalAlignment=VerticalAlignment.Center,Margin=new Thickness(8,0,0,0),Child=new TextBlock {Text=text,Foreground=Brushes.White,FontSize=10,FontWeight=FontWeights.Bold}};
  private WrapPanel Coordinates(SemanticStep step,bool monochrome=false)
  {
   var panel=new WrapPanel{Margin=new Thickness(0,5,0,0)};
@@ -143,7 +146,7 @@ public partial class QuestDetailsControl : UserControl
    var label=(point.Map is null?"":point.Map+" ")+$"{point.X},{point.Y}";
    var command=point.Map is null?$"{point.X} {point.Y}":$"/navi {point.Map} {point.X}/{point.Y}";
    var button=new Button{Content=label,Tag=new QuestNavigationTarget(point.Map??"",point.X,point.Y),FontSize=10,FontWeight=FontWeights.SemiBold,Padding=new Thickness(4,1,4,1),MinHeight=16,Height=20,Margin=new Thickness(0,0,5,0),ToolTip=string.Join(" · ",new[]{command,point.Role,point.Condition}.Where(v=>!string.IsNullOrWhiteSpace(v)))};
-   button.Background=B(monochrome?"#EEF1F5":"#EFF5FE");button.Foreground=B(monochrome?"#4E5A66":"#1F477B");
+   button.Background=BB(monochrome?"#EEF1F5":"#EFF5FE");button.Foreground=B(monochrome?"#4E5A66":"#1F477B");
    AutomationProperties.SetName(button,L("Скопировать координаты ","Copy coordinates ")+label);
    button.Click+=(_,e)=>{e.Handled=true;Notify(ClipboardService.TryCopy(command)?L("Координаты скопированы","Coordinates copied"):L("Не удалось скопировать","Copy failed"));};panel.Children.Add(button);
   }
@@ -175,7 +178,7 @@ public partial class QuestDetailsControl : UserControl
   prose.Children.Add(Text(L("Этап ","Step ")+step.Order+(Done(step)?L(" ✓ Завершено"," ✓ Completed"):""),15,true));prose.Children.Add(Text(L("Полное описание","Full description"),18,true));
   var full=Text("",ActualWidth<1050?13:14);full.LineHeight=full.FontSize*1.67;ApplyText(full,step,true);prose.Children.Add(full);
   var aside=new StackPanel();Grid.SetColumn(aside,1);layout.Children.Add(aside);
-  var imageHost=new Border {Background=B("#F1F4F8"),BorderBrush=B("#D5E0EC"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),MinHeight=180,Padding=new Thickness(12),Child=Text(L("▧ Для этапа не добавлен скриншот","▧ No screenshot for this step"),11)};
+  var imageHost=new Border {Background=BB("#F1F4F8"),BorderBrush=BorderB("#D5E0EC"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),MinHeight=180,Padding=new Thickness(12),Child=Text(L("▧ Для этапа не добавлен скриншот","▧ No screenshot for this step"),11)};
   var image=step.Images.FirstOrDefault();
   if(image is not null)
   {
@@ -213,7 +216,7 @@ public partial class QuestDetailsControl : UserControl
 
  }
  private Border Info(string title,UIElement content)
- {var stack=new StackPanel();stack.Children.Add(Text(title,12,true));stack.Children.Add(content);return new(){Child=stack,Background=B("#FAFCFF"),BorderBrush=B("#D6E4F3"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),Padding=new Thickness(10),Margin=new Thickness(0,10,0,0)};}
+ {var stack=new StackPanel();stack.Children.Add(Text(title,12,true));stack.Children.Add(content);return new(){Child=stack,Background=BB("#FAFCFF"),BorderBrush=BorderB("#D6E4F3"),BorderThickness=new Thickness(1),CornerRadius=new CornerRadius(5),Padding=new Thickness(10),Margin=new Thickness(0,10,0,0)};}
  private WrapPanel Legend()
  {var legend=new WrapPanel{Margin=new Thickness(0,18,0,0)};foreach(var pair in new[]{(L("NPC","NPC"),"#075CB9"),(L("Предмет","Item"),"#087747"),(L("Карта / координаты","Map / coordinates"),"#985100"),(L("Вариант ответа","Answer"),"#783CAA")})legend.Children.Add(Tag(pair.Item1,pair.Item2));return legend;}
  private void RenderFacts()
@@ -253,7 +256,7 @@ public partial class QuestDetailsControl : UserControl
    var content=new StackPanel();content.Children.Add(row);
    if(fact.Condition is not null && fact.Condition!=sharedCondition)content.Children.Add(Text(Comment(fact.Condition),11));
 
-   rows.Children.Add(new Border{Child=content,BorderBrush=B("#E2EAF4"),BorderThickness=new Thickness(0,1,0,0),Padding=new Thickness(0,7,0,5)});
+   rows.Children.Add(new Border{Child=content,BorderBrush=BorderB("#E2EAF4"),BorderThickness=new Thickness(0,1,0,0),Padding=new Thickness(0,7,0,5)});
   }
   if(!string.IsNullOrWhiteSpace(sharedCondition))rows.Children.Add(Text(Comment(sharedCondition),11));
   return rows;

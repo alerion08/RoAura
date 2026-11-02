@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using RoAura.Models;
+using RoAura.Services;
 
 namespace RoAura;
 
@@ -23,12 +24,12 @@ public partial class DatabaseDetailWindow
             if (i % 2 == 0)
             {
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                var background = new Border { Background = new SolidColorBrush(i % 4 == 0 ? Color.FromRgb(248,251,255) : Color.FromRgb(234,242,252)),
-                    BorderBrush = new SolidColorBrush(Color.FromRgb(214,225,238)), BorderThickness = new Thickness(0,0,0,1) };
+                var background = new Border { Background = AppearanceService.Brush(this,i%4==0?"#F8FBFF":"#EAF2FC","Background"),
+                    BorderBrush = AppearanceService.Brush(this,"#D6E1EE","Border"), BorderThickness = new Thickness(0,0,0,1) };
                 Grid.SetRow(background, i / 2); Grid.SetColumnSpan(background, 4); grid.Children.Add(background);
             }
             var label = new TextBlock { Text = pairs[i].Label, FontWeight = FontWeights.SemiBold, FontSize = 11,
-                Foreground = new SolidColorBrush(Color.FromRgb(83,106,136)), TextWrapping = TextWrapping.Wrap, Margin = new Thickness(7,8,5,8), VerticalAlignment = VerticalAlignment.Center };
+                Foreground = AppearanceService.Brush(this,"#536A88","Foreground"), TextWrapping = TextWrapping.Wrap, Margin = new Thickness(7,8,5,8), VerticalAlignment = VerticalAlignment.Center };
             var value = new TextBlock { Text = pairs[i].Value, FontWeight = FontWeights.Normal, FontSize = 12, TextWrapping = TextWrapping.Wrap,
                 Margin = new Thickness(5,8,7,8), VerticalAlignment = VerticalAlignment.Center };
             Grid.SetRow(label, i / 2); Grid.SetColumn(label, i % 2 * 2);
@@ -40,7 +41,7 @@ public partial class DatabaseDetailWindow
     private void CollapsedSection(string title, UIElement content) => DetailsPanel.Children.Add(new Expander
     {
         Header = title, IsExpanded = false, Margin = new Thickness(0,8,0,2), FontWeight = FontWeights.SemiBold,
-        Content = new Border { Padding = new Thickness(8), Background = new SolidColorBrush(Color.FromRgb(248,251,255)), Child = content }
+        Content = new Border { Padding = new Thickness(8), Background = AppearanceService.Brush(this,"#F8FBFF","Background"), Child = content }
     });
 
     private void ShowMonsterStatistics(DatabaseMonster m)

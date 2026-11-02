@@ -39,6 +39,7 @@ public partial class MainWindow
                 if (lost.Progress.CurrentStep != 3 || _questWorkspace.Active.Single(q => q.Progress.QuestKey.EndsWith(":Friendship_Quest")).Progress.CurrentStep != 1)
                     throw new InvalidOperationException("Quest UI controller did not retain independent instructions.");
                 if (!await _questWorkspace.FlushAsync()) throw new InvalidOperationException(_questWorkspace.Error);
+                ValidateAppearanceSmoke();
                 DebugLog.Write("QUEST SMOKE: rendering browser snapshots");
                 await _questWindows.Browser.Page.ValidateSmokeAsync(_questWorkspace);
                 DebugLog.Write("QUEST SMOKE: browser snapshots complete");

@@ -23,6 +23,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     private double _notificationSize = 72;
     private double _notificationGap = 10;
     private string _language = "ru";
+    private string _applicationTheme="Light",_gameOverlayTheme="Application";
     private string _settingsHotkey = "F8";
     private string _overlaysHotkey = "F9";
     private string _finishMoveHotkey = "Escape";
@@ -84,6 +85,8 @@ public sealed class AppSettings : INotifyPropertyChanged
     public double NotificationY { get => _notificationY; set => Set(ref _notificationY, value); }
     public double NotificationSize { get => _notificationSize; set => Set(ref _notificationSize, Math.Clamp(value, 40, 180)); }
     public double NotificationGap { get => _notificationGap; set => Set(ref _notificationGap, Math.Clamp(value, 0, 40)); }
+    public string ApplicationTheme {get=>_applicationTheme;set=>Set(ref _applicationTheme,Services.AppearanceService.NormalizeApplication(value));}
+    public string GameOverlayTheme {get=>_gameOverlayTheme;set=>Set(ref _gameOverlayTheme,Services.AppearanceService.NormalizeOverlays(value));}
     public string Language { get => _language; set => Set(ref _language, value is "en" ? "en" : "ru"); }
     public string SettingsHotkey { get => _settingsHotkey; set => Set(ref _settingsHotkey, NormalizeHotkey(value, "F8")); }
     public string OverlaysHotkey { get => _overlaysHotkey; set => Set(ref _overlaysHotkey, NormalizeHotkey(value, "F9")); }

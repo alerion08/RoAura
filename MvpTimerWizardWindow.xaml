@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="{DynamicResource AddMvpTimer}" Width="760" Height="620"
         MinWidth="680" MinHeight="560" WindowStartupLocation="CenterOwner"
-        ResizeMode="CanResize" ShowInTaskbar="False" Background="{StaticResource RoWindowBrush}">
+        ResizeMode="CanResize" ShowInTaskbar="False" Background="{DynamicResource RoWindowBrush}">
     <Window.Resources>
         <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="{StaticResource RoHeadingFont}"/>
@@ -22,8 +22,8 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-        <Border Padding="22,17" Background="White" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="0,0,0,1">
-            <StackPanel><TextBlock Text="{DynamicResource AddMvpTimer}" Foreground="{StaticResource RoBlueBrush}" FontWeight="Bold"/><TextBlock Text="{DynamicResource MvpTimersTitle}" Style="{StaticResource RoSectionTitleStyle}" FontSize="24" Margin="0,5,0,0"/><TextBlock Text="{DynamicResource MvpTimersHint}" Foreground="{StaticResource RoMutedBrush}" TextWrapping="Wrap" Margin="0,6,0,0"/></StackPanel>
+        <Border Padding="22,17" Background="{DynamicResource UiBackground_FFFFFF}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="0,0,0,1">
+            <StackPanel><TextBlock Text="{DynamicResource AddMvpTimer}" Foreground="{DynamicResource RoBlueBrush}" FontWeight="Bold"/><TextBlock Text="{DynamicResource MvpTimersTitle}" Style="{StaticResource RoSectionTitleStyle}" FontSize="24" Margin="0,5,0,0"/><TextBlock Text="{DynamicResource MvpTimersHint}" Foreground="{DynamicResource RoMutedBrush}" TextWrapping="Wrap" Margin="0,6,0,0"/></StackPanel>
         </Border>
         <Grid Grid.Row="1" Margin="24,20">
             <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
@@ -45,23 +45,23 @@
                         <TextBlock Text="{DynamicResource KillTime}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding KillTimeText, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" ToolTip="HH:mm:ss"/>
                     </Grid>
                     <CheckBox Content="{DynamicResource StartTimerAfterCreate}" IsChecked="{Binding StartAfterCreate}" IsEnabled="{Binding CanStartAfterCreate}" Margin="2,14,0,0"/>
-                    <TextBlock x:Name="ValidationText" Foreground="#B64B55" TextWrapping="Wrap" Margin="2,12,0,0"/>
+                    <TextBlock x:Name="ValidationText" Foreground="{DynamicResource UiForeground_B64B55}" TextWrapping="Wrap" Margin="2,12,0,0"/>
                 </StackPanel>
-                <Border Grid.Column="2" Padding="14" CornerRadius="8" Background="#F8FBFF" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1">
+                <Border Grid.Column="2" Padding="14" CornerRadius="8" Background="{DynamicResource UiBackground_F8FBFF}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <Border Width="58" Height="58" CornerRadius="7" Background="#EAF2FD" Padding="4"><Image Source="{Binding SelectedMonster.ImagePath}" Stretch="Uniform"/></Border>
-                            <StackPanel Margin="11,4,0,0"><TextBlock Text="{Binding SelectedMonster.Name}" FontWeight="Bold" FontSize="16"/><TextBlock Foreground="{StaticResource RoMutedBrush}"><Run Text="MVP ID "/><Run Text="{Binding SelectedMonster.Id}"/></TextBlock></StackPanel>
+                            <Border Width="58" Height="58" CornerRadius="7" Background="{DynamicResource UiBackground_EAF2FD}" Padding="4"><Image Source="{Binding SelectedMonster.ImagePath}" Stretch="Uniform"/></Border>
+                            <StackPanel Margin="11,4,0,0"><TextBlock Text="{Binding SelectedMonster.Name}" FontWeight="Bold" FontSize="16"/><TextBlock Foreground="{DynamicResource RoMutedBrush}"><Run Text="MVP ID "/><Run Text="{Binding SelectedMonster.Id}"/></TextBlock></StackPanel>
                         </StackPanel>
                         <TextBlock Text="{DynamicResource RespawnHint}" FontWeight="Bold" Margin="0,0,0,6"/>
                         <ItemsControl ItemsSource="{Binding SelectedMonster.Spawns}">
-                            <ItemsControl.ItemTemplate><DataTemplate><Border Padding="8" Margin="0,0,0,6" Background="White" CornerRadius="6" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/><TextBlock Text="{Binding Code}" Foreground="{StaticResource RoMutedBrush}" FontSize="11"/></StackPanel><TextBlock Grid.Column="1" Text="{Binding Respawn}" Foreground="{StaticResource RoBlueBrush}" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/></Grid></Border></DataTemplate></ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemTemplate><DataTemplate><Border Padding="8" Margin="0,0,0,6" Background="{DynamicResource UiBackground_FFFFFF}" CornerRadius="6" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/><TextBlock Text="{Binding Code}" Foreground="{DynamicResource RoMutedBrush}" FontSize="11"/></StackPanel><TextBlock Grid.Column="1" Text="{Binding Respawn}" Foreground="{DynamicResource RoBlueBrush}" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/></Grid></Border></DataTemplate></ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <TextBlock Text="{DynamicResource RespawnHintHelp}" Foreground="{StaticResource RoMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,5,0,0"/>
+                        <TextBlock Text="{DynamicResource RespawnHintHelp}" Foreground="{DynamicResource RoMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,5,0,0"/>
                     </StackPanel>
                 </Border>
             </Grid>
         </Grid>
-        <Border Grid.Row="2" Padding="18,12" Background="White" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="0,1,0,0"><Grid><Button Content="{DynamicResource Cancel}" Click="Cancel_Click" HorizontalAlignment="Left"/><Button Content="{DynamicResource CreateMvpTimer}" Click="Create_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right"/></Grid></Border>
+        <Border Grid.Row="2" Padding="18,12" Background="{DynamicResource UiBackground_FFFFFF}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="0,1,0,0"><Grid><Button Content="{DynamicResource Cancel}" Click="Cancel_Click" HorizontalAlignment="Left"/><Button Content="{DynamicResource CreateMvpTimer}" Click="Create_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right"/></Grid></Border>
     </Grid>
 </Window>

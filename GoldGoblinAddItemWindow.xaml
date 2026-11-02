@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="{DynamicResource AddItem}" Width="560" Height="520" MinWidth="480" MinHeight="420"
-        WindowStartupLocation="CenterOwner" ResizeMode="CanResize" Background="{StaticResource RoWindowBrush}"
-        Foreground="{StaticResource RoTextBrush}" Icon="Assets/roaura.ico">
+        WindowStartupLocation="CenterOwner" ResizeMode="CanResize" Background="{DynamicResource RoWindowBrush}"
+        Foreground="{DynamicResource RoTextBrush}" Icon="Assets/roaura.ico">
     <Grid Margin="18">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,14 +17,14 @@
         </StackPanel>
         <TextBox x:Name="SearchBox" Grid.Row="1" Margin="0,0,0,10" TextChanged="SearchBox_TextChanged"
                  ToolTip="{DynamicResource ItemNameOrId}"/>
-        <Border Grid.Row="2" BorderBrush="{StaticResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="7" Background="White">
+        <Border Grid.Row="2" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="7" Background="{DynamicResource UiBackground_FFFFFF}">
             <ListBox x:Name="ResultsList" BorderThickness="0" Background="Transparent" MouseDoubleClick="ResultsList_MouseDoubleClick">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="10,7">
                             <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding FullName}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
-                            <TextBlock Grid.Column="1" Foreground="{StaticResource RoMutedBrush}" Margin="12,0,0,0"><Run Text="Item ID: "/><Run Text="{Binding Id}"/></TextBlock>
+                            <TextBlock Grid.Column="1" Foreground="{DynamicResource RoMutedBrush}" Margin="12,0,0,0"><Run Text="Item ID: "/><Run Text="{Binding Id}"/></TextBlock>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -32,7 +32,7 @@
         </Border>
         <Grid Grid.Row="3" Margin="0,14,0,0">
             <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="120"/><ColumnDefinition Width="140"/></Grid.ColumnDefinitions>
-            <TextBlock Text="{DynamicResource SelectItemFromList}" Foreground="{StaticResource RoMutedBrush}" VerticalAlignment="Center"/>
+            <TextBlock Text="{DynamicResource SelectItemFromList}" Foreground="{DynamicResource RoMutedBrush}" VerticalAlignment="Center"/>
             <Button Grid.Column="1" Content="{DynamicResource Cancel}" Click="Cancel_Click"/>
             <Button Grid.Column="2" Content="{DynamicResource AddItem}" Click="Add_Click" Style="{StaticResource PrimaryButtonStyle}" IsDefault="True"/>
         </Grid>
