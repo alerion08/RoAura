@@ -134,6 +134,27 @@ archived/quarantined quest records and source-reviewed reference indexes; `quest
   stage 18. The retained stage-18 prose does not require restarting after exit.
   Hunter Skill's request/return rows are one material obligation, and a point
   printed only for Arpesto is not a verified Reidin Corse coordinate.
+- Dancer registration's three alternative routes apply to the original material
+  steps. `show` is distinct from consumption: the HTML item-retention note follows
+  the complete list. Set 3 `zeny_possession` is a balance condition, not a verified
+  expense, and must not be added to the other routes or automatically deducted.
+- Dancer quiz branches hold three reference sets with thirty literal question/
+  answer pairs. `dialogues.original_text` is the source question; each choice is
+  checked against its own HTML evidence row, not merely the whole branch text.
+  Match live questions; source wording/assignment may differ. Comodo Beach is
+  the offered answer, and Elder Willow is a conditional example. Quiz-only
+  entities do not imply visited actors, collected items or kill objectives.
+- Dancer tile cues are ordered `move_to_dance_tile` actions with source labels
+  in `condition_text`, not geographical points or exact dialogue options. Pose
+  means hold position. Concentration is optional. Long-series `full_pattern` and
+  `first_last_shortcut` branches are alternatives with explicit later context;
+  do not concatenate their moves. The Right correction and source shortcuts
+  remain source claims rather than server-verified behavior.
+- One final bow target is separate from the two alternative attack skills.
+  Generic equipment/actor IDs remain NULL. Line/Rope rewards are exclusive by
+  Job Level. Charming Wink takes one mirror and a separate five-item set; its
+  later town teleport is a possible talk effect, not a required retry loop.
+  Aelle and Aile are distinct identities; bare town points do not invent maps.
 - `step_locations.location_order` is a reviewed visit sequence when present,
   not an ordering inferred automatically from every textual occurrence.
   NULL means no established sequence. `condition_text` identifies alternative

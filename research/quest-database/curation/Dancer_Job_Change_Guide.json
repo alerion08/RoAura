@@ -1,0 +1,1827 @@
+{
+  "quest_id": "irowiki-classic:Dancer_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "0badcbefd8edc8dd995d92fa9c8494fdc7ed1e75a28db6445c086fb1bd1a6ec2",
+  "snapshot_sha256": "49dfee9baa0b257868ca95065149bca54d307fcccf7243e8d66461f8c0a5c760",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Bor Robin"
+    },
+    {
+      "type": "npc",
+      "name": "Aile"
+    },
+    {
+      "type": "npc",
+      "name": "Bijou"
+    },
+    {
+      "type": "npc",
+      "name": "another NPC"
+    },
+    {
+      "type": "npc",
+      "name": "Moo"
+    },
+    {
+      "type": "npc",
+      "name": "Kafra"
+    },
+    {
+      "type": "map",
+      "name": "Comodo"
+    },
+    {
+      "type": "map",
+      "name": "Comodo Casino"
+    },
+    {
+      "type": "map",
+      "name": "Pharos Lighthouse"
+    },
+    {
+      "type": "map",
+      "name": "Comodo Beach"
+    },
+    {
+      "type": "map",
+      "name": "Kokomo beach"
+    },
+    {
+      "type": "item",
+      "name": "Sandals",
+      "game_id": 2401,
+      "id_source": "http://db.irowiki.org/classic/item-info/2401/"
+    },
+    {
+      "type": "item",
+      "name": "Black Hair",
+      "game_id": 1020,
+      "id_source": "http://db.irowiki.org/classic/item-info/1020/"
+    },
+    {
+      "type": "item",
+      "name": "Jellopy",
+      "game_id": 909,
+      "id_source": "http://db.irowiki.org/classic/item-info/909/"
+    },
+    {
+      "type": "item",
+      "name": "Yellow Potion",
+      "game_id": 503,
+      "id_source": "http://db.irowiki.org/classic/item-info/503/"
+    },
+    {
+      "type": "item",
+      "name": "Clam Shell",
+      "game_id": 965,
+      "id_source": "http://db.irowiki.org/classic/item-info/965/"
+    },
+    {
+      "type": "item",
+      "name": "Shoes",
+      "game_id": 2403,
+      "id_source": "http://db.irowiki.org/classic/item-info/2403/"
+    },
+    {
+      "type": "item",
+      "name": "Sticky Mucus",
+      "game_id": 938,
+      "id_source": "http://db.irowiki.org/classic/item-info/938/"
+    },
+    {
+      "type": "item",
+      "name": "Red Potion",
+      "game_id": 501,
+      "id_source": "http://db.irowiki.org/classic/item-info/501/"
+    },
+    {
+      "type": "item",
+      "name": "Boots",
+      "game_id": 2405,
+      "id_source": "http://db.irowiki.org/classic/item-info/2405/"
+    },
+    {
+      "type": "item",
+      "name": "Earthworm Peeling",
+      "game_id": 1055,
+      "id_source": "http://db.irowiki.org/classic/item-info/1055/"
+    },
+    {
+      "type": "item",
+      "name": "Line",
+      "game_id": 1953,
+      "id_source": "http://db.irowiki.org/classic/item-info/1953/"
+    },
+    {
+      "type": "item",
+      "name": "Rope",
+      "game_id": 1950,
+      "id_source": "http://db.irowiki.org/classic/item-info/1950/"
+    },
+    {
+      "type": "item",
+      "name": "Bow",
+      "identity": "irowiki-classic:Dancer_Job_Change_Guide:source_item:bow_category",
+      "ref": "bow_category"
+    },
+    {
+      "type": "item",
+      "name": "arrows",
+      "identity": "irowiki-classic:Dancer_Job_Change_Guide:source_item:arrow_category",
+      "ref": "arrow_category"
+    },
+    {
+      "type": "item",
+      "name": "Two-handed Sword",
+      "identity": "irowiki-classic:Dancer_Job_Change_Guide:source_item:sword_category",
+      "ref": "sword_category"
+    },
+    {
+      "type": "item",
+      "name": "Two-handed Swords",
+      "identity": "irowiki-classic:Dancer_Job_Change_Guide:source_item:swords_category",
+      "ref": "swords_category"
+    },
+    {
+      "type": "item",
+      "name": "Shining Stone",
+      "identity": "irowiki-classic:Dancer_Job_Change_Guide:source_item:Shining Stone"
+    },
+    {
+      "type": "monster",
+      "name": "poring",
+      "identity": "irowiki-classic:Dancer_Job_Change_Guide:source_reference:poring"
+    },
+    {
+      "type": "monster",
+      "name": "Elder Willow",
+      "identity": "irowiki-classic:Dancer_Job_Change_Guide:source_reference:Elder Willow"
+    },
+    {
+      "type": "monster",
+      "name": "Argiope",
+      "identity": "irowiki-classic:Dancer_Job_Change_Guide:source_reference:Argiope"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Whenever the player considers herself ready to become a Dancer, head to Comodo . Near the Kafra employee, there will be a male NPC named Bor Robin who will grant entrance into the Dancer Quest area.",
+      "instruction_sha256": "0a2605770008b0218bf25ea0bae9c3d4111afec8a61fe02d686ee3dfdf65eca2",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/0a2605770008b0218bf2/1",
+      "goal": "talk",
+      "short_ru": "У Bor Robin рядом с Kafra в Comodo войдите в область испытания Dancer.",
+      "short_en": "Enter the Dancer test area through Bor Robin near Kafra in Comodo.",
+      "full_ru": "Когда будете готовы получить профессию Dancer, отправляйтесь в Comodo. Рядом с сотрудником Kafra найдите Bor Robin: он пропустит вас в область Dancer Quest.",
+      "full_en": "Whenever the player considers herself ready to become a Dancer, head to Comodo . Near the Kafra employee, there will be a male NPC named Bor Robin who will grant entrance into the Dancer Quest area.",
+      "npcs": [
+        {
+          "entity": "Bor Robin",
+          "role": "entry"
+        },
+        {
+          "entity": "Kafra",
+          "role": "landmark"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_test_area",
+          "entity": "Bor Robin"
+        }
+      ],
+      "protected_names": [
+        "Bor Robin",
+        "Kafra",
+        "Comodo"
+      ],
+      "locations": []
+    },
+    "2": {
+      "original_instruction": "Upon heading inside, talk to Aile to the left side of the stage. She will ask the player to bring one of the following set of items:",
+      "instruction_sha256": "508d5981e7326f773d2b231f4cfdc8f23620be2266c60f2ce75ea7e99a077cd8",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/508d5981e7326f773d2b/1",
+      "goal": "talk",
+      "short_ru": "Получите у Aile задание на один набор предметов.",
+      "short_en": "Ask Aile which one material set to bring.",
+      "full_ru": "Внутри поговорите с Aile слева от сцены. Она попросит принести один из следующих наборов предметов.",
+      "full_en": "Upon heading inside, talk to Aile to the left side of the stage. She will ask the player to bring one of the following set of items:",
+      "npcs": [
+        {
+          "entity": "Aile",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "request_registration_set",
+          "entity": "Aile"
+        }
+      ],
+      "protected_names": [
+        "Aile"
+      ],
+      "locations": []
+    },
+    "3": {
+      "original_instruction": "1 Sandals , 10 Black Hair , 20 Jellopy , 5 Yellow Potion , 2 Clam Shell",
+      "instruction_sha256": "1a6b57e020f024db56ab74686435f194b8d6061240dfd3f9575fce4b24dbbbee",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/1a6b57e020f024db56ab/1",
+      "goal": "show",
+      "short_ru": "Покажите Aile 1 Sandals, 10 Black Hair, 20 Jellopy, 5 Yellow Potion, 2 Clam Shell; предметы останутся у вас.",
+      "short_en": "Show Aile 1 Sandals, 10 Black Hair, 20 Jellopy, 5 Yellow Potion, 2 Clam Shell; the items are retained.",
+      "full_ru": "1 Sandals, 10 Black Hair, 20 Jellopy, 5 Yellow Potion, 2 Clam Shell. NPC не заберёт эти предметы.",
+      "full_en": "1 Sandals , 10 Black Hair , 20 Jellopy , 5 Yellow Potion , 2 Clam Shell The NPC will not actually take these items.",
+      "npcs": [
+        {
+          "entity": "Aile",
+          "role": "talk",
+          "support_step": 2,
+          "evidence": "Upon heading inside, talk to Aile to the left side of the stage. She will ask the player to bring one of the following set of items:"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Sandals",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "condition": "Only this requested registration route; retained, not delivered/consumed."
+        },
+        {
+          "entity": "Black Hair",
+          "quantity": 10,
+          "operation": "show",
+          "required": 1,
+          "condition": "Only this requested registration route; retained, not delivered/consumed."
+        },
+        {
+          "entity": "Jellopy",
+          "quantity": 20,
+          "operation": "show",
+          "required": 1,
+          "condition": "Only this requested registration route; retained, not delivered/consumed."
+        },
+        {
+          "entity": "Yellow Potion",
+          "quantity": 5,
+          "operation": "show",
+          "required": 1,
+          "condition": "Only this requested registration route; retained, not delivered/consumed."
+        },
+        {
+          "entity": "Clam Shell",
+          "quantity": 2,
+          "operation": "show",
+          "required": 1,
+          "condition": "Only this requested registration route; retained, not delivered/consumed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "show_requested_set",
+          "entity": "Aile"
+        }
+      ],
+      "requirements": [],
+      "protected_names": [
+        "Sandals",
+        "Black Hair",
+        "Jellopy",
+        "Yellow Potion",
+        "Clam Shell"
+      ],
+      "locations": [],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "The NPC will not actually take these items.",
+          "text_ru": "NPC не заберёт эти предметы."
+        }
+      ]
+    },
+    "4": {
+      "original_instruction": "1 Shoes , 20 Sticky Mucus , 3 Jellopy , 5 Red Potion",
+      "instruction_sha256": "f3848e03c8689b40d45c2d50fcb03eba40c2c7986b604038973eaf208e546959",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/f3848e03c8689b40d45c/1",
+      "goal": "show",
+      "short_ru": "Покажите Aile 1 Shoes, 20 Sticky Mucus, 3 Jellopy, 5 Red Potion; предметы останутся у вас.",
+      "short_en": "Show Aile 1 Shoes, 20 Sticky Mucus, 3 Jellopy, 5 Red Potion; the items are retained.",
+      "full_ru": "1 Shoes, 20 Sticky Mucus, 3 Jellopy, 5 Red Potion. NPC не заберёт эти предметы.",
+      "full_en": "1 Shoes , 20 Sticky Mucus , 3 Jellopy , 5 Red Potion The NPC will not actually take these items.",
+      "npcs": [
+        {
+          "entity": "Aile",
+          "role": "talk",
+          "support_step": 2,
+          "evidence": "Upon heading inside, talk to Aile to the left side of the stage. She will ask the player to bring one of the following set of items:"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Shoes",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "condition": "Only this requested registration route; retained, not delivered/consumed."
+        },
+        {
+          "entity": "Sticky Mucus",
+          "quantity": 20,
+          "operation": "show",
+          "required": 1,
+          "condition": "Only this requested registration route; retained, not delivered/consumed."
+        },
+        {
+          "entity": "Jellopy",
+          "quantity": 3,
+          "operation": "show",
+          "required": 1,
+          "condition": "Only this requested registration route; retained, not delivered/consumed."
+        },
+        {
+          "entity": "Red Potion",
+          "quantity": 5,
+          "operation": "show",
+          "required": 1,
+          "condition": "Only this requested registration route; retained, not delivered/consumed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "show_requested_set",
+          "entity": "Aile"
+        }
+      ],
+      "requirements": [],
+      "protected_names": [
+        "Jellopy",
+        "Shoes",
+        "Sticky Mucus",
+        "Red Potion"
+      ],
+      "locations": [],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "The NPC will not actually take these items.",
+          "text_ru": "NPC не заберёт эти предметы."
+        }
+      ]
+    },
+    "5": {
+      "original_instruction": "1 Boots , 5 Earthworm Peeling , 10,000 zeny | Note : The NPC will not actually take these items.",
+      "instruction_sha256": "b3d41b90e4f1f2293981b2aa0cf46f5a12b1aca249518796713c3e2d5d5678e9",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/b3d41b90e4f1f2293981/1",
+      "goal": "show",
+      "short_ru": "Покажите Aile 1 Boots, 5 Earthworm Peeling и имейте 10,000 zeny.",
+      "short_en": "Show Aile 1 Boots, 5 Earthworm Peeling and possess 10,000 zeny.",
+      "full_ru": "1 Boots, 5 Earthworm Peeling, 10,000 zeny. Примечание: NPC не заберёт эти предметы.",
+      "full_en": "1 Boots , 5 Earthworm Peeling , 10,000 zeny | Note : The NPC will not actually take these items.",
+      "npcs": [
+        {
+          "entity": "Aile",
+          "role": "talk",
+          "support_step": 2,
+          "evidence": "Upon heading inside, talk to Aile to the left side of the stage. She will ask the player to bring one of the following set of items:"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Boots",
+          "quantity": 1,
+          "operation": "show",
+          "required": 1,
+          "condition": "Only this requested registration route; retained, not delivered/consumed."
+        },
+        {
+          "entity": "Earthworm Peeling",
+          "quantity": 5,
+          "operation": "show",
+          "required": 1,
+          "condition": "Only this requested registration route; retained, not delivered/consumed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "show_requested_set",
+          "entity": "Aile"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "zeny_possession",
+          "amount": "10000",
+          "condition": "Listed with Boots set; no confirmed currency deduction, and no charge for the other two routes."
+        }
+      ],
+      "protected_names": [
+        "Boots",
+        "Earthworm Peeling"
+      ],
+      "locations": []
+    },
+    "6": {
+      "original_instruction": "Once finished signing up, it's time to head to the right side of the stage and talk to Bijou to take the quiz.",
+      "instruction_sha256": "eb55c91d419fd0c51b9ea651f62d6217e22c6298cd31420905c70b4fbf1f053f",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/eb55c91d419fd0c51b9e/1",
+      "goal": "talk",
+      "short_ru": "У Bijou справа от сцены начните викторину.",
+      "short_en": "Start the quiz with Bijou on the right side of the stage.",
+      "full_ru": "Завершив регистрацию, идите направо от сцены и поговорите с Bijou, чтобы начать викторину.",
+      "full_en": "Once finished signing up, it's time to head to the right side of the stage and talk to Bijou to take the quiz.",
+      "npcs": [
+        {
+          "entity": "Bijou",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "begin_quiz",
+          "entity": "Bijou"
+        }
+      ],
+      "protected_names": [
+        "Bijou"
+      ],
+      "locations": []
+    },
+    "7": {
+      "original_instruction": "The quiz involves a simple Q & A session. Getting 80% correct is required to pass this part of the exam. For reference, the following are the questions that are asked for this section of the exam. (The wording however, may differ)",
+      "instruction_sha256": "8a7f7345e01b9c809782ddab88d5da9c59bcc051d2ed8bc72c0c560cfad9d157",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/8a7f7345e01b9c809782/1",
+      "goal": "choose",
+      "short_ru": "Ответьте правильно минимум на 80%; используйте набор, соответствующий текущим вопросам Bijou.",
+      "short_en": "Answer at least 80% correctly; use the reference set matching Bijou's current questions.",
+      "full_ru": "Викторина состоит из вопросов и ответов. Для прохождения нужно ответить правильно на 80%. Ниже приведены вопросы этого испытания; формулировки могут отличаться. Справочные вопросы и ответы: набор A. Справочные вопросы и ответы: набор B. Справочные вопросы и ответы: набор C.",
+      "full_en": "The quiz involves a simple Q & A session. Getting 80% correct is required to pass this part of the exam. For reference, the following are the questions that are asked for this section of the exam. (The wording however, may differ) Question Set A Answer Set A Question Set B Answer Set B Question Set C Answer Set C",
+      "npcs": [
+        {
+          "entity": "Bijou",
+          "role": "talk",
+          "support_step": 6,
+          "evidence": "Once finished signing up, it's time to head to the right side of the stage and talk to Bijou to take the quiz."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "quiz_correct_percent",
+          "amount": "80",
+          "condition": "Source threshold; question wording may differ. No invented question-count or random-assignment guarantee."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "answer_matching_question_set",
+          "entity": "Bijou"
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "branches": [
+        {
+          "key": "quiz_a",
+          "choice_group": "quiz_reference_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Use only when the current questions match reference Set A; exact wording may differ, and the source does not prove a random assignment rule.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "The quiz involves a simple Q & A session. Getting 80% correct is required to pass this part of the exam. For reference, the following are the questions that are asked for this section of the exam. (The wording however, may differ)",
+          "instruction_sha256": "8a7f7345e01b9c809782ddab88d5da9c59bcc051d2ed8bc72c0c560cfad9d157",
+          "short_ru": "Вопросы и ответы набора A.",
+          "short_en": "Questions and answers for reference Set A.",
+          "full_ru": "Набор A. Какой эффект даёт Dance Lesson? → Increases the effect of dancing skills.; Какой танец использует звучащую при ударах обувь? → Tap Dance; Какая черта не относится к Dancer? → Uses Two-handed Swords; В каком городе больше всего Dancer? → Comodo; Кто танцует красивее всех? → Bijou; В чём Dancer превосходит другие профессии? → Dancing; Кто управляет Comodo Casino? → Moo; Что не может экипировать Dancer? → Two-handed Sword; Считаете ли вы эту викторину раздражающей? → No; Кто из перечисленных не является Jazz-музыкантом? → Elder Willow (или другой очевидный ответ).",
+          "full_en": "Question Set A Answer Set A What is the effect of the skill Dance Lesson? Increases the effect of dancing skills. What dance uses shoes that are designed to make sound as the dancer rolls their feet and taps the ground to create a rhythm? Tap Dance Which of the following is not a characteristic of a Dancer? Uses Two-handed Swords Which town has the most Dancers? Comodo Of the following, who dances most beautifully? Bijou What is the Dancer better at than the other job classes? Dancing Who is the manager of the Comodo Casino? Moo What item cannot be equipped by a Dancer? Two-handed Sword Do you think you can say this quiz is frustrating and annoying? No Which of the following is not a Jazz musician? Elder Willow (or any obvious answer)",
+          "protected_names": [],
+          "dialogues": [
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Increases the effect of dancing skills.",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "What is the effect of the skill Dance Lesson?",
+              "source_section": "html_text",
+              "evidence": "What is the effect of the skill Dance Lesson? Increases the effect of dancing skills."
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Tap Dance",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "What dance uses shoes that are designed to make sound as the dancer rolls their feet and taps the ground to create a rhythm?",
+              "source_section": "html_text",
+              "evidence": "What dance uses shoes that are designed to make sound as the dancer rolls their feet and taps the ground to create a rhythm? Tap Dance"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Uses Two-handed Swords",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Which of the following is not a characteristic of a Dancer?",
+              "source_section": "html_text",
+              "evidence": "Which of the following is not a characteristic of a Dancer? Uses Two-handed Swords"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Comodo",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Which town has the most Dancers?",
+              "source_section": "html_text",
+              "evidence": "Which town has the most Dancers? Comodo"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Bijou",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Of the following, who dances most beautifully?",
+              "source_section": "html_text",
+              "evidence": "Of the following, who dances most beautifully? Bijou"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Dancing",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "What is the Dancer better at than the other job classes?",
+              "source_section": "html_text",
+              "evidence": "What is the Dancer better at than the other job classes? Dancing"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Moo",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Who is the manager of the Comodo Casino?",
+              "source_section": "html_text",
+              "evidence": "Who is the manager of the Comodo Casino? Moo"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Two-handed Sword",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "What item cannot be equipped by a Dancer?",
+              "source_section": "html_text",
+              "evidence": "What item cannot be equipped by a Dancer? Two-handed Sword"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "No",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Do you think you can say this quiz is frustrating and annoying?",
+              "source_section": "html_text",
+              "evidence": "Do you think you can say this quiz is frustrating and annoying? No"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Elder Willow",
+                  "correct": 1,
+                  "condition": "Source example: choose an obvious non-Jazz-musician answer; other obvious answers may be offered."
+                }
+              ],
+              "text": "Which of the following is not a Jazz musician?",
+              "source_section": "html_text",
+              "evidence": "Which of the following is not a Jazz musician? Elder Willow (or any obvious answer)"
+            }
+          ]
+        },
+        {
+          "key": "quiz_b",
+          "choice_group": "quiz_reference_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Use only when the current questions match reference Set B; exact wording may differ, and the source does not prove a random assignment rule.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "The quiz involves a simple Q & A session. Getting 80% correct is required to pass this part of the exam. For reference, the following are the questions that are asked for this section of the exam. (The wording however, may differ)",
+          "instruction_sha256": "8a7f7345e01b9c809782ddab88d5da9c59bcc051d2ed8bc72c0c560cfad9d157",
+          "short_ru": "Вопросы и ответы набора B.",
+          "short_en": "Questions and answers for reference Set B.",
+          "full_ru": "Набор B. Какой эффект даёт совместное умение Mental Sensing? → Increases experience; Что считается плохим тоном после танца? → Criticize your partner; Как не следует реагировать на ошибку партнёра? → Point out the mistake; В каком городе можно получить профессию Dancer? → Comodo; Сколько подземелий напрямую связано с Comodo? → 3; Какой монстр не является Cute Pet? → Argiope; Кто самая грациозная танцовщица? → Bijou; Как точно называется Kafra в Comodo? → Western Branch; Как меня зовут? → Bijou; Какой эффект даёт Lullaby? → Casts the Sleep effect on the area.",
+          "full_en": "Question Set B Answer Set B What is the effect of the combined skill, Mental Sensing? Increases experience Which is considered bad etiquette on the dance floor after a dance? Criticize your partner Which is not an appropriate response when someone makes a mistake while you are dancing together? Point out the mistake In which town can you change jobs to a Dancer? Comodo How many dungeons are directly connected to Comodo? 3 Which of the following is not a Cute Pet monster? Argiope Who is the most graceful dancer? Bijou What is the exact name of the Kafra in Comodo? Western Branch What is my name? Bijou What is the effect of Lullaby? Casts the Sleep effect on the area",
+          "protected_names": [],
+          "dialogues": [
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Increases experience",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "What is the effect of the combined skill, Mental Sensing?",
+              "source_section": "html_text",
+              "evidence": "What is the effect of the combined skill, Mental Sensing? Increases experience"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Criticize your partner",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Which is considered bad etiquette on the dance floor after a dance?",
+              "source_section": "html_text",
+              "evidence": "Which is considered bad etiquette on the dance floor after a dance? Criticize your partner"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Point out the mistake",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Which is not an appropriate response when someone makes a mistake while you are dancing together?",
+              "source_section": "html_text",
+              "evidence": "Which is not an appropriate response when someone makes a mistake while you are dancing together? Point out the mistake"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Comodo",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "In which town can you change jobs to a Dancer?",
+              "source_section": "html_text",
+              "evidence": "In which town can you change jobs to a Dancer? Comodo"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "3",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "How many dungeons are directly connected to Comodo?",
+              "source_section": "html_text",
+              "evidence": "How many dungeons are directly connected to Comodo? 3"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Argiope",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Which of the following is not a Cute Pet monster?",
+              "source_section": "html_text",
+              "evidence": "Which of the following is not a Cute Pet monster? Argiope"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Bijou",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Who is the most graceful dancer?",
+              "source_section": "html_text",
+              "evidence": "Who is the most graceful dancer? Bijou"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Western Branch",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "What is the exact name of the Kafra in Comodo?",
+              "source_section": "html_text",
+              "evidence": "What is the exact name of the Kafra in Comodo? Western Branch"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Bijou",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "What is my name?",
+              "source_section": "html_text",
+              "evidence": "What is my name? Bijou"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Casts the Sleep effect on the area",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "What is the effect of Lullaby?",
+              "source_section": "html_text",
+              "evidence": "What is the effect of Lullaby? Casts the Sleep effect on the area"
+            }
+          ]
+        },
+        {
+          "key": "quiz_c",
+          "choice_group": "quiz_reference_set",
+          "variant_scope": "irowiki-classic",
+          "condition": "Use only when the current questions match reference Set C; exact wording may differ, and the source does not prove a random assignment rule.",
+          "section": "",
+          "source_step": 7,
+          "original_instruction": "The quiz involves a simple Q & A session. Getting 80% correct is required to pass this part of the exam. For reference, the following are the questions that are asked for this section of the exam. (The wording however, may differ)",
+          "instruction_sha256": "8a7f7345e01b9c809782ddab88d5da9c59bcc051d2ed8bc72c0c560cfad9d157",
+          "short_ru": "Вопросы и ответы набора C.",
+          "short_en": "Questions and answers for reference Set C.",
+          "full_ru": "Набор C. Что повышает танец Lady Luck у Dancer? → Critical Attack Rate; Что нельзя считать танцем? → Lightning Bolt; Как лучше всего описать Dancer? → A person who dances; Что не связано с Comodo? → A lot of thieves; Как называется область к северо-западу от Pharos Lighthouse? → Comodo Beach (источник поясняет: географически это Kokomo beach, но такого варианта нет; правильный ответ — Comodo Beach); Кто самая красивая танцовщица? → Bijou; Кто может выступать вместе с Dancer? → Bard; Что не является особенностью Comodo? → Shining Stone; Кто управляет Comodo Casino? → Moo; Кто принимает заявки на профессию Dancer? → Aile.",
+          "full_en": "Question Set C Answer Set C The Dancer's dance, Lady Luck, increaces which of the following? Critical Attack Rate Of the following, which can you not consider to be a dance? Lightning Bolt Which of the following best describes a Dancer? A person who dances Which of the following cannot be associated with Comodo? A lot of thieves What is the name of the region North West of Pharos Lighthouse? Comodo Beach (Yes, it's Kokomo beach, but that's not an option, correct answer is Comodo Beach) Who is the most beautiful dancer? Bijou Of the following, who can perform together with a Dancer? Bard Which of the following is not a specialty of Comodo? Shining Stone Who is the manager of the Comodo Casino? Moo Who accepts the Dancer job change applications? Aile",
+          "protected_names": [],
+          "dialogues": [
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Critical Attack Rate",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "The Dancer's dance, Lady Luck, increaces which of the following?",
+              "source_section": "html_text",
+              "evidence": "The Dancer's dance, Lady Luck, increaces which of the following? Critical Attack Rate"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Lightning Bolt",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Of the following, which can you not consider to be a dance?",
+              "source_section": "html_text",
+              "evidence": "Of the following, which can you not consider to be a dance? Lightning Bolt"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "A person who dances",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Which of the following best describes a Dancer?",
+              "source_section": "html_text",
+              "evidence": "Which of the following best describes a Dancer? A person who dances"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "A lot of thieves",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Which of the following cannot be associated with Comodo?",
+              "source_section": "html_text",
+              "evidence": "Which of the following cannot be associated with Comodo? A lot of thieves"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Comodo Beach",
+                  "correct": 1,
+                  "condition": "Use the offered Comodo Beach answer; source says Kokomo beach is not an available option."
+                }
+              ],
+              "text": "What is the name of the region North West of Pharos Lighthouse?",
+              "source_section": "html_text",
+              "evidence": "What is the name of the region North West of Pharos Lighthouse? Comodo Beach (Yes, it's Kokomo beach, but that's not an option, correct answer is Comodo Beach)"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Bijou",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Who is the most beautiful dancer?",
+              "source_section": "html_text",
+              "evidence": "Who is the most beautiful dancer? Bijou"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Bard",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Of the following, who can perform together with a Dancer?",
+              "source_section": "html_text",
+              "evidence": "Of the following, who can perform together with a Dancer? Bard"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Shining Stone",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Which of the following is not a specialty of Comodo?",
+              "source_section": "html_text",
+              "evidence": "Which of the following is not a specialty of Comodo? Shining Stone"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Moo",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Who is the manager of the Comodo Casino?",
+              "source_section": "html_text",
+              "evidence": "Who is the manager of the Comodo Casino? Moo"
+            },
+            {
+              "npc": "Bijou",
+              "options": [
+                {
+                  "text": "Aile",
+                  "correct": 1,
+                  "condition": null
+                }
+              ],
+              "text": "Who accepts the Dancer job change applications?",
+              "source_section": "html_text",
+              "evidence": "Who accepts the Dancer job change applications? Aile"
+            }
+          ]
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Question Set A Answer Set A",
+          "text_ru": "Справочные вопросы и ответы: набор A."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "Question Set B Answer Set B",
+          "text_ru": "Справочные вопросы и ответы: набор B."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "Question Set C Answer Set C",
+          "text_ru": "Справочные вопросы и ответы: набор C."
+        }
+      ]
+    },
+    "8": {
+      "original_instruction": "After passing the quiz, Bijou will send the player to Dance on the stage. At this point one should make sure to equip a Bow and some arrows and then head behind the stage to meet another NPC with a \"Waiting Room\" chat window above her head. Entering the chatroom will put the player on queue for the trial.",
+      "instruction_sha256": "52524505fc2e453b15ab8d50cc25b110f05947fcf0d72bdb911ea36227ed6378",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/52524505fc2e453b15ab/1",
+      "goal": "enter_test",
+      "short_ru": "Экипируйте Bow и arrows, затем у another NPC за сценой войдите в «Waiting Room».",
+      "short_en": "Equip a Bow and arrows, then join “Waiting Room” at another NPC behind the stage.",
+      "full_ru": "После викторины Bijou отправит вас танцевать на сцене. Экипируйте Bow и несколько arrows, затем идите за сцену к another NPC с чатом «Waiting Room». Войдите в чат, чтобы встать в очередь на испытание.",
+      "full_en": "After passing the quiz, Bijou will send the player to Dance on the stage. At this point one should make sure to equip a Bow and some arrows and then head behind the stage to meet another NPC with a \"Waiting Room\" chat window above her head. Entering the chatroom will put the player on queue for the trial.",
+      "npcs": [
+        {
+          "entity": "Bijou",
+          "role": "referral"
+        },
+        {
+          "entity": "another NPC",
+          "role": "waiting_room_host"
+        }
+      ],
+      "items": [
+        {
+          "entity": "bow_category",
+          "quantity": null,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Equip a bow category weapon, not a proven specific Bow item ID or a consumed quest cost."
+        },
+        {
+          "entity": "arrow_category",
+          "quantity": null,
+          "operation": "possess",
+          "required": 1,
+          "condition": "Equipped arrows; required quantity/type not printed."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "equipped_weapon_category",
+          "entity": "bow_category"
+        },
+        {
+          "kind": "equipped_ammunition",
+          "entity": "arrow_category"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "another NPC",
+          "options": [],
+          "text": "Waiting Room"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "equip_bow_and_arrows"
+        },
+        {
+          "operation": "join_waiting_chat",
+          "entity": "another NPC"
+        }
+      ],
+      "protected_names": [
+        "Bijou",
+        "another NPC",
+        "Bow",
+        "arrows"
+      ],
+      "locations": []
+    },
+    "9": {
+      "original_instruction": "The exam is a simple test of movement and quick responses. Hotkeying Arrow Shower or Double Strafe and Improve Concentration is suggested. | Note : there's a poring at the end that has to be killed with a bow. Using Improve Concentration is optional, even though the NPC will ask for it. The Dancing pattern is as follows.",
+      "instruction_sha256": "c034888a4192a03e6dc925272c83d1f1765d86180a2a7e145caef5d591a5b5ae",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/c034888a4192a03e6dc9/1",
+      "goal": "prepare_test",
+      "short_ru": "Подготовьте Arrow Shower или Double Strafe; в конце нужно убить poring из лука. Improve Concentration необязателен.",
+      "short_en": "Prepare Arrow Shower or Double Strafe; the final poring must be killed with a bow. Improve Concentration is optional.",
+      "full_ru": "Испытание проверяет движение и быстроту реакции. Рекомендуется назначить на горячие клавиши Arrow Shower или Double Strafe, а также Improve Concentration. Примечание: в конце будет poring, которого нужно убить из лука. Improve Concentration необязательно использовать, хотя NPC попросит об этом. Далее приведена последовательность танца.",
+      "full_en": "The exam is a simple test of movement and quick responses. Hotkeying Arrow Shower or Double Strafe and Improve Concentration is suggested. | Note : there's a poring at the end that has to be killed with a bow. Using Improve Concentration is optional, even though the NPC will ask for it. The Dancing pattern is as follows.",
+      "requirements": [
+        {
+          "kind": "optional_skill_cue",
+          "amount": "Improve Concentration",
+          "condition": "Optional despite examiner request; no skill use/cost required."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "prepare_attack_hotkey",
+          "condition": "Arrow Shower or Double Strafe are suggested."
+        },
+        {
+          "operation": "prepare_optional_concentration_hotkey",
+          "condition": "Improve Concentration is optional."
+        }
+      ],
+      "protected_names": [
+        "poring"
+      ],
+      "locations": []
+    },
+    "10": {
+      "original_instruction": "Back",
+      "instruction_sha256": "76900f1bfd16c8d4dd3d25e6f46638d7165aee23883ccea6bfe071c514421769",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/76900f1bfd16c8d4dd3d/1",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Back.",
+      "short_en": "Dance: Back.",
+      "full_ru": "Переместитесь: Back.",
+      "full_en": "Back",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Back"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "11": {
+      "original_instruction": "Front",
+      "instruction_sha256": "a61759020289882109fa92ad765e1200b6a9069b98190891d2747c65474669e2",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a61759020289882109fa/1",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Front.",
+      "short_en": "Dance: Front.",
+      "full_ru": "Переместитесь: Front.",
+      "full_en": "Front",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Front"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "12": {
+      "original_instruction": "Left",
+      "instruction_sha256": "58eb9032e3bb83f0e39d644ebc87ca254117b95bf458483bec7379bea0b419d0",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/58eb9032e3bb83f0e39d/1",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Left.",
+      "short_en": "Dance: Left.",
+      "full_ru": "Переместитесь: Left.",
+      "full_en": "Left",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Left"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "13": {
+      "original_instruction": "Right",
+      "instruction_sha256": "883361d5d682a1574410961ce51450b6e036a779c9f098dec71e28aec832bfa6",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/883361d5d682a1574410/1",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Right.",
+      "short_en": "Dance: Right.",
+      "full_ru": "Переместитесь: Right.",
+      "full_en": "Right",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Right"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "14": {
+      "original_instruction": "Center",
+      "instruction_sha256": "d946067427e930a14aed20312fbd850cff72428d4d602ed04a2ed164ba7d63f4",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/d946067427e930a14aed/1",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Center.",
+      "short_en": "Dance: Center.",
+      "full_ru": "Переместитесь: Center.",
+      "full_en": "Center",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Center"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "15": {
+      "original_instruction": "Pose (just remain on the tile)",
+      "instruction_sha256": "87db14da6d55d1767e4c009233ace681cca194f5e66d47595086ab4b381d0043",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/87db14da6d55d1767e4c/1",
+      "goal": "hold_position",
+      "short_ru": "Pose: оставайтесь на плитке.",
+      "short_en": "Pose: remain on the tile.",
+      "full_ru": "Pose: оставайтесь на текущей плитке.",
+      "full_en": "Pose (just remain on the tile)",
+      "actions": [
+        {
+          "operation": "hold_dance_tile",
+          "condition": "Pose; remain on the current tile, no required movement."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "16": {
+      "original_instruction": "Improve Concentration",
+      "instruction_sha256": "4bf3f7b05946368196ddb979b7a52144666094ac938db7ba568d999852dfc736",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/4bf3f7b05946368196dd/1",
+      "goal": "optional_skill",
+      "short_ru": "Improve Concentration — необязательная подсказка, можно пропустить.",
+      "short_en": "Improve Concentration is an optional cue and may be skipped.",
+      "full_ru": "Improve Concentration. Использовать Improve Concentration необязательно, хотя NPC попросит об этом.",
+      "full_en": "Improve Concentration Using Improve Concentration is optional, even though the NPC will ask for it.",
+      "requirements": [
+        {
+          "kind": "optional_skill_cue",
+          "amount": "Improve Concentration",
+          "support_step": 9,
+          "evidence": "The exam is a simple test of movement and quick responses. Hotkeying Arrow Shower or Double Strafe and Improve Concentration is suggested. | Note : there's a poring at the end that has to be killed with a bow. Using Improve Concentration is optional, even though the NPC will ask for it. The Dancing pattern is as follows."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "optional_use_skill",
+          "condition": "Improve Concentration; source explicitly says optional.",
+          "support_step": 9,
+          "evidence": "The exam is a simple test of movement and quick responses. Hotkeying Arrow Shower or Double Strafe and Improve Concentration is suggested. | Note : there's a poring at the end that has to be killed with a bow. Using Improve Concentration is optional, even though the NPC will ask for it. The Dancing pattern is as follows."
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Using Improve Concentration is optional, even though the NPC will ask for it.",
+          "text_ru": "Использовать Improve Concentration необязательно, хотя NPC попросит об этом."
+        }
+      ]
+    },
+    "17": {
+      "original_instruction": "Left",
+      "instruction_sha256": "58eb9032e3bb83f0e39d644ebc87ca254117b95bf458483bec7379bea0b419d0",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/58eb9032e3bb83f0e39d/2",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Left.",
+      "short_en": "Dance: Left.",
+      "full_ru": "Переместитесь: Left.",
+      "full_en": "Left",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Left"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "18": {
+      "original_instruction": "Front",
+      "instruction_sha256": "a61759020289882109fa92ad765e1200b6a9069b98190891d2747c65474669e2",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a61759020289882109fa/2",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Front.",
+      "short_en": "Dance: Front.",
+      "full_ru": "Переместитесь: Front.",
+      "full_en": "Front",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Front"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "19": {
+      "original_instruction": "Right (NOT Front, Right as iRO in-game dialogue says!)",
+      "instruction_sha256": "07c5ecadbd5fce038c16c4494af997833ed01dd74a416f189a555c41b30bab5c",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/07c5ecadbd5fce038c16/1",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Right.",
+      "short_en": "Dance: Right.",
+      "full_ru": "Идите на Right, а не на Front, Right, как сказано во внутриигровом диалоге iRO!",
+      "full_en": "Right (NOT Front, Right as iRO in-game dialogue says!)",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Right"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "20": {
+      "original_instruction": "Pose (just remain on the tile)",
+      "instruction_sha256": "87db14da6d55d1767e4c009233ace681cca194f5e66d47595086ab4b381d0043",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/87db14da6d55d1767e4c/2",
+      "goal": "hold_position",
+      "short_ru": "Pose: оставайтесь на плитке.",
+      "short_en": "Pose: remain on the tile.",
+      "full_ru": "Pose: оставайтесь на текущей плитке.",
+      "full_en": "Pose (just remain on the tile)",
+      "actions": [
+        {
+          "operation": "hold_dance_tile",
+          "condition": "Pose; remain on the current tile, no required movement."
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "21": {
+      "original_instruction": "Left, Center, Right, Back",
+      "instruction_sha256": "a69db46b80f4ec5ccf8790cf0378d7f0fa75704c19c5622e5170faa1845ccab4",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a69db46b80f4ec5ccf87/1",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Left, Center, Right, Back.",
+      "short_en": "Dance: Left, Center, Right, Back.",
+      "full_ru": "Переместитесь: Left, Center, Right, Back.",
+      "full_en": "Left, Center, Right, Back",
+      "actions": [],
+      "protected_names": [],
+      "locations": [],
+      "branches": [
+        {
+          "key": "full_pattern",
+          "choice_group": "dance_sequence_variant",
+          "variant_scope": "irowiki-classic",
+          "condition": "Full printed sequence; alternative to the optional first/last shortcut, not extra movements.",
+          "section": "",
+          "source_step": 21,
+          "original_instruction": "Left, Center, Right, Back",
+          "instruction_sha256": "a69db46b80f4ec5ccf8790cf0378d7f0fa75704c19c5622e5170faa1845ccab4",
+          "short_ru": "Left, Center, Right, Back.",
+          "short_en": "Left, Center, Right, Back.",
+          "full_ru": "Переместитесь: Left, Center, Right, Back.",
+          "full_en": "Left, Center, Right, Back",
+          "protected_names": [],
+          "actions": [
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Left"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Center"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Right"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Back"
+            }
+          ]
+        },
+        {
+          "key": "first_last_shortcut",
+          "choice_group": "dance_sequence_variant",
+          "variant_scope": "irowiki-classic",
+          "condition": "Optional source tip for sequences longer than two moves. Alternative to the full pattern; effectiveness on a server remains unverified.",
+          "section": "",
+          "source_step": 21,
+          "original_instruction": "Left, Center, Right, Back",
+          "instruction_sha256": "a69db46b80f4ec5ccf8790cf0378d7f0fa75704c19c5622e5170faa1845ccab4",
+          "short_ru": "Left → Back.",
+          "short_en": "Left → Back.",
+          "full_ru": "По подсказке источника достаточно Left → Back.",
+          "full_en": "Source tip: Left → Back is sufficient.",
+          "protected_names": [],
+          "actions": [
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Left",
+              "support_step": 28,
+              "evidence": "only perform the first and last steps for sequences with more than two steps"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Back",
+              "support_step": 28,
+              "evidence": "only perform the first and last steps for sequences with more than two steps"
+            }
+          ]
+        }
+      ]
+    },
+    "22": {
+      "original_instruction": "Right",
+      "instruction_sha256": "883361d5d682a1574410961ce51450b6e036a779c9f098dec71e28aec832bfa6",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/883361d5d682a1574410/2",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Right.",
+      "short_en": "Dance: Right.",
+      "full_ru": "Переместитесь: Right.",
+      "full_en": "Right",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Right"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "23": {
+      "original_instruction": "Left, Center, Front, Back",
+      "instruction_sha256": "1bd6c9b513d153fb5e1bbcfb78cdbfc8113dc8d2429a5ccaa5f13bd1f1df5864",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/1bd6c9b513d153fb5e1b/1",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Left, Center, Front, Back.",
+      "short_en": "Dance: Left, Center, Front, Back.",
+      "full_ru": "Переместитесь: Left, Center, Front, Back.",
+      "full_en": "Left, Center, Front, Back",
+      "actions": [],
+      "protected_names": [],
+      "locations": [],
+      "branches": [
+        {
+          "key": "full_pattern",
+          "choice_group": "dance_sequence_variant",
+          "variant_scope": "irowiki-classic",
+          "condition": "Full printed sequence; alternative to the optional first/last shortcut, not extra movements.",
+          "section": "",
+          "source_step": 23,
+          "original_instruction": "Left, Center, Front, Back",
+          "instruction_sha256": "1bd6c9b513d153fb5e1bbcfb78cdbfc8113dc8d2429a5ccaa5f13bd1f1df5864",
+          "short_ru": "Left, Center, Front, Back.",
+          "short_en": "Left, Center, Front, Back.",
+          "full_ru": "Переместитесь: Left, Center, Front, Back.",
+          "full_en": "Left, Center, Front, Back",
+          "protected_names": [],
+          "actions": [
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Left"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Center"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Front"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Back"
+            }
+          ]
+        },
+        {
+          "key": "first_last_shortcut",
+          "choice_group": "dance_sequence_variant",
+          "variant_scope": "irowiki-classic",
+          "condition": "Optional source tip for sequences longer than two moves. Alternative to the full pattern; effectiveness on a server remains unverified.",
+          "section": "",
+          "source_step": 23,
+          "original_instruction": "Left, Center, Front, Back",
+          "instruction_sha256": "1bd6c9b513d153fb5e1bbcfb78cdbfc8113dc8d2429a5ccaa5f13bd1f1df5864",
+          "short_ru": "Left → Back.",
+          "short_en": "Left → Back.",
+          "full_ru": "По подсказке источника достаточно Left → Back.",
+          "full_en": "Source tip: Left → Back is sufficient.",
+          "protected_names": [],
+          "actions": [
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Left",
+              "support_step": 28,
+              "evidence": "only perform the first and last steps for sequences with more than two steps"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Back",
+              "support_step": 28,
+              "evidence": "only perform the first and last steps for sequences with more than two steps"
+            }
+          ]
+        }
+      ]
+    },
+    "24": {
+      "original_instruction": "Left, Center, Front, Back",
+      "instruction_sha256": "1bd6c9b513d153fb5e1bbcfb78cdbfc8113dc8d2429a5ccaa5f13bd1f1df5864",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/1bd6c9b513d153fb5e1b/2",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Left, Center, Front, Back.",
+      "short_en": "Dance: Left, Center, Front, Back.",
+      "full_ru": "Переместитесь: Left, Center, Front, Back.",
+      "full_en": "Left, Center, Front, Back",
+      "actions": [],
+      "protected_names": [],
+      "locations": [],
+      "branches": [
+        {
+          "key": "full_pattern",
+          "choice_group": "dance_sequence_variant",
+          "variant_scope": "irowiki-classic",
+          "condition": "Full printed sequence; alternative to the optional first/last shortcut, not extra movements.",
+          "section": "",
+          "source_step": 24,
+          "original_instruction": "Left, Center, Front, Back",
+          "instruction_sha256": "1bd6c9b513d153fb5e1bbcfb78cdbfc8113dc8d2429a5ccaa5f13bd1f1df5864",
+          "short_ru": "Left, Center, Front, Back.",
+          "short_en": "Left, Center, Front, Back.",
+          "full_ru": "Переместитесь: Left, Center, Front, Back.",
+          "full_en": "Left, Center, Front, Back",
+          "protected_names": [],
+          "actions": [
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Left"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Center"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Front"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Back"
+            }
+          ]
+        },
+        {
+          "key": "first_last_shortcut",
+          "choice_group": "dance_sequence_variant",
+          "variant_scope": "irowiki-classic",
+          "condition": "Optional source tip for sequences longer than two moves. Alternative to the full pattern; effectiveness on a server remains unverified.",
+          "section": "",
+          "source_step": 24,
+          "original_instruction": "Left, Center, Front, Back",
+          "instruction_sha256": "1bd6c9b513d153fb5e1bbcfb78cdbfc8113dc8d2429a5ccaa5f13bd1f1df5864",
+          "short_ru": "Left → Back.",
+          "short_en": "Left → Back.",
+          "full_ru": "По подсказке источника достаточно Left → Back.",
+          "full_en": "Source tip: Left → Back is sufficient.",
+          "protected_names": [],
+          "actions": [
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Left",
+              "support_step": 28,
+              "evidence": "only perform the first and last steps for sequences with more than two steps"
+            },
+            {
+              "operation": "move_to_dance_tile",
+              "condition": "Back",
+              "support_step": 28,
+              "evidence": "only perform the first and last steps for sequences with more than two steps"
+            }
+          ]
+        }
+      ]
+    },
+    "25": {
+      "original_instruction": "Front",
+      "instruction_sha256": "a61759020289882109fa92ad765e1200b6a9069b98190891d2747c65474669e2",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/a61759020289882109fa/3",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Front.",
+      "short_en": "Dance: Front.",
+      "full_ru": "Переместитесь: Front.",
+      "full_en": "Front",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Front"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "26": {
+      "original_instruction": "Left",
+      "instruction_sha256": "58eb9032e3bb83f0e39d644ebc87ca254117b95bf458483bec7379bea0b419d0",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/58eb9032e3bb83f0e39d/3",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Left.",
+      "short_en": "Dance: Left.",
+      "full_ru": "Переместитесь: Left.",
+      "full_en": "Left",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Left"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "27": {
+      "original_instruction": "Center",
+      "instruction_sha256": "d946067427e930a14aed20312fbd850cff72428d4d602ed04a2ed164ba7d63f4",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/d946067427e930a14aed/2",
+      "goal": "dance_sequence",
+      "short_ru": "Танец: Center.",
+      "short_en": "Dance: Center.",
+      "full_ru": "Переместитесь: Center.",
+      "full_en": "Center",
+      "actions": [
+        {
+          "operation": "move_to_dance_tile",
+          "condition": "Center"
+        }
+      ],
+      "protected_names": [],
+      "locations": []
+    },
+    "28": {
+      "original_instruction": "Arrow Shower or Double Strafe For those future dancers who are having problems with this part of the test: An effective way to pass this exam is to only perform the first and last steps for sequences with more than two steps, rather than hitting all the tiles. For example: instead of doing \"Left Center Right Back\" one simply goes from Left to Back.",
+      "instruction_sha256": "b0e818b95d77ae097587294d785f4bed0e92e33bc02115b176ff3c33b90ea428",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/b0e818b95d77ae097587/1",
+      "goal": "kill",
+      "short_ru": "Убейте финального poring из Bow, используя Arrow Shower или Double Strafe.",
+      "short_en": "Kill the final poring with a Bow using Arrow Shower or Double Strafe.",
+      "full_ru": "Используйте Arrow Shower или Double Strafe. Если эта часть испытания вызывает трудности, источник предлагает для последовательностей длиннее двух движений выполнять только первое и последнее, не посещая все плитки. Например, вместо «Left Center Right Back» достаточно пройти от Left к Back. В конце есть poring, которого нужно убить из лука.",
+      "full_en": "Arrow Shower or Double Strafe For those future dancers who are having problems with this part of the test: An effective way to pass this exam is to only perform the first and last steps for sequences with more than two steps, rather than hitting all the tiles. For example: instead of doing \"Left Center Right Back\" one simply goes from Left to Back. there's a poring at the end that has to be killed with a bow.",
+      "monsters": [
+        {
+          "entity": "poring",
+          "operation": "kill",
+          "quantity": 1,
+          "required": 1,
+          "support_step": 9,
+          "evidence": "The exam is a simple test of movement and quick responses. Hotkeying Arrow Shower or Double Strafe and Improve Concentration is suggested. | Note : there's a poring at the end that has to be killed with a bow. Using Improve Concentration is optional, even though the NPC will ask for it. The Dancing pattern is as follows.",
+          "condition": "One final exam target; actual game ID unknown, bow required."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "weapon_category_for_final_target",
+          "entity": "bow_category",
+          "support_step": 9,
+          "evidence": "The exam is a simple test of movement and quick responses. Hotkeying Arrow Shower or Double Strafe and Improve Concentration is suggested. | Note : there's a poring at the end that has to be killed with a bow. Using Improve Concentration is optional, even though the NPC will ask for it. The Dancing pattern is as follows."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "defeat_final_target",
+          "entity": "poring",
+          "support_step": 9,
+          "evidence": "The exam is a simple test of movement and quick responses. Hotkeying Arrow Shower or Double Strafe and Improve Concentration is suggested. | Note : there's a poring at the end that has to be killed with a bow. Using Improve Concentration is optional, even though the NPC will ask for it. The Dancing pattern is as follows.",
+          "condition": "Use a bow and one of the two listed attack skills."
+        }
+      ],
+      "protected_names": [],
+      "locations": [],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "there's a poring at the end that has to be killed with a bow.",
+          "text_ru": "В конце есть poring, которого нужно убить из лука."
+        }
+      ],
+      "branches": [
+        {
+          "key": "attack_shower",
+          "choice_group": "final_attack_skill",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose Arrow Shower for the final attack; alternative to the other listed skill, not two required casts.",
+          "section": "",
+          "source_step": 28,
+          "original_instruction": "Arrow Shower or Double Strafe",
+          "instruction_sha256": "cf7d4a9ffb007dc7af59d9cfce56b9eb165466d23a3d7eccc020bac3501da9c7",
+          "short_ru": "Атакуйте с помощью Arrow Shower.",
+          "short_en": "Attack using Arrow Shower.",
+          "full_ru": "Arrow Shower или Double Strafe.",
+          "full_en": "Arrow Shower or Double Strafe",
+          "protected_names": [],
+          "actions": [
+            {
+              "operation": "use_attack_skill",
+              "condition": "Arrow Shower"
+            }
+          ]
+        },
+        {
+          "key": "attack_strafe",
+          "choice_group": "final_attack_skill",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose Double Strafe for the final attack; alternative to the other listed skill, not two required casts.",
+          "section": "",
+          "source_step": 28,
+          "original_instruction": "Arrow Shower or Double Strafe",
+          "instruction_sha256": "cf7d4a9ffb007dc7af59d9cfce56b9eb165466d23a3d7eccc020bac3501da9c7",
+          "short_ru": "Атакуйте с помощью Double Strafe.",
+          "short_en": "Attack using Double Strafe.",
+          "full_ru": "Arrow Shower или Double Strafe.",
+          "full_en": "Arrow Shower or Double Strafe",
+          "protected_names": [],
+          "actions": [
+            {
+              "operation": "use_attack_skill",
+              "condition": "Double Strafe"
+            }
+          ]
+        }
+      ]
+    },
+    "29": {
+      "original_instruction": "Return to the NPC who gave the quiz for the job change to Dancer. She will reward you with either a Line for Job 50, or a Rope for any job level lower than 50.",
+      "instruction_sha256": "fd36fda9c590f11d0c6e4e1e49944cf374602d802ff892e170a2e43de2a0f956",
+      "step_id": "irowiki-classic:Dancer_Job_Change_Guide/step/fd36fda9c590f11d0c6e/1",
+      "goal": "job_change",
+      "short_ru": "Вернитесь к Bijou и станьте Dancer; инструмент зависит от Job Level.",
+      "short_en": "Return to Bijou and become a Dancer; the instrument depends on Job Level.",
+      "full_ru": "Вернитесь к NPC, проводившему викторину, для смены профессии на Dancer. Она выдаст Line при Job 50 либо Rope при любом Job Level ниже 50.",
+      "full_en": "Return to the NPC who gave the quiz for the job change to Dancer. She will reward you with either a Line for Job 50, or a Rope for any job level lower than 50.",
+      "npcs": [
+        {
+          "entity": "Bijou",
+          "role": "talk",
+          "support_step": 6,
+          "evidence": "Once finished signing up, it's time to head to the right side of the stage and talk to Bijou to take the quiz."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Dancer"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "change_job",
+          "entity": "Bijou"
+        }
+      ],
+      "protected_names": [
+        "Line",
+        "Rope"
+      ],
+      "locations": [],
+      "branches": [
+        {
+          "key": "job_50_line",
+          "choice_group": "job_level_instrument",
+          "variant_scope": "irowiki-classic",
+          "condition": "Job Level 50 only; exclusive with the below-50 Rope reward.",
+          "section": "",
+          "source_step": 29,
+          "original_instruction": "Return to the NPC who gave the quiz for the job change to Dancer. She will reward you with either a Line for Job 50, or a Rope for any job level lower than 50.",
+          "instruction_sha256": "fd36fda9c590f11d0c6e4e1e49944cf374602d802ff892e170a2e43de2a0f956",
+          "short_ru": "Job Level 50: получите 1 Line.",
+          "short_en": "Job Level 50: receive 1 Line.",
+          "full_ru": "Вернитесь к NPC, проводившему викторину, для смены профессии на Dancer. Она выдаст Line при Job 50 либо Rope при любом Job Level ниже 50.",
+          "full_en": "Return to the NPC who gave the quiz for the job change to Dancer. She will reward you with either a Line for Job 50, or a Rope for any job level lower than 50.",
+          "protected_names": [
+            "Line",
+            "Rope"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Line"
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "job_level",
+              "amount": "50"
+            }
+          ]
+        },
+        {
+          "key": "below_50_rope",
+          "choice_group": "job_level_instrument",
+          "variant_scope": "irowiki-classic",
+          "condition": "Any Job Level lower than 50; no invented numeric lower bound. Exclusive with Line.",
+          "section": "",
+          "source_step": 29,
+          "original_instruction": "Return to the NPC who gave the quiz for the job change to Dancer. She will reward you with either a Line for Job 50, or a Rope for any job level lower than 50.",
+          "instruction_sha256": "fd36fda9c590f11d0c6e4e1e49944cf374602d802ff892e170a2e43de2a0f956",
+          "short_ru": "Job Level ниже 50: получите 1 Rope.",
+          "short_en": "Job Level below 50: receive 1 Rope.",
+          "full_ru": "Вернитесь к NPC, проводившему викторину, для смены профессии на Dancer. Она выдаст Line при Job 50 либо Rope при любом Job Level ниже 50.",
+          "full_en": "Return to the NPC who gave the quiz for the job change to Dancer. She will reward you with either a Line for Job 50, or a Rope for any job level lower than 50.",
+          "protected_names": [
+            "Line",
+            "Rope"
+          ],
+          "rewards": [
+            {
+              "kind": "item",
+              "amount": "1",
+              "entity": "Rope"
+            }
+          ],
+          "requirements": [
+            {
+              "kind": "job_level_below",
+              "amount": "50"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "reviews": [
+    {
+      "reason": "dancer_registration_retention_and_zeny",
+      "detail": "The item-retention note is a sibling following the entire three-set list in pinned HTML, so it applies to all materials despite archive placement at step 5. One requested route is checked, not all sets consumed. The note says items, not explicitly currency: Set 3 records 10000 Zeny possession, with actual deduction unproven. Header Consumed/Varies is not allowed to override the detailed retention note."
+    },
+    {
+      "reason": "dancer_quiz_restored_with_conditions",
+      "detail": "Thirty literal question/answer pairs are restored from HTML in three reference branches. Match live questions; source says wording may differ and does not prove random assignment. Elder Willow is an example obvious non-Jazz answer. Comodo Beach is the actual offered answer; source says Kokomo beach is not an option. Quiz-only NPC/item/monster references do not become travel, collection or kill objectives."
+    },
+    {
+      "reason": "dancer_dance_cues_and_shortcuts",
+      "detail": "Dance tiles are ordered movement actions, not geographical coordinates or dialogue answers. Pose means hold position. Improve Concentration is explicitly optional. Source corrects the live Front, Right text to Right only. Long sequences have exclusive full/first-last branches with context proof from later source step 28; shortcuts are source advice, not server-verified guarantees."
+    },
+    {
+      "reason": "dancer_final_attack_and_reward",
+      "detail": "One final poring must be killed with a bow; its actor ID is unknown and not borrowed from a generic Poring link. Arrow Shower/Double Strafe are alternative attacks, not literal menu options. Bow/arrows are generic equipment categories with unknown IDs/counts. Final Line/Rope IDs use exact own-guide links, with exclusive Job Level 50/below-50 rewards."
+    },
+    {
+      "reason": "dancer_identity_and_coordinates",
+      "detail": "Aile, Bijou, Bor Robin and the unnamed waiting-room host remain separate. Another NPC is a descriptive label, not an invented game name. No coordinate, map code or female-character eligibility flag is inferred from narrative pronouns."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Archer",
+        "source_section": "requirements",
+        "evidence": "Class: Archer"
+      },
+      {
+        "kind": "source_item_retention_note",
+        "source_section": "html_text",
+        "evidence": "The NPC will not actually take these items.",
+        "condition": "DOM note follows the entire three-set list, not just its last item; materials are checked, not consumed. Currency deduction is not established by this item note."
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "registration_set_1",
+      "kind": "alternative",
+      "choice_group": "registration_material_set",
+      "source_step": 2,
+      "choice_evidence": "one of the following set of items",
+      "steps": [
+        3
+      ],
+      "condition": "Use only the set requested by Aile: source set 1. The source does not state how the set is assigned. Items are not taken; do not combine all three sets."
+    },
+    {
+      "key": "registration_set_2",
+      "kind": "alternative",
+      "choice_group": "registration_material_set",
+      "source_step": 2,
+      "choice_evidence": "one of the following set of items",
+      "steps": [
+        4
+      ],
+      "condition": "Use only the set requested by Aile: source set 2. The source does not state how the set is assigned. Items are not taken; do not combine all three sets."
+    },
+    {
+      "key": "registration_set_3",
+      "kind": "alternative",
+      "choice_group": "registration_material_set",
+      "source_step": 2,
+      "choice_evidence": "one of the following set of items",
+      "steps": [
+        5
+      ],
+      "condition": "Use only the set requested by Aile: source set 3. The source does not state how the set is assigned. Items are not taken; do not combine all three sets."
+    }
+  ]
+}

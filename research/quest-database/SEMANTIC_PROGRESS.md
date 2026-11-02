@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.7.0**. All four description fields are populated for
-**942 steps across 74 curated guides**, up from the previous 70-guide/915-step
-checkpoint. **124 conditional branches** also have independent RU/EN short and
-full descriptions. Seventeen quest routes represent six exclusive expedition/lyric paths
-and eleven conditional/optional activities. **1,808 steps in 142 remaining catalog entries still lack
+**974 steps across 76 curated guides**, up from the previous 74-guide/942-step
+checkpoint. **137 conditional branches** also have independent RU/EN short and
+full descriptions. Twenty quest routes represent nine exclusive expedition/lyric/material paths
+and eleven conditional/optional activities. **1,776 steps in 140 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -99,6 +99,8 @@ complete localization/context analysis.** `complete` remains false.
 | Archer Skill Quest | 2 | Independent level-30/35 activities; restored headers/unlocks; euRO material/location alternatives |
 | Hunter Job Change Guide | 20 | Ten exact personality answers; seven restored random sets; four kills versus six targets; shared timer and preparation context |
 | Hunter Skill Quest | 2 | One 5/5/30 material set; two participants; only Arpesto has printed coordinates |
+| Dancer Job Change Guide | 29 | Three retained material sets; restored 30-answer quiz; ordered dance/optional shortcuts; one final target and exclusive instrument rewards |
+| Dancer Skill Quest | 3 | One taken mirror; separate Aelle material set; uncertain teleport destination; Canell return without a second cost |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -107,7 +109,41 @@ verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
 
-- Four Archer/Hunter guides preserve all 27 original stages. Coverage is now
+- Two Dancer guides preserve all 32 original stages. Coverage is now 974
+  stages / 76 guides, 137 localized branches and twenty routes. All prior 942
+  localized descriptions, 124 branches and original step IDs remain unchanged.
+  Existing schema 5 / semantic-5.7.0 supports this data-only iteration.
+- Dancer registration has three exclusive source-step routes. The item-retention
+  note follows the entire list in the pinned HTML DOM, so all requested materials
+  are shown, not consumed, despite its legacy placement after the third set.
+  Set 3 records 10000 Zeny possession; the source does not establish currency
+  deduction. Do not apply that balance condition to the other two routes.
+- The omitted quiz table restores thirty question/answer pairs in three reference
+  branches. Match current questions; wording may differ and random assignment is
+  not established. Each option cites its own literal HTML question/answer row.
+  Elder Willow is an example obvious non-Jazz answer; Comodo Beach is the offered
+  answer even though the source names Kokomo beach as the geographical spelling.
+  Quiz-only entity references do not become travel, item or combat objectives.
+- Dance instructions are ordered tile actions, not map coordinates or menu
+  answers. Pose holds position, and Improve Concentration is explicitly optional.
+  Source step 19 corrects live Front, Right wording to a single Right move.
+  Three long sequences have exclusive full/first-last branches, with later
+  source-step-28 context supporting the optional shortcuts. Repeated identical
+  source steps 23/24 retain distinct occurrence-based identities.
+- One final poring must be killed with a bow, using one of the two listed attack
+  skills. Bow/arrows are equipment categories with NULL IDs/counts; the exam
+  actor ID is not borrowed from a regular monster database. Line 1953 is the
+  Job Level 50 reward; Rope 1950 is the exclusive below-50 reward. No unprinted
+  base level, exact map point, equipment fee or gender eligibility is inferred.
+- Charming Wink consumes one Crystal Mirror at Canell, then one separate
+  five-material set goes to Aelle. The final Canell return has no second cost.
+  Later Aelle conversations may send the player to apparently random town
+  points, not a mandatory retry objective. Aelle is not aliased to Aile from
+  Dancer registration; bare town coordinates do not establish map codes.
+
+Earlier source-review checkpoints:
+
+- Four Archer/Hunter guides preserved all 27 original stages. Coverage was
   942 stages / 74 guides, 124 localized branches and seventeen routes. All prior
   915 localized descriptions, 114 branches and original step IDs remain unchanged.
   This is data curation using the existing schema 5 / semantic-5.7.0 generator.
@@ -654,7 +690,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **254 tests passed**; complete offline enrichment passed;
+Validated locally: **264 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -718,7 +754,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 ## Next work, in order
 
-1. Review the remaining 142 catalog candidates, separating reference pages,
+1. Review the remaining 140 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

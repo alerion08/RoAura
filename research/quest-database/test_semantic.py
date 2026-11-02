@@ -251,17 +251,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r['state']=='included' for r in exported))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],942)
-        self.assertEqual(self.report['not_fully_localized_steps'],1808)
+        self.assertEqual(self.report['fully_localized_steps'],974)
+        self.assertEqual(self.report['not_fully_localized_steps'],1776)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],942)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],974)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1808)
-        self.assertEqual(self.report['fully_localized_branches'],124)
-        self.assertEqual(self.report['curated_quests'],74)
-        self.assertEqual(self.report['pending_quests'],142)
-        self.assertEqual(self.report['quest_routes'],17)
-        self.assertEqual(self.report['source_additions'],21)
+        self.assertEqual(missing,1776)
+        self.assertEqual(self.report['fully_localized_branches'],137)
+        self.assertEqual(self.report['curated_quests'],76)
+        self.assertEqual(self.report['pending_quests'],140)
+        self.assertEqual(self.report['quest_routes'],20)
+        self.assertEqual(self.report['source_additions'],28)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_juperos_four_homonymous_books_and_return_scholar_have_typed_links(self):
@@ -398,6 +398,122 @@ class RealCorpusTests(unittest.TestCase):
             destination=self.out/'quest_semantic.sqlite';before=destination.read_bytes()
             with self.subTest(name=name),self.assertRaisesRegex(ValueError,'Invalid optional route context proof'):build(self.source,self.out,curation_dir=folder)
             self.assertEqual(destination.read_bytes(),before)
+
+    def test_dancer_registration_sets_are_exclusive_and_items_are_shown_not_consumed(self):
+        q='irowiki-classic:Dancer_Job_Change_Guide'
+        routes=[tuple(r) for r in self.db.execute('''SELECT r.route_key,s.step_order,r.choice_group,e.method FROM quest_routes r JOIN step_routes m USING(route_id)
+          JOIN quest_steps s USING(step_id) JOIN evidence e ON e.evidence_id=r.evidence_id WHERE r.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(routes,[('registration_set_'+str(i),i+2,'registration_material_set','source_alternative_activity_context') for i in range(1,4)])
+        actual=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order BETWEEN 3 AND 5 ORDER BY s.step_order,x.game_id''',(q,))]
+        self.assertEqual(actual,[(3,503,5,'show'),(3,909,20,'show'),(3,965,2,'show'),(3,1020,10,'show'),(3,2401,1,'show'),(4,501,5,'show'),(4,909,3,'show'),(4,938,20,'show'),(4,2403,1,'show'),(5,1055,5,'show'),(5,2405,1,'show')])
+        cash=[tuple(r) for r in self.db.execute('''SELECT r.kind,r.amount,s.step_order FROM requirements r LEFT JOIN quest_steps s USING(step_id)
+          WHERE r.quest_id=? AND r.kind LIKE 'zeny%' ''',(q,))]
+        self.assertEqual(cash,[('zeny_possession','10000',5)])
+        note=self.db.execute('''SELECT e.snippet,e.method FROM requirements r JOIN evidence e USING(evidence_id) WHERE r.quest_id=? AND r.kind='source_item_retention_note' ''',(q,)).fetchone()
+        self.assertEqual(tuple(note),('The NPC will not actually take these items.','curated_html_text'))
+
+    def test_dancer_quiz_restores_thirty_source_evidenced_questions_in_three_sets(self):
+        q='irowiki-classic:Dancer_Job_Change_Guide'
+        counts=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,count(*),min(e.method),max(e.method) FROM dialogue_options o JOIN dialogues d USING(dialogue_id)
+          JOIN step_branches b ON b.branch_id=d.branch_id JOIN quest_steps s ON s.step_id=b.step_id JOIN evidence e ON e.evidence_id=o.evidence_id
+          WHERE s.quest_id=? GROUP BY b.branch_key ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(counts,[(k,10,'curated_html_text','curated_html_text') for k in ['quiz_a','quiz_b','quiz_c']])
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='quiz_correct_percent'",(q,)).fetchone()[0],'80')
+        for row in self.db.execute('''SELECT d.original_text,o.exact_text,e.snippet FROM dialogues d JOIN dialogue_options o USING(dialogue_id)
+          JOIN evidence e ON e.evidence_id=o.evidence_id JOIN step_branches b ON b.branch_id=d.branch_id JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=?''',(q,)):
+            self.assertIn(row[0],row[2]);self.assertIn(row[1],row[2])
+        quiz_actors={r[0] for r in self.db.execute('''SELECT e.original_name FROM step_npcs n JOIN entities e ON e.entity_id=n.npc_id JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order=7''',(q,))}
+        self.assertEqual(quiz_actors,{'Bijou'})
+
+    def test_dancer_quiz_special_answers_keep_source_caveats_and_offered_beach_label(self):
+        q='irowiki-classic:Dancer_Job_Change_Guide'
+        rows=[tuple(r) for r in self.db.execute('''SELECT o.exact_text,o.condition_text FROM dialogue_options o JOIN dialogues d USING(dialogue_id)
+          JOIN step_branches b ON b.branch_id=d.branch_id JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? AND o.condition_text IS NOT NULL ORDER BY o.exact_text''',(q,))]
+        self.assertEqual([r[0] for r in rows],['Comodo Beach','Elder Willow'])
+        self.assertIn('not an available option',rows[0][1]);self.assertIn('other obvious answers',rows[1][1])
+        self.assertFalse(self.db.execute('''SELECT 1 FROM dialogue_options o JOIN step_dialogues sd USING(dialogue_id) JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND o.exact_text='Kokomo beach' ''',(q,)).fetchone())
+        self.assertFalse(self.db.execute('''SELECT 1 FROM step_monsters m JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=7''',(q,)).fetchone())
+
+    def test_dancer_movement_cues_are_ordered_actions_without_invented_coordinates_or_answers(self):
+        q='irowiki-classic:Dancer_Job_Change_Guide'
+        actual=[tuple(r) for r in self.db.execute('''SELECT s.step_order,a.condition_text FROM step_actions a JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND a.operation='move_to_dance_tile' AND a.branch_id IS NULL ORDER BY s.step_order,a.action_order''',(q,))]
+        self.assertEqual(actual,[(10,'Back'),(11,'Front'),(12,'Left'),(13,'Right'),(14,'Center'),(17,'Left'),(18,'Front'),(19,'Right'),(22,'Right'),(25,'Front'),(26,'Left'),(27,'Center')])
+        self.assertFalse(self.db.execute('SELECT 1 FROM step_locations l JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone())
+        self.assertFalse(self.db.execute('''SELECT 1 FROM dialogue_options o JOIN step_dialogues sd USING(dialogue_id) JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order BETWEEN 10 AND 28''',(q,)).fetchone())
+
+    def test_dancer_pose_and_concentration_do_not_add_movement_or_required_casts(self):
+        q='irowiki-classic:Dancer_Job_Change_Guide'
+        pose=[tuple(r) for r in self.db.execute('''SELECT s.step_order,a.operation FROM step_actions a JOIN quest_steps s USING(step_id)
+          WHERE s.quest_id=? AND s.step_order IN (15,20) ORDER BY s.step_order''',(q,))]
+        self.assertEqual(pose,[(15,'hold_dance_tile'),(20,'hold_dance_tile')])
+        cue=self.db.execute('''SELECT a.operation,support.step_order FROM step_actions a JOIN quest_steps s USING(step_id) JOIN evidence_context c ON c.evidence_id=a.evidence_id
+          JOIN evidence e ON e.evidence_id=c.supporting_id JOIN quest_steps support ON support.step_id=e.step_id WHERE s.quest_id=? AND s.step_order=16''',(q,)).fetchone()
+        self.assertEqual(tuple(cue),('optional_use_skill',9))
+        self.assertEqual(self.db.execute('''SELECT count(*) FROM step_source_additions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=16''',(q,)).fetchone()[0],1)
+
+    def test_dancer_long_sequences_have_exclusive_shortcuts_and_preserve_duplicate_step_ids(self):
+        q='irowiki-classic:Dancer_Job_Change_Guide'
+        for n,moves in [(21,['Left','Center','Right','Back']),(23,['Left','Center','Front','Back']),(24,['Left','Center','Front','Back'])]:
+            variants={}
+            for r in self.db.execute('''SELECT b.branch_key,a.condition_text FROM step_branches b JOIN step_actions a USING(branch_id)
+              JOIN quest_steps s ON s.step_id=b.step_id WHERE s.quest_id=? AND s.step_order=? ORDER BY b.branch_key,a.action_order''',(q,n)):
+                variants.setdefault(r[0],[]).append(r[1])
+            self.assertEqual(variants,{'full_pattern':moves,'first_last_shortcut':['Left','Back']})
+        contexts={r[0] for r in self.db.execute('''SELECT support.step_order FROM step_actions a JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=b.step_id
+          JOIN evidence_context c ON c.evidence_id=a.evidence_id JOIN evidence e ON e.evidence_id=c.supporting_id JOIN quest_steps support ON support.step_id=e.step_id
+          WHERE s.quest_id=? AND b.branch_key='first_last_shortcut' ''',(q,))}
+        self.assertEqual(contexts,{28})
+        twins=[tuple(r) for r in self.db.execute('SELECT step_id,original_instruction FROM quest_steps WHERE quest_id=? AND step_order IN (23,24) ORDER BY step_order',(q,))]
+        self.assertEqual(twins[0][1],twins[1][1]);self.assertNotEqual(twins[0][0],twins[1][0]);self.assertTrue(twins[0][0].endswith('/1'));self.assertTrue(twins[1][0].endswith('/2'))
+
+    def test_dancer_final_poring_is_one_unknown_actor_with_alternative_attacks(self):
+        q='irowiki-classic:Dancer_Job_Change_Guide'
+        target=[tuple(r) for r in self.db.execute('''SELECT s.step_order,m.quantity,m.operation,x.game_id FROM step_monsters m JOIN monsters x ON x.entity_id=m.monster_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=?''',(q,))]
+        self.assertEqual(target,[(28,1,'kill',None)])
+        attacks=[r[0] for r in self.db.execute('''SELECT a.condition_text FROM step_actions a JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=b.step_id
+          WHERE s.quest_id=? AND b.choice_group='final_attack_skill' ORDER BY a.condition_text''',(q,))]
+        self.assertEqual(attacks,['Arrow Shower','Double Strafe'])
+        equipment=[tuple(r) for r in self.db.execute('''SELECT x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=8''',(q,))]
+        self.assertEqual(equipment,[(None,None,'possess')]*2)
+
+    def test_dancer_final_line_and_rope_rewards_follow_exclusive_job_levels(self):
+        q='irowiki-classic:Dancer_Job_Change_Guide'
+        items=[tuple(r) for r in self.db.execute('''SELECT b.branch_key,x.game_id,r.amount FROM rewards r JOIN step_branches b USING(branch_id)
+          JOIN items x ON x.entity_id=r.item_id WHERE r.quest_id=? ORDER BY b.branch_key''',(q,))]
+        self.assertEqual(items,[('below_50_rope',1950,'1'),('job_50_line',1953,'1')])
+        self.assertEqual(tuple(self.db.execute("SELECT amount,branch_id FROM rewards WHERE quest_id=? AND kind='job_change'",(q,)).fetchone()),('Dancer',None))
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND step_id IS NULL AND kind='job_level'",(q,)).fetchone()[0],'40')
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind IN ('base_level','gender')",(q,)).fetchone())
+
+    def test_charming_wink_mirror_is_taken_once_and_aelle_is_not_aile(self):
+        q='irowiki-classic:Dancer_Skill_Quest'
+        materials=[tuple(r) for r in self.db.execute('''SELECT s.step_order,x.game_id,i.quantity,i.operation FROM step_items i JOIN items x ON x.entity_id=i.item_id
+          JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order,x.game_id''',(q,))]
+        self.assertEqual(materials,[(1,747,1,'consume'),(2,512,1,'deliver'),(2,513,3,'deliver'),(2,538,5,'deliver'),(2,736,1,'deliver'),(2,970,1,'deliver')])
+        self.assertEqual(self.db.execute("SELECT amount FROM rewards WHERE quest_id=? AND kind='skill_unlock'",(q,)).fetchone()[0],'Charming Wink')
+        identities={r[0]:r[1] for r in self.db.execute("SELECT original_name,entity_id FROM entities WHERE original_name IN ('Aile','Aelle')")}
+        self.assertNotEqual(identities['Aile'],identities['Aelle'])
+        points=[tuple(r) for r in self.db.execute('''SELECT s.step_order,l.x,l.y,m.map_code FROM step_locations sl JOIN locations l USING(location_id)
+          JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order''',(q,))]
+        self.assertEqual(points,[(1,204,172,None),(2,183,333,None)])
+        teleports=self.db.execute('''SELECT a.condition_text FROM step_actions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND a.operation='possible_town_teleport' ''',(q,)).fetchone()[0]
+        self.assertIn('No required retry loop',teleports)
+
+    def test_dancer_answer_from_another_question_cannot_replace_literal_row_proof(self):
+        folder=self.out/'invalid-dancer-question-answer';shutil.copytree(ROOT/'curation',folder)
+        path=folder/'Dancer_Job_Change_Guide.json';data=json.loads(path.read_text())
+        # Bijou occurs elsewhere in both branch descriptions, but not in this question's literal answer evidence.
+        data['steps']['7']['branches'][0]['dialogues'][0]['options'][0]['text']='Bijou'
+        path.write_text(json.dumps(data));before=(self.out/'quest_semantic.sqlite').read_bytes()
+        with self.assertRaisesRegex(ValueError,'Invented dialogue text'):build(self.source,self.out,curation_dir=folder)
+        self.assertEqual((self.out/'quest_semantic.sqlite').read_bytes(),before)
 
     def test_archer_trunk_point_table_restores_a_mixed_threshold_not_four_quotas(self):
         q='irowiki-classic:Archer_Job_Change_Guide'

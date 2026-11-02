@@ -1,0 +1,238 @@
+{
+  "quest_id": "irowiki-classic:Dancer_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-02",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "5bf9dd95e349072fe00c84b31bbc3f6f19198aa79a4fd0b5186e1eed412c6a85",
+  "snapshot_sha256": "3517788e4c168e1639bb33b16877128342d6e2099ad92b8cc2992acd5ed19dbe",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Canell"
+    },
+    {
+      "type": "npc",
+      "name": "Aelle"
+    },
+    {
+      "type": "map",
+      "name": "Comodo"
+    },
+    {
+      "type": "map",
+      "name": "Prontera"
+    },
+    {
+      "type": "item",
+      "name": "Alcohol",
+      "game_id": 970,
+      "id_source": "http://db.irowiki.org/classic/item-info/970/"
+    },
+    {
+      "type": "item",
+      "name": "China",
+      "game_id": 736,
+      "id_source": "http://db.irowiki.org/classic/item-info/736/"
+    },
+    {
+      "type": "item",
+      "name": "Apple",
+      "game_id": 512,
+      "id_source": "http://db.irowiki.org/classic/item-info/512/"
+    },
+    {
+      "type": "item",
+      "name": "Banana",
+      "game_id": 513,
+      "id_source": "http://db.irowiki.org/classic/item-info/513/"
+    },
+    {
+      "type": "item",
+      "name": "Well Baked Cookies",
+      "game_id": 538,
+      "id_source": "http://db.irowiki.org/classic/item-info/538/"
+    },
+    {
+      "type": "item",
+      "name": "Crystal Mirror",
+      "game_id": 747,
+      "id_source": "http://db.irowiki.org/classic/item-info/747/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Near the center of Comodo (204, 172) you'll find a lady 'Canell' that you need to talk to. You will need to have a Crystal Mirror with you. She will take the Crystal Mirror.",
+      "instruction_sha256": "7866b023de7fe231fa608f6c588b4bba537d819c55efc72a78750fa87ba1f533",
+      "step_id": "irowiki-classic:Dancer_Skill_Quest/step/7866b023de7fe231fa60/1",
+      "goal": "deliver",
+      "short_ru": "Отдайте Canell в Comodo (204, 172) 1 Crystal Mirror.",
+      "short_en": "Give Canell in Comodo (204, 172) 1 Crystal Mirror.",
+      "full_ru": "В центре Comodo найдите Canell (204, 172) и поговорите с ней. Возьмите с собой Crystal Mirror: она заберёт его.",
+      "full_en": "Near the center of Comodo (204, 172) you'll find a lady 'Canell' that you need to talk to. You will need to have a Crystal Mirror with you. She will take the Crystal Mirror.",
+      "npcs": [
+        {
+          "entity": "Canell",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Crystal Mirror",
+          "quantity": 1,
+          "operation": "consume",
+          "required": 1,
+          "condition": "Canell takes the mirror; header explicitly lists one consumed Crystal Mirror."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "give_mirror",
+          "entity": "Canell"
+        }
+      ],
+      "locations": [
+        {
+          "x": 204,
+          "y": 172,
+          "role": "npc",
+          "known": false,
+          "entity": "Comodo"
+        }
+      ],
+      "protected_names": [
+        "Canell",
+        "Comodo",
+        "Crystal Mirror"
+      ]
+    },
+    "2": {
+      "original_instruction": "In north Prontera (183, 333), you'll need to find and talk to the NPC Aelle. She will ask you to bring her the following items: 1 Alcohol , 1 China , 1 Apple , 3 Banana , 5 Well Baked Cookies . After giving her those items, she will be drunk, and wants nothing to do with you. She will get angry and send you somewhere in town (seems to be random) every time you try to talk to her.",
+      "instruction_sha256": "e51644a2c014692a427c09c035735b049d8712029f345571c7518ab163a93c11",
+      "step_id": "irowiki-classic:Dancer_Skill_Quest/step/e51644a2c014692a427c/1",
+      "goal": "deliver",
+      "short_ru": "Отдайте Aelle в Prontera (183, 333) 1 Alcohol, 1 China, 1 Apple, 3 Banana и 5 Well Baked Cookies.",
+      "short_en": "Give Aelle in Prontera (183, 333) 1 Alcohol, 1 China, 1 Apple, 3 Banana and 5 Well Baked Cookies.",
+      "full_ru": "На севере Prontera найдите Aelle (183, 333) и поговорите с ней. Она попросит 1 Alcohol, 1 China, 1 Apple, 3 Banana и 5 Well Baked Cookies. После передачи предметов она опьянеет и не захочет общаться. При каждой новой попытке заговорить она будет сердиться и отправлять вас в другую точку города — по-видимому, случайную.",
+      "full_en": "In north Prontera (183, 333), you'll need to find and talk to the NPC Aelle. She will ask you to bring her the following items: 1 Alcohol , 1 China , 1 Apple , 3 Banana , 5 Well Baked Cookies . After giving her those items, she will be drunk, and wants nothing to do with you. She will get angry and send you somewhere in town (seems to be random) every time you try to talk to her.",
+      "npcs": [
+        {
+          "entity": "Aelle",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Alcohol",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "China",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Apple",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Banana",
+          "quantity": 3,
+          "operation": "deliver",
+          "required": 1
+        },
+        {
+          "entity": "Well Baked Cookies",
+          "quantity": 5,
+          "operation": "deliver",
+          "required": 1
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_materials",
+          "entity": "Aelle"
+        },
+        {
+          "operation": "possible_town_teleport",
+          "entity": "Aelle",
+          "condition": "Subsequent conversation after the hand-in; source says destination seems random. No required retry loop, fixed point or extra cost."
+        }
+      ],
+      "locations": [
+        {
+          "x": 183,
+          "y": 333,
+          "role": "npc",
+          "known": false,
+          "entity": "Prontera"
+        }
+      ],
+      "protected_names": [
+        "Aelle",
+        "Prontera",
+        "Alcohol",
+        "China",
+        "Apple",
+        "Banana",
+        "Well Baked Cookies"
+      ]
+    },
+    "3": {
+      "original_instruction": "Return to Canell in Comodo, and she will teach you Charming Wink .",
+      "instruction_sha256": "064c205064473318981d3f062c0f3297a10bb6b8e5eaa2ae8714a782e7969f20",
+      "step_id": "irowiki-classic:Dancer_Skill_Quest/step/064c205064473318981d/1",
+      "goal": "learn_skill",
+      "short_ru": "Вернитесь к Canell в Comodo и изучите Charming Wink.",
+      "short_en": "Return to Canell in Comodo and learn Charming Wink.",
+      "full_ru": "Вернитесь к Canell в Comodo: она обучит вас Charming Wink.",
+      "full_en": "Return to Canell in Comodo, and she will teach you Charming Wink .",
+      "npcs": [
+        {
+          "entity": "Canell",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Charming Wink"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "learn_charming_wink",
+          "entity": "Canell"
+        }
+      ],
+      "protected_names": [
+        "Canell",
+        "Comodo"
+      ],
+      "locations": []
+    }
+  },
+  "reviews": [
+    {
+      "reason": "charming_wink_material_and_return_scope",
+      "detail": "One Crystal Mirror is explicitly taken by Canell. Aelle receives one separate five-material set; final return to Canell does not consume another mirror or set. Repeated Aelle talks may teleport the player to apparently random town points, not a required retry objective."
+    },
+    {
+      "reason": "charming_wink_identity_and_map_scope",
+      "detail": "Aelle is not aliased to Dancer Job Change Aile because spelling/occupation alone do not establish identity. Canell is separate from both. Comodo/Prontera and bare points have no invented map codes, actor IDs or teleport destinations."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Dancer",
+        "source_section": "requirements",
+        "evidence": "Class: Dancer"
+      }
+    ]
+  }
+}

@@ -12,9 +12,9 @@ Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 942 steps in 74 curated guides and
-124 conditional branches. Twenty-one source additions supplement full descriptions;
-**1,808 steps / 142 remaining catalog entries still need processing**. Seventeen quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
+is excluded. All four RU/EN fields exist for 974 steps in 76 curated guides and
+137 conditional branches. Twenty-eight source additions supplement full descriptions;
+**1,776 steps / 140 remaining catalog entries still need processing**. Twenty quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite
@@ -102,8 +102,18 @@ Silver Arrows are a grant, the Necklace is one proof, and falcon rental is
 optional. Hunter Skill has one material set and no invented Reidin Corse point.
 Schema/generator stay 5 / 5.7.0; eight new source additions restore omitted
 headers, tables, reward details and preparation without changing the archive.
+Dancer Job Change and Charming Wink are curated: two guides / 32 stages. Three
+exclusive registration sets are shown, not consumed; Set 3 Zeny possession is
+separate from unproven deduction. Thirty omitted question/answer pairs have
+per-question source proofs and conditional reference sets. Dance actions retain
+Pose, optional concentration, the single-Right correction and alternative
+full/first-last sequences. One final target and exclusive Line/Rope rewards
+are separate from quiz-only references. Charming Wink has one mirror cost,
+one Aelle set and no mandatory teleport retry loop. Aile and Aelle remain
+separate actors. Seven new source additions preserve per-stage context without
+changing schema 5 or generator 5.7.0.
 Source text remains unchanged in the 939-script / 286-page / 3,420-row archive.
-Local validation: 254 regression tests, full offline rebuild and research CI
+Local validation: 264 regression tests, full offline rebuild and research CI
 SQLite assertions passed. Source review is not server verification. See
 [`research/quest-database/SEMANTIC_PROGRESS.md`](../research/quest-database/SEMANTIC_PROGRESS.md)
 for commands, known conflicts and the remaining workload. Application integration
