@@ -6590,38 +6590,38 @@
       "step_id": "irowiki-classic:Bard/step/ef073a4b1494959932ed/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Snowysnow is explicitly a corequisite, not a reversed prerequisite. Sticky Mucus/Squid Ink remain header summaries without a fabricated second delivery to Lalo. Snowman identity is scoped to this guide.",
       "evidence_id": "ev:fcbf5a6c597e60a1150d79fa",
       "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:12c3f86f6d2e5cf0507f4da0",
+      "reason": "bard_job_corequisite_and_costs",
+      "review_id": "review:aa6d92c2026f7f9fb703f4f2",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "One of eight flowers is required; the category has no guessed game ID. Comodo coordinates have no inferred map code/interior coordinate.",
       "evidence_id": "ev:fcbf5a6c597e60a1150d79fa",
       "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:268855bfe730ef673043853f",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:4f95f3d615b2386ddf22f0c7",
-      "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:c77df4676cce59c4a69a69bc",
+      "reason": "bard_job_flower_choice",
+      "review_id": "review:738a22a8fa447dc102b899f3",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:3b3fa014ec3c11c5a43fc478",
+      "detail": "The guide requires exact copying but prints no lyrics or literal menu answers. No answers from Geffen or another source are transplanted.",
+      "evidence_id": "ev:fcbf5a6c597e60a1150d79fa",
       "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:bd12c5eff14909225e0cce43",
+      "reason": "bard_job_live_lyrics",
+      "review_id": "review:e4427ba496f444891d7bc0d9",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "The job change does not require 60 trunks. Five conditional offers retain separate trunk identities; Fine Trunk at Job Level 50 selects Harp rather than stacking Lute and Harp. Harp ID 1910 comes from this guide HTML link.",
+      "evidence_id": "ev:fcbf5a6c597e60a1150d79fa",
+      "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
+      "reason": "bard_job_optional_instruments",
+      "review_id": "review:a134e94bba6af445343d3dfe",
       "severity": "warning",
       "step_id": null
     },
@@ -6635,17 +6635,8 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d53549a49523bcaa3a950166",
-      "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:91c304c0200a53e94d8c2c81",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/5a9ea9563554683a4a5f/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:b95d8764ab3b6cbf9c4e36e7",
+      "evidence_id": "ev:0b154f5201cf838e223cc6b3",
       "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
       "reason": "map_unknown",
       "review_id": "review:d0a8d9f56d2ec1562887bed1",
@@ -6653,101 +6644,29 @@
       "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/5a9ea9563554683a4a5f/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d53549a49523bcaa3a950166",
-      "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:efe3d8ebc14196f46f2da54c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/5a9ea9563554683a4a5f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:88e08c29f3f2de2efab2a403",
-      "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:0d31e95a9f16d5303d029748",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/99638c7d466e9d51a9c3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:88e08c29f3f2de2efab2a403",
-      "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b7f049e7aced665a0f6a3b6e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/99638c7d466e9d51a9c3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:c16fb8853e51374afa4ed9a7",
-      "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:5bac2a671cdc006a2d348173",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/9a199afff6667f9c3363/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:c16fb8853e51374afa4ed9a7",
-      "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1cd2a10eda5032a66cda2041",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/9a199afff6667f9c3363/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:dc1be2a94853b7681ae8ad46",
-      "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:504bd4ab1bb22fc6929e424f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/fe28a7c6851320dc0730/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:dc1be2a94853b7681ae8ad46",
-      "quest_id": "irowiki-classic:Bard_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:58e953c58d2f7c9cda3b835b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Job_Change_Guide/step/fe28a7c6851320dc0730/1"
-    },
-    {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Header Completed Geffen Bard Quest is implemented as a completion_required_at_step relation backed by the explicit stage-3 Riott gate. Do not block earlier drink stages or invent a reverse availability condition.",
       "evidence_id": "ev:dc9ff85bb20488a010238ed3",
       "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:b2158e272b156096bade4b11",
+      "reason": "pang_voice_completion_gate",
+      "review_id": "review:8a53a5e3e243738f6fe708cb",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Five eggs is the total goal; approaching a moving Chicken has an unknown chance. No kill objective, fixed attempt count, guaranteed per-approach yield or final egg consumption is established. Coordinates preserve the printed cycle with unknown starting point.",
       "evidence_id": "ev:dc9ff85bb20488a010238ed3",
       "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:c08543273e566e45c0b4c86a",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:7ba847d2e469f89b0fed6205",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:e0692c27cec438b0257df62e",
+      "reason": "pang_voice_egg_collection",
+      "review_id": "review:393f3165ed2c4c04bfbecd7c",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:687f2547a8a8e357c00cb24d",
+      "detail": "This HTML prints no item database links for Tropical Sograt/Islis Eggs. Item IDs, drink price, skill ID and map codes remain unknown. Timid Young Man answers are positional without invented literal labels. Errende is a scoped prerequisite landmark, not a speculative cross-guide NPC ID.",
+      "evidence_id": "ev:dc9ff85bb20488a010238ed3",
       "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:f7fc151f85ad230c50054f75",
+      "reason": "pang_voice_source_identity_unknowns",
+      "review_id": "review:dbf2fca6154eb07238dbfabf",
       "severity": "warning",
       "step_id": null
     },
@@ -6761,139 +6680,22 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:70a2c1677e141151f81b6d2a",
+      "detail": "Map spelling has not been matched to a pinned reference map.",
+      "evidence_id": "ev:11b8cc92f1cdc5c8459a2f59",
       "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:cabe381d5a589abc8824a127",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/195501678b73e75065ac/1"
-    },
-    {
-      "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:81b0e344245776c9a77b381d",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "map_unknown",
-      "review_id": "review:6b3c94906f1904b5f572d96e",
+      "reason": "map_not_reference_known",
+      "review_id": "review:18041ace20a959c9403c4198",
       "severity": "warning",
       "step_id": "irowiki-classic:Bard_Skill_Quest/step/195501678b73e75065ac/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:70a2c1677e141151f81b6d2a",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c04fddf4cb3a067ab71ff868",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/195501678b73e75065ac/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:da356a172f680a478e239b05",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:f343ff15dd3fd2c89c86817c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/29cf5356e4ae3c7bc7a3/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:da356a172f680a478e239b05",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:629e59e17afee6b41d6b6876",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/29cf5356e4ae3c7bc7a3/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a79e0d084cdf6ec499fb33bb",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:00382eab9701e44edd9222ca",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/4146e3ca3c012b922944/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:cbd0aeca7a2dc518c7479e1a",
+      "evidence_id": "ev:52733f096b7add1dc223339e",
       "quest_id": "irowiki-classic:Bard_Skill_Quest",
       "reason": "map_unknown",
       "review_id": "review:93183addf598e31465cfdc69",
       "severity": "warning",
       "step_id": "irowiki-classic:Bard_Skill_Quest/step/4146e3ca3c012b922944/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a79e0d084cdf6ec499fb33bb",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:dab5024d852df6cbe5543725",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/4146e3ca3c012b922944/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:a79e0d084cdf6ec499fb33bb",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:f8bf3766d0c51ea68a69ac3a",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/4146e3ca3c012b922944/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8cdfbc554891cf473d8d3b94",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:7f27d8a40f8f6904704fed33",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/49e526b549e2578f3418/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8cdfbc554891cf473d8d3b94",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b6d67730797a9318a68fcbc9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/49e526b549e2578f3418/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6842a202a5917a9bb493e149",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6a75001ff91cad55bbd987ba",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/cc3f085d966932b0620d/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6842a202a5917a9bb493e149",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4b17b68c74db93403ef166a3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/cc3f085d966932b0620d/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7a4a860532cc802d05bba2aa",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:da1c90861120bd9cea253371",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/cd55dd2f421ebdaf861f/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7a4a860532cc802d05bba2aa",
-      "quest_id": "irowiki-classic:Bard_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ddfdae10963c3688c370515a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Bard_Skill_Quest/step/cd55dd2f421ebdaf861f/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -14843,38 +14645,38 @@
       "step_id": null
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Header says one consumed Magnifier, while the book path says held Magnifiers may need dropping. It is a source-cost summary, not a forced shared cost or invented per-attempt use. Letter path has no printed Magnifier obligation.",
       "evidence_id": "ev:90b0d1441193c6bd40530db7",
       "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:958d3d0ba2601e85da001ae1",
+      "reason": "geffen_magnifier_and_path_scope",
+      "review_id": "review:5f108544269c6d00f3ce87eb",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Back/LEFT-hand friendship marks are not inventory objects. Printed quoted options preserve source punctuation. Upbeat song is a descriptive choice, not fabricated exact menu text. The book lyric is displayed text, not a proven required input at final reward.",
       "evidence_id": "ev:90b0d1441193c6bd40530db7",
       "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:113bec25e352253c9475a249",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:c5f14588affb114865ae572c",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:08d9b7d9dd0158aceab76b83",
+      "reason": "geffen_marks_and_song_input_scope",
+      "review_id": "review:a5d538e3f1fd6066f9f856a4",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:250317003dad60e9507186e7",
+      "detail": "Minty/Mint Errende/Errende are same-guide spellings. Representative remains quest-scoped; town/building coordinates have no invented map code or interior NPC position. Physical letter item ID/count are unknown.",
+      "evidence_id": "ev:90b0d1441193c6bd40530db7",
       "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:9d6aaa7fdfa4411d1d2a7a43",
+      "reason": "geffen_npc_identity_and_maps",
+      "review_id": "review:1c7cfc8fa1820a13d09105ab",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Table follows the letter-route reward. Preserve its nine conditional bands there; book-route EXP amount remains NULL without proof the same table applies. Do not add two route payouts or infer a minimum level from uncertain header prose.",
+      "evidence_id": "ev:90b0d1441193c6bd40530db7",
+      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
+      "reason": "geffen_reward_table_scope_unknown",
+      "review_id": "review:48de16e3a2bcb2d9d228c703",
       "severity": "warning",
       "step_id": null
     },
@@ -14888,35 +14690,8 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:19bada1a9d1d4b9e9343cc06",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:476474114432b982bc1c21cd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/1c5bae9ce9b9666cbc95/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:19bada1a9d1d4b9e9343cc06",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9582ab726a7d42ad39b936d2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/1c5bae9ce9b9666cbc95/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e3aa983b5dccfc4a1377f85d",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:42bded98798eaee51d24ff3e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/30dbe53b9e7708bcdde2/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:2655c5c32300029ce2cf9eaf",
+      "evidence_id": "ev:77ab2b47a1521413ddf78f6f",
       "quest_id": "irowiki-classic:Geffen_Bard_Quest",
       "reason": "map_unknown",
       "review_id": "review:a68643f1e875b9be6cdc1b17",
@@ -14924,44 +14699,8 @@
       "step_id": "irowiki-classic:Geffen_Bard_Quest/step/30dbe53b9e7708bcdde2/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e3aa983b5dccfc4a1377f85d",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:47386875dc266867fb7d95ee",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/30dbe53b9e7708bcdde2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b28c57e10fbfd00c298c999e",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4785aa97f5b89657b7f995ed",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/44fdc4e3789ca4e622eb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b28c57e10fbfd00c298c999e",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:13e923ae4f016de86c079600",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/44fdc4e3789ca4e622eb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:fb314cb4132d34e6600d8efa",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:82da7121fee6317fd741006b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/566df87a6a77feadcc80/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:cebf2365c2c64574a89c0fab",
+      "evidence_id": "ev:93799a7e1734492599c75616",
       "quest_id": "irowiki-classic:Geffen_Bard_Quest",
       "reason": "map_unknown",
       "review_id": "review:8f96271f53917c6477ec8dcf",
@@ -14969,80 +14708,8 @@
       "step_id": "irowiki-classic:Geffen_Bard_Quest/step/566df87a6a77feadcc80/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:fb314cb4132d34e6600d8efa",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:76745f542895c8672ea63dfe",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/566df87a6a77feadcc80/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:490be47735b22171584f52e7",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:89fbafebfdedb5c495f03d60",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/57d99078dc0528e103a6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:490be47735b22171584f52e7",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f94b106d6bd5c342c01ab14c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/57d99078dc0528e103a6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0e2c5e44f42791eb74bfa8e2",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8ce937fd8d4aa2ef4a41ff21",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/6c9426f94b0a1ceaf0bd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0e2c5e44f42791eb74bfa8e2",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ce0e10f8b4f6575114a1d905",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/6c9426f94b0a1ceaf0bd/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1cd27380380c93ace8bfd1da",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:dd3677c2050a5eb15888de2c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/733f568d56737253a188/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1cd27380380c93ace8bfd1da",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:43e4fbb634328e89df56d9cf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/733f568d56737253a188/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2d388baf620fe1c9fbedebd5",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:1f36c5aab14e64780500e721",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/928702f4ae1b3567c42a/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:eb6b179029b8e2cfda1988d2",
+      "evidence_id": "ev:abd5194901cdabd610effc60",
       "quest_id": "irowiki-classic:Geffen_Bard_Quest",
       "reason": "map_unknown",
       "review_id": "review:19a9d981c21c4f2f9186daa8",
@@ -15050,44 +14717,8 @@
       "step_id": "irowiki-classic:Geffen_Bard_Quest/step/928702f4ae1b3567c42a/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2d388baf620fe1c9fbedebd5",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:61a5cd00b6d7675f8578250f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/928702f4ae1b3567c42a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ee191e5a2f0012ebecf55890",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4a490d0beaf9c86cbcdd9989",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/9a090ba6b04c6e525b11/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ee191e5a2f0012ebecf55890",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e2dca4cddb9785de4d77f3c4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/9a090ba6b04c6e525b11/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:f6c4175cca2ea174930a77a9",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c4b871574980d36640925f21",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/b6c31733f8967c7b8e30/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:c060c284505ad2ec46055d89",
+      "evidence_id": "ev:4b1ff17d9fd0553f99a3198a",
       "quest_id": "irowiki-classic:Geffen_Bard_Quest",
       "reason": "map_unknown",
       "review_id": "review:edcd37273c2e823d27e6d87e",
@@ -15095,94 +14726,13 @@
       "step_id": "irowiki-classic:Geffen_Bard_Quest/step/b6c31733f8967c7b8e30/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:f6c4175cca2ea174930a77a9",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b96641e4c6df6c7871cc3f8c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/b6c31733f8967c7b8e30/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:f6c4175cca2ea174930a77a9",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:bb053f418e0542eeb8671028",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/b6c31733f8967c7b8e30/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:68fdc5db50a6cf91d4426738",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a96b9345fcfada3484e6a48b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/c64c369925d3e902a2d4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:68fdc5db50a6cf91d4426738",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:25b68767ba0851ccb6cc069e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/c64c369925d3e902a2d4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5010a3c5aee31e46a3542d40",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:bc0b987c88c9adb54b06a023",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/ca3baf6fa2e656b0f04c/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:51243eebbb45e53f9915791d",
+      "evidence_id": "ev:4a8dfb5be5eb9521829389df",
       "quest_id": "irowiki-classic:Geffen_Bard_Quest",
       "reason": "map_unknown",
       "review_id": "review:eca382d4e7e05c960f2354b0",
       "severity": "warning",
       "step_id": "irowiki-classic:Geffen_Bard_Quest/step/ca3baf6fa2e656b0f04c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5010a3c5aee31e46a3542d40",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3d51f18131f5aa9ca67c763f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/ca3baf6fa2e656b0f04c/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:5010a3c5aee31e46a3542d40",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:e7c063a60425d4bec4b38251",
-      "severity": "warning",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/ca3baf6fa2e656b0f04c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e876ad7e371d904bb50ee80c",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:c6559f1a41929abb17a37087",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/f1bac7999011037bceb9/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e876ad7e371d904bb50ee80c",
-      "quest_id": "irowiki-classic:Geffen_Bard_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:3c7f9d0cf8b9a12bc76430ba",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Geffen_Bard_Quest/step/f1bac7999011037bceb9/1"
     },
     {
       "detail": "Payon display name and coordinates come from this Classic guide; do not substitute old-Payon/server coordinates.",
