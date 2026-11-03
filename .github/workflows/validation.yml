@@ -118,3 +118,11 @@ jobs:
             artifacts/*-portable.zip
             artifacts/roquestie-ui/*.png
           if-no-files-found: error
+
+      - name: Upload isolated UI diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: RoAura-ui-failure-${{ github.run_number }}-${{ github.sha }}
+          path: artifacts/roquestie-ui/*.png
+          if-no-files-found: ignore

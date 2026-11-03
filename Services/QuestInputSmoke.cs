@@ -262,6 +262,10 @@ internal static class QuestInputSmoke
                     await Until(()=>Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible), "in-game MVP hotkey opens wizard");
                     var mvpWizard=Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w=>w.IsVisible);
                     if(!AppearanceService.IsGameWindow(mvpWizard))throw new InvalidOperationException("MVP wizard lost its game theme scope.");
+                    await Until(()=>mvpWizard.IsLoaded && mvpWizard.MonsterBox.IsLoaded && mvpWizard.MonsterBox.ActualWidth>100,"MVP form layout ready");
+                    await Pause(250);
+                    mvpWizard.MonsterBox.AddHandler(UIElement.PreviewMouseLeftButtonDownEvent,new System.Windows.Input.MouseButtonEventHandler((_,e)=>
+                        DebugLog.Write($"MVP SEARCH CLICK: source={e.OriginalSource.GetType().Name}; handled={e.Handled}; size={mvpWizard.MonsterBox.ActualWidth}x{mvpWizard.MonsterBox.ActualHeight}; open={mvpWizard.MonsterBox.IsDropDownOpen}")),true);
                     SaveDesktop(mvpWizard,"mvp-empty-native");
                     Click(mvpWizard.MonsterBox.PointToScreen(new Point(18,mvpWizard.MonsterBox.ActualHeight/2)));
                     await Until(()=>mvpWizard.MonsterBox.IsDropDownOpen,"MVP search opens from content");
