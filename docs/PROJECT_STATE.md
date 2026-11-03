@@ -1,5 +1,20 @@
 # Project state
 
+## Current baseline — updated 2026-11-03
+
+- Stable release: **3.3.0**, published 2026-11-02: https://github.com/alerion08/RoAura/releases/tag/v3.3.0
+- Released application commit: `7d70b173b7c10cc4ab7ae3f268ff89cb9474e19e` on `main`, merged through PR #10. Subsequent documentation-only commits do not change the released binaries.
+- New implementation tasks start from current `main` in a new task branch. The merged `feature/roquestie-mvp` work is part of the stable release; older branch/version statements below are historical.
+- Shipped: ROQuestie browser and compact tracker, shared ready catalog (28 RU/EN quests, 420 steps in the pinned snapshot), structured requirements/rewards and localized comments, independent application/game-interface themes, centered footer controls.
+- Release validation **SUCCESS**: https://github.com/alerion08/RoAura/actions/runs/41441524384 — Windows logic tests, eight ToC checks, portable/native input smoke, installer build, isolated silent installation and installed database hash verification, clean payload and checksums.
+- Both portable ZIP and installer, plus SHA256SUMS.txt, are published. Quest databases and source/license notices are included.
+- Open manual acceptance: actual SpringRO gameplay, protected/fullscreen behavior, mixed-monitor DPI, narrow layouts, multiple clients and long-session readability/focus. Automated/native probe checks do not establish these results.
+- Quest data readiness is independent of server availability. Progress is manual and local to character/profile; missing screenshots/data must remain explicit.
+- Research data continues independently in `research/quest-database`; the release uses pinned snapshots, not the moving research head.
+
+The dated sections below preserve implementation history. Their “pending”, “no release”, old version and branch statements describe the time of that section, not the current baseline above.
+
+
 ## ROQuestie game-first windows (2026-10-30)
 
 Owner explicitly superseded conflicting stage-2/original UX: all normal quest
@@ -1299,6 +1314,6 @@ installs it into an isolated runner directory to compare installed data hashes.
 Silent setup does not display the interactive Npcap notice or launch the app.
 Both distributions retain source/license notices and full GFDL/GPL references;
 per-page wiki/history and upstream script provenance remain available.
-Full release Windows tests, native input and installer verification are pending.
-Publishing is authorized by the owner; merge/tag/release will follow successful checks.
+Full release Windows tests, native input and installer verification passed in run 41441524384.
+PR #10 was merged; v3.3.0 and both distributions were published on 2026-11-02.
 Remaining real-game/mixed-DPI acceptance is documented in release notes.
