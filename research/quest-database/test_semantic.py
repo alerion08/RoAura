@@ -302,17 +302,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r[0] is None for r in rows))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],1059)
-        self.assertEqual(self.report['not_fully_localized_steps'],1691)
+        self.assertEqual(self.report['fully_localized_steps'],1077)
+        self.assertEqual(self.report['not_fully_localized_steps'],1673)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],1059)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],1077)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1691)
-        self.assertEqual(self.report['fully_localized_branches'],172)
-        self.assertEqual(self.report['curated_quests'],95)
+        self.assertEqual(missing,1673)
+        self.assertEqual(self.report['fully_localized_branches'],175)
+        self.assertEqual(self.report['curated_quests'],97)
         self.assertEqual(self.report['pending_quests'],121)
-        self.assertEqual(self.report['quest_routes'],37)
-        self.assertEqual(self.report['source_additions'],54)
+        self.assertEqual(self.report['quest_routes'],40)
+        self.assertEqual(self.report['source_additions'],57)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_juperos_four_homonymous_books_and_return_scholar_have_typed_links(self):
@@ -2957,5 +2957,84 @@ class RealCorpusTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError,message):build(self.source,self.out,curation_dir=folder)
                 self.assertEqual(before,(self.out/'quest_semantic.sqlite').read_bytes())
 
+
+    def test_assassin_activity_levels_and_prerequisites_are_scoped(self):
+        q='irowiki-classic:Assassin_Skill_Quest'
+        self.assertIsNone(self.db.execute('SELECT job_level FROM quests WHERE quest_id=?',(q,)).fetchone()[0])
+        rows=[tuple(r) for r in self.db.execute("""SELECT s.step_order,r.kind,r.amount FROM requirements r JOIN quest_steps s USING(step_id)
+            WHERE r.quest_id=? AND r.kind IN ('job_level','required_skill') ORDER BY r.kind,r.amount""",(q,))]
+        self.assertEqual(rows,[(2,'job_level','40'),(2,'required_skill','Sonic Blow Level 1'),(2,'required_skill','Venom Knife')])
+        self.assertEqual(self.db.execute('SELECT count(*) FROM quest_routes WHERE quest_id=?',(q,)).fetchone()[0],2)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM step_source_additions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone()[0],2)
+
+    def test_assassin_one_jewel_is_an_alternative_not_a_three_item_cost(self):
+        q='irowiki-classic:Assassin_Skill_Quest'
+        rows=[tuple(r) for r in self.db.execute("""SELECT b.choice_group,e.original_name,i.operation,i.quantity FROM step_branches b
+            JOIN step_items i USING(branch_id) JOIN entities e ON e.entity_id=i.item_id JOIN quest_steps s ON s.step_id=b.step_id
+            WHERE s.quest_id=? ORDER BY e.original_name""",(q,))]
+        self.assertEqual(rows,[('one_jewel_site',n,'collect',1) for n in ('Aquamarine','Ruby','Sapphire')])
+        self.assertFalse(self.db.execute("""SELECT 1 FROM step_items i JOIN quest_steps s USING(step_id)
+            WHERE s.quest_id=? AND (i.branch_id IS NULL OR i.operation IN ('buy','consume','deliver'))""",(q,)).fetchone())
+        self.assertEqual(self.db.execute("SELECT count(*) FROM rewards WHERE quest_id=? AND kind='skill_unlock' AND amount='Sonic Acceleration'",(q,)).fetchone()[0],1)
+
+    def test_assassin_source_spellings_and_unqualified_points_stay_unresolved(self):
+        q='irowiki-classic:Assassin_Skill_Quest'
+        rows=[tuple(r) for r in self.db.execute("""SELECT e.original_name,e.entity_id FROM step_npcs n JOIN quest_steps s USING(step_id)
+            JOIN entities e ON e.entity_id=n.npc_id WHERE s.quest_id=? AND e.original_name IN ('Killtin','Kiltin') ORDER BY e.original_name""",(q,))]
+        self.assertEqual([r[0] for r in rows],['Killtin','Kiltin']);self.assertNotEqual(rows[0][1],rows[1][1])
+        points=[tuple(r) for r in self.db.execute("""SELECT DISTINCT l.map_id,l.x,l.y FROM locations l JOIN step_locations p USING(location_id)
+            JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY l.x""",(q,))]
+        self.assertEqual(points,[(None,18,163),(None,216,268)])
+        self.assertFalse(self.db.execute("""SELECT 1 FROM items i JOIN entities e USING(entity_id) WHERE e.original_name IN
+            ('Sapphire','Ruby','Aquamarine') AND e.entity_id IN
+            (SELECT item_id FROM step_items i JOIN quest_steps s USING(step_id) WHERE s.quest_id=?) AND i.game_id IS NOT NULL""",(q,)).fetchone())
+
+    def test_rogue_relearn_shortcut_is_conditional_and_source_backed(self):
+        q='irowiki-classic:Rogue_Skill_Quest'
+        row=self.db.execute("""SELECT s.step_order,r.kind,r.amount,e.snippet FROM requirements r JOIN quest_steps s USING(step_id)
+            JOIN evidence e USING(evidence_id) WHERE r.quest_id=? AND r.kind='relearn_shortcut'""",(q,)).fetchone()
+        self.assertEqual(tuple(row[:3]),(3,'relearn_shortcut','previously learned as Rogue and since transcended'))
+        self.assertIn('regain the skill instantly',row[3])
+        rewards=[tuple(r) for r in self.db.execute("""SELECT s.step_order,r.condition_text FROM rewards r JOIN step_rewards t USING(reward_id)
+            JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.amount='Close Confine' ORDER BY s.step_order""",(q,))]
+        self.assertEqual([r[0] for r in rewards],[3,12]);self.assertTrue(all(r[1] for r in rewards))
+        route=self.db.execute("SELECT kind,condition_text FROM quest_routes WHERE quest_id=? AND route_key='transcended_relearn'",(q,)).fetchone()
+        self.assertEqual(route[0],'optional');self.assertIn('skip ordinary learning trials',route[1])
+        self.assertEqual(self.db.execute('SELECT count(*) FROM step_source_additions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=?',(q,)).fetchone()[0],1)
+
+    def test_rogue_answers_passwords_and_situational_blocks(self):
+        q='irowiki-classic:Rogue_Skill_Quest'
+        def options(n):
+            return [tuple(r) for r in self.db.execute("""SELECT o.exact_text,o.correct FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id)
+                JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=? ORDER BY o.option_order""",(q,n))]
+        self.assertEqual(options(4),[(x,1) for x in ("I don't mean you any harm!",'I came to help you.','No.','Sure!')])
+        self.assertEqual(options(5),[('My father never hoarded upgrade items.',1)])
+        self.assertEqual(options(7),[("Antonio doesn't enjoy destroying upgrade items.",1)])
+        self.assertEqual(options(11),[(x,None) for x in ('Block her from the left','Block her from the right','Block her moving backward')])
+        self.assertEqual(self.db.execute("""SELECT r.amount FROM requirements r JOIN quest_steps s USING(step_id)
+            WHERE r.quest_id=? AND s.step_order=4 AND r.kind='wrong_answer_remaining_hp'""",(q,)).fetchone()[0],'1')
+
+    def test_rogue_kienna_trial_and_book_trial_are_distinct(self):
+        q='irowiki-classic:Rogue_Skill_Quest'
+        rows=dict(self.db.execute("""SELECT r.kind,r.amount FROM requirements r JOIN quest_steps s USING(step_id)
+            WHERE r.quest_id=? AND s.step_order=10""",(q,)))
+        self.assertEqual(rows,{'trial_duration_minutes':'5','appearance_delay_seconds':'1','approach_distance_cells':'1'})
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='trial_grade'",(q,)).fetchone()[0],'above C+')
+        action=self.db.execute("""SELECT a.operation FROM step_actions a JOIN quest_steps s USING(step_id)
+            WHERE s.quest_id=? AND s.step_order=12 AND a.operation='repeat_aura_blocking_test'""",(q,)).fetchone()
+        self.assertTrue(action)
+        self.assertFalse(self.db.execute("""SELECT 1 FROM requirements r JOIN quest_steps s USING(step_id)
+            WHERE r.quest_id=? AND s.step_order=12 AND r.kind LIKE '%duration%'""",(q,)).fetchone())
+        book=self.db.execute("""SELECT i.operation,i.quantity,i.required,m.game_id FROM step_items i JOIN quest_steps s USING(step_id)
+            JOIN items m ON m.entity_id=i.item_id WHERE s.quest_id=?""",(q,)).fetchone()
+        self.assertEqual(tuple(book),('collect',None,1,None))
+
+    def test_rogue_entrance_is_not_an_indoor_npc_position(self):
+        q='irowiki-classic:Rogue_Skill_Quest'
+        rows=[tuple(r) for r in self.db.execute("""SELECT s.step_order,p.role,m.map_code,l.x,l.y FROM step_locations p JOIN quest_steps s USING(step_id)
+            JOIN locations l USING(location_id) LEFT JOIN maps m ON m.entity_id=l.map_id WHERE s.quest_id=? ORDER BY s.step_order""",(q,))]
+        self.assertEqual(rows,[(1,'Thor Greg','cmd_fild07',351,286),(6,'Thor Greg','cmd_fild07',351,286),(7,'building_entrance','cmd_fild04',302,177)])
+        for n in (3,5,8,12):
+            self.assertFalse(self.db.execute('SELECT 1 FROM step_locations p JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=?',(q,n)).fetchone())
 
 if __name__=='__main__':unittest.main()

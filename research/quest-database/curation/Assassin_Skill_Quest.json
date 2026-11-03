@@ -1,0 +1,376 @@
+{
+  "quest_id": "irowiki-classic:Assassin_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "94696c0b1135e81691331f893ba09e804a683d070f01c78fe6156ea098cd39cc",
+  "snapshot_sha256": "220512c42f28c62130f24b53db6de4cddeef16786421911372053bd1048f0edc",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Killtin"
+    },
+    {
+      "type": "npc",
+      "name": "Kiltin"
+    },
+    {
+      "type": "npc",
+      "name": "Esmille"
+    },
+    {
+      "type": "map",
+      "name": "Sphinx B2"
+    },
+    {
+      "type": "map",
+      "name": "Sphinx B3"
+    },
+    {
+      "type": "map",
+      "name": "Pyramids 4F"
+    },
+    {
+      "type": "item",
+      "name": "Sapphire"
+    },
+    {
+      "type": "item",
+      "name": "Ruby"
+    },
+    {
+      "type": "item",
+      "name": "Aquamarine"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to Killtin, the NPC on the left side, inside the Assassin Guild. Continue conversing with him until he teaches you Venom Knife .",
+      "instruction_sha256": "8dfda51ada4605e38f14dde421b34ba0a9e6cdb8f0174197f9eae2bfa612b01d",
+      "goal": "learn_skill",
+      "full_en": "Talk to Killtin, the NPC on the left side, inside the Assassin Guild. Continue conversing with him until he teaches you Venom Knife . Job Level: None Class: Assassin",
+      "full_ru": "Поговорите с Killtin, NPC слева внутри Assassin Guild. Продолжайте разговор, пока он не обучит вас Venom Knife. Числовой Job Level не указан; профессия Assassin.",
+      "short_ru": "Поговорите с Killtin в Assassin Guild и изучите Venom Knife.",
+      "short_en": "Talk to Killtin in Assassin Guild and learn Venom Knife.",
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: None Class: Assassin",
+          "text_ru": "Числовой Job Level не указан; профессия Assassin."
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Killtin",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Venom Knife"
+        }
+      ],
+      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1"
+    },
+    "2": {
+      "original_instruction": "After learning Venom Knife , talk to Esmille(the NPC on the right side). She will teach you the skill only after you've completed a task. Kiltin asks you to retrieve a jewel from either Sphinx B2 or Pyramids 4F.",
+      "instruction_sha256": "fe57db9bd7700a0806d565d5ac6647e7887556c36dbf27a38d04ca432aab7df9",
+      "goal": "obtain_materials",
+      "full_en": "After learning Venom Knife , talk to Esmille(the NPC on the right side). She will teach you the skill only after you've completed a task. Kiltin asks you to retrieve a jewel from either Sphinx B2 or Pyramids 4F. Job Level: 40 Class: Assassin Skill Requirements: Sonic Blow Level 1",
+      "full_ru": "После изучения Venom Knife поговорите с Esmille, NPC справа. Она обучит вас умению после выполнения задания. В источнике Kiltin просит достать камень в Sphinx B2 или Pyramids 4F. Для этого умения: Job Level 40, профессия Assassin, Sonic Blow Level 1.",
+      "short_ru": "Изучив Venom Knife, обратитесь к Esmille; получите один камень из Sphinx B2 или Pyramids 4F. Требуются Job Level 40 и Sonic Blow Level 1.",
+      "short_en": "After Venom Knife, speak to Esmille; obtain one jewel from Sphinx B2 or Pyramids 4F. Requires Job Level 40 and Sonic Blow Level 1.",
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Job Level: 40 Class: Assassin Skill Requirements: Sonic Blow Level 1",
+          "text_ru": "Для этого умения: Job Level 40, профессия Assassin, Sonic Blow Level 1."
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Esmille",
+          "role": "talk"
+        },
+        {
+          "entity": "Kiltin",
+          "role": "source_attribution"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "job_level",
+          "amount": "40",
+          "source_section": "html_text",
+          "evidence": "Job Level: 40 Class: Assassin Skill Requirements: Sonic Blow Level 1"
+        },
+        {
+          "kind": "required_skill",
+          "amount": "Sonic Blow Level 1",
+          "source_section": "html_text",
+          "evidence": "Skill Requirements: Sonic Blow Level 1"
+        },
+        {
+          "kind": "required_skill",
+          "amount": "Venom Knife"
+        },
+        {
+          "kind": "quest_gem_count",
+          "amount": "1",
+          "condition": "One jewel from any of the three source sites; not a Sapphire+Ruby+Aquamarine shopping list."
+        }
+      ],
+      "branches": [
+        {
+          "key": "sapphire_site",
+          "choice_group": "one_jewel_site",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose this jewel site as one alternative; obtaining all three jewels is not required.",
+          "source_step": 3,
+          "section": "Sonic Acceleration Quest",
+          "original_instruction": "In Sphinx B2, there are two places where you can obtain the gem. You only have to get one jewel from either of these locations (If the first doesn't work go the the second one, and vice-versa). The first coffin site can be found at 1 o'clock (216,268), approximately two screens west of the entrance to Sphinx B3, where there will be a coffin on a raised platform. Walk up to the platform to activate the dialogue and you will be prompted to make a choice. Depending on what you choose you will be poisoned , blinded , or cursed . Just be persistent and continue selecting and eventually you will receive a Sapphire.",
+          "instruction_sha256": "0c9e9a37551e65f44f68c337db976155fb07ed3339180cf688d4dcbbff5c3be6",
+          "short_ru": "Вариант Sapphire: в Sphinx B2 подойдите к гробу (216,268); повторяйте попытки до получения камня.",
+          "short_en": "Sapphire alternative: approach the coffin in Sphinx B2 (216,268); retry until the jewel is obtained.",
+          "full_ru": "В Sphinx B2 есть два места получения камня; нужен только один камень из любого из этих мест. Если первое не срабатывает, попробуйте второе, и наоборот. Первое место с гробом находится в направлении 1 часа (216,268), примерно в двух экранах западнее входа в Sphinx B3: гроб стоит на возвышении. Подойдите к нему для диалога и сделайте выбор. В зависимости от выбора вы получите отравление, ослепление или проклятие. Продолжайте попытки, пока не получите Sapphire.",
+          "full_en": "In Sphinx B2, there are two places where you can obtain the gem. You only have to get one jewel from either of these locations (If the first doesn't work go the the second one, and vice-versa). The first coffin site can be found at 1 o'clock (216,268), approximately two screens west of the entrance to Sphinx B3, where there will be a coffin on a raised platform. Walk up to the platform to activate the dialogue and you will be prompted to make a choice. Depending on what you choose you will be poisoned , blinded , or cursed . Just be persistent and continue selecting and eventually you will receive a Sapphire.",
+          "items": [
+            {
+              "entity": "Sapphire",
+              "operation": "collect",
+              "quantity": 1,
+              "required": 1,
+              "condition": "One jewel on the chosen alternative only."
+            }
+          ],
+          "locations": [
+            {
+              "x": 216,
+              "y": 268,
+              "known": false,
+              "role": "coffin_trigger",
+              "condition": "Sphinx B2 context; exact map code is not printed."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "obtain_alternative_jewel",
+              "entity": "Sapphire"
+            }
+          ]
+        },
+        {
+          "key": "ruby_site",
+          "choice_group": "one_jewel_site",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose this jewel site as one alternative; obtaining all three jewels is not required.",
+          "source_step": 4,
+          "section": "Sonic Acceleration Quest",
+          "original_instruction": "The second coffin site is at around 9 o'clock (18, 163), where you will find a statue with an ornament. It's booby-trapped and will put you to sleep with gas. Again, keep trying and you will receive a Ruby.",
+          "instruction_sha256": "c875dc27fb8c51e90ba78551a11d9ec1b266eae2f46bd8703b08f4c70c1d8bd7",
+          "short_ru": "Вариант Ruby: у статуи (18, 163) повторяйте попытки, учитывая усыпляющую ловушку.",
+          "short_en": "Ruby alternative: retry at the statue (18, 163), accounting for the sleep trap.",
+          "full_ru": "Второе место с гробом находится примерно в направлении 9 часов (18, 163): там стоит статуя с украшением. Ловушка усыпляет газом. Продолжайте попытки, пока не получите Ruby.",
+          "full_en": "The second coffin site is at around 9 o'clock (18, 163), where you will find a statue with an ornament. It's booby-trapped and will put you to sleep with gas. Again, keep trying and you will receive a Ruby.",
+          "items": [
+            {
+              "entity": "Ruby",
+              "operation": "collect",
+              "quantity": 1,
+              "required": 1,
+              "condition": "One jewel on the chosen alternative only."
+            }
+          ],
+          "locations": [
+            {
+              "x": 18,
+              "y": 163,
+              "known": false,
+              "role": "statue_trigger",
+              "condition": "Alternative Sphinx B2 site from step 3; exact map code unknown."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "obtain_alternative_jewel",
+              "entity": "Ruby"
+            }
+          ]
+        },
+        {
+          "key": "aquamarine_site",
+          "choice_group": "one_jewel_site",
+          "variant_scope": "irowiki-classic",
+          "condition": "Choose this jewel site as one alternative; obtaining all three jewels is not required.",
+          "source_step": 5,
+          "section": "Sonic Acceleration Quest",
+          "original_instruction": "In Pyramids 4F, the gem is located at middle of the left side of the enclosed water area. Keep walking around it to get an Aquamarine.",
+          "instruction_sha256": "5444c1e789104a24f1933c2f5ef0544288fb8f12c1c0821e371bb276d248e8c8",
+          "short_ru": "Вариант Aquamarine: пройдите вдоль левой стороны огороженного водоёма в Pyramids 4F.",
+          "short_en": "Aquamarine alternative: walk along the left side of the enclosed water area in Pyramids 4F.",
+          "full_ru": "В Pyramids 4F камень находится в середине левой стороны огороженного водоёма. Ходите рядом, пока не получите Aquamarine.",
+          "full_en": "In Pyramids 4F, the gem is located at middle of the left side of the enclosed water area. Keep walking around it to get an Aquamarine.",
+          "items": [
+            {
+              "entity": "Aquamarine",
+              "operation": "collect",
+              "quantity": 1,
+              "required": 1,
+              "condition": "One jewel on the chosen alternative only."
+            }
+          ],
+          "locations": [],
+          "actions": [
+            {
+              "operation": "obtain_alternative_jewel",
+              "entity": "Aquamarine"
+            }
+          ]
+        }
+      ],
+      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+    },
+    "3": {
+      "original_instruction": "In Sphinx B2, there are two places where you can obtain the gem. You only have to get one jewel from either of these locations (If the first doesn't work go the the second one, and vice-versa). The first coffin site can be found at 1 o'clock (216,268), approximately two screens west of the entrance to Sphinx B3, where there will be a coffin on a raised platform. Walk up to the platform to activate the dialogue and you will be prompted to make a choice. Depending on what you choose you will be poisoned , blinded , or cursed . Just be persistent and continue selecting and eventually you will receive a Sapphire.",
+      "instruction_sha256": "0c9e9a37551e65f44f68c337db976155fb07ed3339180cf688d4dcbbff5c3be6",
+      "goal": "obtain_materials",
+      "full_en": "In Sphinx B2, there are two places where you can obtain the gem. You only have to get one jewel from either of these locations (If the first doesn't work go the the second one, and vice-versa). The first coffin site can be found at 1 o'clock (216,268), approximately two screens west of the entrance to Sphinx B3, where there will be a coffin on a raised platform. Walk up to the platform to activate the dialogue and you will be prompted to make a choice. Depending on what you choose you will be poisoned , blinded , or cursed . Just be persistent and continue selecting and eventually you will receive a Sapphire.",
+      "full_ru": "В Sphinx B2 есть два места получения камня; нужен только один камень из любого из этих мест. Если первое не срабатывает, попробуйте второе, и наоборот. Первое место с гробом находится в направлении 1 часа (216,268), примерно в двух экранах западнее входа в Sphinx B3: гроб стоит на возвышении. Подойдите к нему для диалога и сделайте выбор. В зависимости от выбора вы получите отравление, ослепление или проклятие. Продолжайте попытки, пока не получите Sapphire.",
+      "short_ru": "Вариант Sapphire: в Sphinx B2 подойдите к гробу (216,268); повторяйте попытки до получения камня.",
+      "short_en": "Sapphire alternative: approach the coffin in Sphinx B2 (216,268); retry until the jewel is obtained.",
+      "locations": [
+        {
+          "x": 216,
+          "y": 268,
+          "known": false,
+          "role": "coffin_trigger",
+          "condition": "Sphinx B2 context; exact map code is not printed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "alternative_gem_site",
+          "condition": "Use one of source steps 3/4/5; never require all three jewels."
+        }
+      ],
+      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1"
+    },
+    "4": {
+      "original_instruction": "The second coffin site is at around 9 o'clock (18, 163), where you will find a statue with an ornament. It's booby-trapped and will put you to sleep with gas. Again, keep trying and you will receive a Ruby.",
+      "instruction_sha256": "c875dc27fb8c51e90ba78551a11d9ec1b266eae2f46bd8703b08f4c70c1d8bd7",
+      "goal": "obtain_materials",
+      "full_en": "The second coffin site is at around 9 o'clock (18, 163), where you will find a statue with an ornament. It's booby-trapped and will put you to sleep with gas. Again, keep trying and you will receive a Ruby.",
+      "full_ru": "Второе место с гробом находится примерно в направлении 9 часов (18, 163): там стоит статуя с украшением. Ловушка усыпляет газом. Продолжайте попытки, пока не получите Ruby.",
+      "short_ru": "Вариант Ruby: у статуи (18, 163) повторяйте попытки, учитывая усыпляющую ловушку.",
+      "short_en": "Ruby alternative: retry at the statue (18, 163), accounting for the sleep trap.",
+      "locations": [
+        {
+          "x": 18,
+          "y": 163,
+          "known": false,
+          "role": "statue_trigger",
+          "condition": "Alternative Sphinx B2 site from step 3; exact map code unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "alternative_gem_site",
+          "condition": "Use one of source steps 3/4/5; never require all three jewels."
+        }
+      ],
+      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1"
+    },
+    "5": {
+      "original_instruction": "In Pyramids 4F, the gem is located at middle of the left side of the enclosed water area. Keep walking around it to get an Aquamarine.",
+      "instruction_sha256": "5444c1e789104a24f1933c2f5ef0544288fb8f12c1c0821e371bb276d248e8c8",
+      "goal": "obtain_materials",
+      "full_en": "In Pyramids 4F, the gem is located at middle of the left side of the enclosed water area. Keep walking around it to get an Aquamarine.",
+      "full_ru": "В Pyramids 4F камень находится в середине левой стороны огороженного водоёма. Ходите рядом, пока не получите Aquamarine.",
+      "short_ru": "Вариант Aquamarine: пройдите вдоль левой стороны огороженного водоёма в Pyramids 4F.",
+      "short_en": "Aquamarine alternative: walk along the left side of the enclosed water area in Pyramids 4F.",
+      "actions": [
+        {
+          "operation": "alternative_gem_site",
+          "condition": "Use one of source steps 3/4/5; never require all three jewels."
+        }
+      ],
+      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1"
+    },
+    "6": {
+      "original_instruction": "Return to Esmille with the gem to receive the Sonic Acceleration skill.",
+      "instruction_sha256": "846ba43be67edc7660aa1439fd1bc8b44b75aa75292aeabeae0dbeac6559b8b0",
+      "goal": "learn_skill",
+      "full_en": "Return to Esmille with the gem to receive the Sonic Acceleration skill.",
+      "full_ru": "Вернитесь к Esmille с полученным камнем, чтобы изучить Sonic Acceleration.",
+      "short_ru": "Вернитесь к Esmille с выбранным камнем и изучите Sonic Acceleration.",
+      "short_en": "Return to Esmille with the chosen jewel and learn Sonic Acceleration.",
+      "npcs": [
+        {
+          "entity": "Esmille",
+          "role": "return"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Sonic Acceleration"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "quest_gem_count",
+          "amount": "1",
+          "support_step": 2,
+          "evidence": "After learning Venom Knife , talk to Esmille(the NPC on the right side). She will teach you the skill only after you've completed a task. Kiltin asks you to retrieve a jewel from either Sphinx B2 or Pyramids 4F.",
+          "condition": "Return with the jewel obtained through one alternative site; source does not prove consumption."
+        }
+      ],
+      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/846ba43be67edc7660aa/1"
+    }
+  },
+  "reviews": [
+    {
+      "reason": "assassin_skill_level_and_actor_scope",
+      "detail": "Archived numeric Job Level 40 belongs only to Sonic Acceleration, not Venom Knife. Killtin in step 1 and Kiltin in step 2 differ in source spelling; identity is unresolved, so they remain distinct. Esmille is the stated contact and final teacher. Sonic Blow Level 1 and Venom Knife are separate prerequisites, not a whole-guide self-dependency."
+    },
+    {
+      "reason": "assassin_alternative_jewels_and_unknown_points",
+      "detail": "Sapphire, Ruby and Aquamarine are alternative quest-acquired jewels, not a three-item cost. The two Sphinx coordinate pairs have no printed map codes; the Pyramids point is qualitative. Exact trap answers, status durations, item IDs and final jewel consumption are unknown. None of the dungeon names is silently converted to a map code."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Assassin",
+        "source_section": "requirements",
+        "evidence": "Class: Assassin"
+      }
+    ]
+  },
+  "job_level_scope_step": 2,
+  "routes": [
+    {
+      "key": "venom_knife",
+      "kind": "optional",
+      "source_heading": "Venom Knife Quest",
+      "steps": [
+        1
+      ],
+      "condition": "Venom Knife training has no numeric Job Level gate in this source."
+    },
+    {
+      "key": "sonic_acceleration",
+      "kind": "optional",
+      "source_heading": "Sonic Acceleration Quest",
+      "steps": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "condition": "Sonic Acceleration activity requires learned Venom Knife, Job Level 40 and Sonic Blow Level 1. Stages 3/4/5 are alternative jewel sites; obtain one jewel, not all three."
+    }
+  ]
+}

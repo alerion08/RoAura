@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.9.0**. All four description fields are populated for
-**1,059 steps across 95 curated guides**, up from the previous 93-guide/1,045-step
-checkpoint. **172 conditional branches** also have independent RU/EN short and
-full descriptions. Thirty-seven quest routes represent nine exclusive expedition/lyric/material paths
-and twenty-eight conditional/optional activities. **1,691 steps in 121 remaining catalog entries still lack
+**1,077 steps across 97 curated guides**, up from the previous 95-guide/1,059-step
+checkpoint. **175 conditional branches** also have independent RU/EN short and
+full descriptions. Forty quest routes represent nine exclusive expedition/lyric/material paths
+and thirty-one conditional/optional activities. **1,673 steps in 119 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -120,6 +120,8 @@ complete localization/context analysis.** `complete` remains false.
 | Blacksmith Skill Quest | 4 | Additional material set; scoped fee/level; Greed free-capacity condition and optional Flowers |
 | Thief Job Change Guide | 7 | Restored weighted mushroom table; distinct unnamed contacts; bare maps and unlimited death retries |
 | Thief Skill Quest | 7 | Four independent level gates; one bag crafting set; possession versus unproven consumption |
+| Assassin Skill Quest | 6 | Venom/Sonic level scope; three alternative jewel sites; Killtin/Kiltin spelling conflict; unknown map codes |
+| Rogue Skill Quest | 12 | Conditional transcended relearn; ordered answers/passwords; situational blocking; two distinct trials; building entrance versus NPC point |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -127,6 +129,30 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- Assassin and Rogue skill quests add 18 preserved stages, three exclusive jewel
+  branches, three activity/shortcut routes and three source additions. Coverage
+  is 1,077 stages / 97 guides, 175 branches, 40 routes and 57 source additions.
+  Schema/generator remain 5 / 5.9.0. New source-pinned curation files are additive;
+  previous curated descriptions and the original archive are not edited.
+- Job Level 40 and Sonic Blow Level 1 apply to Sonic Acceleration only;
+  Venom Knife has no numeric Job Level in its header. Learned Venom Knife is
+  a prerequisite of the Sonic activity. Sapphire/Ruby/Aquamarine are alternative
+  quest-obtained jewels, not three required purchases. The two Sphinx points have
+  unknown map codes; no Pyramids coordinate or jewel consumption is invented.
+  Killtin/Kiltin remain separate unresolved source spellings.
+- Rogue's instant relearn at Haijara Greg is conditional on previously learning
+  Close Confine as Rogue and then transcending. First-time training retains four
+  ordered answers, two entry passwords, a queued five-minute Kienna trial, and
+  a separate aura-based book recovery. The three blocking choices have unknown
+  correctness until the trial situation is known; no aura mapping is fabricated.
+  Antonio Jr.'s coordinates identify a building entrance, not indoor Jay Greg.
+- Current validation: both guides were constructed in an in-memory SQLite with
+  the production semantic writer and current five migrations; integrity/FK/span
+  validation and seven new focused regression cases passed. Local filesystem is
+  read-only; full suite and export publication are pending GitHub CI.
+
+Previous Thief-family checkpoint:
 
 - Thief Job Change and Thief Skill add 14 preserved stages, four independent
   training routes and five source additions. Coverage is 1,059 stages / 95 guides,
@@ -888,7 +914,7 @@ research projections; it does not update the application's runtime database.
 `output/semantic_review_queue.json` records unresolved facts with source links.
 `output/semantic_examples.json` contains all curated guides and their relations.
 
-Validated locally: **330 tests passed**; complete offline enrichment passed;
+Previous checkpoint: **330 tests passed**; complete offline enrichment passed;
 the exact SQLite validation script from `quest-research.yml` passed for the
 archive and both projections. All integrity checks are `ok`, with zero
 foreign-key violations. Original script bytes, guide metadata and original
@@ -952,7 +978,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 ## Next work, in order
 
-1. Review the remaining 121 catalog candidates, separating reference pages,
+1. Review the remaining 119 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World
@@ -980,3 +1006,7 @@ any other server solely because it appears in wiki/emulator sources.
 New regressions cover Thief activity levels, route independence, bag possession,
 context-supported material hand-in, weighted mushroom points, avoidable monsters,
 unnamed guild contact separation and unknown map codes. No in-game check performed.
+
+New regressions cover Assassin activity-level scope, alternative jewel accounting,
+unknown maps/IDs and source spellings; Rogue conditional relearn, exact answers,
+situational options, separate trial conditions and entrance/NPC location scope.

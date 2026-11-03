@@ -8,13 +8,18 @@ Authoritative database-phase specification: `research/quest-database/SEMANTIC_DA
 
 ### Database implementation checkpoint — 2026-11-03
 
+Latest addition: Assassin/Rogue skill quests, 18 stages. Sonic activity levels,
+three alternative jewel sites, conditional transcended relearn, two distinct
+Rogue trials and exact dialogue/passwords are source-pinned. In-memory production
+writer validation and seven focused tests passed; full CI/export are pending.
+
 Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 1,059 steps in 95 curated guides and
-172 conditional branches. Fifty-four source additions supplement full descriptions;
-**1,691 steps / 121 remaining catalog entries still need processing**. Thirty-seven quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
+is excluded. All four RU/EN fields exist for 1,077 steps in 97 curated guides and
+175 conditional branches. Fifty-seven source additions supplement full descriptions;
+**1,673 steps / 119 remaining catalog entries still need processing**. Forty quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite

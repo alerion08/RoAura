@@ -1,0 +1,552 @@
+{
+  "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "c83bf0058a4684896866178069dd0f625ee6fdff8ae9a80b4b64591849c7e762",
+  "snapshot_sha256": "1ae8ef5b3792c8597c21b48ae4b11d0d957b442551c3094598cce5bed4365dab",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Thor Greg"
+    },
+    {
+      "type": "npc",
+      "name": "Haijara Greg",
+      "aliases": [
+        "Haijara"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Louis Greg"
+    },
+    {
+      "type": "npc",
+      "name": "Jay Greg"
+    },
+    {
+      "type": "npc",
+      "name": "Kienna"
+    },
+    {
+      "type": "npc",
+      "name": "Hollgrehenn Jr."
+    },
+    {
+      "type": "npc",
+      "name": "Antonio Jr."
+    },
+    {
+      "type": "map",
+      "name": "Beacon Island, Pharos"
+    },
+    {
+      "type": "map",
+      "name": "Paros Lighthouse"
+    },
+    {
+      "type": "map",
+      "name": "Kokomo Beach"
+    },
+    {
+      "type": "map",
+      "name": "cmd_fild07",
+      "map_code": "cmd_fild07"
+    },
+    {
+      "type": "map",
+      "name": "cmd_fild04",
+      "map_code": "cmd_fild04"
+    },
+    {
+      "type": "npc",
+      "name": "thief"
+    },
+    {
+      "type": "item",
+      "name": "book",
+      "identity": "irowiki-classic:Rogue_Skill_Quest:stolen_book"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Talk to one of the sons to start the quest, recommended is Thor Greg because he is closest to Beacon Island, Pharos. He may be also the only one that spills the hiding place of his father once the player talks to him twice. Beacon Island, Pharos (cmd_fild07): 351,286",
+      "instruction_sha256": "7b3efcb922f55bd59dbbced1221ecf49b2bf67978b570a49cdcb78feb99193ae",
+      "goal": "talk",
+      "full_en": "Talk to one of the sons to start the quest, recommended is Thor Greg because he is closest to Beacon Island, Pharos. He may be also the only one that spills the hiding place of his father once the player talks to him twice. Beacon Island, Pharos (cmd_fild07): 351,286",
+      "full_ru": "Чтобы начать квест, поговорите с одним из сыновей. Источник рекомендует Thor Greg: он ближе всего к Beacon Island, Pharos. Возможно, только он раскрывает убежище отца после двух разговоров; это не утверждается наверняка. Beacon Island, Pharos (cmd_fild07): 351,286.",
+      "short_ru": "Начните у одного из сыновей; рекомендован Thor Greg (cmd_fild07 351,286).",
+      "short_en": "Start with one of the sons; Thor Greg is recommended (cmd_fild07 351,286).",
+      "npcs": [
+        {
+          "entity": "Thor Greg",
+          "role": "recommended_start"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "cmd_fild07",
+          "x": 351,
+          "y": 286,
+          "known": true,
+          "role": "Thor Greg"
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1"
+    },
+    "2": {
+      "original_instruction": "He will say his father, Haijara Greg is being pursued and will mention that the rogue guild leader says the secret hiding place is next to her.",
+      "instruction_sha256": "6ef5eddd045a5a1b57393aef45aa7673d7b904677f5772ee615d245a0352c32e",
+      "goal": "talk",
+      "full_en": "He will say his father, Haijara Greg is being pursued and will mention that the rogue guild leader says the secret hiding place is next to her.",
+      "full_ru": "Он расскажет, что его отца Haijara Greg преследуют, и упомянет слова главы rogue guild: тайное убежище находится рядом с ней.",
+      "short_ru": "Узнайте у сына, где скрывается Haijara Greg.",
+      "short_en": "Ask the son where Haijara Greg is hiding.",
+      "npcs": [
+        {
+          "entity": "Thor Greg",
+          "role": "recommended_son",
+          "support_step": 1,
+          "evidence": "Talk to one of the sons to start the quest, recommended is Thor Greg because he is closest to Beacon Island, Pharos. He may be also the only one that spills the hiding place of his father once the player talks to him twice. Beacon Island, Pharos (cmd_fild07): 351,286"
+        },
+        {
+          "entity": "Haijara Greg",
+          "role": "mentioned"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "learn_father_hiding_place",
+          "condition": "Thor Greg is the recommended route; source permits starting with a son and qualifies the exclusive disclosure claim."
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6ef5eddd045a5a1b5739/1"
+    },
+    "3": {
+      "original_instruction": "Visit said Haijara Greg inside the rogue guild, go down the stairs to the rogue job change npc and continue going left. Up towards the beds, there's a secret wall passage.",
+      "instruction_sha256": "6c8a10582f6c09bbc8969de7bb2296852b95450a697dcf0732f2d4c68debb3d2",
+      "goal": "talk",
+      "full_en": "Visit said Haijara Greg inside the rogue guild, go down the stairs to the rogue job change npc and continue going left. Up towards the beds, there's a secret wall passage. If you have learned this skill as a Rogue and have since transcended, proceed to step 3 and speak to Haijara Greg to regain the skill instantly.",
+      "full_ru": "Посетите Haijara Greg внутри rogue guild: спуститесь к NPC смены профессии Rogue, затем идите налево и вверх к кроватям, где в стене есть тайный проход. Если вы уже изучали это умение как Rogue, а затем прошли перерождение, переходите к этапу 3: поговорите с Haijara Greg, чтобы сразу вернуть умение.",
+      "short_ru": "Найдите Haijara Greg через тайный проход в стене возле кроватей rogue guild.",
+      "short_en": "Find Haijara Greg through the secret wall passage near the rogue guild beds.",
+      "npcs": [
+        {
+          "entity": "Haijara Greg",
+          "role": "talk"
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "If you have learned this skill as a Rogue and have since transcended, proceed to step 3 and speak to Haijara Greg to regain the skill instantly.",
+          "text_ru": "Если вы уже изучали это умение как Rogue, а затем прошли перерождение, переходите к этапу 3: поговорите с Haijara Greg, чтобы сразу вернуть умение."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "relearn_shortcut",
+          "amount": "previously learned as Rogue and since transcended",
+          "source_section": "rewards",
+          "evidence": "If you have learned this skill as a Rogue and have since transcended, proceed to step 3 and speak to Haijara Greg to regain the skill instantly.",
+          "condition": "Only previously learned Close Confine after transcending; a new learner follows the full route."
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Close Confine",
+          "condition": "Only previously learned as Rogue and since transcended; instant reacquisition at Haijara Greg.",
+          "source_section": "rewards",
+          "evidence": "If you have learned this skill as a Rogue and have since transcended, proceed to step 3 and speak to Haijara Greg to regain the skill instantly."
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1"
+    },
+    "4": {
+      "original_instruction": "Talk to the father and he will ask some questions. Answering with a wrong question leaves the player with 1 HP. Correct answers in order: | I don't mean you any harm! | I came to help you. | No. | Sure!",
+      "instruction_sha256": "87b24b333c91539703d5cc6adfe91565df905f2878cadbe18730c611bccbbbe7",
+      "goal": "talk",
+      "full_en": "Talk to the father and he will ask some questions. Answering with a wrong question leaves the player with 1 HP. Correct answers in order: | I don't mean you any harm! | I came to help you. | No. | Sure!",
+      "full_ru": "Поговорите с отцом и ответьте на вопросы. Ошибка оставляет персонажу 1 HP. Правильные ответы по порядку: I don't mean you any harm!; I came to help you.; No.; Sure!",
+      "short_ru": "Ответьте: I don't mean you any harm! → I came to help you. → No. → Sure!",
+      "short_en": "Answer: I don't mean you any harm! → I came to help you. → No. → Sure!",
+      "npcs": [
+        {
+          "entity": "Haijara Greg",
+          "role": "talk",
+          "support_step": 3,
+          "evidence": "Visit said Haijara Greg inside the rogue guild, go down the stairs to the rogue job change npc and continue going left. Up towards the beds, there's a secret wall passage."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "wrong_answer_remaining_hp",
+          "amount": "1"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Haijara Greg",
+          "options": [
+            {
+              "text": "I don't mean you any harm!",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "I came to help you.",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "No.",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Sure!",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/87b24b333c91539703d5/1"
+    },
+    "5": {
+      "original_instruction": "He will then ask the player to visit his son, Louis Greg, who happens to be in Hollgrehenn Jr.'s building 1 map east of Paros Lighthouse. For those who forget, the password to enter the building: My father never hoarded upgrade items.",
+      "instruction_sha256": "dc2e8deb5a1eb55fd695694c1a03700801f48090d6e02a4386cacd8af902426f",
+      "goal": "talk",
+      "full_en": "He will then ask the player to visit his son, Louis Greg, who happens to be in Hollgrehenn Jr.'s building 1 map east of Paros Lighthouse. For those who forget, the password to enter the building: My father never hoarded upgrade items.",
+      "full_ru": "Затем он попросит посетить сына Louis Greg в здании Hollgrehenn Jr., на 1 карту восточнее Paros Lighthouse. Пароль для входа: My father never hoarded upgrade items.",
+      "short_ru": "Посетите Louis Greg в здании Hollgrehenn Jr.; пароль: My father never hoarded upgrade items.",
+      "short_en": "Visit Louis Greg in Hollgrehenn Jr.'s building; password: My father never hoarded upgrade items.",
+      "npcs": [
+        {
+          "entity": "Louis Greg",
+          "role": "visit"
+        },
+        {
+          "entity": "Hollgrehenn Jr.",
+          "role": "building_owner"
+        }
+      ],
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "My father never hoarded upgrade items.",
+              "correct": 1,
+              "operation": "input",
+              "condition": "Building entry password; interaction input method not established."
+            }
+          ]
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1"
+    },
+    "6": {
+      "original_instruction": "He will then ask to talk to his brother Thor Greg, whose location can be found above at the beginning the quest.",
+      "instruction_sha256": "db543189fc59564ae6b423cdefa464fa6a1a7b237129ef05155a975500288158",
+      "goal": "talk",
+      "full_en": "He will then ask to talk to his brother Thor Greg, whose location can be found above at the beginning the quest.",
+      "full_ru": "Затем он попросит поговорить с братом Thor Greg, чьё местоположение указано в начале квеста.",
+      "short_ru": "По просьбе Louis Greg посетите Thor Greg.",
+      "short_en": "At Louis Greg's request, visit Thor Greg.",
+      "npcs": [
+        {
+          "entity": "Louis Greg",
+          "role": "referral",
+          "support_step": 5,
+          "evidence": "He will then ask the player to visit his son, Louis Greg, who happens to be in Hollgrehenn Jr.'s building 1 map east of Paros Lighthouse. For those who forget, the password to enter the building: My father never hoarded upgrade items."
+        },
+        {
+          "entity": "Thor Greg",
+          "role": "visit"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "cmd_fild07",
+          "x": 351,
+          "y": 286,
+          "known": true,
+          "role": "Thor Greg",
+          "support_step": 1,
+          "evidence": "Talk to one of the sons to start the quest, recommended is Thor Greg because he is closest to Beacon Island, Pharos. He may be also the only one that spills the hiding place of his father once the player talks to him twice. Beacon Island, Pharos (cmd_fild07): 351,286"
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1"
+    },
+    "7": {
+      "original_instruction": "Talking to Thor Greg again, he will ask to talk to his brother Jay Greg, who can be found inside Antonio Jr.'s building. 1 North and 1 West of Paros Lighthouse. Kokomo Beach (cmd_fild04): 302,177. For those who forget, the password to enter the building: Antonio doesn't enjoy destroying upgrade items.",
+      "instruction_sha256": "22f12b4362f4e9905b85f4a7e8578daec6e9b665b66ac14b9dab18727ca808ef",
+      "goal": "talk",
+      "full_en": "Talking to Thor Greg again, he will ask to talk to his brother Jay Greg, who can be found inside Antonio Jr.'s building. 1 North and 1 West of Paros Lighthouse. Kokomo Beach (cmd_fild04): 302,177. For those who forget, the password to enter the building: Antonio doesn't enjoy destroying upgrade items.",
+      "full_ru": "Снова поговорите с Thor Greg: он попросит посетить брата Jay Greg внутри здания Antonio Jr., на 1 карту севернее и 1 западнее Paros Lighthouse. Kokomo Beach (cmd_fild04): 302,177. Пароль для входа: Antonio doesn't enjoy destroying upgrade items.",
+      "short_ru": "Посетите Jay Greg через вход cmd_fild04 302,177; пароль: Antonio doesn't enjoy destroying upgrade items.",
+      "short_en": "Visit Jay Greg via the entrance at cmd_fild04 302,177; password: Antonio doesn't enjoy destroying upgrade items.",
+      "npcs": [
+        {
+          "entity": "Thor Greg",
+          "role": "referral"
+        },
+        {
+          "entity": "Jay Greg",
+          "role": "visit"
+        },
+        {
+          "entity": "Antonio Jr.",
+          "role": "building_owner"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "cmd_fild04",
+          "x": 302,
+          "y": 177,
+          "known": true,
+          "role": "building_entrance",
+          "condition": "Building entrance, not verified indoor Jay Greg coordinates."
+        }
+      ],
+      "dialogues": [
+        {
+          "options": [
+            {
+              "text": "Antonio doesn't enjoy destroying upgrade items.",
+              "correct": 1,
+              "operation": "input",
+              "condition": "Building entry password; interaction input method not established."
+            }
+          ]
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1"
+    },
+    "8": {
+      "original_instruction": "Once inside, talking to he will ask to return to his father to tell him that he will receive help.",
+      "instruction_sha256": "545f5ebed01b379f164959683d561b524004f3864270a6ac3cce96fc4634a36b",
+      "goal": "talk",
+      "full_en": "Once inside, talking to he will ask to return to his father to tell him that he will receive help.",
+      "full_ru": "Внутри поговорите с ним: он попросит вернуться к отцу и сообщить, что тому помогут.",
+      "short_ru": "После разговора с Jay Greg вернитесь к Haijara Greg с сообщением о помощи.",
+      "short_en": "After speaking to Jay Greg, return to Haijara Greg with the offer of help.",
+      "npcs": [
+        {
+          "entity": "Jay Greg",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "Talking to Thor Greg again, he will ask to talk to his brother Jay Greg, who can be found inside Antonio Jr.'s building. 1 North and 1 West of Paros Lighthouse. Kokomo Beach (cmd_fild04): 302,177. For those who forget, the password to enter the building: Antonio doesn't enjoy destroying upgrade items."
+        },
+        {
+          "entity": "Haijara Greg",
+          "role": "return",
+          "support_step": 3,
+          "evidence": "Visit said Haijara Greg inside the rogue guild, go down the stairs to the rogue job change npc and continue going left. Up towards the beds, there's a secret wall passage."
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/545f5ebed01b379f1649/1"
+    },
+    "9": {
+      "original_instruction": "His father will then ask to once again visit Thor Greg to receive training for the Close Confine skill. Thor Greg will send the player to a waiting room. The player must enter a chat room and wait for anyone who's in line to finish before him.",
+      "instruction_sha256": "3017f4072428c91728060c637bdb59705dfeed75d141bd3aabf7e577272d6d3e",
+      "goal": "training",
+      "full_en": "His father will then ask to once again visit Thor Greg to receive training for the Close Confine skill. Thor Greg will send the player to a waiting room. The player must enter a chat room and wait for anyone who's in line to finish before him.",
+      "full_ru": "Отец снова попросит посетить Thor Greg для обучения Close Confine. Thor Greg отправит вас в комнату ожидания. Войдите в чат и дождитесь, пока участники перед вами закончат испытание.",
+      "short_ru": "От Haijara Greg отправляйтесь к Thor Greg и дождитесь очереди на обучение Close Confine.",
+      "short_en": "From Haijara Greg, go to Thor Greg and wait your turn for Close Confine training.",
+      "npcs": [
+        {
+          "entity": "Haijara Greg",
+          "role": "referral",
+          "support_step": 3,
+          "evidence": "Visit said Haijara Greg inside the rogue guild, go down the stairs to the rogue job change npc and continue going left. Up towards the beds, there's a secret wall passage."
+        },
+        {
+          "entity": "Thor Greg",
+          "role": "training"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "enter_waiting_chat",
+          "condition": "Wait for preceding players to finish; duration unknown."
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1"
+    },
+    "10": {
+      "original_instruction": "Here is where the fun starts. The players have 5 minutes before they are kicked out. Kienna will appear in one second as the room warns, and the player must walk right up 1 cell next to her before she hides, or she will disappear and the player will be sent back to the middle of the room to repeat.",
+      "instruction_sha256": "c13a4944919657b99f5cef29a1fc1fd93e4a8b0c7db03727e5aa98f280f12278",
+      "goal": "training",
+      "full_en": "Here is where the fun starts. The players have 5 minutes before they are kicked out. Kienna will appear in one second as the room warns, and the player must walk right up 1 cell next to her before she hides, or she will disappear and the player will be sent back to the middle of the room to repeat.",
+      "full_ru": "На испытание отведено 5 минут, затем персонажа выгоняют. После предупреждения комнаты Kienna появится через одну секунду. Подойдите к ней на 1 клетку до того, как она спрячется; иначе она исчезнет, вас вернут в центр комнаты и попытку придётся повторить.",
+      "short_ru": "За 5 минут испытания подходите к Kienna на 1 клетку до её исчезновения.",
+      "short_en": "Within the 5-minute test, approach to within 1 cell of Kienna before she disappears.",
+      "npcs": [
+        {
+          "entity": "Kienna",
+          "role": "training"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "trial_duration_minutes",
+          "amount": "5"
+        },
+        {
+          "kind": "appearance_delay_seconds",
+          "amount": "1"
+        },
+        {
+          "kind": "approach_distance_cells",
+          "amount": "1"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "approach_before_disappearance",
+          "entity": "Kienna"
+        },
+        {
+          "operation": "retry_from_room_center",
+          "condition": "If she disappears before approach; not a required repeat after success."
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/c13a4944919657b99f5c/1"
+    },
+    "11": {
+      "original_instruction": "Upon successfully walking up to her she will prompt the player. Reminiscent of the battle dwarf of the God Items Quest for level 4 weapons, you must choose the right options: Block her from the left, Block her from the right, or Block her moving backward. Experience says that after a successful block it is wise to choose a different option. To pass the test, the player must perform above grade C+. Upon success she will return the player to Thor Greg. He will tell the player to go back to his father to finish learning the skill.",
+      "instruction_sha256": "7e85a40537c1efccf9222221dfe1c46f1ae44989b73b5d2ad032dae338a0a3f2",
+      "goal": "training",
+      "full_en": "Upon successfully walking up to her she will prompt the player. Reminiscent of the battle dwarf of the God Items Quest for level 4 weapons, you must choose the right options: Block her from the left, Block her from the right, or Block her moving backward. Experience says that after a successful block it is wise to choose a different option. To pass the test, the player must perform above grade C+. Upon success she will return the player to Thor Greg. He will tell the player to go back to his father to finish learning the skill.",
+      "full_ru": "Если вы успели подойти, она предложит выбор. Как в испытании боевого гнома из God Items Quest для оружия уровня 4, выбирайте подходящий вариант: Block her from the left, Block her from the right или Block her moving backward. Источник советует менять вариант после успешного блока; это рекомендация, а не гарантированный алгоритм. Требуется оценка выше C+. После успеха она вернёт вас к Thor Greg; он направит вас обратно к отцу завершить обучение.",
+      "short_ru": "Блокируйте движения Kienna и получите оценку выше C+; затем вернитесь через Thor Greg к отцу.",
+      "short_en": "Block Kienna's movements and score above C+; then return via Thor Greg to the father.",
+      "npcs": [
+        {
+          "entity": "Kienna",
+          "role": "training",
+          "support_step": 10,
+          "evidence": "Here is where the fun starts. The players have 5 minutes before they are kicked out. Kienna will appear in one second as the room warns, and the player must walk right up 1 cell next to her before she hides, or she will disappear and the player will be sent back to the middle of the room to repeat."
+        },
+        {
+          "entity": "Thor Greg",
+          "role": "return"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "trial_grade",
+          "amount": "above C+"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Kienna",
+          "options": [
+            {
+              "text": "Block her from the left",
+              "correct": null,
+              "operation": "choose",
+              "condition": "Choose according to the actual trial; no fixed order or universal correct option is stated."
+            },
+            {
+              "text": "Block her from the right",
+              "correct": null,
+              "operation": "choose",
+              "condition": "Choose according to the actual trial; no fixed order or universal correct option is stated."
+            },
+            {
+              "text": "Block her moving backward",
+              "correct": null,
+              "operation": "choose",
+              "condition": "Choose according to the actual trial; no fixed order or universal correct option is stated."
+            }
+          ]
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1"
+    },
+    "12": {
+      "original_instruction": "Upon returning to Haijara Greg to master the skill, a thief in the shape of a guard steals his book. The player must once again do the test, doing a similar blocking session, far easier, in which it tells you to watch the auras the thief displays and respond by picking the according direction, doing so successfully will get the book back. Once completed, talk to Haijara, and he will give you Close Confine.",
+      "instruction_sha256": "193dbf1f1660e17ebfc03c40d3c18c803d35b11f695782a805a2c4e338258aad",
+      "goal": "learn_skill",
+      "full_en": "Upon returning to Haijara Greg to master the skill, a thief in the shape of a guard steals his book. The player must once again do the test, doing a similar blocking session, far easier, in which it tells you to watch the auras the thief displays and respond by picking the according direction, doing so successfully will get the book back. Once completed, talk to Haijara, and he will give you Close Confine.",
+      "full_ru": "Когда вы вернётесь к Haijara Greg для завершения обучения, thief в облике стражника украдёт его book. Пройдите ещё одно похожее, более лёгкое испытание блокирования: следите за аурами thief и выбирайте соответствующее направление, чтобы вернуть book. После успеха поговорите с Haijara: он обучит вас Close Confine.",
+      "short_ru": "Верните book в повторном испытании по аурам; затем у Haijara Greg изучите Close Confine.",
+      "short_en": "Recover the book in the second aura-based test; then learn Close Confine from Haijara Greg.",
+      "npcs": [
+        {
+          "entity": "Haijara Greg",
+          "role": "talk"
+        },
+        {
+          "entity": "thief",
+          "role": "trial_opponent"
+        }
+      ],
+      "items": [
+        {
+          "entity": "book",
+          "operation": "collect",
+          "quantity": null,
+          "required": 1,
+          "condition": "Recover the stolen book by aura-directed blocks; item ID and consumption unknown."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "repeat_aura_blocking_test",
+          "entity": "thief",
+          "condition": "Second, easier blocking test; exact aura-to-direction mapping is not printed."
+        },
+        {
+          "operation": "finish_skill_training",
+          "entity": "Haijara Greg"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "skill_unlock",
+          "amount": "Close Confine",
+          "condition": "Ordinary first-time learning route after recovery of the stolen book."
+        }
+      ],
+      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1"
+    }
+  },
+  "reviews": [
+    {
+      "reason": "rogue_relearn_and_training_scope",
+      "detail": "Only a character who already learned Close Confine as Rogue and then transcended can regain it instantly at stage 3. First-time learning retains the father/sons sequence, queued five-minute Kienna trial and a separate aura-guided book-recovery trial. No fixed block sequence, aura mapping, exact C+ numeric threshold or second-trial timer is invented."
+    },
+    {
+      "reason": "rogue_location_and_dialogue_scope",
+      "detail": "cmd_fild04 302,177 is Antonio Jr.'s building entrance, not Jay Greg's indoor position. Louis Greg's building has a relative location only. Thor Greg is recommended but not the only proven possible starting son. Haijara is a contextual shortened reference to Haijara Greg. Three Kienna options are situational, not a mandatory sequence of universally correct answers. Passwords are exact, but the interface input mode is unknown."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Rogue",
+        "source_section": "requirements",
+        "evidence": "Class: Rogue"
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "transcended_relearn",
+      "kind": "optional",
+      "source_step": 3,
+      "steps": [
+        3
+      ],
+      "condition": "If Close Confine was learned as Rogue before transcending, talk to Haijara Greg at stage 3 to regain it instantly; skip ordinary learning trials. Evidence is retained in the stage requirement and source addition."
+    }
+  ]
+}
