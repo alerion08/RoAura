@@ -155,7 +155,7 @@ public sealed class QuestOverlayHost : IDisposable
         _canvas.Width=_gamePixels.Width/_dpi;_canvas.Height=_gamePixels.Height/_dpi;
         Canvas.SetLeft(_cards,Options.X);Canvas.SetTop(_cards,Options.Y);
         var excluded=(controlsActive?controls.Where(w=>w is not QuestBrowserWindow).Select(w=>QuestWindowNative.Bounds(new WindowInteropHelper(w).Handle)):Enumerable.Empty<Rect>())
-            .Concat(controls.Where(w=>w is DatabaseOverlayWindow or DatabaseDetailWindow).Select(w=>QuestWindowNative.Bounds(new WindowInteropHelper(w).Handle)))
+            .Concat(controls.Where(w=>w.Tag as string == "RoAura.GameInterface" || w is DatabaseOverlayWindow or DatabaseDetailWindow).Select(w=>QuestWindowNative.Bounds(new WindowInteropHelper(w).Handle)))
             .Where(r=>!r.IsEmpty).ToArray();
         if(!_text.IsVisible)_text.Show();QuestWindowNative.Place(_text,_gamePixels,promote);
         _canvas.UpdateLayout();_canvas.Clip=QuestWindowNative.ExclusionClip(_canvas,new Size(_canvas.Width,_canvas.Height),excluded);

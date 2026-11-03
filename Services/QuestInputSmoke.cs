@@ -237,6 +237,11 @@ internal static class QuestInputSmoke
                     if(!AppearanceService.IsGameWindow(mvpWizard))throw new InvalidOperationException("MVP wizard lost its game theme scope.");
                     mvpWizard.MonsterBox.SelectedIndex=0; await Pause();
                     if(mvpWizard.Draft.MonsterId<=0)throw new InvalidOperationException("In-game MVP selection failed.");
+                    await Pause(); host.RefreshNow();
+                    var mvpBounds=QuestWindowNative.Bounds(new WindowInteropHelper(mvpWizard).Handle);
+                    var mvpCenter=new Point(mvpBounds.X+mvpBounds.Width/2,mvpBounds.Y+mvpBounds.Height/2);
+                    if(((Canvas)host.TextWindow.Content).Clip?.FillContains(host.TextWindow.PointFromScreen(mvpCenter))!=false)
+                        throw new InvalidOperationException("Quest tracker paints above the MVP timer form.");
                     SaveDesktop(mvpWizard,"mvp-add-native");
                     var create=AllButtons(mvpWizard).Single(button=>Equals(button.Content,LocalizationService.Get("CreateMvpTimer")));
                     Click(create.PointToScreen(new Point(create.ActualWidth/2,create.ActualHeight/2)));
