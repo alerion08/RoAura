@@ -154,9 +154,21 @@ verification; there are zero server-verified records.
   role are preserved. Three spirits are dialogue NPCs with unknown mandatory
   ordering. TaeKwon Master gives Man one four-stone set, then Stars one star set;
   the later warp is free, and final transformation is by Man in comodo.
-- Current validation: in-memory construction with the production writer and
-  current five migrations passes integrity/FK/span checks and 12 new focused
-  tests. Full regression suite, export and publication checks are pending CI.
+- Validation: in-memory construction with the production writer and five
+  migrations passes integrity/FK/span checks and 12 focused cases. Both GitHub
+  suites passed all 349 tests; full offline enrichment and validation of all
+  three SQLite files passed. Independent download checks preserve all 2,750
+  semantic stage identities/order/original texts, the previous 1,077 complete
+  descriptions and 175 branch descriptions, and original provenance/wiki rows
+  (939 scripts / 286 pages / 3,420 steps). All 29 published description records
+  exactly match the reviewed four-field curation; the 41-table semantic export
+  passes integrity/FK/span validation.
+
+Verified publication: [research CI #41594674868](https://github.com/alerion08/RoAura/actions/runs/41594674868)
+and [fast CI #41594674899](https://github.com/alerion08/RoAura/actions/runs/41594674899).
+Implementation: `9ed82e30d22dc8a0ccc05668f3104af28a872fcd`;
+generated database: `4b51087781c4094d85e3eea12069a9c391a34a33`.
+No in-game verification was performed.
 
 Previous Assassin/Rogue checkpoint:
 

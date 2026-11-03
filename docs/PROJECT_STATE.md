@@ -12,7 +12,8 @@ Latest addition: First Expanded / Soul Linker / TaeKwon Master, 29 stages.
 Three independent first jobs, server-specific material/reward alternatives,
 Ninja source conflicts, optional acquisition and two material installments
 are source-pinned. In-memory production writer validation and 12 focused tests
-passed; full suite/export/publication checks are pending CI.
+passed. Both GitHub suites passed all 349 tests; published export, integrity and
+preservation checks passed. No in-game verification was performed.
 
 Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
