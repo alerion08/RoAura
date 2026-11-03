@@ -12656,38 +12656,38 @@
       "step_id": "irowiki-classic:First_Expanded_Change_Guides/step/f997a7d73f99d9d387bd/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "The three sections are independent job-change activities, not a sequential route through three classes. Job Level 10 / Novice applies to each; TaeKwon additional-level request is waived at Base Level 20+, and Guard [0] has a server-dependent extra-level warning. [0] is slot count, not reward quantity.",
       "evidence_id": "ev:f3b02ce2253820319752746b",
       "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "original_html_missing",
-      "review_id": "review:a38b09a3c1187229885d5fc6",
+      "reason": "expanded_independent_activities",
+      "review_id": "review:a34c2d80c94c65e1cda3b173",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "The header lists Other-server materials, while the detailed iRO list uses Mushroom Spore and Clover instead of Zargon and Rainbow Shell. Keep one chosen set, then one additional Milk request. Six Shooter/Branch are alternative rewards with unknown selection rule, not both granted.",
       "evidence_id": "ev:f3b02ce2253820319752746b",
       "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:fa25d35843eff9c9608f0944",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:c2e02af764bc405ca384b43f",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:f09fc84ec0d3ce62bee7d4ed",
+      "reason": "gunslinger_server_material_and_reward_scope",
+      "review_id": "review:2f41466455e06c2938ead8cb",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:8af437cb0cbcf9597a6205bf",
+      "detail": "Header claims consumed 5 Iron Ore + Phracon (iRO) or 10 Cyfar + 2 Phracon (Others); detailed final stage explicitly retains 5 Iron Ore/Phracon or 5 Cyfar/Phracon. Earlier Other-server collection/removal and stock reuse are not established. Preserve conflicting header as source summary, not enforced double consumption. Header Zeny 20 is unexplained against one detailed 10-Zeny tower ascent; do not invent another ascent/payment.",
+      "evidence_id": "ev:f3b02ce2253820319752746b",
       "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:42aae5b73badd3880b5b7574",
+      "reason": "ninja_header_material_and_fee_conflict",
+      "review_id": "review:9096318ecd13ca3fd4d28408",
+      "severity": "warning",
+      "step_id": null
+    },
+    {
+      "detail": "Cougar's source-labeled iRO travel costs 2000 Zeny OR one ticket. The two Einbroch warp points are alternatives, separate from Wildcat Joe. Bad random Amatsu point is a warning, not a required destination. Bare town coordinates keep unknown map codes. Couger is a contextual spelling for the return to Cougar; original spelling is preserved. Seal identity/input text and retry count remain unknown.",
+      "evidence_id": "ev:f3b02ce2253820319752746b",
+      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
+      "reason": "ninja_server_service_and_map_scope",
+      "review_id": "review:850b78e4c631b3aca2d382ff",
       "severity": "warning",
       "step_id": null
     },
@@ -12701,89 +12701,8 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:76ec805b2105f5a76488dc64",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:34b13ac5c715f61d82f8a9b2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/015ea3b82b41e29a7c39/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:76ec805b2105f5a76488dc64",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:85c99504d2c9468120353f28",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/015ea3b82b41e29a7c39/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5b7052419fb8f4101bb665ae",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:60a2a230e19a60866b2b7fda",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/04ce64dd3bb5f8ff32b1/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5b7052419fb8f4101bb665ae",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d3b81a6053b2eb102ad1a26c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/04ce64dd3bb5f8ff32b1/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:eb681f5b91a5179078a19a59",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:6a2353c97d7925041458d69f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/1346819fe709de11217b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:eb681f5b91a5179078a19a59",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f64e2332a8cb4408782833ec",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/1346819fe709de11217b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1ef4205d3ad7437cd627b621",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:ab2ba80edf1741640c8e99a7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/1d86af6e8377f28b2a66/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1ef4205d3ad7437cd627b621",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:275f250891c37393e6371ce9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/1d86af6e8377f28b2a66/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:89d38dba996af573178776bf",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:60f430503df96e4b01e2842b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/48c8be3ae38fb76fbe42/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:f945b2eab94e11377e72cd9a",
+      "evidence_id": "ev:218769a6f6af1fe05dd80f2a",
       "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
       "reason": "map_unknown",
       "review_id": "review:daea9217ba0cef3688fc47a1",
@@ -12791,44 +12710,8 @@
       "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/48c8be3ae38fb76fbe42/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:89d38dba996af573178776bf",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:96512d1405a7509e447a2e73",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/48c8be3ae38fb76fbe42/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ad98d8304172ba03f92991dd",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:5579225483742b9170ab6b79",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/595c40e98c7b9b3551fb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ad98d8304172ba03f92991dd",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:ccd848b610190fe6124e52d9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/595c40e98c7b9b3551fb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:eb455430427a3acb88c6173d",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:e15fb60c29d06ba8d84ba32e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/5f683ed00fd9dd83a195/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:86f64b4b4e968ed73af83822",
+      "evidence_id": "ev:81dfb46c8869163307a4bea3",
       "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
       "reason": "map_unknown",
       "review_id": "review:08eab6c32e8326b301db8af6",
@@ -12836,44 +12719,8 @@
       "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/5f683ed00fd9dd83a195/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:eb455430427a3acb88c6173d",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e7a642c8527a13943e467396",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/5f683ed00fd9dd83a195/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8620bcd9ae75d40a01520718",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:9386babfd28b6ee04fb7b190",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/641b8de59f995009bc11/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8620bcd9ae75d40a01520718",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f31c97d3521003fc9e51c5d1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/641b8de59f995009bc11/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e16510a555325c8da7e5abaf",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:bdacffa25c24769c4d1f5f7c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/672168316f85fdcd047e/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:5c81738035bb7488dd2dfd03",
+      "evidence_id": "ev:08548c2b2b2ef8a26fa492c7",
       "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
       "reason": "map_unknown",
       "review_id": "review:d2661571244fe90f8d3bac97",
@@ -12881,62 +12728,8 @@
       "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/672168316f85fdcd047e/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e16510a555325c8da7e5abaf",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fe24e77435d5af14a3b06755",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/672168316f85fdcd047e/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:da49b69bf11a5213e3c37b0d",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:5a5ab7561a257851ccab17b0",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/6ddf1ebf9cec4dd92ee2/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:da49b69bf11a5213e3c37b0d",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a554e9a6d0615fb668daae1d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/6ddf1ebf9cec4dd92ee2/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6f7d642db21f083206f689fe",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:035dc963c05194dd1b00ac9f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/7507aa34d5030203a8ab/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6f7d642db21f083206f689fe",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2266655a3f904958441dd8ef",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/7507aa34d5030203a8ab/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e177e567e6694c19650f1443",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:67ac0fab236993edaca229c1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/8a1fea3e36d4c0b2668a/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:b50e4ef341fc4bac868844aa",
+      "evidence_id": "ev:8e2adc920ac9d375ababde26",
       "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
       "reason": "map_unknown",
       "review_id": "review:42e4afa9f9216358a860603d",
@@ -12944,80 +12737,8 @@
       "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/8a1fea3e36d4c0b2668a/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e177e567e6694c19650f1443",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d42a9ddb2761e8aabcaccd99",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/8a1fea3e36d4c0b2668a/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:87ef425c9394b7fe5b7b41c0",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:2d954f955112a3bd5b31b5fa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/a8b245757f14b1301ed6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:87ef425c9394b7fe5b7b41c0",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6067e27055b83a9723fe6682",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/a8b245757f14b1301ed6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2f466926fa1301009b9c9e3e",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:8250e528229d7559f6e315f6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/af4580c0aab122245044/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2f466926fa1301009b9c9e3e",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2e1071e7fe451b732276ecd7",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/af4580c0aab122245044/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a9b4422755e70d0490e59a08",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:ba2460ddff3babe971322381",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/c07ff513285baeff7ed5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a9b4422755e70d0490e59a08",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7a837e889a6dc085a54a0270",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/c07ff513285baeff7ed5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6e3cfaf4a8ca8d67c4cdc89c",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:f021aa40740c14935727e40b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/c257fc6e152847afa30f/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:b72f8a1a646d2963e17caa46",
+      "evidence_id": "ev:14c68d5815aaba6c490c854e",
       "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
       "reason": "map_unknown",
       "review_id": "review:8e8fd12f08f5b79ec2d5068e",
@@ -13025,57 +12746,12 @@
       "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/c257fc6e152847afa30f/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6e3cfaf4a8ca8d67c4cdc89c",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4ba568fb26c48c65319677a2",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/c257fc6e152847afa30f/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:ef227524032bb7be878a7721",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:41a12128a776231846aa8bfa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/e14cd2f5b2519ee7bdd0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:ef227524032bb7be878a7721",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0a20b1b867c16fd8e45d9268",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/e14cd2f5b2519ee7bdd0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2d65cf7885dc7ef8d7fab951",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "localization_missing",
-      "review_id": "review:85fe0991de632e91a3a4cfb5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/f997a7d73f99d9d387bd/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:62ebca66ffc033cc32895fa0",
+      "evidence_id": "ev:a0ffe2d42166825cd848eeac",
       "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
       "reason": "map_unknown",
       "review_id": "review:9970257e6b50934917179658",
       "severity": "warning",
-      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/f997a7d73f99d9d387bd/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2d65cf7885dc7ef8d7fab951",
-      "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:a23df0ad1287f26e36cb95e6",
-      "severity": "blocking",
       "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/f997a7d73f99d9d387bd/1"
     },
     {
@@ -36011,42 +35687,6 @@
       "step_id": "irowiki-classic:Soul_Linker/step/f5d13276d4fddf5b6b09/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
-      "evidence_id": "ev:f7f9b716ffb7af4ade9a42a5",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:6976d7b39bd0180e876340b3",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:f7f9b716ffb7af4ade9a42a5",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:cc632e0e71dd50a129010a9f",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:ad20c4ed30981ea5d1245a3b",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:1ddd17f8ad02d8c1344a1cb4",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:987bc67b90e16c2aeebddf1a",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:d6b032cd9d85b5e5cf94a427",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
       "evidence_id": "ev:f7f9b716ffb7af4ade9a42a5",
       "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
@@ -36056,112 +35696,22 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:3d9898edd5e76c82a76df9b6",
+      "detail": "One 3carat Diamond / Immortal Heart / Witherless Rose set is requested at stage 2 and delivered at stage 3. The 55000-Zeny diamond vendor price is optional acquisition, not a mandatory quest fee; diamond does not allow discount, rose does. Verits is a loot-source hint, not a kill objective. Vendor and tavern points are not invented Kid coordinates.",
+      "evidence_id": "ev:f7f9b716ffb7af4ade9a42a5",
       "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:c344c062e8d600bde52e7443",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/034be79ee0b024770fa6/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:3d9898edd5e76c82a76df9b6",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:d30c5ef4202e07e731e367aa",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/034be79ee0b024770fa6/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:2fbdb770fd3685fccd82be5d",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:45c6d53c9f91b427eeed227f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/132b86241dba64e38080/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:2fbdb770fd3685fccd82be5d",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:794e54bea7559dd147a643d5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/132b86241dba64e38080/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:2fbdb770fd3685fccd82be5d",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:7f58b9f4ac553aa1a3cfa99c",
+      "reason": "soul_linker_one_set_optional_acquisition",
+      "review_id": "review:d1c64d562a95740e49200d53",
       "severity": "warning",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/132b86241dba64e38080/1"
+      "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:8c6a61f00c0da86e4989a330",
+      "detail": "Monk Spirit, Alchemist Spirit and Sage Spirit are three conversation participants, not monsters, learned Spirit skills, or proof of a mandatory list order. Exact requests/options and indoor positions are unknown. Class TaeKwon Kid is the source prerequisite, not completion of every First Expanded activity.",
+      "evidence_id": "ev:f7f9b716ffb7af4ade9a42a5",
       "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:e3dd9d0243c1ef0e539fd4fd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/2830d8c024ae669f9c05/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:8c6a61f00c0da86e4989a330",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6acbc210d828d895646e08de",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/2830d8c024ae669f9c05/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d7c1dda22a7f0450d3b0cb8e",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:5c8268ea8e81c6942e0582b3",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/a60cfea381c26c1e37c7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d7c1dda22a7f0450d3b0cb8e",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:c28ee4b000fffff93ce627d9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/a60cfea381c26c1e37c7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:6d53b0c196ca9a07269fefa0",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:d27f6d847761d459c0d36b81",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/f5d13276d4fddf5b6b09/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:6d53b0c196ca9a07269fefa0",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9929bc95ed07e5fccbf35cad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/f5d13276d4fddf5b6b09/1"
-    },
-    {
-      "detail": "No uniquely reviewed NPC antecedent; context link withheld.",
-      "evidence_id": "ev:6d53b0c196ca9a07269fefa0",
-      "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
-      "reason": "unresolved_pronoun",
-      "review_id": "review:36a9e349fcc7863dffd011b6",
+      "reason": "soul_linker_spirits_are_npcs",
+      "review_id": "review:142539cabe043a63239347b0",
       "severity": "warning",
-      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/f5d13276d4fddf5b6b09/1"
+      "step_id": null
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
@@ -38945,42 +38495,6 @@
       "step_id": "irowiki-classic:TaeKwon_Master/step/cc143b52c0fb97c8eb39/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
-      "evidence_id": "ev:630dd895f893820228a7b14d",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "original_html_missing",
-      "review_id": "review:db39f7a47c9112c9e4345543",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
-      "evidence_id": "ev:630dd895f893820228a7b14d",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:114922a874565335e846d86d",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:4a6e5b35c716764d99380f0d",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:3f5f0f4c059fbdfd5b16609e",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:eb5754127fc003e709c6859e",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:2f7393b5d43e7af3b4d89d05",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
       "detail": "Classic wiki and emulator matches do not verify any individual server.",
       "evidence_id": "ev:630dd895f893820228a7b14d",
       "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
@@ -38990,121 +38504,40 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:df8693054e3b9fe057d0dc95",
+      "detail": "One set of four elemental stones is delivered to Man; one later Star Crumb/Star Dust set goes to Gladiator of the Stars. Repeated travel does not require a second elemental set; the stage-6 return is explicitly free. Stars sends the player back to Payon, while Man in comodo performs the final job change. Arrival job_star 29,32 is not asserted to be the Sun NPC's position.",
+      "evidence_id": "ev:630dd895f893820228a7b14d",
       "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:22570930ad190fe34acb6ba4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/14fa80dbb8a4130885aa/1"
+      "reason": "taekwon_master_material_installments_and_final_actor",
+      "review_id": "review:179d643aa161ffec1f12ebb7",
+      "severity": "warning",
+      "step_id": null
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:df8693054e3b9fe057d0dc95",
+      "detail": "Bare Payon/Comodo points do not establish map codes. The three Gladiators are dialogue NPCs without invented questions, kills, timers or skill prerequisites. Class TaeKwon Kid is retained without requiring all First Expanded alternatives.",
+      "evidence_id": "ev:630dd895f893820228a7b14d",
       "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:0e1477fd233ea62cf52c232b",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/14fa80dbb8a4130885aa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:866435f4c56fc36a0d7f350a",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:520c0ca116937f32b43f7aad",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/2c12bf37645fb3a663c4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:866435f4c56fc36a0d7f350a",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:4e8e3ecd298dfb0145830bd8",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/2c12bf37645fb3a663c4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d1cd184bc722d8d3aa15fd99",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:f629d88c9ff88ec52232de74",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/339bc44d96d798facb60/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d1cd184bc722d8d3aa15fd99",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:711f949ce38e7ed156aabc83",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/339bc44d96d798facb60/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1bc7b9d32dc01a437868e6fb",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:339cd26eff0660ad41c6c65d",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/4ccf2c9da96b987938e7/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1bc7b9d32dc01a437868e6fb",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:9c5e1145d4e0f4b6ec0cd445",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/4ccf2c9da96b987938e7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7f5512019b9df79300a3dfb3",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:bda8532fd6b422aaec950b02",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/a63aa618e0159851374b/1"
+      "reason": "taekwon_master_qualitative_context",
+      "review_id": "review:a4a71e6d9f3ea8463bbb9a62",
+      "severity": "warning",
+      "step_id": null
     },
     {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:5e89fe69383d6146fe56df4b",
+      "evidence_id": "ev:8321d44f6f12a3ba31eb15af",
+      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
+      "reason": "map_unknown",
+      "review_id": "review:ef28b12b032dc1fd3faa1ed5",
+      "severity": "warning",
+      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/14fa80dbb8a4130885aa/1"
+    },
+    {
+      "detail": "Coordinate pair has no established map code; not navigable.",
+      "evidence_id": "ev:b15de71ae8351d640e42fdd8",
       "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
       "reason": "map_unknown",
       "review_id": "review:cdd6eddbe30da5236ef13da2",
       "severity": "warning",
       "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/a63aa618e0159851374b/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7f5512019b9df79300a3dfb3",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e48d3034818a02446dc5794a",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/a63aa618e0159851374b/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d9a4d6bdf1f70d9fe7f8b990",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "localization_missing",
-      "review_id": "review:605f85b44e06e9419bc2ad4c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/cc143b52c0fb97c8eb39/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d9a4d6bdf1f70d9fe7f8b990",
-      "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b4f34f6d240b924e660a61d1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/cc143b52c0fb97c8eb39/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
