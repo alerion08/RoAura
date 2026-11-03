@@ -38,12 +38,22 @@ Model choice is controlled outside the repository. Use an economical model/reaso
 
 ## Branches and releases
 
-- `main` is the stable release branch.
-- `dev/roaura-2-ui` is the active RoAura 2 redesign branch.
-- `integration/2.14.0-audit-fixes` contains the 2.14.0 infrastructure/audit work and is reviewed through PR #5.
+- `main` is the stable release branch. Current published application baseline is 3.3.0, released from `7d70b173b7c10cc4ab7ae3f268ff89cb9474e19e` through PR #10.
+- Start new implementation work from current `main` in a task-specific branch. `feature/roquestie-mvp` is merged; older redesign/integration branches and PR #5 are historical, not current development targets.
+- `research/quest-database` is independent data work; consuming a new snapshot requires explicit validation and must not silently replace released data.
 - Development or integration work must not be pushed directly to `main`.
-- PR #5 is the RoAura 3.0 release review. The user accepted tested build `28fa0d5` on 2026-10-27; full release CI is required before merging to `main`. Future releases still require explicit user approval.
-- A version change merged into `main` can create a tag and public release through GitHub Actions. Treat any merge to `main` as release-sensitive.
+- A version change merged into `main` can create a tag and public release through GitHub Actions. Treat any merge to `main` as release-sensitive. Future releases require explicit user approval.
+
+## Mandatory post-release documentation gate
+
+A release task is NOT complete until the repository documents describe the actual published state. Do this immediately after publication, before the final completion report; do not defer it to a later user request.
+
+1. Verify the public release/tag, released commit, final workflow result and all expected assets.
+2. Update the CURRENT summary at the top of `docs/PROJECT_STATE.md`: version, released commit, branch status, shipped scope, validation evidence, remaining manual checks and next-task starting point.
+3. Update `docs/UI_SPEC.md`, `docs/REGRESSION_CHECKLIST.md` and these branch instructions wherever current statements became stale. Keep dated history clearly labeled as history; replace pending release/CI claims with verified outcomes for the completed release.
+4. Keep `README.md`, RU/EN guides and release notes consistent with shipped behavior/version. Do not claim unperformed manual acceptance.
+5. Deliver the documentation update to `main` through the authorized documentation review path. A branch-only update is not a completed current-state update. Documentation-only maintenance must not bump the version, recreate a tag, replace assets or publish another release; use `[skip ci]` for its commit/merge to avoid rerunning release publication.
+6. Re-read the resulting documents on `main` and verify version/branch/validation consistency. If blocked, explicitly report that documentation remains incomplete; never report the release task fully finished.
 
 ## Implementation constraints
 

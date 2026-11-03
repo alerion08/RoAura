@@ -1,5 +1,15 @@
 # RoAura UI specification
 
+## Release 3.3.0 completion — 2026-11-03 documentation update
+
+Published v3.3.0 on 2026-11-02 from main commit `7d70b173b7c10cc4ab7ae3f268ff89cb9474e19e` (PR #10).
+Final release run https://github.com/alerion08/RoAura/actions/runs/41441524384 completed successfully.
+Windows tests, eight ToC checks, native input/startup checks, footer centering in both themes, portable/installer packaging, silent installation and installed database hash verification passed.
+Release assets: portable ZIP, Setup.exe and SHA256SUMS.txt.
+Earlier “pending CI”, “preparation” and “no release” entries are historical and superseded by this completion record.
+Real SpringRO, mixed-DPI, fullscreen, multi-client and long-session acceptance remain manual; they are not marked passed by CI.
+
+
 This document records current product-level UI behavior. It is intentionally compact; implementation details remain in XAML and code.
 
 ## General interface
@@ -581,6 +591,6 @@ installs it into an isolated runner directory to compare installed data hashes.
 Silent setup does not display the interactive Npcap notice or launch the app.
 Both distributions retain source/license notices and full GFDL/GPL references;
 per-page wiki/history and upstream script provenance remain available.
-Full release Windows tests, native input and installer verification are pending.
-Publishing is authorized by the owner; merge/tag/release will follow successful checks.
+Full release Windows tests, native input and installer verification passed in run 41441524384.
+PR #10 was merged; v3.3.0 and both distributions were published on 2026-11-02.
 Remaining real-game/mixed-DPI acceptance is documented in release notes.
