@@ -176,7 +176,7 @@ internal static class QuestInputSmoke
                 await Pause();host.RefreshNow();
                 var moveStrip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"⋮⋮")));var handle=((StackPanel)moveStrip.Content).Children.OfType<Button>().Last();
                 var grab=handle.PointToScreen(new Point(handle.ActualWidth/2,handle.ActualHeight/2));
-                SetCursorPos((int)timerGrab.X,(int)timerGrab.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});
+                SetCursorPos((int)grab.X,(int)grab.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});
                 await Until(()=>host.IsDragging,"tracker drag start");
                 hook.SetEscapeEnabled(true);SetCursorPos((int)grab.X+25,(int)grab.Y+35);
                 await Until(()=>workspace.Settings.QuestOverlay.Y!=y,"nonactivating drag outside handle");
