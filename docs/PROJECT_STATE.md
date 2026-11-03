@@ -11,7 +11,10 @@
 - All nine hotkeys accept keyboard capture and modifier combinations. Shared chord parsing preserves legacy key strings; primary-key latches prevent repeat/foreground double toggles. Capture is suppressed until assignment keys are released. Screenshot/modifier forwarding remains in place.
 - Character removal only removes manager metadata, preserves saved statistics/session history and remembers removal across discovery/presets. Existing character scopes never silently become all-character scopes.
 - Reminder selection/progress colors use palette resources instead of hard-coded light fills.
-- Validation pending on this iteration; real game, screenshot shortcuts, protected/fullscreen clients and mixed-DPI acceptance remain manual.
+- Verified code `88a43a460958d2b3769def8fd5b0ef355f485105`: [development run 41626955122](https://github.com/alerion08/RoAura/actions/runs/41626955122) passed 362 tests (zero failures/skips), eight ToC checks, portable/native input smoke, RU/EN resources and clean-payload checks. Native input verifies keyboard capture of Ctrl+Shift+F4, no activation during assignment, exact modifiers, repeated-key close, create/cancel and exact-client focus restore. Dark MVP/location-card and Reminder rasters were inspected.
+- [Portable development 104](https://github.com/alerion08/RoAura/actions/runs/41626955122/artifacts/13226117992), SHA256 `182aafad42c223001518688246f1a7a912891ad51a80bc26885fb0df611c14ba`.
+- [PR build/installer run 41626963224](https://github.com/alerion08/RoAura/actions/runs/41626963224) also passed tests, packaging and installed database verification; tag/publication are skipped. Documentation maintenance does not change these binaries.
+- Real game, screenshots, keyboard layouts/system shortcuts, protected/fullscreen clients and mixed-DPI acceptance remain manual. No public release or main merge.
 
 ## Active development — farming sessions and MVP tools (2026-11-03)
 

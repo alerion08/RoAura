@@ -617,3 +617,6 @@ Native screenshot/input receipt verifies the hook's forwarding in an isolated pr
 - [ ] Capture arbitrary keyboard keys/chords, release and activate. No immediate invocation, repeat, missing modifiers, duplicate toggle or screenshot/modifier blocking. Existing hotkey strings and presets still work.
 - [ ] Remove a character and reopen the manager/restart/apply a preset: it stays removed, history remains, and a single-character scope never becomes all.
 - [ ] Reminder mode cards remain readable and palette-colored when switching modes/themes.
+
+Verified code `88a43a460958d2b3769def8fd5b0ef355f485105`: [development run 41626955122](https://github.com/alerion08/RoAura/actions/runs/41626955122) passed 362 tests (zero failures/skips), eight ToC checks, portable/native input smoke, RU/EN resources and clean-payload checks. Native input verifies keyboard capture of Ctrl+Shift+F4, no activation during assignment, exact modifiers, repeated-key close, create/cancel and exact-client focus restore. Dark MVP/location-card and Reminder rasters were inspected.
+[PR installer checks](https://github.com/alerion08/RoAura/actions/runs/41626963224) also pass. Native input/rasters do not mark the real-game manual rows above passed.

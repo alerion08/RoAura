@@ -618,3 +618,6 @@ Respawn locations are clickable cards containing the original name/code/interval
 Market history can show all items while preserving the selected watch editor. Session history uses one list with Open/double-click details in another window; details omit receipt dates/times. Gold Goblin has four actions and no CSV button.
 
 Hotkey fields record a key or chord on keyboard press, expose Clear through their context menu, and report duplicate assignments. Modifier combinations use exact matching and one action per physical press. Recorded input does not invoke a newly assigned action before release. Character removal preserves local histories and cannot silently broaden character-scoped overlays. Reminder mode cards use live palette brushes.
+
+Verified code `88a43a460958d2b3769def8fd5b0ef355f485105`: [development run 41626955122](https://github.com/alerion08/RoAura/actions/runs/41626955122) passed 362 tests (zero failures/skips), eight ToC checks, portable/native input smoke, RU/EN resources and clean-payload checks. Native input verifies keyboard capture of Ctrl+Shift+F4, no activation during assignment, exact modifiers, repeated-key close, create/cancel and exact-client focus restore. Dark MVP/location-card and Reminder rasters were inspected.
+Real client and mixed-DPI checks remain manual.
