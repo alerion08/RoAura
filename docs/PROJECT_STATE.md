@@ -7,7 +7,11 @@
 - Catalog details select the first nonempty map code whenever an existing/new timer has no location. Explicit selections and markers remain intact.
 - Restart always replaces the old countdown with a new interval from now; the saved kill-clock field cannot redirect Restart to the old kill. Editing a historical kill time uses its separate Apply time action.
 - The Item column belongs to Database tracking history when showing all items (also with no selection); individual item history stays compact. The mistaken Gold Goblin session-summary Item column is removed; loot details retain names.
-- Validation pending. Real Ragnarok/fullscreen/mixed-DPI acceptance remains manual; version/main/release unchanged.
+- Verified code `6e51e05e7588f42471913b8fb6c0b14fd486bbf1`: [development run 41662661959](https://github.com/alerion08/RoAura/actions/runs/41662661959) passed 368 tests (zero failures/skips), eight ToC checks, resource validation and native input/startup smoke. Native smoke decodes all 53 bundled maps with network access disabled in the loader, verifies the first map paints without clicking a location, and runs the actual Restart handler with an invalid old kill-clock draft.
+- [PR build/installer 41662671848](https://github.com/alerion08/RoAura/actions/runs/41662671848) passed portable/installer packaging, installed database checks and clean-distribution checks. Tag and public release steps skipped.
+- [Portable development 113](https://github.com/alerion08/RoAura/actions/runs/41662661959/artifacts/13241294494), inner ZIP SHA256 `e5307f98ab66a73398e2353cacf8a478ab46cc49409a393b36b12aa4538e86c5`. The downloaded portable was independently inspected: all 53 PNGs decode and match their per-file hashes; zero missing maps. Loaded MVP raster inspected. Map sources/provenance are included in Data/Minimaps/manifest.json and SOURCES.txt.
+- Source builds can reproduce this payload with `python tools/prepare_mvp_minimaps.py` before `build-release.ps1`; both Windows workflows do this automatically.
+- Real Ragnarok/fullscreen/mixed-DPI acceptance remains manual; version 3.3.0, main and public release unchanged.
 
 
 ## MVP form refinement — 2026-11-03
