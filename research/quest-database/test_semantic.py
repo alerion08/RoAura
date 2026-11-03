@@ -310,7 +310,7 @@ class RealCorpusTests(unittest.TestCase):
         self.assertEqual(missing,1673)
         self.assertEqual(self.report['fully_localized_branches'],175)
         self.assertEqual(self.report['curated_quests'],97)
-        self.assertEqual(self.report['pending_quests'],121)
+        self.assertEqual(self.report['pending_quests'],119)
         self.assertEqual(self.report['quest_routes'],40)
         self.assertEqual(self.report['source_additions'],57)
         self.assertEqual(self.report['action_reuse_links'],5)
