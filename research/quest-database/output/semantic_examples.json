@@ -8138,6 +8138,1352 @@
     "dialogue_options": [],
     "entities": [
       {
+        "entity_id": "item:7cdd325c1562aa0896d9a899",
+        "entity_type": "item",
+        "evidence_id": "ev:13e478417ff1dcef4a8d83cf",
+        "original_name": "Ruby",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:b094d6f8e9d3e053091adb51",
+        "entity_type": "item",
+        "evidence_id": "ev:36bf5533c142371f1fd5e327",
+        "original_name": "Aquamarine",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "item:b13e8cc26c6f1a4814fa61e7",
+        "entity_type": "item",
+        "evidence_id": "ev:dcc3d9b24b5a184b1e437889",
+        "original_name": "Sapphire",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+        "entity_type": "map",
+        "evidence_id": "ev:6e2d8b21198a9395570b6289",
+        "original_name": "Pyramids 4F",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:65716395a32331fe5a0457f8",
+        "entity_type": "map",
+        "evidence_id": "ev:7f8f4cfed818449169bafa35",
+        "original_name": "Sphinx B3",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:7fb34099c95e07321fd0af47",
+        "entity_type": "map",
+        "evidence_id": "ev:3f4e2100e549517760e1baf4",
+        "original_name": "Sphinx B2",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:1f415636a31b65974af2b546",
+        "entity_type": "npc",
+        "evidence_id": "ev:8d33eb8b4e0eda92c0883d2d",
+        "original_name": "Killtin",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:bc14229910cec6c1fc449b69",
+        "entity_type": "npc",
+        "evidence_id": "ev:cc33178579687d2472c3e13f",
+        "original_name": "Kiltin",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:cef42f15dcf8ae9d009aa9a6",
+        "entity_type": "npc",
+        "evidence_id": "ev:84798ac731ff03d5d5314c5d",
+        "original_name": "Esmille",
+        "variant_id": "irowiki-classic"
+      }
+    ],
+    "prerequisite_groups": [],
+    "quest_id": "irowiki-classic:Assassin_Skill_Quest",
+    "quest_relations": [],
+    "rewards": [
+      {
+        "amount": "Venom Knife",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:f27b8b3ed98575a9de99f067",
+        "item_id": null,
+        "kind": "skill_unlock",
+        "quest_id": "irowiki-classic:Assassin_Skill_Quest",
+        "reward_id": "reward:8b0d2c21053a29eaab2f7aee"
+      },
+      {
+        "amount": "Sonic Acceleration",
+        "branch_id": null,
+        "condition_text": null,
+        "evidence_id": "ev:fc9d9168ac7b0d32d8ba47ea",
+        "item_id": null,
+        "kind": "skill_unlock",
+        "quest_id": "irowiki-classic:Assassin_Skill_Quest",
+        "reward_id": "reward:b85fdb17e332a12c360a4867"
+      }
+    ],
+    "steps": [
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 15,
+            "entity_id": "npc:1f415636a31b65974af2b546",
+            "entity_type": "npc",
+            "evidence_id": "ev:8d33eb8b4e0eda92c0883d2d",
+            "field": "full_en",
+            "mention_id": "mention:5ded62ee5521e9306794471a",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1",
+            "surface": "Killtin"
+          },
+          {
+            "end_offset": 20,
+            "entity_id": "npc:1f415636a31b65974af2b546",
+            "entity_type": "npc",
+            "evidence_id": "ev:8d33eb8b4e0eda92c0883d2d",
+            "field": "full_ru",
+            "mention_id": "mention:2a0d8147f5807e1153200a56",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1",
+            "surface": "Killtin"
+          },
+          {
+            "end_offset": 15,
+            "entity_id": "npc:1f415636a31b65974af2b546",
+            "entity_type": "npc",
+            "evidence_id": "ev:8d33eb8b4e0eda92c0883d2d",
+            "field": "short_en",
+            "mention_id": "mention:39fa89f1dfb7c59b3513ae56",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1",
+            "surface": "Killtin"
+          },
+          {
+            "end_offset": 20,
+            "entity_id": "npc:1f415636a31b65974af2b546",
+            "entity_type": "npc",
+            "evidence_id": "ev:8d33eb8b4e0eda92c0883d2d",
+            "field": "short_ru",
+            "mention_id": "mention:ede3354ab4c55e7bbe7e5aa7",
+            "start_offset": 13,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1",
+            "surface": "Killtin"
+          }
+        ],
+        "full_en": "Talk to Killtin, the NPC on the left side, inside the Assassin Guild. Continue conversing with him until he teaches you Venom Knife . Job Level: None Class: Assassin",
+        "full_ru": "Поговорите с Killtin, NPC слева внутри Assassin Guild. Продолжайте разговор, пока он не обучит вас Venom Knife. Числовой Job Level не указан; профессия Assassin.",
+        "instruction_sha256": "8dfda51ada4605e38f14dde421b34ba0a9e6cdb8f0174197f9eae2bfa612b01d",
+        "original_instruction": "Talk to Killtin, the NPC on the left side, inside the Assassin Guild. Continue conversing with him until he teaches you Venom Knife .",
+        "primary_goal": "learn_skill",
+        "quest_id": "irowiki-classic:Assassin_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Venom Knife training has no numeric Job Level gate in this source.",
+            "evidence_id": "ev:8ce014b150451b5e0c815f94",
+            "kind": "optional",
+            "route_id": "route:89942689e4ab864d8999e4da",
+            "route_key": "venom_knife",
+            "route_order": 1,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1"
+          }
+        ],
+        "section": "Venom Knife Quest",
+        "short_en": "Talk to Killtin in Assassin Guild and learn Venom Knife.",
+        "short_ru": "Поговорите с Killtin в Assassin Guild и изучите Venom Knife.",
+        "source_additions": [
+          {
+            "addition_id": "addition:452d10008e756d503c6fbbb6",
+            "addition_order": 1,
+            "evidence_id": "ev:7a4c969884ba511333e6e763",
+            "review_state": "source_reviewed",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1",
+            "text_en": "Job Level: None Class: Assassin",
+            "text_ru": "Числовой Job Level не указан; профессия Assassin."
+          }
+        ],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 1,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:f27b8b3ed98575a9de99f067",
+            "npc_id": "npc:1f415636a31b65974af2b546",
+            "role": "talk",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1"
+          }
+        ],
+        "step_order": 1,
+        "step_rewards": [
+          {
+            "reward_id": "reward:8b0d2c21053a29eaab2f7aee",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1"
+          }
+        ]
+      },
+      {
+        "action_reuse": [],
+        "branches": [
+          {
+            "branch_id": "branch:678287d2aca4a36f7b833b2d",
+            "branch_key": "aquamarine_site",
+            "choice_group": "one_jewel_site",
+            "condition_text": "Choose this jewel site as one alternative; obtaining all three jewels is not required.",
+            "evidence_id": "ev:dba74bf6246ecb3962b8cebd",
+            "full_en": "In Pyramids 4F, the gem is located at middle of the left side of the enclosed water area. Keep walking around it to get an Aquamarine.",
+            "full_ru": "В Pyramids 4F камень находится в середине левой стороны огороженного водоёма. Ходите рядом, пока не получите Aquamarine.",
+            "mentions": [
+              {
+                "branch_id": "branch:678287d2aca4a36f7b833b2d",
+                "end_offset": 14,
+                "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+                "entity_type": "map",
+                "evidence_id": "ev:6e2d8b21198a9395570b6289",
+                "field": "full_en",
+                "mention_id": "mention:52020351d0c715e95e7c141a",
+                "start_offset": 3,
+                "surface": "Pyramids 4F"
+              },
+              {
+                "branch_id": "branch:678287d2aca4a36f7b833b2d",
+                "end_offset": 133,
+                "entity_id": "item:b094d6f8e9d3e053091adb51",
+                "entity_type": "item",
+                "evidence_id": "ev:36bf5533c142371f1fd5e327",
+                "field": "full_en",
+                "mention_id": "mention:8467e61d8cec532205709ceb",
+                "start_offset": 123,
+                "surface": "Aquamarine"
+              },
+              {
+                "branch_id": "branch:678287d2aca4a36f7b833b2d",
+                "end_offset": 13,
+                "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+                "entity_type": "map",
+                "evidence_id": "ev:6e2d8b21198a9395570b6289",
+                "field": "full_ru",
+                "mention_id": "mention:3f90552ad091cd4fbed66b70",
+                "start_offset": 2,
+                "surface": "Pyramids 4F"
+              },
+              {
+                "branch_id": "branch:678287d2aca4a36f7b833b2d",
+                "end_offset": 119,
+                "entity_id": "item:b094d6f8e9d3e053091adb51",
+                "entity_type": "item",
+                "evidence_id": "ev:36bf5533c142371f1fd5e327",
+                "field": "full_ru",
+                "mention_id": "mention:b8e0e2be0ae7e22774ec0a5f",
+                "start_offset": 109,
+                "surface": "Aquamarine"
+              },
+              {
+                "branch_id": "branch:678287d2aca4a36f7b833b2d",
+                "end_offset": 10,
+                "entity_id": "item:b094d6f8e9d3e053091adb51",
+                "entity_type": "item",
+                "evidence_id": "ev:36bf5533c142371f1fd5e327",
+                "field": "short_en",
+                "mention_id": "mention:17d7845aacc7a0695799dd97",
+                "start_offset": 0,
+                "surface": "Aquamarine"
+              },
+              {
+                "branch_id": "branch:678287d2aca4a36f7b833b2d",
+                "end_offset": 90,
+                "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+                "entity_type": "map",
+                "evidence_id": "ev:6e2d8b21198a9395570b6289",
+                "field": "short_en",
+                "mention_id": "mention:db3d6ee748fae6bcb1b89589",
+                "start_offset": 79,
+                "surface": "Pyramids 4F"
+              },
+              {
+                "branch_id": "branch:678287d2aca4a36f7b833b2d",
+                "end_offset": 18,
+                "entity_id": "item:b094d6f8e9d3e053091adb51",
+                "entity_type": "item",
+                "evidence_id": "ev:36bf5533c142371f1fd5e327",
+                "field": "short_ru",
+                "mention_id": "mention:193126e862f6d0541fee13fb",
+                "start_offset": 8,
+                "surface": "Aquamarine"
+              },
+              {
+                "branch_id": "branch:678287d2aca4a36f7b833b2d",
+                "end_offset": 83,
+                "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+                "entity_type": "map",
+                "evidence_id": "ev:6e2d8b21198a9395570b6289",
+                "field": "short_ru",
+                "mention_id": "mention:b84eca7a407588c0a5c03f3a",
+                "start_offset": 72,
+                "surface": "Pyramids 4F"
+              }
+            ],
+            "review_state": "source_reviewed_not_server_verified",
+            "short_en": "Aquamarine alternative: walk along the left side of the enclosed water area in Pyramids 4F.",
+            "short_ru": "Вариант Aquamarine: пройдите вдоль левой стороны огороженного водоёма в Pyramids 4F.",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "variant_scope": "irowiki-classic"
+          },
+          {
+            "branch_id": "branch:654635c5a382e7ad6f2cf4b7",
+            "branch_key": "ruby_site",
+            "choice_group": "one_jewel_site",
+            "condition_text": "Choose this jewel site as one alternative; obtaining all three jewels is not required.",
+            "evidence_id": "ev:f4a7186574c2b6cb29bfd9c7",
+            "full_en": "The second coffin site is at around 9 o'clock (18, 163), where you will find a statue with an ornament. It's booby-trapped and will put you to sleep with gas. Again, keep trying and you will receive a Ruby.",
+            "full_ru": "Второе место с гробом находится примерно в направлении 9 часов (18, 163): там стоит статуя с украшением. Ловушка усыпляет газом. Продолжайте попытки, пока не получите Ruby.",
+            "mentions": [
+              {
+                "branch_id": "branch:654635c5a382e7ad6f2cf4b7",
+                "end_offset": 205,
+                "entity_id": "item:7cdd325c1562aa0896d9a899",
+                "entity_type": "item",
+                "evidence_id": "ev:13e478417ff1dcef4a8d83cf",
+                "field": "full_en",
+                "mention_id": "mention:f7a92123108f8b15ee085aa3",
+                "start_offset": 201,
+                "surface": "Ruby"
+              },
+              {
+                "branch_id": "branch:654635c5a382e7ad6f2cf4b7",
+                "end_offset": 171,
+                "entity_id": "item:7cdd325c1562aa0896d9a899",
+                "entity_type": "item",
+                "evidence_id": "ev:13e478417ff1dcef4a8d83cf",
+                "field": "full_ru",
+                "mention_id": "mention:b8917f7965d600ce4112c80a",
+                "start_offset": 167,
+                "surface": "Ruby"
+              },
+              {
+                "branch_id": "branch:654635c5a382e7ad6f2cf4b7",
+                "end_offset": 4,
+                "entity_id": "item:7cdd325c1562aa0896d9a899",
+                "entity_type": "item",
+                "evidence_id": "ev:13e478417ff1dcef4a8d83cf",
+                "field": "short_en",
+                "mention_id": "mention:f1451910cbc5ca85618f8ecf",
+                "start_offset": 0,
+                "surface": "Ruby"
+              },
+              {
+                "branch_id": "branch:654635c5a382e7ad6f2cf4b7",
+                "end_offset": 12,
+                "entity_id": "item:7cdd325c1562aa0896d9a899",
+                "entity_type": "item",
+                "evidence_id": "ev:13e478417ff1dcef4a8d83cf",
+                "field": "short_ru",
+                "mention_id": "mention:7d13ed92930411c606f5a084",
+                "start_offset": 8,
+                "surface": "Ruby"
+              }
+            ],
+            "review_state": "source_reviewed_not_server_verified",
+            "short_en": "Ruby alternative: retry at the statue (18, 163), accounting for the sleep trap.",
+            "short_ru": "Вариант Ruby: у статуи (18, 163) повторяйте попытки, учитывая усыпляющую ловушку.",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "variant_scope": "irowiki-classic"
+          },
+          {
+            "branch_id": "branch:48f924e23abd1e4df6698ef8",
+            "branch_key": "sapphire_site",
+            "choice_group": "one_jewel_site",
+            "condition_text": "Choose this jewel site as one alternative; obtaining all three jewels is not required.",
+            "evidence_id": "ev:67909f13c74b64335487081c",
+            "full_en": "In Sphinx B2, there are two places where you can obtain the gem. You only have to get one jewel from either of these locations (If the first doesn't work go the the second one, and vice-versa). The first coffin site can be found at 1 o'clock (216,268), approximately two screens west of the entrance to Sphinx B3, where there will be a coffin on a raised platform. Walk up to the platform to activate the dialogue and you will be prompted to make a choice. Depending on what you choose you will be poisoned , blinded , or cursed . Just be persistent and continue selecting and eventually you will receive a Sapphire.",
+            "full_ru": "В Sphinx B2 есть два места получения камня; нужен только один камень из любого из этих мест. Если первое не срабатывает, попробуйте второе, и наоборот. Первое место с гробом находится в направлении 1 часа (216,268), примерно в двух экранах западнее входа в Sphinx B3: гроб стоит на возвышении. Подойдите к нему для диалога и сделайте выбор. В зависимости от выбора вы получите отравление, ослепление или проклятие. Продолжайте попытки, пока не получите Sapphire.",
+            "mentions": [
+              {
+                "branch_id": "branch:48f924e23abd1e4df6698ef8",
+                "end_offset": 12,
+                "entity_id": "map:7fb34099c95e07321fd0af47",
+                "entity_type": "map",
+                "evidence_id": "ev:3f4e2100e549517760e1baf4",
+                "field": "full_en",
+                "mention_id": "mention:0b23d218db0eb72a351cc4bc",
+                "start_offset": 3,
+                "surface": "Sphinx B2"
+              },
+              {
+                "branch_id": "branch:48f924e23abd1e4df6698ef8",
+                "end_offset": 312,
+                "entity_id": "map:65716395a32331fe5a0457f8",
+                "entity_type": "map",
+                "evidence_id": "ev:7f8f4cfed818449169bafa35",
+                "field": "full_en",
+                "mention_id": "mention:de341e40af32f417672a34b8",
+                "start_offset": 303,
+                "surface": "Sphinx B3"
+              },
+              {
+                "branch_id": "branch:48f924e23abd1e4df6698ef8",
+                "end_offset": 615,
+                "entity_id": "item:b13e8cc26c6f1a4814fa61e7",
+                "entity_type": "item",
+                "evidence_id": "ev:dcc3d9b24b5a184b1e437889",
+                "field": "full_en",
+                "mention_id": "mention:4b2454bcb109b968860790c3",
+                "start_offset": 607,
+                "surface": "Sapphire"
+              },
+              {
+                "branch_id": "branch:48f924e23abd1e4df6698ef8",
+                "end_offset": 11,
+                "entity_id": "map:7fb34099c95e07321fd0af47",
+                "entity_type": "map",
+                "evidence_id": "ev:3f4e2100e549517760e1baf4",
+                "field": "full_ru",
+                "mention_id": "mention:1b491d50f43ebfa34b345ff6",
+                "start_offset": 2,
+                "surface": "Sphinx B2"
+              },
+              {
+                "branch_id": "branch:48f924e23abd1e4df6698ef8",
+                "end_offset": 266,
+                "entity_id": "map:65716395a32331fe5a0457f8",
+                "entity_type": "map",
+                "evidence_id": "ev:7f8f4cfed818449169bafa35",
+                "field": "full_ru",
+                "mention_id": "mention:b5a36a5fbf9779dd6eaa2f8b",
+                "start_offset": 257,
+                "surface": "Sphinx B3"
+              },
+              {
+                "branch_id": "branch:48f924e23abd1e4df6698ef8",
+                "end_offset": 461,
+                "entity_id": "item:b13e8cc26c6f1a4814fa61e7",
+                "entity_type": "item",
+                "evidence_id": "ev:dcc3d9b24b5a184b1e437889",
+                "field": "full_ru",
+                "mention_id": "mention:3f7a7a79a0888078f27e3346",
+                "start_offset": 453,
+                "surface": "Sapphire"
+              },
+              {
+                "branch_id": "branch:48f924e23abd1e4df6698ef8",
+                "end_offset": 8,
+                "entity_id": "item:b13e8cc26c6f1a4814fa61e7",
+                "entity_type": "item",
+                "evidence_id": "ev:dcc3d9b24b5a184b1e437889",
+                "field": "short_en",
+                "mention_id": "mention:d704b3c7b12b4b017ac55cf2",
+                "start_offset": 0,
+                "surface": "Sapphire"
+              },
+              {
+                "branch_id": "branch:48f924e23abd1e4df6698ef8",
+                "end_offset": 54,
+                "entity_id": "map:7fb34099c95e07321fd0af47",
+                "entity_type": "map",
+                "evidence_id": "ev:3f4e2100e549517760e1baf4",
+                "field": "short_en",
+                "mention_id": "mention:98206c4b1246e93523c6f8f2",
+                "start_offset": 45,
+                "surface": "Sphinx B2"
+              },
+              {
+                "branch_id": "branch:48f924e23abd1e4df6698ef8",
+                "end_offset": 16,
+                "entity_id": "item:b13e8cc26c6f1a4814fa61e7",
+                "entity_type": "item",
+                "evidence_id": "ev:dcc3d9b24b5a184b1e437889",
+                "field": "short_ru",
+                "mention_id": "mention:7467d799018a22d42699a409",
+                "start_offset": 8,
+                "surface": "Sapphire"
+              },
+              {
+                "branch_id": "branch:48f924e23abd1e4df6698ef8",
+                "end_offset": 29,
+                "entity_id": "map:7fb34099c95e07321fd0af47",
+                "entity_type": "map",
+                "evidence_id": "ev:3f4e2100e549517760e1baf4",
+                "field": "short_ru",
+                "mention_id": "mention:2d8396cd7099b871f17bea1e",
+                "start_offset": 20,
+                "surface": "Sphinx B2"
+              }
+            ],
+            "review_state": "source_reviewed_not_server_verified",
+            "short_en": "Sapphire alternative: approach the coffin in Sphinx B2 (216,268); retry until the jewel is obtained.",
+            "short_ru": "Вариант Sapphire: в Sphinx B2 подойдите к гробу (216,268); повторяйте попытки до получения камня.",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "variant_scope": "irowiki-classic"
+          }
+        ],
+        "description_mentions": [
+          {
+            "end_offset": 44,
+            "entity_id": "npc:cef42f15dcf8ae9d009aa9a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:84798ac731ff03d5d5314c5d",
+            "field": "full_en",
+            "mention_id": "mention:eb35b4a6d1b33b6f35af1158",
+            "start_offset": 37,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Esmille"
+          },
+          {
+            "end_offset": 144,
+            "entity_id": "npc:bc14229910cec6c1fc449b69",
+            "entity_type": "npc",
+            "evidence_id": "ev:cc33178579687d2472c3e13f",
+            "field": "full_en",
+            "mention_id": "mention:8a9d0225b7b17caa1b87675f",
+            "start_offset": 138,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Kiltin"
+          },
+          {
+            "end_offset": 195,
+            "entity_id": "map:7fb34099c95e07321fd0af47",
+            "entity_type": "map",
+            "evidence_id": "ev:3f4e2100e549517760e1baf4",
+            "field": "full_en",
+            "mention_id": "mention:1afc94a42293eea5792b7e63",
+            "start_offset": 186,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Sphinx B2"
+          },
+          {
+            "end_offset": 210,
+            "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+            "entity_type": "map",
+            "evidence_id": "ev:6e2d8b21198a9395570b6289",
+            "field": "full_en",
+            "mention_id": "mention:dc323ed259b1577d10ce1a19",
+            "start_offset": 199,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Pyramids 4F"
+          },
+          {
+            "end_offset": 47,
+            "entity_id": "npc:cef42f15dcf8ae9d009aa9a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:84798ac731ff03d5d5314c5d",
+            "field": "full_ru",
+            "mention_id": "mention:eb3b8bc11ba44251fab412b3",
+            "start_offset": 40,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Esmille"
+          },
+          {
+            "end_offset": 127,
+            "entity_id": "npc:bc14229910cec6c1fc449b69",
+            "entity_type": "npc",
+            "evidence_id": "ev:cc33178579687d2472c3e13f",
+            "field": "full_ru",
+            "mention_id": "mention:7d402ebdb3460010e36f3bca",
+            "start_offset": 121,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Kiltin"
+          },
+          {
+            "end_offset": 161,
+            "entity_id": "map:7fb34099c95e07321fd0af47",
+            "entity_type": "map",
+            "evidence_id": "ev:3f4e2100e549517760e1baf4",
+            "field": "full_ru",
+            "mention_id": "mention:f2acb89b503c783ead6f7731",
+            "start_offset": 152,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Sphinx B2"
+          },
+          {
+            "end_offset": 177,
+            "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+            "entity_type": "map",
+            "evidence_id": "ev:6e2d8b21198a9395570b6289",
+            "field": "full_ru",
+            "mention_id": "mention:e5a1961c65bfd73e20258fa9",
+            "start_offset": 166,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Pyramids 4F"
+          },
+          {
+            "end_offset": 35,
+            "entity_id": "npc:cef42f15dcf8ae9d009aa9a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:84798ac731ff03d5d5314c5d",
+            "field": "short_en",
+            "mention_id": "mention:4345b45a5ee7d5c7b58a2876",
+            "start_offset": 28,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Esmille"
+          },
+          {
+            "end_offset": 68,
+            "entity_id": "map:7fb34099c95e07321fd0af47",
+            "entity_type": "map",
+            "evidence_id": "ev:3f4e2100e549517760e1baf4",
+            "field": "short_en",
+            "mention_id": "mention:3652a126bce9110a94b717d1",
+            "start_offset": 59,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Sphinx B2"
+          },
+          {
+            "end_offset": 83,
+            "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+            "entity_type": "map",
+            "evidence_id": "ev:6e2d8b21198a9395570b6289",
+            "field": "short_en",
+            "mention_id": "mention:020cf992f3768a621084067b",
+            "start_offset": 72,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Pyramids 4F"
+          },
+          {
+            "end_offset": 40,
+            "entity_id": "npc:cef42f15dcf8ae9d009aa9a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:84798ac731ff03d5d5314c5d",
+            "field": "short_ru",
+            "mention_id": "mention:d2cf156b99e57248dd2859ad",
+            "start_offset": 33,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Esmille"
+          },
+          {
+            "end_offset": 75,
+            "entity_id": "map:7fb34099c95e07321fd0af47",
+            "entity_type": "map",
+            "evidence_id": "ev:3f4e2100e549517760e1baf4",
+            "field": "short_ru",
+            "mention_id": "mention:686063bdafc587e960611429",
+            "start_offset": 66,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Sphinx B2"
+          },
+          {
+            "end_offset": 91,
+            "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+            "entity_type": "map",
+            "evidence_id": "ev:6e2d8b21198a9395570b6289",
+            "field": "short_ru",
+            "mention_id": "mention:d51831976b386c806b08105a",
+            "start_offset": 80,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "surface": "Pyramids 4F"
+          }
+        ],
+        "full_en": "After learning Venom Knife , talk to Esmille(the NPC on the right side). She will teach you the skill only after you've completed a task. Kiltin asks you to retrieve a jewel from either Sphinx B2 or Pyramids 4F. Job Level: 40 Class: Assassin Skill Requirements: Sonic Blow Level 1",
+        "full_ru": "После изучения Venom Knife поговорите с Esmille, NPC справа. Она обучит вас умению после выполнения задания. В источнике Kiltin просит достать камень в Sphinx B2 или Pyramids 4F. Для этого умения: Job Level 40, профессия Assassin, Sonic Blow Level 1.",
+        "instruction_sha256": "fe57db9bd7700a0806d565d5ac6647e7887556c36dbf27a38d04ca432aab7df9",
+        "original_instruction": "After learning Venom Knife , talk to Esmille(the NPC on the right side). She will teach you the skill only after you've completed a task. Kiltin asks you to retrieve a jewel from either Sphinx B2 or Pyramids 4F.",
+        "primary_goal": "obtain_materials",
+        "quest_id": "irowiki-classic:Assassin_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Sonic Acceleration activity requires learned Venom Knife, Job Level 40 and Sonic Blow Level 1. Stages 3/4/5 are alternative jewel sites; obtain one jewel, not all three.",
+            "evidence_id": "ev:638c021089834fc5d052384f",
+            "kind": "optional",
+            "route_id": "route:132b157050e2e655d3adaf24",
+            "route_key": "sonic_acceleration",
+            "route_order": 1,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          }
+        ],
+        "section": "Sonic Acceleration Quest",
+        "short_en": "After Venom Knife, speak to Esmille; obtain one jewel from Sphinx B2 or Pyramids 4F. Requires Job Level 40 and Sonic Blow Level 1.",
+        "short_ru": "Изучив Venom Knife, обратитесь к Esmille; получите один камень из Sphinx B2 или Pyramids 4F. Требуются Job Level 40 и Sonic Blow Level 1.",
+        "source_additions": [
+          {
+            "addition_id": "addition:b8fcec15de5d7849dbfa575e",
+            "addition_order": 1,
+            "evidence_id": "ev:91d7c7ddde5f5dc6e9e4b7bd",
+            "review_state": "source_reviewed",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+            "text_en": "Job Level: 40 Class: Assassin Skill Requirements: Sonic Blow Level 1",
+            "text_ru": "Для этого умения: Job Level 40, профессия Assassin, Sonic Blow Level 1."
+          }
+        ],
+        "source_fragments": [
+          {
+            "branch_id": "branch:48f924e23abd1e4df6698ef8",
+            "end_offset": 616,
+            "evidence_id": "ev:82e6a9c1326871fe6bc2e861",
+            "fragment_id": "fragment:777dd617843a97d0315ea31b",
+            "origin_step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+            "original_text": "In Sphinx B2, there are two places where you can obtain the gem. You only have to get one jewel from either of these locations (If the first doesn't work go the the second one, and vice-versa). The first coffin site can be found at 1 o'clock (216,268), approximately two screens west of the entrance to Sphinx B3, where there will be a coffin on a raised platform. Walk up to the platform to activate the dialogue and you will be prompted to make a choice. Depending on what you choose you will be poisoned , blinded , or cursed . Just be persistent and continue selecting and eventually you will receive a Sapphire.",
+            "partition_key": null,
+            "role": "branch",
+            "section": "Sonic Acceleration Quest",
+            "start_offset": 0,
+            "target_step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          },
+          {
+            "branch_id": "branch:678287d2aca4a36f7b833b2d",
+            "end_offset": 134,
+            "evidence_id": "ev:0754e3068a054a53b1f519a3",
+            "fragment_id": "fragment:0d6fd351e2085591197e6ab8",
+            "origin_step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1",
+            "original_text": "In Pyramids 4F, the gem is located at middle of the left side of the enclosed water area. Keep walking around it to get an Aquamarine.",
+            "partition_key": null,
+            "role": "branch",
+            "section": "Sonic Acceleration Quest",
+            "start_offset": 0,
+            "target_step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          },
+          {
+            "branch_id": "branch:654635c5a382e7ad6f2cf4b7",
+            "end_offset": 206,
+            "evidence_id": "ev:6b62843ee9937d684734f6be",
+            "fragment_id": "fragment:963e86a9a8d82fc2f812abfb",
+            "origin_step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1",
+            "original_text": "The second coffin site is at around 9 o'clock (18, 163), where you will find a statue with an ornament. It's booby-trapped and will put you to sleep with gas. Again, keep trying and you will receive a Ruby.",
+            "partition_key": null,
+            "role": "branch",
+            "section": "Sonic Acceleration Quest",
+            "start_offset": 0,
+            "target_step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          }
+        ],
+        "source_kind": "numbered",
+        "source_step": 1,
+        "step_actions": [
+          {
+            "action_id": "action:5b3994e1722e2a5da4cc462f",
+            "action_order": 1,
+            "branch_id": "branch:48f924e23abd1e4df6698ef8",
+            "condition_text": null,
+            "entity_id": "item:b13e8cc26c6f1a4814fa61e7",
+            "evidence_id": "ev:9ecc59b51779d978eda8ef91",
+            "operation": "obtain_alternative_jewel",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          },
+          {
+            "action_id": "action:a0ed5d176db413a796515ada",
+            "action_order": 2,
+            "branch_id": "branch:654635c5a382e7ad6f2cf4b7",
+            "condition_text": null,
+            "entity_id": "item:7cdd325c1562aa0896d9a899",
+            "evidence_id": "ev:15c208df2fe28b9016302048",
+            "operation": "obtain_alternative_jewel",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          },
+          {
+            "action_id": "action:44b0e2b34b71b407db43eee6",
+            "action_order": 3,
+            "branch_id": "branch:678287d2aca4a36f7b833b2d",
+            "condition_text": null,
+            "entity_id": "item:b094d6f8e9d3e053091adb51",
+            "evidence_id": "ev:25ebf340f3518bd958925e46",
+            "operation": "obtain_alternative_jewel",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1",
+        "step_items": [
+          {
+            "branch_id": "branch:654635c5a382e7ad6f2cf4b7",
+            "condition_text": "One jewel on the chosen alternative only.",
+            "evidence_id": "ev:15c208df2fe28b9016302048",
+            "fact_id": "item_fact:98dfbd8bca21eb732958785d",
+            "item_id": "item:7cdd325c1562aa0896d9a899",
+            "operation": "collect",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          },
+          {
+            "branch_id": "branch:678287d2aca4a36f7b833b2d",
+            "condition_text": "One jewel on the chosen alternative only.",
+            "evidence_id": "ev:25ebf340f3518bd958925e46",
+            "fact_id": "item_fact:dc30af6163c85ac5b2c92075",
+            "item_id": "item:b094d6f8e9d3e053091adb51",
+            "operation": "collect",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          },
+          {
+            "branch_id": "branch:48f924e23abd1e4df6698ef8",
+            "condition_text": "One jewel on the chosen alternative only.",
+            "evidence_id": "ev:9ecc59b51779d978eda8ef91",
+            "fact_id": "item_fact:eb19e5d0a664c53a24b014c6",
+            "item_id": "item:b13e8cc26c6f1a4814fa61e7",
+            "operation": "collect",
+            "quantity": 1,
+            "required": 1,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          }
+        ],
+        "step_locations": [
+          {
+            "condition_text": "Alternative Sphinx B2 site from step 3; exact map code unknown.",
+            "evidence_id": "ev:15c208df2fe28b9016302048",
+            "location_id": "location:119fd12bfac79ebfea86c0ff",
+            "location_order": null,
+            "role": "statue_trigger",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          },
+          {
+            "condition_text": "Sphinx B2 context; exact map code is not printed.",
+            "evidence_id": "ev:9ecc59b51779d978eda8ef91",
+            "location_id": "location:64b089d1cd138a7a4549e3f5",
+            "location_order": null,
+            "role": "coffin_trigger",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:c5caca084a8086394ee9c9a4",
+            "npc_id": "npc:bc14229910cec6c1fc449b69",
+            "role": "source_attribution",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          },
+          {
+            "evidence_id": "ev:c5caca084a8086394ee9c9a4",
+            "npc_id": "npc:cef42f15dcf8ae9d009aa9a6",
+            "role": "talk",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
+          }
+        ],
+        "step_order": 2,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 12,
+            "entity_id": "map:7fb34099c95e07321fd0af47",
+            "entity_type": "map",
+            "evidence_id": "ev:3f4e2100e549517760e1baf4",
+            "field": "full_en",
+            "mention_id": "mention:389d99f11ae500d958d2a78b",
+            "start_offset": 3,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+            "surface": "Sphinx B2"
+          },
+          {
+            "end_offset": 312,
+            "entity_id": "map:65716395a32331fe5a0457f8",
+            "entity_type": "map",
+            "evidence_id": "ev:7f8f4cfed818449169bafa35",
+            "field": "full_en",
+            "mention_id": "mention:248e10d9e11cbeed6b70ab71",
+            "start_offset": 303,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+            "surface": "Sphinx B3"
+          },
+          {
+            "end_offset": 615,
+            "entity_id": "item:b13e8cc26c6f1a4814fa61e7",
+            "entity_type": "item",
+            "evidence_id": "ev:dcc3d9b24b5a184b1e437889",
+            "field": "full_en",
+            "mention_id": "mention:8dbc230e766f829a3b94d97f",
+            "start_offset": 607,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+            "surface": "Sapphire"
+          },
+          {
+            "end_offset": 11,
+            "entity_id": "map:7fb34099c95e07321fd0af47",
+            "entity_type": "map",
+            "evidence_id": "ev:3f4e2100e549517760e1baf4",
+            "field": "full_ru",
+            "mention_id": "mention:b194dc60dee4094619dc6a20",
+            "start_offset": 2,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+            "surface": "Sphinx B2"
+          },
+          {
+            "end_offset": 266,
+            "entity_id": "map:65716395a32331fe5a0457f8",
+            "entity_type": "map",
+            "evidence_id": "ev:7f8f4cfed818449169bafa35",
+            "field": "full_ru",
+            "mention_id": "mention:8b0005e4ad2f5c3e2bf67a20",
+            "start_offset": 257,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+            "surface": "Sphinx B3"
+          },
+          {
+            "end_offset": 461,
+            "entity_id": "item:b13e8cc26c6f1a4814fa61e7",
+            "entity_type": "item",
+            "evidence_id": "ev:dcc3d9b24b5a184b1e437889",
+            "field": "full_ru",
+            "mention_id": "mention:86e0168cc2155bbac915a5cb",
+            "start_offset": 453,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+            "surface": "Sapphire"
+          },
+          {
+            "end_offset": 8,
+            "entity_id": "item:b13e8cc26c6f1a4814fa61e7",
+            "entity_type": "item",
+            "evidence_id": "ev:dcc3d9b24b5a184b1e437889",
+            "field": "short_en",
+            "mention_id": "mention:2ddd4979d1120172bb42b853",
+            "start_offset": 0,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+            "surface": "Sapphire"
+          },
+          {
+            "end_offset": 54,
+            "entity_id": "map:7fb34099c95e07321fd0af47",
+            "entity_type": "map",
+            "evidence_id": "ev:3f4e2100e549517760e1baf4",
+            "field": "short_en",
+            "mention_id": "mention:0f05f50f65493efa5fe6c495",
+            "start_offset": 45,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+            "surface": "Sphinx B2"
+          },
+          {
+            "end_offset": 16,
+            "entity_id": "item:b13e8cc26c6f1a4814fa61e7",
+            "entity_type": "item",
+            "evidence_id": "ev:dcc3d9b24b5a184b1e437889",
+            "field": "short_ru",
+            "mention_id": "mention:8a8384ca559244e3e1570237",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+            "surface": "Sapphire"
+          },
+          {
+            "end_offset": 29,
+            "entity_id": "map:7fb34099c95e07321fd0af47",
+            "entity_type": "map",
+            "evidence_id": "ev:3f4e2100e549517760e1baf4",
+            "field": "short_ru",
+            "mention_id": "mention:91c3d6e5f970d8379c264e11",
+            "start_offset": 20,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+            "surface": "Sphinx B2"
+          }
+        ],
+        "full_en": "In Sphinx B2, there are two places where you can obtain the gem. You only have to get one jewel from either of these locations (If the first doesn't work go the the second one, and vice-versa). The first coffin site can be found at 1 o'clock (216,268), approximately two screens west of the entrance to Sphinx B3, where there will be a coffin on a raised platform. Walk up to the platform to activate the dialogue and you will be prompted to make a choice. Depending on what you choose you will be poisoned , blinded , or cursed . Just be persistent and continue selecting and eventually you will receive a Sapphire.",
+        "full_ru": "В Sphinx B2 есть два места получения камня; нужен только один камень из любого из этих мест. Если первое не срабатывает, попробуйте второе, и наоборот. Первое место с гробом находится в направлении 1 часа (216,268), примерно в двух экранах западнее входа в Sphinx B3: гроб стоит на возвышении. Подойдите к нему для диалога и сделайте выбор. В зависимости от выбора вы получите отравление, ослепление или проклятие. Продолжайте попытки, пока не получите Sapphire.",
+        "instruction_sha256": "0c9e9a37551e65f44f68c337db976155fb07ed3339180cf688d4dcbbff5c3be6",
+        "original_instruction": "In Sphinx B2, there are two places where you can obtain the gem. You only have to get one jewel from either of these locations (If the first doesn't work go the the second one, and vice-versa). The first coffin site can be found at 1 o'clock (216,268), approximately two screens west of the entrance to Sphinx B3, where there will be a coffin on a raised platform. Walk up to the platform to activate the dialogue and you will be prompted to make a choice. Depending on what you choose you will be poisoned , blinded , or cursed . Just be persistent and continue selecting and eventually you will receive a Sapphire.",
+        "primary_goal": "obtain_materials",
+        "quest_id": "irowiki-classic:Assassin_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Sonic Acceleration activity requires learned Venom Knife, Job Level 40 and Sonic Blow Level 1. Stages 3/4/5 are alternative jewel sites; obtain one jewel, not all three.",
+            "evidence_id": "ev:db560544ad7cbd789b1d815c",
+            "kind": "optional",
+            "route_id": "route:132b157050e2e655d3adaf24",
+            "route_key": "sonic_acceleration",
+            "route_order": 2,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1"
+          }
+        ],
+        "section": "Sonic Acceleration Quest",
+        "short_en": "Sapphire alternative: approach the coffin in Sphinx B2 (216,268); retry until the jewel is obtained.",
+        "short_ru": "Вариант Sapphire: в Sphinx B2 подойдите к гробу (216,268); повторяйте попытки до получения камня.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 2,
+        "step_actions": [
+          {
+            "action_id": "action:1b325feb6bfac654a9c0f7d9",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": "Use one of source steps 3/4/5; never require all three jewels.",
+            "entity_id": null,
+            "evidence_id": "ev:9ecc59b51779d978eda8ef91",
+            "operation": "alternative_gem_site",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": "Sphinx B2 context; exact map code is not printed.",
+            "evidence_id": "ev:9ecc59b51779d978eda8ef91",
+            "location_id": "location:af4a7fb82c0918bf0c1a2be1",
+            "location_order": null,
+            "role": "coffin_trigger",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [],
+        "step_order": 3,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 205,
+            "entity_id": "item:7cdd325c1562aa0896d9a899",
+            "entity_type": "item",
+            "evidence_id": "ev:13e478417ff1dcef4a8d83cf",
+            "field": "full_en",
+            "mention_id": "mention:98ca0ccbcf8903336ef3abea",
+            "start_offset": 201,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1",
+            "surface": "Ruby"
+          },
+          {
+            "end_offset": 171,
+            "entity_id": "item:7cdd325c1562aa0896d9a899",
+            "entity_type": "item",
+            "evidence_id": "ev:13e478417ff1dcef4a8d83cf",
+            "field": "full_ru",
+            "mention_id": "mention:fd9894e14f820f459c4fdbee",
+            "start_offset": 167,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1",
+            "surface": "Ruby"
+          },
+          {
+            "end_offset": 4,
+            "entity_id": "item:7cdd325c1562aa0896d9a899",
+            "entity_type": "item",
+            "evidence_id": "ev:13e478417ff1dcef4a8d83cf",
+            "field": "short_en",
+            "mention_id": "mention:46d593c015f3d620184dcf13",
+            "start_offset": 0,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1",
+            "surface": "Ruby"
+          },
+          {
+            "end_offset": 12,
+            "entity_id": "item:7cdd325c1562aa0896d9a899",
+            "entity_type": "item",
+            "evidence_id": "ev:13e478417ff1dcef4a8d83cf",
+            "field": "short_ru",
+            "mention_id": "mention:1e1173f32a398ea595aee56f",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1",
+            "surface": "Ruby"
+          }
+        ],
+        "full_en": "The second coffin site is at around 9 o'clock (18, 163), where you will find a statue with an ornament. It's booby-trapped and will put you to sleep with gas. Again, keep trying and you will receive a Ruby.",
+        "full_ru": "Второе место с гробом находится примерно в направлении 9 часов (18, 163): там стоит статуя с украшением. Ловушка усыпляет газом. Продолжайте попытки, пока не получите Ruby.",
+        "instruction_sha256": "c875dc27fb8c51e90ba78551a11d9ec1b266eae2f46bd8703b08f4c70c1d8bd7",
+        "original_instruction": "The second coffin site is at around 9 o'clock (18, 163), where you will find a statue with an ornament. It's booby-trapped and will put you to sleep with gas. Again, keep trying and you will receive a Ruby.",
+        "primary_goal": "obtain_materials",
+        "quest_id": "irowiki-classic:Assassin_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Sonic Acceleration activity requires learned Venom Knife, Job Level 40 and Sonic Blow Level 1. Stages 3/4/5 are alternative jewel sites; obtain one jewel, not all three.",
+            "evidence_id": "ev:073bd1d6d950f3a757e96ae7",
+            "kind": "optional",
+            "route_id": "route:132b157050e2e655d3adaf24",
+            "route_key": "sonic_acceleration",
+            "route_order": 3,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1"
+          }
+        ],
+        "section": "Sonic Acceleration Quest",
+        "short_en": "Ruby alternative: retry at the statue (18, 163), accounting for the sleep trap.",
+        "short_ru": "Вариант Ruby: у статуи (18, 163) повторяйте попытки, учитывая усыпляющую ловушку.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 3,
+        "step_actions": [
+          {
+            "action_id": "action:9bc850f8227a7bc725ac9fa3",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": "Use one of source steps 3/4/5; never require all three jewels.",
+            "entity_id": null,
+            "evidence_id": "ev:15c208df2fe28b9016302048",
+            "operation": "alternative_gem_site",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": "Alternative Sphinx B2 site from step 3; exact map code unknown.",
+            "evidence_id": "ev:15c208df2fe28b9016302048",
+            "location_id": "location:952cfd3459a290e5a97c3a12",
+            "location_order": null,
+            "role": "statue_trigger",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [],
+        "step_order": 4,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 14,
+            "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+            "entity_type": "map",
+            "evidence_id": "ev:6e2d8b21198a9395570b6289",
+            "field": "full_en",
+            "mention_id": "mention:8aa94148436e5c0e114b6aa5",
+            "start_offset": 3,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1",
+            "surface": "Pyramids 4F"
+          },
+          {
+            "end_offset": 133,
+            "entity_id": "item:b094d6f8e9d3e053091adb51",
+            "entity_type": "item",
+            "evidence_id": "ev:36bf5533c142371f1fd5e327",
+            "field": "full_en",
+            "mention_id": "mention:52a228072d33b1721b8443aa",
+            "start_offset": 123,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1",
+            "surface": "Aquamarine"
+          },
+          {
+            "end_offset": 13,
+            "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+            "entity_type": "map",
+            "evidence_id": "ev:6e2d8b21198a9395570b6289",
+            "field": "full_ru",
+            "mention_id": "mention:892b82ea49f93884619ea496",
+            "start_offset": 2,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1",
+            "surface": "Pyramids 4F"
+          },
+          {
+            "end_offset": 119,
+            "entity_id": "item:b094d6f8e9d3e053091adb51",
+            "entity_type": "item",
+            "evidence_id": "ev:36bf5533c142371f1fd5e327",
+            "field": "full_ru",
+            "mention_id": "mention:fe1ba7c77ba5f097abe961a1",
+            "start_offset": 109,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1",
+            "surface": "Aquamarine"
+          },
+          {
+            "end_offset": 10,
+            "entity_id": "item:b094d6f8e9d3e053091adb51",
+            "entity_type": "item",
+            "evidence_id": "ev:36bf5533c142371f1fd5e327",
+            "field": "short_en",
+            "mention_id": "mention:2e218da9dff96875fac1a29d",
+            "start_offset": 0,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1",
+            "surface": "Aquamarine"
+          },
+          {
+            "end_offset": 90,
+            "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+            "entity_type": "map",
+            "evidence_id": "ev:6e2d8b21198a9395570b6289",
+            "field": "short_en",
+            "mention_id": "mention:373bb921aa3f46fc4c4c2906",
+            "start_offset": 79,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1",
+            "surface": "Pyramids 4F"
+          },
+          {
+            "end_offset": 18,
+            "entity_id": "item:b094d6f8e9d3e053091adb51",
+            "entity_type": "item",
+            "evidence_id": "ev:36bf5533c142371f1fd5e327",
+            "field": "short_ru",
+            "mention_id": "mention:25eb6305d5885586192b5b3e",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1",
+            "surface": "Aquamarine"
+          },
+          {
+            "end_offset": 83,
+            "entity_id": "map:5a8c4dbfce653a25c7024fb7",
+            "entity_type": "map",
+            "evidence_id": "ev:6e2d8b21198a9395570b6289",
+            "field": "short_ru",
+            "mention_id": "mention:d9dd35f74a345ef39cb522a5",
+            "start_offset": 72,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1",
+            "surface": "Pyramids 4F"
+          }
+        ],
+        "full_en": "In Pyramids 4F, the gem is located at middle of the left side of the enclosed water area. Keep walking around it to get an Aquamarine.",
+        "full_ru": "В Pyramids 4F камень находится в середине левой стороны огороженного водоёма. Ходите рядом, пока не получите Aquamarine.",
+        "instruction_sha256": "5444c1e789104a24f1933c2f5ef0544288fb8f12c1c0821e371bb276d248e8c8",
+        "original_instruction": "In Pyramids 4F, the gem is located at middle of the left side of the enclosed water area. Keep walking around it to get an Aquamarine.",
+        "primary_goal": "obtain_materials",
+        "quest_id": "irowiki-classic:Assassin_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Sonic Acceleration activity requires learned Venom Knife, Job Level 40 and Sonic Blow Level 1. Stages 3/4/5 are alternative jewel sites; obtain one jewel, not all three.",
+            "evidence_id": "ev:b6781e7cace9df99a2a85050",
+            "kind": "optional",
+            "route_id": "route:132b157050e2e655d3adaf24",
+            "route_key": "sonic_acceleration",
+            "route_order": 4,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1"
+          }
+        ],
+        "section": "Sonic Acceleration Quest",
+        "short_en": "Aquamarine alternative: walk along the left side of the enclosed water area in Pyramids 4F.",
+        "short_ru": "Вариант Aquamarine: пройдите вдоль левой стороны огороженного водоёма в Pyramids 4F.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 4,
+        "step_actions": [
+          {
+            "action_id": "action:1edb5942e556246741f2e9be",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": "Use one of source steps 3/4/5; never require all three jewels.",
+            "entity_id": null,
+            "evidence_id": "ev:25ebf340f3518bd958925e46",
+            "operation": "alternative_gem_site",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [],
+        "step_order": 5,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 17,
+            "entity_id": "npc:cef42f15dcf8ae9d009aa9a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:84798ac731ff03d5d5314c5d",
+            "field": "full_en",
+            "mention_id": "mention:2544059026e82af795b65e41",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/846ba43be67edc7660aa/1",
+            "surface": "Esmille"
+          },
+          {
+            "end_offset": 19,
+            "entity_id": "npc:cef42f15dcf8ae9d009aa9a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:84798ac731ff03d5d5314c5d",
+            "field": "full_ru",
+            "mention_id": "mention:89eba976dce49c6bd8a510b6",
+            "start_offset": 12,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/846ba43be67edc7660aa/1",
+            "surface": "Esmille"
+          },
+          {
+            "end_offset": 17,
+            "entity_id": "npc:cef42f15dcf8ae9d009aa9a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:84798ac731ff03d5d5314c5d",
+            "field": "short_en",
+            "mention_id": "mention:7c7b9c80a2a631de99694f77",
+            "start_offset": 10,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/846ba43be67edc7660aa/1",
+            "surface": "Esmille"
+          },
+          {
+            "end_offset": 19,
+            "entity_id": "npc:cef42f15dcf8ae9d009aa9a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:84798ac731ff03d5d5314c5d",
+            "field": "short_ru",
+            "mention_id": "mention:6b4639ff04d8833d94dea321",
+            "start_offset": 12,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/846ba43be67edc7660aa/1",
+            "surface": "Esmille"
+          }
+        ],
+        "full_en": "Return to Esmille with the gem to receive the Sonic Acceleration skill.",
+        "full_ru": "Вернитесь к Esmille с полученным камнем, чтобы изучить Sonic Acceleration.",
+        "instruction_sha256": "846ba43be67edc7660aa1439fd1bc8b44b75aa75292aeabeae0dbeac6559b8b0",
+        "original_instruction": "Return to Esmille with the gem to receive the Sonic Acceleration skill.",
+        "primary_goal": "learn_skill",
+        "quest_id": "irowiki-classic:Assassin_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "Sonic Acceleration activity requires learned Venom Knife, Job Level 40 and Sonic Blow Level 1. Stages 3/4/5 are alternative jewel sites; obtain one jewel, not all three.",
+            "evidence_id": "ev:672df695cbc665713b14c8ca",
+            "kind": "optional",
+            "route_id": "route:132b157050e2e655d3adaf24",
+            "route_key": "sonic_acceleration",
+            "route_order": 5,
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/846ba43be67edc7660aa/1"
+          }
+        ],
+        "section": "Sonic Acceleration Quest",
+        "short_en": "Return to Esmille with the chosen jewel and learn Sonic Acceleration.",
+        "short_ru": "Вернитесь к Esmille с выбранным камнем и изучите Sonic Acceleration.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 5,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Assassin_Skill_Quest/step/846ba43be67edc7660aa/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:fc9d9168ac7b0d32d8ba47ea",
+            "npc_id": "npc:cef42f15dcf8ae9d009aa9a6",
+            "role": "return",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/846ba43be67edc7660aa/1"
+          }
+        ],
+        "step_order": 6,
+        "step_rewards": [
+          {
+            "reward_id": "reward:b85fdb17e332a12c360a4867",
+            "step_id": "irowiki-classic:Assassin_Skill_Quest/step/846ba43be67edc7660aa/1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "dialogue_options": [],
+    "entities": [
+      {
         "entity_id": "item:093fe3f9eb0df60ea48fe22c",
         "entity_type": "item",
         "evidence_id": "ev:03d856ed1d22ba07f4c6db7e",
@@ -199173,6 +200519,1894 @@
           {
             "reward_id": "reward:0a80c3399bf4025880e22b64",
             "step_id": "irowiki-classic:Rogue_Guild_Investigation_Quest/step/8796a46825a2d6cfed51/1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "dialogue_options": [
+      {
+        "condition_text": null,
+        "correct": 1,
+        "dialogue_id": "dialogue:25675e2158ed27e61fc4b536",
+        "evidence_id": "ev:50fa962fcce268087495742c",
+        "exact_text": "I don't mean you any harm!",
+        "operation": "choose",
+        "option_id": "option:cffbbaaf92aa0343f7e1d1b0",
+        "option_order": 1
+      },
+      {
+        "condition_text": null,
+        "correct": 1,
+        "dialogue_id": "dialogue:25675e2158ed27e61fc4b536",
+        "evidence_id": "ev:50fa962fcce268087495742c",
+        "exact_text": "I came to help you.",
+        "operation": "choose",
+        "option_id": "option:45d11810b315a426e484c4d7",
+        "option_order": 2
+      },
+      {
+        "condition_text": null,
+        "correct": 1,
+        "dialogue_id": "dialogue:25675e2158ed27e61fc4b536",
+        "evidence_id": "ev:50fa962fcce268087495742c",
+        "exact_text": "No.",
+        "operation": "choose",
+        "option_id": "option:207963dc067a49ab47128744",
+        "option_order": 3
+      },
+      {
+        "condition_text": null,
+        "correct": 1,
+        "dialogue_id": "dialogue:25675e2158ed27e61fc4b536",
+        "evidence_id": "ev:50fa962fcce268087495742c",
+        "exact_text": "Sure!",
+        "operation": "choose",
+        "option_id": "option:f6d95e51bc0349cc6e7932cd",
+        "option_order": 4
+      },
+      {
+        "condition_text": "Building entry password; interaction input method not established.",
+        "correct": 1,
+        "dialogue_id": "dialogue:0ef90e4f08f2a9d99335c121",
+        "evidence_id": "ev:f7e0fc6730d4eced7257dd27",
+        "exact_text": "My father never hoarded upgrade items.",
+        "operation": "input",
+        "option_id": "option:930f9972e47901ac9fcbe6ec",
+        "option_order": 1
+      },
+      {
+        "condition_text": "Building entry password; interaction input method not established.",
+        "correct": 1,
+        "dialogue_id": "dialogue:36e0e9ecfe2673f3cc626605",
+        "evidence_id": "ev:6e710d9752a2ac41315e8ecd",
+        "exact_text": "Antonio doesn't enjoy destroying upgrade items.",
+        "operation": "input",
+        "option_id": "option:9231367d5c139b70d9c83166",
+        "option_order": 1
+      },
+      {
+        "condition_text": "Choose according to the actual trial; no fixed order or universal correct option is stated.",
+        "correct": null,
+        "dialogue_id": "dialogue:93fff57d87f8d9f7dee161b9",
+        "evidence_id": "ev:3df205b56819f664c38031e6",
+        "exact_text": "Block her from the left",
+        "operation": "choose",
+        "option_id": "option:f78054fbbe8827dae0a8b810",
+        "option_order": 1
+      },
+      {
+        "condition_text": "Choose according to the actual trial; no fixed order or universal correct option is stated.",
+        "correct": null,
+        "dialogue_id": "dialogue:93fff57d87f8d9f7dee161b9",
+        "evidence_id": "ev:3df205b56819f664c38031e6",
+        "exact_text": "Block her from the right",
+        "operation": "choose",
+        "option_id": "option:cf49d1510eed11c596a8f0e4",
+        "option_order": 2
+      },
+      {
+        "condition_text": "Choose according to the actual trial; no fixed order or universal correct option is stated.",
+        "correct": null,
+        "dialogue_id": "dialogue:93fff57d87f8d9f7dee161b9",
+        "evidence_id": "ev:3df205b56819f664c38031e6",
+        "exact_text": "Block her moving backward",
+        "operation": "choose",
+        "option_id": "option:ed55346d21702f4afb70fc5d",
+        "option_order": 3
+      }
+    ],
+    "entities": [
+      {
+        "entity_id": "item:b84f9f4dc52b0302e6845ac4",
+        "entity_type": "item",
+        "evidence_id": "ev:ce0601fb426f99613d162f00",
+        "original_name": "book",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:1bddc2d7d50de28c5724a8be",
+        "entity_type": "map",
+        "evidence_id": "ev:642df97bcd35a0d6cf1f0a25",
+        "original_name": "cmd_fild04",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:246a92c529e7fed53a968523",
+        "entity_type": "map",
+        "evidence_id": "ev:78ad98b96e8abbe9f5265386",
+        "original_name": "Kokomo Beach",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:7f06953ecb6fbb15e170d164",
+        "entity_type": "map",
+        "evidence_id": "ev:9f190a7323888d1852b93ac2",
+        "original_name": "Paros Lighthouse",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:9348119f1de59b4c8641283d",
+        "entity_type": "map",
+        "evidence_id": "ev:15f1bffa070b782b748ace2d",
+        "original_name": "cmd_fild07",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "map:9aebf425e0cce13bc077a993",
+        "entity_type": "map",
+        "evidence_id": "ev:1414c47d6bce6572bebdefc1",
+        "original_name": "Beacon Island, Pharos",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:14f31d858df4ef4615f691d1",
+        "entity_type": "npc",
+        "evidence_id": "ev:71000c503741ed0cbccf6817",
+        "original_name": "Louis Greg",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:318014189e4a0f2e75b2a64e",
+        "entity_type": "npc",
+        "evidence_id": "ev:320c7d9c30a3071c83a0ace7",
+        "original_name": "Hollgrehenn Jr.",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:4b43efc09430be432d476196",
+        "entity_type": "npc",
+        "evidence_id": "ev:58e12f8ac05f91f0885aa679",
+        "original_name": "Kienna",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:4f87cba9dcc05491df77d0db",
+        "entity_type": "npc",
+        "evidence_id": "ev:64fd819b65a51f425a936061",
+        "original_name": "thief",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:b988635c3010c71b484030a6",
+        "entity_type": "npc",
+        "evidence_id": "ev:ad5ed003caed0137010eb360",
+        "original_name": "Thor Greg",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+        "entity_type": "npc",
+        "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+        "original_name": "Haijara Greg",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:c048f1b8e0a15c237e860058",
+        "entity_type": "npc",
+        "evidence_id": "ev:88e9fea3c5933fa044e5a205",
+        "original_name": "Antonio Jr.",
+        "variant_id": "irowiki-classic"
+      },
+      {
+        "entity_id": "npc:ef2fc0edb6601f987942b03e",
+        "entity_type": "npc",
+        "evidence_id": "ev:87c91300ebf625423e881fb5",
+        "original_name": "Jay Greg",
+        "variant_id": "irowiki-classic"
+      }
+    ],
+    "prerequisite_groups": [],
+    "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+    "quest_relations": [],
+    "rewards": [
+      {
+        "amount": "Close Confine",
+        "branch_id": null,
+        "condition_text": "Only previously learned as Rogue and since transcended; instant reacquisition at Haijara Greg.",
+        "evidence_id": "ev:1924cfecae7f077888708b80",
+        "item_id": null,
+        "kind": "skill_unlock",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "reward_id": "reward:d208b43de6332a58fbc0a96a"
+      },
+      {
+        "amount": "Close Confine",
+        "branch_id": null,
+        "condition_text": "Ordinary first-time learning route after recovery of the stolen book.",
+        "evidence_id": "ev:f01f1a43915eeee6f95a9abd",
+        "item_id": null,
+        "kind": "skill_unlock",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "reward_id": "reward:d40e31652cbca1922cc9704a"
+      }
+    ],
+    "steps": [
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 68,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_en",
+            "mention_id": "mention:30727803900cabff721eecb3",
+            "start_offset": 59,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 115,
+            "entity_id": "map:9aebf425e0cce13bc077a993",
+            "entity_type": "map",
+            "evidence_id": "ev:1414c47d6bce6572bebdefc1",
+            "field": "full_en",
+            "mention_id": "mention:f007d9cb1f00becc39895ab6",
+            "start_offset": 94,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "Beacon Island, Pharos"
+          },
+          {
+            "end_offset": 245,
+            "entity_id": "map:9aebf425e0cce13bc077a993",
+            "entity_type": "map",
+            "evidence_id": "ev:1414c47d6bce6572bebdefc1",
+            "field": "full_en",
+            "mention_id": "mention:2f8d2f76d803dab900285163",
+            "start_offset": 224,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "Beacon Island, Pharos"
+          },
+          {
+            "end_offset": 257,
+            "entity_id": "map:9348119f1de59b4c8641283d",
+            "entity_type": "map",
+            "evidence_id": "ev:b6d5325e3e6e96ef553becd4",
+            "field": "full_en",
+            "mention_id": "mention:bfe1e3821dff195ddf64bc83",
+            "start_offset": 247,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "cmd_fild07"
+          },
+          {
+            "end_offset": 81,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_ru",
+            "mention_id": "mention:55f775944d85f772bb9b9d24",
+            "start_offset": 72,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 121,
+            "entity_id": "map:9aebf425e0cce13bc077a993",
+            "entity_type": "map",
+            "evidence_id": "ev:1414c47d6bce6572bebdefc1",
+            "field": "full_ru",
+            "mention_id": "mention:a610b573c4e94aaab64d05a6",
+            "start_offset": 100,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "Beacon Island, Pharos"
+          },
+          {
+            "end_offset": 242,
+            "entity_id": "map:9aebf425e0cce13bc077a993",
+            "entity_type": "map",
+            "evidence_id": "ev:1414c47d6bce6572bebdefc1",
+            "field": "full_ru",
+            "mention_id": "mention:cc9efd5b3600cd812c0cc086",
+            "start_offset": 221,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "Beacon Island, Pharos"
+          },
+          {
+            "end_offset": 254,
+            "entity_id": "map:9348119f1de59b4c8641283d",
+            "entity_type": "map",
+            "evidence_id": "ev:b6d5325e3e6e96ef553becd4",
+            "field": "full_ru",
+            "mention_id": "mention:dd9c4926d67137d383352938",
+            "start_offset": 244,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "cmd_fild07"
+          },
+          {
+            "end_offset": 37,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "short_en",
+            "mention_id": "mention:ae70900cb0a3b489fae63e31",
+            "start_offset": 28,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 64,
+            "entity_id": "map:9348119f1de59b4c8641283d",
+            "entity_type": "map",
+            "evidence_id": "ev:b6d5325e3e6e96ef553becd4",
+            "field": "short_en",
+            "mention_id": "mention:e30141d653deab7a564a54df",
+            "start_offset": 54,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "cmd_fild07"
+          },
+          {
+            "end_offset": 51,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "short_ru",
+            "mention_id": "mention:f69a5e57805b5221bd7f6bde",
+            "start_offset": 42,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 63,
+            "entity_id": "map:9348119f1de59b4c8641283d",
+            "entity_type": "map",
+            "evidence_id": "ev:b6d5325e3e6e96ef553becd4",
+            "field": "short_ru",
+            "mention_id": "mention:294b341f4434b1fb804114db",
+            "start_offset": 53,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+            "surface": "cmd_fild07"
+          }
+        ],
+        "full_en": "Talk to one of the sons to start the quest, recommended is Thor Greg because he is closest to Beacon Island, Pharos. He may be also the only one that spills the hiding place of his father once the player talks to him twice. Beacon Island, Pharos (cmd_fild07): 351,286",
+        "full_ru": "Чтобы начать квест, поговорите с одним из сыновей. Источник рекомендует Thor Greg: он ближе всего к Beacon Island, Pharos. Возможно, только он раскрывает убежище отца после двух разговоров; это не утверждается наверняка. Beacon Island, Pharos (cmd_fild07): 351,286.",
+        "instruction_sha256": "7b3efcb922f55bd59dbbced1221ecf49b2bf67978b570a49cdcb78feb99193ae",
+        "original_instruction": "Talk to one of the sons to start the quest, recommended is Thor Greg because he is closest to Beacon Island, Pharos. He may be also the only one that spills the hiding place of his father once the player talks to him twice. Beacon Island, Pharos (cmd_fild07): 351,286",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "Close Confine Quest",
+        "short_en": "Start with one of the sons; Thor Greg is recommended (cmd_fild07 351,286).",
+        "short_ru": "Начните у одного из сыновей; рекомендован Thor Greg (cmd_fild07 351,286).",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 1,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:f1e4033026cc79228b8a9a6d",
+            "location_id": "location:5667b259b8af06c6e1102f2e",
+            "location_order": null,
+            "role": "Thor Greg",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:f1e4033026cc79228b8a9a6d",
+            "npc_id": "npc:b988635c3010c71b484030a6",
+            "role": "recommended_start",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1"
+          }
+        ],
+        "step_order": 1,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 36,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "full_en",
+            "mention_id": "mention:66f316b06cf8b31700eb14f1",
+            "start_offset": 24,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6ef5eddd045a5a1b5739/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 39,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "full_ru",
+            "mention_id": "mention:221f5a8f9664913a0a5d56ab",
+            "start_offset": 27,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6ef5eddd045a5a1b5739/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 30,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "short_en",
+            "mention_id": "mention:33c14c00c75ebbdaa06676ed",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6ef5eddd045a5a1b5739/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 43,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "short_ru",
+            "mention_id": "mention:bf77b755004a1b9a4f8576b2",
+            "start_offset": 31,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6ef5eddd045a5a1b5739/1",
+            "surface": "Haijara Greg"
+          }
+        ],
+        "full_en": "He will say his father, Haijara Greg is being pursued and will mention that the rogue guild leader says the secret hiding place is next to her.",
+        "full_ru": "Он расскажет, что его отца Haijara Greg преследуют, и упомянет слова главы rogue guild: тайное убежище находится рядом с ней.",
+        "instruction_sha256": "6ef5eddd045a5a1b57393aef45aa7673d7b904677f5772ee615d245a0352c32e",
+        "original_instruction": "He will say his father, Haijara Greg is being pursued and will mention that the rogue guild leader says the secret hiding place is next to her.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "Close Confine Quest",
+        "short_en": "Ask the son where Haijara Greg is hiding.",
+        "short_ru": "Узнайте у сына, где скрывается Haijara Greg.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 2,
+        "step_actions": [
+          {
+            "action_id": "action:77b0ecc420ca885a19eb480c",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": "Thor Greg is the recommended route; source permits starting with a son and qualifies the exclusive disclosure claim.",
+            "entity_id": null,
+            "evidence_id": "ev:26134bb93306640fa67b962d",
+            "operation": "learn_father_hiding_place",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6ef5eddd045a5a1b5739/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6ef5eddd045a5a1b5739/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:a9d651f06360e41b623420dc",
+            "npc_id": "npc:b988635c3010c71b484030a6",
+            "role": "recommended_son",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6ef5eddd045a5a1b5739/1"
+          },
+          {
+            "evidence_id": "ev:26134bb93306640fa67b962d",
+            "npc_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "role": "mentioned",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6ef5eddd045a5a1b5739/1"
+          }
+        ],
+        "step_order": 2,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 23,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "full_en",
+            "mention_id": "mention:cc823e2a4834a64a49e85e0c",
+            "start_offset": 11,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 285,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "full_en",
+            "mention_id": "mention:9251bafa15834cf9a37be615",
+            "start_offset": 273,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 21,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "full_ru",
+            "mention_id": "mention:88b1d5971636e8c66c4c594f",
+            "start_offset": 9,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 271,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "full_ru",
+            "mention_id": "mention:9ad0e9c1d3948d3174becd27",
+            "start_offset": 259,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 17,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "short_en",
+            "mention_id": "mention:e6c95a98cbece31c1c4051d8",
+            "start_offset": 5,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 20,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "short_ru",
+            "mention_id": "mention:82c08fea697c988d72133825",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1",
+            "surface": "Haijara Greg"
+          }
+        ],
+        "full_en": "Visit said Haijara Greg inside the rogue guild, go down the stairs to the rogue job change npc and continue going left. Up towards the beds, there's a secret wall passage. If you have learned this skill as a Rogue and have since transcended, proceed to step 3 and speak to Haijara Greg to regain the skill instantly.",
+        "full_ru": "Посетите Haijara Greg внутри rogue guild: спуститесь к NPC смены профессии Rogue, затем идите налево и вверх к кроватям, где в стене есть тайный проход. Если вы уже изучали это умение как Rogue, а затем прошли перерождение, переходите к этапу 3: поговорите с Haijara Greg, чтобы сразу вернуть умение.",
+        "instruction_sha256": "6c8a10582f6c09bbc8969de7bb2296852b95450a697dcf0732f2d4c68debb3d2",
+        "original_instruction": "Visit said Haijara Greg inside the rogue guild, go down the stairs to the rogue job change npc and continue going left. Up towards the beds, there's a secret wall passage.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [
+          {
+            "choice_group": null,
+            "condition_text": "If Close Confine was learned as Rogue before transcending, talk to Haijara Greg at stage 3 to regain it instantly; skip ordinary learning trials. Evidence is retained in the stage requirement and source addition.",
+            "evidence_id": "ev:60048a82100917431ea5779c",
+            "kind": "optional",
+            "route_id": "route:03b0633371756f68b2b5b6ae",
+            "route_key": "transcended_relearn",
+            "route_order": 1,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1"
+          }
+        ],
+        "section": "Close Confine Quest",
+        "short_en": "Find Haijara Greg through the secret wall passage near the rogue guild beds.",
+        "short_ru": "Найдите Haijara Greg через тайный проход в стене возле кроватей rogue guild.",
+        "source_additions": [
+          {
+            "addition_id": "addition:fed9d69303e0b6fb878bcafe",
+            "addition_order": 1,
+            "evidence_id": "ev:1b3e8fd9c9c6c648c7965d8d",
+            "review_state": "source_reviewed",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1",
+            "text_en": "If you have learned this skill as a Rogue and have since transcended, proceed to step 3 and speak to Haijara Greg to regain the skill instantly.",
+            "text_ru": "Если вы уже изучали это умение как Rogue, а затем прошли перерождение, переходите к этапу 3: поговорите с Haijara Greg, чтобы сразу вернуть умение."
+          }
+        ],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 3,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:5d77d8a240220e3ec3a59f25",
+            "npc_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "role": "talk",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1"
+          }
+        ],
+        "step_order": 3,
+        "step_rewards": [
+          {
+            "reward_id": "reward:d208b43de6332a58fbc0a96a",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1"
+          }
+        ]
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [],
+        "full_en": "Talk to the father and he will ask some questions. Answering with a wrong question leaves the player with 1 HP. Correct answers in order: | I don't mean you any harm! | I came to help you. | No. | Sure!",
+        "full_ru": "Поговорите с отцом и ответьте на вопросы. Ошибка оставляет персонажу 1 HP. Правильные ответы по порядку: I don't mean you any harm!; I came to help you.; No.; Sure!",
+        "instruction_sha256": "87b24b333c91539703d5cc6adfe91565df905f2878cadbe18730c611bccbbbe7",
+        "original_instruction": "Talk to the father and he will ask some questions. Answering with a wrong question leaves the player with 1 HP. Correct answers in order: | I don't mean you any harm! | I came to help you. | No. | Sure!",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "Close Confine Quest",
+        "short_en": "Answer: I don't mean you any harm! → I came to help you. → No. → Sure!",
+        "short_ru": "Ответьте: I don't mean you any harm! → I came to help you. → No. → Sure!",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 4,
+        "step_actions": [],
+        "step_dialogues": [
+          {
+            "dialogue_id": "dialogue:25675e2158ed27e61fc4b536",
+            "dialogue_order": 1,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/87b24b333c91539703d5/1"
+          }
+        ],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/87b24b333c91539703d5/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:30b990c465c9db2e3ccbfd76",
+            "npc_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "role": "talk",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/87b24b333c91539703d5/1"
+          }
+        ],
+        "step_order": 4,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 56,
+            "entity_id": "npc:14f31d858df4ef4615f691d1",
+            "entity_type": "npc",
+            "evidence_id": "ev:71000c503741ed0cbccf6817",
+            "field": "full_en",
+            "mention_id": "mention:091e9b58f6708cdec8e7a200",
+            "start_offset": 46,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1",
+            "surface": "Louis Greg"
+          },
+          {
+            "end_offset": 94,
+            "entity_id": "npc:318014189e4a0f2e75b2a64e",
+            "entity_type": "npc",
+            "evidence_id": "ev:320c7d9c30a3071c83a0ace7",
+            "field": "full_en",
+            "mention_id": "mention:934a81658024bf9573cafe31",
+            "start_offset": 79,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1",
+            "surface": "Hollgrehenn Jr."
+          },
+          {
+            "end_offset": 136,
+            "entity_id": "map:7f06953ecb6fbb15e170d164",
+            "entity_type": "map",
+            "evidence_id": "ev:33dfa5e2e1398a1f7eaefef4",
+            "field": "full_en",
+            "mention_id": "mention:debade4505c07ea8708576d9",
+            "start_offset": 120,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1",
+            "surface": "Paros Lighthouse"
+          },
+          {
+            "end_offset": 42,
+            "entity_id": "npc:14f31d858df4ef4615f691d1",
+            "entity_type": "npc",
+            "evidence_id": "ev:71000c503741ed0cbccf6817",
+            "field": "full_ru",
+            "mention_id": "mention:ba05aa8c5b926e542ca27381",
+            "start_offset": 32,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1",
+            "surface": "Louis Greg"
+          },
+          {
+            "end_offset": 67,
+            "entity_id": "npc:318014189e4a0f2e75b2a64e",
+            "entity_type": "npc",
+            "evidence_id": "ev:320c7d9c30a3071c83a0ace7",
+            "field": "full_ru",
+            "mention_id": "mention:8224587bdb7f17248ed866e3",
+            "start_offset": 52,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1",
+            "surface": "Hollgrehenn Jr."
+          },
+          {
+            "end_offset": 106,
+            "entity_id": "map:7f06953ecb6fbb15e170d164",
+            "entity_type": "map",
+            "evidence_id": "ev:33dfa5e2e1398a1f7eaefef4",
+            "field": "full_ru",
+            "mention_id": "mention:acac9196186ac71ba1442c81",
+            "start_offset": 90,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1",
+            "surface": "Paros Lighthouse"
+          },
+          {
+            "end_offset": 16,
+            "entity_id": "npc:14f31d858df4ef4615f691d1",
+            "entity_type": "npc",
+            "evidence_id": "ev:71000c503741ed0cbccf6817",
+            "field": "short_en",
+            "mention_id": "mention:6d39d13f4b843d8529cf95b8",
+            "start_offset": 6,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1",
+            "surface": "Louis Greg"
+          },
+          {
+            "end_offset": 35,
+            "entity_id": "npc:318014189e4a0f2e75b2a64e",
+            "entity_type": "npc",
+            "evidence_id": "ev:320c7d9c30a3071c83a0ace7",
+            "field": "short_en",
+            "mention_id": "mention:8edfe90ce20aee3b53ed774a",
+            "start_offset": 20,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1",
+            "surface": "Hollgrehenn Jr."
+          },
+          {
+            "end_offset": 19,
+            "entity_id": "npc:14f31d858df4ef4615f691d1",
+            "entity_type": "npc",
+            "evidence_id": "ev:71000c503741ed0cbccf6817",
+            "field": "short_ru",
+            "mention_id": "mention:918eb6fe6953981d12ecee3f",
+            "start_offset": 9,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1",
+            "surface": "Louis Greg"
+          },
+          {
+            "end_offset": 44,
+            "entity_id": "npc:318014189e4a0f2e75b2a64e",
+            "entity_type": "npc",
+            "evidence_id": "ev:320c7d9c30a3071c83a0ace7",
+            "field": "short_ru",
+            "mention_id": "mention:15b0d150a8d83f828609d4ef",
+            "start_offset": 29,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1",
+            "surface": "Hollgrehenn Jr."
+          }
+        ],
+        "full_en": "He will then ask the player to visit his son, Louis Greg, who happens to be in Hollgrehenn Jr.'s building 1 map east of Paros Lighthouse. For those who forget, the password to enter the building: My father never hoarded upgrade items.",
+        "full_ru": "Затем он попросит посетить сына Louis Greg в здании Hollgrehenn Jr., на 1 карту восточнее Paros Lighthouse. Пароль для входа: My father never hoarded upgrade items.",
+        "instruction_sha256": "dc2e8deb5a1eb55fd695694c1a03700801f48090d6e02a4386cacd8af902426f",
+        "original_instruction": "He will then ask the player to visit his son, Louis Greg, who happens to be in Hollgrehenn Jr.'s building 1 map east of Paros Lighthouse. For those who forget, the password to enter the building: My father never hoarded upgrade items.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "Close Confine Quest",
+        "short_en": "Visit Louis Greg in Hollgrehenn Jr.'s building; password: My father never hoarded upgrade items.",
+        "short_ru": "Посетите Louis Greg в здании Hollgrehenn Jr.; пароль: My father never hoarded upgrade items.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 5,
+        "step_actions": [],
+        "step_dialogues": [
+          {
+            "dialogue_id": "dialogue:0ef90e4f08f2a9d99335c121",
+            "dialogue_order": 1,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1"
+          }
+        ],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:f7e0fc6730d4eced7257dd27",
+            "npc_id": "npc:14f31d858df4ef4615f691d1",
+            "role": "visit",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1"
+          },
+          {
+            "evidence_id": "ev:f7e0fc6730d4eced7257dd27",
+            "npc_id": "npc:318014189e4a0f2e75b2a64e",
+            "role": "building_owner",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1"
+          }
+        ],
+        "step_order": 5,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 49,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_en",
+            "mention_id": "mention:207e401e8015b1efb85ee23b",
+            "start_offset": 40,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 47,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_ru",
+            "mention_id": "mention:a5de531f89f6f7f9ce28fec0",
+            "start_offset": 38,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 13,
+            "entity_id": "npc:14f31d858df4ef4615f691d1",
+            "entity_type": "npc",
+            "evidence_id": "ev:71000c503741ed0cbccf6817",
+            "field": "short_en",
+            "mention_id": "mention:c613a9a92ae89377786ff1f2",
+            "start_offset": 3,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1",
+            "surface": "Louis Greg"
+          },
+          {
+            "end_offset": 40,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "short_en",
+            "mention_id": "mention:0583a33867b4227f930c1533",
+            "start_offset": 31,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 21,
+            "entity_id": "npc:14f31d858df4ef4615f691d1",
+            "entity_type": "npc",
+            "evidence_id": "ev:71000c503741ed0cbccf6817",
+            "field": "short_ru",
+            "mention_id": "mention:6ab283e0ef164016de17d79b",
+            "start_offset": 11,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1",
+            "surface": "Louis Greg"
+          },
+          {
+            "end_offset": 40,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "short_ru",
+            "mention_id": "mention:b7ee3c2c87a993d288a289c6",
+            "start_offset": 31,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1",
+            "surface": "Thor Greg"
+          }
+        ],
+        "full_en": "He will then ask to talk to his brother Thor Greg, whose location can be found above at the beginning the quest.",
+        "full_ru": "Затем он попросит поговорить с братом Thor Greg, чьё местоположение указано в начале квеста.",
+        "instruction_sha256": "db543189fc59564ae6b423cdefa464fa6a1a7b237129ef05155a975500288158",
+        "original_instruction": "He will then ask to talk to his brother Thor Greg, whose location can be found above at the beginning the quest.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "Close Confine Quest",
+        "short_en": "At Louis Greg's request, visit Thor Greg.",
+        "short_ru": "По просьбе Louis Greg посетите Thor Greg.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 6,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": null,
+            "evidence_id": "ev:ef14a50456ad630dd8adb16f",
+            "location_id": "location:5667b259b8af06c6e1102f2e",
+            "location_order": null,
+            "role": "Thor Greg",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:ef14a50456ad630dd8adb16f",
+            "npc_id": "npc:14f31d858df4ef4615f691d1",
+            "role": "referral",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1"
+          },
+          {
+            "evidence_id": "ev:fdda271ae4ad50e2f23166aa",
+            "npc_id": "npc:b988635c3010c71b484030a6",
+            "role": "visit",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1"
+          }
+        ],
+        "step_order": 6,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 20,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_en",
+            "mention_id": "mention:0e6a3cd3add2698d81e2c38b",
+            "start_offset": 11,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 71,
+            "entity_id": "npc:ef2fc0edb6601f987942b03e",
+            "entity_type": "npc",
+            "evidence_id": "ev:87c91300ebf625423e881fb5",
+            "field": "full_en",
+            "mention_id": "mention:268ec8c2f347da524361d074",
+            "start_offset": 63,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Jay Greg"
+          },
+          {
+            "end_offset": 108,
+            "entity_id": "npc:c048f1b8e0a15c237e860058",
+            "entity_type": "npc",
+            "evidence_id": "ev:88e9fea3c5933fa044e5a205",
+            "field": "full_en",
+            "mention_id": "mention:24a05fab8bb0fbf2af64fc00",
+            "start_offset": 97,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Antonio Jr."
+          },
+          {
+            "end_offset": 159,
+            "entity_id": "map:7f06953ecb6fbb15e170d164",
+            "entity_type": "map",
+            "evidence_id": "ev:33dfa5e2e1398a1f7eaefef4",
+            "field": "full_en",
+            "mention_id": "mention:55f68af8d772e419b7cd733f",
+            "start_offset": 143,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Paros Lighthouse"
+          },
+          {
+            "end_offset": 173,
+            "entity_id": "map:246a92c529e7fed53a968523",
+            "entity_type": "map",
+            "evidence_id": "ev:78ad98b96e8abbe9f5265386",
+            "field": "full_en",
+            "mention_id": "mention:554bf4fa06f483e3dcf9bdc1",
+            "start_offset": 161,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Kokomo Beach"
+          },
+          {
+            "end_offset": 185,
+            "entity_id": "map:1bddc2d7d50de28c5724a8be",
+            "entity_type": "map",
+            "evidence_id": "ev:6bbe2736e00c52907bf50f9b",
+            "field": "full_en",
+            "mention_id": "mention:098dd83a06bcc003671d0566",
+            "start_offset": 175,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "cmd_fild04"
+          },
+          {
+            "end_offset": 28,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_ru",
+            "mention_id": "mention:09895302cf5ce0afbb5d16c8",
+            "start_offset": 19,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 65,
+            "entity_id": "npc:ef2fc0edb6601f987942b03e",
+            "entity_type": "npc",
+            "evidence_id": "ev:87c91300ebf625423e881fb5",
+            "field": "full_ru",
+            "mention_id": "mention:190ae0f48fb9fbec1747a3d3",
+            "start_offset": 57,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Jay Greg"
+          },
+          {
+            "end_offset": 91,
+            "entity_id": "npc:c048f1b8e0a15c237e860058",
+            "entity_type": "npc",
+            "evidence_id": "ev:88e9fea3c5933fa044e5a205",
+            "field": "full_ru",
+            "mention_id": "mention:d11b64ae605a199818611a00",
+            "start_offset": 80,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Antonio Jr."
+          },
+          {
+            "end_offset": 142,
+            "entity_id": "map:7f06953ecb6fbb15e170d164",
+            "entity_type": "map",
+            "evidence_id": "ev:33dfa5e2e1398a1f7eaefef4",
+            "field": "full_ru",
+            "mention_id": "mention:89330d0cf26c06051c79dfe3",
+            "start_offset": 126,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Paros Lighthouse"
+          },
+          {
+            "end_offset": 156,
+            "entity_id": "map:246a92c529e7fed53a968523",
+            "entity_type": "map",
+            "evidence_id": "ev:78ad98b96e8abbe9f5265386",
+            "field": "full_ru",
+            "mention_id": "mention:8a3afa9eca03a166dd269d69",
+            "start_offset": 144,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Kokomo Beach"
+          },
+          {
+            "end_offset": 168,
+            "entity_id": "map:1bddc2d7d50de28c5724a8be",
+            "entity_type": "map",
+            "evidence_id": "ev:6bbe2736e00c52907bf50f9b",
+            "field": "full_ru",
+            "mention_id": "mention:c46d630a1f98af5a984fe339",
+            "start_offset": 158,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "cmd_fild04"
+          },
+          {
+            "end_offset": 14,
+            "entity_id": "npc:ef2fc0edb6601f987942b03e",
+            "entity_type": "npc",
+            "evidence_id": "ev:87c91300ebf625423e881fb5",
+            "field": "short_en",
+            "mention_id": "mention:d95c9bbff5bc5129efc594a4",
+            "start_offset": 6,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Jay Greg"
+          },
+          {
+            "end_offset": 45,
+            "entity_id": "map:1bddc2d7d50de28c5724a8be",
+            "entity_type": "map",
+            "evidence_id": "ev:6bbe2736e00c52907bf50f9b",
+            "field": "short_en",
+            "mention_id": "mention:86599ef41c98377d75b96411",
+            "start_offset": 35,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "cmd_fild04"
+          },
+          {
+            "end_offset": 17,
+            "entity_id": "npc:ef2fc0edb6601f987942b03e",
+            "entity_type": "npc",
+            "evidence_id": "ev:87c91300ebf625423e881fb5",
+            "field": "short_ru",
+            "mention_id": "mention:2f2ee2da209ccf65a92c9222",
+            "start_offset": 9,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "Jay Greg"
+          },
+          {
+            "end_offset": 39,
+            "entity_id": "map:1bddc2d7d50de28c5724a8be",
+            "entity_type": "map",
+            "evidence_id": "ev:6bbe2736e00c52907bf50f9b",
+            "field": "short_ru",
+            "mention_id": "mention:0634ad1b619c3e8c55388e4b",
+            "start_offset": 29,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+            "surface": "cmd_fild04"
+          }
+        ],
+        "full_en": "Talking to Thor Greg again, he will ask to talk to his brother Jay Greg, who can be found inside Antonio Jr.'s building. 1 North and 1 West of Paros Lighthouse. Kokomo Beach (cmd_fild04): 302,177. For those who forget, the password to enter the building: Antonio doesn't enjoy destroying upgrade items.",
+        "full_ru": "Снова поговорите с Thor Greg: он попросит посетить брата Jay Greg внутри здания Antonio Jr., на 1 карту севернее и 1 западнее Paros Lighthouse. Kokomo Beach (cmd_fild04): 302,177. Пароль для входа: Antonio doesn't enjoy destroying upgrade items.",
+        "instruction_sha256": "22f12b4362f4e9905b85f4a7e8578daec6e9b665b66ac14b9dab18727ca808ef",
+        "original_instruction": "Talking to Thor Greg again, he will ask to talk to his brother Jay Greg, who can be found inside Antonio Jr.'s building. 1 North and 1 West of Paros Lighthouse. Kokomo Beach (cmd_fild04): 302,177. For those who forget, the password to enter the building: Antonio doesn't enjoy destroying upgrade items.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "Close Confine Quest",
+        "short_en": "Visit Jay Greg via the entrance at cmd_fild04 302,177; password: Antonio doesn't enjoy destroying upgrade items.",
+        "short_ru": "Посетите Jay Greg через вход cmd_fild04 302,177; пароль: Antonio doesn't enjoy destroying upgrade items.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 7,
+        "step_actions": [],
+        "step_dialogues": [
+          {
+            "dialogue_id": "dialogue:36e0e9ecfe2673f3cc626605",
+            "dialogue_order": 1,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1"
+          }
+        ],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1",
+        "step_items": [],
+        "step_locations": [
+          {
+            "condition_text": "Building entrance, not verified indoor Jay Greg coordinates.",
+            "evidence_id": "ev:6e710d9752a2ac41315e8ecd",
+            "location_id": "location:a92ad62d6b82c394223a60d7",
+            "location_order": null,
+            "role": "building_entrance",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1"
+          }
+        ],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:6e710d9752a2ac41315e8ecd",
+            "npc_id": "npc:b988635c3010c71b484030a6",
+            "role": "referral",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1"
+          },
+          {
+            "evidence_id": "ev:6e710d9752a2ac41315e8ecd",
+            "npc_id": "npc:c048f1b8e0a15c237e860058",
+            "role": "building_owner",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1"
+          },
+          {
+            "evidence_id": "ev:6e710d9752a2ac41315e8ecd",
+            "npc_id": "npc:ef2fc0edb6601f987942b03e",
+            "role": "visit",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1"
+          }
+        ],
+        "step_order": 7,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 26,
+            "entity_id": "npc:ef2fc0edb6601f987942b03e",
+            "entity_type": "npc",
+            "evidence_id": "ev:87c91300ebf625423e881fb5",
+            "field": "short_en",
+            "mention_id": "mention:67810f56e62aa6420f48db2b",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/545f5ebed01b379f1649/1",
+            "surface": "Jay Greg"
+          },
+          {
+            "end_offset": 50,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "short_en",
+            "mention_id": "mention:e73b61af2e2290f14c9e538e",
+            "start_offset": 38,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/545f5ebed01b379f1649/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 26,
+            "entity_id": "npc:ef2fc0edb6601f987942b03e",
+            "entity_type": "npc",
+            "evidence_id": "ev:87c91300ebf625423e881fb5",
+            "field": "short_ru",
+            "mention_id": "mention:b4931c599008fccf361cbe90",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/545f5ebed01b379f1649/1",
+            "surface": "Jay Greg"
+          },
+          {
+            "end_offset": 51,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "short_ru",
+            "mention_id": "mention:e45ef7c91a8f5eaa6392cf09",
+            "start_offset": 39,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/545f5ebed01b379f1649/1",
+            "surface": "Haijara Greg"
+          }
+        ],
+        "full_en": "Once inside, talking to he will ask to return to his father to tell him that he will receive help.",
+        "full_ru": "Внутри поговорите с ним: он попросит вернуться к отцу и сообщить, что тому помогут.",
+        "instruction_sha256": "545f5ebed01b379f164959683d561b524004f3864270a6ac3cce96fc4634a36b",
+        "original_instruction": "Once inside, talking to he will ask to return to his father to tell him that he will receive help.",
+        "primary_goal": "talk",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "Close Confine Quest",
+        "short_en": "After speaking to Jay Greg, return to Haijara Greg with the offer of help.",
+        "short_ru": "После разговора с Jay Greg вернитесь к Haijara Greg с сообщением о помощи.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 8,
+        "step_actions": [],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/545f5ebed01b379f1649/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:0a9133e89f6b8ac9074886d8",
+            "npc_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "role": "return",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/545f5ebed01b379f1649/1"
+          },
+          {
+            "evidence_id": "ev:0a9133e89f6b8ac9074886d8",
+            "npc_id": "npc:ef2fc0edb6601f987942b03e",
+            "role": "talk",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/545f5ebed01b379f1649/1"
+          }
+        ],
+        "step_order": 8,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 54,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_en",
+            "mention_id": "mention:4e64d8b3fc9d67e80d50aa0e",
+            "start_offset": 45,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 113,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_en",
+            "mention_id": "mention:99430054eca9ba2886b137ab",
+            "start_offset": 104,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 38,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_ru",
+            "mention_id": "mention:f2f1b10685be9401b3ed2be2",
+            "start_offset": 29,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 76,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_ru",
+            "mention_id": "mention:6e02f518514f94d1bdb042c9",
+            "start_offset": 67,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 17,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "short_en",
+            "mention_id": "mention:8799eb3b064b69bc8744a2a9",
+            "start_offset": 5,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 34,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "short_en",
+            "mention_id": "mention:bc05295c4d4cb30094104177",
+            "start_offset": 25,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 15,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "short_ru",
+            "mention_id": "mention:0d4f1a389015ae525baa42a1",
+            "start_offset": 3,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 41,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "short_ru",
+            "mention_id": "mention:d8014c1d10b8b6ea44badca0",
+            "start_offset": 32,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1",
+            "surface": "Thor Greg"
+          }
+        ],
+        "full_en": "His father will then ask to once again visit Thor Greg to receive training for the Close Confine skill. Thor Greg will send the player to a waiting room. The player must enter a chat room and wait for anyone who's in line to finish before him.",
+        "full_ru": "Отец снова попросит посетить Thor Greg для обучения Close Confine. Thor Greg отправит вас в комнату ожидания. Войдите в чат и дождитесь, пока участники перед вами закончат испытание.",
+        "instruction_sha256": "3017f4072428c91728060c637bdb59705dfeed75d141bd3aabf7e577272d6d3e",
+        "original_instruction": "His father will then ask to once again visit Thor Greg to receive training for the Close Confine skill. Thor Greg will send the player to a waiting room. The player must enter a chat room and wait for anyone who's in line to finish before him.",
+        "primary_goal": "training",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "Close Confine Quest",
+        "short_en": "From Haijara Greg, go to Thor Greg and wait your turn for Close Confine training.",
+        "short_ru": "От Haijara Greg отправляйтесь к Thor Greg и дождитесь очереди на обучение Close Confine.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 9,
+        "step_actions": [
+          {
+            "action_id": "action:7e85d730d5e9d56423446dfa",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": "Wait for preceding players to finish; duration unknown.",
+            "entity_id": null,
+            "evidence_id": "ev:62e634b8ede86fe1332a68f5",
+            "operation": "enter_waiting_chat",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:62e634b8ede86fe1332a68f5",
+            "npc_id": "npc:b988635c3010c71b484030a6",
+            "role": "training",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1"
+          },
+          {
+            "evidence_id": "ev:62e005c6637fee3c91377f4b",
+            "npc_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "role": "referral",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1"
+          }
+        ],
+        "step_order": 9,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 91,
+            "entity_id": "npc:4b43efc09430be432d476196",
+            "entity_type": "npc",
+            "evidence_id": "ev:58e12f8ac05f91f0885aa679",
+            "field": "full_en",
+            "mention_id": "mention:082e5f2463ed359864633044",
+            "start_offset": 85,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/c13a4944919657b99f5c/1",
+            "surface": "Kienna"
+          },
+          {
+            "end_offset": 92,
+            "entity_id": "npc:4b43efc09430be432d476196",
+            "entity_type": "npc",
+            "evidence_id": "ev:58e12f8ac05f91f0885aa679",
+            "field": "full_ru",
+            "mention_id": "mention:780408339ccfd1db41ab3421",
+            "start_offset": 86,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/c13a4944919657b99f5c/1",
+            "surface": "Kienna"
+          },
+          {
+            "end_offset": 61,
+            "entity_id": "npc:4b43efc09430be432d476196",
+            "entity_type": "npc",
+            "evidence_id": "ev:58e12f8ac05f91f0885aa679",
+            "field": "short_en",
+            "mention_id": "mention:7eeeed124951a19b610aeb1d",
+            "start_offset": 55,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/c13a4944919657b99f5c/1",
+            "surface": "Kienna"
+          },
+          {
+            "end_offset": 39,
+            "entity_id": "npc:4b43efc09430be432d476196",
+            "entity_type": "npc",
+            "evidence_id": "ev:58e12f8ac05f91f0885aa679",
+            "field": "short_ru",
+            "mention_id": "mention:17e8b24a505f8b436b6fdaed",
+            "start_offset": 33,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/c13a4944919657b99f5c/1",
+            "surface": "Kienna"
+          }
+        ],
+        "full_en": "Here is where the fun starts. The players have 5 minutes before they are kicked out. Kienna will appear in one second as the room warns, and the player must walk right up 1 cell next to her before she hides, or she will disappear and the player will be sent back to the middle of the room to repeat.",
+        "full_ru": "На испытание отведено 5 минут, затем персонажа выгоняют. После предупреждения комнаты Kienna появится через одну секунду. Подойдите к ней на 1 клетку до того, как она спрячется; иначе она исчезнет, вас вернут в центр комнаты и попытку придётся повторить.",
+        "instruction_sha256": "c13a4944919657b99f5cef29a1fc1fd93e4a8b0c7db03727e5aa98f280f12278",
+        "original_instruction": "Here is where the fun starts. The players have 5 minutes before they are kicked out. Kienna will appear in one second as the room warns, and the player must walk right up 1 cell next to her before she hides, or she will disappear and the player will be sent back to the middle of the room to repeat.",
+        "primary_goal": "training",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "Close Confine Quest",
+        "short_en": "Within the 5-minute test, approach to within 1 cell of Kienna before she disappears.",
+        "short_ru": "За 5 минут испытания подходите к Kienna на 1 клетку до её исчезновения.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 10,
+        "step_actions": [
+          {
+            "action_id": "action:277b981c46947e91c730401a",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "npc:4b43efc09430be432d476196",
+            "evidence_id": "ev:901ed692adcfcd8a8151b342",
+            "operation": "approach_before_disappearance",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/c13a4944919657b99f5c/1"
+          },
+          {
+            "action_id": "action:af4de54423b54ae5f63e8329",
+            "action_order": 2,
+            "branch_id": null,
+            "condition_text": "If she disappears before approach; not a required repeat after success.",
+            "entity_id": null,
+            "evidence_id": "ev:901ed692adcfcd8a8151b342",
+            "operation": "retry_from_room_center",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/c13a4944919657b99f5c/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/c13a4944919657b99f5c/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:901ed692adcfcd8a8151b342",
+            "npc_id": "npc:4b43efc09430be432d476196",
+            "role": "training",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/c13a4944919657b99f5c/1"
+          }
+        ],
+        "step_order": 10,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 453,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_en",
+            "mention_id": "mention:f5da5965e75209eb3d61fb8d",
+            "start_offset": 444,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 396,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "full_ru",
+            "mention_id": "mention:3fd828318bdd0711d047b01d",
+            "start_offset": 387,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 12,
+            "entity_id": "npc:4b43efc09430be432d476196",
+            "entity_type": "npc",
+            "evidence_id": "ev:58e12f8ac05f91f0885aa679",
+            "field": "short_en",
+            "mention_id": "mention:49f1a114ebf6cc8af53998b3",
+            "start_offset": 6,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1",
+            "surface": "Kienna"
+          },
+          {
+            "end_offset": 70,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "short_en",
+            "mention_id": "mention:71106cf68748ca944b085ae4",
+            "start_offset": 61,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1",
+            "surface": "Thor Greg"
+          },
+          {
+            "end_offset": 26,
+            "entity_id": "npc:4b43efc09430be432d476196",
+            "entity_type": "npc",
+            "evidence_id": "ev:58e12f8ac05f91f0885aa679",
+            "field": "short_ru",
+            "mention_id": "mention:99c9353bd435c8837eb4e18b",
+            "start_offset": 20,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1",
+            "surface": "Kienna"
+          },
+          {
+            "end_offset": 85,
+            "entity_id": "npc:b988635c3010c71b484030a6",
+            "entity_type": "npc",
+            "evidence_id": "ev:ad5ed003caed0137010eb360",
+            "field": "short_ru",
+            "mention_id": "mention:f35b831aa7added885186d09",
+            "start_offset": 76,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1",
+            "surface": "Thor Greg"
+          }
+        ],
+        "full_en": "Upon successfully walking up to her she will prompt the player. Reminiscent of the battle dwarf of the God Items Quest for level 4 weapons, you must choose the right options: Block her from the left, Block her from the right, or Block her moving backward. Experience says that after a successful block it is wise to choose a different option. To pass the test, the player must perform above grade C+. Upon success she will return the player to Thor Greg. He will tell the player to go back to his father to finish learning the skill.",
+        "full_ru": "Если вы успели подойти, она предложит выбор. Как в испытании боевого гнома из God Items Quest для оружия уровня 4, выбирайте подходящий вариант: Block her from the left, Block her from the right или Block her moving backward. Источник советует менять вариант после успешного блока; это рекомендация, а не гарантированный алгоритм. Требуется оценка выше C+. После успеха она вернёт вас к Thor Greg; он направит вас обратно к отцу завершить обучение.",
+        "instruction_sha256": "7e85a40537c1efccf9222221dfe1c46f1ae44989b73b5d2ad032dae338a0a3f2",
+        "original_instruction": "Upon successfully walking up to her she will prompt the player. Reminiscent of the battle dwarf of the God Items Quest for level 4 weapons, you must choose the right options: Block her from the left, Block her from the right, or Block her moving backward. Experience says that after a successful block it is wise to choose a different option. To pass the test, the player must perform above grade C+. Upon success she will return the player to Thor Greg. He will tell the player to go back to his father to finish learning the skill.",
+        "primary_goal": "training",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "Close Confine Quest",
+        "short_en": "Block Kienna's movements and score above C+; then return via Thor Greg to the father.",
+        "short_ru": "Блокируйте движения Kienna и получите оценку выше C+; затем вернитесь через Thor Greg к отцу.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 11,
+        "step_actions": [],
+        "step_dialogues": [
+          {
+            "dialogue_id": "dialogue:93fff57d87f8d9f7dee161b9",
+            "dialogue_order": 1,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1"
+          }
+        ],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1",
+        "step_items": [],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:22daf2054b6474c78e608e89",
+            "npc_id": "npc:4b43efc09430be432d476196",
+            "role": "training",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1"
+          },
+          {
+            "evidence_id": "ev:3df205b56819f664c38031e6",
+            "npc_id": "npc:b988635c3010c71b484030a6",
+            "role": "return",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1"
+          }
+        ],
+        "step_order": 11,
+        "step_rewards": []
+      },
+      {
+        "action_reuse": [],
+        "branches": [],
+        "description_mentions": [
+          {
+            "end_offset": 30,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "full_en",
+            "mention_id": "mention:2f9b03c934b2f7aa481ec4e9",
+            "start_offset": 18,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 59,
+            "entity_id": "npc:4f87cba9dcc05491df77d0db",
+            "entity_type": "npc",
+            "evidence_id": "ev:64fd819b65a51f425a936061",
+            "field": "full_en",
+            "mention_id": "mention:245f5f74fa54c15c79ff6153",
+            "start_offset": 54,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "thief"
+          },
+          {
+            "end_offset": 99,
+            "entity_id": "item:b84f9f4dc52b0302e6845ac4",
+            "entity_type": "item",
+            "evidence_id": "ev:ce0601fb426f99613d162f00",
+            "field": "full_en",
+            "mention_id": "mention:574ee26bfb8a7e772b4c38a6",
+            "start_offset": 95,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "book"
+          },
+          {
+            "end_offset": 237,
+            "entity_id": "npc:4f87cba9dcc05491df77d0db",
+            "entity_type": "npc",
+            "evidence_id": "ev:64fd819b65a51f425a936061",
+            "field": "full_en",
+            "mention_id": "mention:85252615cbd6e8ab9b6c7348",
+            "start_offset": 232,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "thief"
+          },
+          {
+            "end_offset": 334,
+            "entity_id": "item:b84f9f4dc52b0302e6845ac4",
+            "entity_type": "item",
+            "evidence_id": "ev:ce0601fb426f99613d162f00",
+            "field": "full_en",
+            "mention_id": "mention:45f49d6d8d4dd4305d9e129f",
+            "start_offset": 330,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "book"
+          },
+          {
+            "end_offset": 372,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "full_en",
+            "mention_id": "mention:de51aba463455b976b693c24",
+            "start_offset": 365,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "Haijara"
+          },
+          {
+            "end_offset": 33,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "full_ru",
+            "mention_id": "mention:d0342e70bfdb25a48671e838",
+            "start_offset": 21,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 64,
+            "entity_id": "npc:4f87cba9dcc05491df77d0db",
+            "entity_type": "npc",
+            "evidence_id": "ev:64fd819b65a51f425a936061",
+            "field": "full_ru",
+            "mention_id": "mention:5eee73cbe56e20373a37dcae",
+            "start_offset": 59,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "thief"
+          },
+          {
+            "end_offset": 100,
+            "entity_id": "item:b84f9f4dc52b0302e6845ac4",
+            "entity_type": "item",
+            "evidence_id": "ev:ce0601fb426f99613d162f00",
+            "field": "full_ru",
+            "mention_id": "mention:b645e568e7b5b60c0f036753",
+            "start_offset": 96,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "book"
+          },
+          {
+            "end_offset": 189,
+            "entity_id": "npc:4f87cba9dcc05491df77d0db",
+            "entity_type": "npc",
+            "evidence_id": "ev:64fd819b65a51f425a936061",
+            "field": "full_ru",
+            "mention_id": "mention:99736ec957631758544ec03f",
+            "start_offset": 184,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "thief"
+          },
+          {
+            "end_offset": 249,
+            "entity_id": "item:b84f9f4dc52b0302e6845ac4",
+            "entity_type": "item",
+            "evidence_id": "ev:ce0601fb426f99613d162f00",
+            "field": "full_ru",
+            "mention_id": "mention:6c582c6c06a7d1fc7dbc25ca",
+            "start_offset": 245,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "book"
+          },
+          {
+            "end_offset": 284,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "full_ru",
+            "mention_id": "mention:3e759089911fad9ee9ad9f7a",
+            "start_offset": 277,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "Haijara"
+          },
+          {
+            "end_offset": 16,
+            "entity_id": "item:b84f9f4dc52b0302e6845ac4",
+            "entity_type": "item",
+            "evidence_id": "ev:ce0601fb426f99613d162f00",
+            "field": "short_en",
+            "mention_id": "mention:62399bc4c1c591f06ab83526",
+            "start_offset": 12,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "book"
+          },
+          {
+            "end_offset": 90,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "short_en",
+            "mention_id": "mention:dc3aedff479d902b9c67fc97",
+            "start_offset": 78,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "Haijara Greg"
+          },
+          {
+            "end_offset": 12,
+            "entity_id": "item:b84f9f4dc52b0302e6845ac4",
+            "entity_type": "item",
+            "evidence_id": "ev:ce0601fb426f99613d162f00",
+            "field": "short_ru",
+            "mention_id": "mention:750c879e96d80a238a0c7598",
+            "start_offset": 8,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "book"
+          },
+          {
+            "end_offset": 65,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "entity_type": "npc",
+            "evidence_id": "ev:b2603f244ea7f3b7a44744a6",
+            "field": "short_ru",
+            "mention_id": "mention:e44710988467be12aa37f5d9",
+            "start_offset": 53,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+            "surface": "Haijara Greg"
+          }
+        ],
+        "full_en": "Upon returning to Haijara Greg to master the skill, a thief in the shape of a guard steals his book. The player must once again do the test, doing a similar blocking session, far easier, in which it tells you to watch the auras the thief displays and respond by picking the according direction, doing so successfully will get the book back. Once completed, talk to Haijara, and he will give you Close Confine.",
+        "full_ru": "Когда вы вернётесь к Haijara Greg для завершения обучения, thief в облике стражника украдёт его book. Пройдите ещё одно похожее, более лёгкое испытание блокирования: следите за аурами thief и выбирайте соответствующее направление, чтобы вернуть book. После успеха поговорите с Haijara: он обучит вас Close Confine.",
+        "instruction_sha256": "193dbf1f1660e17ebfc03c40d3c18c803d35b11f695782a805a2c4e338258aad",
+        "original_instruction": "Upon returning to Haijara Greg to master the skill, a thief in the shape of a guard steals his book. The player must once again do the test, doing a similar blocking session, far easier, in which it tells you to watch the auras the thief displays and respond by picking the according direction, doing so successfully will get the book back. Once completed, talk to Haijara, and he will give you Close Confine.",
+        "primary_goal": "learn_skill",
+        "quest_id": "irowiki-classic:Rogue_Skill_Quest",
+        "review_state": "source_reviewed",
+        "routes": [],
+        "section": "Close Confine Quest",
+        "short_en": "Recover the book in the second aura-based test; then learn Close Confine from Haijara Greg.",
+        "short_ru": "Верните book в повторном испытании по аурам; затем у Haijara Greg изучите Close Confine.",
+        "source_additions": [],
+        "source_fragments": [],
+        "source_kind": "numbered",
+        "source_step": 12,
+        "step_actions": [
+          {
+            "action_id": "action:0d91eb1a0cbcdf14492a896b",
+            "action_order": 1,
+            "branch_id": null,
+            "condition_text": "Second, easier blocking test; exact aura-to-direction mapping is not printed.",
+            "entity_id": "npc:4f87cba9dcc05491df77d0db",
+            "evidence_id": "ev:f01f1a43915eeee6f95a9abd",
+            "operation": "repeat_aura_blocking_test",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1"
+          },
+          {
+            "action_id": "action:620a743100ce638857c1b25d",
+            "action_order": 2,
+            "branch_id": null,
+            "condition_text": null,
+            "entity_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "evidence_id": "ev:f01f1a43915eeee6f95a9abd",
+            "operation": "finish_skill_training",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1"
+          }
+        ],
+        "step_dialogues": [],
+        "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1",
+        "step_items": [
+          {
+            "branch_id": null,
+            "condition_text": "Recover the stolen book by aura-directed blocks; item ID and consumption unknown.",
+            "evidence_id": "ev:f01f1a43915eeee6f95a9abd",
+            "fact_id": "item_fact:d40e31652cbca1922cc9704a",
+            "item_id": "item:b84f9f4dc52b0302e6845ac4",
+            "operation": "collect",
+            "quantity": null,
+            "required": 1,
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1"
+          }
+        ],
+        "step_locations": [],
+        "step_monsters": [],
+        "step_npcs": [
+          {
+            "evidence_id": "ev:f01f1a43915eeee6f95a9abd",
+            "npc_id": "npc:4f87cba9dcc05491df77d0db",
+            "role": "trial_opponent",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1"
+          },
+          {
+            "evidence_id": "ev:f01f1a43915eeee6f95a9abd",
+            "npc_id": "npc:ba24aa6be03f66c9f9ae5a66",
+            "role": "talk",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1"
+          }
+        ],
+        "step_order": 12,
+        "step_rewards": [
+          {
+            "reward_id": "reward:d40e31652cbca1922cc9704a",
+            "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1"
           }
         ]
       }

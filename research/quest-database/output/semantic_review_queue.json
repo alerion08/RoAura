@@ -5303,38 +5303,20 @@
       "step_id": "irowiki-classic:Assassin_Job_Change_Guide/step/ff2bb45bd88684217c06/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "Sapphire, Ruby and Aquamarine are alternative quest-acquired jewels, not a three-item cost. The two Sphinx coordinate pairs have no printed map codes; the Pyramids point is qualitative. Exact trap answers, status durations, item IDs and final jewel consumption are unknown. None of the dungeon names is silently converted to a map code.",
       "evidence_id": "ev:af568a275810eee5b7d45d0d",
       "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:08d06a4320d5220ff0bd3969",
+      "reason": "assassin_alternative_jewels_and_unknown_points",
+      "review_id": "review:9c0492eab361b2d83ea34695",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Archived numeric Job Level 40 belongs only to Sonic Acceleration, not Venom Knife. Killtin in step 1 and Kiltin in step 2 differ in source spelling; identity is unresolved, so they remain distinct. Esmille is the stated contact and final teacher. Sonic Blow Level 1 and Venom Knife are separate prerequisites, not a whole-guide self-dependency.",
       "evidence_id": "ev:af568a275810eee5b7d45d0d",
       "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:46cf16b0d864d037a69b2e68",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:5caff33c3a14c358f1e42c29",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:48dea389790d8268d757ebf8",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:3b93ed61ca96cc7c60f6f65b",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:a58085f5045b19ab08acd112",
+      "reason": "assassin_skill_level_and_actor_scope",
+      "review_id": "review:a02a22476485a52812134a21",
       "severity": "warning",
       "step_id": null
     },
@@ -5348,17 +5330,8 @@
       "step_id": null
     },
     {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:12a78ea4e6b9770ec4fe4151",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:8449dd8fc16cf5708e777756",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:2528073fdf7d34d7d3419b6b",
+      "evidence_id": "ev:9ecc59b51779d978eda8ef91",
       "quest_id": "irowiki-classic:Assassin_Skill_Quest",
       "reason": "map_unknown",
       "review_id": "review:967470711dc7f934dd20c244",
@@ -5366,80 +5339,8 @@
       "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:12a78ea4e6b9770ec4fe4151",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:e9e1889193a736630eb14eaf",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/0c9e9a37551e65f44f68/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:e14989e0186899d8f790f77c",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:a5b629be596d8218453187d5",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:e14989e0186899d8f790f77c",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7c951478a53a621de6d3c67f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/5444c1e789104a24f193/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:57e4ea23f577803a15970c37",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:947150bd31cbdd924eece2f4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/846ba43be67edc7660aa/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:57e4ea23f577803a15970c37",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1ef61a0cef470033977f1f0f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/846ba43be67edc7660aa/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:d02621d12103451b8c450c41",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:d52c4c83ed060aabbb374899",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:d02621d12103451b8c450c41",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:40075155b75ac0dd584df796",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/8dfda51ada4605e38f14/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:a077f879aa3157d983c8c67b",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:db54d2bb53c5861359d741bc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1"
-    },
-    {
       "detail": "Coordinate pair has no established map code; not navigable.",
-      "evidence_id": "ev:e962d8ab0e0677e3b9d22767",
+      "evidence_id": "ev:15c208df2fe28b9016302048",
       "quest_id": "irowiki-classic:Assassin_Skill_Quest",
       "reason": "map_unknown",
       "review_id": "review:799fe354db04e751f77271c0",
@@ -5447,30 +5348,12 @@
       "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1"
     },
     {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:a077f879aa3157d983c8c67b",
+      "detail": "Coordinate pair has no established map code; not navigable.",
+      "evidence_id": "ev:9ecc59b51779d978eda8ef91",
       "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:149d349f11f0e1fbff396202",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/c875dc27fb8c51e90ba7/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:7531ba718638a0b853a30c31",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:4f9dc95ea904df6df9e3cc4c",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:7531ba718638a0b853a30c31",
-      "quest_id": "irowiki-classic:Assassin_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:1123bf7223a200473080fd91",
-      "severity": "blocking",
+      "reason": "map_unknown",
+      "review_id": "review:1aa262c284d5a2cee9829871",
+      "severity": "warning",
       "step_id": "irowiki-classic:Assassin_Skill_Quest/step/fe57db9bd7700a0806d5/1"
     },
     {
@@ -33104,38 +32987,20 @@
       "step_id": "irowiki-classic:Rogue_Job_Change_Guide/step/f48b651a4c5ecbb65fdf/1"
     },
     {
-      "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
+      "detail": "cmd_fild04 302,177 is Antonio Jr.'s building entrance, not Jay Greg's indoor position. Louis Greg's building has a relative location only. Thor Greg is recommended but not the only proven possible starting son. Haijara is a contextual shortened reference to Haijara Greg. Three Kienna options are situational, not a mandatory sequence of universally correct answers. Passwords are exact, but the interface input mode is unknown.",
       "evidence_id": "ev:44ba7e88c952db3cabcab0ae",
       "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "original_html_missing",
-      "review_id": "review:4aedd0348e296fe7e1c5ed05",
+      "reason": "rogue_location_and_dialogue_scope",
+      "review_id": "review:2e46d258d5cd3f67a92712a8",
       "severity": "warning",
       "step_id": null
     },
     {
-      "detail": "Requirements, rewards and every branch still need whole-quest semantic review.",
+      "detail": "Only a character who already learned Close Confine as Rogue and then transcended can regain it instantly at stage 3. First-time learning retains the father/sons sequence, queued five-minute Kienna trial and a separate aura-guided book-recovery trial. No fixed block sequence, aura mapping, exact C+ numeric threshold or second-trial timer is invented.",
       "evidence_id": "ev:44ba7e88c952db3cabcab0ae",
       "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "quest_context_unreviewed",
-      "review_id": "review:0446d7bc6272ca51192c44b0",
-      "severity": "blocking",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:3dd0739ccfeb284135293cf1",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "requirements_original_unstructured",
-      "review_id": "review:37f0a4637cc5ed715a2a00b9",
-      "severity": "warning",
-      "step_id": null
-    },
-    {
-      "detail": "Preserved raw metadata has not been converted to asserted gameplay facts.",
-      "evidence_id": "ev:b9b36353bbb0c45411dc3b4d",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "rewards_original_unstructured",
-      "review_id": "review:7cf69dc046411578867123bb",
+      "reason": "rogue_relearn_and_training_scope",
+      "review_id": "review:16d41a2a30471e4a00cb1615",
       "severity": "warning",
       "step_id": null
     },
@@ -33147,222 +33012,6 @@
       "review_id": "review:ecd178174e686c959eb0da9b",
       "severity": "info",
       "step_id": null
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:46c7e19473b1158761792ded",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:fa1675c0cce45faa89b55370",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:46c7e19473b1158761792ded",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:253a96345a0110604e2685a1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/193dbf1f1660e17ebfc0/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:1ae055095e9a3671df8e0431",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9ab98806d41348ccb3725b03",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:1ae055095e9a3671df8e0431",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:76e0547a96c9ca51ba0c01c6",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/22f12b4362f4e9905b85/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b3a6fbf73629bd3e3ec7d359",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:3207984e4f3a8e0a3088fcd4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b3a6fbf73629bd3e3ec7d359",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:fd7272d525f65e5ca73c72cc",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/3017f4072428c9172806/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:5af3d08088227bfcce722bc4",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:77ec9f3415f4bb7773a3511e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/545f5ebed01b379f1649/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:5af3d08088227bfcce722bc4",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:8922742bb150dcf8d1544b1f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/545f5ebed01b379f1649/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:16c090182107e7bd397ba1b8",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:68d016de1ba6e35eef8c701f",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:16c090182107e7bd397ba1b8",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:b93957e40f2a3993500549c9",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6c8a10582f6c09bbc896/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:909efd6e1859716810c9b2c5",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6ae00da6ce22e506b62f5336",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6ef5eddd045a5a1b5739/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:909efd6e1859716810c9b2c5",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:f5af2378b484150d927cc7ac",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/6ef5eddd045a5a1b5739/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:0a0a836e9cbf9aa11b0ac339",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:89894546e10a32a205253a31",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:0a0a836e9cbf9aa11b0ac339",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:7f2d1ed0c74eba974d9558d1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7b3efcb922f55bd59dbb/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:054f6d4961025c7b1f1d5088",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:6180776a3923e688cf6e4fa1",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:054f6d4961025c7b1f1d5088",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:522106b145179b70ab760702",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/7e85a40537c1efccf922/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:9309eb0f4f9103bc5944f71e",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0404bf6aece603ca74f72a1e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/87b24b333c91539703d5/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:9309eb0f4f9103bc5944f71e",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:2064ebf2c5996653786031e4",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/87b24b333c91539703d5/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:38dfd970f8db193709da93a6",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:ec764a1ae7b66c32bdb88292",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/c13a4944919657b99f5c/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:38dfd970f8db193709da93a6",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:5fe82d7e7710efce3ba83334",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/c13a4944919657b99f5c/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:82caf89d7b437d244c6c934e",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:0a9fb72926f0cb1eb5d05a95",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:82caf89d7b437d244c6c934e",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:6c6afb5365c9f3c5e2464b7e",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/db543189fc59564ae6b4/1"
-    },
-    {
-      "detail": "Missing short_ru, short_en and full_ru; English original is retained without claiming bilingual completion.",
-      "evidence_id": "ev:b590a560465c80cb4003dc26",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "localization_missing",
-      "review_id": "review:9ef72e2a7339928ab7b26338",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1"
-    },
-    {
-      "detail": "Literal hints only. Items, NPC identities, dialogue, conditions and goals remain unreviewed.",
-      "evidence_id": "ev:b590a560465c80cb4003dc26",
-      "quest_id": "irowiki-classic:Rogue_Skill_Quest",
-      "reason": "step_semantics_unreviewed",
-      "review_id": "review:439b63d87bfe29c67798ccdd",
-      "severity": "blocking",
-      "step_id": "irowiki-classic:Rogue_Skill_Quest/step/dc2e8deb5a1eb55fd695/1"
     },
     {
       "detail": "Previous collector retained extracted prose and an HTML hash, not original HTML bytes.",
