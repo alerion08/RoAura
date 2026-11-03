@@ -119,6 +119,9 @@ public sealed class FarmingSessionsTests
         settings.PauseSessionHotkey=settings.DatabaseHotkey;
         Assert.False(FarmingHotkeys.Enabled(settings,settings.PauseSessionHotkey));
         Assert.Equal("F7",settings.DatabaseHotkey);
+        Assert.True(GlobalInputHook.IsScreenshotShortcut(0x53, true, true));
+        Assert.False(GlobalInputHook.IsScreenshotShortcut(0x53, false, true));
+        Assert.False(GlobalInputHook.IsScreenshotShortcut(0x53, true, false));
         Assert.True(GlobalInputHook.IsAlwaysForwarded(0x2C));
         Assert.True(GlobalInputHook.IsAlwaysForwarded(0x11));
         Assert.False(GlobalInputHook.IsAlwaysForwarded(0x41));

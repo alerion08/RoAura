@@ -39,6 +39,7 @@ public sealed class GlobalInputHook : IDisposable
     private bool _questBrowserHeld, _questTrackerHeld, _questBrowserHookHeld, _questTrackerHookHeld;
     private volatile int _questBrowserKey, _questTrackerKey;
     private bool _databaseHookHeld;
+    private bool _screenshotChordHeld;
     private bool _settingsHookHeld;
     private volatile bool _finishMoveEnabled;
     private volatile bool _keyboardBlocked;
@@ -90,7 +91,11 @@ public sealed class GlobalInputHook : IDisposable
         return true;
     }
 
-    public void SetKeyboardBlocked(bool blocked) => _keyboardBlocked = blocked;
+    public void SetKeyboardBlocked(bool blocked)
+    {
+        _keyboardBlocked = blocked;
+        if (!blocked) _screenshotChordHeld = false;
+    }
 
     private void OnSettingsPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -144,6 +149,13 @@ public sealed class GlobalInputHook : IDisposable
             var virtualKey = Marshal.ReadInt32(data);
             if (IsAlwaysForwarded(virtualKey))
                 return CallNextHookEx(_keyboardHook, code, message, data);
+            if (virtualKey == 0x53 && (_screenshotChordHeld || IsScreenshotShortcut(virtualKey,
+                (GetAsyncKeyState(0x5B) & 0x8000) != 0 || (GetAsyncKeyState(0x5C) & 0x8000) != 0,
+                (GetAsyncKeyState(VkShift) & 0x8000) != 0)))
+            {
+                _screenshotChordHeld = isDown;
+                return CallNextHookEx(_keyboardHook, code, message, data);
+            }
             if (virtualKey == _databaseKey)
             {
                 if (isDown && !_databaseHookHeld) ToggleDatabasePressed?.Invoke();
@@ -232,6 +244,9 @@ public sealed class GlobalInputHook : IDisposable
             CloseHandle(process);
         }
     }
+
+    public static bool IsScreenshotShortcut(int virtualKey, bool windows, bool shift) =>
+        virtualKey == 0x53 && windows && shift;
 
     public static bool IsAlwaysForwarded(int virtualKey) => virtualKey == 0x2C || IsModifier(virtualKey);
 
