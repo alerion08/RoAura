@@ -125,7 +125,8 @@ $smokeDataRoot = Join-Path ([IO.Path]::GetTempPath()) ("RoAura-Smoke-" + [guid]:
 $env:ROAURA_SMOKE_DATA = $smokeDataRoot
 try {
 $smokeProcess = Start-Process -FilePath $publishedExecutable -ArgumentList "--smoke-test" -PassThru
-$startupSmokeTimeout = if ($env:ROAURA_QUEST_UI_SNAPSHOTS) { 45000 } else { 15000 }
+# The expanded native keyboard/mouse suite has per-action deadlines; allow its full sequence on slower runners.
+$startupSmokeTimeout = if ($env:ROAURA_QUEST_UI_SNAPSHOTS) { 90000 } else { 15000 }
 if (-not $smokeProcess.WaitForExit($startupSmokeTimeout)) {
     $smokeLog = Join-Path $smokeDataRoot "Roaming\debug.log"
     if (Test-Path $smokeLog -PathType Leaf) { Get-Content $smokeLog -Tail 160 }

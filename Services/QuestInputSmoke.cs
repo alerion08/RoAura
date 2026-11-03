@@ -16,6 +16,14 @@ internal static class QuestInputSmoke
     {
         var directory=Path.Combine(AppEnvironment.LocalDirectory,"QuestInputProbe");Directory.CreateDirectory(directory);
         settingsWindow.Hide();
+        var bundle=Path.Combine(AppContext.BaseDirectory,"Data","Minimaps");
+        var offlineMaps=new MvpMapImageCache(_=>throw new InvalidOperationException("Bundled maps must not use the network."),bundle,bundle);
+        var mapFiles=Directory.GetFiles(bundle,"*.png");
+        if(mapFiles.Length==0)throw new InvalidOperationException("MVP minimap bundle is empty.");
+        foreach(var mapFile in mapFiles)
+            if(await offlineMaps.GetAsync(Path.GetFileNameWithoutExtension(mapFile)) is null)
+                throw new InvalidOperationException("Bundled MVP map cannot decode offline: "+mapFile);
+        DebugLog.Write($"MVP MAP OFFLINE DECODE PASS: {mapFiles.Length} maps.");
         DebugLog.Write("QUEST INPUT: copying isolated probe executable");
         var exe=Path.Combine(directory,"RoAura-QuestProbe.exe");File.Copy(Environment.ProcessPath!,exe,true);
         DebugLog.Write("QUEST INPUT: launching isolated probe");
