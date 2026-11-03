@@ -605,3 +605,8 @@ Remaining real-game/mixed-DPI acceptance is documented in release notes.
 - The shared market editor offers silent current-offer baseline, established by a requested successful live scan and retained with the rule.
 - Gold Goblin History contains the session list and pickup details directly in its tab; selection shows timestamped pickup prices. Direct Zeny and loot value are separate. Confirmed deletion removes the file and cancels queued recreation.
 - MVP Location selects a map and marker. Changing the map clears its marker. Passive hover preview is nonactivating and mouse-transparent. Add MVP in game defaults F4, follows the exact client, uses the game theme and restores focus. New conflicting bindings disable themselves.
+
+The MVP game form and passive map preview occlude lower HUD/tracker pixels even when game focus is restored; quest-browser visibility behavior remains unchanged. Identical pickup price buckets group quantities and show their first/last receipt times.
+
+Validation SUCCESS on code commit `bf6f97113a7e2c14c3e531e21caa94ca9f4dfdcb`: [development run 41619866259](https://github.com/alerion08/RoAura/actions/runs/41619866259) — 352 tests, zero failures/skips, eight ToC checks, native startup/input including Print Screen, MVP hotkey/create/cancel/focus and HUD occlusion, resource/privacy checks and portable packaging. [PR build 41619876280](https://github.com/alerion08/RoAura/actions/runs/41619876280) also succeeded, including installer checks.
+Real Ragnarok/mixed-monitor/long-session acceptance remains manual.

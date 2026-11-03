@@ -6,7 +6,7 @@ Development branch only; stable release remains 3.3.0.
 
 - В статистике доступны отдельные Total B.XP и Total J.XP: суммарный базовый и профессиональный опыт текущей сессии. По умолчанию новые индикаторы выключены.
 - Статистика и Gold Goblin используют общую паузу по персонажу: время и новые поступления не учитываются во время паузы. Клавиша по умолчанию — Pause; изменяется в настройках.
-- Print Screen проходит через перехватчик клавиатуры, в том числе при открытых окнах базы и квестов.
+- Print Screen и Win+Shift+S проходят через перехватчик клавиатуры, в том числе при открытых окнах базы и квестов.
 - Опыт и добыча продлевают общий интервал объединения уведомлений своей группы после каждого поступления.
 - Правила Gold Goblin получили «Не учитывать»; исключённые предметы не увеличивают учитываемое количество и стоимость.
 - При добавлении отслеживания маркета можно выбрать «Не уведомлять о текущих предложениях». Первый успешный полный скан после включения формирует базу предложений без уведомления; после него уведомляются новые подходящие лоты.
@@ -17,7 +17,7 @@ Development branch only; stable release remains 3.3.0.
 
 ## English
 
-Optional Total B.XP/Total J.XP indicators; shared character-session pause (Pause by default); unconditional Print Screen forwarding; sliding group reward aggregation; excluded Gold Goblin price rules; an optional silent initial market baseline; local session history with pickup-time prices and file deletion; selectable MVP map markers, passive hover previews and an in-game Add timer form (F4 by default).
+Optional Total B.XP/Total J.XP indicators; shared character-session pause (Pause by default); unconditional Print Screen/Windows screenshot shortcut forwarding; sliding group reward aggregation; excluded Gold Goblin price rules; an optional silent initial market baseline; local session history with pickup-time prices and file deletion; selectable MVP map markers, passive hover previews and an in-game Add timer form (F4 by default).
 
 History records prices prospectively, without reconstructing old drops from current offers. The first successful complete live market scan establishes the optional silent baseline. Map images require connectivity. Actual game, screenshot and mixed-DPI acceptance remains manual.
 
