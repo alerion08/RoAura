@@ -1507,10 +1507,7 @@
                                     </Grid>
                                 </Grid></Border>
                             </TabItem>
-                            <TabItem Header="{DynamicResource SessionHistory}"><StackPanel Margin="18">
-                                <TextBlock Text="{DynamicResource SessionHistoryPriceHint}" TextWrapping="Wrap" Margin="0,0,0,12"/>
-                                <Button Content="{DynamicResource OpenSessionHistory}" Click="SessionHistory_Click" HorizontalAlignment="Left"/>
-                            </StackPanel></TabItem>
+                            <TabItem Header="{DynamicResource SessionHistory}"><local:FarmingSessionHistoryControl/></TabItem>
                             <TabItem Header="{DynamicResource GoldGoblinRulesTab}">
                                 <Border Margin="0,8,0,0" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="8" Background="{DynamicResource UiBackground_FFFFFF}">
                                 <Grid Margin="14">

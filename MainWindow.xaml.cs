@@ -345,17 +345,6 @@ public partial class MainWindow : Window
         _goldGoblin.Reprice();
     }
 
-    private void SessionHistory_Click(object sender, RoutedEventArgs e)
-    {
-        if (Application.Current is App app)
-        {
-            if (!app.FlushFarmingHistory()) return;
-            var window = new FarmingSessionHistoryWindow(app.FarmingHistory) { Owner = this };
-            AppearanceService.ApplyPalette(window, Settings.ApplicationTheme);
-            window.ShowDialog();
-        }
-    }
-
     private void PauseSession_Click(object sender, RoutedEventArgs e)
     {
         if (Application.Current is App app) app.ToggleFarmingSessionPause();

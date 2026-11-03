@@ -61,12 +61,6 @@ internal static class QuestInputSmoke
                 }
                 if(buttons.Select(b=>b.ActualHeight).Distinct().Count()!=1 || buttons.Any(b=>b.Content is string t && char.IsUpper(t[0])))
                     throw new InvalidOperationException("Tracker buttons must have equal heights and lowercase labels.");
-                // Screen capture must reach the game even with RoAura's keyboard suppression enabled.
-                var screenshots = Read(reportPath)!.Screenshots;
-                hook.SetKeyboardBlocked(true);
-                Key(0x2C,true); Key(0x2C,false);
-                await Until(()=>Read(reportPath)!.Screenshots > screenshots, "Print Screen bypasses blocked keyboard");
-                hook.SetKeyboardBlocked(false);
                 // Real OS mouse delivery, not RaiseEvent: buttons consume clicks without activation.
                 var originalStripHandle=new WindowInteropHelper(strip).Handle;
                 var clicks=Read(reportPath)!.Clicks;
@@ -81,6 +75,7 @@ internal static class QuestInputSmoke
                 clicks=Read(reportPath)!.Clicks;
                 Click(host.TextWindow.PointToScreen(new Point(x+15,y+40)));
                 await Until(()=>Read(reportPath)!.Clicks>clicks,"text/world click-through");
+                await Pause();host.RefreshNow();
                 var doneStep=row.Progress.CurrentStep;
                 var doneStrip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"done")));
                 var done=((StackPanel)doneStrip.Content).Children.OfType<Button>().Single(b=>Equals(b.Content,"done"));
@@ -259,6 +254,12 @@ internal static class QuestInputSmoke
                 SetWindowPos(game,IntPtr.Zero,20,20,340,240,0x14);await Pause();host.RefreshNow();
                 if(workspace.Settings.QuestOverlay.X!=x || workspace.Settings.QuestOverlay.Y!=y)
                     throw new InvalidOperationException("Game resize rewrote tracker coordinates.");
+                // Screen capture must reach the game even with RoAura's keyboard suppression enabled.
+                var screenshots = Read(reportPath)!.Screenshots;
+                hook.SetKeyboardBlocked(true);
+                Key(0x2C,true); Key(0x2C,false);
+                await Until(()=>Read(reportPath)!.Screenshots > screenshots, "Print Screen bypasses blocked keyboard");
+                hook.SetKeyboardBlocked(false);
                 ShowWindow(game,6);await Pause();host.RefreshNow();
                 if(host.TextWindow.IsVisible || host.BrowserShowing)throw new InvalidOperationException("Quest surfaces remained above a minimized game.");
                 DebugLog.Write("QUEST INPUT SMOKE: cross-process clicks, transparent margins/text, keyboard/modifiers, independent keys, global mask, settings occlusion and resize passed.");

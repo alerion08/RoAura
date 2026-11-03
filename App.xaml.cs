@@ -468,6 +468,7 @@ public partial class App : Application
             mvpTimerWizard.Close();
             var goldGoblinAddWindow = new GoldGoblinAddItemWindow(Array.Empty<ItemEntry>());
             goldGoblinAddWindow.Close();
+            _ = new FarmingSessionHistoryControl();
             var npcapRequiredWindow = new NpcapRequiredWindow();
             npcapRequiredWindow.Close();
             var aboutWindow = new AboutWindow();
@@ -1088,6 +1089,7 @@ public partial class App : Application
             gained = sample.Gained;
         }
         if (gained <= 0) return;
+        SaveFarmingHistory();
         _overlay.ShowZenyReward(gained);
         if (!session.HasValue) _overlay.RecordZeny(gained);
         else _overlay.RefreshCharacterStatistics();

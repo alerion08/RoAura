@@ -5,19 +5,15 @@ using RoAura.Services;
 
 namespace RoAura;
 
-public sealed class FarmingSessionHistoryWindow : Window
+public sealed class FarmingSessionHistoryControl : UserControl
 {
-    private readonly FarmingSessionHistoryStore _store;
+    private FarmingSessionHistoryStore Store => ((App)Application.Current).FarmingHistory;
     private readonly DataGrid _sessions = new() { AutoGenerateColumns = false, IsReadOnly = true,
         CanUserAddRows = false, CanUserDeleteRows = false, SelectionMode = DataGridSelectionMode.Single };
     private readonly DataGrid _details = new() { AutoGenerateColumns = false, IsReadOnly = true,
         CanUserAddRows = false, CanUserDeleteRows = false };
-    public FarmingSessionHistoryWindow(FarmingSessionHistoryStore store)
+    public FarmingSessionHistoryControl()
     {
-        _store = store;
-        Title = LocalizationService.Get("SessionHistory"); Width = 1050; Height = 730;
-        MinWidth = 720; MinHeight = 480; WindowStartupLocation = WindowStartupLocation.CenterOwner;
-        SetResourceReference(BackgroundProperty, "RoWindowBrush");
         var root = new Grid { Margin = new Thickness(16) };
         root.RowDefinitions.Add(new() { Height = GridLength.Auto });
         root.RowDefinitions.Add(new() { Height = new GridLength(1, GridUnitType.Star) });
@@ -48,15 +44,19 @@ public sealed class FarmingSessionHistoryWindow : Window
             Binding = new System.Windows.Data.Binding(path), Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
     private void RefreshRows()
     {
-        try { _sessions.ItemsSource = _store.List(); }
-        catch (Exception ex) { MessageBox.Show(this, LocalizationService.Get("SessionHistoryError") + "\n" + ex.Message); }
+        try
+        {
+            if (!((App)Application.Current).FlushFarmingHistory()) return;
+            _sessions.ItemsSource = Store.List();
+        }
+        catch (Exception ex) { MessageBox.Show(Window.GetWindow(this), LocalizationService.Get("SessionHistoryError") + "\n" + ex.Message); }
     }
     private void DeleteSelected()
     {
         if (_sessions.SelectedItem is not FarmingSession session) return;
-        if (MessageBox.Show(this, LocalizationService.Get("DeleteSessionConfirm"), Title,
+        if (MessageBox.Show(Window.GetWindow(this), LocalizationService.Get("DeleteSessionConfirm"), LocalizationService.Get("SessionHistory"),
             MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
-        try { _store.Delete(session.Id); RefreshRows(); }
-        catch (Exception ex) { MessageBox.Show(this, ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Warning); }
+        try { Store.Delete(session.Id); RefreshRows(); }
+        catch (Exception ex) { MessageBox.Show(Window.GetWindow(this), ex.Message, LocalizationService.Get("SessionHistory"), MessageBoxButton.OK, MessageBoxImage.Warning); }
     }
 }

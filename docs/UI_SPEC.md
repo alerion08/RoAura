@@ -603,5 +603,5 @@ Remaining real-game/mixed-DPI acceptance is documented in release notes.
 - Each reward extends all still-aggregating rows of its group; a quiet gap starts a new burst. Groups remain independent.
 - Exclude price rules remove value and counted quantity even with a manual override; raw history retains excluded acquisitions.
 - The shared market editor offers silent current-offer baseline, established by a requested successful live scan and retained with the rule.
-- Gold Goblin History opens a session list; selection shows timestamped pickup prices. Direct Zeny and loot value are separate. Confirmed deletion removes the file and cancels queued recreation.
+- Gold Goblin History contains the session list and pickup details directly in its tab; selection shows timestamped pickup prices. Direct Zeny and loot value are separate. Confirmed deletion removes the file and cancels queued recreation.
 - MVP Location selects a map and marker. Changing the map clears its marker. Passive hover preview is nonactivating and mouse-transparent. Add MVP in game defaults F4, follows the exact client, uses the game theme and restores focus. New conflicting bindings disable themselves.
