@@ -1,0 +1,1226 @@
+{
+  "quest_id": "irowiki-classic:First_Expanded_Job_Change_Guides",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "85066176f6dbc5f0af8a4ca7709b6025846bac9d5cdad2c6c57f89074c763922",
+  "snapshot_sha256": "5ef2737db183738d902a4f0f98c8e43f53f3fdedb7dcf47738fb01a1cb348144",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Phoenix"
+    },
+    {
+      "type": "npc",
+      "name": "Guild Master"
+    },
+    {
+      "type": "npc",
+      "name": "Wise Bull Horn"
+    },
+    {
+      "type": "npc",
+      "name": "Akagi"
+    },
+    {
+      "type": "npc",
+      "name": "Cougar",
+      "aliases": [
+        "Couger"
+      ]
+    },
+    {
+      "type": "npc",
+      "name": "Wildcat Joe"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "Einbroch"
+    },
+    {
+      "type": "map",
+      "name": "Alberta"
+    },
+    {
+      "type": "map",
+      "name": "Amatsu"
+    },
+    {
+      "type": "map",
+      "name": "que_ng",
+      "map_code": "que_ng"
+    },
+    {
+      "type": "map",
+      "name": "einbroch",
+      "map_code": "einbroch"
+    },
+    {
+      "type": "map",
+      "name": "ein_fild08",
+      "map_code": "ein_fild08"
+    },
+    {
+      "type": "item",
+      "name": "seal",
+      "identity": "irowiki-classic:First_Expanded_Job_Change_Guides:unidentified_seal"
+    },
+    {
+      "type": "item",
+      "name": "Guard [0]",
+      "game_id": 2101,
+      "id_source": "http://db.irowiki.org/classic/item-info/2101/"
+    },
+    {
+      "type": "item",
+      "name": "Shell",
+      "game_id": 935,
+      "id_source": "http://db.irowiki.org/classic/item-info/935/"
+    },
+    {
+      "type": "item",
+      "name": "Fluff",
+      "game_id": 914,
+      "id_source": "http://db.irowiki.org/classic/item-info/914/"
+    },
+    {
+      "type": "item",
+      "name": "Trunk",
+      "game_id": 1019,
+      "id_source": "http://db.irowiki.org/classic/item-info/1019/"
+    },
+    {
+      "type": "item",
+      "name": "Zargon",
+      "game_id": 912,
+      "id_source": "http://db.irowiki.org/classic/item-info/912/"
+    },
+    {
+      "type": "item",
+      "name": "Green Herb",
+      "game_id": 511,
+      "id_source": "http://db.irowiki.org/classic/item-info/511/"
+    },
+    {
+      "type": "item",
+      "name": "Rainbow Shell",
+      "game_id": 1013,
+      "id_source": "http://db.irowiki.org/classic/item-info/1013/"
+    },
+    {
+      "type": "item",
+      "name": "Milk",
+      "game_id": 519,
+      "id_source": "http://db.irowiki.org/classic/item-info/519/"
+    },
+    {
+      "type": "item",
+      "name": "Six Shooter",
+      "game_id": 13100,
+      "id_source": "http://db.irowiki.org/classic/item-info/13100/"
+    },
+    {
+      "type": "item",
+      "name": "Branch",
+      "game_id": 13150,
+      "id_source": "http://db.irowiki.org/classic/item-info/13150/"
+    },
+    {
+      "type": "item",
+      "name": "Mushroom Spore",
+      "game_id": 921,
+      "id_source": "http://db.irowiki.org/classic/item-info/921/"
+    },
+    {
+      "type": "item",
+      "name": "Clover",
+      "game_id": 705,
+      "id_source": "http://db.irowiki.org/classic/item-info/705/"
+    },
+    {
+      "type": "item",
+      "name": "Iron Ore",
+      "game_id": 1002,
+      "id_source": "http://db.irowiki.org/classic/item-info/1002/"
+    },
+    {
+      "type": "item",
+      "name": "Phracon",
+      "game_id": 1010,
+      "id_source": "http://db.irowiki.org/classic/item-info/1010/"
+    },
+    {
+      "type": "item",
+      "name": "Cyfar",
+      "game_id": 7053,
+      "id_source": "http://db.irowiki.org/classic/item-info/7053/"
+    },
+    {
+      "type": "item",
+      "name": "Asura",
+      "game_id": 13010,
+      "id_source": "http://db.irowiki.org/classic/item-info/13010/"
+    },
+    {
+      "type": "item",
+      "name": "Free Ticket for Kafra Transportation",
+      "game_id": 7060,
+      "id_source": "http://db.irowiki.org/classic/item-info/7060/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Travel to Payon . Speak to the NPC named Phoenix at (158, 140). He will ask the player to gain 1 more base level.",
+      "instruction_sha256": "8a1fea3e36d4c0b2668a87bd5077e0d08d263892cc09b6b1bf97a1a4f988d06b",
+      "goal": "talk",
+      "full_en": "Travel to Payon . Speak to the NPC named Phoenix at (158, 140). He will ask the player to gain 1 more base level. Note : if your Base Level is 20 or higher, you will not be asked to gain another level.",
+      "full_ru": "Отправляйтесь в Payon и поговорите с NPC Phoenix в точке (158, 140). Он попросит получить ещё 1 Base Level. Примечание: если ваш Base Level уже 20 или выше, получать дополнительный уровень не потребуется.",
+      "short_ru": "Поговорите с Phoenix (158, 140); получите 1 Base Level, если текущий Base Level ниже 20.",
+      "short_en": "Talk to Phoenix (158, 140); gain 1 Base Level if your current Base Level is below 20.",
+      "npcs": [
+        {
+          "entity": "Phoenix",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "x": 158,
+          "y": 140,
+          "known": false,
+          "role": "Phoenix",
+          "condition": "Payon is a source town name; its map code is not printed."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "base_levels_to_gain",
+          "amount": "1",
+          "condition": "Below Base Level 20 only. Some server variants require more levels for the optional item reward."
+        },
+        {
+          "kind": "level_gain_exemption_threshold",
+          "amount": "20",
+          "support_step": 3,
+          "evidence": "You will be rewarded with a Guard [0] . (Some servers require gaining more than 1 base level during the quest for this reward.) | Note : if your Base Level is 20 or higher, you will not be asked to gain another level.",
+          "condition": "At Base Level 20 or higher no further level gain is requested."
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/8a1fea3e36d4c0b2668a/1",
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Note : if your Base Level is 20 or higher, you will not be asked to gain another level.",
+          "text_ru": "Примечание: если ваш Base Level уже 20 или выше, получать дополнительный уровень не потребуется."
+        }
+      ]
+    },
+    "2": {
+      "original_instruction": "Return with the level and become a TaeKwon Kid after giving the following answers to Phoenix's questions; I face it head on. Accept differences and learn from them. Yes.",
+      "instruction_sha256": "1346819fe709de11217bd5ac5f3cdbb70e1c0bd49b55cbd7b185f25337078a23",
+      "goal": "job_change",
+      "full_en": "Return with the level and become a TaeKwon Kid after giving the following answers to Phoenix's questions; I face it head on. Accept differences and learn from them. Yes.",
+      "full_ru": "Вернитесь с полученным уровнем и станьте TaeKwon Kid, ответив Phoenix по порядку: I face it head on.; Accept differences and learn from them.; Yes.",
+      "short_ru": "Ответьте Phoenix: I face it head on. → Accept differences and learn from them. → Yes.",
+      "short_en": "Answer Phoenix: I face it head on. → Accept differences and learn from them. → Yes.",
+      "npcs": [
+        {
+          "entity": "Phoenix",
+          "role": "talk"
+        }
+      ],
+      "dialogues": [
+        {
+          "npc": "Phoenix",
+          "options": [
+            {
+              "text": "I face it head on.",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Accept differences and learn from them.",
+              "correct": 1,
+              "operation": "choose"
+            },
+            {
+              "text": "Yes.",
+              "correct": 1,
+              "operation": "choose"
+            }
+          ]
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "TaeKwon Kid"
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/1346819fe709de11217b/1"
+    },
+    "3": {
+      "original_instruction": "You will be rewarded with a Guard [0] . (Some servers require gaining more than 1 base level during the quest for this reward.) | Note : if your Base Level is 20 or higher, you will not be asked to gain another level.",
+      "instruction_sha256": "e14cd2f5b2519ee7bdd0a1d799d44aae771e6741aebbca00bac71db017ca3c9b",
+      "goal": "receive_reward",
+      "full_en": "You will be rewarded with a Guard [0] . (Some servers require gaining more than 1 base level during the quest for this reward.) | Note : if your Base Level is 20 or higher, you will not be asked to gain another level.",
+      "full_ru": "Вы получите Guard [0]. На некоторых серверах для этой награды во время квеста требуется получить больше 1 Base Level. Если ваш Base Level уже 20 или выше, получать ещё один уровень не потребуется.",
+      "short_ru": "Получите Guard [0]; при Base Level 20+ дополнительный уровень не нужен, условия награды зависят от сервера.",
+      "short_en": "Receive Guard [0]; no extra level is needed at Base Level 20+, while reward conditions vary by server.",
+      "rewards": [
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Guard [0]",
+          "condition": "Source reward; some server variants require gaining more than one Base Level for this item. [0] denotes slots, not zero quantity."
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/e14cd2f5b2519ee7bdd0/1"
+    },
+    "4": {
+      "original_instruction": "After reaching Job Level 10 as a Novice and allocating all your skill points, go to the Gunslinger's guild at at the left side of the Einbroch Tower (134,199).",
+      "instruction_sha256": "5f683ed00fd9dd83a195d554eb1d38f55e7423e2b0205f1d286a105e1ec7a09b",
+      "goal": "travel",
+      "full_en": "After reaching Job Level 10 as a Novice and allocating all your skill points, go to the Gunslinger's guild at at the left side of the Einbroch Tower (134,199).",
+      "full_ru": "Достигнув Job Level 10 как Novice и распределив все очки умений, отправляйтесь в Gunslinger's guild слева от Einbroch Tower (134,199).",
+      "short_ru": "При Job Level 10 распределите все очки умений и войдите в Gunslinger's guild (134,199).",
+      "short_en": "At Job Level 10, allocate all skill points and enter Gunslinger's guild (134,199).",
+      "requirements": [
+        {
+          "kind": "unspent_skill_points",
+          "amount": "0",
+          "condition": "Allocate all skill points before entering the Gunslinger application."
+        }
+      ],
+      "locations": [
+        {
+          "x": 134,
+          "y": 199,
+          "known": false,
+          "role": "guild_entrance",
+          "condition": "Einbroch Tower entrance point; do not infer a map code from a bare coordinate."
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/5f683ed00fd9dd83a195/1"
+    },
+    "5": {
+      "original_instruction": "Talk to the Guild Master and he will have you fill out an application.",
+      "instruction_sha256": "595c40e98c7b9b3551fbba95e770119cd643b08d82eb4f76e6da8bd978f037f4",
+      "goal": "talk",
+      "full_en": "Talk to the Guild Master and he will have you fill out an application.",
+      "full_ru": "Поговорите с Guild Master и заполните заявление.",
+      "short_ru": "Заполните заявление у Guild Master.",
+      "short_en": "Complete the application with Guild Master.",
+      "npcs": [
+        {
+          "entity": "Guild Master",
+          "role": "talk"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "complete_application",
+          "entity": "Guild Master"
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/595c40e98c7b9b3551fb/1"
+    },
+    "6": {
+      "original_instruction": "You will then be sent to Payon to talk to Wise Bull Horn (184,65) (in the 5 o'clock direction outside the city wall).",
+      "instruction_sha256": "48c8be3ae38fb76fbe423867735e98a2ada98767c6842e065d295cbe825ca3d6",
+      "goal": "talk",
+      "full_en": "You will then be sent to Payon to talk to Wise Bull Horn (184,65) (in the 5 o'clock direction outside the city wall).",
+      "full_ru": "Вас направят в Payon к Wise Bull Horn (184,65), за городской стеной в направлении 5 часов.",
+      "short_ru": "Посетите Wise Bull Horn в Payon (184,65).",
+      "short_en": "Visit Wise Bull Horn in Payon (184,65).",
+      "npcs": [
+        {
+          "entity": "Wise Bull Horn",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "x": 184,
+          "y": 65,
+          "known": false,
+          "role": "Wise Bull Horn",
+          "condition": "Payon town context; no printed map code."
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/48c8be3ae38fb76fbe42/1"
+    },
+    "7": {
+      "original_instruction": "Wise Bull Horn will ask you to collect the following items: | iRO: | Other servers:",
+      "instruction_sha256": "af4580c0aab12224504420b3710f960d7538f48bc6e705d8f0c091672089cfe7",
+      "goal": "obtain_materials",
+      "full_en": "Wise Bull Horn will ask you to collect the following items: | iRO: | Other servers: iRO: 10 Shell 3 Fluff 1 Trunk 3 Mushroom Spore 3 Green Herb 3 Clover Other servers: 10 Shell 3 Fluff 1 Trunk 3 Zargon 3 Green Herb 3 Rainbow Shell",
+      "full_ru": "Wise Bull Horn попросит собрать материалы; в источнике приведены отдельные наборы для iRO и Other servers. iRO: 10 Shell, 3 Fluff, 1 Trunk, 3 Mushroom Spore, 3 Green Herb и 3 Clover. Другие серверы: 10 Shell, 3 Fluff, 1 Trunk, 3 Zargon, 3 Green Herb и 3 Rainbow Shell.",
+      "short_ru": "Соберите iRO: 10 Shell, 3 Fluff, 1 Trunk, 3 Mushroom Spore, 3 Green Herb, 3 Clover; другие серверы: 10 Shell, 3 Fluff, 1 Trunk, 3 Zargon, 3 Green Herb, 3 Rainbow Shell.",
+      "short_en": "Collect iRO: 10 Shell, 3 Fluff, 1 Trunk, 3 Mushroom Spore, 3 Green Herb, 3 Clover; Other servers: 10 Shell, 3 Fluff, 1 Trunk, 3 Zargon, 3 Green Herb, 3 Rainbow Shell.",
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "iRO: 10 Shell 3 Fluff 1 Trunk 3 Mushroom Spore 3 Green Herb 3 Clover Other servers: 10 Shell 3 Fluff 1 Trunk 3 Zargon 3 Green Herb 3 Rainbow Shell",
+          "text_ru": "iRO: 10 Shell, 3 Fluff, 1 Trunk, 3 Mushroom Spore, 3 Green Herb и 3 Clover. Другие серверы: 10 Shell, 3 Fluff, 1 Trunk, 3 Zargon, 3 Green Herb и 3 Rainbow Shell."
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Wise Bull Horn",
+          "role": "talk"
+        }
+      ],
+      "branches": [
+        {
+          "key": "iro_materials",
+          "choice_group": "gunslinger_material_set",
+          "variant_scope": "iRO",
+          "condition": "Source-labeled iRO alternative; server applicability remains unverified.",
+          "source_step": 7,
+          "section": "source_variant",
+          "original_instruction": "Wise Bull Horn will ask you to collect the following items: | iRO: | Other servers:",
+          "instruction_sha256": "af4580c0aab12224504420b3710f960d7538f48bc6e705d8f0c091672089cfe7",
+          "full_en": "Collect 10 Shell, 3 Fluff, 1 Trunk, 3 Mushroom Spore, 3 Green Herb, 3 Clover for Wise Bull Horn.",
+          "full_ru": "Соберите для Wise Bull Horn: 10 Shell, 3 Fluff, 1 Trunk, 3 Mushroom Spore, 3 Green Herb, 3 Clover.",
+          "short_en": "Collect 10 Shell, 3 Fluff, 1 Trunk, 3 Mushroom Spore, 3 Green Herb, 3 Clover.",
+          "short_ru": "Соберите 10 Shell, 3 Fluff, 1 Trunk, 3 Mushroom Spore, 3 Green Herb, 3 Clover.",
+          "items": [
+            {
+              "entity": "Shell",
+              "quantity": 10,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "iRO: 10 Shell 3 Fluff 1 Trunk 3 Mushroom Spore 3 Green Herb 3 Clover",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            },
+            {
+              "entity": "Fluff",
+              "quantity": 3,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "iRO: 10 Shell 3 Fluff 1 Trunk 3 Mushroom Spore 3 Green Herb 3 Clover",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            },
+            {
+              "entity": "Trunk",
+              "quantity": 1,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "iRO: 10 Shell 3 Fluff 1 Trunk 3 Mushroom Spore 3 Green Herb 3 Clover",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            },
+            {
+              "entity": "Mushroom Spore",
+              "quantity": 3,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "iRO: 10 Shell 3 Fluff 1 Trunk 3 Mushroom Spore 3 Green Herb 3 Clover",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            },
+            {
+              "entity": "Green Herb",
+              "quantity": 3,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "iRO: 10 Shell 3 Fluff 1 Trunk 3 Mushroom Spore 3 Green Herb 3 Clover",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            },
+            {
+              "entity": "Clover",
+              "quantity": 3,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "iRO: 10 Shell 3 Fluff 1 Trunk 3 Mushroom Spore 3 Green Herb 3 Clover",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            }
+          ],
+          "npcs": [
+            {
+              "entity": "Wise Bull Horn",
+              "role": "talk"
+            }
+          ]
+        },
+        {
+          "key": "other_materials",
+          "choice_group": "gunslinger_material_set",
+          "variant_scope": "Other servers",
+          "condition": "Source-labeled Other servers alternative; server applicability remains unverified.",
+          "source_step": 7,
+          "section": "source_variant",
+          "original_instruction": "Wise Bull Horn will ask you to collect the following items: | iRO: | Other servers:",
+          "instruction_sha256": "af4580c0aab12224504420b3710f960d7538f48bc6e705d8f0c091672089cfe7",
+          "full_en": "Collect 10 Shell, 3 Fluff, 1 Trunk, 3 Zargon, 3 Green Herb, 3 Rainbow Shell for Wise Bull Horn.",
+          "full_ru": "Соберите для Wise Bull Horn: 10 Shell, 3 Fluff, 1 Trunk, 3 Zargon, 3 Green Herb, 3 Rainbow Shell.",
+          "short_en": "Collect 10 Shell, 3 Fluff, 1 Trunk, 3 Zargon, 3 Green Herb, 3 Rainbow Shell.",
+          "short_ru": "Соберите 10 Shell, 3 Fluff, 1 Trunk, 3 Zargon, 3 Green Herb, 3 Rainbow Shell.",
+          "items": [
+            {
+              "entity": "Shell",
+              "quantity": 10,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Other servers: 10 Shell 3 Fluff 1 Trunk 3 Zargon 3 Green Herb 3 Rainbow Shell",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            },
+            {
+              "entity": "Fluff",
+              "quantity": 3,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Other servers: 10 Shell 3 Fluff 1 Trunk 3 Zargon 3 Green Herb 3 Rainbow Shell",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            },
+            {
+              "entity": "Trunk",
+              "quantity": 1,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Other servers: 10 Shell 3 Fluff 1 Trunk 3 Zargon 3 Green Herb 3 Rainbow Shell",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            },
+            {
+              "entity": "Zargon",
+              "quantity": 3,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Other servers: 10 Shell 3 Fluff 1 Trunk 3 Zargon 3 Green Herb 3 Rainbow Shell",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            },
+            {
+              "entity": "Green Herb",
+              "quantity": 3,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Other servers: 10 Shell 3 Fluff 1 Trunk 3 Zargon 3 Green Herb 3 Rainbow Shell",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            },
+            {
+              "entity": "Rainbow Shell",
+              "quantity": 3,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "Other servers: 10 Shell 3 Fluff 1 Trunk 3 Zargon 3 Green Herb 3 Rainbow Shell",
+              "condition": "One selected six-material set, not the sum of both server variants."
+            }
+          ],
+          "npcs": [
+            {
+              "entity": "Wise Bull Horn",
+              "role": "talk"
+            }
+          ]
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/af4580c0aab122245044/1"
+    },
+    "8": {
+      "original_instruction": "When you return he will also ask for:",
+      "instruction_sha256": "015ea3b82b41e29a7c396b264786b16a7935e0e7a4f68da93be0cd1ec1d445d0",
+      "goal": "obtain_materials",
+      "full_en": "When you return he will also ask for: 1 Milk",
+      "full_ru": "После возвращения он попросит ещё один предмет. Дополнительно: 1 Milk.",
+      "short_ru": "Вернитесь к Wise Bull Horn и принесите дополнительно 1 Milk.",
+      "short_en": "Return to Wise Bull Horn and bring an additional 1 Milk.",
+      "npcs": [
+        {
+          "entity": "Wise Bull Horn",
+          "role": "talk",
+          "support_step": 7,
+          "evidence": "Wise Bull Horn will ask you to collect the following items: | iRO: | Other servers:"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Milk",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "source_section": "html_text",
+          "evidence": "1 Milk",
+          "condition": "Additional request after the chosen six-material set; one Milk, not part of both alternatives."
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "1 Milk",
+          "text_ru": "Дополнительно: 1 Milk."
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/015ea3b82b41e29a7c39/1"
+    },
+    "9": {
+      "original_instruction": "Afterwards, return to talk to the Guild Master in Einbroch and he will change you into a Gunslinger. You will receive either:",
+      "instruction_sha256": "1d86af6e8377f28b2a663a6e18f7e2498414e41644982caf0226df0d58934b3f",
+      "goal": "job_change",
+      "full_en": "Afterwards, return to talk to the Guild Master in Einbroch and he will change you into a Gunslinger. You will receive either: Six Shooter or Branch",
+      "full_ru": "Затем вернитесь к Guild Master в Einbroch: он сменит вашу профессию на Gunslinger и выдаст один из двух предметов. Награда: Six Shooter или Branch.",
+      "short_ru": "Вернитесь к Guild Master в Einbroch для смены профессии; награда — Six Shooter или Branch.",
+      "short_en": "Return to Guild Master in Einbroch for job change; the reward is Six Shooter or Branch.",
+      "npcs": [
+        {
+          "entity": "Guild Master",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Gunslinger"
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Six Shooter or Branch",
+          "text_ru": "Награда: Six Shooter или Branch."
+        }
+      ],
+      "branches": [
+        {
+          "key": "reward_six_shooter",
+          "choice_group": "gunslinger_weapon_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Source-labeled irowiki-classic alternative; server applicability remains unverified.",
+          "source_step": 9,
+          "section": "source_variant",
+          "original_instruction": "Afterwards, return to talk to the Guild Master in Einbroch and he will change you into a Gunslinger. You will receive either:",
+          "instruction_sha256": "1d86af6e8377f28b2a663a6e18f7e2498414e41644982caf0226df0d58934b3f",
+          "full_en": "Receive Six Shooter as one of the alternative job-change rewards.",
+          "full_ru": "Получите Six Shooter как один из альтернативных предметов за смену профессии.",
+          "short_en": "Receive Six Shooter.",
+          "short_ru": "Получите Six Shooter.",
+          "rewards": [
+            {
+              "kind": "item",
+              "entity": "Six Shooter",
+              "amount": "1",
+              "source_section": "html_text",
+              "evidence": "Six Shooter or Branch",
+              "condition": "One of two rewards; no rule choosing the weapon is provided."
+            }
+          ]
+        },
+        {
+          "key": "reward_branch",
+          "choice_group": "gunslinger_weapon_reward",
+          "variant_scope": "irowiki-classic",
+          "condition": "Source-labeled irowiki-classic alternative; server applicability remains unverified.",
+          "source_step": 9,
+          "section": "source_variant",
+          "original_instruction": "Afterwards, return to talk to the Guild Master in Einbroch and he will change you into a Gunslinger. You will receive either:",
+          "instruction_sha256": "1d86af6e8377f28b2a663a6e18f7e2498414e41644982caf0226df0d58934b3f",
+          "full_en": "Receive Branch as one of the alternative job-change rewards.",
+          "full_ru": "Получите Branch как один из альтернативных предметов за смену профессии.",
+          "short_en": "Receive Branch.",
+          "short_ru": "Получите Branch.",
+          "rewards": [
+            {
+              "kind": "item",
+              "entity": "Branch",
+              "amount": "1",
+              "source_section": "html_text",
+              "evidence": "Six Shooter or Branch",
+              "condition": "One of two rewards; no rule choosing the weapon is provided."
+            }
+          ]
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/1d86af6e8377f28b2a66/1"
+    },
+    "10": {
+      "original_instruction": "Once the player is Job Level 10 and has Basic Skills maxed, make your way to Amatsu by speaking to the NPC named Akagi located at (30,63) in Alberta .",
+      "instruction_sha256": "672168316f85fdcd047ef2d951550afaa91286953239b1270d1e5d29ae8aaa32",
+      "goal": "talk",
+      "full_en": "Once the player is Job Level 10 and has Basic Skills maxed, make your way to Amatsu by speaking to the NPC named Akagi located at (30,63) in Alberta . Zeny: 20",
+      "full_ru": "Достигнув Job Level 10 и полностью изучив Basic Skills, отправляйтесь в Amatsu через NPC Akagi в Alberta (30,63). Сводка заголовка: Zeny 20; распределение этой суммы по этапам не объяснено.",
+      "short_ru": "При Job Level 10 и полностью изученных Basic Skills поговорите с Akagi в Alberta (30,63).",
+      "short_en": "At Job Level 10 with Basic Skills maxed, talk to Akagi in Alberta (30,63).",
+      "npcs": [
+        {
+          "entity": "Akagi",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "x": 30,
+          "y": 63,
+          "known": false,
+          "role": "Akagi",
+          "condition": "Alberta is printed as a town, not an exact map code."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "required_skill",
+          "amount": "Basic Skills maxed"
+        },
+        {
+          "kind": "source_zeny_summary",
+          "amount": "20",
+          "source_section": "html_text",
+          "evidence": "Zeny: 20",
+          "condition": "Ninja header summary only; detailed tower service asks 10. The source does not explain the other 10 or prove a mandatory second ascent."
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Zeny: 20",
+          "text_ru": "Сводка заголовка: Zeny 20; распределение этой суммы по этапам не объяснено."
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/672168316f85fdcd047e/1"
+    },
+    "11": {
+      "original_instruction": "Akagi will warp Job Level 10 Novices to Amatsu for free. Note that the location in Amatsu that he warps to appears to be random and does include an unwalkable area at (178,167). If stuck in this location re-logging will fix the problem.",
+      "instruction_sha256": "c257fc6e152847afa30fbd919c5c6ebf6a642020b2a9cd4fb6cb5a11177648bf",
+      "goal": "travel",
+      "full_en": "Akagi will warp Job Level 10 Novices to Amatsu for free. Note that the location in Amatsu that he warps to appears to be random and does include an unwalkable area at (178,167). If stuck in this location re-logging will fix the problem.",
+      "full_ru": "Akagi бесплатно перемещает Novices с Job Level 10 в Amatsu. Точка прибытия, по источнику, случайна и может оказаться в непроходимом месте (178,167). Если вы застряли там, источник советует перезайти.",
+      "short_ru": "Через Akagi бесплатно отправляйтесь в Amatsu; при застревании перезайдите.",
+      "short_en": "Travel to Amatsu for free through Akagi; relog if stuck.",
+      "npcs": [
+        {
+          "entity": "Akagi",
+          "role": "talk"
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "travel_fee_zeny",
+          "amount": "0",
+          "condition": "Akagi's Amatsu service for Job Level 10 Novices."
+        }
+      ],
+      "locations": [
+        {
+          "x": 178,
+          "y": 167,
+          "known": false,
+          "role": "possible_stuck_warp_destination",
+          "condition": "Example bad Amatsu destination, not a mandatory navigation target."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "relog_if_stuck",
+          "condition": "Only if the random warp leaves the character on an unwalkable location."
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/c257fc6e152847afa30f/1"
+    },
+    "12": {
+      "original_instruction": "Find the house located at (147,136) and enter. The house will appear to look empty. However, if you move to the back of the room, you will see a path. Follow this to a portal.",
+      "instruction_sha256": "f997a7d73f99d9d387bdfb1e13a054d3c805429055fe6a4aa05e5a6a71ee310d",
+      "goal": "travel",
+      "full_en": "Find the house located at (147,136) and enter. The house will appear to look empty. However, if you move to the back of the room, you will see a path. Follow this to a portal.",
+      "full_ru": "Найдите дом в точке (147,136) и войдите. Внутри он кажется пустым, но в дальней части комнаты есть проход; следуйте по нему к порталу.",
+      "short_ru": "Войдите в дом (147,136) и найдите портал в дальней части комнаты.",
+      "short_en": "Enter the house (147,136) and find the portal at the back.",
+      "locations": [
+        {
+          "x": 147,
+          "y": 136,
+          "known": false,
+          "role": "house_entrance",
+          "condition": "Amatsu context from preceding step; no map code printed."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "follow_rear_passage_to_portal"
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/f997a7d73f99d9d387bd/1"
+    },
+    "13": {
+      "original_instruction": "Once inside, talk to Cougar near the portal (que_ng 30,65). He will blab on and requires you to find Wildcat Joe in Einbroch .",
+      "instruction_sha256": "c07ff513285baeff7ed5459ae126edd1fef9f889feab532c290958955682e120",
+      "goal": "talk",
+      "full_en": "Once inside, talk to Cougar near the portal (que_ng 30,65). He will blab on and requires you to find Wildcat Joe in Einbroch .",
+      "full_ru": "Внутри поговорите с Cougar рядом с порталом (que_ng 30,65). Он направит вас к Wildcat Joe в Einbroch.",
+      "short_ru": "У Cougar (que_ng 30,65) получите задание найти Wildcat Joe в Einbroch.",
+      "short_en": "Ask Cougar (que_ng 30,65) about finding Wildcat Joe in Einbroch.",
+      "npcs": [
+        {
+          "entity": "Cougar",
+          "role": "talk"
+        },
+        {
+          "entity": "Wildcat Joe",
+          "role": "find"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "que_ng",
+          "x": 30,
+          "y": 65,
+          "known": true,
+          "role": "Cougar"
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/c07ff513285baeff7ed5/1"
+    },
+    "14": {
+      "original_instruction": "( iRO Only ) Talk to Cougar again and he will warp you to Einbroch . This will require 2,000 Zeny or a Free Ticket for Kafra Transportation .",
+      "instruction_sha256": "7507aa34d5030203a8aba5557e9954c25c7dd7bef6be51a34c5b88060f0f40b2",
+      "goal": "travel",
+      "full_en": "( iRO Only ) Talk to Cougar again and he will warp you to Einbroch . This will require 2,000 Zeny or a Free Ticket for Kafra Transportation .",
+      "full_ru": "Только для iRO: снова поговорите с Cougar для перемещения в Einbroch. Требуется либо 2,000 Zeny, либо Free Ticket for Kafra Transportation.",
+      "short_ru": "iRO: при использовании перемещения Cougar заплатите 2,000 Zeny или используйте Free Ticket for Kafra Transportation.",
+      "short_en": "iRO: for Cougar's warp, pay 2,000 Zeny or use Free Ticket for Kafra Transportation.",
+      "npcs": [
+        {
+          "entity": "Cougar",
+          "role": "warp_service"
+        }
+      ],
+      "branches": [
+        {
+          "key": "pay_zeny",
+          "choice_group": "iro_warp_payment",
+          "variant_scope": "iRO",
+          "condition": "Source-labeled iRO alternative; server applicability remains unverified.",
+          "source_step": 14,
+          "section": "source_variant",
+          "original_instruction": "( iRO Only ) Talk to Cougar again and he will warp you to Einbroch . This will require 2,000 Zeny or a Free Ticket for Kafra Transportation .",
+          "instruction_sha256": "7507aa34d5030203a8aba5557e9954c25c7dd7bef6be51a34c5b88060f0f40b2",
+          "full_en": "For Cougar's Einbroch warp, pay 2,000 Zeny instead of a ticket.",
+          "full_ru": "Для перемещения Cougar в Einbroch заплатите 2,000 Zeny вместо билета.",
+          "short_en": "Pay 2,000 Zeny for Cougar's warp.",
+          "short_ru": "Заплатите 2,000 Zeny за перемещение Cougar.",
+          "requirements": [
+            {
+              "kind": "zeny",
+              "amount": "2000",
+              "condition": "Only the currency alternative for this iRO travel service."
+            }
+          ]
+        },
+        {
+          "key": "use_ticket",
+          "choice_group": "iro_warp_payment",
+          "variant_scope": "iRO",
+          "condition": "Source-labeled iRO alternative; server applicability remains unverified.",
+          "source_step": 14,
+          "section": "source_variant",
+          "original_instruction": "( iRO Only ) Talk to Cougar again and he will warp you to Einbroch . This will require 2,000 Zeny or a Free Ticket for Kafra Transportation .",
+          "instruction_sha256": "7507aa34d5030203a8aba5557e9954c25c7dd7bef6be51a34c5b88060f0f40b2",
+          "full_en": "For Cougar's Einbroch warp, use one Free Ticket for Kafra Transportation instead of Zeny.",
+          "full_ru": "Для перемещения Cougar в Einbroch используйте один Free Ticket for Kafra Transportation вместо Zeny.",
+          "short_en": "Use Free Ticket for Kafra Transportation for Cougar's warp.",
+          "short_ru": "Используйте Free Ticket for Kafra Transportation для перемещения Cougar.",
+          "items": [
+            {
+              "entity": "Free Ticket for Kafra Transportation",
+              "quantity": 1,
+              "operation": "use",
+              "required": 1,
+              "condition": "One ticket as an alternative to 2000 Zeny; not both."
+            }
+          ]
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/7507aa34d5030203a8ab/1"
+    },
+    "15": {
+      "original_instruction": "In Einbroch, find the tower somewhere in the middle of the town. A man in front (einbroch 176,172), or in back (einbroch 173, 229), will warp you up to the top for 10 Zeny . The NPC that the player needs to find is sitting near the bottom right of the tower (einbroch 181,196).",
+      "instruction_sha256": "a8b245757f14b1301ed628d8b613035d7b1176c913ce2bb59561aaa4f14ce3f6",
+      "goal": "travel",
+      "full_en": "In Einbroch, find the tower somewhere in the middle of the town. A man in front (einbroch 176,172), or in back (einbroch 173, 229), will warp you up to the top for 10 Zeny . The NPC that the player needs to find is sitting near the bottom right of the tower (einbroch 181,196).",
+      "full_ru": "В Einbroch найдите башню в центре города. Человек перед ней (einbroch 176,172) или позади неё (einbroch 173, 229) перемещает наверх за 10 Zeny. Нужный NPC находится в нижней правой части башни (einbroch 181,196).",
+      "short_ru": "За 10 Zeny поднимитесь на башню через одну из двух точек и посетите NPC (einbroch 181,196).",
+      "short_en": "Pay 10 Zeny at either tower warp point and visit the NPC (einbroch 181,196).",
+      "npcs": [
+        {
+          "entity": "Wildcat Joe",
+          "role": "visit",
+          "support_step": 17,
+          "evidence": "Upon returning to him after completing the task, he will reveal himself as Wildcat Joe. He will give you a reply, and warp you to Amatsu. At this point return to Couger in the ninja guild."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "einbroch",
+          "x": 176,
+          "y": 172,
+          "known": true,
+          "role": "tower_warp_front",
+          "condition": "Alternative tower service point; not a second required paid service."
+        },
+        {
+          "entity": "einbroch",
+          "x": 173,
+          "y": 229,
+          "known": true,
+          "role": "tower_warp_back",
+          "condition": "Alternative to the front service point."
+        },
+        {
+          "entity": "einbroch",
+          "x": 181,
+          "y": 196,
+          "known": true,
+          "role": "Wildcat Joe",
+          "order": 2
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "tower_ascent_fee_zeny",
+          "amount": "10",
+          "condition": "One stated ascent via either service point; no mandatory second 10-Zeny payment is invented."
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/a8b245757f14b1301ed6/1"
+    },
+    "16": {
+      "original_instruction": "Help him and he will ask you to either:",
+      "instruction_sha256": "04ce64dd3bb5f8ff32b1b581b87efda9b12b3bef7fcd1135868250a5c1ddfd76",
+      "goal": "obtain_materials",
+      "full_en": "Help him and he will ask you to either: ( iRO Only ) Find a seal under the Red Tree one map south of Einbroch and at the bottom (on the left side of the small area at the bottom of the map or \"ein_fild08 137,45\"). It may take a number of attempts in order to find the seal. ( Others ) Collect 5 Cyfar and a Phracon (for making a Kunai).",
+      "full_ru": "Предложите ему помощь: он назначит одно из двух заданий. Только iRO: найдите seal под Red Tree на карте к югу от Einbroch, внизу слева в небольшой области, либо по указанной точке \"ein_fild08 137,45\". Может потребоваться несколько попыток. Others: соберите 5 Cyfar и один Phracon для изготовления Kunai.",
+      "short_ru": "iRO: найдите seal под Red Tree (ein_fild08 137,45); Others: соберите 5 Cyfar и 1 Phracon.",
+      "short_en": "iRO: find the seal under Red Tree (ein_fild08 137,45); Others: collect 5 Cyfar and 1 Phracon.",
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "( iRO Only ) Find a seal under the Red Tree one map south of Einbroch and at the bottom (on the left side of the small area at the bottom of the map or \"ein_fild08 137,45\"). It may take a number of attempts in order to find the seal.",
+          "text_ru": "Только iRO: найдите seal под Red Tree на карте к югу от Einbroch, внизу слева в небольшой области, либо по указанной точке \"ein_fild08 137,45\". Может потребоваться несколько попыток."
+        },
+        {
+          "source_section": "html_text",
+          "text_en": "( Others ) Collect 5 Cyfar and a Phracon (for making a Kunai).",
+          "text_ru": "Others: соберите 5 Cyfar и один Phracon для изготовления Kunai."
+        }
+      ],
+      "npcs": [
+        {
+          "entity": "Wildcat Joe",
+          "role": "task_contact",
+          "support_step": 17,
+          "evidence": "Upon returning to him after completing the task, he will reveal himself as Wildcat Joe. He will give you a reply, and warp you to Amatsu. At this point return to Couger in the ninja guild."
+        }
+      ],
+      "branches": [
+        {
+          "key": "iro_seal",
+          "choice_group": "ninja_joe_task",
+          "variant_scope": "iRO",
+          "condition": "Source-labeled iRO alternative; server applicability remains unverified.",
+          "source_step": 16,
+          "section": "source_variant",
+          "original_instruction": "Help him and he will ask you to either:",
+          "instruction_sha256": "04ce64dd3bb5f8ff32b1b581b87efda9b12b3bef7fcd1135868250a5c1ddfd76",
+          "full_en": "( iRO Only ) Find a seal under the Red Tree one map south of Einbroch and at the bottom (on the left side of the small area at the bottom of the map or \"ein_fild08 137,45\"). It may take a number of attempts in order to find the seal.",
+          "full_ru": "Только iRO: найдите seal под Red Tree на карте к югу от Einbroch, внизу слева в небольшой области, либо по указанной точке \"ein_fild08 137,45\". Может потребоваться несколько попыток.",
+          "short_en": "Find the seal at ein_fild08 137,45; retry if needed.",
+          "short_ru": "Найдите seal в ein_fild08 137,45; при необходимости повторяйте попытки.",
+          "items": [
+            {
+              "entity": "seal",
+              "quantity": null,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "( iRO Only ) Find a seal under the Red Tree one map south of Einbroch and at the bottom (on the left side of the small area at the bottom of the map or \"ein_fild08 137,45\"). It may take a number of attempts in order to find the seal.",
+              "condition": "Unidentified seal; inventory representation, ID and attempt count are unknown."
+            }
+          ],
+          "actions": [
+            {
+              "operation": "search_for_seal",
+              "entity": "seal",
+              "source_section": "html_text",
+              "evidence": "( iRO Only ) Find a seal under the Red Tree one map south of Einbroch and at the bottom (on the left side of the small area at the bottom of the map or \"ein_fild08 137,45\"). It may take a number of attempts in order to find the seal.",
+              "condition": "Retry count and exact interaction are not printed."
+            }
+          ],
+          "locations": [
+            {
+              "entity": "ein_fild08",
+              "x": 137,
+              "y": 45,
+              "known": true,
+              "role": "seal_search",
+              "source_section": "html_text",
+              "evidence": "( iRO Only ) Find a seal under the Red Tree one map south of Einbroch and at the bottom (on the left side of the small area at the bottom of the map or \"ein_fild08 137,45\"). It may take a number of attempts in order to find the seal."
+            }
+          ]
+        },
+        {
+          "key": "other_material_task",
+          "choice_group": "ninja_joe_task",
+          "variant_scope": "Other servers",
+          "condition": "Source-labeled Other servers alternative; server applicability remains unverified.",
+          "source_step": 16,
+          "section": "source_variant",
+          "original_instruction": "Help him and he will ask you to either:",
+          "instruction_sha256": "04ce64dd3bb5f8ff32b1b581b87efda9b12b3bef7fcd1135868250a5c1ddfd76",
+          "full_en": "( Others ) Collect 5 Cyfar and a Phracon (for making a Kunai).",
+          "full_ru": "Others: соберите 5 Cyfar и один Phracon для изготовления Kunai.",
+          "short_en": "Collect 5 Cyfar and 1 Phracon for a Kunai.",
+          "short_ru": "Соберите 5 Cyfar и 1 Phracon для Kunai.",
+          "items": [
+            {
+              "entity": "Cyfar",
+              "quantity": 5,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "( Others ) Collect 5 Cyfar and a Phracon (for making a Kunai).",
+              "condition": "Earlier collection task. Exact removal and whether stock can be reused for the later check are unknown."
+            },
+            {
+              "entity": "Phracon",
+              "quantity": 1,
+              "operation": "collect",
+              "required": 1,
+              "source_section": "html_text",
+              "evidence": "( Others ) Collect 5 Cyfar and a Phracon (for making a Kunai).",
+              "condition": "Earlier collection task; do not invent consumption."
+            }
+          ]
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/04ce64dd3bb5f8ff32b1/1"
+    },
+    "17": {
+      "original_instruction": "Upon returning to him after completing the task, he will reveal himself as Wildcat Joe. He will give you a reply, and warp you to Amatsu. At this point return to Couger in the ninja guild.",
+      "instruction_sha256": "641b8de59f995009bc11f96ffb8e05af42ff5227bda10be9a64e7eb1bb151971",
+      "goal": "talk",
+      "full_en": "Upon returning to him after completing the task, he will reveal himself as Wildcat Joe. He will give you a reply, and warp you to Amatsu. At this point return to Couger in the ninja guild.",
+      "full_ru": "После выполнения задания вернитесь к нему: он назовётся Wildcat Joe, даст ответ и переместит вас в Amatsu. Затем вернитесь к Couger в ninja guild.",
+      "short_ru": "Вернитесь к Wildcat Joe, затем после перемещения в Amatsu — к Couger в ninja guild.",
+      "short_en": "Return to Wildcat Joe, then after the warp to Amatsu return to Couger in the ninja guild.",
+      "npcs": [
+        {
+          "entity": "Wildcat Joe",
+          "role": "talk"
+        },
+        {
+          "entity": "Cougar",
+          "role": "return"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "receive_reply",
+          "entity": "Wildcat Joe",
+          "condition": "Reply form and exact wording are unknown; no named inventory item is invented."
+        },
+        {
+          "operation": "return_after_amatsu_warp",
+          "entity": "Cougar"
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/641b8de59f995009bc11/1"
+    },
+    "18": {
+      "original_instruction": "Talk to Cougar and he will request 5 Iron Ore and a Phracon ( iRO Only ) OR 5 Cyfar and and a Phracon ( Others ). (these will not be removed from the player's inventory). The player will then become a Ninja after finishing talking to the NPC. You will receive an Asura .",
+      "instruction_sha256": "6ddf1ebf9cec4dd92ee2d2a22b53bf239282f798b7f05a3dbc8953c04af9f8db",
+      "goal": "job_change",
+      "full_en": "Talk to Cougar and he will request 5 Iron Ore and a Phracon ( iRO Only ) OR 5 Cyfar and and a Phracon ( Others ). (these will not be removed from the player's inventory). The player will then become a Ninja after finishing talking to the NPC. You will receive an Asura . Item(s) (Consumed): 5 Iron Ore and a Phracon ( iRO Only ) OR 10 Cyfar and 2 Phracon (Others)",
+      "full_ru": "Поговорите с Cougar. Для iRO нужно иметь 5 Iron Ore и один Phracon, для Others — 5 Cyfar и один Phracon. Эти предметы не забирают из инвентаря. Завершите разговор для смены профессии на Ninja и получения Asura. Заголовок относит к расходуемым 5 Iron Ore и один Phracon (только iRO) либо 10 Cyfar и 2 Phracon (Others). Это расходится с явным сохранением предметов на последнем этапе; повторный расход не подтверждён.",
+      "short_ru": "У Cougar держите в инвентаре 5 Iron Ore + 1 Phracon (iRO) или 5 Cyfar + 1 Phracon (Others); предметы сохраняются.",
+      "short_en": "At Cougar, hold 5 Iron Ore + 1 Phracon (iRO) or 5 Cyfar + 1 Phracon (Others); the items are retained.",
+      "npcs": [
+        {
+          "entity": "Cougar",
+          "role": "talk"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Ninja"
+        },
+        {
+          "kind": "item",
+          "amount": "1",
+          "entity": "Asura"
+        }
+      ],
+      "source_additions": [
+        {
+          "source_section": "html_text",
+          "text_en": "Item(s) (Consumed): 5 Iron Ore and a Phracon ( iRO Only ) OR 10 Cyfar and 2 Phracon (Others)",
+          "text_ru": "Заголовок относит к расходуемым 5 Iron Ore и один Phracon (только iRO) либо 10 Cyfar и 2 Phracon (Others). Это расходится с явным сохранением предметов на последнем этапе; повторный расход не подтверждён."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "source_material_summary",
+          "amount": "Item(s) (Consumed): 5 Iron Ore and a Phracon ( iRO Only ) OR 10 Cyfar and 2 Phracon (Others)",
+          "source_section": "html_text",
+          "evidence": "Item(s) (Consumed): 5 Iron Ore and a Phracon ( iRO Only ) OR 10 Cyfar and 2 Phracon (Others)",
+          "condition": "Conflicting source header, not an asserted consumption or combined mandatory cost. Final-stage inventory items are explicitly retained; whether earlier Other-server materials are reusable is unknown."
+        }
+      ],
+      "branches": [
+        {
+          "key": "iro_final_inventory",
+          "choice_group": "ninja_final_inventory",
+          "variant_scope": "iRO",
+          "condition": "Source-labeled iRO alternative; server applicability remains unverified.",
+          "source_step": 18,
+          "section": "source_variant",
+          "original_instruction": "Talk to Cougar and he will request 5 Iron Ore and a Phracon ( iRO Only ) OR 5 Cyfar and and a Phracon ( Others ). (these will not be removed from the player's inventory). The player will then become a Ninja after finishing talking to the NPC. You will receive an Asura .",
+          "instruction_sha256": "6ddf1ebf9cec4dd92ee2d2a22b53bf239282f798b7f05a3dbc8953c04af9f8db",
+          "full_en": "Have 5 Iron Ore and one Phracon in inventory for Cougar. These items are not removed.",
+          "full_ru": "Держите в инвентаре для Cougar 5 Iron Ore и один Phracon. Эти предметы не забирают.",
+          "short_en": "Keep 5 Iron Ore and 1 Phracon in inventory; retained after the check.",
+          "short_ru": "Имейте 5 Iron Ore и 1 Phracon в инвентаре; после проверки они сохраняются.",
+          "items": [
+            {
+              "entity": "Iron Ore",
+              "quantity": 5,
+              "operation": "possess",
+              "required": 1,
+              "condition": "Final inventory check explicitly retains the item."
+            },
+            {
+              "entity": "Phracon",
+              "quantity": 1,
+              "operation": "possess",
+              "required": 1,
+              "condition": "Final inventory check explicitly retains the item."
+            }
+          ]
+        },
+        {
+          "key": "other_final_inventory",
+          "choice_group": "ninja_final_inventory",
+          "variant_scope": "Other servers",
+          "condition": "Source-labeled Other servers alternative; server applicability remains unverified.",
+          "source_step": 18,
+          "section": "source_variant",
+          "original_instruction": "Talk to Cougar and he will request 5 Iron Ore and a Phracon ( iRO Only ) OR 5 Cyfar and and a Phracon ( Others ). (these will not be removed from the player's inventory). The player will then become a Ninja after finishing talking to the NPC. You will receive an Asura .",
+          "instruction_sha256": "6ddf1ebf9cec4dd92ee2d2a22b53bf239282f798b7f05a3dbc8953c04af9f8db",
+          "full_en": "Have 5 Cyfar and one Phracon in inventory for Cougar. These items are not removed.",
+          "full_ru": "Держите в инвентаре для Cougar 5 Cyfar и один Phracon. Эти предметы не забирают.",
+          "short_en": "Keep 5 Cyfar and 1 Phracon in inventory; retained after the check.",
+          "short_ru": "Имейте 5 Cyfar и 1 Phracon в инвентаре; после проверки они сохраняются.",
+          "items": [
+            {
+              "entity": "Cyfar",
+              "quantity": 5,
+              "operation": "possess",
+              "required": 1,
+              "condition": "Final inventory check explicitly retains the item."
+            },
+            {
+              "entity": "Phracon",
+              "quantity": 1,
+              "operation": "possess",
+              "required": 1,
+              "condition": "Final inventory check explicitly retains the item."
+            }
+          ]
+        }
+      ],
+      "step_id": "irowiki-classic:First_Expanded_Job_Change_Guides/step/6ddf1ebf9cec4dd92ee2/1"
+    }
+  },
+  "reviews": [
+    {
+      "reason": "expanded_independent_activities",
+      "detail": "The three sections are independent job-change activities, not a sequential route through three classes. Job Level 10 / Novice applies to each; TaeKwon additional-level request is waived at Base Level 20+, and Guard [0] has a server-dependent extra-level warning. [0] is slot count, not reward quantity."
+    },
+    {
+      "reason": "gunslinger_server_material_and_reward_scope",
+      "detail": "The header lists Other-server materials, while the detailed iRO list uses Mushroom Spore and Clover instead of Zargon and Rainbow Shell. Keep one chosen set, then one additional Milk request. Six Shooter/Branch are alternative rewards with unknown selection rule, not both granted."
+    },
+    {
+      "reason": "ninja_header_material_and_fee_conflict",
+      "detail": "Header claims consumed 5 Iron Ore + Phracon (iRO) or 10 Cyfar + 2 Phracon (Others); detailed final stage explicitly retains 5 Iron Ore/Phracon or 5 Cyfar/Phracon. Earlier Other-server collection/removal and stock reuse are not established. Preserve conflicting header as source summary, not enforced double consumption. Header Zeny 20 is unexplained against one detailed 10-Zeny tower ascent; do not invent another ascent/payment."
+    },
+    {
+      "reason": "ninja_server_service_and_map_scope",
+      "detail": "Cougar's source-labeled iRO travel costs 2000 Zeny OR one ticket. The two Einbroch warp points are alternatives, separate from Wildcat Joe. Bad random Amatsu point is a warning, not a required destination. Bare town coordinates keep unknown map codes. Couger is a contextual spelling for the return to Cougar; original spelling is preserved. Seal identity/input text and retry count remain unknown."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "Novice",
+        "source_section": "requirements",
+        "evidence": "Class: Novice"
+      }
+    ]
+  },
+  "routes": [
+    {
+      "key": "taekwon_kid",
+      "kind": "optional",
+      "source_heading": "TaeKwon Kid",
+      "steps": [
+        1,
+        2,
+        3
+      ],
+      "condition": "Independent first expanded job change to TaeKwon Kid; do not require Gunslinger or Ninja activities."
+    },
+    {
+      "key": "gunslinger",
+      "kind": "optional",
+      "source_heading": "Gunslinger",
+      "steps": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "condition": "Independent first expanded job change to Gunslinger; its material and weapon alternatives belong only to this route."
+    },
+    {
+      "key": "ninja",
+      "kind": "optional",
+      "source_heading": "Ninja",
+      "steps": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "condition": "Independent first expanded job change to Ninja; stage 14 is a source-labeled iRO travel service, and stages 16/18 have server-specific alternatives."
+    },
+    {
+      "key": "iro_cougar_warp",
+      "kind": "optional",
+      "source_step": 14,
+      "steps": [
+        14
+      ],
+      "condition": "Source-labeled iRO travel service. Payment is 2000 Zeny OR one ticket, not both. Applicability elsewhere is unknown; do not impose this service fee globally."
+    }
+  ]
+}

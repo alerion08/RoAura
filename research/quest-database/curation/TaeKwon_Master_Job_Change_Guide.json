@@ -1,0 +1,425 @@
+{
+  "quest_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "1bd1d47483887a884e3926ca8dd0e30d737c5a3d1a9339c25fe04584aa428785",
+  "snapshot_sha256": "37de01dad11f8d82529df0cca18939e705620013c069415471a7052ed2f2eff0",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "MooHyun"
+    },
+    {
+      "type": "npc",
+      "name": "Man"
+    },
+    {
+      "type": "npc",
+      "name": "Gladiator of the Sun"
+    },
+    {
+      "type": "npc",
+      "name": "Gladiator of the Moon"
+    },
+    {
+      "type": "npc",
+      "name": "Gladiator of the Stars"
+    },
+    {
+      "type": "map",
+      "name": "Payon"
+    },
+    {
+      "type": "map",
+      "name": "Comodo"
+    },
+    {
+      "type": "map",
+      "name": "comodo",
+      "map_code": "comodo"
+    },
+    {
+      "type": "map",
+      "name": "job_star",
+      "map_code": "job_star"
+    },
+    {
+      "type": "map",
+      "name": "The Sun, the Moon, and The Stars"
+    },
+    {
+      "type": "item",
+      "name": "Flame Heart",
+      "game_id": 994,
+      "id_source": "http://db.irowiki.org/classic/item-info/994/"
+    },
+    {
+      "type": "item",
+      "name": "Mystic Frozen",
+      "game_id": 995,
+      "id_source": "http://db.irowiki.org/classic/item-info/995/"
+    },
+    {
+      "type": "item",
+      "name": "Rough Wind",
+      "game_id": 996,
+      "id_source": "http://db.irowiki.org/classic/item-info/996/"
+    },
+    {
+      "type": "item",
+      "name": "Great Nature",
+      "game_id": 997,
+      "id_source": "http://db.irowiki.org/classic/item-info/997/"
+    },
+    {
+      "type": "item",
+      "name": "Star Crumb",
+      "game_id": 1000,
+      "id_source": "http://db.irowiki.org/classic/item-info/1000/"
+    },
+    {
+      "type": "item",
+      "name": "Star Dust",
+      "game_id": 1001,
+      "id_source": "http://db.irowiki.org/classic/item-info/1001/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Find MooHyun In Payon (215 102). He will tell you to collect the following items: | 1 Flame Heart | 1 Mystic Frozen | 1 Rough Wind | 1 Great Nature",
+      "instruction_sha256": "14fa80dbb8a4130885aad72daa587fb415427e812bf26341a092d11d7a874ced",
+      "goal": "obtain_materials",
+      "full_en": "Find MooHyun In Payon (215 102). He will tell you to collect the following items: | 1 Flame Heart | 1 Mystic Frozen | 1 Rough Wind | 1 Great Nature",
+      "full_ru": "Найдите MooHyun в Payon (215 102). Он попросит собрать: 1 Flame Heart, 1 Mystic Frozen, 1 Rough Wind и 1 Great Nature.",
+      "short_ru": "У MooHyun в Payon (215 102) подготовьте по 1 Flame Heart, Mystic Frozen, Rough Wind и Great Nature.",
+      "short_en": "For MooHyun in Payon (215 102), prepare 1 each of Flame Heart, Mystic Frozen, Rough Wind and Great Nature.",
+      "npcs": [
+        {
+          "entity": "MooHyun",
+          "role": "talk"
+        }
+      ],
+      "locations": [
+        {
+          "x": 215,
+          "y": 102,
+          "known": false,
+          "role": "MooHyun",
+          "condition": "Payon town name; no exact lowercase map code supplied."
+        }
+      ],
+      "items": [
+        {
+          "entity": "Flame Heart",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One four-stone set requested here and delivered once at stage 3."
+        },
+        {
+          "entity": "Mystic Frozen",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One four-stone set requested here and delivered once at stage 3."
+        },
+        {
+          "entity": "Rough Wind",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One four-stone set requested here and delivered once at stage 3."
+        },
+        {
+          "entity": "Great Nature",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One four-stone set requested here and delivered once at stage 3."
+        }
+      ],
+      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/14fa80dbb8a4130885aa/1"
+    },
+    "2": {
+      "original_instruction": "After obtaining the items, proceed to Comodo . There is a path around the mountain in the middle of the map (the base is found at 159, 180) that leads to the top of it.",
+      "instruction_sha256": "a63aa618e0159851374b132b0454f0d1bdbfb0ce3932766a1681141b4ede10bc",
+      "goal": "travel",
+      "full_en": "After obtaining the items, proceed to Comodo . There is a path around the mountain in the middle of the map (the base is found at 159, 180) that leads to the top of it.",
+      "full_ru": "Собрав материалы, отправляйтесь в Comodo. Тропа вокруг горы в центре карты начинается в точке (159, 180) и ведёт на вершину.",
+      "short_ru": "Отправляйтесь в Comodo и поднимитесь по тропе от (159, 180).",
+      "short_en": "Go to Comodo and climb the path from (159, 180).",
+      "locations": [
+        {
+          "x": 159,
+          "y": 180,
+          "known": false,
+          "role": "mountain_path_start",
+          "condition": "Comodo town context; this is the path base, not Man's summit point."
+        }
+      ],
+      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/a63aa618e0159851374b/1"
+    },
+    "3": {
+      "original_instruction": "At the top, find the NPC \"Man\" (comodo 172 231). After giving the items, the player will be warped to \"The Sun, the Moon, and The Stars\" (job_star 29 32).",
+      "instruction_sha256": "2c12bf37645fb3a663c499b9c04912aa5f98a00455755471b623c48a102a3b1c",
+      "goal": "talk",
+      "full_en": "At the top, find the NPC \"Man\" (comodo 172 231). After giving the items, the player will be warped to \"The Sun, the Moon, and The Stars\" (job_star 29 32).",
+      "full_ru": "На вершине найдите Man (comodo 172 231). Передайте материалы: вас переместят в The Sun, the Moon, and The Stars (job_star 29 32).",
+      "short_ru": "Передайте Man (comodo 172 231) собранный набор и отправляйтесь в job_star 29 32.",
+      "short_en": "Give Man (comodo 172 231) the collected set and travel to job_star 29 32.",
+      "npcs": [
+        {
+          "entity": "Man",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Flame Heart",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 1,
+          "evidence": "Find MooHyun In Payon (215 102). He will tell you to collect the following items: | 1 Flame Heart | 1 Mystic Frozen | 1 Rough Wind | 1 Great Nature",
+          "condition": "One hand-in of the stage-1 set; later returns do not add another set."
+        },
+        {
+          "entity": "Mystic Frozen",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 1,
+          "evidence": "Find MooHyun In Payon (215 102). He will tell you to collect the following items: | 1 Flame Heart | 1 Mystic Frozen | 1 Rough Wind | 1 Great Nature",
+          "condition": "One hand-in of the stage-1 set; later returns do not add another set."
+        },
+        {
+          "entity": "Rough Wind",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 1,
+          "evidence": "Find MooHyun In Payon (215 102). He will tell you to collect the following items: | 1 Flame Heart | 1 Mystic Frozen | 1 Rough Wind | 1 Great Nature",
+          "condition": "One hand-in of the stage-1 set; later returns do not add another set."
+        },
+        {
+          "entity": "Great Nature",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 1,
+          "evidence": "Find MooHyun In Payon (215 102). He will tell you to collect the following items: | 1 Flame Heart | 1 Mystic Frozen | 1 Rough Wind | 1 Great Nature",
+          "condition": "One hand-in of the stage-1 set; later returns do not add another set."
+        }
+      ],
+      "locations": [
+        {
+          "entity": "comodo",
+          "x": 172,
+          "y": 231,
+          "known": true,
+          "role": "Man",
+          "order": 1
+        },
+        {
+          "entity": "job_star",
+          "x": 29,
+          "y": 32,
+          "known": true,
+          "role": "arrival_area",
+          "order": 2,
+          "condition": "Area arrival, not a confirmed Gladiator of the Sun point."
+        }
+      ],
+      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/2c12bf37645fb3a663c4/1"
+    },
+    "4": {
+      "original_instruction": "Speak with Gladiator of the Sun. After some dialog, the player will be moved to the Gladiator of the Moon (job_star 95 33).",
+      "instruction_sha256": "cc143b52c0fb97c8eb39e650d22c1d742c74288d209d7d08016283a744f0a37e",
+      "goal": "talk",
+      "full_en": "Speak with Gladiator of the Sun. After some dialog, the player will be moved to the Gladiator of the Moon (job_star 95 33).",
+      "full_ru": "Поговорите с Gladiator of the Sun. После диалога вас переместят к Gladiator of the Moon (job_star 95 33).",
+      "short_ru": "Поговорите с Gladiator of the Sun и перейдите к Gladiator of the Moon (job_star 95 33).",
+      "short_en": "Speak to Gladiator of the Sun and proceed to Gladiator of the Moon (job_star 95 33).",
+      "npcs": [
+        {
+          "entity": "Gladiator of the Sun",
+          "role": "talk"
+        },
+        {
+          "entity": "Gladiator of the Moon",
+          "role": "next_contact"
+        }
+      ],
+      "actions": [
+        {
+          "operation": "talk_then_transfer",
+          "entity": "Gladiator of the Sun"
+        },
+        {
+          "operation": "proceed_to_moon",
+          "entity": "Gladiator of the Moon"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "job_star",
+          "x": 95,
+          "y": 33,
+          "known": true,
+          "role": "Gladiator of the Moon"
+        }
+      ],
+      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/cc143b52c0fb97c8eb39/1"
+    },
+    "5": {
+      "original_instruction": "After speaking to the Gladiator of the Moon, the player will be warped to Payon. Speak to MooHyun and return to Comodo to be warped back. The player will once again be moved, this time to the Gladiator of the Stars (job_star 161 33). She requires the following items: | 1 Star Crumb | 1 Star Dust",
+      "instruction_sha256": "339bc44d96d798facb60bcbdc06f65358942b870e5fb503c2031166e30350e54",
+      "goal": "obtain_materials",
+      "full_en": "After speaking to the Gladiator of the Moon, the player will be warped to Payon. Speak to MooHyun and return to Comodo to be warped back. The player will once again be moved, this time to the Gladiator of the Stars (job_star 161 33). She requires the following items: | 1 Star Crumb | 1 Star Dust",
+      "full_ru": "После разговора с Gladiator of the Moon вас переместят в Payon. Поговорите с MooHyun и вернитесь в Comodo для нового перемещения. Затем вас направят к Gladiator of the Stars (job_star 161 33), которой нужны 1 Star Crumb и 1 Star Dust.",
+      "short_ru": "После Gladiator of the Moon посетите MooHyun и вернитесь через Comodo к Gladiator of the Stars; подготовьте 1 Star Crumb и 1 Star Dust.",
+      "short_en": "After Gladiator of the Moon, visit MooHyun and return through Comodo to Gladiator of the Stars; prepare 1 Star Crumb and 1 Star Dust.",
+      "npcs": [
+        {
+          "entity": "Gladiator of the Moon",
+          "role": "talk"
+        },
+        {
+          "entity": "MooHyun",
+          "role": "talk"
+        },
+        {
+          "entity": "Gladiator of the Stars",
+          "role": "talk"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Star Crumb",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One star-material set, delivered at stage 6."
+        },
+        {
+          "entity": "Star Dust",
+          "quantity": 1,
+          "operation": "collect",
+          "required": 1,
+          "condition": "One star-material set, delivered at stage 6."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "return_to_payon_after_moon",
+          "entity": "Gladiator of the Moon"
+        },
+        {
+          "operation": "speak_to_moohyun",
+          "entity": "MooHyun"
+        },
+        {
+          "operation": "return_via_comodo_for_stars"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "job_star",
+          "x": 161,
+          "y": 33,
+          "known": true,
+          "role": "Gladiator of the Stars"
+        }
+      ],
+      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/339bc44d96d798facb60/1"
+    },
+    "6": {
+      "original_instruction": "After gathering these items, the Man can return the player to the quest area for free. Hand the items to the Gladiator of the Stars, who will change send the player back to Payon. The Man in comodo will turn the player into a TaeKwon Master.",
+      "instruction_sha256": "4ccf2c9da96b987938e78c157f8f11d7e9c2a64d119117f0107de91b2e78cdaf",
+      "goal": "job_change",
+      "full_en": "After gathering these items, the Man can return the player to the quest area for free. Hand the items to the Gladiator of the Stars, who will change send the player back to Payon. The Man in comodo will turn the player into a TaeKwon Master.",
+      "full_ru": "Собрав эти материалы, вернитесь к Man: он бесплатно отправит вас в область испытания. Передайте материалы Gladiator of the Stars, которая вернёт вас в Payon. Затем Man в comodo сменит вашу профессию на TaeKwon Master.",
+      "short_ru": "Сдайте 1 Star Crumb и 1 Star Dust Gladiator of the Stars; затем вернитесь к Man в comodo для смены профессии.",
+      "short_en": "Give 1 Star Crumb and 1 Star Dust to Gladiator of the Stars; then return to Man in comodo for job change.",
+      "npcs": [
+        {
+          "entity": "Man",
+          "role": "warp_and_final_job_change"
+        },
+        {
+          "entity": "Gladiator of the Stars",
+          "role": "deliver"
+        }
+      ],
+      "items": [
+        {
+          "entity": "Star Crumb",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "After speaking to the Gladiator of the Moon, the player will be warped to Payon. Speak to MooHyun and return to Comodo to be warped back. The player will once again be moved, this time to the Gladiator of the Stars (job_star 161 33). She requires the following items: | 1 Star Crumb | 1 Star Dust",
+          "condition": "One hand-in of the requested star-material set."
+        },
+        {
+          "entity": "Star Dust",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 5,
+          "evidence": "After speaking to the Gladiator of the Moon, the player will be warped to Payon. Speak to MooHyun and return to Comodo to be warped back. The player will once again be moved, this time to the Gladiator of the Stars (job_star 161 33). She requires the following items: | 1 Star Crumb | 1 Star Dust",
+          "condition": "One hand-in of the requested star-material set."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "return_warp_fee_zeny",
+          "amount": "0",
+          "condition": "Man returns the player to the quest area for free at this stage; no new elemental-stone payment."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "free_return_to_quest_area",
+          "entity": "Man"
+        },
+        {
+          "operation": "deliver_stars_and_return_to_payon",
+          "entity": "Gladiator of the Stars"
+        },
+        {
+          "operation": "return_to_comodo_for_final_job_change",
+          "entity": "Man"
+        }
+      ],
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "TaeKwon Master",
+          "condition": "Final transformation is performed by Man in comodo after the Stars hand-in and return to Payon."
+        }
+      ],
+      "step_id": "irowiki-classic:TaeKwon_Master_Job_Change_Guide/step/4ccf2c9da96b987938e7/1"
+    }
+  },
+  "reviews": [
+    {
+      "reason": "taekwon_master_material_installments_and_final_actor",
+      "detail": "One set of four elemental stones is delivered to Man; one later Star Crumb/Star Dust set goes to Gladiator of the Stars. Repeated travel does not require a second elemental set; the stage-6 return is explicitly free. Stars sends the player back to Payon, while Man in comodo performs the final job change. Arrival job_star 29,32 is not asserted to be the Sun NPC's position."
+    },
+    {
+      "reason": "taekwon_master_qualitative_context",
+      "detail": "Bare Payon/Comodo points do not establish map codes. The three Gladiators are dialogue NPCs without invented questions, kills, timers or skill prerequisites. Class TaeKwon Kid is retained without requiring all First Expanded alternatives."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "TaeKwon Kid",
+        "source_section": "requirements",
+        "evidence": "Class: TaeKwon Kid"
+      }
+    ]
+  }
+}

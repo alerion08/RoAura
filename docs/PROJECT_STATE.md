@@ -8,19 +8,19 @@ Authoritative database-phase specification: `research/quest-database/SEMANTIC_DA
 
 ### Database implementation checkpoint — 2026-11-03
 
-Latest addition: Assassin/Rogue skill quests, 18 stages. Sonic activity levels,
-three alternative jewel sites, conditional transcended relearn, two distinct
-Rogue trials and exact dialogue/passwords are source-pinned. In-memory production
-writer validation and seven focused tests passed. Both GitHub suites passed all
-337 tests; the published export and preservation checks passed.
+Latest addition: First Expanded / Soul Linker / TaeKwon Master, 29 stages.
+Three independent first jobs, server-specific material/reward alternatives,
+Ninja source conflicts, optional acquisition and two material installments
+are source-pinned. In-memory production writer validation and 12 focused tests
+passed; full suite/export/publication checks are pending CI.
 
 Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
 candidates / 2,750 original rows; 59 historical events are excluded, 10 ambiguous
 records quarantined, and one reviewed reference index (Access Quests, 3 notes)
-is excluded. All four RU/EN fields exist for 1,077 steps in 97 curated guides and
-175 conditional branches. Fifty-seven source additions supplement full descriptions;
-**1,673 steps / 119 remaining catalog entries still need processing**. Forty quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
+is excluded. All four RU/EN fields exist for 1,106 steps in 100 curated guides and
+185 conditional branches. Sixty-five source additions supplement full descriptions;
+**1,644 steps / 116 remaining catalog entries still need processing**. Forty-four quest routes preserve optional cave/learning activities, Piano's two source-prompt paths, Odin's
 exclusive Alex/Laura paths, Ice Necklace's optional activities and Attitude's
 additional stage required for Report prerequisite use, plus Pursuing Rayan's
 optional wrap-up. Report has a reviewed minimum-two-of-four prerequisite

@@ -1,0 +1,313 @@
+{
+  "quest_id": "irowiki-classic:Soul_Linker_Job_Change_Guide",
+  "reviewer": "Codex source review, 2026-11-03",
+  "scope": "Whole archived guide and pinned HTML; source interpretation, not human/server verification",
+  "source_sha256": "885b83a53d06b24c94f295380ed67345154129cfa7cc14390b6ef30cb1f3619c",
+  "snapshot_sha256": "e91be9b75679c1c8a1eea8ef8b6b2e32cb19d8e0811f0db26730e50b98ea21ee",
+  "entities": [
+    {
+      "type": "npc",
+      "name": "Kid"
+    },
+    {
+      "type": "npc",
+      "name": "NPC outside Coal Mine",
+      "ref": "diamond_vendor"
+    },
+    {
+      "type": "npc",
+      "name": "Trader"
+    },
+    {
+      "type": "npc",
+      "name": "Monk Spirit"
+    },
+    {
+      "type": "npc",
+      "name": "Alchemist Spirit"
+    },
+    {
+      "type": "npc",
+      "name": "Sage Spirit"
+    },
+    {
+      "type": "map",
+      "name": "Morroc"
+    },
+    {
+      "type": "map",
+      "name": "morocc",
+      "map_code": "morocc"
+    },
+    {
+      "type": "map",
+      "name": "mjolnir_02",
+      "map_code": "mjolnir_02"
+    },
+    {
+      "type": "item",
+      "name": "3carat Diamond",
+      "game_id": 732,
+      "id_source": "http://db.irowiki.org/classic/item-info/732/"
+    },
+    {
+      "type": "item",
+      "name": "Immortal Heart",
+      "game_id": 929,
+      "id_source": "http://db.irowiki.org/classic/item-info/929/"
+    },
+    {
+      "type": "item",
+      "name": "Witherless Rose",
+      "game_id": 748,
+      "id_source": "http://db.irowiki.org/classic/item-info/748/"
+    },
+    {
+      "type": "monster",
+      "name": "Verits",
+      "game_id": 1032,
+      "id_source": "http://db.irowiki.org/classic/monster-info/1032/"
+    }
+  ],
+  "steps": {
+    "1": {
+      "original_instruction": "Find the tavern at 10 o'clock in Morroc (morocc 55,259).",
+      "instruction_sha256": "2830d8c024ae669f9c056a2082c7cb2bc2135f2d693447dd43313ad0b360170c",
+      "goal": "travel",
+      "full_en": "Find the tavern at 10 o'clock in Morroc (morocc 55,259).",
+      "full_ru": "Найдите таверну в направлении 10 часов в Morroc (morocc 55,259).",
+      "short_ru": "Войдите в таверну в Morroc (morocc 55,259).",
+      "short_en": "Enter the tavern in Morroc (morocc 55,259).",
+      "locations": [
+        {
+          "entity": "morocc",
+          "x": 55,
+          "y": 259,
+          "known": true,
+          "role": "tavern_entrance",
+          "condition": "Entrance, not Kid's indoor point."
+        }
+      ],
+      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/2830d8c024ae669f9c05/1"
+    },
+    "2": {
+      "original_instruction": "Speak with the \"Kid\" inside the tavern. She will ask you to bring her some items: 1 3carat Diamond - available for 55,000z at NPC outside Coal Mine ( mjolnir_02 ) 85, 364. Note : this is non-discountable. Don't bother asking merchant friends or logging in as your merchant alt to buy it. 1 Immortal Heart - Dropped by Verits 1 Witherless Rose - sold by Trader at morocc 267, 193 (discountable)",
+      "instruction_sha256": "132b86241dba64e380805aed9019169fdd094e5f61a06ba6fa7e0da10281e013",
+      "goal": "obtain_materials",
+      "full_en": "Speak with the \"Kid\" inside the tavern. She will ask you to bring her some items: 1 3carat Diamond - available for 55,000z at NPC outside Coal Mine ( mjolnir_02 ) 85, 364. Note : this is non-discountable. Don't bother asking merchant friends or logging in as your merchant alt to buy it. 1 Immortal Heart - Dropped by Verits 1 Witherless Rose - sold by Trader at morocc 267, 193 (discountable)",
+      "full_ru": "Поговорите с Kid внутри таверны. Потребуются: 1 3carat Diamond — можно купить за 55,000z у NPC outside Coal Mine (mjolnir_02) 85, 364, скидка не действует; покупка через Merchant цену не снижает. 1 Immortal Heart — источник добычи Verits. 1 Witherless Rose — продаёт Trader в morocc 267, 193, скидка действует.",
+      "short_ru": "Подготовьте для Kid: 1 3carat Diamond, 1 Immortal Heart и 1 Witherless Rose.",
+      "short_en": "Prepare for Kid: 1 3carat Diamond, 1 Immortal Heart and 1 Witherless Rose.",
+      "npcs": [
+        {
+          "entity": "Kid",
+          "role": "talk"
+        },
+        {
+          "entity": "diamond_vendor",
+          "role": "optional_vendor"
+        },
+        {
+          "entity": "Trader",
+          "role": "optional_vendor"
+        }
+      ],
+      "locations": [
+        {
+          "entity": "mjolnir_02",
+          "x": 85,
+          "y": 364,
+          "known": true,
+          "role": "optional_diamond_vendor"
+        },
+        {
+          "entity": "morocc",
+          "x": 267,
+          "y": 193,
+          "known": true,
+          "role": "optional_rose_vendor"
+        }
+      ],
+      "items": [
+        {
+          "entity": "3carat Diamond",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "One requested set, delivered in stage 3; vendor acquisition is optional."
+        },
+        {
+          "entity": "Immortal Heart",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "One requested set, delivered in stage 3; vendor acquisition is optional."
+        },
+        {
+          "entity": "Witherless Rose",
+          "quantity": 1,
+          "operation": "bring",
+          "required": 1,
+          "condition": "One requested set, delivered in stage 3; vendor acquisition is optional."
+        }
+      ],
+      "monsters": [
+        {
+          "entity": "Verits",
+          "operation": "loot_source",
+          "quantity": null,
+          "required": 0,
+          "condition": "Source of Immortal Heart, not a mandatory kill quota."
+        }
+      ],
+      "requirements": [
+        {
+          "kind": "optional_vendor_unit_price_zeny",
+          "amount": "55000",
+          "entity": "3carat Diamond",
+          "condition": "Only if buying the diamond at the named location; non-discountable, not a mandatory quest fee."
+        },
+        {
+          "kind": "optional_vendor_discount",
+          "amount": "not discountable",
+          "entity": "3carat Diamond"
+        },
+        {
+          "kind": "optional_vendor_discount",
+          "amount": "discountable",
+          "entity": "Witherless Rose"
+        }
+      ],
+      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/132b86241dba64e38080/1"
+    },
+    "3": {
+      "original_instruction": "After you give her the items, she tell you the end of her story. Then, speak with her again, and she will guide the player into their own mind. Speak with each of the NPCs ( Monk Spirit , Alchemist Spirit , and Sage Spirit ).",
+      "instruction_sha256": "f5d13276d4fddf5b6b09d4016b0075cd67b8e3b6bb62fc85334b68f3a947758d",
+      "goal": "talk",
+      "full_en": "After you give her the items, she tell you the end of her story. Then, speak with her again, and she will guide the player into their own mind. Speak with each of the NPCs ( Monk Spirit , Alchemist Spirit , and Sage Spirit ).",
+      "full_ru": "Передайте ей материалы и выслушайте окончание истории. Снова поговорите с ней, чтобы попасть в собственное сознание. Поговорите с каждым из NPC: Monk Spirit, Alchemist Spirit и Sage Spirit.",
+      "short_ru": "Передайте набор Kid; после перемещения поговорите с Monk Spirit, Alchemist Spirit и Sage Spirit.",
+      "short_en": "Give the set to Kid; after the warp, speak to Monk Spirit, Alchemist Spirit and Sage Spirit.",
+      "npcs": [
+        {
+          "entity": "Kid",
+          "role": "deliver",
+          "support_step": 2,
+          "evidence": "Speak with the \"Kid\" inside the tavern. She will ask you to bring her some items: 1 3carat Diamond - available for 55,000z at NPC outside Coal Mine ( mjolnir_02 ) 85, 364. Note : this is non-discountable. Don't bother asking merchant friends or logging in as your merchant alt to buy it. 1 Immortal Heart - Dropped by Verits 1 Witherless Rose - sold by Trader at morocc 267, 193 (discountable)"
+        },
+        {
+          "entity": "Monk Spirit",
+          "role": "talk_each"
+        },
+        {
+          "entity": "Alchemist Spirit",
+          "role": "talk_each"
+        },
+        {
+          "entity": "Sage Spirit",
+          "role": "talk_each"
+        }
+      ],
+      "items": [
+        {
+          "entity": "3carat Diamond",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 2,
+          "evidence": "Speak with the \"Kid\" inside the tavern. She will ask you to bring her some items: 1 3carat Diamond - available for 55,000z at NPC outside Coal Mine ( mjolnir_02 ) 85, 364. Note : this is non-discountable. Don't bother asking merchant friends or logging in as your merchant alt to buy it. 1 Immortal Heart - Dropped by Verits 1 Witherless Rose - sold by Trader at morocc 267, 193 (discountable)",
+          "condition": "Same requested stage-2 set, one hand-in; not a second material cost."
+        },
+        {
+          "entity": "Immortal Heart",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 2,
+          "evidence": "Speak with the \"Kid\" inside the tavern. She will ask you to bring her some items: 1 3carat Diamond - available for 55,000z at NPC outside Coal Mine ( mjolnir_02 ) 85, 364. Note : this is non-discountable. Don't bother asking merchant friends or logging in as your merchant alt to buy it. 1 Immortal Heart - Dropped by Verits 1 Witherless Rose - sold by Trader at morocc 267, 193 (discountable)",
+          "condition": "Same requested stage-2 set, one hand-in; not a second material cost."
+        },
+        {
+          "entity": "Witherless Rose",
+          "quantity": 1,
+          "operation": "deliver",
+          "required": 1,
+          "support_step": 2,
+          "evidence": "Speak with the \"Kid\" inside the tavern. She will ask you to bring her some items: 1 3carat Diamond - available for 55,000z at NPC outside Coal Mine ( mjolnir_02 ) 85, 364. Note : this is non-discountable. Don't bother asking merchant friends or logging in as your merchant alt to buy it. 1 Immortal Heart - Dropped by Verits 1 Witherless Rose - sold by Trader at morocc 267, 193 (discountable)",
+          "condition": "Same requested stage-2 set, one hand-in; not a second material cost."
+        }
+      ],
+      "actions": [
+        {
+          "operation": "deliver_requested_set",
+          "entity": "Kid",
+          "support_step": 2,
+          "evidence": "Speak with the \"Kid\" inside the tavern. She will ask you to bring her some items: 1 3carat Diamond - available for 55,000z at NPC outside Coal Mine ( mjolnir_02 ) 85, 364. Note : this is non-discountable. Don't bother asking merchant friends or logging in as your merchant alt to buy it. 1 Immortal Heart - Dropped by Verits 1 Witherless Rose - sold by Trader at morocc 267, 193 (discountable)"
+        },
+        {
+          "operation": "speak_again_for_mind_warp",
+          "entity": "Kid",
+          "support_step": 2,
+          "evidence": "Speak with the \"Kid\" inside the tavern. She will ask you to bring her some items: 1 3carat Diamond - available for 55,000z at NPC outside Coal Mine ( mjolnir_02 ) 85, 364. Note : this is non-discountable. Don't bother asking merchant friends or logging in as your merchant alt to buy it. 1 Immortal Heart - Dropped by Verits 1 Witherless Rose - sold by Trader at morocc 267, 193 (discountable)"
+        },
+        {
+          "operation": "speak_to_each_spirit",
+          "condition": "Talk to all three listed spirits; no mandatory ordering or combat is stated."
+        }
+      ],
+      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/f5d13276d4fddf5b6b09/1"
+    },
+    "4": {
+      "original_instruction": "Then, speak with the Kid again.",
+      "instruction_sha256": "034be79ee0b024770fa64e8da5332cdad58c8eef6d4d52cb1cf57ce8f2ffc3be",
+      "goal": "talk",
+      "full_en": "Then, speak with the Kid again.",
+      "full_ru": "Затем снова поговорите с Kid.",
+      "short_ru": "Снова поговорите с Kid.",
+      "short_en": "Speak to Kid again.",
+      "npcs": [
+        {
+          "entity": "Kid",
+          "role": "talk"
+        }
+      ],
+      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/034be79ee0b024770fa6/1"
+    },
+    "5": {
+      "original_instruction": "The player will be promoted to Soul Linker after embracing the requests of the spirits.",
+      "instruction_sha256": "a60cfea381c26c1e37c727874019f842d921ec997fac77dda3232bb275fb28e7",
+      "goal": "job_change",
+      "full_en": "The player will be promoted to Soul Linker after embracing the requests of the spirits.",
+      "full_ru": "После принятия просьб духов ваша профессия сменится на Soul Linker.",
+      "short_ru": "Примите просьбы духов и станьте Soul Linker.",
+      "short_en": "Embrace the spirits' requests and become a Soul Linker.",
+      "rewards": [
+        {
+          "kind": "job_change",
+          "amount": "Soul Linker"
+        }
+      ],
+      "step_id": "irowiki-classic:Soul_Linker_Job_Change_Guide/step/a60cfea381c26c1e37c7/1"
+    }
+  },
+  "reviews": [
+    {
+      "reason": "soul_linker_one_set_optional_acquisition",
+      "detail": "One 3carat Diamond / Immortal Heart / Witherless Rose set is requested at stage 2 and delivered at stage 3. The 55000-Zeny diamond vendor price is optional acquisition, not a mandatory quest fee; diamond does not allow discount, rose does. Verits is a loot-source hint, not a kill objective. Vendor and tavern points are not invented Kid coordinates."
+    },
+    {
+      "reason": "soul_linker_spirits_are_npcs",
+      "detail": "Monk Spirit, Alchemist Spirit and Sage Spirit are three conversation participants, not monsters, learned Spirit skills, or proof of a mandatory list order. Exact requests/options and indoor positions are unknown. Class TaeKwon Kid is the source prerequisite, not completion of every First Expanded activity."
+    }
+  ],
+  "quest_facts": {
+    "requirements": [
+      {
+        "kind": "class",
+        "amount": "TaeKwon Kid",
+        "source_section": "requirements",
+        "evidence": "Class: TaeKwon Kid"
+      }
+    ]
+  }
+}

@@ -17,10 +17,10 @@ verified permanent quests.
 
 The normalized `output/quest_semantic.sqlite` uses semantic schema **5** and
 generator **semantic-5.9.0**. All four description fields are populated for
-**1,077 steps across 97 curated guides**, up from the previous 95-guide/1,059-step
-checkpoint. **175 conditional branches** also have independent RU/EN short and
-full descriptions. Forty quest routes represent nine exclusive expedition/lyric/material paths
-and thirty-one conditional/optional activities. **1,673 steps in 119 remaining catalog entries still lack
+**1,106 steps across 100 curated guides**, up from the previous 97-guide/1,077-step
+checkpoint. **185 conditional branches** also have independent RU/EN short and
+full descriptions. Forty-four quest routes represent nine exclusive expedition/lyric/material paths
+and thirty-five conditional/optional activities. **1,644 steps in 116 remaining catalog entries still lack
 complete localization/context analysis.** `complete` remains false.
 
 | Curated guide | Preserved steps | Specific source issue covered |
@@ -122,6 +122,9 @@ complete localization/context analysis.** `complete` remains false.
 | Thief Skill Quest | 7 | Four independent level gates; one bag crafting set; possession versus unproven consumption |
 | Assassin Skill Quest | 6 | Venom/Sonic level scope; three alternative jewel sites; Killtin/Kiltin spelling conflict; unknown map codes |
 | Rogue Skill Quest | 12 | Conditional transcended relearn; ordered answers/passwords; situational blocking; two distinct trials; building entrance versus NPC point |
+| First Expanded Job Change Guides | 18 | Three independent jobs; restored Gunslinger/Ninja tables; server alternatives; retained final Ninja materials versus conflicting header |
+| Soul Linker Job Change Guide | 5 | One material set; optional undiscountable diamond price; three dialogue spirits; vendors versus tavern entrance |
+| TaeKwon Master Job Change Guide | 6 | Two material installments; free return; arrival versus Sun NPC point; final job change by Man in comodo |
 
 A filled localized row does **not** certify complete quest mechanics or server
 availability. Quest review states deliberately remain `source_reviewed_partial`.
@@ -129,6 +132,33 @@ The source-derived evidence tier is distinct from human review and gameplay
 verification; there are zero server-verified records.
 
 ## Implemented in this checkpoint
+
+- First Expanded / Soul Linker / TaeKwon Master add 29 preserved stages,
+  ten localized condition/reward branches, four activity routes and eight source
+  additions. Coverage is 1,106 stages / 100 guides, 185 branches, 44 routes and
+  65 source additions; schema/generator remain 5 / 5.9.0. The original archive
+  and previous curation ledgers are not edited.
+- TaeKwon Kid, Gunslinger and Ninja are independent activities. Phoenix's level
+  request is waived at Base Level 20+; Guard [0] denotes slots, with a retained
+  source warning about server-dependent reward requirements. Gunslinger has
+  separate iRO/Other-server six-material sets, one additional Milk, and one of
+  two weapon rewards. Table omissions are restored from pinned HTML.
+- Ninja retains iRO seal search versus Other-server collection, currency versus
+  ticket travel payments, and alternative tower service points. Final materials
+  are explicitly possessed and retained. Conflicting consumed-material totals
+  and the unexplained 20-Zeny header remain source summaries, without invented
+  double consumption or another tower ascent. The bad random Amatsu warp point
+  is a warning, not a required waypoint; Cougar/Couger spelling is preserved.
+- Soul Linker uses one material set. The 55000-Zeny diamond price is optional
+  acquisition, not a mandatory quest fee; discount scope and Verits loot-source
+  role are preserved. Three spirits are dialogue NPCs with unknown mandatory
+  ordering. TaeKwon Master gives Man one four-stone set, then Stars one star set;
+  the later warp is free, and final transformation is by Man in comodo.
+- Current validation: in-memory construction with the production writer and
+  current five migrations passes integrity/FK/span checks and 12 new focused
+  tests. Full regression suite, export and publication checks are pending CI.
+
+Previous Assassin/Rogue checkpoint:
 
 - Assassin and Rogue skill quests add 18 preserved stages, three exclusive jewel
   branches, three activity/shortcut routes and three source additions. Coverage
@@ -990,7 +1020,7 @@ optional cave evidence and failed-build preservation under corrupt proofs.
 
 ## Next work, in order
 
-1. Review the remaining 119 catalog candidates, separating reference pages,
+1. Review the remaining 116 catalog candidates, separating reference pages,
    duplicate guides and genuine quests without deleting original source rows.
    Enrich full quest chains, not isolated easy sentences.
 2. Continue remaining permanent access/story chains and related New World

@@ -302,17 +302,17 @@ class RealCorpusTests(unittest.TestCase):
         self.assertTrue(all(r[0] is None for r in rows))
 
     def test_partial_localization_is_not_faked(self):
-        self.assertEqual(self.report['fully_localized_steps'],1077)
-        self.assertEqual(self.report['not_fully_localized_steps'],1673)
+        self.assertEqual(self.report['fully_localized_steps'],1106)
+        self.assertEqual(self.report['not_fully_localized_steps'],1644)
         self.assertFalse(self.report['complete'])
-        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],1077)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM ready_steps').fetchone()[0],1106)
         missing=self.db.execute("SELECT count(*) FROM review_queue WHERE reason='localization_missing'").fetchone()[0]
-        self.assertEqual(missing,1673)
-        self.assertEqual(self.report['fully_localized_branches'],175)
-        self.assertEqual(self.report['curated_quests'],97)
-        self.assertEqual(self.report['pending_quests'],119)
-        self.assertEqual(self.report['quest_routes'],40)
-        self.assertEqual(self.report['source_additions'],57)
+        self.assertEqual(missing,1644)
+        self.assertEqual(self.report['fully_localized_branches'],185)
+        self.assertEqual(self.report['curated_quests'],100)
+        self.assertEqual(self.report['pending_quests'],116)
+        self.assertEqual(self.report['quest_routes'],44)
+        self.assertEqual(self.report['source_additions'],65)
         self.assertEqual(self.report['action_reuse_links'],5)
 
     def test_juperos_four_homonymous_books_and_return_scholar_have_typed_links(self):
@@ -3036,5 +3036,136 @@ class RealCorpusTests(unittest.TestCase):
         self.assertEqual(rows,[(1,'Thor Greg','cmd_fild07',351,286),(6,'Thor Greg','cmd_fild07',351,286),(7,'building_entrance','cmd_fild04',302,177)])
         for n in (3,5,8,12):
             self.assertFalse(self.db.execute('SELECT 1 FROM step_locations p JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=?',(q,n)).fetchone())
+
+    def test_expanded_first_jobs_are_independent_activity_routes(self):
+        q='irowiki-classic:First_Expanded_Job_Change_Guides'
+        rows=[tuple(r) for r in self.db.execute("""SELECT r.route_key,s.step_order FROM quest_routes r JOIN step_routes m USING(route_id)
+            JOIN quest_steps s USING(step_id) WHERE r.quest_id=? AND r.route_key<>'iro_cougar_warp' ORDER BY s.step_order""",(q,))]
+        self.assertEqual(rows,[(key,n) for key,ns in [('taekwon_kid',range(1,4)),('gunslinger',range(4,10)),('ninja',range(10,19))] for n in ns])
+        self.assertEqual(self.db.execute('SELECT job_level FROM quests WHERE quest_id=?',(q,)).fetchone()[0],10)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM quest_routes WHERE quest_id=?',(q,)).fetchone()[0],4)
+        self.assertFalse(self.db.execute("SELECT 1 FROM quest_relations WHERE quest_id=? AND related_id=?",(q,q)).fetchone())
+
+    def test_taekwon_first_level_exemption_answers_and_guard_slots(self):
+        q='irowiki-classic:First_Expanded_Job_Change_Guides'
+        levels=dict(self.db.execute("""SELECT r.kind,r.amount FROM requirements r JOIN quest_steps s USING(step_id)
+            WHERE s.quest_id=? AND s.step_order=1""",(q,)))
+        self.assertEqual(levels,{'base_levels_to_gain':'1','level_gain_exemption_threshold':'20'})
+        self.assertEqual([tuple(r) for r in self.db.execute("""SELECT o.exact_text,o.correct FROM dialogue_options o JOIN step_dialogues d USING(dialogue_id)
+            JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=2 ORDER BY o.option_order""",(q,))],
+            [(text,1) for text in ('I face it head on.','Accept differences and learn from them.','Yes.')])
+        row=self.db.execute("""SELECT i.game_id,r.amount,r.condition_text FROM rewards r JOIN step_rewards t USING(reward_id)
+            JOIN quest_steps s USING(step_id) JOIN items i ON i.entity_id=r.item_id WHERE s.quest_id=? AND s.step_order=3""",(q,)).fetchone()
+        self.assertEqual(tuple(row[:2]),(2101,'1'));self.assertIn('server variants',row[2])
+
+    def test_gunslinger_variant_sets_and_additional_milk_are_not_combined(self):
+        q='irowiki-classic:First_Expanded_Job_Change_Guides'
+        sets={}
+        for key,gid,quantity in self.db.execute("""SELECT b.branch_key,m.game_id,i.quantity FROM step_items i JOIN items m ON m.entity_id=i.item_id
+            JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=i.step_id WHERE s.quest_id=? AND s.step_order=7 ORDER BY m.game_id""",(q,)):
+            sets.setdefault(key,[]).append((gid,quantity))
+        self.assertEqual(sets,{'iro_materials':[(511,3),(705,3),(914,3),(921,3),(935,10),(1019,1)],
+                               'other_materials':[(511,3),(912,3),(914,3),(935,10),(1013,3),(1019,1)]})
+        row=self.db.execute("""SELECT m.game_id,i.quantity,i.branch_id FROM step_items i JOIN items m ON m.entity_id=i.item_id
+            JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=8""",(q,)).fetchone()
+        self.assertEqual(tuple(row),(519,1,None))
+        self.assertFalse(self.db.execute("""SELECT 1 FROM step_items i JOIN quest_steps s USING(step_id)
+            WHERE s.quest_id=? AND s.step_order=7 AND i.branch_id IS NULL""",(q,)).fetchone())
+
+    def test_gunslinger_weapon_rewards_are_exclusive_and_source_pinned(self):
+        q='irowiki-classic:First_Expanded_Job_Change_Guides'
+        rows=[tuple(r) for r in self.db.execute("""SELECT i.game_id,r.amount,b.choice_group FROM rewards r JOIN step_branches b USING(branch_id)
+            JOIN items i ON i.entity_id=r.item_id WHERE r.quest_id=? AND b.choice_group='gunslinger_weapon_reward' ORDER BY i.game_id""",(q,))]
+        self.assertEqual(rows,[(13100,'1','gunslinger_weapon_reward'),(13150,'1','gunslinger_weapon_reward')])
+        self.assertEqual(self.db.execute("SELECT count(*) FROM rewards WHERE quest_id=? AND kind='job_change' AND amount='Gunslinger'",(q,)).fetchone()[0],1)
+
+    def test_ninja_warp_payment_and_unexplained_header_fee_stay_separate(self):
+        q='irowiki-classic:First_Expanded_Job_Change_Guides'
+        row=self.db.execute("""SELECT r.amount,b.choice_group FROM requirements r JOIN step_branches b USING(branch_id)
+            WHERE r.quest_id=? AND r.kind='zeny'""",(q,)).fetchone()
+        self.assertEqual(tuple(row),('2000','iro_warp_payment'))
+        ticket=self.db.execute("""SELECT m.game_id,i.quantity,i.operation,b.choice_group FROM step_items i JOIN items m ON m.entity_id=i.item_id
+            JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=i.step_id WHERE s.quest_id=? AND s.step_order=14""",(q,)).fetchone()
+        self.assertEqual(tuple(ticket),(7060,1,'use','iro_warp_payment'))
+        costs=dict(self.db.execute("SELECT kind,amount FROM requirements WHERE quest_id=? AND kind IN ('source_zeny_summary','tower_ascent_fee_zeny','travel_fee_zeny')",(q,)))
+        self.assertEqual(costs,{'source_zeny_summary':'20','tower_ascent_fee_zeny':'10','travel_fee_zeny':'0'})
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='zeny' AND branch_id IS NULL",(q,)).fetchone())
+
+    def test_ninja_restored_seal_and_material_tasks_are_server_alternatives(self):
+        q='irowiki-classic:First_Expanded_Job_Change_Guides'
+        loc=self.db.execute("""SELECT m.map_code,l.x,l.y FROM step_locations p JOIN locations l USING(location_id)
+            JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=16""",(q,)).fetchone()
+        self.assertEqual(tuple(loc),('ein_fild08',137,45))
+        rows=[tuple(r) for r in self.db.execute("""SELECT m.game_id,i.quantity,i.operation FROM step_items i JOIN items m ON m.entity_id=i.item_id
+            JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=i.step_id
+            WHERE s.quest_id=? AND s.step_order=16 AND b.branch_key='other_material_task' ORDER BY m.game_id""",(q,))]
+        self.assertEqual(rows,[(1010,1,'collect'),(7053,5,'collect')])
+        self.assertEqual(self.db.execute('SELECT count(*) FROM step_source_additions a JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=16',(q,)).fetchone()[0],2)
+        self.assertEqual(self.db.execute("""SELECT count(DISTINCT b.choice_group) FROM step_branches b JOIN quest_steps s USING(step_id)
+            WHERE s.quest_id=? AND s.step_order=16""",(q,)).fetchone()[0],1)
+
+    def test_ninja_final_materials_are_retained_despite_conflicting_header(self):
+        q='irowiki-classic:First_Expanded_Job_Change_Guides'
+        rows=[tuple(r) for r in self.db.execute("""SELECT b.branch_key,m.game_id,i.quantity,i.operation FROM step_items i JOIN items m ON m.entity_id=i.item_id
+            JOIN step_branches b USING(branch_id) JOIN quest_steps s ON s.step_id=i.step_id WHERE s.quest_id=? AND s.step_order=18
+            ORDER BY b.branch_key,m.game_id""",(q,))]
+        self.assertEqual(rows,[('iro_final_inventory',1002,5,'possess'),('iro_final_inventory',1010,1,'possess'),
+                               ('other_final_inventory',1010,1,'possess'),('other_final_inventory',7053,5,'possess')])
+        header=self.db.execute("SELECT amount,condition_text FROM requirements WHERE quest_id=? AND kind='source_material_summary'",(q,)).fetchone()
+        self.assertIn('10 Cyfar',header[0]);self.assertIn('Conflicting source header',header[1])
+        self.assertFalse(self.db.execute("""SELECT 1 FROM step_items i JOIN quest_steps s USING(step_id)
+            WHERE s.quest_id=? AND s.step_order>=10 AND i.operation IN ('consume','deliver')""",(q,)).fetchone())
+
+    def test_ninja_tower_alternatives_bad_destination_and_source_spelling(self):
+        q='irowiki-classic:First_Expanded_Job_Change_Guides'
+        points=[tuple(r) for r in self.db.execute("""SELECT p.role,l.x,l.y FROM step_locations p JOIN locations l USING(location_id)
+            JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=15 ORDER BY l.x""",(q,))]
+        self.assertEqual(points,[('tower_warp_back',173,229),('tower_warp_front',176,172),('Wildcat Joe',181,196)])
+        bad=self.db.execute("""SELECT p.role,l.map_id FROM step_locations p JOIN locations l USING(location_id)
+            JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=11""",(q,)).fetchone()
+        self.assertEqual(tuple(bad),('possible_stuck_warp_destination',None))
+        alias=self.db.execute("""SELECT e.original_name FROM entities e JOIN entity_aliases a USING(entity_id)
+            JOIN step_npcs n ON n.npc_id=e.entity_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=17 AND a.alias='Couger'""",(q,)).fetchone()
+        self.assertEqual(alias[0],'Cougar')
+
+    def test_soul_linker_one_set_and_optional_vendor_prices(self):
+        q='irowiki-classic:Soul_Linker_Job_Change_Guide'
+        rows=[tuple(r) for r in self.db.execute("""SELECT s.step_order,m.game_id,i.quantity,i.operation FROM step_items i JOIN items m ON m.entity_id=i.item_id
+            JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order,m.game_id""",(q,))]
+        self.assertEqual(rows,[(n,gid,1,op) for n,op in [(2,'bring'),(3,'deliver')] for gid in [732,748,929]])
+        price=self.db.execute("SELECT amount,condition_text FROM requirements WHERE quest_id=? AND kind='optional_vendor_unit_price_zeny'",(q,)).fetchone()
+        self.assertEqual(price[0],'55000');self.assertIn('not a mandatory quest fee',price[1])
+        self.assertFalse(self.db.execute("SELECT 1 FROM requirements WHERE quest_id=? AND kind='zeny'",(q,)).fetchone())
+        monster=self.db.execute("""SELECT m.game_id,f.operation,f.quantity,f.required FROM step_monsters f JOIN monsters m ON m.entity_id=f.monster_id
+            JOIN quest_steps s USING(step_id) WHERE s.quest_id=?""",(q,)).fetchone()
+        self.assertEqual(tuple(monster),(1032,'loot_source',None,0))
+
+    def test_soul_linker_spirits_are_conversation_npcs_without_whole_index_dependency(self):
+        q='irowiki-classic:Soul_Linker_Job_Change_Guide'
+        names=[r[0] for r in self.db.execute("""SELECT e.original_name FROM step_npcs n JOIN entities e ON e.entity_id=n.npc_id
+            JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=3 AND n.role='talk_each' ORDER BY e.original_name""",(q,))]
+        self.assertEqual(names,['Alchemist Spirit','Monk Spirit','Sage Spirit'])
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='class'",(q,)).fetchone()[0],'TaeKwon Kid')
+        self.assertFalse(self.db.execute("SELECT 1 FROM rewards WHERE quest_id=? AND kind='skill_unlock'",(q,)).fetchone())
+        self.assertFalse(self.db.execute("SELECT 1 FROM quest_relations WHERE quest_id=? AND related_id='irowiki-classic:First_Expanded_Job_Change_Guides'",(q,)).fetchone())
+        self.assertFalse(self.db.execute("""SELECT 1 FROM step_locations p JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order IN (3,4)""",(q,)).fetchone())
+
+    def test_taekwon_master_material_installments_free_return_and_final_teacher(self):
+        q='irowiki-classic:TaeKwon_Master_Job_Change_Guide'
+        delivered=[tuple(r) for r in self.db.execute("""SELECT s.step_order,m.game_id,i.quantity FROM step_items i JOIN items m ON m.entity_id=i.item_id
+            JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND i.operation='deliver' ORDER BY s.step_order,m.game_id""",(q,))]
+        self.assertEqual(delivered,[(3,gid,1) for gid in [994,995,996,997]]+[(6,1000,1),(6,1001,1)])
+        self.assertEqual(self.db.execute("SELECT amount FROM requirements WHERE quest_id=? AND kind='return_warp_fee_zeny'",(q,)).fetchone()[0],'0')
+        actions=[tuple(r) for r in self.db.execute("""SELECT a.operation,e.original_name FROM step_actions a JOIN entities e USING(entity_id)
+            JOIN quest_steps s USING(step_id) WHERE s.quest_id=? AND s.step_order=6 ORDER BY a.action_order""",(q,))]
+        self.assertEqual(actions,[('free_return_to_quest_area','Man'),('deliver_stars_and_return_to_payon','Gladiator of the Stars'),('return_to_comodo_for_final_job_change','Man')])
+        self.assertIn('Man in comodo',self.db.execute("SELECT condition_text FROM rewards WHERE quest_id=? AND kind='job_change'",(q,)).fetchone()[0])
+
+    def test_taekwon_master_arrival_is_not_sun_npc_position(self):
+        q='irowiki-classic:TaeKwon_Master_Job_Change_Guide'
+        points=[tuple(r) for r in self.db.execute("""SELECT s.step_order,p.role,m.map_code,l.x,l.y FROM step_locations p JOIN locations l USING(location_id)
+            LEFT JOIN maps m ON m.entity_id=l.map_id JOIN quest_steps s USING(step_id) WHERE s.quest_id=? ORDER BY s.step_order,p.role""",(q,))]
+        self.assertEqual(points,[(1,'MooHyun',None,215,102),(2,'mountain_path_start',None,159,180),
+            (3,'Man','comodo',172,231),(3,'arrival_area','job_star',29,32),(4,'Gladiator of the Moon','job_star',95,33),(5,'Gladiator of the Stars','job_star',161,33)])
 
 if __name__=='__main__':unittest.main()
