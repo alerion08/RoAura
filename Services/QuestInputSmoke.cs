@@ -239,13 +239,13 @@ internal static class QuestInputSmoke
                     captureWindow.Show();captureWindow.Activate();await Pause();
                     Click(capture.PointToScreen(new Point(capture.ActualWidth/2,capture.ActualHeight/2)));
                     await Press("Ctrl+Shift+F4");
-                    if(HotkeyChord.Canonical(capture.Value)!="CTRL+SHIFT+F4")throw new InvalidOperationException("Keyboard chord capture failed.");
+                    if(HotkeyChord.Canonical(capture.Value)!="CTRL+SHIFT+F4")throw new InvalidOperationException($"Keyboard chord capture failed: value={capture.Value}; gate={HotkeyCaptureGate.IsCapturing}.");
                     if(HotkeyChord.Canonical(workspace.Settings.AddMvpTimerHotkey)!="CTRL+SHIFT+F4" ||
                         capture.GetBindingExpression(RoAura.Controls.HotkeyCaptureBox.ValueProperty) is null)
                         throw new InvalidOperationException("Hotkey capture detached its settings binding.");
                     var clear=AllButtons(capture).Single(button=>Equals(button.Content,"×"));
                     Click(clear.PointToScreen(new Point(clear.ActualWidth/2,clear.ActualHeight/2)));
-                    await Pause();
+                    await Pause();SaveDesktop(captureWindow,"hotkey-unassigned-native");
                     if(workspace.Settings.AddMvpTimerHotkey!="None" || hook.IsHotkeyEnabled("Ctrl+Shift+F4"))
                         throw new InvalidOperationException("Visible unassign action did not disable the shortcut.");
                     Click(capture.PointToScreen(new Point(capture.ActualWidth/2,capture.ActualHeight/2)));

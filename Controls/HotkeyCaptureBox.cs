@@ -5,26 +5,27 @@ using RoAura.Services;
 
 namespace RoAura.Controls;
 
-public sealed class HotkeyCaptureBox : Button
+public sealed class HotkeyCaptureBox : UserControl
 {
     public static readonly DependencyProperty ValueProperty=DependencyProperty.Register(nameof(Value),typeof(string),typeof(HotkeyCaptureBox),
         new FrameworkPropertyMetadata("None",FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,Changed));
     public string Value {get=>(string)GetValue(ValueProperty);set=>SetValue(ValueProperty,value);}
     private bool _recording;
-    private readonly TextBlock _caption=new() {VerticalAlignment=VerticalAlignment.Center};
-    private readonly Button _clear=new() {Content="×",Width=22,Height=22,MinWidth=22,MinHeight=22,Padding=new Thickness(0),Margin=new Thickness(6,0,0,0)};
+    private readonly TextBlock _caption=new() {VerticalAlignment=VerticalAlignment.Center,TextTrimming=TextTrimming.CharacterEllipsis};
+    private readonly Button _record=new() {MinWidth=100,Padding=new Thickness(9,4,9,4)};
+    private readonly Button _clear=new() {Content="×",Width=30,MinWidth=30,Padding=new Thickness(0),Margin=new Thickness(3)};
     public HotkeyCaptureBox()
     {
-        MinWidth=100;Padding=new Thickness(9,4,9,4);
-        SetResourceReference(StyleProperty,typeof(Button));
-        SetResourceReference(ForegroundProperty,"RoTextBrush");
+        MinWidth=140;Focusable=false;
+        _record.Content=_caption;
+        _record.SetResourceReference(ForegroundProperty,"RoTextBrush");
         var content=new Grid();
         content.ColumnDefinitions.Add(new() {Width=new GridLength(1,GridUnitType.Star)});
         content.ColumnDefinitions.Add(new() {Width=GridLength.Auto});
-        Grid.SetColumn(_clear,1);content.Children.Add(_caption);content.Children.Add(_clear);Content=content;
+        Grid.SetColumn(_clear,1);content.Children.Add(_record);content.Children.Add(_clear);Content=content;
         _clear.SetResourceReference(ToolTipProperty,"NoHotkey");
         _clear.Click+=(_,e)=>{SetCurrentValue(ValueProperty,"None");Cancel();UpdateCaption();e.Handled=true;};
-        Click+=(_,e)=>{if(e.OriginalSource!=this)return;_recording=!_recording;HotkeyCaptureGate.IsCapturing=_recording;UpdateCaption();};
+        _record.Click+=(_,_)=>{_recording=!_recording;HotkeyCaptureGate.IsCapturing=_recording;UpdateCaption();};
         PreviewKeyDown+=Capture;
         LostKeyboardFocus+=(_,_)=>Cancel();
         Unloaded+=(_,_)=>Cancel();
@@ -52,6 +53,6 @@ public sealed class HotkeyCaptureBox : Button
         _caption.Text=_recording?LocalizationService.Get("PressHotkey"):
             HotkeyChord.TryParse(Value,out var chord)?chord.ToString():LocalizationService.Get("NoHotkey");
         _clear.IsEnabled=HotkeyChord.TryParse(Value,out _);
-        ToolTip=LocalizationService.Get("CaptureHotkeyHint");
+        _record.ToolTip=_caption.Text+"\n"+LocalizationService.Get("CaptureHotkeyHint");
     }
 }
