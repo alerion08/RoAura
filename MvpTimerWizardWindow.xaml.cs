@@ -85,6 +85,7 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
     public MvpTimerWizardWindow(IEnumerable<MonsterEntry> monsters)
     {
         InitializeComponent();
+        MonsterBox.AddHandler(UIElement.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(MonsterBox_PreviewMouseLeftButtonDown), true);
         _monsters = new ObservableCollection<MonsterEntry>(monsters);
         MonsterView = CollectionViewSource.GetDefaultView(_monsters);
         DataContext = this;
