@@ -1,3 +1,10 @@
+# Unreleased — interface feedback
+
+- Selectable respawn cards, compact MVP form and repeated-key close; map hover avoids timer text.
+- All-item market history; separate session-loot window with Open/double-click and a Character heading.
+- Keyboard capture for arbitrary hotkeys/modifier chords; persistent character-manager removal without deleting history.
+- Fixed Gold Goblin button overlap, removed CSV and corrected dark reminder selection cards.
+
 # Unreleased — farming sessions and MVP tools
 
 Development branch only; stable release remains 3.3.0.

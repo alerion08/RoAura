@@ -14,14 +14,16 @@ public partial class MainWindow
 
     internal void AddMvpTimerInGame()
     {
-        if (_gameMvpWizard is not null || !FeatureAvailability.CanUse(Settings.ServerProfile,
+        if (_gameMvpWizard is not null) { _gameMvpWizard.Close(); return; }
+        if (!FeatureAvailability.CanUse(Settings.ServerProfile,
                 Settings.PacketCaptureEnabled, AppFeature.MvpTimers) ||
             !ForegroundProcess.TryGetForegroundAllowedBounds(Settings.AllowedProcesses, out var bounds)) return;
         var game = QuestWindowNative.GetForegroundWindow();
         var server = Settings.ServerProfile;
         var wizard = new MvpTimerWizardWindow(_monsters)
         {
-            Tag = "RoAura.GameInterface", StartAfterCreate = true, WindowStyle = WindowStyle.None, ShowInTaskbar = false,
+            Tag = "RoAura.GameInterface", StartAfterCreate = true, WindowStyle = WindowStyle.None,
+            ResizeMode = ResizeMode.NoResize, AllowsTransparency = true, ShowInTaskbar = false,
             WindowStartupLocation = WindowStartupLocation.Manual, Topmost = true
         };
         AppearanceService.ApplyPalette(wizard, AppearanceService.Resolve(Settings.ApplicationTheme, Settings.GameOverlayTheme, true));
@@ -32,10 +34,11 @@ public partial class MainWindow
             if (!QuestWindowNative.IsWindow(game) || Settings.ServerProfile != server ||
                 !ForegroundProcess.TryFindWindow(Settings.AllowedProcesses, out var current, out var rectangle) || current != game)
             { wizard.Close(); return; }
-            var width = Math.Min(900, rectangle.Right - rectangle.Left);
-            var height = Math.Min(760, rectangle.Bottom - rectangle.Top);
+            var gameDpi = QuestWindowNative.Scale(game);
+            var width = Math.Min(800 * gameDpi, rectangle.Right - rectangle.Left);
+            var height = Math.Min(540 * gameDpi, rectangle.Bottom - rectangle.Top);
             var dpi = QuestWindowNative.Scale(new WindowInteropHelper(wizard).Handle);
-            wizard.MinWidth = Math.Min(680, width / dpi); wizard.MinHeight = Math.Min(480, height / dpi);
+            wizard.MinWidth = Math.Min(580, width / dpi); wizard.MinHeight = Math.Min(360, height / dpi);
             QuestWindowNative.Place(wizard, new Rect(rectangle.Left + (rectangle.Right-rectangle.Left-width)/2,
                 rectangle.Top + (rectangle.Bottom-rectangle.Top-height)/2, width, height));
         }

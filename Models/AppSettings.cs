@@ -37,6 +37,9 @@ public sealed class AppSettings : INotifyPropertyChanged
     [JsonIgnore] public bool SessionPaused { get => _sessionPaused; set => Set(ref _sessionPaused, value); }
     public string PauseSessionHotkey { get => _pauseSessionHotkey; set => Set(ref _pauseSessionHotkey, NormalizeHotkey(value, "Pause")); }
     public string AddMvpTimerHotkey { get => _addMvpTimerHotkey; set => Set(ref _addMvpTimerHotkey, NormalizeHotkey(value, "F4")); }
+    [JsonIgnore] public bool HotkeyConflicts => new[] { SettingsHotkey, OverlaysHotkey, FinishMoveHotkey, TimersHotkey, DatabaseHotkey,
+        QuestBrowserHotkey, QuestTrackerHotkey, PauseSessionHotkey, AddMvpTimerHotkey }
+        .Where(value => Services.HotkeyChord.TryParse(value,out _)).Select(Services.HotkeyChord.Canonical).GroupBy(value=>value).Any(group=>group.Count()>1);
     [JsonIgnore] public bool FarmingHotkeyConflict => Services.FarmingHotkeys.HasConflict(this);
     private double _marketBackgroundRefreshMinutes = 10;
     private int _marketWatchHistoryRetentionDays = 30;
@@ -197,6 +200,7 @@ public sealed class AppSettings : INotifyPropertyChanged
         get => string.Join(", ", AllowedProcesses);
         set => AllowedProcesses = (value ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
+    public HashSet<string> RemovedCharacterKeys { get; set; } = [];
     public ObservableCollection<CharacterProfile> Characters { get; set; } = [];
     public QuestOverlaySettings QuestOverlay { get; set; } = new();
     public ObservableCollection<NavigationPreference> NavigationSections { get; set; } = new(
@@ -388,6 +392,7 @@ public sealed class AppSettings : INotifyPropertyChanged
         {
             PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(QuestHotkeyConflict)));
             PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(FarmingHotkeyConflict)));
+            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(HotkeyConflicts)));
         }
     }
 }

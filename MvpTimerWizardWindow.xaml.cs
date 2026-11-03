@@ -72,7 +72,7 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
         _monsters = new ObservableCollection<MonsterEntry>(monsters);
         MonsterView = CollectionViewSource.GetDefaultView(_monsters);
         DataContext = this;
-        Width = 900; Height = 760;
+        Width = 800; Height = 540;
     }
 
     private void MonsterBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -1,5 +1,18 @@
 # Project state
 
+## Feedback iteration — interface and keyboard controls (2026-11-03)
+
+- Continuing PR #12 on `feature/farming-sessions-mvp-tools`, based on `17afee228885c5b4564a3acb16eae6f2ac5f5738`. No version/main/release change.
+- Respawn location cards are restored as selectable cards; in the compact MVP wizard they sit below Start immediately, with map editing on the right. The game form has no large header/native frame and its hotkey toggles it closed.
+- Map hover placement uses the complete timer panel bounds and requires a disjoint position inside the client; it never cuts a hole in timer text.
+- Market watch history has an explicit All history switch without changing the selected editor rule.
+- Session History has one list. Open or row double-click opens a separate loot window, without receipt time columns. Character heading is localized correctly.
+- Gold Goblin action row now contains exactly four controls after removing CSV; no child can flow under the dashboard.
+- All nine hotkeys accept keyboard capture and modifier combinations. Shared chord parsing preserves legacy key strings; primary-key latches prevent repeat/foreground double toggles. Capture is suppressed until assignment keys are released. Screenshot/modifier forwarding remains in place.
+- Character removal only removes manager metadata, preserves saved statistics/session history and remembers removal across discovery/presets. Existing character scopes never silently become all-character scopes.
+- Reminder selection/progress colors use palette resources instead of hard-coded light fills.
+- Validation pending on this iteration; real game, screenshot shortcuts, protected/fullscreen clients and mixed-DPI acceptance remain manual.
+
 ## Active development — farming sessions and MVP tools (2026-11-03)
 
 - Branch: `feature/farming-sessions-mvp-tools`, based on main `57bfbdfad3e3b4dbb4d3ff6b6f4c86742b334b60`. Version remains 3.3.0; no release or merge.

@@ -12,7 +12,6 @@ namespace RoAura.Controls;
 /// <summary>Marker coordinates are fractions of the displayed minimap, independent of DPI.</summary>
 public sealed class MvpMapEditor : UserControl
 {
-    private readonly ComboBox _locations = new() { DisplayMemberPath = "Code", SelectedValuePath = "Code", Margin = new Thickness(0,0,0,8) };
     private readonly Grid _picture = new() { Width = 250, Height = 250, ClipToBounds = true, Background = Brushes.Transparent };
     private readonly Image _image = new() { Stretch = Stretch.Uniform };
     private readonly Canvas _marks = new() { IsHitTestVisible = false };
@@ -27,14 +26,9 @@ public sealed class MvpMapEditor : UserControl
     {
         var root = new StackPanel();
         _clear.SetResourceReference(ContentControl.ContentProperty, "ClearMapMarker");
-        root.Children.Add(_locations); _picture.Children.Add(_image); _picture.Children.Add(_marks);
+        _picture.Children.Add(_image); _picture.Children.Add(_marks);
         root.Children.Add(_picture); root.Children.Add(_message); root.Children.Add(_clear);
         Content = root;
-        _locations.SelectionChanged += (_, _) =>
-        {
-            if (_loading || _timer is null || ReadOnly) return;
-            _timer.LocationCode = _locations.SelectedValue as string ?? "";
-        };
         _picture.MouseLeftButtonDown += Mark;
         _clear.Click += (_, _) => { if (_timer is not null) _timer.ClearMarker(); };
         _image.ImageFailed += (_, _) => { _message.Text = LocalizationService.Get("MapImageUnavailable"); _marks.Children.Clear(); };
@@ -60,10 +54,7 @@ public sealed class MvpMapEditor : UserControl
         _loading = true;
         try
         {
-            _locations.Visibility = ReadOnly ? Visibility.Collapsed : Visibility.Visible;
             _clear.Visibility = ReadOnly ? Visibility.Collapsed : Visibility.Visible;
-            _locations.ItemsSource = _timer?.RespawnHints.GroupBy(row => row.Code).Select(group => group.First()).ToList();
-            _locations.SelectedValue = _timer?.LocationCode;
             var code = _timer?.LocationCode ?? "";
             if (_loadedMap != code)
             {

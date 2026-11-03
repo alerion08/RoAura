@@ -56,10 +56,12 @@ public partial class OverlayWindow
         }
         var dpi = QuestWindowNative.Scale(new System.Windows.Interop.WindowInteropHelper(_mvpMapPopup).Handle);
         var width = 280*dpi; var height = 305*dpi;
-        var left = Math.Max(game.Left, Math.Min(hit.Left, game.Right-width));
-        var top = hit.Bottom + 8;
-        if (top+height > game.Bottom) top = Math.Max(game.Top, hit.Top-height-8);
-        QuestWindowNative.Place(_mvpMapPopup, new Rect(left,top,width,height));
+        var panel = new Rect(MvpTimerPanel.PointToScreen(new Point()),
+            MvpTimerPanel.PointToScreen(new Point(MvpTimerPanel.ActualWidth, MvpTimerPanel.ActualHeight)));
+        var placement = MvpMapPlacement.Find(panel, new Size(width,height),
+            new Rect(game.Left,game.Top,game.Right-game.Left,game.Bottom-game.Top),8*dpi);
+        if (placement.IsEmpty) { HideMvpMap(); return; }
+        QuestWindowNative.Place(_mvpMapPopup, placement);
     }
     private void HideMvpMap()
     {

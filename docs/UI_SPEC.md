@@ -610,3 +610,11 @@ The MVP game form and passive map preview occlude lower HUD/tracker pixels even 
 
 Validation SUCCESS on code commit `bf6f97113a7e2c14c3e531e21caa94ca9f4dfdcb`: [development run 41619866259](https://github.com/alerion08/RoAura/actions/runs/41619866259) — 352 tests, zero failures/skips, eight ToC checks, native startup/input including Print Screen, MVP hotkey/create/cancel/focus and HUD occlusion, resource/privacy checks and portable packaging. [PR build 41619876280](https://github.com/alerion08/RoAura/actions/runs/41619876280) also succeeded, including installer checks.
 Real Ragnarok/mixed-monitor/long-session acceptance remains manual.
+
+## Feedback iteration — 2026-11-03
+
+Respawn locations are clickable cards containing the original name/code/interval, selected with theme colors. In the compact creation wizard they sit below Start immediately, and the right card shows the map. Repeated Add MVP hotkey closes the form. Map previews occupy a disjoint rectangle beside the complete timer panel.
+
+Market history can show all items while preserving the selected watch editor. Session history uses one list with Open/double-click details in another window; details omit receipt dates/times. Gold Goblin has four actions and no CSV button.
+
+Hotkey fields record a key or chord on keyboard press, expose Clear through their context menu, and report duplicate assignments. Modifier combinations use exact matching and one action per physical press. Recorded input does not invoke a newly assigned action before release. Character removal preserves local histories and cannot silently broaden character-scoped overlays. Reminder mode cards use live palette brushes.

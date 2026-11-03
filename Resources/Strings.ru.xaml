@@ -710,4 +710,14 @@
     <sys:String x:Key="HistoryDate">Дата и время</sys:String>
     <sys:String x:Key="HistoryRefresh">Обновить</sys:String>
     <sys:String x:Key="HistoryUnitPrice">Цена при добыче</sys:String>
+    <sys:String x:Key="CharacterLabel">Персонаж</sys:String>
+    <sys:String x:Key="OpenSessionDetails">Открыть</sys:String>
+    <sys:String x:Key="SessionLootDetails">Добыча сессии</sys:String>
+    <sys:String x:Key="AllWatchHistory">Вся история</sys:String>
+    <sys:String x:Key="DeleteCharacterConfirm">Удалить персонажа из менеджера? История статистики и сессий сохранится.</sys:String>
+    <sys:String x:Key="PressHotkey">Нажмите клавишу…</sys:String>
+    <sys:String x:Key="NoHotkey">Не назначено</sys:String>
+    <sys:String x:Key="ClearHotkey">Убрать назначение</sys:String>
+    <sys:String x:Key="CaptureHotkeyHint">Нажмите для записи клавиши или сочетания. Правая кнопка мыши — убрать назначение.</sys:String>
+    <sys:String x:Key="HotkeyConflictHint">Некоторые сочетания назначены нескольким действиям. Измените повторяющиеся назначения.</sys:String>
 </ResourceDictionary>

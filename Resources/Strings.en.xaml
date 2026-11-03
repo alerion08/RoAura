@@ -710,4 +710,14 @@
     <sys:String x:Key="HistoryDate">Date and time</sys:String>
     <sys:String x:Key="HistoryRefresh">Refresh</sys:String>
     <sys:String x:Key="HistoryUnitPrice">Price at pickup</sys:String>
+    <sys:String x:Key="CharacterLabel">Character</sys:String>
+    <sys:String x:Key="OpenSessionDetails">Open</sys:String>
+    <sys:String x:Key="SessionLootDetails">Session loot</sys:String>
+    <sys:String x:Key="AllWatchHistory">All history</sys:String>
+    <sys:String x:Key="DeleteCharacterConfirm">Remove this character from the manager? Statistics and session history will be kept.</sys:String>
+    <sys:String x:Key="PressHotkey">Press a key…</sys:String>
+    <sys:String x:Key="NoHotkey">Not assigned</sys:String>
+    <sys:String x:Key="ClearHotkey">Clear assignment</sys:String>
+    <sys:String x:Key="CaptureHotkeyHint">Click, then press a key or combination. Right-click to clear.</sys:String>
+    <sys:String x:Key="HotkeyConflictHint">Some shortcuts are assigned to more than one action. Change duplicate assignments.</sys:String>
 </ResourceDictionary>

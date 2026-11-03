@@ -605,3 +605,15 @@ Remaining real-game/mixed-DPI acceptance is documented in release notes.
 
 Validation SUCCESS on code commit `bf6f97113a7e2c14c3e531e21caa94ca9f4dfdcb`: [development run 41619866259](https://github.com/alerion08/RoAura/actions/runs/41619866259) — 352 tests, zero failures/skips, eight ToC checks, native startup/input including Print Screen, MVP hotkey/create/cancel/focus and HUD occlusion, resource/privacy checks and portable packaging. [PR build 41619876280](https://github.com/alerion08/RoAura/actions/runs/41619876280) also succeeded, including installer checks.
 Native screenshot/input receipt verifies the hook's forwarding in an isolated process; it does not assert real Ragnarok or Windows Snipping Tool acceptance. Native MVP form capture was inspected after the occlusion fix. Manual boxes remain open.
+
+## Feedback iteration — 2026-11-03
+
+- [ ] Location cards show original respawn information, select/highlight by click and retain map/marker through restart.
+- [ ] Compact MVP form has no light native border in dark mode; repeated single/chord hotkey closes; creation/cancel restore the exact game client.
+- [ ] Map hover avoids the entire timer panel at client edges, negative coordinates and mixed DPI; no timer pixels are clipped.
+- [ ] All history switch shows every watch item without losing editor selection or rules.
+- [ ] Session list Open/double-click shows a separate loot table without receipt times; Character heading and theme are correct.
+- [ ] Gold Goblin four-button row fits minimum RU/EN layout above dashboard cards; CSV action is absent.
+- [ ] Capture arbitrary keyboard keys/chords, release and activate. No immediate invocation, repeat, missing modifiers, duplicate toggle or screenshot/modifier blocking. Existing hotkey strings and presets still work.
+- [ ] Remove a character and reopen the manager/restart/apply a preset: it stays removed, history remains, and a single-character scope never becomes all.
+- [ ] Reminder mode cards remain readable and palette-colored when switching modes/themes.

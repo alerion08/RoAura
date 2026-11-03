@@ -72,7 +72,10 @@
       </DataGrid.Columns>
      </DataGrid>
      <StackPanel Grid.Row="1" Margin="0,10,0,6">
-      <TextBlock Text="{DynamicResource WatchHistoryTitle}" FontWeight="SemiBold"/>
+      <DockPanel>
+       <ToggleButton x:Name="AllWatchHistoryButton" DockPanel.Dock="Right" Content="{DynamicResource AllWatchHistory}" Click="AllWatchHistory_Click" Margin="8,0,0,0"/>
+       <TextBlock Text="{DynamicResource WatchHistoryTitle}" FontWeight="SemiBold" VerticalAlignment="Center"/>
+      </DockPanel>
       <TextBlock x:Name="HistoryItemText" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}"/>
       <TextBlock x:Name="HistoryPersistenceWarning" Text="{DynamicResource WatchHistorySaveWarning}" TextWrapping="Wrap" Foreground="{DynamicResource UiForeground_B42318}" Visibility="Collapsed"/>
      </StackPanel>

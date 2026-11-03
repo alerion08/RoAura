@@ -10,7 +10,11 @@ public static class SettingsSnapshot
 {
     public static void Apply(AppSettings source, AppSettings target)
     {
+        target.RemovedCharacterKeys ??= [];
+        if(source.RemovedCharacterKeys is not null)target.RemovedCharacterKeys.UnionWith(source.RemovedCharacterKeys);
         CopyObject(source, target);
+        foreach (var profile in target.Characters.Where(profile => target.RemovedCharacterKeys.Contains(CharacterScopeService.IdentityKey(profile.DetectedServer,profile.CharacterId))).ToArray())
+            target.Characters.Remove(profile);
         target.SyncCooldownGroups();
         target.SyncBuffPanelGroups();
         target.SyncRewardGroups();
@@ -27,13 +31,20 @@ public static class SettingsSnapshot
             if (!property.CanRead || property.SetMethod?.IsPublic != true ||
                 property.GetIndexParameters().Length != 0 || property.IsDefined(typeof(JsonIgnoreAttribute))) continue;
             var incoming = property.GetValue(source);
+            if (source is AppSettings && target is AppSettings targetSettings &&
+                property.Name == nameof(AppSettings.RemovedCharacterKeys))
+            {
+                targetSettings.RemovedCharacterKeys ??= [];
+                if (incoming is IEnumerable<string> removed) targetSettings.RemovedCharacterKeys.UnionWith(removed);
+                continue;
+            }
             var current = property.GetValue(target);
             if (source is AppSettings && property.Name == nameof(AppSettings.Characters) &&
                 incoming is IEnumerable<CharacterProfile> characters && current is IList knownCharacters)
             {
                 // Names/server assignments are a global registry, not destructive preset state.
                 foreach (var character in characters)
-                    if (!knownCharacters.Cast<CharacterProfile>().Any(c => c.Id == character.Id ||
+                    if (!((AppSettings)target).RemovedCharacterKeys.Contains(CharacterScopeService.IdentityKey(character.DetectedServer, character.CharacterId)) && !knownCharacters.Cast<CharacterProfile>().Any(c => c.Id == character.Id ||
                         (c.CharacterId == character.CharacterId && string.Equals(c.DetectedServer, character.DetectedServer, StringComparison.OrdinalIgnoreCase))))
                         knownCharacters.Add(character);
             }

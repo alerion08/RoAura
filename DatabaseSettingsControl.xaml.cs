@@ -39,13 +39,15 @@ public partial class DatabaseSettingsControl : UserControl
         EditWatchButton.IsEnabled = DeleteWatchButton.IsEnabled = rule is not null;
         var item = rule is null ? null : _database.Item(rule.ItemId) ?? new DatabaseItem { Id = rule.ItemId, Name = rule.ItemName };
         WatchEditor.Initialize(_database, item, rule, allowItemChange: true);
+        if (AllWatchHistoryButton is not null) AllWatchHistoryButton.IsChecked = false;
         RefreshHistory();
     }
+    private void AllWatchHistory_Click(object sender, RoutedEventArgs e) => RefreshHistory();
     private void RefreshHistory()
     {
         if (HistoryGrid is null) return;
-        var selected = WatchList.SelectedItem as MarketWatchRule;
-        HistoryItemText.Text = selected?.ItemName ?? "";
+        var selected = AllWatchHistoryButton.IsChecked == true ? null : WatchList.SelectedItem as MarketWatchRule;
+        HistoryItemText.Text = selected?.ItemName ?? LocalizationService.Get("AllWatchHistory");
         var rows = (CurrentApp?.MarketWatchHistory ?? Array.Empty<MarketWatchHistoryEntry>())
             .Where(entry => selected is null || entry.ItemId == selected.ItemId)
             .OrderByDescending(entry => entry.DetectedAtUtc).ToList();

@@ -320,6 +320,7 @@ public sealed class SettingsStore
         settings.MvpTimers ??= new();
         settings.TocMvpTimers ??= new();
         settings.Characters ??= new();
+        settings.RemovedCharacterKeys ??= [];
         settings.QuestOverlay ??= new();
         settings.NavigationSections ??= new();
         settings.EnsureNavigationSections();

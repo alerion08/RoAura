@@ -1,5 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
 using RoAura.Models;
 using RoAura.Services;
 
@@ -10,44 +12,49 @@ public sealed class FarmingSessionHistoryControl : UserControl
     private FarmingSessionHistoryStore Store => ((App)Application.Current).FarmingHistory;
     private readonly DataGrid _sessions = new() { AutoGenerateColumns = false, IsReadOnly = true,
         CanUserAddRows = false, CanUserDeleteRows = false, SelectionMode = DataGridSelectionMode.Single };
-    private readonly DataGrid _details = new() { AutoGenerateColumns = false, IsReadOnly = true,
-        CanUserAddRows = false, CanUserDeleteRows = false };
+    private readonly Button _open = new() { IsEnabled = false };
     public FarmingSessionHistoryControl()
     {
         var root = new Grid { Margin = new Thickness(16) };
         root.RowDefinitions.Add(new() { Height = GridLength.Auto });
         root.RowDefinitions.Add(new() { Height = new GridLength(1, GridUnitType.Star) });
-        root.RowDefinitions.Add(new() { Height = GridLength.Auto });
-        root.RowDefinitions.Add(new() { Height = new GridLength(1, GridUnitType.Star) });
-        var actions = new StackPanel { Orientation = Orientation.Horizontal };
-        var delete = new Button { Content = LocalizationService.Get("DeleteSession"), Margin = new Thickness(0,0,8,8) };
+        var actions = new WrapPanel { Margin = new Thickness(0,0,0,8) };
+        _open.SetResourceReference(ContentControl.ContentProperty, "OpenSessionDetails");
+        _open.Click += (_, _) => OpenSelected();
+        var delete = new Button(); delete.SetResourceReference(ContentControl.ContentProperty, "DeleteSession");
         delete.Click += (_, _) => DeleteSelected();
-        var refresh = new Button { Content = LocalizationService.Get("HistoryRefresh"), Margin = new Thickness(0,0,0,8) };
+        var refresh = new Button(); refresh.SetResourceReference(ContentControl.ContentProperty, "HistoryRefresh");
         refresh.Click += (_, _) => RefreshRows();
-        actions.Children.Add(delete); actions.Children.Add(refresh); root.Children.Add(actions);
-        Add(_sessions, "HistoryDate", "DateText"); Add(_sessions, "SessionTime", "DurationText");
-        Add(_sessions, "SessionItems", "ItemCount"); Add(_sessions, "ZenyTotalLabel", "ZenyGained");
-        Add(_sessions, "AccountedLootValue", "LootValue"); Add(_sessions, "CharacterManager", "CharacterCaption");
+        actions.Children.Add(_open); actions.Children.Add(delete); actions.Children.Add(refresh); root.Children.Add(actions);
+        AddColumn(_sessions, "HistoryDate", "DateText"); AddColumn(_sessions, "SessionTime", "DurationText");
+        AddColumn(_sessions, "SessionItems", "ItemCount"); AddColumn(_sessions, "ZenyTotalLabel", "ZenyGained");
+        AddColumn(_sessions, "AccountedLootValue", "LootValue"); AddColumn(_sessions, "CharacterLabel", "CharacterCaption");
         Grid.SetRow(_sessions, 1); root.Children.Add(_sessions);
-        var note = new TextBlock { Text = LocalizationService.Get("SessionHistoryPriceHint"),
-            TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0,12,0,8) };
-        Grid.SetRow(note, 2); root.Children.Add(note);
-        Add(_details, "HistoryDate", "TimeText"); Add(_details, "Item", "Name"); Add(_details, "Count", "Count");
-        Add(_details, "HistoryUnitPrice", "UnitPrice"); Add(_details, "PriceSource", "PriceSource"); Add(_details, "Total", "Total");
-        Grid.SetRow(_details, 3); root.Children.Add(_details);
-        _sessions.SelectionChanged += (_, _) => _details.ItemsSource = (_sessions.SelectedItem as FarmingSession)?.Loot;
-        Content = root;
-        Loaded += (_, _) => RefreshRows();
+        _sessions.SelectionChanged += (_, _) => _open.IsEnabled = _sessions.SelectedItem is FarmingSession;
+        _sessions.MouseDoubleClick += (_, e) =>
+        {
+            if (e.OriginalSource is DependencyObject source &&
+                ItemsControl.ContainerFromElement(_sessions, source) is DataGridRow) OpenSelected();
+        };
+        Content = root; Loaded += (_, _) => RefreshRows();
     }
-    private static void Add(DataGrid grid, string key, string path) =>
+    internal static void AddColumn(DataGrid grid, string key, string path) =>
         grid.Columns.Add(new DataGridTextColumn { Header = LocalizationService.Get(key),
-            Binding = new System.Windows.Data.Binding(path), Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
+            Binding = new Binding(path), Width = new DataGridLength(path is "CharacterCaption" or "Name" ? 1.7 : 1, DataGridLengthUnitType.Star) });
+    private void OpenSelected()
+    {
+        if (_sessions.SelectedItem is not FarmingSession session) return;
+        var details = new FarmingSessionDetailsWindow(session) { Owner = Window.GetWindow(this) };
+        details.ShowDialog();
+    }
     private void RefreshRows()
     {
         try
         {
+            var selected = (_sessions.SelectedItem as FarmingSession)?.Id;
             if (!((App)Application.Current).FlushFarmingHistory()) return;
-            _sessions.ItemsSource = Store.List();
+            var rows = Store.List(); _sessions.ItemsSource = rows;
+            _sessions.SelectedItem = rows.FirstOrDefault(row => row.Id == selected);
         }
         catch (Exception ex) { MessageBox.Show(Window.GetWindow(this), LocalizationService.Get("SessionHistoryError") + "\n" + ex.Message); }
     }
