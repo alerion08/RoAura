@@ -1017,7 +1017,10 @@
                                                     <TextBlock Grid.Row="2" Text="{DynamicResource Minutes}" Style="{StaticResource FieldLabelStyle}"/>
                                                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DurationMinutes, UpdateSourceTrigger=LostFocus}" Style="{StaticResource FieldEditorStyle}"/>
                                                     <TextBlock Grid.Row="3" Text="{DynamicResource KillTime}" Style="{StaticResource FieldLabelStyle}"/>
-                                                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding KillTimeInput, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" ToolTip="HH:mm:ss"/>
+                                                    <Grid Grid.Row="3" Grid.Column="1" Margin="0,0,14,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                                        <TextBox Text="{Binding KillTimeInput, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" Margin="0,4,6,4" ToolTip="HH:mm:ss"/>
+                                                        <Button Grid.Column="1" Content="{DynamicResource MvpApplyKillTime}" Click="ApplyMvpKillTime_Click" VerticalAlignment="Center"/>
+                                                    </Grid>
                                                     <CheckBox Grid.Row="4" Grid.ColumnSpan="2" Content="{DynamicResource Enabled}" IsChecked="{Binding Enabled}" Margin="0,10,0,4"/>
                                                 </Grid>
                                             </GroupBox>

@@ -6,12 +6,13 @@ import json
 import pathlib
 import re
 import sqlite3
+import struct
 import time
 import urllib.request
 import zlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SOURCE = "https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/minimaps/{}.png"
+SOURCES = ("https://choobs.org/maps/{}.png", "https://www.divine-pride.net/img/map/original/{}")
 
 def get(obj, name, default=None):
     return next((v for k, v in obj.items() if k.lower() == name.lower()), default)
@@ -42,17 +43,23 @@ def download(code):
     if not re.fullmatch(r"[a-z0-9_]{1,64}", code):
         return code, None, "invalid code"
     last = ""
-    for attempt in range(3):
-        try:
-            with urllib.request.urlopen(SOURCE.format(code), timeout=15) as response:
-                data = response.read(2 * 1024 * 1024 + 1)
-            if not data.startswith(b"\x89PNG\r\n\x1a\n") or len(data) > 2 * 1024 * 1024:
-                raise ValueError("invalid PNG response")
-            return code, data, ""
-        except Exception as exc:
-            last = str(exc)
-            if attempt < 2:
-                time.sleep(0.2)
+    for source in SOURCES:
+        url = source.format(code)
+        for attempt in range(2):
+            try:
+                request = urllib.request.Request(url, headers={"User-Agent": "RoAura/3.3 minimap preparation"})
+                with urllib.request.urlopen(request, timeout=15) as response:
+                    data = response.read(2 * 1024 * 1024 + 1)
+                if not data.startswith(b"\x89PNG\r\n\x1a\n") or not 24 <= len(data) <= 2 * 1024 * 1024:
+                    raise ValueError("invalid PNG response")
+                width, height = struct.unpack(">II", data[16:24])
+                if not (2 <= width <= 4096 and 2 <= height <= 4096):
+                    raise ValueError("invalid minimap dimensions")
+                return code, data, url
+            except Exception as exc:
+                last = str(exc)
+                if attempt == 0:
+                    time.sleep(0.2)
     return code, None, last
 
 def main():
@@ -67,8 +74,9 @@ def main():
                 print("MVP MAP MISSING:", code, error)
                 continue
             (output / (code + ".png")).write_bytes(data)
-            manifest[code] = hashlib.sha256(data).hexdigest()
-    (output / "manifest.json").write_text(json.dumps(dict(source=SOURCE, images=manifest, missing=missing), indent=2), encoding="utf-8")
+            manifest[code] = dict(sha256=hashlib.sha256(data).hexdigest(), source=error)
+    (output / "manifest.json").write_text(json.dumps(dict(sources=SOURCES, images=manifest, missing=missing), indent=2), encoding="utf-8")
+    (output / "SOURCES.txt").write_text("Ragnarok Online minimaps. Game assets: Gravity Co.\nImage sources: https://choobs.org/maps/ and https://www.divine-pride.net/\nPer-file source URLs and SHA256 are recorded in manifest.json.\n", encoding="utf-8")
     print(f"MVP MAP BUNDLE: {len(manifest)}/{len(expected)} exact-code images")
     if missing:
         raise SystemExit("Missing MVP minimaps: " + ", ".join(missing))

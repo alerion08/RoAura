@@ -706,6 +706,7 @@
     <sys:String x:Key="MvpLocation">Локация</sys:String>
     <sys:String x:Key="MapMarkerHint">Выберите локацию и нажмите на карту, чтобы отметить место убийства MVP.</sys:String>
     <sys:String x:Key="ClearMapMarker">Убрать отметку</sys:String>
+    <sys:String x:Key="MvpApplyKillTime">Применить время</sys:String>
     <sys:String x:Key="MapImageLoading">Загрузка карты…</sys:String>
     <sys:String x:Key="MapImageUnavailable">Изображение карты недоступно. Проверьте подключение и нажмите здесь для повторной загрузки.</sys:String>
     <sys:String x:Key="HistoryDate">Дата и время</sys:String>

@@ -1920,6 +1920,19 @@ public partial class MainWindow : Window
         SaveSettings();
     }
 
+    private void ApplyMvpKillTime_Click(object sender, RoutedEventArgs e)
+    {
+        var timer = (sender as FrameworkElement)?.DataContext as MvpTimer ?? MvpTimersGrid.SelectedItem as MvpTimer;
+        if (timer is null) return;
+        if (!TimeSpan.TryParse(timer.KillTimeInput, out var clock) || clock < TimeSpan.Zero || clock >= TimeSpan.FromDays(1))
+        {
+            SetStatus(LocalizationService.Get("InvalidKillTime"));
+            return;
+        }
+        timer.StartFromKillClock(clock);
+        SaveSettings();
+    }
+
     private void ResetMvpTimer_Click(object sender, RoutedEventArgs e)
     {
         if ((sender as FrameworkElement)?.DataContext is MvpTimer rowTimer) rowTimer.Reset();

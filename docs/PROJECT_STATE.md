@@ -5,7 +5,7 @@
 - Continuing PR #12 from `30bec93c03b00c2e654cdbf614d898e434ca0c9b`.
 - All supported catalog MVP minimaps are audited and bundled for offline first display. A shared async loader decodes complete frozen images, coalesces concurrent requests and retains a local cache for downloaded extras. Stale completions cannot replace a newly selected map; loading and unavailable states differ from the no-location hint, and failed loads can be retried.
 - Catalog details select the first nonempty map code whenever an existing/new timer has no location. Explicit selections and markers remain intact.
-- Restart always replaces the old countdown with a new interval from now; the saved kill-clock field cannot redirect Restart to the old kill.
+- Restart always replaces the old countdown with a new interval from now; the saved kill-clock field cannot redirect Restart to the old kill. Editing a historical kill time uses its separate Apply time action.
 - The Item column belongs to Database tracking history when showing all items (also with no selection); individual item history stays compact. The mistaken Gold Goblin session-summary Item column is removed; loot details retain names.
 - Validation pending. Real Ragnarok/fullscreen/mixed-DPI acceptance remains manual; version/main/release unchanged.
 

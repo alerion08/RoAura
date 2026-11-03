@@ -706,6 +706,7 @@
     <sys:String x:Key="MvpLocation">Location</sys:String>
     <sys:String x:Key="MapMarkerHint">Choose a location and click the map to mark the MVP kill.</sys:String>
     <sys:String x:Key="ClearMapMarker">Clear marker</sys:String>
+    <sys:String x:Key="MvpApplyKillTime">Apply time</sys:String>
     <sys:String x:Key="MapImageLoading">Loading map…</sys:String>
     <sys:String x:Key="MapImageUnavailable">Map image unavailable. Check your connection and click here to retry.</sys:String>
     <sys:String x:Key="HistoryDate">Date and time</sys:String>

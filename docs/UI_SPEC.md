@@ -636,6 +636,6 @@ Validated on `cf4e87e145de8bb293ccd11dafc8938e86f50f82` by [Windows development 
 
 MVP source details initialize the first map for new/restored timers with no location. Bundled maps display offline; downloaded maps share a persistent local cache across editor and hover views. The map region shows a loading state while loading, an unavailable/retry state on failure, and the location hint only when no location exists. Switching selection or closing/reopening must not show a stale map.
 
-Restart always starts a complete interval from the current time. Exact kill-time creation remains available in the wizard.
+Restart always starts a complete interval from the current time. Exact kill-time creation remains available in the wizard; an existing timer's clock draft is applied through its separate Apply time button.
 
 Database tracking history shows Item names when All history is enabled or no item is selected; full names are available on hover. Selecting one item hides the redundant name column. Gold Goblin session summaries retain their original columns, with item names in the separate loot detail window.

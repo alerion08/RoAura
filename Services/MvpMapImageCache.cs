@@ -70,11 +70,20 @@ public sealed class MvpMapImageCache
     }
     private static async Task<byte[]?> Download(string code)
     {
-        using var response=await Client.GetAsync($"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/minimaps/{code}.png",
-            HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
-        if(!response.IsSuccessStatusCode)return null;
-        if(response.Content.Headers.ContentLength>2*1024*1024)throw new InvalidDataException("Map image too large.");
-        return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+        foreach(var uri in new[]{$"https://choobs.org/maps/{code}.png",$"https://www.divine-pride.net/img/map/original/{code}"})
+        {
+            try
+            {
+                using var response=await Client.GetAsync(uri,HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+                if(!response.IsSuccessStatusCode)continue;
+                if(response.Content.Headers.ContentLength>2*1024*1024)continue;
+                var bytes=await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+                if(bytes.Length>=8 && bytes.AsSpan(0,8).SequenceEqual(new byte[]{137,80,78,71,13,10,26,10}))return bytes;
+            }
+            catch(HttpRequestException ex){DebugLog.Write($"MVP MAP SOURCE {code}: {ex.Message}");}
+            catch(TaskCanceledException){ }
+        }
+        return null;
     }
     private static BitmapSource Decode(byte[] bytes)
     {
