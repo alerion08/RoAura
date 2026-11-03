@@ -34,6 +34,8 @@ public sealed class GlobalInputHook : IDisposable
         _settings=settings;_keyboardProc=KeyboardHookCallback;
         RefreshVirtualKeys();settings.PropertyChanged+=SettingsChanged;
     }
+    public bool IsHotkeyEnabled(string value) => HotkeyChord.TryParse(value,out var chord) &&
+        Volatile.Read(ref _entries).Any(entry=>entry.Chord==chord);
     public void Install()
     {
         if(_timer is not null)return;

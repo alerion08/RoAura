@@ -43,7 +43,8 @@ public partial class App
         var name = _settingsWindow?.Settings.Characters.FirstOrDefault(character =>
             character.CharacterId == record.CharacterId &&
             character.DetectedServer.Equals(record.ServerKey, StringComparison.OrdinalIgnoreCase))?.Name;
-        history.CharacterName = string.IsNullOrWhiteSpace(name) ? $"CID {record.CharacterId}" : name;
+        if (!string.IsNullOrWhiteSpace(name)) history.CharacterName = name;
+        else if (string.IsNullOrWhiteSpace(history.CharacterName)) history.CharacterName = $"CID {record.CharacterId}";
         history.ActiveTicks = record.SessionActiveTicks;
         history.ZenyGained = record.SessionZenyGained;
         history.UpdatedUtc = DateTime.UtcNow;
