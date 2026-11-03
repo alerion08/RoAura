@@ -34,6 +34,8 @@ public sealed class GlobalInputHook : IDisposable
     private bool _finishMoveHeld;
     private bool _timersHeld;
     private bool _databaseHeld;
+    private bool _pauseSessionHeld, _addMvpHeld, _pauseSessionHookHeld, _addMvpHookHeld;
+    private volatile int _pauseSessionKey, _addMvpKey;
     private bool _questBrowserHeld, _questTrackerHeld, _questBrowserHookHeld, _questTrackerHookHeld;
     private volatile int _questBrowserKey, _questTrackerKey;
     private bool _databaseHookHeld;
@@ -59,6 +61,7 @@ public sealed class GlobalInputHook : IDisposable
     public event Action? ToggleOverlaysPressed;
     public event Action? EscapePressed;
     public event Action? ToggleTimersPressed;
+    public event Action? PauseSessionPressed, AddMvpTimerPressed;
     public event Action? ToggleDatabasePressed;
     public event Action? ToggleQuestBrowserPressed, ToggleQuestTrackerPressed;
 
@@ -102,6 +105,8 @@ public sealed class GlobalInputHook : IDisposable
             case nameof(AppSettings.DatabaseHotkey):
             case nameof(AppSettings.QuestBrowserHotkey):
             case nameof(AppSettings.QuestTrackerHotkey):
+            case nameof(AppSettings.PauseSessionHotkey):
+            case nameof(AppSettings.AddMvpTimerHotkey):
                 RefreshVirtualKeys();
                 break;
         }
@@ -114,6 +119,8 @@ public sealed class GlobalInputHook : IDisposable
         _finishMoveKey = ParseVirtualKey(_settings.FinishMoveHotkey);
         _timersKey = ParseVirtualKey(_settings.TimersHotkey);
         _databaseKey = ParseVirtualKey(_settings.DatabaseHotkey);
+        _pauseSessionKey = FarmingHotkeys.Enabled(_settings, _settings.PauseSessionHotkey) ? ParseVirtualKey(_settings.PauseSessionHotkey) : 0;
+        _addMvpKey = FarmingHotkeys.Enabled(_settings, _settings.AddMvpTimerHotkey) ? ParseVirtualKey(_settings.AddMvpTimerHotkey) : 0;
         var enabled=QuestHotkeys.Enabled(_settings);
         _questBrowserKey=enabled.Browser?ParseVirtualKey(_settings.QuestBrowserHotkey):0;
         _questTrackerKey=enabled.Tracker?ParseVirtualKey(_settings.QuestTrackerHotkey):0;
@@ -135,7 +142,7 @@ public sealed class GlobalInputHook : IDisposable
                 return CallNextHookEx(_keyboardHook, code, message, data);
 
             var virtualKey = Marshal.ReadInt32(data);
-            if (IsModifier(virtualKey))
+            if (IsAlwaysForwarded(virtualKey))
                 return CallNextHookEx(_keyboardHook, code, message, data);
             if (virtualKey == _databaseKey)
             {
@@ -156,6 +163,16 @@ public sealed class GlobalInputHook : IDisposable
             {
                 if(isDown && !_questTrackerHookHeld) ToggleQuestTrackerPressed?.Invoke();
                 _questTrackerHookHeld=isDown;
+            }
+            else if (virtualKey == _pauseSessionKey && _pauseSessionKey > 0)
+            {
+                if (isDown && !_pauseSessionHookHeld) PauseSessionPressed?.Invoke();
+                _pauseSessionHookHeld = isDown;
+            }
+            else if (virtualKey == _addMvpKey && _addMvpKey > 0)
+            {
+                if (isDown && !_addMvpHookHeld) AddMvpTimerPressed?.Invoke();
+                _addMvpHookHeld = isDown;
             }
             return new IntPtr(1);
         }
@@ -216,6 +233,8 @@ public sealed class GlobalInputHook : IDisposable
         }
     }
 
+    public static bool IsAlwaysForwarded(int virtualKey) => virtualKey == 0x2C || IsModifier(virtualKey);
+
     private static bool IsModifier(int virtualKey) => virtualKey is
         VkShift or VkControl or VkMenu or VkLShift or VkRShift or
         VkLControl or VkRControl or VkLMenu or VkRMenu or 0x5B or 0x5C;
@@ -234,9 +253,13 @@ public sealed class GlobalInputHook : IDisposable
             PollKey(_overlaysKey, ref _overlaysHeld, ToggleOverlaysPressed);
             PollKey(_timersKey, ref _timersHeld, ToggleTimersPressed);
             if (!_keyboardBlocked || foregroundProcessId == (uint)Environment.ProcessId)
+            {
                 PollKey(_databaseKey, ref _databaseHeld, ToggleDatabasePressed);
+                PollKey(_pauseSessionKey, ref _pauseSessionHeld, PauseSessionPressed);
+                PollKey(_addMvpKey, ref _addMvpHeld, AddMvpTimerPressed);
+            }
             else
-                _databaseHeld = false;
+            { _databaseHeld = false; _pauseSessionHeld = false; _addMvpHeld = false; }
 
             if (!_keyboardBlocked || foregroundProcessId == (uint)Environment.ProcessId)
             {
@@ -280,7 +303,8 @@ public sealed class GlobalInputHook : IDisposable
         if (normalized.Equals("Esc", StringComparison.OrdinalIgnoreCase))
             normalized = nameof(Key.Escape);
         if (!Enum.TryParse<Key>(normalized, true, out var key)) return 0;
-        return KeyInterop.VirtualKeyFromKey(key);
+        var virtualKey = KeyInterop.VirtualKeyFromKey(key);
+        return IsAlwaysForwarded(virtualKey) ? 0 : virtualKey;
     }
 
     public void Dispose()

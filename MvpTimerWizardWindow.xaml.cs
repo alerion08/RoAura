@@ -72,13 +72,16 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
         _monsters = new ObservableCollection<MonsterEntry>(monsters);
         MonsterView = CollectionViewSource.GetDefaultView(_monsters);
         DataContext = this;
+        Width = 900; Height = 760;
     }
 
     private void MonsterBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (_suppressMonsterTextChanged || MonsterBox.SelectedItem is not MonsterEntry monster) return;
         SelectedMonster = monster;
+        if (Draft.MonsterId != monster.Id) Draft.LocationCode = "";
         Draft.MonsterId = monster.Id;
+        Draft.SetMonsterDetails(monster);
         Draft.Name = monster.Name;
         ValidationText.Text = "";
         MoveCaretToEnd();

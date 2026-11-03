@@ -31,6 +31,13 @@ public sealed class AppSettings : INotifyPropertyChanged
     private string _databaseHotkey = "F7";
     private string _questBrowserHotkey = "F6";
     private string _questTrackerHotkey = "F5";
+    private string _pauseSessionHotkey = "Pause";
+    private string _addMvpTimerHotkey = "F4";
+    private bool _sessionPaused;
+    [JsonIgnore] public bool SessionPaused { get => _sessionPaused; set => Set(ref _sessionPaused, value); }
+    public string PauseSessionHotkey { get => _pauseSessionHotkey; set => Set(ref _pauseSessionHotkey, NormalizeHotkey(value, "Pause")); }
+    public string AddMvpTimerHotkey { get => _addMvpTimerHotkey; set => Set(ref _addMvpTimerHotkey, NormalizeHotkey(value, "F4")); }
+    [JsonIgnore] public bool FarmingHotkeyConflict => Services.FarmingHotkeys.HasConflict(this);
     private double _marketBackgroundRefreshMinutes = 10;
     private int _marketWatchHistoryRetentionDays = 30;
     private bool _timersOverlayVisible = true;
@@ -231,7 +238,9 @@ public sealed class AppSettings : INotifyPropertyChanged
         new() { Kind = RateIndicatorKind.TimeToJobLevel, X = 1050, Y = 474, TextColor = "#FFC9A7FF" },
         new() { Kind = RateIndicatorKind.ZenyPerHour, X = 1050, Y = 506, TextColor = "#FFFFE16A" },
         new() { Kind = RateIndicatorKind.ZenyTotal, X = 1050, Y = 538, TextColor = "#FFFFD45C" },
-        new() { Kind = RateIndicatorKind.SessionTime, X = 1050, Y = 570, TextColor = "#FFFFFFFF" }
+        new() { Kind = RateIndicatorKind.SessionTime, X = 1050, Y = 570, TextColor = "#FFFFFFFF" },
+        new() { Kind = RateIndicatorKind.TotalBaseExperience, Enabled = false, X = 1050, Y = 602, TextColor = "#FF6FD8FF" },
+        new() { Kind = RateIndicatorKind.TotalJobExperience, Enabled = false, X = 1050, Y = 634, TextColor = "#FFC9A7FF" }
     ];
     public ObservableCollection<MarketWatchRule> MarketWatchRules { get; set; } = [];
     public MarketWatchNotificationSettings MarketWatchNotifications { get; set; } = new();
@@ -335,6 +344,8 @@ public sealed class AppSettings : INotifyPropertyChanged
         AddMissingRateIndicator(RateIndicatorKind.ZenyPerHour, 506, "#FFFFE16A");
         AddMissingRateIndicator(RateIndicatorKind.ZenyTotal, 538, "#FFFFD45C");
         AddMissingRateIndicator(RateIndicatorKind.SessionTime, 570, "#FFFFFFFF");
+        AddMissingRateIndicator(RateIndicatorKind.TotalBaseExperience, 602, "#FF6FD8FF");
+        AddMissingRateIndicator(RateIndicatorKind.TotalJobExperience, 634, "#FFC9A7FF");
     }
 
     public RewardChannelSettings? RewardChannel(RewardKind kind) =>
@@ -358,6 +369,7 @@ public sealed class AppSettings : INotifyPropertyChanged
         RateIndicators.Add(new RateIndicatorSettings
         {
             Kind = kind,
+            Enabled = kind is not (RateIndicatorKind.TotalBaseExperience or RateIndicatorKind.TotalJobExperience),
             X = 1050,
             Y = y,
             TextColor = color
@@ -373,6 +385,9 @@ public sealed class AppSettings : INotifyPropertyChanged
         field = value;
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         if (propertyName?.EndsWith("Hotkey", StringComparison.Ordinal) == true)
+        {
             PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(QuestHotkeyConflict)));
+            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(FarmingHotkeyConflict)));
+        }
     }
 }

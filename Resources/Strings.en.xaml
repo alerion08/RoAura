@@ -689,4 +689,25 @@
     <sys:String x:Key="FollowApplicationTheme">Follow application</sys:String>
     <sys:String x:Key="AppearancePreserveCustom">Game window themes apply to the database, ROQuestie and controls. Custom transparent-overlay colors, opacity and positions are preserved.</sys:String>
     <sys:String x:Key="AppearancePreviewText">Preview of a panel, text and controls</sys:String>
+    <sys:String x:Key="TotalBaseExperience">Total B.XP</sys:String>
+    <sys:String x:Key="TotalJobExperience">Total J.XP</sys:String>
+    <sys:String x:Key="ExcludeItem">Exclude</sys:String>
+    <sys:String x:Key="SuppressCurrentOffers">Do not notify about current offers</sys:String>
+    <sys:String x:Key="PauseSession">Pause session</sys:String>
+    <sys:String x:Key="PauseSessionHotkey">Pause statistics and Gold Goblin</sys:String>
+    <sys:String x:Key="AddMvpTimerHotkey">Add an MVP timer in game</sys:String>
+    <sys:String x:Key="FarmingHotkeyConflict">Pause or Add MVP conflicts with another hotkey. The conflicting action is disabled.</sys:String>
+    <sys:String x:Key="SessionHistory">Session history</sys:String>
+    <sys:String x:Key="OpenSessionHistory">Open session history</sys:String>
+    <sys:String x:Key="SessionHistoryPriceHint">Select a session to inspect its loot. Prices are captured when items are received. Zeny is direct income; loot value is shown separately.</sys:String>
+    <sys:String x:Key="SessionHistoryError">Could not save or read session history. A failed save prevents resetting the session.</sys:String>
+    <sys:String x:Key="DeleteSession">Delete session</sys:String>
+    <sys:String x:Key="DeleteSessionConfirm">Delete the selected session and its local file?</sys:String>
+    <sys:String x:Key="MvpLocation">Location</sys:String>
+    <sys:String x:Key="MapMarkerHint">Choose a location and click the map to mark the MVP kill.</sys:String>
+    <sys:String x:Key="ClearMapMarker">Clear marker</sys:String>
+    <sys:String x:Key="MapImageUnavailable">Map image unavailable. Check your network connection.</sys:String>
+    <sys:String x:Key="HistoryDate">Date and time</sys:String>
+    <sys:String x:Key="HistoryRefresh">Refresh</sys:String>
+    <sys:String x:Key="HistoryUnitPrice">Price at pickup</sys:String>
 </ResourceDictionary>

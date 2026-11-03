@@ -111,6 +111,8 @@ public partial class App : Application
         _marketWatchSettings.MarketWatchRules.Add(added);
 
         PersistMarketWatchSettings();
+        if (added.SuppressCurrentOffers && !added.InitialOffersCaptured && _marketService is not null)
+            _ = _marketService.RefreshSnapshotAsync();
     }
 
     private void SyncWatchRuleSubscriptions()
@@ -406,6 +408,7 @@ public partial class App : Application
         {
             if (settings.ServerProfile != GameServerProfile.SpringRo) return;
             var matches = _marketWatch.Evaluate(settings.MarketWatchRules, snapshot, settings.MarketWatchHistoryRetentionDays);
+            _settingsStore?.Save(settings); // Persist initial-offer baselines before presenting alerts.
             foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
         });
         _goldGoblin = new GoldGoblinService(settings, _marketService);
@@ -414,6 +417,7 @@ public partial class App : Application
             _characterStore = new CharacterStatisticsStore();
             _characterLedger = new CharacterStatisticsLedger(_characterStore);
             _goldGoblin.Changed += OnCharacterGoldGoblinChanged;
+            _goldGoblin.LootRecorded += RecordFarmingLoot;
         }
         _overlay = new OverlayWindow(settings, _settingsStore, _goldGoblin);
         _overlay.TrackingTick += SynchronizeStatusTracking;
@@ -425,7 +429,7 @@ public partial class App : Application
                 Interval = TimeSpan.FromSeconds(30)
             };
             _characterFlushTimer.Tick += (_, _) => SafeCharacterStatisticsAction(() =>
-                _characterLedger?.Flush(DateTime.UtcNow));
+                { _characterLedger?.Flush(DateTime.UtcNow); SaveFarmingHistory(); });
             _characterFlushTimer.Start();
         }
         _activeDatabase = new GameDatabaseService(settings.ServerProfile == GameServerProfile.Toc ? GameDatabaseVersion.Toc : GameDatabaseVersion.SpringRo);
@@ -499,6 +503,8 @@ public partial class App : Application
             _inputHook.ToggleOverlaysPressed += ToggleOverlays;
             _inputHook.EscapePressed += ExitOverlayEditMode;
             _inputHook.ToggleTimersPressed += ToggleTimers;
+            _inputHook.PauseSessionPressed += () => Dispatcher.BeginInvoke(() => ToggleFarmingSessionPause());
+            _inputHook.AddMvpTimerPressed += () => Dispatcher.BeginInvoke(() => _settingsWindow?.AddMvpTimerInGame());
             _inputHook.ToggleDatabasePressed += ToggleDatabase;
             _inputHook.ToggleQuestBrowserPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestBrowser());
             _inputHook.ToggleQuestTrackerPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestTracker());
@@ -623,6 +629,7 @@ public partial class App : Application
             else
                 SafeCharacterStatisticsAction(() =>
                 {
+                    SaveFarmingHistory();
                     _characterLedger.Suspend(DateTime.UtcNow);
                     _appliedCharacterRevision = -1;
                     _overlay?.RefreshCharacterStatistics();
@@ -645,6 +652,7 @@ public partial class App : Application
             // A relog to the SAME CID still requires a fresh Zeny baseline.
             var now = DateTime.UtcNow;
             if (_characterLedger.Active == key) _characterLedger.Suspend(now);
+            SaveFarmingHistory();
             _characterLedger.SwitchTo(key, now);
             _appliedCharacterRevision = session.Revision;
             // The existing status/cooldown AID cache and equipment flags belong
@@ -659,6 +667,7 @@ public partial class App : Application
                 _settingsWindow.Settings.PacketPlayerAid = session.PlayerAid;
             }
             var record = _characterLedger.Snapshot(key, DateTime.UtcNow)!;
+            if (_settingsWindow is not null) _settingsWindow.Settings.SessionPaused = record.SessionPaused;
             _nextBaseExperience = record.NextBaseExperience;
             _nextJobExperience = record.NextJobExperience;
             _previousNextBaseExperience = _previousNextJobExperience = 0;
@@ -750,7 +759,9 @@ public partial class App : Application
             _characterStatisticsFaulted) return false;
         return SafeCharacterStatisticsValue(() =>
         {
+            if (!SaveFarmingHistory(complete: true, flush: true)) return false;
             _characterLedger.StartNewSession(DateTime.UtcNow);
+            _settingsWindow!.Settings.SessionPaused = false;
             _changingCharacterRows = true;
             try { _goldGoblin?.StartSession(); }
             finally { _changingCharacterRows = false; }
@@ -765,7 +776,9 @@ public partial class App : Application
             _characterStatisticsFaulted) return false;
         return SafeCharacterStatisticsValue(() =>
         {
+            if (!SaveFarmingHistory(complete: true, flush: true)) return false;
             _characterLedger.ResetCurrentSession(DateTime.UtcNow);
+            if (_settingsWindow is not null) _settingsWindow.Settings.SessionPaused = false;
             _changingCharacterRows = true;
             try { _goldGoblin?.Reset(); }
             finally { _changingCharacterRows = false; }
@@ -927,6 +940,7 @@ public partial class App : Application
     {
         if (session is { } captured && !TryUseCharacterSession(captured)) return;
         if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled || !_settingsWindow.Settings.PacketCaptureEnabled) return;
+        if (CurrentCharacterStatistics()?.SessionPaused == true) return;
         var item = _itemCatalog.GetValueOrDefault(packet.ItemId) ?? new ItemEntry
         {
             Id = packet.ItemId,
@@ -1021,6 +1035,7 @@ public partial class App : Application
             settings.PacketPlayerAid = packet.Aid;
         }
 
+        if (CurrentCharacterStatistics()?.SessionPaused == true) return;
         var isJob = packet.ExperienceType == 2;
         if (session.HasValue)
         {
@@ -1283,7 +1298,7 @@ public partial class App : Application
                 _settingsWindow?.Settings.AllowedProcesses ?? [], out _)) { }
     }
 
-    public void RefreshKeyboardMode()=>_inputHook?.SetKeyboardBlocked(_databaseOverlay?.IsDatabaseOpen==true || _settingsWindow?.IsQuestBrowserOpen==true);
+    public void RefreshKeyboardMode()=>_inputHook?.SetKeyboardBlocked(_databaseOverlay?.IsDatabaseOpen==true || _settingsWindow?.IsQuestBrowserOpen==true || _settingsWindow?.IsMvpWizardOpen==true);
 
     public void CloseDatabaseOverlay()
     {
@@ -1292,6 +1307,7 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
+        SaveFarmingHistory(flush: true);
         _characterFlushTimer?.Stop();
         if (_characterLedger is not null && !_characterStatisticsFaulted)
             SafeCharacterStatisticsAction(() => _characterLedger.Suspend(DateTime.UtcNow));

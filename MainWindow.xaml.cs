@@ -304,7 +304,7 @@ public partial class MainWindow : Window
             if (GoldGoblinTotalText is not null)
                 GoldGoblinTotalText.Text = $"{_goldGoblin.SessionTotal:N0} Z";
             if (GoldGoblinItemCountText is not null)
-                GoldGoblinItemCountText.Text = GoldGoblinRows.Sum(row => row.Count).ToString("N0");
+                GoldGoblinItemCountText.Text = GoldGoblinRows.Where(row => !row.Excluded).Sum(row => row.Count).ToString("N0");
             if (GoldGoblinUnpricedCountText is not null)
                 GoldGoblinUnpricedCountText.Text = GoldGoblinRows.Count(row => !row.PriceKnown).ToString("N0");
             UpdateGoldGoblinSessionTime();
@@ -345,6 +345,22 @@ public partial class MainWindow : Window
         _goldGoblin.Reprice();
     }
 
+    private void SessionHistory_Click(object sender, RoutedEventArgs e)
+    {
+        if (Application.Current is App app)
+        {
+            if (!app.FlushFarmingHistory()) return;
+            var window = new FarmingSessionHistoryWindow(app.FarmingHistory) { Owner = this };
+            AppearanceService.ApplyPalette(window, Settings.ApplicationTheme);
+            window.ShowDialog();
+        }
+    }
+
+    private void PauseSession_Click(object sender, RoutedEventArgs e)
+    {
+        if (Application.Current is App app) app.ToggleFarmingSessionPause();
+    }
+
     private void ResetGoldGoblin_Click(object sender, RoutedEventArgs e)
     {
         var result = MessageBox.Show(this,
@@ -352,7 +368,7 @@ public partial class MainWindow : Window
               "Clear all items and quantities from the current session? Price rules will be kept."),
             T("Сброс сессии Gold Goblin", "Reset Gold Goblin session"),
             MessageBoxButton.YesNo, MessageBoxImage.Question);
-        if (result == MessageBoxResult.Yes) _goldGoblin.Reset();
+        if (result == MessageBoxResult.Yes && Application.Current is App app) app.ResetCharacterStatisticsSession();
     }
 
     private void StartGoldGoblinSession_Click(object sender, RoutedEventArgs e)

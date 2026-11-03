@@ -1043,26 +1043,8 @@
                                                 </Border>
                                             </UniformGrid>
 
-                                            <GroupBox Header="{DynamicResource RespawnHint}" Margin="0,10,0,0">
-                                                <StackPanel>
-                                                    <ItemsControl ItemsSource="{Binding RespawnHints}">
-                                                        <ItemsControl.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <Border Padding="9" Margin="0,0,0,6" Background="{DynamicResource UiBackground_F8FBFF}" CornerRadius="6" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1">
-                                                                    <Grid>
-                                                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                                                        <StackPanel>
-                                                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
-                                                                            <TextBlock Text="{Binding Code}" Foreground="{DynamicResource RoMutedBrush}" FontSize="11"/>
-                                                                        </StackPanel>
-                                                                        <TextBlock Grid.Column="1" Text="{Binding Respawn}" Foreground="{DynamicResource RoBlueBrush}" FontWeight="Bold" VerticalAlignment="Center" Margin="12,0,0,0"/>
-                                                                    </Grid>
-                                                                </Border>
-                                                            </DataTemplate>
-                                                        </ItemsControl.ItemTemplate>
-                                                    </ItemsControl>
-                                                    <TextBlock Text="{DynamicResource RespawnHintHelp}" Foreground="{DynamicResource RoMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,4,0,0"/>
-                                                </StackPanel>
+                                            <GroupBox Header="{DynamicResource MvpLocation}" Margin="0,10,0,0">
+                                                <controls:MvpMapEditor/>
                                             </GroupBox>
                                         </StackPanel>
                                     </ScrollViewer>
@@ -1087,7 +1069,9 @@
                                     <TextBlock Text="{DynamicResource RewardsSettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
                                     <TextBlock Text="{DynamicResource RewardsSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/>
                                 </StackPanel>
-                                <Button Grid.Column="1" Content="{DynamicResource ResetStatisticsSession}" Click="ResetStatisticsSession_Click" Style="{StaticResource DangerButtonStyle}"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <ToggleButton Content="{DynamicResource PauseSession}" IsChecked="{Binding SessionPaused, Mode=OneWay}" Click="PauseSession_Click"/>
+                                <Button Content="{DynamicResource ResetStatisticsSession}" Click="ResetStatisticsSession_Click" Style="{StaticResource DangerButtonStyle}"/></StackPanel>
                             </Grid>
                         </Border>
 
@@ -1171,6 +1155,8 @@
                                                                                     <DataTrigger Binding="{Binding Kind}" Value="TimeToJobLevel"><Setter Property="Text" Value="{DynamicResource TimeToJobLevelLabel}"/></DataTrigger>
                                                                                     <DataTrigger Binding="{Binding Kind}" Value="ZenyPerHour"><Setter Property="Text" Value="{DynamicResource ZenyPerHourLabel}"/></DataTrigger>
                                                                                     <DataTrigger Binding="{Binding Kind}" Value="ZenyTotal"><Setter Property="Text" Value="{DynamicResource ZenyTotalLabel}"/></DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding Kind}" Value="TotalBaseExperience"><Setter Property="Text" Value="{DynamicResource TotalBaseExperience}"/></DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding Kind}" Value="TotalJobExperience"><Setter Property="Text" Value="{DynamicResource TotalJobExperience}"/></DataTrigger>
                                                                                     <DataTrigger Binding="{Binding Kind}" Value="SessionTime"><Setter Property="Text" Value="{DynamicResource SessionTime}"/></DataTrigger>
                                                                                 </Style.Triggers>
                                                                             </Style>
@@ -1399,6 +1385,7 @@
                             <TextBlock Text="{DynamicResource GoldGoblinDescription}" Style="{StaticResource RoCaptionTextStyle}" TextWrapping="Wrap" Margin="0,2,0,0"/>
                         </StackPanel></Border>
                             <UniformGrid Grid.Row="1" Rows="1" Columns="4" Margin="0,0,0,8">
+                                <ToggleButton Content="{DynamicResource PauseSession}" IsChecked="{Binding SessionPaused, Mode=OneWay}" Click="PauseSession_Click"/>
                                 <Button Content="{DynamicResource ExportCsv}" Click="ExportGoldGoblinCsv_Click" MinWidth="130"/>
                                 <Button Content="{DynamicResource StartSession}" Click="StartGoldGoblinSession_Click" Style="{StaticResource GoldButtonStyle}" MinWidth="140"/>
                                 <Button Content="{DynamicResource ResetSession}" Click="ResetGoldGoblin_Click" Style="{StaticResource DangerButtonStyle}" MinWidth="145"/>
@@ -1520,6 +1507,10 @@
                                     </Grid>
                                 </Grid></Border>
                             </TabItem>
+                            <TabItem Header="{DynamicResource SessionHistory}"><StackPanel Margin="18">
+                                <TextBlock Text="{DynamicResource SessionHistoryPriceHint}" TextWrapping="Wrap" Margin="0,0,0,12"/>
+                                <Button Content="{DynamicResource OpenSessionHistory}" Click="SessionHistory_Click" HorizontalAlignment="Left"/>
+                            </StackPanel></TabItem>
                             <TabItem Header="{DynamicResource GoldGoblinRulesTab}">
                                 <Border Margin="0,8,0,0" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="8" Background="{DynamicResource UiBackground_FFFFFF}">
                                 <Grid Margin="14">
@@ -1533,6 +1524,8 @@
                                     </Grid>
                                     <DataGrid x:Name="GoldGoblinRulesGrid" Grid.Row="2" ItemsSource="{Binding ActiveGoldGoblinPriceRules}" AutoGenerateColumns="False" CanUserAddRows="False">
                                         <DataGrid.Columns>
+                                        <DataGridCheckBoxColumn Header="{DynamicResource ExcludeItem}" Binding="{Binding Exclude, UpdateSourceTrigger=PropertyChanged}" Width="110"/>
+
                                             <DataGridTextColumn Header="Item ID" Binding="{Binding ItemId}" IsReadOnly="True" Width="100"/>
                                             <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
                                             <DataGridTemplateColumn Header="{DynamicResource VendingPrice}" Width="180"><DataGridTemplateColumn.CellTemplate><DataTemplate><CheckBox IsChecked="{Binding UseVendingPrice, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.SupportsMarket, RelativeSource={RelativeSource AncestorType=DataGrid}}" HorizontalAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>

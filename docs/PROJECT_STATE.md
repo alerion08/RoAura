@@ -1,5 +1,15 @@
 # Project state
 
+## Active development — farming sessions and MVP tools (2026-11-03)
+
+- Branch: `feature/farming-sessions-mvp-tools`, based on main `57bfbdfad3e3b4dbb4d3ff6b6f4c86742b334b60`. Version remains 3.3.0; no release or merge.
+- Scope: optional Total B.XP / Total J.XP; shared character-session pause and hotkey; Print Screen forwarding; group-wide sliding reward aggregation; excluded price rules; silent current-offer market baseline; local session history with acquisition-time prices; selectable MVP map/marker, passive hover preview and in-game creation hotkey.
+- Shared clock semantics retained: login/loot/Zeny do not start elapsed time; first EXP or explicit Start does. History can record earlier loot with zero elapsed time. Pause persists per server/CID outside presets; balance baselines and live progress still observe packets.
+- History is prospective: pre-upgrade loot cannot acquire invented historical prices. LocalDirectory/GoldGoblinSessions stores one GUID-named file per session. Pickup lines retain price/source/known/excluded state. Deletion prevents queued recreation of that session.
+- Market suppression seeds from the first successful complete live scan requested after adding the option. Baseline keys persist with the rule, even outside its price limit. Failed scans do not seed it.
+- MVP markers use normalized image coordinates and the existing public minimap source. Missing/custom images remain unavailable rather than guessed.
+- Validation: in-memory XML parsing passed. Windows tests/native smoke/package checks pending for the implementation commit. Actual gameplay, Print Screen, pause/relog, mixed-DPI maps, tooltip visibility and new form acceptance remain manual.
+
 ## Current baseline — updated 2026-11-03
 
 - Stable release: **3.3.0**, published 2026-11-02: https://github.com/alerion08/RoAura/releases/tag/v3.3.0

@@ -590,3 +590,15 @@ per-page wiki/history and upstream script provenance remain available.
 Full release Windows tests, native input and installer verification passed in run 41441524384.
 PR #10 was merged; v3.3.0 and both distributions were published on 2026-11-02.
 Remaining real-game/mixed-DPI acceptance is documented in release notes.
+
+## Farming sessions and MVP tools — development 2026-11-03
+
+- [ ] Optional Total B.XP / Total J.XP retain session totals across level changes/presets, reset correctly and isolate server/CID.
+- [ ] Pause from both pages and hotkey freezes time/EXP/loot/Zeny; balance changes during pause are excluded on resume; relog/restart preserves pause.
+- [ ] Real Print Screen works with RoAura, passive overlays, database and quests; modifier/screenshot shortcuts pass.
+- [ ] EXP then loot then EXP within the interval extends the initial line; quiet gap separates bursts; groups and line limits remain independent.
+- [ ] Exclude omits price/count even with manual prices; re-enable restores valuation; ToC/SpringRO remain separate.
+- [ ] Market star/inline add: checked option seeds on a complete live scan, survives restart, ignores old offers and alerts new seller/price. Unchecked behavior unchanged; errors never seed.
+- [ ] History shows date, duration, character, count, direct Zeny and loot value; same item at different pickup prices keeps both. Start/reset archives before clearing; deletion removes the file and cannot resurrect from queued writes.
+- [ ] MVP map/marker persists in settings/presets. Missing images are explicit. Hover does not consume clicks/focus; verify F9, database/settings, minimized/switching clients and mixed/negative DPI.
+- [ ] In-game Add MVP creates/cancels, returns exact-client focus and supports packet-off manual timers. Conflicts leave existing hotkeys intact.

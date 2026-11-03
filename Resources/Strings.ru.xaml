@@ -689,4 +689,25 @@
     <sys:String x:Key="FollowApplicationTheme">Как в приложении</sys:String>
     <sys:String x:Key="AppearancePreserveCustom">Тема игровых окон применяется к базе данных, ROQuestie и элементам управления. Ваши цвета прозрачных оверлеев, прозрачность и расположение сохраняются.</sys:String>
     <sys:String x:Key="AppearancePreviewText">Пример панели, текста и элементов управления</sys:String>
+    <sys:String x:Key="TotalBaseExperience">Total B.XP</sys:String>
+    <sys:String x:Key="TotalJobExperience">Total J.XP</sys:String>
+    <sys:String x:Key="ExcludeItem">Не учитывать</sys:String>
+    <sys:String x:Key="SuppressCurrentOffers">Не уведомлять о текущих предложениях</sys:String>
+    <sys:String x:Key="PauseSession">Пауза сессии</sys:String>
+    <sys:String x:Key="PauseSessionHotkey">Пауза статистики и Gold Goblin</sys:String>
+    <sys:String x:Key="AddMvpTimerHotkey">Добавить MVP-таймер в игре</sys:String>
+    <sys:String x:Key="FarmingHotkeyConflict">Клавиши паузы и добавления MVP совпадают с другими назначениями. Конфликтующее действие отключено.</sys:String>
+    <sys:String x:Key="SessionHistory">История сессий</sys:String>
+    <sys:String x:Key="OpenSessionHistory">Открыть историю сессий</sys:String>
+    <sys:String x:Key="SessionHistoryPriceHint">Выберите сессию для просмотра добычи. Цена зафиксирована на момент получения предмета. Zeny — прямой доход; стоимость добычи показана отдельно.</sys:String>
+    <sys:String x:Key="SessionHistoryError">Не удалось сохранить или прочитать историю сессий. Сброс сессии отменён при ошибке сохранения.</sys:String>
+    <sys:String x:Key="DeleteSession">Удалить сессию</sys:String>
+    <sys:String x:Key="DeleteSessionConfirm">Удалить выбранную сессию и её локальный файл?</sys:String>
+    <sys:String x:Key="MvpLocation">Локация</sys:String>
+    <sys:String x:Key="MapMarkerHint">Выберите локацию и нажмите на карту, чтобы отметить место убийства MVP.</sys:String>
+    <sys:String x:Key="ClearMapMarker">Убрать отметку</sys:String>
+    <sys:String x:Key="MapImageUnavailable">Изображение карты недоступно. Проверьте подключение к сети.</sys:String>
+    <sys:String x:Key="HistoryDate">Дата и время</sys:String>
+    <sys:String x:Key="HistoryRefresh">Обновить</sys:String>
+    <sys:String x:Key="HistoryUnitPrice">Цена при добыче</sys:String>
 </ResourceDictionary>

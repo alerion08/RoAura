@@ -15,6 +15,7 @@ internal static class QuestInputProbe
         public long Handle {get;set;}
         public int Clicks {get;set;}
         public int Keys {get;set;}
+        public int Screenshots {get;set;}
         public List<string> Modifiers {get;set;}=[];
     }
     internal static bool TryStart(App app,StartupEventArgs args)
@@ -39,6 +40,7 @@ internal static class QuestInputProbe
             // The fake game has no native Alt menu. Still record/forward Alt keys,
             // but suppress the frame's SC_KEYMENU modal loop, unlike a game client.
             if(message==0x112 && (wp.ToInt64()&0xFFF0)==0xF100){handled=true;return IntPtr.Zero;}
+            if (message == 0x101 && wp.ToInt32() == 0x2C) { report.Screenshots++; Write(); }
             if(message is 0x100 or 0x104)
             {
                 var key=wp.ToInt32();

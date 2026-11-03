@@ -20,6 +20,7 @@ public sealed class GoldGoblinService
     private readonly Dictionary<string, (IReadOnlyList<CharacterLootCount> Rows, DateTime? Started)> _serverRows = [];
     public ObservableCollection<GoldGoblinLootRow> Rows { get; } = [];
     public event Action? Changed;
+    public event Action<int, string, long, long, string, bool, bool>? LootRecorded;
     public long SessionTotal => Rows.Sum(row => row.Total);
     public DateTime? SessionStartedUtc { get; private set; }
 
@@ -59,7 +60,7 @@ public sealed class GoldGoblinService
 
     public void AddLoot(int itemId, string name, long count)
     {
-        if (count <= 0) return;
+        if (count <= 0 || _settings.SessionPaused) return;
         if (!AppEnvironment.CharacterSessionsEnabled) SessionStartedUtc ??= DateTime.UtcNow;
         var row = Rows.FirstOrDefault(item => item.ItemId == itemId);
         if (row is null)
@@ -70,9 +71,15 @@ public sealed class GoldGoblinService
             Watch(row);
             Rows.Add(row);
         }
+        row.Excluded = IsExcluded(itemId, name);
         row.Count += count;
         Changed?.Invoke();
+        LootRecorded?.Invoke(itemId, name, count, row.Cost, row.PriceSource, row.PriceKnown, row.Excluded);
     }
+
+    public bool IsExcluded(int itemId, string name) => _settings.ActiveGoldGoblinPriceRules
+        .FirstOrDefault(rule => rule.ItemId > 0 ? rule.ItemId == itemId :
+            string.Equals(rule.Name, name, StringComparison.CurrentCultureIgnoreCase))?.Exclude == true;
 
     public long ResolveUnitPrice(int itemId, string name)
         => ResolvePriceInfo(itemId, name).Value;
@@ -84,6 +91,7 @@ public sealed class GoldGoblinService
             item.ItemId > 0
                 ? item.ItemId == itemId
                 : string.Equals(item.Name, name, StringComparison.CurrentCultureIgnoreCase));
+        if (rule?.Exclude == true) return (0, "Excluded", true);
         if (rule is not null)
         {
             if (GameServerProfile.SupportsMarket(_settings.ServerProfile) && rule.UseVendingPrice && _market.TryGetMinimumSellPrice(itemId, name, out var vending))
@@ -135,6 +143,7 @@ public sealed class GoldGoblinService
                 var price = ResolvePriceInfo(item.ItemId, item.Name);
                 row.SetCalculatedCost(price.Value, price.Source, price.Known);
                 if (item.HasManualCost) row.Cost = item.ManualUnitCost;
+                row.Excluded = IsExcluded(item.ItemId, item.Name);
                 row.Count = item.Count;
                 Watch(row);
                 Rows.Add(row);
@@ -161,6 +170,7 @@ public sealed class GoldGoblinService
 
     public void Reprice()
     {
+        foreach (var row in Rows) row.Excluded = IsExcluded(row.ItemId, row.Item);
         foreach (var row in Rows.Where(item => !item.HasManualCost))
         {
             var price = ResolvePriceInfo(row.ItemId, row.Item);

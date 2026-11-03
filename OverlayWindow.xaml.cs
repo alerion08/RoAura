@@ -130,6 +130,7 @@ public partial class OverlayWindow : Window
     public OverlayWindow(AppSettings settings, SettingsStore store, GoldGoblinService goldGoblin)
     {
         InitializeComponent();
+        Closed += (_, _) => HideMvpMap();
         _settings = settings;
         _store = store;
         _goldGoblin = goldGoblin;
@@ -160,6 +161,7 @@ public partial class OverlayWindow : Window
             UpdateHostVisibility();
             UpdateCooldowns();
             UpdateRateIndicators();
+            RefreshMvpMapHover();
         };
         _timer.Start();
         Loaded += (_, _) => SyncOverlayToGameWindow(true);
@@ -524,6 +526,7 @@ public partial class OverlayWindow : Window
 
         var now = DateTime.UtcNow;
         var window = TimeSpan.FromMilliseconds(group.AggregationWindowMs);
+        RewardAggregation.Refresh(group, now);
         var notification = group.Notifications.FirstOrDefault(item =>
             item.Kind == kind && item.AggregationKey == aggregationKey &&
             now - item.LastUpdatedUtc <= window);
@@ -732,6 +735,8 @@ public partial class OverlayWindow : Window
         {
             indicator.ValueText = indicator.Kind switch
             {
+                RateIndicatorKind.TotalBaseExperience => $"Total B.XP: {_sessionBaseExperience:N0}",
+                RateIndicatorKind.TotalJobExperience => $"Total J.XP: {_sessionJobExperience:N0}",
                 RateIndicatorKind.XpPerHour => $"XP/h: {xpPerHour:N0}",
                 RateIndicatorKind.TimeToLevel => _settings.Language == "en"
                     ? $"Time to level: {timeToLevel}"
@@ -755,7 +760,7 @@ public partial class OverlayWindow : Window
             row.Kind == RateIndicatorKind.SessionTime);
         if (indicator is null) return;
         var formatted = FormatElapsed(time);
-        var text = _settings.Language == "en" ? $"Session time: {formatted}" : $"Время сессии: {formatted}";
+        var text = (_settings.SessionPaused ? "⏸ " : "") + (_settings.Language == "en" ? $"Session time: {formatted}" : $"Время сессии: {formatted}");
         if (indicator.ValueText != text) indicator.ValueText = text;
     }
 
@@ -783,6 +788,8 @@ public partial class OverlayWindow : Window
         {
             indicator.ValueText = indicator.Kind switch
             {
+                RateIndicatorKind.TotalBaseExperience => $"Total B.XP: {record?.SessionBaseExperience ?? 0:N0}",
+                RateIndicatorKind.TotalJobExperience => $"Total J.XP: {record?.SessionJobExperience ?? 0:N0}",
                 RateIndicatorKind.XpPerHour => $"XP/h: {baseRate:N0}",
                 RateIndicatorKind.TimeToLevel => _settings.Language == "en"
                     ? $"Time to level: {timeToLevel}" : $"До уровня: {timeToLevel}",

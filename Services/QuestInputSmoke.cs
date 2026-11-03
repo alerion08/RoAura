@@ -60,6 +60,12 @@ internal static class QuestInputSmoke
                 }
                 if(buttons.Select(b=>b.ActualHeight).Distinct().Count()!=1 || buttons.Any(b=>b.Content is string t && char.IsUpper(t[0])))
                     throw new InvalidOperationException("Tracker buttons must have equal heights and lowercase labels.");
+                // Screen capture must reach the game even with RoAura's keyboard suppression enabled.
+                var screenshots = Read(reportPath)!.Screenshots;
+                hook.SetKeyboardBlocked(true);
+                Key(0x2C,true); Key(0x2C,false);
+                await Until(()=>Read(reportPath)!.Screenshots > screenshots, "Print Screen bypasses blocked keyboard");
+                hook.SetKeyboardBlocked(false);
                 // Real OS mouse delivery, not RaiseEvent: buttons consume clicks without activation.
                 var originalStripHandle=new WindowInteropHelper(strip).Handle;
                 var clicks=Read(reportPath)!.Clicks;

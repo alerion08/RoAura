@@ -594,3 +594,14 @@ per-page wiki/history and upstream script provenance remain available.
 Full release Windows tests, native input and installer verification passed in run 41441524384.
 PR #10 was merged; v3.3.0 and both distributions were published on 2026-11-02.
 Remaining real-game/mixed-DPI acceptance is documented in release notes.
+
+## Farming sessions and MVP tools — development 2026-11-03
+
+- Optional Total B.XP / Total J.XP are initially disabled and use existing indicator style/placement/presets.
+- Statistics and Gold Goblin share character-session pause (default Pause key). Paused elapsed time/EXP/loot/income freeze; balance baselines continue. Session time shows a pause marker.
+- Print Screen and modifiers always pass the hook, including keyboard suppression. Screenshot keys cannot be consuming hotkeys.
+- Each reward extends all still-aggregating rows of its group; a quiet gap starts a new burst. Groups remain independent.
+- Exclude price rules remove value and counted quantity even with a manual override; raw history retains excluded acquisitions.
+- The shared market editor offers silent current-offer baseline, established by a requested successful live scan and retained with the rule.
+- Gold Goblin History opens a session list; selection shows timestamped pickup prices. Direct Zeny and loot value are separate. Confirmed deletion removes the file and cancels queued recreation.
+- MVP Location selects a map and marker. Changing the map clears its marker. Passive hover preview is nonactivating and mouse-transparent. Add MVP in game defaults F4, follows the exact client, uses the game theme and restores focus. New conflicting bindings disable themselves.

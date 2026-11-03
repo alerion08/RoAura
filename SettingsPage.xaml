@@ -66,6 +66,11 @@
      <TextBlock Grid.Row="6" Text="{DynamicResource QTrackerHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding QuestTrackerHotkey}"/>
 
     </Grid>
+    <TextBlock Text="{DynamicResource FarmingHotkeyConflict}" Visibility="{Binding FarmingHotkeyConflict, Converter={StaticResource QuestBoolVisibility}}" Foreground="{DynamicResource UiForeground_B42318}" TextWrapping="Wrap" Margin="0,12,0,0"/>
+    <Grid Margin="0,8,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="150"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <TextBlock Text="{DynamicResource PauseSessionHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding PauseSessionHotkey}"/>
+    <TextBlock Grid.Row="1" Text="{DynamicResource AddMvpTimerHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding AddMvpTimerHotkey}"/>
+    </Grid>
     <TextBlock Text="{DynamicResource QHotkeyConflict}" Visibility="{Binding QuestHotkeyConflict, Converter={StaticResource QuestBoolVisibility}}" Foreground="{DynamicResource UiForeground_B42318}" TextWrapping="Wrap" Margin="0,12,0,0"/>
    </StackPanel></ScrollViewer></TabItem>
    <TabItem Header="{DynamicResource CharacterManager}"><Grid Margin="18"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
