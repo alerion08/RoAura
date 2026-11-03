@@ -147,10 +147,22 @@ verification; there are zero server-verified records.
   a separate aura-based book recovery. The three blocking choices have unknown
   correctness until the trial situation is known; no aura mapping is fabricated.
   Antonio Jr.'s coordinates identify a building entrance, not indoor Jay Greg.
-- Current validation: both guides were constructed in an in-memory SQLite with
-  the production semantic writer and current five migrations; integrity/FK/span
-  validation and seven new focused regression cases passed. Local filesystem is
-  read-only; full suite and export publication are pending GitHub CI.
+- Validation: both guides were constructed in an in-memory SQLite with the
+  production semantic writer and current five migrations; integrity/FK/span
+  validation and seven new focused cases passed. Both GitHub suites passed all
+  337 tests. Full offline export, three SQLite checks and preservation comparison
+  were completed before the final checkpoint was recorded. Independent download
+  checks preserved all 2,750 original semantic stage identities/order/text,
+  the prior 1,059 complete descriptions and 172 branch descriptions, plus all
+  original provenance/wiki page/wiki step rows (939 / 286 / 3,420).
+  All 18 published descriptions equal their reviewed curation fields.
+  The 41-table semantic export passes integrity/FK/span validation.
+
+Verified publication: [research CI #41580400586](https://github.com/alerion08/RoAura/actions/runs/41580400586)
+and [fast CI #41580400471](https://github.com/alerion08/RoAura/actions/runs/41580400471).
+Implementation: `402983f4a46d3f51919c65da4a23ce5ec31fceb2`;
+generated database: `09074e830511f3d437d596985a9a23139743474a`.
+No in-game verification was performed.
 
 Previous Thief-family checkpoint:
 

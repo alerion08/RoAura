@@ -11,7 +11,8 @@ Authoritative database-phase specification: `research/quest-database/SEMANTIC_DA
 Latest addition: Assassin/Rogue skill quests, 18 stages. Sonic activity levels,
 three alternative jewel sites, conditional transcended relearn, two distinct
 Rogue trials and exact dialogue/passwords are source-pinned. In-memory production
-writer validation and seven focused tests passed; full CI/export are pending.
+writer validation and seven focused tests passed. Both GitHub suites passed all
+337 tests; the published export and preservation checks passed.
 
 Branch `research/quest-database`: normalized semantic SQLite schema 5 and
 source-pinned curation are implemented. Active selection retains 216 catalog
