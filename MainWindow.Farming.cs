@@ -24,7 +24,8 @@ public partial class MainWindow
         {
             Tag = "RoAura.GameInterface", StartAfterCreate = true, WindowStyle = WindowStyle.None,
             ResizeMode = ResizeMode.NoResize, AllowsTransparency = true, ShowInTaskbar = false,
-            WindowStartupLocation = WindowStartupLocation.Manual, Topmost = true
+            WindowStartupLocation = WindowStartupLocation.Manual, Topmost = true,
+            Background = System.Windows.Media.Brushes.Transparent
         };
         AppearanceService.ApplyPalette(wizard, AppearanceService.Resolve(Settings.ApplicationTheme, Settings.GameOverlayTheme, true));
         _gameMvpWizard = wizard;
@@ -34,14 +35,28 @@ public partial class MainWindow
             if (!QuestWindowNative.IsWindow(game) || Settings.ServerProfile != server ||
                 !ForegroundProcess.TryFindWindow(Settings.AllowedProcesses, out var current, out var rectangle) || current != game)
             { wizard.Close(); return; }
+            if (wizard.IsDragging) return;
             var gameDpi = QuestWindowNative.Scale(game);
             var width = Math.Min(800 * gameDpi, rectangle.Right - rectangle.Left);
             var height = Math.Min(540 * gameDpi, rectangle.Bottom - rectangle.Top);
             var dpi = QuestWindowNative.Scale(new WindowInteropHelper(wizard).Handle);
             wizard.MinWidth = Math.Min(580, width / dpi); wizard.MinHeight = Math.Min(360, height / dpi);
-            QuestWindowNative.Place(wizard, new Rect(rectangle.Left + (rectangle.Right-rectangle.Left-width)/2,
-                rectangle.Top + (rectangle.Bottom-rectangle.Top-height)/2, width, height));
+            var x=Settings.MvpAddWindowX is double savedX && double.IsFinite(savedX) ? rectangle.Left+savedX*gameDpi : rectangle.Left+(rectangle.Right-rectangle.Left-width)/2;
+            var y=Settings.MvpAddWindowY is double savedY && double.IsFinite(savedY) ? rectangle.Top+savedY*gameDpi : rectangle.Top+(rectangle.Bottom-rectangle.Top-height)/2;
+            QuestWindowNative.Place(wizard,new Rect(
+                Math.Clamp(x,rectangle.Left,Math.Max(rectangle.Left,rectangle.Right-width)),
+                Math.Clamp(y,rectangle.Top,Math.Max(rectangle.Top,rectangle.Bottom-height)),width,height));
         }
+        wizard.PositionChangedByUser += () =>
+        {
+            if (!ForegroundProcess.TryFindWindow(Settings.AllowedProcesses,out var target,out var rect) || target!=game) return;
+            var position=QuestWindowNative.Bounds(new WindowInteropHelper(wizard).Handle);
+            var dpi=QuestWindowNative.Scale(game);
+            Settings.MvpAddWindowX=(position.Left-rect.Left)/dpi;
+            Settings.MvpAddWindowY=(position.Top-rect.Top)/dpi;
+            _store.Save(Settings);
+            Place();
+        };
         follow.Tick += (_, _) => Place();
         wizard.SourceInitialized += (_, _) => { QuestWindowNative.Configure(wizard, false, false); Place(); };
         wizard.Loaded += (_, _) =>

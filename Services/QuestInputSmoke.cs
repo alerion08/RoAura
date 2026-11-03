@@ -233,13 +233,25 @@ internal static class QuestInputSmoke
                     workspace.Settings.ServerProfile = GameServerProfile.SpringRo;
                     QuestWindowNative.SetForegroundWindow(game); await Pause();
                     workspace.Settings.GameOverlayTheme="Dark";
-                    var capture=new RoAura.Controls.HotkeyCaptureBox {Value=workspace.Settings.AddMvpTimerHotkey,Margin=new Thickness(12)};
+                    var capture=new RoAura.Controls.HotkeyCaptureBox {Margin=new Thickness(12)};
+                    capture.SetBinding(RoAura.Controls.HotkeyCaptureBox.ValueProperty,new System.Windows.Data.Binding(nameof(AppSettings.AddMvpTimerHotkey)) {Source=workspace.Settings,Mode=System.Windows.Data.BindingMode.TwoWay});
                     var captureWindow=new Window {Width=350,Height=130,Content=capture,Topmost=true,WindowStartupLocation=WindowStartupLocation.CenterScreen};
                     captureWindow.Show();captureWindow.Activate();await Pause();
                     Click(capture.PointToScreen(new Point(capture.ActualWidth/2,capture.ActualHeight/2)));
                     await Press("Ctrl+Shift+F4");
                     if(HotkeyChord.Canonical(capture.Value)!="CTRL+SHIFT+F4")throw new InvalidOperationException("Keyboard chord capture failed.");
-                    workspace.Settings.AddMvpTimerHotkey=capture.Value;
+                    if(HotkeyChord.Canonical(workspace.Settings.AddMvpTimerHotkey)!="CTRL+SHIFT+F4" ||
+                        capture.GetBindingExpression(RoAura.Controls.HotkeyCaptureBox.ValueProperty) is null)
+                        throw new InvalidOperationException("Hotkey capture detached its settings binding.");
+                    var clear=AllButtons(capture).Single(button=>Equals(button.Content,"×"));
+                    Click(clear.PointToScreen(new Point(clear.ActualWidth/2,clear.ActualHeight/2)));
+                    await Pause();
+                    if(workspace.Settings.AddMvpTimerHotkey!="None" || hook.IsHotkeyEnabled("Ctrl+Shift+F4"))
+                        throw new InvalidOperationException("Visible unassign action did not disable the shortcut.");
+                    Click(capture.PointToScreen(new Point(capture.ActualWidth/2,capture.ActualHeight/2)));
+                    await Press("Ctrl+Shift+F4");
+                    if(HotkeyChord.Canonical(workspace.Settings.AddMvpTimerHotkey)!="CTRL+SHIFT+F4")
+                        throw new InvalidOperationException("Reassignment after clearing failed.");
                     await Pause();
                     if(Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible))throw new InvalidOperationException("Assigning a chord invoked it.");
                     captureWindow.Close();QuestWindowNative.SetForegroundWindow(game);await Pause();
@@ -250,15 +262,30 @@ internal static class QuestInputSmoke
                     await Until(()=>Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible), "in-game MVP hotkey opens wizard");
                     var mvpWizard=Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w=>w.IsVisible);
                     if(!AppearanceService.IsGameWindow(mvpWizard))throw new InvalidOperationException("MVP wizard lost its game theme scope.");
-                    mvpWizard.MonsterBox.SelectedIndex=0; await Pause();
+                    SaveDesktop(mvpWizard,"mvp-empty-native");
+                    Click(mvpWizard.MonsterBox.PointToScreen(new Point(18,mvpWizard.MonsterBox.ActualHeight/2)));
+                    await Until(()=>mvpWizard.MonsterBox.IsDropDownOpen,"MVP search opens from content");
+                    var editor=(TextBox)mvpWizard.MonsterBox.Template.FindName("PART_EditableTextBox",mvpWizard.MonsterBox);
+                    await Press("D");await Press("R");
+                    if(editor.Text.ToLowerInvariant()!="dr" || editor.SelectionLength!=0)
+                        throw new InvalidOperationException("MVP typing lost characters or selected input.");
+                    mvpWizard.MonsterBox.SelectedIndex=0;await Pause();mvpWizard.MonsterBox.IsDropDownOpen=false;await Pause();
                     if(mvpWizard.Draft.MonsterId<=0)throw new InvalidOperationException("In-game MVP selection failed.");
                     await Pause(); host.RefreshNow();
                     var mvpBounds=QuestWindowNative.Bounds(new WindowInteropHelper(mvpWizard).Handle);
                     var mvpCenter=new Point(mvpBounds.X+mvpBounds.Width/2,mvpBounds.Y+mvpBounds.Height/2);
                     if(((Canvas)host.TextWindow.Content).Clip?.FillContains(host.TextWindow.PointFromScreen(mvpCenter))!=false)
                         throw new InvalidOperationException("Quest tracker paints above the MVP timer form.");
-                    if(mvpWizard.Draft.RespawnHints.FirstOrDefault() is { } spawn)
-                        mvpWizard.Draft.LocationCode=spawn.Code;
+                    if(mvpWizard.Draft.RespawnHints.FirstOrDefault() is { } spawn && mvpWizard.Draft.LocationCode!=spawn.Code)
+                        throw new InvalidOperationException("The first MVP map was not selected automatically.");
+                    var formBefore=QuestWindowNative.Bounds(new WindowInteropHelper(mvpWizard).Handle);
+                    var grip=mvpWizard.DragHandle.PointToScreen(new Point(mvpWizard.DragHandle.ActualWidth/2,8));
+                    SetCursorPos((int)grip.X,(int)grip.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});await Pause(80);
+                    SetCursorPos((int)grip.X-45,(int)grip.Y-15);await Pause(160);
+                    Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=4}}});await Pause(400);
+                    var formAfter=QuestWindowNative.Bounds(new WindowInteropHelper(mvpWizard).Handle);
+                    if(Math.Abs(formAfter.X-formBefore.X)<10 || workspace.Settings.MvpAddWindowX is null)
+                        throw new InvalidOperationException("MVP form drag was recentered or not persisted.");
                     await Pause();SaveDesktop(mvpWizard,"mvp-add-native");
                     var create=AllButtons(mvpWizard).Single(button=>Equals(button.Content,LocalizationService.Get("CreateMvpTimer")));
                     Click(create.PointToScreen(new Point(create.ActualWidth/2,create.ActualHeight/2)));
@@ -276,6 +303,25 @@ internal static class QuestInputSmoke
                     Click(cancel.PointToScreen(new Point(cancel.ActualWidth/2,cancel.ActualHeight/2)));
                     await Until(()=>!Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible) && QuestWindowNative.GetForegroundWindow()==game,"MVP cancel and exact-game focus restore");
                     if(workspace.Settings.ActiveMvpTimers.Count!=beforeTimers)throw new InvalidOperationException("Cancel created an MVP timer.");
+                    var oldTimerX=workspace.Settings.TimersX;var oldTimerY=workspace.Settings.TimersY;
+                    try
+                    {
+                        // Off-screen model coordinates must get a visible edit preview without being rewritten.
+                        workspace.Settings.TimersX=5000;workspace.Settings.TimersY=5000;
+                        ((System.Windows.Controls.Primitives.ToggleButton)settingsWindow.FindName("TimerMoveModeButton")).IsChecked=true;
+                        hook.SetEscapeEnabled(true);await Pause(350);
+                        var panel=(FrameworkElement)ordinary.FindName("MvpTimerPanel");
+                        if(workspace.Settings.TimersX!=5000||workspace.Settings.TimersY!=5000)throw new InvalidOperationException("Preview rewrote timer coordinates.");
+                        var grab=panel.PointToScreen(new Point(panel.ActualWidth/2,panel.ActualHeight/2));
+                        SetCursorPos((int)grab.X,(int)grab.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});await Pause(80);
+                        SetCursorPos((int)grab.X-80,(int)grab.Y-40);await Pause(150);
+                        Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=4}}});await Pause();
+                        if(workspace.Settings.TimersX>=5000||workspace.Settings.TimersY>=5000)throw new InvalidOperationException("MVP timer panel did not move.");
+                        await Press(workspace.Settings.FinishMoveHotkey);
+                        await Until(()=>!ordinary.IsBusyEditing,"MVP timer placement finishes");
+                        settingsWindow.Hide();QuestWindowNative.SetForegroundWindow(game);await Pause();
+                    }
+                    finally {ordinary.EndAllEditModes();hook.SetEscapeEnabled(false);workspace.Settings.TimersX=oldTimerX;workspace.Settings.TimersY=oldTimerY;}
                 }
                 finally { ((MainWindow)settingsWindow).CloseMvpWizard();workspace.Settings.ServerProfile=previousServer;workspace.Settings.AddMvpTimerHotkey=previousAddKey;workspace.Settings.GameOverlayTheme=previousGameTheme; }
                 var previousAppTheme=workspace.Settings.ApplicationTheme;

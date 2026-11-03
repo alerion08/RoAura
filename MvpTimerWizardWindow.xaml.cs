@@ -4,6 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Threading;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Controls.Primitives;
 using RoAura.Models;
 using RoAura.Services;
 
@@ -18,6 +21,19 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
     private MonsterEntry? _selectedMonster;
     private TextBox? _monsterEditor;
     private bool _suppressMonsterTextChanged;
+
+    public bool IsDragging { get; private set; }
+    public event Action? PositionChangedByUser;
+    private void ShellBorder_SizeChanged(object sender, SizeChangedEventArgs e) =>
+        ShellBorder.Clip = new RectangleGeometry(new Rect(0,0,ShellBorder.ActualWidth,ShellBorder.ActualHeight),10,10);
+    private void DragHandle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton != MouseButton.Left) return;
+        e.Handled = true;
+        IsDragging = true;
+        try { DragMove(); }
+        finally { IsDragging = false; PositionChangedByUser?.Invoke(); }
+    }
 
     public ICollectionView MonsterView { get; }
     public MvpTimer Draft { get; } = new();
@@ -82,6 +98,7 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
         if (Draft.MonsterId != monster.Id) Draft.LocationCode = "";
         Draft.MonsterId = monster.Id;
         Draft.SetMonsterDetails(monster);
+        Draft.SelectFirstLocationIfMissing();
         Draft.Name = monster.Name;
         ValidationText.Text = "";
         MoveCaretToEnd();
@@ -92,7 +109,11 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
         MonsterBox.ApplyTemplate();
         _monsterEditor = MonsterBox.Template.FindName("PART_EditableTextBox", MonsterBox) as TextBox;
         if (_monsterEditor is not null)
+        {
+            _monsterEditor.TextChanged -= MonsterEditor_TextChanged;
             _monsterEditor.TextChanged += MonsterEditor_TextChanged;
+            _monsterEditor.GotKeyboardFocus += (_, _) => _monsterEditor.SelectionLength = 0;
+        }
     }
 
     private void MonsterEditor_TextChanged(object sender, TextChangedEventArgs e)
@@ -117,31 +138,52 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
         finally { _suppressMonsterTextChanged = false; }
     }
 
+    private void MonsterBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (_monsterEditor is null) return;
+        var source=e.OriginalSource as DependencyObject;
+        for(var node=source;node is not null && node!=MonsterBox;)
+        {
+            if(node is ToggleButton or ComboBoxItem)return;
+            node=node is Visual ? VisualTreeHelper.GetParent(node) : LogicalTreeHelper.GetParent(node);
+        }
+        var point=e.GetPosition(_monsterEditor);
+        _monsterEditor.Focus();
+        var caret=_monsterEditor.GetCharacterIndexFromPoint(point,true);
+        _monsterEditor.Select(caret<0?_monsterEditor.Text.Length:caret,0);
+        MonsterBox.IsDropDownOpen=true;
+        e.Handled=true;
+    }
+
     private void MonsterBox_DropDownClosed(object sender, EventArgs e)
     {
-        _suppressMonsterTextChanged = true;
+        if (_monsterEditor is null) return;
+        var draft=_monsterEditor.Text;var caret=_monsterEditor.CaretIndex;
+        _suppressMonsterTextChanged=true;
         try
         {
-            MonsterView.Filter = null;
-            MonsterBox.SelectedItem = SelectedMonster;
+            MonsterView.Filter=null;
+            _monsterEditor.Text=draft;
+            _monsterEditor.Select(Math.Clamp(caret,0,draft.Length),0);
         }
-        finally { _suppressMonsterTextChanged = false; }
-        MoveCaretToEnd();
+        finally{_suppressMonsterTextChanged=false;}
     }
 
     private void MoveCaretToEnd()
     {
+        var selected=SelectedMonster;
         Dispatcher.BeginInvoke(DispatcherPriority.Input, () =>
         {
-            if (_monsterEditor is null) return;
-            _monsterEditor.SelectionStart = _monsterEditor.Text.Length;
-            _monsterEditor.SelectionLength = 0;
+            if (_monsterEditor is null || selected is null || SelectedMonster!=selected ||
+                _monsterEditor.Text!=selected.DisplayName) return;
+            _monsterEditor.Select(_monsterEditor.Text.Length,0);
         });
     }
 
     private void Create_Click(object sender, RoutedEventArgs e)
     {
-        if (Draft.MonsterId <= 0)
+        if (Draft.MonsterId <= 0 || (_monsterEditor is not null && SelectedMonster is not null &&
+            _monsterEditor.Text != SelectedMonster.DisplayName))
         {
             ValidationText.Text = LocalizationService.Get("ChooseMvpRequired");
             return;

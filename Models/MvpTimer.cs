@@ -129,6 +129,12 @@ public sealed class MvpTimer : INotifyPropertyChanged
     }
     [JsonIgnore] public string DisplayText => $"{Name} — {RemainingText}";
 
+    public void SelectFirstLocationIfMissing()
+    {
+        if (string.IsNullOrWhiteSpace(LocationCode) && RespawnHints.FirstOrDefault() is { } first)
+            LocationCode=first.Code;
+    }
+
     public void SetMonsterDetails(MonsterEntry? monster)
     {
         _monsterImageUrl = monster?.ImageUrl ?? "";

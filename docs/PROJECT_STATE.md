@@ -1,5 +1,16 @@
 # Project state
 
+## MVP form refinement — 2026-11-03
+
+- Continuing PR #12 from `a7d7a559a938c8d5db7ac12f06ddfb58b866b0ba`; version/main/release unchanged.
+- Rounded client form with a small drag grip. Explicit client-relative DIP position persists; follow no longer recenters a dragged form. Resize/DPI clamps display only.
+- Search opens from its content area and focuses the text editor without automatic selection; typing keeps the whole draft/caret. An unconfirmed query cannot create the previously selected MVP.
+- Selecting a new MVP chooses its first available map; explicit existing map choices and marks remain intact. The empty/loading/error map state is an inline bordered help card, with no permanent bottom hint or Clear marker button.
+- Timer-panel placement retains topmost status while its own edit window has focus, exposes off-screen positions through a temporary render offset and changes saved coordinates only on explicit dragging.
+- Every hotkey field has a visible clear button for None. Capture/clear preserve their two-way settings binding.
+- Gold Goblin session history includes an Item column with session item names and a full-list tooltip.
+- Validation pending for this refinement; actual game, protected/fullscreen and mixed-DPI checks remain manual.
+
 ## Feedback iteration — interface and keyboard controls (2026-11-03)
 
 - Continuing PR #12 on `feature/farming-sessions-mvp-tools`, based on `17afee228885c5b4564a3acb16eae6f2ac5f5738`. No version/main/release change.

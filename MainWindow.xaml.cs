@@ -1972,6 +1972,7 @@ public partial class MainWindow : Window
         timer.MonsterId = monster.Id;
         if (box.IsDropDownOpen || nameIsCatalogName) timer.Name = monster.Name;
         timer.SetMonsterDetails(monster);
+        timer.SelectFirstLocationIfMissing();
     }
 
     private void RefreshMvpTimerDetails()

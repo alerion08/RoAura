@@ -33,6 +33,8 @@ public sealed class AppSettings : INotifyPropertyChanged
     private string _questTrackerHotkey = "F5";
     private string _pauseSessionHotkey = "Pause";
     private string _addMvpTimerHotkey = "F4";
+    public double? MvpAddWindowX { get; set; }
+    public double? MvpAddWindowY { get; set; }
     private bool _sessionPaused;
     [JsonIgnore] public bool SessionPaused { get => _sessionPaused; set => Set(ref _sessionPaused, value); }
     public string PauseSessionHotkey { get => _pauseSessionHotkey; set => Set(ref _pauseSessionHotkey, NormalizeHotkey(value, "Pause")); }

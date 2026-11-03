@@ -621,3 +621,11 @@ Hotkey fields record a key or chord on keyboard press, expose Clear through thei
 
 Verified code `88a43a460958d2b3769def8fd5b0ef355f485105`: [development run 41626955122](https://github.com/alerion08/RoAura/actions/runs/41626955122) passed 362 tests (zero failures/skips), eight ToC checks, portable/native input smoke, RU/EN resources and clean-payload checks. Native input verifies keyboard capture of Ctrl+Shift+F4, no activation during assignment, exact modifiers, repeated-key close, create/cancel and exact-client focus restore. Dark MVP/location-card and Reminder rasters were inspected.
 Real client and mixed-DPI checks remain manual.
+
+## MVP form refinement — 2026-11-03
+
+The MVP form has rounded client corners and a small drag grip. Explicit drag position persists in game-relative DIP without resize/DPI rewriting it. Content clicks open the searchable MVP dropdown, preserve draft/caret and never select entered characters automatically. A newly selected MVP defaults to its first map; an existing explicit map selection remains unchanged.
+
+Absent/loading map content shows a bordered help card in the picture area. A loaded map has no permanent bottom instruction or Clear marker action. Timer placement keeps its edit surface above the game and uses a temporary visual offset for off-screen saved positions, without overwriting them before a drag.
+
+Hotkey fields expose a visible × clear action that sets None, retaining the source binding. Gold Goblin session history adds item names and full-list tooltips.

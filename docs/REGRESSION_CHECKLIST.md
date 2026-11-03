@@ -620,3 +620,13 @@ Native screenshot/input receipt verifies the hook's forwarding in an isolated pr
 
 Verified code `88a43a460958d2b3769def8fd5b0ef355f485105`: [development run 41626955122](https://github.com/alerion08/RoAura/actions/runs/41626955122) passed 362 tests (zero failures/skips), eight ToC checks, portable/native input smoke, RU/EN resources and clean-payload checks. Native input verifies keyboard capture of Ctrl+Shift+F4, no activation during assignment, exact modifiers, repeated-key close, create/cancel and exact-client focus restore. Dark MVP/location-card and Reminder rasters were inspected.
 [PR installer checks](https://github.com/alerion08/RoAura/actions/runs/41626963224) also pass. Native input/rasters do not mark the real-game manual rows above passed.
+
+## MVP form refinement — 2026-11-03
+
+- [ ] Rounded corners are transparent over the game; empty/loading/error map hint occupies the picture area and disappears once loaded.
+- [ ] Search opens from the content area; type several characters, click within text and continue without selection/caret jumps; choose a result without accidental previous-MVP creation.
+- [ ] New MVP chooses the first source map, with no Clear marker button or permanent bottom hint.
+- [ ] Drag the form, wait through follow ticks, reopen and move/resize the game: explicit form coordinates persist without forced centering.
+- [ ] Timer Move exposes an off-screen preview without rewriting settings, accepts an actual mouse drag and finishes using the configured key; native focus does not demote the edit surface.
+- [ ] Visible hotkey clear sets None and persists through settings/presets; record again without detaching binding or firing during assignment.
+- [ ] Gold Goblin session history lists item names, including the full list via tooltip.

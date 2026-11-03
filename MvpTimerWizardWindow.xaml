@@ -21,14 +21,19 @@
             <Setter Property="BorderThickness" Value="1"/>
         </Style>
     </Window.Resources>
+    <Border x:Name="ShellBorder" CornerRadius="10" Background="{DynamicResource RoWindowBrush}" SizeChanged="ShellBorder_SizeChanged">
     <Grid>
         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-        <Grid Grid.Row="1" Margin="16,12">
+        <Border x:Name="DragHandle" Height="16" Cursor="SizeAll" Background="Transparent" MouseLeftButtonDown="DragHandle_MouseLeftButtonDown">
+            <TextBlock Text="⋮⋮" HorizontalAlignment="Center" Foreground="{DynamicResource RoMutedBrush}" FontSize="12"/>
+        </Border>
+        <Grid Grid.Row="1" Margin="16,6,16,12">
             <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
             <TextBlock Text="{DynamicResource MvpSearch}" FontWeight="SemiBold"/>
             <ComboBox x:Name="MonsterBox" Grid.Row="0" Margin="0,22,0,10" Height="32" Padding="10,0,36,0" VerticalContentAlignment="Center"
                       ItemsSource="{Binding MonsterView}" TextSearch.TextPath="DisplayName"
-                      IsEditable="True" IsTextSearchEnabled="False" StaysOpenOnEdit="True"
+                      IsEditable="True" IsTextSearchEnabled="False" StaysOpenOnEdit="True" IsSynchronizedWithCurrentItem="False"
+                      PreviewMouseLeftButtonDown="MonsterBox_PreviewMouseLeftButtonDown"
                       SelectionChanged="MonsterBox_SelectionChanged" Loaded="MonsterBox_Loaded"
                       DropDownClosed="MonsterBox_DropDownClosed"/>
             <Grid Grid.Row="1"><Grid.ColumnDefinitions><ColumnDefinition Width="1.08*"/><ColumnDefinition Width="18"/><ColumnDefinition Width="0.92*"/></Grid.ColumnDefinitions>
@@ -63,4 +68,5 @@
         </Grid>
         <Border Grid.Row="2" Padding="18,12" Background="{DynamicResource UiBackground_FFFFFF}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="0,1,0,0"><Grid><Button Content="{DynamicResource Cancel}" Click="Cancel_Click" HorizontalAlignment="Left"/><Button Content="{DynamicResource CreateMvpTimer}" Click="Create_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right"/></Grid></Border>
     </Grid>
+    </Border>
 </Window>
