@@ -1,5 +1,15 @@
 # Project state
 
+## MVP map/restart and tracking-history correction — 2026-11-03
+
+- Continuing PR #12 from `30bec93c03b00c2e654cdbf614d898e434ca0c9b`.
+- All supported catalog MVP minimaps are audited and bundled for offline first display. A shared async loader decodes complete frozen images, coalesces concurrent requests and retains a local cache for downloaded extras. Stale completions cannot replace a newly selected map; loading and unavailable states differ from the no-location hint, and failed loads can be retried.
+- Catalog details select the first nonempty map code whenever an existing/new timer has no location. Explicit selections and markers remain intact.
+- Restart always replaces the old countdown with a new interval from now; the saved kill-clock field cannot redirect Restart to the old kill.
+- The Item column belongs to Database tracking history when showing all items (also with no selection); individual item history stays compact. The mistaken Gold Goblin session-summary Item column is removed; loot details retain names.
+- Validation pending. Real Ragnarok/fullscreen/mixed-DPI acceptance remains manual; version/main/release unchanged.
+
+
 ## MVP form refinement — 2026-11-03
 
 - Continuing PR #12 from `a7d7a559a938c8d5db7ac12f06ddfb58b866b0ba`; version/main/release unchanged.
@@ -8,7 +18,7 @@
 - Selecting a new MVP chooses its first available map; explicit existing map choices and marks remain intact. The empty/loading/error map state is an inline bordered help card, with no permanent bottom hint or Clear marker button.
 - Timer-panel placement retains topmost status while its own edit window has focus, exposes off-screen positions through a temporary render offset and changes saved coordinates only on explicit dragging.
 - Every hotkey field has a visible clear button for None. Capture/clear preserve their two-way settings binding.
-- Gold Goblin session history includes an Item column with session item names and a full-list tooltip.
+- Historical build 110 included a session-summary Item column; it is removed by the correction above.
 - Verified code `cf4e87e145de8bb293ccd11dafc8938e86f50f82`: [development run 41636326233](https://github.com/alerion08/RoAura/actions/runs/41636326233) passed 364 tests (zero failures/skips), eight ToC checks, RU/EN resource checks, portable startup/native input smoke and clean-payload validation.
 - Native input covers bound shortcut recording, visible unassign/reassign, content-click MVP dropdown opening, multi-character input without selection, automatic first-map choice, actual form drag with persistence beyond follow ticks, off-screen timer-panel preview/drag/finish, repeated-key close/create/cancel, exact-client focus restore and Print Screen passthrough. Rounded empty/loaded dark MVP rasters and the unassigned-hotkey raster were inspected.
 - [PR build 41636334135](https://github.com/alerion08/RoAura/actions/runs/41636334135) also passed portable/installer, silent installed database payload and clean distribution checks; tag/release steps skipped.

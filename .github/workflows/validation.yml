@@ -56,6 +56,10 @@ jobs:
           assert hashlib.sha256(semantic).hexdigest() == 'af4de49aa11587dc6ec971aa019c6ff60e6ed4aa3fee802c61282db65ac7091d'
           pathlib.Path('Data/quest_semantic.sqlite').write_bytes(semantic)
 
+      - name: Bundle exact MVP minimaps
+        shell: pwsh
+        run: python tools/prepare_mvp_minimaps.py
+
       - name: Run logic and UI regression tests
         env:
           ROAURA_QUEST_SEMANTIC_TEST_PATH: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools') && format('{0}/Data/quest_semantic.sqlite', github.workspace) || '' }}

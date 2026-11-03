@@ -1,6 +1,12 @@
+# Unreleased — MVP maps and history correction
+
+- MVP minimaps are bundled for offline display and share a persistent image cache. Loading, missing and unselected states are distinct; retry does not require changing a location.
+- First-map selection also applies when catalog details populate existing timers. Restart starts a full interval from now.
+- Item names are shown in the Database's all-item tracking history; the mistaken Gold Goblin session-summary column is removed.
+
 # Unreleased — MVP form refinement
 
-Rounded draggable MVP form; bordered empty-map help; content-click search with stable text input; first-map selection; corrected timer placement; visible hotkey unassignment; item names in Gold Goblin session history.
+Rounded draggable MVP form; bordered empty-map help; content-click search with stable text input; first-map selection; corrected timer placement; visible hotkey unassignment; item names in tracking history (corrected below).
 
 # Unreleased — interface feedback
 

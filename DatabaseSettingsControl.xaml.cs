@@ -47,6 +47,7 @@ public partial class DatabaseSettingsControl : UserControl
     {
         if (HistoryGrid is null) return;
         var selected = AllWatchHistoryButton.IsChecked == true ? null : WatchList.SelectedItem as MarketWatchRule;
+        HistoryItemColumn.Visibility = selected is null ? Visibility.Visible : Visibility.Collapsed;
         HistoryItemText.Text = selected?.ItemName ?? LocalizationService.Get("AllWatchHistory");
         var rows = (CurrentApp?.MarketWatchHistory ?? Array.Empty<MarketWatchHistoryEntry>())
             .Where(entry => selected is null || entry.ItemId == selected.ItemId)

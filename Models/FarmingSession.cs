@@ -40,8 +40,6 @@ public sealed class FarmingSession
             ItemId = id, Name = name, Count = count, UnitPrice = price, PriceSource = source,
             PriceKnown = known, Excluded = excluded });
     }
-    [JsonIgnore] public string ItemNames => string.Join(", ", Loot.Select(row =>
-        string.IsNullOrWhiteSpace(row.Name) ? $"#{row.ItemId}" : row.Name).Distinct());
     [JsonIgnore] public long ItemCount => Loot.Where(row => !row.Excluded).Sum(row => row.Count);
     [JsonIgnore] public long LootValue => Loot.Sum(row => row.Total);
     [JsonIgnore] public string DateText => StartedUtc.ToLocalTime().ToString("G");

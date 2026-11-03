@@ -16,19 +16,27 @@ public sealed class MvpMapEditor : UserControl
     private readonly Canvas _marks=new() {IsHitTestVisible=false};
     private readonly TextBlock _hint=new() {TextWrapping=TextWrapping.Wrap,VerticalAlignment=VerticalAlignment.Center,TextAlignment=TextAlignment.Center};
     private readonly Border _empty=new() {Margin=new Thickness(8),Padding=new Thickness(16),CornerRadius=new CornerRadius(7),BorderThickness=new Thickness(1),IsHitTestVisible=false};
+    private readonly MvpMapImageCache _cache;
     private MvpTimer? _timer;
     private string _loadedMap="";
-    private bool _imageFailed;
+    private int _loadVersion;
+    private bool _imageFailed, _loading;
+    public bool IsMapReady => _image.Source is BitmapSource;
+    public string DisplayedMapCode => IsMapReady ? _loadedMap : "";
     public bool ReadOnly {get;set;}
-    public MvpMapEditor()
+    public MvpMapEditor() : this(MvpMapImageCache.Shared) { }
+    public MvpMapEditor(MvpMapImageCache cache)
     {
+        _cache=cache;
         _empty.SetResourceReference(Border.BackgroundProperty,"RoSelectionBrush");
         _empty.SetResourceReference(Border.BorderBrushProperty,"RoSoftBorderBrush");
         _hint.SetResourceReference(TextBlock.ForegroundProperty,"RoTextBrush");_empty.Child=_hint;
         _picture.Children.Add(_image);_picture.Children.Add(_marks);_picture.Children.Add(_empty);
         Content=_picture;_picture.MouseLeftButtonDown+=Mark;
+        // A failed fetch can be retried without changing the selected location or its mark.
+        _picture.MouseLeftButtonDown+=(_,_)=>{if(_imageFailed){_loadedMap="#retry";Refresh();}};
         DataContextChanged+=(_,_)=>Attach();Loaded+=(_,_)=>Attach();
-        Unloaded+=(_,_)=>{if(_timer is not null)_timer.PropertyChanged-=Changed;_timer=null;};
+        Unloaded+=(_,_)=>{if(_timer is not null)_timer.PropertyChanged-=Changed;_timer=null;++_loadVersion;};
     }
     private void Attach()
     {
@@ -41,32 +49,30 @@ public sealed class MvpMapEditor : UserControl
     {if(e.PropertyName is nameof(MvpTimer.LocationCode) or nameof(MvpTimer.MarkerX) or nameof(MvpTimer.MarkerY))Refresh();}
     private void Refresh()
     {
-        var code=_timer?.LocationCode??"";
+        var code=MvpMapImageCache.Normalize(_timer?.LocationCode);
         if(code!=_loadedMap)
         {
-            _loadedMap=code;_image.Source=null;_imageFailed=false;
-            if(code.Length>0 && code.All(ch=>char.IsAsciiLetterOrDigit(ch)||ch=='_'))
-            {
-                try
-                {
-                    var image=new BitmapImage();
-                    image.BeginInit();image.UriSource=new Uri($"https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/minimaps/{code}.png");
-                    image.CacheOption=BitmapCacheOption.OnDemand;image.EndInit();
-                    image.DownloadCompleted+=(_,_)=>{if(ReferenceEquals(_image.Source,image)){UpdatePlaceholder();DrawMarker();}};
-                    image.DownloadFailed+=(_,_)=>{if(ReferenceEquals(_image.Source,image)){_imageFailed=true;UpdatePlaceholder();}};
-                    _image.Source=image;
-                }
-                catch(Exception ex){_imageFailed=true;DebugLog.Write($"MVP MAP IMAGE ERROR: {ex.Message}");}
-            }
+            _loadedMap=code;
+            var version=++_loadVersion;
+            _image.Source=null;_imageFailed=false;_loading=code.Length>0;
+            UpdatePlaceholder();
+            if(_loading)LoadMap(code,version);
         }
+        DrawMarker();
+    }
+    private async void LoadMap(string code,int version)
+    {
+        var image=await _cache.GetAsync(code);
+        // A previous map completing later must never overwrite a newer choice or an unloaded control.
+        if(version!=_loadVersion || code!=_loadedMap)return;
+        _loading=false;_imageFailed=image is null;_image.Source=image;
         UpdatePlaceholder();DrawMarker();
     }
     private void UpdatePlaceholder()
     {
-        var ready=_image.Source is BitmapSource source && !source.IsDownloading && source.PixelWidth>0 && !_imageFailed;
-        _empty.Visibility=ready?Visibility.Collapsed:Visibility.Visible;
-        _hint.Text=LocalizationService.Get(_imageFailed?"MapImageUnavailable":"MapMarkerHint");
-        if(!ready)_marks.Children.Clear();
+        _empty.Visibility=IsMapReady?Visibility.Collapsed:Visibility.Visible;
+        _hint.Text=LocalizationService.Get(_loading?"MapImageLoading":_imageFailed?"MapImageUnavailable":"MapMarkerHint");
+        if(!IsMapReady)_marks.Children.Clear();
     }
     private Rect ImageBounds()
     {

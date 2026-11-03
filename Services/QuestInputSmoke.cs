@@ -282,6 +282,8 @@ internal static class QuestInputSmoke
                         throw new InvalidOperationException("Quest tracker paints above the MVP timer form.");
                     if(mvpWizard.Draft.RespawnHints.FirstOrDefault() is { } spawn && mvpWizard.Draft.LocationCode!=spawn.Code)
                         throw new InvalidOperationException("The first MVP map was not selected automatically.");
+                    var mapEditor=Descendants<RoAura.Controls.MvpMapEditor>(mvpWizard).Single();
+                    await Until(()=>mapEditor.IsMapReady && mapEditor.DisplayedMapCode==mvpWizard.Draft.LocationCode,"first MVP map paints without a location click");
                     var formBefore=QuestWindowNative.Bounds(new WindowInteropHelper(mvpWizard).Handle);
                     var grip=mvpWizard.DragHandle.PointToScreen(new Point(mvpWizard.DragHandle.ActualWidth/2,8));
                     SetCursorPos((int)grip.X,(int)grip.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});await Pause(80);
@@ -294,6 +296,15 @@ internal static class QuestInputSmoke
                     var create=AllButtons(mvpWizard).Single(button=>Equals(button.Content,LocalizationService.Get("CreateMvpTimer")));
                     Click(create.PointToScreen(new Point(create.ActualWidth/2,create.ActualHeight/2)));
                     await Until(()=>workspace.Settings.ActiveMvpTimers.Count==beforeTimers+1 && QuestWindowNative.GetForegroundWindow()==game, "MVP creation and exact-game focus restore");
+                    var restarted=workspace.Settings.ActiveMvpTimers.Last();
+                    restarted.StartFromKillTime(DateTime.Now.AddMinutes(-25));
+                    restarted.KillTimeInput="invalid old draft";
+                    var restartAt=DateTime.UtcNow;
+                    var restartHandler=typeof(MainWindow).GetMethod("RestartMvpTimer_Click",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!;
+                    restartHandler.Invoke(settingsWindow,[new Button {DataContext=restarted},new RoutedEventArgs()]);
+                    if(restarted.KilledAtUtc<restartAt || restarted.RemainingSeconds<restarted.DurationMinutes*60-2)
+                        throw new InvalidOperationException("Restart reused an old/invalid kill-clock draft.");
+                    DebugLog.Write("MVP RESTART PASS: existing kill-clock draft replaced with now.");
                     workspace.Settings.ActiveMvpTimers.RemoveAt(workspace.Settings.ActiveMvpTimers.Count-1);
                     await Press(workspace.Settings.AddMvpTimerHotkey);
                     await Until(()=>Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible), "MVP wizard reopens");
@@ -362,6 +373,15 @@ internal static class QuestInputSmoke
         {
             workspace.Settings.AllowedProcesses=original;setProcesses(string.Join(", ",original));
             if(!process.HasExited) {process.CloseMainWindow();if(!process.WaitForExit(2000)){process.Kill(true);process.WaitForExit();}}
+        }
+    }
+    private static IEnumerable<T> Descendants<T>(DependencyObject root) where T:DependencyObject
+    {
+        for(var i=0;i<System.Windows.Media.VisualTreeHelper.GetChildrenCount(root);i++)
+        {
+            var child=System.Windows.Media.VisualTreeHelper.GetChild(root,i);
+            if(child is T match)yield return match;
+            foreach(var nested in Descendants<T>(child))yield return nested;
         }
     }
     private static IEnumerable<Button> AllButtons(DependencyObject root)

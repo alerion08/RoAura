@@ -1916,18 +1916,7 @@ public partial class MainWindow : Window
     {
         var timer = (sender as FrameworkElement)?.DataContext as MvpTimer ?? MvpTimersGrid.SelectedItem as MvpTimer;
         if (timer is null) return;
-        if (string.IsNullOrWhiteSpace(timer.KillTimeInput))
-        {
-            timer.Restart();
-            SaveSettings();
-            return;
-        }
-        if (!TimeSpan.TryParse(timer.KillTimeInput, out var killTime) || killTime < TimeSpan.Zero || killTime >= TimeSpan.FromDays(1))
-        {
-            SetStatus(LocalizationService.Get("InvalidKillTime"));
-            return;
-        }
-        timer.StartFromKillClock(killTime);
+        timer.Restart();
         SaveSettings();
     }
 

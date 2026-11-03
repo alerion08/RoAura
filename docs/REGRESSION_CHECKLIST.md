@@ -629,6 +629,16 @@ Verified code `88a43a460958d2b3769def8fd5b0ef355f485105`: [development run 41626
 - [ ] Drag the form, wait through follow ticks, reopen and move/resize the game: explicit form coordinates persist without forced centering.
 - [ ] Timer Move exposes an off-screen preview without rewriting settings, accepts an actual mouse drag and finishes using the configured key; native focus does not demote the edit surface.
 - [ ] Visible hotkey clear sets None and persists through settings/presets; record again without detaching binding or firing during assignment.
-- [ ] Gold Goblin session history lists item names, including the full list via tooltip.
+- [ ] Historical build 110 session-summary Item column is removed; names remain in loot details.
 
 Automated evidence: [development 110](https://github.com/alerion08/RoAura/actions/runs/41636326233) on `cf4e87e145de8bb293ccd11dafc8938e86f50f82` passed 364 tests and native input checks for binding-preserving shortcut clear/reassignment, dropdown content click and typing, first-map default, actual form drag persistence and timer-panel off-screen preview/drag/finish. Empty/loaded dark MVP and unassigned-hotkey rasters inspected. [PR installer checks](https://github.com/alerion08/RoAura/actions/runs/41636334135) also passed. The real-game/manual matrix above remains unchecked.
+
+## Map/restart/tracking-history correction — 2026-11-03
+
+- [ ] New timer and restored timer without a location automatically display the first map, without clicking a location card.
+- [ ] Audit every supported catalog MVP map code in the bundle; packaged maps display with the network disconnected.
+- [ ] Switch bosses/maps rapidly, close/reopen forms and hover maps; delayed responses never replace the current map. Cached maps remain available after restart.
+- [ ] Failed extra-map loading shows unavailable/retry, not Choose location; retry can recover without changing location.
+- [ ] Restart with an existing/invalid kill-clock draft replaces the old timer with now + configured minutes.
+- [ ] Database All history and no-selection history show item names; single-item mode filters correctly.
+- [ ] Gold Goblin session-summary Item column is gone and separate loot details still show names.

@@ -27,7 +27,7 @@ public sealed class FarmingSessionHistoryControl : UserControl
         refresh.Click += (_, _) => RefreshRows();
         actions.Children.Add(_open); actions.Children.Add(delete); actions.Children.Add(refresh); root.Children.Add(actions);
         AddColumn(_sessions, "HistoryDate", "DateText"); AddColumn(_sessions, "SessionTime", "DurationText");
-        AddColumn(_sessions, "Item", "ItemNames"); AddColumn(_sessions, "SessionItems", "ItemCount"); AddColumn(_sessions, "ZenyTotalLabel", "ZenyGained");
+        AddColumn(_sessions, "SessionItems", "ItemCount"); AddColumn(_sessions, "ZenyTotalLabel", "ZenyGained");
         AddColumn(_sessions, "AccountedLootValue", "LootValue"); AddColumn(_sessions, "CharacterLabel", "CharacterCaption");
         Grid.SetRow(_sessions, 1); root.Children.Add(_sessions);
         _sessions.SelectionChanged += (_, _) => _open.IsEnabled = _sessions.SelectedItem is FarmingSession;
@@ -38,20 +38,9 @@ public sealed class FarmingSessionHistoryControl : UserControl
         };
         Content = root; Loaded += (_, _) => RefreshRows();
     }
-    internal static void AddColumn(DataGrid grid, string key, string path)
-    {
-        var column = new DataGridTextColumn { Header = LocalizationService.Get(key),
-            Binding = new Binding(path), Width = new DataGridLength(path is "CharacterCaption" or "Name" or "ItemNames" ? 1.7 : 1, DataGridLengthUnitType.Star) };
-        if (path == "ItemNames")
-        {
-            column.MinWidth = 140;
-            var style = new Style(typeof(TextBlock));
-            style.Setters.Add(new Setter(TextBlock.TextTrimmingProperty, TextTrimming.CharacterEllipsis));
-            style.Setters.Add(new Setter(FrameworkElement.ToolTipProperty, new Binding(path)));
-            column.ElementStyle = style;
-        }
-        grid.Columns.Add(column);
-    }
+    internal static void AddColumn(DataGrid grid, string key, string path) =>
+        grid.Columns.Add(new DataGridTextColumn { Header = LocalizationService.Get(key),
+            Binding = new Binding(path), Width = new DataGridLength(path is "CharacterCaption" or "Name" ? 1.7 : 1, DataGridLengthUnitType.Star) });
     private void OpenSelected()
     {
         if (_sessions.SelectedItem is not FarmingSession session) return;

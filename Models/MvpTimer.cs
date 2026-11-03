@@ -131,7 +131,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
 
     public void SelectFirstLocationIfMissing()
     {
-        if (string.IsNullOrWhiteSpace(LocationCode) && RespawnHints.FirstOrDefault() is { } first)
+        if (string.IsNullOrWhiteSpace(LocationCode) && RespawnHints.FirstOrDefault(spawn => !string.IsNullOrWhiteSpace(spawn.Code)) is { } first)
             LocationCode=first.Code;
     }
 
@@ -139,6 +139,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
     {
         _monsterImageUrl = monster?.ImageUrl ?? "";
         RespawnHints = monster is null ? Array.Empty<MonsterSpawnEntry>() : monster.Spawns;
+        SelectFirstLocationIfMissing();
         OnPropertyChanged(nameof(RespawnHints));
         OnPropertyChanged(nameof(MonsterImagePath));
     }

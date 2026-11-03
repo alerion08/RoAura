@@ -628,6 +628,14 @@ The MVP form has rounded client corners and a small drag grip. Explicit drag pos
 
 Absent/loading map content shows a bordered help card in the picture area. A loaded map has no permanent bottom instruction or Clear marker action. Timer placement keeps its edit surface above the game and uses a temporary visual offset for off-screen saved positions, without overwriting them before a drag.
 
-Hotkey fields expose a visible × clear action that sets None, retaining the source binding. Gold Goblin session history adds item names and full-list tooltips.
+Hotkey fields expose a visible × clear action that sets None, retaining the source binding. The session-summary Item column from build 110 is superseded by the tracking-history correction below.
 
 Validated on `cf4e87e145de8bb293ccd11dafc8938e86f50f82` by [Windows development 110](https://github.com/alerion08/RoAura/actions/runs/41636326233): 364 tests plus native keyboard/mouse checks for clear/reassignment, dropdown typing and form/timer movement. Empty/loaded dark MVP and unassigned-hotkey rasters inspected. Real game and mixed-DPI acceptance remains manual.
+
+## MVP map and tracking-history correction — 2026-11-03
+
+MVP source details initialize the first map for new/restored timers with no location. Bundled maps display offline; downloaded maps share a persistent local cache across editor and hover views. The map region shows a loading state while loading, an unavailable/retry state on failure, and the location hint only when no location exists. Switching selection or closing/reopening must not show a stale map.
+
+Restart always starts a complete interval from the current time. Exact kill-time creation remains available in the wizard.
+
+Database tracking history shows Item names when All history is enabled or no item is selected; full names are available on hover. Selecting one item hides the redundant name column. Gold Goblin session summaries retain their original columns, with item names in the separate loot detail window.

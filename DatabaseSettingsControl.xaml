@@ -8,6 +8,7 @@
 
   <Style x:Key="WatchTableText" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
    <Setter Property="VerticalAlignment" Value="Center"/><Setter Property="Margin" Value="2,0"/>
+   <Setter Property="TextTrimming" Value="CharacterEllipsis"/><Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}"/>
   </Style>
 
   <converters:ColorStringToBrushConverter x:Key="WatchColorBrush"/>
@@ -82,6 +83,7 @@
      <Grid Grid.Row="2">
       <DataGrid RowStyle="{StaticResource WatchTableRow}" ColumnHeaderStyle="{StaticResource WatchTableHeader}" CellStyle="{StaticResource WatchTableCell}" x:Name="HistoryGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" HeadersVisibility="Column" RowHeaderWidth="0" SelectionMode="Single">
        <DataGrid.Columns>
+        <DataGridTextColumn x:Name="HistoryItemColumn" ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource Item}" Width="*" MinWidth="140" Binding="{Binding ItemName}"/>
         <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchHistoryTime}" Width="125" Binding="{Binding TimeCaption}"/>
         <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchHistoryShop}" Width="*" MinWidth="80" Binding="{Binding ShopCaption}"/>
         <DataGridTextColumn ElementStyle="{StaticResource WatchTableText}" Header="{DynamicResource WatchHistoryCoordinates}" Width="130" Binding="{Binding Coordinates}"/>

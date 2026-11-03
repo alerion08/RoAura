@@ -10,7 +10,7 @@ public sealed class MvpFormRefinementTests
     {
         var timer=new MvpTimer();
         timer.SetMonsterDetails(new MonsterEntry {Id=1,Spawns=[new(){Code="first"},new(){Code="second"}]});
-        timer.SelectFirstLocationIfMissing();Assert.Equal("first",timer.LocationCode);
+        Assert.Equal("first",timer.LocationCode);
         timer.LocationCode="second";timer.MarkerX=.3;timer.MarkerY=.7;
         timer.SelectFirstLocationIfMissing();Assert.Equal("second",timer.LocationCode);Assert.Equal(.3,timer.MarkerX);
     }
