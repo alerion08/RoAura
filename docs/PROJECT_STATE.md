@@ -9,7 +9,11 @@
 - Timer-panel placement retains topmost status while its own edit window has focus, exposes off-screen positions through a temporary render offset and changes saved coordinates only on explicit dragging.
 - Every hotkey field has a visible clear button for None. Capture/clear preserve their two-way settings binding.
 - Gold Goblin session history includes an Item column with session item names and a full-list tooltip.
-- Validation pending for this refinement; actual game, protected/fullscreen and mixed-DPI checks remain manual.
+- Verified code `cf4e87e145de8bb293ccd11dafc8938e86f50f82`: [development run 41636326233](https://github.com/alerion08/RoAura/actions/runs/41636326233) passed 364 tests (zero failures/skips), eight ToC checks, RU/EN resource checks, portable startup/native input smoke and clean-payload validation.
+- Native input covers bound shortcut recording, visible unassign/reassign, content-click MVP dropdown opening, multi-character input without selection, automatic first-map choice, actual form drag with persistence beyond follow ticks, off-screen timer-panel preview/drag/finish, repeated-key close/create/cancel, exact-client focus restore and Print Screen passthrough. Rounded empty/loaded dark MVP rasters and the unassigned-hotkey raster were inspected.
+- [PR build 41636334135](https://github.com/alerion08/RoAura/actions/runs/41636334135) also passed portable/installer, silent installed database payload and clean distribution checks; tag/release steps skipped.
+- [Portable development 110](https://github.com/alerion08/RoAura/actions/runs/41636326233/artifacts/13229419937), inner portable SHA256 `e01a040701042dd5537152f2db1165a8c04707cd120a70e3d30738a53d46f2f2`.
+- Actual Ragnarok, protected/fullscreen and mixed-DPI checks remain manual. Version 3.3.0, stable main and public release remain unchanged.
 
 ## Feedback iteration — interface and keyboard controls (2026-11-03)
 

@@ -629,3 +629,5 @@ The MVP form has rounded client corners and a small drag grip. Explicit drag pos
 Absent/loading map content shows a bordered help card in the picture area. A loaded map has no permanent bottom instruction or Clear marker action. Timer placement keeps its edit surface above the game and uses a temporary visual offset for off-screen saved positions, without overwriting them before a drag.
 
 Hotkey fields expose a visible × clear action that sets None, retaining the source binding. Gold Goblin session history adds item names and full-list tooltips.
+
+Validated on `cf4e87e145de8bb293ccd11dafc8938e86f50f82` by [Windows development 110](https://github.com/alerion08/RoAura/actions/runs/41636326233): 364 tests plus native keyboard/mouse checks for clear/reassignment, dropdown typing and form/timer movement. Empty/loaded dark MVP and unassigned-hotkey rasters inspected. Real game and mixed-DPI acceptance remains manual.
