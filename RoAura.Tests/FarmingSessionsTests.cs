@@ -80,6 +80,19 @@ public sealed class FarmingSessionsTests
     }
 
     [Fact]
+    public void Long_sessions_group_identical_pickup_prices_without_revaluing_previous_drops()
+    {
+        var session=new FarmingSession();
+        for(var i=0;i<10000;i++) session.RecordLoot(Start.AddSeconds(i),501,"Potion",1,50,"Vending",true,false);
+        session.RecordLoot(Start.AddSeconds(10001),501,"Potion",2,75,"Vending",true,false);
+        Assert.Equal(2,session.Loot.Count);
+        Assert.Equal(10000,session.Loot[0].Count);
+        Assert.Equal(500150,session.LootValue);
+        Assert.Equal(50,session.Loot[0].UnitPrice);
+        Assert.Equal(Start.AddSeconds(9999),session.Loot[0].LastReceivedUtc);
+    }
+
+    [Fact]
     public void Loot_and_experience_extend_the_same_quiet_window_but_separate_bursts_do_not_merge()
     {
         var group=new RewardGroupSettings {AggregationWindowMs=650,DurationSeconds=3};

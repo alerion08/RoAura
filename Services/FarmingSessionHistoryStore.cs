@@ -59,7 +59,7 @@ public sealed class FarmingSessionHistoryStore
         {
             if (_deleted.Contains(session.Id)) return;
             _pending[session.Id] = snapshot;
-            if (!_writing) { _writing = true; _writer = Task.Run(Drain); }
+            if (!_writing) { _writing = true; _writer = Task.Run(async () => { await Task.Delay(500); Drain(); }); }
         }
     }
     public void Flush()

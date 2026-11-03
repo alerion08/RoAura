@@ -55,9 +55,7 @@ public partial class App
         try
         {
             if (GetFarmingSession() is not { } session) return;
-            session.Loot.Add(new FarmingLootEntry { ReceivedUtc = DateTime.UtcNow, ItemId = id,
-                Name = name, Count = count, UnitPrice = price, PriceSource = source,
-                PriceKnown = known, Excluded = excluded });
+            session.RecordLoot(DateTime.UtcNow, id, name, count, price, source, known, excluded);
             FarmingHistory.Queue(session);
         }
         catch (Exception ex) { ReportHistoryError(ex); }
