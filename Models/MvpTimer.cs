@@ -46,7 +46,6 @@ public sealed class MvpTimer : INotifyPropertyChanged
         {
             if (!Set(ref _monsterId, Math.Max(0, value))) return;
             _monsterImageUrl = "";
-            LocationCode = "";
             OnPropertyChanged(nameof(MonsterImagePath));
         }
     }

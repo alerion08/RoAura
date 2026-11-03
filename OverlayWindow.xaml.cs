@@ -543,7 +543,7 @@ public partial class OverlayWindow : Window
                 Percentage = Math.Max(0, percentage),
                 HasPercentage = percentage >= 0,
                 LastUpdatedUtc = now,
-                ExpiresAtUtc = now.AddSeconds(group.DurationSeconds)
+                ExpiresAtUtc = now.AddSeconds(Math.Max(group.DurationSeconds, window.TotalSeconds))
             };
             group.Notifications.Add(notification);
         }
@@ -557,7 +557,7 @@ public partial class OverlayWindow : Window
             }
             notification.Color = kind == RewardKind.Loot ? channel.ColorForItemType(itemType) : channel.TextColor;
             notification.LastUpdatedUtc = now;
-            notification.ExpiresAtUtc = now.AddSeconds(group.DurationSeconds);
+            notification.ExpiresAtUtc = now.AddSeconds(Math.Max(group.DurationSeconds, window.TotalSeconds));
         }
 
         notification.Text = FormatRewardText(notification);

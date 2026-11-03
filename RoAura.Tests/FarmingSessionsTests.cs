@@ -63,8 +63,12 @@ public sealed class FarmingSessionsTests
             store.Flush();
             var restored=new FarmingSessionHistoryStore(directory);
             Assert.Equal(100,Assert.Single(restored.List()).LootValue);
+            session.Loot[0].UnitPrice=50;
             session.Loot.Add(new() {ReceivedUtc=Start.AddMinutes(1),ItemId=501,Name="Potion",Count=1,UnitPrice=75,PriceSource="Vending",PriceKnown=true});
-            store.Queue(session);
+            store.Queue(session); store.Flush();
+            var captured=store.Read(session.Id)!;
+            Assert.Equal(175,captured.LootValue);
+            Assert.Equal(new long[] {50,75},captured.Loot.Select(row=>row.UnitPrice));
             store.Delete(session.Id);
             store.Flush();
             Assert.False(File.Exists(Path.Combine(directory,session.Id.ToString("N")+".json")));
@@ -126,7 +130,7 @@ public sealed class FarmingSessionsTests
         var row=new GoldGoblinLootRow {Count=4,Cost=500,Excluded=true};
         Assert.Equal(0,row.Total);
         row.Excluded=false;Assert.Equal(2000,row.Total);
-        var timer=new MvpTimer {LocationCode="prt_maze03",MarkerX=.3,MarkerY=.7};
+        var timer=new MvpTimer {MonsterId=1039,LocationCode="prt_maze03",MarkerX=.3,MarkerY=.7};
         timer=JsonSerializer.Deserialize<MvpTimer>(JsonSerializer.Serialize(timer))!;
         Assert.Equal(.3,timer.MarkerX);
         timer.LocationCode="mjolnir_04";

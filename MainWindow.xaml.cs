@@ -1979,6 +1979,7 @@ public partial class MainWindow : Window
         var previous = _monsters.FirstOrDefault(entry => entry.Id == timer.MonsterId);
         var nameIsCatalogName = string.IsNullOrWhiteSpace(timer.Name) ||
                                 (previous is not null && string.Equals(timer.Name, previous.Name, StringComparison.Ordinal));
+        if (timer.MonsterId != monster.Id) timer.LocationCode = "";
         timer.MonsterId = monster.Id;
         if (box.IsDropDownOpen || nameIsCatalogName) timer.Name = monster.Name;
         timer.SetMonsterDetails(monster);

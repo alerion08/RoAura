@@ -37,6 +37,7 @@ internal static class QuestInputSmoke
             using var hook=new GlobalInputHook(workspace.Settings);
             hook.ToggleQuestBrowserPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleBrowser);
             hook.ToggleQuestTrackerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleTracker);
+            hook.AddMvpTimerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).AddMvpTimerInGame());
             hook.EscapePressed+=()=>((App)Application.Current).ExitOverlayEditMode();
             hook.ToggleOverlaysPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>host.SetGlobalVisible(!host.GlobalVisible));
             void KeyboardMode()=>hook.SetKeyboardBlocked(host.BrowserRequested && host.BrowserShowing);
@@ -229,6 +230,32 @@ internal static class QuestInputSmoke
                 }
                 finally{workspace.Settings.GameOverlayTheme=databaseTheme;}
                 ((App)Application.Current).CloseDatabaseOverlay();await Pause();
+                var previousServer = workspace.Settings.ServerProfile;
+                try
+                {
+                    workspace.Settings.ServerProfile = GameServerProfile.SpringRo;
+                    QuestWindowNative.SetForegroundWindow(game); await Pause();
+                    var beforeTimers = workspace.Settings.ActiveMvpTimers.Count;
+                    await Press(workspace.Settings.AddMvpTimerHotkey);
+                    await Until(()=>Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible), "in-game MVP hotkey opens wizard");
+                    var mvpWizard=Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w=>w.IsVisible);
+                    if(!AppearanceService.IsGameWindow(mvpWizard))throw new InvalidOperationException("MVP wizard lost its game theme scope.");
+                    mvpWizard.MonsterBox.SelectedIndex=0; await Pause();
+                    if(mvpWizard.Draft.MonsterId<=0)throw new InvalidOperationException("In-game MVP selection failed.");
+                    SaveDesktop(mvpWizard,"mvp-add-native");
+                    var create=AllButtons(mvpWizard).Single(button=>Equals(button.Content,LocalizationService.Get("CreateMvpTimer")));
+                    Click(create.PointToScreen(new Point(create.ActualWidth/2,create.ActualHeight/2)));
+                    await Until(()=>workspace.Settings.ActiveMvpTimers.Count==beforeTimers+1 && QuestWindowNative.GetForegroundWindow()==game, "MVP creation and exact-game focus restore");
+                    workspace.Settings.ActiveMvpTimers.RemoveAt(workspace.Settings.ActiveMvpTimers.Count-1);
+                    await Press(workspace.Settings.AddMvpTimerHotkey);
+                    await Until(()=>Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible), "MVP wizard reopens");
+                    mvpWizard=Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w=>w.IsVisible);
+                    var cancel=AllButtons(mvpWizard).Single(button=>Equals(button.Content,LocalizationService.Get("Cancel")));
+                    Click(cancel.PointToScreen(new Point(cancel.ActualWidth/2,cancel.ActualHeight/2)));
+                    await Until(()=>!Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible) && QuestWindowNative.GetForegroundWindow()==game,"MVP cancel and exact-game focus restore");
+                    if(workspace.Settings.ActiveMvpTimers.Count!=beforeTimers)throw new InvalidOperationException("Cancel created an MVP timer.");
+                }
+                finally { ((MainWindow)settingsWindow).CloseMvpWizard();workspace.Settings.ServerProfile=previousServer; }
                 SetWindowPos(game,IntPtr.Zero,20,20,340,240,0x14);await Pause();host.RefreshNow();
                 if(workspace.Settings.QuestOverlay.X!=x || workspace.Settings.QuestOverlay.Y!=y)
                     throw new InvalidOperationException("Game resize rewrote tracker coordinates.");
@@ -243,6 +270,15 @@ internal static class QuestInputSmoke
         {
             workspace.Settings.AllowedProcesses=original;setProcesses(string.Join(", ",original));
             if(!process.HasExited) {process.CloseMainWindow();if(!process.WaitForExit(2000)){process.Kill(true);process.WaitForExit();}}
+        }
+    }
+    private static IEnumerable<Button> AllButtons(DependencyObject root)
+    {
+        for(var i=0;i<System.Windows.Media.VisualTreeHelper.GetChildrenCount(root);i++)
+        {
+            var child=System.Windows.Media.VisualTreeHelper.GetChild(root,i);
+            if(child is Button button)yield return button;
+            foreach(var nested in AllButtons(child))yield return nested;
         }
     }
     private static void SaveDesktop(Window window,string name)

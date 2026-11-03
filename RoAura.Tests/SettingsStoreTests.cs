@@ -129,7 +129,8 @@ public sealed class SettingsStoreTests : IDisposable
         Assert.NotNull(settings.Effects);
         Assert.NotNull(settings.AllowedProcesses);
         Assert.Equal(3, settings.RewardChannels.Count);
-        Assert.Equal(6, settings.RateIndicators.Count);
+        Assert.Equal(8, settings.RateIndicators.Count);
+        Assert.All(settings.RateIndicators.Where(row => row.Kind is RateIndicatorKind.TotalBaseExperience or RateIndicatorKind.TotalJobExperience), row => Assert.False(row.Enabled));
     }
 
     [Fact]

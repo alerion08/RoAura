@@ -654,6 +654,7 @@ public partial class App : Application
             if (_characterLedger.Active == key) _characterLedger.Suspend(now);
             SaveFarmingHistory();
             _characterLedger.SwitchTo(key, now);
+            _characterLedger.Flush(now); // Persist the stable session ID before recording acquisition history.
             _appliedCharacterRevision = session.Revision;
             // The existing status/cooldown AID cache and equipment flags belong
             // to the previous character; clear those without resetting the
@@ -1246,6 +1247,7 @@ public partial class App : Application
                 return;
             }
             _settingsWindow?.EndOverlayEditModes();
+            _settingsWindow?.CloseMvpWizard();
             var visible = !_overlay.AreOverlaysVisible;
             _overlay.SetOverlaysVisible(visible);
             _settingsWindow?.SetQuestGlobalVisible(visible);

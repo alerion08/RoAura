@@ -9,6 +9,7 @@ namespace RoAura;
 public partial class MainWindow
 {
     private MvpTimerWizardWindow? _gameMvpWizard;
+    internal void CloseMvpWizard() => _gameMvpWizard?.Close();
     internal bool IsMvpWizardOpen => _gameMvpWizard?.IsVisible == true;
 
     internal void AddMvpTimerInGame()
@@ -20,7 +21,7 @@ public partial class MainWindow
         var server = Settings.ServerProfile;
         var wizard = new MvpTimerWizardWindow(_monsters)
         {
-            StartAfterCreate = true, WindowStyle = WindowStyle.None, ShowInTaskbar = false,
+            Tag = "RoAura.GameInterface", StartAfterCreate = true, WindowStyle = WindowStyle.None, ShowInTaskbar = false,
             WindowStartupLocation = WindowStartupLocation.Manual, Topmost = true
         };
         AppearanceService.ApplyPalette(wizard, AppearanceService.Resolve(Settings.ApplicationTheme, Settings.GameOverlayTheme, true));

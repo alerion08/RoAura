@@ -12,7 +12,7 @@ public static class RewardAggregation
                      nowUtc - row.LastUpdatedUtc <= interval && row.ExpiresAtUtc > nowUtc))
         {
             row.LastUpdatedUtc = nowUtc;
-            row.ExpiresAtUtc = nowUtc.AddSeconds(group.DurationSeconds);
+            row.ExpiresAtUtc = nowUtc.AddSeconds(Math.Max(group.DurationSeconds, interval.TotalSeconds));
         }
     }
 }

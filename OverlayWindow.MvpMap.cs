@@ -44,12 +44,13 @@ public partial class OverlayWindow
         {
             var map = new MvpMapEditor { ReadOnly = true, DataContext = selected, Margin = new Thickness(10) };
             _mvpMapPopup = new Window { WindowStyle = WindowStyle.None, AllowsTransparency = true,
-                Background = Brushes.Transparent, ShowActivated = false, ShowInTaskbar = false,
+                Tag = "RoAura.GameInterface", Background = Brushes.Transparent, ShowActivated = false, ShowInTaskbar = false,
                 ResizeMode = ResizeMode.NoResize, Width = 280, Height = 305,
                 Content = new Border { Child = map, CornerRadius = new CornerRadius(6),
                     Background = (Brush)FindResource("RoWindowBrush") } };
             AppearanceService.ApplyPalette(_mvpMapPopup,
                 AppearanceService.Resolve(_settings.ApplicationTheme, _settings.GameOverlayTheme, true));
+            ((Border)_mvpMapPopup.Content).SetResourceReference(Border.BackgroundProperty, "RoWindowBrush");
             _mvpMapPopup.SourceInitialized += (_, _) => QuestWindowNative.Configure(_mvpMapPopup, true, true);
             _mvpMapPopup.Show();
         }
