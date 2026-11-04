@@ -14,18 +14,18 @@ public partial class OverlayWindow
     private MvpTimer? _hoveredMvp;
     private DateTime _mvpHoverSince;
 
-    private static IEnumerable<TextBlock> TimerLabels(DependencyObject root)
+    private static IEnumerable<FrameworkElement> TimerLabels(DependencyObject root)
     {
         for (var index = 0; index < VisualTreeHelper.GetChildrenCount(root); index++)
         {
             var child = VisualTreeHelper.GetChild(root, index);
-            if (child is TextBlock label && label.Tag as string == "MvpMapHover" && label.DataContext is MvpTimer) yield return label;
+            if (child is FrameworkElement label && label.Tag as string == "MvpTimerHover" && label.DataContext is MvpTimer) yield return label;
             foreach (var nested in TimerLabels(child)) yield return nested;
         }
     }
     private void RefreshMvpMapHover()
     {
-        if (!IsVisible || !_overlaysVisible || _timerPanelEditMode || MvpTimerPanel.Visibility != Visibility.Visible ||
+        if (!IsVisible || !_overlaysVisible || _timerPanelEditMode || IsLayoutEditing || MvpTimerPanel.Visibility != Visibility.Visible ||
             !ForegroundProcess.TryGetForegroundAllowedBounds(_settings.AllowedProcesses, out var game))
         { HideMvpMap(); return; }
         var cursor = QuestWindowNative.Cursor();

@@ -1,5 +1,15 @@
 # Project state
 
+## Interface layout mode and easier MVP hover — 2026-11-04
+
+- Continuing draft PR #12 from `b1cb6cfc80dc9025c02ff84adc55c6705078c724`; stable main/version/public release are unchanged.
+- MVP maps again open over the entire timer row (name, retained magnifier, countdown and spaces); leaving the row closes the passive preview. This supersedes the magnifier-only target in development 119.
+- A new Interface layout mode hotkey defaults to None in Settings → Hotkeys → General. Existing bindings keep priority on conflicts. Repeated hotkey or the configured Finish movement key saves positions and exits without opening Settings. F8 exits and opens Settings; F9 exits and hides overlays.
+- Small nonactivating grip windows move whole groups for cooldowns, effect notifications, buff panels, reminders, equipment, statistics and reward notifications; market notifications, MVP and ROQuestie use section targets. Passive labels identify section/group (including custom cooldown names). Ungrouped entries form one section bucket, never per-item grips. Disabled members in an enabled group retain their relative offsets; foreign character scopes do not move.
+- Temporary previews expose inactive notifications and the MVP/quest panels. Existing visibility preferences, cooldown/status/session state and normal notification data are preserved; preview state is excluded from settings/presets. Opening the mode never rewrites coordinates. Group movement uses a common bounded delta in game DIPs; off-screen positions are recovered only on an actual drag.
+- Labels and the ordinary overlay remain click-through; only the small grip HWNDs accept mouse input. Alt-Tab/minimize hides handles and releases capture. Client/character/server changes end editing; main-window/preset/shutdown paths dispose temporary surfaces and restore saved visibility preferences.
+- Windows tests/native input/build validation pending. Real protected/fullscreen clients, mixed-monitor DPI and long-session acceptance remain manual.
+
 ## Shared session controls and interface adjustments — 2026-11-04
 
 - Continuing PR #12 from `80c3e77fd92a726985dc4eb91e070bf572da379f`.

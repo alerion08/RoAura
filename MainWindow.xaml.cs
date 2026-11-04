@@ -78,6 +78,7 @@ public partial class MainWindow : Window
         _overlay = overlay;
         _packetCapture = packetCapture;
         InitializeQuests();
+        InitializeInterfaceLayout();
         _goldGoblin.Changed += GoldGoblin_Changed;
         _packetCapture.StatusChanged += OnLearningStatusObserved;
         _packetCapture.SkillUsed += OnLearningSkillObserved;
@@ -733,6 +734,7 @@ public partial class MainWindow : Window
 
     public void EndOverlayEditModes()
     {
+        _layoutEditor?.Stop();
         _questWindows?.EndDrag();
         _changingMoveMode = true;
         MoveModeButton.IsChecked = false;

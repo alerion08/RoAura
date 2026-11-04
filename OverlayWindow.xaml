@@ -492,7 +492,7 @@
                     <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal"
+                            <StackPanel Orientation="Horizontal" Tag="MvpTimerHover"
                                         Margin="{Binding DataContext.TimersGap, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BottomMargin}}"
                                         Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}">
                                 <StackPanel.Resources><Style TargetType="TextBlock">

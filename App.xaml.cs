@@ -505,6 +505,7 @@ public partial class App : Application
             _inputHook.EscapePressed += ExitOverlayEditMode;
             _inputHook.ToggleTimersPressed += ToggleTimers;
             _inputHook.StartSessionPressed += () => Dispatcher.BeginInvoke(() => StartCharacterStatisticsSession());
+            _inputHook.InterfaceLayoutPressed += () => Dispatcher.BeginInvoke(() => _settingsWindow?.ToggleInterfaceLayout());
             _inputHook.PauseSessionPressed += () => Dispatcher.BeginInvoke(() => ToggleFarmingSessionPause());
             _inputHook.AddMvpTimerPressed += () => Dispatcher.BeginInvoke(() => _settingsWindow?.AddMvpTimerInGame());
             _inputHook.ToggleDatabasePressed += ToggleDatabase;
@@ -1201,6 +1202,10 @@ public partial class App : Application
         Dispatcher.BeginInvoke(() =>
         {
             if (_settingsWindow is null) return;
+            if (_settingsWindow.IsInterfaceLayoutEditing)
+            {
+                _settingsWindow.StopInterfaceLayout(); _settingsWindow.Show(); _settingsWindow.Activate(); return;
+            }
             if (_overlay?.IsBusyEditing == true)
             {
                 ExitOverlayEditMode();
@@ -1224,6 +1229,7 @@ public partial class App : Application
         Dispatcher.BeginInvoke(() =>
         {
             if (_settingsWindow is null) return;
+            if (_settingsWindow.IsInterfaceLayoutEditing) { _settingsWindow.StopInterfaceLayout(); return; }
             if(_settingsWindow.TryFinishQuestDrag())return;
             _settingsWindow.EndOverlayEditModes();
             _settingsWindow.Show();
@@ -1236,6 +1242,12 @@ public partial class App : Application
         Dispatcher.BeginInvoke(() =>
         {
             if (_overlay is null) return;
+            if (_settingsWindow?.IsInterfaceLayoutEditing == true)
+            {
+                _settingsWindow.StopInterfaceLayout();
+                _overlay.SetOverlaysVisible(false); _settingsWindow.SetQuestGlobalVisible(false);
+                _settingsWindow.ReportOverlayVisibility(false); return;
+            }
             if (_overlay.IsBusyEditing)
             {
                 ExitOverlayEditMode();

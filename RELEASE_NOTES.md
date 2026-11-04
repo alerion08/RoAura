@@ -1,3 +1,8 @@
+# Unreleased — interface layout mode and MVP hover
+
+- MVP maps open when hovering the entire timer row again, with the magnifier retained.
+- New configurable Interface layout mode hotkey shows labelled group/section grips for moving all overlay families. Whole groups move together; quiet panels have temporary previews. Repeating the hotkey or finishing saves positions and removes the editor without stealing game focus.
+
 # Unreleased — shared sessions and interface controls
 
 - Shared complete session Start/Reset in Statistics and Gold Goblin, with preserved session history and immediate display refresh. Statistics gains Start, and Start gains an optional hotkey.

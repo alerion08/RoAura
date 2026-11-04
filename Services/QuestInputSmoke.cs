@@ -46,6 +46,7 @@ internal static class QuestInputSmoke
             hook.ToggleQuestBrowserPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleBrowser);
             hook.ToggleQuestTrackerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleTracker);
             var startSessionPresses=0;hook.StartSessionPressed+=()=>Interlocked.Increment(ref startSessionPresses);
+            hook.InterfaceLayoutPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).ToggleInterfaceLayout());
             hook.AddMvpTimerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).AddMvpTimerInGame());
             hook.EscapePressed+=()=>((App)Application.Current).ExitOverlayEditMode();
             hook.ToggleOverlaysPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>host.SetGlobalVisible(!host.GlobalVisible));
@@ -347,6 +348,7 @@ internal static class QuestInputSmoke
                     }
                     finally {ordinary.EndAllEditModes();hook.SetEscapeEnabled(false);workspace.Settings.TimersX=oldTimerX;workspace.Settings.TimersY=oldTimerY;}
                     await VerifyMvpMapHover(ordinary,workspace.Settings,game);
+                    await VerifyInterfaceLayout((MainWindow)settingsWindow,ordinary,workspace.Settings,hook,game,reportPath);
                 }
                 finally { ((MainWindow)settingsWindow).CloseMvpWizard();workspace.Settings.ServerProfile=previousServer;workspace.Settings.AddMvpTimerHotkey=previousAddKey;workspace.Settings.GameOverlayTheme=previousGameTheme; }
                 var previousStartKey=workspace.Settings.StartSessionHotkey;
@@ -398,6 +400,63 @@ internal static class QuestInputSmoke
             if(!process.HasExited) {process.CloseMainWindow();if(!process.WaitForExit(2000)){process.Kill(true);process.WaitForExit();}}
         }
     }
+    private static async Task VerifyInterfaceLayout(MainWindow main,OverlayWindow overlay,AppSettings settings,
+        GlobalInputHook hook,IntPtr game,string reportPath)
+    {
+        var originalKey=settings.InterfaceLayoutHotkey;
+        var groups=settings.CooldownGroups.Select(group=>group.GroupNumber).ToHashSet();
+        var first=new SkillAura {Name="Layout A",GroupNumber=17,X=60,Y=160,IndividualIconSize=40};
+        var second=new SkillAura {Name="Layout B",GroupNumber=17,X=140,Y=160,IndividualIconSize=40,Enabled=false};
+        var other=new SkillAura {Name="Layout other",GroupNumber=18,X=60,Y=330,IndividualIconSize=40};
+        settings.Skills.Add(first);settings.Skills.Add(second);settings.Skills.Add(other);
+        var questX=settings.QuestOverlay.X;var questY=settings.QuestOverlay.Y;
+        try
+        {
+            settings.InterfaceLayoutHotkey="Ctrl+Shift+F2";
+            QuestWindowNative.SetForegroundWindow(game);
+            await Press("F2");await Pause();
+            if(main.IsInterfaceLayoutEditing)throw new InvalidOperationException("Layout hotkey ignored its modifiers.");
+            await Press(settings.InterfaceLayoutHotkey);
+            await Until(()=>main.IsInterfaceLayoutEditing && main.InterfaceLayoutEditor!.GripWindows.TryGetValue("cooldown:17",out var window) && window.IsVisible,"layout group grip appears");
+            if(overlay.IsBusyEditing)throw new InvalidOperationException("Layout mode made the ordinary overlay interactive.");
+            if(!first.IsPlacementPreview || first.X!=60 || second.X!=140 || settings.QuestOverlay.X!=questX || settings.QuestOverlay.Y!=questY)
+                throw new InvalidOperationException("Entering layout changed positions or omitted previews.");
+            var editor=main.InterfaceLayoutEditor!;
+            foreach(var key in new[]{"mvp","quest","statistics:1"})
+                if(!editor.GripWindows.ContainsKey(key))throw new InvalidOperationException("Missing section/group layout handle: "+key);
+            var clicks=Read(reportPath)!.Clicks;
+            var label=editor.LabelWindows["cooldown:17"];
+            Click(label.PointToScreen(new Point(20,13)));
+            await Until(()=>Read(reportPath)!.Clicks>clicks,"layout labels pass mouse clicks to the game");
+            var grip=editor.GripWindows["cooldown:17"];
+            var cursor=grip.PointToScreen(new Point(13,13));
+            SetCursorPos((int)cursor.X,(int)cursor.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});await Pause(80);
+            SetCursorPos((int)cursor.X+45,(int)cursor.Y+30);await Pause(200);
+            Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=4}}});await Pause();
+            var dpi=QuestWindowNative.Scale(game);
+            if(Math.Abs(first.X-60-45/dpi)>1 || Math.Abs(first.Y-160-30/dpi)>1 || Math.Abs(second.X-first.X-80)>1 || other.X!=60)
+                throw new InvalidOperationException("Layout drag did not move exactly one whole group.");
+            if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("Layout grip stole game focus.");
+            SaveDesktop(overlay,"interface-layout-native");
+            var handles=editor.GripWindows.Values.ToArray();
+            await Press(settings.InterfaceLayoutHotkey);
+            await Until(()=>!main.IsInterfaceLayoutEditing,"repeated layout hotkey closes mode");
+            if(first.IsPlacementPreview || handles.Any(window=>window.IsVisible) || overlay.IsLayoutEditing)
+                throw new InvalidOperationException("Layout previews/grips leaked after exit.");
+            await Press(settings.InterfaceLayoutHotkey);await Until(()=>main.IsInterfaceLayoutEditing,"layout reopens");
+            hook.SetEscapeEnabled(true);await Press(settings.FinishMoveHotkey);
+            await Until(()=>!main.IsInterfaceLayoutEditing,"finish hotkey exits layout");hook.SetEscapeEnabled(false);
+            if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("Finishing layout activated settings.");
+            DebugLog.Write("INTERFACE LAYOUT PASS: exact hotkey, passive labels, whole-group DPI drag, independent groups, repeated-key and finish exit, focus and preview cleanup.");
+        }
+        finally
+        {
+            main.StopInterfaceLayout();hook.SetEscapeEnabled(false);settings.InterfaceLayoutHotkey=originalKey;
+            settings.Skills.Remove(first);settings.Skills.Remove(second);settings.Skills.Remove(other);
+            foreach(var group in settings.CooldownGroups.Where(group=>!groups.Contains(group.GroupNumber)).ToArray())settings.CooldownGroups.Remove(group);
+        }
+    }
+
     private static async Task VerifyMvpMapHover(OverlayWindow overlay,AppSettings settings,IntPtr game)
     {
         var timer=new MvpTimer {Name="Baphomet",MonsterId=1039,LocationCode="prt_maze03",MarkerX=.5,MarkerY=.5};
@@ -417,13 +476,16 @@ internal static class QuestInputSmoke
                 var point=target.PointToScreen(new Point(target.ActualWidth/2,target.ActualHeight/2));
                 SetCursorPos((int)point.X,(int)point.Y);
             }
-            Hover(name);await Pause(850);
-            if(overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP name unexpectedly opened the map.");
-            Hover(icon);await Until(()=>overlay.IsMvpMapVisible,"MVP magnifier opens the map");
+            Hover(name);await Until(()=>overlay.IsMvpMapVisible,"MVP name opens the map");
+            Hover(icon);await Pause(250);
+            if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP magnifier lost the row hover map.");
+            Hover(labels.Single(text=>text!=name && text!=icon));await Pause(250);
+            if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP timer text lost the row hover map.");
             if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("MVP map stole game focus.");
             SaveElement(panel,"mvp-magnifier-row");SaveDesktop(overlay,"mvp-magnifier-hover");
-            Hover(name);await Until(()=>!overlay.IsMvpMapVisible,"MVP map closes outside the magnifier");
-            DebugLog.Write("MVP MAGNIFIER PASS: only icon opens map; name closes it; game focus preserved.");
+            var gameRect=QuestWindowNative.Bounds(game);SetCursorPos((int)gameRect.Right-5,(int)gameRect.Bottom-5);
+            await Until(()=>!overlay.IsMvpMapVisible,"MVP map closes outside the row");
+            DebugLog.Write("MVP ROW HOVER PASS: name, magnifier and time show map; leaving row closes it; focus preserved.");
         }
         finally
         {

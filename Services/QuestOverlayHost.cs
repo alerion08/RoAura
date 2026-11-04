@@ -40,6 +40,8 @@ public sealed class QuestOverlayHost : IDisposable
     private DateTime _copiedUntil;
     public QuestBrowserWindow Browser {get;}
     public bool IsDragging=>_dragElement is not null;
+    private bool _layoutEditing;
+    internal void SetLayoutEditing(bool enabled) { EndDrag(); _layoutEditing=enabled; _dirty=true; Tick(); }
     public bool BrowserShowing=>Browser.IsVisible;
     public bool BrowserRequested=>_browserRequested;
     public bool TrackerRequested=>_trackerRequested;
@@ -149,7 +151,8 @@ public sealed class QuestOverlayHost : IDisposable
             PlaceBrowser(promote);if(!Browser.IsVisible)Browser.Show();
         }
         else if(Browser.IsVisible)Browser.Hide();
-        if(_otherEditing() || !_trackerRequested || !Options.Enabled || _workspace.Active.All(q=>!q.Progress.IsVisibleInOverlay))
+        if(_otherEditing() || (!_trackerRequested && !_layoutEditing) || !Options.Enabled ||
+            (!_layoutEditing && _workspace.Active.All(q=>!q.Progress.IsVisibleInOverlay)))
         {HideTracker();return;}
         if(_dirty)Rebuild();
         _canvas.Width=_gamePixels.Width/_dpi;_canvas.Height=_gamePixels.Height/_dpi;
@@ -166,7 +169,7 @@ public sealed class QuestOverlayHost : IDisposable
             var inside=_gamePixels.Contains(rect);
             // Clip only the covered pixels. A wide transparent strip can intersect
             // the browser even when all its painted buttons are still to the left.
-            if(!inside || !Options.ShowButtons) {window.Hide();continue;}
+            if(!inside || !Options.ShowButtons || _layoutEditing) {window.Hide();continue;}
             if(!window.IsVisible)window.Show();QuestWindowNative.Place(window,rect,promote);
             if(window.Content is FrameworkElement content)
             {content.UpdateLayout();content.Clip=QuestWindowNative.ExclusionClip(content,new Size(Options.Width,24),excluded);}
@@ -222,7 +225,7 @@ public sealed class QuestOverlayHost : IDisposable
                 {if(_dragElement!=drag)return;var delta=QuestWindowNative.Cursor()-_dragCursor;Options.X=_dragOrigin.X+delta.X/_dpi;Options.Y=_dragOrigin.Y+delta.Y/_dpi;Tick();};
                 drag.PreviewMouseLeftButtonUp+=(_,e)=>{EndDrag();_dirty=true;e.Handled=true;};
                 header.Children.Add(drag);headerStrip.Content=header;
-        _actions.Add((headerStrip,0));_cards.Children.Add(new Border {Height=28});
+        _actions.Add((headerStrip,0));_cards.Children.Add(new Border {Height=28,Child=_layoutEditing?Label("ROQuestie",color,true):null});
         var y=28d;var count=0;
         var visibleRows=_workspace.Active.Where(q=>q.Progress.IsVisibleInOverlay).ToList();
         foreach(var row in visibleRows)
@@ -280,6 +283,7 @@ public sealed class QuestOverlayHost : IDisposable
             }
             _cards.Children.Add(new Border {Height=Options.CardGap});y+=textHeight+(Options.ShowButtons?24:0)+Options.CardGap;count++;
         }
+        if(_layoutEditing && visibleRows.Count==0)_cards.Children.Add(Label(T("LayoutQuestPreview"),color));
         _canvas.Children.Remove(oldCards);_canvas.Children.Add(_cards);
         for(var i=_actionSlot;i<_actionPool.Count;i++)_actionPool[i].Hide();
         _dirty=false;

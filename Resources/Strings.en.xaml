@@ -726,4 +726,12 @@
     <sys:String x:Key="GoldGoblinIgnoreZenyIncome">Ignore direct Zeny income</sys:String>
     <sys:String x:Key="HotkeySectionGeneral">General</sys:String>
     <sys:String x:Key="HotkeySectionFarming">Statistics and Gold Goblin</sys:String>
+    <sys:String x:Key="InterfaceLayoutMode">Interface layout mode</sys:String>
+    <sys:String x:Key="LayoutFinishHint">⋮⋮ — move groups</sys:String>
+    <sys:String x:Key="LayoutUngrouped">Ungrouped</sys:String>
+    <sys:String x:Key="LayoutGroup">Group {0}</sys:String>
+    <sys:String x:Key="LayoutBuffPanel">Effects / Buff panel</sys:String>
+    <sys:String x:Key="LayoutStatistics">Statistics / Indicators</sys:String>
+    <sys:String x:Key="LayoutRewards">Statistics / Notifications</sys:String>
+    <sys:String x:Key="LayoutQuestPreview">Tracked quests will appear here.</sys:String>
 </ResourceDictionary>

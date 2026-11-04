@@ -56,10 +56,11 @@
    </StackPanel></ScrollViewer></TabItem>
    <TabItem Header="{DynamicResource Hotkeys}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="18" MaxWidth="720" HorizontalAlignment="Left">
     <TextBlock Text="{DynamicResource AllHotkeysHint}" TextWrapping="Wrap" Margin="0,0,0,12"/>
-    <GroupBox Header="{DynamicResource HotkeySectionGeneral}" Margin="0,0,0,12"><Grid Margin="10"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <GroupBox Header="{DynamicResource HotkeySectionGeneral}" Margin="0,0,0,12"><Grid Margin="10"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <TextBlock Grid.Row="0" Text="{DynamicResource SettingsWindowHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="0" Grid.Column="1" Value="{Binding SettingsHotkey, Mode=TwoWay}"/>
      <TextBlock Grid.Row="1" Text="{DynamicResource OverlaysHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="1" Grid.Column="1" Value="{Binding OverlaysHotkey, Mode=TwoWay}"/>
      <TextBlock Grid.Row="2" Text="{DynamicResource FinishMoveHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="2" Grid.Column="1" Value="{Binding FinishMoveHotkey, Mode=TwoWay}"/>
+     <TextBlock Grid.Row="3" Text="{DynamicResource InterfaceLayoutMode}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="3" Grid.Column="1" Value="{Binding InterfaceLayoutHotkey, Mode=TwoWay}"/>
     </Grid></GroupBox>
     <GroupBox Header="{DynamicResource HotkeySectionFarming}" Margin="0,0,0,12"><Grid Margin="10"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
      <TextBlock Grid.Row="0" Text="{DynamicResource StartSessionHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="0" Grid.Column="1" Value="{Binding StartSessionHotkey, Mode=TwoWay}"/>

@@ -33,6 +33,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     private string _questTrackerHotkey = "F5";
     private string _pauseSessionHotkey = "Pause";
     private string _startSessionHotkey = "None";
+    private string _interfaceLayoutHotkey = "None";
     private string _addMvpTimerHotkey = "F4";
     public double? MvpAddWindowX { get; set; }
     public double? MvpAddWindowY { get; set; }
@@ -40,9 +41,10 @@ public sealed class AppSettings : INotifyPropertyChanged
     [JsonIgnore] public bool SessionPaused { get => _sessionPaused; set => Set(ref _sessionPaused, value); }
     public string PauseSessionHotkey { get => _pauseSessionHotkey; set => Set(ref _pauseSessionHotkey, NormalizeHotkey(value, "Pause")); }
     public string StartSessionHotkey { get => _startSessionHotkey; set => Set(ref _startSessionHotkey, NormalizeHotkey(value, "None")); }
+    public string InterfaceLayoutHotkey { get => _interfaceLayoutHotkey; set => Set(ref _interfaceLayoutHotkey, NormalizeHotkey(value, "None")); }
     public string AddMvpTimerHotkey { get => _addMvpTimerHotkey; set => Set(ref _addMvpTimerHotkey, NormalizeHotkey(value, "F4")); }
     [JsonIgnore] public bool HotkeyConflicts => new[] { SettingsHotkey, OverlaysHotkey, FinishMoveHotkey, TimersHotkey, DatabaseHotkey,
-        QuestBrowserHotkey, QuestTrackerHotkey, PauseSessionHotkey, StartSessionHotkey, AddMvpTimerHotkey }
+        QuestBrowserHotkey, QuestTrackerHotkey, PauseSessionHotkey, StartSessionHotkey, AddMvpTimerHotkey, InterfaceLayoutHotkey }
         .Where(value => Services.HotkeyChord.TryParse(value,out _)).Select(Services.HotkeyChord.Canonical).GroupBy(value=>value).Any(group=>group.Count()>1);
     [JsonIgnore] public bool FarmingHotkeyConflict => Services.FarmingHotkeys.HasConflict(this);
     private double _marketBackgroundRefreshMinutes = 10;

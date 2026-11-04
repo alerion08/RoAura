@@ -726,4 +726,12 @@
     <sys:String x:Key="GoldGoblinIgnoreZenyIncome">Не учитывать получение Zeny</sys:String>
     <sys:String x:Key="HotkeySectionGeneral">Основное</sys:String>
     <sys:String x:Key="HotkeySectionFarming">Статистика и Gold Goblin</sys:String>
+    <sys:String x:Key="InterfaceLayoutMode">Режим настройки интерфейса</sys:String>
+    <sys:String x:Key="LayoutFinishHint">⋮⋮ — перемещение групп</sys:String>
+    <sys:String x:Key="LayoutUngrouped">Без группы</sys:String>
+    <sys:String x:Key="LayoutGroup">Группа {0}</sys:String>
+    <sys:String x:Key="LayoutBuffPanel">Эффекты / Панель эффектов</sys:String>
+    <sys:String x:Key="LayoutStatistics">Статистика / Показатели</sys:String>
+    <sys:String x:Key="LayoutRewards">Статистика / Уведомления</sys:String>
+    <sys:String x:Key="LayoutQuestPreview">Здесь будут показаны отслеживаемые квесты.</sys:String>
 </ResourceDictionary>

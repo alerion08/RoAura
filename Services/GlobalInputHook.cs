@@ -28,7 +28,7 @@ public sealed class GlobalInputHook : IDisposable
         public int Held;
     }
     public event Action? ToggleSettingsPressed,ToggleOverlaysPressed,EscapePressed,ToggleTimersPressed,
-        StartSessionPressed,PauseSessionPressed,AddMvpTimerPressed,ToggleDatabasePressed,ToggleQuestBrowserPressed,ToggleQuestTrackerPressed;
+        InterfaceLayoutPressed,StartSessionPressed,PauseSessionPressed,AddMvpTimerPressed,ToggleDatabasePressed,ToggleQuestBrowserPressed,ToggleQuestTrackerPressed;
     public GlobalInputHook(AppSettings settings)
     {
         _settings=settings;_keyboardProc=KeyboardHookCallback;
@@ -66,6 +66,7 @@ public sealed class GlobalInputHook : IDisposable
         if(FarmingHotkeys.Enabled(_settings,_settings.PauseSessionHotkey))Add(_settings.PauseSessionHotkey,()=>PauseSessionPressed?.Invoke());
         if(FarmingHotkeys.Enabled(_settings,_settings.StartSessionHotkey))Add(_settings.StartSessionHotkey,()=>StartSessionPressed?.Invoke());
         if(FarmingHotkeys.Enabled(_settings,_settings.AddMvpTimerHotkey))Add(_settings.AddMvpTimerHotkey,()=>AddMvpTimerPressed?.Invoke());
+        if(OverlayLayoutHotkeys.Enabled(_settings))Add(_settings.InterfaceLayoutHotkey,()=>InterfaceLayoutPressed?.Invoke());
         Volatile.Write(ref _entries,entries.ToArray());
     }
     private static bool Down(int key)=>(GetAsyncKeyState(key)&0x8000)!=0;

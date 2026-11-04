@@ -664,6 +664,18 @@ PR installer validation also passed on [attempt 2](https://github.com/alerion08/
 - [ ] Start hotkey defaults to None, supports chords and clearing, matches modifiers exactly and does not fire during capture. Duplicate farming keys are disabled without disabling unrelated MVP bindings.
 - [ ] Single/multiline and editing table content is vertically centered in both themes; existing horizontal alignment and editing remain.
 - [ ] Settings opens Basic then Appearance; explicit Appearance preview still selects Appearance. Hotkeys are grouped by function with one conflict warning.
-- [ ] MVP magnifier opens minimap/marker after hover delay; name/time/background do not. Moving away closes it, game focus is preserved and map does not overlap timer text; verify mixed DPI/fullscreen.
+- [ ] MVP name, magnifier, time and row gaps open minimap/marker after hover delay. Moving off the row closes it, game focus is preserved and map does not overlap timer text; verify mixed DPI/fullscreen.
 
 Automated evidence for `f680a488b7a6e6b9b7051c6cd6faf01937fc1c90`: [development 119](https://github.com/alerion08/RoAura/actions/runs/41802211067) — 376 tests, zero failures/skips, eight ToC checks, native input/startup and clean portable verification. Tests cover shared Start/Reset, first Zeny gain after a boundary, lifetime/progress/rule preservation, income combinations, unassigned/conflicting keys and single/wrapped cell geometry with retained right alignment. Native probe covers magnifier-only map hover/close/focus, Start chord modifiers/None, existing Print Screen and movement behavior. Row/map rasters inspected. [Installer attempt 2](https://github.com/alerion08/RoAura/actions/runs/41802217842/attempts/2) passed; first attempt encountered the already recorded unrelated ROQuestie toast-expiry timeout. The gameplay checklist above remains manual.
+
+
+## Interface layout mode — 2026-11-04
+
+- [ ] New layout hotkey defaults to None, records/clears arbitrary chords and does not override existing hotkeys. Repeated chord and configured Finish key save/exit; F8 opens Settings after exit and F9 hides overlays.
+- [ ] Every available overlay family has section/group labels and grips; inactive notifications and empty MVP/quest panels have transient previews. Disabled/unavailable sections do not become enabled in saved settings.
+- [ ] Dragging one grip moves all members of that group with equal DPI-adjusted deltas, preserves spacing/disabled member offsets and leaves other groups/foreign character scopes unchanged. Group 0 is one bucket, no individual handles.
+- [ ] Entering/exiting, resize or just clicking an off-screen grip does not rewrite coordinates. Actual dragging recovers an off-screen group without scaling/rearranging its members.
+- [ ] Labels/world text are click-through. Grip dragging and finishing do not steal game focus or block modifiers/Print Screen; ordinary overlay remains passive.
+- [ ] Alt-Tab/minimize, client/character/server/preset changes, stopping mid-drag and shutdown release capture and remove temporary windows/previews; visibility preferences and cooldown/status/session data remain intact.
+- [ ] All grouped positions survive restart and presets; test real Ragnarok, protected/fullscreen rendering and mixed DPI.
+- [ ] MVP row text/icon/gaps show the same map/marker, leaving the row closes it, and hovering is suspended during layout mode.

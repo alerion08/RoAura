@@ -1081,7 +1081,7 @@ public partial class OverlayWindow : Window
 
     private void UpdateTimerPanelPreviewPosition()
     {
-        if (!_timerPanelEditMode)
+        if (!_timerPanelEditMode && !_layoutTimerPreview)
         {
             _timerPreviewOffset = new Point();
             MvpTimerPanel.RenderTransform=Transform.Identity;
@@ -1096,9 +1096,9 @@ public partial class OverlayWindow : Window
     private void UpdateTimerPanelVisibility()
     {
         var hasRunningTimers = _settings.ActiveMvpTimers.Any(timer => timer.IsVisible);
-        MvpTimerPanel.Visibility = _settings.TimersOverlayVisible &&
+        MvpTimerPanel.Visibility = (_settings.TimersOverlayVisible || _layoutTimerPreview) &&
                                    GameServerProfile.SupportsServerDatabases(_settings.ServerProfile) &&
-                                   (_timerPanelEditMode || hasRunningTimers)
+                                   (_timerPanelEditMode || _layoutTimerPreview || hasRunningTimers)
             ? Visibility.Visible
             : Visibility.Collapsed;
     }
