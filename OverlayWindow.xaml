@@ -492,12 +492,19 @@
                     <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding DisplayText}" FontWeight="Bold" FontSize="{Binding DataContext.TimersTextSize, RelativeSource={RelativeSource AncestorType=Window}}"
-                                       Foreground="{Binding DataContext.TimersTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}"
-                                       Margin="{Binding DataContext.TimersGap, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BottomMargin}}"
-                                       Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}">
-                                <TextBlock.Effect><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></TextBlock.Effect>
-                            </TextBlock>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="{Binding DataContext.TimersGap, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BottomMargin}}"
+                                        Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}">
+                                <StackPanel.Resources><Style TargetType="TextBlock">
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="{Binding DataContext.TimersTextSize, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                    <Setter Property="Foreground" Value="{Binding DataContext.TimersTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}"/>
+                                    <Setter Property="Effect"><Setter.Value><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></Setter.Value></Setter>
+                                </Style></StackPanel.Resources>
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Tag="MvpMapHover" Text="&#xE721;" FontFamily="Segoe MDL2 Assets" FontWeight="Normal" Margin="7,0,0,0" VerticalAlignment="Center"/>
+                                <TextBlock><Run Text=" — "/><Run Text="{Binding RemainingText}"/></TextBlock>
+                            </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

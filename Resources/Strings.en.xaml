@@ -433,7 +433,7 @@
     <sys:String x:Key="CurrentPriceSource">Current price source</sys:String>
     <sys:String x:Key="GoldGoblinPriceEditHint">Configure the price source on the Price rules tab. Quantity changes affect only the current session.</sys:String>
     <sys:String x:Key="OverchargeDescription">The bonus applies only to NPC Price. Vending Price and Manual Price are unchanged.</sys:String>
-    <sys:String x:Key="GoldGoblinResetHint">Resetting the session clears items and quantities but keeps price rules and the Overcharge level.</sys:String>
+    <sys:String x:Key="GoldGoblinResetHint">Start and reset are shared by statistics and Gold Goblin: EXP, loot, Zeny, elapsed time and pause clear together. Session history, price rules and Overcharge are kept.</sys:String>
     <sys:String x:Key="GoldGoblinEyebrow">LOOT AND VALUE TRACKING</sys:String>
     <sys:String x:Key="ExportCsv">Export CSV</sys:String>
     <sys:String x:Key="AccountedLootValue">Accounted loot value</sys:String>
@@ -722,4 +722,8 @@
     <sys:String x:Key="ClearHotkey">Clear assignment</sys:String>
     <sys:String x:Key="CaptureHotkeyHint">Click, then press a key or combination. Right-click to clear.</sys:String>
     <sys:String x:Key="HotkeyConflictHint">Some shortcuts are assigned to more than one action. Change duplicate assignments.</sys:String>
+    <sys:String x:Key="StartSessionHotkey">Start session</sys:String>
+    <sys:String x:Key="GoldGoblinIgnoreZenyIncome">Ignore direct Zeny income</sys:String>
+    <sys:String x:Key="HotkeySectionGeneral">General</sys:String>
+    <sys:String x:Key="HotkeySectionFarming">Statistics and Gold Goblin</sys:String>
 </ResourceDictionary>

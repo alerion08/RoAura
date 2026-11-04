@@ -635,6 +635,18 @@ public partial class OverlayWindow : Window
         UpdateRateIndicators();
     }
 
+    public void ResetFarmingSessionPresentation()
+    {
+        _sessionBaseExperience = 0;
+        _baseExperienceStartedUtc = null;
+        _sessionJobExperience = 0;
+        _jobExperienceStartedUtc = null;
+        _sessionZeny = 0;
+        _zenyStartedUtc = null;
+        foreach (var group in _settings.RewardGroups) group.Notifications.Clear();
+        UpdateRateIndicators(true);
+    }
+
     public void ResetRateStatistics()
     {
         if (_characterStatisticsSource is not null) { UpdateRateIndicators(true); return; }
@@ -682,7 +694,7 @@ public partial class OverlayWindow : Window
             ? _sessionBaseExperience / Math.Max((now - _baseExperienceStartedUtc.Value).TotalHours, 1d / 3600d)
             : 0;
         var includeLootValue = GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile) && _settings.IncludeGoldGoblinInZenyPerHour;
-        var effectiveZeny = _sessionZeny + (includeLootValue ? _goldGoblin.SessionTotal : 0);
+        var effectiveZeny = FarmingSessionActions.CalculateIncome(_settings, _sessionZeny, _goldGoblin.SessionTotal);
         var zenyStarted = new[] { _zenyStartedUtc, includeLootValue ? _goldGoblin.SessionStartedUtc : null }
             .Where(value => value.HasValue).Select(value => value!.Value).DefaultIfEmpty().Min();
         var hasZenySession = _zenyStartedUtc.HasValue || (includeLootValue && _goldGoblin.SessionStartedUtc.HasValue);
@@ -779,9 +791,8 @@ public partial class OverlayWindow : Window
         var baseRate = record?.BaseExperiencePerHour ?? 0;
         var jobRate = record?.JobExperiencePerHour ?? 0;
         var activeHours = record?.SessionActiveHours ?? 0;
-        var zenyTotal = (record?.SessionZenyGained ?? 0) +
-            (record is not null && GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile) &&
-             _settings.IncludeGoldGoblinInZenyPerHour ? _goldGoblin.SessionTotal : 0);
+        var zenyTotal = record is null ? 0 : FarmingSessionActions.CalculateIncome(
+            _settings, record.SessionZenyGained, _goldGoblin.SessionTotal);
         var zenyRate = activeHours > 0 ? zenyTotal / activeHours : 0;
         var timeToLevel = CharacterEta(record?.CurrentBaseExperience ?? 0,
             record?.NextBaseExperience ?? 0, baseRate);

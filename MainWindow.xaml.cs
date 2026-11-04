@@ -350,35 +350,18 @@ public partial class MainWindow : Window
         if (Application.Current is App app) app.ToggleFarmingSessionPause();
     }
 
-    private void ResetGoldGoblin_Click(object sender, RoutedEventArgs e)
+    private void StartFarmingSession_Click(object sender, RoutedEventArgs e)
     {
         var result = MessageBox.Show(this,
-            T("Очистить все предметы и количества текущей сессии? Правила цен сохранятся.",
-              "Clear all items and quantities from the current session? Price rules will be kept."),
-            T("Сброс сессии Gold Goblin", "Reset Gold Goblin session"),
-            MessageBoxButton.YesNo, MessageBoxImage.Question);
-        if (result == MessageBoxResult.Yes && Application.Current is App app) app.ResetCharacterStatisticsSession();
-    }
-
-    private void StartGoldGoblinSession_Click(object sender, RoutedEventArgs e)
-    {
-        if (GoldGoblinRows.Count > 0)
-        {
-            var result = MessageBox.Show(this,
-                T("Начать новую сессию? Текущий список предметов и количества будет очищен. Правила цен сохранятся.",
-                  "Start a new session? The current item list and quantities will be cleared. Price rules will be kept."),
-                T("Новая сессия Gold Goblin", "New Gold Goblin session"),
-                MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) return;
-        }
-        if (AppEnvironment.CharacterSessionsEnabled)
-        {
-            if (Application.Current is not App app || !app.StartCharacterStatisticsSession())
-                SetStatus(T("Сначала войдите на персонажа: общая сессия не запущена.",
-                    "Log in to a character first: shared session could not start."));
-            return;
-        }
-        _goldGoblin.StartSession();
+            T("Начать новую общую сессию? Опыт, добыча, Zeny и время текущей сессии будут сброшены. Сессия сохранится в истории.",
+              "Start a new shared session? Current EXP, loot, Zeny and elapsed time will reset. The session will remain in history."),
+            T("Начать сессию", "Start session"), MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result != MessageBoxResult.Yes) return;
+        SaveSettings();
+        if (Application.Current is not App app || !app.StartCharacterStatisticsSession())
+            SetStatus(T("Сначала войдите на персонажа: общая сессия не запущена.",
+                "Log in to a character first: shared session could not start."));
+        else SetStatus(T("Общая сессия начата.", "Shared session started."));
     }
 
     private void OpenGoldGoblinAdd_Click(object sender, RoutedEventArgs e)
@@ -2102,26 +2085,18 @@ public partial class MainWindow : Window
     private void RateIndicatorGroupMoveMode_Changed(object sender, RoutedEventArgs e) =>
         HandleRateIndicatorMoveToggle((ToggleButton)sender, true);
 
-    private void ResetStatisticsSession_Click(object sender, RoutedEventArgs e)
+    private void ResetFarmingSession_Click(object sender, RoutedEventArgs e)
     {
+        var result = MessageBox.Show(this,
+            T("Сбросить общую сессию? Опыт, добыча, Zeny, время и пауза будут очищены. Сессия сохранится в истории, правила цен сохранятся.",
+              "Reset the shared session? EXP, loot, Zeny, elapsed time and pause will clear. Session history and price rules will be kept."),
+            T("Сброс сессии", "Reset session"), MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result != MessageBoxResult.Yes) return;
         SaveSettings();
-        if (AppEnvironment.CharacterSessionsEnabled)
-        {
-            if (Application.Current is not App app || !app.ResetCharacterStatisticsSession())
-            {
-                SetStatus(T("Не удалось сбросить статистику: персонаж ещё не определён.",
-                    "Cannot reset statistics: active character is not identified."));
-                return;
-            }
-            SetStatus(T("Сессия выбранного персонажа сброшена; общая история сохранена.",
-                "Active character session reset; lifetime history preserved."));
-        }
-        else
-        {
-            _overlay.ResetRateSession();
-            SetStatus(T("Сессия статистики сброшена. Новый расчёт начнётся со следующего получения опыта или Zeny.",
-                "Statistics session reset. A new calculation starts with the next EXP or Zeny gain."));
-        }
+        if (Application.Current is not App app || !app.ResetCharacterStatisticsSession())
+            SetStatus(T("Не удалось сбросить сессию: персонаж ещё не определён.",
+                "Cannot reset session: active character is not identified."));
+        else SetStatus(T("Общая сессия сброшена; история сохранена.", "Shared session reset; history preserved."));
     }
 
     private void HandleRateIndicatorMoveToggle(ToggleButton button, bool groupMode)

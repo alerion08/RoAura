@@ -1,5 +1,14 @@
 # Project state
 
+## Shared session controls and interface adjustments — 2026-11-04
+
+- Continuing PR #12 from `80c3e77fd92a726985dc4eb91e070bf572da379f`.
+- Statistics and Gold Goblin share Start/Reset handlers and a single session boundary: session EXP, loot/editable valuation rows, Zeny, active time, pause and transient reward notifications clear together. Completed receipt-price history, lifetime totals and character level progress are retained. Start runs the clock immediately; Reset waits for the next experience gain, as before.
+- Start session has a configurable hotkey, initially None. Hotkeys are grouped into General, Statistics/Gold Goblin, MVP Timers, Database and ROQuestie; unassigned actions do not conflict or disable unrelated actions.
+- Gold Goblin calculation settings can exclude direct positive Zeny balance changes from Zeny Total/h while retaining raw balance tracking/history and optional loot valuation. The application cannot distinguish trades from NPC sales in an absolute-balance packet; this option excludes all direct Zeny income.
+- Shared table-cell content and headers center vertically without changing horizontal alignment. Settings opens Basic first, then Appearance. Only the magnifier immediately after an MVP name opens the passive minimap preview.
+- Validation pending for this integration block. Actual gameplay, session reset/start across relog, direct trade/NPC sales, protected-client hover and mixed DPI remain manual acceptance. Version 3.3.0, main and published assets are unchanged.
+
 ## MVP location panel layout — 2026-11-04
 
 - Continuing PR #12 from `017ef1089b27dac5d25a1d37ee23823ad16b5eb8`.

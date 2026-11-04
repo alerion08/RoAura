@@ -28,7 +28,7 @@ public sealed class GlobalInputHook : IDisposable
         public int Held;
     }
     public event Action? ToggleSettingsPressed,ToggleOverlaysPressed,EscapePressed,ToggleTimersPressed,
-        PauseSessionPressed,AddMvpTimerPressed,ToggleDatabasePressed,ToggleQuestBrowserPressed,ToggleQuestTrackerPressed;
+        StartSessionPressed,PauseSessionPressed,AddMvpTimerPressed,ToggleDatabasePressed,ToggleQuestBrowserPressed,ToggleQuestTrackerPressed;
     public GlobalInputHook(AppSettings settings)
     {
         _settings=settings;_keyboardProc=KeyboardHookCallback;
@@ -64,6 +64,7 @@ public sealed class GlobalInputHook : IDisposable
         if(quests.Browser)Add(_settings.QuestBrowserHotkey,()=>ToggleQuestBrowserPressed?.Invoke());
         if(quests.Tracker)Add(_settings.QuestTrackerHotkey,()=>ToggleQuestTrackerPressed?.Invoke());
         if(FarmingHotkeys.Enabled(_settings,_settings.PauseSessionHotkey))Add(_settings.PauseSessionHotkey,()=>PauseSessionPressed?.Invoke());
+        if(FarmingHotkeys.Enabled(_settings,_settings.StartSessionHotkey))Add(_settings.StartSessionHotkey,()=>StartSessionPressed?.Invoke());
         if(FarmingHotkeys.Enabled(_settings,_settings.AddMvpTimerHotkey))Add(_settings.AddMvpTimerHotkey,()=>AddMvpTimerPressed?.Invoke());
         Volatile.Write(ref _entries,entries.ToArray());
     }

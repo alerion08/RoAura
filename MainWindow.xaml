@@ -1083,8 +1083,9 @@
                                     <TextBlock Text="{DynamicResource RewardsSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <Button Content="{DynamicResource StartSession}" Click="StartFarmingSession_Click"/>
                                 <ToggleButton Content="{DynamicResource PauseSession}" IsChecked="{Binding SessionPaused, Mode=OneWay}" Click="PauseSession_Click"/>
-                                <Button Content="{DynamicResource ResetStatisticsSession}" Click="ResetStatisticsSession_Click" Style="{StaticResource DangerButtonStyle}"/></StackPanel>
+                                <Button Content="{DynamicResource ResetStatisticsSession}" Click="ResetFarmingSession_Click" Style="{StaticResource DangerButtonStyle}"/></StackPanel>
                             </Grid>
                         </Border>
 
@@ -1400,8 +1401,8 @@
                             <UniformGrid Grid.Row="1" Rows="1" Columns="4" Margin="0,0,0,8">
                                 <ToggleButton Content="{DynamicResource PauseSession}" IsChecked="{Binding SessionPaused, Mode=OneWay}" Click="PauseSession_Click"/>
                                 
-                                <Button Content="{DynamicResource StartSession}" Click="StartGoldGoblinSession_Click" Style="{StaticResource GoldButtonStyle}" MinWidth="140"/>
-                                <Button Content="{DynamicResource ResetSession}" Click="ResetGoldGoblin_Click" Style="{StaticResource DangerButtonStyle}" MinWidth="145"/>
+                                <Button Content="{DynamicResource StartSession}" Click="StartFarmingSession_Click" Style="{StaticResource GoldButtonStyle}" MinWidth="140"/>
+                                <Button Content="{DynamicResource ResetSession}" Click="ResetFarmingSession_Click" Style="{StaticResource DangerButtonStyle}" MinWidth="145"/>
                                 <Button Content="{DynamicResource AddItem}" Click="OpenGoldGoblinAdd_Click" Style="{StaticResource PrimaryButtonStyle}" MinWidth="145"/>
                             </UniformGrid>
                         <UniformGrid Grid.Row="2" Columns="4" Margin="0,0,0,12">
@@ -1564,6 +1565,7 @@
                                     <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
                                         <CheckBox Content="{DynamicResource ShowLootZenyPrice}" IsChecked="{Binding ShowLootZenyPrice}" Margin="0,0,0,12"/>
                                         <CheckBox Content="{DynamicResource IncludeGoldGoblinInZenyPerHour}" IsChecked="{Binding IncludeGoldGoblinInZenyPerHour}"/>
+                                        <CheckBox Content="{DynamicResource GoldGoblinIgnoreZenyIncome}" IsChecked="{Binding GoldGoblinIgnoreZenyIncome}" Margin="0,12,0,0"/>
                                         <TextBlock Text="{DynamicResource GoldGoblinResetHint}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,18,0,0"/>
                                     </StackPanel>
                                 </Grid></Border>

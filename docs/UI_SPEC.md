@@ -186,8 +186,8 @@ need a fresh observed login rather than reusing the previous CID.
 
 ## Settings and character targeting (2026-10-30)
 
-Settings has General, Hotkeys, Character Manager and Navigation tabs. General binds
-the same model as Home. All five hotkeys are edited in Settings. Other is last.
+Settings tabs start with Basic and Appearance, followed by Hotkeys, Character Manager and Navigation. Basic binds
+the same model as Home. Hotkeys are grouped by General, Statistics/Gold Goblin, MVP Timers, Database and ROQuestie. Other is last.
 Optional navigation visibility only affects the left menu; unsupported or packet-disabled
 features remain gray/disabled. Home cannot be hidden. Settings is opened by the header button replacing the old
 hotkey legend; it has no sidebar entry.
@@ -647,3 +647,12 @@ Validation: `6e51e05e7588f42471913b8fb6c0b14fd486bbf1` / [development 113](https
 In the application's timer editor, the Location block has two columns: narrower selectable respawn cards on the left, marker minimap on the right. The map is at most 250 DIP wide and scales down at the minimum window width. Location names wrap and long lists scroll vertically. The in-game Add timer form keeps its existing layout.
 
 Validation on `7be636a5ea1e9ac4cab38bee5be053da97cf2a2c`: 368 tests and portable native/startup checks passed in [development 116](https://github.com/alerion08/RoAura/actions/runs/41793270258). Light/dark Location-block rasters with selected location and marker inspected on the constrained CI desktop. Captures use programmatic selection; real main-window resizing/clicks and mixed-DPI acceptance remain manual.
+
+
+## Shared session controls and MVP magnifier — 2026-11-04
+
+Both Statistics and Gold Goblin use the same Start/Reset actions. Both clear session base/job EXP, dropped items and editable Gold Goblin rows, earned Zeny, elapsed active time, pause and reward notification groups. Old receipt-price history, lifetime aggregates, character level progress and price rules remain. Start starts the clock immediately; Reset leaves it stopped until the next experience gain. The Start hotkey defaults to None; its configured press uses the same application operation and preserves the completed history.
+
+Gold Goblin calculation settings include Ignore direct Zeny income. This excludes all positive balance changes from displayed Zeny Total/h independently of the optional loot valuation; raw balance baselines, reward notifications and receipt history remain factual. Trades and NPC sales are not distinguished by absolute balance packets.
+
+All table cells and headers center vertically through the shared theme; text/right/left horizontal alignment remains per column. Basic is the first Settings tab, Appearance second. Hotkeys are grouped by function; None is not a conflict. A magnifier immediately after each MVP name is the only minimap hover target. Hovering the name, time or row background does not open a map; moving off the icon closes it. The preview retains its separate passive HWND and placement outside the timer panel.

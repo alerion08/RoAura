@@ -23,21 +23,6 @@
  <Grid Margin="8,4,8,8"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
   <Border Style="{StaticResource SectionHeaderCardStyle}"><StackPanel><TextBlock Text="{DynamicResource SettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/><TextBlock Text="{DynamicResource SettingsDescription}" Style="{StaticResource RoCaptionTextStyle}" TextWrapping="Wrap"/></StackPanel></Border>
   <TabControl x:Name="SettingsTabs" Grid.Row="1" Style="{StaticResource SectionTabControlStyle}">
-   <TabItem Header="{DynamicResource AppearanceTab}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="18" MaxWidth="920" HorizontalAlignment="Left">
-    <TextBlock Text="{DynamicResource AppearanceTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
-    <TextBlock Text="{DynamicResource AppearanceDescription}" TextWrapping="Wrap" Margin="0,6,0,18"/>
-    <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="200"/><ColumnDefinition Width="260"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-     <TextBlock Text="{DynamicResource ApplicationThemeLabel}" VerticalAlignment="Center"/>
-     <ComboBox Grid.Column="1" SelectedValuePath="Tag" SelectedValue="{Binding ApplicationTheme,Mode=TwoWay}" SelectionChanged="Appearance_Changed" Margin="0,4"><ComboBoxItem Tag="Light" Content="{DynamicResource LightTheme}"/><ComboBoxItem Tag="Dark" Content="{DynamicResource DarkTheme}"/></ComboBox>
-     <TextBlock Grid.Row="1" Text="{DynamicResource GameOverlayThemeLabel}" VerticalAlignment="Center"/>
-     <ComboBox Grid.Row="1" Grid.Column="1" SelectedValuePath="Tag" SelectedValue="{Binding GameOverlayTheme,Mode=TwoWay}" SelectionChanged="Appearance_Changed" Margin="0,4"><ComboBoxItem Tag="Application" Content="{DynamicResource FollowApplicationTheme}"/><ComboBoxItem Tag="Light" Content="{DynamicResource LightTheme}"/><ComboBoxItem Tag="Dark" Content="{DynamicResource DarkTheme}"/></ComboBox>
-    </Grid>
-    <TextBlock Text="{DynamicResource AppearancePreserveCustom}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,14,0,18"/>
-    <UniformGrid Columns="2">
-     <Border x:Name="ApplicationPreview" Background="{DynamicResource RoWindowBrush}" BorderBrush="{DynamicResource RoBorderBrush}" BorderThickness="1" CornerRadius="7" Padding="14" Margin="0,0,12,0"><StackPanel><TextBlock Text="{DynamicResource ApplicationThemeLabel}" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><Border Background="{DynamicResource RoCardBrush}" CornerRadius="5" Padding="12" Margin="0,12,0,0"><StackPanel><TextBlock Text="RoAura" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><TextBlock Text="{DynamicResource AppearancePreviewText}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,6"/><TextBox Text="RoAura" IsReadOnly="True"/><Button Content="{DynamicResource SettingsTitle}" IsHitTestVisible="False" Focusable="False"/></StackPanel></Border></StackPanel></Border>
-     <Border x:Name="OverlayPreview" Background="{DynamicResource RoWindowBrush}" BorderBrush="{DynamicResource RoBorderBrush}" BorderThickness="1" CornerRadius="7" Padding="14"><StackPanel><TextBlock Text="{DynamicResource GameOverlayThemeLabel}" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><Border Background="{DynamicResource RoCardBrush}" CornerRadius="5" Padding="12" Margin="0,12,0,0"><StackPanel><TextBlock Text="ROQuestie" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><TextBlock Text="{DynamicResource AppearancePreviewText}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,6"/><TextBox Text="ra_in01 384,246" IsReadOnly="True"/><Button Content="navi" IsHitTestVisible="False" Focusable="False"/></StackPanel></Border></StackPanel></Border>
-    </UniformGrid>
-   </StackPanel></ScrollViewer></TabItem>
    <TabItem Header="{DynamicResource BasicTab}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="18" MaxWidth="880" HorizontalAlignment="Left">
     <UniformGrid Columns="2" Margin="0,0,0,14">
      <StackPanel Margin="0,0,20,0"><TextBlock Text="{DynamicResource Server}"/><ComboBox x:Name="ServerChoice" SelectedValuePath="Tag" SelectedValue="{Binding ServerProfile, Mode=OneWay}" SelectionChanged="Server_Changed"><ComboBoxItem Content="RTM" Tag="RTM"/><ComboBoxItem Content="SpringRO" Tag="SpringRO"/><ComboBoxItem Content="ToC" Tag="ToC"/><ComboBoxItem Content="{DynamicResource OtherServer}" Tag="Other"/></ComboBox></StackPanel>
@@ -54,24 +39,44 @@
     <WrapPanel><Button Content="{DynamicResource DetectConnectionNow}" Tag="detect" Click="Connection_Click"/><Button Content="{DynamicResource CheckNpcap}" Tag="npcap" Click="Connection_Click"/><Button Content="{DynamicResource ResetAid}" Tag="aid" Click="Connection_Click"/></WrapPanel>
     <Border Background="{DynamicResource UiBackground_EAF4FF}" Padding="12" Margin="0,12,0,0" CornerRadius="6"><TextBlock Text="{Binding PacketCaptureStateText}" TextWrapping="Wrap"/></Border>
    </StackPanel></ScrollViewer></TabItem>
-   <TabItem Header="{DynamicResource Hotkeys}"><ScrollViewer><StackPanel Margin="18" MaxWidth="720" HorizontalAlignment="Left">
+   <TabItem x:Name="AppearanceSettingsTab" Header="{DynamicResource AppearanceTab}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="18" MaxWidth="920" HorizontalAlignment="Left">
+    <TextBlock Text="{DynamicResource AppearanceTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
+    <TextBlock Text="{DynamicResource AppearanceDescription}" TextWrapping="Wrap" Margin="0,6,0,18"/>
+    <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="200"/><ColumnDefinition Width="260"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <TextBlock Text="{DynamicResource ApplicationThemeLabel}" VerticalAlignment="Center"/>
+     <ComboBox Grid.Column="1" SelectedValuePath="Tag" SelectedValue="{Binding ApplicationTheme,Mode=TwoWay}" SelectionChanged="Appearance_Changed" Margin="0,4"><ComboBoxItem Tag="Light" Content="{DynamicResource LightTheme}"/><ComboBoxItem Tag="Dark" Content="{DynamicResource DarkTheme}"/></ComboBox>
+     <TextBlock Grid.Row="1" Text="{DynamicResource GameOverlayThemeLabel}" VerticalAlignment="Center"/>
+     <ComboBox Grid.Row="1" Grid.Column="1" SelectedValuePath="Tag" SelectedValue="{Binding GameOverlayTheme,Mode=TwoWay}" SelectionChanged="Appearance_Changed" Margin="0,4"><ComboBoxItem Tag="Application" Content="{DynamicResource FollowApplicationTheme}"/><ComboBoxItem Tag="Light" Content="{DynamicResource LightTheme}"/><ComboBoxItem Tag="Dark" Content="{DynamicResource DarkTheme}"/></ComboBox>
+    </Grid>
+    <TextBlock Text="{DynamicResource AppearancePreserveCustom}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,14,0,18"/>
+    <UniformGrid Columns="2">
+     <Border x:Name="ApplicationPreview" Background="{DynamicResource RoWindowBrush}" BorderBrush="{DynamicResource RoBorderBrush}" BorderThickness="1" CornerRadius="7" Padding="14" Margin="0,0,12,0"><StackPanel><TextBlock Text="{DynamicResource ApplicationThemeLabel}" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><Border Background="{DynamicResource RoCardBrush}" CornerRadius="5" Padding="12" Margin="0,12,0,0"><StackPanel><TextBlock Text="RoAura" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><TextBlock Text="{DynamicResource AppearancePreviewText}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,6"/><TextBox Text="RoAura" IsReadOnly="True"/><Button Content="{DynamicResource SettingsTitle}" IsHitTestVisible="False" Focusable="False"/></StackPanel></Border></StackPanel></Border>
+     <Border x:Name="OverlayPreview" Background="{DynamicResource RoWindowBrush}" BorderBrush="{DynamicResource RoBorderBrush}" BorderThickness="1" CornerRadius="7" Padding="14"><StackPanel><TextBlock Text="{DynamicResource GameOverlayThemeLabel}" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><Border Background="{DynamicResource RoCardBrush}" CornerRadius="5" Padding="12" Margin="0,12,0,0"><StackPanel><TextBlock Text="ROQuestie" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource RoTextBrush}"/><TextBlock Text="{DynamicResource AppearancePreviewText}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,6"/><TextBox Text="ra_in01 384,246" IsReadOnly="True"/><Button Content="navi" IsHitTestVisible="False" Focusable="False"/></StackPanel></Border></StackPanel></Border>
+    </UniformGrid>
+   </StackPanel></ScrollViewer></TabItem>
+   <TabItem Header="{DynamicResource Hotkeys}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="18" MaxWidth="720" HorizontalAlignment="Left">
     <TextBlock Text="{DynamicResource AllHotkeysHint}" TextWrapping="Wrap" Margin="0,0,0,12"/>
-    <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-     <TextBlock Text="{DynamicResource SettingsWindowHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Column="1"  Value="{Binding SettingsHotkey, Mode=TwoWay}"/>
-     <TextBlock Grid.Row="1" Text="{DynamicResource OverlaysHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="1" Grid.Column="1"  Value="{Binding OverlaysHotkey, Mode=TwoWay}"/>
-     <TextBlock Grid.Row="2" Text="{DynamicResource FinishMoveHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="2" Grid.Column="1"  Value="{Binding FinishMoveHotkey, Mode=TwoWay}"/>
-     <TextBlock Grid.Row="3" Text="{DynamicResource TimersHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="3" Grid.Column="1"  Value="{Binding TimersHotkey, Mode=TwoWay}"/>
-     <TextBlock Grid.Row="4" Text="{DynamicResource DatabaseHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="4" Grid.Column="1"  Value="{Binding DatabaseHotkey, Mode=TwoWay}"/>
-     <TextBlock Grid.Row="5" Text="{DynamicResource QBrowserHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="5" Grid.Column="1"  Value="{Binding QuestBrowserHotkey, Mode=TwoWay}"/>
-     <TextBlock Grid.Row="6" Text="{DynamicResource QTrackerHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="6" Grid.Column="1"  Value="{Binding QuestTrackerHotkey, Mode=TwoWay}"/>
-
-    </Grid>
-    <TextBlock Text="{DynamicResource HotkeyConflictHint}" Visibility="{Binding HotkeyConflicts, Converter={StaticResource QuestBoolVisibility}}" Foreground="{DynamicResource UiForeground_B42318}" TextWrapping="Wrap" Margin="0,12,0,0"/>
-    <Grid Margin="0,8,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-    <TextBlock Text="{DynamicResource PauseSessionHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Column="1"  Value="{Binding PauseSessionHotkey, Mode=TwoWay}"/>
-    <TextBlock Grid.Row="1" Text="{DynamicResource AddMvpTimerHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="1" Grid.Column="1"  Value="{Binding AddMvpTimerHotkey, Mode=TwoWay}"/>
-    </Grid>
-
+    <GroupBox Header="{DynamicResource HotkeySectionGeneral}" Margin="0,0,0,12"><Grid Margin="10"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <TextBlock Grid.Row="0" Text="{DynamicResource SettingsWindowHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="0" Grid.Column="1" Value="{Binding SettingsHotkey, Mode=TwoWay}"/>
+     <TextBlock Grid.Row="1" Text="{DynamicResource OverlaysHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="1" Grid.Column="1" Value="{Binding OverlaysHotkey, Mode=TwoWay}"/>
+     <TextBlock Grid.Row="2" Text="{DynamicResource FinishMoveHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="2" Grid.Column="1" Value="{Binding FinishMoveHotkey, Mode=TwoWay}"/>
+    </Grid></GroupBox>
+    <GroupBox Header="{DynamicResource HotkeySectionFarming}" Margin="0,0,0,12"><Grid Margin="10"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <TextBlock Grid.Row="0" Text="{DynamicResource StartSessionHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="0" Grid.Column="1" Value="{Binding StartSessionHotkey, Mode=TwoWay}"/>
+     <TextBlock Grid.Row="1" Text="{DynamicResource PauseSessionHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="1" Grid.Column="1" Value="{Binding PauseSessionHotkey, Mode=TwoWay}"/>
+    </Grid></GroupBox>
+    <GroupBox Header="{DynamicResource MvpTimers}" Margin="0,0,0,12"><Grid Margin="10"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <TextBlock Grid.Row="0" Text="{DynamicResource TimersHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="0" Grid.Column="1" Value="{Binding TimersHotkey, Mode=TwoWay}"/>
+     <TextBlock Grid.Row="1" Text="{DynamicResource AddMvpTimerHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="1" Grid.Column="1" Value="{Binding AddMvpTimerHotkey, Mode=TwoWay}"/>
+    </Grid></GroupBox>
+    <GroupBox Header="{DynamicResource Database}" Margin="0,0,0,12"><Grid Margin="10"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <TextBlock Grid.Row="0" Text="{DynamicResource DatabaseHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="0" Grid.Column="1" Value="{Binding DatabaseHotkey, Mode=TwoWay}"/>
+    </Grid></GroupBox>
+    <GroupBox Header="{DynamicResource Quests}" Margin="0,0,0,12"><Grid Margin="10"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="240"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+     <TextBlock Grid.Row="0" Text="{DynamicResource QBrowserHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="0" Grid.Column="1" Value="{Binding QuestBrowserHotkey, Mode=TwoWay}"/>
+     <TextBlock Grid.Row="1" Text="{DynamicResource QTrackerHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Grid.Row="1" Grid.Column="1" Value="{Binding QuestTrackerHotkey, Mode=TwoWay}"/>
+    </Grid></GroupBox>
+    <TextBlock Text="{DynamicResource HotkeyConflictHint}" Visibility="{Binding HotkeyConflicts, Converter={StaticResource QuestBoolVisibility}}" Foreground="{DynamicResource UiForeground_B42318}" TextWrapping="Wrap"/>
    </StackPanel></ScrollViewer></TabItem>
    <TabItem Header="{DynamicResource CharacterManager}"><Grid Margin="18"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
     <TextBlock Text="{DynamicResource CharacterManagerHint}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,0,0,12"/>

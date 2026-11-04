@@ -32,15 +32,17 @@ public sealed class AppSettings : INotifyPropertyChanged
     private string _questBrowserHotkey = "F6";
     private string _questTrackerHotkey = "F5";
     private string _pauseSessionHotkey = "Pause";
+    private string _startSessionHotkey = "None";
     private string _addMvpTimerHotkey = "F4";
     public double? MvpAddWindowX { get; set; }
     public double? MvpAddWindowY { get; set; }
     private bool _sessionPaused;
     [JsonIgnore] public bool SessionPaused { get => _sessionPaused; set => Set(ref _sessionPaused, value); }
     public string PauseSessionHotkey { get => _pauseSessionHotkey; set => Set(ref _pauseSessionHotkey, NormalizeHotkey(value, "Pause")); }
+    public string StartSessionHotkey { get => _startSessionHotkey; set => Set(ref _startSessionHotkey, NormalizeHotkey(value, "None")); }
     public string AddMvpTimerHotkey { get => _addMvpTimerHotkey; set => Set(ref _addMvpTimerHotkey, NormalizeHotkey(value, "F4")); }
     [JsonIgnore] public bool HotkeyConflicts => new[] { SettingsHotkey, OverlaysHotkey, FinishMoveHotkey, TimersHotkey, DatabaseHotkey,
-        QuestBrowserHotkey, QuestTrackerHotkey, PauseSessionHotkey, AddMvpTimerHotkey }
+        QuestBrowserHotkey, QuestTrackerHotkey, PauseSessionHotkey, StartSessionHotkey, AddMvpTimerHotkey }
         .Where(value => Services.HotkeyChord.TryParse(value,out _)).Select(Services.HotkeyChord.Canonical).GroupBy(value=>value).Any(group=>group.Count()>1);
     [JsonIgnore] public bool FarmingHotkeyConflict => Services.FarmingHotkeys.HasConflict(this);
     private double _marketBackgroundRefreshMinutes = 10;
@@ -129,6 +131,8 @@ public sealed class AppSettings : INotifyPropertyChanged
     public int GoldGoblinOverchargeLevel { get => _goldGoblinOverchargeLevel; set => Set(ref _goldGoblinOverchargeLevel, Math.Clamp(value, 0, 10)); }
     public bool ShowLootZenyPrice { get => _showLootZenyPrice; set => Set(ref _showLootZenyPrice, value); }
     public bool IncludeGoldGoblinInZenyPerHour { get => _includeGoldGoblinInZenyPerHour; set => Set(ref _includeGoldGoblinInZenyPerHour, value); }
+    private bool _goldGoblinIgnoreZenyIncome;
+    public bool GoldGoblinIgnoreZenyIncome { get => _goldGoblinIgnoreZenyIncome; set => Set(ref _goldGoblinIgnoreZenyIncome, value); }
     public double RateStatisticsRefreshSeconds
     {
         get => _rateStatisticsRefreshSeconds;

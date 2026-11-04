@@ -139,6 +139,39 @@ public sealed class CommonControlStyleTests
         });
     }
 
+    [Fact]
+    public void Shared_table_template_centers_single_and_wrapped_text_without_changing_horizontal_alignment()
+    {
+        RunSta(() =>
+        {
+            var grid = new DataGrid { AutoGenerateColumns = false, CanUserAddRows = false, RowHeight = 64,
+                Width = 400, Height = 220, ItemsSource = new[] { "Potion", "A longer item name that wraps to a second line" } };
+            var textStyle = new Style(typeof(TextBlock));
+            textStyle.Setters.Add(new Setter(TextBlock.TextAlignmentProperty, TextAlignment.Right));
+            textStyle.Setters.Add(new Setter(TextBlock.TextWrappingProperty, TextWrapping.Wrap));
+            grid.Columns.Add(new DataGridTextColumn { Binding = new System.Windows.Data.Binding(), Width = 220, ElementStyle = textStyle });
+            var window = new Window { Content = grid, SizeToContent = SizeToContent.WidthAndHeight };
+            window.Resources.MergedDictionaries.Add(Theme());
+            try
+            {
+                window.Show(); window.UpdateLayout();
+                Dispatcher.CurrentDispatcher.Invoke(() => { }, DispatcherPriority.ContextIdle);
+                var cells = Descendants<DataGridCell>(grid).ToArray();
+                Assert.Equal(2, cells.Length);
+                foreach (var cell in cells)
+                {
+                    var text = Descendants<TextBlock>(cell).Single();
+                    var top = text.TranslatePoint(new Point(), cell).Y;
+                    Assert.Equal((cell.ActualHeight - text.ActualHeight) / 2, top, 1);
+                    Assert.True(top > 0);
+                    Assert.Equal(TextAlignment.Right, text.TextAlignment);
+                    Assert.True(text.ActualWidth >= cell.ActualWidth - 5);
+                }
+            }
+            finally { window.Close(); }
+        });
+    }
+
     private static string FindRepositoryFile(string name)
     {
         for (var directory = new DirectoryInfo(AppContext.BaseDirectory); directory is not null; directory = directory.Parent)

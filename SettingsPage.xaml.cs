@@ -25,7 +25,7 @@ public partial class SettingsPage : UserControl
         if (_observed is not null) _observed.PropertyChanged += SettingsChanged;
         RefreshAppearance();
     }
-    internal void ShowAppearancePreview(){SettingsTabs.SelectedIndex=0;RefreshAppearance();}
+    internal void ShowAppearancePreview(){SettingsTabs.SelectedItem=AppearanceSettingsTab;RefreshAppearance();}
     private void RefreshAppearance()
     {
         if(DataContext is not AppSettings settings)return;

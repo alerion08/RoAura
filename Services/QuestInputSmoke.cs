@@ -45,6 +45,7 @@ internal static class QuestInputSmoke
             using var hook=new GlobalInputHook(workspace.Settings);
             hook.ToggleQuestBrowserPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleBrowser);
             hook.ToggleQuestTrackerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleTracker);
+            var startSessionPresses=0;hook.StartSessionPressed+=()=>Interlocked.Increment(ref startSessionPresses);
             hook.AddMvpTimerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).AddMvpTimerInGame());
             hook.EscapePressed+=()=>((App)Application.Current).ExitOverlayEditMode();
             hook.ToggleOverlaysPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>host.SetGlobalVisible(!host.GlobalVisible));
@@ -345,8 +346,21 @@ internal static class QuestInputSmoke
                         settingsWindow.Hide();QuestWindowNative.SetForegroundWindow(game);await Pause();
                     }
                     finally {ordinary.EndAllEditModes();hook.SetEscapeEnabled(false);workspace.Settings.TimersX=oldTimerX;workspace.Settings.TimersY=oldTimerY;}
+                    await VerifyMvpMapHover(ordinary,workspace.Settings,game);
                 }
                 finally { ((MainWindow)settingsWindow).CloseMvpWizard();workspace.Settings.ServerProfile=previousServer;workspace.Settings.AddMvpTimerHotkey=previousAddKey;workspace.Settings.GameOverlayTheme=previousGameTheme; }
+                var previousStartKey=workspace.Settings.StartSessionHotkey;
+                try
+                {
+                    workspace.Settings.StartSessionHotkey="Ctrl+F3";
+                    await Press("F3");await Pause();
+                    if(startSessionPresses!=0)throw new InvalidOperationException("Start session chord ignored its modifier.");
+                    await Press("Ctrl+F3");await Until(()=>startSessionPresses==1,"start session hotkey dispatch");
+                    workspace.Settings.StartSessionHotkey="None";
+                    await Press("Ctrl+F3");await Pause();
+                    if(startSessionPresses!=1)throw new InvalidOperationException("Unassigned start session hotkey still fired.");
+                }
+                finally {workspace.Settings.StartSessionHotkey=previousStartKey;}
                 var previousAppTheme=workspace.Settings.ApplicationTheme;
                 try
                 {
@@ -384,6 +398,39 @@ internal static class QuestInputSmoke
             if(!process.HasExited) {process.CloseMainWindow();if(!process.WaitForExit(2000)){process.Kill(true);process.WaitForExit();}}
         }
     }
+    private static async Task VerifyMvpMapHover(OverlayWindow overlay,AppSettings settings,IntPtr game)
+    {
+        var timer=new MvpTimer {Name="Baphomet",MonsterId=1039,LocationCode="prt_maze03",MarkerX=.5,MarkerY=.5};
+        var x=settings.TimersX;var y=settings.TimersY;var visible=settings.TimersOverlayVisible;
+        try
+        {
+            settings.TimersX=30;settings.TimersY=30;settings.TimersOverlayVisible=true;
+            timer.Restart();settings.ActiveMvpTimers.Add(timer);
+            QuestWindowNative.SetForegroundWindow(game);
+            var panel=(FrameworkElement)overlay.FindName("MvpTimerPanel");
+            await Until(()=>panel.IsVisible && Descendants<TextBlock>(panel).Any(text=>ReferenceEquals(text.DataContext,timer)),"MVP hover row appears");
+            var labels=Descendants<TextBlock>(panel).Where(text=>ReferenceEquals(text.DataContext,timer)).ToArray();
+            var name=labels.Single(text=>text.Text==timer.Name);
+            var icon=labels.Single(text=>text.Tag as string=="MvpMapHover");
+            void Hover(FrameworkElement target)
+            {
+                var point=target.PointToScreen(new Point(target.ActualWidth/2,target.ActualHeight/2));
+                SetCursorPos((int)point.X,(int)point.Y);
+            }
+            Hover(name);await Pause(850);
+            if(overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP name unexpectedly opened the map.");
+            Hover(icon);await Until(()=>overlay.IsMvpMapVisible,"MVP magnifier opens the map");
+            if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("MVP map stole game focus.");
+            SaveElement(panel,"mvp-magnifier-row");SaveDesktop(overlay,"mvp-magnifier-hover");
+            Hover(name);await Until(()=>!overlay.IsMvpMapVisible,"MVP map closes outside the magnifier");
+            DebugLog.Write("MVP MAGNIFIER PASS: only icon opens map; name closes it; game focus preserved.");
+        }
+        finally
+        {
+            settings.ActiveMvpTimers.Remove(timer);settings.TimersX=x;settings.TimersY=y;settings.TimersOverlayVisible=visible;
+        }
+    }
+
     private static async Task CaptureMvpLocationLayout(MainWindow main,AppSettings settings)
     {
         var monster=MonsterCatalogService.Load(GameDatabaseVersion.SpringRo).First(monster=>monster.Id==1039);

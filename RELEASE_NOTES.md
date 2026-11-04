@@ -1,3 +1,11 @@
+# Unreleased — shared sessions and interface controls
+
+- Shared complete session Start/Reset in Statistics and Gold Goblin, with preserved session history and immediate display refresh. Statistics gains Start, and Start gains an optional hotkey.
+- Gold Goblin can exclude direct Zeny income from the session income calculation.
+- Table content centers vertically; horizontal alignment is retained.
+- MVP minimaps open only from the magnifier beside the boss name.
+- Settings opens Basic before Appearance; hotkeys are grouped by feature.
+
 # Unreleased — MVP location panel layout
 
 The application's timer editor places compact location cards beside the marker minimap. The map scales down for narrower windows.

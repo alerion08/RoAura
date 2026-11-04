@@ -433,7 +433,7 @@
     <sys:String x:Key="CurrentPriceSource">Текущий источник цены</sys:String>
     <sys:String x:Key="GoldGoblinPriceEditHint">Источник цены настраивается во вкладке «Правила цен». Изменение количества влияет только на текущую сессию.</sys:String>
     <sys:String x:Key="OverchargeDescription">Надбавка применяется только к NPC Price. Vending Price и Manual Price не изменяются.</sys:String>
-    <sys:String x:Key="GoldGoblinResetHint">Сброс сессии очищает предметы и количества, но сохраняет правила цен и уровень Overcharge.</sys:String>
+    <sys:String x:Key="GoldGoblinResetHint">Начало и сброс сессии общие для статистики и Gold Goblin: очищаются опыт, добыча, Zeny, время и пауза. История сессий, правила цен и уровень Overcharge сохраняются.</sys:String>
     <sys:String x:Key="GoldGoblinEyebrow">УЧЁТ ЛУТА И СТОИМОСТИ</sys:String>
     <sys:String x:Key="ExportCsv">Экспорт CSV</sys:String>
     <sys:String x:Key="AccountedLootValue">Стоимость учтённого лута</sys:String>
@@ -722,4 +722,8 @@
     <sys:String x:Key="ClearHotkey">Убрать назначение</sys:String>
     <sys:String x:Key="CaptureHotkeyHint">Нажмите для записи клавиши или сочетания. Правая кнопка мыши — убрать назначение.</sys:String>
     <sys:String x:Key="HotkeyConflictHint">Некоторые сочетания назначены нескольким действиям. Измените повторяющиеся назначения.</sys:String>
+    <sys:String x:Key="StartSessionHotkey">Начать сессию</sys:String>
+    <sys:String x:Key="GoldGoblinIgnoreZenyIncome">Не учитывать получение Zeny</sys:String>
+    <sys:String x:Key="HotkeySectionGeneral">Основное</sys:String>
+    <sys:String x:Key="HotkeySectionFarming">Статистика и Gold Goblin</sys:String>
 </ResourceDictionary>

@@ -654,3 +654,14 @@ Automated evidence: `6e51e05e7588f42471913b8fb6c0b14fd486bbf1` / [development 11
 Evidence on `7be636a5ea1e9ac4cab38bee5be053da97cf2a2c`: [development 116](https://github.com/alerion08/RoAura/actions/runs/41793270258) passed 368 tests, eight ToC checks and native startup/input smoke. The actual Location block's light/dark compact rasters were inspected. CI desktop constraints prevent claiming a complete manual resize/click matrix; the rows above remain for acceptance.
 
 PR installer validation also passed on [attempt 2](https://github.com/alerion08/RoAura/actions/runs/41793277276/attempts/2); the first attempt timed out waiting for an existing ROQuestie copy toast to expire and succeeded on retry without code changes.
+
+
+## Shared session controls and table/MVP adjustments — 2026-11-04
+
+- [ ] Start from Statistics, Gold Goblin and the assigned hotkey: same new session, all counters/loot clear, pause ends and active clock starts immediately; old receipt-price history remains.
+- [ ] Reset from either page: session EXP, Zeny, loot/editable rows, active clock, pause and reward groups clear together; lifetime progress, other characters and price rules remain.
+- [ ] Toggle Ignore direct Zeny income with optional loot valuation on/off; trade/NPC Zeny is excluded from Total/h while balance/history remain accurate. Settings/presets retain the option.
+- [ ] Start hotkey defaults to None, supports chords and clearing, matches modifiers exactly and does not fire during capture. Duplicate farming keys are disabled without disabling unrelated MVP bindings.
+- [ ] Single/multiline and editing table content is vertically centered in both themes; existing horizontal alignment and editing remain.
+- [ ] Settings opens Basic then Appearance; explicit Appearance preview still selects Appearance. Hotkeys are grouped by function with one conflict warning.
+- [ ] MVP magnifier opens minimap/marker after hover delay; name/time/background do not. Moving away closes it, game focus is preserved and map does not overlap timer text; verify mixed DPI/fullscreen.

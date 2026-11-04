@@ -10,6 +10,7 @@ namespace RoAura;
 public partial class OverlayWindow
 {
     private Window? _mvpMapPopup;
+    internal bool IsMvpMapVisible => _mvpMapPopup?.IsVisible == true;
     private MvpTimer? _hoveredMvp;
     private DateTime _mvpHoverSince;
 
@@ -18,7 +19,7 @@ public partial class OverlayWindow
         for (var index = 0; index < VisualTreeHelper.GetChildrenCount(root); index++)
         {
             var child = VisualTreeHelper.GetChild(root, index);
-            if (child is TextBlock label && label.DataContext is MvpTimer) yield return label;
+            if (child is TextBlock label && label.Tag as string == "MvpMapHover" && label.DataContext is MvpTimer) yield return label;
             foreach (var nested in TimerLabels(child)) yield return nested;
         }
     }

@@ -504,6 +504,7 @@ public partial class App : Application
             _inputHook.ToggleOverlaysPressed += ToggleOverlays;
             _inputHook.EscapePressed += ExitOverlayEditMode;
             _inputHook.ToggleTimersPressed += ToggleTimers;
+            _inputHook.StartSessionPressed += () => Dispatcher.BeginInvoke(() => StartCharacterStatisticsSession());
             _inputHook.PauseSessionPressed += () => Dispatcher.BeginInvoke(() => ToggleFarmingSessionPause());
             _inputHook.AddMvpTimerPressed += () => Dispatcher.BeginInvoke(() => _settingsWindow?.AddMvpTimerInGame());
             _inputHook.ToggleDatabasePressed += ToggleDatabase;
@@ -754,37 +755,25 @@ public partial class App : Application
         return _characterLedger.ActiveSessionElapsed(DateTime.UtcNow);
     }
 
-    public bool StartCharacterStatisticsSession()
-    {
-        if (!AppEnvironment.CharacterSessionsEnabled || _characterLedger?.Active is null ||
-            _packetCapture?.CharacterSession.Phase != CharacterSessionPhase.ActiveObserved ||
-            _characterStatisticsFaulted) return false;
-        return SafeCharacterStatisticsValue(() =>
-        {
-            if (!SaveFarmingHistory(complete: true, flush: true)) return false;
-            _characterLedger.StartNewSession(DateTime.UtcNow);
-            _settingsWindow!.Settings.SessionPaused = false;
-            _changingCharacterRows = true;
-            try { _goldGoblin?.StartSession(); }
-            finally { _changingCharacterRows = false; }
-            _overlay?.RefreshCharacterStatistics();
-            return true;
-        });
-    }
+    public bool StartCharacterStatisticsSession() => ChangeFarmingSession(startImmediately: true);
 
-    public bool ResetCharacterStatisticsSession()
+    public bool ResetCharacterStatisticsSession() => ChangeFarmingSession(startImmediately: false);
+
+    private bool ChangeFarmingSession(bool startImmediately)
     {
-        if (!AppEnvironment.CharacterSessionsEnabled || _characterLedger?.Active is null ||
-            _characterStatisticsFaulted) return false;
+        if (CurrentCharacterStatistics() is null || _characterLedger is null || _settingsWindow is null)
+            return false;
         return SafeCharacterStatisticsValue(() =>
         {
             if (!SaveFarmingHistory(complete: true, flush: true)) return false;
-            _characterLedger.ResetCurrentSession(DateTime.UtcNow);
-            if (_settingsWindow is not null) _settingsWindow.Settings.SessionPaused = false;
             _changingCharacterRows = true;
-            try { _goldGoblin?.Reset(); }
+            try
+            {
+                FarmingSessionActions.Restart(_characterLedger, _goldGoblin, _settingsWindow.Settings,
+                    DateTime.UtcNow, startImmediately);
+            }
             finally { _changingCharacterRows = false; }
-            _overlay?.RefreshCharacterStatistics();
+            _overlay?.ResetFarmingSessionPresentation();
             return true;
         });
     }
