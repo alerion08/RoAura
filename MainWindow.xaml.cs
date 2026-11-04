@@ -33,6 +33,7 @@ public partial class MainWindow : Window
     private EquipmentTracker? _learningEquipment;
     private DateTime _learningUntil;
     private int _learningGeneration;
+    private readonly PacketLearningDiagnostics _learningDiagnostics = new();
     private readonly ObservableCollection<MonsterEntry> _monsters;
     private IReadOnlyDictionary<int, ItemEntry> _items;
     private ICollectionView? _effectsView;
@@ -84,6 +85,7 @@ public partial class MainWindow : Window
         _packetCapture.SkillUsed += OnLearningSkillObserved;
         _packetCapture.SkillCooldown += OnLearningCooldownObserved;
         _packetCapture.EquipmentChanged += OnLearningEquipmentObserved;
+        _packetCapture.EquipmentIdentityMissing += OnLearningEquipmentObserved;
         DataContext = settings;
         RefreshMvpTimerDetails();
         _effectsView = CollectionViewSource.GetDefaultView(settings.Effects);
@@ -221,6 +223,7 @@ public partial class MainWindow : Window
 
     private void ApplyServerProfile(bool save)
     {
+        GameServerProfile.EnsureClientProcess(Settings);
         var profile = GameServerProfile.Normalize(Settings.ServerProfile);
         var supportsDatabases = GameServerProfile.SupportsServerDatabases(profile);
         var supportsOverlayDatabase = GameServerProfile.SupportsDatabaseOverlay(profile);
@@ -1020,8 +1023,10 @@ public partial class MainWindow : Window
             .ToList();
         if (processNames.Count == 0) processNames = Settings.AllowedProcesses;
 
+        var preferredPid = ForegroundProcess.TryFindWindow(processNames, out var game, out _)
+            ? ForegroundProcess.ProcessIdForWindow(game) : 0;
         var connection = TcpConnectionDetector.Detect(processNames,
-            Settings.PacketServerAddress, Settings.PacketServerPort);
+            Settings.PacketServerAddress, Settings.PacketServerPort, preferredPid);
         if (!connection.HasValue)
         {
             if (userInitiated)
@@ -1499,6 +1504,7 @@ public partial class MainWindow : Window
         _learningReminder = null;
         _learningEquipment = null;
         _learningStartedUtc = DateTime.UtcNow;
+        _learningDiagnostics.Begin(_learningStartedUtc);
         _learningUntil = _learningStartedUtc.AddSeconds(20);
         _learningObservedSummary = "";
         // Learning only observes the already-running packet stream. Restarting
@@ -1507,8 +1513,8 @@ public partial class MainWindow : Window
         if (!captureWasEnabled || !_packetCapture.IsActive)
             ApplyPacketCaptureIfChanged(force: true);
         _packetCapture.BeginLearningDiagnostics();
-        if (AppEnvironment.IsDevelopment)
-            DebugLog.Write($"PACKET LEARN armed; captureActive={_packetCapture.IsActive}; windowSeconds=20");
+        DebugLog.Write($"PACKET LEARN armed; server={Settings.ServerProfile}; captureActive={_packetCapture.IsActive}; " +
+                       $"identityKnown={_packetCapture.VerifiedPlayerAid != 0}; windowSeconds=20");
     }
 
     private bool IsLearningObservation<T>(RoPacketObservation<T> observation, int generation) =>
@@ -1535,13 +1541,15 @@ public partial class MainWindow : Window
 
     private void OnLearningStatusObserved(RoPacketObservation<RoStatusPacket> observation)
     {
-        if (!observation.Packet.Active) return;
         var generation = _learningGeneration;
         Dispatcher.BeginInvoke(() =>
         {
-            if ((_learningEffect is null && _learningReminder is null) ||
-                !IsLearningObservation(observation, generation)) return;
             var packet = observation.Packet;
+            var armed = _learningEffect is not null || _learningReminder is not null;
+            var valid = IsLearningObservation(observation, generation);
+            LogLearning("status", packet.PacketId, packet.StatusId, armed, valid,
+                observation.SelfAid != 0, observation.IsOwnActor(packet.Aid));
+            if (!packet.Active || !armed || !valid) return;
             if (!ReportLearningActor(observation, "Status ID", packet.StatusId, packet.Aid)) return;
             string name;
             if (_learningEffect is { } effect)
@@ -1575,12 +1583,9 @@ public partial class MainWindow : Window
         {
             var skill = _learningSkill;
             var valid = IsLearningObservation(observation, generation);
-            if (AppEnvironment.IsDevelopment && DateTime.UtcNow <= _learningUntil &&
-                _learningUntil != default)
-                DebugLog.Write($"PACKET LEARN skill event; id={observation.Packet.SkillId}; " +
-                               $"armed={skill is not null}; valid={valid}; " +
-                               $"own={observation.IsOwnActor(observation.Packet.SourceAid)}; " +
-                               $"identityKnown={observation.SelfAid != 0}");
+            LogLearning("skill", observation.Packet.PacketId, observation.Packet.SkillId,
+                skill is not null, valid, observation.SelfAid != 0,
+                observation.IsOwnActor(observation.Packet.SourceAid));
             if (skill is null || !valid) return;
             var packet = observation.Packet;
             if (!ReportLearningActor(observation, "Skill ID", packet.SkillId, packet.SourceAid)) return;
@@ -1602,10 +1607,8 @@ public partial class MainWindow : Window
         {
             var skill = _learningSkill;
             var valid = IsLearningObservation(observation, generation);
-            if (AppEnvironment.IsDevelopment && DateTime.UtcNow <= _learningUntil &&
-                _learningUntil != default)
-                DebugLog.Write($"PACKET LEARN post-delay event; id={observation.Packet.SkillId}; " +
-                               $"armed={skill is not null}; valid={valid}");
+            LogLearning("post-delay", 0x043D, observation.Packet.SkillId,
+                skill is not null, valid, observation.SelfAid != 0, null);
             if (skill is null || !valid) return;
             // Post-delay is sent to this client, has no actor ID and does not
             // require a separate CID or AID handshake to learn its SKID.
@@ -1620,11 +1623,23 @@ public partial class MainWindow : Window
         });
     }
 
-    private void OnLearningEquipmentObserved(RoEquipmentPacket packet)
+    private void LogLearning(string kind, ushort opcode, int id, bool armed, bool valid,
+        bool identityKnown, bool? own)
     {
+        if (_learningDiagnostics.Format(DateTime.UtcNow, kind, opcode, id, armed, valid, identityKnown, own) is { } line)
+            DebugLog.Write(line);
+    }
+
+    private void OnLearningEquipmentObserved(RoPacketObservation<RoEquipmentPacket> observation)
+    {
+        var packet = observation.Packet;
         if (!packet.Success || !packet.Equipped) return;
+        var generation = _learningGeneration;
         Dispatcher.BeginInvoke(() =>
         {
+            var valid = IsLearningObservation(observation, generation);
+            LogLearning("equipment", packet.PacketId, packet.ItemId, _learningEquipment is not null,
+                valid, observation.SelfAid != 0, null);
             // Inventory snapshots are emitted when the character enters the game.
             // They are useful for restoring overlay state, but they are not an
             // explicit equip action and must never complete the learning wizard.
@@ -1632,7 +1647,7 @@ public partial class MainWindow : Window
                 return;
 
             var item = _learningEquipment;
-            if (item is null || DateTime.UtcNow > _learningUntil) return;
+            if (item is null || !valid) return;
 
             if (packet.ItemId <= 0)
             {

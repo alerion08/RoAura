@@ -16,6 +16,7 @@ public partial class MainWindow
             throw new InvalidOperationException("Sidebar navigation did not restore after Settings.");
         var selected = ServerProfileBox.SelectedValue;
         var capture = Settings.PacketCaptureEnabled;
+        var processes = Settings.AllowedProcesses.ToList();
         try
         {
             Settings.PacketCaptureEnabled = false;
@@ -31,6 +32,12 @@ public partial class MainWindow
             ServerProfileBox.SelectedValue = GameServerProfile.Other;
             if (DatabaseNavButton.IsEnabled || MvpNavButton.IsEnabled || DatabaseNavButton.Visibility != Visibility.Visible)
                 throw new InvalidOperationException("Unsupported-server navigation is incorrect.");
+            ServerProfileBox.SelectedValue = GameServerProfile.MuhRo;
+            Settings.PacketCaptureEnabled = true;
+            if (Settings.ServerProfile != GameServerProfile.MuhRo || !EffectsNavButton.IsEnabled ||
+                !CooldownNavButton.IsEnabled || !EquipmentNavButton.IsEnabled || DatabaseNavButton.IsEnabled ||
+                !Settings.AllowedProcesses.Contains("Muh", StringComparer.OrdinalIgnoreCase))
+                throw new InvalidOperationException("MuhRO packet profile or client discovery is incorrect.");
             ServerProfileBox.SelectedValue = GameServerProfile.Toc;
             Settings.PacketCaptureEnabled = true;
             if (!EffectsNavButton.IsEnabled || !LootNavButton.IsEnabled || !GoldGoblinNavButton.IsEnabled)
@@ -41,6 +48,7 @@ public partial class MainWindow
         {
             ServerProfileBox.SelectedValue = selected;
             Settings.PacketCaptureEnabled = capture;
+            Settings.AllowedProcesses = processes;
         }
     }
 }

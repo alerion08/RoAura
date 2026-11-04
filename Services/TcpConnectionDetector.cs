@@ -19,7 +19,8 @@ public static class TcpConnectionDetector
     public static DetectedTcpConnection? Detect(
         IEnumerable<string> processNames,
         string? currentAddress = null,
-        int currentPort = 0)
+        int currentPort = 0,
+        int preferredProcessId = 0)
     {
         if (!OperatingSystem.IsWindows()) return null;
 
@@ -50,6 +51,20 @@ public static class TcpConnectionDetector
             .ToList();
         if (candidates.Count == 0) return null;
 
+        return Select(candidates, currentAddress, currentPort, preferredProcessId);
+    }
+
+    // HTTP connections belong to patchers, news and account services. Automatic
+    // discovery waits for a game connection; manual endpoint settings can still
+    // use any port. Loopback is valid for local RO proxies.
+    public static DetectedTcpConnection? Select(IEnumerable<DetectedTcpConnection> connections,
+        string? currentAddress = null, int currentPort = 0, int preferredProcessId = 0)
+    {
+        var candidates = connections.Where(connection => connection.RemotePort is > 0 and <= 65535 &&
+            connection.RemotePort is not (80 or 443)).ToList();
+        if (preferredProcessId != 0)
+            candidates = candidates.Where(connection => connection.ProcessId == preferredProcessId).ToList();
+        if (candidates.Count == 0) return null;
         return candidates
             .OrderByDescending(connection => Score(connection, currentAddress, currentPort))
             .ThenBy(connection => connection.ProcessId)

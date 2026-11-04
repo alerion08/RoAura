@@ -103,9 +103,8 @@ public sealed class RoPacketStreamScanner
     public RoPacketStreamScanner(
         ConcurrentDictionary<ushort, RoEquipmentPacket>? sharedEquipmentCache = null)
     {
-        // Npcap can observe the same connection through several adapters
-        // (especially with ExitLag/VPN/loopback). All scanners must resolve
-        // equip acknowledgements against one inventory identity table.
+        // The optional cache belongs to this TCP lifetime. Capture adapters
+        // share its retained scanner, never inventory from another connection.
         _inventoryEquipment = sharedEquipmentCache ?? new();
     }
 
@@ -132,6 +131,7 @@ public sealed class RoPacketStreamScanner
         _carry = [];
         _knownBoundary = true;
         _streamOffset = 0;
+        _inventoryEquipment.Clear();
         StreamReset?.Invoke();
     }
 
@@ -378,6 +378,10 @@ public sealed class RoPacketStreamScanner
             0x07FB => 25, 0x0B1A => 29, 0x013E => 24,
             0x011A => 15, 0x09CB => 17, 0x0117 => 18,
             0x0114 => 31, 0x01DE => 33, 0x043D => 8,
+            // Modern basic-attack notification. Muh.exe's dispatch reads its
+            // final DWORD at +30. Consume the opaque body instead of finding
+            // accidental skill/equipment opcode bytes inside damage values.
+            0x08C8 => 34,
             // Fixed common server frames whose payload is not interesting here.
             0x00B0 when _knownBoundary => 8,
             0x007F when _knownBoundary => 6,

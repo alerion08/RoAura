@@ -14,6 +14,10 @@ Real SpringRO, mixed-DPI, fullscreen, multi-client and long-session acceptance r
 
 This document records current product-level UI behavior. It is intentionally compact; implementation details remain in XAML and code.
 
+## MuhRO packet profile — development branch
+
+MuhRO is selectable in the header/server settings and character manager. It enables cooldowns, effects, reminders and equipment with the Home packet switch. `Muh` is added to the permitted game processes without replacing user entries. MuhRO does not expose another server's catalog/market as its own. With an empty item cache, equipment learning stops with the existing RU/EN relog-then-retry explanation; login snapshots do not assign a tracker. Other server selections and existing settings remain unchanged.
+
 ## General interface
 
 - Desktop application: Windows x64, WPF, .NET 8.

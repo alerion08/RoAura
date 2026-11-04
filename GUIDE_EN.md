@@ -1,5 +1,9 @@
 # RoAura 3.4.0 — user guide
 
+## MuhRO — test support
+
+Select **MuhRO** in server settings and enable packet reading. `Muh.exe` is added automatically. This iteration supports cooldowns, effects, reminders and equipment; a MuhRO database is not included. To learn equipment, start RoAura before character login, or relog with RoAura running. Wait for the inventory to load, then click Learn and equip the intended item. If inventory identities are unavailable, the application explains the relog/retry requirement. The test build keeps separate settings in RoAura-Dev.
+
 ## Gold Goblin
 
 This section is available for SpringRO and ToC; Vending prices apply to SpringRO only. Received loot is automatically added to the `Item / Count / Cost / Total` table. The default cost is the official NPC sell value. Select an Overcharge level to apply the NPC selling bonus. Special price rules can use the lowest current Vending sell price and/or a manual price; when Vending is enabled, the manual value is used if the item is not listed. Start, Pause and complete Reset are shared with Statistics; completed history and price rules remain.

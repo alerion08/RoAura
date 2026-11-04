@@ -926,8 +926,12 @@ public partial class App : Application
             HandlePacketSkill(observation.Packet.SkillId, observation.Packet.DelayMs, "0x043D");
         });
 
-    private void OnPacketEquipmentChanged(RoEquipmentPacket packet) =>
-        Dispatcher.BeginInvoke(() => HandlePacketEquipment(packet));
+    private void OnPacketEquipmentChanged(RoPacketObservation<RoEquipmentPacket> observation) =>
+        Dispatcher.BeginInvoke(() =>
+        {
+            if (_packetCapture?.IsCurrentObservation(observation) == true)
+                HandlePacketEquipment(observation.Packet);
+        });
 
     private void OnPacketItemAdded(RoItemAddedPacket packet) =>
         Dispatcher.BeginInvoke(() => HandleItemAdded(packet, null));
@@ -1170,11 +1174,11 @@ public partial class App : Application
             if (exact.Count > 0) return exact;
         }
 
-        // During the current character session the inventory index uniquely
-        // identifies the concrete item. Use it as a fallback when two packet
-        // layouts encode the same fingerprint differently.
+        // An index can be reused after relog. It must not override a conflicting
+        // complete fingerprint, even when the base Item ID is identical.
         var byIndex = enabled.Where(item =>
             item.InventoryIndex > 0 && item.InventoryIndex == packet.InventoryIndex &&
+            (!packetHasVariant || string.IsNullOrWhiteSpace(item.VariantKey)) &&
             (item.ItemId <= 0 || packet.ItemId <= 0 || item.ItemId == packet.ItemId)).ToList();
         if (byIndex.Count > 0) return byIndex;
 

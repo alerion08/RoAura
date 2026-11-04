@@ -1,5 +1,11 @@
 # RoAura 3.4.0
 
+## Unreleased — MuhRO test branch
+
+- RU: Добавлен профиль MuhRO для кулдаунов, эффектов, напоминаний и экипировки. Исправлены обработка статусов в этом профиле, сообщение об отсутствии списка инвентаря, привязка экипировки после переподключения и выбор игрового соединения вместо HTTPS. Добавлена ограниченная диагностика обучения ID.
+- EN: Added a MuhRO profile for cooldowns, effects, reminders and equipment. Corrected status routing, missing-inventory guidance, equipment attribution after reconnect and game connection discovery instead of HTTPS. Added bounded ID-learning diagnostics.
+- Test candidate only; live MuhRO acceptance is pending. Published 3.4.0 notes below describe the unchanged release.
+
 ## Русский
 
 ### Новые возможности

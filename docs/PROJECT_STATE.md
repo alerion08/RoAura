@@ -1,5 +1,15 @@
 # Project state
 
+## Active development — MuhRO packet support, 2026-11-04
+
+- Branch `feature/muhro-packet-support`, based on current main `64f6b20`. Published 3.4.0, main, version metadata and released assets are unchanged. No merge/tag/release is authorized by this task.
+- Explicit MuhRO server selection uses direct standard status packets; it never creates the SpringRO memory bridge or enables its skill-specific Hiding fallback. Selecting MuhRO appends `Muh` to allowed process names without replacing custom entries. Character keys are separated from SpringRO; historical mislabelled records are not migrated automatically. Server databases/market are not claimed or added in this packet-only iteration.
+- Equipment cache and pending acknowledgements are scoped to one TCP lifetime and cleared on stream reset. UI/learning events retain source and receipt time. Missing Item ID reaches the learning status message without changing equipment; later inventory cannot teach a newly armed window from an older action. Index reuse cannot override a different full fingerprint.
+- Automatic connection discovery excludes HTTP/HTTPS candidates and prefers the selected game-window PID while allowing loopback. Manual address/port settings remain available for routes using these ports. Learning emits at most 64 metadata-only records per 20-second window in both build identities.
+- Evidence: private user log contains 16 consistent own Enchant Poison pairs (Status 6 / Skill 138 / 165000 ms), a 35-entry 68-byte inventory list, then unresolved equip ACKs after restart without a new inventory list. The analyzed Muh.exe has standard dispatch/layouts for the status, skill, cooldown and equipment families. No private log, EXE or actor identifiers are committed.
+- Validation: local cross-compilation of the Windows app/test projects passed (0 errors), along with eight Python catalog tests, XAML/XML, YAML and localization checks; full Windows test execution and isolated portable build pending. See the MuhRO acceptance section in REGRESSION_CHECKLIST.md. Live MuhRO start/removal, damaging skills, relog and multiple clients remain manual acceptance.
+
+
 ## Current published baseline — updated 2026-11-04
 
 - Stable release: **RoAura 3.4.0**, [v3.4.0](https://github.com/alerion08/RoAura/releases/tag/v3.4.0), published after the owner's explicit “публикуй” approval. This current summary supersedes the dated development/preparation history below.

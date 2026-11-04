@@ -1,5 +1,20 @@
 # Regression checklist
 
+## MuhRO packet support — development acceptance
+
+Automated fixtures use invented actor/character values and standard packet structures; they are not captured user traffic.
+
+- [ ] Select MuhRO in Settings; `Muh.exe` is found without entering a process name. Custom process names and prior server profiles remain intact.
+- [ ] Start before character login. Learn Enchant Poison (observed Status 6 / Skill 138 / 165 seconds), refresh it, remove it early and let it expire. Effects and standalone reminders follow the same state once.
+- [ ] Learn a second different finite/indefinite status and its removal; another actor cannot teach or toggle our status. No hardcoded skill-to-status mapping is accepted.
+- [ ] Learn/recast one damaging skill and one self buff. Check exact Skill ID, configured countdown and actorless 0x043D handling. Failed casts do not teach or trigger.
+- [ ] Start after game login, equip an item with an empty inventory cache: show the explicit relog/retry message, retain the tracker, and do not clear another slot. Relog with RoAura running; wait for inventory, then arm learning and equip again.
+- [ ] Learn two same-ID items with different refine/cards/options. Re-equip, swap, relog and repeat; reused inventory indices cannot replace fingerprints. A login snapshot never completes learning by itself.
+- [ ] Auto discovery ignores the client's news/HTTPS connection and accepts its real game/loopback connection. Switching windows/clients, disconnect and reconnect do not apply old-source queued events.
+- [ ] Repeat core status/skill/equipment checks on SpringRO and RTM; SpringRO's decoded client bridge remains specific to its verified EXE.
+- [ ] Confirm the isolated test package uses RoAura-Dev, without changing stable settings, and contains no private data. Gameplay acceptance is separate from Windows CI/native smoke results.
+
+
 ## Release 3.3.0 completion — 2026-11-03 documentation update
 
 Published v3.3.0 on 2026-11-02 from main commit `7d70b173b7c10cc4ab7ae3f268ff89cb9474e19e` (PR #10).

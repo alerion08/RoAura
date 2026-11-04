@@ -78,8 +78,6 @@ public sealed class NpcapPacketCapture : IDisposable
     private int _activeGeneration;
     private string _lastState = "";
     private string _language = "ru";
-    private ConcurrentDictionary<ushort, RoEquipmentPacket> _equipmentIdentityCache = new();
-    private ConcurrentDictionary<ushort, RoEquipmentPacket> _pendingEquipmentEvents = new();
 
     private readonly PacketLayoutDiagnostics _layoutDiagnostics = new();
     private volatile bool _springRoStatusCorrelationEnabled;
@@ -106,7 +104,8 @@ public sealed class NpcapPacketCapture : IDisposable
     public event Action<RoPacketObservation<RoSkillPacket>>? SkillUsed;
     public event Action<RoPacketObservation<RoSkillCooldownPacket>>? SkillCooldown;
     public event Action<RoPacketSource>? TrackingSourceClosed;
-    public event Action<RoEquipmentPacket>? EquipmentChanged;
+    public event Action<RoPacketObservation<RoEquipmentPacket>>? EquipmentChanged;
+    public event Action<RoPacketObservation<RoEquipmentPacket>>? EquipmentIdentityMissing;
     public event Action<RoItemAddedPacket>? ItemAdded;
     public event Action<RoExperiencePacket>? ExperienceChanged;
     public event Action<RoProgressPacket>? ProgressChanged;
@@ -126,8 +125,6 @@ public sealed class NpcapPacketCapture : IDisposable
         _language = settings.Language;
         CancellationTokenSource? oldCancellation;
         CancellationTokenSource? newCancellation = null;
-        ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache;
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents;
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows;
         CharacterLoginObserver? loginObserver;
         int generation;
@@ -145,7 +142,7 @@ public sealed class NpcapPacketCapture : IDisposable
             _clientStatusBridge?.Dispose();
             _clientStatusBridge = null;
             _springRoStatusCorrelationEnabled =
-                settings.PacketCaptureEnabled && !AppEnvironment.IsSmokeTest && GameServerProfile.Normalize(settings.ServerProfile) == GameServerProfile.SpringRo;
+                settings.PacketCaptureEnabled && !AppEnvironment.IsSmokeTest && GameServerProfile.UsesSpringRoClientStatus(settings.ServerProfile);
             if (_springRoStatusCorrelationEnabled)
             {
                 _clientStatusBridge = new SpringRoClientStatusBridge();
@@ -155,13 +152,6 @@ public sealed class NpcapPacketCapture : IDisposable
                 _ = Task.Run(bridge.Prepare);
             }
             if (AppEnvironment.IsDevelopment) _layoutDiagnostics.Begin(DateTime.UtcNow);
-            // Replace rather than clear: workers from the cancelled generation
-            // may finish parsing one last frame and must not repopulate the new
-            // connection's identity table.
-            _equipmentIdentityCache = new();
-            _pendingEquipmentEvents = new();
-            equipmentCache = _equipmentIdentityCache;
-            pendingEquipmentEvents = _pendingEquipmentEvents;
             tcpFlows = new();
             _playerAidObserver.Reset();
             if (AppEnvironment.CharacterSessionsEnabled) _characterSessions.OnCaptureInterrupted();
@@ -197,8 +187,7 @@ public sealed class NpcapPacketCapture : IDisposable
         var port = settings.PacketServerPort;
         var cancellation = newCancellation!;
         SetState(generation, L("Пакеты: подключение к Npcap…", "Packets: connecting to Npcap…"));
-        _ = Task.Run(() => StartCaptureAsync(address, port, generation, equipmentCache,
-            pendingEquipmentEvents, tcpFlows, loginObserver, cancellation), CancellationToken.None);
+        _ = Task.Run(() => StartCaptureAsync(address, port, generation, tcpFlows, loginObserver, cancellation), CancellationToken.None);
     }
 
     private enum SessionResult
@@ -218,8 +207,6 @@ public sealed class NpcapPacketCapture : IDisposable
     }
 
     private async Task StartCaptureAsync(string address, int port, int generation,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
         CharacterLoginObserver? loginObserver,
         CancellationTokenSource cancellation)
@@ -244,8 +231,7 @@ public sealed class NpcapPacketCapture : IDisposable
             var filter = BuildFilter(address, port);
             var stats = new GenerationStats();
             var workers = devices.Select(device => Task.Run(
-                () => CaptureDevice(device, filter, port, generation, stats, equipmentCache,
-                    pendingEquipmentEvents, tcpFlows, loginObserver, cancellationToken),
+                () => CaptureDevice(device, filter, port, generation, stats, tcpFlows, loginObserver, cancellationToken),
                 CancellationToken.None)).ToArray();
 
             // Report the aggregated first-open result once every adapter has
@@ -302,8 +288,6 @@ public sealed class NpcapPacketCapture : IDisposable
 
     private async Task CaptureDevice(PcapDeviceInfo device, string filter, int port, int generation,
         GenerationStats stats,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
         CharacterLoginObserver? loginObserver,
         CancellationToken cancellationToken)
@@ -321,8 +305,7 @@ public sealed class NpcapPacketCapture : IDisposable
             attempts++;
             var logFailure = attempts == 1 ||
                              Environment.TickCount64 - lastFailureLogTick >= FailureLogIntervalMs;
-            var result = CaptureDeviceSession(device, filter, port, generation, stats, equipmentCache,
-                pendingEquipmentEvents, tcpFlows, loginObserver, cancellationToken, logFailure, attempts == 1);
+            var result = CaptureDeviceSession(device, filter, port, generation, stats, tcpFlows, loginObserver, cancellationToken, logFailure, attempts == 1);
             if (cancellationToken.IsCancellationRequested ||
                 generation != Volatile.Read(ref _generation))
                 break;
@@ -362,8 +345,6 @@ public sealed class NpcapPacketCapture : IDisposable
 
     private SessionResult CaptureDeviceSession(PcapDeviceInfo device, string filter, int port, int generation,
         GenerationStats stats,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         ConcurrentDictionary<TcpFlowKey, TcpFlowState> tcpFlows,
         CharacterLoginObserver? loginObserver,
         CancellationToken cancellationToken, bool logFailure, bool firstAttempt)
@@ -500,8 +481,7 @@ public sealed class NpcapPacketCapture : IDisposable
                             if (!tcpFlows.TryGetValue(flowKey, out flow))
                             {
                                 PruneIdleFlows(tcpFlows, generation);
-                                flow = new TcpFlowState(CreateScanner(generation, equipmentCache,
-                                    pendingEquipmentEvents, CharacterSessionFlow.FromInbound(flowKey)));
+                                flow = new TcpFlowState(CreateScanner(generation, CharacterSessionFlow.FromInbound(flowKey)));
                                 tcpFlows[flowKey] = flow;
                             }
                         }
@@ -581,10 +561,12 @@ public sealed class NpcapPacketCapture : IDisposable
     }
 
     private RoPacketStreamScanner CreateScanner(int generation,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents,
         CharacterSessionFlow packetFlow)
     {
+        // All adapters share the retained TcpFlowState/scanner, but different
+        // TCP lifetimes must never resolve the same inventory index together.
+        var equipmentCache = new ConcurrentDictionary<ushort, RoEquipmentPacket>();
+        var pendingEquipmentEvents = new ConcurrentDictionary<ushort, RoPacketObservation<RoEquipmentPacket>>();
         var scanner = new RoPacketStreamScanner(equipmentCache);
         var clientStatusBridge = _clientStatusBridge;
         scanner.CaptureStatusWireBytes = _springRoStatusCorrelationEnabled &&
@@ -658,6 +640,8 @@ public sealed class NpcapPacketCapture : IDisposable
             correlatedHiding?.Reset();
             decodedHidingBeforeSkill = null;
             pendingStatuses.Reset();
+            equipmentCache.Clear();
+            pendingEquipmentEvents.Clear();
             source = RegisterTrackingSource(generation, packetFlow);
         };
         scanner.StatusChanged += packet => Forward(generation, () =>
@@ -698,7 +682,7 @@ public sealed class NpcapPacketCapture : IDisposable
         });
         scanner.SkillUsed += packet => Forward(generation, () => SkillUsed?.Invoke(Observe(packet, source)));
         scanner.SkillCooldown += packet => Forward(generation, () => SkillCooldown?.Invoke(Observe(packet, source)));
-        scanner.EquipmentChanged += packet => HandleEquipmentPacket(generation, packet,
+        scanner.EquipmentChanged += packet => HandleEquipmentPacket(Observe(packet, source),
             equipmentCache, pendingEquipmentEvents);
         scanner.ItemAdded += packet => Forward(generation, () =>
         {
@@ -803,41 +787,42 @@ public sealed class NpcapPacketCapture : IDisposable
         if (generation == Volatile.Read(ref _generation)) action();
     }
 
-    private void HandleEquipmentPacket(int generation, RoEquipmentPacket packet,
+    private void HandleEquipmentPacket(RoPacketObservation<RoEquipmentPacket> observation,
         ConcurrentDictionary<ushort, RoEquipmentPacket> equipmentCache,
-        ConcurrentDictionary<ushort, RoEquipmentPacket> pendingEquipmentEvents)
+        ConcurrentDictionary<ushort, RoPacketObservation<RoEquipmentPacket>> pendingEquipmentEvents)
     {
-        if (generation != Volatile.Read(ref _generation)) return;
-
+        if (!IsCurrentObservation(observation)) return;
+        var packet = observation.Packet;
         if (packet.ItemId > 0)
         {
             equipmentCache[packet.InventoryIndex] = packet;
-            EquipmentChanged?.Invoke(packet);
-
-            // An equip/unequip acknowledgement can arrive on one adapter before
-            // the inventory list is observed on another. Replay it as soon as
-            // the complete identity becomes available so swaps are never lost.
-            if (pendingEquipmentEvents.TryRemove(packet.InventoryIndex, out var pending))
+            EquipmentChanged?.Invoke(observation);
+            if (pendingEquipmentEvents.TryRemove(packet.InventoryIndex, out var pending) &&
+                IsCurrentObservation(pending))
             {
-                var resolved = CopyEquipmentIdentity(pending, packet);
+                var resolved = CopyEquipmentIdentity(pending.Packet, packet);
+                // A later snapshot is authoritative for current wear state.
+                // Keep the original receipt time so it cannot complete a newly
+                // armed learning window with an earlier equip action.
+                if (packet.PacketId is 0x00A4 or 0x0B39)
+                    resolved = resolved with { Equipped = packet.Equipped };
                 DebugLog.Write($"PACKET EQUIPMENT RESOLVED: packet=0x{resolved.PacketId:X4}; " +
-                               $"index={resolved.InventoryIndex}; item={resolved.ItemId}; " +
-                               $"variant={resolved.VariantKey}");
-                EquipmentChanged?.Invoke(resolved);
+                               $"index={resolved.InventoryIndex}; item={resolved.ItemId}");
+                EquipmentChanged?.Invoke(pending with { Packet = resolved });
             }
             return;
         }
-
         if (equipmentCache.TryGetValue(packet.InventoryIndex, out var identity))
         {
-            EquipmentChanged?.Invoke(CopyEquipmentIdentity(packet, identity));
+            EquipmentChanged?.Invoke(observation with { Packet = CopyEquipmentIdentity(packet, identity) });
             return;
         }
-
-        // Do not forward an unidentified acknowledgement: it cannot be matched
-        // reliably and could incorrectly clear another item in the same slot.
-        // Keep the latest state until the inventory identity arrives.
-        pendingEquipmentEvents[packet.InventoryIndex] = packet;
+        if (pendingEquipmentEvents.Count >= 256 && !pendingEquipmentEvents.ContainsKey(packet.InventoryIndex))
+            pendingEquipmentEvents.Clear();
+        pendingEquipmentEvents[packet.InventoryIndex] = observation;
+        // Diagnostic/UI event only: unidentified acknowledgements never change
+        // a tracked item or clear another item in the same slot.
+        EquipmentIdentityMissing?.Invoke(observation);
         DebugLog.Write($"PACKET EQUIPMENT PENDING: packet=0x{packet.PacketId:X4}; " +
                        $"index={packet.InventoryIndex}; location=0x{packet.WearLocation:X}; " +
                        $"equipped={packet.Equipped}");
