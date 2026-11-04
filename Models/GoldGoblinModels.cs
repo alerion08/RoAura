@@ -9,6 +9,8 @@ public sealed class GoldGoblinPriceRule : INotifyPropertyChanged
     private int _itemId;
     private bool _useVendingPrice;
     private long _manualPrice;
+    private bool _exclude;
+    public bool Exclude { get => _exclude; set => Set(ref _exclude, value); }
 
     public int ItemId { get => _itemId; set => Set(ref _itemId, Math.Max(0, value)); }
     public string Name { get => _name; set => Set(ref _name, value?.Trim() ?? ""); }
@@ -39,7 +41,9 @@ public sealed class GoldGoblinLootRow : INotifyPropertyChanged
         get => _cost;
         set { _cost = Math.Max(0, value); _hasManualCost = true; PriceSource = "Manual"; PriceKnown = true; Changed(); Changed(nameof(Total)); }
     }
-    public long Total => checked(Count * Cost);
+    private bool _excluded;
+    public bool Excluded { get => _excluded; set { _excluded = value; Changed(); Changed(nameof(Total)); } }
+    public long Total => Excluded ? 0 : checked(Count * Cost);
     public bool HasManualCost => _hasManualCost;
     public string PriceSource { get => _priceSource; private set { _priceSource = value; Changed(); } }
     public bool PriceKnown { get => _priceKnown; private set { _priceKnown = value; Changed(); } }

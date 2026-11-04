@@ -6,166 +6,129 @@ using RoAura.Models;
 
 namespace RoAura.Services;
 
-/// <summary>
-/// Polls configurable keys without reserving them as Windows system hotkeys.
-/// This is the proven input implementation from RoAura 2.8.1.
-/// </summary>
+/// <summary>Observes configurable keyboard chords without registering or reserving Windows keys.</summary>
 public sealed class GlobalInputHook : IDisposable
 {
-    private const int WhKeyboardLl = 13;
-    private const int WmKeyDown = 0x0100;
-    private const int WmKeyUp = 0x0101;
-    private const int WmSysKeyDown = 0x0104;
-    private const int WmSysKeyUp = 0x0105;
-    private const int VkShift = 0x10;
-    private const int VkControl = 0x11;
-    private const int VkMenu = 0x12;
-    private const int VkLShift = 0xA0;
-    private const int VkRShift = 0xA1;
-    private const int VkLControl = 0xA2;
-    private const int VkRControl = 0xA3;
-    private const int VkLMenu = 0xA4;
-    private const int VkRMenu = 0xA5;
-    private const uint ProcessQueryLimitedInformation = 0x1000;
+    private const int WhKeyboardLl=13, WmKeyDown=0x100, WmKeyUp=0x101, WmSysKeyDown=0x104, WmSysKeyUp=0x105;
+    private const uint ProcessQueryLimitedInformation=0x1000;
     private readonly AppSettings _settings;
-    private Timer? _timer;
-    private bool _settingsHeld;
-    private bool _overlaysHeld;
-    private bool _finishMoveHeld;
-    private bool _timersHeld;
-    private bool _databaseHeld;
-    private bool _questBrowserHeld, _questTrackerHeld, _questBrowserHookHeld, _questTrackerHookHeld;
-    private volatile int _questBrowserKey, _questTrackerKey;
-    private bool _databaseHookHeld;
-    private bool _settingsHookHeld;
-    private volatile bool _finishMoveEnabled;
-    private volatile bool _keyboardBlocked;
-    private IntPtr _keyboardHook;
     private readonly LowLevelKeyboardProc _keyboardProc;
-    private int _polling;
-    private volatile int _settingsKey;
-    private volatile int _overlaysKey;
-    private volatile int _finishMoveKey;
-    private volatile int _timersKey;
-    private volatile int _databaseKey;
-    // Tiny one-entry cache for the hook callback: the foreground window
-    // rarely changes between keystrokes, so resolving its process name once
-    // keeps the low-level hook well inside the system's callback budget.
-    private IntPtr _cachedWindow;
+    private IntPtr _keyboardHook,_cachedWindow;
     private uint _cachedProcessId;
-    private bool _cachedAllowed;
-
-    public event Action? ToggleSettingsPressed;
-    public event Action? ToggleOverlaysPressed;
-    public event Action? EscapePressed;
-    public event Action? ToggleTimersPressed;
-    public event Action? ToggleDatabasePressed;
-    public event Action? ToggleQuestBrowserPressed, ToggleQuestTrackerPressed;
-
+    private bool _cachedAllowed,_screenshotChordHeld;
+    private Timer? _timer;
+    private int _polling;
+    private volatile bool _keyboardBlocked,_finishMoveEnabled;
+    private Entry[] _entries=[];
+    private sealed class Entry(HotkeyChord chord,Action action,bool finish)
+    {
+        public readonly HotkeyChord Chord=chord;
+        public readonly Action Action=action;
+        public readonly bool Finish=finish;
+        public int Held;
+    }
+    public event Action? ToggleSettingsPressed,ToggleOverlaysPressed,EscapePressed,ToggleTimersPressed,
+        InterfaceLayoutPressed,StartSessionPressed,PauseSessionPressed,AddMvpTimerPressed,ToggleDatabasePressed,ToggleQuestBrowserPressed,ToggleQuestTrackerPressed;
     public GlobalInputHook(AppSettings settings)
     {
-        _settings = settings;
-        _keyboardProc = KeyboardHookCallback;
-        RefreshVirtualKeys();
-        _settings.PropertyChanged += OnSettingsPropertyChanged;
+        _settings=settings;_keyboardProc=KeyboardHookCallback;
+        RefreshVirtualKeys();settings.PropertyChanged+=SettingsChanged;
     }
-
+    public bool IsHotkeyEnabled(string value) => HotkeyChord.TryParse(value,out var chord) &&
+        Volatile.Read(ref _entries).Any(entry=>entry.Chord==chord);
     public void Install()
     {
-        if (_timer is not null) return;
-        _timer = new Timer(_ => PollKeys(), null, TimeSpan.Zero, TimeSpan.FromMilliseconds(35));
-        _keyboardHook = SetWindowsHookEx(WhKeyboardLl, _keyboardProc, IntPtr.Zero, 0);
-        // Polling keeps working without the hook; the caller reports the failure.
-        if (_keyboardHook == IntPtr.Zero)
-            throw new Win32Exception(Marshal.GetLastWin32Error());
+        if(_timer is not null)return;
+        _timer=new Timer(_=>PollKeys(),null,TimeSpan.Zero,TimeSpan.FromMilliseconds(35));
+        _keyboardHook=SetWindowsHookEx(WhKeyboardLl,_keyboardProc,IntPtr.Zero,0);
+        if(_keyboardHook==IntPtr.Zero)throw new Win32Exception(Marshal.GetLastWin32Error());
     }
-
-    public bool SetEscapeEnabled(bool enabled)
-    {
-        _finishMoveEnabled = enabled;
-        if (!enabled) _finishMoveHeld = false;
-        return true;
-    }
-
-    public void SetKeyboardBlocked(bool blocked) => _keyboardBlocked = blocked;
-
-    private void OnSettingsPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case null:
-            case "":
-            case nameof(AppSettings.SettingsHotkey):
-            case nameof(AppSettings.OverlaysHotkey):
-            case nameof(AppSettings.FinishMoveHotkey):
-            case nameof(AppSettings.TimersHotkey):
-            case nameof(AppSettings.DatabaseHotkey):
-            case nameof(AppSettings.QuestBrowserHotkey):
-            case nameof(AppSettings.QuestTrackerHotkey):
-                RefreshVirtualKeys();
-                break;
-        }
-    }
-
+    public bool SetEscapeEnabled(bool enabled){_finishMoveEnabled=enabled;return true;}
+    public void SetKeyboardBlocked(bool blocked){_keyboardBlocked=blocked;if(!blocked)_screenshotChordHeld=false;}
+    private void SettingsChanged(object? sender,PropertyChangedEventArgs e)
+    {if(string.IsNullOrEmpty(e.PropertyName) || e.PropertyName.EndsWith("Hotkey",StringComparison.Ordinal))RefreshVirtualKeys();}
     private void RefreshVirtualKeys()
     {
-        _settingsKey = ParseVirtualKey(_settings.SettingsHotkey);
-        _overlaysKey = ParseVirtualKey(_settings.OverlaysHotkey);
-        _finishMoveKey = ParseVirtualKey(_settings.FinishMoveHotkey);
-        _timersKey = ParseVirtualKey(_settings.TimersHotkey);
-        _databaseKey = ParseVirtualKey(_settings.DatabaseHotkey);
-        var enabled=QuestHotkeys.Enabled(_settings);
-        _questBrowserKey=enabled.Browser?ParseVirtualKey(_settings.QuestBrowserHotkey):0;
-        _questTrackerKey=enabled.Tracker?ParseVirtualKey(_settings.QuestTrackerHotkey):0;
+        var entries=new List<Entry>();
+        var used=new HashSet<HotkeyChord>();
+        void Add(string value,Action action,bool finish=false)
+        {
+            if(HotkeyChord.TryParse(value,out var chord) && used.Add(chord))entries.Add(new(chord,action,finish) { Held=Down(chord.VirtualKey)?1:0 });
+        }
+        Add(_settings.SettingsHotkey,()=>ToggleSettingsPressed?.Invoke());
+        Add(_settings.OverlaysHotkey,()=>ToggleOverlaysPressed?.Invoke());
+        Add(_settings.FinishMoveHotkey,()=>EscapePressed?.Invoke(),true);
+        Add(_settings.TimersHotkey,()=>ToggleTimersPressed?.Invoke());
+        Add(_settings.DatabaseHotkey,()=>ToggleDatabasePressed?.Invoke());
+        var quests=QuestHotkeys.Enabled(_settings);
+        if(quests.Browser)Add(_settings.QuestBrowserHotkey,()=>ToggleQuestBrowserPressed?.Invoke());
+        if(quests.Tracker)Add(_settings.QuestTrackerHotkey,()=>ToggleQuestTrackerPressed?.Invoke());
+        if(FarmingHotkeys.Enabled(_settings,_settings.PauseSessionHotkey))Add(_settings.PauseSessionHotkey,()=>PauseSessionPressed?.Invoke());
+        if(FarmingHotkeys.Enabled(_settings,_settings.StartSessionHotkey))Add(_settings.StartSessionHotkey,()=>StartSessionPressed?.Invoke());
+        if(FarmingHotkeys.Enabled(_settings,_settings.AddMvpTimerHotkey))Add(_settings.AddMvpTimerHotkey,()=>AddMvpTimerPressed?.Invoke());
+        if(OverlayLayoutHotkeys.Enabled(_settings))Add(_settings.InterfaceLayoutHotkey,()=>InterfaceLayoutPressed?.Invoke());
+        Volatile.Write(ref _entries,entries.ToArray());
     }
-
-    private IntPtr KeyboardHookCallback(int code, IntPtr message, IntPtr data)
+    private static bool Down(int key)=>(GetAsyncKeyState(key)&0x8000)!=0;
+    private static ModifierKeys Modifiers() =>
+        (Down(0x10)?ModifierKeys.Shift:ModifierKeys.None) |
+        (Down(0x11)?ModifierKeys.Control:ModifierKeys.None) |
+        (Down(0x12)?ModifierKeys.Alt:ModifierKeys.None) |
+        (Down(0x5B)||Down(0x5C)?ModifierKeys.Windows:ModifierKeys.None);
+    private void PollKeys()
+    {
+        if(Interlocked.Exchange(ref _polling,1)!=0)return;
+        try
+        {
+            GetWindowThreadProcessId(GetForegroundWindow(),out var process);
+            var suppressed=HotkeyCaptureGate.Suppressed(Down);
+            // Active game/application input is delivered by the hook, including short taps.
+            // Polling remains a fallback and retains legacy global hotkeys outside those windows.
+            if(_keyboardHook!=IntPtr.Zero && (process==(uint)Environment.ProcessId || IsForegroundWindowAllowed()))return;
+            var allowed=!_keyboardBlocked || process==(uint)Environment.ProcessId;
+            var modifiers=Modifiers();
+            foreach(var entry in Volatile.Read(ref _entries))
+            {
+                var down=Down(entry.Chord.VirtualKey);
+                var wasHeld=Interlocked.Exchange(ref entry.Held,down?1:0)!=0;
+                if(allowed && !suppressed && down && !wasHeld && (!entry.Finish || _finishMoveEnabled) &&
+                    entry.Chord.Matches(entry.Chord.VirtualKey,modifiers))entry.Action();
+            }
+        }
+        catch(Exception ex){DebugLog.Write($"HOTKEY POLL ERROR: {ex}");}
+        finally{Interlocked.Exchange(ref _polling,0);}
+    }
+    private IntPtr KeyboardHookCallback(int code,IntPtr message,IntPtr data)
     {
         try
         {
-            if (code < 0 || !_keyboardBlocked)
-                return CallNextHookEx(_keyboardHook, code, message, data);
-
-            var isDown = message == new IntPtr(WmKeyDown) || message == new IntPtr(WmSysKeyDown);
-            var isUp = message == new IntPtr(WmKeyUp) || message == new IntPtr(WmSysKeyUp);
-            if (!isDown && !isUp)
-                return CallNextHookEx(_keyboardHook, code, message, data);
-
-            if (!IsForegroundWindowAllowed())
-                return CallNextHookEx(_keyboardHook, code, message, data);
-
-            var virtualKey = Marshal.ReadInt32(data);
-            if (IsModifier(virtualKey))
-                return CallNextHookEx(_keyboardHook, code, message, data);
-            if (virtualKey == _databaseKey)
+            if(code<0)return CallNextHookEx(_keyboardHook,code,message,data);
+            var gameForeground=IsForegroundWindowAllowed();
+            GetWindowThreadProcessId(GetForegroundWindow(),out var process);
+            if(!gameForeground && process!=(uint)Environment.ProcessId)
+                return CallNextHookEx(_keyboardHook,code,message,data);
+            var isDown=message==new IntPtr(WmKeyDown)||message==new IntPtr(WmSysKeyDown);
+            var isUp=message==new IntPtr(WmKeyUp)||message==new IntPtr(WmSysKeyUp);
+            if(!isDown&&!isUp)return CallNextHookEx(_keyboardHook,code,message,data);
+            var key=Marshal.ReadInt32(data);
+            var modifiers=Modifiers();
+            var suppressed=HotkeyCaptureGate.IsCapturing || HotkeyCaptureGate.AwaitingReleaseKey>0;
+            foreach(var entry in Volatile.Read(ref _entries).Where(entry=>entry.Chord.VirtualKey==key))
             {
-                if (isDown && !_databaseHookHeld) ToggleDatabasePressed?.Invoke();
-                _databaseHookHeld = isDown;
+                var wasHeld=Interlocked.Exchange(ref entry.Held,isDown?1:0)!=0;
+                if(!suppressed && isDown && !wasHeld && (!entry.Finish||_finishMoveEnabled) && entry.Chord.Matches(key,modifiers))entry.Action();
             }
-            else if (virtualKey == _settingsKey)
-            {
-                if (isDown && !_settingsHookHeld) ToggleSettingsPressed?.Invoke();
-                _settingsHookHeld = isDown;
-            }
-            else if (virtualKey == _questBrowserKey && _questBrowserKey>0)
-            {
-                if(isDown && !_questBrowserHookHeld) ToggleQuestBrowserPressed?.Invoke();
-                _questBrowserHookHeld=isDown;
-            }
-            else if (virtualKey == _questTrackerKey && _questTrackerKey>0)
-            {
-                if(isDown && !_questTrackerHookHeld) ToggleQuestTrackerPressed?.Invoke();
-                _questTrackerHookHeld=isDown;
-            }
+            if(!_keyboardBlocked || !gameForeground || suppressed || IsAlwaysForwarded(key))
+                return CallNextHookEx(_keyboardHook,code,message,data);
+            if(key==0x53 && (_screenshotChordHeld || IsScreenshotShortcut(key,
+                modifiers.HasFlag(ModifierKeys.Windows),modifiers.HasFlag(ModifierKeys.Shift))))
+            {_screenshotChordHeld=isDown;return CallNextHookEx(_keyboardHook,code,message,data);}
             return new IntPtr(1);
         }
-        catch (Exception ex)
-        {
-            DebugLog.Write($"KEYBOARD HOOK ERROR: {ex}");
-            return CallNextHookEx(_keyboardHook, code, message, data);
-        }
+        catch(Exception ex){DebugLog.Write($"KEYBOARD HOOK ERROR: {ex}");return CallNextHookEx(_keyboardHook,code,message,data);}
     }
-
+    public static bool IsScreenshotShortcut(int key,bool windows,bool shift)=>key==0x53&&windows&&shift;
+    public static bool IsAlwaysForwarded(int key)=>key==0x2C||HotkeyChord.IsModifier(key);
     private bool IsForegroundWindowAllowed()
     {
         var window = GetForegroundWindow();
@@ -216,83 +179,13 @@ public sealed class GlobalInputHook : IDisposable
         }
     }
 
-    private static bool IsModifier(int virtualKey) => virtualKey is
-        VkShift or VkControl or VkMenu or VkLShift or VkRShift or
-        VkLControl or VkRControl or VkLMenu or VkRMenu or 0x5B or 0x5C;
-
-    private void PollKeys()
-    {
-        if (Interlocked.Exchange(ref _polling, 1) != 0) return;
-        try
-        {
-            var foreground = GetForegroundWindow();
-            GetWindowThreadProcessId(foreground, out var foregroundProcessId);
-            if (!_keyboardBlocked || foregroundProcessId == (uint)Environment.ProcessId)
-                PollKey(_settingsKey, ref _settingsHeld, ToggleSettingsPressed);
-            else
-                _settingsHeld = false;
-            PollKey(_overlaysKey, ref _overlaysHeld, ToggleOverlaysPressed);
-            PollKey(_timersKey, ref _timersHeld, ToggleTimersPressed);
-            if (!_keyboardBlocked || foregroundProcessId == (uint)Environment.ProcessId)
-                PollKey(_databaseKey, ref _databaseHeld, ToggleDatabasePressed);
-            else
-                _databaseHeld = false;
-
-            if (!_keyboardBlocked || foregroundProcessId == (uint)Environment.ProcessId)
-            {
-                PollKey(_questBrowserKey,ref _questBrowserHeld,ToggleQuestBrowserPressed);
-                PollKey(_questTrackerKey,ref _questTrackerHeld,ToggleQuestTrackerPressed);
-            }
-            else { _questBrowserHeld=false;_questTrackerHeld=false; }
-
-            if (_finishMoveEnabled)
-                PollKey(_finishMoveKey, ref _finishMoveHeld, EscapePressed);
-            else
-                _finishMoveHeld = false;
-        }
-        catch (Exception ex)
-        {
-            DebugLog.Write($"HOTKEY POLL ERROR: {ex}");
-        }
-        finally
-        {
-            Interlocked.Exchange(ref _polling, 0);
-        }
-    }
-
-    private static void PollKey(int virtualKey, ref bool held, Action? action)
-    {
-        if (virtualKey <= 0)
-        {
-            held = false;
-            return;
-        }
-
-        var down = (GetAsyncKeyState(virtualKey) & 0x8000) != 0;
-        if (down && !held) action?.Invoke();
-        held = down;
-    }
-
-    private static int ParseVirtualKey(string? value)
-    {
-        if (string.IsNullOrWhiteSpace(value)) return 0;
-        var normalized = value.Trim();
-        if (normalized.Equals("Esc", StringComparison.OrdinalIgnoreCase))
-            normalized = nameof(Key.Escape);
-        if (!Enum.TryParse<Key>(normalized, true, out var key)) return 0;
-        return KeyInterop.VirtualKeyFromKey(key);
-    }
 
     public void Dispose()
     {
-        _keyboardBlocked = false;
-        _settings.PropertyChanged -= OnSettingsPropertyChanged;
-        if (_keyboardHook != IntPtr.Zero) UnhookWindowsHookEx(_keyboardHook);
-        _keyboardHook = IntPtr.Zero;
-        _timer?.Dispose();
-        _timer = null;
+        _keyboardBlocked=false;_settings.PropertyChanged-=SettingsChanged;
+        if(_keyboardHook!=IntPtr.Zero)UnhookWindowsHookEx(_keyboardHook);
+        _keyboardHook=IntPtr.Zero;_timer?.Dispose();_timer=null;
     }
-
     [DllImport("user32.dll")]
     private static extern short GetAsyncKeyState(int virtualKey);
 

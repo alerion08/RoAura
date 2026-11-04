@@ -90,6 +90,7 @@ public partial class MainWindow
     public void SetQuestGlobalVisible(bool visible)=>_questWindows.SetGlobalVisible(visible);
     private void CloseQuests()
     {
+        _layoutEditor?.Dispose();
         _questSaveTimer.Stop(); _questWorkspace.CancelCatalogLoad();_questWindows.Dispose();
         _questWorkspace.SaveRequested -= RequestQuestSave;
         _packetCapture.CharacterSessionChanged -= QuestSessionChanged;

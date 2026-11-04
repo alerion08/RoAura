@@ -19,6 +19,24 @@ public sealed class MvpTimer : INotifyPropertyChanged
     private string _completionSoundPath = "";
     private double _completionSoundVolumePercent = 100;
 
+    private string _locationCode = "";
+    private double? _markerX, _markerY;
+    public string LocationCode
+    {
+        get => _locationCode;
+        set
+        {
+            var next = value?.Trim() ?? "";
+            if (!Set(ref _locationCode, next)) return;
+            ClearMarker();
+        }
+    }
+    public double? MarkerX { get => _markerX; set => Set(ref _markerX, NormalizeMarker(value)); }
+    public double? MarkerY { get => _markerY; set => Set(ref _markerY, NormalizeMarker(value)); }
+    private static double? NormalizeMarker(double? value) =>
+        value.HasValue && double.IsFinite(value.Value) ? Math.Clamp(value.Value, 0, 1) : null;
+    public void ClearMarker() { MarkerX = null; MarkerY = null; }
+
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get => _name; set => Set(ref _name, value); }
     public int MonsterId
@@ -111,10 +129,17 @@ public sealed class MvpTimer : INotifyPropertyChanged
     }
     [JsonIgnore] public string DisplayText => $"{Name} — {RemainingText}";
 
+    public void SelectFirstLocationIfMissing()
+    {
+        if (string.IsNullOrWhiteSpace(LocationCode) && RespawnHints.FirstOrDefault(spawn => !string.IsNullOrWhiteSpace(spawn.Code)) is { } first)
+            LocationCode=first.Code;
+    }
+
     public void SetMonsterDetails(MonsterEntry? monster)
     {
         _monsterImageUrl = monster?.ImageUrl ?? "";
         RespawnHints = monster is null ? Array.Empty<MonsterSpawnEntry>() : monster.Spawns;
+        SelectFirstLocationIfMissing();
         OnPropertyChanged(nameof(RespawnHints));
         OnPropertyChanged(nameof(MonsterImagePath));
     }

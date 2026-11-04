@@ -14,6 +14,7 @@ public partial class MarketWatchEditor : UserControl
     private GameDatabaseService? _database;
     private DatabaseItem? _selected;
     private bool _updatingSearch;
+    private MarketWatchRule? _editedRule;
 
     public MarketWatchEditor()
     {
@@ -25,6 +26,8 @@ public partial class MarketWatchEditor : UserControl
     public void Initialize(GameDatabaseService database, DatabaseItem? item = null, MarketWatchRule? rule = null, bool allowItemChange = false)
     {
         _database = database;
+        _editedRule = rule;
+        SuppressCurrentOffers.IsChecked = rule?.SuppressCurrentOffers == true;
         EditorTitle.SetResourceReference(TextBlock.TextProperty, rule is null ? "WatchAddTitle" : "EditItem");
         _updatingSearch = true;
         _selected = item;
@@ -136,6 +139,12 @@ public partial class MarketWatchEditor : UserControl
             (!long.TryParse(PriceBox.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out price) || price < 0))
         { ErrorText.Text = LocalizationService.Get("WatchInvalidPrice"); return null; }
         ErrorText.Text = "";
-        return new MarketWatchRule { ItemId = item.Id, ItemName = item.Name, WithoutPrice = WithoutPrice.IsChecked == true, MaximumPrice = price };
+        var keepBaseline = _editedRule?.ItemId == item.Id &&
+            _editedRule.SuppressCurrentOffers && SuppressCurrentOffers.IsChecked == true;
+        return new MarketWatchRule { ItemId = item.Id, ItemName = item.Name,
+            WithoutPrice = WithoutPrice.IsChecked == true, MaximumPrice = price,
+            SuppressCurrentOffers = SuppressCurrentOffers.IsChecked == true,
+            InitialOffersCaptured = keepBaseline && _editedRule!.InitialOffersCaptured,
+            InitialOfferKeys = keepBaseline ? new(_editedRule!.InitialOfferKeys ?? []) : [] };
     }
 }

@@ -16,6 +16,14 @@ internal static class QuestInputSmoke
     {
         var directory=Path.Combine(AppEnvironment.LocalDirectory,"QuestInputProbe");Directory.CreateDirectory(directory);
         settingsWindow.Hide();
+        var bundle=Path.Combine(AppContext.BaseDirectory,"Data","Minimaps");
+        var offlineMaps=new MvpMapImageCache(_=>throw new InvalidOperationException("Bundled maps must not use the network."),bundle,bundle);
+        var mapFiles=Directory.GetFiles(bundle,"*.png");
+        if(mapFiles.Length==0)throw new InvalidOperationException("MVP minimap bundle is empty.");
+        foreach(var mapFile in mapFiles)
+            if(await offlineMaps.GetAsync(Path.GetFileNameWithoutExtension(mapFile)) is null)
+                throw new InvalidOperationException("Bundled MVP map cannot decode offline: "+mapFile);
+        DebugLog.Write($"MVP MAP OFFLINE DECODE PASS: {mapFiles.Length} maps.");
         DebugLog.Write("QUEST INPUT: copying isolated probe executable");
         var exe=Path.Combine(directory,"RoAura-QuestProbe.exe");File.Copy(Environment.ProcessPath!,exe,true);
         DebugLog.Write("QUEST INPUT: launching isolated probe");
@@ -37,6 +45,9 @@ internal static class QuestInputSmoke
             using var hook=new GlobalInputHook(workspace.Settings);
             hook.ToggleQuestBrowserPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleBrowser);
             hook.ToggleQuestTrackerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(host.ToggleTracker);
+            var startSessionPresses=0;hook.StartSessionPressed+=()=>Interlocked.Increment(ref startSessionPresses);
+            hook.InterfaceLayoutPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).ToggleInterfaceLayout());
+            hook.AddMvpTimerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).AddMvpTimerInGame());
             hook.EscapePressed+=()=>((App)Application.Current).ExitOverlayEditMode();
             hook.ToggleOverlaysPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>host.SetGlobalVisible(!host.GlobalVisible));
             void KeyboardMode()=>hook.SetKeyboardBlocked(host.BrowserRequested && host.BrowserShowing);
@@ -74,6 +85,7 @@ internal static class QuestInputSmoke
                 clicks=Read(reportPath)!.Clicks;
                 Click(host.TextWindow.PointToScreen(new Point(x+15,y+40)));
                 await Until(()=>Read(reportPath)!.Clicks>clicks,"text/world click-through");
+                await Pause();host.RefreshNow();
                 var doneStep=row.Progress.CurrentStep;
                 var doneStrip=host.ActionWindows.First(w=>w.IsVisible && ((StackPanel)w.Content).Children.OfType<Button>().Any(b=>Equals(b.Content,"done")));
                 var done=((StackPanel)doneStrip.Content).Children.OfType<Button>().Single(b=>Equals(b.Content,"done"));
@@ -223,11 +235,160 @@ internal static class QuestInputSmoke
                 }
                 finally{workspace.Settings.GameOverlayTheme=databaseTheme;}
                 ((App)Application.Current).CloseDatabaseOverlay();await Pause();
+                var previousServer = workspace.Settings.ServerProfile;
+                var previousAddKey = workspace.Settings.AddMvpTimerHotkey;
+                var previousGameTheme = workspace.Settings.GameOverlayTheme;
+                try
+                {
+                    workspace.Settings.ServerProfile = GameServerProfile.SpringRo;
+                    QuestWindowNative.SetForegroundWindow(game); await Pause();
+                    workspace.Settings.GameOverlayTheme="Dark";
+                    var capture=new RoAura.Controls.HotkeyCaptureBox {Margin=new Thickness(12)};
+                    capture.SetBinding(RoAura.Controls.HotkeyCaptureBox.ValueProperty,new System.Windows.Data.Binding(nameof(AppSettings.AddMvpTimerHotkey)) {Source=workspace.Settings,Mode=System.Windows.Data.BindingMode.TwoWay});
+                    var captureWindow=new Window {Width=350,Height=130,Content=capture,Topmost=true,WindowStartupLocation=WindowStartupLocation.CenterScreen};
+                    captureWindow.Show();captureWindow.Activate();await Pause();
+                    Click(capture.PointToScreen(new Point(capture.ActualWidth/2,capture.ActualHeight/2)));
+                    await Press("Ctrl+Shift+F4");
+                    if(HotkeyChord.Canonical(capture.Value)!="CTRL+SHIFT+F4")throw new InvalidOperationException($"Keyboard chord capture failed: value={capture.Value}; gate={HotkeyCaptureGate.IsCapturing}.");
+                    if(HotkeyChord.Canonical(workspace.Settings.AddMvpTimerHotkey)!="CTRL+SHIFT+F4" ||
+                        capture.GetBindingExpression(RoAura.Controls.HotkeyCaptureBox.ValueProperty) is null)
+                        throw new InvalidOperationException("Hotkey capture detached its settings binding.");
+                    var clear=AllButtons(capture).Single(button=>Equals(button.Content,"×"));
+                    Click(clear.PointToScreen(new Point(clear.ActualWidth/2,clear.ActualHeight/2)));
+                    await Pause();SaveDesktop(captureWindow,"hotkey-unassigned-native");
+                    if(workspace.Settings.AddMvpTimerHotkey!="None" || hook.IsHotkeyEnabled("Ctrl+Shift+F4"))
+                        throw new InvalidOperationException("Visible unassign action did not disable the shortcut.");
+                    Click(capture.PointToScreen(new Point(capture.ActualWidth/2,capture.ActualHeight/2)));
+                    await Press("Ctrl+Shift+F4");
+                    if(HotkeyChord.Canonical(workspace.Settings.AddMvpTimerHotkey)!="CTRL+SHIFT+F4")
+                        throw new InvalidOperationException("Reassignment after clearing failed.");
+                    await Pause();
+                    if(Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible))throw new InvalidOperationException("Assigning a chord invoked it.");
+                    captureWindow.Close();QuestWindowNative.SetForegroundWindow(game);await Pause();
+                    await Press("F4");
+                    if(Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible))throw new InvalidOperationException("Chord fired without modifiers.");
+                    var beforeTimers = workspace.Settings.ActiveMvpTimers.Count;
+                    await Press(workspace.Settings.AddMvpTimerHotkey);
+                    await Until(()=>Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible), "in-game MVP hotkey opens wizard");
+                    var mvpWizard=Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w=>w.IsVisible);
+                    if(!AppearanceService.IsGameWindow(mvpWizard))throw new InvalidOperationException("MVP wizard lost its game theme scope.");
+                    await Until(()=>mvpWizard.IsLoaded && mvpWizard.MonsterBox.IsLoaded && mvpWizard.MonsterBox.ActualWidth>100,"MVP form layout ready");
+                    await Pause(250);
+                    mvpWizard.MonsterBox.AddHandler(UIElement.PreviewMouseLeftButtonDownEvent,new System.Windows.Input.MouseButtonEventHandler((_,e)=>
+                        DebugLog.Write($"MVP SEARCH CLICK: source={e.OriginalSource.GetType().Name}; handled={e.Handled}; size={mvpWizard.MonsterBox.ActualWidth}x{mvpWizard.MonsterBox.ActualHeight}; open={mvpWizard.MonsterBox.IsDropDownOpen}")),true);
+                    SaveDesktop(mvpWizard,"mvp-empty-native");
+                    Click(mvpWizard.MonsterBox.PointToScreen(new Point(18,mvpWizard.MonsterBox.ActualHeight/2)));
+                    await Until(()=>mvpWizard.MonsterBox.IsDropDownOpen,"MVP search opens from content");
+                    var editor=(TextBox)mvpWizard.MonsterBox.Template.FindName("PART_EditableTextBox",mvpWizard.MonsterBox);
+                    await Press("D");await Press("R");
+                    if(editor.Text.ToLowerInvariant()!="dr" || editor.SelectionLength!=0)
+                        throw new InvalidOperationException("MVP typing lost characters or selected input.");
+                    mvpWizard.MonsterBox.SelectedIndex=0;await Pause();mvpWizard.MonsterBox.IsDropDownOpen=false;await Pause();
+                    if(mvpWizard.Draft.MonsterId<=0)throw new InvalidOperationException("In-game MVP selection failed.");
+                    await Pause(); host.RefreshNow();
+                    var mvpBounds=QuestWindowNative.Bounds(new WindowInteropHelper(mvpWizard).Handle);
+                    var mvpCenter=new Point(mvpBounds.X+mvpBounds.Width/2,mvpBounds.Y+mvpBounds.Height/2);
+                    if(((Canvas)host.TextWindow.Content).Clip?.FillContains(host.TextWindow.PointFromScreen(mvpCenter))!=false)
+                        throw new InvalidOperationException("Quest tracker paints above the MVP timer form.");
+                    if(mvpWizard.Draft.RespawnHints.FirstOrDefault() is { } spawn && mvpWizard.Draft.LocationCode!=spawn.Code)
+                        throw new InvalidOperationException("The first MVP map was not selected automatically.");
+                    var mapEditor=Descendants<RoAura.Controls.MvpMapEditor>(mvpWizard).Single();
+                    await Until(()=>mapEditor.IsMapReady && mapEditor.DisplayedMapCode==mvpWizard.Draft.LocationCode,"first MVP map paints without a location click");
+                    var formBefore=QuestWindowNative.Bounds(new WindowInteropHelper(mvpWizard).Handle);
+                    var grip=mvpWizard.DragHandle.PointToScreen(new Point(mvpWizard.DragHandle.ActualWidth/2,8));
+                    SetCursorPos((int)grip.X,(int)grip.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});await Pause(80);
+                    SetCursorPos((int)grip.X-45,(int)grip.Y-15);await Pause(160);
+                    Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=4}}});await Pause(400);
+                    var formAfter=QuestWindowNative.Bounds(new WindowInteropHelper(mvpWizard).Handle);
+                    if(Math.Abs(formAfter.X-formBefore.X)<10 || workspace.Settings.MvpAddWindowX is null)
+                        throw new InvalidOperationException("MVP form drag was recentered or not persisted.");
+                    await Pause();SaveDesktop(mvpWizard,"mvp-add-native");
+                    var create=AllButtons(mvpWizard).Single(button=>Equals(button.Content,LocalizationService.Get("CreateMvpTimer")));
+                    Click(create.PointToScreen(new Point(create.ActualWidth/2,create.ActualHeight/2)));
+                    await Until(()=>workspace.Settings.ActiveMvpTimers.Count==beforeTimers+1 && QuestWindowNative.GetForegroundWindow()==game, "MVP creation and exact-game focus restore");
+                    var restarted=workspace.Settings.ActiveMvpTimers.Last();
+                    restarted.StartFromKillTime(DateTime.Now.AddMinutes(-25));
+                    restarted.KillTimeInput="invalid old draft";
+                    var restartAt=DateTime.UtcNow;
+                    var restartHandler=typeof(MainWindow).GetMethod("RestartMvpTimer_Click",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!;
+                    restartHandler.Invoke(settingsWindow,[new Button {DataContext=restarted},new RoutedEventArgs()]);
+                    if(restarted.KilledAtUtc<restartAt || restarted.RemainingSeconds<restarted.DurationMinutes*60-2)
+                        throw new InvalidOperationException("Restart reused an old/invalid kill-clock draft.");
+                    DebugLog.Write("MVP RESTART PASS: existing kill-clock draft replaced with now.");
+                    workspace.Settings.ActiveMvpTimers.RemoveAt(workspace.Settings.ActiveMvpTimers.Count-1);
+                    await Press(workspace.Settings.AddMvpTimerHotkey);
+                    await Until(()=>Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible), "MVP wizard reopens");
+                    mvpWizard=Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w=>w.IsVisible);
+                    await Press(workspace.Settings.AddMvpTimerHotkey);
+                    await Until(()=>!Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible),"repeated MVP hotkey closes wizard");
+                    await Press(workspace.Settings.AddMvpTimerHotkey);
+                    await Until(()=>Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible),"MVP wizard opens after hotkey close");
+                    mvpWizard=Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w=>w.IsVisible);
+                    var cancel=AllButtons(mvpWizard).Single(button=>Equals(button.Content,LocalizationService.Get("Cancel")));
+                    Click(cancel.PointToScreen(new Point(cancel.ActualWidth/2,cancel.ActualHeight/2)));
+                    await Until(()=>!Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible) && QuestWindowNative.GetForegroundWindow()==game,"MVP cancel and exact-game focus restore");
+                    if(workspace.Settings.ActiveMvpTimers.Count!=beforeTimers)throw new InvalidOperationException("Cancel created an MVP timer.");
+                    var oldTimerX=workspace.Settings.TimersX;var oldTimerY=workspace.Settings.TimersY;
+                    try
+                    {
+                        // Off-screen model coordinates must get a visible edit preview without being rewritten.
+                        workspace.Settings.TimersX=5000;workspace.Settings.TimersY=5000;
+                        ((System.Windows.Controls.Primitives.ToggleButton)settingsWindow.FindName("TimerMoveModeButton")).IsChecked=true;
+                        hook.SetEscapeEnabled(true);await Pause(350);
+                        var panel=(FrameworkElement)ordinary.FindName("MvpTimerPanel");
+                        if(workspace.Settings.TimersX!=5000||workspace.Settings.TimersY!=5000)throw new InvalidOperationException("Preview rewrote timer coordinates.");
+                        var timerGrab=panel.PointToScreen(new Point(panel.ActualWidth/2,panel.ActualHeight/2));
+                        SetCursorPos((int)timerGrab.X,(int)timerGrab.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});await Pause(80);
+                        SetCursorPos((int)timerGrab.X-80,(int)timerGrab.Y-40);await Pause(150);
+                        Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=4}}});await Pause();
+                        if(workspace.Settings.TimersX>=5000||workspace.Settings.TimersY>=5000)throw new InvalidOperationException("MVP timer panel did not move.");
+                        await Press(workspace.Settings.FinishMoveHotkey);
+                        await Until(()=>!ordinary.IsBusyEditing,"MVP timer placement finishes");
+                        settingsWindow.Hide();QuestWindowNative.SetForegroundWindow(game);await Pause();
+                    }
+                    finally {ordinary.EndAllEditModes();hook.SetEscapeEnabled(false);workspace.Settings.TimersX=oldTimerX;workspace.Settings.TimersY=oldTimerY;}
+                    await VerifyMvpMapHover(ordinary,workspace.Settings,game);
+                    await VerifyInterfaceLayout((MainWindow)settingsWindow,ordinary,workspace.Settings,hook,game,reportPath);
+                }
+                finally { ((MainWindow)settingsWindow).CloseMvpWizard();workspace.Settings.ServerProfile=previousServer;workspace.Settings.AddMvpTimerHotkey=previousAddKey;workspace.Settings.GameOverlayTheme=previousGameTheme; }
+                var previousStartKey=workspace.Settings.StartSessionHotkey;
+                try
+                {
+                    workspace.Settings.StartSessionHotkey="Ctrl+F3";
+                    await Press("F3");await Pause();
+                    if(startSessionPresses!=0)throw new InvalidOperationException("Start session chord ignored its modifier.");
+                    await Press("Ctrl+F3");await Until(()=>startSessionPresses==1,"start session hotkey dispatch");
+                    workspace.Settings.StartSessionHotkey="None";
+                    await Press("Ctrl+F3");await Pause();
+                    if(startSessionPresses!=1)throw new InvalidOperationException("Unassigned start session hotkey still fired.");
+                }
+                finally {workspace.Settings.StartSessionHotkey=previousStartKey;}
+                var previousAppTheme=workspace.Settings.ApplicationTheme;
+                try
+                {
+                    workspace.Settings.ApplicationTheme="Dark";
+                    var reminder=new ReminderWizardWindow(_=>{});
+                    reminder.Show();reminder.Activate();await Pause();
+                    Click(reminder.ManualIdCard.PointToScreen(new Point(reminder.ManualIdCard.ActualWidth/2,reminder.ManualIdCard.ActualHeight/2)));
+                    await Pause();
+                    if(!ReferenceEquals(reminder.ManualIdCard.Background,reminder.FindResource("RoSelectionBrush")))
+                        throw new InvalidOperationException("Reminder cards lost their dark theme.");
+                    SaveDesktop(reminder,"reminder-dark-native");
+                    reminder.Close();
+                }
+                finally{workspace.Settings.ApplicationTheme=previousAppTheme;QuestWindowNative.SetForegroundWindow(game);}
                 SetWindowPos(game,IntPtr.Zero,20,20,340,240,0x14);await Pause();host.RefreshNow();
                 if(workspace.Settings.QuestOverlay.X!=x || workspace.Settings.QuestOverlay.Y!=y)
                     throw new InvalidOperationException("Game resize rewrote tracker coordinates.");
+                // Screen capture must reach the game even with RoAura's keyboard suppression enabled.
+                var screenshots = Read(reportPath)!.Screenshots;
+                hook.SetKeyboardBlocked(true);
+                Key(0x2C,true); Key(0x2C,false);
+                await Until(()=>Read(reportPath)!.Screenshots > screenshots, "Print Screen bypasses blocked keyboard");
+                hook.SetKeyboardBlocked(false);
                 ShowWindow(game,6);await Pause();host.RefreshNow();
                 if(host.TextWindow.IsVisible || host.BrowserShowing)throw new InvalidOperationException("Quest surfaces remained above a minimized game.");
+                await CaptureMvpLocationLayout((MainWindow)settingsWindow,workspace.Settings);
                 DebugLog.Write("QUEST INPUT SMOKE: cross-process clicks, transparent margins/text, keyboard/modifiers, independent keys, global mask, settings occlusion and resize passed.");
             }
             finally {host.KeyboardModeChanged-=KeyboardMode;hook.SetKeyboardBlocked(false);host.HideBrowser(false);}
@@ -237,6 +398,165 @@ internal static class QuestInputSmoke
         {
             workspace.Settings.AllowedProcesses=original;setProcesses(string.Join(", ",original));
             if(!process.HasExited) {process.CloseMainWindow();if(!process.WaitForExit(2000)){process.Kill(true);process.WaitForExit();}}
+        }
+    }
+    private static async Task VerifyInterfaceLayout(MainWindow main,OverlayWindow overlay,AppSettings settings,
+        GlobalInputHook hook,IntPtr game,string reportPath)
+    {
+        var originalKey=settings.InterfaceLayoutHotkey;
+        var originalPackets=settings.PacketCaptureEnabled;
+        var groups=settings.CooldownGroups.Select(group=>group.GroupNumber).ToHashSet();
+        var first=new SkillAura {Name="Layout A",GroupNumber=17,X=60,Y=160,IndividualIconSize=40};
+        var second=new SkillAura {Name="Layout B",GroupNumber=17,X=140,Y=160,IndividualIconSize=40,Enabled=false};
+        var other=new SkillAura {Name="Layout other",GroupNumber=18,X=60,Y=330,IndividualIconSize=40};
+        settings.Skills.Add(first);settings.Skills.Add(second);settings.Skills.Add(other);
+        var questX=settings.QuestOverlay.X;var questY=settings.QuestOverlay.Y;
+        try
+        {
+            settings.PacketCaptureEnabled=true;
+            settings.InterfaceLayoutHotkey="Ctrl+Shift+F2";
+            QuestWindowNative.SetForegroundWindow(game);
+            await Press("F2");await Pause();
+            if(main.IsInterfaceLayoutEditing)throw new InvalidOperationException("Layout hotkey ignored its modifiers.");
+            await Press(settings.InterfaceLayoutHotkey);
+            DebugLog.Write($"LAYOUT PROBE: enabled={settings.Enabled}; packets={settings.PacketCaptureEnabled}; active={main.IsInterfaceLayoutEditing}; keys={string.Join(",",main.InterfaceLayoutEditor!.GripWindows.Keys)}; foreground={QuestWindowNative.GetForegroundWindow()}; game={game}");
+            await Until(()=>main.IsInterfaceLayoutEditing && main.InterfaceLayoutEditor!.GripWindows.TryGetValue("cooldown:17",out var window) && window.IsVisible,"layout group grip appears");
+            if(overlay.IsBusyEditing)throw new InvalidOperationException("Layout mode made the ordinary overlay interactive.");
+            if(!first.IsPlacementPreview || first.X!=60 || second.X!=140 || settings.QuestOverlay.X!=questX || settings.QuestOverlay.Y!=questY)
+                throw new InvalidOperationException("Entering layout changed positions or omitted previews.");
+            var editor=main.InterfaceLayoutEditor!;
+            foreach(var key in new[]{"mvp","quest","statistics:1"})
+                if(!editor.GripWindows.ContainsKey(key))throw new InvalidOperationException("Missing section/group layout handle: "+key);
+            var clicks=Read(reportPath)!.Clicks;
+            var label=editor.LabelWindows["cooldown:17"];
+            Click(label.PointToScreen(new Point(20,13)));
+            await Until(()=>Read(reportPath)!.Clicks>clicks,"layout labels pass mouse clicks to the game");
+            var grip=editor.GripWindows["cooldown:17"];
+            var cursor=grip.PointToScreen(new Point(13,13));
+            SetCursorPos((int)cursor.X,(int)cursor.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}});await Pause(80);
+            SetCursorPos((int)cursor.X+45,(int)cursor.Y+30);await Pause(200);
+            Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=4}}});await Pause();
+            var dpi=QuestWindowNative.Scale(game);
+            if(Math.Abs(first.X-60-45/dpi)>1 || Math.Abs(first.Y-160-30/dpi)>1 || Math.Abs(second.X-first.X-80)>1 || other.X!=60)
+                throw new InvalidOperationException("Layout drag did not move exactly one whole group.");
+            if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("Layout grip stole game focus.");
+            SaveDesktop(overlay,"interface-layout-native");
+            var handles=editor.GripWindows.Values.ToArray();
+            await Press(settings.InterfaceLayoutHotkey);
+            await Until(()=>!main.IsInterfaceLayoutEditing,"repeated layout hotkey closes mode");
+            if(first.IsPlacementPreview || handles.Any(window=>window.IsVisible) || overlay.IsLayoutEditing)
+                throw new InvalidOperationException("Layout previews/grips leaked after exit.");
+            await Press(settings.InterfaceLayoutHotkey);await Until(()=>main.IsInterfaceLayoutEditing,"layout reopens");
+            hook.SetEscapeEnabled(true);await Press(settings.FinishMoveHotkey);
+            await Until(()=>!main.IsInterfaceLayoutEditing,"finish hotkey exits layout");hook.SetEscapeEnabled(false);
+            if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("Finishing layout activated settings.");
+            DebugLog.Write("INTERFACE LAYOUT PASS: exact hotkey, passive labels, whole-group DPI drag, independent groups, repeated-key and finish exit, focus and preview cleanup.");
+        }
+        finally
+        {
+            main.StopInterfaceLayout();hook.SetEscapeEnabled(false);settings.InterfaceLayoutHotkey=originalKey;
+            settings.PacketCaptureEnabled=originalPackets;
+            settings.Skills.Remove(first);settings.Skills.Remove(second);settings.Skills.Remove(other);
+            foreach(var group in settings.CooldownGroups.Where(group=>!groups.Contains(group.GroupNumber)).ToArray())settings.CooldownGroups.Remove(group);
+        }
+    }
+
+    private static async Task VerifyMvpMapHover(OverlayWindow overlay,AppSettings settings,IntPtr game)
+    {
+        var timer=new MvpTimer {Name="Baphomet",MonsterId=1039,LocationCode="prt_maze03",MarkerX=.5,MarkerY=.5};
+        var x=settings.TimersX;var y=settings.TimersY;var visible=settings.TimersOverlayVisible;
+        try
+        {
+            settings.TimersX=30;settings.TimersY=30;settings.TimersOverlayVisible=true;
+            timer.Restart();settings.ActiveMvpTimers.Add(timer);
+            QuestWindowNative.SetForegroundWindow(game);
+            var panel=(FrameworkElement)overlay.FindName("MvpTimerPanel");
+            await Until(()=>panel.IsVisible && Descendants<TextBlock>(panel).Any(text=>ReferenceEquals(text.DataContext,timer)),"MVP hover row appears");
+            var labels=Descendants<TextBlock>(panel).Where(text=>ReferenceEquals(text.DataContext,timer)).ToArray();
+            var name=labels.Single(text=>text.Text==timer.Name);
+            var icon=labels.Single(text=>text.Tag as string=="MvpMapHover");
+            void Hover(FrameworkElement target)
+            {
+                var point=target.PointToScreen(new Point(target.ActualWidth/2,target.ActualHeight/2));
+                SetCursorPos((int)point.X,(int)point.Y);
+            }
+            Hover(name);await Until(()=>overlay.IsMvpMapVisible,"MVP name opens the map");
+            Hover(icon);await Pause(250);
+            if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP magnifier lost the row hover map.");
+            Hover(labels.Single(text=>text!=name && text!=icon));await Pause(250);
+            if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP timer text lost the row hover map.");
+            if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("MVP map stole game focus.");
+            SaveElement(panel,"mvp-magnifier-row");SaveDesktop(overlay,"mvp-magnifier-hover");
+            var gameRect=QuestWindowNative.Bounds(game);SetCursorPos((int)gameRect.Right-5,(int)gameRect.Bottom-5);
+            await Until(()=>!overlay.IsMvpMapVisible,"MVP map closes outside the row");
+            DebugLog.Write("MVP ROW HOVER PASS: name, magnifier and time show map; leaving row closes it; focus preserved.");
+        }
+        finally
+        {
+            settings.ActiveMvpTimers.Remove(timer);settings.TimersX=x;settings.TimersY=y;settings.TimersOverlayVisible=visible;
+        }
+    }
+
+    private static async Task CaptureMvpLocationLayout(MainWindow main,AppSettings settings)
+    {
+        var monster=MonsterCatalogService.Load(GameDatabaseVersion.SpringRo).First(monster=>monster.Id==1039);
+        var timer=new MvpTimer {MonsterId=monster.Id,Name=monster.Name};
+        timer.SetMonsterDetails(monster);
+        var oldWidth=main.Width;var oldHeight=main.Height;var oldLeft=main.Left;var oldTop=main.Top;
+        var oldTheme=settings.ApplicationTheme;var oldTab=main.MainTabs.SelectedItem;var oldTimer=main.MvpTimersGrid.SelectedItem;
+        try
+        {
+            settings.ActiveMvpTimers.Add(timer);main.MvpNavButton.IsChecked=true;main.MainTabs.SelectedItem=main.MvpTab;main.MvpTimersGrid.SelectedItem=timer;
+            main.WindowState=WindowState.Normal;main.Show();
+            foreach(var size in new[]{(Width:1420d,Height:920d,Theme:"Light",Name:"mvp-locations-wide"),
+                                      (Width:main.MinWidth,Height:main.MinHeight,Theme:"Dark",Name:"mvp-locations-minimum")})
+            {
+                settings.ApplicationTheme=size.Theme;main.Width=size.Width;main.Height=size.Height;
+                await Pause();main.UpdateLayout();main.MvpLocationPanel.BringIntoView();await Pause();
+                main.MvpLocationCards.SelectedIndex=Math.Min(1,main.MvpLocationCards.Items.Count-1);
+                await Until(()=>main.MvpLocationMap.IsMapReady && main.MvpLocationMap.DisplayedMapCode==timer.LocationCode,"application MVP location snapshot ready");
+                timer.MarkerX=.5;timer.MarkerY=.5;
+                await Pause();SaveElement(main.MvpLocationPanel,size.Name);
+            }
+        }
+        finally
+        {
+            settings.ActiveMvpTimers.Remove(timer);main.MvpTimersGrid.SelectedItem=oldTimer;main.MainTabs.SelectedItem=oldTab;
+            main.Width=oldWidth;main.Height=oldHeight;main.Left=oldLeft;main.Top=oldTop;settings.ApplicationTheme=oldTheme;main.Hide();
+        }
+    }
+    private static void SaveElement(FrameworkElement element,string name)
+    {
+        var folder=Environment.GetEnvironmentVariable("ROAURA_QUEST_UI_SNAPSHOTS");
+        if(string.IsNullOrWhiteSpace(folder))return;
+        var width=Math.Max(1,(int)Math.Ceiling(element.ActualWidth));
+        var height=Math.Max(1,(int)Math.Ceiling(element.ActualHeight));
+        var drawing=new System.Windows.Media.DrawingVisual();
+        using(var context=drawing.RenderOpen())
+            context.DrawRectangle(new System.Windows.Media.VisualBrush(element),null,new Rect(0,0,width,height));
+        var image=new System.Windows.Media.Imaging.RenderTargetBitmap(width,height,96,96,System.Windows.Media.PixelFormats.Pbgra32);
+        image.Render(drawing);
+        var encoder=new System.Windows.Media.Imaging.PngBitmapEncoder();
+        encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(image));
+        Directory.CreateDirectory(folder);using var file=File.Create(Path.Combine(folder,name+".png"));encoder.Save(file);
+        DebugLog.Write("MVP LOCATION CAPTURE: "+name);
+    }
+    private static IEnumerable<T> Descendants<T>(DependencyObject root) where T:DependencyObject
+    {
+        for(var i=0;i<System.Windows.Media.VisualTreeHelper.GetChildrenCount(root);i++)
+        {
+            var child=System.Windows.Media.VisualTreeHelper.GetChild(root,i);
+            if(child is T match)yield return match;
+            foreach(var nested in Descendants<T>(child))yield return nested;
+        }
+    }
+    private static IEnumerable<Button> AllButtons(DependencyObject root)
+    {
+        for(var i=0;i<System.Windows.Media.VisualTreeHelper.GetChildrenCount(root);i++)
+        {
+            var child=System.Windows.Media.VisualTreeHelper.GetChild(root,i);
+            if(child is Button button)yield return button;
+            foreach(var nested in AllButtons(child))yield return nested;
         }
     }
     private static void SaveDesktop(Window window,string name)
@@ -269,7 +589,18 @@ internal static class QuestInputSmoke
     {DebugLog.Write("QUEST INPUT WAIT: "+name);var end=DateTime.UtcNow.AddSeconds(6);while(DateTime.UtcNow<end){if(condition()){DebugLog.Write("QUEST INPUT PASS: "+name);return;}await Pause(60);}throw new InvalidOperationException("Quest input smoke timeout: "+name);}
     private static Task Pause(int ms=180)=>Task.Delay(ms);
     private static async Task Press(string name)
-    {var key=(System.Windows.Input.Key)Enum.Parse(typeof(System.Windows.Input.Key),name,true);var vk=(ushort)System.Windows.Input.KeyInterop.VirtualKeyFromKey(key);Key(vk,true);await Pause(100);Key(vk,false);await Pause();}
+    {
+        if(!HotkeyChord.TryParse(name,out var chord))throw new InvalidOperationException("Invalid smoke hotkey: "+name);
+        var modifiers=new List<ushort>();
+        if(chord.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control))modifiers.Add(0x11);
+        if(chord.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Alt))modifiers.Add(0x12);
+        if(chord.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Shift))modifiers.Add(0x10);
+        if(chord.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Windows))modifiers.Add(0x5B);
+        foreach(var modifier in modifiers){Key(modifier,true);await Pause(35);}
+        Key((ushort)chord.VirtualKey,true);await Pause(100);Key((ushort)chord.VirtualKey,false);
+        foreach(var modifier in modifiers.AsEnumerable().Reverse())Key(modifier,false);
+        await Pause();
+    }
     private static void Click(Point point)
     {SetCursorPos((int)point.X,(int)point.Y);Send(new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=2}}},new Input {Type=0,Data=new Union {Mouse=new Mouse {Flags=4}}});}
     private static void Key(ushort key,bool down)=>Send(new Input {Type=1,Data=new Union {Keyboard=new Keyboard {Vk=key,Flags=down?0u:2u}}});

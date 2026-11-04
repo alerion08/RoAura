@@ -15,6 +15,9 @@ public sealed class MarketWatchRule : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
     public int ItemId { get; set; }
     public string ItemName { get; set; } = "";
+    public bool SuppressCurrentOffers { get; set; }
+    public bool InitialOffersCaptured { get; set; }
+    public HashSet<string> InitialOfferKeys { get; set; } = [];
     public bool WithoutPrice { get; set; }
     public long MaximumPrice { get; set; }
     [JsonIgnore] public string Caption => $"{ItemName} · #{ItemId}";

@@ -42,7 +42,7 @@ public static class AppearanceService
  public static bool IsGameWindow(Window? window)
  {
   for(var n=0;n<12 && window is not null;n++,window=window.Owner)
-   if(window is DatabaseOverlayWindow or DatabaseDetailWindow or QuestBrowserWindow or QuestPassiveWindow)return true;
+   if(window.Tag as string == "RoAura.GameInterface" || window is DatabaseOverlayWindow or DatabaseDetailWindow or QuestBrowserWindow or QuestPassiveWindow)return true;
   return false;
  }
  public static void Refresh()

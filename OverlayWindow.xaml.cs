@@ -62,6 +62,8 @@ public partial class OverlayWindow : Window
     private readonly Dictionary<Guid, Point> _equipmentDragStarts = [];
 
     private bool _timerPanelEditMode;
+    private bool _timerPanelDragging;
+    private Point _timerPreviewOffset;
     private Point _timerPanelDragStart;
     private Point _timerPanelPositionStart;
 
@@ -130,6 +132,7 @@ public partial class OverlayWindow : Window
     public OverlayWindow(AppSettings settings, SettingsStore store, GoldGoblinService goldGoblin)
     {
         InitializeComponent();
+        Closed += (_, _) => HideMvpMap();
         _settings = settings;
         _store = store;
         _goldGoblin = goldGoblin;
@@ -160,6 +163,8 @@ public partial class OverlayWindow : Window
             UpdateHostVisibility();
             UpdateCooldowns();
             UpdateRateIndicators();
+            UpdateTimerPanelPreviewPosition();
+            RefreshMvpMapHover();
         };
         _timer.Start();
         Loaded += (_, _) => SyncOverlayToGameWindow(true);
@@ -305,6 +310,7 @@ public partial class OverlayWindow : Window
     public void SetTimerPanelEditMode(bool enabled)
     {
         _timerPanelEditMode = enabled;
+        _timerPanelDragging = false;
         TimerPanelPreview.Visibility = enabled ? Visibility.Visible : Visibility.Collapsed;
         if (enabled)
         {
@@ -313,6 +319,7 @@ public partial class OverlayWindow : Window
         }
         else FinishEditingIfIdle();
         UpdateTimerPanelVisibility();
+        UpdateTimerPanelPreviewPosition();
     }
 
     public void SetRewardGroupEditMode(RewardGroupSettings? selectedGroup, bool enabled)
@@ -524,6 +531,7 @@ public partial class OverlayWindow : Window
 
         var now = DateTime.UtcNow;
         var window = TimeSpan.FromMilliseconds(group.AggregationWindowMs);
+        RewardAggregation.Refresh(group, now);
         var notification = group.Notifications.FirstOrDefault(item =>
             item.Kind == kind && item.AggregationKey == aggregationKey &&
             now - item.LastUpdatedUtc <= window);
@@ -540,7 +548,7 @@ public partial class OverlayWindow : Window
                 Percentage = Math.Max(0, percentage),
                 HasPercentage = percentage >= 0,
                 LastUpdatedUtc = now,
-                ExpiresAtUtc = now.AddSeconds(group.DurationSeconds)
+                ExpiresAtUtc = now.AddSeconds(Math.Max(group.DurationSeconds, window.TotalSeconds))
             };
             group.Notifications.Add(notification);
         }
@@ -554,7 +562,7 @@ public partial class OverlayWindow : Window
             }
             notification.Color = kind == RewardKind.Loot ? channel.ColorForItemType(itemType) : channel.TextColor;
             notification.LastUpdatedUtc = now;
-            notification.ExpiresAtUtc = now.AddSeconds(group.DurationSeconds);
+            notification.ExpiresAtUtc = now.AddSeconds(Math.Max(group.DurationSeconds, window.TotalSeconds));
         }
 
         notification.Text = FormatRewardText(notification);
@@ -627,6 +635,18 @@ public partial class OverlayWindow : Window
         UpdateRateIndicators();
     }
 
+    public void ResetFarmingSessionPresentation()
+    {
+        _sessionBaseExperience = 0;
+        _baseExperienceStartedUtc = null;
+        _sessionJobExperience = 0;
+        _jobExperienceStartedUtc = null;
+        _sessionZeny = 0;
+        _zenyStartedUtc = null;
+        foreach (var group in _settings.RewardGroups) group.Notifications.Clear();
+        UpdateRateIndicators(true);
+    }
+
     public void ResetRateStatistics()
     {
         if (_characterStatisticsSource is not null) { UpdateRateIndicators(true); return; }
@@ -674,7 +694,7 @@ public partial class OverlayWindow : Window
             ? _sessionBaseExperience / Math.Max((now - _baseExperienceStartedUtc.Value).TotalHours, 1d / 3600d)
             : 0;
         var includeLootValue = GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile) && _settings.IncludeGoldGoblinInZenyPerHour;
-        var effectiveZeny = _sessionZeny + (includeLootValue ? _goldGoblin.SessionTotal : 0);
+        var effectiveZeny = FarmingSessionActions.CalculateIncome(_settings, _sessionZeny, _goldGoblin.SessionTotal);
         var zenyStarted = new[] { _zenyStartedUtc, includeLootValue ? _goldGoblin.SessionStartedUtc : null }
             .Where(value => value.HasValue).Select(value => value!.Value).DefaultIfEmpty().Min();
         var hasZenySession = _zenyStartedUtc.HasValue || (includeLootValue && _goldGoblin.SessionStartedUtc.HasValue);
@@ -732,6 +752,8 @@ public partial class OverlayWindow : Window
         {
             indicator.ValueText = indicator.Kind switch
             {
+                RateIndicatorKind.TotalBaseExperience => $"Total B.XP: {_sessionBaseExperience:N0}",
+                RateIndicatorKind.TotalJobExperience => $"Total J.XP: {_sessionJobExperience:N0}",
                 RateIndicatorKind.XpPerHour => $"XP/h: {xpPerHour:N0}",
                 RateIndicatorKind.TimeToLevel => _settings.Language == "en"
                     ? $"Time to level: {timeToLevel}"
@@ -755,7 +777,7 @@ public partial class OverlayWindow : Window
             row.Kind == RateIndicatorKind.SessionTime);
         if (indicator is null) return;
         var formatted = FormatElapsed(time);
-        var text = _settings.Language == "en" ? $"Session time: {formatted}" : $"Время сессии: {formatted}";
+        var text = (_settings.SessionPaused ? "⏸ " : "") + (_settings.Language == "en" ? $"Session time: {formatted}" : $"Время сессии: {formatted}");
         if (indicator.ValueText != text) indicator.ValueText = text;
     }
 
@@ -769,9 +791,8 @@ public partial class OverlayWindow : Window
         var baseRate = record?.BaseExperiencePerHour ?? 0;
         var jobRate = record?.JobExperiencePerHour ?? 0;
         var activeHours = record?.SessionActiveHours ?? 0;
-        var zenyTotal = (record?.SessionZenyGained ?? 0) +
-            (record is not null && GameServerProfile.SupportsGoldGoblin(_settings.ServerProfile) &&
-             _settings.IncludeGoldGoblinInZenyPerHour ? _goldGoblin.SessionTotal : 0);
+        var zenyTotal = record is null ? 0 : FarmingSessionActions.CalculateIncome(
+            _settings, record.SessionZenyGained, _goldGoblin.SessionTotal);
         var zenyRate = activeHours > 0 ? zenyTotal / activeHours : 0;
         var timeToLevel = CharacterEta(record?.CurrentBaseExperience ?? 0,
             record?.NextBaseExperience ?? 0, baseRate);
@@ -783,6 +804,8 @@ public partial class OverlayWindow : Window
         {
             indicator.ValueText = indicator.Kind switch
             {
+                RateIndicatorKind.TotalBaseExperience => $"Total B.XP: {record?.SessionBaseExperience ?? 0:N0}",
+                RateIndicatorKind.TotalJobExperience => $"Total J.XP: {record?.SessionJobExperience ?? 0:N0}",
                 RateIndicatorKind.XpPerHour => $"XP/h: {baseRate:N0}",
                 RateIndicatorKind.TimeToLevel => _settings.Language == "en"
                     ? $"Time to level: {timeToLevel}" : $"До уровня: {timeToLevel}",
@@ -1056,12 +1079,26 @@ public partial class OverlayWindow : Window
         UpdateTimerPanelVisibility();
     }
 
+    private void UpdateTimerPanelPreviewPosition()
+    {
+        if (!_timerPanelEditMode && !_layoutTimerPreview)
+        {
+            _timerPreviewOffset = new Point();
+            MvpTimerPanel.RenderTransform=Transform.Identity;
+            return;
+        }
+        var x=Math.Clamp(_settings.TimersX,0,Math.Max(0,ActualWidth-MvpTimerPanel.ActualWidth));
+        var y=Math.Clamp(_settings.TimersY,0,Math.Max(0,ActualHeight-MvpTimerPanel.ActualHeight));
+        _timerPreviewOffset=new Point(x-_settings.TimersX,y-_settings.TimersY);
+        MvpTimerPanel.RenderTransform=new TranslateTransform(_timerPreviewOffset.X,_timerPreviewOffset.Y);
+    }
+
     private void UpdateTimerPanelVisibility()
     {
         var hasRunningTimers = _settings.ActiveMvpTimers.Any(timer => timer.IsVisible);
-        MvpTimerPanel.Visibility = _settings.TimersOverlayVisible &&
+        MvpTimerPanel.Visibility = (_settings.TimersOverlayVisible || _layoutTimerPreview) &&
                                    GameServerProfile.SupportsServerDatabases(_settings.ServerProfile) &&
-                                   (_timerPanelEditMode || hasRunningTimers)
+                                   (_timerPanelEditMode || _layoutTimerPreview || hasRunningTimers)
             ? Visibility.Visible
             : Visibility.Collapsed;
     }
@@ -1279,22 +1316,24 @@ public partial class OverlayWindow : Window
     {
         if (!_timerPanelEditMode || sender is not Border border) return;
         _timerPanelDragStart = e.GetPosition(this);
-        _timerPanelPositionStart = new Point(_settings.TimersX, _settings.TimersY);
+        _timerPanelDragging = true;
+        _timerPanelPositionStart = new Point(_settings.TimersX + _timerPreviewOffset.X, _settings.TimersY + _timerPreviewOffset.Y);
         border.CaptureMouse();
         e.Handled = true;
     }
 
     private void MvpTimerPanel_MouseMove(object sender, MouseEventArgs e)
     {
-        if (!_timerPanelEditMode || e.LeftButton != MouseButtonState.Pressed) return;
+        if (!_timerPanelEditMode || !_timerPanelDragging || e.LeftButton != MouseButtonState.Pressed) return;
         var mouse = e.GetPosition(this);
-        _settings.TimersX = Math.Clamp(_timerPanelPositionStart.X + mouse.X - _timerPanelDragStart.X, 0, ActualWidth);
-        _settings.TimersY = Math.Clamp(_timerPanelPositionStart.Y + mouse.Y - _timerPanelDragStart.Y, 0, ActualHeight);
+        _settings.TimersX = Math.Clamp(_timerPanelPositionStart.X + mouse.X - _timerPanelDragStart.X, 0, Math.Max(0,ActualWidth-MvpTimerPanel.ActualWidth));
+        _settings.TimersY = Math.Clamp(_timerPanelPositionStart.Y + mouse.Y - _timerPanelDragStart.Y, 0, Math.Max(0,ActualHeight-MvpTimerPanel.ActualHeight));
     }
 
     private void MvpTimerPanel_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
         if (!_timerPanelEditMode) return;
+        _timerPanelDragging = false;
         if (sender is Border border) border.ReleaseMouseCapture();
         RequestSave();
         e.Handled = true;
@@ -1517,7 +1556,7 @@ public partial class OverlayWindow : Window
                     window.IsVisible && window.WindowState != WindowState.Minimized).ToArray() ?? [];
             var settingsIsForeground = controlWindows.Any(window =>
                 ForegroundProcess.IsForegroundWindow(new WindowInteropHelper(window).Handle));
-            UpdateSettingsOcclusion((settingsIsForeground ? controlWindows : controlWindows.Where(w=>w is DatabaseOverlayWindow or DatabaseDetailWindow || w is QuestPassiveWindow {IsTargetChooser:true})).Where(w=>w is not QuestBrowserWindow));
+            UpdateSettingsOcclusion((settingsIsForeground ? controlWindows : controlWindows.Where(w=>w.Tag as string == "RoAura.GameInterface" || w is DatabaseOverlayWindow or DatabaseDetailWindow || w is QuestPassiveWindow {IsTargetChooser:true})).Where(w=>w is not QuestBrowserWindow));
             if (gameIsForeground)
             {
                 if (!IsVisible) Show();
@@ -1527,7 +1566,7 @@ public partial class OverlayWindow : Window
                 if (!_gameWasForeground) _isTopmost = false;
                 BringOverlayAboveGame();
             }
-            else if (settingsIsForeground)
+            else if (settingsIsForeground || (IsBusyEditing && ForegroundProcess.IsForegroundWindow(new WindowInteropHelper(this).Handle)))
             {
                 // Keep RO visible on the other display; only pixels beneath
                 // RoAura and its dialogs are excluded from this overlay surface.

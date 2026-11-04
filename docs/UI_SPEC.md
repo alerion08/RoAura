@@ -186,8 +186,8 @@ need a fresh observed login rather than reusing the previous CID.
 
 ## Settings and character targeting (2026-10-30)
 
-Settings has General, Hotkeys, Character Manager and Navigation tabs. General binds
-the same model as Home. All five hotkeys are edited in Settings. Other is last.
+Settings tabs start with Basic and Appearance, followed by Hotkeys, Character Manager and Navigation. Basic binds
+the same model as Home. Hotkeys are grouped by General, Statistics/Gold Goblin, MVP Timers, Database and ROQuestie. Other is last.
 Optional navigation visibility only affects the left menu; unsupported or packet-disabled
 features remain gray/disabled. Home cannot be hidden. Settings is opened by the header button replacing the old
 hotkey legend; it has no sidebar entry.
@@ -594,3 +594,85 @@ per-page wiki/history and upstream script provenance remain available.
 Full release Windows tests, native input and installer verification passed in run 41441524384.
 PR #10 was merged; v3.3.0 and both distributions were published on 2026-11-02.
 Remaining real-game/mixed-DPI acceptance is documented in release notes.
+
+## Farming sessions and MVP tools — development 2026-11-03
+
+- Optional Total B.XP / Total J.XP are initially disabled and use existing indicator style/placement/presets.
+- Statistics and Gold Goblin share character-session pause (default Pause key). Paused elapsed time/EXP/loot/income freeze; balance baselines continue. Session time shows a pause marker.
+- Print Screen and modifiers always pass the hook, including keyboard suppression. Screenshot keys cannot be consuming hotkeys.
+- Each reward extends all still-aggregating rows of its group; a quiet gap starts a new burst. Groups remain independent.
+- Exclude price rules remove value and counted quantity even with a manual override; raw history retains excluded acquisitions.
+- The shared market editor offers silent current-offer baseline, established by a requested successful live scan and retained with the rule.
+- Gold Goblin History contains the session list and pickup details directly in its tab; selection shows timestamped pickup prices. Direct Zeny and loot value are separate. Confirmed deletion removes the file and cancels queued recreation.
+- MVP Location selects a map and marker. Changing the map clears its marker. Passive hover preview is nonactivating and mouse-transparent. Add MVP in game defaults F4, follows the exact client, uses the game theme and restores focus. New conflicting bindings disable themselves.
+
+The MVP game form and passive map preview occlude lower HUD/tracker pixels even when game focus is restored; quest-browser visibility behavior remains unchanged. Identical pickup price buckets group quantities and show their first/last receipt times.
+
+Validation SUCCESS on code commit `bf6f97113a7e2c14c3e531e21caa94ca9f4dfdcb`: [development run 41619866259](https://github.com/alerion08/RoAura/actions/runs/41619866259) — 352 tests, zero failures/skips, eight ToC checks, native startup/input including Print Screen, MVP hotkey/create/cancel/focus and HUD occlusion, resource/privacy checks and portable packaging. [PR build 41619876280](https://github.com/alerion08/RoAura/actions/runs/41619876280) also succeeded, including installer checks.
+Real Ragnarok/mixed-monitor/long-session acceptance remains manual.
+
+## Feedback iteration — 2026-11-03
+
+Respawn locations are clickable cards containing the original name/code/interval, selected with theme colors. In the compact creation wizard they sit below Start immediately, and the right card shows the map. Repeated Add MVP hotkey closes the form. Map previews occupy a disjoint rectangle beside the complete timer panel.
+
+Market history can show all items while preserving the selected watch editor. Session history uses one list with Open/double-click details in another window; details omit receipt dates/times. Gold Goblin has four actions and no CSV button.
+
+Hotkey fields record a key or chord on keyboard press, expose Clear through their context menu, and report duplicate assignments. Modifier combinations use exact matching and one action per physical press. Recorded input does not invoke a newly assigned action before release. Character removal preserves local histories and cannot silently broaden character-scoped overlays. Reminder mode cards use live palette brushes.
+
+Verified code `88a43a460958d2b3769def8fd5b0ef355f485105`: [development run 41626955122](https://github.com/alerion08/RoAura/actions/runs/41626955122) passed 362 tests (zero failures/skips), eight ToC checks, portable/native input smoke, RU/EN resources and clean-payload checks. Native input verifies keyboard capture of Ctrl+Shift+F4, no activation during assignment, exact modifiers, repeated-key close, create/cancel and exact-client focus restore. Dark MVP/location-card and Reminder rasters were inspected.
+Real client and mixed-DPI checks remain manual.
+
+## MVP form refinement — 2026-11-03
+
+The MVP form has rounded client corners and a small drag grip. Explicit drag position persists in game-relative DIP without resize/DPI rewriting it. Content clicks open the searchable MVP dropdown, preserve draft/caret and never select entered characters automatically. A newly selected MVP defaults to its first map; an existing explicit map selection remains unchanged.
+
+Absent/loading map content shows a bordered help card in the picture area. A loaded map has no permanent bottom instruction or Clear marker action. Timer placement keeps its edit surface above the game and uses a temporary visual offset for off-screen saved positions, without overwriting them before a drag.
+
+Hotkey fields expose a visible × clear action that sets None, retaining the source binding. The session-summary Item column from build 110 is superseded by the tracking-history correction below.
+
+Validated on `cf4e87e145de8bb293ccd11dafc8938e86f50f82` by [Windows development 110](https://github.com/alerion08/RoAura/actions/runs/41636326233): 364 tests plus native keyboard/mouse checks for clear/reassignment, dropdown typing and form/timer movement. Empty/loaded dark MVP and unassigned-hotkey rasters inspected. Real game and mixed-DPI acceptance remains manual.
+
+## MVP map and tracking-history correction — 2026-11-03
+
+MVP source details initialize the first map for new/restored timers with no location. Bundled maps display offline; downloaded maps share a persistent local cache across editor and hover views. The map region shows a loading state while loading, an unavailable/retry state on failure, and the location hint only when no location exists. Switching selection or closing/reopening must not show a stale map.
+
+Restart always starts a complete interval from the current time. Exact kill-time creation remains available in the wizard; an existing timer's clock draft is applied through its separate Apply time button.
+
+Database tracking history shows Item names when All history is enabled or no item is selected; full names are available on hover. Selecting one item hides the redundant name column. Gold Goblin session summaries retain their original columns, with item names in the separate loot detail window.
+
+Validation: `6e51e05e7588f42471913b8fb6c0b14fd486bbf1` / [development 113](https://github.com/alerion08/RoAura/actions/runs/41662661959) passed 368 tests and native startup/input checks, including offline decoding of every bundled map, first-map painting with no location click and restarting from an invalid previous clock draft. All 53 packaged images match the manifest and decode independently. Real client/DPI acceptance remains manual.
+
+## Application MVP location layout — 2026-11-04
+
+In the application's timer editor, the Location block has two columns: narrower selectable respawn cards on the left, marker minimap on the right. The map is at most 250 DIP wide and scales down at the minimum window width. Location names wrap and long lists scroll vertically. The in-game Add timer form keeps its existing layout.
+
+Validation on `7be636a5ea1e9ac4cab38bee5be053da97cf2a2c`: 368 tests and portable native/startup checks passed in [development 116](https://github.com/alerion08/RoAura/actions/runs/41793270258). Light/dark Location-block rasters with selected location and marker inspected on the constrained CI desktop. Captures use programmatic selection; real main-window resizing/clicks and mixed-DPI acceptance remain manual.
+
+
+## Shared session controls and MVP magnifier — 2026-11-04
+
+Both Statistics and Gold Goblin use the same Start/Reset actions. Both clear session base/job EXP, dropped items and editable Gold Goblin rows, earned Zeny, elapsed active time, pause and reward notification groups. Old receipt-price history, lifetime aggregates, character level progress and price rules remain. Start starts the clock immediately; Reset leaves it stopped until the next experience gain. The Start hotkey defaults to None; its configured press uses the same application operation and preserves the completed history.
+
+Gold Goblin calculation settings include Ignore direct Zeny income. This excludes all positive balance changes from displayed Zeny Total/h independently of the optional loot valuation; raw balance baselines, reward notifications and receipt history remain factual. Trades and NPC sales are not distinguished by absolute balance packets.
+
+All table cells and headers center vertically through the shared theme; text/right/left horizontal alignment remains per column. Basic is the first Settings tab, Appearance second. Hotkeys are grouped by function; None is not a conflict. A magnifier remains immediately after each MVP name. Hovering the entire timer row (name, magnifier, time and gaps) opens the minimap; leaving the row closes it. This supersedes the initial magnifier-only behavior. The preview retains its separate passive HWND and placement outside the timer panel.
+
+Verified on `f680a488b7a6e6b9b7051c6cd6faf01937fc1c90`: [Windows development 119](https://github.com/alerion08/RoAura/actions/runs/41802211067) passed 376 tests, eight ToC checks, native input/startup and clean portable checks. Native probe verifies magnifier-only hover/close and retained game focus, plus exact Start chord/None dispatch; actual row/map rasters inspected. [Installer attempt 2](https://github.com/alerion08/RoAura/actions/runs/41802217842/attempts/2) passed after the known unrelated ROQuestie toast-expiry timeout on attempt 1. Real gameplay/mixed-DPI acceptance remains manual.
+
+
+## Interface layout mode — 2026-11-04
+
+Settings → Hotkeys → General records Interface layout mode (None by default). The configured chord toggles one global group editor. Repeating it or pressing the configured Finish movement key saves and exits with game focus retained; F8 exits and opens Settings, and F9 exits/hides overlays.
+
+Every available group receives a passive section/group label and a small ⋮⋮ grip like the quest tracker. Cooldowns, effect notifications, buff panels, reminders, equipment, rate indicators and reward notifications have separate group targets. Market notifications, MVP timers and ROQuestie move by section. Group 0 is a single ungrouped section bucket; this mode has no individual-item movement. All allowed members of a group, including disabled members, receive the same delta; character-scoped objects from other characters remain untouched. Cooldown group labels retain custom names.
+
+Only the grip is interactive; labels and ordinary overlay HWNDs remain mouse-transparent/nonactivating. Temporary notification/MVP/empty-quest previews make quiet panels placeable without simulating packet events, sounds, cooldowns or session gains. Existing requested visibility and serialized appearance/enable preferences survive exit. Merely entering the editor or clamping an off-screen grip does not rewrite model coordinates; the first deliberate drag brings the group into bounds while preserving spacing. Movement converts physical mouse deltas using the selected game client's DPI. Alt-Tab/minimize hides grips and releases mouse capture; changing client, character identity, server, packet gate, preset or closing the application finishes the mode and cleans previews. Settings opened from the app end the mode.
+
+The MVP minimap uses the whole timer row as its hover target again, including its retained magnifier. Map placement beside the complete panel and passive focus behavior remain unchanged; minimap hover is suspended while layout mode is active.
+
+Verified on `ba6b96986eb4a2ab3d11ff36c2cd84dbcce3dba1`: [development 121](https://github.com/alerion08/RoAura/actions/runs/41809493268) passed 382 tests, eight ToC checks, native input/startup and clean portable verification. Native probes exercise full-row MVP hover/close/focus, exact layout chord, passive label clicks, whole-group movement with disabled members, unrelated group preservation, repeated-key/Finish exit and cleanup. Geometry tests cover 100/125/150% scaling; actual layout/map rasters inspected. [Installer validation](https://github.com/alerion08/RoAura/actions/runs/41809501092) passed packaging, silent installation and payload checks. Actual Ragnarok/fullscreen, OS mixed-DPI transitions and live client/character changes remain manual acceptance.
+
+
+## 3.4.0 release preparation — 2026-11-04
+
+The owner accepted development 121 and requested a release version. The 3.4.0 candidate preserves that functional behavior; only version metadata and release/user documentation are prepared here. MVP hover is the complete row, and the global layout editor remains group/section-only. Stable 3.3.0 is still published until owner approval, merge/tag and verified assets. Release/development storage identities remain separate; release upgrading does not import RoAura-Dev data. Exact candidate `e1603d8bff4e29a361834ed8b9f778f50d88127d` passed 382 Windows tests, native input/startup, release portable/installer and silent-install payload checks in [run 41814328248](https://github.com/alerion08/RoAura/actions/runs/41814328248); [development run 41814318070](https://github.com/alerion08/RoAura/actions/runs/41814318070) also passed. Primary PE versions and downloaded asset checksums were verified. Publication is pending owner approval; mixed-DPI/fullscreen/client-switch coverage is not implied by the owner's general acceptance.

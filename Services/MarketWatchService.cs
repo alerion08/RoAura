@@ -44,22 +44,28 @@ public sealed class MarketWatchService
         var matches = new List<MarketWatchMatch>();
         foreach (var rule in currentRules)
         {
+            var initialize = rule.SuppressCurrentOffers && !rule.InitialOffersCaptured;
+            rule.InitialOfferKeys ??= [];
             long? cheapestNewPrice = null;
             foreach (var listing in sellById[rule.ItemId])
             {
                 var price = SpringRoMarketService.ParsePrice(listing.Price);
-                if (price == long.MaxValue || (!rule.WithoutPrice && price > rule.MaximumPrice)) continue;
+                if (price == long.MaxValue) continue;
                 var entry = new MarketWatchHistoryEntry
                 {
                     DetectedAtUtc = _utcNow(), ItemId = rule.ItemId, ItemName = rule.ItemName,
                     Stall = listing.Stall, Owner = listing.Owner, Map = listing.Map, X = listing.X, Y = listing.Y,
                     Price = price, Refine = listing.Refine, Cards = listing.Cards
                 };
+                if (initialize) { rule.InitialOfferKeys.Add(entry.Key); continue; }
+                if (rule.SuppressCurrentOffers && rule.InitialOfferKeys.Contains(entry.Key)) continue;
+                if (!rule.WithoutPrice && price > rule.MaximumPrice) continue;
                 if (!_seen.Add(entry.Key)) continue;
                 _history.Add(entry);
                 changed = true;
                 cheapestNewPrice = cheapestNewPrice is null ? price : Math.Min(cheapestNewPrice.Value, price);
             }
+            if (initialize) rule.InitialOffersCaptured = true;
             if (cheapestNewPrice.HasValue) matches.Add(new(rule.ItemId, rule.ItemName, cheapestNewPrice.Value));
         }
         // Write before presenting alerts, so a normal restart cannot rediscover the same offers.

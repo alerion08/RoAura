@@ -1,4 +1,3 @@
-using System.Reflection;
 using RoAura.Models;
 using RoAura.Services;
 using Xunit;
@@ -74,8 +73,8 @@ public sealed class QuestGameTests
         var settings=new AppSettings();Assert.Equal((true,true),QuestHotkeys.Enabled(settings));
         settings.DatabaseHotkey="F6";Assert.Equal((false,true),QuestHotkeys.Enabled(settings));
         using var hook=new GlobalInputHook(settings);
-        Assert.Equal(0,Field(hook,"_questBrowserKey"));Assert.Equal(0x75,Field(hook,"_databaseKey"));
-        settings.QuestBrowserHotkey="F4";Assert.Equal(0x73,Field(hook,"_questBrowserKey"));
+        Assert.False(QuestHotkeys.Enabled(settings).Browser);Assert.True(hook.IsHotkeyEnabled(settings.DatabaseHotkey));
+        settings.QuestBrowserHotkey="F4";Assert.True(hook.IsHotkeyEnabled(settings.QuestBrowserHotkey));
         settings.QuestTrackerHotkey="F4";Assert.Equal((false,false),QuestHotkeys.Enabled(settings));
         Assert.Equal("F6",settings.DatabaseHotkey);
     }
@@ -83,8 +82,7 @@ public sealed class QuestGameTests
     [InlineData(0x10)][InlineData(0x11)][InlineData(0x12)][InlineData(0x5B)][InlineData(0x5C)]
     public void ModifiersRemainPassThroughEvenInInteractiveMode(int key)
     {
-        var method=typeof(GlobalInputHook).GetMethod("IsModifier",BindingFlags.NonPublic|BindingFlags.Static)!;
-        Assert.True((bool)method.Invoke(null,[key])!);
+        Assert.True(GlobalInputHook.IsAlwaysForwarded(key));
     }
     [Fact]
     public void BrowserGeometryAndKeysParticipateInPresetsWithoutChangingOtherOverlayCoordinates()
@@ -100,5 +98,4 @@ public sealed class QuestGameTests
         Assert.Equal("F3",target.QuestBrowserHotkey);Assert.Equal("F4",target.QuestTrackerHotkey);
         Assert.Equal(333,target.Skills.Single().X);Assert.Equal(444,target.Skills.Single().Y);
     }
-    private static int Field(GlobalInputHook hook,string name)=>(int)typeof(GlobalInputHook).GetField(name,BindingFlags.NonPublic|BindingFlags.Instance)!.GetValue(hook)!;
 }

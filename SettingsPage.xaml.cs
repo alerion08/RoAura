@@ -25,7 +25,7 @@ public partial class SettingsPage : UserControl
         if (_observed is not null) _observed.PropertyChanged += SettingsChanged;
         RefreshAppearance();
     }
-    internal void ShowAppearancePreview(){SettingsTabs.SelectedIndex=0;RefreshAppearance();}
+    internal void ShowAppearancePreview(){SettingsTabs.SelectedItem=AppearanceSettingsTab;RefreshAppearance();}
     private void RefreshAppearance()
     {
         if(DataContext is not AppSettings settings)return;
@@ -47,6 +47,14 @@ public partial class SettingsPage : UserControl
     private void Connection_Click(object sender, RoutedEventArgs e) { if (sender is Button { Tag: string action }) Host?.SettingsConnectionAction(action); }
     private void Save_Changed(object sender, RoutedEventArgs e) => Dispatcher.BeginInvoke(() => Host?.SaveSharedSettings());
     private void Character_EditEnding(object sender, DataGridCellEditEndingEventArgs e) => Dispatcher.BeginInvoke(() => Host?.SaveSharedSettings());
+    private void DeleteCharacter_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not FrameworkElement { DataContext: CharacterProfile profile } || DataContext is not AppSettings settings) return;
+        if (MessageBox.Show(Window.GetWindow(this), LocalizationService.Get("DeleteCharacterConfirm"),
+            LocalizationService.Get("CharacterManager"), MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+        CharacterScopeService.Remove(settings, profile);
+        Host?.SaveSharedSettings();
+    }
     private void RefreshNavigation()
     {
         if (DataContext is not AppSettings settings || NavigationChoices is null) return;

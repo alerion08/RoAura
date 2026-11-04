@@ -40,9 +40,8 @@ public partial class ReminderWizardWindow : Window
     {
         card.BorderThickness = new Thickness(selected ? 2 : 1);
         card.SetResourceReference(System.Windows.Controls.Border.BorderBrushProperty,selected ? "RoBlueBrush" : "RoSoftBorderBrush");
-        card.Background = new SolidColorBrush(selected
-            ? Color.FromRgb(234, 243, 255)
-            : Color.FromRgb(248, 251, 255));
+        card.SetResourceReference(System.Windows.Controls.Border.BackgroundProperty,
+            selected ? "RoSelectionBrush" : "RoCardBrush");
     }
 
     private void StartSearch_Click(object sender, RoutedEventArgs e)
@@ -102,7 +101,7 @@ public partial class ReminderWizardWindow : Window
         CancelButton.Visibility = Visibility.Visible;
         NextButton.Visibility = Visibility.Visible;
         CreateButton.Visibility = Visibility.Collapsed;
-        ProgressStepTwo.Background = new SolidColorBrush(Color.FromRgb(216, 226, 240));
+        ProgressStepTwo.SetResourceReference(System.Windows.Controls.Border.BackgroundProperty,"RoSoftBorderBrush");
     }
 
     private void ShowSetupStep()

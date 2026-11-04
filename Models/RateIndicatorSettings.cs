@@ -12,7 +12,9 @@ public enum RateIndicatorKind
     ZenyPerHour,
     TimeToJobLevel,
     ZenyTotal,
-    SessionTime
+    SessionTime,
+    TotalBaseExperience,
+    TotalJobExperience
 }
 
 public sealed class RateIndicatorSettings : INotifyPropertyChanged
@@ -58,6 +60,8 @@ public sealed class RateIndicatorSettings : INotifyPropertyChanged
         RateIndicatorKind.TimeToLevel => "Time to level",
         RateIndicatorKind.TimeToJobLevel => "Time to Job level",
         RateIndicatorKind.ZenyPerHour => "Zeny per hour",
+        RateIndicatorKind.TotalBaseExperience => "Total B.XP",
+        RateIndicatorKind.TotalJobExperience => "Total J.XP",
         RateIndicatorKind.ZenyTotal => "Zeny Total",
         _ => "Session time"
     };
@@ -67,6 +71,8 @@ public sealed class RateIndicatorSettings : INotifyPropertyChanged
         RateIndicatorKind.TimeToLevel => "TimeToLevelLabel",
         RateIndicatorKind.TimeToJobLevel => "TimeToJobLevelLabel",
         RateIndicatorKind.ZenyPerHour => "ZenyPerHourLabel",
+        RateIndicatorKind.TotalBaseExperience => "TotalBaseExperience",
+        RateIndicatorKind.TotalJobExperience => "TotalJobExperience",
         RateIndicatorKind.ZenyTotal => "ZenyTotalLabel",
         _ => "SessionTime"
     });

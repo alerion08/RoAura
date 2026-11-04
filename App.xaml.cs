@@ -111,6 +111,8 @@ public partial class App : Application
         _marketWatchSettings.MarketWatchRules.Add(added);
 
         PersistMarketWatchSettings();
+        if (added.SuppressCurrentOffers && !added.InitialOffersCaptured && _marketService is not null)
+            _ = _marketService.RefreshSnapshotAsync();
     }
 
     private void SyncWatchRuleSubscriptions()
@@ -200,7 +202,7 @@ public partial class App : Application
         };
     }
 
-    private static bool IsSmokeTest() =>
+    internal static bool IsSmokeTest() =>
         Environment.GetCommandLineArgs().Any(argument =>
             string.Equals(argument, "--smoke-test", StringComparison.OrdinalIgnoreCase));
 
@@ -406,6 +408,7 @@ public partial class App : Application
         {
             if (settings.ServerProfile != GameServerProfile.SpringRo) return;
             var matches = _marketWatch.Evaluate(settings.MarketWatchRules, snapshot, settings.MarketWatchHistoryRetentionDays);
+            _settingsStore?.Save(settings); // Persist initial-offer baselines before presenting alerts.
             foreach (var match in matches) _overlay?.ShowMarketWatchNotification(match);
         });
         _goldGoblin = new GoldGoblinService(settings, _marketService);
@@ -414,6 +417,7 @@ public partial class App : Application
             _characterStore = new CharacterStatisticsStore();
             _characterLedger = new CharacterStatisticsLedger(_characterStore);
             _goldGoblin.Changed += OnCharacterGoldGoblinChanged;
+            _goldGoblin.LootRecorded += RecordFarmingLoot;
         }
         _overlay = new OverlayWindow(settings, _settingsStore, _goldGoblin);
         _overlay.TrackingTick += SynchronizeStatusTracking;
@@ -425,7 +429,7 @@ public partial class App : Application
                 Interval = TimeSpan.FromSeconds(30)
             };
             _characterFlushTimer.Tick += (_, _) => SafeCharacterStatisticsAction(() =>
-                _characterLedger?.Flush(DateTime.UtcNow));
+                { _characterLedger?.Flush(DateTime.UtcNow); SaveFarmingHistory(); });
             _characterFlushTimer.Start();
         }
         _activeDatabase = new GameDatabaseService(settings.ServerProfile == GameServerProfile.Toc ? GameDatabaseVersion.Toc : GameDatabaseVersion.SpringRo);
@@ -464,6 +468,7 @@ public partial class App : Application
             mvpTimerWizard.Close();
             var goldGoblinAddWindow = new GoldGoblinAddItemWindow(Array.Empty<ItemEntry>());
             goldGoblinAddWindow.Close();
+            _ = new FarmingSessionHistoryControl();
             var npcapRequiredWindow = new NpcapRequiredWindow();
             npcapRequiredWindow.Close();
             var aboutWindow = new AboutWindow();
@@ -499,6 +504,10 @@ public partial class App : Application
             _inputHook.ToggleOverlaysPressed += ToggleOverlays;
             _inputHook.EscapePressed += ExitOverlayEditMode;
             _inputHook.ToggleTimersPressed += ToggleTimers;
+            _inputHook.StartSessionPressed += () => Dispatcher.BeginInvoke(() => StartCharacterStatisticsSession());
+            _inputHook.InterfaceLayoutPressed += () => Dispatcher.BeginInvoke(() => _settingsWindow?.ToggleInterfaceLayout());
+            _inputHook.PauseSessionPressed += () => Dispatcher.BeginInvoke(() => ToggleFarmingSessionPause());
+            _inputHook.AddMvpTimerPressed += () => Dispatcher.BeginInvoke(() => _settingsWindow?.AddMvpTimerInGame());
             _inputHook.ToggleDatabasePressed += ToggleDatabase;
             _inputHook.ToggleQuestBrowserPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestBrowser());
             _inputHook.ToggleQuestTrackerPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestTracker());
@@ -623,6 +632,7 @@ public partial class App : Application
             else
                 SafeCharacterStatisticsAction(() =>
                 {
+                    SaveFarmingHistory();
                     _characterLedger.Suspend(DateTime.UtcNow);
                     _appliedCharacterRevision = -1;
                     _overlay?.RefreshCharacterStatistics();
@@ -645,7 +655,9 @@ public partial class App : Application
             // A relog to the SAME CID still requires a fresh Zeny baseline.
             var now = DateTime.UtcNow;
             if (_characterLedger.Active == key) _characterLedger.Suspend(now);
+            SaveFarmingHistory();
             _characterLedger.SwitchTo(key, now);
+            _characterLedger.Flush(now); // Persist the stable session ID before recording acquisition history.
             _appliedCharacterRevision = session.Revision;
             // The existing status/cooldown AID cache and equipment flags belong
             // to the previous character; clear those without resetting the
@@ -659,6 +671,7 @@ public partial class App : Application
                 _settingsWindow.Settings.PacketPlayerAid = session.PlayerAid;
             }
             var record = _characterLedger.Snapshot(key, DateTime.UtcNow)!;
+            if (_settingsWindow is not null) _settingsWindow.Settings.SessionPaused = record.SessionPaused;
             _nextBaseExperience = record.NextBaseExperience;
             _nextJobExperience = record.NextJobExperience;
             _previousNextBaseExperience = _previousNextJobExperience = 0;
@@ -743,33 +756,29 @@ public partial class App : Application
         return _characterLedger.ActiveSessionElapsed(DateTime.UtcNow);
     }
 
-    public bool StartCharacterStatisticsSession()
-    {
-        if (!AppEnvironment.CharacterSessionsEnabled || _characterLedger?.Active is null ||
-            _packetCapture?.CharacterSession.Phase != CharacterSessionPhase.ActiveObserved ||
-            _characterStatisticsFaulted) return false;
-        return SafeCharacterStatisticsValue(() =>
-        {
-            _characterLedger.StartNewSession(DateTime.UtcNow);
-            _changingCharacterRows = true;
-            try { _goldGoblin?.StartSession(); }
-            finally { _changingCharacterRows = false; }
-            _overlay?.RefreshCharacterStatistics();
-            return true;
-        });
-    }
+    public bool StartCharacterStatisticsSession() => ChangeFarmingSession(startImmediately: true);
 
-    public bool ResetCharacterStatisticsSession()
+    public bool HasFarmingSessionData => CurrentCharacterStatistics() is { } record &&
+        (record.SessionTimerStarted || record.SessionLoot.Count > 0 ||
+         record.GoldGoblinRows.Count > 0 || record.SessionZenyGained > 0);
+
+    public bool ResetCharacterStatisticsSession() => ChangeFarmingSession(startImmediately: false);
+
+    private bool ChangeFarmingSession(bool startImmediately)
     {
-        if (!AppEnvironment.CharacterSessionsEnabled || _characterLedger?.Active is null ||
-            _characterStatisticsFaulted) return false;
+        if (CurrentCharacterStatistics() is null || _characterLedger is null || _settingsWindow is null)
+            return false;
         return SafeCharacterStatisticsValue(() =>
         {
-            _characterLedger.ResetCurrentSession(DateTime.UtcNow);
+            if (!SaveFarmingHistory(complete: true, flush: true)) return false;
             _changingCharacterRows = true;
-            try { _goldGoblin?.Reset(); }
+            try
+            {
+                FarmingSessionActions.Restart(_characterLedger, _goldGoblin, _settingsWindow.Settings,
+                    DateTime.UtcNow, startImmediately);
+            }
             finally { _changingCharacterRows = false; }
-            _overlay?.RefreshCharacterStatistics();
+            _overlay?.ResetFarmingSessionPresentation();
             return true;
         });
     }
@@ -927,6 +936,7 @@ public partial class App : Application
     {
         if (session is { } captured && !TryUseCharacterSession(captured)) return;
         if (_settingsWindow is null || _overlay is null || !_settingsWindow.Settings.Enabled || !_settingsWindow.Settings.PacketCaptureEnabled) return;
+        if (CurrentCharacterStatistics()?.SessionPaused == true) return;
         var item = _itemCatalog.GetValueOrDefault(packet.ItemId) ?? new ItemEntry
         {
             Id = packet.ItemId,
@@ -1021,6 +1031,7 @@ public partial class App : Application
             settings.PacketPlayerAid = packet.Aid;
         }
 
+        if (CurrentCharacterStatistics()?.SessionPaused == true) return;
         var isJob = packet.ExperienceType == 2;
         if (session.HasValue)
         {
@@ -1072,6 +1083,7 @@ public partial class App : Application
             gained = sample.Gained;
         }
         if (gained <= 0) return;
+        SaveFarmingHistory();
         _overlay.ShowZenyReward(gained);
         if (!session.HasValue) _overlay.RecordZeny(gained);
         else _overlay.RefreshCharacterStatistics();
@@ -1190,6 +1202,10 @@ public partial class App : Application
         Dispatcher.BeginInvoke(() =>
         {
             if (_settingsWindow is null) return;
+            if (_settingsWindow.IsInterfaceLayoutEditing)
+            {
+                _settingsWindow.StopInterfaceLayout(); _settingsWindow.Show(); _settingsWindow.Activate(); return;
+            }
             if (_overlay?.IsBusyEditing == true)
             {
                 ExitOverlayEditMode();
@@ -1213,6 +1229,7 @@ public partial class App : Application
         Dispatcher.BeginInvoke(() =>
         {
             if (_settingsWindow is null) return;
+            if (_settingsWindow.IsInterfaceLayoutEditing) { _settingsWindow.StopInterfaceLayout(); return; }
             if(_settingsWindow.TryFinishQuestDrag())return;
             _settingsWindow.EndOverlayEditModes();
             _settingsWindow.Show();
@@ -1225,12 +1242,19 @@ public partial class App : Application
         Dispatcher.BeginInvoke(() =>
         {
             if (_overlay is null) return;
+            if (_settingsWindow?.IsInterfaceLayoutEditing == true)
+            {
+                _settingsWindow.StopInterfaceLayout();
+                _overlay.SetOverlaysVisible(false); _settingsWindow.SetQuestGlobalVisible(false);
+                _settingsWindow.ReportOverlayVisibility(false); return;
+            }
             if (_overlay.IsBusyEditing)
             {
                 ExitOverlayEditMode();
                 return;
             }
             _settingsWindow?.EndOverlayEditModes();
+            _settingsWindow?.CloseMvpWizard();
             var visible = !_overlay.AreOverlaysVisible;
             _overlay.SetOverlaysVisible(visible);
             _settingsWindow?.SetQuestGlobalVisible(visible);
@@ -1283,7 +1307,7 @@ public partial class App : Application
                 _settingsWindow?.Settings.AllowedProcesses ?? [], out _)) { }
     }
 
-    public void RefreshKeyboardMode()=>_inputHook?.SetKeyboardBlocked(_databaseOverlay?.IsDatabaseOpen==true || _settingsWindow?.IsQuestBrowserOpen==true);
+    public void RefreshKeyboardMode()=>_inputHook?.SetKeyboardBlocked(_databaseOverlay?.IsDatabaseOpen==true || _settingsWindow?.IsQuestBrowserOpen==true || _settingsWindow?.IsMvpWizardOpen==true);
 
     public void CloseDatabaseOverlay()
     {
@@ -1292,6 +1316,7 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
+        SaveFarmingHistory(flush: true);
         _characterFlushTimer?.Stop();
         if (_characterLedger is not null && !_characterStatisticsFaulted)
             SafeCharacterStatisticsAction(() => _characterLedger.Suspend(DateTime.UtcNow));

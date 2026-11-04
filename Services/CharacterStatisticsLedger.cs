@@ -68,7 +68,7 @@ public sealed class CharacterStatisticsLedger
                 _documents[key] = document = loaded;
             }
             var result = document.Copy();
-            if (_active == key && _sinceUtc.HasValue && result.SessionTimerStarted)
+            if (_active == key && _sinceUtc.HasValue && result.SessionTimerStarted && !result.SessionPaused)
             {
                 var ticks = ElapsedTicks(_sinceUtc.Value, nowUtc);
                 result.SessionActiveTicks = checked(result.SessionActiveTicks + ticks);
@@ -86,7 +86,7 @@ public sealed class CharacterStatisticsLedger
             if (_active is not { } key || !_documents[key].SessionTimerStarted)
                 return TimeSpan.Zero;
             var ticks = _documents[key].SessionActiveTicks +
-                (_sinceUtc.HasValue ? ElapsedTicks(_sinceUtc.Value, nowUtc) : 0);
+                (_sinceUtc.HasValue && !_documents[key].SessionPaused ? ElapsedTicks(_sinceUtc.Value, nowUtc) : 0);
             return TimeSpan.FromTicks(ticks);
         }
     }
@@ -97,7 +97,7 @@ public sealed class CharacterStatisticsLedger
         if (amount <= 0) return false;
         lock (_sync)
         {
-            if (!TryGetActive(out var state)) return false;
+            if (!TryGetActive(out var state) || state.SessionPaused) return false;
             if (!state.SessionTimerStarted)
             {
                 state.SessionTimerStarted = true;
@@ -125,7 +125,7 @@ public sealed class CharacterStatisticsLedger
         if (itemId <= 0 || count <= 0) return false;
         lock (_sync)
         {
-            if (!TryGetActive(out var state)) return false;
+            if (!TryGetActive(out var state) || state.SessionPaused) return false;
             IncreaseLoot(state.SessionLoot, itemId, name, count);
             IncreaseLoot(state.LifetimeLoot, itemId, name, count);
             state.LastUpdatedUtc = nowUtc;
@@ -141,7 +141,7 @@ public sealed class CharacterStatisticsLedger
         {
             if (!TryGetActive(out var state)) return 0;
             var sample = _zeny.Observe(total);
-            if (!sample.Accepted || sample.Gained <= 0) return 0;
+            if (state.SessionPaused || !sample.Accepted || sample.Gained <= 0) return 0;
             state.SessionZenyGained = checked(state.SessionZenyGained + sample.Gained);
             state.LifetimeZenyGained = checked(state.LifetimeZenyGained + sample.Gained);
             state.LastUpdatedUtc = nowUtc;
@@ -192,6 +192,20 @@ public sealed class CharacterStatisticsLedger
         }
     }
 
+    public bool SetPaused(bool paused, DateTime nowUtc)
+    {
+        CheckUtc(nowUtc);
+        lock (_sync)
+        {
+            if (!TryGetActive(out var state)) return false;
+            Checkpoint(nowUtc);
+            state.SessionPaused = paused;
+            _sinceUtc = nowUtc;
+            _store.Save(state.Copy());
+            return true;
+        }
+    }
+
     public void StartNewSession(DateTime nowUtc) => ResetCurrentSession(nowUtc, true);
 
     public void ResetCurrentSession(DateTime nowUtc, bool startClock = false)
@@ -201,6 +215,8 @@ public sealed class CharacterStatisticsLedger
         {
             if (!TryGetActive(out var document)) return;
             Checkpoint(nowUtc);
+            document.SessionId = Guid.NewGuid();
+            document.SessionPaused = false;
             document.SessionBaseExperience = 0;
             document.SessionJobExperience = 0;
             document.SessionZenyGained = 0;
@@ -211,7 +227,8 @@ public sealed class CharacterStatisticsLedger
             document.SessionTimerStarted = startClock;
             _sinceUtc = nowUtc;
             document.LastUpdatedUtc = nowUtc;
-            _zeny.Reset();
+            // A session boundary clears gains, not the live balance baseline. Login/suspend
+            // still reset the tracker; the first gain after a manual start/reset must count.
             _store.Save(document.Copy());
         }
     }
@@ -245,7 +262,7 @@ public sealed class CharacterStatisticsLedger
     {
         if (_active is not { } key || !_sinceUtc.HasValue) return;
         var state = _documents[key];
-        if (state.SessionTimerStarted)
+        if (state.SessionTimerStarted && !state.SessionPaused)
         {
             var elapsed = ElapsedTicks(_sinceUtc.Value, nowUtc);
             state.SessionActiveTicks = checked(state.SessionActiveTicks + elapsed);

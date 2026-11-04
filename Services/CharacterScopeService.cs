@@ -6,9 +6,11 @@ public static class CharacterScopeService
 {
     public static bool Discover(AppSettings settings, IEnumerable<CharacterStatisticsKey> keys)
     {
+        settings.RemovedCharacterKeys ??= [];
         var changed = false;
         foreach (var key in keys)
         {
+            if (settings.RemovedCharacterKeys.Contains(IdentityKey(key.ServerKey, key.CharacterId))) continue;
             if (key.CharacterId == 0 || settings.Characters.Any(c => c.CharacterId == key.CharacterId &&
                     string.Equals(c.DetectedServer, key.ServerKey, StringComparison.OrdinalIgnoreCase))) continue;
             var identity = System.Text.Encoding.UTF8.GetBytes(key.ServerKey.ToUpperInvariant() + ":" + key.CharacterId);
@@ -18,6 +20,15 @@ public static class CharacterScopeService
             changed = true;
         }
         return changed;
+    }
+
+    public static string IdentityKey(string server, uint cid) => server.Trim().ToUpperInvariant() + ":" + cid;
+    public static bool Remove(AppSettings settings, CharacterProfile profile)
+    {
+        settings.RemovedCharacterKeys ??= [];
+        settings.RemovedCharacterKeys.Add(IdentityKey(profile.DetectedServer, profile.CharacterId));
+        // Retain scope IDs: removing the final ID must never silently broaden an overlay to all characters.
+        return settings.Characters.Remove(profile);
     }
 
     public static bool Allows(CharacterScope scope, IEnumerable<CharacterProfile> profiles, CharacterSessionSnapshot session)

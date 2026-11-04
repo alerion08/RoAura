@@ -1,5 +1,116 @@
 # Project state
 
+## Release 3.4.0 preparation — 2026-11-04
+
+- Owner accepted development 121 with “всё работает” and requested a release version. Preparing 3.4.0 in `feature/farming-sessions-mvp-tools` / PR #12 from `8f41a12217624d13976a9ebc8b3dd35ce9014d70`; functional code matches accepted `ba6b96986eb4a2ab3d11ff36c2cd84dbcce3dba1`.
+- Version/assembly/file metadata and `app.manifest` are synchronized to 3.4.0. Final RU/EN release notes, README, both language guides and the generic GUIDE.md index consolidate the accepted session/history/market/MVP/layout/hotkey behavior. No new gameplay functionality or research-data update is included in release preparation.
+- Stable published version remains 3.3.0; main remains `57bfbdfad3e3b4dbb4d3ff6b6f4c86742b334b60`. Merge/tag/public release require the owner's explicit publication approval. Merging the version PR to main triggers the existing tag/release workflow; publication must be followed by verified main documentation updates.
+- Release candidate `e1603d8bff4e29a361834ed8b9f778f50d88127d` passed [Windows release validation 41814328248](https://github.com/alerion08/RoAura/actions/runs/41814328248): 382 tests (zero failures/skips), eight ToC checks, RU/EN/version/resource validation, native input/startup, portable/installer, silent installation and installed payload/clean distribution checks. [Development validation 41814318070](https://github.com/alerion08/RoAura/actions/runs/41814318070) also passed. Installer attempt 2 passed after the previously recorded unrelated ROQuestie coordinate-toast expiry timeout on attempt 1; no code changed between attempts. Publication steps skipped.
+- Release artifacts were built from synthetic PR merge `cd73e6af9735b50b62993f6f2b84bee797a63ae8`, whose parents are stable main `57bfbdfad3e3b4dbb4d3ff6b6f4c86742b334b60` and candidate `e1603d8bff4e29a361834ed8b9f778f50d88127d`; its tree exactly matches the candidate. This is a normal release build, not the isolated development identity.
+- [3.4.0 portable candidate](https://github.com/alerion08/RoAura/actions/runs/41814328248/artifacts/13313793354), inner ZIP SHA256 `7b25000e5d4de5e25cb22fafa477ed01303ce4ac9ff59b7ffa30170f8aa378ed`; [3.4.0 installer candidate](https://github.com/alerion08/RoAura/actions/runs/41814328248/artifacts/13314356640), EXE SHA256 `c2a933577ab607ee34768e55d0ecc1f58a593dcdf45e71323c465f3564c5f4d2`. Both archives include matching SHA256SUMS.txt. Primary PE version resources in RoAura.exe and Setup confirm FileVersion/ProductVersion 3.4.0.0. Portable audit confirms all 53 maps, no private/runtime files, and matching 3.4.0 headings in all five packaged Markdown files, including GUIDE.md.
+- PR #12 is prepared for review/release; publication remains pending explicit owner approval. These candidate hashes are not a claim about future main/tag rebuild assets. After authorization, verify the actual publication and complete the main documentation gate.
+- Release and development storage are intentionally separate (`RoAura` / `RoAura-Dev`); there is no automatic development-data migration. Existing stable settings, presets and local histories are not shipped or replaced.
+- Owner acceptance covers the tested scenario; physical mixed-DPI changes, protected/fullscreen variants, live client/character switching while dragging and prolonged/multiple-client sessions remain environment-specific manual coverage, not an automated or owner-confirmed claim.
+
+Earlier dated sections below describe development history; their “not published”/prior-build statements apply to those snapshots.
+
+## Interface layout mode and easier MVP hover — 2026-11-04
+
+- Continuing draft PR #12 from `b1cb6cfc80dc9025c02ff84adc55c6705078c724`; stable main/version/public release are unchanged.
+- MVP maps again open over the entire timer row (name, retained magnifier, countdown and spaces); leaving the row closes the passive preview. This supersedes the magnifier-only target in development 119.
+- A new Interface layout mode hotkey defaults to None in Settings → Hotkeys → General. Existing bindings keep priority on conflicts. Repeated hotkey or the configured Finish movement key saves positions and exits without opening Settings. F8 exits and opens Settings; F9 exits and hides overlays.
+- Small nonactivating grip windows move whole groups for cooldowns, effect notifications, buff panels, reminders, equipment, statistics and reward notifications; market notifications, MVP and ROQuestie use section targets. Passive labels identify section/group (including custom cooldown names). Ungrouped entries form one section bucket, never per-item grips. Disabled members in an enabled group retain their relative offsets; foreign character scopes do not move.
+- Temporary previews expose inactive notifications and the MVP/quest panels. Existing visibility preferences, cooldown/status/session state and normal notification data are preserved; preview state is excluded from settings/presets. Opening the mode never rewrites coordinates. Group movement uses a common bounded delta in game DIPs; off-screen positions are recovered only on an actual drag.
+- Labels and the ordinary overlay remain click-through; only the small grip HWNDs accept mouse input. Alt-Tab/minimize hides handles and releases capture. Client/character/server changes end editing; main-window/preset/shutdown paths dispose temporary surfaces and restore saved visibility preferences.
+- Verified code `ba6b96986eb4a2ab3d11ff36c2cd84dbcce3dba1`: [Windows development 121](https://github.com/alerion08/RoAura/actions/runs/41809493268) passed 382 tests (zero failures/skips), eight ToC checks, RU/EN/resource/version validation, native input/startup and clean portable checks. Geometry tests cover common bounded movement at 100/125/150% scale, disabled members, packet/server/character scope filtering, no coordinate writes on entry, hotkey priority and transient preview serialization.
+- Native cross-process validation passed full-row MVP hover (name, retained icon and time), map close/focus, exact layout hotkey modifiers, passive label click-through, whole-group drag including disabled members, independent groups, repeated-key and Finish-key exit, focus retention and preview cleanup. Actual layout-mode and map/marker rasters were inspected. Existing Print Screen and placement probes remain passing. The isolated probe enables packet-only UI controls with synthetic models while capture startup remains disabled.
+- [Development portable 121](https://github.com/alerion08/RoAura/actions/runs/41809493268/artifacts/13311218964), inner ZIP SHA256 `ec6e240ecd35c4e480aac4de4c94463ca16bb87254089435547fba8d9ee250fc`; all 53 minimaps bundled and no private/runtime data in payload.
+- [Installer validation](https://github.com/alerion08/RoAura/actions/runs/41809501092) passed on the same code, including silent installation, installed database and clean distribution checks. Tag/release steps skipped.
+- Remaining manual acceptance: actual Ragnarok/protected/fullscreen clients, physical mixed-monitor DPI changes, real client/character switching while dragging and long sessions. Native probes and simulated geometry do not establish these results. Version 3.3.0, main and public release remain unchanged.
+
+## Shared session controls and interface adjustments — 2026-11-04
+
+- Continuing PR #12 from `80c3e77fd92a726985dc4eb91e070bf572da379f`.
+- Statistics and Gold Goblin share Start/Reset handlers and a single session boundary: session EXP, loot/editable valuation rows, Zeny, active time, pause and transient reward notifications clear together. Completed receipt-price history, lifetime totals and character level progress are retained. Start runs the clock immediately; Reset waits for the next experience gain, as before.
+- Start session has a configurable hotkey, initially None. Hotkeys are grouped into General, Statistics/Gold Goblin, MVP Timers, Database and ROQuestie; unassigned actions do not conflict or disable unrelated actions.
+- Gold Goblin calculation settings can exclude direct positive Zeny balance changes from Zeny Total/h while retaining raw balance tracking/history and optional loot valuation. The application cannot distinguish trades from NPC sales in an absolute-balance packet; this option excludes all direct Zeny income.
+- Shared table-cell content and headers center vertically without changing horizontal alignment. Settings opens Basic first, then Appearance. Only the magnifier immediately after an MVP name opens the passive minimap preview.
+- Manual session boundaries retain the accepted live balance, so the next Zeny gain is counted; reconnect/suspend still establish a fresh baseline.
+- Verified code `f680a488b7a6e6b9b7051c6cd6faf01937fc1c90`: [Windows development 119](https://github.com/alerion08/RoAura/actions/runs/41802211067) passed 376 tests (zero failures/skips), eight ToC checks, resource validation, offline map decoding, native input/startup and clean portable checks. Shared Start/Reset and balance continuity, direct-income combinations, hotkey conflicts/unassignment and single/wrapped table geometry are covered.
+- Native cross-process checks passed: only magnifier hover opens the map, leaving the icon closes it, focus remains in the game; the Start chord requires exact modifiers and stops after None. The actual row/map rasters were inspected; the map and marker appear beside the timer panel. Existing native Print Screen and movement checks remain passing.
+- [Portable development 119](https://github.com/alerion08/RoAura/actions/runs/41802211067/artifacts/13307874252), inner ZIP SHA256 `d050ec179d7cdf2f79673202961d80057ea23e8e6ecb89008fc8590955d4c745`.
+- [Installer validation, attempt 2](https://github.com/alerion08/RoAura/actions/runs/41802217842/attempts/2) passed packaging, silent installation, installed database and clean-payload checks. Attempt 1 hit the previously recorded unrelated ROQuestie coordinate-toast expiry timeout; rerun passed without a code change. Tag/release steps skipped.
+- Remaining manual acceptance: actual Ragnarok session Start/Reset across relog, trade/NPC income exclusion, protected/fullscreen clients, broad main-window resizing/clicks, mixed DPI and multiple clients. Automated native probes do not establish these gameplay results. Version 3.3.0, main and public assets remain unchanged.
+
+## MVP location panel layout — 2026-11-04
+
+- Continuing PR #12 from `017ef1089b27dac5d25a1d37ee23823ad16b5eb8`.
+- The application's timer editor shows compact selectable location cards on the left and the marker minimap on the right in the same block. The image scales down with the available width; long card names wrap.
+- Verified code `7be636a5ea1e9ac4cab38bee5be053da97cf2a2c`: [development run 41793270258](https://github.com/alerion08/RoAura/actions/runs/41793270258) passed 368 tests (zero failures/skips), eight ToC checks, resource validation, offline map decoding, native input/startup smoke and clean portable checks.
+- Light/dark rasters of the actual Location block were inspected with a selected second location and a visible marker. CI requests normal/minimum window dimensions, but its 1024×720 work area constrains the resulting layout; captures therefore establish the compact layout in both themes. Location/marker selection in these captures is programmatic. Direct mouse clicks and broader resizing of the main window remain manual acceptance; existing in-game input checks still pass.
+- [Portable development 116](https://github.com/alerion08/RoAura/actions/runs/41793270258/artifacts/13305255195), inner ZIP SHA256 `550ab9583a8983b0639d644a8485f210e4072198d200611e3407c334559ea8cc`.
+- [PR installer run 41793277276, attempt 2](https://github.com/alerion08/RoAura/actions/runs/41793277276/attempts/2) passed packaging, silent installed payload and clean-distribution checks. Attempt 1 hit an unrelated ROQuestie coordinate-toast expiry timeout; rerun passed without a code change. Tag/release steps skipped.
+- Version 3.3.0, main and the public release remain unchanged.
+
+
+## MVP map/restart and tracking-history correction — 2026-11-03
+
+- Continuing PR #12 from `30bec93c03b00c2e654cdbf614d898e434ca0c9b`.
+- All supported catalog MVP minimaps are audited and bundled for offline first display. A shared async loader decodes complete frozen images, coalesces concurrent requests and retains a local cache for downloaded extras. Stale completions cannot replace a newly selected map; loading and unavailable states differ from the no-location hint, and failed loads can be retried.
+- Catalog details select the first nonempty map code whenever an existing/new timer has no location. Explicit selections and markers remain intact.
+- Restart always replaces the old countdown with a new interval from now; the saved kill-clock field cannot redirect Restart to the old kill. Editing a historical kill time uses its separate Apply time action.
+- The Item column belongs to Database tracking history when showing all items (also with no selection); individual item history stays compact. The mistaken Gold Goblin session-summary Item column is removed; loot details retain names.
+- Verified code `6e51e05e7588f42471913b8fb6c0b14fd486bbf1`: [development run 41662661959](https://github.com/alerion08/RoAura/actions/runs/41662661959) passed 368 tests (zero failures/skips), eight ToC checks, resource validation and native input/startup smoke. Native smoke decodes all 53 bundled maps with network access disabled in the loader, verifies the first map paints without clicking a location, and runs the actual Restart handler with an invalid old kill-clock draft.
+- [PR build/installer 41662671848](https://github.com/alerion08/RoAura/actions/runs/41662671848) passed portable/installer packaging, installed database checks and clean-distribution checks. Tag and public release steps skipped.
+- [Portable development 113](https://github.com/alerion08/RoAura/actions/runs/41662661959/artifacts/13241294494), inner ZIP SHA256 `e5307f98ab66a73398e2353cacf8a478ab46cc49409a393b36b12aa4538e86c5`. The downloaded portable was independently inspected: all 53 PNGs decode and match their per-file hashes; zero missing maps. Loaded MVP raster inspected. Map sources/provenance are included in Data/Minimaps/manifest.json and SOURCES.txt.
+- Source builds can reproduce this payload with `python tools/prepare_mvp_minimaps.py` before `build-release.ps1`; both Windows workflows do this automatically.
+- Real Ragnarok/fullscreen/mixed-DPI acceptance remains manual; version 3.3.0, main and public release unchanged.
+
+
+## MVP form refinement — 2026-11-03
+
+- Continuing PR #12 from `a7d7a559a938c8d5db7ac12f06ddfb58b866b0ba`; version/main/release unchanged.
+- Rounded client form with a small drag grip. Explicit client-relative DIP position persists; follow no longer recenters a dragged form. Resize/DPI clamps display only.
+- Search opens from its content area and focuses the text editor without automatic selection; typing keeps the whole draft/caret. An unconfirmed query cannot create the previously selected MVP.
+- Selecting a new MVP chooses its first available map; explicit existing map choices and marks remain intact. The empty/loading/error map state is an inline bordered help card, with no permanent bottom hint or Clear marker button.
+- Timer-panel placement retains topmost status while its own edit window has focus, exposes off-screen positions through a temporary render offset and changes saved coordinates only on explicit dragging.
+- Every hotkey field has a visible clear button for None. Capture/clear preserve their two-way settings binding.
+- Historical build 110 included a session-summary Item column; it is removed by the correction above.
+- Verified code `cf4e87e145de8bb293ccd11dafc8938e86f50f82`: [development run 41636326233](https://github.com/alerion08/RoAura/actions/runs/41636326233) passed 364 tests (zero failures/skips), eight ToC checks, RU/EN resource checks, portable startup/native input smoke and clean-payload validation.
+- Native input covers bound shortcut recording, visible unassign/reassign, content-click MVP dropdown opening, multi-character input without selection, automatic first-map choice, actual form drag with persistence beyond follow ticks, off-screen timer-panel preview/drag/finish, repeated-key close/create/cancel, exact-client focus restore and Print Screen passthrough. Rounded empty/loaded dark MVP rasters and the unassigned-hotkey raster were inspected.
+- [PR build 41636334135](https://github.com/alerion08/RoAura/actions/runs/41636334135) also passed portable/installer, silent installed database payload and clean distribution checks; tag/release steps skipped.
+- [Portable development 110](https://github.com/alerion08/RoAura/actions/runs/41636326233/artifacts/13229419937), inner portable SHA256 `e01a040701042dd5537152f2db1165a8c04707cd120a70e3d30738a53d46f2f2`.
+- Actual Ragnarok, protected/fullscreen and mixed-DPI checks remain manual. Version 3.3.0, stable main and public release remain unchanged.
+
+## Feedback iteration — interface and keyboard controls (2026-11-03)
+
+- Continuing PR #12 on `feature/farming-sessions-mvp-tools`, based on `17afee228885c5b4564a3acb16eae6f2ac5f5738`. No version/main/release change.
+- Respawn location cards are restored as selectable cards; in the compact MVP wizard they sit below Start immediately, with map editing on the right. The game form has no large header/native frame and its hotkey toggles it closed.
+- Map hover placement uses the complete timer panel bounds and requires a disjoint position inside the client; it never cuts a hole in timer text.
+- Market watch history has an explicit All history switch without changing the selected editor rule.
+- Session History has one list. Open or row double-click opens a separate loot window, without receipt time columns. Character heading is localized correctly.
+- Gold Goblin action row now contains exactly four controls after removing CSV; no child can flow under the dashboard.
+- All nine hotkeys accept keyboard capture and modifier combinations. Shared chord parsing preserves legacy key strings; primary-key latches prevent repeat/foreground double toggles. Capture is suppressed until assignment keys are released. Screenshot/modifier forwarding remains in place.
+- Character removal only removes manager metadata, preserves saved statistics/session history and remembers removal across discovery/presets. Existing character scopes never silently become all-character scopes.
+- Reminder selection/progress colors use palette resources instead of hard-coded light fills.
+- Verified code `88a43a460958d2b3769def8fd5b0ef355f485105`: [development run 41626955122](https://github.com/alerion08/RoAura/actions/runs/41626955122) passed 362 tests (zero failures/skips), eight ToC checks, portable/native input smoke, RU/EN resources and clean-payload checks. Native input verifies keyboard capture of Ctrl+Shift+F4, no activation during assignment, exact modifiers, repeated-key close, create/cancel and exact-client focus restore. Dark MVP/location-card and Reminder rasters were inspected.
+- [Portable development 104](https://github.com/alerion08/RoAura/actions/runs/41626955122/artifacts/13226117992), SHA256 `182aafad42c223001518688246f1a7a912891ad51a80bc26885fb0df611c14ba`.
+- [PR build/installer run 41626963224](https://github.com/alerion08/RoAura/actions/runs/41626963224) also passed tests, packaging and installed database verification; tag/publication are skipped. Documentation maintenance does not change these binaries.
+- Real game, screenshots, keyboard layouts/system shortcuts, protected/fullscreen clients and mixed-DPI acceptance remain manual. No public release or main merge.
+
+## Active development — farming sessions and MVP tools (2026-11-03)
+
+- Branch: `feature/farming-sessions-mvp-tools`, based on main `57bfbdfad3e3b4dbb4d3ff6b6f4c86742b334b60`. Version remains 3.3.0; no release or merge.
+- Scope: optional Total B.XP / Total J.XP; shared character-session pause and hotkey; Print Screen forwarding; group-wide sliding reward aggregation; excluded price rules; silent current-offer market baseline; local session history with acquisition-time prices; selectable MVP map/marker, passive hover preview and in-game creation hotkey.
+- Shared clock semantics retained: login/loot/Zeny do not start elapsed time; first EXP or explicit Start does. History can record earlier loot with zero elapsed time. Pause persists per server/CID outside presets; balance baselines and live progress still observe packets.
+- Long sessions group identical item/price/source buckets and coalesce disk writes for 500 ms; different pickup prices remain separate and are never repriced.
+- History is prospective: pre-upgrade loot cannot acquire invented historical prices. LocalDirectory/GoldGoblinSessions stores one GUID-named file per session. Pickup lines retain price/source/known/excluded state. Deletion prevents queued recreation of that session.
+- Market suppression seeds from the first successful complete live scan requested after adding the option. Baseline keys persist with the rule, even outside its price limit. Failed scans do not seed it.
+- MVP markers use normalized image coordinates and the existing public minimap source. Missing/custom images remain unavailable rather than guessed.
+- Validation SUCCESS on code commit `bf6f97113a7e2c14c3e531e21caa94ca9f4dfdcb`: [development run 41619866259](https://github.com/alerion08/RoAura/actions/runs/41619866259) — 352 tests, zero failures/skips, eight ToC checks, native startup/input including Print Screen, MVP hotkey/create/cancel/focus and HUD occlusion, resource/privacy checks and portable packaging. [PR build 41619876280](https://github.com/alerion08/RoAura/actions/runs/41619876280) also succeeded, including installer checks.
+- Portable artifact: [development 102](https://github.com/alerion08/RoAura/actions/runs/41619866259/artifacts/13222807529). Portable SHA256: `a7c72258da3af9e9855923d8520878637c6aeecdee8439c574113892722eb368`.
+- Native MVP form raster inspected after fixing tracker overlap; controls are unobstructed. Actual gameplay, Print Screen/Windows shortcut behavior, pause/relog, real minimap images/markers, mixed-DPI and protected-client hover acceptance remain manual. No public release or main merge.
+
 ## Current baseline — updated 2026-11-03
 
 - Stable release: **3.3.0**, published 2026-11-02: https://github.com/alerion08/RoAura/releases/tag/v3.3.0

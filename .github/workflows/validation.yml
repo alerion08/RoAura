@@ -9,6 +9,7 @@ on:
       - "feature/toc-server-integration"
       - "feature/settings-character-overlays"
       - "feature/roquestie-mvp"
+      - "feature/farming-sessions-mvp-tools"
   pull_request:
     branches:
       - "dev/roaura-2-ui"
@@ -39,7 +40,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Prepare pinned ROQuestie consumer for reader tests
-        if: github.ref_name == 'feature/roquestie-mvp'
+        if: (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools')
         shell: python
         run: |
           import hashlib, os, pathlib, subprocess
@@ -55,10 +56,14 @@ jobs:
           assert hashlib.sha256(semantic).hexdigest() == 'af4de49aa11587dc6ec971aa019c6ff60e6ed4aa3fee802c61282db65ac7091d'
           pathlib.Path('Data/quest_semantic.sqlite').write_bytes(semantic)
 
+      - name: Bundle exact MVP minimaps
+        shell: pwsh
+        run: python tools/prepare_mvp_minimaps.py
+
       - name: Run logic and UI regression tests
         env:
-          ROAURA_QUEST_SEMANTIC_TEST_PATH: ${{ github.ref_name == 'feature/roquestie-mvp' && format('{0}/Data/quest_semantic.sqlite', github.workspace) || '' }}
-          ROAURA_QUEST_CATALOG_TEST_PATH: ${{ github.ref_name == 'feature/roquestie-mvp' && format('{0}/questie_catalog.sqlite', runner.temp) || '' }}
+          ROAURA_QUEST_SEMANTIC_TEST_PATH: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools') && format('{0}/Data/quest_semantic.sqlite', github.workspace) || '' }}
+          ROAURA_QUEST_CATALOG_TEST_PATH: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools') && format('{0}/questie_catalog.sqlite', runner.temp) || '' }}
         shell: pwsh
         run: dotnet test .\RoAura.Tests\RoAura.Tests.csproj -c Release --logger "trx;LogFileName=regression.trx"
 
@@ -79,7 +84,7 @@ jobs:
 
       - name: Build development portable package
         env:
-          ROAURA_QUEST_UI_SNAPSHOTS: ${{ github.ref_name == 'feature/roquestie-mvp' && format('{0}/artifacts/roquestie-ui', github.workspace) || '' }}
+          ROAURA_QUEST_UI_SNAPSHOTS: ${{ (github.ref_name == 'feature/roquestie-mvp' || github.ref_name == 'feature/farming-sessions-mvp-tools') && format('{0}/artifacts/roquestie-ui', github.workspace) || '' }}
         shell: pwsh
         run: .\build-release.ps1
 
@@ -117,3 +122,11 @@ jobs:
             artifacts/*-portable.zip
             artifacts/roquestie-ui/*.png
           if-no-files-found: error
+
+      - name: Upload isolated UI diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: RoAura-ui-failure-${{ github.run_number }}-${{ github.sha }}
+          path: artifacts/roquestie-ui/*.png
+          if-no-files-found: ignore

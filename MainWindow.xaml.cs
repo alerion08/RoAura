@@ -78,6 +78,7 @@ public partial class MainWindow : Window
         _overlay = overlay;
         _packetCapture = packetCapture;
         InitializeQuests();
+        InitializeInterfaceLayout();
         _goldGoblin.Changed += GoldGoblin_Changed;
         _packetCapture.StatusChanged += OnLearningStatusObserved;
         _packetCapture.SkillUsed += OnLearningSkillObserved;
@@ -304,7 +305,7 @@ public partial class MainWindow : Window
             if (GoldGoblinTotalText is not null)
                 GoldGoblinTotalText.Text = $"{_goldGoblin.SessionTotal:N0} Z";
             if (GoldGoblinItemCountText is not null)
-                GoldGoblinItemCountText.Text = GoldGoblinRows.Sum(row => row.Count).ToString("N0");
+                GoldGoblinItemCountText.Text = GoldGoblinRows.Where(row => !row.Excluded).Sum(row => row.Count).ToString("N0");
             if (GoldGoblinUnpricedCountText is not null)
                 GoldGoblinUnpricedCountText.Text = GoldGoblinRows.Count(row => !row.PriceKnown).ToString("N0");
             UpdateGoldGoblinSessionTime();
@@ -345,35 +346,26 @@ public partial class MainWindow : Window
         _goldGoblin.Reprice();
     }
 
-    private void ResetGoldGoblin_Click(object sender, RoutedEventArgs e)
+    private void PauseSession_Click(object sender, RoutedEventArgs e)
     {
-        var result = MessageBox.Show(this,
-            T("Очистить все предметы и количества текущей сессии? Правила цен сохранятся.",
-              "Clear all items and quantities from the current session? Price rules will be kept."),
-            T("Сброс сессии Gold Goblin", "Reset Gold Goblin session"),
-            MessageBoxButton.YesNo, MessageBoxImage.Question);
-        if (result == MessageBoxResult.Yes) _goldGoblin.Reset();
+        if (Application.Current is App app) app.ToggleFarmingSessionPause();
     }
 
-    private void StartGoldGoblinSession_Click(object sender, RoutedEventArgs e)
+    private void StartFarmingSession_Click(object sender, RoutedEventArgs e)
     {
-        if (GoldGoblinRows.Count > 0)
+        if (Application.Current is App current && current.HasFarmingSessionData)
         {
             var result = MessageBox.Show(this,
-                T("Начать новую сессию? Текущий список предметов и количества будет очищен. Правила цен сохранятся.",
-                  "Start a new session? The current item list and quantities will be cleared. Price rules will be kept."),
-                T("Новая сессия Gold Goblin", "New Gold Goblin session"),
-                MessageBoxButton.YesNo, MessageBoxImage.Question);
+                T("Начать новую общую сессию? Опыт, добыча, Zeny и время текущей сессии будут сброшены. Сессия сохранится в истории.",
+                  "Start a new shared session? Current EXP, loot, Zeny and elapsed time will reset. The session will remain in history."),
+                T("Начать сессию", "Start session"), MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
         }
-        if (AppEnvironment.CharacterSessionsEnabled)
-        {
-            if (Application.Current is not App app || !app.StartCharacterStatisticsSession())
-                SetStatus(T("Сначала войдите на персонажа: общая сессия не запущена.",
-                    "Log in to a character first: shared session could not start."));
-            return;
-        }
-        _goldGoblin.StartSession();
+        SaveSettings();
+        if (Application.Current is not App app || !app.StartCharacterStatisticsSession())
+            SetStatus(T("Сначала войдите на персонажа: общая сессия не запущена.",
+                "Log in to a character first: shared session could not start."));
+        else SetStatus(T("Общая сессия начата.", "Shared session started."));
     }
 
     private void OpenGoldGoblinAdd_Click(object sender, RoutedEventArgs e)
@@ -742,6 +734,7 @@ public partial class MainWindow : Window
 
     public void EndOverlayEditModes()
     {
+        _layoutEditor?.Stop();
         _questWindows?.EndDrag();
         _changingMoveMode = true;
         MoveModeButton.IsChecked = false;
@@ -988,6 +981,9 @@ public partial class MainWindow : Window
 
     private bool ApplyPacketCaptureIfChanged(bool force = false)
     {
+        // Isolated UI probes may enable packet-only controls with synthetic models,
+        // but must never start capture/discovery against real adapters or clients.
+        if (App.IsSmokeTest()) return true;
         var changed = force || _appliedServerProfile != Settings.ServerProfile ||
                       _appliedPacketCaptureEnabled != Settings.PacketCaptureEnabled ||
                       !string.Equals(_appliedPacketServerAddress, Settings.PacketServerAddress,
@@ -1911,18 +1907,20 @@ public partial class MainWindow : Window
     {
         var timer = (sender as FrameworkElement)?.DataContext as MvpTimer ?? MvpTimersGrid.SelectedItem as MvpTimer;
         if (timer is null) return;
-        if (string.IsNullOrWhiteSpace(timer.KillTimeInput))
-        {
-            timer.Restart();
-            SaveSettings();
-            return;
-        }
-        if (!TimeSpan.TryParse(timer.KillTimeInput, out var killTime) || killTime < TimeSpan.Zero || killTime >= TimeSpan.FromDays(1))
+        timer.Restart();
+        SaveSettings();
+    }
+
+    private void ApplyMvpKillTime_Click(object sender, RoutedEventArgs e)
+    {
+        var timer = (sender as FrameworkElement)?.DataContext as MvpTimer ?? MvpTimersGrid.SelectedItem as MvpTimer;
+        if (timer is null) return;
+        if (!TimeSpan.TryParse(timer.KillTimeInput, out var clock) || clock < TimeSpan.Zero || clock >= TimeSpan.FromDays(1))
         {
             SetStatus(LocalizationService.Get("InvalidKillTime"));
             return;
         }
-        timer.StartFromKillClock(killTime);
+        timer.StartFromKillClock(clock);
         SaveSettings();
     }
 
@@ -1963,9 +1961,11 @@ public partial class MainWindow : Window
         var previous = _monsters.FirstOrDefault(entry => entry.Id == timer.MonsterId);
         var nameIsCatalogName = string.IsNullOrWhiteSpace(timer.Name) ||
                                 (previous is not null && string.Equals(timer.Name, previous.Name, StringComparison.Ordinal));
+        if (timer.MonsterId != monster.Id) timer.LocationCode = "";
         timer.MonsterId = monster.Id;
         if (box.IsDropDownOpen || nameIsCatalogName) timer.Name = monster.Name;
         timer.SetMonsterDetails(monster);
+        timer.SelectFirstLocationIfMissing();
     }
 
     private void RefreshMvpTimerDetails()
@@ -2093,26 +2093,18 @@ public partial class MainWindow : Window
     private void RateIndicatorGroupMoveMode_Changed(object sender, RoutedEventArgs e) =>
         HandleRateIndicatorMoveToggle((ToggleButton)sender, true);
 
-    private void ResetStatisticsSession_Click(object sender, RoutedEventArgs e)
+    private void ResetFarmingSession_Click(object sender, RoutedEventArgs e)
     {
+        var result = MessageBox.Show(this,
+            T("Сбросить общую сессию? Опыт, добыча, Zeny, время и пауза будут очищены. Сессия сохранится в истории, правила цен сохранятся.",
+              "Reset the shared session? EXP, loot, Zeny, elapsed time and pause will clear. Session history and price rules will be kept."),
+            T("Сброс сессии", "Reset session"), MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result != MessageBoxResult.Yes) return;
         SaveSettings();
-        if (AppEnvironment.CharacterSessionsEnabled)
-        {
-            if (Application.Current is not App app || !app.ResetCharacterStatisticsSession())
-            {
-                SetStatus(T("Не удалось сбросить статистику: персонаж ещё не определён.",
-                    "Cannot reset statistics: active character is not identified."));
-                return;
-            }
-            SetStatus(T("Сессия выбранного персонажа сброшена; общая история сохранена.",
-                "Active character session reset; lifetime history preserved."));
-        }
-        else
-        {
-            _overlay.ResetRateSession();
-            SetStatus(T("Сессия статистики сброшена. Новый расчёт начнётся со следующего получения опыта или Zeny.",
-                "Statistics session reset. A new calculation starts with the next EXP or Zeny gain."));
-        }
+        if (Application.Current is not App app || !app.ResetCharacterStatisticsSession())
+            SetStatus(T("Не удалось сбросить сессию: персонаж ещё не определён.",
+                "Cannot reset session: active character is not identified."));
+        else SetStatus(T("Общая сессия сброшена; история сохранена.", "Shared session reset; history preserved."));
     }
 
     private void HandleRateIndicatorMoveToggle(ToggleButton button, bool groupMode)

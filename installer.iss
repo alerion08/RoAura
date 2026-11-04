@@ -57,6 +57,7 @@ Source: "artifacts\publish\RELEASE_NOTES.md"; DestDir: "{app}"; Flags: ignorever
 Source: "artifacts\publish\Data\*.json"; DestDir: "{app}\Data"; Flags: ignoreversion
 Source: "artifacts\publish\Data\*.sqlite"; DestDir: "{app}\Data"; Flags: ignoreversion
 Source: "artifacts\publish\Data\*.txt"; DestDir: "{app}\Data"; Flags: ignoreversion
+Source: "artifacts\publish\Data\Minimaps\*"; DestDir: "{app}\Data\Minimaps"; Flags: ignoreversion skipifsourcedoesntexist
 Source: "artifacts\publish\Data\MvpImages\*.png"; DestDir: "{app}\Data\MvpImages"; Flags: ignoreversion skipifsourcedoesntexist
 
 [Icons]

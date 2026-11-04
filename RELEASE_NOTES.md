@@ -1,3 +1,37 @@
+# RoAura 3.4.0
+
+## Русский
+
+- **Общие фарм-сессии.** Статистика и Gold Goblin используют единые начало, паузу и полный сброс сессии. Сбрасываются опыт, добыча, Zeny, активное время и текущие уведомления; завершённая история, общие накопления персонажа и правила цен сохраняются. Начало запускает часы сразу, сброс ждёт следующего получения опыта. Пауза исключает время и поступления, сохраняя актуальный баланс для возобновления.
+- **Статистика.** Добавлены включаемые `Total B.XP` и `Total J.XP`. Начало сессии доступно в обеих вкладках и отдельным настраиваемым хоткеем. Уведомления объединяются по скользящему интервалу: каждое новое поступление продлевает время объединения группы.
+- **Gold Goblin.** В правилах цен есть «Не учитывать», а в настройках расчёта — «Не учитывать получение Zeny». Последняя опция исключает все прямые положительные изменения баланса из Total/h независимо от оценки лута; фактический баланс и история сохраняются. История сессий показывает персонажа, дату, длительность, количество предметов, Zeny и стоимость добычи. Подробности открываются кнопкой или двойным щелчком в отдельном окне; цены зафиксированы при получении предмета. Удаление сессии удаляет её локальный файл. Экспорт CSV убран.
+- **Отслеживание маркета.** Опция «Не уведомлять о текущих предложениях» запоминает предложения первым успешным полным сканом после добавления правила и оставляет уведомления для новых лотов. Общая история показывает название предмета; переход между общей историей и выбранным предметом сохраняет редактор правила.
+- **MVP.** Выбираемые локации с исходными интервалами респавна, мини-карты и отметка места убийства. Первая доступная карта выбирается автоматически; все 53 карты поддерживаемых каталогов включены в пакет для работы без сети. Наведение на всю строку игрового таймера открывает карту с отметкой; лупа сохранена. Перезапуск начинает полный интервал от текущего времени, историческое время применяется отдельной кнопкой. F4 по умолчанию открывает компактную форму добавления таймера в игре; повторное нажатие закрывает её, положение формы сохраняется.
+- **Режим настройки интерфейса.** Отдельный хоткей включает подписи разделов/групп и ручки ⋮⋮. Группы оверлеев перемещаются целиком с сохранением расстояний; MVP, квестовый трекер и уведомления маркета — по разделам. Неактивные панели имеют временные образцы. Повторный хоткей или клавиша завершения сохраняют положения и закрывают режим с сохранением фокуса игры. Хоткей по умолчанию не назначен: «Настройки → Горячие клавиши → Основное».
+- **Горячие клавиши и интерфейс.** Назначение нажатием любой поддерживаемой клавиши или сочетания, сброс в «Не назначена», проверка конфликтов и группировка по разделам. Print Screen, модификаторы и Win+Shift+S не блокируются. «Основное» — первая вкладка настроек, «Оформление» — вторая; текст таблиц центрирован по высоте. Исправлены тёмные карточки напоминаний, расположение действий Gold Goblin и компактное размещение локаций/карты MVP. Персонажа можно удалить из менеджера с сохранением локальных историй и ограничений привязанных оверлеев.
+
+### Обновление
+
+Полностью закройте прежнюю RoAura и установите `RoAura-3.4.0-Setup.exe` либо распакуйте `RoAura-3.4.0-portable.zip` в отдельную папку. Настройки и пресеты релизной версии остаются в `%APPDATA%\RoAura`; локальные данные — в `%LOCALAPPDATA%\RoAura`, история фарм-сессий — в `GoldGoblinSessions`. Запускайте RoAura до входа на персонажа; если запустили позже, выполните relog для определения CID и исходного баланса.
+
+Development-сборки используют отдельные папки `RoAura-Dev`. Автоматического переноса их настроек и историй в релизное хранилище нет. Личные данные не включены в архивы и не заменяются установщиком.
+
+Для пакетных функций нужен Npcap. Маркет доступен для SpringRO; ToC использует локальные данные и NPC/ручные цены. Разные защищённые/fullscreen-клиенты, смена мониторов/DPI и несколько клиентов требуют проверки в соответствующем окружении. Приложение не выполняет игровые действия автоматически.
+
+## English
+
+- **Shared farming sessions.** Statistics and Gold Goblin share Start, Pause and complete Reset. Session EXP, loot, Zeny, active time and transient rewards clear together; completed history, character lifetime totals and price rules remain. Start runs the clock immediately, while Reset waits for the next EXP gain. Pausing excludes time and gains while keeping the balance baseline current.
+- **Statistics.** Optional `Total B.XP` and `Total J.XP`, Start on both pages and a configurable Start hotkey. Reward aggregation now uses a sliding quiet interval renewed by each incoming event in the group.
+- **Gold Goblin.** Excluded price rules and optional exclusion of direct Zeny income from Total/h, independently of loot valuation. Raw balances/history remain factual. Local session history includes character, date, duration, quantities, Zeny and loot value; Open/double-click opens separate details with pickup-time prices. Deleting a session deletes its local file. CSV export is removed.
+- **Market watchlist.** Optional silent current-offer baseline from the first successful full scan after adding the rule; subsequent new offers can alert. All-item history includes item names without losing the selected rule editor.
+- **MVP.** Selectable source locations/respawn intervals, maps and kill markers; automatic first-map selection and all 53 supported maps bundled for offline use. Hovering the complete timer row opens its map; the magnifier remains. Restart starts a full interval from now; historical kill time uses a separate Apply action. F4 opens the compact in-game Add timer form by default; repeat closes it and form placement persists.
+- **Interface layout mode.** A configurable hotkey shows section/group labels and ⋮⋮ grips. Whole groups move with their spacing retained; MVP, quest tracker and market notifications move by section. Quiet panels have transient previews. Repeat the hotkey or use Finish placement to save and exit without taking game focus. The hotkey is initially unassigned under Settings → Hotkeys → General.
+- **Controls and appearance.** Keyboard chord capture, unassignment, conflict checks and grouped hotkey settings. Print Screen, modifiers and Win+Shift+S remain forwarded. Basic precedes Appearance; table text centers vertically. Dark Reminder cards, Gold Goblin actions and compact MVP location/map layout are corrected. Character-manager deletion preserves histories and character-scope restrictions.
+
+Close the old process before using the Windows x64 installer or portable archive. Release settings/presets remain in `%APPDATA%\RoAura`, local data in `%LOCALAPPDATA%\RoAura`, and farming history in `GoldGoblinSessions`. Start RoAura before character login or relog to establish CID/balance. Development builds use separate `RoAura-Dev` directories and are not automatically migrated into release storage. Packages contain no personal configuration or histories.
+
+Packet features require Npcap. Market is SpringRO-only; ToC uses local data and NPC/manual valuation. Protected/fullscreen clients, physical mixed-DPI transitions and multiple clients remain environment-specific checks. RoAura does not perform gameplay automatically.
+
 # RoAura 3.3.0
 
 ## Русский

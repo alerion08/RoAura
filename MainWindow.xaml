@@ -276,16 +276,16 @@
                     <WrapPanel Margin="0,10,0,0" Visibility="Collapsed">
                         <TextBlock Text="{DynamicResource Hotkeys}" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,14,0" />
                         <TextBlock Text="{DynamicResource SettingsWindowHotkey}" VerticalAlignment="Center" />
-                        <ComboBox Width="78" Margin="6,0,14,0" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding SettingsHotkey, Mode=TwoWay}" />
+                        <controls:HotkeyCaptureBox Width="78" Margin="6,0,14,0"  Value="{Binding SettingsHotkey, Mode=TwoWay}" />
                         <TextBlock Text="{DynamicResource OverlaysHotkey}" VerticalAlignment="Center" />
-                        <ComboBox Width="78" Margin="6,0,14,0" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding OverlaysHotkey, Mode=TwoWay}" />
+                        <controls:HotkeyCaptureBox Width="78" Margin="6,0,14,0"  Value="{Binding OverlaysHotkey, Mode=TwoWay}" />
                         <TextBlock Text="{DynamicResource FinishMoveHotkey}" VerticalAlignment="Center" />
-                        <ComboBox Width="88" Margin="6,0,14,0" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding FinishMoveHotkey, Mode=TwoWay}" />
+                        <controls:HotkeyCaptureBox Width="88" Margin="6,0,14,0"  Value="{Binding FinishMoveHotkey, Mode=TwoWay}" />
                         <TextBlock Text="{DynamicResource TimersHotkey}" VerticalAlignment="Center" />
-                        <ComboBox Width="78" Margin="6,0,14,0" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding TimersHotkey, Mode=TwoWay}" />
+                        <controls:HotkeyCaptureBox Width="78" Margin="6,0,14,0"  Value="{Binding TimersHotkey, Mode=TwoWay}" />
                         <StackPanel x:Name="DatabaseHotkeyControls" Orientation="Horizontal">
                             <TextBlock Text="{DynamicResource DatabaseHotkey}" VerticalAlignment="Center" />
-                            <ComboBox Width="78" Margin="6,0,14,0" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding DatabaseHotkey, Mode=TwoWay}" />
+                            <controls:HotkeyCaptureBox Width="78" Margin="6,0,14,0"  Value="{Binding DatabaseHotkey, Mode=TwoWay}" />
                         </StackPanel>
                         <TextBlock Text="{DynamicResource HotkeyExamples}" Foreground="{DynamicResource RoMutedBrush}" VerticalAlignment="Center" />
                     </WrapPanel>
@@ -1017,7 +1017,10 @@
                                                     <TextBlock Grid.Row="2" Text="{DynamicResource Minutes}" Style="{StaticResource FieldLabelStyle}"/>
                                                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DurationMinutes, UpdateSourceTrigger=LostFocus}" Style="{StaticResource FieldEditorStyle}"/>
                                                     <TextBlock Grid.Row="3" Text="{DynamicResource KillTime}" Style="{StaticResource FieldLabelStyle}"/>
-                                                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding KillTimeInput, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" ToolTip="HH:mm:ss"/>
+                                                    <Grid Grid.Row="3" Grid.Column="1" Margin="0,0,14,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                                        <TextBox Text="{Binding KillTimeInput, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}" Margin="0,4,6,4" ToolTip="HH:mm:ss"/>
+                                                        <Button Grid.Column="1" Content="{DynamicResource MvpApplyKillTime}" Click="ApplyMvpKillTime_Click" VerticalAlignment="Center"/>
+                                                    </Grid>
                                                     <CheckBox Grid.Row="4" Grid.ColumnSpan="2" Content="{DynamicResource Enabled}" IsChecked="{Binding Enabled}" Margin="0,10,0,4"/>
                                                 </Grid>
                                             </GroupBox>
@@ -1043,32 +1046,24 @@
                                                 </Border>
                                             </UniformGrid>
 
-                                            <GroupBox Header="{DynamicResource RespawnHint}" Margin="0,10,0,0">
-                                                <StackPanel>
-                                                    <ItemsControl ItemsSource="{Binding RespawnHints}">
-                                                        <ItemsControl.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <Border Padding="9" Margin="0,0,0,6" Background="{DynamicResource UiBackground_F8FBFF}" CornerRadius="6" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1">
-                                                                    <Grid>
-                                                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                                                        <StackPanel>
-                                                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
-                                                                            <TextBlock Text="{Binding Code}" Foreground="{DynamicResource RoMutedBrush}" FontSize="11"/>
-                                                                        </StackPanel>
-                                                                        <TextBlock Grid.Column="1" Text="{Binding Respawn}" Foreground="{DynamicResource RoBlueBrush}" FontWeight="Bold" VerticalAlignment="Center" Margin="12,0,0,0"/>
-                                                                    </Grid>
-                                                                </Border>
-                                                            </DataTemplate>
-                                                        </ItemsControl.ItemTemplate>
-                                                    </ItemsControl>
-                                                    <TextBlock Text="{DynamicResource RespawnHintHelp}" Foreground="{DynamicResource RoMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,4,0,0"/>
-                                                </StackPanel>
+                                            <GroupBox x:Name="MvpLocationPanel" Header="{DynamicResource MvpLocation}" Margin="0,10,0,0">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="1.1*"/>
+                                                        <ColumnDefinition Width="14"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <controls:MvpLocationSelector x:Name="MvpLocationCards" MaxHeight="250" VerticalAlignment="Top"/>
+                                                    <Viewbox Grid.Column="2" MaxWidth="250" Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                                        <controls:MvpMapEditor x:Name="MvpLocationMap"/>
+                                                    </Viewbox>
+                                                </Grid>
                                             </GroupBox>
                                         </StackPanel>
                                     </ScrollViewer>
                                 </TabItem>
                                 <TabItem Header="{DynamicResource TimerSoundTab}"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="12"><GroupBox Header="{DynamicResource TimerEndSound}"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="185"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions><TextBlock Text="{DynamicResource Enabled}" Style="{StaticResource FieldLabelStyle}"/><CheckBox Grid.Column="1" IsChecked="{Binding CompletionSoundEnabled}" VerticalAlignment="Center"/><TextBlock Grid.Row="1" Text="{DynamicResource Volume}" Style="{StaticResource FieldLabelStyle}"/><Grid Grid.Row="1" Grid.Column="1" Margin="0,4,14,4" ClipToBounds="True"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="52"/></Grid.ColumnDefinitions><Slider Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding CompletionSoundVolumePercent, Mode=TwoWay}" Style="{StaticResource RoSliderStyle}"/><TextBlock Grid.Column="1" Text="{Binding CompletionSoundVolumePercent, StringFormat={}{0:0}%}" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="SemiBold"/></Grid><TextBlock Grid.Row="2" Text="{DynamicResource TimerEndSound}" Style="{StaticResource FieldLabelStyle}"/><StackPanel Grid.Row="2" Grid.Column="1"><WrapPanel><Button Content="{DynamicResource Choose}" Click="PickMvpTimerSound_Click"/><Button Content="{DynamicResource TestSound}" Click="TestMvpTimerSound_Click"/></WrapPanel><TextBlock Text="{Binding CompletionSoundPath}" TextTrimming="CharacterEllipsis" ToolTip="{Binding CompletionSoundPath}" Foreground="{DynamicResource RoMutedBrush}" Margin="4,6,14,0"/></StackPanel></Grid></GroupBox></StackPanel></ScrollViewer></TabItem>
-                                <TabItem Header="{DynamicResource TimerPanelTab}" DataContext="{Binding DataContext, ElementName=RootWindow}"><ScrollViewer VerticalScrollBarVisibility="Auto"><Grid Margin="12"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Border Height="190" Padding="16" CornerRadius="8" Background="{DynamicResource UiBackground_1E3150}" VerticalAlignment="Top"><StackPanel VerticalAlignment="Center"><TextBlock Text="{DynamicResource TimerPanelPreview}" Foreground="{DynamicResource UiForeground_C5D4EA}" FontWeight="Bold" Margin="0,0,0,12"/><TextBlock Text="Valkyrie Randgris — 42:18" Foreground="{Binding TimersTextColor}" FontSize="{Binding TimersTextSize, Converter={StaticResource PreviewSize}, ConverterParameter=0.75}"/><TextBlock Text="Dark Lord — 08:35" Foreground="{Binding TimersTextColor}" FontSize="{Binding TimersTextSize, Converter={StaticResource PreviewSize}, ConverterParameter=0.75}" Margin="0,6,0,0"/></StackPanel></Border><StackPanel Grid.Column="2"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="190"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions><TextBlock Text="{DynamicResource PositionXY}" Style="{StaticResource FieldLabelStyle}"/><StackPanel Grid.Column="1" Orientation="Horizontal"><controls:NumericTextBox Width="85" Value="{Binding TimersX, Mode=TwoWay}" Style="{StaticResource FieldEditorStyle}"/><controls:NumericTextBox Width="85" Value="{Binding TimersY, Mode=TwoWay}" Style="{StaticResource FieldEditorStyle}"/></StackPanel><TextBlock Grid.Row="1" Text="{DynamicResource TextSize}" Style="{StaticResource FieldLabelStyle}"/><StackPanel Grid.Row="1" Grid.Column="1" ClipToBounds="True"><controls:NumericTextBox Value="{Binding TimersTextSize, Mode=TwoWay}" Style="{StaticResource FieldEditorStyle}"/><Slider Minimum="10" Maximum="72" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding TimersTextSize, Mode=TwoWay}" Style="{StaticResource RoSliderStyle}" Margin="0,0,14,4"/></StackPanel><TextBlock Grid.Row="2" Text="{DynamicResource TextColor}" Style="{StaticResource FieldLabelStyle}"/><controls:ColorTextBox Grid.Row="2" Grid.Column="1" Text="{Binding TimersTextColor, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/><TextBlock Grid.Row="3" Text="{DynamicResource TimerGap}" Style="{StaticResource FieldLabelStyle}"/><controls:NumericTextBox Grid.Row="3" Grid.Column="1" Value="{Binding TimersGap, Mode=TwoWay}" Style="{StaticResource FieldEditorStyle}"/><TextBlock Visibility="Collapsed" Grid.Row="4" Text="{DynamicResource TimersHotkey}" Style="{StaticResource FieldLabelStyle}"/><ComboBox Visibility="Collapsed" Grid.Row="4" Grid.Column="1" Width="100" HorizontalAlignment="Left" ItemsSource="{Binding HotkeyChoices}" SelectedItem="{Binding TimersHotkey}"/></Grid><TextBlock Text="{DynamicResource TimerPanelHint}" Foreground="{DynamicResource RoMutedBrush}" TextWrapping="Wrap" Margin="0,12,0,0"/></StackPanel></Grid></ScrollViewer></TabItem>
+                                <TabItem Header="{DynamicResource TimerPanelTab}" DataContext="{Binding DataContext, ElementName=RootWindow}"><ScrollViewer VerticalScrollBarVisibility="Auto"><Grid Margin="12"><Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Border Height="190" Padding="16" CornerRadius="8" Background="{DynamicResource UiBackground_1E3150}" VerticalAlignment="Top"><StackPanel VerticalAlignment="Center"><TextBlock Text="{DynamicResource TimerPanelPreview}" Foreground="{DynamicResource UiForeground_C5D4EA}" FontWeight="Bold" Margin="0,0,0,12"/><TextBlock Text="Valkyrie Randgris — 42:18" Foreground="{Binding TimersTextColor}" FontSize="{Binding TimersTextSize, Converter={StaticResource PreviewSize}, ConverterParameter=0.75}"/><TextBlock Text="Dark Lord — 08:35" Foreground="{Binding TimersTextColor}" FontSize="{Binding TimersTextSize, Converter={StaticResource PreviewSize}, ConverterParameter=0.75}" Margin="0,6,0,0"/></StackPanel></Border><StackPanel Grid.Column="2"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="190"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions><TextBlock Text="{DynamicResource PositionXY}" Style="{StaticResource FieldLabelStyle}"/><StackPanel Grid.Column="1" Orientation="Horizontal"><controls:NumericTextBox Width="85" Value="{Binding TimersX, Mode=TwoWay}" Style="{StaticResource FieldEditorStyle}"/><controls:NumericTextBox Width="85" Value="{Binding TimersY, Mode=TwoWay}" Style="{StaticResource FieldEditorStyle}"/></StackPanel><TextBlock Grid.Row="1" Text="{DynamicResource TextSize}" Style="{StaticResource FieldLabelStyle}"/><StackPanel Grid.Row="1" Grid.Column="1" ClipToBounds="True"><controls:NumericTextBox Value="{Binding TimersTextSize, Mode=TwoWay}" Style="{StaticResource FieldEditorStyle}"/><Slider Minimum="10" Maximum="72" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding TimersTextSize, Mode=TwoWay}" Style="{StaticResource RoSliderStyle}" Margin="0,0,14,4"/></StackPanel><TextBlock Grid.Row="2" Text="{DynamicResource TextColor}" Style="{StaticResource FieldLabelStyle}"/><controls:ColorTextBox Grid.Row="2" Grid.Column="1" Text="{Binding TimersTextColor, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FieldEditorStyle}"/><TextBlock Grid.Row="3" Text="{DynamicResource TimerGap}" Style="{StaticResource FieldLabelStyle}"/><controls:NumericTextBox Grid.Row="3" Grid.Column="1" Value="{Binding TimersGap, Mode=TwoWay}" Style="{StaticResource FieldEditorStyle}"/><TextBlock Visibility="Collapsed" Grid.Row="4" Text="{DynamicResource TimersHotkey}" Style="{StaticResource FieldLabelStyle}"/><controls:HotkeyCaptureBox Visibility="Collapsed" Grid.Row="4" Grid.Column="1" Width="100" HorizontalAlignment="Left"  Value="{Binding TimersHotkey, Mode=TwoWay}"/></Grid><TextBlock Text="{DynamicResource TimerPanelHint}" Foreground="{DynamicResource RoMutedBrush}" TextWrapping="Wrap" Margin="0,12,0,0"/></StackPanel></Grid></ScrollViewer></TabItem>
                             </TabControl>
                             <Border Grid.Row="2" Padding="8" Margin="0,10,0,0" Background="{DynamicResource UiBackground_F5F9FE}" CornerRadius="7" Style="{StaticResource MvpSelectionVisibilityStyle}"><UniformGrid Columns="4"><Button Content="{DynamicResource Restart}" Click="RestartMvpTimer_Click" Style="{StaticResource PrimaryButtonStyle}"/><Button Content="{DynamicResource Reset}" Click="ResetMvpTimer_Click"/><ToggleButton x:Name="TimerMoveModeButton" Content="{DynamicResource MoveTimers}" Checked="TimerMoveMode_Changed" Unchecked="TimerMoveMode_Changed"/><Button Content="{DynamicResource Delete}" Click="DeleteMvpTimer_Click" Style="{StaticResource DangerButtonStyle}"/></UniformGrid></Border>
                             <Border Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="28" Background="{DynamicResource UiBackground_F8FBFF}" CornerRadius="8"><Border.Style><Style TargetType="Border"><Setter Property="Visibility" Value="Collapsed"/><Style.Triggers><DataTrigger Binding="{Binding SelectedItem, ElementName=MvpTimersGrid}" Value="{x:Null}"><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers></Style></Border.Style><StackPanel><TextBlock Text="{DynamicResource SelectMvpTimerTitle}" FontWeight="Bold" FontSize="17" HorizontalAlignment="Center"/><TextBlock Text="{DynamicResource SelectMvpTimerHint}" Foreground="{DynamicResource RoMutedBrush}" Margin="0,5,0,0" TextAlignment="Center" TextWrapping="Wrap" MaxWidth="310"/></StackPanel></Border>
@@ -1087,7 +1082,10 @@
                                     <TextBlock Text="{DynamicResource RewardsSettingsTitle}" Style="{StaticResource RoSectionTitleStyle}"/>
                                     <TextBlock Text="{DynamicResource RewardsSettingsHint}" Style="{StaticResource RoCaptionTextStyle}" Margin="0,2,0,0"/>
                                 </StackPanel>
-                                <Button Grid.Column="1" Content="{DynamicResource ResetStatisticsSession}" Click="ResetStatisticsSession_Click" Style="{StaticResource DangerButtonStyle}"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <Button Content="{DynamicResource StartSession}" Click="StartFarmingSession_Click"/>
+                                <ToggleButton Content="{DynamicResource PauseSession}" IsChecked="{Binding SessionPaused, Mode=OneWay}" Click="PauseSession_Click"/>
+                                <Button Content="{DynamicResource ResetStatisticsSession}" Click="ResetFarmingSession_Click" Style="{StaticResource DangerButtonStyle}"/></StackPanel>
                             </Grid>
                         </Border>
 
@@ -1171,6 +1169,8 @@
                                                                                     <DataTrigger Binding="{Binding Kind}" Value="TimeToJobLevel"><Setter Property="Text" Value="{DynamicResource TimeToJobLevelLabel}"/></DataTrigger>
                                                                                     <DataTrigger Binding="{Binding Kind}" Value="ZenyPerHour"><Setter Property="Text" Value="{DynamicResource ZenyPerHourLabel}"/></DataTrigger>
                                                                                     <DataTrigger Binding="{Binding Kind}" Value="ZenyTotal"><Setter Property="Text" Value="{DynamicResource ZenyTotalLabel}"/></DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding Kind}" Value="TotalBaseExperience"><Setter Property="Text" Value="{DynamicResource TotalBaseExperience}"/></DataTrigger>
+                                                                                    <DataTrigger Binding="{Binding Kind}" Value="TotalJobExperience"><Setter Property="Text" Value="{DynamicResource TotalJobExperience}"/></DataTrigger>
                                                                                     <DataTrigger Binding="{Binding Kind}" Value="SessionTime"><Setter Property="Text" Value="{DynamicResource SessionTime}"/></DataTrigger>
                                                                                 </Style.Triggers>
                                                                             </Style>
@@ -1399,9 +1399,10 @@
                             <TextBlock Text="{DynamicResource GoldGoblinDescription}" Style="{StaticResource RoCaptionTextStyle}" TextWrapping="Wrap" Margin="0,2,0,0"/>
                         </StackPanel></Border>
                             <UniformGrid Grid.Row="1" Rows="1" Columns="4" Margin="0,0,0,8">
-                                <Button Content="{DynamicResource ExportCsv}" Click="ExportGoldGoblinCsv_Click" MinWidth="130"/>
-                                <Button Content="{DynamicResource StartSession}" Click="StartGoldGoblinSession_Click" Style="{StaticResource GoldButtonStyle}" MinWidth="140"/>
-                                <Button Content="{DynamicResource ResetSession}" Click="ResetGoldGoblin_Click" Style="{StaticResource DangerButtonStyle}" MinWidth="145"/>
+                                <ToggleButton Content="{DynamicResource PauseSession}" IsChecked="{Binding SessionPaused, Mode=OneWay}" Click="PauseSession_Click"/>
+                                
+                                <Button Content="{DynamicResource StartSession}" Click="StartFarmingSession_Click" Style="{StaticResource GoldButtonStyle}" MinWidth="140"/>
+                                <Button Content="{DynamicResource ResetSession}" Click="ResetFarmingSession_Click" Style="{StaticResource DangerButtonStyle}" MinWidth="145"/>
                                 <Button Content="{DynamicResource AddItem}" Click="OpenGoldGoblinAdd_Click" Style="{StaticResource PrimaryButtonStyle}" MinWidth="145"/>
                             </UniformGrid>
                         <UniformGrid Grid.Row="2" Columns="4" Margin="0,0,0,12">
@@ -1520,6 +1521,7 @@
                                     </Grid>
                                 </Grid></Border>
                             </TabItem>
+                            <TabItem Header="{DynamicResource SessionHistory}"><local:FarmingSessionHistoryControl/></TabItem>
                             <TabItem Header="{DynamicResource GoldGoblinRulesTab}">
                                 <Border Margin="0,8,0,0" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1" CornerRadius="8" Background="{DynamicResource UiBackground_FFFFFF}">
                                 <Grid Margin="14">
@@ -1533,6 +1535,8 @@
                                     </Grid>
                                     <DataGrid x:Name="GoldGoblinRulesGrid" Grid.Row="2" ItemsSource="{Binding ActiveGoldGoblinPriceRules}" AutoGenerateColumns="False" CanUserAddRows="False">
                                         <DataGrid.Columns>
+                                        <DataGridCheckBoxColumn Header="{DynamicResource ExcludeItem}" Binding="{Binding Exclude, UpdateSourceTrigger=PropertyChanged}" Width="110"/>
+
                                             <DataGridTextColumn Header="Item ID" Binding="{Binding ItemId}" IsReadOnly="True" Width="100"/>
                                             <DataGridTextColumn Header="{DynamicResource Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
                                             <DataGridTemplateColumn Header="{DynamicResource VendingPrice}" Width="180"><DataGridTemplateColumn.CellTemplate><DataTemplate><CheckBox IsChecked="{Binding UseVendingPrice, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding DataContext.SupportsMarket, RelativeSource={RelativeSource AncestorType=DataGrid}}" HorizontalAlignment="Center"/></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
@@ -1561,6 +1565,7 @@
                                     <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
                                         <CheckBox Content="{DynamicResource ShowLootZenyPrice}" IsChecked="{Binding ShowLootZenyPrice}" Margin="0,0,0,12"/>
                                         <CheckBox Content="{DynamicResource IncludeGoldGoblinInZenyPerHour}" IsChecked="{Binding IncludeGoldGoblinInZenyPerHour}"/>
+                                        <CheckBox Content="{DynamicResource GoldGoblinIgnoreZenyIncome}" IsChecked="{Binding GoldGoblinIgnoreZenyIncome}" Margin="0,12,0,0"/>
                                         <TextBlock Text="{DynamicResource GoldGoblinResetHint}" TextWrapping="Wrap" Foreground="{DynamicResource RoMutedBrush}" Margin="0,18,0,0"/>
                                     </StackPanel>
                                 </Grid></Border>

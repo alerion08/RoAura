@@ -102,7 +102,16 @@ public sealed class SkillAura : INotifyPropertyChanged
     public double ElapsedProgress => IsReady ? 0 : Math.Clamp(100 - Progress, 0, 100);
 
     [JsonIgnore]
-    public double CurrentOpacity => (IsReady ? ReadyOpacityPercent : CooldownOpacityPercent) / 100d;
+    public double CurrentOpacity => IsPlacementPreview
+        ? Math.Max(.35, (IsReady ? ReadyOpacityPercent : CooldownOpacityPercent) / 100d)
+        : (IsReady ? ReadyOpacityPercent : CooldownOpacityPercent) / 100d;
+
+    private bool _isPlacementPreview;
+    [JsonIgnore] public bool IsPlacementPreview
+    {
+        get => _isPlacementPreview;
+        set { if (Set(ref _isPlacementPreview, value)) OnPropertyChanged(nameof(CurrentOpacity)); }
+    }
 
     [JsonIgnore]
     public string ShortName => !string.IsNullOrWhiteSpace(ShortNameOverride)

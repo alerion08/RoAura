@@ -25,6 +25,7 @@
   <TextBlock Text="{DynamicResource WatchMaximumPrice}" TextWrapping="Wrap" Margin="0,12,0,5"/>
   <TextBox x:Name="PriceBox" Height="32" MinHeight="32" Padding="7,0" VerticalContentAlignment="Center" Margin="0,0,0,10"/>
   <CheckBox x:Name="WithoutPrice" Content="{DynamicResource WatchWithoutPrice}" Checked="PriceMode_Changed" Unchecked="PriceMode_Changed"/>
+  <CheckBox x:Name="SuppressCurrentOffers" Content="{DynamicResource SuppressCurrentOffers}" Margin="0,10,0,0"/>
   <TextBlock x:Name="ErrorText" Foreground="{DynamicResource UiForeground_B42318}" TextWrapping="Wrap" Margin="0,10,0,0"/>
  </StackPanel>
 </UserControl>
