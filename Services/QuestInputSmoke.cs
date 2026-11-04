@@ -393,19 +393,27 @@ internal static class QuestInputSmoke
         var oldTheme=settings.ApplicationTheme;var oldTab=main.MainTabs.SelectedItem;var oldTimer=main.MvpTimersGrid.SelectedItem;
         try
         {
-            settings.ActiveMvpTimers.Add(timer);main.MvpNavButton.IsChecked=true;main.MvpTimersGrid.SelectedItem=timer;
+            settings.ActiveMvpTimers.Add(timer);main.MvpNavButton.IsChecked=true;main.MainTabs.SelectedItem=main.MvpTab;main.MvpTimersGrid.SelectedItem=timer;
             main.WindowState=WindowState.Normal;main.Left=20;main.Top=20;main.Show();main.Activate();
             foreach(var size in new[]{(Width:1420d,Height:920d,Theme:"Light",Name:"mvp-locations-wide"),
                                       (Width:main.MinWidth,Height:main.MinHeight,Theme:"Dark",Name:"mvp-locations-minimum")})
             {
                 settings.ApplicationTheme=size.Theme;main.Width=size.Width;main.Height=size.Height;
-                await Pause();main.UpdateLayout();main.MvpLocationPanel.BringIntoView();await Pause();
+                await Pause();main.UpdateLayout();
+                // Keep the timer detail pane on the CI desktop even when its width is below the application's minimum.
+                main.Left=SystemParameters.WorkArea.Right-main.ActualWidth;
+                main.Top=SystemParameters.WorkArea.Bottom-main.ActualHeight;
+                main.MvpLocationPanel.BringIntoView();await Pause();
+                await Until(()=>main.MvpLocationCards.IsVisible && main.MvpLocationCards.ActualWidth>0,"application MVP location panel visible");
+                SaveElement(main.MvpLocationPanel,size.Name+"-before");
                 var cards=main.MvpLocationCards;var map=main.MvpLocationMap;
                 await Until(()=>map.IsMapReady,"application MVP map ready");
                 if(cards.Items.Count>1)
                 {
                     var card=(ListBoxItem)cards.ItemContainerGenerator.ContainerFromIndex(1);
-                    Click(card.PointToScreen(new Point(card.ActualWidth/2,card.ActualHeight/2)));
+                    var cardPoint=card.PointToScreen(new Point(card.ActualWidth/2,card.ActualHeight/2));
+                    DebugLog.Write($"MVP LOCATION CLICK: desktop={SystemParameters.WorkArea}; point={cardPoint}; tab={main.MainTabs.SelectedIndex}");
+                    Click(cardPoint);
                     await Until(()=>map.IsMapReady && map.DisplayedMapCode==timer.RespawnHints[1].Code,"application MVP location switch");
                 }
                 var leftEdge=cards.PointToScreen(new Point(cards.ActualWidth,0));
@@ -417,7 +425,7 @@ internal static class QuestInputSmoke
                 timer.ClearMarker();
                 Click(map.PointToScreen(new Point(map.ActualWidth/2,map.ActualHeight/2)));
                 await Until(()=>timer.MarkerX.HasValue && timer.MarkerY.HasValue,"application MVP map marker click");
-                await Pause();SaveDesktop(main,size.Name);
+                await Pause();SaveElement(main.MvpLocationPanel,size.Name);
             }
         }
         finally
@@ -425,6 +433,22 @@ internal static class QuestInputSmoke
             settings.ActiveMvpTimers.Remove(timer);main.MvpTimersGrid.SelectedItem=oldTimer;main.MainTabs.SelectedItem=oldTab;
             main.Width=oldWidth;main.Height=oldHeight;main.Left=oldLeft;main.Top=oldTop;settings.ApplicationTheme=oldTheme;main.Hide();
         }
+    }
+    private static void SaveElement(FrameworkElement element,string name)
+    {
+        var folder=Environment.GetEnvironmentVariable("ROAURA_QUEST_UI_SNAPSHOTS");
+        if(string.IsNullOrWhiteSpace(folder))return;
+        var width=Math.Max(1,(int)Math.Ceiling(element.ActualWidth));
+        var height=Math.Max(1,(int)Math.Ceiling(element.ActualHeight));
+        var drawing=new System.Windows.Media.DrawingVisual();
+        using(var context=drawing.RenderOpen())
+            context.DrawRectangle(new System.Windows.Media.VisualBrush(element),null,new Rect(0,0,width,height));
+        var image=new System.Windows.Media.Imaging.RenderTargetBitmap(width,height,96,96,System.Windows.Media.PixelFormats.Pbgra32);
+        image.Render(drawing);
+        var encoder=new System.Windows.Media.Imaging.PngBitmapEncoder();
+        encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(image));
+        Directory.CreateDirectory(folder);using var file=File.Create(Path.Combine(folder,name+".png"));encoder.Save(file);
+        DebugLog.Write("MVP LOCATION CAPTURE: "+name);
     }
     private static IEnumerable<T> Descendants<T>(DependencyObject root) where T:DependencyObject
     {
