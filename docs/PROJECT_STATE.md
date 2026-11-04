@@ -4,7 +4,7 @@
 
 - Continuing PR #12 from `017ef1089b27dac5d25a1d37ee23823ad16b5eb8`.
 - The application's timer editor shows compact selectable location cards on the left and the marker minimap on the right in the same block. The image scales down with the available width; long card names wrap.
-- Validation pending: inspect the actual application at normal/minimum window dimensions and both themes; verify location selection and scaled map marker clicks.
+- Validation pending: inspect the actual application at normal/minimum window dimensions and both themes. Layout captures use programmatic location/marker selection: OS clicks into the partly off-screen main window were unreliable on the 1024×720 CI desktop. Direct clicks on the resized application's map remain manual acceptance; existing in-game input checks are retained.
 
 
 ## MVP map/restart and tracking-history correction — 2026-11-03

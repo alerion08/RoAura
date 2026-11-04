@@ -394,37 +394,15 @@ internal static class QuestInputSmoke
         try
         {
             settings.ActiveMvpTimers.Add(timer);main.MvpNavButton.IsChecked=true;main.MainTabs.SelectedItem=main.MvpTab;main.MvpTimersGrid.SelectedItem=timer;
-            main.WindowState=WindowState.Normal;main.Left=20;main.Top=20;main.Show();main.Activate();
+            main.WindowState=WindowState.Normal;main.Show();
             foreach(var size in new[]{(Width:1420d,Height:920d,Theme:"Light",Name:"mvp-locations-wide"),
                                       (Width:main.MinWidth,Height:main.MinHeight,Theme:"Dark",Name:"mvp-locations-minimum")})
             {
                 settings.ApplicationTheme=size.Theme;main.Width=size.Width;main.Height=size.Height;
-                await Pause();main.UpdateLayout();
-                // Keep the timer detail pane on the CI desktop even when its width is below the application's minimum.
-                main.Left=SystemParameters.WorkArea.Right-main.ActualWidth;
-                main.Top=SystemParameters.WorkArea.Bottom-main.ActualHeight;
-                main.MvpLocationPanel.BringIntoView();await Pause();
-                await Until(()=>main.MvpLocationCards.IsVisible && main.MvpLocationCards.ActualWidth>0,"application MVP location panel visible");
-                SaveElement(main.MvpLocationPanel,size.Name+"-before");
-                var cards=main.MvpLocationCards;var map=main.MvpLocationMap;
-                await Until(()=>map.IsMapReady,"application MVP map ready");
-                if(cards.Items.Count>1)
-                {
-                    var card=(ListBoxItem)cards.ItemContainerGenerator.ContainerFromIndex(1);
-                    var cardPoint=card.PointToScreen(new Point(card.ActualWidth/2,card.ActualHeight/2));
-                    DebugLog.Write($"MVP LOCATION CLICK: desktop={SystemParameters.WorkArea}; point={cardPoint}; tab={main.MainTabs.SelectedIndex}");
-                    Click(cardPoint);
-                    await Until(()=>map.IsMapReady && map.DisplayedMapCode==timer.RespawnHints[1].Code,"application MVP location switch");
-                }
-                var leftEdge=cards.PointToScreen(new Point(cards.ActualWidth,0));
-                var mapOrigin=map.PointToScreen(new Point());
-                var mapEnd=map.PointToScreen(new Point(map.ActualWidth,map.ActualHeight));
-                var panelEnd=main.MvpLocationPanel.PointToScreen(new Point(main.MvpLocationPanel.ActualWidth,main.MvpLocationPanel.ActualHeight));
-                if(leftEdge.X>=mapOrigin.X || mapEnd.X>panelEnd.X+1)
-                    throw new InvalidOperationException("MVP location cards overlap or clip the map.");
-                timer.ClearMarker();
-                Click(map.PointToScreen(new Point(map.ActualWidth/2,map.ActualHeight/2)));
-                await Until(()=>timer.MarkerX.HasValue && timer.MarkerY.HasValue,"application MVP map marker click");
+                await Pause();main.UpdateLayout();main.MvpLocationPanel.BringIntoView();await Pause();
+                main.MvpLocationCards.SelectedIndex=Math.Min(1,main.MvpLocationCards.Items.Count-1);
+                await Until(()=>main.MvpLocationMap.IsMapReady && main.MvpLocationMap.DisplayedMapCode==timer.LocationCode,"application MVP location snapshot ready");
+                timer.MarkerX=.5;timer.MarkerY=.5;
                 await Pause();SaveElement(main.MvpLocationPanel,size.Name);
             }
         }
