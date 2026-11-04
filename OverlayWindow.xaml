@@ -503,7 +503,7 @@
                                 </Style></StackPanel.Resources>
                                 <TextBlock Text="{Binding Name}"/>
                                 <TextBlock Tag="MvpMapHover" Text="&#xE721;" FontFamily="Segoe MDL2 Assets" FontWeight="Normal" Margin="7,0,0,0" VerticalAlignment="Center"/>
-                                <TextBlock><Run Text=" — "/><Run Text="{Binding RemainingText}"/></TextBlock>
+                                <TextBlock><Run Text=" — "/><Run Text="{Binding RemainingText, Mode=OneWay}"/></TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
