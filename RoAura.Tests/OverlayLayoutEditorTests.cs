@@ -22,7 +22,7 @@ public sealed class OverlayLayoutEditorTests
         var other = new SkillAura { GroupNumber = 8, X = 240, Y = 100 };
         settings.Skills.Add(first); settings.Skills.Add(second); settings.Skills.Add(other);
         var targets = OverlayLayoutTargets.Build(settings);
-        var target = Assert.Single(targets.Where(target => target.Key == "cooldown:7"));
+        var target = Assert.Single(targets, target => target.Key == "cooldown:7");
         Assert.Equal(2, target.Items.Count);
         Assert.Equal(60, first.X);
         var drag = target.BeginDrag(new Size(800, 600));

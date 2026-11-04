@@ -53,6 +53,7 @@ public sealed class OverlayLayoutEditor : IDisposable
         _identity = Identity();
         _overlaysVisible = _overlay.AreOverlaysVisible; _questsVisible = _quests.GlobalVisible;
         var targets = OverlayLayoutTargets.Build(_settings);
+        DebugLog.Write($"INTERFACE LAYOUT START: targets={string.Join(",", targets.Select(target => target.Key))}");
         IsActive = true;
         try
         {
@@ -70,6 +71,7 @@ public sealed class OverlayLayoutEditor : IDisposable
     {
         if (!IsActive) return;
         IsActive = false; _timer.Stop(); EndDrag();
+        DebugLog.Write("INTERFACE LAYOUT STOP");
         foreach (var handle in _handles) { handle.Grip.Close(); handle.Label.Close(); }
         _handles.Clear(); _banner?.Close(); _banner = null;
         _overlay.SetLayoutPreview(false, []); _quests.SetLayoutEditing(false);

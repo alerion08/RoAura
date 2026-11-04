@@ -404,6 +404,7 @@ internal static class QuestInputSmoke
         GlobalInputHook hook,IntPtr game,string reportPath)
     {
         var originalKey=settings.InterfaceLayoutHotkey;
+        var originalPackets=settings.PacketCaptureEnabled;
         var groups=settings.CooldownGroups.Select(group=>group.GroupNumber).ToHashSet();
         var first=new SkillAura {Name="Layout A",GroupNumber=17,X=60,Y=160,IndividualIconSize=40};
         var second=new SkillAura {Name="Layout B",GroupNumber=17,X=140,Y=160,IndividualIconSize=40,Enabled=false};
@@ -412,11 +413,13 @@ internal static class QuestInputSmoke
         var questX=settings.QuestOverlay.X;var questY=settings.QuestOverlay.Y;
         try
         {
+            settings.PacketCaptureEnabled=true;
             settings.InterfaceLayoutHotkey="Ctrl+Shift+F2";
             QuestWindowNative.SetForegroundWindow(game);
             await Press("F2");await Pause();
             if(main.IsInterfaceLayoutEditing)throw new InvalidOperationException("Layout hotkey ignored its modifiers.");
             await Press(settings.InterfaceLayoutHotkey);
+            DebugLog.Write($"LAYOUT PROBE: enabled={settings.Enabled}; packets={settings.PacketCaptureEnabled}; active={main.IsInterfaceLayoutEditing}; keys={string.Join(",",main.InterfaceLayoutEditor!.GripWindows.Keys)}; foreground={QuestWindowNative.GetForegroundWindow()}; game={game}");
             await Until(()=>main.IsInterfaceLayoutEditing && main.InterfaceLayoutEditor!.GripWindows.TryGetValue("cooldown:17",out var window) && window.IsVisible,"layout group grip appears");
             if(overlay.IsBusyEditing)throw new InvalidOperationException("Layout mode made the ordinary overlay interactive.");
             if(!first.IsPlacementPreview || first.X!=60 || second.X!=140 || settings.QuestOverlay.X!=questX || settings.QuestOverlay.Y!=questY)
@@ -452,6 +455,7 @@ internal static class QuestInputSmoke
         finally
         {
             main.StopInterfaceLayout();hook.SetEscapeEnabled(false);settings.InterfaceLayoutHotkey=originalKey;
+            settings.PacketCaptureEnabled=originalPackets;
             settings.Skills.Remove(first);settings.Skills.Remove(second);settings.Skills.Remove(other);
             foreach(var group in settings.CooldownGroups.Where(group=>!groups.Contains(group.GroupNumber)).ToArray())settings.CooldownGroups.Remove(group);
         }

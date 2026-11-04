@@ -981,6 +981,9 @@ public partial class MainWindow : Window
 
     private bool ApplyPacketCaptureIfChanged(bool force = false)
     {
+        // Isolated UI probes may enable packet-only controls with synthetic models,
+        // but must never start capture/discovery against real adapters or clients.
+        if (App.IsSmokeTest()) return true;
         var changed = force || _appliedServerProfile != Settings.ServerProfile ||
                       _appliedPacketCaptureEnabled != Settings.PacketCaptureEnabled ||
                       !string.Equals(_appliedPacketServerAddress, Settings.PacketServerAddress,

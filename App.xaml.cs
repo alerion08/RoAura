@@ -202,7 +202,7 @@ public partial class App : Application
         };
     }
 
-    private static bool IsSmokeTest() =>
+    internal static bool IsSmokeTest() =>
         Environment.GetCommandLineArgs().Any(argument =>
             string.Equals(argument, "--smoke-test", StringComparison.OrdinalIgnoreCase));
 
