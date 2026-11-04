@@ -650,3 +650,7 @@ Automated evidence: `6e51e05e7588f42471913b8fb6c0b14fd486bbf1` / [development 11
 - [ ] Normal and minimum application width: location cards sit left of the map, without overlap or clipping.
 - [ ] Long location names wrap, many locations scroll, and selection updates the adjacent map.
 - [ ] Clicking the scaled map places the marker at the clicked position in both themes.
+
+Evidence on `7be636a5ea1e9ac4cab38bee5be053da97cf2a2c`: [development 116](https://github.com/alerion08/RoAura/actions/runs/41793270258) passed 368 tests, eight ToC checks and native startup/input smoke. The actual Location block's light/dark compact rasters were inspected. CI desktop constraints prevent claiming a complete manual resize/click matrix; the rows above remain for acceptance.
+
+PR installer validation also passed on [attempt 2](https://github.com/alerion08/RoAura/actions/runs/41793277276/attempts/2); the first attempt timed out waiting for an existing ROQuestie copy toast to expire and succeeded on retry without code changes.

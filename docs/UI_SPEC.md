@@ -645,3 +645,5 @@ Validation: `6e51e05e7588f42471913b8fb6c0b14fd486bbf1` / [development 113](https
 ## Application MVP location layout — 2026-11-04
 
 In the application's timer editor, the Location block has two columns: narrower selectable respawn cards on the left, marker minimap on the right. The map is at most 250 DIP wide and scales down at the minimum window width. Location names wrap and long lists scroll vertically. The in-game Add timer form keeps its existing layout.
+
+Validation on `7be636a5ea1e9ac4cab38bee5be053da97cf2a2c`: 368 tests and portable native/startup checks passed in [development 116](https://github.com/alerion08/RoAura/actions/runs/41793270258). Light/dark Location-block rasters with selected location and marker inspected on the constrained CI desktop. Captures use programmatic selection; real main-window resizing/clicks and mixed-DPI acceptance remain manual.

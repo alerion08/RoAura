@@ -4,7 +4,11 @@
 
 - Continuing PR #12 from `017ef1089b27dac5d25a1d37ee23823ad16b5eb8`.
 - The application's timer editor shows compact selectable location cards on the left and the marker minimap on the right in the same block. The image scales down with the available width; long card names wrap.
-- Validation pending: inspect the actual application at normal/minimum window dimensions and both themes. Layout captures use programmatic location/marker selection: OS clicks into the partly off-screen main window were unreliable on the 1024×720 CI desktop. Direct clicks on the resized application's map remain manual acceptance; existing in-game input checks are retained.
+- Verified code `7be636a5ea1e9ac4cab38bee5be053da97cf2a2c`: [development run 41793270258](https://github.com/alerion08/RoAura/actions/runs/41793270258) passed 368 tests (zero failures/skips), eight ToC checks, resource validation, offline map decoding, native input/startup smoke and clean portable checks.
+- Light/dark rasters of the actual Location block were inspected with a selected second location and a visible marker. CI requests normal/minimum window dimensions, but its 1024×720 work area constrains the resulting layout; captures therefore establish the compact layout in both themes. Location/marker selection in these captures is programmatic. Direct mouse clicks and broader resizing of the main window remain manual acceptance; existing in-game input checks still pass.
+- [Portable development 116](https://github.com/alerion08/RoAura/actions/runs/41793270258/artifacts/13305255195), inner ZIP SHA256 `550ab9583a8983b0639d644a8485f210e4072198d200611e3407c334559ea8cc`.
+- [PR installer run 41793277276, attempt 2](https://github.com/alerion08/RoAura/actions/runs/41793277276/attempts/2) passed packaging, silent installed payload and clean-distribution checks. Attempt 1 hit an unrelated ROQuestie coordinate-toast expiry timeout; rerun passed without a code change. Tag/release steps skipped.
+- Version 3.3.0, main and the public release remain unchanged.
 
 
 ## MVP map/restart and tracking-history correction — 2026-11-03
