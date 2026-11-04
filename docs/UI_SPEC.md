@@ -1,5 +1,7 @@
 # RoAura UI specification
 
+Current published version: **3.4.0**, [release](https://github.com/alerion08/RoAura/releases/tag/v3.4.0). Dated earlier validation notes are historical; current publication evidence is at the end and in PROJECT_STATE.md.
+
 ## Release 3.3.0 completion — 2026-11-03 documentation update
 
 Published v3.3.0 on 2026-11-02 from main commit `7d70b173b7c10cc4ab7ae3f268ff89cb9474e19e` (PR #10).
@@ -673,6 +675,10 @@ The MVP minimap uses the whole timer row as its hover target again, including it
 Verified on `ba6b96986eb4a2ab3d11ff36c2cd84dbcce3dba1`: [development 121](https://github.com/alerion08/RoAura/actions/runs/41809493268) passed 382 tests, eight ToC checks, native input/startup and clean portable verification. Native probes exercise full-row MVP hover/close/focus, exact layout chord, passive label clicks, whole-group movement with disabled members, unrelated group preservation, repeated-key/Finish exit and cleanup. Geometry tests cover 100/125/150% scaling; actual layout/map rasters inspected. [Installer validation](https://github.com/alerion08/RoAura/actions/runs/41809501092) passed packaging, silent installation and payload checks. Actual Ragnarok/fullscreen, OS mixed-DPI transitions and live client/character changes remain manual acceptance.
 
 
-## 3.4.0 release preparation — 2026-11-04
+## Published 3.4.0 — 2026-11-04
 
-The owner accepted development 121 and requested a release version. The 3.4.0 candidate preserves that functional behavior; only version metadata and release/user documentation are prepared here. MVP hover is the complete row, and the global layout editor remains group/section-only. Stable 3.3.0 is still published until owner approval, merge/tag and verified assets. Release/development storage identities remain separate; release upgrading does not import RoAura-Dev data. Exact candidate `e1603d8bff4e29a361834ed8b9f778f50d88127d` passed 382 Windows tests, native input/startup, release portable/installer and silent-install payload checks in [run 41814328248](https://github.com/alerion08/RoAura/actions/runs/41814328248); [development run 41814318070](https://github.com/alerion08/RoAura/actions/runs/41814318070) also passed. Primary PE versions and downloaded asset checksums were verified. Publication is pending owner approval; mixed-DPI/fullscreen/client-switch coverage is not implied by the owner's general acceptance.
+The owner approved publication after accepting development 121. PR #12 is merged; [v3.4.0](https://github.com/alerion08/RoAura/releases/tag/v3.4.0) resolves to `8bceb8c81c6530af4a634d09d53321b9b4953e22`. Shared session/history/market/MVP/layout/hotkey behavior above is shipped: minimap hover covers the complete row, and the global editor moves whole groups/sections through passive labels and separate grips.
+
+[Publication workflow 41827714651](https://github.com/alerion08/RoAura/actions/runs/41827714651) passed 382 tests, eight ToC checks, native input/startup, portable/installer and silent-install/payload checks. Both public packages and SHA256SUMS.txt were verified against public asset digests; primary PE versions and all packaged document headers match 3.4.0 and all 53 maps are present. Current published hashes are in PROJECT_STATE.md. Earlier candidate-run notes are historical evidence, not the published binaries.
+
+Release/development identities remain separate; no automatic RoAura-Dev import occurs. General owner acceptance does not establish physical mixed-DPI, protected/fullscreen, live client switching or long-session coverage. This documentation-only main update does not rebuild or replace the release.
