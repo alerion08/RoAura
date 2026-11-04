@@ -671,3 +671,8 @@ Only the grip is interactive; labels and ordinary overlay HWNDs remain mouse-tra
 The MVP minimap uses the whole timer row as its hover target again, including its retained magnifier. Map placement beside the complete panel and passive focus behavior remain unchanged; minimap hover is suspended while layout mode is active.
 
 Verified on `ba6b96986eb4a2ab3d11ff36c2cd84dbcce3dba1`: [development 121](https://github.com/alerion08/RoAura/actions/runs/41809493268) passed 382 tests, eight ToC checks, native input/startup and clean portable verification. Native probes exercise full-row MVP hover/close/focus, exact layout chord, passive label clicks, whole-group movement with disabled members, unrelated group preservation, repeated-key/Finish exit and cleanup. Geometry tests cover 100/125/150% scaling; actual layout/map rasters inspected. [Installer validation](https://github.com/alerion08/RoAura/actions/runs/41809501092) passed packaging, silent installation and payload checks. Actual Ragnarok/fullscreen, OS mixed-DPI transitions and live client/character changes remain manual acceptance.
+
+
+## 3.4.0 release preparation — 2026-11-04
+
+The owner accepted development 121 and requested a release version. The 3.4.0 candidate preserves that functional behavior; only version metadata and release/user documentation are prepared here. MVP hover is the complete row, and the global layout editor remains group/section-only. Stable 3.3.0 is still published until owner approval, merge/tag and verified assets. Release/development storage identities remain separate; release upgrading does not import RoAura-Dev data. Exact release-build validation is pending; mixed-DPI/fullscreen/client-switch coverage is not implied by the owner's general acceptance.

@@ -681,3 +681,12 @@ Automated evidence for `f680a488b7a6e6b9b7051c6cd6faf01937fc1c90`: [development 
 - [ ] MVP row text/icon/gaps show the same map/marker, leaving the row closes it, and hovering is suspended during layout mode.
 
 Verified on `ba6b96986eb4a2ab3d11ff36c2cd84dbcce3dba1`: [development 121](https://github.com/alerion08/RoAura/actions/runs/41809493268) passed 382 tests, eight ToC checks, native input/startup and clean portable verification. Native probes exercise full-row MVP hover/close/focus, exact layout chord, passive label clicks, whole-group movement with disabled members, unrelated group preservation, repeated-key/Finish exit and cleanup. Geometry tests cover 100/125/150% scaling; actual layout/map rasters inspected. [Installer validation](https://github.com/alerion08/RoAura/actions/runs/41809501092) passed packaging, silent installation and payload checks. Actual Ragnarok/fullscreen, OS mixed-DPI transitions and live client/character changes remain manual acceptance.
+
+
+## 3.4.0 release candidate — 2026-11-04
+
+- Owner accepted development 121 (“всё работает”); do not infer unreported environment-specific checks.
+- [ ] Verify csproj Version/AssemblyVersion/FileVersion, manifest, notes and package names at 3.4.0.
+- [ ] Full Windows tests, eight ToC checks, RU/EN/version/resource validation, native input/startup, portable and installer/silent payload validation at the candidate SHA.
+- [ ] Verify exact portable/installer SHA256 values and distribution privacy; standard build uses RoAura rather than the RoAura-Dev identity.
+- [ ] Mark PR ready after validation; publish only after explicit owner approval. Verify merge/tag, release workflow and assets, then update current documentation on main without republishing.

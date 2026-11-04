@@ -38,6 +38,7 @@ Model choice is controlled outside the repository. Use an economical model/reaso
 
 ## Branches and releases
 
+- Release 3.4.0 is prepared in `feature/farming-sessions-mvp-tools` / PR #12 after owner acceptance of development 121. Until explicit publication approval and a verified release, stable main/public baseline remains 3.3.0. After publication, update this paragraph and the current summary on main through the documentation gate below.
 - `main` is the stable release branch. Current published application baseline is 3.3.0, released from `7d70b173b7c10cc4ab7ae3f268ff89cb9474e19e` through PR #10.
 - Start new implementation work from current `main` in a task-specific branch. `feature/roquestie-mvp` is merged; older redesign/integration branches and PR #5 are historical, not current development targets.
 - `research/quest-database` is independent data work; consuming a new snapshot requires explicit validation and must not silently replace released data.

@@ -1,8 +1,8 @@
-# RoAura 3.3.0 — user guide
+# RoAura 3.4.0 — user guide
 
 ## Gold Goblin
 
-This section is available for the SpringRO profile. Received loot is automatically added to the `Item / Count / Cost / Total` table. The default cost is the official NPC sell value. Select an Overcharge level to apply the NPC selling bonus. Special price rules can use the lowest current Vending sell price and/or a manual price; when Vending is enabled, the manual value is used if the item is not listed. “Reset session” clears accumulated loot.
+This section is available for SpringRO and ToC; Vending prices apply to SpringRO only. Received loot is automatically added to the `Item / Count / Cost / Total` table. The default cost is the official NPC sell value. Select an Overcharge level to apply the NPC selling bonus. Special price rules can use the lowest current Vending sell price and/or a manual price; when Vending is enabled, the manual value is used if the item is not listed. Start, Pause and complete Reset are shared with Statistics; completed history and price rules remain.
 
 In “Loot / Zeny / EXP”, `Zeny Price` appends the calculated value to loot notifications, while `Gold Goblin` includes loot value in Zeny per hour.
 
@@ -21,10 +21,10 @@ RoAura is a self-contained Windows overlay for Ragnarok Online cooldowns, buff/d
 
 ## Installation and first launch
 
-Windows 10/11 x64 and the Npcap system driver are required. .NET, Wireshark and AutoHotkey are not required.
+Windows 10/11 x64 is required; packet features need the Npcap system driver. .NET, Wireshark and AutoHotkey are not required.
 
 1. Download Npcap only from https://npcap.com/#download and install it with default options.
-2. Start RO, enter the game, then run `RoAura.exe`.
+2. Run `RoAura.exe` before character login, then enter the game. Relog if RoAura was started after login, so CID and the initial balance can be observed.
 3. Keep `Tracking enabled` and `Capture packets via Npcap` enabled.
 4. Keep `Detect IP and port automatically` enabled. RoAura finds the active `PRM` connection and applies its current endpoint, including an ExitLag loopback endpoint. Use `Detect now` for an immediate retry.
 5. Click `Save`.
@@ -33,12 +33,33 @@ If Npcap cannot open an adapter, run RoAura as administrator. After switching ch
 
 ## Hotkeys
 
-- `F8` — show/hide settings.
-- `F9` — show/hide all overlays; tracking continues.
-- `F10` — show/hide only the MVP timer panel.
-- `Escape` — finish placement, save positions and restore settings.
+Open Settings → Hotkeys, click an assignment field and press a supported key/chord. × sets Unassigned. Conflicts are highlighted; keep assignments unique. Fields are grouped by feature.
 
-All hotkeys can be changed in `Hotkeys`. Choose F1–F12 or another listed key, keep assignments unique, and click `Save`.
+- `F8` — Settings.
+- `F9` — global overlay visibility; tracking continues.
+- `F10` — MVP panel visibility without stopping timers.
+- `F7` — in-game database.
+- `F6` — ROQuestie browser; `F5` — separate tracker.
+- `F4` — in-game Add MVP form; repeat closes it.
+- `Pause` — shared farming-session pause.
+- `Escape` — finish placement; global layout mode exits while keeping game focus.
+- Start session and Interface layout mode are initially unassigned.
+
+Print Screen and Windows screenshot shortcuts remain forwarded.
+
+## Interface layout mode
+
+Assign its hotkey under Settings → Hotkeys → General → Interface layout mode. Press it in game to show section/group labels and ⋮⋮ grips. Drag a grip to move the entire group, retaining member spacing, including disabled members. MVP, quest tracker and market notifications use section targets. Group 0 is one Ungrouped bucket, without individual grips.
+
+Quiet notifications and empty panels have temporary previews. Repeat the hotkey or use Finish placement to save positions and remove the editor. F8 exits and opens Settings; F9 exits and hides overlays. Labels are click-through; only grips accept mouse input. Entering does not rewrite coordinates or change cooldown/session state. Existing individual placement controls remain available in their sections.
+
+## Shared sessions and Gold Goblin history
+
+For an identified character, Start in Statistics/Gold Goblin or the assigned hotkey clears the current session and starts its clock immediately. Reset on either page clears session EXP, items, Zeny, active time, pause and transient rewards; the clock then starts on the next EXP gain. Pause excludes time and gains while updating the balance baseline. Level progress, lifetime totals, price rules and completed history remain.
+
+Select a session and use Open or double-click for separate item details. Prices are captured at acquisition rather than recomputed from today's market. Delete session removes its file from `%LOCALAPPDATA%\RoAura\GoldGoblinSessions`. Character statistics remain separately under `%LOCALAPPDATA%\RoAura\CharacterStatistics`.
+
+Excluded price rules omit an item from valuation. Ignore direct Zeny income excludes all positive balance changes from Total/h; the packet cannot distinguish player trades from NPC sales. Raw balance/history remain factual. Optional loot valuation is controlled independently.
 
 ## Cooldowns
 
@@ -97,15 +118,14 @@ RoAura also refreshes the equipment cache when a new item arrives through packet
 
 ## MVP Timers
 
-1. Add a timer, then type part of a name or ID directly in the `MVP` field and select a result.
-2. The catalog is generated from RTM `db-mobs.json` and contains only records marked as MVP.
-3. Enter minutes and press `Restart`; `Reset` stops it.
-4. Active timers show only MVP name and remaining time, stacked top-to-bottom.
-5. Configure panel X/Y and text size/color; drag the complete panel with `Move timers`.
-6. Optionally enable a completion sound, choose an audio file, and set its volume from 0 to 100%. Use the test button to preview it.
-7. The dedicated hotkey (F10 by default) hides/shows the timer panel without stopping timers. With no active timers, the panel is completely hidden.
+1. Choose RTM, SpringRO or ToC and search by MVP name/ID. Supported catalog records include source locations and respawn intervals.
+2. The first available location is selected automatically. Click another location card to switch maps, and click the minimap to mark the kill point.
+3. Restart replaces the old countdown with a full interval from now. Apply time uses a historical kill time separately. Reset stops the timer.
+4. Hover the name, magnifier, time or gaps in the game timer row to show its map/marker; leave the row to close it.
+5. F4 opens the compact in-game Add timer form by default; repeat closes it. Dragged form placement persists.
+6. Panel X/Y, text size/color, section placement, completion sound and volume remain configurable. F10 toggles visibility without stopping countdowns. With no active timers the panel is hidden except during layout editing.
 
-Choose the `RTM` or `SpringRO` database on the MVP tab. The catalogs are stored separately in `Data\monsters.rtm.json` and `Data\monsters.springro.json`; SpringRO lists only the 19 current MVPs from the supplied database.
+All 53 supported catalog minimaps are bundled. An unavailable custom map shows an explicit error/retry state instead of substituting another map.
 
 ## Loot / Zeny / EXP
 
@@ -123,13 +143,15 @@ Loot, Zeny and Experience each have an enable flag, text color, group number and
 
 Choose the `RTM` or `SpringRO` item database on the Loot / Zeny / EXP tab. Names and types are loaded only from the selected server catalog; the global Item ID 12333 → Black Heart override has been removed. Equip, Card, Loot and Consumables have four independent colors. The same inventory-add packet is used for monster drops and other item gains, so the notification represents inventory additions rather than a guaranteed drop source. Likewise, the Zeny balance packet does not include a transaction reason, so RoAura aggregates every positive balance change.
 
+Aggregation is a sliding quiet interval: each incoming EXP, item or Zeny event renews its group window. A longer quiet gap starts a new burst.
+
 ## Presets
 
-Enter a separate name and click `Create new`. The list contains only saved snapshots. Selecting a preset immediately applies the complete snapshot without restarting: cooldowns, effects, reminders, equipment, timers, panel layouts, statistics, Gold Goblin and database settings. `Load` reapplies the selected snapshot. The previous working configuration is preserved in `Recovery`. Transient notifications and session counters are cleared. Files are stored locally at `%APPDATA%\RoAura\Profiles\<preset name>.json`. `Update selected` is the only operation that can replace an existing preset; it requires confirmation and creates a backup first. `Delete` backs up and removes the snapshot without changing the current working settings. Autosave writes only to `settings.json` and never to `Profiles`.
+Enter a separate name and click `Create new`. The list contains only saved snapshots. Selecting a preset immediately applies the complete snapshot without restarting: cooldowns, effects, reminders, equipment, timers, panel layouts, statistics, Gold Goblin and database settings. `Load` reapplies the selected snapshot. The previous working configuration is preserved in `Recovery`. Transient notifications clear; local histories are stored separately from presets. Files are stored locally at `%APPDATA%\RoAura\Profiles\<preset name>.json`. `Update selected` is the only operation that can replace an existing preset; it requires confirmation and creates a backup first. `Delete` backs up and removes the snapshot without changing the current working settings. Autosave writes only to `settings.json` and never to `Profiles`.
 
-The statistics panel provides three independent indicators: `XP per hour`, `Time to level`, and `Zeny per hour`. Each has its own enable flag, group, X/Y, text size/color, opacity and mouse placement mode. Move an indicator individually or move every indicator with the same group number. `Refresh every, sec` controls the update period from 1 to 60 seconds; the default is 5 seconds to avoid constantly changing text. Rates start with the first matching event in the current session; time to level becomes available after the server supplies current EXP and the level requirement.
+Statistics provides XP/h, Base/Job ETA, Zeny/h, Zeny Total, session time and optional Total B.XP/Total J.XP (initially disabled). Each indicator has group, X/Y, size, color, opacity and enable controls. Refresh ranges from 1–60 seconds, default 5. ETA requires current EXP and the level requirement from the server.
 
-`Reset session` clears accumulated EXP/Zeny and elapsed calculation time. The next EXP or Zeny gain starts a fresh session, so a long idle period no longer has to dilute the rates. Current EXP, level requirement, AID and packet capture remain intact. `Reset AID` still performs a full network-session and statistics reset.
+Start, Pause and full Reset use the shared Gold Goblin session operation described above. Reset retains level progress, AID and capture settings; the first Zeny gain after the boundary is counted.
 
 The `Short names` and `READY label` toggles are located inside Cooldowns because they affect cooldown icons only.
 
@@ -158,11 +180,13 @@ Install .NET 8 SDK and run:
 powershell -ExecutionPolicy Bypass -File .\build-release.ps1
 ```
 
-Output: `artifacts\RoAura-2.14.0-portable.zip`. Install Inno Setup 6 and run `build-installer.ps1` for Setup.
+Output: `artifacts\RoAura-3.4.0-portable.zip`. Install Inno Setup 6 and run `build-installer.ps1` for Setup.
 
 Links: https://twitch.tv/im_alerion · http://discord.gg/aleriontv · https://www.donationalerts.com/r/im_alerion · https://rtm-refuge.online
 
 ### SpringRO Market tracking
+
+When adding a rule, Ignore current offers establishes a silent baseline on the first successful full scan, then alerts on new offers. All history shows item names across the watchlist while preserving the selected rule editor.
 
 Click ★ on an item result or its details, enter a maximum whole-Zeny price or select Any price, then click Add. A semi-transparent star means tracking is off; a dark-blue star means it is on. Click again to stop tracking.
 
@@ -191,3 +215,6 @@ F6 opens the quest browser; F5 toggles the compact tracker. Catalog entries requ
 ## Light and dark appearance
 
 Settings → Appearance independently selects the application theme and the game-window theme (Follow application / Light / Dark). Changes apply immediately. Custom transparent HUD colors, opacity and positions are preserved.
+
+
+Release builds use `%APPDATA%\RoAura` and `%LOCALAPPDATA%\RoAura`; development builds use separate `RoAura-Dev` folders. Test configuration/history is not automatically migrated into release storage. Close the previous process before updating; packages contain no personal data.

@@ -1,59 +1,36 @@
-# Unreleased — interface layout mode and MVP hover
-
-- MVP maps open when hovering the entire timer row again, with the magnifier retained.
-- New configurable Interface layout mode hotkey shows labelled group/section grips for moving all overlay families. Whole groups move together; quiet panels have temporary previews. Repeating the hotkey or finishing saves positions and removes the editor without stealing game focus.
-
-# Unreleased — shared sessions and interface controls
-
-- Shared complete session Start/Reset in Statistics and Gold Goblin, with preserved session history and immediate display refresh. Statistics gains Start, and Start gains an optional hotkey.
-- Gold Goblin can exclude direct Zeny income from the session income calculation.
-- Table content centers vertically; horizontal alignment is retained.
-- MVP minimaps open only from the magnifier beside the boss name.
-- Settings opens Basic before Appearance; hotkeys are grouped by feature.
-
-# Unreleased — MVP location panel layout
-
-The application's timer editor places compact location cards beside the marker minimap. The map scales down for narrower windows.
-
-# Unreleased — MVP maps and history correction
-
-- MVP minimaps are bundled for offline display and share a persistent image cache. Loading, missing and unselected states are distinct; retry does not require changing a location.
-- First-map selection also applies when catalog details populate existing timers. Restart starts a full interval from now.
-- Item names are shown in the Database's all-item tracking history; the mistaken Gold Goblin session-summary column is removed.
-
-# Unreleased — MVP form refinement
-
-Rounded draggable MVP form; bordered empty-map help; content-click search with stable text input; first-map selection; corrected timer placement; visible hotkey unassignment; item names in tracking history (corrected below).
-
-# Unreleased — interface feedback
-
-- Selectable respawn cards, compact MVP form and repeated-key close; map hover avoids timer text.
-- All-item market history; separate session-loot window with Open/double-click and a Character heading.
-- Keyboard capture for arbitrary hotkeys/modifier chords; persistent character-manager removal without deleting history.
-- Fixed Gold Goblin button overlap, removed CSV and corrected dark reminder selection cards.
-
-# Unreleased — farming sessions and MVP tools
-
-Development branch only; stable release remains 3.3.0.
+# RoAura 3.4.0
 
 ## Русский
 
-- В статистике доступны отдельные Total B.XP и Total J.XP: суммарный базовый и профессиональный опыт текущей сессии. По умолчанию новые индикаторы выключены.
-- Статистика и Gold Goblin используют общую паузу по персонажу: время и новые поступления не учитываются во время паузы. Клавиша по умолчанию — Pause; изменяется в настройках.
-- Print Screen и Win+Shift+S проходят через перехватчик клавиатуры, в том числе при открытых окнах базы и квестов.
-- Опыт и добыча продлевают общий интервал объединения уведомлений своей группы после каждого поступления.
-- Правила Gold Goblin получили «Не учитывать»; исключённые предметы не увеличивают учитываемое количество и стоимость.
-- При добавлении отслеживания маркета можно выбрать «Не уведомлять о текущих предложениях». Первый успешный полный скан после включения формирует базу предложений без уведомления; после него уведомляются новые подходящие лоты.
-- История сессий Gold Goblin хранится локально. Во вкладке доступны дата, длительность активного времени, персонаж, количество, прямой доход Zeny и стоимость добычи; подробности выбранной сессии открываются отдельным окном. Цены фиксируются при получении предметов, независимо от будущих обновлений маркета. Удаление сессии удаляет её файл.
-- Для MVP можно выбрать локацию и отметить место убийства на карте. При наведении на строку таймера появляется карта с отметкой. Добавление таймера в игре открывается по F4 или выбранной клавише; после закрытия фокус возвращается клиенту игры.
+- **Общие фарм-сессии.** Статистика и Gold Goblin используют единые начало, паузу и полный сброс сессии. Сбрасываются опыт, добыча, Zeny, активное время и текущие уведомления; завершённая история, общие накопления персонажа и правила цен сохраняются. Начало запускает часы сразу, сброс ждёт следующего получения опыта. Пауза исключает время и поступления, сохраняя актуальный баланс для возобновления.
+- **Статистика.** Добавлены включаемые `Total B.XP` и `Total J.XP`. Начало сессии доступно в обеих вкладках и отдельным настраиваемым хоткеем. Уведомления объединяются по скользящему интервалу: каждое новое поступление продлевает время объединения группы.
+- **Gold Goblin.** В правилах цен есть «Не учитывать», а в настройках расчёта — «Не учитывать получение Zeny». Последняя опция исключает все прямые положительные изменения баланса из Total/h независимо от оценки лута; фактический баланс и история сохраняются. История сессий показывает персонажа, дату, длительность, количество предметов, Zeny и стоимость добычи. Подробности открываются кнопкой или двойным щелчком в отдельном окне; цены зафиксированы при получении предмета. Удаление сессии удаляет её локальный файл. Экспорт CSV убран.
+- **Отслеживание маркета.** Опция «Не уведомлять о текущих предложениях» запоминает предложения первым успешным полным сканом после добавления правила и оставляет уведомления для новых лотов. Общая история показывает название предмета; переход между общей историей и выбранным предметом сохраняет редактор правила.
+- **MVP.** Выбираемые локации с исходными интервалами респавна, мини-карты и отметка места убийства. Первая доступная карта выбирается автоматически; все 53 карты поддерживаемых каталогов включены в пакет для работы без сети. Наведение на всю строку игрового таймера открывает карту с отметкой; лупа сохранена. Перезапуск начинает полный интервал от текущего времени, историческое время применяется отдельной кнопкой. F4 по умолчанию открывает компактную форму добавления таймера в игре; повторное нажатие закрывает её, положение формы сохраняется.
+- **Режим настройки интерфейса.** Отдельный хоткей включает подписи разделов/групп и ручки ⋮⋮. Группы оверлеев перемещаются целиком с сохранением расстояний; MVP, квестовый трекер и уведомления маркета — по разделам. Неактивные панели имеют временные образцы. Повторный хоткей или клавиша завершения сохраняют положения и закрывают режим с сохранением фокуса игры. Хоткей по умолчанию не назначен: «Настройки → Горячие клавиши → Основное».
+- **Горячие клавиши и интерфейс.** Назначение нажатием любой поддерживаемой клавиши или сочетания, сброс в «Не назначена», проверка конфликтов и группировка по разделам. Print Screen, модификаторы и Win+Shift+S не блокируются. «Основное» — первая вкладка настроек, «Оформление» — вторая; текст таблиц центрирован по высоте. Исправлены тёмные карточки напоминаний, расположение действий Gold Goblin и компактное размещение локаций/карты MVP. Персонажа можно удалить из менеджера с сохранением локальных историй и ограничений привязанных оверлеев.
 
-Исторические цены записываются начиная с этой сборки: старую добычу нельзя восстановить по нынешним котировкам. Изображения карт требуют сети; неизвестные карты не подменяются. Реальный игровой клиент, Print Screen и смешанный DPI требуют ручной проверки.
+### Обновление
+
+Полностью закройте прежнюю RoAura и установите `RoAura-3.4.0-Setup.exe` либо распакуйте `RoAura-3.4.0-portable.zip` в отдельную папку. Настройки и пресеты релизной версии остаются в `%APPDATA%\RoAura`; локальные данные — в `%LOCALAPPDATA%\RoAura`, история фарм-сессий — в `GoldGoblinSessions`. Запускайте RoAura до входа на персонажа; если запустили позже, выполните relog для определения CID и исходного баланса.
+
+Development-сборки используют отдельные папки `RoAura-Dev`. Автоматического переноса их настроек и историй в релизное хранилище нет. Личные данные не включены в архивы и не заменяются установщиком.
+
+Для пакетных функций нужен Npcap. Маркет доступен для SpringRO; ToC использует локальные данные и NPC/ручные цены. Разные защищённые/fullscreen-клиенты, смена мониторов/DPI и несколько клиентов требуют проверки в соответствующем окружении. Приложение не выполняет игровые действия автоматически.
 
 ## English
 
-Optional Total B.XP/Total J.XP indicators; shared character-session pause (Pause by default); unconditional Print Screen/Windows screenshot shortcut forwarding; sliding group reward aggregation; excluded Gold Goblin price rules; an optional silent initial market baseline; local session history with pickup-time prices and file deletion; selectable MVP map markers, passive hover previews and an in-game Add timer form (F4 by default).
+- **Shared farming sessions.** Statistics and Gold Goblin share Start, Pause and complete Reset. Session EXP, loot, Zeny, active time and transient rewards clear together; completed history, character lifetime totals and price rules remain. Start runs the clock immediately, while Reset waits for the next EXP gain. Pausing excludes time and gains while keeping the balance baseline current.
+- **Statistics.** Optional `Total B.XP` and `Total J.XP`, Start on both pages and a configurable Start hotkey. Reward aggregation now uses a sliding quiet interval renewed by each incoming event in the group.
+- **Gold Goblin.** Excluded price rules and optional exclusion of direct Zeny income from Total/h, independently of loot valuation. Raw balances/history remain factual. Local session history includes character, date, duration, quantities, Zeny and loot value; Open/double-click opens separate details with pickup-time prices. Deleting a session deletes its local file. CSV export is removed.
+- **Market watchlist.** Optional silent current-offer baseline from the first successful full scan after adding the rule; subsequent new offers can alert. All-item history includes item names without losing the selected rule editor.
+- **MVP.** Selectable source locations/respawn intervals, maps and kill markers; automatic first-map selection and all 53 supported maps bundled for offline use. Hovering the complete timer row opens its map; the magnifier remains. Restart starts a full interval from now; historical kill time uses a separate Apply action. F4 opens the compact in-game Add timer form by default; repeat closes it and form placement persists.
+- **Interface layout mode.** A configurable hotkey shows section/group labels and ⋮⋮ grips. Whole groups move with their spacing retained; MVP, quest tracker and market notifications move by section. Quiet panels have transient previews. Repeat the hotkey or use Finish placement to save and exit without taking game focus. The hotkey is initially unassigned under Settings → Hotkeys → General.
+- **Controls and appearance.** Keyboard chord capture, unassignment, conflict checks and grouped hotkey settings. Print Screen, modifiers and Win+Shift+S remain forwarded. Basic precedes Appearance; table text centers vertically. Dark Reminder cards, Gold Goblin actions and compact MVP location/map layout are corrected. Character-manager deletion preserves histories and character-scope restrictions.
 
-History records prices prospectively, without reconstructing old drops from current offers. The first successful complete live market scan establishes the optional silent baseline. Map images require connectivity. Actual game, screenshot and mixed-DPI acceptance remains manual.
+Close the old process before using the Windows x64 installer or portable archive. Release settings/presets remain in `%APPDATA%\RoAura`, local data in `%LOCALAPPDATA%\RoAura`, and farming history in `GoldGoblinSessions`. Start RoAura before character login or relog to establish CID/balance. Development builds use separate `RoAura-Dev` directories and are not automatically migrated into release storage. Packages contain no personal configuration or histories.
+
+Packet features require Npcap. Market is SpringRO-only; ToC uses local data and NPC/manual valuation. Protected/fullscreen clients, physical mixed-DPI transitions and multiple clients remain environment-specific checks. RoAura does not perform gameplay automatically.
 
 # RoAura 3.3.0
 

@@ -1,5 +1,16 @@
 # Project state
 
+## Release 3.4.0 preparation — 2026-11-04
+
+- Owner accepted development 121 with “всё работает” and requested a release version. Preparing 3.4.0 in `feature/farming-sessions-mvp-tools` / PR #12 from `8f41a12217624d13976a9ebc8b3dd35ce9014d70`; functional code matches accepted `ba6b96986eb4a2ab3d11ff36c2cd84dbcce3dba1`.
+- Version/assembly/file metadata and `app.manifest` are synchronized to 3.4.0. Final RU/EN release notes, README and both guides consolidate the accepted session/history/market/MVP/layout/hotkey behavior. No new gameplay functionality or research-data update is included in release preparation.
+- Stable published version remains 3.3.0; main remains `57bfbdfad3e3b4dbb4d3ff6b6f4c86742b334b60`. Merge/tag/public release require the owner's explicit publication approval. Merging the version PR to main triggers the existing tag/release workflow; publication must be followed by verified main documentation updates.
+- Release-build Windows validation pending. Accepted development evidence remains below; exact 3.4.0 portable, installer and checksum evidence will be added after CI.
+- Release and development storage are intentionally separate (`RoAura` / `RoAura-Dev`); there is no automatic development-data migration. Existing stable settings, presets and local histories are not shipped or replaced.
+- Owner acceptance covers the tested scenario; physical mixed-DPI changes, protected/fullscreen variants, live client/character switching while dragging and prolonged/multiple-client sessions remain environment-specific manual coverage, not an automated or owner-confirmed claim.
+
+Earlier dated sections below describe development history; their “not published”/prior-build statements apply to those snapshots.
+
 ## Interface layout mode and easier MVP hover — 2026-11-04
 
 - Continuing draft PR #12 from `b1cb6cfc80dc9025c02ff84adc55c6705078c724`; stable main/version/public release are unchanged.

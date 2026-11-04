@@ -1,8 +1,13 @@
-# RoAura 3.3.0
+# RoAura 3.4.0
 
 Windows x64 overlay for Ragnarok Online. It tracks cooldowns and statuses from incoming RO packets via Npcap and displays configurable overlays.
 
-Gold Goblin calculates the value of the current SpringRO loot session using NPC sell prices, Overcharge, current Vending offers or manual price rules. The calculated value can be included in loot notifications and Zeny-per-hour statistics.
+Gold Goblin calculates the value of the current SpringRO/ToC loot session using NPC sell prices, Overcharge, current Vending offers or manual price rules. The calculated value can be included in loot notifications and Zeny-per-hour statistics.
+
+Version 3.4.0 adds shared session Start/Pause/Reset, EXP totals, local pickup-price history,
+silent existing-offer market baselines, offline MVP maps/kill markers, in-game timer creation
+and a labelled group-based interface layout editor. Hotkeys support keyboard chords and
+unassignment. See [3.4.0 release notes](docs/releases/3.4.0.md).
 
 Version 3.0 introduces the redesigned Ragnarok-inspired interface, shared rounded controls, color palettes, categorized navigation and full-settings preset switching without restarting. Ordinary overlays remain visible while editing settings, with only the area beneath RoAura excluded.
 
@@ -13,6 +18,7 @@ for migration details and the remaining manual ToC acceptance checks.
 
 ## Features
 
+- in-game ROQuestie browser and an independent compact quest tracker with local character/profile progress;
 - cooldown icons with per-state opacity, size, grouping and placement;
 - configurable icon-to-background spacing for every icon overlay, including zero-gap full fill;
 - buff/debuff appeared/disappeared notifications with independent visuals, sounds and per-group vertical queues;
@@ -26,7 +32,9 @@ for migration details and the remaining manual ToC acceptance checks.
 - separate RTM, SpringRO and ToC MVP catalogs;
 - named full-settings presets with instant switching for different characters, classes and clients;
 - SpringRO item watchlists with price conditions, customizable notifications and persistent local shop history;
-- independently configurable XP/hour, time-to-level and Zeny/hour overlay indicators;
+- configurable session EXP totals, XP/hour, time-to-level, Zeny totals/rates and shared Start/Pause/Reset;
+- local farming history with pickup-time prices and optional direct-Zeny/price-rule exclusion;
+- labelled group/section layout grips, passive MVP map previews and an in-game Add timer form;
 - individual and group dragging, with a configurable completion key;
 - configurable global settings, overlay and placement hotkeys without Windows key reservation;
 - Russian and English interface;
