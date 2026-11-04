@@ -372,6 +372,7 @@ internal static class QuestInputSmoke
                 hook.SetKeyboardBlocked(false);
                 ShowWindow(game,6);await Pause();host.RefreshNow();
                 if(host.TextWindow.IsVisible || host.BrowserShowing)throw new InvalidOperationException("Quest surfaces remained above a minimized game.");
+                await CaptureMvpLocationLayout((MainWindow)settingsWindow,workspace.Settings);
                 DebugLog.Write("QUEST INPUT SMOKE: cross-process clicks, transparent margins/text, keyboard/modifiers, independent keys, global mask, settings occlusion and resize passed.");
             }
             finally {host.KeyboardModeChanged-=KeyboardMode;hook.SetKeyboardBlocked(false);host.HideBrowser(false);}
@@ -381,6 +382,48 @@ internal static class QuestInputSmoke
         {
             workspace.Settings.AllowedProcesses=original;setProcesses(string.Join(", ",original));
             if(!process.HasExited) {process.CloseMainWindow();if(!process.WaitForExit(2000)){process.Kill(true);process.WaitForExit();}}
+        }
+    }
+    private static async Task CaptureMvpLocationLayout(MainWindow main,AppSettings settings)
+    {
+        var monster=MonsterCatalogService.Load(GameDatabaseVersion.SpringRo).First(monster=>monster.Id==1039);
+        var timer=new MvpTimer {MonsterId=monster.Id,Name=monster.Name};
+        timer.SetMonsterDetails(monster);
+        var oldWidth=main.Width;var oldHeight=main.Height;var oldLeft=main.Left;var oldTop=main.Top;
+        var oldTheme=settings.ApplicationTheme;var oldTab=main.MainTabs.SelectedItem;var oldTimer=main.MvpTimersGrid.SelectedItem;
+        try
+        {
+            settings.ActiveMvpTimers.Add(timer);main.MvpNavButton.IsChecked=true;main.MvpTimersGrid.SelectedItem=timer;
+            main.WindowState=WindowState.Normal;main.Left=20;main.Top=20;main.Show();main.Activate();
+            foreach(var size in new[]{(Width:1420d,Height:920d,Theme:"Light",Name:"mvp-locations-wide"),
+                                      (Width:main.MinWidth,Height:main.MinHeight,Theme:"Dark",Name:"mvp-locations-minimum")})
+            {
+                settings.ApplicationTheme=size.Theme;main.Width=size.Width;main.Height=size.Height;
+                await Pause();main.UpdateLayout();main.MvpLocationPanel.BringIntoView();await Pause();
+                var cards=main.MvpLocationCards;var map=main.MvpLocationMap;
+                await Until(()=>map.IsMapReady,"application MVP map ready");
+                if(cards.Items.Count>1)
+                {
+                    var card=(ListBoxItem)cards.ItemContainerGenerator.ContainerFromIndex(1);
+                    Click(card.PointToScreen(new Point(card.ActualWidth/2,card.ActualHeight/2)));
+                    await Until(()=>map.IsMapReady && map.DisplayedMapCode==timer.RespawnHints[1].Code,"application MVP location switch");
+                }
+                var leftEdge=cards.PointToScreen(new Point(cards.ActualWidth,0));
+                var mapOrigin=map.PointToScreen(new Point());
+                var mapEnd=map.PointToScreen(new Point(map.ActualWidth,map.ActualHeight));
+                var panelEnd=main.MvpLocationPanel.PointToScreen(new Point(main.MvpLocationPanel.ActualWidth,main.MvpLocationPanel.ActualHeight));
+                if(leftEdge.X>=mapOrigin.X || mapEnd.X>panelEnd.X+1)
+                    throw new InvalidOperationException("MVP location cards overlap or clip the map.");
+                timer.ClearMarker();
+                Click(map.PointToScreen(new Point(map.ActualWidth/2,map.ActualHeight/2)));
+                await Until(()=>timer.MarkerX.HasValue && timer.MarkerY.HasValue,"application MVP map marker click");
+                await Pause();SaveDesktop(main,size.Name);
+            }
+        }
+        finally
+        {
+            settings.ActiveMvpTimers.Remove(timer);main.MvpTimersGrid.SelectedItem=oldTimer;main.MainTabs.SelectedItem=oldTab;
+            main.Width=oldWidth;main.Height=oldHeight;main.Left=oldLeft;main.Top=oldTop;settings.ApplicationTheme=oldTheme;main.Hide();
         }
     }
     private static IEnumerable<T> Descendants<T>(DependencyObject root) where T:DependencyObject

@@ -1,5 +1,12 @@
 # Project state
 
+## MVP location panel layout — 2026-11-04
+
+- Continuing PR #12 from `017ef1089b27dac5d25a1d37ee23823ad16b5eb8`.
+- The application's timer editor shows compact selectable location cards on the left and the marker minimap on the right in the same block. The image scales down with the available width; long card names wrap.
+- Validation pending: inspect the actual application at normal/minimum window dimensions and both themes; verify location selection and scaled map marker clicks.
+
+
 ## MVP map/restart and tracking-history correction — 2026-11-03
 
 - Continuing PR #12 from `30bec93c03b00c2e654cdbf614d898e434ca0c9b`.

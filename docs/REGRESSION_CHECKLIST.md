@@ -644,3 +644,9 @@ Automated evidence: [development 110](https://github.com/alerion08/RoAura/action
 - [ ] Gold Goblin session-summary Item column is gone and separate loot details still show names.
 
 Automated evidence: `6e51e05e7588f42471913b8fb6c0b14fd486bbf1` / [development 113](https://github.com/alerion08/RoAura/actions/runs/41662661959), 368 tests and eight ToC checks passed. Cache coalescing/persistence/retry, stale-request rejection and editor reopening are covered by tests. Native checks pass offline decoding of all 53 maps, first-map rendering without a card click and actual Restart-handler replacement of an invalid previous kill-clock draft. Independent portable inspection decoded all 53 PNGs and verified their hashes; loaded MVP raster inspected. [Installer run](https://github.com/alerion08/RoAura/actions/runs/41662671848) passed. These automated results do not mark the manual game matrix passed.
+
+## Application MVP location layout — 2026-11-04
+
+- [ ] Normal and minimum application width: location cards sit left of the map, without overlap or clipping.
+- [ ] Long location names wrap, many locations scroll, and selection updates the adjacent map.
+- [ ] Clicking the scaled map places the marker at the clicked position in both themes.

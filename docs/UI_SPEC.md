@@ -641,3 +641,7 @@ Restart always starts a complete interval from the current time. Exact kill-time
 Database tracking history shows Item names when All history is enabled or no item is selected; full names are available on hover. Selecting one item hides the redundant name column. Gold Goblin session summaries retain their original columns, with item names in the separate loot detail window.
 
 Validation: `6e51e05e7588f42471913b8fb6c0b14fd486bbf1` / [development 113](https://github.com/alerion08/RoAura/actions/runs/41662661959) passed 368 tests and native startup/input checks, including offline decoding of every bundled map, first-map painting with no location click and restarting from an invalid previous clock draft. All 53 packaged images match the manifest and decode independently. Real client/DPI acceptance remains manual.
+
+## Application MVP location layout — 2026-11-04
+
+In the application's timer editor, the Location block has two columns: narrower selectable respawn cards on the left, marker minimap on the right. The map is at most 250 DIP wide and scales down at the minimum window width. Location names wrap and long lists scroll vertically. The in-game Add timer form keeps its existing layout.

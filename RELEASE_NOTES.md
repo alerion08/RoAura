@@ -1,3 +1,7 @@
+# Unreleased — MVP location panel layout
+
+The application's timer editor places compact location cards beside the marker minimap. The map scales down for narrower windows.
+
 # Unreleased — MVP maps and history correction
 
 - MVP minimaps are bundled for offline display and share a persistent image cache. Loading, missing and unselected states are distinct; retry does not require changing a location.
