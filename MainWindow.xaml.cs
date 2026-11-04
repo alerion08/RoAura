@@ -352,11 +352,14 @@ public partial class MainWindow : Window
 
     private void StartFarmingSession_Click(object sender, RoutedEventArgs e)
     {
-        var result = MessageBox.Show(this,
-            T("Начать новую общую сессию? Опыт, добыча, Zeny и время текущей сессии будут сброшены. Сессия сохранится в истории.",
-              "Start a new shared session? Current EXP, loot, Zeny and elapsed time will reset. The session will remain in history."),
-            T("Начать сессию", "Start session"), MessageBoxButton.YesNo, MessageBoxImage.Question);
-        if (result != MessageBoxResult.Yes) return;
+        if (Application.Current is App current && current.HasFarmingSessionData)
+        {
+            var result = MessageBox.Show(this,
+                T("Начать новую общую сессию? Опыт, добыча, Zeny и время текущей сессии будут сброшены. Сессия сохранится в истории.",
+                  "Start a new shared session? Current EXP, loot, Zeny and elapsed time will reset. The session will remain in history."),
+                T("Начать сессию", "Start session"), MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes) return;
+        }
         SaveSettings();
         if (Application.Current is not App app || !app.StartCharacterStatisticsSession())
             SetStatus(T("Сначала войдите на персонажа: общая сессия не запущена.",

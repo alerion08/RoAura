@@ -7,6 +7,7 @@
 - Start session has a configurable hotkey, initially None. Hotkeys are grouped into General, Statistics/Gold Goblin, MVP Timers, Database and ROQuestie; unassigned actions do not conflict or disable unrelated actions.
 - Gold Goblin calculation settings can exclude direct positive Zeny balance changes from Zeny Total/h while retaining raw balance tracking/history and optional loot valuation. The application cannot distinguish trades from NPC sales in an absolute-balance packet; this option excludes all direct Zeny income.
 - Shared table-cell content and headers center vertically without changing horizontal alignment. Settings opens Basic first, then Appearance. Only the magnifier immediately after an MVP name opens the passive minimap preview.
+- Manual session boundaries retain the accepted live balance, so the next Zeny gain is counted; reconnect/suspend still establish a fresh baseline.
 - Validation pending for this integration block. Actual gameplay, session reset/start across relog, direct trade/NPC sales, protected-client hover and mixed DPI remain manual acceptance. Version 3.3.0, main and published assets are unchanged.
 
 ## MVP location panel layout — 2026-11-04

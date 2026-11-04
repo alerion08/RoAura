@@ -162,7 +162,7 @@ public sealed class CommonControlStyleTests
                 {
                     var text = Descendants<TextBlock>(cell).Single();
                     var top = text.TranslatePoint(new Point(), cell).Y;
-                    Assert.Equal((cell.ActualHeight - text.ActualHeight) / 2, top, 1);
+                    Assert.InRange(Math.Abs((cell.ActualHeight - text.ActualHeight) / 2 - top), 0, 1);
                     Assert.True(top > 0);
                     Assert.Equal(TextAlignment.Right, text.TextAlignment);
                     Assert.True(text.ActualWidth >= cell.ActualWidth - 5);

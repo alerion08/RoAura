@@ -63,6 +63,8 @@ public sealed class FarmingSessionActionsTests
             var persisted = new CharacterStatisticsLedger(store);
             persisted.SwitchTo(key, now.AddHours(1));
             Assert.Empty(persisted.Snapshot(key, now.AddHours(1))!.GoldGoblinRows);
+            Assert.Equal(100, ledger.ObserveZeny(1300, now.AddMinutes(4)));
+            Assert.Equal(100, ledger.Snapshot(key, now.AddMinutes(4))!.SessionZenyGained);
         }
         finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
     }

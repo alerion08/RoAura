@@ -757,6 +757,10 @@ public partial class App : Application
 
     public bool StartCharacterStatisticsSession() => ChangeFarmingSession(startImmediately: true);
 
+    public bool HasFarmingSessionData => CurrentCharacterStatistics() is { } record &&
+        (record.SessionTimerStarted || record.SessionLoot.Count > 0 ||
+         record.GoldGoblinRows.Count > 0 || record.SessionZenyGained > 0);
+
     public bool ResetCharacterStatisticsSession() => ChangeFarmingSession(startImmediately: false);
 
     private bool ChangeFarmingSession(bool startImmediately)

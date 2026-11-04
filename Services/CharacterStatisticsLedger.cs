@@ -227,7 +227,8 @@ public sealed class CharacterStatisticsLedger
             document.SessionTimerStarted = startClock;
             _sinceUtc = nowUtc;
             document.LastUpdatedUtc = nowUtc;
-            _zeny.Reset();
+            // A session boundary clears gains, not the live balance baseline. Login/suspend
+            // still reset the tracker; the first gain after a manual start/reset must count.
             _store.Save(document.Copy());
         }
     }
