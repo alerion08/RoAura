@@ -38,8 +38,8 @@ Model choice is controlled outside the repository. Use an economical model/reaso
 
 ## Branches and releases
 
-- Release 3.4.0 is prepared in `feature/farming-sessions-mvp-tools` / PR #12 after owner acceptance of development 121. Candidate `e1603d8bff4e29a361834ed8b9f778f50d88127d` passed 382 tests and release/development Windows validation; normal portable/installer assets and checksums are verified. Until explicit publication approval and a verified release, stable main/public baseline remains 3.3.0. After publication, update this paragraph and the current summary on main through the documentation gate below.
-- `main` is the stable release branch. Current published application baseline is 3.3.0, released from `7d70b173b7c10cc4ab7ae3f268ff89cb9474e19e` through PR #10.
+- `main` is the stable release branch. Current published application baseline is **3.4.0**, tag `v3.4.0`, released from `8bceb8c81c6530af4a634d09d53321b9b4953e22` through PR #12 on 2026-11-04. [Publication validation](https://github.com/alerion08/RoAura/actions/runs/41827714651) passed 382 tests, native input/startup, installer and silent-install/payload checks. All three public assets and their SHA256 values are verified.
+- `feature/farming-sessions-mvp-tools` is merged through PR #12. Its session/history/MVP/layout work is shipped; use current main for the next task. Documentation-only post-release maintenance does not change the tagged binaries.
 - Start new implementation work from current `main` in a task-specific branch. `feature/roquestie-mvp` is merged; older redesign/integration branches and PR #5 are historical, not current development targets.
 - `research/quest-database` is independent data work; consuming a new snapshot requires explicit validation and must not silently replace released data.
 - Development or integration work must not be pushed directly to `main`.
