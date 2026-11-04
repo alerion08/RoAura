@@ -686,7 +686,10 @@ Verified on `ba6b96986eb4a2ab3d11ff36c2cd84dbcce3dba1`: [development 121](https:
 ## 3.4.0 release candidate — 2026-11-04
 
 - Owner accepted development 121 (“всё работает”); do not infer unreported environment-specific checks.
-- [ ] Verify csproj Version/AssemblyVersion/FileVersion, manifest, notes and package names at 3.4.0.
-- [ ] Full Windows tests, eight ToC checks, RU/EN/version/resource validation, native input/startup, portable and installer/silent payload validation at the candidate SHA.
-- [ ] Verify exact portable/installer SHA256 values and distribution privacy; standard build uses RoAura rather than the RoAura-Dev identity.
-- [ ] Mark PR ready after validation; publish only after explicit owner approval. Verify merge/tag, release workflow and assets, then update current documentation on main without republishing.
+- [x] Verify csproj Version/AssemblyVersion/FileVersion, manifest, notes and package names at 3.4.0.
+- [x] Full Windows tests (382, zero failures/skips), eight ToC checks, RU/EN/version/resource validation, native input/startup, portable and installer/silent payload validation at candidate `377f58008f4152ed8878987e9f5ec1f185edfff1`.
+- [x] Verify exact portable/installer SHA256 values and distribution privacy; standard build uses RoAura rather than the RoAura-Dev identity. Downloaded primary PE versions are 3.4.0.0; all 53 maps are bundled.
+- [x] PR #12 candidate is validated and prepared for review/release.
+- [ ] Publish only after explicit owner approval. Verify merge/tag, release workflow and assets, then update current documentation on main without republishing.
+
+Exact release-candidate evidence: [release validation](https://github.com/alerion08/RoAura/actions/runs/41812841074), [development validation](https://github.com/alerion08/RoAura/actions/runs/41812831968). Tested PR merge tree matches `377f58008f4152ed8878987e9f5ec1f185edfff1`. The owner accepted development 121; additional environment-specific coverage remains as listed above. Main is still 3.3.0 and publication is not performed by this preparation task.
