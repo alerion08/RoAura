@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="747" height="481" viewBox="0 0 747 481">
+  <title>RoAura — overlay captions v1.0, transparent reference 747x481</title>
+  <desc>Montserrat ExtraBold title and step digit; Montserrat Medium step description. Do not change application beneath captions.</desc>
+  <g id="header">
+    <rect x="29" y="16" width="345" height="54" rx="27" fill="#E0ECFA" stroke="#4176B8" stroke-width="2"/>
+    <path d="M59 28V55" stroke="#4176B8" stroke-width="2"/>
+    <text x="80" y="43" dominant-baseline="middle" font-family="Montserrat" font-size="22" font-weight="800" fill="#4176B8">Добавление эффекта</text>
+  </g>
+  <g id="footer">
+    <rect x="24" y="377" width="699" height="86" rx="43" fill="#E0ECFA" stroke="#4176B8" stroke-width="2"/>
+    <circle cx="81" cy="420" r="27" fill="#4275B6"/>
+    <text x="81" y="421" text-anchor="middle" dominant-baseline="middle" font-family="Montserrat" font-size="36" font-weight="800" fill="#FFFFFF">4</text>
+    <path d="M123 394V446" stroke="#4176B8" stroke-width="3"/>
+    <text x="182" y="421" dominant-baseline="middle" font-family="Montserrat" font-size="21" font-weight="500" fill="#4176B8">Нажмите на кнопку «Добавить эффект»</text>
+  </g>
+</svg>

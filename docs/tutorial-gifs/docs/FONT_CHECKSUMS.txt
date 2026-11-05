@@ -1,0 +1,2 @@
+342c39304f869bfea83aec47a8a929f3629f4cb04517498570f2208bb80b9e7a  Montserrat-ExtraBold.otf
+b34d27b8a6d78ce0d4455ac4148945735ebb85a23e9a5efc694b072f3878a8c8  Montserrat-Medium.otf

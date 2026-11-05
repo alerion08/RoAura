@@ -1,0 +1,13 @@
+{
+  "instruction_id": "add-effect",
+  "title": "Добавление эффекта",
+  "input_video": "original_roaura_recording.mp4 (not bundled; provide with --video)",
+  "steps": [
+    {"start": 0.0, "end": 1.3, "text": "Откройте раздел «Эффекты»."},
+    {"start": 1.3, "end": 3.7, "text": "Нажмите на кнопку «Добавить эффект»."},
+    {"start": 3.7, "end": 7.1, "text": "Активируйте нужный эффект в игре."},
+    {"start": 7.1, "end": 9.3, "text": "Подтвердите обнаруженный Status ID 6."},
+    {"start": 9.3, "end": 18.6, "text": "Введите название и выберите панель."},
+    {"start": 18.6, "end": 20.67, "text": "Проверьте добавленный эффект."}
+  ]
+}

@@ -1,0 +1,4 @@
+local_fonts/
+__pycache__/
+*.pyc
+output/
