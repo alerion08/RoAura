@@ -1,5 +1,9 @@
 # RoAura UI specification
 
+## Timer form controls and quest status — 2026-11-05
+
+A selector opens from the whole dropdown field. Editable search fields preserve the caret and support typing. The timer add/restart form measures all location cards in the left column and scrolls that column only when its content exceeds the available height. Quests shows a BETA badge in the sidebar and in the ROQuestie section header.
+
 ## Timers for MVPs and regular monsters — 2026-11-05
 
 **Timers** is the navigation and page title. Both creation entry points open the same form. Category **MVP** searches only MVPs and **Monsters** searches only regular entries by name/ID. A category change clears the previous selection; the location list and local sprite/map follow the selected monster. The first known map is preselected, and the confirmed map code and marker are saved per timer. Ordinary and MVP timers share the list, numbers and restart shortcuts.

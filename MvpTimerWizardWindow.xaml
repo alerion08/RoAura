@@ -31,7 +31,7 @@
             <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
             <Grid Margin="0,0,0,10">
                 <Grid.ColumnDefinitions><ColumnDefinition Width="155"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                 <StackPanel>
                     <TextBlock Text="{DynamicResource TimerCategory}" FontWeight="SemiBold"/>
                     <ComboBox x:Name="TimerKindBox" Height="32" Margin="0,4,0,0" SelectionChanged="TimerKind_SelectionChanged">
@@ -50,9 +50,19 @@
                 <TextBlock x:Name="ReferenceCatalogHint" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,6,0,0"
                            Text="{DynamicResource TimerReferenceCatalogHint}" TextWrapping="Wrap"
                            Foreground="{DynamicResource RoMutedBrush}" Visibility="Collapsed"/>
+                <TextBlock x:Name="ValidationText" Grid.Row="2" Grid.ColumnSpan="3" Margin="0,6,0,0"
+                           Foreground="{DynamicResource UiForeground_B64B55}" TextWrapping="Wrap">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value=""><Setter Property="Visibility" Value="Collapsed"/></Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </Grid>
             <Grid Grid.Row="1"><Grid.ColumnDefinitions><ColumnDefinition Width="1.08*"/><ColumnDefinition Width="18"/><ColumnDefinition Width="0.92*"/></Grid.ColumnDefinitions>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel>
+                <ScrollViewer x:Name="LocationFormScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel>
                     <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="155"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                         <TextBlock Text="{DynamicResource Name}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Column="1" Text="{Binding Draft.Name, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Style="{StaticResource FieldEditorStyle}"/>
                         <TextBlock Grid.Row="1" Text="{DynamicResource TimerMonsterId}" Style="{StaticResource FieldLabelStyle}"/><TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Draft.MonsterId, Mode=OneWay}" IsReadOnly="True" Style="{StaticResource FieldEditorStyle}"/>
@@ -64,8 +74,13 @@
                     </Grid>
                     <CheckBox Content="{DynamicResource StartTimerAfterCreate}" IsChecked="{Binding StartAfterCreate}" IsEnabled="{Binding CanStartAfterCreate}" Margin="2,14,0,0"/>
                     <TextBlock Text="{DynamicResource MvpLocation}" FontWeight="Bold" Margin="2,12,0,6"/>
-                    <controls:MvpLocationSelector DataContext="{Binding Draft}" MaxHeight="150"/>
-                    <TextBlock x:Name="ValidationText" Foreground="{DynamicResource UiForeground_B64B55}" TextWrapping="Wrap" Margin="2,12,0,0"/>
+                    <controls:MvpLocationSelector x:Name="LocationCards" DataContext="{Binding Draft}">
+                        <controls:MvpLocationSelector.Template>
+                            <ControlTemplate TargetType="{x:Type controls:MvpLocationSelector}">
+                                <ItemsPresenter/>
+                            </ControlTemplate>
+                        </controls:MvpLocationSelector.Template>
+                    </controls:MvpLocationSelector>
                 </StackPanel></ScrollViewer>
                 <Border Grid.Column="2" Padding="14" CornerRadius="8" Background="{DynamicResource UiBackground_F8FBFF}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="1">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><StackPanel>

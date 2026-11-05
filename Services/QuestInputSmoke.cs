@@ -478,7 +478,11 @@ internal static class QuestInputSmoke
         await Until(() => wizard.MonsterBox.IsLoaded, "regular timer form loads");
         if (wizard.MonsterView.Cast<MonsterEntry>().Any(monster => !monster.IsMvp))
             throw new InvalidOperationException("The MVP category includes regular monsters.");
+        var category = wizard.TimerKindBox;
+        Click(category.PointToScreen(new Point(18, category.ActualHeight / 2)));
+        await Until(() => category.IsDropDownOpen, "timer category opens from the field body");
         wizard.TimerKindBox.SelectedIndex = 1;
+        category.IsDropDownOpen = false;
         if (wizard.MonsterView.Cast<MonsterEntry>().Any(monster => monster.IsMvp))
             throw new InvalidOperationException("The regular category includes MVPs.");
         Click(wizard.MonsterBox.PointToScreen(new Point(18, wizard.MonsterBox.ActualHeight / 2)));
@@ -667,6 +671,7 @@ internal static class QuestInputSmoke
                 timer.MarkerX=.5;timer.MarkerY=.5;
                 await Pause();SaveElement(main.MvpLocationPanel,size.Name);
             }
+            await VerifyResizableTimerLocationLayout(main);
         }
         finally
         {
@@ -674,6 +679,41 @@ internal static class QuestInputSmoke
             main.Width=oldWidth;main.Height=oldHeight;main.Left=oldLeft;main.Top=oldTop;settings.ApplicationTheme=oldTheme;main.Hide();
         }
     }
+
+    private static async Task VerifyResizableTimerLocationLayout(MainWindow owner)
+    {
+        var source = MonsterCatalogService.LoadForTimers(GameDatabaseVersion.SpringRo).Single(monster => monster.Id == 1002);
+        var monster = new MonsterEntry
+        {
+            Id = source.Id, Name = source.Name, IsMvp = false, LocalImagePath = source.LocalImagePath,
+            Spawns = source.Spawns.Take(4).ToList()
+        };
+        var wizard = new MvpTimerWizardWindow([monster]) { Owner = owner };
+        try
+        {
+            wizard.Height = wizard.MinHeight;
+            wizard.Show();
+            wizard.TimerKindBox.SelectedIndex = 1;
+            wizard.MonsterBox.SelectedItem = monster;
+            var scroll = wizard.LocationFormScroll;
+            await Until(() => scroll.ScrollableHeight > 0 && wizard.LocationCards.Items.Count == 4,
+                "short timer form scrolls through all locations");
+            scroll.ScrollToEnd();
+            await Until(() => scroll.VerticalOffset >= scroll.ScrollableHeight - 1, "timer form reaches last location");
+            var lastCard = (FrameworkElement)wizard.LocationCards.ItemContainerGenerator.ContainerFromIndex(3);
+            var cursor = lastCard.PointToScreen(new Point(lastCard.ActualWidth / 2, lastCard.ActualHeight / 2));
+            SetCursorPos((int)cursor.X, (int)cursor.Y);
+            Send(new Input { Type = 0, Data = new Union { Mouse = new Mouse { Flags = 0x0800, Data = 120 } } });
+            await Until(() => scroll.VerticalOffset < scroll.ScrollableHeight - 1, "wheel over location scrolls the form");
+
+            wizard.Height = 740;
+            await Until(() => scroll.ScrollableHeight <= 1 && scroll.ComputedVerticalScrollBarVisibility == Visibility.Collapsed,
+                "tall timer form shows all locations without a scrollbar");
+            SaveDesktop(wizard, "timer-locations-tall-native");
+        }
+        finally { wizard.Close(); }
+    }
+
     private static void SaveElement(FrameworkElement element,string name)
     {
         var folder=Environment.GetEnvironmentVariable("ROAURA_QUEST_UI_SNAPSHOTS");

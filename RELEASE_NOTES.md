@@ -1,5 +1,10 @@
 # RoAura 3.4.0
 
+## Unreleased — timer form and quest section
+
+- RU: Выбор категории таймера открывается по клику на всё поле. Список локаций использует доступную высоту окна. В разделе «Квесты» появилась пометка BETA.
+- EN: The timer category dropdown opens from the whole field. The locations list uses the available window height. The Quests section now shows a BETA badge.
+
 ## Unreleased — monster timers and panel appearance
 
 - RU: Таймеры обычных монстров с выбором категории и локации в приложении и игре. Локальные спрайты и расширенный набор мини-карт, код карты в оверлее, отдельные настройки фона и обводки панели.

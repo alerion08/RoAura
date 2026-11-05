@@ -1,5 +1,11 @@
 # Regression checklist
 
+## Timer form usability and quest status — 2026-11-05
+
+- [ ] Click the text and arrow of the MVP/Monsters field. The dropdown opens from either point and the editable search still accepts input.
+- [ ] Resize the timer form vertically. All locations are reachable with one scrollbar in the left column. Wheel over a card to scroll; the scrollbar disappears when the full column fits.
+- [ ] Check the BETA badge beside Quests in the sidebar and ROQuestie in the section header in both themes.
+
 ## Mixed monster timers and panel appearance — 2026-11-05
 
 Automated evidence: [Windows run 131](https://github.com/alerion08/RoAura/actions/runs/41993544078) passed 409 tests and native startup/input on `694f57c7`. All 352 catalog maps and 1,437 sprites were bundled. The checks below cover real-client acceptance.

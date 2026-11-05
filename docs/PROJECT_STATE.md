@@ -1,5 +1,10 @@
 # Project state
 
+## Active development — timer form usability and ROQuestie beta badge, 2026-11-05
+
+- Continues `feature/muhro-packet-support`. Shared non-editable dropdowns open from the field body and arrow. The timer form uses one height-aware scrollbar for the form fields and location cards. The Quests navigation entry and ROQuestie settings header show BETA.
+- Validation pending on Windows. The native probe opens the timer category from the field body, wheels over a location in a short window and checks that a taller window shows all cards without a scrollbar.
+
 ## Active development — shared monster timers and panel appearance, 2026-11-05
 
 - Continues the numbered timer work on `feature/muhro-packet-support`. The app and in-game creation use the same MVP/Monsters category and search. Category, monster ID and chosen location are saved per timer. Both categories share full list numbering and the existing 1–12 shortcuts.

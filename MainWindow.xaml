@@ -228,7 +228,13 @@
                                 <StackPanel Orientation="Horizontal"><Image Tag="Assets/Menu/09_database.png" Style="{StaticResource NavIconStyle}"><Image.Source><MultiBinding Converter="{StaticResource NavigationIcon}"><Binding Path="Tag" RelativeSource="{RelativeSource Self}"/><Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=RadioButton}"/></MultiBinding></Image.Source></Image><TextBlock Text="{DynamicResource Database}" VerticalAlignment="Center"/></StackPanel>
                             </RadioButton>
                             <RadioButton x:Name="QuestsNavButton" Tag="10" Style="{StaticResource NavigationButtonStyle}" Checked="Navigation_Checked">
-                                <StackPanel Orientation="Horizontal"><Image Source="Assets/Menu/10_quests.png" Style="{StaticResource NavIconStyle}"/><TextBlock Text="{DynamicResource Quests}" VerticalAlignment="Center"/></StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Assets/Menu/10_quests.png" Style="{StaticResource NavIconStyle}"/>
+                                    <TextBlock Text="{DynamicResource Quests}" VerticalAlignment="Center"/>
+                                    <Border Style="{StaticResource QuestBetaBadgeStyle}">
+                                        <TextBlock Text="BETA" FontSize="10" FontWeight="SemiBold" Foreground="{DynamicResource RoBlueBrush}"/>
+                                    </Border>
+                                </StackPanel>
                             </RadioButton>
                         </StackPanel></ScrollViewer>
                         <StackPanel Grid.Row="1" Margin="9,0,9,10">

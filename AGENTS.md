@@ -61,6 +61,7 @@ A release task is NOT complete until the repository documents describe the actua
 - Target: Windows x64, .NET 8, WPF.
 - Npcap is the only external runtime dependency.
 - Preserve Russian and English localization parity.
+- Dropdowns must open when the user clicks the field body or the arrow. Use the shared ComboBox template for selectors and preserve caret placement and typing in editable search fields.
 - Preserve compatibility with existing settings and named presets.
 - Overlay windows must not steal focus or block Alt, Ctrl or Shift.
 - Do not restore cross-process ownership through `GWL_HWNDPARENT`.
