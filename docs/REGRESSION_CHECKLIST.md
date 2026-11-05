@@ -2,6 +2,8 @@
 
 ## Numbered MVP shortcuts and generic statistics — 2026-11-05
 
+Automated evidence: [Windows run 127](https://github.com/alerion08/RoAura/actions/runs/41964880912), tested source `4d15d2b0`: 408 tests and native startup/input passed, including slots 1/12, cancel/confirm, marker placement, focus and keypress timestamp. The boxes below remain real-client acceptance; automated windows do not establish live MuhRO traffic or fullscreen/DPI behavior.
+
 - [ ] Timers 1–12 in Settings match the numbers in the complete application/overlay list. A stopped/disabled timer keeps its slot; completion and hiding do not move other bindings. Extra timers beyond twelve remain usable without indexed shortcuts.
 - [ ] Assign/clear/reassign arbitrary exact chords for slots 1 and 12. Existing F8/F9/Add/quest/layout shortcuts keep priority. Duplicate indexed bindings are disabled and conflicts are shown. Settings/presets preserve all twelve values; old settings default to None.
 - [ ] A restart hotkey preloads the correct name/ID/interval/map and sound settings, sets kill time to keypress, and clears the old marker. Place a marker, wait, confirm: count/ID/object stay the same and the deadline uses keypress rather than confirmation. Repeat across midnight and with a custom timer absent from the current reference catalog.
