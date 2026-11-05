@@ -21,6 +21,9 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
     private MonsterEntry? _selectedMonster;
     private TextBox? _monsterEditor;
     private bool _suppressMonsterTextChanged;
+    private readonly DateTime? _restartAtUtc;
+    private readonly string? _initialKillClock;
+    public bool IsRestart => _restartAtUtc.HasValue;
 
     public bool IsDragging { get; private set; }
     public event Action? PositionChangedByUser;
@@ -36,7 +39,7 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
     }
 
     public ICollectionView MonsterView { get; }
-    public MvpTimer Draft { get; } = new();
+    public MvpTimer Draft { get; }
     public MvpTimer? CreatedTimer { get; private set; }
     public MonsterEntry? SelectedMonster
     {
@@ -82,13 +85,32 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
         }
     }
 
-    public MvpTimerWizardWindow(IEnumerable<MonsterEntry> monsters)
+    public MvpTimerWizardWindow(IEnumerable<MonsterEntry> monsters, MvpTimer? restartSource = null, DateTime? killedAtUtc = null)
     {
+        _restartAtUtc = restartSource is null ? null : killedAtUtc ?? DateTime.UtcNow;
+        Draft = restartSource?.CreateRestartDraft(_restartAtUtc!.Value) ?? new MvpTimer();
         InitializeComponent();
         MonsterBox.AddHandler(UIElement.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(MonsterBox_PreviewMouseLeftButtonDown), true);
         _monsters = new ObservableCollection<MonsterEntry>(monsters);
+        if (restartSource is not null && !_monsters.Any(monster => monster.Id == restartSource.MonsterId))
+            _monsters.Add(new MonsterEntry { Id = restartSource.MonsterId, Name = restartSource.Name,
+                ImageUrl = restartSource.MonsterImagePath, Spawns = restartSource.RespawnHints.ToList() });
         MonsterView = CollectionViewSource.GetDefaultView(_monsters);
         DataContext = this;
+        if (restartSource is not null)
+        {
+            UseExactKillTime = true;
+            KillTimeText = _initialKillClock = _restartAtUtc!.Value.ToLocalTime().ToString("HH:mm:ss");
+            _suppressMonsterTextChanged = true;
+            try
+            {
+                SelectedMonster = _monsters.FirstOrDefault(monster => monster.Id == restartSource.MonsterId);
+                MonsterBox.SelectedItem = SelectedMonster;
+            }
+            finally { _suppressMonsterTextChanged = false; }
+            ConfirmButton.SetResourceReference(ContentControl.ContentProperty, "Restart");
+            SetResourceReference(TitleProperty, "RestartMvpTimer");
+        }
         Width = 800; Height = 540;
     }
 
@@ -183,14 +205,20 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
 
     private void Create_Click(object sender, RoutedEventArgs e)
     {
-        if (Draft.MonsterId <= 0 || (_monsterEditor is not null && SelectedMonster is not null &&
+        if ((!IsRestart && Draft.MonsterId <= 0) || (_monsterEditor is not null && SelectedMonster is not null &&
             _monsterEditor.Text != SelectedMonster.DisplayName))
         {
             ValidationText.Text = LocalizationService.Get("ChooseMvpRequired");
             return;
         }
 
-        if (UseExactKillTime)
+        if (IsRestart && (!UseExactKillTime || KillTimeText == _initialKillClock))
+        {
+            // Preserve the complete keypress timestamp, including its date.
+            // Waiting for a marker or crossing midnight must not shift the kill.
+            Draft.StartFromKillTime(_restartAtUtc!.Value);
+        }
+        else if (UseExactKillTime)
         {
             if (!TimeSpan.TryParse(KillTimeText, out var time) || time < TimeSpan.Zero || time >= TimeSpan.FromDays(1))
             {

@@ -734,4 +734,8 @@
     <sys:String x:Key="LayoutStatistics">Статистика / Показатели</sys:String>
     <sys:String x:Key="LayoutRewards">Статистика / Уведомления</sys:String>
     <sys:String x:Key="LayoutQuestPreview">Здесь будут показаны отслеживаемые квесты.</sys:String>
+    <sys:String x:Key="MvpRestartHotkeys">Перезапуск таймеров 1–12</sys:String>
+    <sys:String x:Key="MvpRestartHotkeysHint">Номер соответствует позиции таймера в списке. Клавиша открывает заполненную форму с новым временем убийства. Поставьте маркер и подтвердите перезапуск.</sys:String>
+    <sys:String x:Key="MvpTimerNumberLabel">Таймер №</sys:String>
+    <sys:String x:Key="RestartMvpTimer">Перезапуск MVP-таймера</sys:String>
 </ResourceDictionary>

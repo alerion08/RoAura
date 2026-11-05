@@ -1,5 +1,15 @@
 # Project state
 
+## Active development — numbered MVP restart shortcuts and generic statistics, 2026-11-05
+
+- Continuing `feature/muhro-packet-support` from `2fad8d2`; the owner confirmed the MuhRO packet candidate works. This accepted branch is retained so the new work includes those fixes. Stable main/version/release remain 3.4.0; no merge/tag/publication is part of this task.
+- The previous Windows development run [124](https://github.com/alerion08/RoAura/actions/runs/41862181503) has now completed successfully, including full Windows tests, native startup/input, resources and isolated portable packaging. The earlier queued record below describes the handoff on November 4.
+- Timers show one-based numbers in both application list and overlay. Numbers use complete current-profile list order, including stopped/disabled timers; completion/visibility never retargets a shortcut. Deleting/reordering rows updates numbers; timer count is not limited to twelve.
+- Settings → Hotkeys → MVP Timers exposes twelve optional restart chords (all None by default). Existing actions keep priority; duplicated indexed chords are inactive and the common conflict warning includes them. Settings/presets retain the bindings without a schema/version bump.
+- A numbered shortcut opens an independent restart draft with the same ID/name/MVP/interval/location/sound settings, a cleared marker and the complete keypress timestamp. Confirmation updates the same timer object; cancel/repeated shortcut does not commit. Midnight and time spent marking cannot shift the original timestamp. Different-slot presses switch drafts; server/client/preset changes close the form, and removed targets cannot be recreated by confirmation.
+- Statistics navigation, reward notifications and rate HUD now depend on packet availability rather than server databases, including MuhRO and Other. Manual MVP timers likewise work without a server catalog gate; database/market availability remains server-specific. Existing selected reference catalogs and timer collections are retained; no MuhRO database or automatic data migration is introduced.
+- Validation: local Windows cross-compilation and XAML/localization checks passed. Focused model/settings/hotkey/availability tests and native slot 1/12 marker/confirm/cancel/focus probes are included; full Windows execution and isolated portable packaging pending this block's CI. Real Ragnarok hotkeys, fullscreen/mixed DPI and live MuhRO statistics remain manual acceptance.
+
 ## Active development — MuhRO packet support, 2026-11-04
 
 - Branch `feature/muhro-packet-support`, based on current main `64f6b20`. Published 3.4.0, main, version metadata and released assets are unchanged. No merge/tag/release is authorized by this task.

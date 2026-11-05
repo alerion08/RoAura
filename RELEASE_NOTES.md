@@ -1,5 +1,10 @@
 # RoAura 3.4.0
 
+## Unreleased — numbered MVP shortcuts and statistics
+
+- RU: Таймеры MVP пронумерованы в приложении и оверлее. Добавлены до 12 горячих клавиш перезапуска с заполненной формой, новым временем убийства и выбором маркера. Восстановлена статистика и её оверлеи в MuhRO; статистика больше не зависит от серверной базы. Ручные MVP-таймеры доступны во всех профилях.
+- EN: Numbered MVP timers in the application and overlay. Added up to 12 restart shortcuts with a prefilled form, new kill time and marker selection. Restored MuhRO statistics and its overlays; statistics no longer depends on server databases. Manual MVP timers are available in every profile.
+
 ## Unreleased — MuhRO test branch
 
 - RU: Добавлен профиль MuhRO для кулдаунов, эффектов, напоминаний и экипировки. Исправлены обработка статусов в этом профиле, сообщение об отсутствии списка инвентаря, привязка экипировки после переподключения и выбор игрового соединения вместо HTTPS. Добавлена ограниченная диагностика обучения ID.

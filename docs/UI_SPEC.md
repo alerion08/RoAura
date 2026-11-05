@@ -16,7 +16,7 @@ This document records current product-level UI behavior. It is intentionally com
 
 ## MuhRO packet profile — development branch
 
-MuhRO is selectable in the header/server settings and character manager. It enables cooldowns, effects, reminders and equipment with the Home packet switch. `Muh` is added to the permitted game processes without replacing user entries. MuhRO does not expose another server's catalog/market as its own. With an empty item cache, equipment learning stops with the existing RU/EN relog-then-retry explanation; login snapshots do not assign a tracker. Other server selections and existing settings remain unchanged.
+MuhRO is selectable in the header/server settings and character manager. It enables cooldowns, effects, reminders and equipment with the Home packet switch. `Muh` is added to the permitted game processes without replacing user entries. Statistics and its reward/rate overlays are available for every server profile when packet reading is on. Manual MVP timers are available independently of packet/server support. MuhRO does not expose another server's database/market as its own. With an empty item cache, equipment learning stops with the existing RU/EN relog-then-retry explanation; login snapshots do not assign a tracker. Other server selections and existing settings remain unchanged.
 
 ## General interface
 
@@ -114,7 +114,9 @@ MuhRO is selectable in the header/server settings and character manager. It enab
 ## MVP Timers
 
 - Timers use the searchable catalog for the selected server; ToC uses its compact SQLite snapshot. ToC intervals are not supplied by the source and must be entered manually. ToC timers are saved separately from legacy server timers.
-- Restart/reset behavior, dedicated hotkey and movable list remain available.
+- Restart/reset behavior, dedicated hotkey and movable list remain available. Manual timers and their overlay are available for all profiles, including MuhRO and Other, independent of packet reading.
+- List/overlay numbers follow the full active collection order, including disabled/stopped rows. Numbers do not shift on completion or hiding; deleting/reordering a row changes subsequent list positions. More than twelve timers remain allowed.
+- Settings → Hotkeys → MVP Timers includes an expandable set of twelve optional restart shortcuts (None by default). A numbered shortcut opens the existing form prefilled from that timer, with a new exact keypress kill time and no old marker. Place the new marker and confirm Restart to update the same timer; Cancel/repeated shortcut commits nothing. Unassigned/empty slots do nothing; conflicts preserve older shortcuts and disable duplicate indexed bindings.
 - Custom user names must not be replaced by database names after refresh.
 - Empty or unselected rows must be handled safely.
 
@@ -186,7 +188,7 @@ preference, stops/starts workers, cancels learning and invalidates old flow stat
 It does not delete configured overlays, rules, timers, saved history or positions.
 Cooldowns, Effects/Buff Panel, Reminder, Equipment, Statistics and Gold Goblin
 become unavailable while off. Database and manual MVP timers do not require packet
-reading and remain available where the server supports them. SpringRO HTTP Market
+reading. Manual MVP timers are available in every profile; database availability remains server-specific. SpringRO HTTP Market
 is also independent. Re-enabling restores navigation; verified character statistics
 need a fresh observed login rather than reusing the previous CID.
 

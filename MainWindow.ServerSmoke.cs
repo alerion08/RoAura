@@ -30,14 +30,21 @@ public partial class MainWindow
             if (PacketFeaturesToggle.IsChecked != false)
                 throw new InvalidOperationException("Home packet toggle binding is incorrect.");
             ServerProfileBox.SelectedValue = GameServerProfile.Other;
-            if (DatabaseNavButton.IsEnabled || MvpNavButton.IsEnabled || DatabaseNavButton.Visibility != Visibility.Visible)
+            if (DatabaseNavButton.IsEnabled || !MvpNavButton.IsEnabled || LootNavButton.IsEnabled || DatabaseNavButton.Visibility != Visibility.Visible)
                 throw new InvalidOperationException("Unsupported-server navigation is incorrect.");
             ServerProfileBox.SelectedValue = GameServerProfile.MuhRo;
             Settings.PacketCaptureEnabled = true;
             if (Settings.ServerProfile != GameServerProfile.MuhRo || !EffectsNavButton.IsEnabled ||
-                !CooldownNavButton.IsEnabled || !EquipmentNavButton.IsEnabled || DatabaseNavButton.IsEnabled ||
+                !CooldownNavButton.IsEnabled || !EquipmentNavButton.IsEnabled || !LootNavButton.IsEnabled ||
+                !MvpNavButton.IsEnabled || DatabaseNavButton.IsEnabled ||
                 !Settings.AllowedProcesses.Contains("Muh", StringComparer.OrdinalIgnoreCase))
                 throw new InvalidOperationException("MuhRO packet profile or client discovery is incorrect.");
+            if (((FrameworkElement)_overlay.FindName("RateIndicatorsPanel")).Visibility != Visibility.Visible ||
+                ((FrameworkElement)_overlay.FindName("RewardGroupsPanel")).Visibility != Visibility.Visible)
+                throw new InvalidOperationException("MuhRO statistics overlays are hidden.");
+            Settings.PacketCaptureEnabled = false;
+            if (LootNavButton.IsEnabled || !MvpNavButton.IsEnabled)
+                throw new InvalidOperationException("MuhRO packet gate must disable statistics but keep manual timers.");
             ServerProfileBox.SelectedValue = GameServerProfile.Toc;
             Settings.PacketCaptureEnabled = true;
             if (!EffectsNavButton.IsEnabled || !LootNavButton.IsEnabled || !GoldGoblinNavButton.IsEnabled)

@@ -119,7 +119,7 @@ public partial class OverlayWindow : Window
 
     public void RefreshServerProfile()
     {
-        var supported = GameServerProfile.SupportsServerDatabases(_settings.ServerProfile);
+        var supported = FeatureAvailability.CanUse(_settings.ServerProfile, _settings.PacketCaptureEnabled, AppFeature.Statistics);
         RewardGroupsPanel.Visibility = supported ? Visibility.Visible : Visibility.Collapsed;
         RateIndicatorsPanel.Visibility = supported ? Visibility.Visible : Visibility.Collapsed;
         MarketWatchPanel.Visibility = _settings.ServerProfile == GameServerProfile.SpringRo ? Visibility.Visible : Visibility.Collapsed;
@@ -522,7 +522,7 @@ public partial class OverlayWindow : Window
         long amount, double percentage, string? itemType = null, int itemId = 0)
     {
         if (!_settings.RewardsEnabled || amount <= 0 ||
-            !GameServerProfile.SupportsServerDatabases(_settings.ServerProfile)) return;
+            !FeatureAvailability.CanUse(_settings.ServerProfile, _settings.PacketCaptureEnabled, AppFeature.Statistics)) return;
         var channel = _settings.RewardChannel(kind);
         if (channel is null) return;
         _settings.SyncRewardGroups();
@@ -1050,6 +1050,7 @@ public partial class OverlayWindow : Window
         foreach (var notification in staleNotifications) _settings.ActiveNotifications.Remove(notification);
         if (staleNotifications.Count > 0) ReflowNotifications();
 
+        MvpTimerHotkeys.RefreshNumbers(_settings.ActiveMvpTimers);
         foreach (var timer in _settings.ActiveMvpTimers.Where(timer => timer.EndsAtUtc.HasValue))
         {
             var remaining = (timer.EndsAtUtc!.Value - now).TotalSeconds;
@@ -1097,7 +1098,7 @@ public partial class OverlayWindow : Window
     {
         var hasRunningTimers = _settings.ActiveMvpTimers.Any(timer => timer.IsVisible);
         MvpTimerPanel.Visibility = (_settings.TimersOverlayVisible || _layoutTimerPreview) &&
-                                   GameServerProfile.SupportsServerDatabases(_settings.ServerProfile) &&
+                                   FeatureAvailability.CanUse(_settings.ServerProfile, _settings.PacketCaptureEnabled, AppFeature.MvpTimers) &&
                                    (_timerPanelEditMode || _layoutTimerPreview || hasRunningTimers)
             ? Visibility.Visible
             : Visibility.Collapsed;

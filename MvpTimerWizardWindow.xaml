@@ -65,7 +65,7 @@
                 </Border>
             </Grid>
         </Grid>
-        <Border Grid.Row="2" Padding="18,12" Background="{DynamicResource UiBackground_FFFFFF}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="0,1,0,0"><Grid><Button Content="{DynamicResource Cancel}" Click="Cancel_Click" HorizontalAlignment="Left"/><Button Content="{DynamicResource CreateMvpTimer}" Click="Create_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right"/></Grid></Border>
+        <Border Grid.Row="2" Padding="18,12" Background="{DynamicResource UiBackground_FFFFFF}" BorderBrush="{DynamicResource RoSoftBorderBrush}" BorderThickness="0,1,0,0"><Grid><Button Content="{DynamicResource Cancel}" Click="Cancel_Click" HorizontalAlignment="Left"/><Button x:Name="ConfirmButton" Content="{DynamicResource CreateMvpTimer}" Click="Create_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Right"/></Grid></Border>
     </Grid>
     </Border>
 </Window>

@@ -734,4 +734,8 @@
     <sys:String x:Key="LayoutStatistics">Statistics / Indicators</sys:String>
     <sys:String x:Key="LayoutRewards">Statistics / Notifications</sys:String>
     <sys:String x:Key="LayoutQuestPreview">Tracked quests will appear here.</sys:String>
+    <sys:String x:Key="MvpRestartHotkeys">Restart timers 1–12</sys:String>
+    <sys:String x:Key="MvpRestartHotkeysHint">Numbers follow the timer list order. Each shortcut opens a prefilled form with a new kill time. Place the marker and confirm the restart.</sys:String>
+    <sys:String x:Key="MvpTimerNumberLabel">Timer #</sys:String>
+    <sys:String x:Key="RestartMvpTimer">Restart MVP timer</sys:String>
 </ResourceDictionary>

@@ -35,6 +35,30 @@ public sealed class AppSettings : INotifyPropertyChanged
     private string _startSessionHotkey = "None";
     private string _interfaceLayoutHotkey = "None";
     private string _addMvpTimerHotkey = "F4";
+    private string _restartMvpTimer1Hotkey = "None";
+    public string RestartMvpTimer1Hotkey { get => _restartMvpTimer1Hotkey; set => Set(ref _restartMvpTimer1Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer2Hotkey = "None";
+    public string RestartMvpTimer2Hotkey { get => _restartMvpTimer2Hotkey; set => Set(ref _restartMvpTimer2Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer3Hotkey = "None";
+    public string RestartMvpTimer3Hotkey { get => _restartMvpTimer3Hotkey; set => Set(ref _restartMvpTimer3Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer4Hotkey = "None";
+    public string RestartMvpTimer4Hotkey { get => _restartMvpTimer4Hotkey; set => Set(ref _restartMvpTimer4Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer5Hotkey = "None";
+    public string RestartMvpTimer5Hotkey { get => _restartMvpTimer5Hotkey; set => Set(ref _restartMvpTimer5Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer6Hotkey = "None";
+    public string RestartMvpTimer6Hotkey { get => _restartMvpTimer6Hotkey; set => Set(ref _restartMvpTimer6Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer7Hotkey = "None";
+    public string RestartMvpTimer7Hotkey { get => _restartMvpTimer7Hotkey; set => Set(ref _restartMvpTimer7Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer8Hotkey = "None";
+    public string RestartMvpTimer8Hotkey { get => _restartMvpTimer8Hotkey; set => Set(ref _restartMvpTimer8Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer9Hotkey = "None";
+    public string RestartMvpTimer9Hotkey { get => _restartMvpTimer9Hotkey; set => Set(ref _restartMvpTimer9Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer10Hotkey = "None";
+    public string RestartMvpTimer10Hotkey { get => _restartMvpTimer10Hotkey; set => Set(ref _restartMvpTimer10Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer11Hotkey = "None";
+    public string RestartMvpTimer11Hotkey { get => _restartMvpTimer11Hotkey; set => Set(ref _restartMvpTimer11Hotkey, NormalizeHotkey(value, "None")); }
+    private string _restartMvpTimer12Hotkey = "None";
+    public string RestartMvpTimer12Hotkey { get => _restartMvpTimer12Hotkey; set => Set(ref _restartMvpTimer12Hotkey, NormalizeHotkey(value, "None")); }
     public double? MvpAddWindowX { get; set; }
     public double? MvpAddWindowY { get; set; }
     private bool _sessionPaused;
@@ -45,7 +69,7 @@ public sealed class AppSettings : INotifyPropertyChanged
     public string AddMvpTimerHotkey { get => _addMvpTimerHotkey; set => Set(ref _addMvpTimerHotkey, NormalizeHotkey(value, "F4")); }
     [JsonIgnore] public bool HotkeyConflicts => new[] { SettingsHotkey, OverlaysHotkey, FinishMoveHotkey, TimersHotkey, DatabaseHotkey,
         QuestBrowserHotkey, QuestTrackerHotkey, PauseSessionHotkey, StartSessionHotkey, AddMvpTimerHotkey, InterfaceLayoutHotkey }
-        .Where(value => Services.HotkeyChord.TryParse(value,out _)).Select(Services.HotkeyChord.Canonical).GroupBy(value=>value).Any(group=>group.Count()>1);
+        .Concat(Services.MvpTimerHotkeys.Keys(this)).Where(value => Services.HotkeyChord.TryParse(value,out _)).Select(Services.HotkeyChord.Canonical).GroupBy(value=>value).Any(group=>group.Count()>1);
     [JsonIgnore] public bool FarmingHotkeyConflict => Services.FarmingHotkeys.HasConflict(this);
     private double _marketBackgroundRefreshMinutes = 10;
     private int _marketWatchHistoryRetentionDays = 30;

@@ -1985,6 +1985,7 @@ public partial class MainWindow : Window
 
     private void RefreshMvpTimerDetails()
     {
+        MvpTimerHotkeys.RefreshNumbers(Settings.ActiveMvpTimers);
         foreach (var timer in Settings.ActiveMvpTimers)
             timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
     }

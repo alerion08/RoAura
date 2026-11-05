@@ -1,8 +1,12 @@
 # RoAura 3.4.0 — user guide
 
+## Restart MVP timers by number
+
+The application and overlay number timers in full list order. Under **Settings → Hotkeys → MVP Timers → Restart timers 1–12**, assign the desired chords. Each opens a prefilled restart form and records the kill time at keypress. Place a new marker and confirm Restart. Cancel or the repeated chord closes the draft without changes. Completion/hiding does not renumber timers; deleting a row shifts subsequent numbers. Statistics works for every server profile with packet reading enabled; manual MVP timers also work with packets disabled.
+
 ## MuhRO — test support
 
-Select **MuhRO** in server settings and enable packet reading. `Muh.exe` is added automatically. This iteration supports cooldowns, effects, reminders and equipment; a MuhRO database is not included. To learn equipment, start RoAura before character login, or relog with RoAura running. Wait for the inventory to load, then click Learn and equip the intended item. If inventory identities are unavailable, the application explains the relog/retry requirement. The test build keeps separate settings in RoAura-Dev.
+Select **MuhRO** in server settings and enable packet reading. `Muh.exe` is added automatically. This iteration supports cooldowns, effects, reminders, equipment, statistics and manual MVP timers; a MuhRO database is not included. To learn equipment, start RoAura before character login, or relog with RoAura running. Wait for the inventory to load, then click Learn and equip the intended item. If inventory identities are unavailable, the application explains the relog/retry requirement. The test build keeps separate settings in RoAura-Dev.
 
 ## Gold Goblin
 

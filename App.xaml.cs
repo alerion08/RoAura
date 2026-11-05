@@ -508,6 +508,11 @@ public partial class App : Application
             _inputHook.InterfaceLayoutPressed += () => Dispatcher.BeginInvoke(() => _settingsWindow?.ToggleInterfaceLayout());
             _inputHook.PauseSessionPressed += () => Dispatcher.BeginInvoke(() => ToggleFarmingSessionPause());
             _inputHook.AddMvpTimerPressed += () => Dispatcher.BeginInvoke(() => _settingsWindow?.AddMvpTimerInGame());
+            _inputHook.RestartMvpTimerPressed += number =>
+            {
+                var killedAtUtc = DateTime.UtcNow;
+                Dispatcher.BeginInvoke(() => _settingsWindow?.RestartMvpTimerInGame(number, killedAtUtc));
+            };
             _inputHook.ToggleDatabasePressed += ToggleDatabase;
             _inputHook.ToggleQuestBrowserPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestBrowser());
             _inputHook.ToggleQuestTrackerPressed+=()=>Dispatcher.BeginInvoke(()=>_settingsWindow?.ToggleQuestTracker());
@@ -1272,7 +1277,7 @@ public partial class App : Application
         {
             if (_settingsWindow is null) return;
             var settings = _settingsWindow.Settings;
-            if (!GameServerProfile.SupportsServerDatabases(settings.ServerProfile)) return;
+            if (!FeatureAvailability.CanUse(settings.ServerProfile, settings.PacketCaptureEnabled, AppFeature.MvpTimers)) return;
             settings.TimersOverlayVisible = !settings.TimersOverlayVisible;
             _settingsStore?.Save(settings);
             _settingsWindow.ReportTimersVisibility(settings.TimersOverlayVisible);

@@ -501,7 +501,7 @@
                                     <Setter Property="Foreground" Value="{Binding DataContext.TimersTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}"/>
                                     <Setter Property="Effect"><Setter.Value><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></Setter.Value></Setter>
                                 </Style></StackPanel.Resources>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding NumberedName}"/>
                                 <TextBlock Tag="MvpMapHover" Text="&#xE721;" FontFamily="Segoe MDL2 Assets" FontWeight="Normal" Margin="7,0,0,0" VerticalAlignment="Center"/>
                                 <TextBlock><Run Text=" — "/><Run Text="{Binding RemainingText, Mode=OneWay}"/></TextBlock>
                             </StackPanel>

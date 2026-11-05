@@ -15,14 +15,40 @@ public partial class MainWindow
     internal void AddMvpTimerInGame()
     {
         if (_gameMvpWizard is not null) { _gameMvpWizard.Close(); return; }
+        OpenMvpTimerInGame();
+    }
+
+    internal void RestartMvpTimerInGame(int number, DateTime killedAtUtc)
+    {
+        var target = MvpTimerHotkeys.Resolve(Settings, number);
+        if (target is null) return;
+        if (_gameMvpWizard is { } current)
+        {
+            var same = current.IsRestart && current.Draft.Id == target.Id;
+            var server = Settings.ServerProfile;
+            current.Close();
+            if (!same) Dispatcher.BeginInvoke(() =>
+            {
+                if (Settings.ServerProfile == server && Settings.ActiveMvpTimers.Contains(target))
+                    OpenMvpTimerInGame(target, killedAtUtc);
+            });
+            return;
+        }
+        OpenMvpTimerInGame(target, killedAtUtc);
+    }
+
+    private void OpenMvpTimerInGame(MvpTimer? restartSource = null, DateTime? killedAtUtc = null)
+    {
+        if (_gameMvpWizard is not null || (restartSource is not null && !Settings.ActiveMvpTimers.Contains(restartSource))) return;
         if (!FeatureAvailability.CanUse(Settings.ServerProfile,
                 Settings.PacketCaptureEnabled, AppFeature.MvpTimers) ||
             !ForegroundProcess.TryGetForegroundAllowedBounds(Settings.AllowedProcesses, out var bounds)) return;
         var game = QuestWindowNative.GetForegroundWindow();
         var server = Settings.ServerProfile;
-        var wizard = new MvpTimerWizardWindow(_monsters)
+        var timers = Settings.ActiveMvpTimers;
+        var wizard = new MvpTimerWizardWindow(_monsters, restartSource, killedAtUtc)
         {
-            Tag = "RoAura.GameInterface", StartAfterCreate = true, WindowStyle = WindowStyle.None,
+            Tag = "RoAura.GameInterface", StartAfterCreate = restartSource is null, WindowStyle = WindowStyle.None,
             ResizeMode = ResizeMode.NoResize, AllowsTransparency = true, ShowInTaskbar = false,
             WindowStartupLocation = WindowStartupLocation.Manual, Topmost = true,
             Background = System.Windows.Media.Brushes.Transparent
@@ -33,6 +59,7 @@ public partial class MainWindow
         void Place()
         {
             if (!QuestWindowNative.IsWindow(game) || Settings.ServerProfile != server ||
+                !ReferenceEquals(Settings.ActiveMvpTimers, timers) || (restartSource is not null && !timers.Contains(restartSource)) ||
                 !ForegroundProcess.TryFindWindow(Settings.AllowedProcesses, out var current, out var rectangle) || current != game)
             { wizard.Close(); return; }
             if (wizard.IsDragging) return;
@@ -66,10 +93,21 @@ public partial class MainWindow
         };
         try
         {
-            if (wizard.ShowDialog() == true && wizard.CreatedTimer is { } timer && Settings.ServerProfile == server)
+            if (wizard.ShowDialog() == true && wizard.CreatedTimer is { } timer && Settings.ServerProfile == server &&
+                ReferenceEquals(Settings.ActiveMvpTimers, timers))
             {
-                timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
-                Settings.ActiveMvpTimers.Add(timer); SaveSettings();
+                if (restartSource is not null)
+                {
+                    if (!timers.Contains(restartSource)) return;
+                    restartSource.ApplyRestartDraft(timer);
+                }
+                else
+                {
+                    timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
+                    timers.Add(timer);
+                }
+                MvpTimerHotkeys.RefreshNumbers(timers);
+                SaveSettings();
             }
         }
         finally

@@ -48,6 +48,11 @@ internal static class QuestInputSmoke
             var startSessionPresses=0;hook.StartSessionPressed+=()=>Interlocked.Increment(ref startSessionPresses);
             hook.InterfaceLayoutPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).ToggleInterfaceLayout());
             hook.AddMvpTimerPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).AddMvpTimerInGame());
+            hook.RestartMvpTimerPressed+=number=>
+            {
+                var killedAt = DateTime.UtcNow;
+                settingsWindow.Dispatcher.BeginInvoke(()=>((MainWindow)settingsWindow).RestartMvpTimerInGame(number,killedAt));
+            };
             hook.EscapePressed+=()=>((App)Application.Current).ExitOverlayEditMode();
             hook.ToggleOverlaysPressed+=()=>settingsWindow.Dispatcher.BeginInvoke(()=>host.SetGlobalVisible(!host.GlobalVisible));
             void KeyboardMode()=>hook.SetKeyboardBlocked(host.BrowserRequested && host.BrowserShowing);
@@ -315,6 +320,7 @@ internal static class QuestInputSmoke
                     if(restarted.KilledAtUtc<restartAt || restarted.RemainingSeconds<restarted.DurationMinutes*60-2)
                         throw new InvalidOperationException("Restart reused an old/invalid kill-clock draft.");
                     DebugLog.Write("MVP RESTART PASS: existing kill-clock draft replaced with now.");
+                    await VerifyNumberedMvpRestart((MainWindow)settingsWindow,workspace.Settings,hook,game,restarted);
                     workspace.Settings.ActiveMvpTimers.RemoveAt(workspace.Settings.ActiveMvpTimers.Count-1);
                     await Press(workspace.Settings.AddMvpTimerHotkey);
                     await Until(()=>Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible), "MVP wizard reopens");
@@ -461,6 +467,77 @@ internal static class QuestInputSmoke
         }
     }
 
+    private static async Task VerifyNumberedMvpRestart(MainWindow main, AppSettings settings,
+        GlobalInputHook hook, IntPtr game, MvpTimer template)
+    {
+        var timers = settings.ActiveMvpTimers;
+        var saved = timers.ToArray();
+        var key1 = settings.RestartMvpTimer1Hotkey; var key12 = settings.RestartMvpTimer12Hotkey;
+        try
+        {
+            timers.Clear();
+            for (var i = 1; i <= 12; i++)
+            {
+                var timer = template.CreateRestartDraft(DateTime.UtcNow.AddMinutes(-20));
+                timer.Id = Guid.NewGuid(); timer.Name = $"{i} custom MVP";
+                timer.MarkerX = .2; timer.MarkerY = .3; timer.CompletionSoundEnabled = false;
+                timers.Add(timer);
+            }
+            MvpTimerHotkeys.RefreshNumbers(timers);
+            settings.RestartMvpTimer1Hotkey = "Ctrl+Shift+F11";
+            settings.RestartMvpTimer12Hotkey = "Ctrl+Alt+F12";
+            await Pause();
+            if (!hook.IsHotkeyEnabled(settings.RestartMvpTimer1Hotkey) || !hook.IsHotkeyEnabled(settings.RestartMvpTimer12Hotkey))
+                throw new InvalidOperationException("Numbered MVP shortcuts were not registered.");
+            var first = timers[0]; var originalEnd = first.EndsAtUtc;
+            QuestWindowNative.SetForegroundWindow(game);
+            await Press("F11");
+            if (main.IsMvpWizardOpen) throw new InvalidOperationException("Numbered MVP shortcut ignored modifiers.");
+            await Press(settings.RestartMvpTimer1Hotkey);
+            await Until(() => main.IsMvpWizardOpen, "numbered timer 1 opens");
+            var wizard = Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w => w.IsVisible);
+            if (!wizard.IsRestart || wizard.Draft.Id != first.Id || wizard.Draft.Name != first.Name ||
+                wizard.Draft.DurationMinutes != first.DurationMinutes || wizard.Draft.LocationCode != first.LocationCode ||
+                wizard.Draft.MarkerX is not null || wizard.Draft.MarkerY is not null || first.EndsAtUtc != originalEnd)
+                throw new InvalidOperationException("Numbered MVP draft changed or lost the original timer.");
+            await Press(settings.RestartMvpTimer1Hotkey);
+            await Until(() => !main.IsMvpWizardOpen && QuestWindowNative.GetForegroundWindow() == game, "numbered timer repeated shortcut cancels");
+            if (first.EndsAtUtc != originalEnd || first.MarkerX != .2 || first.MarkerY != .3 || timers.Count != 12)
+                throw new InvalidOperationException("Cancelled numbered MVP draft mutated a timer.");
+
+            var last = timers[11]; var pressedAfter = DateTime.UtcNow;
+            await Press(settings.RestartMvpTimer12Hotkey);
+            await Until(() => main.IsMvpWizardOpen, "numbered timer 12 opens");
+            wizard = Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w => w.IsVisible);
+            if (wizard.Draft.Id != last.Id || wizard.Draft.KilledAtUtc < pressedAfter)
+                throw new InvalidOperationException("Twelfth MVP shortcut targeted the wrong timer/time.");
+            var killedAt = wizard.Draft.KilledAtUtc;
+            var map = Descendants<RoAura.Controls.MvpMapEditor>(wizard).Single();
+            await Until(() => map.IsMapReady, "restart minimap loads");
+            var picture = (FrameworkElement)map.Content;
+            Click(picture.PointToScreen(new Point(125, 125)));
+            await Until(() => wizard.Draft.MarkerX is not null && wizard.Draft.MarkerY is not null, "restart marker is placed");
+            await Pause(1100);
+            SaveDesktop(wizard, "mvp-restart-12-native");
+            var confirm = wizard.ConfirmButton;
+            Click(confirm.PointToScreen(new Point(confirm.ActualWidth / 2, confirm.ActualHeight / 2)));
+            await Until(() => !main.IsMvpWizardOpen && QuestWindowNative.GetForegroundWindow() == game, "numbered restart confirms and restores focus");
+            if (timers.Count != 12 || !ReferenceEquals(last, timers[11]) || last.KilledAtUtc != killedAt ||
+                last.EndsAtUtc != killedAt?.AddMinutes(last.DurationMinutes) || last.MarkerX is null || last.MarkerY is null ||
+                first.EndsAtUtc != originalEnd)
+                throw new InvalidOperationException("Numbered restart duplicated a timer or shifted the kill time.");
+            settings.RestartMvpTimer12Hotkey = "None";
+            if (hook.IsHotkeyEnabled("Ctrl+Alt+F12")) throw new InvalidOperationException("Numbered shortcut remained active after clearing.");
+            DebugLog.Write("MVP NUMBERED RESTART PASS: slots 1/12, exact modifiers, draft/cancel, map marker, same timer and keypress time.");
+        }
+        finally
+        {
+            main.CloseMvpWizard(); timers.Clear(); foreach (var timer in saved) timers.Add(timer);
+            MvpTimerHotkeys.RefreshNumbers(timers);
+            settings.RestartMvpTimer1Hotkey = key1; settings.RestartMvpTimer12Hotkey = key12;
+        }
+    }
+
     private static async Task VerifyMvpMapHover(OverlayWindow overlay,AppSettings settings,IntPtr game)
     {
         var timer=new MvpTimer {Name="Baphomet",MonsterId=1039,LocationCode="prt_maze03",MarkerX=.5,MarkerY=.5};
@@ -473,7 +550,7 @@ internal static class QuestInputSmoke
             var panel=(FrameworkElement)overlay.FindName("MvpTimerPanel");
             await Until(()=>panel.IsVisible && Descendants<TextBlock>(panel).Any(text=>ReferenceEquals(text.DataContext,timer)),"MVP hover row appears");
             var labels=Descendants<TextBlock>(panel).Where(text=>ReferenceEquals(text.DataContext,timer)).ToArray();
-            var name=labels.Single(text=>text.Text==timer.Name);
+            var name=labels.Single(text=>text.Text==timer.NumberedName);
             var icon=labels.Single(text=>text.Tag as string=="MvpMapHover");
             void Hover(FrameworkElement target)
             {

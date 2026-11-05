@@ -1,5 +1,16 @@
 # Regression checklist
 
+## Numbered MVP shortcuts and generic statistics — 2026-11-05
+
+- [ ] Timers 1–12 in Settings match the numbers in the complete application/overlay list. A stopped/disabled timer keeps its slot; completion and hiding do not move other bindings. Extra timers beyond twelve remain usable without indexed shortcuts.
+- [ ] Assign/clear/reassign arbitrary exact chords for slots 1 and 12. Existing F8/F9/Add/quest/layout shortcuts keep priority. Duplicate indexed bindings are disabled and conflicts are shown. Settings/presets preserve all twelve values; old settings default to None.
+- [ ] A restart hotkey preloads the correct name/ID/interval/map and sound settings, sets kill time to keypress, and clears the old marker. Place a marker, wait, confirm: count/ID/object stay the same and the deadline uses keypress rather than confirmation. Repeat across midnight and with a custom timer absent from the current reference catalog.
+- [ ] Cancel/repeated hotkey leaves the existing timer unchanged. Different-slot hotkeys switch drafts. Closing/changing server/client/preset or deleting the target does not recreate it or apply an old draft.
+- [ ] Verify actual marker clicks, theme/layout, form dragging, focus restore and full-row minimap hover with numbered names; no ordinary overlay intercepts modifiers or screenshot keys.
+- [ ] MuhRO and Other: Statistics opens, EXP/Zeny/loot/session state update and reward/rate HUD is visible with packets on. Packets off disables Statistics but leaves manual MVP controls working. Database/market availability still follows its own supported servers.
+- [ ] Recheck SpringRO/RTM/ToC statistics and timers, per-profile timer collection selection, saved positions, existing hotkeys and accepted MuhRO packet functionality.
+
+
 ## MuhRO packet support — development acceptance
 
 Automated fixtures use invented actor/character values and standard packet structures; they are not captured user traffic.

@@ -18,6 +18,7 @@ public sealed class MvpTimer : INotifyPropertyChanged
     private bool _completionSoundEnabled;
     private string _completionSoundPath = "";
     private double _completionSoundVolumePercent = 100;
+    private int _displayNumber;
 
     private string _locationCode = "";
     private double? _markerX, _markerY;
@@ -38,7 +39,13 @@ public sealed class MvpTimer : INotifyPropertyChanged
     public void ClearMarker() { MarkerX = null; MarkerY = null; }
 
     public Guid Id { get; set; } = Guid.NewGuid();
-    public string Name { get => _name; set => Set(ref _name, value); }
+    public string Name { get => _name; set { if (Set(ref _name, value)) { OnPropertyChanged(nameof(NumberedName)); OnPropertyChanged(nameof(DisplayText)); } } }
+    [JsonIgnore] public int DisplayNumber
+    {
+        get => _displayNumber;
+        set { if (Set(ref _displayNumber, value)) OnPropertyChanged(nameof(NumberedName)); }
+    }
+    [JsonIgnore] public string NumberedName => DisplayNumber > 0 ? $"{DisplayNumber}. {Name}" : Name;
     public int MonsterId
     {
         get => _monsterId;
@@ -147,6 +154,35 @@ public sealed class MvpTimer : INotifyPropertyChanged
     public void Restart()
     {
         StartFromKillTime(DateTime.Now);
+    }
+
+    public MvpTimer CreateRestartDraft(DateTime killedAtUtc)
+    {
+        var draft = new MvpTimer
+        {
+            Id = Id, Name = Name, MonsterId = MonsterId, DurationMinutes = DurationMinutes,
+            Enabled = Enabled, LocationCode = LocationCode, DisplayNumber = DisplayNumber,
+            CompletionSoundEnabled = CompletionSoundEnabled, CompletionSoundPath = CompletionSoundPath,
+            CompletionSoundVolumePercent = CompletionSoundVolumePercent,
+            _monsterImageUrl = _monsterImageUrl, RespawnHints = RespawnHints
+        };
+        draft.SelectFirstLocationIfMissing();
+        draft.StartFromKillTime(killedAtUtc);
+        // A new kill needs a new location marker; the live timer is untouched.
+        return draft;
+    }
+
+    public void ApplyRestartDraft(MvpTimer draft)
+    {
+        if (draft.Id != Id || draft.KilledAtUtc is null)
+            throw new ArgumentException("Restart draft must belong to this timer and contain a kill time.", nameof(draft));
+        Name = draft.Name; MonsterId = draft.MonsterId; DurationMinutes = draft.DurationMinutes;
+        Enabled = draft.Enabled; LocationCode = draft.LocationCode; MarkerX = draft.MarkerX; MarkerY = draft.MarkerY;
+        CompletionSoundEnabled = draft.CompletionSoundEnabled; CompletionSoundPath = draft.CompletionSoundPath;
+        CompletionSoundVolumePercent = draft.CompletionSoundVolumePercent;
+        _monsterImageUrl = draft._monsterImageUrl; RespawnHints = draft.RespawnHints;
+        OnPropertyChanged(nameof(MonsterImagePath)); OnPropertyChanged(nameof(RespawnHints));
+        StartFromKillTime(draft.KilledAtUtc.Value);
     }
 
     public void StartFromKillTime(DateTime killedAtLocal)
