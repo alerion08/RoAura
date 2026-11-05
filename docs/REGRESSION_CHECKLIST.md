@@ -2,6 +2,8 @@
 
 ## Timer form usability and quest status — 2026-11-05
 
+Automated evidence: [Windows run 134](https://github.com/alerion08/RoAura/actions/runs/42000698787) passed 409 tests and the native form/layout probe on `6919c1d7`. The boxes below cover manual acceptance.
+
 - [ ] Click the text and arrow of the MVP/Monsters field. The dropdown opens from either point and the editable search still accepts input.
 - [ ] Resize the timer form vertically. All locations are reachable with one scrollbar in the left column. Wheel over a card to scroll; the scrollbar disappears when the full column fits.
 - [ ] Check the BETA badge beside Quests in the sidebar and ROQuestie in the section header in both themes.

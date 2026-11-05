@@ -3,7 +3,8 @@
 ## Active development — timer form usability and ROQuestie beta badge, 2026-11-05
 
 - Continues `feature/muhro-packet-support`. Shared non-editable dropdowns open from the field body and arrow. The timer form uses one height-aware scrollbar for the form fields and location cards. The Quests navigation entry and ROQuestie settings header show BETA.
-- Validation pending on Windows. The native probe opens the timer category from the field body, wheels over a location in a short window and checks that a taller window shows all cards without a scrollbar.
+- [Windows development run 134](https://github.com/alerion08/RoAura/actions/runs/42000698787) passed all 409 tests, native startup and portable verification on `6919c1d7`. The probe opens the timer category with real mouse input, verifies the last location fits in the short viewport at the end of scrolling, exercises WPF wheel routing and verifies the scrollbar disappears when the taller window fits all cards. Real-client acceptance remains manual.
+- Portable `RoAura-Dev-3.4.0-6919c1d7-portable.zip`, SHA256 `de6d47fa1d7f0c90ba89211e230e1a0213f29c2b093ac59fe638213f7bad9c40`.
 
 ## Active development — shared monster timers and panel appearance, 2026-11-05
 
