@@ -21,7 +21,8 @@ public partial class MainWindow
         {
             Settings.PacketCaptureEnabled = false;
             ServerProfileBox.SelectedValue = GameServerProfile.Toc;
-            if (Settings.ServerProfile != GameServerProfile.Toc || _monsters.Count != 61 || _items.Count != 9894)
+            if (Settings.ServerProfile != GameServerProfile.Toc || _monsters.Count != 1061 ||
+                _monsters.Count(monster => monster.IsMvp) != 61 || _items.Count != 9894)
                 throw new InvalidOperationException("ToC profile did not load its catalogs.");
             if (!DatabaseNavButton.IsEnabled || !MvpNavButton.IsEnabled || LootNavButton.IsEnabled || GoldGoblinNavButton.IsEnabled || EffectsNavButton.IsEnabled)
                 throw new InvalidOperationException("Packet-off navigation availability is incorrect.");
