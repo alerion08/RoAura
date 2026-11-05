@@ -499,7 +499,10 @@ internal static class QuestInputSmoke
             if (!wizard.IsRestart || wizard.Draft.Id != first.Id || wizard.Draft.Name != first.Name ||
                 wizard.Draft.DurationMinutes != first.DurationMinutes || wizard.Draft.LocationCode != first.LocationCode ||
                 wizard.Draft.MarkerX is not null || wizard.Draft.MarkerY is not null || first.EndsAtUtc != originalEnd)
-                throw new InvalidOperationException("Numbered MVP draft changed or lost the original timer.");
+            {
+                SaveDesktop(wizard, "mvp-restart-prefill-failure");
+                throw new InvalidOperationException($"Numbered MVP draft mismatch: restart={wizard.IsRestart}; id={wizard.Draft.Id == first.Id}; name={wizard.Draft.Name}/{first.Name}; minutes={wizard.Draft.DurationMinutes}/{first.DurationMinutes}; location={wizard.Draft.LocationCode}/{first.LocationCode}; marker={wizard.Draft.MarkerX},{wizard.Draft.MarkerY}; sourceEndUnchanged={first.EndsAtUtc == originalEnd}.");
+            }
             await Press(settings.RestartMvpTimer1Hotkey);
             await Until(() => !main.IsMvpWizardOpen && QuestWindowNative.GetForegroundWindow() == game, "numbered timer repeated shortcut cancels");
             if (first.EndsAtUtc != originalEnd || first.MarkerX != .2 || first.MarkerY != .3 || timers.Count != 12)

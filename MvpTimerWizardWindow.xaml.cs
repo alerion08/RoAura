@@ -117,6 +117,9 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
     private void MonsterBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (_suppressMonsterTextChanged || MonsterBox.SelectedItem is not MonsterEntry monster) return;
+        // WPF can replay the initial selection when ItemsSource finishes binding.
+        // Selecting the already populated MVP must preserve the restart draft.
+        if (IsRestart && ReferenceEquals(SelectedMonster, monster) && Draft.MonsterId == monster.Id) return;
         SelectedMonster = monster;
         if (Draft.MonsterId != monster.Id) Draft.LocationCode = "";
         Draft.MonsterId = monster.Id;
