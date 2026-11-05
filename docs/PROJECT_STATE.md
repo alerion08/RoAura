@@ -3,7 +3,8 @@
 ## Active development — effect tracking tutorial, 2026-11-05
 
 - Continues `feature/muhro-packet-support`. The Effects list opens the approved six-step tutorial from a clickable hint. The window plays the bundled 12-second H.264 MP4 on a loop and releases it when closed. The MP4 is included in build, portable and installer payloads.
-- Windows validation pending. The startup probe checks the real Effects button, owned window and local playback.
+- [Windows development run 135, attempt 2](https://github.com/alerion08/RoAura/actions/runs/42042386365/attempts/2) passed 409 tests, startup/input and portable checks on `8dff7037`. The new startup probe verified that the Effects button opens the owned window and the bundled MP4 plays. Attempt 1 passed this probe and hit the previously recorded coordinate-toast expiry timeout in ROQuestie.
+- Portable `RoAura-Dev-3.4.0-8dff7037-portable.zip`, SHA256 `935f744738ab9d2ca47901120e0036f28b5c58b6c242c59f7cd209d69043bc78`. The video inside the ZIP matches the approved clip byte for byte. The installer includes the same published file; the installer was not executed in this portable run.
 
 ## Active development — timer form usability and ROQuestie beta badge, 2026-11-05
 
