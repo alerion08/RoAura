@@ -6,15 +6,20 @@
         Background="Transparent" Topmost="False" ShowInTaskbar="False"
         ResizeMode="NoResize" ShowActivated="False">
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
-        <converters:ProgressToHeightConverter x:Key="ProgressToHeight" />
-        <converters:ScaleValueConverter x:Key="ScaleValue" />
-        <converters:Base64ToImageSourceConverter x:Key="Base64Image" />
-        <converters:ColorStringToBrushConverter x:Key="ColorBrush" />
-        <converters:CenterCoordinateConverter x:Key="CenterCoordinate" />
-        <converters:EffectPanelOpacityConverter x:Key="PanelOpacity" />
-        <converters:BottomMarginConverter x:Key="BottomMargin" />
-        <converters:DoubleToThicknessConverter x:Key="IconPadding" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/TimerPanel.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+            <converters:ProgressToHeightConverter x:Key="ProgressToHeight" />
+            <converters:ScaleValueConverter x:Key="ScaleValue" />
+            <converters:Base64ToImageSourceConverter x:Key="Base64Image" />
+            <converters:ColorStringToBrushConverter x:Key="ColorBrush" />
+            <converters:CenterCoordinateConverter x:Key="CenterCoordinate" />
+            <converters:EffectPanelOpacityConverter x:Key="PanelOpacity" />
+            <converters:BottomMarginConverter x:Key="BottomMargin" />
+            <converters:DoubleToThicknessConverter x:Key="IconPadding" />
+        </ResourceDictionary>
     </Window.Resources>
     <Grid x:Name="OverlaySurface" Background="Transparent">
       <Grid x:Name="PacketOverlaySurface" Visibility="{Binding PacketCaptureEnabled, Converter={StaticResource BoolToVisibility}}">
