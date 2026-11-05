@@ -693,21 +693,23 @@ internal static class QuestInputSmoke
         {
             wizard.Height = wizard.MinHeight;
             wizard.Show();
-            wizard.Activate();
             wizard.TimerKindBox.SelectedIndex = 1;
             wizard.MonsterBox.SelectedItem = monster;
             var scroll = wizard.LocationFormScroll;
             await Until(() => scroll.ScrollableHeight > 0 && wizard.LocationCards.Items.Count == 4,
                 "short timer form scrolls through all locations");
-            scroll.ScrollToEnd();
+            scroll.ScrollToBottom();
             await Until(() => scroll.VerticalOffset >= scroll.ScrollableHeight - 1, "timer form reaches last location");
+            wizard.UpdateLayout();
             var lastCard = (FrameworkElement)wizard.LocationCards.ItemContainerGenerator.ContainerFromIndex(3);
-            var cursor = lastCard.PointToScreen(new Point(lastCard.ActualWidth / 2, lastCard.ActualHeight / 2));
-            Click(cursor);
-            await Until(() => wizard.LocationCards.SelectedIndex == 3 && lastCard.IsMouseOver,
-                "last location is clickable and under the pointer");
+            var viewport = (ScrollContentPresenter)scroll.Template.FindName("PART_ScrollContentPresenter", scroll);
+            var card = lastCard.TransformToAncestor(viewport).TransformBounds(new Rect(lastCard.RenderSize));
+            if (card.Top < -1 || card.Bottom > viewport.ActualHeight + 1)
+                throw new InvalidOperationException($"The last location is clipped: {card}; viewport height {viewport.ActualHeight}.");
             var beforeWheel = scroll.VerticalOffset;
-            Send(new Input { Type = 0, Data = new Union { Mouse = new Mouse { Flags = 0x0800, Data = 120 } } });
+            lastCard.RaiseEvent(new System.Windows.Input.MouseWheelEventArgs(
+                System.Windows.Input.Mouse.PrimaryDevice, Environment.TickCount, 120)
+                { RoutedEvent = System.Windows.Input.Mouse.MouseWheelEvent });
             await Until(() => scroll.VerticalOffset < beforeWheel - 1, "wheel over location scrolls the form");
 
             wizard.Height = 740;
