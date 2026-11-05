@@ -1,5 +1,9 @@
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
 using RoAura.Models;
+using RoAura.Services;
 
 namespace RoAura;
 
@@ -50,6 +54,7 @@ public partial class MainWindow
             Settings.PacketCaptureEnabled = true;
             if (!EffectsNavButton.IsEnabled || !LootNavButton.IsEnabled || !GoldGoblinNavButton.IsEnabled)
                 throw new InvalidOperationException("Packet feature navigation did not restore.");
+            ValidateEffectTutorialSmoke();
             Settings.PacketCaptureEnabled = false;
         }
         finally
@@ -57,6 +62,39 @@ public partial class MainWindow
             ServerProfileBox.SelectedValue = selected;
             Settings.PacketCaptureEnabled = capture;
             Settings.AllowedProcesses = processes;
+        }
+    }
+
+    private void ValidateEffectTutorialSmoke()
+    {
+        EffectsNavButton.IsChecked = true;
+        UpdateLayout();
+        if (!EffectTutorialButton.IsVisible || !File.Exists(EffectTutorialWindow.VideoPath))
+            throw new InvalidOperationException("Effects tutorial button or packaged video is missing.");
+
+        var timeout = Stopwatch.StartNew();
+        var probe = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(75) };
+        var playbackStarted = false;
+        probe.Tick += (_, _) =>
+        {
+            var window = OwnedWindows.OfType<EffectTutorialWindow>().SingleOrDefault();
+            if (window is null) return;
+            playbackStarted = window.TutorialVideo.Position > TimeSpan.Zero;
+            if (playbackStarted || window.PlaybackFailed || timeout.Elapsed >= TimeSpan.FromSeconds(5))
+                window.Close();
+        };
+        try
+        {
+            probe.Start();
+            EffectTutorialButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            if (!playbackStarted)
+                throw new InvalidOperationException("The packaged effect tutorial did not start playing.");
+            DebugLog.Write("EFFECT TUTORIAL SMOKE PASS: Effects button opens the popup and the local MP4 plays.");
+        }
+        finally
+        {
+            probe.Stop();
+            HomeNavButton.IsChecked = true;
         }
     }
 }

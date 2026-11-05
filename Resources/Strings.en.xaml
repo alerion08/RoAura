@@ -87,6 +87,9 @@
     <sys:String x:Key="SelectEffectTitle">Select an effect</sys:String>
     <sys:String x:Key="SelectEffectHint">Its settings will appear in this area.</sys:String>
     <sys:String x:Key="EffectSearchHint">Search by name or Status ID</sys:String>
+    <sys:String x:Key="EffectTutorialTitle">How do I add effect tracking?</sys:String>
+    <sys:String x:Key="EffectTutorialLoading">Loading video…</sys:String>
+    <sys:String x:Key="EffectTutorialUnavailable">The video tutorial could not be played.</sys:String>
     <sys:String x:Key="EffectSearch">Search effects</sys:String>
     <sys:String x:Key="BasicTab">General</sys:String>
     <sys:String x:Key="NotificationsTab">Notifications</sys:String>

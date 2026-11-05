@@ -1,5 +1,10 @@
 # Project state
 
+## Active development — effect tracking tutorial, 2026-11-05
+
+- Continues `feature/muhro-packet-support`. The Effects list opens the approved six-step tutorial from a clickable hint. The window plays the bundled 12-second H.264 MP4 on a loop and releases it when closed. The MP4 is included in build, portable and installer payloads.
+- Windows validation pending. The startup probe checks the real Effects button, owned window and local playback.
+
 ## Active development — timer form usability and ROQuestie beta badge, 2026-11-05
 
 - Continues `feature/muhro-packet-support`. Shared non-editable dropdowns open from the field body and arrow. The timer form uses one height-aware scrollbar for the form fields and location cards. The Quests navigation entry and ROQuestie settings header show BETA.

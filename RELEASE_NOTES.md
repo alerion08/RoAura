@@ -1,5 +1,10 @@
 # RoAura 3.4.0
 
+## Unreleased — effect tracking tutorial
+
+- RU: В разделе «Эффекты» появилась подсказка «Как добавить отслеживание эффекта?» с короткой видеоинструкцией.
+- EN: The Effects section now includes a “How do I add effect tracking?” button with a short video tutorial.
+
 ## Unreleased — timer form and quest section
 
 - RU: Выбор категории таймера открывается по клику на всё поле. Список локаций использует доступную высоту окна. В разделе «Квесты» появилась пометка BETA.

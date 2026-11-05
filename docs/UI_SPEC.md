@@ -1,5 +1,9 @@
 # RoAura UI specification
 
+## Effect tracking tutorial — 2026-11-05
+
+The hint below the Effects list is a button labeled “Как добавить отслеживание эффекта?” in Russian and “How do I add effect tracking?” in English. It opens a centered, resizable window over RoAura. The local instructional video plays automatically, repeats and stops when the window closes. The search field keeps its own search tooltip.
+
 ## Timer form controls and quest status — 2026-11-05
 
 A selector opens from the whole dropdown field. Editable search fields preserve the caret and support typing. The timer add/restart form measures all location cards in the left column and scrolls that column only when its content exceeds the available height. Quests shows a BETA badge in the sidebar and in the ROQuestie section header.

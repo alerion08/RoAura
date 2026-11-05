@@ -711,7 +711,14 @@
                                                     </StackPanel>
                                                 </Border>
                                             </Grid>
-                                            <ContentControl Grid.Row="2" Content="{DynamicResource EffectSearchHint}" Style="{StaticResource OverlayHintStyle}" Margin="0,8,0,0"/>
+                                            <Button x:Name="EffectTutorialButton" Grid.Row="2" Margin="0,8,0,0" Padding="12,6"
+                                                    Background="{DynamicResource UiBackground_EAF3FF}" BorderBrush="{DynamicResource RoSoftBorderBrush}"
+                                                    AutomationProperties.Name="{DynamicResource EffectTutorialTitle}" Click="EffectTutorial_Click">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Style="{StaticResource InfoHintGlyphStyle}"/>
+                                                    <TextBlock Text="{DynamicResource EffectTutorialTitle}" VerticalAlignment="Center" FontSize="12"/>
+                                                </StackPanel>
+                                            </Button>
                                         </Grid>
                                     </Border>
                                     <Border Grid.Column="2"><Border.Style><Style TargetType="Border" BasedOn="{StaticResource WorkspacePanelStyle}"><Style.Triggers><DataTrigger Binding="{Binding SelectedItem, ElementName=EffectsGrid}" Value="{x:Null}"><Setter Property="Background" Value="Transparent"/><Setter Property="BorderBrush" Value="Transparent"/></DataTrigger></Style.Triggers></Style></Border.Style>

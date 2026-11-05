@@ -2248,6 +2248,9 @@ public partial class MainWindow : Window
         SaveSettings();
     }
 
+    private void EffectTutorial_Click(object sender, RoutedEventArgs e) =>
+        new EffectTutorialWindow { Owner = this }.ShowDialog();
+
     private void About_Click(object sender, RoutedEventArgs e) => new AboutWindow { Owner = this }.ShowDialog();
 
     private void OpenDatabase_Click(object sender, RoutedEventArgs e) =>

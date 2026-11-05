@@ -1,5 +1,10 @@
 # Regression checklist
 
+## Effect tracking tutorial — 2026-11-05
+
+- [ ] In Effects, activate the tutorial hint with mouse and keyboard. The centered window plays the bundled six-step video with the network disconnected. Close it with Escape or the Close button and reopen it.
+- [ ] Verify the video is present beside the portable application and in the installer payload. On a Windows edition without the system media components, the popup shows a playback error and can be closed.
+
 ## Timer form usability and quest status — 2026-11-05
 
 Automated evidence: [Windows run 134](https://github.com/alerion08/RoAura/actions/runs/42000698787) passed 409 tests and the native form/layout probe on `6919c1d7`. The boxes below cover manual acceptance.
