@@ -1,16 +1,16 @@
-# RoAura — Tutorial GIF Style Kit v1.0
+# RoAura — Tutorial GIF Style Kit v1.1
 
-This directory contains the **fixed style** for short instructional GIF/MP4 videos for RoAura, independent of the application's runtime code. The approved reference is the user's light-blue two-pill layout.
+This directory contains the **fixed style** for short instructional GIF/MP4 videos for RoAura, independent of the application's runtime code. The approved reference is the light-blue step caption with a numbered circle.
 
 ## Locked presentation rules
 
 - Real screen recordings only; **do not generate or repaint RoAura controls with AI**.
-- Top title and step numeral: **Montserrat ExtraBold / 800**.
+- Step numeral: **Montserrat ExtraBold / 800**.
 - Action text: **Montserrat Medium / 500**.
-- Panel fill: `#E0ECFA`; title/description/outline/dividers: `#4176B8`.
+- Panel fill: `#E0ECFA`; description/outline/divider: `#4176B8`.
 - Step circle: `#4275B6`, white numeral.
 - Geometry and font sizes are defined by `template/style.json` for the 747×481 reference, scaled by frame width.
-- Step changes update only the step number and its description. New visual designs require a **new style version**.
+- Place the recording in the space above the lower caption. Step changes update the number and description. New visual designs require a **new style version**.
 
 ## Source files
 
@@ -46,11 +46,13 @@ python tools/render.py --preview "C:\videos\frame.png" --step 4 --project exampl
 If automatic Montserrat lookup fails, specify:
 `--font-extrabold "C:\Windows\Fonts\Montserrat-ExtraBold.ttf" --font-medium "C:\Windows\Fonts\Montserrat-Medium.ttf"`.
 
+For a save/confirm action, retain the original click and the first settled result in one continuous excerpt. Slow that excerpt as needed.
+
 Other useful flags: `--width 960 --fps 8 --start 0 --max-seconds 8`. Output ratio should be close to 747:481; crop incompatible sources before rendering.
 
 ## Reproducibility
 
-Only the original recording, instruction title, stage descriptions and timestamps change per instruction. Identical source frame, fonts, Python/Pillow versions and configuration produce repeatable PNG pixels. GIF and MP4 bytes may also depend on the FFmpeg encoder version.
+The source recording, stage descriptions and timestamps vary per instruction. A project title may be kept as metadata. Identical source frame, fonts, Python/Pillow versions and configuration produce repeatable PNG pixels. GIF and MP4 bytes may also depend on the FFmpeg encoder version.
 
 The style and source tools are committed here. Large binary recording/demo/preview assets from the chat experiment have not been uploaded to GitHub; they are available in the separate local style-kit archive. The vector reference `template/overlay-reference.svg` and renderer remain usable without those optional assets.
 

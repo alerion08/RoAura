@@ -1,11 +1,10 @@
 {
-  "$schema_note": "RoAura GIF tutorial overlay style v1.0; reference screenshot 747x481. All coordinates in reference pixels, scaled uniformly by width; reference aspect 747:481.",
-  "version": "1.0.0",
+  "$schema_note": "RoAura GIF tutorial overlay style v1.1; reference screenshot 747x481. All coordinates in reference pixels, scaled uniformly by width; reference aspect 747:481.",
+  "version": "1.1.0",
   "reference_size": [747, 481],
   "colors": {
     "panel_background": "#E0ECFA",
     "border": "#4176B8",
-    "title_text": "#4176B8",
     "description_text": "#4176B8",
     "badge_background": "#4275B6",
     "badge_text": "#FFFFFF",
@@ -13,24 +12,8 @@
   },
   "typography": {
     "family": "Montserrat",
-    "title": {"weight": "ExtraBold", "weight_number": 800, "size": 22},
     "description": {"weight": "Medium", "weight_number": 500, "size": 21, "min_size": 16, "max_lines": 2},
     "badge": {"weight": "ExtraBold", "weight_number": 800, "size": 36}
-  },
-  "header": {
-    "x": 29,
-    "y": 16,
-    "height": 54,
-    "radius": 27,
-    "min_width": 345,
-    "max_width": 689,
-    "inner_right_padding": 27,
-    "text_x": 80,
-    "divider_x": 59,
-    "divider_y1": 28,
-    "divider_y2": 55,
-    "divider_width": 2,
-    "border_width": 2
   },
   "footer": {
     "x": 24,

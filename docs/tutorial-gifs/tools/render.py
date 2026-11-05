@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic RoAura tutorial title + step caption renderer.
+"""Deterministic RoAura tutorial step caption renderer.
 
 Requires Python >=3.10, Pillow and (for video) OpenCV and ffmpeg.
 Montserrat font files are NOT distributed. Resolve from installed fonts or use --font-*.
@@ -114,18 +114,19 @@ def compose(frame, title, description, number, total, style, fonts):
     def sc(value):
         return round(value * factor)
 
-    hp = style['header']
     tp = style['typography']
-    head_font = ImageFont.truetype(fonts['ExtraBold'], sc(tp['title']['size']))
-    title_len = text_width(d, title, head_font) / factor
-    title_w = min(hp['max_width'], max(hp['min_width'], hp['text_x'] - hp['x'] + title_len + hp['inner_right_padding']))
-    if title_w >= hp['max_width'] and title_len > hp['max_width'] - (hp['text_x'] - hp['x']) - hp['inner_right_padding']:
-        raise ValueError('Instruction title does not fit the template: ' + title)
-    x1, y1 = sc(hp['x']), sc(hp['y'])
-    x2, y2 = sc(hp['x'] + title_w), sc(hp['y'] + hp['height'])
-    d.rounded_rectangle((x1, y1, x2, y2), radius=sc(hp['radius']), fill=rgb('panel_background'), outline=rgb('border'), width=max(1, sc(hp['border_width'])))
-    d.line((sc(hp['divider_x']), sc(hp['divider_y1']), sc(hp['divider_x']), sc(hp['divider_y2'])), fill=rgb('divider'), width=max(1, sc(hp['divider_width'])))
-    d.text((sc(hp['text_x']), sc(hp['y'] + hp['height'] / 2)), title, font=head_font, fill=rgb('title_text'), anchor='lm')
+    if 'header' in style:
+        hp = style['header']
+        head_font = ImageFont.truetype(fonts['ExtraBold'], sc(tp['title']['size']))
+        title_len = text_width(d, title, head_font) / factor
+        title_w = min(hp['max_width'], max(hp['min_width'], hp['text_x'] - hp['x'] + title_len + hp['inner_right_padding']))
+        if title_w >= hp['max_width'] and title_len > hp['max_width'] - (hp['text_x'] - hp['x']) - hp['inner_right_padding']:
+            raise ValueError('Instruction title does not fit the template: ' + title)
+        x1, y1 = sc(hp['x']), sc(hp['y'])
+        x2, y2 = sc(hp['x'] + title_w), sc(hp['y'] + hp['height'])
+        d.rounded_rectangle((x1, y1, x2, y2), radius=sc(hp['radius']), fill=rgb('panel_background'), outline=rgb('border'), width=max(1, sc(hp['border_width'])))
+        d.line((sc(hp['divider_x']), sc(hp['divider_y1']), sc(hp['divider_x']), sc(hp['divider_y2'])), fill=rgb('divider'), width=max(1, sc(hp['divider_width'])))
+        d.text((sc(hp['text_x']), sc(hp['y'] + hp['height'] / 2)), title, font=head_font, fill=rgb('title_text'), anchor='lm')
 
     fp = style['footer']
     fx, fy = sc(fp['x']), h * ss - sc(fp['bottom_margin'] + fp['height'])
@@ -228,7 +229,7 @@ def render_video(args, style, project, fonts):
             if frame.size != (width, out_h):
                 frame = frame.resize((width, out_h), Image.Resampling.LANCZOS)
             n, step = step_for_time(project, t)
-            result = compose(frame, project['title'], step['text'], n, len(project['steps']), style, fonts)
+            result = compose(frame, project.get('title', ''), step['text'], n, len(project['steps']), style, fonts)
             proc.stdin.write(result.tobytes())
             rendered += 1
     finally:
@@ -278,7 +279,7 @@ def main():
         im = Image.open(args.preview).convert('RGB')
         im = resize_frame(im, args.width)
         step = min(max(args.step, 1), len(project['steps']))
-        output = compose(im, project['title'], project['steps'][step - 1]['text'], step, len(project['steps']), style, fonts)
+        output = compose(im, project.get('title', ''), project['steps'][step - 1]['text'], step, len(project['steps']), style, fonts)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         output.save(args.output)
         print(f'{args.output} | preview {output.width}x{output.height}')
