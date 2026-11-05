@@ -334,6 +334,7 @@ internal static class QuestInputSmoke
                     Click(cancel.PointToScreen(new Point(cancel.ActualWidth/2,cancel.ActualHeight/2)));
                     await Until(()=>!Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w=>w.IsVisible) && QuestWindowNative.GetForegroundWindow()==game,"MVP cancel and exact-game focus restore");
                     if(workspace.Settings.ActiveMvpTimers.Count!=beforeTimers)throw new InvalidOperationException("Cancel created an MVP timer.");
+                    await VerifyRegularTimerCreation(workspace.Settings, game);
                     var oldTimerX=workspace.Settings.TimersX;var oldTimerY=workspace.Settings.TimersY;
                     try
                     {
@@ -467,6 +468,41 @@ internal static class QuestInputSmoke
         }
     }
 
+    private static async Task VerifyRegularTimerCreation(AppSettings settings, IntPtr game)
+    {
+        var timers = settings.ActiveMvpTimers;
+        var count = timers.Count;
+        await Press(settings.AddMvpTimerHotkey);
+        await Until(() => Application.Current.Windows.OfType<MvpTimerWizardWindow>().Any(w => w.IsVisible), "regular timer form opens");
+        var wizard = Application.Current.Windows.OfType<MvpTimerWizardWindow>().Single(w => w.IsVisible);
+        await Until(() => wizard.MonsterBox.IsLoaded, "regular timer form loads");
+        if (wizard.MonsterView.Cast<MonsterEntry>().Any(monster => !monster.IsMvp))
+            throw new InvalidOperationException("The MVP category includes regular monsters.");
+        wizard.TimerKindBox.SelectedIndex = 1;
+        if (wizard.MonsterView.Cast<MonsterEntry>().Any(monster => monster.IsMvp))
+            throw new InvalidOperationException("The regular category includes MVPs.");
+        Click(wizard.MonsterBox.PointToScreen(new Point(18, wizard.MonsterBox.ActualHeight / 2)));
+        await Until(() => wizard.MonsterBox.IsDropDownOpen, "regular monster search opens");
+        await Press("P"); await Press("O");
+        var poring = wizard.MonsterView.Cast<MonsterEntry>().Single(monster => monster.Id == 1002);
+        if (!File.Exists(poring.ImagePath)) throw new InvalidOperationException("Poring sprite is not bundled.");
+        wizard.MonsterBox.SelectedItem = poring;
+        wizard.MonsterBox.IsDropDownOpen = false;
+        var locations = Descendants<RoAura.Controls.MvpLocationSelector>(wizard).Single();
+        locations.SelectedItem = wizard.Draft.RespawnHints.Single(spawn => spawn.Code == "pay_fild04");
+        var map = Descendants<RoAura.Controls.MvpMapEditor>(wizard).Single();
+        await Until(() => map.DisplayedMapCode == "pay_fild04", "selected regular monster minimap paints");
+        SaveDesktop(wizard, "regular-timer-add-native");
+        var confirm = wizard.ConfirmButton;
+        Click(confirm.PointToScreen(new Point(confirm.ActualWidth / 2, confirm.ActualHeight / 2)));
+        await Until(() => timers.Count == count + 1 && QuestWindowNative.GetForegroundWindow() == game,
+            "regular timer saves and restores game focus");
+        var timer = timers[^1];
+        if (timer.IsMvp || timer.MonsterId != poring.Id || timer.LocationCode != "pay_fild04" || timer.DisplayNumber != count + 1)
+            throw new InvalidOperationException("Regular timer lost its category, location or common number.");
+        timers.Remove(timer);
+    }
+
     private static async Task VerifyNumberedMvpRestart(MainWindow main, AppSettings settings,
         GlobalInputHook hook, IntPtr game, MvpTimer template)
     {
@@ -550,11 +586,13 @@ internal static class QuestInputSmoke
             settings.TimersX=30;settings.TimersY=30;settings.TimersOverlayVisible=true;
             timer.Restart();settings.ActiveMvpTimers.Add(timer);
             QuestWindowNative.SetForegroundWindow(game);
-            var panel=(FrameworkElement)overlay.FindName("MvpTimerPanel");
+            var panel=(Border)overlay.FindName("MvpTimerPanel");
             await Until(()=>panel.IsVisible && Descendants<TextBlock>(panel).Any(text=>ReferenceEquals(text.DataContext,timer)),"MVP hover row appears");
             var labels=Descendants<TextBlock>(panel).Where(text=>ReferenceEquals(text.DataContext,timer)).ToArray();
             var name=labels.Single(text=>text.Text==timer.NumberedName);
             var icon=labels.Single(text=>text.Tag as string=="MvpMapHover");
+            if (icon.Text != timer.LocationCode || icon.Parent is not Border { BorderThickness.Left: > 0 })
+                throw new InvalidOperationException("Timer map code is missing its outlined badge.");
             void Hover(FrameworkElement target)
             {
                 var point=target.PointToScreen(new Point(target.ActualWidth/2,target.ActualHeight/2));
@@ -562,18 +600,49 @@ internal static class QuestInputSmoke
             }
             Hover(name);await Until(()=>overlay.IsMvpMapVisible,"MVP name opens the map");
             Hover(icon);await Pause(250);
-            if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP magnifier lost the row hover map.");
+            if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("Timer map badge lost the row hover map.");
             Hover(labels.Single(text=>text!=name && text!=icon));await Pause(250);
             if(!overlay.IsMvpMapVisible)throw new InvalidOperationException("MVP timer text lost the row hover map.");
             if(QuestWindowNative.GetForegroundWindow()!=game)throw new InvalidOperationException("MVP map stole game focus.");
-            SaveElement(panel,"mvp-magnifier-row");SaveDesktop(overlay,"mvp-magnifier-hover");
+            SaveElement(panel,"timer-map-badge");SaveDesktop(overlay,"timer-map-hover");
             var gameRect=QuestWindowNative.Bounds(game);SetCursorPos((int)gameRect.Right-5,(int)gameRect.Bottom-5);
             await Until(()=>!overlay.IsMvpMapVisible,"MVP map closes outside the row");
-            DebugLog.Write("MVP ROW HOVER PASS: name, magnifier and time show map; leaving row closes it; focus preserved.");
+            await VerifyTimerPanelStyle(panel, settings);
+            DebugLog.Write("TIMER ROW HOVER PASS: name, map code and time show map; leaving row closes it; focus preserved.");
         }
         finally
         {
             settings.ActiveMvpTimers.Remove(timer);settings.TimersX=x;settings.TimersY=y;settings.TimersOverlayVisible=visible;
+        }
+    }
+
+    private static async Task VerifyTimerPanelStyle(Border panel, AppSettings settings)
+    {
+        var previous = (settings.TimersShowBackground, settings.TimersBackgroundColor,
+            settings.TimersBackgroundOpacityPercent, settings.TimersShowBorder,
+            settings.TimersBorderColor, settings.TimersBorderThickness);
+        try
+        {
+            settings.TimersShowBackground = true;
+            settings.TimersBackgroundColor = "#FF123456";
+            settings.TimersBackgroundOpacityPercent = 35;
+            settings.TimersShowBorder = true;
+            settings.TimersBorderColor = "#FF00AACC";
+            settings.TimersBorderThickness = 3;
+            await Until(() => panel.Background is System.Windows.Media.SolidColorBrush { Opacity: .35 } background &&
+                background.Color.ToString() == "#FF123456" &&
+                panel.BorderBrush is System.Windows.Media.SolidColorBrush border && border.Color.ToString() == "#FF00AACC" &&
+                panel.BorderThickness == new Thickness(3), "timer panel style updates live");
+            SaveElement(panel, "timer-panel-style");
+            settings.TimersShowBackground = false;
+            settings.TimersShowBorder = false;
+            await Until(() => panel.Background is System.Windows.Media.SolidColorBrush { Color.A: 0 } &&
+                panel.BorderThickness == new Thickness(0), "timer panel background and border turn off independently");
+        }
+        finally
+        {
+            (settings.TimersShowBackground, settings.TimersBackgroundColor, settings.TimersBackgroundOpacityPercent,
+                settings.TimersShowBorder, settings.TimersBorderColor, settings.TimersBorderThickness) = previous;
         }
     }
 

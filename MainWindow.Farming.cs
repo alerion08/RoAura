@@ -12,6 +12,9 @@ public partial class MainWindow
     internal void CloseMvpWizard() => _gameMvpWizard?.Close();
     internal bool IsMvpWizardOpen => _gameMvpWizard?.IsVisible == true;
 
+    private bool UsesReferenceTimerCatalog =>
+        Settings.ServerProfile is GameServerProfile.MuhRo or GameServerProfile.Other;
+
     internal void AddMvpTimerInGame()
     {
         if (_gameMvpWizard is not null) { _gameMvpWizard.Close(); return; }
@@ -46,7 +49,7 @@ public partial class MainWindow
         var game = QuestWindowNative.GetForegroundWindow();
         var server = Settings.ServerProfile;
         var timers = Settings.ActiveMvpTimers;
-        var wizard = new MvpTimerWizardWindow(_monsters, restartSource, killedAtUtc)
+        var wizard = new MvpTimerWizardWindow(_monsters, restartSource, killedAtUtc, UsesReferenceTimerCatalog)
         {
             Tag = "RoAura.GameInterface", StartAfterCreate = restartSource is null, WindowStyle = WindowStyle.None,
             ResizeMode = ResizeMode.NoResize, AllowsTransparency = true, ShowInTaskbar = false,
@@ -101,11 +104,7 @@ public partial class MainWindow
                     if (!timers.Contains(restartSource)) return;
                     restartSource.ApplyRestartDraft(timer);
                 }
-                else
-                {
-                    timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
-                    timers.Add(timer);
-                }
+                else timers.Add(timer);
                 MvpTimerHotkeys.RefreshNumbers(timers);
                 SaveSettings();
             }

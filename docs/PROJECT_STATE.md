@@ -1,5 +1,13 @@
 # Project state
 
+## Active development — shared monster timers and panel appearance, 2026-11-05
+
+- Continues the numbered timer work on `feature/muhro-packet-support`. The app and in-game creation use the same MVP/Monsters category and search. Category, monster ID and chosen location are saved per timer. Both categories share full list numbering and the existing 1–12 shortcuts.
+- Timer entries use the existing SpringRO/ToC database snapshots. For RTM's MVP-only catalog, ordinary entries use SpringRO as a reference; generic profiles also identify reference locations in the form. No MuhRO-specific spawn table is included.
+- The Windows build prepares local sprites and 352 catalog minimaps. A compact map-code badge replaces the magnifier; the whole row still opens the minimap and marker. The in-game panel and its settings preview share independent background (visibility/color/opacity) and border (visibility/color/thickness) settings.
+- Local build, XML/localization parity and eight ToC importer checks passed. Windows regression, native input and portable packaging are pending for this change.
+
+
 ## Active development — numbered MVP restart shortcuts and generic statistics, 2026-11-05
 
 - Continuing `feature/muhro-packet-support` from `2fad8d2`; the owner confirmed the MuhRO packet candidate works. This accepted branch is retained so the new work includes those fixes. Stable main/version/release remain 3.4.0; no merge/tag/publication is part of this task.

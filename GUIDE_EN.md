@@ -1,8 +1,13 @@
 # RoAura 3.4.0 — user guide
 
+## MVP and regular monster timers
+
+In **Timers**, or in the in-game add form, select **MVP** or **Monsters**, search by name or ID and select a location. The location is saved with the timer. Its code appears in the overlay, and hovering over the row shows the minimap and marker. Both categories share timer numbers and shortcuts. In **In-game panel**, configure the background (toggle, color, opacity) and border (toggle, color, thickness) separately.
+
+
 ## Restart MVP timers by number
 
-The application and overlay number timers in full list order. Under **Settings → Hotkeys → MVP Timers → Restart timers 1–12**, assign the desired chords. Each opens a prefilled restart form and records the kill time at keypress. Place a new marker and confirm Restart. Cancel or the repeated chord closes the draft without changes. Completion/hiding does not renumber timers; deleting a row shifts subsequent numbers. Statistics works for every server profile with packet reading enabled; manual MVP timers also work with packets disabled.
+The application and overlay number timers in full list order. Under **Settings → Hotkeys → Timers → Restart timers 1–12**, assign the desired chords. Each opens a prefilled restart form and records the kill time at keypress. Place a new marker and confirm Restart. Cancel or the repeated chord closes the draft without changes. Completion/hiding does not renumber timers; deleting a row shifts subsequent numbers. Statistics works for every server profile with packet reading enabled; manual MVP timers also work with packets disabled.
 
 ## MuhRO — test support
 
@@ -129,7 +134,7 @@ RoAura also refreshes the equipment cache when a new item arrives through packet
 1. Choose RTM, SpringRO or ToC and search by MVP name/ID. Supported catalog records include source locations and respawn intervals.
 2. The first available location is selected automatically. Click another location card to switch maps, and click the minimap to mark the kill point.
 3. Restart replaces the old countdown with a full interval from now. Apply time uses a historical kill time separately. Reset stops the timer.
-4. Hover the name, magnifier, time or gaps in the game timer row to show its map/marker; leave the row to close it.
+4. Hover the name, map code, time or gaps in the game timer row to show its map/marker; leave the row to close it.
 5. F4 opens the compact in-game Add timer form by default; repeat closes it. Dragged form placement persists.
 6. Panel X/Y, text size/color, section placement, completion sound and volume remain configurable. F10 toggles visibility without stopping countdowns. With no active timers the panel is hidden except during layout editing.
 

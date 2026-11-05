@@ -58,16 +58,37 @@ public sealed class MvpTimerShortcutTests
     public void Numbers_follow_the_full_list_and_do_not_shift_when_a_timer_stops_or_is_hidden()
     {
         var settings = new AppSettings();
-        for (var number = 1; number <= 14; number++) settings.MvpTimers.Add(new MvpTimer { Name = $"Boss {number}" });
+        for (var number = 1; number <= 14; number++)
+            settings.MvpTimers.Add(new MvpTimer { Name = $"Monster {number}", IsMvp = number % 2 != 0 });
         settings.MvpTimers[0].Enabled = false; settings.MvpTimers[1].Reset();
         MvpTimerHotkeys.RefreshNumbers(settings.ActiveMvpTimers);
-        Assert.Equal("12. Boss 12", settings.MvpTimers[11].NumberedName);
+        Assert.Equal("12. Monster 12", settings.MvpTimers[11].NumberedName);
         Assert.Same(settings.MvpTimers[0], MvpTimerHotkeys.Resolve(settings, 1));
         Assert.Same(settings.MvpTimers[11], MvpTimerHotkeys.Resolve(settings, 12));
         Assert.Null(MvpTimerHotkeys.Resolve(settings, 13));
         settings.MvpTimers.RemoveAt(0); MvpTimerHotkeys.RefreshNumbers(settings.ActiveMvpTimers);
-        Assert.Equal("1. Boss 2", settings.MvpTimers[0].NumberedName);
+        Assert.Equal("1. Monster 2", settings.MvpTimers[0].NumberedName);
         Assert.DoesNotContain("DisplayNumber", JsonSerializer.Serialize(settings.MvpTimers[0]));
+    }
+
+    [Fact]
+    public void Regular_timer_category_and_map_survive_save_and_restart()
+    {
+        var monster = MonsterCatalogService.LoadForTimers(GameDatabaseVersion.SpringRo).Single(m => m.Id == 1002);
+        Assert.True(monster.MatchesTimerSearch(false, "poring"));
+        Assert.False(monster.MatchesTimerSearch(true, "poring"));
+        Assert.Contains(monster.Spawns, spawn => spawn.Code == "pay_fild04");
+
+        var timer = new MvpTimer { MonsterId = monster.Id, LocationCode = "pay_fild04" };
+        timer.SetMonsterDetails(monster);
+        var restored = JsonSerializer.Deserialize<MvpTimer>(JsonSerializer.Serialize(timer))!;
+        Assert.False(restored.IsMvp);
+        var draft = restored.CreateRestartDraft(DateTime.UtcNow);
+        Assert.False(draft.IsMvp);
+        Assert.Equal("pay_fild04", draft.LocationCode);
+        restored.ApplyRestartDraft(draft);
+        Assert.Equal("pay_fild04", restored.LocationCode);
+        Assert.True(JsonSerializer.Deserialize<MvpTimer>("{}")!.IsMvp);
     }
 
     [Fact]
@@ -138,7 +159,7 @@ public sealed class MvpTimerShortcutTests
         var timer = new MvpTimer { Name = "Custom boss", MonsterId = 1039, DurationMinutes = 43, Enabled = true,
             LocationCode = "second", MarkerX = .2, MarkerY = .3,
             CompletionSoundEnabled = true, CompletionSoundPath = "custom.wav", CompletionSoundVolumePercent = 37 };
-        timer.SetMonsterDetails(new MonsterEntry { Id = 1039, ImageUrl = "https://example.test/boss.png",
+        timer.SetMonsterDetails(new MonsterEntry { Id = 1039, LocalImagePath = "test-sprite.png",
             Spawns = [new() { Code = "first" }, new() { Code = "second" }] });
         timer.StartFromKillTime(DateTime.UtcNow.AddMinutes(-20)); timer.CompletionSoundPlayed = true;
         return timer;

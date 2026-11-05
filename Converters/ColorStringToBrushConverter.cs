@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace RoAura.Converters;
 
-public sealed class ColorStringToBrushConverter : IValueConverter
+public sealed class ColorStringToBrushConverter : IValueConverter, IMultiValueConverter
 {
     private static readonly BrushConverter Converter = new();
     // Frozen brushes keyed by their colour string; a frozen brush is safe to
@@ -32,4 +32,16 @@ public sealed class ColorStringToBrushConverter : IValueConverter
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
         value is SolidColorBrush brush ? brush.Color.ToString() : "#FFFFFFFF";
+
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (values.Length != 2 || values[1] is not double percent) return Brushes.Transparent;
+        var colorBrush = (SolidColorBrush)Convert(values[0], targetType, parameter, culture);
+        var brush = new SolidColorBrush(colorBrush.Color) { Opacity = Math.Clamp(percent / 100d, 0, 1) };
+        brush.Freeze();
+        return brush;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
 }

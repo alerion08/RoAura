@@ -1,5 +1,11 @@
 # RoAura 3.4.0
 
+## Unreleased — monster timers and panel appearance
+
+- RU: Таймеры обычных монстров с выбором категории и локации в приложении и игре. Локальные спрайты и расширенный набор мини-карт, код карты в оверлее, отдельные настройки фона и обводки панели.
+- EN: Regular monster timers with category and location selection in the app and in game. Local sprites and more minimaps, map codes in the overlay, and separate timer panel background and border settings.
+
+
 ## Unreleased — numbered MVP shortcuts and statistics
 
 - RU: Таймеры MVP пронумерованы в приложении и оверлее. Добавлены до 12 горячих клавиш перезапуска с заполненной формой, новым временем убийства и выбором маркера. Восстановлена статистика и её оверлеи в MuhRO; статистика больше не зависит от серверной базы. Ручные MVP-таймеры доступны во всех профилях.

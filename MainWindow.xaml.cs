@@ -66,7 +66,7 @@ public partial class MainWindow : Window
         NpcapPacketCapture packetCapture, GoldGoblinService goldGoblin)
     {
         _goldGoblin = goldGoblin;
-        _monsters = new ObservableCollection<MonsterEntry>(MonsterCatalogService.Load(settings.MvpDatabaseVersion));
+        _monsters = new ObservableCollection<MonsterEntry>(MonsterCatalogService.LoadForTimers(settings.MvpDatabaseVersion));
         _items = ItemCatalogService.Load(settings.LootDatabaseVersion);
         RefreshGoldGoblinItemSuggestions();
         MvpMonsterView = CollectionViewSource.GetDefaultView(_monsters);
@@ -236,7 +236,7 @@ public partial class MainWindow : Window
             Settings.MvpDatabaseVersion = version;
             Settings.LootDatabaseVersion = version;
             _monsters.Clear();
-            foreach (var monster in MonsterCatalogService.Load(version)) _monsters.Add(monster);
+            foreach (var monster in MonsterCatalogService.LoadForTimers(version)) _monsters.Add(monster);
             MvpMonsterView.Refresh();
             RefreshMvpTimerDetails();
             _items = ItemCatalogService.Load(version);
@@ -256,7 +256,15 @@ public partial class MainWindow : Window
 
     private void Settings_RuntimeChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (_applyingPreset || e.PropertyName != nameof(AppSettings.PacketCaptureEnabled)) return;
+        if (_applyingPreset) return;
+        if (e.PropertyName is nameof(AppSettings.TimersShowBackground) or nameof(AppSettings.TimersBackgroundColor) or
+            nameof(AppSettings.TimersBackgroundOpacityPercent) or nameof(AppSettings.TimersShowBorder) or
+            nameof(AppSettings.TimersBorderColor) or nameof(AppSettings.TimersBorderThickness))
+        {
+            RequestSave();
+            return;
+        }
+        if (e.PropertyName != nameof(AppSettings.PacketCaptureEnabled)) return;
         // Stop workers before clearing the old status timeline. Enabling starts a fresh capture.
         EndOverlayEditModes();
         _learningGeneration++;
@@ -815,11 +823,11 @@ public partial class MainWindow : Window
     {
         if (DataContext is not AppSettings) return;
         _monsters.Clear();
-        foreach (var monster in MonsterCatalogService.Load(Settings.MvpDatabaseVersion))
+        foreach (var monster in MonsterCatalogService.LoadForTimers(Settings.MvpDatabaseVersion))
             _monsters.Add(monster);
         MvpMonsterView.Refresh();
-        SetStatus(T($"База MVP: {Settings.MvpDatabaseVersion} ({_monsters.Count} MVP).",
-            $"MVP database: {Settings.MvpDatabaseVersion} ({_monsters.Count} MVPs)."));
+        SetStatus(T($"Каталог таймеров: {Settings.MvpDatabaseVersion}.",
+            $"Timer catalog: {Settings.MvpDatabaseVersion}."));
     }
 
     private void CreatePreset_Click(object sender, RoutedEventArgs e)
@@ -1904,10 +1912,10 @@ public partial class MainWindow : Window
 
     private void AddMvpTimer_Click(object sender, RoutedEventArgs e)
     {
-        var wizard = new MvpTimerWizardWindow(_monsters) { Owner = this };
+        var wizard = new MvpTimerWizardWindow(_monsters, usesReferenceCatalog: UsesReferenceTimerCatalog) { Owner = this };
         if (wizard.ShowDialog() != true || wizard.CreatedTimer is not { } timer) return;
-        timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
         Settings.ActiveMvpTimers.Add(timer);
+        MvpTimerHotkeys.RefreshNumbers(Settings.ActiveMvpTimers);
         MvpTimersGrid.SelectedItem = timer;
         MvpTimersGrid.ScrollIntoView(timer);
         SaveSettings();
@@ -1969,7 +1977,7 @@ public partial class MainWindow : Window
     private void MvpMonster_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (_updatingMvpMonsterSelection || _suppressMvpMonsterTextChanged || MvpTimersGrid.SelectedItem is not MvpTimer timer ||
-            sender is not ComboBox box || box.SelectedItem is not MonsterEntry monster) return;
+            sender is not ComboBox box || box.SelectedItem is not MonsterEntry monster || monster.IsMvp != timer.IsMvp) return;
         // Only overwrite a custom timer name when the user actually picked a
         // monster from the dropdown, or when the name still equals the catalog
         // name of the previously selected monster.
@@ -1987,7 +1995,7 @@ public partial class MainWindow : Window
     {
         MvpTimerHotkeys.RefreshNumbers(Settings.ActiveMvpTimers);
         foreach (var timer in Settings.ActiveMvpTimers)
-            timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId));
+            timer.SetMonsterDetails(_monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId && monster.IsMvp == timer.IsMvp));
     }
 
     private void MvpMonsterBox_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -1998,9 +2006,10 @@ public partial class MainWindow : Window
         try
         {
             box.IsDropDownOpen = false;
-            MvpMonsterView.Filter = null;
-            box.SelectedItem = e.NewValue is MvpTimer timer
-                ? _monsters.FirstOrDefault(monster => monster.Id == timer.MonsterId) : null;
+            var timer = e.NewValue as MvpTimer;
+            FilterTimerMonsterEditor(timer);
+            box.SelectedItem = timer is null ? null : _monsters.FirstOrDefault(monster =>
+                monster.Id == timer.MonsterId && monster.IsMvp == timer.IsMvp);
         }
         finally { _updatingMvpMonsterSelection = wasUpdating; }
     }
@@ -2026,11 +2035,7 @@ public partial class MainWindow : Window
         _suppressMvpMonsterTextChanged = true;
         try
         {
-            MvpMonsterView.Filter = value => value is MonsterEntry monster &&
-                (string.IsNullOrWhiteSpace(query) ||
-                 monster.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                 monster.NameRu.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                 monster.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase));
+            FilterTimerMonsterEditor(MvpMonsterBox.DataContext as MvpTimer, query);
             // Refresh can clear the selection/text. Restore only this synchronous
             // typing draft; never queue stale text across a timer selection change.
             editor.Text = text;
@@ -2040,15 +2045,24 @@ public partial class MainWindow : Window
         finally { _suppressMvpMonsterTextChanged = false; }
     }
 
+    private void FilterTimerMonsterEditor(MvpTimer? timer, string query = "")
+    {
+        var isMvp = timer?.IsMvp ?? true;
+        MvpMonsterView.Filter = value => value is MonsterEntry monster && monster.MatchesTimerSearch(isMvp, query);
+    }
+
+    private void TimerLocationChanged(object sender, EventArgs e) => RequestSave();
+
     private void MvpMonster_DropDownClosed(object sender, EventArgs e)
     {
         var wasUpdating = _updatingMvpMonsterSelection;
         _updatingMvpMonsterSelection = true;
         try
         {
-            var id = (MvpTimersGrid.SelectedItem as MvpTimer)?.MonsterId;
-            MvpMonsterView.Filter = null;
-            MvpMonsterBox.SelectedItem = _monsters.FirstOrDefault(m => m.Id == id);
+            var timer = MvpTimersGrid.SelectedItem as MvpTimer;
+            FilterTimerMonsterEditor(timer);
+            MvpMonsterBox.SelectedItem = timer is null ? null : _monsters.FirstOrDefault(monster =>
+                monster.Id == timer.MonsterId && monster.IsMvp == timer.IsMvp);
         }
         finally { _updatingMvpMonsterSelection = wasUpdating; }
     }

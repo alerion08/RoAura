@@ -11,24 +11,43 @@ public static class MonsterCatalogService
     private static readonly object CacheSync = new();
     private static readonly Dictionary<string, (DateTime LastWriteUtc, DateTime EnrichmentWriteUtc, IReadOnlyList<MonsterEntry> Monsters)> Cache =
         new(StringComparer.OrdinalIgnoreCase);
+    private static readonly Lazy<IReadOnlyList<MonsterEntry>> TocMonsters = new(() =>
+        TocDatabaseService.Database.Monsters.Select(monster => FromDatabase(monster, GameDatabaseVersion.Toc))
+            .OrderBy(monster => monster.Name).ToArray());
 
-    public static IReadOnlyList<MonsterEntry> Load(string? gameVersion = null)
+    public static IReadOnlyList<MonsterEntry> Load(string? gameVersion = null) =>
+        LoadForTimers(gameVersion).Where(monster => monster.IsMvp).ToArray();
+
+    public static IReadOnlyList<MonsterEntry> LoadForTimers(string? gameVersion)
     {
         var version = GameDatabaseVersion.Normalize(gameVersion);
         if (version == GameDatabaseVersion.Toc)
         {
-            try
-            {
-                return TocDatabaseService.Database.Monsters.Where(m => m.IsMvp).OrderBy(m => m.Name).Select(m => new MonsterEntry
-                { Id = m.Id, Name = m.Name, ImageUrl = m.ImageUrl, IsMvp = true, Spawns = m.Spawns.Select(s => new MonsterSpawnEntry
-                  { Code = s.Code, Name = s.Name, Count = s.Count, Respawn = s.Respawn }).ToList() }).ToList();
-            }
+            try { return TocMonsters.Value; }
             catch (Exception ex)
             {
-                DebugLog.Write($"TOC CATALOG ERROR: {ex}");
+                DebugLog.Write($"TOC TIMER CATALOG ERROR: {ex}");
                 return [];
             }
         }
+
+        var monsters = LoadJsonCatalog(version);
+        if (version != GameDatabaseVersion.Rtm) return monsters;
+
+        // The bundled RTM catalog has only MVPs. Supply a named reference
+        // catalog for ordinary monsters when using RTM or a generic profile.
+        var existingIds = monsters.Select(monster => monster.Id).ToHashSet();
+        return monsters.Concat(LoadJsonCatalog(GameDatabaseVersion.SpringRo)
+            .Where(monster => !monster.IsMvp && !existingIds.Contains(monster.Id))
+            .Select(monster => new MonsterEntry
+            {
+                Id = monster.Id, Name = monster.Name, NameRu = monster.NameRu, IsMvp = false,
+                IsReference = true, Spawns = monster.Spawns, LocalImagePath = monster.LocalImagePath
+            })).OrderBy(monster => monster.Name).ToArray();
+    }
+
+    private static IReadOnlyList<MonsterEntry> LoadJsonCatalog(string version)
+    {
         var fileName = version == GameDatabaseVersion.SpringRo ? "monsters.springro.json" : "monsters.rtm.json";
         var candidates = new List<string>
         {
@@ -61,9 +80,11 @@ public static class MonsterCatalogService
                 var result = JsonSerializer.Deserialize<List<MonsterEntry>>(File.ReadAllText(path), JsonOptions) ?? [];
                 if (version == GameDatabaseVersion.SpringRo)
                     EnrichSpringMonsters(result, enrichmentPath);
-                var mvps = result.Where(item => item.IsMvp).OrderBy(item => item.Name).ToList();
-                lock (CacheSync) Cache[cacheKey] = (lastWriteUtc, enrichmentWriteUtc, mvps);
-                return mvps;
+                foreach (var monster in result)
+                    monster.LocalImagePath = LocalSprite(version, monster.Id);
+                var ordered = result.OrderBy(monster => monster.Name).ToList();
+                lock (CacheSync) Cache[cacheKey] = (lastWriteUtc, enrichmentWriteUtc, ordered);
+                return ordered;
             }
             catch (Exception ex)
             {
@@ -87,18 +108,35 @@ public static class MonsterCatalogService
             foreach (var monster in monsters)
             {
                 if (!detailsById.TryGetValue(monster.Id, out var details)) continue;
-                monster.Spawns = details.Spawns.Select(spawn => new MonsterSpawnEntry
-                {
-                    Code = spawn.Code,
-                    Name = spawn.Name,
-                    Count = spawn.Count,
-                    Respawn = spawn.Respawn
-                }).ToList();
+                monster.Spawns = ReadSpawns(details);
             }
         }
         catch (Exception ex)
         {
-            DebugLog.Write($"SPRING MVP DETAILS ERROR {path}: {ex}");
+            DebugLog.Write($"SPRING TIMER DETAILS ERROR {path}: {ex}");
         }
+    }
+
+    private static MonsterEntry FromDatabase(DatabaseMonster monster, string version) => new()
+    {
+        Id = monster.Id, Name = monster.Name, IsMvp = monster.IsMvp,
+        LocalImagePath = LocalSprite(version, monster.Id), Spawns = ReadSpawns(monster)
+    };
+
+    private static List<MonsterSpawnEntry> ReadSpawns(DatabaseMonster monster) =>
+        monster.Spawns.Select(spawn => new MonsterSpawnEntry
+        {
+            Code = spawn.Code, Name = spawn.Name, Count = spawn.Count, Respawn = spawn.Respawn
+        }).ToList();
+
+    private static string LocalSprite(string version, int id)
+    {
+        var directory = Path.Combine(AppContext.BaseDirectory, "Data", "TimerMonsters", version);
+        foreach (var extension in new[] { ".png", ".gif" })
+        {
+            var path = Path.Combine(directory, id + extension);
+            if (File.Exists(path)) return path;
+        }
+        return "";
     }
 }

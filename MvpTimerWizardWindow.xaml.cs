@@ -23,6 +23,8 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
     private bool _suppressMonsterTextChanged;
     private readonly DateTime? _restartAtUtc;
     private readonly string? _initialKillClock;
+    private readonly bool _usesReferenceCatalog;
+    private bool ShowingMvp => TimerKindBox.SelectedIndex != 1;
     public bool IsRestart => _restartAtUtc.HasValue;
 
     public bool IsDragging { get; private set; }
@@ -85,17 +87,22 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
         }
     }
 
-    public MvpTimerWizardWindow(IEnumerable<MonsterEntry> monsters, MvpTimer? restartSource = null, DateTime? killedAtUtc = null)
+    public MvpTimerWizardWindow(IEnumerable<MonsterEntry> monsters, MvpTimer? restartSource = null,
+        DateTime? killedAtUtc = null, bool usesReferenceCatalog = false)
     {
+        _usesReferenceCatalog = usesReferenceCatalog;
         _restartAtUtc = restartSource is null ? null : killedAtUtc ?? DateTime.UtcNow;
         Draft = restartSource?.CreateRestartDraft(_restartAtUtc!.Value) ?? new MvpTimer();
         InitializeComponent();
         MonsterBox.AddHandler(UIElement.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(MonsterBox_PreviewMouseLeftButtonDown), true);
         _monsters = new ObservableCollection<MonsterEntry>(monsters);
-        if (restartSource is not null && !_monsters.Any(monster => monster.Id == restartSource.MonsterId))
+        if (restartSource is not null &&
+            !_monsters.Any(monster => monster.Id == restartSource.MonsterId && monster.IsMvp == restartSource.IsMvp))
             _monsters.Add(new MonsterEntry { Id = restartSource.MonsterId, Name = restartSource.Name,
-                ImageUrl = restartSource.MonsterImagePath, Spawns = restartSource.RespawnHints.ToList() });
+                IsMvp = restartSource.IsMvp, LocalImagePath = restartSource.MonsterImagePath,
+                Spawns = restartSource.RespawnHints.ToList() });
         MonsterView = CollectionViewSource.GetDefaultView(_monsters);
+        TimerKindBox.SelectedIndex = Draft.IsMvp ? 0 : 1;
         DataContext = this;
         if (restartSource is not null)
         {
@@ -104,7 +111,8 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
             _suppressMonsterTextChanged = true;
             try
             {
-                SelectedMonster = _monsters.FirstOrDefault(monster => monster.Id == restartSource.MonsterId);
+                SelectedMonster = _monsters.FirstOrDefault(monster =>
+                    monster.Id == restartSource.MonsterId && monster.IsMvp == restartSource.IsMvp);
                 MonsterBox.SelectedItem = SelectedMonster;
             }
             finally { _suppressMonsterTextChanged = false; }
@@ -114,9 +122,43 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
         Width = 800; Height = 540;
     }
 
+    private void TimerKind_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var isMvp = ShowingMvp;
+        _suppressMonsterTextChanged = true;
+        try
+        {
+            if (Draft.IsMvp != isMvp)
+            {
+                MonsterBox.IsDropDownOpen = false;
+                MonsterBox.SelectedItem = null;
+                MonsterBox.Text = "";
+                SelectedMonster = null;
+                Draft.MonsterId = 0;
+                Draft.Name = "";
+                Draft.LocationCode = "";
+                Draft.SetMonsterDetails(null);
+                Draft.IsMvp = isMvp;
+                ValidationText.Text = "";
+            }
+            FilterMonsters("");
+            ReferenceCatalogHint.Visibility = !isMvp &&
+                (_usesReferenceCatalog || _monsters.Any(monster => !monster.IsMvp && monster.IsReference))
+                ? Visibility.Visible : Visibility.Collapsed;
+        }
+        finally { _suppressMonsterTextChanged = false; }
+    }
+
+    private void FilterMonsters(string query)
+    {
+        var isMvp = ShowingMvp;
+        MonsterView.Filter = value => value is MonsterEntry monster && monster.MatchesTimerSearch(isMvp, query);
+    }
+
     private void MonsterBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (_suppressMonsterTextChanged || MonsterBox.SelectedItem is not MonsterEntry monster) return;
+        if (_suppressMonsterTextChanged || MonsterBox.SelectedItem is not MonsterEntry monster ||
+            monster.IsMvp != ShowingMvp) return;
         // WPF can replay the initial selection when ItemsSource finishes binding.
         // Selecting the already populated MVP must preserve the restart draft.
         if (IsRestart && ReferenceEquals(SelectedMonster, monster) && Draft.MonsterId == monster.Id) return;
@@ -148,15 +190,10 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
         if (MonsterBox.SelectedItem is MonsterEntry selected && editor.Text == selected.DisplayName) return;
         var text = editor.Text;
         var caret = editor.CaretIndex;
-        var query = text.Trim();
         _suppressMonsterTextChanged = true;
         try
         {
-            MonsterView.Filter = value => value is MonsterEntry monster &&
-                (string.IsNullOrWhiteSpace(query) ||
-                 monster.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                 monster.NameRu.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
-                 monster.Id.ToString().Contains(query, StringComparison.OrdinalIgnoreCase));
+            FilterMonsters(text.Trim());
             editor.Text = text;
             editor.CaretIndex = Math.Min(caret, text.Length);
             MonsterBox.IsDropDownOpen = !MonsterView.IsEmpty;
@@ -185,14 +222,15 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
     {
         if (_monsterEditor is null) return;
         var draft=_monsterEditor.Text;var caret=_monsterEditor.CaretIndex;
+        var wasSuppressing = _suppressMonsterTextChanged;
         _suppressMonsterTextChanged=true;
         try
         {
-            MonsterView.Filter=null;
+            FilterMonsters("");
             _monsterEditor.Text=draft;
             _monsterEditor.Select(Math.Clamp(caret,0,draft.Length),0);
         }
-        finally{_suppressMonsterTextChanged=false;}
+        finally{_suppressMonsterTextChanged=wasSuppressing;}
     }
 
     private void MoveCaretToEnd()
@@ -208,8 +246,9 @@ public partial class MvpTimerWizardWindow : Window, INotifyPropertyChanged
 
     private void Create_Click(object sender, RoutedEventArgs e)
     {
-        if ((!IsRestart && Draft.MonsterId <= 0) || (_monsterEditor is not null && SelectedMonster is not null &&
-            _monsterEditor.Text != SelectedMonster.DisplayName))
+        if (SelectedMonster is null || SelectedMonster.IsMvp != ShowingMvp ||
+            (!IsRestart && Draft.MonsterId <= 0) ||
+            (_monsterEditor is not null && _monsterEditor.Text != SelectedMonster.DisplayName))
         {
             ValidationText.Text = LocalizationService.Get("ChooseMvpRequired");
             return;

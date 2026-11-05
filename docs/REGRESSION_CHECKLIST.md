@@ -1,5 +1,13 @@
 # Regression checklist
 
+## Mixed monster timers and panel appearance — 2026-11-05
+
+- [ ] Add one timer from each category in the app and in game. Check search isolation after typing, clearing, closing the dropdown and switching category.
+- [ ] Choose another Poring location and restart RoAura. The saved timer retains its location and category. MVP and regular timers share the numbered list and hotkeys.
+- [ ] Run with network disconnected. Verify bundled sprites/minimaps, map-code badge and passive hover on the badge, timer name and countdown.
+- [ ] Set background color/opacity and border color/thickness. Toggle each independently and verify live preview, overlay and settings persistence. Move a transparent panel in layout mode.
+
+
 ## Numbered MVP shortcuts and generic statistics — 2026-11-05
 
 Automated evidence: [Windows run 127](https://github.com/alerion08/RoAura/actions/runs/41964880912), tested source `4d15d2b0`: 408 tests and native startup/input passed, including slots 1/12, cancel/confirm, marker placement, focus and keypress timestamp. The boxes below remain real-client acceptance; automated windows do not establish live MuhRO traffic or fullscreen/DPI behavior.

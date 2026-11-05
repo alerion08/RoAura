@@ -11,6 +11,7 @@ public sealed class MvpLocationSelector : ListBox
 {
     private MvpTimer? _timer;
     private bool _refreshing;
+    public event EventHandler? LocationChangedByUser;
     public MvpLocationSelector()
     {
         BorderThickness = new Thickness(0);
@@ -42,8 +43,12 @@ public sealed class MvpLocationSelector : ListBox
 """);
         SelectionChanged += (_, _) =>
         {
-            if (!_refreshing && _timer is not null && SelectedItem is MonsterSpawnEntry spawn)
+            if (!_refreshing && _timer is not null && SelectedItem is MonsterSpawnEntry spawn &&
+                _timer.LocationCode != spawn.Code)
+            {
                 _timer.LocationCode = spawn.Code;
+                LocationChangedByUser?.Invoke(this, EventArgs.Empty);
+            }
         };
         Loaded += (_, _) => Attach();
         DataContextChanged += (_, _) => Attach();

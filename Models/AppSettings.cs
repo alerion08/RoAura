@@ -79,6 +79,12 @@ public sealed class AppSettings : INotifyPropertyChanged
     private double _timersTextSize = 24;
     private double _timersGap = 6;
     private string _timersTextColor = "#FFFFFFFF";
+    private bool _timersShowBackground = true;
+    private string _timersBackgroundColor = "#FF11141B";
+    private double _timersBackgroundOpacityPercent = 69;
+    private bool _timersShowBorder = true;
+    private string _timersBorderColor = "#B8C5CBD4";
+    private double _timersBorderThickness = 1;
     private bool _rewardsEnabled = true;
     private bool _showJobExperience;
     private double _rateStatisticsRefreshSeconds = 5;
@@ -152,6 +158,12 @@ public sealed class AppSettings : INotifyPropertyChanged
     public double TimersTextSize { get => _timersTextSize; set => Set(ref _timersTextSize, Math.Clamp(value, 10, 72)); }
     public double TimersGap { get => _timersGap; set => Set(ref _timersGap, Math.Clamp(value, 0, 40)); }
     public string TimersTextColor { get => _timersTextColor; set => Set(ref _timersTextColor, value); }
+    public bool TimersShowBackground { get => _timersShowBackground; set => Set(ref _timersShowBackground, value); }
+    public string TimersBackgroundColor { get => _timersBackgroundColor; set => Set(ref _timersBackgroundColor, value); }
+    public double TimersBackgroundOpacityPercent { get => _timersBackgroundOpacityPercent; set => Set(ref _timersBackgroundOpacityPercent, Math.Clamp(value, 0, 100)); }
+    public bool TimersShowBorder { get => _timersShowBorder; set => Set(ref _timersShowBorder, value); }
+    public string TimersBorderColor { get => _timersBorderColor; set => Set(ref _timersBorderColor, value); }
+    public double TimersBorderThickness { get => _timersBorderThickness; set => Set(ref _timersBorderThickness, Math.Clamp(value, 0, 10)); }
     public bool RewardsEnabled { get => _rewardsEnabled; set => Set(ref _rewardsEnabled, value); }
     public bool ShowJobExperience { get => _showJobExperience; set => Set(ref _showJobExperience, value); }
     public int GoldGoblinOverchargeLevel { get => _goldGoblinOverchargeLevel; set => Set(ref _goldGoblinOverchargeLevel, Math.Clamp(value, 0, 10)); }

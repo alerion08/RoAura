@@ -1,5 +1,12 @@
 # RoAura UI specification
 
+## Timers for MVPs and regular monsters — 2026-11-05
+
+**Timers** is the navigation and page title. Both creation entry points open the same form. Category **MVP** searches only MVPs and **Monsters** searches only regular entries by name/ID. A category change clears the previous selection; the location list and local sprite/map follow the selected monster. The first known map is preselected, and the confirmed map code and marker are saved per timer. Ordinary and MVP timers share the list, numbers and restart shortcuts.
+
+The overlay row shows an outlined map code such as `pay_fild04` when a location is selected. Hover anywhere on the row to see its minimap and marker. The **In-game panel** tab groups position/text, background (enable/color/opacity) and border (enable/color/thickness), with a live preview. RTM and generic profiles use a reference catalog where server-specific ordinary entries are unavailable.
+
+
 Current published version: **3.4.0**, [release](https://github.com/alerion08/RoAura/releases/tag/v3.4.0). Dated earlier validation notes are historical; current publication evidence is at the end and in PROJECT_STATE.md.
 
 ## Release 3.3.0 completion — 2026-11-03 documentation update

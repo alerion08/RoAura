@@ -483,11 +483,11 @@
         </Grid>
         <Canvas IsHitTestVisible="True">
             <Border x:Name="MvpTimerPanel" Canvas.Left="{Binding TimersX}" Canvas.Top="{Binding TimersY}"
-                    Padding="10" CornerRadius="6" Background="#B011141B" BorderBrush="#B8C5CBD4" BorderThickness="1"
+                    Style="{StaticResource TimerPanelFrameStyle}"
                     Cursor="SizeAll" Visibility="Collapsed"
                     MouseLeftButtonDown="MvpTimerPanel_MouseLeftButtonDown" MouseMove="MvpTimerPanel_MouseMove" MouseLeftButtonUp="MvpTimerPanel_MouseLeftButtonUp">
                 <StackPanel>
-                <TextBlock x:Name="TimerPanelPreview" Text="MVP TIMERS" FontWeight="Bold" Foreground="#FFFFD45C" Visibility="Collapsed" Margin="0,0,0,5"/>
+                <TextBlock x:Name="TimerPanelPreview" Text="{DynamicResource MvpTimers}" FontWeight="Bold" Foreground="#FFFFD45C" Visibility="Collapsed" Margin="0,0,0,5"/>
                 <ItemsControl ItemsSource="{Binding ActiveMvpTimers}">
                     <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
@@ -502,7 +502,17 @@
                                     <Setter Property="Effect"><Setter.Value><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></Setter.Value></Setter>
                                 </Style></StackPanel.Resources>
                                 <TextBlock Text="{Binding NumberedName}"/>
-                                <TextBlock Tag="MvpMapHover" Text="&#xE721;" FontFamily="Segoe MDL2 Assets" FontWeight="Normal" Margin="7,0,0,0" VerticalAlignment="Center"/>
+                                <Border Margin="6,0,0,0" Padding="3,0" BorderThickness="1" CornerRadius="3" VerticalAlignment="Center"
+                                        BorderBrush="{Binding DataContext.TimersTextColor, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource ColorBrush}}">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding LocationCode}" Value=""><Setter Property="Visibility" Value="Collapsed"/></DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock Tag="MvpMapHover" Text="{Binding LocationCode}" FontWeight="Normal"/>
+                                </Border>
                                 <TextBlock><Run Text=" — "/><Run Text="{Binding RemainingText, Mode=OneWay}"/></TextBlock>
                             </StackPanel>
                         </DataTemplate>
