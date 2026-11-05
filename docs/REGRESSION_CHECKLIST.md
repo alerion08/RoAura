@@ -2,6 +2,8 @@
 
 ## Mixed monster timers and panel appearance — 2026-11-05
 
+Automated evidence: [Windows run 131](https://github.com/alerion08/RoAura/actions/runs/41993544078) passed 409 tests and native startup/input on `694f57c7`. All 352 catalog maps and 1,437 sprites were bundled. The checks below cover real-client acceptance.
+
 - [ ] Add one timer from each category in the app and in game. Check search isolation after typing, clearing, closing the dropdown and switching category.
 - [ ] Choose another Poring location and restart RoAura. The saved timer retains its location and category. MVP and regular timers share the numbered list and hotkeys.
 - [ ] Run with network disconnected. Verify bundled sprites/minimaps, map-code badge and passive hover on the badge, timer name and countdown.

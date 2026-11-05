@@ -4,8 +4,9 @@
 
 - Continues the numbered timer work on `feature/muhro-packet-support`. The app and in-game creation use the same MVP/Monsters category and search. Category, monster ID and chosen location are saved per timer. Both categories share full list numbering and the existing 1–12 shortcuts.
 - Timer entries use the existing SpringRO/ToC database snapshots. For RTM's MVP-only catalog, ordinary entries use SpringRO as a reference; generic profiles also identify reference locations in the form. No MuhRO-specific spawn table is included.
-- The Windows build prepares local sprites and 352 catalog minimaps. A compact map-code badge replaces the magnifier; the whole row still opens the minimap and marker. The in-game panel and its settings preview share independent background (visibility/color/opacity) and border (visibility/color/thickness) settings.
-- Local build, XML/localization parity and eight ToC importer checks passed. Windows regression, native input and portable packaging are pending for this change.
+- The Windows package includes 1,437 local sprites and 352 catalog minimaps. A compact map-code badge replaces the magnifier; the whole row still opens the minimap and marker. The in-game panel and its settings preview share independent background (visibility/color/opacity) and border (visibility/color/thickness) settings.
+- Tested source `694f57c7dd90b8bac759e3daf541787e809c6688`. [Windows development run 131](https://github.com/alerion08/RoAura/actions/runs/41993544078) passed all 409 tests, eight ToC importer checks, native startup/input, bundled art and portable validation. The native probe checks regular monster selection, local Poring art and `pay_fild04`, the saved category/map/number, passive map hover and live panel style. Real-client acceptance remains manual.
+- Portable `RoAura-Dev-3.4.0-694f57c7-portable.zip`, SHA256 `b0b94c477234c4f9d62d7bec6001682d8045fe5e4054db6a6640c9668aad5880`.
 
 
 ## Active development — numbered MVP restart shortcuts and generic statistics, 2026-11-05
