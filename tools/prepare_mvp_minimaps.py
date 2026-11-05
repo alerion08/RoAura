@@ -17,6 +17,10 @@ SOURCES = ("https://choobs.org/maps/{}.png", "https://tidesofcomodo.com/db/map-i
            "https://www.divine-pride.net/img/map/original/{}")
 TOC_SPRITE = "https://tidesofcomodo.com/db/mob-img/{}.gif"
 SPRING_SPRITE = "https://pub-36f18a13614d49f0997ef23bce857ec4.r2.dev/sprites/mobs/{}.png"
+TOC_SPRITE_FALLBACK = {
+    1382: "https://file5s.ratemyserver.net/mobs/1382.gif",
+    1429: "https://file5s.ratemyserver.net/mobs/1429.gif",
+}
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 MAX_BYTES = 2 * 1024 * 1024
 
@@ -51,7 +55,10 @@ def catalog_assets():
             record = json.loads(zlib.decompress(payload))
             target = result if is_mvp else additional_maps
             target.update(spawn["map_name"] for spawn in record.get("spawns", []))
-            sprites[("ToC", monster_id)] = (TOC_SPRITE.format(monster_id),)
+            urls = [TOC_SPRITE.format(monster_id)]
+            if monster_id in TOC_SPRITE_FALLBACK:
+                urls.append(TOC_SPRITE_FALLBACK[monster_id])
+            sprites[("ToC", monster_id)] = urls
         for (payload,) in db.execute("SELECT payload FROM mvp_respawns"):
             result.add(json.loads(zlib.decompress(payload))["map_code"])
     def normalize(codes):
