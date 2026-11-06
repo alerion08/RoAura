@@ -67,10 +67,31 @@ public partial class MainWindow
 
     private void ValidateEffectTutorialSmoke()
     {
+        var originalTab = EffectsSectionTabs.SelectedIndex;
         EffectsNavButton.IsChecked = true;
-        UpdateLayout();
-        if (!EffectTutorialButton.IsVisible || !File.Exists(EffectTutorialWindow.VideoPath))
-            throw new InvalidOperationException("Effects tutorial button or packaged video is missing.");
+        try
+        {
+            EffectsSectionTabs.SelectedIndex = 0;
+            UpdateLayout();
+            ValidateEffectTutorialPlayback(EffectTutorialButton, "AddEffect.mp4");
+            ValidateEffectTutorialPlayback(EffectSettingsTutorialButton, "EffectSettings.mp4");
+
+            EffectsSectionTabs.SelectedIndex = 1;
+            UpdateLayout();
+            ValidateEffectTutorialPlayback(EffectPanelsTutorialButton, "ActiveEffectPanels.mp4");
+        }
+        finally
+        {
+            EffectsSectionTabs.SelectedIndex = originalTab;
+            HomeNavButton.IsChecked = true;
+        }
+    }
+
+    private void ValidateEffectTutorialPlayback(Button button, string videoFileName)
+    {
+        var expectedPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Tutorials", videoFileName);
+        if (!button.IsVisible || !File.Exists(expectedPath))
+            throw new InvalidOperationException($"Effects tutorial button or packaged video is missing: {videoFileName}");
 
         var timeout = Stopwatch.StartNew();
         var probe = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(75) };
@@ -79,22 +100,22 @@ public partial class MainWindow
         {
             var window = OwnedWindows.OfType<EffectTutorialWindow>().SingleOrDefault();
             if (window is null) return;
-            playbackStarted = window.TutorialVideo.Position > TimeSpan.Zero;
-            if (playbackStarted || window.PlaybackFailed || timeout.Elapsed >= TimeSpan.FromSeconds(5))
+            var correctVideo = window.VideoPath == expectedPath;
+            playbackStarted = correctVideo && window.TutorialVideo.Position > TimeSpan.Zero;
+            if (!correctVideo || playbackStarted || window.PlaybackFailed || timeout.Elapsed >= TimeSpan.FromSeconds(5))
                 window.Close();
         };
         try
         {
             probe.Start();
-            EffectTutorialButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            button.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             if (!playbackStarted)
-                throw new InvalidOperationException("The packaged effect tutorial did not start playing.");
-            DebugLog.Write("EFFECT TUTORIAL SMOKE PASS: Effects button opens the popup and the local MP4 plays.");
+                throw new InvalidOperationException($"The packaged effect tutorial did not start playing: {videoFileName}");
+            DebugLog.Write($"EFFECT TUTORIAL SMOKE PASS: {videoFileName} plays from its Effects button.");
         }
         finally
         {
             probe.Stop();
-            HomeNavButton.IsChecked = true;
         }
     }
 }

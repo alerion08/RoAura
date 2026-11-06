@@ -54,7 +54,7 @@
     <Resource Include="Assets\discord.png" />
     <Resource Include="Assets\donate.png" />
     <Resource Include="Assets\Menu\*.png" />
-    <Content Include="Assets\Tutorials\AddEffect.mp4">
+    <Content Include="Assets\Tutorials\*.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

@@ -1,5 +1,9 @@
 # RoAura UI specification
 
+## Effects video guides — 2026-11-05
+
+The Effects list offers “Как добавить отслеживание эффекта?” and “Как настроить эффект?” below the search results. The active effect panels tab offers “Как настроить панель активных эффектов?” below the panel list. Each hint opens a centered, resizable window with its own localized title and a matching bundled, silent MP4. Playback starts automatically, loops and stops when the window closes.
+
 ## Effect tracking tutorial — 2026-11-05
 
 The hint below the Effects list is a button labeled “Как добавить отслеживание эффекта?” in Russian and “How do I add effect tracking?” in English. It opens a centered, resizable window over RoAura. The local instructional video plays automatically, repeats and stops when the window closes. The search field keeps its own search tooltip.

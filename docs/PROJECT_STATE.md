@@ -1,5 +1,10 @@
 # Project state
 
+## Active development — three Effects video guides, 2026-11-05
+
+- On `integration/effects-video-guides`, the Effects workspace bundles the updated add-effect video plus guides for effect settings and active effect panels. The same localized popup plays each offline. Build and installer rules include all three approved, silent MP4s.
+- The Windows startup probe checks the expected video and playback for each help button. Manual Windows review covers layout, keyboard opening/closing, and playback at the user's DPI.
+
 ## Active development — effect tracking tutorial, 2026-11-05
 
 - Continues `feature/muhro-packet-support`. The Effects list opens the approved six-step tutorial from a clickable hint. The window plays the bundled 12-second H.264 MP4 on a loop and releases it when closed. The MP4 is included in build, portable and installer payloads.

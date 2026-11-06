@@ -49,7 +49,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; (publish output + README/GUIDE/RELEASE_NOTES copies) and purges of private
 ; files before the installer is compiled.
 Source: "artifacts\publish\RoAura.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "artifacts\publish\Assets\Tutorials\AddEffect.mp4"; DestDir: "{app}\Assets\Tutorials"; Flags: ignoreversion
+Source: "artifacts\publish\Assets\Tutorials\*.mp4"; DestDir: "{app}\Assets\Tutorials"; Flags: ignoreversion
 Source: "artifacts\publish\README.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "artifacts\publish\GUIDE.md"; DestDir: "{app}"; Flags: ignoreversion
 Source: "artifacts\publish\GUIDE_RU.md"; DestDir: "{app}"; Flags: ignoreversion

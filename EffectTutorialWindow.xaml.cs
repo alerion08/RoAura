@@ -5,14 +5,15 @@ namespace RoAura;
 
 public partial class EffectTutorialWindow : Window
 {
-    internal static string VideoPath =>
-        Path.Combine(AppContext.BaseDirectory, "Assets", "Tutorials", "AddEffect.mp4");
+    internal string VideoPath { get; }
 
     internal bool PlaybackFailed { get; private set; }
 
-    public EffectTutorialWindow()
+    internal EffectTutorialWindow(string videoFileName, string titleResourceKey)
     {
         InitializeComponent();
+        VideoPath = Path.Combine(AppContext.BaseDirectory, "Assets", "Tutorials", videoFileName);
+        SetResourceReference(TitleProperty, titleResourceKey);
         Loaded += StartPlayback;
     }
 
@@ -40,7 +41,7 @@ public partial class EffectTutorialWindow : Window
 
     private void TutorialVideo_MediaFailed(object sender, ExceptionRoutedEventArgs e)
     {
-        DebugLog.Write($"EFFECT TUTORIAL PLAYBACK FAILED: {e.ErrorException.Message}");
+        DebugLog.Write($"EFFECT TUTORIAL PLAYBACK FAILED ({Path.GetFileName(VideoPath)}): {e.ErrorException.Message}");
         ShowPlaybackError();
     }
 

@@ -2249,7 +2249,16 @@ public partial class MainWindow : Window
     }
 
     private void EffectTutorial_Click(object sender, RoutedEventArgs e) =>
-        new EffectTutorialWindow { Owner = this }.ShowDialog();
+        ShowEffectTutorial("AddEffect.mp4", "EffectTutorialTitle");
+
+    private void EffectSettingsTutorial_Click(object sender, RoutedEventArgs e) =>
+        ShowEffectTutorial("EffectSettings.mp4", "EffectSettingsTutorialTitle");
+
+    private void EffectPanelsTutorial_Click(object sender, RoutedEventArgs e) =>
+        ShowEffectTutorial("ActiveEffectPanels.mp4", "EffectPanelsTutorialTitle");
+
+    private void ShowEffectTutorial(string videoFileName, string titleResourceKey) =>
+        new EffectTutorialWindow(videoFileName, titleResourceKey) { Owner = this }.ShowDialog();
 
     private void About_Click(object sender, RoutedEventArgs e) => new AboutWindow { Owner = this }.ShowDialog();
 

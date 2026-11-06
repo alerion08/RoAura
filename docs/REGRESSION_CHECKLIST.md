@@ -1,5 +1,11 @@
 # Regression checklist
 
+## Effects video guides — 2026-11-05
+
+- [ ] In both UI languages, open both guides in the Effects list and the guide in the active panels tab. Verify the title and matching clip, including on an empty list.
+- [ ] With network disconnected, open a guide with the keyboard, let it loop, close it with Escape or the Close button, and reopen it. Repeat at the minimum application window size in light and dark themes.
+- [ ] Verify all three silent MP4s are included in the portable and installed application under `Assets/Tutorials`.
+
 ## Effect tracking tutorial — 2026-11-05
 
 Automated evidence: [Windows run 135, attempt 2](https://github.com/alerion08/RoAura/actions/runs/42042386365/attempts/2) passed 409 tests, popup and local playback on `8dff7037`. Portable MP4 bytes match the approved tutorial.

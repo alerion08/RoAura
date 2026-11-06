@@ -88,6 +88,8 @@
     <sys:String x:Key="SelectEffectHint">Its settings will appear in this area.</sys:String>
     <sys:String x:Key="EffectSearchHint">Search by name or Status ID</sys:String>
     <sys:String x:Key="EffectTutorialTitle">How do I add effect tracking?</sys:String>
+    <sys:String x:Key="EffectSettingsTutorialTitle">How do I configure an effect?</sys:String>
+    <sys:String x:Key="EffectPanelsTutorialTitle">How do I configure an active effects panel?</sys:String>
     <sys:String x:Key="EffectTutorialLoading">Loading video…</sys:String>
     <sys:String x:Key="EffectTutorialUnavailable">The video tutorial could not be played.</sys:String>
     <sys:String x:Key="EffectSearch">Search effects</sys:String>

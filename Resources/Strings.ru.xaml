@@ -88,6 +88,8 @@
     <sys:String x:Key="SelectEffectHint">Его параметры появятся в этой области.</sys:String>
     <sys:String x:Key="EffectSearchHint">Поиск по названию или Status ID</sys:String>
     <sys:String x:Key="EffectTutorialTitle">Как добавить отслеживание эффекта?</sys:String>
+    <sys:String x:Key="EffectSettingsTutorialTitle">Как настроить эффект?</sys:String>
+    <sys:String x:Key="EffectPanelsTutorialTitle">Как настроить панель активных эффектов?</sys:String>
     <sys:String x:Key="EffectTutorialLoading">Загрузка видео…</sys:String>
     <sys:String x:Key="EffectTutorialUnavailable">Не удалось воспроизвести видеоинструкцию.</sys:String>
     <sys:String x:Key="EffectSearch">Поиск эффектов</sys:String>
