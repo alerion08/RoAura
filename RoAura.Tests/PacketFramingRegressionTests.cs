@@ -7,6 +7,29 @@ namespace RoAura.Tests;
 public sealed class PacketFramingRegressionTests
 {
     [Theory]
+    [InlineData((ushort)11, 230u)]
+    [InlineData((ushort)55, 45u)]
+    public void Fragmented_level_update_keeps_the_following_experience_packet(ushort parameter, uint level)
+    {
+        var bytes = new byte[20];
+        W16(bytes, 0, 0x00B0); W16(bytes, 2, parameter); W32(bytes, 4, level);
+        W16(bytes, 8, 0x0ACB); W16(bytes, 10, 22); W32(bytes, 12, 1_000_000);
+
+        for (var split = 1; split < 8; split++)
+        {
+            var scanner = new RoPacketStreamScanner();
+            var progress = new List<RoProgressPacket>();
+            scanner.ProgressChanged += progress.Add;
+            scanner.Process(bytes.AsSpan(0, split));
+            Assert.Empty(progress);
+            scanner.Process(bytes.AsSpan(split));
+            Assert.Equal(new RoProgressPacket(parameter, level), progress[0]);
+            Assert.Equal(new RoProgressPacket(22, 1_000_000), progress[1]);
+            Assert.Equal(2, progress.Count);
+        }
+    }
+
+    [Theory]
     [InlineData((ushort)0x011A, 0u)]
     [InlineData((ushort)0x011A, 65535u)] // Hiding sends heal=-1
     [InlineData((ushort)0x09CB, uint.MaxValue)]

@@ -183,6 +183,11 @@ public sealed class RoPacketStreamScanner
                     offset += length - 1;
                     break;
 
+                case 0x00B0 when _knownBoundary && TryReadExperienceLevel(combined, offset, out var level):
+                    ProgressChanged?.Invoke(level);
+                    offset += frameLength - 1;
+                    break;
+
                 case 0x00B1 when TryReadZeny(combined, offset, out var length, out var zeny):
                     ZenyChanged?.Invoke(zeny);
                     offset += length - 1;
@@ -677,6 +682,17 @@ public sealed class RoPacketStreamScanner
         var parameter = ReadUInt16(data, offset + 2);
         if (parameter is not (1 or 2 or 22 or 23)) return false;
         var value = BinaryPrimitives.ReadUInt64LittleEndian(data.AsSpan(offset + 4, 8));
+        packet = new RoProgressPacket(parameter, value);
+        return true;
+    }
+
+    private static bool TryReadExperienceLevel(byte[] data, int offset, out RoProgressPacket packet)
+    {
+        packet = default;
+        var parameter = ReadUInt16(data, offset + 2);
+        if (parameter is not (11 or 55)) return false;
+        var value = ReadUInt32(data, offset + 4);
+        if (value is 0 or > ushort.MaxValue) return false;
         packet = new RoProgressPacket(parameter, value);
         return true;
     }

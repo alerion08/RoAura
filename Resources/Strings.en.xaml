@@ -734,4 +734,9 @@
     <sys:String x:Key="LayoutStatistics">Statistics / Indicators</sys:String>
     <sys:String x:Key="LayoutRewards">Statistics / Notifications</sys:String>
     <sys:String x:Key="LayoutQuestPreview">Tracked quests will appear here.</sys:String>
+    <sys:String x:Key="ExperienceBars">EXP bars</sys:String>
+    <sys:String x:Key="ShowExperienceBars">Show Base EXP bar</sys:String>
+    <sys:String x:Key="ShowJobExperienceBar">Show Job EXP bar</sys:String>
+    <sys:String x:Key="ExperienceBarWidth">Bar width</sys:String>
+    <sys:String x:Key="ExperienceBarHeight">Bar height</sys:String>
 </ResourceDictionary>

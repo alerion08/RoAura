@@ -1251,6 +1251,36 @@
                                     </Border>
                                 </Grid>
                             </TabItem>
+                            <TabItem Header="{DynamicResource ExperienceBars}">
+                                <ScrollViewer Margin="0,10,0,0" VerticalScrollBarVisibility="Auto">
+                                    <Border Style="{StaticResource WorkspacePanelStyle}">
+                                        <StackPanel Margin="8">
+                                            <TextBlock Text="{DynamicResource ExperienceBars}" Style="{StaticResource RoSectionTitleStyle}"/>
+                                            <CheckBox Content="{DynamicResource ShowExperienceBars}" IsChecked="{Binding ShowExperienceBars}" Margin="0,8,0,0"/>
+                                            <CheckBox Content="{DynamicResource ShowJobExperienceBar}" IsChecked="{Binding ShowJobExperienceBar}"
+                                                      IsEnabled="{Binding ShowExperienceBars}" Margin="0,8,0,0"/>
+                                            <WrapPanel Margin="0,12,0,0">
+                                                <StackPanel Margin="0,0,12,8">
+                                                    <TextBlock Text="{DynamicResource ExperienceBarWidth}"/>
+                                                    <TextBox Width="90" Style="{StaticResource FieldEditorStyle}" Text="{Binding ExperienceBarWidth, UpdateSourceTrigger=LostFocus}"/>
+                                                </StackPanel>
+                                                <StackPanel Margin="0,0,12,8">
+                                                    <TextBlock Text="{DynamicResource ExperienceBarHeight}"/>
+                                                    <TextBox Width="90" Style="{StaticResource FieldEditorStyle}" Text="{Binding ExperienceBarHeight, UpdateSourceTrigger=LostFocus}"/>
+                                                </StackPanel>
+                                                <StackPanel Margin="0,0,12,8">
+                                                    <TextBlock Text="{DynamicResource PositionX}"/>
+                                                    <TextBox Width="90" Style="{StaticResource FieldEditorStyle}" Text="{Binding ExperienceBarsX, UpdateSourceTrigger=LostFocus}"/>
+                                                </StackPanel>
+                                                <StackPanel Margin="0,0,12,8">
+                                                    <TextBlock Text="{DynamicResource PositionY}"/>
+                                                    <TextBox Width="90" Style="{StaticResource FieldEditorStyle}" Text="{Binding ExperienceBarsY, UpdateSourceTrigger=LostFocus}"/>
+                                                </StackPanel>
+                                            </WrapPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </ScrollViewer>
+                            </TabItem>
 
                             <TabItem Header="{DynamicResource NotificationsTab}">
                                 <Grid Margin="0,10,0,0">
