@@ -149,6 +149,18 @@ public sealed class CharacterStatisticsLedger
         }
     }
 
+    public void ObserveExperienceLevel(bool isJob, ushort level, DateTime nowUtc)
+    {
+        CheckUtc(nowUtc);
+        lock (_sync)
+        {
+            if (!TryGetActive(out var state)) return;
+            if (isJob) state.JobLevel = state.JobLevel.Observe(level, nowUtc);
+            else state.BaseLevel = state.BaseLevel.Observe(level, nowUtc);
+            state.LastUpdatedUtc = nowUtc;
+        }
+    }
+
     public void SetProgress(bool isJob, ulong current, ulong required, DateTime nowUtc)
     {
         CheckUtc(nowUtc);

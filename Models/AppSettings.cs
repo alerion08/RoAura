@@ -135,6 +135,36 @@ public sealed class AppSettings : INotifyPropertyChanged
     public bool IncludeGoldGoblinInZenyPerHour { get => _includeGoldGoblinInZenyPerHour; set => Set(ref _includeGoldGoblinInZenyPerHour, value); }
     private bool _goldGoblinIgnoreZenyIncome;
     public bool GoldGoblinIgnoreZenyIncome { get => _goldGoblinIgnoreZenyIncome; set => Set(ref _goldGoblinIgnoreZenyIncome, value); }
+    private bool _showExperienceBars;
+    private bool _showJobExperienceBar = true;
+    private double _experienceBarWidth = 520;
+    private double _experienceBarHeight = 24;
+    private double _experienceBarsX = 20;
+    private double _experienceBarsY = 180;
+
+    public bool ShowExperienceBars { get => _showExperienceBars; set => Set(ref _showExperienceBars, value); }
+    public bool ShowJobExperienceBar { get => _showJobExperienceBar; set => Set(ref _showJobExperienceBar, value); }
+    public double ExperienceBarWidth
+    {
+        get => _experienceBarWidth;
+        set { if (double.IsFinite(value)) Set(ref _experienceBarWidth, Math.Clamp(value, 180, 2000)); }
+    }
+    public double ExperienceBarHeight
+    {
+        get => _experienceBarHeight;
+        set { if (double.IsFinite(value)) Set(ref _experienceBarHeight, Math.Clamp(value, 12, 120)); }
+    }
+    public double ExperienceBarsX
+    {
+        get => _experienceBarsX;
+        set { if (double.IsFinite(value)) Set(ref _experienceBarsX, Math.Max(0, value)); }
+    }
+    public double ExperienceBarsY
+    {
+        get => _experienceBarsY;
+        set { if (double.IsFinite(value)) Set(ref _experienceBarsY, Math.Max(0, value)); }
+    }
+
     public double RateStatisticsRefreshSeconds
     {
         get => _rateStatisticsRefreshSeconds;

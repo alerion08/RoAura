@@ -734,4 +734,9 @@
     <sys:String x:Key="LayoutStatistics">Статистика / Показатели</sys:String>
     <sys:String x:Key="LayoutRewards">Статистика / Уведомления</sys:String>
     <sys:String x:Key="LayoutQuestPreview">Здесь будут показаны отслеживаемые квесты.</sys:String>
+    <sys:String x:Key="ExperienceBars">Полосы EXP</sys:String>
+    <sys:String x:Key="ShowExperienceBars">Показывать полосу Base EXP</sys:String>
+    <sys:String x:Key="ShowJobExperienceBar">Показывать полосу Job EXP</sys:String>
+    <sys:String x:Key="ExperienceBarWidth">Ширина полос</sys:String>
+    <sys:String x:Key="ExperienceBarHeight">Высота полос</sys:String>
 </ResourceDictionary>

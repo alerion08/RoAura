@@ -10,6 +10,35 @@ public sealed class CharacterStatisticsLedgerTests
     private static readonly CharacterStatisticsKey B = CharacterStatisticsKey.Create("SpringRO", 155665);
 
     [Fact]
+    public void Base_and_job_level_observations_survive_session_reset_and_relogin()
+    {
+        WithStore(store =>
+        {
+            var ledger = new CharacterStatisticsLedger(store);
+            ledger.SwitchTo(A, Start);
+            Assert.Equal(default(ObservedExperienceLevel), ledger.Snapshot(A, Start)!.BaseLevel);
+
+            var jobStart = Start.AddMinutes(1);
+            var nextBaseLevel = Start.AddMinutes(3);
+            ledger.ObserveExperienceLevel(false, 230, Start);
+            ledger.ObserveExperienceLevel(true, 45, jobStart);
+            ledger.ObserveExperienceLevel(false, 230, Start.AddMinutes(2));
+            Assert.Equal(new ObservedExperienceLevel(230, Start), ledger.Snapshot(A, Start.AddMinutes(2))!.BaseLevel);
+            ledger.ObserveExperienceLevel(false, 231, nextBaseLevel);
+            ledger.ResetCurrentSession(nextBaseLevel);
+
+            ledger.SwitchTo(B, Start.AddMinutes(4));
+            Assert.Equal(default(ObservedExperienceLevel), ledger.Snapshot(B, Start.AddMinutes(4))!.BaseLevel);
+            ledger.Suspend(Start.AddMinutes(5));
+            var restarted = new CharacterStatisticsLedger(store);
+            restarted.SwitchTo(A, Start.AddMinutes(6));
+            var restored = restarted.Snapshot(A, Start.AddMinutes(6))!;
+            Assert.Equal(new ObservedExperienceLevel(231, nextBaseLevel), restored.BaseLevel);
+            Assert.Equal(new ObservedExperienceLevel(45, jobStart), restored.JobLevel);
+        });
+    }
+
+    [Fact]
     public void A_to_B_to_A_keeps_totals_isolated_and_excludes_time_on_other_character()
     {
         WithStore(store =>

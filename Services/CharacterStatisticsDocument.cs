@@ -22,6 +22,12 @@ public sealed class CharacterLootCount
     public bool HasManualCost { get; set; }
 }
 
+public readonly record struct ObservedExperienceLevel(ushort Number, DateTime? ObservedUtc)
+{
+    public ObservedExperienceLevel Observe(ushort number, DateTime nowUtc) =>
+        Number == number && ObservedUtc.HasValue ? this : new(number, nowUtc);
+}
+
 /// <summary>
 /// Only numeric farming data. Pricing rules, overlay coordinates, effects and presets
 /// deliberately remain in their existing shared configuration.
@@ -47,6 +53,8 @@ public sealed class CharacterStatisticsDocument
     public long SessionJobExperience { get; set; }
     public long SessionZenyGained { get; set; }
     public long SessionActiveTicks { get; set; }
+    public ObservedExperienceLevel BaseLevel { get; set; }
+    public ObservedExperienceLevel JobLevel { get; set; }
     public ulong CurrentBaseExperience { get; set; }
     public ulong NextBaseExperience { get; set; }
     public ulong CurrentJobExperience { get; set; }
@@ -74,6 +82,8 @@ public sealed class CharacterStatisticsDocument
         SessionJobExperience = SessionJobExperience,
         SessionZenyGained = SessionZenyGained,
         SessionActiveTicks = SessionActiveTicks,
+        BaseLevel = BaseLevel,
+        JobLevel = JobLevel,
         CurrentBaseExperience = CurrentBaseExperience,
         NextBaseExperience = NextBaseExperience,
         CurrentJobExperience = CurrentJobExperience,

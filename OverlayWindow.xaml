@@ -15,6 +15,73 @@
         <converters:EffectPanelOpacityConverter x:Key="PanelOpacity" />
         <converters:BottomMarginConverter x:Key="BottomMargin" />
         <converters:DoubleToThicknessConverter x:Key="IconPadding" />
+        <Style x:Key="ExperienceBarLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Effect">
+                <Setter.Value><DropShadowEffect BlurRadius="4" ShadowDepth="0" Color="Black" Opacity="1"/></Setter.Value>
+            </Setter>
+        </Style>
+        <DataTemplate x:Key="ExperienceBarTemplate">
+            <DockPanel>
+                <Grid Margin="3,1">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="DockPanel.Dock" Value="Top"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource AncestorType=ContentControl}}" Value="Job">
+                                    <Setter Property="DockPanel.Dock" Value="Bottom"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
+                    <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Left">
+                        <TextBlock Style="{StaticResource ExperienceBarLabel}" Text="{Binding Time}"/>
+                    </Viewbox>
+                    <Viewbox Grid.Column="1" StretchDirection="DownOnly" HorizontalAlignment="Right">
+                        <TextBlock Style="{StaticResource ExperienceBarLabel}" Text="{Binding Rate}"/>
+                    </Viewbox>
+                </Grid>
+                <Grid Height="{Binding DataContext.ExperienceBarHeight, RelativeSource={RelativeSource AncestorType=Window}}">
+                    <ProgressBar Minimum="0" Maximum="1" Value="{Binding Progress, Mode=OneWay}">
+                        <ProgressBar.Style>
+                            <Style TargetType="ProgressBar">
+                                <Setter Property="Foreground" Value="#FF345DB1"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource AncestorType=ContentControl}}" Value="Job">
+                                        <Setter Property="Foreground" Value="#FF7743A1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ProgressBar.Style>
+                        <ProgressBar.Template>
+                            <ControlTemplate TargetType="ProgressBar">
+                                <Border Background="#C0161922" BorderBrush="#D09AA5B8" BorderThickness="1" CornerRadius="3" ClipToBounds="True">
+                                    <Grid x:Name="PART_Track">
+                                        <Border x:Name="PART_Indicator" HorizontalAlignment="Left"
+                                                Background="{TemplateBinding Foreground}" CornerRadius="2"/>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </ProgressBar.Template>
+                    </ProgressBar>
+                    <Grid Margin="6,0">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="3*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                        <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Left">
+                            <TextBlock Style="{StaticResource ExperienceBarLabel}" Text="{Binding Level}"/>
+                        </Viewbox>
+                        <Viewbox Grid.Column="1" Margin="4,0" StretchDirection="DownOnly">
+                            <TextBlock Style="{StaticResource ExperienceBarLabel}" Text="{Binding Experience}"/>
+                        </Viewbox>
+                        <Viewbox Grid.Column="2" StretchDirection="DownOnly" HorizontalAlignment="Right">
+                            <TextBlock Style="{StaticResource ExperienceBarLabel}" Text="{Binding Percent}"/>
+                        </Viewbox>
+                    </Grid>
+                </Grid>
+            </DockPanel>
+        </DataTemplate>
     </Window.Resources>
     <Grid x:Name="OverlaySurface" Background="Transparent">
       <Grid x:Name="PacketOverlaySurface" Visibility="{Binding PacketCaptureEnabled, Converter={StaticResource BoolToVisibility}}">
@@ -440,6 +507,17 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
+        <Canvas x:Name="ExperienceBarsPanel" IsHitTestVisible="False">
+            <StackPanel Canvas.Left="{Binding ExperienceBarsX}" Canvas.Top="{Binding ExperienceBarsY}"
+                        Width="{Binding ExperienceBarWidth}"
+                        Visibility="{Binding ShowExperienceBars, Converter={StaticResource BoolToVisibility}}">
+                <ContentControl x:Name="BaseExperienceBar" HorizontalContentAlignment="Stretch" ContentTemplate="{StaticResource ExperienceBarTemplate}"/>
+                <ContentControl x:Name="JobExperienceBar" Tag="Job" Margin="0,2,0,0" HorizontalContentAlignment="Stretch"
+                                ContentTemplate="{StaticResource ExperienceBarTemplate}"
+                                Visibility="{Binding ShowJobExperienceBar, Converter={StaticResource BoolToVisibility}}"/>
+            </StackPanel>
+        </Canvas>
 
         <ItemsControl x:Name="RateIndicatorsPanel" ItemsSource="{Binding RateIndicators}">
             <ItemsControl.ItemsPanel><ItemsPanelTemplate><Canvas /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
