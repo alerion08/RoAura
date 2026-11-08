@@ -1,5 +1,12 @@
 # Regression checklist
 
+## RoAura 3.5.0 publication — 2026-11-08
+
+- [x] [Windows publication run 42468295372](https://github.com/alerion08/RoAura/actions/runs/42468295372) on `32af7d606459039ad105bbbd5bcb5c6bd518cf36`: 420 tests, native startup/input, portable and installer, silent install, bundled guides and timer sprites, and clean payload.
+- [x] [Public release](https://github.com/alerion08/RoAura/releases/tag/v3.5.0) contains the portable ZIP, Setup EXE and matching SHA256SUMS.txt.
+- [x] Owner accepted the combined development build in the tested gameplay setup.
+- [ ] Recheck live alternate client/packet formats, fullscreen, mixed DPI and simultaneous clients where available.
+
 ## Effects video guides — 2026-11-05
 
 - [ ] In both UI languages, open both guides in the Effects list and the guide in the active panels tab. Verify the title and matching clip, including on an empty list.
