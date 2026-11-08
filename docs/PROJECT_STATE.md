@@ -13,6 +13,11 @@
 - Stable release storage remains RoAura; development storage remains separate RoAura-Dev. No automatic development-data import occurs. Existing stable settings/presets/local histories are not included in or replaced by the packages.
 - Next task starts from current main. PR #12 / feature/farming-sessions-mvp-tools is merged; research/quest-database remains independent and its moving head must not silently replace the released snapshots. This publication record is delivered to main through a docs-only PR/merge using [skip ci], without a version bump, new tag or asset replacement.
 
+## Character statistics capture recovery — development
+
+- Branch `fix/character-statistics-capture` starts from stable 3.4.0 source. Automatic discovery can carry a fresh standard map login across an endpoint change when the first outbound TCP payload and current game process ownership agree. Ambiguous or closed flows are excluded. The reward parser also recognizes legacy signed 32-bit EXP packets.
+- Live Windows/Npcap verification remains pending for real relogs with proxy/VPN endpoint changes and multiple clients. Clients with unknown login formats still need a targeted trace.
+
 ## Historical 3.4.0 release preparation — 2026-11-04
 
 - Owner accepted development 121 with “всё работает” and requested a release version. Preparing 3.4.0 in `feature/farming-sessions-mvp-tools` / PR #12 from `8f41a12217624d13976a9ebc8b3dd35ce9014d70`; functional code matches accepted `ba6b96986eb4a2ab3d11ff36c2cd84dbcce3dba1`.

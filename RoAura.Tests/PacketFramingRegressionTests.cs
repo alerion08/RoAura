@@ -186,6 +186,31 @@ public sealed class PacketFramingRegressionTests
         }
     }
 
+    [Theory]
+    [InlineData((ushort)1, 123456)]
+    [InlineData((ushort)2, -500)]
+    public void Legacy_experience_keeps_signed_amount_and_following_packet_boundary(ushort kind, int amount)
+    {
+        var bytes = new byte[14];
+        W16(bytes, 0, 0x07F6); W32(bytes, 2, 4200);
+        BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(6), amount);
+        W16(bytes, 10, kind);
+        var stream = bytes.Concat(Status()).ToArray();
+        for (var split = 1; split < bytes.Length; split++)
+        {
+            var scanner = new RoPacketStreamScanner();
+            var experience = new List<RoExperiencePacket>();
+            var statuses = new List<RoStatusPacket>();
+            scanner.ExperienceChanged += experience.Add;
+            scanner.StatusChanged += statuses.Add;
+            scanner.Process(stream.AsSpan(0, split));
+            Assert.Empty(experience);
+            scanner.Process(stream.AsSpan(split));
+            Assert.Equal(new RoExperiencePacket(4200, amount, kind, 0), Assert.Single(experience));
+            Assert.Single(statuses);
+        }
+    }
+
     [Fact]
     public void Legacy_equipment_ack_with_view_id_keeps_its_nine_byte_boundary()
     {

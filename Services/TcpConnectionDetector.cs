@@ -1,3 +1,4 @@
+using System.Buffers.Binary;
 using System.Diagnostics;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -57,6 +58,27 @@ public static class TcpConnectionDetector
             .First();
     }
 
+    internal static bool IsOwnedGameConnection(TcpFlowKey flow, IReadOnlySet<string> allowedProcesses)
+    {
+        if (!OperatingSystem.IsWindows() || allowedProcesses.Count == 0) return false;
+        foreach (var row in ReadEstablishedConnections())
+        {
+            if (row.LocalAddress != flow.SourceAddress || row.LocalPort != flow.SourcePort ||
+                row.RemotePort != flow.DestinationPort || row.RemoteAddressValue != flow.DestinationAddress)
+                continue;
+            try
+            {
+                using var process = Process.GetProcessById(row.ProcessId);
+                return allowedProcesses.Contains(process.ProcessName);
+            }
+            catch (Exception error) when (error is ArgumentException or InvalidOperationException or System.ComponentModel.Win32Exception)
+            {
+                return false;
+            }
+        }
+        return false;
+    }
+
     private static int Score(DetectedTcpConnection connection, string? currentAddress, int currentPort)
     {
         var score = 0;
@@ -104,7 +126,9 @@ public static class TcpConnectionDetector
                 var remotePort = PortFromNetworkOrder(row.RemotePort);
                 if (remotePort <= 0) continue;
                 rows.Add(new TcpRow((int)row.OwningPid,
-                    new IPAddress(row.RemoteAddress).ToString(), remotePort));
+                    new IPAddress(row.RemoteAddress).ToString(), remotePort,
+                    BinaryPrimitives.ReverseEndianness(row.LocalAddress), PortFromNetworkOrder(row.LocalPort),
+                    BinaryPrimitives.ReverseEndianness(row.RemoteAddress)));
             }
             return rows;
         }
@@ -120,7 +144,8 @@ public static class TcpConnectionDetector
         return (bytes[0] << 8) | bytes[1];
     }
 
-    private readonly record struct TcpRow(int ProcessId, string RemoteAddress, int RemotePort);
+    private readonly record struct TcpRow(int ProcessId, string RemoteAddress, int RemotePort,
+        uint LocalAddress, int LocalPort, uint RemoteAddressValue);
 
     private enum TcpTableClass
     {

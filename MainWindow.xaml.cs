@@ -45,6 +45,7 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer _goldGoblinSessionTimer;
     private readonly DispatcherTimer _saveDebounceTimer = new() { Interval = TimeSpan.FromMilliseconds(500) };
     private bool _appliedPacketCaptureEnabled;
+    private bool _appliedAutoDetectConnection;
     private string _appliedServerProfile = "";
     private string _appliedPacketServerAddress = "";
     private int _appliedPacketServerPort;
@@ -974,6 +975,7 @@ public partial class MainWindow : Window
     private void RememberPacketCaptureConfiguration()
     {
         _appliedPacketCaptureEnabled = Settings.PacketCaptureEnabled;
+        _appliedAutoDetectConnection = Settings.AutoDetectConnection;
         _appliedServerProfile = Settings.ServerProfile;
         _appliedPacketServerAddress = Settings.PacketServerAddress;
         _appliedPacketServerPort = Settings.PacketServerPort;
@@ -986,6 +988,7 @@ public partial class MainWindow : Window
         if (App.IsSmokeTest()) return true;
         var changed = force || _appliedServerProfile != Settings.ServerProfile ||
                       _appliedPacketCaptureEnabled != Settings.PacketCaptureEnabled ||
+                      _appliedAutoDetectConnection != Settings.AutoDetectConnection ||
                       !string.Equals(_appliedPacketServerAddress, Settings.PacketServerAddress,
                           StringComparison.OrdinalIgnoreCase) ||
                       _appliedPacketServerPort != Settings.PacketServerPort;
@@ -1010,6 +1013,7 @@ public partial class MainWindow : Window
     {
         Settings.AutoDetectConnection = true;
         DetectConnection(userInitiated: true, restartCapture: true);
+        ApplyPacketCaptureIfChanged();
     }
 
     private bool DetectConnection(bool userInitiated, bool restartCapture)
